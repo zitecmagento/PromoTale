@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * Zitec_Promotale extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Zitec
+ * @package    Zitec_Promotale
+ * @copyright  Copyright (c) 2014 Zitec COM
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Zitec_Promotale>
+            <version>0.1.0</version>
+        </Zitec_Promotale>
+    </modules>
+    <global>
+        <models>
+            <catalogrule_resource>
+                <rewrite>
+                    <rule>Zitec_Promotale_Model_Resource_Rule</rule>
+                </rewrite>
+            </catalogrule_resource>
+            <catalogrule>
+                <rewrite>
+                    <rule>Zitec_Promotale_Model_Rule</rule>
+                    <rule_condition_product>Zitec_Promotale_Model_Rule_Condition_Product</rule_condition_product>
+                </rewrite>
+            </catalogrule>
+        </models>
+        <helpers>
+            <catalogrule>
+                <rewrite>
+                    <data>Zitec_Promotale_Helper_Data</data>
+                </rewrite>
+            </catalogrule>
+        </helpers>
+        <template>
+            <email>
+                <zitec_promotale_alert translate="label" module="catalogrule">
+                    <label>Catalog Rule Alert (discount threshold exceeded)</label>
+                    <file>zitec/promotale/alert.html</file>
+                    <type>html</type>
+                </zitec_promotale_alert>
+            </email>
+        </template>
+        <resources>
+            <zitec_promotale_setup>
+                <setup>
+                    <module>Zitec_Promotale</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </zitec_promotale_setup>
+            <zitec_promotale_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </zitec_promotale_write>
+            <zitec_promotale_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </zitec_promotale_read>
+        </resources>
+
+    </global>
+</config>

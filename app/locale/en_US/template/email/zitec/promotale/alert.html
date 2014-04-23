@@ -1,0 +1,39 @@
+<!--@subject Notificare prag de discount depasit pentru promotia - {{var rule.name}}! @-->
+
+<style type="text/css">
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+</style>
+
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%" style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p><strong>Buna ziua {{var receiverName}}</strong>,<br/>
+                                <br />
+                                <h4 style="color:red;">
+                                    {{var savingStatus}}
+                                </h4>
+                                <br />
+
+                                A aparut o problema la salvarea regulii de catalog  <strong>{{var rule.name}} </strong>
+                            </p>
+
+                            <p style="border:1px solid #BEBCB7; padding:13px 18px; background:#F8F7F5; ">
+                                Urmatoarele produse au o reducere procentuala peste limita admisibila:  {{var countProducts}}
+                                <br />
+                                <br />
+                                {{block type='core/template' area='frontend' template='email/catalogrule/promo-alert.phtml' products=$products discountPercentageForProds=$discountPercentageForProds}}                                
+                            </p>
+
+
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>
