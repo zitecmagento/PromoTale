@@ -8,3 +8,62 @@ and open the template in the editor.
     Author     : adina.nichitean
 */
 
+.promotale .switcher{
+    color:#555;
+    font-weight:bold;
+    font-size:15px;
+    padding-left: 25px;
+}
+
+.promotale .switcher i.dashboard-promotale-icon{
+    display:inline-block;
+    margin-right:5px;
+    width:20px;
+    height:20px;
+    background:url(images/sprite.png) 0 0 no-repeat;
+    position:relative;
+    top:3px;
+}
+
+.entry-edit .tmec {
+    background-color:#03adc1;
+}
+
+.entry-edit .entry-edit-head i.icon {
+    display:inline-block;
+    width:13px;
+    height:13px;
+    background:url(images/sprite.png);
+    vertical-align:middle;
+    margin-right:3px;
+}
+
+.entry-edit .entry-edit-head i.icon-star {
+    background-position:-21px 0;
+    position:relative;
+    top:-1px;
+}
+
+.entry-edit .entry-edit-head i.icon-checkmark {
+    background-position: -36px 0;
+    position:relative;
+    top:-1px;
+}
+
+.entry-edit .entry-edit-head i.icon-chart {
+    background-position:-51px 0;
+}
+
+.promotale .entry-edit tr:hover{
+    background-color:#fcf5dd
+}
+
+.promotale .statistics p.a-right {
+    color:#fff;
+    margin-bottom:0;
+}
+
+.promotale .statistics div.promotale-statistics {
+    padding:20px;
+    background:#f4f4f4;
+}
