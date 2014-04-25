@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Authorizenet extends Mage_Paygate_Block_Authorizenet_Info_Cc
 {
+
     /**
      * Add Authorizenet info to order XML object
      *
@@ -60,4 +62,5 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Authorizenet extends Ma
             }
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: View.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Project_Provider_Abstract
  */
@@ -76,7 +76,8 @@ class Zend_Tool_Project_Provider_View extends Zend_Tool_Project_Provider_Abstrac
 
         // @todo check if below is failing b/c of above search params
         if (($viewControllerScriptsDirectory = $viewScriptsDirectory->search($profileSearchParams)) === false) {
-            $viewControllerScriptsDirectory = $viewScriptsDirectory->createResource('viewControllerScriptsDirectory', array('forControllerName' => $controllerName));
+            $viewControllerScriptsDirectory = $viewScriptsDirectory->createResource('viewControllerScriptsDirectory', array(
+                'forControllerName' => $controllerName));
         }
 
         $newViewScriptFile = $viewControllerScriptsDirectory->createResource('ViewScriptFile', array('forActionName' => $actionName));
@@ -104,15 +105,15 @@ class Zend_Tool_Project_Provider_View extends Zend_Tool_Project_Provider_Abstrac
 
         if ($this->_registry->getRequest()->isPretend()) {
             $this->_registry->getResponse(
-                'Would create a view script in location ' . $view->getContext()->getPath()
-                );
+                    'Would create a view script in location ' . $view->getContext()->getPath()
+            );
         } else {
             $this->_registry->getResponse(
-                'Creating a view script in location ' . $view->getContext()->getPath()
-                );
+                    'Creating a view script in location ' . $view->getContext()->getPath()
+            );
             $view->create();
             $this->_storeProfile();
         }
-
     }
+
 }

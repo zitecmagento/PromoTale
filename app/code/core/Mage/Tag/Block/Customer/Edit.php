@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,14 +34,14 @@
  * @package     Mage_Tag
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Tag_Block_Customer_Edit extends Mage_Core_Block_Template
 {
+
     protected $_tag;
 
     public function getTag()
     {
-        if( !$this->_tag ) {
+        if (!$this->_tag) {
             $this->_tag = Mage::registry('tagModel');
         }
 
@@ -56,4 +57,5 @@ class Mage_Tag_Block_Customer_Edit extends Mage_Core_Block_Template
     {
         return $this->getUrl('*/*/view', array('tagId' => $this->getTag()->getTagId()));
     }
+
 }

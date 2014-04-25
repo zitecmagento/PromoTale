@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * ImportExport MySQL resource helper model
  *
@@ -34,10 +34,11 @@
  */
 class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4
 {
+
     /**
      * Constants to be used for DB
      */
-    const DB_MAX_PACKET_SIZE        = 1048576; // Maximal packet length by default in MySQL
+    const DB_MAX_PACKET_SIZE = 1048576; // Maximal packet length by default in MySQL
     const DB_MAX_PACKET_COEFFICIENT = 0.85; // The coefficient of useful data from maximum packet length
 
     /**
@@ -45,6 +46,7 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
      *
      * @return int
      */
+
     public function getMaxDataSize()
     {
         $maxPacketData = $this->_getReadAdapter()->fetchRow('SHOW VARIABLES LIKE "max_allowed_packet"');
@@ -68,4 +70,5 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
         }
         return $entityStatus['Auto_increment'];
     }
+
 }

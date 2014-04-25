@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Database backup resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Backup_Model_Resource_Db
 {
+
     /**
      * Database connection adapter
      *
@@ -47,7 +48,7 @@ class Mage_Backup_Model_Resource_Db
      *
      * @var array
      */
-    protected $_foreignKeys    = array();
+    protected $_foreignKeys = array();
 
     /**
      * Initialize Backup DB resource model
@@ -122,7 +123,7 @@ class Mage_Backup_Model_Resource_Db
         $fkScript = '';
         if (!$tableName) {
             $tables = $this->getTables();
-            foreach($tables as $table) {
+            foreach ($tables as $table) {
                 $tableFkScript = Mage::getResourceHelper('backup')->getTableForeignKeysSql($table);
                 if (!empty($tableFkScript)) {
                     $fkScript .= "\n" . $tableFkScript;
@@ -197,7 +198,8 @@ class Mage_Backup_Model_Resource_Db
      */
     public function getTableCreateScript($tableName, $addDropIfExists = false)
     {
-        return Mage::getResourceHelper('backup')->getTableCreateScript($tableName, $addDropIfExists);;
+        return Mage::getResourceHelper('backup')->getTableCreateScript($tableName, $addDropIfExists);
+        ;
     }
 
     /**
@@ -210,8 +212,8 @@ class Mage_Backup_Model_Resource_Db
     {
         $quotedTableName = $this->_write->quoteIdentifier($tableName);
         return "\n--\n"
-            . "-- Table structure for table {$quotedTableName}\n"
-            . "--\n\n";
+                . "-- Table structure for table {$quotedTableName}\n"
+                . "--\n\n";
     }
 
     /**
@@ -309,8 +311,10 @@ class Mage_Backup_Model_Resource_Db
      * @param $command
      * @return Mage_Backup_Model_Resource_Db
      */
-    public function runCommand($command){
+    public function runCommand($command)
+    {
         $this->_write->query($command);
         return $this;
     }
+
 }

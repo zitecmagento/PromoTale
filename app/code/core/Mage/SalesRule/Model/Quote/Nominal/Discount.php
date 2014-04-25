@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_SalesRule_Model_Quote_Nominal_Discount extends Mage_SalesRule_Model_Quote_Discount
 {
+
     /**
      * Don't add amounts to address
      *
@@ -57,4 +59,5 @@ class Mage_SalesRule_Model_Quote_Nominal_Discount extends Mage_SalesRule_Model_Q
     {
         return $address->getAllNominalItems();
     }
+
 }

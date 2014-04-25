@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -32,9 +33,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Application_Bootstrap_Bootstrap
-    extends Zend_Application_Bootstrap_BootstrapAbstract
+class Zend_Application_Bootstrap_Bootstrap extends Zend_Application_Bootstrap_BootstrapAbstract
 {
+
     /**
      * Application resource namespace
      * @var false|string
@@ -85,11 +86,11 @@ class Zend_Application_Bootstrap_Bootstrap
      */
     public function run()
     {
-        $front   = $this->getResource('FrontController');
+        $front = $this->getResource('FrontController');
         $default = $front->getDefaultModule();
         if (null === $front->getControllerDirectory($default)) {
             throw new Zend_Application_Bootstrap_Exception(
-                'No default controller directory registered with front controller'
+            'No default controller directory registered with front controller'
             );
         }
 
@@ -119,14 +120,13 @@ class Zend_Application_Bootstrap_Bootstrap
      */
     public function getResourceLoader()
     {
-        if ((null === $this->_resourceLoader)
-            && (false !== ($namespace = $this->getAppNamespace()))
+        if ((null === $this->_resourceLoader) && (false !== ($namespace = $this->getAppNamespace()))
         ) {
-            $r    = new ReflectionClass($this);
+            $r = new ReflectionClass($this);
             $path = $r->getFileName();
             $this->setResourceLoader(new Zend_Application_Module_Autoloader(array(
                 'namespace' => $namespace,
-                'basePath'  => dirname($path),
+                'basePath' => dirname($path),
             )));
         }
         return $this->_resourceLoader;
@@ -153,4 +153,5 @@ class Zend_Application_Bootstrap_Bootstrap
         $this->_appNamespace = (string) $value;
         return $this;
     }
+
 }

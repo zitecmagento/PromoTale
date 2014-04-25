@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_Abstract
 {
+
     /**
      * Simple xml object
      *
@@ -48,8 +50,8 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
     protected function _toHtml()
     {
         return $this->setXmlObject(Mage::getModel('xmlconnect/simplexml_element', '<dashboard></dashboard>'))
-            ->_addStoreSwitcher()->_addSalesInfo()->_addGraphInfo()->_addDashboardFormData()->getXmlObject()
-            ->asNiceXml();
+                        ->_addStoreSwitcher()->_addSalesInfo()->_addGraphInfo()->_addDashboardFormData()->getXmlObject()
+                        ->asNiceXml();
     }
 
     /**
@@ -96,7 +98,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
     {
         /** @var Mage_XmlConnect_Model_Simplexml_Form $fromXmlObj */
         $fromXmlObj = Mage::getModel('xmlconnect/simplexml_form', array(
-            'xml_id' => 'dashboard_form', 'action' => '', 'use_container' => true
+                    'xml_id' => 'dashboard_form', 'action' => '', 'use_container' => true
         ));
 
         $recentActivityFieldset = $fromXmlObj->addFieldset('recent_activity', array(
@@ -104,14 +106,14 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
         ));
 
         $this->_addLastOrders($recentActivityFieldset)->_addLastSearchTerms($recentActivityFieldset)
-            ->_addNewCustomers($recentActivityFieldset);
+                ->_addNewCustomers($recentActivityFieldset);
 
         $overallActivityFieldset = $fromXmlObj->addFieldset('overall_activity', array(
             'title' => $this->__('Overall Activity')
         ));
 
         $this->_addTopSearchTerms($overallActivityFieldset)->_addMostViewedProducts($overallActivityFieldset)
-            ->_addBestSellers($overallActivityFieldset)->_addCustomers($overallActivityFieldset);
+                ->_addBestSellers($overallActivityFieldset)->_addCustomers($overallActivityFieldset);
 
         $this->getXmlObject()->appendChild($fromXmlObj->toXmlObject());
         return $this;
@@ -139,8 +141,9 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
      * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
      */
     protected function _addLastSearchTerms(
-        Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $recentActivityFieldset
-    ) {
+    Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $recentActivityFieldset
+    )
+    {
         $lastSearchTermsField = $recentActivityFieldset->addField('last_search', 'custom', array(
             'label' => $this->__('Last 5 Search Terms')
         ));
@@ -170,8 +173,9 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
      * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
      */
     protected function _addTopSearchTerms(
-        Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $overallActivityFieldset
-    ) {
+    Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $overallActivityFieldset
+    )
+    {
         $topSearchField = $overallActivityFieldset->addField('top_search', 'custom', array(
             'label' => $this->__('Top Search Terms')
         ));
@@ -186,8 +190,9 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
      * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
      */
     protected function _addMostViewedProducts(
-        Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $overallActivityFieldset
-    ) {
+    Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $overallActivityFieldset
+    )
+    {
         $mostViewedField = $overallActivityFieldset->addField('most_viewed', 'custom', array(
             'label' => $this->__('Most Viewed Products')
         ));
@@ -246,4 +251,5 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
         $this->_xmlObject = $xmlObject;
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,14 +20,13 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Mail.php 22971 2010-09-18 20:32:24Z mikaelkael $
  */
-
 /** Zend_Log_Writer_Abstract */
 #require_once 'Zend/Log/Writer/Abstract.php';
 
 /** Zend_Log_Exception */
 #require_once 'Zend/Log/Exception.php';
 
-/** Zend_Log_Formatter_Simple*/
+/** Zend_Log_Formatter_Simple */
 #require_once 'Zend/Log/Formatter/Simple.php';
 
 /**
@@ -45,6 +45,7 @@
  */
 class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
 {
+
     /**
      * Array of formatted events to include in message body.
      *
@@ -106,7 +107,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
      * @var array
      */
     protected static $_methodMapHeaders = array(
-    	'from' => 'setFrom',
+        'from' => 'setFrom',
         'to' => 'addTo',
         'cc' => 'addCc',
         'bcc' => 'addBcc',
@@ -148,7 +149,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
             $writer->setLayout($config);
         }
         if (isset($config['layoutFormatter'])) {
-        	$layoutFormatter = new $config['layoutFormatter'];
+            $layoutFormatter = new $config['layoutFormatter'];
             $writer->setLayoutFormatter($layoutFormatter);
         }
         if (isset($config['subjectPrependText'])) {
@@ -209,12 +210,11 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
         if (count($headerAddresses)) {
             foreach ($headerAddresses as $header => $address) {
                 $method = self::$_methodMapHeaders[$header];
-                if (is_array($address) && isset($address['name'])
-                    && !is_numeric($address['name'])
+                if (is_array($address) && isset($address['name']) && !is_numeric($address['name'])
                 ) {
                     $params = array(
-                    	$address['email'],
-                    	$address['name']
+                        $address['email'],
+                        $address['name']
                     );
                 } else if (is_array($address) && isset($address['email'])) {
                     $params = array($address['email']);
@@ -239,7 +239,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
         $config = array_merge(array(
             'layout' => 'Zend_Layout',
             'layoutOptions' => null
-        ), $config);
+                ), $config);
 
         $layoutClass = $config['layout'];
         $layout = new $layoutClass($config['layoutOptions']);
@@ -265,7 +265,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
         if (!isset($this->_numEntriesPerPriority[$event['priorityName']])) {
             $this->_numEntriesPerPriority[$event['priorityName']] = 1;
         } else {
-            $this->_numEntriesPerPriority[$event['priorityName']]++;
+            $this->_numEntriesPerPriority[$event['priorityName']] ++;
         }
 
         $formattedEvent = $this->_formatter->format($event);
@@ -278,8 +278,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
         // default format.
         if ($this->_layout) {
             if ($this->_layoutFormatter) {
-                $this->_layoutEventsToMail[] =
-                    $this->_layoutFormatter->format($event);
+                $this->_layoutEventsToMail[] = $this->_layoutFormatter->format($event);
             } else {
                 $this->_layoutEventsToMail[] = $formattedEvent;
             }
@@ -312,8 +311,8 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
     {
         if (!$this->_layout) {
             throw new Zend_Log_Exception(
-                'cannot set formatter for layout; ' .
-                    'a Zend_Layout instance is not in use');
+            'cannot set formatter for layout; ' .
+            'a Zend_Layout instance is not in use');
         }
 
         $this->_layoutFormatter = $formatter;
@@ -336,8 +335,8 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
     {
         if ($this->_mail->getSubject()) {
             throw new Zend_Log_Exception(
-                'subject already set on mail; ' .
-                    'cannot set subject prepend text');
+            'subject already set on mail; ' .
+            'cannot set subject prepend text');
         }
 
         $this->_subjectPrependText = (string) $subject;
@@ -363,7 +362,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
             // line and set it on the Zend_Mail object.
             $numEntries = $this->_getFormattedNumEntriesPerPriority();
             $this->_mail->setSubject(
-                "{$this->_subjectPrependText} ({$numEntries})");
+                    "{$this->_subjectPrependText} ({$numEntries})");
         }
 
 
@@ -375,36 +374,39 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
         if ($this->_layout) {
             // Set the required "messages" value for the layout.  Here we
             // are assuming that the layout is for use with HTML.
-            $this->_layout->events =
-                implode('', $this->_layoutEventsToMail);
+            $this->_layout->events = implode('', $this->_layoutEventsToMail);
 
             // If an exception occurs during rendering, convert it to a notice
             // so we can avoid an exception thrown without a stack frame.
-            try {
+            try
+            {
                 $this->_mail->setBodyHtml($this->_layout->render());
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 trigger_error(
-                    "exception occurred when rendering layout; " .
+                        "exception occurred when rendering layout; " .
                         "unable to set html body for message; " .
                         "message = {$e->getMessage()}; " .
                         "code = {$e->getCode()}; " .
-                        "exception class = " . get_class($e),
-                    E_USER_NOTICE);
+                        "exception class = " . get_class($e), E_USER_NOTICE);
             }
         }
 
         // Finally, send the mail.  If an exception occurs, convert it into a
         // warning-level message so we can avoid an exception thrown without a
         // stack frame.
-        try {
+        try
+        {
             $this->_mail->send();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             trigger_error(
-                "unable to send log entries via email; " .
+                    "unable to send log entries via email; " .
                     "message = {$e->getMessage()}; " .
                     "code = {$e->getCode()}; " .
-                        "exception class = " . get_class($e),
-                E_USER_WARNING);
+                    "exception class = " . get_class($e), E_USER_WARNING);
         }
     }
 
@@ -424,4 +426,5 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
 
         return implode(', ', $strings);
     }
+
 }

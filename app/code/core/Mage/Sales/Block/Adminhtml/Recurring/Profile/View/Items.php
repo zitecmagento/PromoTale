@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
+
     /**
      * Retrieve required options from parent
      */
@@ -75,5 +77,5 @@ class Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Items extends Mage_Admin
         $store = Mage::app()->getStore($this->_getRecurringProfile()->getStore());
         return $store->formatPrice($value);
     }
-}
 
+}

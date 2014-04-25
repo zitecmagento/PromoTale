@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -40,15 +41,15 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
      * @param Mixed $data
      * @return Array
      */
-    protected function _prepareData($data){
+    protected function _prepareData($data)
+    {
         if (is_object($data)) {
             $arr = get_object_vars($data);
             foreach ($arr as $key => $value) {
                 $assocArr = array();
                 if (is_array($value)) {
                     foreach ($value as $v) {
-                        if (is_object($v) && count(get_object_vars($v))==2
-                            && isset($v->key) && isset($v->value)) {
+                        if (is_object($v) && count(get_object_vars($v)) == 2 && isset($v->key) && isset($v->value)) {
                             $assocArr[$v->key] = $v->value;
                         }
                     }
@@ -81,7 +82,8 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
      * @param Mage_Sales_Model_Quote $quote
      * @return stdClass
      */
-    protected function _setGiftMessage($entityId, $request, $quote) {
+    protected function _setGiftMessage($entityId, $request, $quote)
+    {
         $response = new stdClass();
         $response->entityId = $entityId;
 
@@ -90,11 +92,14 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
          * @see Mage_Core_Model_App::_callObserverMethod($object, $method, $observer)
          * And result of Mage::dispatchEvent will always return an Object of Mage_Core_Model_App.
          */
-        try {
-            Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', array('request'=>$request, 'quote'=>$quote));
+        try
+        {
+            Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', array('request' => $request, 'quote' => $quote));
             $response->result = true;
             $response->error = '';
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $response->result = false;
             $response->error = $e->getMessage();
         }
@@ -102,4 +107,5 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
     }
 
 }
+
 ?>

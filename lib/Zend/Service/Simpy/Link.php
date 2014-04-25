@@ -21,7 +21,6 @@
  * @version    $Id: Link.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Simpy_Link
 {
+
     /**
      * Private access type
      *
@@ -43,7 +43,7 @@ class Zend_Service_Simpy_Link
      *
      * @var string
      */
-    const ACCESSTYPE_PUBLIC  = '1';
+    const ACCESSTYPE_PUBLIC = '1';
 
     /**
      * Access type assigned to the link
@@ -212,4 +212,5 @@ class Zend_Service_Simpy_Link
     {
         return $this->_note;
     }
+
 }

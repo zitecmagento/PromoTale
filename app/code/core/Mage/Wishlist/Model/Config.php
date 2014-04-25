@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Wishlist_Model_Config
 {
+
     const XML_PATH_PRODUCT_ATTRIBUTES = 'global/wishlist/item/product_attributes';
 
     /**
@@ -35,9 +35,10 @@ class Mage_Wishlist_Model_Config
      */
     public function getProductAttributes()
     {
-        $attrsForCatalog  = Mage::getSingleton('catalog/config')->getProductAttributes();
+        $attrsForCatalog = Mage::getSingleton('catalog/config')->getProductAttributes();
         $attrsForWishlist = Mage::getConfig()->getNode(self::XML_PATH_PRODUCT_ATTRIBUTES)->asArray();
 
         return array_merge($attrsForCatalog, array_keys($attrsForWishlist));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CosmosResultSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Technorati_ResultSet
  */
 #require_once 'Zend/Service/Technorati/ResultSet.php';
-
 
 /**
  * Represents a Technorati Cosmos query result set.
@@ -38,6 +36,7 @@
  */
 class Zend_Service_Technorati_CosmosResultSet extends Zend_Service_Technorati_ResultSet
 {
+
     /**
      * Technorati weblog url, if queried URL is a valid weblog.
      *
@@ -81,10 +80,12 @@ class Zend_Service_Technorati_CosmosResultSet extends Zend_Service_Technorati_Re
         parent::__construct($dom, $options);
 
         $result = $this->_xpath->query('/tapi/document/result/inboundlinks/text()');
-        if ($result->length == 1) $this->_inboundLinks = (int) $result->item(0)->data;
+        if ($result->length == 1)
+            $this->_inboundLinks = (int) $result->item(0)->data;
 
         $result = $this->_xpath->query('/tapi/document/result/inboundblogs/text()');
-        if ($result->length == 1) $this->_inboundBlogs = (int) $result->item(0)->data;
+        if ($result->length == 1)
+            $this->_inboundBlogs = (int) $result->item(0)->data;
 
         $result = $this->_xpath->query('/tapi/document/result/weblog');
         if ($result->length == 1) {
@@ -97,18 +98,21 @@ class Zend_Service_Technorati_CosmosResultSet extends Zend_Service_Technorati_Re
 
         $result = $this->_xpath->query('/tapi/document/result/url/text()');
         if ($result->length == 1) {
-            try {
+            try
+            {
                 // fetched URL often doens't include schema
                 // and this issue causes the following line to fail
                 $this->_url = Zend_Service_Technorati_Utils::normalizeUriHttp($result->item(0)->data);
-            } catch(Zend_Service_Technorati_Exception $e) {
+            }
+            catch (Zend_Service_Technorati_Exception $e)
+            {
                 if ($this->getWeblog() instanceof Zend_Service_Technorati_Weblog) {
                     $this->_url = $this->getWeblog()->getUrl();
                 }
             }
         }
 
-        $this->_totalResultsReturned  = (int) $this->_xpath->evaluate("count(/tapi/document/item)");
+        $this->_totalResultsReturned = (int) $this->_xpath->evaluate("count(/tapi/document/item)");
 
         // total number of results depends on query type
         // for now check only getInboundLinks() and getInboundBlogs() value
@@ -121,13 +125,13 @@ class Zend_Service_Technorati_CosmosResultSet extends Zend_Service_Technorati_Re
         }
     }
 
-
     /**
      * Returns the weblog URL.
      *
      * @return  Zend_Uri_Http
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->_url;
     }
 
@@ -136,7 +140,8 @@ class Zend_Service_Technorati_CosmosResultSet extends Zend_Service_Technorati_Re
      *
      * @return  Zend_Service_Technorati_Weblog
      */
-    public function getWeblog() {
+    public function getWeblog()
+    {
         return $this->_weblog;
     }
 
@@ -173,4 +178,5 @@ class Zend_Service_Technorati_CosmosResultSet extends Zend_Service_Technorati_Re
         #require_once 'Zend/Service/Technorati/CosmosResult.php';
         return new Zend_Service_Technorati_CosmosResult($this->_results->item($this->_currentIndex));
     }
+
 }

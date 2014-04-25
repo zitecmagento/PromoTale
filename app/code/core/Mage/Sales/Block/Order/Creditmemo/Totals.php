@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,6 +26,7 @@
  */
 class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_Totals
 {
+
     protected $_creditmemo = null;
 
     public function getCreditmemo()
@@ -68,7 +70,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
         $this->removeTotal('base_grandtotal');
         if ((float) $this->getSource()->getAdjustmentPositive()) {
             $total = new Varien_Object(array(
-                'code'  => 'adjustment_positive',
+                'code' => 'adjustment_positive',
                 'value' => $this->getSource()->getAdjustmentPositive(),
                 'label' => $this->__('Adjustment Refund')
             ));
@@ -76,34 +78,33 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
         }
         if ((float) $this->getSource()->getAdjustmentNegative()) {
             $total = new Varien_Object(array(
-                'code'  => 'adjustment_negative',
+                'code' => 'adjustment_negative',
                 'value' => $this->getSource()->getAdjustmentNegative(),
                 'label' => $this->__('Adjustment Fee')
             ));
             $this->addTotal($total);
         }
         /**
-        <?php if ($this->getCanDisplayTotalPaid()): ?>
-        <tr>
-            <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Paid') ?></strong></td>
-            <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalPaid()) ?></strong></td>
-        </tr>
-        <?php endif; ?>
-        <?php if ($this->getCanDisplayTotalRefunded()): ?>
-        <tr>
-            <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Refunded') ?></strong></td>
-            <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalRefunded()) ?></strong></td>
-        </tr>
-        <?php endif; ?>
-        <?php if ($this->getCanDisplayTotalDue()): ?>
-        <tr>
-            <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Due') ?></strong></td>
-            <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalDue()) ?></strong></td>
-        </tr>
-        <?php endif; ?>
+          <?php if ($this->getCanDisplayTotalPaid()): ?>
+          <tr>
+          <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Paid') ?></strong></td>
+          <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalPaid()) ?></strong></td>
+          </tr>
+          <?php endif; ?>
+          <?php if ($this->getCanDisplayTotalRefunded()): ?>
+          <tr>
+          <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Refunded') ?></strong></td>
+          <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalRefunded()) ?></strong></td>
+          </tr>
+          <?php endif; ?>
+          <?php if ($this->getCanDisplayTotalDue()): ?>
+          <tr>
+          <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Due') ?></strong></td>
+          <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalDue()) ?></strong></td>
+          </tr>
+          <?php endif; ?>
          */
         return $this;
     }
-
 
 }

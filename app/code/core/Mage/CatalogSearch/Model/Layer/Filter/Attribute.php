@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 class Mage_CatalogSearch_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer_Filter_Attribute
 {
+
     /**
      * Check whether specified attribute can be used in LN
      *

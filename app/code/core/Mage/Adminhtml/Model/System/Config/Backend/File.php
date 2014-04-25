@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Config_Data
 {
+
     /**
      * Upload max file size in kilobytes
      *
@@ -48,11 +50,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     protected function _beforeSave()
     {
         $value = $this->getValue();
-        if ($_FILES['groups']['tmp_name'][$this->getGroupId()]['fields'][$this->getField()]['value']){
+        if ($_FILES['groups']['tmp_name'][$this->getGroupId()]['fields'][$this->getField()]['value']) {
 
             $uploadDir = $this->_getUploadDir();
 
-            try {
+            try
+            {
                 $file = array();
                 $tmpName = $_FILES['groups']['tmp_name'];
                 $file['tmp_name'] = $tmpName[$this->getGroupId()]['fields'][$this->getField()]['value'];
@@ -63,8 +66,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 $uploader->setAllowRenameFiles(true);
                 $uploader->addValidateCallback('size', $this, 'validateMaxSize');
                 $result = $uploader->save($uploadDir);
-
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::throwException($e->getMessage());
                 return $this;
             }
@@ -127,7 +131,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             Mage::throwException(Mage::helper('catalog')->__('The base directory to upload file is not specified.'));
         }
 
-        $uploadDir = (string)$fieldConfig->upload_dir;
+        $uploadDir = (string) $fieldConfig->upload_dir;
 
         $el = $fieldConfig->descend('upload_dir');
 
@@ -142,7 +146,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
          * Take root from config
          */
         if (!empty($el['config'])) {
-            $uploadRoot = $this->_getUploadRoot((string)$el['config']);
+            $uploadRoot = $this->_getUploadRoot((string) $el['config']);
             $uploadDir = $uploadRoot . '/' . $uploadDir;
         }
         return $uploadDir;
@@ -202,4 +206,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     {
         return array();
     }
+
 }

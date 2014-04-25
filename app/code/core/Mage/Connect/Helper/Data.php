@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Connect_Helper_Data extends Mage_Core_Helper_Data
 {
+
     /**
      * Retrieve file system path for local extension packages
      * Return path with last directory separator
@@ -128,7 +130,7 @@ class Mage_Connect_Helper_Data extends Mage_Core_Helper_Data
         $serFile = $path . $packageName . '.ser';
 
         if (file_exists($xmlFile) && is_readable($xmlFile)) {
-            $xml  = simplexml_load_file($xmlFile);
+            $xml = simplexml_load_file($xmlFile);
             $data = Mage::helper('core')->xmlToAssoc($xml);
             if (!empty($data)) {
                 return $data;
@@ -144,4 +146,5 @@ class Mage_Connect_Helper_Data extends Mage_Core_Helper_Data
 
         return false;
     }
+
 }

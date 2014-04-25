@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product link model
  *
@@ -43,10 +43,11 @@
  */
 class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
 {
-    const LINK_TYPE_RELATED     = 1;
-    const LINK_TYPE_GROUPED     = 3;
-    const LINK_TYPE_UPSELL      = 4;
-    const LINK_TYPE_CROSSSELL   = 5;
+
+    const LINK_TYPE_RELATED = 1;
+    const LINK_TYPE_GROUPED = 3;
+    const LINK_TYPE_UPSELL = 4;
+    const LINK_TYPE_CROSSSELL = 5;
 
     protected $_attributeCollection = null;
 
@@ -102,7 +103,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
     public function getProductCollection()
     {
         $collection = Mage::getResourceModel('catalog/product_link_product_collection')
-            ->setLinkModel($this);
+                ->setLinkModel($this);
         return $collection;
     }
 
@@ -112,11 +113,11 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
     public function getLinkCollection()
     {
         $collection = Mage::getResourceModel('catalog/product_link_collection')
-            ->setLinkModel($this);
+                ->setLinkModel($this);
         return $collection;
     }
 
-    public function getAttributes($type=null)
+    public function getAttributes($type = null)
     {
         if (is_null($type)) {
             $type = $this->getLinkTypeId();
@@ -161,4 +162,5 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
         }
         return $this;
     }
+
 }

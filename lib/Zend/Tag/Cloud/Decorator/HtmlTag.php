@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HtmlTag.php 20104 2010-01-06 21:26:01Z matthew $
  */
-
 /**
  * @see Zend_Tag_Cloud_Decorator_Tag
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
 {
+
     /**
      * List of tags which get assigned to the inner element instead of
      * font-sizes.
@@ -131,7 +132,7 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
      */
     public function getEncoding()
     {
-         return $this->_encoding;
+        return $this->_encoding;
     }
 
     /**
@@ -176,7 +177,8 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
     {
         return $this->_fontSizeUnit;
     }
-     /**
+
+    /**
      * Set the HTML tags surrounding the <a> element
      *
      * @param  array $htmlTags
@@ -284,14 +286,14 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
 
             foreach ($this->getHtmlTags() as $key => $data) {
                 if (is_array($data)) {
-                    $htmlTag    = $key;
+                    $htmlTag = $key;
                     $attributes = '';
 
                     foreach ($data as $param => $value) {
                         $attributes .= ' ' . $param . '="' . htmlspecialchars($value, ENT_COMPAT, $enc) . '"';
                     }
                 } else {
-                    $htmlTag    = $data;
+                    $htmlTag = $data;
                     $attributes = '';
                 }
 
@@ -303,4 +305,5 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
 
         return $result;
     }
+
 }

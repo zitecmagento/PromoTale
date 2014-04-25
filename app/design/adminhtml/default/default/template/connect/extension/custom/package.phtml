@@ -26,63 +26,65 @@
 ?>
 
 <script type="text/javascript">
-function addRow(container, template)
-{
-    Element.insert($(container), {bottom: '<tr>' + $(template).innerHTML + '</tr>'});
-}
-
-function removeRow(button, selector)
-{
-    Element.remove($(button).up(selector));
-}
-
-function showHideFiles(button, selector, filesClass)
-{
-    $(button).up(selector).select('[class="'+filesClass+'"]').map(Element.toggle);
-}
-
-
-function loadPackage()
-{
-    var package = prompt('Please enter package name');
-    if (!package) return false;
-    var url = '<?php echo $this->getUrl('*/*/load') ?>';
-    location.href = url+(url.indexOf('?')==-1 ? '?':'&')+'id='+package;
-}
-
-function saveAsPackage()
-{
-    _defaultPackageName = '';
-    if ($('_packagefile_name')) {
-        _defaultPackageName = $('_packagefile_name').getValue();
-    } else if ($('_packagename')) {
-        _defaultPackageName = $('_packagename').getValue();
+    function addRow(container, template)
+    {
+        Element.insert($(container), {bottom: '<tr>' + $(template).innerHTML + '</tr>'});
     }
-    var package = prompt('Please enter package file name', _defaultPackageName);
-    if (!package) return false;
-    if ($('_packagefile_name')) {
-        $('_packagefile_name').value = package;
+
+    function removeRow(button, selector)
+    {
+        Element.remove($(button).up(selector));
     }
-    return editForm.submit();
-}
 
-function createPackage()
-{
-    $('_create').value = 1;
-    editForm.submit();
-}
+    function showHideFiles(button, selector, filesClass)
+    {
+        $(button).up(selector).select('[class="' + filesClass + '"]').map(Element.toggle);
+    }
 
-function resetPackage()
-{
-    location.href = '<?php echo $this->getUrl('*/*/reset') ?>';
-}
+
+    function loadPackage()
+    {
+        var package = prompt('Please enter package name');
+        if (!package)
+            return false;
+        var url = '<?php echo $this->getUrl('*/*/load') ?>';
+        location.href = url + (url.indexOf('?') == -1 ? '?' : '&') + 'id=' + package;
+    }
+
+    function saveAsPackage()
+    {
+        _defaultPackageName = '';
+        if ($('_packagefile_name')) {
+            _defaultPackageName = $('_packagefile_name').getValue();
+        } else if ($('_packagename')) {
+            _defaultPackageName = $('_packagename').getValue();
+        }
+        var package = prompt('Please enter package file name', _defaultPackageName);
+        if (!package)
+            return false;
+        if ($('_packagefile_name')) {
+            $('_packagefile_name').value = package;
+        }
+        return editForm.submit();
+    }
+
+    function createPackage()
+    {
+        $('_create').value = 1;
+        editForm.submit();
+    }
+
+    function resetPackage()
+    {
+        location.href = '<?php echo $this->getUrl('*/*/reset') ?>';
+    }
 </script>
 
 <style type="text/css">
-.table-editable { border:solid 1px #CCC; background:#FAFAFA; padding:5px; margin-bottom:5px; }
-.table-editable th { border-bottom:solid 1px #CCC; text-align:center; }
-.table-editable th, .table-editable td { padding:1px 3px; vertical-align:middle; }
-.table-editable select { height:19px; }
+    .table-editable { border:solid 1px #CCC; background:#FAFAFA; padding:5px; margin-bottom:5px; }
+    .table-editable th { border-bottom:solid 1px #CCC; text-align:center; }
+    .table-editable th, .table-editable td { padding:1px 3px; vertical-align:middle; }
+    .table-editable select { height:19px; }
 </style>
 
 <div class="entry-edit">

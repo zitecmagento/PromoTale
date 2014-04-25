@@ -46,12 +46,12 @@
                 <select id="action_type_cms" name="action_type_cms" class="select"">
                     <option value="0"></option>
                     <?php $pages = Mage::getResourceModel('xmlconnect/cms_page_collection')->toOptionIdArray(); ?>
-                    <?php if (!count($pages)):?>
+                    <?php if (!count($pages)): ?>
                         <option value=""><?php echo $this->__('CMS Pages haven\'t been found.'); ?></option>
-                    <?php endif;?>
-                    <?php foreach ($pages as $page):?>
+                    <?php endif; ?>
+                    <?php foreach ($pages as $page): ?>
                         <option value="<?php echo $page['value']; ?>"><?php echo $page['label']; ?></option>
-                    <?php endforeach;?>
+                    <?php endforeach; ?>
                 </select>
             </div>
 
@@ -60,7 +60,10 @@
                     <img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>" alt="<?php echo $this->__('Loading...') ?>" class="v-middle"/>
                 </span>
                 <?php $defProductSearch = $this->__('2. Type Product Name') ?>
-                <input id="xmlconnect_product_search" name="query" type="text" class="input-text" value="<?php echo $defProductSearch ?>" onfocus="if(this.value=='<?php echo $defProductSearch ?>')this.value=''; " onblur="if(this.value=='')this.value='<?php echo $defProductSearch ?>';" />
+                <input id="xmlconnect_product_search" name="query" type="text" class="input-text" value="<?php echo $defProductSearch ?>" onfocus="if (this.value == '<?php echo $defProductSearch ?>')
+                            this.value = '';
+                        " onblur="if (this.value == '')
+                                    this.value = '<?php echo $defProductSearch ?>';" />
                 <div id="xmlconnect_product_search_autocomplete" class="autocomplete"></div>
             </div>
 
@@ -69,7 +72,10 @@
                     <img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>" alt="<?php echo $this->__('Loading...') ?>" class="v-middle"/>
                 </span>
                 <?php $defCategorySearch = $this->__('2. Type Category Name') ?>
-                <input id="xmlconnect_category_search" name="query" type="text" class="input-text" value="<?php echo $defCategorySearch ?>" onfocus="if(this.value=='<?php echo $defCategorySearch ?>')this.value=''; " onblur="if(this.value=='')this.value='<?php echo $defCategorySearch ?>';" />
+                <input id="xmlconnect_category_search" name="query" type="text" class="input-text" value="<?php echo $defCategorySearch ?>" onfocus="if (this.value == '<?php echo $defCategorySearch ?>')
+                            this.value = '';
+                        " onblur="if (this.value == '')
+                                    this.value = '<?php echo $defCategorySearch ?>';" />
                 <div id="xmlconnect_category_search_autocomplete" class="autocomplete"></div>
             </div>
 
@@ -84,41 +90,41 @@
 <script type="text/javascript">
 // <![CDATA[
     var actionHelper = {
-        currentImage : null,
-        actionTypeList : ['product', 'cms', 'category'],
-        actionTypePrefixId : 'action_selector_',
-        actionSelectorId : 'action_type_select',
+        currentImage: null,
+        actionTypeList: ['product', 'cms', 'category'],
+        actionTypePrefixId: 'action_selector_',
+        actionSelectorId: 'action_type_select',
         editImageActionBlockId: 'image_edit_block',
-        selectedEntityId : null,
-        selectedEntityName : null,
-        getActionSelectorValue : function() {
+        selectedEntityId: null,
+        selectedEntityName: null,
+        getActionSelectorValue: function() {
             actionSelector = $(this.actionSelectorId);
             return actionSelector.options[actionSelector.selectedIndex].value;
         },
-        setActionSelectorValue : function(value) {
+        setActionSelectorValue: function(value) {
             $(this.actionSelectorId).setValue(value);
         },
-        showActionByType : function() {
+        showActionByType: function() {
             for (var i = 0; i < this.actionTypeList.length; i++) {
                 $(this.actionTypePrefixId + this.actionTypeList[i]).hide();
             }
             $(this.actionTypePrefixId + this.getActionSelectorValue()).show();
         },
-        setImageElement : function(element) {
+        setImageElement: function(element) {
             this.currentImage = element;
         },
-        getImageElementConfig : function() {
+        getImageElementConfig: function() {
             if (this.currentImage !== null) {
                 return this.currentImage.config;
             } else {
                 return null;
             }
         },
-        setImageElementConfig : function(image_action_data) {
+        setImageElementConfig: function(image_action_data) {
             this.currentImage.config.image_action_data = image_action_data;
             imageItems.updateEditButtonState(this.currentImage.config);
         },
-        saveSelectedAction : function(elem) {
+        saveSelectedAction: function(elem) {
             if ($(elem).hasClassName('disabled')) {
                 return
             }
@@ -130,7 +136,7 @@
                     {
                         case 'product':
                             data.entity_action = this.selectedEntityId;
-                            data.entity_name   = this.selectedEntityName;
+                            data.entity_name = this.selectedEntityName;
                             break;
                         case 'cms':
                             var cmsSelector = $('action_type_cms');
@@ -138,10 +144,10 @@
                             break;
                         case 'category':
                             data.entity_action = this.selectedEntityId;
-                            data.entity_name   = this.selectedEntityName;
+                            data.entity_name = this.selectedEntityName;
                             break;
                         default:
-                            alert('<?php echo $this->jsQuoteEscape($this->__('Action type does\'t recognized.'));?>');
+                            alert('<?php echo $this->jsQuoteEscape($this->__('Action type does\'t recognized.')); ?>');
                             return;
                     }
 
@@ -149,15 +155,15 @@
                 }
             }
         },
-        sendActionData : function (data) {
+        sendActionData: function(data) {
             data.application_id = imageItems.application_id;
-            new Ajax.Request('<?php echo $this->getUrl('*/*/saveImageData')?>', {
+            new Ajax.Request('<?php echo $this->getUrl('*/*/saveImageData') ?>', {
                 parameters: data,
-                onSuccess : function(transport) {
+                onSuccess: function(transport) {
                     try {
                         if (transport.responseText.isJSON()) {
                             var response = transport.responseText.evalJSON()
-                            if(response.ajaxExpired && response.ajaxRedirect) {
+                            if (response.ajaxExpired && response.ajaxRedirect) {
                                 setLocation(response.ajaxRedirect);
                             }
                             if (response.error) {
@@ -177,15 +183,15 @@
                 }
             });
         },
-        sendDeleteActionData : function (data) {
+        sendDeleteActionData: function(data) {
             data.application_id = imageItems.application_id;
-            new Ajax.Request('<?php echo $this->getUrl('*/*/deleteImageData')?>', {
+            new Ajax.Request('<?php echo $this->getUrl('*/*/deleteImageData') ?>', {
                 parameters: data,
-                onSuccess : function(transport) {
+                onSuccess: function(transport) {
                     try {
                         if (transport.responseText.isJSON()) {
                             var response = transport.responseText.evalJSON()
-                            if(response.ajaxExpired && response.ajaxRedirect) {
+                            if (response.ajaxExpired && response.ajaxRedirect) {
                                 setLocation(response.ajaxRedirect);
                             }
                             if (response.error) {
@@ -205,12 +211,12 @@
                 }
             });
         },
-        showAdviceMessage : function (msg) {
+        showAdviceMessage: function(msg) {
             var el = $('advice-container-image').update(msg);
-            new Effect.Appear(el, { duration: 1});
-            new Effect.Fade(el, { delay: 3, duration: 1 });
+            new Effect.Appear(el, {duration: 1});
+            new Effect.Fade(el, {delay: 3, duration: 1});
         },
-        closeDialog : function () {
+        closeDialog: function() {
             this.currentImage = null;
             this.selectedEntityName = this.selectedEntityId = null;
             $('image-edit-popup-mask').hide();
@@ -218,11 +224,11 @@
             actionHelper.setActionSelectorValue('product');
             $('xmlconnect_product_search').value = '<?php echo $defProductSearch ?>';
         },
-        deleteAction : function () {
+        deleteAction: function() {
             var data = this.getImageElementConfig();
             this.sendDeleteActionData(data);
         },
-        startDialog : function(element) {
+        startDialog: function(element) {
             var actionConfig = actionHelper.getImageElementConfig();
             $('action_save_button').addClassName('disabled');
             if (actionConfig !== null) {
@@ -248,7 +254,7 @@
                             $('xmlconnect_category_search').value = actionConfig.entity_name;
                             break;
                         default:
-                            alert('<?php echo $this->jsQuoteEscape($this->__('Action type does\'t recognized.'));?>');
+                            alert('<?php echo $this->jsQuoteEscape($this->__('Action type does\'t recognized.')); ?>');
                             return;
                     }
                 } else {
@@ -259,20 +265,20 @@
                 actionHelper.setActionSelectorValue('product');
             }
             actionHelper.showActionByType();
-            $('image-edit-popup-mask').setStyle({ height: $('html-body').getHeight() + 'px' }).show();
+            $('image-edit-popup-mask').setStyle({height: $('html-body').getHeight() + 'px'}).show();
             $(this.editImageActionBlockId).show();
         }
     }
 
     new Ajax.Autocompleter('xmlconnect_product_search', 'xmlconnect_product_search_autocomplete',
-        '<?php echo $this->getUrl('*/*/globalSearch', array('type' => 'product')) ?>',
-        {
-            paramName:'query',
-            minChars:1,
-            indicator:'xmlconnect_product_search_indicator',
-            updateElement:getProductSelectionCallback,
-            evalJSON:'force'
-        }
+            '<?php echo $this->getUrl('*/*/globalSearch', array('type' => 'product')) ?>',
+            {
+                paramName: 'query',
+                minChars: 1,
+                indicator: 'xmlconnect_product_search_indicator',
+                updateElement: getProductSelectionCallback,
+                evalJSON: 'force'
+            }
     );
     function getProductSelectionCallback(li) {
         actionHelper.selectedEntityId = li.getAttribute('id').substring(10);
@@ -286,28 +292,28 @@
     }
 
     new Ajax.Autocompleter('xmlconnect_category_search', 'xmlconnect_category_search_autocomplete',
-        '<?php echo $this->getUrl('*/*/globalSearch', array('type' => 'category')) ?>',
-        {
-            paramName:'query',
-            minChars:1,
-            indicator:'xmlconnect_category_search_indicator',
-            updateElement:getCategorySelectionCallback,
-            evalJSON:'force'
-        }
+            '<?php echo $this->getUrl('*/*/globalSearch', array('type' => 'category')) ?>',
+            {
+                paramName: 'query',
+                minChars: 1,
+                indicator: 'xmlconnect_category_search_indicator',
+                updateElement: getCategorySelectionCallback,
+                evalJSON: 'force'
+            }
     );
 
-    document.observe('dom:loaded', function () {
-        $('action_save_button').observe('click', function () {
+    document.observe('dom:loaded', function() {
+        $('action_save_button').observe('click', function() {
             actionHelper.saveSelectedAction(this);
         });
 
-        $('action_type_select').observe('change', function () {
+        $('action_type_select').observe('change', function() {
             $('action_save_button').addClassName('disabled');
             $('image_action_form').reset();
         });
 
-        $('action_type_cms').observe('change', function () {
-            if ( this.value == 0 ) {
+        $('action_type_cms').observe('change', function() {
+            if (this.value == 0) {
                 $('action_save_button').addClassName('disabled');
             } else {
                 $('action_save_button').removeClassName('disabled');

@@ -38,14 +38,14 @@
     <table cellspacing="0">
         <tr>
             <td>
-                <h3<?php if($this->getHeaderCss()): ?> class="<?php echo $this->getHeaderCss()?>"<?php endif; ?>><?php echo Mage::helper('adminhtml')->__($this->getTitle()) ?></h3>
+                <h3<?php if ($this->getHeaderCss()): ?> class="<?php echo $this->getHeaderCss() ?>"<?php endif; ?>><?php echo Mage::helper('adminhtml')->__($this->getTitle()) ?></h3>
             </td>
             <td class="form-buttons"><?php echo $this->getSaveButtonHtml() ?></td>
-         </tr>
+        </tr>
     </table>
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="config_edit_form" enctype="multipart/form-data">
-    <?php echo $this->getBlockHtml('formkey')?>
+    <?php echo $this->getBlockHtml('formkey') ?>
     <?php echo $this->getChildHtml('form') ?>
 </form>
 <script type="text/javascript">
@@ -63,7 +63,7 @@
     };
 
     var adminSystemConfig = {
-        getUp: function (element, tag) {
+        getUp: function(element, tag) {
             var $element = $(element);
             if (typeof $element.upTag == 'undefined') {
                 $element.upTag = {};
@@ -73,10 +73,10 @@
             }
             return $element.upTag[tag];
         },
-        getUpTd: function (element) {
+        getUpTd: function(element) {
             return this.getUp(element, 'td');
         },
-        getUpTr: function (element) {
+        getUpTr: function(element) {
             return this.getUp(element, 'tr');
         },
         getScopeElement: function(element) {
@@ -94,7 +94,7 @@
             var $element = $(element);
             if (typeof $element.deleteElement == 'undefined') {
                 $element.deleteElement = this.getUpTd(element)
-                    .select('input[name="'+ element.getAttribute('name') + '[delete]"]')[0];
+                        .select('input[name="' + element.getAttribute('name') + '[delete]"]')[0];
                 if (typeof $element.deleteElement == 'undefined') {
                     $element.deleteElement = false;
                 }
@@ -107,8 +107,8 @@
             }
             element.classNames().each(function(className) {
                 if (className.indexOf(classPrefix + '-') == 0
-                    || (full && className.indexOf(classPrefix + '_') == 0)
-                ) {
+                        || (full && className.indexOf(classPrefix + '_') == 0)
+                        ) {
                     callback(className);
                 }
             });
@@ -203,14 +203,14 @@
                         if (typeAttr == 'file') {
                             var deleteUploadedElement = adminSystemConfig.getDeleteElement(this);
                             valueIsEmpty = !deleteUploadedElement && this.value == ''
-                                || deleteUploadedElement && deleteUploadedElement.checked;
+                                    || deleteUploadedElement && deleteUploadedElement.checked;
                         }
                         valueIsEmpty = valueIsEmpty
-                            || (typeAttr == 'text' || typeAttr == 'password') && this.value == ''
-                            || (tagName == 'select') && (this.getAttribute('multiple') != null)
-                            && this.getValue().length == 0
-                            || (tagName == 'select') && (this.getAttribute('multiple') == null)
-                            && this.getValue() == null;
+                                || (typeAttr == 'text' || typeAttr == 'password') && this.value == ''
+                                || (tagName == 'select') && (this.getAttribute('multiple') != null)
+                                && this.getValue().length == 0
+                                || (tagName == 'select') && (this.getAttribute('multiple') == null)
+                                && this.getValue() == null;
                     }
 
                     if (valueIsEmpty) {
@@ -230,7 +230,7 @@
         }
     };
 
-    $$('.shared').each(function(element){
+    $$('.shared').each(function(element) {
         Event.observe(element, 'change', adminSystemConfig.onchangeSharedElement);
 
         // scope should be shared together with the field
@@ -273,7 +273,8 @@
         var eventObj = {
             'element': $(element),
             'requires': [],
-            'callback': function(required) {},
+            'callback': function(required) {
+            },
             checkRequirements: function() {
                 var scopeElement = adminSystemConfig.getScopeElement(eventObj.element);
                 if (!scopeElement || !scopeElement.checked) {

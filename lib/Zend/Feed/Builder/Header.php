@@ -19,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Header.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Feed_Builder_Header_Itunes
  */
@@ -29,7 +28,6 @@
  * @see Zend_Uri
  */
 #require_once 'Zend/Uri.php';
-
 
 /**
  * Header of a custom build feed
@@ -44,6 +42,7 @@
  */
 class Zend_Feed_Builder_Header extends ArrayObject
 {
+
     /**
      * Constructor
      *
@@ -58,7 +57,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
         $this->offsetSet('link', $link);
         $this->offsetSet('charset', $charset);
         $this->setLastUpdate(time())
-             ->setGenerator('Zend_Feed');
+                ->setGenerator('Zend_Feed');
     }
 
     /**
@@ -324,8 +323,8 @@ class Zend_Feed_Builder_Header extends ArrayObject
             $uri->setPort(80);
         }
         $this->offsetSet('cloud', array('uri' => $uri,
-                                        'procedure' => $procedure,
-                                        'protocol' => $protocol));
+            'procedure' => $procedure,
+            'protocol' => $protocol));
         return $this;
     }
 
@@ -342,9 +341,9 @@ class Zend_Feed_Builder_Header extends ArrayObject
     public function setTextInput($title, $description, $name, $link)
     {
         $this->offsetSet('textInput', array('title' => $title,
-                                            'description' => $description,
-                                            'name' => $name,
-                                            'link' => $link));
+            'description' => $description,
+            'name' => $name,
+            'link' => $link));
         return $this;
     }
 
@@ -420,4 +419,5 @@ class Zend_Feed_Builder_Header extends ArrayObject
         $this->offsetSet('itunes', $itunes);
         return $this;
     }
+
 }

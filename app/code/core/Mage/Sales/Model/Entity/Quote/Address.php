@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,19 +34,19 @@
  */
 class Mage_Sales_Model_Entity_Quote_Address extends Mage_Eav_Model_Entity_Abstract
 {
+
     public function __construct()
     {
         $resource = Mage::getSingleton('core/resource');
         $this->setType('quote_address')->setConnection(
-            $resource->getConnection('sales_read'),
-            $resource->getConnection('sales_write')
+                $resource->getConnection('sales_read'), $resource->getConnection('sales_write')
         );
     }
 
     public function collectTotals(Mage_Sales_Model_Quote_Address $address)
     {
         $attributes = $this->loadAllAttributes()->getAttributesByCode();
-        foreach ($attributes as $attrCode=>$attr) {
+        foreach ($attributes as $attrCode => $attr) {
             $backend = $attr->getBackend();
             if (method_exists($backend, 'collectTotals')) {
                 $backend->collectTotals($address);
@@ -57,7 +58,7 @@ class Mage_Sales_Model_Entity_Quote_Address extends Mage_Eav_Model_Entity_Abstra
     public function fetchTotals(Mage_Sales_Model_Quote_Address $address)
     {
         $attributes = $this->loadAllAttributes()->getAttributesByCode();
-        foreach ($attributes as $attrCode=>$attr) {
+        foreach ($attributes as $attrCode => $attr) {
             $frontend = $attr->getFrontend();
             if (method_exists($frontend, 'fetchTotals')) {
                 $frontend->fetchTotals($address);
@@ -66,4 +67,5 @@ class Mage_Sales_Model_Entity_Quote_Address extends Mage_Eav_Model_Entity_Abstra
 
         return $this;
     }
+
 }

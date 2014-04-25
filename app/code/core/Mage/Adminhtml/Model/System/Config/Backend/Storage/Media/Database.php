@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Adminhtml_Model_System_Config_Backend_Storage_Media_Database extends Mage_Core_Model_Config_Data
 {
+
     /**
      * Create db structure
      *
@@ -39,4 +39,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Storage_Media_Database extends 
 
         return $this;
     }
+
 }

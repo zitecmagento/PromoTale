@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Admin roles collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Admin_Model_Resource_Roles_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Initialize resource model
      *
@@ -66,4 +67,5 @@ class Mage_Admin_Model_Resource_Roles_Collection extends Mage_Core_Model_Resourc
     {
         return $this->_toOptionArray('role_id', 'role_name');
     }
+
 }

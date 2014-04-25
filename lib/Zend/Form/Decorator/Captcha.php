@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** @see Zend_Form_Decorator_Abstract */
 #require_once 'Zend/Form/Decorator/Abstract.php';
 
@@ -36,6 +36,7 @@
  */
 class Zend_Form_Decorator_Captcha extends Zend_Form_Decorator_Abstract
 {
+
     /**
      * Render captcha
      *
@@ -49,7 +50,7 @@ class Zend_Form_Decorator_Captcha extends Zend_Form_Decorator_Abstract
             return $content;
         }
 
-        $view    = $element->getView();
+        $view = $element->getView();
         if (null === $view) {
             return $content;
         }
@@ -58,10 +59,10 @@ class Zend_Form_Decorator_Captcha extends Zend_Form_Decorator_Abstract
         $separator = $this->getSeparator();
 
         $captcha = $element->getCaptcha();
-        $markup  = $captcha->render($view, $element);
+        $markup = $captcha->render($view, $element);
         switch ($placement) {
             case 'PREPEND':
-                $content = $markup . $separator .  $content;
+                $content = $markup . $separator . $content;
                 break;
             case 'APPEND':
             default:
@@ -69,4 +70,5 @@ class Zend_Form_Decorator_Captcha extends Zend_Form_Decorator_Abstract
         }
         return $content;
     }
+
 }

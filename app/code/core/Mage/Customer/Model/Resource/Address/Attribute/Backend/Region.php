@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Address region attribute backend
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Model_Resource_Address_Attribute_Backend_Region
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Customer_Model_Resource_Address_Attribute_Backend_Region extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Prepare object for save
      *
@@ -48,9 +48,10 @@ class Mage_Customer_Model_Resource_Address_Attribute_Backend_Region
             $regionModel = Mage::getModel('directory/region')->load($region);
             if ($regionModel->getId() && $object->getCountryId() == $regionModel->getCountryId()) {
                 $object->setRegionId($regionModel->getId())
-                    ->setRegion($regionModel->getName());
+                        ->setRegion($regionModel->getName());
             }
         }
         return $this;
     }
+
 }

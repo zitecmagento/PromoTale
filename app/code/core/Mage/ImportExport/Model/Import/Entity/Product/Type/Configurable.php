@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,16 +32,16 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
-    extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
+class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
 {
+
     /**
      * Error codes.
      */
     const ERROR_ATTRIBUTE_CODE_IS_NOT_SUPER = 'attrCodeIsNotSuper';
-    const ERROR_INVALID_PRICE_CORRECTION    = 'invalidPriceCorr';
-    const ERROR_INVALID_OPTION_VALUE        = 'invalidOptionValue';
-    const ERROR_INVALID_WEBSITE             = 'invalidSuperAttrWebsite';
+    const ERROR_INVALID_PRICE_CORRECTION = 'invalidPriceCorr';
+    const ERROR_INVALID_OPTION_VALUE = 'invalidOptionValue';
+    const ERROR_INVALID_WEBSITE = 'invalidSuperAttrWebsite';
 
     /**
      * Validation failure message template definitions
@@ -49,9 +50,9 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
      */
     protected $_messageTemplates = array(
         self::ERROR_ATTRIBUTE_CODE_IS_NOT_SUPER => 'Attribute with this code is not super',
-        self::ERROR_INVALID_PRICE_CORRECTION    => 'Super attribute price correction value is invalid',
-        self::ERROR_INVALID_OPTION_VALUE        => 'Invalid option value',
-        self::ERROR_INVALID_WEBSITE             => 'Invalid website code for super attribute'
+        self::ERROR_INVALID_PRICE_CORRECTION => 'Super attribute price correction value is invalid',
+        self::ERROR_INVALID_OPTION_VALUE => 'Invalid option value',
+        self::ERROR_INVALID_WEBSITE => 'Invalid website code for super attribute'
     );
 
     /**
@@ -204,8 +205,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
                     return false;
                 }
                 // check price value
-                if (!empty($rowData['_super_attribute_price_corr'])
-                    && !$this->_isPriceCorr($rowData['_super_attribute_price_corr'])
+                if (!empty($rowData['_super_attribute_price_corr']) && !$this->_isPriceCorr($rowData['_super_attribute_price_corr'])
                 ) {
                     $this->_entityModel->addRowError(self::ERROR_INVALID_PRICE_CORRECTION, $rowNum);
                     return false;
@@ -223,7 +223,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
     protected function _loadSkuSuperAttributeValues()
     {
         if ($this->_superAttributes) {
-            $attrSetIdToName   = $this->_entityModel->getAttrSetIdToName();
+            $attrSetIdToName = $this->_entityModel->getAttrSetIdToName();
             $allowProductTypes = array();
 
             foreach (Mage::getConfig()
@@ -231,13 +231,12 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
                 $allowProductTypes[] = $type->getName();
             }
             foreach (Mage::getResourceModel('catalog/product_collection')
-                        ->addFieldToFilter('type_id', $allowProductTypes)
-                        ->addAttributeToSelect(array_keys($this->_superAttributes)) as $product) {
+                    ->addFieldToFilter('type_id', $allowProductTypes)
+                    ->addAttributeToSelect(array_keys($this->_superAttributes)) as $product) {
                 $attrSetName = $attrSetIdToName[$product->getAttributeSetId()];
 
                 $data = array_intersect_key(
-                    $product->getData(),
-                    $this->_superAttributes
+                        $product->getData(), $this->_superAttributes
                 );
                 foreach ($data as $attrCode => $value) {
                     $attrId = $this->_superAttributes[$attrCode]['id'];
@@ -257,16 +256,14 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
     {
         if (!$this->_skuSuperData) {
             $connection = $this->_entityModel->getConnection();
-            $mainTable  = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute');
+            $mainTable = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute');
             $priceTable = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute_pricing');
-            $select     = $connection->select()
+            $select = $connection->select()
                     ->from(array('m' => $mainTable), array('product_id', 'attribute_id', 'product_super_attribute_id'))
                     ->joinLeft(
-                        array('p' => $priceTable),
-                        $connection->quoteIdentifier('p.product_super_attribute_id') . ' = '
-                        . $connection->quoteIdentifier('m.product_super_attribute_id'),
-                        array('value_index')
-                    );
+                    array('p' => $priceTable), $connection->quoteIdentifier('p.product_super_attribute_id') . ' = '
+                    . $connection->quoteIdentifier('m.product_super_attribute_id'), array('value_index')
+            );
 
             foreach ($connection->fetchAll($select) as $row) {
                 $attrId = $row['attribute_id'];
@@ -298,7 +295,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
                 }
                 if ($superData['used_attributes']) {
                     $skuSuperValues = $this->_skuSuperAttributeValues[$superData['attr_set_code']][$assocId];
-                    $usedCombParts  = array();
+                    $usedCombParts = array();
 
                     foreach ($superData['used_attributes'] as $usedAttrId => $usedValues) {
                         if (empty($skuSuperValues[$usedAttrId]) || !isset($usedValues[$skuSuperValues[$usedAttrId]])) {
@@ -324,8 +321,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
             // clean up unused values pricing
             foreach ($superData['used_attributes'] as $usedAttrId => $usedValues) {
                 foreach ($usedValues as $optionId => $isUsed) {
-                    if (!$isUsed
-                        && isset($superAttributes['pricing'][$superData['product_id']][$usedAttrId])
+                    if (!$isUsed && isset($superAttributes['pricing'][$superData['product_id']][$usedAttrId])
                     ) {
                         foreach ($superAttributes['pricing'][$superData['product_id']][$usedAttrId] as $k => $params) {
                             if ($optionId == $params['value_index']) {
@@ -347,17 +343,17 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
      */
     public function saveData()
     {
-        $connection      = $this->_entityModel->getConnection();
-        $mainTable       = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute');
-        $labelTable      = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute_label');
-        $priceTable      = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute_pricing');
-        $linkTable       = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_link');
-        $relationTable   = Mage::getSingleton('core/resource')->getTableName('catalog/product_relation');
-        $newSku          = $this->_entityModel->getNewSku();
-        $oldSku          = $this->_entityModel->getOldSku();
+        $connection = $this->_entityModel->getConnection();
+        $mainTable = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute');
+        $labelTable = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute_label');
+        $priceTable = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute_pricing');
+        $linkTable = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_link');
+        $relationTable = Mage::getSingleton('core/resource')->getTableName('catalog/product_relation');
+        $newSku = $this->_entityModel->getNewSku();
+        $oldSku = $this->_entityModel->getOldSku();
         $productSuperData = array();
-        $productData     = null;
-        $nextAttrId      = Mage::getResourceHelper('importexport')->getNextAutoincrement($mainTable);
+        $productData = null;
+        $nextAttrId = Mage::getResourceHelper('importexport')->getNextAutoincrement($mainTable);
 
         if ($this->_entityModel->getBehavior() == Mage_ImportExport_Model_Import::BEHAVIOR_APPEND) {
             $this->_loadSkuSuperData();
@@ -367,10 +363,10 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
         while ($bunch = $this->_entityModel->getNextBunch()) {
             $superAttributes = array(
                 'attributes' => array(),
-                'labels'     => array(),
-                'pricing'    => array(),
+                'labels' => array(),
+                'pricing' => array(),
                 'super_link' => array(),
-                'relation'   => array()
+                'relation' => array()
             );
             foreach ($bunch as $rowNum => $rowData) {
                 if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum)) {
@@ -390,11 +386,10 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
                     $this->_processSuperData($productSuperData, $superAttributes);
 
                     $productSuperData = array(
-                        'product_id'      => $productId,
-                        'attr_set_code'   => $productData['attr_set_code'],
-                        'used_attributes' => empty($this->_skuSuperData[$productId])
-                                             ? array() : $this->_skuSuperData[$productId],
-                        'assoc_ids'       => array()
+                        'product_id' => $productId,
+                        'attr_set_code' => $productData['attr_set_code'],
+                        'used_attributes' => empty($this->_skuSuperData[$productId]) ? array() : $this->_skuSuperData[$productId],
+                        'assoc_ids' => array()
                     );
                 } elseif (null === $productData) {
                     continue;
@@ -420,9 +415,9 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
                     );
                     $superAttributes['labels'][] = array(
                         'product_super_attribute_id' => $productSuperAttrId,
-                        'store_id'    => 0,
+                        'store_id' => 0,
                         'use_default' => 1,
-                        'value'       => $attrParams['frontend_label']
+                        'value' => $attrParams['frontend_label']
                     );
                 }
                 if (isset($rowData['_super_attribute_option']) && strlen($rowData['_super_attribute_option'])) {
@@ -434,10 +429,10 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
                     if (!empty($rowData['_super_attribute_price_corr'])) {
                         $superAttributes['pricing'][] = array(
                             'product_super_attribute_id' => $productSuperAttrId,
-                            'value_index'   => $optionId,
-                            'is_percent'    => '%' == substr($rowData['_super_attribute_price_corr'], -1),
+                            'value_index' => $optionId,
+                            'is_percent' => '%' == substr($rowData['_super_attribute_price_corr'], -1),
                             'pricing_value' => (float) rtrim($rowData['_super_attribute_price_corr'], '%'),
-                            'website_id'    => 0
+                            'website_id' => 0
                         );
                     }
                 }
@@ -446,8 +441,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
             $this->_processSuperData($productSuperData, $superAttributes);
 
             // remove old data if needed
-            if ($this->_entityModel->getBehavior() != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND
-                && $superAttributes['attributes']) {
+            if ($this->_entityModel->getBehavior() != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND && $superAttributes['attributes']) {
                 $quoted = $connection->quoteInto('IN (?)', array_keys($superAttributes['attributes']));
                 $connection->delete($mainTable, "product_id {$quoted}");
                 $connection->delete($linkTable, "parent_id {$quoted}");
@@ -457,9 +451,9 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
 
             foreach ($superAttributes['attributes'] as $productId => $attributesData) {
                 foreach ($attributesData as $attrId => $row) {
-                    $row['product_id']   = $productId;
+                    $row['product_id'] = $productId;
                     $row['attribute_id'] = $attrId;
-                    $mainData[]          = $row;
+                    $mainData[] = $row;
                 }
             }
             if ($mainData) {
@@ -470,9 +464,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
             }
             if ($superAttributes['pricing']) {
                 $connection->insertOnDuplicate(
-                    $priceTable,
-                    $superAttributes['pricing'],
-                    array('is_percent', 'pricing_value')
+                        $priceTable, $superAttributes['pricing'], array('is_percent', 'pricing_value')
                 );
             }
             if ($superAttributes['super_link']) {
@@ -484,4 +476,5 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
         }
         return $this;
     }
+
 }

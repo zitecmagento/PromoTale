@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Initialize cms page edit block
      *
@@ -40,7 +42,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
      */
     public function __construct()
     {
-        $this->_objectId   = 'page_id';
+        $this->_objectId = 'page_id';
         $this->_controller = 'cms_page';
 
         parent::__construct();
@@ -48,10 +50,10 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
         if ($this->_isAllowedAction('save')) {
             $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Page'));
             $this->_addButton('saveandcontinue', array(
-                'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
-                'onclick'   => 'saveAndContinueEdit(\''.$this->_getSaveAndContinueUrl().'\')',
-                'class'     => 'save',
-            ), -100);
+                'label' => Mage::helper('adminhtml')->__('Save and Continue Edit'),
+                'onclick' => 'saveAndContinueEdit(\'' . $this->_getSaveAndContinueUrl() . '\')',
+                'class' => 'save',
+                    ), -100);
         } else {
             $this->_removeButton('save');
         }
@@ -72,8 +74,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
     {
         if (Mage::registry('cms_page')->getId()) {
             return Mage::helper('cms')->__("Edit Page '%s'", $this->escapeHtml(Mage::registry('cms_page')->getTitle()));
-        }
-        else {
+        } else {
             return Mage::helper('cms')->__('New Page');
         }
     }
@@ -98,9 +99,9 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
     protected function _getSaveAndContinueUrl()
     {
         return $this->getUrl('*/*/save', array(
-            '_current'   => true,
-            'back'       => 'edit',
-            'active_tab' => '{{tab_id}}'
+                    '_current' => true,
+                    'back' => 'edit',
+                    'active_tab' => '{{tab_id}}'
         ));
     }
 
@@ -114,10 +115,10 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
         $tabsBlock = $this->getLayout()->getBlock('cms_page_edit_tabs');
         if ($tabsBlock) {
             $tabsBlockJsObject = $tabsBlock->getJsObjectName();
-            $tabsBlockPrefix   = $tabsBlock->getId() . '_';
+            $tabsBlockPrefix = $tabsBlock->getId() . '_';
         } else {
             $tabsBlockJsObject = 'page_tabsJsTabs';
-            $tabsBlockPrefix   = 'page_tabs_';
+            $tabsBlockPrefix = 'page_tabs_';
         }
 
         $this->_formScripts[] = "
@@ -142,4 +143,5 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
         ";
         return parent::_prepareLayout();
     }
+
 }

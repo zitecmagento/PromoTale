@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LICENSE
  *
@@ -16,7 +17,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /*
  * @see Zend_Cloud_DocumentService_Query
  */
@@ -32,9 +32,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
-    extends Zend_Cloud_DocumentService_Query
+class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query extends Zend_Cloud_DocumentService_Query
 {
+
     /**
      * @var Zend_Cloud_DocumentService_Adapter_SimpleDb
      */
@@ -74,11 +74,11 @@ class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
     public function assemble($collectionName = null)
     {
         $adapter = $this->getAdapter()->getClient();
-        $select  = null;
-        $from    = null;
-        $where   = null;
-        $order   = null;
-        $limit   = null;
+        $select = null;
+        $from = null;
+        $where = null;
+        $order = null;
+        $limit = null;
         foreach ($this->getClauses() as $clause) {
             list($name, $args) = $clause;
 
@@ -164,12 +164,13 @@ class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
         $adapter = $this->getAdapter()->getClient();
         $i = 0;
         while (false !== ($pos = strpos($where, '?'))) {
-           $where = substr_replace($where, $adapter->quote($args[$i]), $pos);
-           ++$i;
+            $where = substr_replace($where, $adapter->quote($args[$i]), $pos);
+            ++$i;
         }
         if (('(' != $where[0]) || (')' != $where[strlen($where) - 1])) {
             $where = '(' . $where . ')';
         }
         return $where;
     }
- }
+
+}

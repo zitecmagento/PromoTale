@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cms page content block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 {
+
     /**
      * Retrieve Page instance
      *
@@ -44,8 +45,8 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         if (!$this->hasData('page')) {
             if ($this->getPageId()) {
                 $page = Mage::getModel('cms/page')
-                    ->setStoreId(Mage::app()->getStore()->getId())
-                    ->load($this->getPageId(), 'identifier');
+                        ->setStoreId(Mage::app()->getStore()->getId())
+                        ->load($this->getPageId(), 'identifier');
             } else {
                 $page = Mage::getSingleton('cms/page');
             }
@@ -65,17 +66,15 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         $page = $this->getPage();
 
         // show breadcrumbs
-        if (Mage::getStoreConfig('web/default/show_cms_breadcrumbs')
-            && ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs'))
-            && ($page->getIdentifier()!==Mage::getStoreConfig('web/default/cms_home_page'))
-            && ($page->getIdentifier()!==Mage::getStoreConfig('web/default/cms_no_route'))) {
-                $breadcrumbs->addCrumb('home', array('label'=>Mage::helper('cms')->__('Home'), 'title'=>Mage::helper('cms')->__('Go to Home Page'), 'link'=>Mage::getBaseUrl()));
-                $breadcrumbs->addCrumb('cms_page', array('label'=>$page->getTitle(), 'title'=>$page->getTitle()));
+        if (Mage::getStoreConfig('web/default/show_cms_breadcrumbs') && ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs')) && ($page->getIdentifier() !== Mage::getStoreConfig('web/default/cms_home_page')) && ($page->getIdentifier() !== Mage::getStoreConfig('web/default/cms_no_route'))) {
+            $breadcrumbs->addCrumb('home', array('label' => Mage::helper('cms')->__('Home'), 'title' => Mage::helper('cms')->__('Go to Home Page'),
+                'link' => Mage::getBaseUrl()));
+            $breadcrumbs->addCrumb('cms_page', array('label' => $page->getTitle(), 'title' => $page->getTitle()));
         }
 
         $root = $this->getLayout()->getBlock('root');
         if ($root) {
-            $root->addBodyClass('cms-'.$page->getIdentifier());
+            $root->addBodyClass('cms-' . $page->getIdentifier());
         }
 
         $head = $this->getLayout()->getBlock('head');
@@ -102,4 +101,5 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         $html = $this->getMessagesBlock()->toHtml() . $html;
         return $html;
     }
+
 }

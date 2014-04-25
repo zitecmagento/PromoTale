@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ZfStandardLibraryDirectory.php 20904 2010-02-04 16:18:18Z matthew $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Filesystem_Directory
  */
@@ -65,7 +65,7 @@ class Zend_Tool_Project_Context_Zf_ZfStandardLibraryDirectory extends Zend_Tool_
         if ($zfPath != false) {
             $zfIterator = new RecursiveDirectoryIterator($zfPath);
             foreach ($rii = new RecursiveIteratorIterator($zfIterator, RecursiveIteratorIterator::SELF_FIRST) as $file) {
-                $relativePath = preg_replace('#^'.preg_quote(realpath($zfPath), '#').'#', '', realpath($file->getPath())) . DIRECTORY_SEPARATOR . $file->getFilename();
+                $relativePath = preg_replace('#^' . preg_quote(realpath($zfPath), '#') . '#', '', realpath($file->getPath())) . DIRECTORY_SEPARATOR . $file->getFilename();
                 if (strpos($relativePath, DIRECTORY_SEPARATOR . '.') !== false) {
                     continue;
                 }
@@ -75,7 +75,6 @@ class Zend_Tool_Project_Context_Zf_ZfStandardLibraryDirectory extends Zend_Tool_
                 } else {
                     copy($file->getPathname(), $this->getBaseDirectory() . DIRECTORY_SEPARATOR . $this->getFilesystemName() . $relativePath);
                 }
-
             }
         }
     }

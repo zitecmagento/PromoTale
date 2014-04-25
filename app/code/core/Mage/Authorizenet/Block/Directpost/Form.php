@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Authorizenet_Block_Directpost_Form extends Mage_Payment_Block_Form_Cc
 {
+
     /**
      * Internal constructor
      * Set info template for payment step
@@ -67,8 +69,8 @@ class Mage_Authorizenet_Block_Directpost_Form extends Mage_Payment_Block_Form_Cc
     public function setMethodInfo()
     {
         $payment = Mage::getSingleton('checkout/type_onepage')
-            ->getQuote()
-            ->getPayment();
+                ->getQuote()
+                ->getPayment();
         $this->setMethod($payment->getMethodInstance());
 
         return $this;
@@ -82,7 +84,8 @@ class Mage_Authorizenet_Block_Directpost_Form extends Mage_Payment_Block_Form_Cc
     public function isAjaxRequest()
     {
         return $this->getAction()
-            ->getRequest()
-            ->getParam('isAjax');
+                        ->getRequest()
+                        ->getParam('isAjax');
     }
+
 }

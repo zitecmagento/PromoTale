@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Xml.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Config
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Config_Xml extends Zend_Config
 {
+
     /**
      * XML namespace for ZF-related tags and attributes
      */
@@ -152,7 +153,7 @@ class Zend_Config_Xml extends Zend_Config
             throw new Zend_Config_Exception("Section '$section' cannot be found");
         }
 
-        $thisSection  = $element->$section;
+        $thisSection = $element->$section;
         $nsAttributes = $thisSection->attributes(self::XML_NAMESPACE);
 
         if (isset($thisSection['extends']) || isset($nsAttributes['extends'])) {
@@ -178,7 +179,7 @@ class Zend_Config_Xml extends Zend_Config
      */
     protected function _toArray(SimpleXMLElement $xmlObject)
     {
-        $config       = array();
+        $config = array();
         $nsAttributes = $xmlObject->attributes(self::XML_NAMESPACE);
 
         // Search for parent node values
@@ -209,7 +210,7 @@ class Zend_Config_Xml extends Zend_Config
                 throw new Zend_Config_Exception("A node with a 'const' childnode may not have any other children");
             }
 
-            $dom                 = dom_import_simplexml($xmlObject);
+            $dom = dom_import_simplexml($xmlObject);
             $namespaceChildNodes = array();
 
             // We have to store them in an array, as replacing nodes will
@@ -283,4 +284,5 @@ class Zend_Config_Xml extends Zend_Config
 
         return $config;
     }
+
 }

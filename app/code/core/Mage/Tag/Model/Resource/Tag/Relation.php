@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tag Relation resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize resource connection and define table resource
      *
@@ -54,18 +55,17 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
         if ($model->getTagId() && $model->getCustomerId()) {
             $read = $this->_getReadAdapter();
             $bind = array(
-                'tag_id'      => $model->getTagId(),
+                'tag_id' => $model->getTagId(),
                 'customer_id' => $model->getCustomerId()
             );
 
             $select = $read->select()
-                ->from($this->getMainTable())
-                ->join(
-                    $this->getTable('tag/tag'),
-                    $this->getTable('tag/tag') . '.tag_id = ' . $this->getMainTable() . '.tag_id'
-                )
-                ->where($this->getMainTable() . '.tag_id = :tag_id')
-                ->where('customer_id = :customer_id');
+                    ->from($this->getMainTable())
+                    ->join(
+                            $this->getTable('tag/tag'), $this->getTable('tag/tag') . '.tag_id = ' . $this->getMainTable() . '.tag_id'
+                    )
+                    ->where($this->getMainTable() . '.tag_id = :tag_id')
+                    ->where('customer_id = :customer_id');
 
             if ($model->getProductId()) {
                 $select->where($this->getMainTable() . '.product_id = :product_id');
@@ -95,8 +95,8 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
             'tag_id' => $model->getTagId()
         );
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), 'product_id')
-            ->where($this->getMainTable() . '.tag_id=:tag_id');
+                ->from($this->getMainTable(), 'product_id')
+                ->where($this->getMainTable() . '.tag_id=:tag_id');
 
         if (!is_null($model->getCustomerId())) {
             $select->where($this->getMainTable() . '.customer_id= :customer_id');
@@ -110,10 +110,9 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
 
         if (!is_null($model->getStatusFilter())) {
             $select->join(
-                $this->getTable('tag/tag'),
-                $this->getTable('tag/tag') . '.tag_id = ' . $this->getMainTable() . '.tag_id'
-            )
-            ->where($this->getTable('tag/tag') . '.status = :t_status');
+                            $this->getTable('tag/tag'), $this->getTable('tag/tag') . '.tag_id = ' . $this->getMainTable() . '.tag_id'
+                    )
+                    ->where($this->getTable('tag/tag') . '.status = :t_status');
             $bind['t_status'] = $model->getStatusFilter();
         }
 
@@ -130,9 +129,9 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
     {
         $productIds = (is_array($model->getProductId())) ? $model->getProductId() : array($model->getProductId());
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), 'tag_id')
-            ->where("product_id IN(?)", $productIds)
-            ->order('tag_id');
+                ->from($this->getMainTable(), 'tag_id')
+                ->where("product_id IN(?)", $productIds)
+                ->order('tag_id');
         return $this->_getReadAdapter()->fetchCol($select);
     }
 
@@ -146,7 +145,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
     public function deactivate($tagId, $customerId)
     {
         $condition = array(
-            'tag_id = ?'      => $tagId,
+            'tag_id = ?' => $tagId,
             'customer_id = ?' => $customerId
         );
 
@@ -166,15 +165,15 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
         $addedIds = $model->getAddedProductIds();
 
         $bind = array(
-            'tag_id'   => $model->getTagId(),
+            'tag_id' => $model->getTagId(),
             'store_id' => $model->getStoreId()
         );
         $write = $this->_getWriteAdapter();
 
         $select = $write->select()
-            ->from($this->getMainTable(), 'product_id')
-            ->where('tag_id = :tag_id')
-            ->where('store_id = :store_id');
+                ->from($this->getMainTable(), 'product_id')
+                ->where('tag_id = :tag_id')
+                ->where('store_id = :store_id');
         $oldRelationIds = $write->fetchCol($select, $bind);
 
         $insert = array_diff($addedIds, $oldRelationIds);
@@ -184,11 +183,11 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
             $insertData = array();
             foreach ($insert as $value) {
                 $insertData[] = array(
-                    'tag_id'        => $model->getTagId(),
-                    'store_id'      => $model->getStoreId(),
-                    'product_id'    => $value,
-                    'customer_id'   => $model->getCustomerId(),
-                    'created_at'    => $this->formatDate(time())
+                    'tag_id' => $model->getTagId(),
+                    'store_id' => $model->getStoreId(),
+                    'product_id' => $value,
+                    'customer_id' => $model->getCustomerId(),
+                    'created_at' => $this->formatDate(time())
                 );
             }
             $write->insertMultiple($this->getMainTable(), $insertData);
@@ -197,10 +196,11 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
         if (!empty($delete)) {
             $write->delete($this->getMainTable(), array(
                 'product_id IN (?)' => $delete,
-                'store_id = ?'      => $model->getStoreId(),
+                'store_id = ?' => $model->getStoreId(),
             ));
         }
 
         return $this;
     }
+
 }

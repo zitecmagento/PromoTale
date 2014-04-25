@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Prepare Log Online Visitors Model
  *
@@ -49,8 +49,9 @@
  */
 class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_ONLINE_INTERVAL      = 'customer/online_customers/online_minutes_interval';
-    const XML_PATH_UPDATE_FREQUENCY     = 'log/visitor/online_update_frequency';
+
+    const XML_PATH_ONLINE_INTERVAL = 'customer/online_customers/online_minutes_interval';
+    const XML_PATH_UPDATE_FREQUENCY = 'log/visitor/online_update_frequency';
 
     /**
      * Initialize resource model
@@ -130,4 +131,5 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
         }
         return $value;
     }
+
 }

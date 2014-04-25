@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Viewed Product Index
  *
@@ -44,12 +44,13 @@
  */
 class Mage_Reports_Model_Product_Index_Viewed extends Mage_Reports_Model_Product_Index_Abstract
 {
+
     /**
      * Cache key name for Count of product index
      *
      * @var string
      */
-    protected $_countCacheKey   = 'product_index_viewed_count';
+    protected $_countCacheKey = 'product_index_viewed_count';
 
     /**
      * Initialize resource model
@@ -75,4 +76,5 @@ class Mage_Reports_Model_Product_Index_Viewed extends Mage_Reports_Model_Product
 
         return $productIds;
     }
+
 }

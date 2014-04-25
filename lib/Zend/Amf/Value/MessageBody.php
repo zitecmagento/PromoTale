@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -38,6 +39,7 @@
  */
 class Zend_Amf_Value_MessageBody
 {
+
     /**
      * A string describing which operation, function, or method
      * is to be remotley invoked.
@@ -179,4 +181,5 @@ class Zend_Amf_Value_MessageBody
         $this->_targetUri = $this->_targetUri . $methodName;
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
 {
+
     protected $_template = 'captcha/zend.phtml';
 
     /**
@@ -58,8 +60,7 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
     public function getRefreshUrl()
     {
         return Mage::getUrl(
-            Mage::app()->getStore()->isAdmin() ? 'adminhtml/refresh/refresh' : 'captcha/refresh',
-            array('_secure' => Mage::app()->getStore()->isCurrentlySecure())
+                        Mage::app()->getStore()->isAdmin() ? 'adminhtml/refresh/refresh' : 'captcha/refresh', array('_secure' => Mage::app()->getStore()->isCurrentlySecure())
         );
     }
 
@@ -86,4 +87,5 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
     {
         return Mage::helper('captcha')->getCaptcha($this->getFormId());
     }
+
 }

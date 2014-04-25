@@ -21,7 +21,6 @@
  * @version    $Id: ResultSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Yahoo_ResultSet implements SeekableIterator
 {
+
     /**
      * Total number of results available
      *
@@ -80,7 +80,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
      */
     protected $_currentIndex = 0;
 
-
     /**
      * Parse the search response and retrieve the results for iteration
      *
@@ -101,7 +100,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
         $this->_results = $this->_xpath->query('//yh:Result');
     }
 
-
     /**
      * Total Number of results returned
      *
@@ -111,7 +109,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
     {
         return $this->totalResultsReturned;
     }
-
 
     /**
      * Implement SeekableIterator::current()
@@ -128,9 +125,8 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
          */
         #require_once 'Zend/Service/Exception.php';
         throw new Zend_Service_Exception('Zend_Service_Yahoo_ResultSet::current() must be implemented by child '
-                                       . 'classes');
+        . 'classes');
     }
-
 
     /**
      * Implement SeekableIterator::key()
@@ -142,7 +138,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
         return $this->_currentIndex;
     }
 
-
     /**
      * Implement SeekableIterator::next()
      *
@@ -153,7 +148,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
         $this->_currentIndex += 1;
     }
 
-
     /**
      * Implement SeekableIterator::rewind()
      *
@@ -163,7 +157,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
     {
         $this->_currentIndex = 0;
     }
-
 
     /**
      * Implement SeekableIterator::seek()
@@ -182,7 +175,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
         }
     }
 
-
     /**
      * Implement SeekableIterator::valid()
      *
@@ -192,4 +184,5 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
     {
         return $this->_currentIndex < $this->_results->length;
     }
+
 }

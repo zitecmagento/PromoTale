@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Shipment_Api
 {
+
     protected function _prepareItemQtyData($data)
     {
         $_data = array();
@@ -54,26 +56,26 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
      * @param boolean $includeComment
      * @return string
      */
-    public function create($orderIncrementId, $itemsQty = array(), $comment = null, $email = false,
-        $includeComment = false
-    ) {
+    public function create($orderIncrementId, $itemsQty = array(), $comment = null, $email = false, $includeComment = false
+    )
+    {
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
         $itemsQty = $this->_prepareItemQtyData($itemsQty);
         /**
-          * Check order existing
-          */
+         * Check order existing
+         */
         if (!$order->getId()) {
-             $this->_fault('order_not_exists');
+            $this->_fault('order_not_exists');
         }
 
         /**
          * Check shipment create availability
          */
         if (!$order->canShip()) {
-             $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do shipment for order.'));
+            $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do shipment for order.'));
         }
 
-         /* @var $shipment Mage_Sales_Model_Order_Shipment */
+        /* @var $shipment Mage_Sales_Model_Order_Shipment */
         $shipment = $order->prepareShipment($itemsQty);
         if ($shipment) {
             $shipment->register();
@@ -82,13 +84,16 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
                 $shipment->setEmailSent(true);
             }
             $shipment->getOrder()->setIsInProcess(true);
-            try {
+            try
+            {
                 $transactionSave = Mage::getModel('core/resource_transaction')
-                    ->addObject($shipment)
-                    ->addObject($shipment->getOrder())
-                    ->save();
+                        ->addObject($shipment)
+                        ->addObject($shipment->getOrder())
+                        ->save();
                 $shipment->sendEmail($email, ($includeComment ? $comment : ''));
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_fault('data_invalid', $e->getMessage());
             }
             return $shipment->getIncrementId();
@@ -107,8 +112,8 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
 
         /**
-          * Check order existing
-          */
+         * Check order existing
+         */
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }
@@ -119,4 +124,5 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
 
         return $carriers;
     }
+
 }

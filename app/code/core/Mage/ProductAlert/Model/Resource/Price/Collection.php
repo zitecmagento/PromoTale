@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product alert for changed price collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Define price collection
      *
@@ -95,4 +96,5 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
         $this->getSelect()->order('customer_id ' . $sort);
         return $this;
     }
+
 }

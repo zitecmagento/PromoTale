@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Simpy.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Http_Client
  */
@@ -36,6 +35,7 @@
  */
 class Zend_Service_Simpy
 {
+
     /**
      * Base URI to which API methods and parameters will be appended
      *
@@ -241,10 +241,10 @@ class Zend_Service_Simpy
     {
         if ($q != null) {
             $query = array(
-                'q'          => $q->getQueryString(),
-                'limit'      => $q->getLimit(),
-                'date'       => $q->getDate(),
-                'afterDate'  => $q->getAfterDate(),
+                'q' => $q->getQueryString(),
+                'limit' => $q->getLimit(),
+                'date' => $q->getDate(),
+                'afterDate' => $q->getAfterDate(),
                 'beforeDate' => $q->getBeforeDate()
             );
 
@@ -283,12 +283,12 @@ class Zend_Service_Simpy
         }
 
         $query = array(
-            'title'       => $title,
-            'href'        => $href,
-            'accessType'  => $accessType,
-            'tags'        => $tags,
+            'title' => $title,
+            'href' => $href,
+            'accessType' => $accessType,
+            'tags' => $tags,
             'urlNickname' => $urlNickname,
-            'note'        => $note
+            'note' => $note
         );
 
         $this->_makeRequest('SaveLink', $query);
@@ -369,7 +369,7 @@ class Zend_Service_Simpy
     public function getNotes($q = null, $limit = null)
     {
         $query = array(
-            'q'     => $q,
+            'q' => $q,
             'limit' => $limit
         );
 
@@ -402,10 +402,10 @@ class Zend_Service_Simpy
         }
 
         $query = array(
-            'title'       => $title,
-            'tags'        => $tags,
+            'title' => $title,
+            'tags' => $tags,
             'description' => $description,
-            'noteId'      => $noteId
+            'noteId' => $noteId
         );
 
         $this->_makeRequest('SaveNote', $query);
@@ -430,4 +430,5 @@ class Zend_Service_Simpy
 
         return $this;
     }
+
 }

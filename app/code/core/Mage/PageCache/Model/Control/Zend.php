@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_PageCache_Model_Control_Zend implements Mage_PageCache_Model_Control_Interface
 {
+
     /**
      * Clean zend server page cache
      *
@@ -44,4 +46,5 @@ class Mage_PageCache_Model_Control_Zend implements Mage_PageCache_Model_Control_
             page_cache_remove_all_cached_contents();
         }
     }
+
 }

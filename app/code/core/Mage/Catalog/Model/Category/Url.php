@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Category_Url
 {
+
     /**
      * Url instance
      *
@@ -77,11 +79,11 @@ class Mage_Catalog_Model_Category_Url
             return $url;
         }
 
-        Varien_Profiler::start('REWRITE: '.__METHOD__);
+        Varien_Profiler::start('REWRITE: ' . __METHOD__);
 
         if ($category->hasData('request_path') && $category->getData('request_path') != '') {
             $category->setData('url', $this->_getDirectUrl($category));
-            Varien_Profiler::stop('REWRITE: '.__METHOD__);
+            Varien_Profiler::stop('REWRITE: ' . __METHOD__);
             return $category->getData('url');
         }
 
@@ -89,11 +91,11 @@ class Mage_Catalog_Model_Category_Url
         if ($requestPath) {
             $category->setRequestPath($requestPath);
             $category->setData('url', $this->_getDirectUrl($category));
-            Varien_Profiler::stop('REWRITE: '.__METHOD__);
+            Varien_Profiler::stop('REWRITE: ' . __METHOD__);
             return $category->getData('url');
         }
 
-        Varien_Profiler::stop('REWRITE: '.__METHOD__);
+        Varien_Profiler::stop('REWRITE: ' . __METHOD__);
 
         $category->setData('url', $category->getCategoryIdUrl());
         return $category->getData('url');
@@ -155,4 +157,5 @@ class Mage_Catalog_Model_Category_Url
         }
         return $this->_urlRewrite;
     }
+
 }

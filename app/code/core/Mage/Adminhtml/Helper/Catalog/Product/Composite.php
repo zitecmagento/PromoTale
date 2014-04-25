@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,7 +34,8 @@
  */
 class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_Abstract
 {
-     /**
+
+    /**
      * Init layout of product configuration update result
      *
      * @param Mage_Adminhtml_Controller_Action $controller
@@ -42,7 +44,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
     protected function _initUpdateResultLayout($controller)
     {
         $controller->getLayout()->getUpdate()
-            ->addHandle('ADMINHTML_CATALOG_PRODUCT_COMPOSITE_UPDATE_RESULT');
+                ->addHandle('ADMINHTML_CATALOG_PRODUCT_COMPOSITE_UPDATE_RESULT');
         $controller->loadLayoutUpdates()->generateLayoutXml()->generateLayoutBlocks();
         return $this;
     }
@@ -63,7 +65,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
         $controller->renderLayout();
     }
 
-     /**
+    /**
      * Init composite product configuration layout
      *
      * $isOk - true or false, whether action was completed nicely or with some error
@@ -79,7 +81,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
         $update = $controller->getLayout()->getUpdate();
         if ($isOk) {
             $update->addHandle('ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE')
-                ->addHandle('PRODUCT_TYPE_' . $productType);
+                    ->addHandle('PRODUCT_TYPE_' . $productType);
         } else {
             $update->addHandle('ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE_ERROR');
         }
@@ -100,7 +102,8 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
      */
     public function renderConfigureResult($controller, Varien_Object $configureResult)
     {
-        try {
+        try
+        {
             if (!$configureResult->getOk()) {
                 Mage::throwException($configureResult->getMessage());
             };
@@ -111,8 +114,8 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
             }
 
             $product = Mage::getModel('catalog/product')
-                ->setStoreId($currentStoreId)
-                ->load($configureResult->getProductId());
+                    ->setStoreId($currentStoreId)
+                    ->load($configureResult->getProductId());
             if (!$product->getId()) {
                 Mage::throwException($this->__('Product is not loaded.'));
             }
@@ -125,7 +128,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
                 $currentCustomerId = (int) $configureResult->getCurrentCustomerId();
                 if ($currentCustomerId) {
                     $currentCustomer = Mage::getModel('customer/customer')
-                        ->load($currentCustomerId);
+                            ->load($currentCustomerId);
                 }
             }
             if ($currentCustomer) {
@@ -140,7 +143,9 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
 
             $isOk = true;
             $productType = $product->getTypeId();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $isOk = false;
             $productType = null;
             Mage::register('composite_configure_result_error_message', $e->getMessage());
@@ -149,4 +154,5 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
         $this->_initConfigureResultLayout($controller, $isOk, $productType);
         $controller->renderLayout();
     }
+
 }

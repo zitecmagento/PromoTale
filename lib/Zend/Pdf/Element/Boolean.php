@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,11 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Boolean.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Pdf_Element */
 #require_once 'Zend/Pdf/Element.php';
-
 
 /**
  * PDF file 'boolean' element implementation
@@ -34,13 +32,13 @@
  */
 class Zend_Pdf_Element_Boolean extends Zend_Pdf_Element
 {
+
     /**
      * Object value
      *
      * @var boolean
      */
     public $value;
-
 
     /**
      * Object constructor
@@ -50,14 +48,13 @@ class Zend_Pdf_Element_Boolean extends Zend_Pdf_Element
      */
     public function __construct($val)
     {
-        if (! is_bool($val)) {
+        if (!is_bool($val)) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Argument must be boolean.');
         }
 
-        $this->value   = $val;
+        $this->value = $val;
     }
-
 
     /**
      * Return type of the element.
@@ -69,7 +66,6 @@ class Zend_Pdf_Element_Boolean extends Zend_Pdf_Element
         return Zend_Pdf_Element::TYPE_BOOL;
     }
 
-
     /**
      * Return object as string
      *
@@ -80,4 +76,5 @@ class Zend_Pdf_Element_Boolean extends Zend_Pdf_Element
     {
         return $this->value ? 'true' : 'false';
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cms block content block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
 {
+
     /**
      * Prepare Content HTML
      *
@@ -45,8 +46,8 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
         $html = '';
         if ($blockId) {
             $block = Mage::getModel('cms/block')
-                ->setStoreId(Mage::app()->getStore()->getId())
-                ->load($blockId);
+                    ->setStoreId(Mage::app()->getStore()->getId())
+                    ->load($blockId);
             if ($block->getIsActive()) {
                 /* @var $helper Mage_Cms_Helper_Data */
                 $helper = Mage::helper('cms');
@@ -57,4 +58,5 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
         }
         return $html;
     }
+
 }

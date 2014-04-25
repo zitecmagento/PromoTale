@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $this->startSetup();
 
 $orderAddressEntityTypeId = 'order_address';
@@ -40,7 +40,7 @@ $attributeLabels = array(
     'email' => 'Email'
 );
 
-foreach ($attributeLabels as $attributeCode => $attributeLabel){
+foreach ($attributeLabels as $attributeCode => $attributeLabel) {
     $this->updateAttribute($orderAddressEntityTypeId, $attributeCode, 'frontend_label', $attributeLabel);
 }
 

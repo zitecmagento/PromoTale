@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-final class Mage_Connect_Command_Registry
-extends Mage_Connect_Command
+final class Mage_Connect_Command_Registry extends Mage_Connect_Command
 {
+
     const PACKAGE_PEAR_DIR = 'pearlib/php/.registry';
 
     /**
@@ -39,31 +39,33 @@ extends Mage_Connect_Command
     public function doList($command, $options, $params)
     {
         $this->cleanupParams($params);
-        try {
+        try
+        {
             $packager = $this->getPackager();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
+            if ($ftp) {
                 list($cache, $ftpObj) = $packager->getRemoteCache($ftp);
             } else {
                 $cache = $this->getSconfig();
             }
-            if(!empty($params[0])) {
+            if (!empty($params[0])) {
                 $chanName = $conf->chanName($params[0]);
                 $data = $cache->getInstalledPackages($chanName);
             } else {
                 $data = $cache->getInstalledPackages();
             }
-            if($ftp) {
+            if ($ftp) {
                 @unlink($cache->getFilename());
             }
-            $this->ui()->output(array($command=>array('data'=>$data, 'channel-title'=>"Installed package for channel '%s' :")));
-        } catch (Exception $e) {
-            if($ftp) {
+            $this->ui()->output(array($command => array('data' => $data, 'channel-title' => "Installed package for channel '%s' :")));
+        }
+        catch (Exception $e)
+        {
+            if ($ftp) {
                 @unlink($cache->getFilename());
             }
             $this->doError($command, $e->getMessage());
         }
-
     }
 
     /**
@@ -77,9 +79,10 @@ extends Mage_Connect_Command
     {
         $this->cleanupParams($params);
         //$this->splitPackageArgs($params);
-        try {
+        try
+        {
             $channel = false;
-            if(count($params) < 2) {
+            if (count($params) < 2) {
                 throw new Exception("Argument count should be = 2");
             }
             $channel = $params[0];
@@ -87,40 +90,40 @@ extends Mage_Connect_Command
 
             $packager = $this->getPackager();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
+            if ($ftp) {
                 list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
             } else {
                 $cache = $this->getSconfig();
                 $confif = $this->config();
             }
-            if(!$cache->hasPackage($channel, $package)) {
+            if (!$cache->hasPackage($channel, $package)) {
                 return $this->ui()->output("No package found: {$channel}/{$package}");
             }
 
             $p = $cache->getPackageObject($channel, $package);
             $contents = $p->getContents();
-            if($ftp) {
+            if ($ftp) {
                 $ftpObj->close();
             }
-            if(!count($contents)) {
+            if (!count($contents)) {
                 return $this->ui()->output("No contents for package {$package}");
             }
             $title = ("Contents of '{$package}': ");
-            if($ftp) {
+            if ($ftp) {
                 @unlink($config->getFilename());
                 @unlink($cache->getFilename());
             }
 
-            $this->ui()->output(array($command=>array('data'=>$contents, 'title'=>$title)));
-
-        } catch (Exception $e) {
-            if($ftp) {
+            $this->ui()->output(array($command => array('data' => $contents, 'title' => $title)));
+        }
+        catch (Exception $e)
+        {
+            if ($ftp) {
                 @unlink($config->getFilename());
                 @unlink($cache->getFilename());
             }
             $this->doError($command, $e->getMessage());
         }
-
     }
 
     /**
@@ -138,36 +141,39 @@ extends Mage_Connect_Command
 
         $cache = null;
         $ftp = empty($options['ftp']) ? false : $options['ftp'];
-        try {
+        try
+        {
             $channel = false;
-            if(count($params) < 2) {
+            if (count($params) < 2) {
                 throw new Exception("Argument count should be = 2");
             }
             $channel = $params[0];
             $package = $params[1];
             $packager = $this->getPackager();
-            if($ftp) {
+            if ($ftp) {
                 list($cache, $ftpObj) = $packager->getRemoteCache($ftp);
             } else {
                 $cache = $this->getSconfig();
             }
 
-            if(!$cache->isChannel($channel)) {
+            if (!$cache->isChannel($channel)) {
                 throw new Exception("'{$channel}' is not a valid installed channel name/uri");
             }
             $channelUri = $cache->chanUrl($channel);
             $rest = $this->rest();
             $rest->setChannel($channelUri);
             $releases = $rest->getReleases($package);
-            if(false === $releases) {
+            if (false === $releases) {
                 throw new Exception("No information found about {$channel}/{$package}");
             }
-            $data = array($command => array('releases'=>$releases));
-            if($ftp) {
+            $data = array($command => array('releases' => $releases));
+            if ($ftp) {
                 @unlink($cache->getFilename());
             }
             $this->ui()->output($data);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             if ($ftp && isset($cache)) {
                 @unlink($cache->getFilename());
             }
@@ -185,13 +191,14 @@ extends Mage_Connect_Command
     public function doSync($command, $options, $params)
     {
         $this->cleanupParams($params);
-        try {
+        try
+        {
             $packager = $this->getPackager();
             $cache = null;
             $config = null;
             $ftpObj = null;
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
+            if ($ftp) {
                 list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
             } else {
                 $config = $this->config();
@@ -204,8 +211,8 @@ extends Mage_Connect_Command
             $packageDir = $config->magento_root . DS . Mage_Connect_Package::PACKAGE_XML_DIR;
             if (is_dir($packageDir)) {
                 $entries = scandir($packageDir);
-                foreach ((array)$entries as $entry) {
-                    $path =  $packageDir. DS .$entry;
+                foreach ((array) $entries as $entry) {
+                    $path = $packageDir . DS . $entry;
                     $info = pathinfo($path);
                     if ($entry == '.' || $entry == '..' || is_dir($path) || $info['extension'] != 'xml') {
                         continue;
@@ -234,7 +241,9 @@ extends Mage_Connect_Command
                     $packager->writeToRemoteCache($cache, $ftpObj);
                 }
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->doError($command, $e->getMessage());
         }
     }
@@ -249,13 +258,14 @@ extends Mage_Connect_Command
     public function doSyncPear($command, $options, $params)
     {
         $this->cleanupParams($params);
-        try {
+        try
+        {
             $packager = $this->getPackager();
             $cache = null;
             $config = null;
             $ftpObj = null;
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
+            if ($ftp) {
                 list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
             } else {
                 $config = $this->config();
@@ -287,7 +297,7 @@ extends Mage_Connect_Command
                     if ($ent{0} == '.' || substr($ent, -4) != '.reg') {
                         continue;
                     }
-                    $pkglist[] = array('file'=>$ent, 'channel'=>$channel);
+                    $pkglist[] = array('file' => $ent, 'channel' => $channel);
                 }
                 closedir($dp);
             }
@@ -311,10 +321,10 @@ extends Mage_Connect_Command
                 if (!$cache->hasPackage($channel, $name, $version, $version)) {
                     $cache->addPackage($package);
 
-                    if($ftp) {
-                        $localXml = tempnam(sys_get_temp_dir(),'package');
+                    if ($ftp) {
+                        $localXml = tempnam(sys_get_temp_dir(), 'package');
                         @file_put_contents($localXml, $package->getPackageXml());
-                        
+
                         if (is_file($localXml)) {
                             $ftpDir = $ftpObj->getcwd();
                             $remoteXmlPath = $ftpDir . '/' . Mage_Connect_Package::PACKAGE_XML_DIR;
@@ -335,18 +345,19 @@ extends Mage_Connect_Command
 
                     $this->ui()->output("Successfully added: {$channel}/{$name}-{$version}");
                 }
-
             }
 
             $config->sync_pear = true;
-            if($ftp) {
+            if ($ftp) {
                 $packager->writeToRemoteCache($cache, $ftpObj);
                 @unlink($config->getFilename());
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->doError($command, $e->getMessage());
         }
-        
+
         return true;
     }
 
@@ -356,8 +367,9 @@ extends Mage_Connect_Command
      * @param Mage_Connect_Config $config
      * @return boolean
      */
-    protected function _checkPearData($config) {
-        $pearStorage = $config->magento_root . DS . $config->downloader_path  . DS . self::PACKAGE_PEAR_DIR;
+    protected function _checkPearData($config)
+    {
+        $pearStorage = $config->magento_root . DS . $config->downloader_path . DS . self::PACKAGE_PEAR_DIR;
         return (!$config->sync_pear) && file_exists($pearStorage) && is_dir($pearStorage);
     }
 

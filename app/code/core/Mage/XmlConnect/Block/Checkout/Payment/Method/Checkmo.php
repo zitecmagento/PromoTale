@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Payment_Method_Checkmo extends Mage_Payment_Block_Form_Checkmo
 {
+
     /**
      * Prevent any rendering
      *
@@ -69,4 +71,5 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Checkmo extends Mage_Payment
     {
         return $paymentItemXmlObj;
     }
+
 }

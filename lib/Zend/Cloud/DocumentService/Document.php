@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LICENSE
  *
@@ -29,9 +30,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cloud_DocumentService_Document 
-    implements ArrayAccess, IteratorAggregate, Countable
+class Zend_Cloud_DocumentService_Document implements ArrayAccess, IteratorAggregate, Countable
 {
+
     /** key in document denoting identifier */
     const KEY_FIELD = '_id';
 
@@ -90,7 +91,7 @@ class Zend_Cloud_DocumentService_Document
      *
      * @return string
      */
-    public function getId() 
+    public function getId()
     {
         return $this->_id;
     }
@@ -100,7 +101,7 @@ class Zend_Cloud_DocumentService_Document
      *
      * @return array
      */
-    public function getFields() 
+    public function getFields()
     {
         return $this->_fields;
     }
@@ -118,7 +119,7 @@ class Zend_Cloud_DocumentService_Document
         }
         return null;
     }
-    
+
     /**
      * Set field by name.
      *
@@ -126,12 +127,12 @@ class Zend_Cloud_DocumentService_Document
      * @param  mixed $value
      * @return Zend_Cloud_DocumentService_Document
      */
-    public function setField($name, $value) 
+    public function setField($name, $value)
     {
         $this->_fields[$name] = $value;
         return $this;
     }
-    
+
     /**
      * Overloading: get value
      * 
@@ -154,7 +155,7 @@ class Zend_Cloud_DocumentService_Document
     {
         $this->setField($name, $value);
     }
-    
+
     /**
      * ArrayAccess: does field exist?
      * 
@@ -165,7 +166,7 @@ class Zend_Cloud_DocumentService_Document
     {
         return isset($this->_fields[$name]);
     }
-    
+
     /**
      * ArrayAccess: get field by name
      * 
@@ -176,7 +177,7 @@ class Zend_Cloud_DocumentService_Document
     {
         return $this->getField($name);
     }
-    
+
     /**
      * ArrayAccess: set field to value
      * 
@@ -188,7 +189,7 @@ class Zend_Cloud_DocumentService_Document
     {
         $this->setField($name, $value);
     }
-    
+
     /**
      * ArrayAccess: remove field from document
      * 
@@ -201,7 +202,7 @@ class Zend_Cloud_DocumentService_Document
             unset($this->_fields[$name]);
         }
     }
-    
+
     /**
      * Overloading: retrieve and set fields by name
      * 
@@ -245,4 +246,5 @@ class Zend_Cloud_DocumentService_Document
     {
         return new ArrayIterator($this->_fields);
     }
+
 }

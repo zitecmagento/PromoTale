@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 20625 2010-01-25 21:03:53Z ralph $
  */
-
 /**
  * @see Zend_Db_Adapter_Exception
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Db_Adapter_Sqlsrv_Exception extends Zend_Db_Adapter_Exception
 {
+
     /**
      * Constructor
      *
@@ -48,16 +49,17 @@ class Zend_Db_Adapter_Sqlsrv_Exception extends Zend_Db_Adapter_Exception
      */
     public function __construct($message = null, $code = 0)
     {
-       if (is_array($message)) {
+        if (is_array($message)) {
             // Error should be array of errors
             // We only need first one (?)
             if (isset($message[0])) {
                 $message = $message[0];
             }
 
-            $code    = (int)    $message['code'];
+            $code = (int) $message['code'];
             $message = (string) $message['message'];
-       }
-       parent::__construct($message, $code, new Exception($message, $code));
-   }
+        }
+        parent::__construct($message, $code, new Exception($message, $code));
+    }
+
 }

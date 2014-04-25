@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_Abstract
 {
+
     /**
      * Validator for check not protected extensions
      *
@@ -54,15 +56,15 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
 
         $extend = $this->_getRequestValue($request);
 
-        $attrCode  = $this->getAttribute()->getAttributeCode();
+        $attrCode = $this->getAttribute()->getAttributeCode();
         if ($this->_requestScope) {
-            $value  = array();
+            $value = array();
             if (strpos($this->_requestScope, '/') !== false) {
                 $scopes = explode('/', $this->_requestScope);
-                $mainScope  = array_shift($scopes);
+                $mainScope = array_shift($scopes);
             } else {
-                $mainScope  = $this->_requestScope;
-                $scopes     = array();
+                $mainScope = $this->_requestScope;
+                $scopes = array();
             }
 
             if (!empty($_FILES[$mainScope])) {
@@ -106,9 +108,9 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      */
     protected function _validateByRules($value)
     {
-        $label  = $this->getAttribute()->getStoreLabel();
-        $rules  = $this->getAttribute()->getValidateRules();
-        $extension  = pathinfo($value['name'], PATHINFO_EXTENSION);
+        $label = $this->getAttribute()->getStoreLabel();
+        $rules = $this->getAttribute()->getValidateRules();
+        $extension = pathinfo($value['name'], PATHINFO_EXTENSION);
 
         if (!empty($rules['file_extensions'])) {
             $extensions = explode(',', $rules['file_extensions']);
@@ -160,12 +162,12 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             return true;
         }
 
-        $errors     = array();
-        $attribute  = $this->getAttribute();
-        $label      = $attribute->getStoreLabel();
+        $errors = array();
+        $attribute = $this->getAttribute();
+        $label = $attribute->getStoreLabel();
 
-        $toDelete   = !empty($value['delete']) ? true : false;
-        $toUpload   = !empty($value['tmp_name']) ? true : false;
+        $toDelete = !empty($value['delete']) ? true : false;
+        $toUpload = !empty($value['tmp_name']) ? true : false;
 
         if (!$toUpload && !$toDelete && $this->getEntity()->getData($attribute->getAttributeCode())) {
             return true;
@@ -204,18 +206,18 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         }
 
         $attribute = $this->getAttribute();
-        $original  = $this->getEntity()->getData($attribute->getAttributeCode());
-        $toDelete  = false;
+        $original = $this->getEntity()->getData($attribute->getAttributeCode());
+        $toDelete = false;
         if ($original) {
             if (!$attribute->getIsRequired() && !empty($value['delete'])) {
-                $toDelete  = true;
+                $toDelete = true;
             }
             if (!empty($value['tmp_name'])) {
-                $toDelete  = true;
+                $toDelete = true;
             }
         }
 
-        $path   = Mage::getBaseDir('media') . DS . $attribute->getEntity()->getEntityTypeCode();
+        $path = Mage::getBaseDir('media') . DS . $attribute->getEntity()->getEntityTypeCode();
 
         // unlink entity file
         if ($toDelete) {
@@ -228,7 +230,8 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         }
 
         if (!empty($value['tmp_name'])) {
-            try {
+            try
+            {
                 $uploader = new Varien_File_Uploader($value);
                 $uploader->setFilesDispersion(true);
                 $uploader->setFilenamesCaseSensitivity(false);
@@ -236,7 +239,9 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
                 $uploader->save($path, $value['name']);
                 $fileName = $uploader->getUploadedFileName();
                 $this->getEntity()->setData($attribute->getAttributeCode(), $fileName);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::logException($e);
             }
         }
@@ -263,13 +268,13 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {
         $output = '';
-        $value  = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());
+        $value = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());
         if ($value) {
             switch ($format) {
                 case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON:
                     $output = array(
-                        'value'     => $value,
-                        'url_key'   => Mage::helper('core')->urlEncode($value)
+                        'value' => $value,
+                        'url_key' => Mage::helper('core')->urlEncode($value)
                     );
                     break;
             }
@@ -277,4 +282,5 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
 
         return $output;
     }
+
 }

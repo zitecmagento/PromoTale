@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
 /**
  * @see Zend_Mail_Transport_Abstract
  */
 #require_once 'Zend/Mail/Transport/Abstract.php';
-
 
 /**
  * File transport
@@ -39,6 +38,7 @@
  */
 class Zend_Mail_Transport_File extends Zend_Mail_Transport_Abstract
 {
+
     /**
      * Target directory for saving sent email messages
      *
@@ -86,7 +86,7 @@ class Zend_Mail_Transport_File extends Zend_Mail_Transport_Abstract
      */
     public function setOptions(array $options)
     {
-        if (isset($options['path'])&& is_dir($options['path'])) {
+        if (isset($options['path']) && is_dir($options['path'])) {
             $this->_path = $options['path'];
         }
         if (isset($options['callback']) && is_callable($options['callback'])) {
@@ -108,8 +108,7 @@ class Zend_Mail_Transport_File extends Zend_Mail_Transport_Abstract
         if (!is_writable(dirname($file))) {
             #require_once 'Zend/Mail/Transport/Exception.php';
             throw new Zend_Mail_Transport_Exception(sprintf(
-                'Target directory "%s" does not exist or is not writable',
-                dirname($file)
+                    'Target directory "%s" does not exist or is not writable', dirname($file)
             ));
         }
 
@@ -127,8 +126,9 @@ class Zend_Mail_Transport_File extends Zend_Mail_Transport_Abstract
      * @param Zend_Mail_Transport_File File transport instance
      * @return string
      */
-    public function defaultCallback($transport) 
+    public function defaultCallback($transport)
     {
         return 'ZendMail_' . $_SERVER['REQUEST_TIME'] . '_' . mt_rand() . '.tmp';
     }
+
 }

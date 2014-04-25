@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Navigation.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Navigation_Container
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Navigation extends Zend_Navigation_Container
 {
+
     /**
      * Creates a new navigation container
      *
@@ -47,8 +48,9 @@ class Zend_Navigation extends Zend_Navigation_Container
         } elseif (null !== $pages) {
             #require_once 'Zend/Navigation/Exception.php';
             throw new Zend_Navigation_Exception(
-                    'Invalid argument: $pages must be an array, an ' .
-                    'instance of Zend_Config, or null');
+            'Invalid argument: $pages must be an array, an ' .
+            'instance of Zend_Config, or null');
         }
     }
+
 }

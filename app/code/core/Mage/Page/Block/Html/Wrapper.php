@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
 {
+
     /**
      * Whether block should render its content if there are no children (no)
      * @var bool
@@ -56,8 +58,8 @@ class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
         if ($this->_isInvisible()) {
             return $html;
         }
-        $id          = $this->hasElementId() ? sprintf(' id="%s"', $this->getElementId()) : '';
-        $class       = $this->hasElementClass() ? sprintf(' class="%s"', $this->getElementClass()) : '';
+        $id = $this->hasElementId() ? sprintf(' id="%s"', $this->getElementId()) : '';
+        $class = $this->hasElementClass() ? sprintf(' class="%s"', $this->getElementClass()) : '';
         $otherParams = $this->hasOtherParams() ? ' ' . $this->getOtherParams() : '';
         return sprintf('<%1$s%2$s%3$s%4$s>%5$s</%1$s>', $this->getElementTagName(), $id, $class, $otherParams, $html);
     }
@@ -79,7 +81,7 @@ class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
      */
     public function dependsOnChildren($depends = '0')
     {
-        $this->_dependsOnChildren = (bool)(int)$depends;
+        $this->_dependsOnChildren = (bool) (int) $depends;
         return $this;
     }
 
@@ -101,4 +103,5 @@ class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
         }
         return true;
     }
+
 }

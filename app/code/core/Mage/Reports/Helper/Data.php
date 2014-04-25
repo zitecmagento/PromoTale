@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,9 +30,11 @@
  */
 class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const REPORT_PERIOD_TYPE_DAY    = 'day';
-    const REPORT_PERIOD_TYPE_MONTH  = 'month';
-    const REPORT_PERIOD_TYPE_YEAR   = 'year';
+
+    const REPORT_PERIOD_TYPE_DAY = 'day';
+    const REPORT_PERIOD_TYPE_MONTH = 'month';
+    const REPORT_PERIOD_TYPE_YEAR = 'year';
+
     /**
      * Retrieve array of intervals
      *
@@ -43,7 +46,7 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
     public function getIntervals($from, $to, $period = self::REPORT_PERIOD_TYPE_DAY)
     {
         $intervals = array();
-        if (!$from && !$to){
+        if (!$from && !$to) {
             return $intervals;
         }
 
@@ -80,7 +83,7 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
             }
             $intervals[] = $t;
         }
-        return  $intervals;
+        return $intervals;
     }
 
     public function prepareIntervalsCollection($collection, $from, $to, $periodType = self::REPORT_PERIOD_TYPE_DAY)
@@ -94,5 +97,5 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
             $collection->addItem($item);
         }
     }
-}
 
+}

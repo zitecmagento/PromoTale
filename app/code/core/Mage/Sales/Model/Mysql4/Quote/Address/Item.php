@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Quote address item mysql4 resource model
  *
@@ -34,4 +34,5 @@
  */
 class Mage_Sales_Model_Mysql4_Quote_Address_Item extends Mage_Sales_Model_Resource_Quote_Address_Item
 {
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,25 +34,27 @@
  */
 class Mage_Api2_Model_Server
 {
+
     /**
      * Api2 REST type
      */
     const API_TYPE_REST = 'rest';
 
-    /**#@+
+    /*     * #@+
      * HTTP Response Codes
      */
-    const HTTP_OK                 = 200;
-    const HTTP_CREATED            = 201;
-    const HTTP_MULTI_STATUS       = 207;
-    const HTTP_BAD_REQUEST        = 400;
-    const HTTP_UNAUTHORIZED       = 401;
-    const HTTP_FORBIDDEN          = 403;
-    const HTTP_NOT_FOUND          = 404;
+    const HTTP_OK = 200;
+    const HTTP_CREATED = 201;
+    const HTTP_MULTI_STATUS = 207;
+    const HTTP_BAD_REQUEST = 400;
+    const HTTP_UNAUTHORIZED = 401;
+    const HTTP_FORBIDDEN = 403;
+    const HTTP_NOT_FOUND = 404;
     const HTTP_METHOD_NOT_ALLOWED = 405;
-    const HTTP_NOT_ACCEPTABLE     = 406;
-    const HTTP_INTERNAL_ERROR     = 500;
-    /**#@- */
+    const HTTP_NOT_ACCEPTABLE = 406;
+    const HTTP_INTERNAL_ERROR = 500;
+
+    /*     * #@- */
 
     /**
      * List of api types
@@ -71,10 +74,13 @@ class Mage_Api2_Model_Server
     public function run()
     {
         // can not use response object case
-        try {
+        try
+        {
             /** @var $response Mage_Api2_Model_Response */
             $response = Mage::getSingleton('api2/response');
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
 
             if (!headers_sent()) {
@@ -84,27 +90,31 @@ class Mage_Api2_Model_Server
             return;
         }
         // can not render errors case
-        try {
+        try
+        {
             /** @var $request Mage_Api2_Model_Request */
             $request = Mage::getSingleton('api2/request');
             /** @var $renderer Mage_Api2_Model_Renderer_Interface */
             $renderer = Mage_Api2_Model_Renderer::factory($request->getAcceptTypes());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
 
             $response->setHttpResponseCode(self::HTTP_INTERNAL_ERROR)
-                ->setBody('Service temporary unavailable')
-                ->sendResponse();
+                    ->setBody('Service temporary unavailable')
+                    ->sendResponse();
             return;
         }
         // default case
-        try {
+        try
+        {
             /** @var $apiUser Mage_Api2_Model_Auth_User_Abstract */
             $apiUser = $this->_authenticate($request);
 
             $this->_route($request)
-                ->_allow($request, $apiUser)
-                ->_dispatch($request, $response, $apiUser);
+                    ->_allow($request, $apiUser)
+                    ->_dispatch($request, $response, $apiUser);
 
             if ($response->getHttpResponseCode() == self::HTTP_CREATED) {
                 // TODO: Re-factor this after _renderException refactoring
@@ -114,7 +124,9 @@ class Mage_Api2_Model_Server
             if ($response->isException()) {
                 throw new Mage_Api2_Exception('Unhandled simple errors.', self::HTTP_INTERNAL_ERROR);
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_renderException($e, $renderer, $response);
         }
@@ -133,8 +145,8 @@ class Mage_Api2_Model_Server
     {
         $apiUser = $this->_getAuthUser();
         $this->_route($request)
-            ->_allow($request, $apiUser)
-            ->_dispatch($request, $response, $apiUser);
+                ->_allow($request, $apiUser)
+                ->_dispatch($request, $response, $apiUser);
     }
 
     /**
@@ -176,7 +188,7 @@ class Mage_Api2_Model_Server
     {
         if (!$this->_authUser) {
             throw new Exception("Mage_Api2_Model_Server::internalCall() seems to be executed "
-                . "before Mage_Api2_Model_Server::run()");
+            . "before Mage_Api2_Model_Server::run()");
         }
         return $this->_authUser;
     }
@@ -194,8 +206,8 @@ class Mage_Api2_Model_Server
         $router = Mage::getModel('api2/router');
 
         $router->routeApiType($request, true)
-            ->setRoutes($this->_getConfig()->getRoutes($request->getApiType()))
-            ->route($request);
+                ->setRoutes($this->_getConfig()->getRoutes($request->getApiType()))
+                ->route($request);
 
         return $this;
     }
@@ -229,9 +241,7 @@ class Mage_Api2_Model_Server
      * @return Mage_Api2_Model_Server
      */
     protected function _dispatch(
-        Mage_Api2_Model_Request $request,
-        Mage_Api2_Model_Response $response,
-        Mage_Api2_Model_Auth_User_Abstract $apiUser
+    Mage_Api2_Model_Request $request, Mage_Api2_Model_Response $response, Mage_Api2_Model_Auth_User_Abstract $apiUser
     )
     {
         /** @var $dispatcher Mage_Api2_Model_Dispatcher */
@@ -260,15 +270,16 @@ class Mage_Api2_Model_Server
      * @param Mage_Api2_Model_Response $response
      * @return Mage_Api2_Model_Server
      */
-    protected function _renderException(Exception $exception, Mage_Api2_Model_Renderer_Interface $renderer,
-        Mage_Api2_Model_Response $response
-    ) {
+    protected function _renderException(Exception $exception, Mage_Api2_Model_Renderer_Interface $renderer, Mage_Api2_Model_Response $response
+    )
+    {
         if ($exception instanceof Mage_Api2_Exception && $exception->getCode()) {
             $httpCode = $exception->getCode();
         } else {
             $httpCode = self::HTTP_INTERNAL_ERROR;
         }
-        try {
+        try
+        {
             //add last error to stack
             $response->setException($exception);
 
@@ -286,9 +297,11 @@ class Mage_Api2_Model_Server
             //set HTTP Code of last error, Content-Type and Body
             $response->setBody($renderer->render($messages));
             $response->setHeader('Content-Type', sprintf(
-                '%s; charset=%s', $renderer->getMimeType(), Mage_Api2_Model_Response::RESPONSE_CHARSET
+                            '%s; charset=%s', $renderer->getMimeType(), Mage_Api2_Model_Response::RESPONSE_CHARSET
             ));
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             //tunnelling of 406(Not acceptable) error
             $httpCode = $e->getCode() == self::HTTP_NOT_ACCEPTABLE    //$e->getCode() can result in one more loop
                     ? self::HTTP_NOT_ACCEPTABLE                      // of try..catch
@@ -312,4 +325,5 @@ class Mage_Api2_Model_Server
     {
         return self::$_apiTypes;
     }
+
 }

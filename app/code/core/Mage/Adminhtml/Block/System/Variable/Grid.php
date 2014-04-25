@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Internal constructor
      *
@@ -67,19 +68,19 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     protected function _prepareColumns()
     {
         $this->addColumn('variable_id', array(
-            'header'    => Mage::helper('adminhtml')->__('Variable ID'),
-            'width'     => '1',
-            'index'     => 'variable_id',
+            'header' => Mage::helper('adminhtml')->__('Variable ID'),
+            'width' => '1',
+            'index' => 'variable_id',
         ));
 
         $this->addColumn('code', array(
-            'header'    => Mage::helper('adminhtml')->__('Variable Code'),
-            'index'     => 'code',
+            'header' => Mage::helper('adminhtml')->__('Variable Code'),
+            'index' => 'code',
         ));
 
         $this->addColumn('name', array(
-            'header'    => Mage::helper('adminhtml')->__('Name'),
-            'index'     => 'name',
+            'header' => Mage::helper('adminhtml')->__('Name'),
+            'index' => 'name',
         ));
 
         return parent::_prepareColumns();
@@ -94,4 +95,5 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     {
         return $this->getUrl('*/*/edit', array('variable_id' => $row->getId()));
     }
+
 }

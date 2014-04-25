@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
 {
+
     /**
      * Load product by id
      *
@@ -66,4 +68,5 @@ class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
         }
         return $website;
     }
+
 }

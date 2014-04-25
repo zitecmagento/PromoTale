@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ErrorMessage.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** @see Zend_Amf_Value_Messaging_AcknowledgeMessage */
 #require_once 'Zend/Amf/Value/Messaging/AcknowledgeMessage.php';
 
@@ -35,6 +35,7 @@
  */
 class Zend_Amf_Value_Messaging_ErrorMessage extends Zend_Amf_Value_Messaging_AcknowledgeMessage
 {
+
     /**
      * Additional data with error
      * @var object
@@ -64,4 +65,5 @@ class Zend_Amf_Value_Messaging_ErrorMessage extends Zend_Amf_Value_Messaging_Ack
      * @var object
      */
     public $rootCause = null;
+
 }

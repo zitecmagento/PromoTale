@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Query variable name
      */
@@ -39,7 +41,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /*
      * Maximum query length
      */
-    const MAX_QUERY_LEN  = 200;
+    const MAX_QUERY_LEN = 200;
 
     /**
      * Query object
@@ -95,7 +97,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (!$this->_query) {
             $this->_query = Mage::getModel('catalogsearch/query')
-                ->loadByQuery($this->getQueryText());
+                    ->loadByQuery($this->getQueryText());
             if (!$this->_query->getId()) {
                 $this->_query->setQueryText($this->getQueryText());
             }
@@ -129,8 +131,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
             } else {
                 /* @var $stringHelper Mage_Core_Helper_String */
                 $stringHelper = Mage::helper('core/string');
-                $this->_queryText = is_array($this->_queryText) ? ''
-                    : $stringHelper->cleanString(trim($this->_queryText));
+                $this->_queryText = is_array($this->_queryText) ? '' : $stringHelper->cleanString(trim($this->_queryText));
 
                 $maxQueryLength = $this->getMaxQueryLength();
                 if ($maxQueryLength !== '' && $stringHelper->strlen($this->_queryText) > $maxQueryLength) {
@@ -172,8 +173,8 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     public function getResultUrl($query = null)
     {
         return $this->_getUrl('catalogsearch/result', array(
-            '_query' => array(self::QUERY_VAR_NAME => $query),
-            '_secure' => $this->_getApp()->getFrontController()->getRequest()->isSecure()
+                    '_query' => array(self::QUERY_VAR_NAME => $query),
+                    '_secure' => $this->_getApp()->getFrontController()->getRequest()->isSecure()
         ));
     }
 
@@ -185,7 +186,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     public function getSuggestUrl()
     {
         return $this->_getUrl('catalogsearch/ajax/suggest', array(
-            '_secure' => $this->_getApp()->getStore()->isCurrentlySecure()
+                    '_secure' => $this->_getApp()->getStore()->isCurrentlySecure()
         ));
     }
 
@@ -302,15 +303,14 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
         $stringHelper = Mage::helper('core/string');
 
         $searchType = Mage::getStoreConfig(Mage_CatalogSearch_Model_Fulltext::XML_PATH_CATALOG_SEARCH_TYPE);
-        if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
-            || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE
+        if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE
         ) {
             $wordsFull = $stringHelper->splitWords($this->getQueryText(), true);
             $wordsLike = $stringHelper->splitWords($this->getQueryText(), true, $this->getMaxQueryWords());
             if (count($wordsFull) > count($wordsLike)) {
                 $wordsCut = array_map(array($this, 'escapeHtml'), array_diff($wordsFull, $wordsLike));
                 $this->addNoteMessage(
-                    $this->__('Maximum words count is %1$s. In your search query was cut next part: %2$s.', $this->getMaxQueryWords(), join(' ', $wordsCut))
+                        $this->__('Maximum words count is %1$s. In your search query was cut next part: %2$s.', $this->getMaxQueryWords(), join(' ', $wordsCut))
                 );
             }
         }
@@ -330,8 +330,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($index as $value) {
             if (!is_array($value)) {
                 $_index[] = $value;
-            }
-            else {
+            } else {
                 $_index = array_merge($_index, $value);
             }
         }
@@ -366,4 +365,5 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
 
         return $this->_engine;
     }
+
 }

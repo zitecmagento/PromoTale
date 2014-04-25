@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 interface Zend_Application_Resource_Resource
 {
+
     /**
      * Constructor
      *

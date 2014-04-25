@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
-    extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * List of static CMS pages
      *
@@ -87,18 +87,18 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
     protected function _prepareButtons()
     {
         $addButton = $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-            'label'     => $this->__('Add Page'),
-            'onclick'   => 'cmsPageActionHelper.insertPage(); return false;',
-            'class'     => 'add'
-        ))->setName('add_page_item_button');
+                    'label' => $this->__('Add Page'),
+                    'onclick' => 'cmsPageActionHelper.insertPage(); return false;',
+                    'class' => 'add'
+                ))->setName('add_page_item_button');
 
         $this->setChild('add_button', $addButton);
 
         $deleteButton = $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-            'label'     => $this->__('Delete'),
-            'onclick'   => "$(\'config_data[{{deleteId}}][tr]\').remove(); return false;",
-            'class'     => 'delete'
-        ))->setName('add_page_item_button');
+                    'label' => $this->__('Delete'),
+                    'onclick' => "$(\'config_data[{{deleteId}}][tr]\').remove(); return false;",
+                    'class' => 'delete'
+                ))->setName('add_page_item_button');
 
         $this->setChild('delete_button', $deleteButton);
         return $this;
@@ -163,4 +163,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
     {
         return Mage::getSingleton('xmlconnect/configuration')->getDeviceStaticPages();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interface
 {
+
     /**
      * Regular expressions for cutting malicious code
      *
@@ -93,4 +95,5 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
         $this->_expressions = $expressions;
         return $this;
     }
+
 }

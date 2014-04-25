@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Countable, ArrayAccess
 {
+
     /**
      * The original data for each row.
      *
@@ -105,24 +107,24 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
     public function __construct(array $config)
     {
         if (isset($config['table'])) {
-            $this->_table      = $config['table'];
+            $this->_table = $config['table'];
             $this->_tableClass = get_class($this->_table);
         }
         if (isset($config['rowClass'])) {
-            $this->_rowClass   = $config['rowClass'];
+            $this->_rowClass = $config['rowClass'];
         }
         if (!class_exists($this->_rowClass)) {
             #require_once 'Zend/Loader.php';
             Zend_Loader::loadClass($this->_rowClass);
         }
         if (isset($config['data'])) {
-            $this->_data       = $config['data'];
+            $this->_data = $config['data'];
         }
         if (isset($config['readOnly'])) {
-            $this->_readOnly   = $config['readOnly'];
+            $this->_readOnly = $config['readOnly'];
         }
         if (isset($config['stored'])) {
-            $this->_stored     = $config['stored'];
+            $this->_stored = $config['stored'];
         }
 
         // set the count of rows
@@ -139,7 +141,7 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
     public function __sleep()
     {
         return array('_data', '_tableClass', '_rowClass', '_pointer', '_count', '_rows', '_stored',
-                     '_readOnly');
+            '_readOnly');
     }
 
     /**
@@ -163,6 +165,7 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
      */
     public function init()
     {
+        
     }
 
     /**
@@ -356,6 +359,7 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
      */
     public function offsetSet($offset, $value)
     {
+        
     }
 
     /**
@@ -366,6 +370,7 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
      */
     public function offsetUnset($offset)
     {
+        
     }
 
     /**
@@ -378,17 +383,20 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
      */
     public function getRow($position, $seek = false)
     {
-        try {
+        try
+        {
             $row = $this->_loadAndReturnRow($position);
-        } catch (Zend_Db_Table_Rowset_Exception $e) {
+        }
+        catch (Zend_Db_Table_Rowset_Exception $e)
+        {
             #require_once 'Zend/Db/Table/Rowset/Exception.php';
             throw new Zend_Db_Table_Rowset_Exception('No row could be found at position ' . (int) $position, 0, $e);
         }
-        
+
         if ($seek == true) {
             $this->seek($position);
         }
-        
+
         return $row;
     }
 
@@ -408,23 +416,23 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
         }
         return $this->_data;
     }
-    
+
     protected function _loadAndReturnRow($position)
     {
         if (!isset($this->_data[$position])) {
             #require_once 'Zend/Db/Table/Rowset/Exception.php';
             throw new Zend_Db_Table_Rowset_Exception("Data for provided position does not exist");
         }
-        
+
         // do we already have a row object for this position?
         if (empty($this->_rows[$position])) {
             $this->_rows[$position] = new $this->_rowClass(
-                array(
-                    'table'    => $this->_table,
-                    'data'     => $this->_data[$position],
-                    'stored'   => $this->_stored,
-                    'readOnly' => $this->_readOnly
-                )
+                    array(
+                'table' => $this->_table,
+                'data' => $this->_data[$position],
+                'stored' => $this->_stored,
+                'readOnly' => $this->_readOnly
+                    )
             );
         }
 

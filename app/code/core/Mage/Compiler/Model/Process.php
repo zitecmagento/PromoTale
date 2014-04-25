@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,27 +32,26 @@
  * @package     Mage_Compiler
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Compiler_Model_Process
 {
-    protected $_compileDir      = null;
-    protected $_includeDir      = null;
-    protected $_statDir         = null;
-    protected $_compileConfig   = null;
-    protected $_includePaths    = array();
-    protected $_processedClasses= array();
 
+    protected $_compileDir = null;
+    protected $_includeDir = null;
+    protected $_statDir = null;
+    protected $_compileConfig = null;
+    protected $_includePaths = array();
+    protected $_processedClasses = array();
     protected $_controllerFolders = array();
 
-    public function __construct($options=array())
+    public function __construct($options = array())
     {
         if (isset($options['compile_dir'])) {
             $this->_compileDir = $options['compile_dir'];
         } else {
             $this->_compileDir = Mage::getBaseDir() . DS . 'includes';
         }
-        $this->_includeDir  = $this->_compileDir . DS . 'src';
-        $this->_statDir     = $this->_compileDir . DS . 'stat';
+        $this->_includeDir = $this->_compileDir . DS . 'src';
+        $this->_statDir = $this->_compileDir . DS . 'stat';
     }
 
     /**
@@ -62,7 +62,7 @@ class Mage_Compiler_Model_Process
     public function getCompileConfig()
     {
         if ($this->_compileConfig === null) {
-            $this->_compileConfig   = Mage::getConfig()->loadModulesConfiguration('compilation.xml');
+            $this->_compileConfig = Mage::getConfig()->loadModulesConfiguration('compilation.xml');
         }
         return $this->_compileConfig;
     }
@@ -84,7 +84,7 @@ class Mage_Compiler_Model_Process
             } else {
                 $path = str_replace($originalPath, '', get_include_path());
             }
-            
+
             $this->_includePaths = explode(PS, $path);
             foreach ($this->_includePaths as $index => $path) {
                 if (empty($path) || $path == '.') {
@@ -124,8 +124,8 @@ class Mage_Compiler_Model_Process
                 $this->_copy($sourceFile, $targetFile, false);
             }
         } else {
-            if (strpos(str_replace($this->_includeDir, '', $target), '-')
-                || !in_array(substr($source, strlen($source)-4, 4), array('.php'))) {
+            if (strpos(str_replace($this->_includeDir, '', $target), '-') || !in_array(substr($source, strlen($source) - 4, 4), array(
+                        '.php'))) {
                 return $this;
             }
             copy($source, $target);
@@ -141,7 +141,7 @@ class Mage_Compiler_Model_Process
      */
     protected function _copyZendLocaleData($destDir)
     {
-        $source = Mage::getBaseDir('lib').DS.'Zend'.DS.'Locale'.DS.'Data';
+        $source = Mage::getBaseDir('lib') . DS . 'Zend' . DS . 'Locale' . DS . 'Data';
         $dir = dir($source);
         while (false !== ($file = $dir->read())) {
             if (($file[0] == '.')) {
@@ -168,7 +168,7 @@ class Mage_Compiler_Model_Process
             $arrDirs = explode(DS, $relPath);
             $destPath = $this->_includeDir;
             foreach ($arrDirs as $dir) {
-                $destPath.= DS.$dir;
+                $destPath.= DS . $dir;
                 $this->_mkdir($destPath);
             }
             $this->_copyAll($path, $destPath);
@@ -197,7 +197,7 @@ class Mage_Compiler_Model_Process
                 $this->_copyAll($sourceFile, $targetFile);
             }
         } else {
-            if (!in_array(substr($source, strlen($source)-4, 4), array('.php'))) {
+            if (!in_array(substr($source, strlen($source) - 4, 4), array('.php'))) {
                 return $this;
             }
             copy($source, $target);
@@ -228,9 +228,9 @@ class Mage_Compiler_Model_Process
      */
     protected function _collectFiles()
     {
-        $paths  = $this->_getIncludePaths();
-        $paths  = array_reverse($paths);
-        $destDir= $this->_includeDir;
+        $paths = $this->_getIncludePaths();
+        $paths = array_reverse($paths);
+        $destDir = $this->_includeDir;
         $libDir = Mage::getBaseDir('lib');
 
         $this->_mkdir($destDir);
@@ -243,7 +243,7 @@ class Mage_Compiler_Model_Process
             }
         }
 
-        $destDir.= DS.'Data';
+        $destDir.= DS . 'Data';
         $this->_mkdir($destDir);
         $this->_copyZendLocaleData($destDir);
         return $this;
@@ -251,26 +251,26 @@ class Mage_Compiler_Model_Process
 
     public function getCollectedFilesCount()
     {
-        return count(glob($this->_includeDir.DS.'*'));
+        return count(glob($this->_includeDir . DS . '*'));
     }
 
     public function getCompiledFilesCount()
     {
-        return count(glob($this->_includeDir.DS.Varien_Autoload::SCOPE_FILE_PREFIX.'*'));
+        return count(glob($this->_includeDir . DS . Varien_Autoload::SCOPE_FILE_PREFIX . '*'));
     }
 
     public function getCompileClassList()
     {
         $arrFiles = array();
-        $statDir  = $this->_statDir;
-        $statFiles= array();
+        $statDir = $this->_statDir;
+        $statFiles = array();
         if (is_dir($statDir)) {
             $dir = dir($statDir);
             while (false !== ($file = $dir->read())) {
                 if (($file[0] == '.')) {
                     continue;
                 }
-                $statFiles[str_replace('.csv', '', $file)] = $this->_statDir.DS.$file;
+                $statFiles[str_replace('.csv', '', $file)] = $this->_statDir . DS . $file;
             }
         }
 
@@ -299,7 +299,7 @@ class Mage_Compiler_Model_Process
             sort($arrFiles[$code]);
         }
 
-        foreach($statFiles as $code => $file) {
+        foreach ($statFiles as $code => $file) {
             $classes = explode("\n", file_get_contents($file));
             $popularStatClasses = array();
             foreach ($classes as $index => $classInfo) {
@@ -309,7 +309,7 @@ class Mage_Compiler_Model_Process
             ksort($popularStatClasses);
             $arrFiles[$code] = array_pop($popularStatClasses);
         }
-        foreach ($arrFiles as $scope=>$classes) {
+        foreach ($arrFiles as $scope => $classes) {
             if ($scope != 'default') {
                 foreach ($classes as $index => $class) {
                     if (in_array($class, $arrFiles['default'])) {
@@ -332,7 +332,7 @@ class Mage_Compiler_Model_Process
 
         foreach ($classesInfo as $code => $classes) {
             $classesSorce = $this->_getClassesSourceCode($classes, $code);
-            file_put_contents($this->_includeDir.DS.Varien_Autoload::SCOPE_FILE_PREFIX.$code.'.php', $classesSorce);
+            file_put_contents($this->_includeDir . DS . Varien_Autoload::SCOPE_FILE_PREFIX . $code . '.php', $classesSorce);
         }
         return $this;
     }
@@ -350,7 +350,7 @@ class Mage_Compiler_Model_Process
                     }
                 }
             }
-            $extends    = array_reverse(class_parents($className));
+            $extends = array_reverse(class_parents($className));
             foreach ($extends as $class) {
                 if (!in_array($class, $sortedClasses) && !in_array($class, $this->_processedClasses) && strstr($class, '_')) {
                     $sortedClasses[] = $class;
@@ -361,15 +361,15 @@ class Mage_Compiler_Model_Process
             }
             if (!in_array($className, $sortedClasses) && !in_array($className, $this->_processedClasses)) {
                 $sortedClasses[] = $className;
-                    if ($scope == 'default') {
-                        $this->_processedClasses[] = $className;
-                    }
+                if ($scope == 'default') {
+                    $this->_processedClasses[] = $className;
+                }
             }
         }
 
         $classesSource = "<?php\n";
         foreach ($sortedClasses as $className) {
-            $file = $this->_includeDir.DS.$className.'.php';
+            $file = $this->_includeDir . DS . $className . '.php';
             if (!file_exists($file)) {
                 continue;
             }
@@ -401,7 +401,6 @@ class Mage_Compiler_Model_Process
         $this->_compileFiles();
         $this->registerIncludePath();
         return $this;
-
     }
 
     /**
@@ -412,7 +411,7 @@ class Mage_Compiler_Model_Process
      */
     public function registerIncludePath($flag = true)
     {
-        $file = $this->_compileDir.DS.'config.php';
+        $file = $this->_compileDir . DS . 'config.php';
         if (is_writeable($file)) {
             $content = file_get_contents($file);
             $content = explode("\n", $content);
@@ -421,7 +420,7 @@ class Mage_Compiler_Model_Process
                     if ($flag) {
                         $content[$index] = ltrim($line, '#');
                     } else {
-                        $content[$index] = '#'.$line;
+                        $content[$index] = '#' . $line;
                     }
                 }
             }
@@ -441,7 +440,7 @@ class Mage_Compiler_Model_Process
         if (!is_writeable($this->_compileDir)) {
             $result[] = Mage::helper('compiler')->__('Directory "%s" must be writeable', $this->_compileDir);
         }
-        $file = $this->_compileDir.DS.'config.php';
+        $file = $this->_compileDir . DS . 'config.php';
         if (!is_writeable($file)) {
             $result[] = Mage::helper('compiler')->__('File "%s" must be writeable', $file);
         }

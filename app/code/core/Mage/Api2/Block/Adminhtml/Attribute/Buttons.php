@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Block_Adminhtml_Attribute_Buttons extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Construct
      */
@@ -50,15 +52,15 @@ class Mage_Api2_Block_Adminhtml_Attribute_Buttons extends Mage_Adminhtml_Block_T
     protected function _prepareLayout()
     {
         $buttons = array(
-            'backButton'    => array(
-                'label'     => $this->__('Back'),
-                'onclick'   => sprintf("window.location.href='%s';", $this->getUrl('*/*/')),
-                'class'     => 'back'
+            'backButton' => array(
+                'label' => $this->__('Back'),
+                'onclick' => sprintf("window.location.href='%s';", $this->getUrl('*/*/')),
+                'class' => 'back'
             ),
-            'saveButton'    => array(
-                'label'     => $this->__('Save'),
-                'onclick'   => 'form.submit(); return false;',
-                'class'     => 'save'
+            'saveButton' => array(
+                'label' => $this->__('Save'),
+                'onclick' => 'form.submit(); return false;',
+                'class' => 'save'
             ),
         );
 
@@ -109,4 +111,5 @@ class Mage_Api2_Block_Adminhtml_Attribute_Buttons extends Mage_Adminhtml_Block_T
     {
         return $this->__('Edit');
     }
+
 }

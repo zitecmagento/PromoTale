@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Queue extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     /**
      * Class constructor
      */
@@ -45,4 +47,5 @@ class Mage_XmlConnect_Block_Adminhtml_Queue extends Mage_Adminhtml_Block_Widget_
         parent::__construct();
         $this->removeButton('add');
     }
+
 }

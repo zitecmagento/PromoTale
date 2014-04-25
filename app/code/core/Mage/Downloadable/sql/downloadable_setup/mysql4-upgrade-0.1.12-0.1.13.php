@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
@@ -34,19 +34,17 @@ $installer->getConnection()->addColumn($installer->getTable('downloadable/link_p
 $installer->getConnection()->addKey($installer->getTable('downloadable/link_purchased_item'), 'DOWNLOADALBE_LINK_HASH', 'link_hash');
 
 $select = $installer->getConnection()->select()
-    ->from($installer->getTable('downloadable/link_purchased_item'), array(
-        'item_id',
-        'purchased_id',
-        'order_item_id',
-        'product_id'
-    ));
+        ->from($installer->getTable('downloadable/link_purchased_item'), array(
+    'item_id',
+    'purchased_id',
+    'order_item_id',
+    'product_id'
+        ));
 $result = $installer->getConnection()->fetchAll($select);
 
 foreach ($result as $row) {
     $installer->getConnection()->update(
-        $installer->getTable('downloadable/link_purchased_item'),
-        array('link_hash' => strtr(base64_encode(microtime() . $row['purchased_id'] . $row['order_item_id'] . $row['product_id']), '+/=', '-_,')),
-        $installer->getConnection()->quoteInto('item_id = ?', $row['item_id'])
+            $installer->getTable('downloadable/link_purchased_item'), array('link_hash' => strtr(base64_encode(microtime() . $row['purchased_id'] . $row['order_item_id'] . $row['product_id']), '+/=', '-_,')), $installer->getConnection()->quoteInto('item_id = ?', $row['item_id'])
     );
 }
 

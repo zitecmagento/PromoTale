@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Google Base Item Id Renderer
  *
@@ -32,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_GoogleBase_Block_Adminhtml_Items_Renderer_Id
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_GoogleBase_Block_Adminhtml_Items_Renderer_Id extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     /**
      * Renders Google Base Item Id
      *
@@ -57,4 +57,5 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Renderer_Id
 
         return sprintf('<a href="%s" alt="%s" title="%s" target="_blank">%s</a>', $baseUrl . $itemId, $title, $title, $itemId);
     }
+
 }

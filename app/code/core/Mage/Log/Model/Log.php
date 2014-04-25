@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Log Model
  *
@@ -47,7 +47,8 @@
  */
 class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
 {
-    const XML_LOG_CLEAN_DAYS    = 'system/log/clean_after_day';
+
+    const XML_LOG_CLEAN_DAYS = 'system/log/clean_after_day';
 
     /**
      * Init Resource Model
@@ -73,4 +74,5 @@ class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
         $this->getResource()->clean($this);
         return $this;
     }
+
 }

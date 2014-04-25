@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Notification
-    extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Notification extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Constructor
      * Setting view options
@@ -62,7 +62,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Notification
         $yesNoValues = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
 
         $fieldset = $form->addFieldset('notifications', array(
-            'legend'    => $this->__('Urban Airship Push Notification'),
+            'legend' => $this->__('Urban Airship Push Notification'),
         ));
 
         if (isset($data['conf[native][notifications][isActive]'])) {
@@ -72,10 +72,10 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Notification
         }
 
         $notificationEnabled = $fieldset->addField('conf/native/notifisations/isActive', 'select', array(
-            'label'     => $this->__('Enable AirMail Message Push notification'),
-            'name'      => 'conf[native][notifications][isActive]',
-            'values'    => $yesNoValues,
-            'value'     => $notificationStatus,
+            'label' => $this->__('Enable AirMail Message Push notification'),
+            'name' => 'conf[native][notifications][isActive]',
+            'values' => $yesNoValues,
+            'value' => $notificationStatus,
         ));
 
         if (isset($data['conf[native][notifications][applicationKey]'])) {
@@ -85,10 +85,10 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Notification
         }
 
         $applicationKey = $fieldset->addField('conf/native/notifications/applicationKey', 'text', array(
-            'label'     => $this->__('Application Key'),
-            'name'      => 'conf[native][notifications][applicationKey]',
-            'value'     => $keyValue,
-            'required'  => true
+            'label' => $this->__('Application Key'),
+            'name' => 'conf[native][notifications][applicationKey]',
+            'value' => $keyValue,
+            'required' => true
         ));
 
         if (isset($data['conf[native][notifications][applicationSecret]'])) {
@@ -98,10 +98,10 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Notification
         }
 
         $applicationSecret = $fieldset->addField('conf/native/notifications/applicationSecret', 'text', array(
-            'label'     => $this->__('Application Secret'),
-            'name'      => 'conf[native][notifications][applicationSecret]',
-            'value'     => $secretValue,
-            'required'  => true
+            'label' => $this->__('Application Secret'),
+            'name' => 'conf[native][notifications][applicationSecret]',
+            'value' => $secretValue,
+            'required' => true
         ));
 
         if (isset($data['conf[native][notifications][applicationMasterSecret]'])) {
@@ -112,10 +112,10 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Notification
 
         $mSecretConfPath = 'conf/native/notifications/applicationMasterSecret';
         $applicationMasterSecret = $fieldset->addField($mSecretConfPath, 'text', array(
-            'label'     => $this->__('Application Master Secret'),
-            'name'      => 'conf[native][notifications][applicationMasterSecret]',
-            'value'     => $mSecretValue,
-            'required'  => true
+            'label' => $this->__('Application Master Secret'),
+            'name' => 'conf[native][notifications][applicationMasterSecret]',
+            'value' => $mSecretValue,
+            'required' => true
         ));
 
         if (isset($data['conf[native][notifications][mailboxTitle]'])) {
@@ -125,37 +125,29 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Notification
         }
 
         $mailboxTitle = $fieldset->addField('conf/native/notifications/mailboxTitle', 'text', array(
-            'label'     => $this->__('Mailbox title'),
-            'name'      => 'conf[native][notifications][mailboxTitle]',
-            'value'     => $titleValue,
-            'required'  => true,
-            'note'      => $this->__('The Mailbox title will be shown in the More Info tab. To understand more about the title, please <a target="_blank" href="http://www.magentocommerce.com/img/product/mobile/helpers/mail_box_title.png">click here</a>')
+            'label' => $this->__('Mailbox title'),
+            'name' => 'conf[native][notifications][mailboxTitle]',
+            'value' => $titleValue,
+            'required' => true,
+            'note' => $this->__('The Mailbox title will be shown in the More Info tab. To understand more about the title, please <a target="_blank" href="http://www.magentocommerce.com/img/product/mobile/helpers/mail_box_title.png">click here</a>')
         ));
 
         // field dependencies
         $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
-            ->addFieldMap($applicationKey->getHtmlId(), $applicationKey->getName())
-            ->addFieldMap($applicationSecret->getHtmlId(), $applicationSecret->getName())
-            ->addFieldMap($applicationMasterSecret->getHtmlId(), $applicationMasterSecret->getName())
-            ->addFieldMap($mailboxTitle->getHtmlId(), $mailboxTitle->getName())
-            ->addFieldMap($notificationEnabled->getHtmlId(), $notificationEnabled->getName())
-            ->addFieldDependence(
-                $applicationKey->getName(),
-                $notificationEnabled->getName(),
-                1)
-            ->addFieldDependence(
-                $applicationSecret->getName(),
-                $notificationEnabled->getName(),
-                1)
-            ->addFieldDependence(
-                $applicationMasterSecret->getName(),
-                $notificationEnabled->getName(),
-                1)
-            ->addFieldDependence(
-                $mailboxTitle->getName(),
-                $notificationEnabled->getName(),
-                1)
-            );
+                        ->addFieldMap($applicationKey->getHtmlId(), $applicationKey->getName())
+                        ->addFieldMap($applicationSecret->getHtmlId(), $applicationSecret->getName())
+                        ->addFieldMap($applicationMasterSecret->getHtmlId(), $applicationMasterSecret->getName())
+                        ->addFieldMap($mailboxTitle->getHtmlId(), $mailboxTitle->getName())
+                        ->addFieldMap($notificationEnabled->getHtmlId(), $notificationEnabled->getName())
+                        ->addFieldDependence(
+                                $applicationKey->getName(), $notificationEnabled->getName(), 1)
+                        ->addFieldDependence(
+                                $applicationSecret->getName(), $notificationEnabled->getName(), 1)
+                        ->addFieldDependence(
+                                $applicationMasterSecret->getName(), $notificationEnabled->getName(), 1)
+                        ->addFieldDependence(
+                                $mailboxTitle->getName(), $notificationEnabled->getName(), 1)
+        );
         return parent::_prepareForm();
     }
 
@@ -186,8 +178,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Notification
      */
     public function canShowTab()
     {
-        return (bool) !Mage::getSingleton('adminhtml/session')->getNewApplication()
-            && Mage::helper('xmlconnect')->isNotificationsAllowed();
+        return (bool) !Mage::getSingleton('adminhtml/session')->getNewApplication() && Mage::helper('xmlconnect')->isNotificationsAllowed();
     }
 
     /**
@@ -213,4 +204,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Notification
     {
         return $this->getChildHtml('app_notification_helper') . parent::_toHtml();
     }
+
 }

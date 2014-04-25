@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Core.php 22651 2010-07-21 04:19:44Z ramon $
  */
 
-
 /**
  * @package    Zend_Cache
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
@@ -27,6 +27,7 @@
  */
 class Zend_Cache_Core
 {
+
     /**
      * Messages
      */
@@ -81,15 +82,15 @@ class Zend_Cache_Core
      * @var array $_options available options
      */
     protected $_options = array(
-        'write_control'             => true,
-        'caching'                   => true,
-        'cache_id_prefix'           => null,
-        'automatic_serialization'   => false,
+        'write_control' => true,
+        'caching' => true,
+        'cache_id_prefix' => null,
+        'automatic_serialization' => false,
         'automatic_cleaning_factor' => 10,
-        'lifetime'                  => 3600,
-        'logging'                   => false,
-        'logger'                    => null,
-        'ignore_user_abort'         => false
+        'lifetime' => 3600,
+        'logging' => false,
+        'logger' => null,
+        'ignore_user_abort' => false
     );
 
     /**
@@ -141,7 +142,7 @@ class Zend_Cache_Core
         }
         if (!is_array($options)) {
             Zend_Cache::throwException("Options passed were not an array"
-            . " or Zend_Config instance.");
+                    . " or Zend_Config instance.");
         }
         while (list($name, $value) = each($options)) {
             $this->setOption($name, $value);
@@ -173,7 +174,7 @@ class Zend_Cache_Core
      */
     public function setBackend(Zend_Cache_Backend $backendObject)
     {
-        $this->_backend= $backendObject;
+        $this->_backend = $backendObject;
         // some options (listed in $_directivesList) have to be given
         // to the backend too (even if they are not "backend specific")
         $directives = array();
@@ -185,7 +186,6 @@ class Zend_Cache_Core
             $this->_extendedBackend = true;
             $this->_backendCapabilities = $this->_backend->getCapabilities();
         }
-
     }
 
     /**
@@ -301,7 +301,7 @@ class Zend_Cache_Core
         $this->_lastId = $id;
         self::_validateIdOrTag($id);
         $data = $this->_backend->load($id, $doNotTestCacheValidity);
-        if ($data===false) {
+        if ($data === false) {
             // no cache available
             return false;
         }
@@ -363,7 +363,7 @@ class Zend_Cache_Core
         // automatic cleaning
         if ($this->_options['automatic_cleaning_factor'] > 0) {
             $rand = rand(1, $this->_options['automatic_cleaning_factor']);
-            if ($rand==1) {
+            if ($rand == 1) {
                 if ($this->_extendedBackend) {
                     // New way
                     if ($this->_backendCapabilities['automatic_cleaning']) {
@@ -402,7 +402,7 @@ class Zend_Cache_Core
         }
         if ($this->_options['write_control']) {
             $data2 = $this->_backend->load($id, true);
-            if ($data!=$data2) {
+            if ($data != $data2) {
                 $this->_log('Zend_Cache_Core::save() / write_control : written and read data do not match');
                 $this->_backend->remove($id);
                 return false;
@@ -451,10 +451,10 @@ class Zend_Cache_Core
             return true;
         }
         if (!in_array($mode, array(Zend_Cache::CLEANING_MODE_ALL,
-                                   Zend_Cache::CLEANING_MODE_OLD,
-                                   Zend_Cache::CLEANING_MODE_MATCHING_TAG,
-                                   Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG,
-                                   Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG))) {
+                    Zend_Cache::CLEANING_MODE_OLD,
+                    Zend_Cache::CLEANING_MODE_MATCHING_TAG,
+                    Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG,
+                    Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG))) {
             Zend_Cache::throwException('Invalid cleaning mode');
         }
         self::_validateTagsArray($tags);
@@ -482,7 +482,7 @@ class Zend_Cache_Core
 
         // we need to remove cache_id_prefix from ids (see #ZF-6178, #ZF-7600)
         if (isset($this->_options['cache_id_prefix']) && $this->_options['cache_id_prefix'] !== '') {
-            $prefix    = & $this->_options['cache_id_prefix'];
+            $prefix = & $this->_options['cache_id_prefix'];
             $prefixLen = strlen($prefix);
             foreach ($ids as &$id) {
                 if (strpos($id, $prefix) === 0) {
@@ -515,7 +515,7 @@ class Zend_Cache_Core
 
         // we need to remove cache_id_prefix from ids (see #ZF-6178, #ZF-7600)
         if (isset($this->_options['cache_id_prefix']) && $this->_options['cache_id_prefix'] !== '') {
-            $prefix    = & $this->_options['cache_id_prefix'];
+            $prefix = & $this->_options['cache_id_prefix'];
             $prefixLen = strlen($prefix);
             foreach ($ids as &$id) {
                 if (strpos($id, $prefix) === 0) {
@@ -548,7 +548,7 @@ class Zend_Cache_Core
 
         // we need to remove cache_id_prefix from ids (see #ZF-6178, #ZF-7600)
         if (isset($this->_options['cache_id_prefix']) && $this->_options['cache_id_prefix'] !== '') {
-            $prefix    = & $this->_options['cache_id_prefix'];
+            $prefix = & $this->_options['cache_id_prefix'];
             $prefixLen = strlen($prefix);
             foreach ($ids as &$id) {
                 if (strpos($id, $prefix) === 0) {
@@ -575,7 +575,7 @@ class Zend_Cache_Core
 
         // we need to remove cache_id_prefix from ids (see #ZF-6178, #ZF-7600)
         if (isset($this->_options['cache_id_prefix']) && $this->_options['cache_id_prefix'] !== '') {
-            $prefix    = & $this->_options['cache_id_prefix'];
+            $prefix = & $this->_options['cache_id_prefix'];
             $prefixLen = strlen($prefix);
             foreach ($ids as &$id) {
                 if (strpos($id, $prefix) === 0) {
@@ -688,7 +688,7 @@ class Zend_Cache_Core
         if (!is_array($tags)) {
             Zend_Cache::throwException('Invalid tags array : must be an array');
         }
-        foreach($tags as $tag) {
+        foreach ($tags as $tag) {
             self::_validateIdOrTag($tag);
         }
         reset($tags);

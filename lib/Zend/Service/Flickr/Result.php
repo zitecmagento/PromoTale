@@ -21,7 +21,6 @@
  * @version    $Id: Result.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Flickr_Result
 {
+
     /**
      * The photo's Flickr ID.
      *
@@ -192,4 +192,5 @@ class Zend_Service_Flickr_Result
             $this->$k = $v;
         }
     }
+
 }

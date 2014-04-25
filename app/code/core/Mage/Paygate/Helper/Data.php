@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Converts a lot of messages to message
      *
@@ -51,11 +53,11 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $exception
      * @return bool|string
      */
-    public function getTransactionMessage($payment, $requestType, $lastTransactionId, $card, $amount = false,
-        $exception = false
-    ) {
+    public function getTransactionMessage($payment, $requestType, $lastTransactionId, $card, $amount = false, $exception = false
+    )
+    {
         return $this->getExtendedTransactionMessage(
-            $payment, $requestType, $lastTransactionId, $card, $amount, $exception
+                        $payment, $requestType, $lastTransactionId, $card, $amount, $exception
         );
     }
 
@@ -71,9 +73,9 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $additionalMessage Custom message, which will be added to the end of generated message
      * @return bool|string
      */
-    public function getExtendedTransactionMessage($payment, $requestType, $lastTransactionId, $card, $amount = false,
-        $exception = false, $additionalMessage = false
-    ) {
+    public function getExtendedTransactionMessage($payment, $requestType, $lastTransactionId, $card, $amount = false, $exception = false, $additionalMessage = false
+    )
+    {
         $operation = $this->_getOperation($requestType);
 
         if (!$operation) {
@@ -144,4 +146,5 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $payment->getOrder()->getBaseCurrency()->formatTxt($amount);
     }
+
 }

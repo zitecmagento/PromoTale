@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,9 +34,9 @@
  * @method Mage_Api2_Model_Acl_Global_Role getRole()
  * @method Mage_Api2_Block_Adminhtml_Roles_Tab_Resources setRole(Mage_Api2_Model_Acl_Global_Role $role)
  */
-class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Role model
      *
@@ -64,7 +65,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block
                 ->setData('use_ajax', true);
 
         $this->_treeModel = Mage::getModel(
-            'api2/acl_global_rule_tree', array('type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_PRIVILEGE)
+                        'api2/acl_global_rule_tree', array('type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_PRIVILEGE)
         );
     }
 
@@ -150,4 +151,5 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block
     {
         return false;
     }
+
 }

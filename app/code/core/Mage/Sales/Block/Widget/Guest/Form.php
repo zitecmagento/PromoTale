@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,11 +32,9 @@
  * @package    Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Sales_Block_Widget_Guest_Form
-    extends Mage_Core_Block_Template
-    implements Mage_Widget_Block_Interface
+class Mage_Sales_Block_Widget_Guest_Form extends Mage_Core_Block_Template implements Mage_Widget_Block_Interface
 {
+
     /**
      * Check whether module is available
      *
@@ -54,13 +53,13 @@ class Mage_Sales_Block_Widget_Guest_Form
     public function getTypeSelectHtml()
     {
         $select = $this->getLayout()->createBlock('core/html_select')
-            ->setData(array(
-                'id'    => 'quick_search_type_id',
-                'class' => 'select guest-select',
-            ))
-            ->setName('oar_type')
-            ->setOptions($this->_getFormOptions())
-            ->setExtraParams('onchange="showIdentifyBlock(this.value);"');
+                ->setData(array(
+                    'id' => 'quick_search_type_id',
+                    'class' => 'select guest-select',
+                ))
+                ->setName('oar_type')
+                ->setOptions($this->_getFormOptions())
+                ->setExtraParams('onchange="showIdentifyBlock(this.value);"');
         return $select->getHtml();
     }
 
@@ -97,4 +96,5 @@ class Mage_Sales_Block_Widget_Guest_Form
     {
         return $this->getUrl('sales/guest/view');
     }
+
 }

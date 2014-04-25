@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SalesRule Rule Customer Model Resource
  *
@@ -34,6 +34,7 @@
  */
 class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * constructor
      *
@@ -55,8 +56,8 @@ class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resour
     {
         $read = $this->_getReadAdapter();
         $select = $read->select()->from($this->getMainTable())
-            ->where('customer_id = :customer_id')
-            ->where('rule_id = :rule_id');
+                ->where('customer_id = :customer_id')
+                ->where('rule_id = :rule_id');
         $data = $read->fetchRow($select, array(':rule_id' => $ruleId, ':customer_id' => $customerId));
         if (false === $data) {
             // set empty data, as an existing rule object might be used
@@ -65,4 +66,5 @@ class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resour
         $rule->setData($data);
         return $this;
     }
+
 }

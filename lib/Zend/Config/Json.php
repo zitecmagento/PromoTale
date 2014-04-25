@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Json.php 23294 2010-11-05 00:27:34Z ramon $
  */
-
 /**
  * @see Zend_Config
  */
@@ -39,6 +39,7 @@
  */
 class Zend_Config_Json extends Zend_Config
 {
+
     /**
      * Name of object key indicating section current section extends
      */
@@ -190,7 +191,7 @@ class Zend_Config_Json extends Zend_Config
             throw new Zend_Config_Exception(sprintf('Section "%s" cannot be found', $section));
         }
 
-        $thisSection  = $data[$section];
+        $thisSection = $data[$section];
 
         if (is_array($thisSection) && isset($thisSection[self::EXTENDS_NAME])) {
             if (is_array($thisSection[self::EXTENDS_NAME])) {
@@ -237,4 +238,5 @@ class Zend_Config_Json extends Zend_Config
         rsort($constants, SORT_STRING);
         return $constants;
     }
+
 }

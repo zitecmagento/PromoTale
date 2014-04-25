@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Subtotal Total Row Renderer
  *
@@ -32,6 +32,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Subtotal extends Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default
 {
+
     protected $_template = 'sales/order/create/totals/subtotal.phtml';
 
     /**
@@ -46,4 +47,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Subtotal extends Mage_Admin
          */
         return Mage::getSingleton('tax/config')->displayCartSubtotalBoth();
     }
+
 }

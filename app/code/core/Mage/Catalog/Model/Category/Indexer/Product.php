@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -53,6 +54,7 @@
  */
 class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Indexer_Abstract
 {
+
     /**
      * Data key for matching result to be saved in
      */
@@ -117,7 +119,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
-        $data      = $event->getNewData();
+        $data = $event->getNewData();
         if (isset($data[self::EVENT_MATCH_RESULT_KEY])) {
             return $data[self::EVENT_MATCH_RESULT_KEY];
         }
@@ -132,8 +134,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
             }
         } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             $storeGroup = $event->getDataObject();
-            $hasDataChanges = $storeGroup && ($storeGroup->dataHasChangedFor('root_category_id')
-                || $storeGroup->dataHasChangedFor('website_id'));
+            $hasDataChanges = $storeGroup && ($storeGroup->dataHasChangedFor('root_category_id') || $storeGroup->dataHasChangedFor('website_id'));
             if ($storeGroup && !$storeGroup->isObjectNew() && $hasDataChanges) {
                 $result = true;
             } else {
@@ -148,7 +149,6 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
         return $result;
     }
 
-
     /**
      * Register data required by process in event object
      * Check if category ids was changed
@@ -161,7 +161,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
         $entity = $event->getEntity();
         switch ($entity) {
             case Mage_Catalog_Model_Product::ENTITY:
-               $this->_registerProductEvent($event);
+                $this->_registerProductEvent($event);
                 break;
 
             case Mage_Catalog_Model_Category::ENTITY:
@@ -194,14 +194,13 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
             /**
              * Check if product categories data was changed
              */
-            if ($product->getIsChangedCategories() || $product->dataHasChangedFor('status')
-                || $product->dataHasChangedFor('visibility') || $product->getIsChangedWebsites()) {
+            if ($product->getIsChangedCategories() || $product->dataHasChangedFor('status') || $product->dataHasChangedFor('visibility') || $product->getIsChangedWebsites()) {
                 $event->addNewData('category_ids', $product->getCategoryIds());
             }
         } else if ($eventType == Mage_Index_Model_Event::TYPE_MASS_ACTION) {
             /* @var $actionObject Varien_Object */
             $actionObject = $event->getDataObject();
-            $attributes   = array('status', 'visibility');
+            $attributes = array('status', 'visibility');
             $rebuildIndex = false;
 
             // check if attributes changed
@@ -264,4 +263,5 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
             $this->callEventHandler($event);
         }
     }
+
 }

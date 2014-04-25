@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * ACL user resource
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      *
@@ -72,7 +73,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     public function recordLogin(Mage_Api_Model_User $user)
     {
         $data = array(
-            'lognum'  => $user->getLognum()+1,
+            'lognum' => $user->getLognum() + 1,
         );
         $condition = $this->_getReadAdapter()->quoteInto('user_id=?', $user->getUserId());
         $this->_getWriteAdapter()->update($this->getTable('api/user'), $data, $condition);
@@ -87,28 +88,25 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function recordSession(Mage_Api_Model_User $user)
     {
-        $readAdapter    = $this->_getReadAdapter();
-        $writeAdapter   = $this->_getWriteAdapter();
+        $readAdapter = $this->_getReadAdapter();
+        $writeAdapter = $this->_getWriteAdapter();
         $select = $readAdapter->select()
-            ->from($this->getTable('api/session'), 'user_id')
-            ->where('user_id = ?', $user->getId())
-            ->where('sessid = ?', $user->getSessid());
+                ->from($this->getTable('api/session'), 'user_id')
+                ->where('user_id = ?', $user->getId())
+                ->where('sessid = ?', $user->getSessid());
         $loginDate = now();
         if ($readAdapter->fetchRow($select)) {
             $writeAdapter->update(
-                $this->getTable('api/session'),
-                array ('logdate' => $loginDate),
-                $readAdapter->quoteInto('user_id = ?', $user->getId()) . ' AND '
-                . $readAdapter->quoteInto('sessid = ?', $user->getSessid())
+                    $this->getTable('api/session'), array('logdate' => $loginDate), $readAdapter->quoteInto('user_id = ?', $user->getId()) . ' AND '
+                    . $readAdapter->quoteInto('sessid = ?', $user->getSessid())
             );
         } else {
             $writeAdapter->insert(
-                $this->getTable('api/session'),
-                array(
-                    'user_id' => $user->getId(),
-                    'logdate' => $loginDate,
-                    'sessid' => $user->getSessid()
-                )
+                    $this->getTable('api/session'), array(
+                'user_id' => $user->getId(),
+                'logdate' => $loginDate,
+                'sessid' => $user->getSessid()
+                    )
             );
         }
         $user->setLogdate($loginDate);
@@ -123,16 +121,13 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function cleanOldSessions(Mage_Api_Model_User $user)
     {
-        $readAdapter    = $this->_getReadAdapter();
-        $writeAdapter   = $this->_getWriteAdapter();
-        $timeout        = Mage::getStoreConfig('api/config/session_timeout');
-        $timeSubtract     = $readAdapter->getDateAddSql(
-            'logdate',
-            $timeout,
-            Varien_Db_Adapter_Interface::INTERVAL_SECOND);
+        $readAdapter = $this->_getReadAdapter();
+        $writeAdapter = $this->_getWriteAdapter();
+        $timeout = Mage::getStoreConfig('api/config/session_timeout');
+        $timeSubtract = $readAdapter->getDateAddSql(
+                'logdate', $timeout, Varien_Db_Adapter_Interface::INTERVAL_SECOND);
         $writeAdapter->delete(
-            $this->getTable('api/session'),
-            array('user_id = ?' => $user->getId(), $readAdapter->quote(now()) . ' > '.$timeSubtract)
+                $this->getTable('api/session'), array('user_id = ?' => $user->getId(), $readAdapter->quote(now()) . ' > ' . $timeSubtract)
         );
         return $this;
     }
@@ -147,8 +142,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()->from($this->getTable('api/user'))
-            ->where('username=:username');
-        return $adapter->fetchRow($select, array('username'=>$username));
+                ->where('username=:username');
+        return $adapter->fetchRow($select, array('username' => $username));
     }
 
     /**
@@ -162,15 +157,15 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $result = array();
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->getTable('api/session'))
-            ->where('sessid = ?', $sessId);
+                ->from($this->getTable('api/session'))
+                ->where('sessid = ?', $sessId);
         if ($apiSession = $adapter->fetchRow($select)) {
             $selectUser = $adapter->select()
-                ->from($this->getTable('api/user'))
-                ->where('user_id = ?', $apiSession['user_id']);
-                if ($user = $adapter->fetchRow($selectUser)) {
-                    $result = array_merge($user, $apiSession);
-                }
+                    ->from($this->getTable('api/user'))
+                    ->where('user_id = ?', $apiSession['user_id']);
+            if ($user = $adapter->fetchRow($selectUser)) {
+                $result = array_merge($user, $apiSession);
+            }
         }
         return $result;
     }
@@ -184,8 +179,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     public function clearBySessId($sessid)
     {
         $this->_getWriteAdapter()->delete(
-            $this->getTable('api/session'),
-            array('sessid = ?' => $sessid)
+                $this->getTable('api/session'), array('sessid = ?' => $sessid)
         );
         return $this;
     }
@@ -210,7 +204,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             $adapter = $this->_getReadAdapter();
             $select = $adapter->select();
             $select->from($this->getTable('api/role'))
-                ->where('parent_id > 0 AND user_id = ?', $userId);
+                    ->where('parent_id > 0 AND user_id = ?', $userId);
             $result = $adapter->fetchAll($select);
         }
         return $result;
@@ -242,13 +236,18 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $dbh = $this->_getWriteAdapter();
         $uid = (int) $user->getId();
         $dbh->beginTransaction();
-        try {
+        try
+        {
             $dbh->delete($this->getTable('api/user'), array('user_id = ?' => $uid));
             $dbh->delete($this->getTable('api/role'), array('user_id = ?' => $uid));
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             throw $e;
             return false;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $dbh->rollBack();
             return false;
         }
@@ -273,10 +272,10 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
 
         $adapter->beginTransaction();
 
-        try {
+        try
+        {
             $adapter->delete(
-                $this->getTable('api/role'),
-                array('user_id = ?' => (int) $user->getId()));
+                    $this->getTable('api/role'), array('user_id = ?' => (int) $user->getId()));
             foreach ($rolesIds as $rid) {
                 $rid = intval($rid);
                 if ($rid > 0) {
@@ -287,19 +286,23 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
                 $row = array('tree_level' => 0);
 
                 $data = array(
-                    'parent_id'     => $rid,
-                    'tree_level'    => $row['tree_level'] + 1,
-                    'sort_order'    => 0,
-                    'role_type'     => Mage_Api_Model_Acl::ROLE_TYPE_USER,
-                    'user_id'       => $user->getId(),
-                    'role_name'     => $user->getFirstname()
+                    'parent_id' => $rid,
+                    'tree_level' => $row['tree_level'] + 1,
+                    'sort_order' => 0,
+                    'role_type' => Mage_Api_Model_Acl::ROLE_TYPE_USER,
+                    'user_id' => $user->getId(),
+                    'role_name' => $user->getFirstname()
                 );
                 $adapter->insert($this->getTable('api/role'), $data);
             }
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             throw $e;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $adapter->rollBack();
         }
         return $this;
@@ -316,17 +319,15 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         if (!$user->getId()) {
             return array();
         }
-        $table   = $this->getTable('api/role');
+        $table = $this->getTable('api/role');
         $adapter = $this->_getReadAdapter();
-        $select  = $adapter->select()
-            ->from($table, array())
-            ->joinLeft(
-                array('ar' => $table),
-                $adapter->quoteInto(
-                    "ar.role_id = {$table}.parent_id AND ar.role_type = ?",
-                    Mage_Api_Model_Acl::ROLE_TYPE_GROUP),
-                array('role_id'))
-            ->where("{$table}.user_id = ?", $user->getId());
+        $select = $adapter->select()
+                ->from($table, array())
+                ->joinLeft(
+                        array('ar' => $table), $adapter->quoteInto(
+                                "ar.role_id = {$table}.parent_id AND ar.role_type = ?", Mage_Api_Model_Acl::ROLE_TYPE_GROUP), array(
+                    'role_id'))
+                ->where("{$table}.user_id = ?", $user->getId());
 
         return (($roles = $adapter->fetchCol($select)) ? $roles : array());
     }
@@ -340,12 +341,11 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     public function add(Mage_Core_Model_Abstract $user)
     {
         $adapter = $this->_getWriteAdapter();
-        $aRoles  = $this->hasAssigned2Role($user);
+        $aRoles = $this->hasAssigned2Role($user);
         if (sizeof($aRoles) > 0) {
             foreach ($aRoles as $idx => $data) {
                 $adapter->delete(
-                    $this->getTable('api/role'),
-                    array('role_id = ?' => $data['role_id'])
+                        $this->getTable('api/role'), array('role_id = ?' => $data['role_id'])
                 );
             }
         }
@@ -357,10 +357,10 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         }
         $adapter->insert($this->getTable('api/role'), array(
             'parent_id' => $user->getRoleId(),
-            'tree_level'=> ($role->getTreeLevel() + 1),
-            'sort_order'=> 0,
+            'tree_level' => ($role->getTreeLevel() + 1),
+            'sort_order' => 0,
             'role_type' => Mage_Api_Model_Acl::ROLE_TYPE_USER,
-            'user_id'   => $user->getUserId(),
+            'user_id' => $user->getUserId(),
             'role_name' => $user->getFirstname()
         ));
 
@@ -382,12 +382,12 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             return $this;
         };
 
-        $adapter   = $this->_getWriteAdapter();
-        $table     = $this->getTable('api/role');
+        $adapter = $this->_getWriteAdapter();
+        $table = $this->getTable('api/role');
 
         $condition = array(
-            "{$table}.user_id = ?"  => $user->getUserId(),
-            "{$table}.parent_id = ?"=> $user->getRoleId()
+            "{$table}.user_id = ?" => $user->getUserId(),
+            "{$table}.parent_id = ?" => $user->getRoleId()
         );
         $adapter->delete($table, $condition);
         return $this;
@@ -403,10 +403,10 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     {
         $result = array();
         if ($user->getUserId() > 0) {
-            $adapter    = $this->_getReadAdapter();
-            $select     = $adapter->select()->from($this->getTable('api/role'))
-                ->where('parent_id = ?', $user->getRoleId())
-                ->where('user_id = ?', $user->getUserId());
+            $adapter = $this->_getReadAdapter();
+            $select = $adapter->select()->from($this->getTable('api/role'))
+                    ->where('parent_id = ?', $user->getRoleId())
+                    ->where('user_id = ?', $user->getUserId());
             $result = $adapter->fetchCol($select);
         }
         return $result;
@@ -421,15 +421,16 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     public function userExists(Mage_Core_Model_Abstract $user)
     {
         $usersTable = $this->getTable('api/user');
-        $adapter    = $this->_getReadAdapter();
-        $condition  = array(
+        $adapter = $this->_getReadAdapter();
+        $condition = array(
             $adapter->quoteInto("{$usersTable}.username = ?", $user->getUsername()),
             $adapter->quoteInto("{$usersTable}.email = ?", $user->getEmail()),
         );
         $select = $adapter->select()
-            ->from($usersTable)
-            ->where(implode(' OR ', $condition))
-            ->where($usersTable.'.user_id != ?', (int) $user->getId());
+                ->from($usersTable)
+                ->where(implode(' OR ', $condition))
+                ->where($usersTable . '.user_id != ?', (int) $user->getId());
         return $adapter->fetchRow($select);
     }
+
 }

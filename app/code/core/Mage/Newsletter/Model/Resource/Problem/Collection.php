@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Newsletter problems collection
  *
@@ -34,19 +34,20 @@
  */
 class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * True when subscribers info joined
      *
      * @var bool
      */
-    protected $_subscribersInfoJoinedFlag  = false;
+    protected $_subscribersInfoJoinedFlag = false;
 
     /**
      * True when grouped
      *
      * @var bool
      */
-    protected $_problemGrouped             = false;
+    protected $_problemGrouped = false;
 
     /**
      * Define resource model and model
@@ -64,9 +65,8 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
      */
     public function addSubscriberInfo()
     {
-        $this->getSelect()->joinLeft(array('subscriber'=>$this->getTable('newsletter/subscriber')),
-            'main_table.subscriber_id = subscriber.subscriber_id',
-            array('subscriber_email','customer_id','subscriber_status')
+        $this->getSelect()->joinLeft(array('subscriber' => $this->getTable('newsletter/subscriber')), 'main_table.subscriber_id = subscriber.subscriber_id', array(
+            'subscriber_email', 'customer_id', 'subscriber_status')
         );
         $this->addFilterToMap('subscriber_id', 'main_table.subscriber_id');
         $this->_subscribersInfoJoinedFlag = true;
@@ -81,12 +81,11 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
      */
     public function addQueueInfo()
     {
-        $this->getSelect()->joinLeft(array('queue'=>$this->getTable('newsletter/queue')),
-            'main_table.queue_id = queue.queue_id',
-            array('queue_start_at', 'queue_finish_at')
-        )
-        ->joinLeft(array('template'=>$this->getTable('newsletter/template')), 'queue.template_id = template.template_id',
-            array('template_subject','template_code','template_sender_name','template_sender_email')
+        $this->getSelect()->joinLeft(array('queue' => $this->getTable('newsletter/queue')), 'main_table.queue_id = queue.queue_id', array(
+                    'queue_start_at', 'queue_finish_at')
+                )
+                ->joinLeft(array('template' => $this->getTable('newsletter/template')), 'queue.template_id = template.template_id', array(
+                    'template_subject', 'template_code', 'template_sender_name', 'template_sender_email')
         );
         return $this;
     }
@@ -110,8 +109,8 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
         }
 
         $customers = Mage::getResourceModel('customer/customer_collection')
-            ->addNameToSelect()
-            ->addAttributeToFilter('entity_id', array("in"=>$customersIds));
+                ->addNameToSelect()
+                ->addAttributeToFilter('entity_id', array("in" => $customersIds));
 
         $customers->load();
 
@@ -119,8 +118,8 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
             $problems = $this->getItemsByColumnValue('customer_id', $customer->getId());
             foreach ($problems as $problem) {
                 $problem->setCustomerName($customer->getName())
-                    ->setCustomerFirstName($customer->getFirstName())
-                    ->setCustomerLastName($customer->getLastName());
+                        ->setCustomerFirstName($customer->getFirstName())
+                        ->setCustomerLastName($customer->getLastName());
             }
         }
     }
@@ -140,4 +139,5 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
         }
         return $this;
     }
+
 }

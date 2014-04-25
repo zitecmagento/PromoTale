@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Construct grid block
      */
@@ -43,7 +45,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
         $this->setUseAjax(true);
         $this->setSaveParametersInSession(true);
         $this->setDefaultSort('entity_id')
-            ->setDefaultDir(Varien_Db_Select::SQL_DESC);
+                ->setDefaultDir(Varien_Db_Select::SQL_DESC);
     }
 
     /**
@@ -56,7 +58,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
         /** @var $collection Mage_Oauth_Model_Resource_Token_Collection */
         $collection = Mage::getModel('oauth/token')->getCollection();
         $collection->joinConsumerAsApplication()
-            ->addFilterByType(Mage_Oauth_Model_Token::TYPE_ACCESS);
+                ->addFilterByType(Mage_Oauth_Model_Token::TYPE_ACCESS);
         $this->setCollection($collection);
 
         parent::_prepareCollection();
@@ -71,28 +73,27 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(
-            'header'    => Mage::helper('oauth')->__('ID'),
-            'index'     => 'entity_id',
-            'align'     => 'right',
-            'width'     => '50px',
-
+            'header' => Mage::helper('oauth')->__('ID'),
+            'index' => 'entity_id',
+            'align' => 'right',
+            'width' => '50px',
         ));
 
         $this->addColumn('name', array(
-            'header'    => $this->__('Application Name'),
-            'index'     => 'name',
-            'escape'    => true,
+            'header' => $this->__('Application Name'),
+            'index' => 'name',
+            'escape' => true,
         ));
 
         $this->addColumn('type', array(
-            'header'    => $this->__('User Type'),
+            'header' => $this->__('User Type'),
             //'index'     => array('customer_id', 'admin_id'),
-            'options'   => array(0 => $this->__('Admin'), 1 => $this->__('Customer')),
+            'options' => array(0 => $this->__('Admin'), 1 => $this->__('Customer')),
             'frame_callback' => array($this, 'decorateUserType')
         ));
 
         $this->addColumn('user_id', array(
-            'header'    => $this->__('User ID'),
+            'header' => $this->__('User ID'),
             //'index'     => array('customer_id', 'admin_id'),
             'frame_callback' => array($this, 'decorateUserId')
         ));
@@ -100,12 +101,12 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
         /** @var $sourceYesNo Mage_Adminhtml_Model_System_Config_Source_Yesno */
         $sourceYesNo = Mage::getSingleton('adminhtml/system_config_source_yesno');
         $this->addColumn('revoked', array(
-            'header'    => $this->__('Revoked'),
-            'index'     => 'revoked',
-            'width'     => '100px',
-            'type'      => 'options',
-            'options'   => $sourceYesNo->toArray(),
-            'sortable'  => true,
+            'header' => $this->__('Revoked'),
+            'index' => 'revoked',
+            'width' => '100px',
+            'type' => 'options',
+            'options' => $sourceYesNo->toArray(),
+            'sortable' => true,
         ));
 
         parent::_prepareColumns();
@@ -151,7 +152,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      */
     protected function _prepareMassaction()
     {
-        if(!$this->_isAllowed()) {
+        if (!$this->_isAllowed()) {
             return $this;
         }
 
@@ -161,15 +162,15 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
         $block->setFormFieldName('items');
         $block->addItem('enable', array(
             'label' => Mage::helper('index')->__('Enable'),
-            'url'   => $this->getUrl('*/*/revoke', array('status' => 0)),
+            'url' => $this->getUrl('*/*/revoke', array('status' => 0)),
         ));
         $block->addItem('revoke', array(
             'label' => Mage::helper('index')->__('Revoke'),
-            'url'   => $this->getUrl('*/*/revoke', array('status' => 1)),
+            'url' => $this->getUrl('*/*/revoke', array('status' => 1)),
         ));
         $block->addItem('delete', array(
             'label' => Mage::helper('index')->__('Delete'),
-            'url'   => $this->getUrl('*/*/delete'),
+            'url' => $this->getUrl('*/*/delete'),
         ));
 
         return $this;
@@ -188,7 +189,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     {
         $options = $column->getOptions();
 
-        $value = ($row->getCustomerId())   ?$options[1]   :$options[0];
+        $value = ($row->getCustomerId()) ? $options[1] : $options[0];
         $cell = $value;
 
         return $cell;
@@ -205,7 +206,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      */
     public function decorateUserId($value, $row, $column, $isExport)
     {
-        $value = ($row->getCustomerId())   ?$row->getCustomerId()   :$row->getAdminId();
+        $value = ($row->getCustomerId()) ? $row->getCustomerId() : $row->getAdminId();
         $cell = $value;
 
         return $cell;
@@ -222,4 +223,5 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
         $session = Mage::getSingleton('admin/session');
         return $session->isAllowed('system/oauth/authorizedTokens');
     }
+
 }

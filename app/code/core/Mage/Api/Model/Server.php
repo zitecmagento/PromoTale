@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -56,7 +57,7 @@ class Mage_Api_Model_Server
     public function getAdapterCodeByAlias($alias)
     {
         /** @var $config Mage_Api_Model_Config */
-        $config  = Mage::getSingleton('api/config');
+        $config = Mage::getSingleton('api/config');
         $aliases = $config->getAdapterAliases();
 
         if (!isset($aliases[$alias])) {
@@ -98,7 +99,7 @@ class Mage_Api_Model_Server
     public function initialize($adapterCode, $handler = null)
     {
         /** @var $helper Mage_Api_Model_Config */
-        $helper   = Mage::getSingleton('api/config');
+        $helper = Mage::getSingleton('api/config');
         $adapters = $helper->getActiveAdapters();
 
         if (isset($adapters[$adapterCode])) {
@@ -109,7 +110,7 @@ class Mage_Api_Model_Server
                 Mage::throwException(Mage::helper('api')->__('Invalid webservice adapter specified.'));
             }
             $this->_adapter = $adapterModel;
-            $this->_api     = $adapterCode;
+            $this->_api = $adapterCode;
 
             // get handler code from config if no handler passed as argument
             if (null === $handler && !empty($adapters[$adapterCode]->handler)) {
@@ -157,5 +158,6 @@ class Mage_Api_Model_Server
         return $this->_adapter;
     }
 
+}
 
-} // Class Mage_Api_Model_Server_Abstract End
+// Class Mage_Api_Model_Server_Abstract End

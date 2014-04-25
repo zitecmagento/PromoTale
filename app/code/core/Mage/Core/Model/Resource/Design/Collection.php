@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Design resource collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Core Design resource collection
      *
@@ -50,10 +51,8 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
      */
     public function joinStore()
     {
-         return $this->join(
-            array('cs' => 'core/store'),
-            'cs.store_id = main_table.store_id',
-            array('cs.name'));
+        return $this->join(
+                        array('cs' => 'core/store'), 'cs.store_id = main_table.store_id', array('cs.name'));
     }
 
     /**
@@ -85,4 +84,5 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
     {
         return $this->addFieldToFilter('store_id', array('in' => $storeId));
     }
+
 }

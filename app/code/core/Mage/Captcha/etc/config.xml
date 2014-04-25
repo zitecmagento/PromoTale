@@ -32,7 +32,7 @@
         </Mage_Captcha>
     </modules>
     <global>
-         <resources>
+        <resources>
             <captcha_setup>
                 <setup>
                     <module>Mage_Captcha</module>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
 {
+
     /**
      * Renderer for "Action" column in Newsletter templates grid
      *
@@ -42,7 +43,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Action extends Mage
      */
     public function render(Varien_Object $row)
     {
-        if($row->isValidForSend()) {
+        if ($row->isValidForSend()) {
             $actions[] = array(
                 'url' => $this->getUrl('*/newsletter_queue/edit', array('template_id' => $row->getId())),
                 'caption' => Mage::helper('newsletter')->__('Queue Newsletter...')
@@ -50,8 +51,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Action extends Mage
         }
 
         $actions[] = array(
-            'url'     => $this->getUrl('*/*/preview', array('id'=>$row->getId())),
-            'popup'   => true,
+            'url' => $this->getUrl('*/*/preview', array('id' => $row->getId())),
+            'popup' => true,
             'caption' => Mage::helper('newsletter')->__('Preview')
         );
 
@@ -59,4 +60,5 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Action extends Mage
 
         return parent::render($row);
     }
+
 }

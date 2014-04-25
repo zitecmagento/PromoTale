@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $installer = $this;
 $installer->startSetup();
-$installer->getConnection()->addKey($installer->getTable('catalog/product_link'),
-    'IDX_UNIQUE', array('link_type_id', 'product_id', 'linked_product_id'), 'unique');
+$installer->getConnection()->addKey($installer->getTable('catalog/product_link'), 'IDX_UNIQUE', array('link_type_id', 'product_id',
+    'linked_product_id'), 'unique');
 $installer->endSetup();

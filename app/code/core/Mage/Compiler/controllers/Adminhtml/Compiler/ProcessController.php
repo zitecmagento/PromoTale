@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Compiler_Adminhtml_Compiler_ProcessController extends Mage_Adminhtml_Controller_Action
 {
+
     protected $_compiler = null;
 
     public function preDispatch()
@@ -52,6 +54,7 @@ class Mage_Compiler_Adminhtml_Compiler_ProcessController extends Mage_Adminhtml_
         }
         return $this->_compiler;
     }
+
     public function indexAction()
     {
         $this->_title($this->__('System'))->_title($this->__('Tools'))->_title($this->__('Compilation'));
@@ -63,16 +66,21 @@ class Mage_Compiler_Adminhtml_Compiler_ProcessController extends Mage_Adminhtml_
 
     public function runAction()
     {
-        try {
+        try
+        {
             $this->_getCompiler()->run();
             Mage::getSingleton('adminhtml/session')->addSuccess(
-                Mage::helper('compiler')->__('The compilation has completed.')
+                    Mage::helper('compiler')->__('The compilation has completed.')
             );
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::getSingleton('adminhtml/session')->addError(
-                Mage::helper('compiler')->__('Compilation error')
+                    Mage::helper('compiler')->__('Compilation error')
             );
         }
         $this->_redirect('*/*/');
@@ -93,7 +101,7 @@ class Mage_Compiler_Adminhtml_Compiler_ProcessController extends Mage_Adminhtml_
     {
         $this->_getCompiler()->registerIncludePath(false);
         Mage::getSingleton('adminhtml/session')->addSuccess(
-            Mage::helper('compiler')->__('Compiler include path is disabled.')
+                Mage::helper('compiler')->__('Compiler include path is disabled.')
         );
         $this->_redirect('*/*/');
     }
@@ -102,7 +110,7 @@ class Mage_Compiler_Adminhtml_Compiler_ProcessController extends Mage_Adminhtml_
     {
         $this->_getCompiler()->registerIncludePath();
         Mage::getSingleton('adminhtml/session')->addSuccess(
-            Mage::helper('compiler')->__('Compiler include path is enabled.')
+                Mage::helper('compiler')->__('Compiler include path is enabled.')
         );
         $this->_redirect('*/*/');
     }
@@ -111,4 +119,5 @@ class Mage_Compiler_Adminhtml_Compiler_ProcessController extends Mage_Adminhtml_
     {
         return Mage::getSingleton('admin/session')->isAllowed('system/tools/compiler');
     }
+
 }

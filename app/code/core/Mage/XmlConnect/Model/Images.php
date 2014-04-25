@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
 {
+
     /**
      * Array of required submit data
      *
@@ -211,7 +213,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
             $this->setApplicationId(Mage::helper('xmlconnect')->getApplicationId());
         }
         return $this->getCollection()->addApplicationToFilter($this->getApplicationId())->addImageTypeToFilter($type)
-            ->setPositionOrder()->setLimit($limit, $offset)->getData();
+                        ->setPositionOrder()->setLimit($limit, $offset)->getData();
     }
 
     /**
@@ -226,7 +228,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
             $this->setApplicationId(Mage::helper('xmlconnect')->getApplicationId());
         }
         return $this->getCollection()->addApplicationToFilter($this->getApplicationId())->addImageTypeToFilter($type)
-            ->setPositionOrder()->fetchItem();
+                        ->setPositionOrder()->fetchItem();
     }
 
     /**
@@ -235,7 +237,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
      * @param string $imagePath
      * @return bool
      */
-    protected  function _checkImageExists($imagePath)
+    protected function _checkImageExists($imagePath)
     {
         $image = new Varien_Io_File();
         return $image->fileExists(self::getBasePath() . $imagePath);
@@ -288,7 +290,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
                 $heightOriginal = $height;
             }
 
-            if (($widthOriginal != $image->getOriginalWidth()) || ($heightOriginal != $image->getOriginalHeight()) ) {
+            if (($widthOriginal != $image->getOriginalWidth()) || ($heightOriginal != $image->getOriginalHeight())) {
                 $image->keepTransparency(true);
                 $image->keepFrame(true);
                 $image->keepAspectRatio(true);
@@ -331,9 +333,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
         if (is_object($iconImageFile) && $iconImageFile->getImageFile()) {
             $iconImageType = Mage_XmlConnect_Model_Device_Abstract::IMAGE_TYPE_ICON;
             $config['navigationBar']['icon'] = $this->getCustomSizeImageUrl(
-                $iconImageFile->getImageFile(),
-                $this->getImageLimitParam($iconImageType, 'width'),
-                $this->getImageLimitParam($iconImageType, 'height')
+                    $iconImageFile->getImageFile(), $this->getImageLimitParam($iconImageType, 'width'), $this->getImageLimitParam($iconImageType, 'height')
             );
         }
 
@@ -345,9 +345,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
                 continue;
             }
             $config['body'][$node] = $this->getCustomSizeImageUrl(
-                $imageFile->getImageFile(),
-                $this->getImageLimitParam($imageType, 'width'),
-                $this->getImageLimitParam($imageType, 'height')
+                    $imageFile->getImageFile(), $this->getImageLimitParam($imageType, 'width'), $this->getImageLimitParam($imageType, 'height')
             );
         }
         return $this;
@@ -455,7 +453,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
                 // Add icon to image table
                 $iconFile = basename($configData[$deprecatedFlag][$iconConfigPath]);
                 $this->saveImage(
-                    $application_id, $iconFile, Mage_XmlConnect_Model_Device_Abstract::IMAGE_TYPE_ICON, 1
+                        $application_id, $iconFile, Mage_XmlConnect_Model_Device_Abstract::IMAGE_TYPE_ICON, 1
                 );
 
                 // delete old icon record from config_data table
@@ -530,7 +528,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
     {
         $dotPosition = strrpos($fileName, '.');
         if ($dotPosition !== false) {
-            $fileName = substr($fileName, 0 , $dotPosition);
+            $fileName = substr($fileName, 0, $dotPosition);
         }
         $fileName .= '.png';
 
@@ -548,4 +546,5 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
         list(,, $originalImageType) = getimagesize($filePath);
         return $originalImageType;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax rate resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Tax_Model_Resource_Calculation_Rate extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -50,8 +51,8 @@ class Mage_Tax_Model_Resource_Calculation_Rate extends Mage_Core_Model_Resource_
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = array(array(
-            'field' => array('code'),
-            'title' => Mage::helper('tax')->__('Code'),
+                'field' => array('code'),
+                'title' => Mage::helper('tax')->__('Code'),
         ));
         return $this;
     }
@@ -76,9 +77,10 @@ class Mage_Tax_Model_Resource_Calculation_Rate extends Mage_Core_Model_Resource_
     public function isInRule($rateId)
     {
         $adapter = $this->_getReadAdapter();
-        $select  = $adapter->select()
-            ->from($this->getTable('tax/tax_calculation'), array('tax_calculation_rate_id'))
-            ->where('tax_calculation_rate_id = ?', $rateId);
+        $select = $adapter->select()
+                ->from($this->getTable('tax/tax_calculation'), array('tax_calculation_rate_id'))
+                ->where('tax_calculation_rate_id = ?', $rateId);
         return $adapter->fetchCol($select);
     }
+
 }

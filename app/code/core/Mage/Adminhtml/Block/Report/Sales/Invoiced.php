@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Report_Sales_Invoiced extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     public function __construct()
     {
         $this->_controller = 'report_sales_invoiced';
@@ -42,8 +43,8 @@ class Mage_Adminhtml_Block_Report_Sales_Invoiced extends Mage_Adminhtml_Block_Wi
         $this->setTemplate('report/grid/container.phtml');
         $this->_removeButton('add');
         $this->addButton('filter_form_submit', array(
-            'label'     => Mage::helper('reports')->__('Show Report'),
-            'onclick'   => 'filterFormSubmit()'
+            'label' => Mage::helper('reports')->__('Show Report'),
+            'onclick' => 'filterFormSubmit()'
         ));
     }
 
@@ -52,4 +53,5 @@ class Mage_Adminhtml_Block_Report_Sales_Invoiced extends Mage_Adminhtml_Block_Wi
         $this->getRequest()->setParam('filter', null);
         return $this->getUrl('*/*/invoiced', array('_current' => true));
     }
+
 }

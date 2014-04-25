@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Varien_Http_Client extends Zend_Http_Client
 {
+
     /**
      * Internal flag to allow decoding of request body
      *
@@ -90,4 +92,5 @@ class Varien_Http_Client extends Zend_Http_Client
 
         return $body;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SalesRule Resource Coupon
  *
@@ -34,6 +34,7 @@
  */
 class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Constructor adds unique fields
      */
@@ -81,12 +82,12 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
         if ($rule instanceof Mage_SalesRule_Model_Rule) {
             $ruleId = $rule->getId();
         } else {
-            $ruleId = (int)$rule;
+            $ruleId = (int) $rule;
         }
 
         $select = $read->select()->from($this->getMainTable())
-            ->where('rule_id = :rule_id')
-            ->where('is_primary = :is_primary');
+                ->where('rule_id = :rule_id')
+                ->where('is_primary = :is_primary');
 
         $data = $read->fetchRow($select, array(':rule_id' => $ruleId, ':is_primary' => 1));
 
@@ -149,12 +150,11 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
 
         if (!empty($updateArray)) {
             $this->_getWriteAdapter()->update(
-                $this->getTable('salesrule/coupon'),
-                $updateArray,
-                array('rule_id = ?' => $rule->getId())
+                    $this->getTable('salesrule/coupon'), $updateArray, array('rule_id = ?' => $rule->getId())
             );
         }
 
         return $this;
     }
+
 }

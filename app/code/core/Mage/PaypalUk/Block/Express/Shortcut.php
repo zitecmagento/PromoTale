@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_PaypalUk_Block_Express_Shortcut extends Mage_Paypal_Block_Express_Shortcut
 {
+
     /**
      * Payment method code
      *
@@ -49,4 +51,5 @@ class Mage_PaypalUk_Block_Express_Shortcut extends Mage_Paypal_Block_Express_Sho
      * @var string
      */
     protected $_checkoutType = 'paypaluk/express_checkout';
+
 }

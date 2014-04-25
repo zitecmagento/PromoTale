@@ -23,12 +23,12 @@
     float:left;display:block;border:1px solid #c6cbc7;width:20px;height:20px;padding:1px;
 }
 .field_fonts_cl {
-border:1px
+    border:1px
 }
 .field_colors_cl {
     border:1px}
 .field_advanced_cl {
-border:1px}
+    border:1px}
 
 #field_colors { padding:0 !important; overflow:hidden !important; }
 #field_colors td { padding:5px 20px !important; }

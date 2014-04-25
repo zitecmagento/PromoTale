@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $installer = $this;
 
@@ -31,6 +31,5 @@ $installer = $this;
 $attribute = $installer->getAttribute('catalog_product', 'weight');
 
 if ($attribute) {
-    $installer->updateAttribute($attribute['entity_type_id'], $attribute['attribute_id'],
-        'frontend_input',  $attribute['attribute_code']);
+    $installer->updateAttribute($attribute['entity_type_id'], $attribute['attribute_id'], 'frontend_input', $attribute['attribute_code']);
 }

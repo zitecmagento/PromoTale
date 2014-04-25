@@ -35,15 +35,15 @@ SessionError.prototype = {
 };
 
 Ajax.Request.addMethods({
-    initialize: function($super, url, options){
+    initialize: function($super, url, options) {
         $super(options);
         this.transport = Ajax.getTransport();
-        if (!url.match(new RegExp('[?&]isAjax=true',''))) {
-            url = url.match(new RegExp('\\?',"g")) ? url + '&isAjax=true' : url + '?isAjax=true';
+        if (!url.match(new RegExp('[?&]isAjax=true', ''))) {
+            url = url.match(new RegExp('\\?', "g")) ? url + '&isAjax=true' : url + '?isAjax=true';
         }
         if (Object.isString(this.options.parameters)
-            && this.options.parameters.indexOf('form_key=') == -1
-        ) {
+                && this.options.parameters.indexOf('form_key=') == -1
+                ) {
             this.options.parameters += '&' + Object.toQueryString({
                 form_key: FORM_KEY
             });
@@ -75,8 +75,8 @@ Ajax.Request.addMethods({
                 }
 
                 (this.options['on' + response.status]
-                 || this.options['on' + (this.success() ? 'Success' : 'Failure')]
-                 || Prototype.emptyFunction)(response, response.headerJSON);
+                        || this.options['on' + (this.success() ? 'Success' : 'Failure')]
+                        || Prototype.emptyFunction)(response, response.headerJSON);
             } catch (e) {
                 this.dispatchException(e);
                 if (e instanceof SessionError) {
@@ -86,8 +86,8 @@ Ajax.Request.addMethods({
 
             var contentType = response.getHeader('Content-type');
             if (this.options.evalJS == 'force'
-                || (this.options.evalJS && this.isSameOrigin() && contentType
-                && contentType.match(/^\s*(text|application)\/(x-)?(java|ecma)script(;.*)?\s*$/i))) {
+                    || (this.options.evalJS && this.isSameOrigin() && contentType
+                            && contentType.match(/^\s*(text|application)\/(x-)?(java|ecma)script(;.*)?\s*$/i))) {
                 this.evalResponse();
             }
         }
@@ -128,41 +128,39 @@ Ajax.Updater.respondToReadyState = Ajax.Request.respondToReadyState;
 var varienLoader = new Class.create();
 
 varienLoader.prototype = {
-    initialize : function(caching){
-        this.callback= false;
-        this.cache   = $H();
+    initialize: function(caching) {
+        this.callback = false;
+        this.cache = $H();
         this.caching = caching || false;
-        this.url     = false;
+        this.url = false;
     },
-
-    getCache : function(url){
-        if(this.cache.get(url)){
+    getCache: function(url) {
+        if (this.cache.get(url)) {
             return this.cache.get(url)
         }
         return false;
     },
-
-    load : function(url, params, callback){
-        this.url      = url;
+    load: function(url, params, callback) {
+        this.url = url;
         this.callback = callback;
 
-        if(this.caching){
+        if (this.caching) {
             var transport = this.getCache(url);
-            if(transport){
+            if (transport) {
                 this.processResult(transport);
                 return;
             }
         }
 
-        if (typeof(params.updaterId) != 'undefined') {
+        if (typeof (params.updaterId) != 'undefined') {
             new varienUpdater(params.updaterId, url, {
-                evalScripts : true,
+                evalScripts: true,
                 onComplete: this.processResult.bind(this),
                 onFailure: this._processFailure.bind(this)
             });
         }
         else {
-            new Ajax.Request(url,{
+            new Ajax.Request(url, {
                 method: 'post',
                 parameters: params || {},
                 onComplete: this.processResult.bind(this),
@@ -170,16 +168,14 @@ varienLoader.prototype = {
             });
         }
     },
-
-    _processFailure : function(transport){
+    _processFailure: function(transport) {
         location.href = BASE_URL;
     },
-
-    processResult : function(transport){
-        if(this.caching){
+    processResult: function(transport) {
+        if (this.caching) {
             this.cache.set(this.url, transport);
         }
-        if(this.callback){
+        if (this.callback) {
             this.callback(transport.responseText);
         }
     }
@@ -190,28 +186,27 @@ if (!window.varienLoaderHandler)
 
 varienLoaderHandler.handler = {
     onCreate: function(request) {
-        if(request.options.loaderArea===false){
+        if (request.options.loaderArea === false) {
             return;
         }
 
         request.options.loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
 
-        if(request && request.options.loaderArea){
-            Element.clonePosition($('loading-mask'), $(request.options.loaderArea), {offsetLeft:-2})
+        if (request && request.options.loaderArea) {
+            Element.clonePosition($('loading-mask'), $(request.options.loaderArea), {offsetLeft: -2})
             toggleSelectsUnderBlock($('loading-mask'), false);
             Element.show('loading-mask');
             setLoaderPosition();
-            if(request.options.loaderArea=='html-body'){
+            if (request.options.loaderArea == 'html-body') {
                 //Element.show('loading-process');
             }
         }
-        else{
+        else {
             //Element.show('loading-process');
         }
     },
-
     onComplete: function(transport) {
-        if(Ajax.activeRequestCount == 0) {
+        if (Ajax.activeRequestCount == 0) {
             //Element.hide('loading-process');
             toggleSelectsUnderBlock($('loading-mask'), true);
             Element.hide('loading-mask');
@@ -222,7 +217,7 @@ varienLoaderHandler.handler = {
 /**
  * @todo need calculate middle of visible area and scroll bind
  */
-function setLoaderPosition(){
+function setLoaderPosition() {
     var elem = $('loading_mask_loader');
     if (elem && Prototype.Browser.IE) {
         var elementDims = elem.getDimensions();
@@ -235,31 +230,31 @@ function setLoaderPosition(){
 }
 
 /*function getRealHeight() {
-    var body = document.body;
-    if (window.innerHeight && window.scrollMaxY) {
-        return window.innerHeight + window.scrollMaxY;
-    }
-    return Math.max(body.scrollHeight, body.offsetHeight);
-}*/
+ var body = document.body;
+ if (window.innerHeight && window.scrollMaxY) {
+ return window.innerHeight + window.scrollMaxY;
+ }
+ return Math.max(body.scrollHeight, body.offsetHeight);
+ }*/
 
 
 
-function toggleSelectsUnderBlock(block, flag){
-    if(Prototype.Browser.IE){
+function toggleSelectsUnderBlock(block, flag) {
+    if (Prototype.Browser.IE) {
         var selects = document.getElementsByTagName("select");
-        for(var i=0; i<selects.length; i++){
+        for (var i = 0; i < selects.length; i++) {
             /**
              * @todo: need check intersection
              */
-            if(flag){
-                if(selects[i].needShowOnSuccess){
+            if (flag) {
+                if (selects[i].needShowOnSuccess) {
                     selects[i].needShowOnSuccess = false;
                     // Element.show(selects[i])
                     selects[i].style.visibility = '';
                 }
             }
-            else{
-                if(Element.visible(selects[i])){
+            else {
+                if (Element.visible(selects[i])) {
                     // Element.hide(selects[i]);
                     selects[i].style.visibility = 'hidden';
                     selects[i].needShowOnSuccess = true;

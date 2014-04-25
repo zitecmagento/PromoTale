@@ -27,9 +27,9 @@
 
 -->
 <layout version="0.1.0">
-<!--
-Default layout, loads most of the pages
--->
+    <!--
+    Default layout, loads most of the pages
+    -->
     <catalog_category_default>
         <update handle="MAP_popup" />
     </catalog_category_default>
@@ -79,7 +79,10 @@ Default layout, loads most of the pages
 
     <MAP_popup>
         <reference name="head">
-            <action method="addItem" ifconfig="sales/msrp/enabled"><type>skin_js</type><name>js/msrp.js</name></action>
+            <action method="addItem" ifconfig="sales/msrp/enabled">
+                <type>skin_js</type>
+                <name>js/msrp.js</name>
+            </action>
         </reference>
         <reference name="content">
             <block type="core/template" template="catalog/msrp/popup.phtml" name="product.tooltip"></block>
@@ -87,22 +90,46 @@ Default layout, loads most of the pages
     </MAP_popup>
     <MAP_price_msrp_item>
         <reference name="catalog_product_price_template">
-            <action method="addPriceBlockType"><type>msrp</type><block>catalog/product_price</block><template>catalog/product/price_msrp_item.phtml</template></action>
+            <action method="addPriceBlockType">
+                <type>msrp</type>
+                <block>catalog/product_price</block>
+                <template>catalog/product/price_msrp_item.phtml</template>
+            </action>
         </reference>
         <reference name="product.clone_prices">
-            <action method="addPriceBlockType"><type>msrp</type><block>catalog/product_price</block><template>catalog/product/price_msrp_item.phtml</template></action>
+            <action method="addPriceBlockType">
+                <type>msrp</type>
+                <block>catalog/product_price</block>
+                <template>catalog/product/price_msrp_item.phtml</template>
+            </action>
         </reference>
     </MAP_price_msrp_item>
     <MAP_price_msrp_wishlist_item>
         <reference name="catalog_product_price_template">
-            <action method="addPriceBlockType"><type>msrp</type><block>catalog/product_price</block><template>wishlist/render/item/price_msrp_item.phtml</template></action>
+            <action method="addPriceBlockType">
+                <type>msrp</type>
+                <block>catalog/product_price</block>
+                <template>wishlist/render/item/price_msrp_item.phtml</template>
+            </action>
         </reference>
     </MAP_price_msrp_wishlist_item>
     <default>
         <reference name="catalog_product_price_template">
-            <action method="addPriceBlockType"><type>msrp</type><block>catalog/product_price</block><template>catalog/product/price_msrp.phtml</template></action>
-            <action method="addPriceBlockType"><type>msrp_item</type><block>catalog/product_price</block><template>catalog/product/price_msrp_item.phtml</template></action>
-            <action method="addPriceBlockType"><type>msrp_noform</type><block>catalog/product_price</block><template>catalog/product/price_msrp_noform.phtml</template></action>
+            <action method="addPriceBlockType">
+                <type>msrp</type>
+                <block>catalog/product_price</block>
+                <template>catalog/product/price_msrp.phtml</template>
+            </action>
+            <action method="addPriceBlockType">
+                <type>msrp_item</type>
+                <block>catalog/product_price</block>
+                <template>catalog/product/price_msrp_item.phtml</template>
+            </action>
+            <action method="addPriceBlockType">
+                <type>msrp_noform</type>
+                <block>catalog/product_price</block>
+                <template>catalog/product/price_msrp_noform.phtml</template>
+            </action>
         </reference>
     </default>
 </layout>

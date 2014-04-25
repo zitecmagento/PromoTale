@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_System_Convert_Gui extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     public function __construct()
     {
         $this->_controller = 'system_convert_gui';
@@ -42,4 +43,5 @@ class Mage_Adminhtml_Block_System_Convert_Gui extends Mage_Adminhtml_Block_Widge
 
         parent::__construct();
     }
+
 }

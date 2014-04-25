@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Rating_Block_Entity_Detailed extends Mage_Core_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -47,7 +49,7 @@ class Mage_Rating_Block_Entity_Detailed extends Mage_Core_Block_Template
         }
 
         $reviewsCount = Mage::getModel('review/review')
-            ->getTotalReviews($entityId, true);
+                ->getTotalReviews($entityId, true);
         if ($reviewsCount == 0) {
             #return Mage::helper('rating')->__('Be the first to review this product');
             $this->setTemplate('rating/empty.phtml');
@@ -55,12 +57,12 @@ class Mage_Rating_Block_Entity_Detailed extends Mage_Core_Block_Template
         }
 
         $ratingCollection = Mage::getModel('rating/rating')
-            ->getResourceCollection()
-            ->addEntityFilter('product') # TOFIX
-            ->setPositionOrder()
-            ->setStoreFilter(Mage::app()->getStore()->getId())
-            ->addRatingPerStoreName(Mage::app()->getStore()->getId())
-            ->load();
+                ->getResourceCollection()
+                ->addEntityFilter('product') # TOFIX
+                ->setPositionOrder()
+                ->setStoreFilter(Mage::app()->getStore()->getId())
+                ->addRatingPerStoreName(Mage::app()->getStore()->getId())
+                ->load();
 
         if ($entityId) {
             $ratingCollection->addEntitySummaryToItem($entityId, Mage::app()->getStore()->getId());
@@ -69,4 +71,5 @@ class Mage_Rating_Block_Entity_Detailed extends Mage_Core_Block_Template
         $this->assign('collection', $ratingCollection);
         return parent::_toHtml();
     }
+
 }

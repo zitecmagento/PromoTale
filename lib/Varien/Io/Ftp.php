@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * FTP client
  *
@@ -34,6 +34,7 @@
  */
 class Varien_Io_Ftp extends Varien_Io_Abstract
 {
+
     const ERROR_EMPTY_HOST = 1;
     const ERROR_INVALID_CONNECTION = 2;
     const ERROR_INVALID_LOGIN = 3;
@@ -62,7 +63,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @var int
      */
     protected $_error;
-
     protected $_tmpFilename;
 
     /**
@@ -82,7 +82,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param array $args
      * @return boolean
      */
-    public function open(array $args=array())
+    public function open(array $args = array())
     {
         if (empty($args['host'])) {
             $this->_error = self::ERROR_EMPTY_HOST;
@@ -166,7 +166,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param boolean $recursive
      * @return boolean
      */
-    public function mkdir($dir, $mode=0777, $recursive=true)
+    public function mkdir($dir, $mode = 0777, $recursive = true)
     {
         return @ftp_mkdir($this->_conn, $dir);
     }
@@ -177,7 +177,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string $dir
      * @return boolean
      */
-    public function rmdir($dir, $recursive=false)
+    public function rmdir($dir, $recursive = false)
     {
         return @ftp_rmdir($this->_conn, $dir);
     }
@@ -210,7 +210,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string|resource|null $dest destination file name, stream, or if null will return file contents
      * @return string
      */
-    public function read($filename, $dest=null)
+    public function read($filename, $dest = null)
     {
         if (is_string($dest)) {
             $result = ftp_get($this->_conn, $dest, $filename, $this->_config['file_mode']);
@@ -229,7 +229,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
             if (is_null($dest)) {
                 fseek($stream, 0);
                 $result = '';
-                for ($result = ''; $s = fread($stream, 4096); $result .= $s);
+                for ($result = ''; $s = fread($stream, 4096); $result .= $s)
+                    ;
                 fclose($stream);
             }
         }
@@ -243,7 +244,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string|resource $src filename, string data or source stream
      * @return int|boolean
      */
-    public function write($filename, $src, $mode=null)
+    public function write($filename, $src, $mode = null)
     {
         if (is_string($src) && is_readable($src)) {
             return @ftp_put($this->_conn, $filename, $src, $this->_config['file_mode']);
@@ -302,26 +303,27 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         return @ftp_chmod($this->_conn, $mode, $filename);
     }
 
-    public function ls($grep=null)
+    public function ls($grep = null)
     {
         $ls = @ftp_nlist($this->_conn, '.');
 
         $list = array();
         foreach ($ls as $file) {
             $list[] = array(
-                'text'=>$file,
-                'id'=>$this->pwd().'/'.$file,
+                'text' => $file,
+                'id' => $this->pwd() . '/' . $file,
             );
         }
 
         return $list;
     }
 
-    protected function _tmpFilename($new=false)
+    protected function _tmpFilename($new = false)
     {
         if ($new || !$this->_tmpFilename) {
-            $this->_tmpFilename = tempnam( md5(uniqid(rand(), TRUE)), '' );
+            $this->_tmpFilename = tempnam(md5(uniqid(rand(), TRUE)), '');
         }
         return $this->_tmpFilename;
     }
+
 }

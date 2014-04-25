@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax rule collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -51,9 +52,7 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
     public function joinCalculationData($alias)
     {
         $this->getSelect()->joinLeft(
-            array($alias => $this->getTable('tax/tax_calculation')),
-            "main_table.tax_calculation_rule_id = {$alias}.tax_calculation_rule_id",
-            array()
+                array($alias => $this->getTable('tax/tax_calculation')), "main_table.tax_calculation_rule_id = {$alias}.tax_calculation_rule_id", array()
         );
         $this->getSelect()->group('main_table.tax_calculation_rule_id');
 
@@ -79,21 +78,18 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
         if (!empty($children)) {
             $joinCondition = sprintf('item.%s = calculation.%s', $secondaryJoinField, $primaryJoinField);
             $select = $this->getConnection()->select()
-                ->from(
-                    array('calculation' => $this->getTable('tax/tax_calculation')),
-                    array('calculation.tax_calculation_rule_id')
-                )
-                ->join(
-                    array('item' => $this->getTable($itemTable)),
-                    $joinCondition,
-                    array("item.{$titleField}", "item.{$secondaryJoinField}")
-                )
-                ->where('calculation.tax_calculation_rule_id IN (?)', array_keys($children))
-                ->distinct(true);
+                    ->from(
+                            array('calculation' => $this->getTable('tax/tax_calculation')), array('calculation.tax_calculation_rule_id')
+                    )
+                    ->join(
+                            array('item' => $this->getTable($itemTable)), $joinCondition, array("item.{$titleField}", "item.{$secondaryJoinField}")
+                    )
+                    ->where('calculation.tax_calculation_rule_id IN (?)', array_keys($children))
+                    ->distinct(true);
 
             $data = $this->getConnection()->fetchAll($select);
             foreach ($data as $row) {
-               $children[$row['tax_calculation_rule_id']][$row[$secondaryJoinField]] = $row[$titleField];
+                $children[$row['tax_calculation_rule_id']][$row[$secondaryJoinField]] = $row[$titleField];
             }
         }
 
@@ -161,4 +157,5 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
         $this->addFieldToFilter($field, $id);
         return $this;
     }
+
 }

@@ -34,6 +34,7 @@
  */
 interface Zend_Http_Client_Adapter_Stream
 {
+
     /**
      * Set output stream
      * 

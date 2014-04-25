@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,10 +34,12 @@
  */
 class Mage_XmlConnect_Model_Payment_Method_Paypal_Pro extends Mage_Paypal_Model_Pro
 {
+
     /**
      * Config mode type
      *
      * @var string
      */
     protected $_configType = 'xmlconnect/payment_method_paypal_config';
+
 }

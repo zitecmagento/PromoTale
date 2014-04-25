@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Decorator_FormElements */
 #require_once 'Zend/Form/Decorator/FormElements.php';
 
@@ -41,6 +41,7 @@
  */
 class Zend_Form_Decorator_PrepareElements extends Zend_Form_Decorator_FormElements
 {
+
     /**
      * Render form elements
      *
@@ -61,15 +62,15 @@ class Zend_Form_Decorator_PrepareElements extends Zend_Form_Decorator_FormElemen
 
     protected function _recursivelyPrepareForm(Zend_Form $form)
     {
-        $belongsTo      = ($form instanceof Zend_Form) ? $form->getElementsBelongTo() : null;
+        $belongsTo = ($form instanceof Zend_Form) ? $form->getElementsBelongTo() : null;
         $elementContent = '';
-        $separator      = $this->getSeparator();
-        $translator     = $form->getTranslator();
-        $view           = $form->getView();
+        $separator = $this->getSeparator();
+        $translator = $form->getTranslator();
+        $view = $form->getView();
 
         foreach ($form as $item) {
             $item->setView($view)
-                 ->setTranslator($translator);
+                    ->setTranslator($translator);
             if ($item instanceof Zend_Form_Element) {
                 $item->setBelongsTo($belongsTo);
             } elseif (!empty($belongsTo) && ($item instanceof Zend_Form)) {
@@ -87,4 +88,5 @@ class Zend_Form_Decorator_PrepareElements extends Zend_Form_Decorator_FormElemen
             }
         }
     }
+
 }

@@ -48,7 +48,7 @@ li                      { list-style:none; }
     padding:0;
     font-size:.95em;
     font-weight:bold;
-    }
+}
 .error-msg          { color:#df280a !important; background:#faebe7; }
 .success-msg        { color:#3d6611; background:#eff5ea; }
 .notice-msg         { background:#fffbf0; color:#3d6611 !important; }
@@ -71,7 +71,7 @@ button, .form-btn {
     font:bold 12px arial, helvetica, sans-serif;
     cursor:pointer;
     white-space:nowrap;
-    }
+}
 a.form-btn,
 a.form-btn:hover    { color:#fff; padding-top:1px; padding-bottom:2px; text-decoration:none; }
 
@@ -103,7 +103,7 @@ BOXES
     border-color:#aeaeae #aeaeae #6a6a6a #aeaeae;
     border-style:solid;
     background:#fff;
-    }
+}
 .content            { padding:10px 25px 35px 25px; }
 .footer             { width:710px; margin:0 auto 35px auto; padding:10px 20px; text-align:center; }
 
@@ -114,12 +114,12 @@ BOXES
     height:31px;
     background:url(images/logo.gif) no-repeat;
     text-indent:-6000px;
-    }
+}
 .nav {
     margin-bottom:20px;
     padding:8px 15px 0 20px;
     background:url(images/nav_bg.gif) repeat-x 0 100% #f6f6f6;
-    }
+}
 .nav li             { list-style:none; float:left; }
 .nav li a, .nav .nav li a:hover {
     float:left;
@@ -131,14 +131,14 @@ BOXES
     padding:2px 11px;
     color:#222;
     text-decoration:none;
-    }
+}
 .nav li a.active, .nav li a.active:hover {
     background:#fff;
     color:#2f2f2f;
     font-weight:bold;
     text-decoration:none;
     cursor:default;
-    }
+}
 .page-head          { margin-bottom:14px; font-size:1.7em; font-weight:normal; }
 
 
@@ -160,7 +160,7 @@ BOXES
     background:#f6f6f6;
     vertical-align:top;
     word-wrap:break-word;
-    }
+}
 .connect-packages th       { border-top:solid 1px #bbb; background:#ccc; text-align:left; }
 .connect-packages td.first { border-left:solid 1px #bbb; }
 .connect-packages td.last  { border-right:solid 1px #bbb; }
@@ -188,7 +188,7 @@ BOXES
     font-size:0;
     line-height:0;
     visibility:hidden;
-    }
+}
 
 
 /* Directional and spacial */

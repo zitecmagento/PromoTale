@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Install_Block_Begin extends Mage_Install_Block_Abstract
 {
+
     /**
      * Set template
      *
@@ -46,6 +48,7 @@ class Mage_Install_Block_Begin extends Mage_Install_Block_Abstract
      */
     public function getLanguages()
     {
+        
     }
 
     /**
@@ -65,6 +68,7 @@ class Mage_Install_Block_Begin extends Mage_Install_Block_Abstract
      */
     public function getLicenseHtml()
     {
-        return file_get_contents(BP . DS . (string)Mage::getConfig()->getNode('install/eula_file'));
+        return file_get_contents(BP . DS . (string) Mage::getConfig()->getNode('install/eula_file'));
     }
+
 }

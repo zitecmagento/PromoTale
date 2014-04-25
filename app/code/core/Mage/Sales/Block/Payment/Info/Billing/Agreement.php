@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,8 @@
  */
 class Mage_Sales_Block_Payment_Info_Billing_Agreement extends Mage_Payment_Block_Info
 {
-/**
+
+    /**
      * Add reference id to payment method information
      *
      * @param Varien_Object|array $transport
@@ -43,11 +45,12 @@ class Mage_Sales_Block_Payment_Info_Billing_Agreement extends Mage_Payment_Block
         }
         $info = $this->getInfo();
         $referenceID = $info->getAdditionalInformation(
-            Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract::PAYMENT_INFO_REFERENCE_ID
+                Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract::PAYMENT_INFO_REFERENCE_ID
         );
         $transport = new Varien_Object(array($this->__('Reference ID') => $referenceID,));
         $transport = parent::_prepareSpecificInformation($transport);
 
         return $transport;
     }
+
 }

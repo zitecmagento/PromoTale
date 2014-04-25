@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -44,6 +45,7 @@
  */
 class Mage_Dataflow_Model_Profile_History extends Mage_Core_Model_Abstract
 {
+
     protected function _construct()
     {
         $this->_init('dataflow/profile_history');
@@ -58,11 +60,12 @@ class Mage_Dataflow_Model_Profile_History extends Mage_Core_Model_Abstract
             }
         }
 
-        if(!$this->hasData('user_id')) {
+        if (!$this->hasData('user_id')) {
             $this->setUserId(0);
         }
 
         parent::_beforeSave();
         return $this;
     }
+
 }

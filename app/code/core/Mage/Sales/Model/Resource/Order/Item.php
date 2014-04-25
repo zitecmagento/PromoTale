@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order item resource
  *
@@ -34,12 +34,13 @@
  */
 class Mage_Sales_Model_Resource_Order_Item extends Mage_Sales_Model_Resource_Order_Abstract
 {
+
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix    = 'sales_order_item_resource';
+    protected $_eventPrefix = 'sales_order_item_resource';
 
     /**
      * Model initialization
@@ -49,4 +50,5 @@ class Mage_Sales_Model_Resource_Order_Item extends Mage_Sales_Model_Resource_Ord
     {
         $this->_init('sales/order_item', 'item_id');
     }
+
 }

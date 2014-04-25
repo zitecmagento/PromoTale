@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Auth session model
@@ -85,7 +85,8 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             return;
         }
 
-        try {
+        try
+        {
             /** @var $user Mage_Admin_Model_User */
             $user = Mage::getModel('admin/user');
             $user->login($username, $password);
@@ -108,9 +109,10 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             } else {
                 Mage::throwException(Mage::helper('adminhtml')->__('Invalid User Name or Password.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            Mage::dispatchEvent('admin_session_user_login_failed',
-                array('user_name' => $username, 'exception' => $e));
+        }
+        catch (Mage_Core_Exception $e)
+        {
+            Mage::dispatchEvent('admin_session_user_login_failed', array('user_name' => $username, 'exception' => $e));
             if ($request && !$request->getParam('messageSent')) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $request->setParam('messageSent', true);
@@ -164,14 +166,22 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 $resource = 'admin/' . $resource;
             }
 
-            try {
+            try
+            {
                 return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
-            } catch (Exception $e) {
-                try {
+            }
+            catch (Exception $e)
+            {
+                try
+                {
                     if (!$acl->has($resource)) {
                         return $acl->isAllowed($user->getAclRole(), null, $privilege);
                     }
-                } catch (Exception $e) { }
+                }
+                catch (Exception $e)
+                {
+                    
+                }
             }
         }
         return false;
@@ -208,7 +218,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function setIsFirstPageAfterLogin($value)
     {
-        $this->_isFirstPageAfterLogin = (bool)$value;
+        $this->_isFirstPageAfterLogin = (bool) $value;
         return $this->setIsFirstVisit($this->_isFirstPageAfterLogin);
     }
 
@@ -228,4 +238,5 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             return null;
         }
     }
+
 }

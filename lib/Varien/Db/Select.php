@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -52,10 +53,9 @@
  */
 class Varien_Db_Select extends Zend_Db_Select
 {
-    const TYPE_CONDITION    = 'TYPE_CONDITION';
 
-    const STRAIGHT_JOIN     = 'straightjoin';
-
+    const TYPE_CONDITION = 'TYPE_CONDITION';
+    const STRAIGHT_JOIN = 'straightjoin';
     const SQL_STRAIGHT_JOIN = 'STRAIGHT_JOIN';
 
     /**
@@ -136,8 +136,7 @@ class Varien_Db_Select extends Zend_Db_Select
                 foreach ($this->_parts[self::COLUMNS] as $columnEntry) {
                     list($correlationName, $column) = $columnEntry;
                     if ($column instanceof Zend_Db_Expr) {
-                        if ($this->_findTableInCond($tableId, $column)
-                            || $this->_findTableInCond($tableProp['tableName'], $column)) {
+                        if ($this->_findTableInCond($tableId, $column) || $this->_findTableInCond($tableProp['tableName'], $column)) {
                             $useJoin = true;
                         }
                     } else {
@@ -147,22 +146,20 @@ class Varien_Db_Select extends Zend_Db_Select
                     }
                 }
                 foreach ($this->_parts[self::WHERE] as $where) {
-                    if ($this->_findTableInCond($tableId, $where)
-                        || $this->_findTableInCond($tableProp['tableName'], $where)) {
+                    if ($this->_findTableInCond($tableId, $where) || $this->_findTableInCond($tableProp['tableName'], $where)) {
                         $useJoin = true;
                     }
                 }
 
-                $joinUseInCond  = $useJoin;
-                $joinInTables   = array();
+                $joinUseInCond = $useJoin;
+                $joinInTables = array();
 
                 foreach ($this->_parts[self::FROM] as $tableCorrelationName => $table) {
                     if ($tableCorrelationName == $tableId) {
                         continue;
                     }
                     if (!empty($table['joinCondition'])) {
-                        if ($this->_findTableInCond($tableId, $table['joinCondition'])
-                        || $this->_findTableInCond($tableProp['tableName'], $table['joinCondition'])) {
+                        if ($this->_findTableInCond($tableId, $table['joinCondition']) || $this->_findTableInCond($tableProp['tableName'], $table['joinCondition'])) {
                             $useJoin = true;
                             $joinInTables[] = $tableCorrelationName;
                         }
@@ -230,8 +227,8 @@ class Varien_Db_Select extends Zend_Db_Select
         }
 
         $position = 0;
-        $result   = 0;
-        $needle   = array();
+        $result = 0;
+        $needle = array();
         while (is_integer($result)) {
             $result = strpos($cond, $table . '.', $position);
 
@@ -293,7 +290,7 @@ class Varien_Db_Select extends Zend_Db_Select
         if ($count === null) {
             $this->reset(self::LIMIT_COUNT);
         } else {
-            $this->_parts[self::LIMIT_COUNT]  = (int) $count;
+            $this->_parts[self::LIMIT_COUNT] = (int) $count;
         }
         if ($offset === null) {
             $this->reset(self::LIMIT_OFFSET);
@@ -338,7 +335,7 @@ class Varien_Db_Select extends Zend_Db_Select
     public function insertIgnoreFromSelect($tableName, $fields = array())
     {
         return $this->getAdapter()
-            ->insertFromSelect($this, $tableName, $fields, Varien_Db_Adapter_Interface::INSERT_IGNORE);
+                        ->insertFromSelect($this, $tableName, $fields, Varien_Db_Adapter_Interface::INSERT_IGNORE);
     }
 
     /**
@@ -447,6 +444,7 @@ class Varien_Db_Select extends Zend_Db_Select
 
         return $sql;
     }
+
     /**
      * Add EXISTS clause
      *
@@ -463,12 +461,13 @@ class Varien_Db_Select extends Zend_Db_Select
             $exists = 'NOT EXISTS (%s)';
         }
         $select->reset(self::COLUMNS)
-            ->columns(array(new Zend_Db_Expr('1')))
-            ->where($joinCondition);
+                ->columns(array(new Zend_Db_Expr('1')))
+                ->where($joinCondition);
 
         $exists = sprintf($exists, $select->assemble());
 
         $this->where($exists);
         return $this;
     }
+
 }

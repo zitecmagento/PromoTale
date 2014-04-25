@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product stock qty abstarct block
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_CatalogInventory_Block_Stockqty_Abstract extends Mage_Core_Block_Template
 {
+
     const XML_PATH_STOCK_THRESHOLD_QTY = 'cataloginventory/options/stock_threshold_qty';
 
     /**

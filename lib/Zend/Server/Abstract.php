@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -17,7 +18,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Server_Interface */
 #require_once 'Zend/Server/Interface.php';
 
@@ -57,6 +57,7 @@
  */
 abstract class Zend_Server_Abstract implements Zend_Server_Interface
 {
+
     /**
      * @deprecated
      * @var array List of PHP magic methods (lowercased)
@@ -138,11 +139,11 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
         $callback = new Zend_Server_Method_Callback();
         if ($reflection instanceof Zend_Server_Reflection_Method) {
             $callback->setType($reflection->isStatic() ? 'static' : 'instance')
-                     ->setClass($reflection->getDeclaringClass()->getName())
-                     ->setMethod($reflection->getName());
+                    ->setClass($reflection->getDeclaringClass()->getName())
+                    ->setMethod($reflection->getName());
         } elseif ($reflection instanceof Zend_Server_Reflection_Function) {
             $callback->setType('function')
-                     ->setFunction($reflection->getName());
+                    ->setFunction($reflection->getName());
         }
         return $callback;
     }
@@ -157,9 +158,9 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
      */
     protected function _buildSignature(Zend_Server_Reflection_Function_Abstract $reflection, $class = null)
     {
-        $ns         = $reflection->getNamespace();
-        $name       = $reflection->getName();
-        $method     = empty($ns) ? $name : $ns . '.' . $name;
+        $ns = $reflection->getNamespace();
+        $name = $reflection->getName();
+        $method = empty($ns) ? $name : $ns . '.' . $name;
 
         if (!$this->_overwriteExistingMethods && $this->_table->hasMethod($method)) {
             #require_once 'Zend/Server/Exception.php';
@@ -168,17 +169,17 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
 
         $definition = new Zend_Server_Method_Definition();
         $definition->setName($method)
-                   ->setCallback($this->_buildCallback($reflection))
-                   ->setMethodHelp($reflection->getDescription())
-                   ->setInvokeArguments($reflection->getInvokeArguments());
+                ->setCallback($this->_buildCallback($reflection))
+                ->setMethodHelp($reflection->getDescription())
+                ->setInvokeArguments($reflection->getInvokeArguments());
 
         foreach ($reflection->getPrototypes() as $proto) {
             $prototype = new Zend_Server_Method_Prototype();
             $prototype->setReturnType($this->_fixType($proto->getReturnType()));
             foreach ($proto->getParameters() as $parameter) {
                 $param = new Zend_Server_Method_Parameter(array(
-                    'type'     => $this->_fixType($parameter->getType()),
-                    'name'     => $parameter->getName(),
+                    'type' => $this->_fixType($parameter->getType()),
+                    'name' => $parameter->getName(),
                     'optional' => $parameter->isOptional(),
                 ));
                 if ($parameter->isDefaultValueAvailable()) {
@@ -205,14 +206,14 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
     protected function _dispatch(Zend_Server_Method_Definition $invocable, array $params)
     {
         $callback = $invocable->getCallback();
-        $type     = $callback->getType();
+        $type = $callback->getType();
 
         if ('function' == $type) {
             $function = $callback->getFunction();
             return call_user_func_array($function, $params);
         }
 
-        $class  = $callback->getClass();
+        $class = $callback->getClass();
         $method = $callback->getMethod();
 
         if ('static' == $type) {
@@ -224,7 +225,7 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
             $invokeArgs = $invocable->getInvokeArguments();
             if (!empty($invokeArgs)) {
                 $reflection = new ReflectionClass($class);
-                $object     = $reflection->newInstanceArgs($invokeArgs);
+                $object = $reflection->newInstanceArgs($invokeArgs);
             } else {
                 $object = new $class;
             }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Block_Adminhtml_Export_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Constructor
      *
@@ -43,8 +45,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit extends Mage_Adminhtml_Block
         parent::__construct();
 
         $this->removeButton('back')
-            ->removeButton('reset')
-            ->removeButton('save');
+                ->removeButton('reset')
+                ->removeButton('save');
     }
 
     /**
@@ -56,7 +58,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit extends Mage_Adminhtml_Block
     {
         parent::_construct();
 
-        $this->_objectId   = 'export_id';
+        $this->_objectId = 'export_id';
         $this->_blockGroup = 'importexport';
         $this->_controller = 'adminhtml_export';
     }
@@ -70,4 +72,5 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit extends Mage_Adminhtml_Block
     {
         return Mage::helper('importexport')->__('Export');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,11 +32,9 @@
  * @package    Mage_Cms
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Cms_Block_Widget_Page_Link
-    extends Mage_Core_Block_Html_Link
-    implements Mage_Widget_Block_Interface
+class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implements Mage_Widget_Block_Interface
 {
+
     /**
      * Prepared href attribute
      *
@@ -94,7 +93,7 @@ class Mage_Cms_Block_Widget_Page_Link
                 $this->_title = Mage::getResourceSingleton('cms/page')->getCmsPageTitleById($this->getData('page_id'));
             } else if ($this->getData('href')) {
                 $this->_title = Mage::getResourceSingleton('cms/page')->setStore(Mage::app()->getStore())
-                    ->getCmsPageTitleByIdentifier($this->getData('href'));
+                        ->getCmsPageTitleByIdentifier($this->getData('href'));
             }
         }
 
@@ -116,7 +115,7 @@ class Mage_Cms_Block_Widget_Page_Link
             $this->_anchorText = $this->getTitle();
         } else if ($this->getData('href')) {
             $this->_anchorText = Mage::getResourceSingleton('cms/page')->setStore(Mage::app()->getStore())
-                ->getCmsPageTitleByIdentifier($this->getData('href'));
+                    ->getCmsPageTitleByIdentifier($this->getData('href'));
         } else if ($this->getData('page_id')) {
             $this->_anchorText = Mage::getResourceSingleton('cms/page')->getCmsPageTitleById($this->getData('page_id'));
         } else {
@@ -125,4 +124,5 @@ class Mage_Cms_Block_Widget_Page_Link
 
         return $this->_anchorText;
     }
+
 }

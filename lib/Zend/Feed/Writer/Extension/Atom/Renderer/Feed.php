@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,20 +19,18 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Feed.php 20325 2010-01-16 00:17:59Z padraic $
  */
- 
 /**
  * @see Zend_Feed_Writer_Extension_RendererAbstract
  */
 #require_once 'Zend/Feed/Writer/Extension/RendererAbstract.php';
- 
+
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
-    extends Zend_Feed_Writer_Extension_RendererAbstract
+class Zend_Feed_Writer_Extension_Atom_Renderer_Feed extends Zend_Feed_Writer_Extension_RendererAbstract
 {
 
     /**
@@ -42,7 +41,7 @@ class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
      * @var bool
      */
     protected $_called = false;
-    
+
     /**
      * Render feed
      * 
@@ -63,7 +62,7 @@ class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
             $this->_appendNamespaces();
         }
     }
-    
+
     /**
      * Append namespaces to root element of feed
      * 
@@ -71,8 +70,7 @@ class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
      */
     protected function _appendNamespaces()
     {
-        $this->getRootElement()->setAttribute('xmlns:atom',
-            'http://www.w3.org/2005/Atom');  
+        $this->getRootElement()->setAttribute('xmlns:atom', 'http://www.w3.org/2005/Atom');
     }
 
     /**
@@ -85,11 +83,11 @@ class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
     protected function _setFeedLinks(DOMDocument $dom, DOMElement $root)
     {
         $flinks = $this->getDataContainer()->getFeedLinks();
-        if(!$flinks || empty($flinks)) {
+        if (!$flinks || empty($flinks)) {
             return;
         }
         foreach ($flinks as $type => $href) {
-            $mime  = 'application/' . strtolower($type) . '+xml';
+            $mime = 'application/' . strtolower($type) . '+xml';
             $flink = $dom->createElement('atom:link');
             $root->appendChild($flink);
             $flink->setAttribute('rel', 'self');
@@ -98,7 +96,7 @@ class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
         }
         $this->_called = true;
     }
-    
+
     /**
      * Set PuSH hubs
      * 
@@ -120,4 +118,5 @@ class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
         }
         $this->_called = true;
     }
+
 }

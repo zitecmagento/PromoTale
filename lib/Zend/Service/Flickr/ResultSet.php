@@ -20,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ResultSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Flickr_Result
  */
 #require_once 'Zend/Service/Flickr/Result.php';
-
 
 /**
  * @category   Zend
@@ -37,6 +34,7 @@
  */
 class Zend_Service_Flickr_ResultSet implements SeekableIterator
 {
+
     /**
      * Total number of available results
      *
@@ -94,13 +92,13 @@ class Zend_Service_Flickr_ResultSet implements SeekableIterator
 
         $photos = $xpath->query('//photos')->item(0);
 
-        $page    = $photos->getAttribute('page');
-        $pages   = $photos->getAttribute('pages');
+        $page = $photos->getAttribute('page');
+        $pages = $photos->getAttribute('pages');
         $perPage = $photos->getAttribute('perpage');
-        $total   = $photos->getAttribute('total');
+        $total = $photos->getAttribute('total');
 
-        $this->totalResultsReturned  = ($page == $pages || $pages == 0) ? ($total - ($page - 1) * $perPage) : (int) $perPage;
-        $this->firstResultPosition   = ($page - 1) * $perPage + 1;
+        $this->totalResultsReturned = ($page == $pages || $pages == 0) ? ($total - ($page - 1) * $perPage) : (int) $perPage;
+        $this->firstResultPosition = ($page - 1) * $perPage + 1;
         $this->totalResultsAvailable = (int) $total;
 
         if ($total > 0) {
@@ -184,5 +182,5 @@ class Zend_Service_Flickr_ResultSet implements SeekableIterator
     {
         return null !== $this->_results && $this->_currentIndex < $this->_results->length;
     }
-}
 
+}

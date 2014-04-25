@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Renderer_Xml_Writer extends Zend_Config_Writer_Xml
 {
+
     /**
      * Root node in XML output
      */
@@ -46,8 +48,8 @@ class Mage_Api2_Model_Renderer_Xml_Writer extends Zend_Config_Writer_Xml
      */
     public function render()
     {
-        $xml         = new SimpleXMLElement('<' . self::XML_ROOT_NODE . '/>');
-        $extends     = $this->_config->getExtends();
+        $xml = new SimpleXMLElement('<' . self::XML_ROOT_NODE . '/>');
+        $extends = $this->_config->getExtends();
         $sectionName = $this->_config->getSectionName();
 
         if (is_string($sectionName)) {
@@ -77,4 +79,5 @@ class Mage_Api2_Model_Renderer_Xml_Writer extends Zend_Config_Writer_Xml
 
         return $xmlString;
     }
+
 }

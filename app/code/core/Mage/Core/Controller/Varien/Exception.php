@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,13 +31,14 @@
  */
 class Mage_Core_Controller_Varien_Exception extends Exception
 {
-    const RESULT_FORWARD  = '_forward';
+
+    const RESULT_FORWARD = '_forward';
     const RESULT_REDIRECT = '_redirect';
 
-    protected $_resultCallback       = null;
+    protected $_resultCallback = null;
     protected $_resultCallbackParams = array();
-    protected $_defaultActionName    = 'noroute';
-    protected $_flags                = array();
+    protected $_defaultActionName = 'noroute';
+    protected $_flags = array();
 
     /**
      * Prepare data for forwarding action
@@ -122,4 +124,5 @@ class Mage_Core_Controller_Varien_Exception extends Exception
         }
         return array($this->_resultCallback, $this->_resultCallbackParams);
     }
+
 }

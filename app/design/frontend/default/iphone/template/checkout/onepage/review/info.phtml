@@ -34,8 +34,8 @@
                 <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
             </tr>
         </thead>
-        <?php foreach($this->getItems() as $_item): ?>
-            <?php echo $this->getItemHtml($_item)?>
+        <?php foreach ($this->getItems() as $_item): ?>
+            <?php echo $this->getItemHtml($_item) ?>
         <?php endforeach ?>
     </table>
 </div>
@@ -55,8 +55,8 @@
         </span>
     </div>
     <script type="text/javascript">
-    //<![CDATA[
+        //<![CDATA[
         review = new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder', array('form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
-    //]]>
+        //]]>
     </script>
 </div>

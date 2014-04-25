@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_Abstract
 {
+
     /**
      * Defines when product type has parents
      *
@@ -74,10 +76,11 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
     protected function _getLinkSettings()
     {
         return array(
-                    'table'=>'catalog/product_link',
-                    'parent_field'=>'product_id',
-                    'child_field'=>'linked_product_id',
-                    'additional'=>array('link_type_id'=>Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED)
-                    );
+            'table' => 'catalog/product_link',
+            'parent_field' => 'product_id',
+            'child_field' => 'linked_product_id',
+            'additional' => array('link_type_id' => Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED)
+        );
     }
+
 }

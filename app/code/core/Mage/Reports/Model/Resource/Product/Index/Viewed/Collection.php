@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reports Viewed Product Index Resource Collection
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Reports_Model_Resource_Product_Index_Viewed_Collection
-    extends Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+class Mage_Reports_Model_Resource_Product_Index_Viewed_Collection extends Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
 {
+
     /**
      * Retrieve Product Index table name
      *
@@ -44,4 +44,5 @@ class Mage_Reports_Model_Resource_Product_Index_Viewed_Collection
     {
         return $this->getTable('reports/viewed_product_index');
     }
+
 }

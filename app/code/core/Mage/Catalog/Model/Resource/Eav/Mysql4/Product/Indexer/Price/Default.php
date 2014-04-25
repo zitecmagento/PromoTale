@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Default Product Type Price Indexer Resource model
  * For correctly work need define product type id
@@ -33,7 +33,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Default
-    extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Default extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
 {
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Request_Interpreter_Json implements Mage_Api2_Model_Request_Interpreter_Interface
 {
+
     /**
      * Parse Request body into array of params
      *
@@ -54,4 +56,5 @@ class Mage_Api2_Model_Request_Interpreter_Json implements Mage_Api2_Model_Reques
 
         return $decoded;
     }
+
 }

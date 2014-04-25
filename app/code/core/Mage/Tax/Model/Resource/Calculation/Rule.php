@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax rate resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Tax_Model_Resource_Calculation_Rule extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -50,8 +51,8 @@ class Mage_Tax_Model_Resource_Calculation_Rule extends Mage_Core_Model_Resource_
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = array(array(
-            'field' => array('code'),
-            'title' => Mage::helper('tax')->__('Code'),
+                'field' => array('code'),
+                'title' => Mage::helper('tax')->__('Code'),
         ));
         return $this;
     }
@@ -69,16 +70,16 @@ class Mage_Tax_Model_Resource_Calculation_Rule extends Mage_Core_Model_Resource_
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from(array('main' => $this->getTable('tax/tax_calculation')), null)
-            ->joinLeft(
-            array('d' => $this->getTable('tax/tax_calculation_rule')),
-            'd.tax_calculation_rule_id = main.tax_calculation_rule_id',
-            array('d.code'))
-            ->where('main.tax_calculation_rate_id in (?)', $rateId)
-            ->where('main.customer_tax_class_id in (?)', $customerTaxClassId)
-            ->where('main.product_tax_class_id in (?)', $productTaxClassId)
-            ->distinct(true);
+                ->from(array('main' => $this->getTable('tax/tax_calculation')), null)
+                ->joinLeft(
+                        array('d' => $this->getTable('tax/tax_calculation_rule')), 'd.tax_calculation_rule_id = main.tax_calculation_rule_id', array(
+                    'd.code'))
+                ->where('main.tax_calculation_rate_id in (?)', $rateId)
+                ->where('main.customer_tax_class_id in (?)', $customerTaxClassId)
+                ->where('main.product_tax_class_id in (?)', $productTaxClassId)
+                ->distinct(true);
 
         return $adapter->fetchCol($select);
     }
+
 }

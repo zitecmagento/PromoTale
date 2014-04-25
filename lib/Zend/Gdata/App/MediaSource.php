@@ -32,6 +32,7 @@
  */
 interface Zend_Gdata_App_MediaSource
 {
+
     /**
      * Return a byte stream representation of this object.
      *

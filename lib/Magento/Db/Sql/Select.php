@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,5 +34,5 @@
  */
 class Magento_Db_Sql_Select extends Varien_Db_Select
 {
-
+    
 }

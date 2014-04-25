@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: FieldInfo.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -30,6 +30,7 @@
  */
 class Zend_Search_Lucene_Index_FieldInfo
 {
+
     public $name;
     public $isIndexed;
     public $number;
@@ -39,12 +40,12 @@ class Zend_Search_Lucene_Index_FieldInfo
 
     public function __construct($name, $isIndexed, $number, $storeTermVector, $normsOmitted = false, $payloadsStored = false)
     {
-        $this->name            = $name;
-        $this->isIndexed       = $isIndexed;
-        $this->number          = $number;
+        $this->name = $name;
+        $this->isIndexed = $isIndexed;
+        $this->number = $number;
         $this->storeTermVector = $storeTermVector;
-        $this->normsOmitted    = $normsOmitted;
-        $this->payloadsStored  = $payloadsStored;
+        $this->normsOmitted = $normsOmitted;
+        $this->payloadsStored = $payloadsStored;
     }
-}
 
+}

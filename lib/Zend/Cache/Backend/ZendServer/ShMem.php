@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,14 +20,11 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ShMem.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** @see Zend_Cache_Backend_Interface */
 #require_once 'Zend/Cache/Backend/Interface.php';
 
 /** @see Zend_Cache_Backend_ZendServer */
 #require_once 'Zend/Cache/Backend/ZendServer.php';
-
 
 /**
  * @package    Zend_Cache
@@ -36,6 +34,7 @@
  */
 class Zend_Cache_Backend_ZendServer_ShMem extends Zend_Cache_Backend_ZendServer implements Zend_Cache_Backend_Interface
 {
+
     /**
      * Constructor
      *
@@ -60,9 +59,7 @@ class Zend_Cache_Backend_ZendServer_ShMem extends Zend_Cache_Backend_ZendServer 
      */
     protected function _store($data, $id, $timeToLive)
     {
-        if (zend_shm_cache_store($this->_options['namespace'] . '::' . $id,
-                                  $data,
-                                  $timeToLive) === false) {
+        if (zend_shm_cache_store($this->_options['namespace'] . '::' . $id, $data, $timeToLive) === false) {
             $this->_log('Store operation failed.');
             return false;
         }
@@ -97,4 +94,5 @@ class Zend_Cache_Backend_ZendServer_ShMem extends Zend_Cache_Backend_ZendServer 
     {
         zend_shm_cache_clear($this->_options['namespace']);
     }
+
 }

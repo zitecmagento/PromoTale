@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Prepare layout.
      * Add files to use dialog windows
@@ -44,9 +45,9 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
     {
         if ($head = $this->getLayout()->getBlock('head')) {
             $head->addItem('js', 'prototype/window.js')
-                ->addItem('js_css', 'prototype/windows/themes/default.css')
-                ->addCss('lib/prototype/windows/themes/magento.css')
-                ->addItem('js', 'mage/adminhtml/variables.js');
+                    ->addItem('js_css', 'prototype/windows/themes/default.css')
+                    ->addCss('lib/prototype/windows/themes/magento.css')
+                    ->addItem('js', 'mage/adminhtml/variables.js');
         }
         return parent::_prepareLayout();
     }
@@ -71,10 +72,9 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
                 'label' => Mage::helper('adminhtml')->__('Used Currently For'),
                 'container_id' => 'used_currently_for',
                 'after_element_html' =>
-                    '<script type="text/javascript">' .
-                    (!$this->getEmailTemplate()->getSystemConfigPathsWhereUsedCurrently()
-                        ? '$(\'' . 'used_currently_for' . '\').hide(); ' : '') .
-                    '</script>',
+                '<script type="text/javascript">' .
+                (!$this->getEmailTemplate()->getSystemConfigPathsWhereUsedCurrently() ? '$(\'' . 'used_currently_for' . '\').hide(); ' : '') .
+                '</script>',
             ));
         }
 
@@ -83,22 +83,20 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
                 'label' => Mage::helper('adminhtml')->__('Used as Default For'),
                 'container_id' => 'used_default_for',
                 'after_element_html' =>
-                    '<script type="text/javascript">' .
-                    (!(bool)$this->getEmailTemplate()->getOrigTemplateCode()
-                        ? '$(\'' . 'used_default_for' . '\').hide(); ' : '') .
-                    '</script>',
+                '<script type="text/javascript">' .
+                (!(bool) $this->getEmailTemplate()->getOrigTemplateCode() ? '$(\'' . 'used_default_for' . '\').hide(); ' : '') .
+                '</script>',
             ));
         }
 
         $fieldset->addField('template_code', 'text', array(
-            'name'=>'template_code',
+            'name' => 'template_code',
             'label' => Mage::helper('adminhtml')->__('Template Name'),
             'required' => true
-
         ));
 
         $fieldset->addField('template_subject', 'text', array(
-            'name'=>'template_subject',
+            'name' => 'template_subject',
             'label' => Mage::helper('adminhtml')->__('Template Subject'),
             'required' => true
         ));
@@ -117,18 +115,18 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
         ));
 
         $insertVariableButton = $this->getLayout()
-            ->createBlock('adminhtml/widget_button', '', array(
-                'type' => 'button',
-                'label' => Mage::helper('adminhtml')->__('Insert Variable...'),
-                'onclick' => 'templateControl.openVariableChooser();return false;'
-            ));
+                ->createBlock('adminhtml/widget_button', '', array(
+            'type' => 'button',
+            'label' => Mage::helper('adminhtml')->__('Insert Variable...'),
+            'onclick' => 'templateControl.openVariableChooser();return false;'
+        ));
 
         $fieldset->addField('insert_variable', 'note', array(
             'text' => $insertVariableButton->toHtml()
         ));
 
         $fieldset->addField('template_text', 'textarea', array(
-            'name'=>'template_text',
+            'name' => 'template_text',
             'label' => Mage::helper('adminhtml')->__('Template Content'),
             'title' => Mage::helper('adminhtml')->__('Template Content'),
             'required' => true,
@@ -137,7 +135,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
 
         if (!$this->getEmailTemplate()->isPlain()) {
             $fieldset->addField('template_styles', 'textarea', array(
-                'name'=>'template_styles',
+                'name' => 'template_styles',
                 'label' => Mage::helper('adminhtml')->__('Template Styles'),
                 'container_id' => 'field_template_styles'
             ));
@@ -175,9 +173,9 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
     {
         $variables = array();
         $variables[] = Mage::getModel('core/source_email_variables')
-            ->toOptionArray(true);
+                ->toOptionArray(true);
         $customVariables = Mage::getModel('core/variable')
-            ->getVariablesOptionArray(true);
+                ->getVariablesOptionArray(true);
         if ($customVariables) {
             $variables[] = $customVariables;
         }
@@ -188,4 +186,5 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
         }
         return $variables;
     }
+
 }

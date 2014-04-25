@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: File.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Zend_Mail_Part
  */
@@ -38,6 +37,7 @@
  */
 class Zend_Mail_Message_File extends Zend_Mail_Part_File implements Zend_Mail_Message_Interface
 {
+
     /**
      * flags for this message
      * @var array
@@ -93,4 +93,5 @@ class Zend_Mail_Message_File extends Zend_Mail_Part_File implements Zend_Mail_Me
     {
         return $this->_flags;
     }
+
 }

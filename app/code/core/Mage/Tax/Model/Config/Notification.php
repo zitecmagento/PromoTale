@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
 {
+
     /**
      * Factory instance
      *
@@ -84,10 +86,11 @@ class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
     protected function _resetNotificationFlag($path)
     {
         $this->_getConfig()
-            ->load($path, 'path')
-            ->setValue(0)
-            ->setPath($path)
-            ->save();
+                ->load($path, 'path')
+                ->setValue(0)
+                ->setPath($path)
+                ->save();
         return $this;
     }
+
 }

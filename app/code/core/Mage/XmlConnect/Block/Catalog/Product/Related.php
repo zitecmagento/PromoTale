@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Related extends Mage_XmlConnect_Block_Catalog_Product_List
 {
+
     /**
      * Retrieve related products xml object based on current product
      *
@@ -50,7 +52,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Related extends Mage_XmlConnect_Bloc
             Mage::register('product', $productObj, true);
 
             $productBlock = $this->getLayout()->addBlock(
-                'enterprise_targetrule/catalog_product_list_related', 'relatedProducts'
+                    'enterprise_targetrule/catalog_product_list_related', 'relatedProducts'
             );
 
             $collection = $productBlock->getItemCollection();
@@ -87,7 +89,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Related extends Mage_XmlConnect_Bloc
 
             if ($this->getParentBlock()->getChild('product_price')) {
                 $this->getParentBlock()->getChild('product_price')->setProduct($product)
-                    ->setProductXmlObj($productXmlObj)->collectProductPrices();
+                        ->setProductXmlObj($productXmlObj)->collectProductPrices();
             }
             $relatedXmlObj->appendChild($productXmlObj);
         }
@@ -122,4 +124,5 @@ class Mage_XmlConnect_Block_Catalog_Product_Related extends Mage_XmlConnect_Bloc
         }
         return $this->_productCollection;
     }
+
 }

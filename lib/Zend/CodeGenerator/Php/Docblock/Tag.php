@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Tag.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_CodeGenerator_Abstract
  */
@@ -107,7 +107,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag extends Zend_CodeGenerator_Php_Abstrac
             #require_once 'Zend/Loader/PluginLoader.php';
             self::setPluginLoader(new Zend_Loader_PluginLoader(array(
                 'Zend_CodeGenerator_Php_Docblock_Tag' => dirname(__FILE__) . '/Tag/'))
-                );
+            );
         }
 
         return self::$_pluginLoader;
@@ -117,9 +117,12 @@ class Zend_CodeGenerator_Php_Docblock_Tag extends Zend_CodeGenerator_Php_Abstrac
     {
         $pluginLoader = self::getPluginLoader();
 
-        try {
+        try
+        {
             $tagClass = $pluginLoader->load($tagName);
-        } catch (Zend_Loader_Exception $exception) {
+        }
+        catch (Zend_Loader_Exception $exception)
+        {
             $tagClass = 'Zend_CodeGenerator_Php_Docblock_Tag';
         }
 

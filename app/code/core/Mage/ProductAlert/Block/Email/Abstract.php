@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product Alert Abstract Email Block
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Template
 {
+
     /**
      * Product collection array
      *
@@ -131,7 +132,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     protected function _getUrlParams()
     {
         return array(
-            '_store'        => $this->getStore(),
+            '_store' => $this->getStore(),
             '_store_to_url' => true
         );
     }
@@ -150,4 +151,5 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
         }
         return $shortDescription;
     }
+
 }

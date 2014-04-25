@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Reserved.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Service_Amazon_Ec2_Abstract
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Service_Amazon_Ec2_Instance_Reserved extends Zend_Service_Amazon_Ec2_Abstract
 {
+
     /**
      * Describes Reserved Instances that you purchased.
      *
@@ -47,11 +48,11 @@ class Zend_Service_Amazon_Ec2_Instance_Reserved extends Zend_Service_Amazon_Ec2_
         $params = array();
         $params['Action'] = 'DescribeReservedInstances';
 
-        if(is_array($instanceId) && !empty($instanceId)) {
-            foreach($instanceId as $k=>$name) {
-                $params['ReservedInstancesId.' . ($k+1)] = $name;
+        if (is_array($instanceId) && !empty($instanceId)) {
+            foreach ($instanceId as $k => $name) {
+                $params['ReservedInstancesId.' . ($k + 1)] = $name;
             }
-        } elseif($instanceId) {
+        } elseif ($instanceId) {
             $params['ReservedInstancesId.1'] = $instanceId;
         }
 
@@ -61,7 +62,7 @@ class Zend_Service_Amazon_Ec2_Instance_Reserved extends Zend_Service_Amazon_Ec2_
         $items = $xpath->query('//ec2:reservedInstancesSet/ec2:item');
 
         $return = array();
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $i = array();
             $i['reservedInstancesId'] = $xpath->evaluate('string(ec2:reservedInstancesId/text())', $item);
             $i['instanceType'] = $xpath->evaluate('string(ec2:instanceType/text())', $item);
@@ -99,7 +100,7 @@ class Zend_Service_Amazon_Ec2_Instance_Reserved extends Zend_Service_Amazon_Ec2_
         $items = $xpath->query('//ec2:reservedInstancesOfferingsSet/ec2:item');
 
         $return = array();
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $i = array();
             $i['reservedInstancesOfferingId'] = $xpath->evaluate('string(ec2:reservedInstancesOfferingId/text())', $item);
             $i['instanceType'] = $xpath->evaluate('string(ec2:instanceType/text())', $item);
@@ -140,4 +141,5 @@ class Zend_Service_Amazon_Ec2_Instance_Reserved extends Zend_Service_Amazon_Ec2_
 
         return $reservedInstancesId;
     }
+
 }

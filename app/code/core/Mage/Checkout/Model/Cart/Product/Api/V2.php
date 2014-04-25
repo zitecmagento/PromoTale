@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_Product_Api
 {
 
@@ -41,15 +41,15 @@ class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_P
      * @param Mixed $data
      * @return Array
      */
-    protected function _prepareProductsData($data){
+    protected function _prepareProductsData($data)
+    {
         if (is_object($data)) {
             $arr = get_object_vars($data);
             foreach ($arr as $key => $value) {
                 $assocArr = array();
                 if (is_array($value)) {
                     foreach ($value as $v) {
-                        if (is_object($v) && count(get_object_vars($v))==2
-                            && isset($v->key) && isset($v->value)) {
+                        if (is_object($v) && count(get_object_vars($v)) == 2 && isset($v->key) && isset($v->value)) {
                             $assocArr[$v->key] = $v->value;
                         }
                     }
@@ -73,4 +73,5 @@ class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_P
         }
         return $data;
     }
+
 }

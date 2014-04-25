@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Retrieve shipment model instance
      *
@@ -55,10 +56,10 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         $orderId = $this->getRequest()->getParam('order_id');
         $urlParams = array();
 
-        $itemsQty       = array();
-        $itemsPrice     = array();
-        $itemsName      = array();
-        $itemsWeight    = array();
+        $itemsQty = array();
+        $itemsPrice = array();
+        $itemsName = array();
+        $itemsWeight = array();
         $itemsProductId = array();
 
         if ($shipmentId) {
@@ -66,12 +67,12 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
             $createLabelUrl = $this->getUrl('*/sales_order_shipment/createLabel', $urlParams);
             $itemsGridUrl = $this->getUrl('*/sales_order_shipment/getShippingItemsGrid', $urlParams);
             foreach ($this->getShipment()->getAllItems() as $item) {
-                $itemsQty[$item->getId()]           = $item->getQty();
-                $itemsPrice[$item->getId()]         = $item->getPrice();
-                $itemsName[$item->getId()]          = $item->getName();
-                $itemsWeight[$item->getId()]        = $item->getWeight();
-                $itemsProductId[$item->getId()]     = $item->getProductId();
-                $itemsOrderItemId[$item->getId()]   = $item->getOrderItemId();
+                $itemsQty[$item->getId()] = $item->getQty();
+                $itemsPrice[$item->getId()] = $item->getPrice();
+                $itemsName[$item->getId()] = $item->getName();
+                $itemsWeight[$item->getId()] = $item->getWeight();
+                $itemsProductId[$item->getId()] = $item->getProductId();
+                $itemsOrderItemId[$item->getId()] = $item->getOrderItemId();
             }
         } else if ($orderId) {
             $urlParams['order_id'] = $orderId;
@@ -79,27 +80,27 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
             $itemsGridUrl = $this->getUrl('*/sales_order_shipment/getShippingItemsGrid', $urlParams);
 
             foreach ($this->getShipment()->getAllItems() as $item) {
-                $itemsQty[$item->getOrderItemId()]          = $item->getQty()*1;
-                $itemsPrice[$item->getOrderItemId()]        = $item->getPrice();
-                $itemsName[$item->getOrderItemId()]         = $item->getName();
-                $itemsWeight[$item->getOrderItemId()]       = $item->getWeight();
-                $itemsProductId[$item->getOrderItemId()]    = $item->getProductId();
-                $itemsOrderItemId[$item->getOrderItemId()]  = $item->getOrderItemId();
+                $itemsQty[$item->getOrderItemId()] = $item->getQty() * 1;
+                $itemsPrice[$item->getOrderItemId()] = $item->getPrice();
+                $itemsName[$item->getOrderItemId()] = $item->getName();
+                $itemsWeight[$item->getOrderItemId()] = $item->getWeight();
+                $itemsProductId[$item->getOrderItemId()] = $item->getProductId();
+                $itemsOrderItemId[$item->getOrderItemId()] = $item->getOrderItemId();
             }
         }
         $data = array(
-            'createLabelUrl'            => $createLabelUrl,
-            'itemsGridUrl'              => $itemsGridUrl,
-            'errorQtyOverLimit'         => Mage::helper('sales')->__('The quantity you want to add exceeds the total shipped quantity for some of selected Product(s)'),
-            'titleDisabledSaveBtn'      => Mage::helper('sales')->__('Products should be added to package(s)'),
-            'validationErrorMsg'        => Mage::helper('sales')->__('The value that you entered is not valid.'),
-            'shipmentItemsQty'          => $itemsQty,
-            'shipmentItemsPrice'        => $itemsPrice,
-            'shipmentItemsName'         => $itemsName,
-            'shipmentItemsWeight'       => $itemsWeight,
-            'shipmentItemsProductId'    => $itemsProductId,
-            'shipmentItemsOrderItemId'  => $itemsOrderItemId,
-            'customizable'              => $this->_getCustomizableContainers(),
+            'createLabelUrl' => $createLabelUrl,
+            'itemsGridUrl' => $itemsGridUrl,
+            'errorQtyOverLimit' => Mage::helper('sales')->__('The quantity you want to add exceeds the total shipped quantity for some of selected Product(s)'),
+            'titleDisabledSaveBtn' => Mage::helper('sales')->__('Products should be added to package(s)'),
+            'validationErrorMsg' => Mage::helper('sales')->__('The value that you entered is not valid.'),
+            'shipmentItemsQty' => $itemsQty,
+            'shipmentItemsPrice' => $itemsPrice,
+            'shipmentItemsName' => $itemsName,
+            'shipmentItemsWeight' => $itemsWeight,
+            'shipmentItemsProductId' => $itemsProductId,
+            'shipmentItemsOrderItemId' => $itemsOrderItemId,
+            'customizable' => $this->_getCustomizableContainers(),
         );
         return Mage::helper('core')->jsonEncode($data);
     }
@@ -239,8 +240,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         $order = $this->getShipment()->getOrder();
         $address = $order->getShippingAddress();
         $shipperAddressCountryCode = Mage::getStoreConfig(
-            Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID,
-            $storeId
+                        Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID, $storeId
         );
         $recipientAddressCountryCode = $address->getCountryId();
         if ($shipperAddressCountryCode != $recipientAddressCountryCode) {
@@ -275,12 +275,12 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         $data['shipment_id'] = $this->getShipment()->getId();
         $url = $this->getUrl('*/sales_order_shipment/printPackage', $data);
         return $this->getLayout()
-            ->createBlock('adminhtml/widget_button')
-            ->setData(array(
-                'label'   => Mage::helper('sales')->__('Print'),
-                'onclick' => 'setLocation(\'' . $url . '\')'
-            ))
-            ->toHtml();
+                        ->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('sales')->__('Print'),
+                            'onclick' => 'setLocation(\'' . $url . '\')'
+                        ))
+                        ->toHtml();
     }
 
     /**
@@ -291,10 +291,10 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     public function isGirthAllowed()
     {
         return $this
-            ->getShipment()
-            ->getOrder()
-            ->getShippingCarrier()
-            ->isGirthAllowed($this->getShipment()->getOrder()->getShippingAddress()->getCountryId());
+                        ->getShipment()
+                        ->getOrder()
+                        ->getShippingCarrier()
+                        ->isGirthAllowed($this->getShipment()->getOrder()->getShippingAddress()->getCountryId());
     }
 
     /**
@@ -363,9 +363,10 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     public function getQtyOrderedItem($itemId)
     {
         if ($itemId) {
-            return $this->getShipment()->getOrder()->getItemById($itemId)->getQtyOrdered()*1;
+            return $this->getShipment()->getOrder()->getItemById($itemId)->getQtyOrdered() * 1;
         } else {
             return;
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Firebug.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Log_Formatter_Interface */
 #require_once 'Zend/Log/Formatter/Interface.php';
 
@@ -32,6 +32,7 @@
  */
 class Zend_Log_Formatter_Firebug implements Zend_Log_Formatter_Interface
 {
+
     /**
      * This method formats the event for the firebug writer.
      *
@@ -47,4 +48,5 @@ class Zend_Log_Formatter_Firebug implements Zend_Log_Formatter_Interface
     {
         return $event['message'];
     }
+
 }

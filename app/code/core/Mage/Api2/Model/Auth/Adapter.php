@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Auth_Adapter
 {
+
     /**
      * Adapter models
      *
@@ -90,4 +92,5 @@ class Mage_Api2_Model_Auth_Adapter
         }
         return (object) array('type' => Mage_Api2_Model_Auth::DEFAULT_USER_TYPE, 'id' => null);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Payment_Method_Purchaseorder extends Mage_Payment_Block_Form_Purchaseorder
 {
+
     /**
      * Prevent any rendering
      *
@@ -87,4 +89,5 @@ EOT;
 
         return $paymentItemXmlObj;
     }
+
 }

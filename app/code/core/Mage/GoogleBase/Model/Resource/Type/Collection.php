@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * GoogleBase Item Types collection
  *
@@ -35,6 +35,7 @@
  */
 class Mage_GoogleBase_Model_Resource_Type_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Resource collection initialization
      *
@@ -64,17 +65,14 @@ class Mage_GoogleBase_Model_Resource_Type_Collection extends Mage_Core_Model_Res
     public function addItemsCount()
     {
         $innerSelect = $this->getConnection()->select()
-            ->from(
-                array('inner_items' => $this->getTable('googlebase/items')),
-                array('type_id', 'cnt' => new Zend_Db_Expr('COUNT(inner_items.item_id)'))
-            )
-            ->group('inner_items.type_id');
+                ->from(
+                        array('inner_items' => $this->getTable('googlebase/items')), array('type_id', 'cnt' => new Zend_Db_Expr('COUNT(inner_items.item_id)'))
+                )
+                ->group('inner_items.type_id');
 
         $this->getSelect()
-            ->joinLeft(
-                array('items' => $innerSelect),
-                'main_table.type_id=items.type_id',
-                array('items_total' => 'items.cnt'));
+                ->joinLeft(
+                        array('items' => $innerSelect), 'main_table.type_id=items.type_id', array('items_total' => 'items.cnt'));
 
         return $this;
     }
@@ -99,10 +97,10 @@ class Mage_GoogleBase_Model_Resource_Type_Collection extends Mage_Core_Model_Res
     protected function _joinAttributeSet()
     {
         $this->getSelect()
-            ->join(
-                array('a_set'=>$this->getTable('eav/attribute_set')),
-                'main_table.attribute_set_id=a_set.attribute_set_id',
-                array('attribute_set_name' => 'a_set.attribute_set_name'));
+                ->join(
+                        array('a_set' => $this->getTable('eav/attribute_set')), 'main_table.attribute_set_id=a_set.attribute_set_id', array(
+                    'attribute_set_name' => 'a_set.attribute_set_name'));
         return $this;
     }
+
 }

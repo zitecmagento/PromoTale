@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Log Attempts resource
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Type Remote Address
      */
@@ -61,25 +62,21 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function logAttempt($login)
     {
-        if ($login != null){
+        if ($login != null) {
             $this->_getWriteAdapter()->insertOnDuplicate(
-                $this->getMainTable(),
-                array(
-                     'type' => self::TYPE_LOGIN, 'value' => $login, 'count' => 1,
-                     'updated_at' => Mage::getSingleton('core/date')->gmtDate()
-                ),
-                array('count' => new Zend_Db_Expr('count+1'), 'updated_at')
+                    $this->getMainTable(), array(
+                'type' => self::TYPE_LOGIN, 'value' => $login, 'count' => 1,
+                'updated_at' => Mage::getSingleton('core/date')->gmtDate()
+                    ), array('count' => new Zend_Db_Expr('count+1'), 'updated_at')
             );
         }
         $ip = Mage::helper('core/http')->getRemoteAddr();
         if ($ip != null) {
             $this->_getWriteAdapter()->insertOnDuplicate(
-                $this->getMainTable(),
-                array(
-                     'type' => self::TYPE_REMOTE_ADDRESS, 'value' => $ip, 'count' => 1,
-                     'updated_at' => Mage::getSingleton('core/date')->gmtDate()
-                ),
-                array('count' => new Zend_Db_Expr('count+1'), 'updated_at')
+                    $this->getMainTable(), array(
+                'type' => self::TYPE_REMOTE_ADDRESS, 'value' => $ip, 'count' => 1,
+                'updated_at' => Mage::getSingleton('core/date')->gmtDate()
+                    ), array('count' => new Zend_Db_Expr('count+1'), 'updated_at')
             );
         }
         return $this;
@@ -95,14 +92,13 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     {
         if ($login != null) {
             $this->_getWriteAdapter()->delete(
-                $this->getMainTable(),
-                array('type = ?' => self::TYPE_LOGIN, 'value = ?' => $login)
+                    $this->getMainTable(), array('type = ?' => self::TYPE_LOGIN, 'value = ?' => $login)
             );
         }
         $ip = Mage::helper('core/http')->getRemoteAddr();
         if ($ip != null) {
             $this->_getWriteAdapter()->delete(
-                $this->getMainTable(), array('type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $ip)
+                    $this->getMainTable(), array('type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $ip)
             );
         }
 
@@ -122,7 +118,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
         }
         $read = $this->_getReadAdapter();
         $select = $read->select()->from($this->getMainTable(), 'count')->where('type = ?', self::TYPE_REMOTE_ADDRESS)
-            ->where('value = ?', $ip);
+                ->where('value = ?', $ip);
         return $read->fetchOne($select);
     }
 
@@ -139,7 +135,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
         }
         $read = $this->_getReadAdapter();
         $select = $read->select()->from($this->getMainTable(), 'count')->where('type = ?', self::TYPE_LOGIN)
-            ->where('value = ?', $login);
+                ->where('value = ?', $login);
         return $read->fetchOne($select);
     }
 
@@ -151,8 +147,8 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     public function deleteOldAttempts()
     {
         $this->_getWriteAdapter()->delete(
-            $this->getMainTable(),
-            array('updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, time() - 60*30))
+                $this->getMainTable(), array('updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, time() - 60 * 30))
         );
     }
+
 }

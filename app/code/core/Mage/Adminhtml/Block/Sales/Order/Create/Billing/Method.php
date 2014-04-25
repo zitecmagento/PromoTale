@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -49,4 +50,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method extends Mage_Adminh
     {
         return 'head-payment-method';
     }
+
 }

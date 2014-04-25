@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Digits.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -32,9 +32,10 @@
  */
 class Zend_Validate_Digits extends Zend_Validate_Abstract
 {
-    const NOT_DIGITS   = 'notDigits';
+
+    const NOT_DIGITS = 'notDigits';
     const STRING_EMPTY = 'digitsStringEmpty';
-    const INVALID      = 'digitsInvalid';
+    const INVALID = 'digitsInvalid';
 
     /**
      * Digits filter used for validation
@@ -49,9 +50,9 @@ class Zend_Validate_Digits extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::NOT_DIGITS   => "'%value%' must contain only digits",
+        self::NOT_DIGITS => "'%value%' must contain only digits",
         self::STRING_EMPTY => "'%value%' is an empty string",
-        self::INVALID      => "Invalid type given. String, integer or float expected",
+        self::INVALID => "Invalid type given. String, integer or float expected",
     );
 
     /**
@@ -88,4 +89,5 @@ class Zend_Validate_Digits extends Zend_Validate_Abstract
 
         return true;
     }
+
 }

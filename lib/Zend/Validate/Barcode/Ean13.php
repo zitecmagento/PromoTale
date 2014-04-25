@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Ean13.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Validate_Barcode_AdapterAbstract
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Validate_Barcode_Ean13 extends Zend_Validate_Barcode_AdapterAbstract
 {
+
     /**
      * Allowed barcode lengths
      * @var integer
@@ -49,4 +50,5 @@ class Zend_Validate_Barcode_Ean13 extends Zend_Validate_Barcode_AdapterAbstract
      * @var string
      */
     protected $_checksum = '_gtin';
+
 }

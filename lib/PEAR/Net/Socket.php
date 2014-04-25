@@ -1,4 +1,5 @@
 <?php
+
 //
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
@@ -21,7 +22,7 @@
 
 require_once 'PEAR.php';
 
-define('NET_SOCKET_READ',  1);
+define('NET_SOCKET_READ', 1);
 define('NET_SOCKET_WRITE', 2);
 define('NET_SOCKET_ERROR', 4);
 
@@ -32,7 +33,8 @@ define('NET_SOCKET_ERROR', 4);
  * @author Stig Bakken <ssb@php.net>
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
-class Net_Socket extends PEAR {
+class Net_Socket extends PEAR
+{
 
     /**
      * Socket file pointer.
@@ -104,7 +106,7 @@ class Net_Socket extends PEAR {
         if (!$addr) {
             return $this->raiseError('$addr cannot be empty');
         } elseif (strspn($addr, '.0123456789') == strlen($addr) ||
-                  strstr($addr, '/') !== false) {
+                strstr($addr, '/') !== false) {
             $this->addr = $addr;
         } else {
             $this->addr = @gethostbyname($addr);
@@ -441,7 +443,7 @@ class Net_Socket extends PEAR {
         }
 
         $string = '';
-        while (($char = @fread($this->fp, 1)) != "\x00")  {
+        while (($char = @fread($this->fp, 1)) != "\x00") {
             $string .= $char;
         }
         return $string;
@@ -461,8 +463,7 @@ class Net_Socket extends PEAR {
         }
 
         $buf = @fread($this->fp, 4);
-        return sprintf('%d.%d.%d.%d', ord($buf[0]), ord($buf[1]),
-                       ord($buf[2]), ord($buf[3]));
+        return sprintf('%d.%d.%d.%d', ord($buf[0]), ord($buf[1]), ord($buf[2]), ord($buf[3]));
     }
 
     /**

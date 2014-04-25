@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,7 +26,9 @@
  */
 include "lib/Varien/Object.php";
 
-class Test {
+class Test
+{
+
     protected $_order;
 
     public function runTest()
@@ -43,15 +46,15 @@ class Test {
                         $this->getOrder()->setRefundStatus($refundStatus);
 //                        foreach (array('not_returned', 'partial', 'returned') as $returnStatus) {
 //                            $this->getOrder()->setReturnStatus($returnStatus);
-                            if (!$this->validateOrderStatus()) {
-                                continue;
-                            }
-                            $adminStatus = $this->getAdminStatus();
-                            $frontendStatus = $this->getFrontendStatus();
-                            $actions = $this->getOrderActions();
-                            $actions = join(', ', array_keys($actions));
-                            #echo "<tr><td>$orderStatus</td><td>$paymentStatus</td><td>$shippingStatus</td><td>$refundStatus</td><td>$returnStatus</td><td>$adminStatus</td><td>$frontendStatus</td><td>$actions</td></tr>";
-                            echo "<tr><td>$orderStatus</td><td>$paymentStatus</td><td>$refundStatus</td><td>$shippingStatus</td><td>$actions</td></tr>";
+                        if (!$this->validateOrderStatus()) {
+                            continue;
+                        }
+                        $adminStatus = $this->getAdminStatus();
+                        $frontendStatus = $this->getFrontendStatus();
+                        $actions = $this->getOrderActions();
+                        $actions = join(', ', array_keys($actions));
+                        #echo "<tr><td>$orderStatus</td><td>$paymentStatus</td><td>$shippingStatus</td><td>$refundStatus</td><td>$returnStatus</td><td>$adminStatus</td><td>$frontendStatus</td><td>$actions</td></tr>";
+                        echo "<tr><td>$orderStatus</td><td>$paymentStatus</td><td>$refundStatus</td><td>$shippingStatus</td><td>$actions</td></tr>";
 //                        }
                     }
                 }
@@ -103,11 +106,12 @@ class Test {
      *   - returned
 
      */
-    function matchOrderStatus($type, $status) {
+    function matchOrderStatus($type, $status)
+    {
         $statuses = explode(',', $status);
-        $value = $this->getOrder()->getData($type.'_status');
+        $value = $this->getOrder()->getData($type . '_status');
         foreach ($statuses as $status) {
-            if ($value==$status) {
+            if ($value == $status) {
                 return true;
             }
         }
@@ -119,7 +123,7 @@ class Test {
         if ($this->matchOrderStatus('order', 'new')) {
             if (!$this->matchOrderStatus('shipping', 'pending')
 //            || !$this->matchOrderStatus('return', 'not_returned')
-            || !$this->matchOrderStatus('refund', 'not_refunded')
+                    || !$this->matchOrderStatus('refund', 'not_refunded')
             ) {
                 return false;
             }
@@ -129,9 +133,7 @@ class Test {
         }
 
         if ($this->matchOrderStatus('order', 'onhold')) {
-            if (!$this->matchOrderStatus('shipping', 'pending')
-            || !$this->matchOrderStatus('payment', 'pending')
-            || !$this->matchOrderStatus('refund', 'not_refunded')
+            if (!$this->matchOrderStatus('shipping', 'pending') || !$this->matchOrderStatus('payment', 'pending') || !$this->matchOrderStatus('refund', 'not_refunded')
 //            || !$this->matchOrderStatus('return', 'not_returned')
             ) {
                 return false;
@@ -139,9 +141,7 @@ class Test {
         }
 
         if ($this->matchOrderStatus('order', 'cancelled')) {
-            if (!$this->matchOrderStatus('shipping', 'pending')
-            || !$this->matchOrderStatus('payment', 'pending,not_authorized')
-            || !$this->matchOrderStatus('refund', 'not_refunded')
+            if (!$this->matchOrderStatus('shipping', 'pending') || !$this->matchOrderStatus('payment', 'pending,not_authorized') || !$this->matchOrderStatus('refund', 'not_refunded')
 //            || !$this->matchOrderStatus('return', 'not_returned')
             ) {
                 return false;
@@ -149,8 +149,7 @@ class Test {
         }
 
         if ($this->matchOrderStatus('order', 'complete,closed')) {
-            if (!$this->matchOrderStatus('payment', 'paid')
-            || !$this->matchOrderStatus('shipping', 'shipped')
+            if (!$this->matchOrderStatus('payment', 'paid') || !$this->matchOrderStatus('shipping', 'shipped')
             ) {
                 return false;
             }
@@ -165,20 +164,17 @@ class Test {
             }
         }
 
-        if ($this->matchOrderStatus('payment', 'pending,not_authorized')
-        && !$this->matchOrderStatus('refund', 'not_refunded')
+        if ($this->matchOrderStatus('payment', 'pending,not_authorized') && !$this->matchOrderStatus('refund', 'not_refunded')
         ) {
             return false;
         }
 
-        if ($this->matchOrderStatus('payment', 'authorized')
-        && !$this->matchOrderStatus('refund', 'not_refunded')
+        if ($this->matchOrderStatus('payment', 'authorized') && !$this->matchOrderStatus('refund', 'not_refunded')
         ) {
             return false;
         }
 
-        if ($this->matchOrderStatus('payment', 'partial')
-        && $this->matchOrderStatus('refund', 'refunded')
+        if ($this->matchOrderStatus('payment', 'partial') && $this->matchOrderStatus('refund', 'refunded')
         ) {
             return false;
         }
@@ -299,6 +295,7 @@ class Test {
     {
         return $this->getOrder()->getOrderStatus();
     }
+
 }
 
 $test = new Test;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Rar.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /**
  * @see Zend_Filter_Compress_CompressAbstract
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Filter_Compress_Rar extends Zend_Filter_Compress_CompressAbstract
 {
+
     /**
      * Compression Options
      * array(
@@ -47,9 +48,9 @@ class Zend_Filter_Compress_Rar extends Zend_Filter_Compress_CompressAbstract
      */
     protected $_options = array(
         'callback' => null,
-        'archive'  => null,
+        'archive' => null,
         'password' => null,
-        'target'   => '.',
+        'target' => '.',
     );
 
     /**
@@ -232,7 +233,7 @@ class Zend_Filter_Compress_Rar extends Zend_Filter_Compress_CompressAbstract
             throw new Zend_Filter_Exception("Error reading the RAR Archive");
         }
 
-        foreach($filelist as $file) {
+        foreach ($filelist as $file) {
             $file->extract($target);
         }
 
@@ -249,4 +250,5 @@ class Zend_Filter_Compress_Rar extends Zend_Filter_Compress_CompressAbstract
     {
         return 'Rar';
     }
+
 }

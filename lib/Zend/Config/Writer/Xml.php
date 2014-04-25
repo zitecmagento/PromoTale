@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Xml.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Config_Writer
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Config_Writer_Xml extends Zend_Config_Writer_FileAbstract
 {
+
     /**
      * Render a Zend_Config into a XML config string.
      *
@@ -45,8 +46,8 @@ class Zend_Config_Writer_Xml extends Zend_Config_Writer_FileAbstract
      */
     public function render()
     {
-        $xml         = new SimpleXMLElement('<zend-config xmlns:zf="' . Zend_Config_Xml::XML_NAMESPACE . '"/>');
-        $extends     = $this->_config->getExtends();
+        $xml = new SimpleXMLElement('<zend-config xmlns:zf="' . Zend_Config_Xml::XML_NAMESPACE . '"/>');
+        $extends = $this->_config->getExtends();
         $sectionName = $this->_config->getSectionName();
 
         if (is_string($sectionName)) {
@@ -94,7 +95,7 @@ class Zend_Config_Writer_Xml extends Zend_Config_Writer_FileAbstract
                 if (is_numeric($key)) {
                     $branchType = 'numeric';
                     $branchName = $xml->getName();
-                    $xml        = $parent;
+                    $xml = $parent;
 
                     unset($parent->{$branchName});
                 } else {
@@ -124,4 +125,5 @@ class Zend_Config_Writer_Xml extends Zend_Config_Writer_FileAbstract
             }
         }
     }
+
 }

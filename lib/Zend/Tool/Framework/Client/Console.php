@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Console.php 23204 2010-10-21 15:35:21Z ralph $
  */
-
 /**
  * @see Zend_Tool_Framework_Client_Abstract
  */
@@ -43,10 +43,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_Client_Console
-    extends Zend_Tool_Framework_Client_Abstract
-    implements Zend_Tool_Framework_Client_Interactive_InputInterface,
-               Zend_Tool_Framework_Client_Interactive_OutputInterface
+class Zend_Tool_Framework_Client_Console extends Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framework_Client_Interactive_InputInterface, Zend_Tool_Framework_Client_Interactive_OutputInterface
 {
 
     /**
@@ -73,7 +70,7 @@ class Zend_Tool_Framework_Client_Console
      * @var array
      */
     protected $_classesToLoad = array();
-    
+
     /**
      * main() - This is typically called from zf.php. This method is a
      * self contained main() function.
@@ -94,7 +91,7 @@ class Zend_Tool_Framework_Client_Console
     {
         return 'console';
     }
-    
+
     /**
      * setConfigOptions()
      * 
@@ -116,7 +113,7 @@ class Zend_Tool_Framework_Client_Console
         $this->_storageOptions = $storageOptions;
         return $this;
     }
-    
+
     public function setClassesToLoad($classesToLoad)
     {
         $this->_classesToLoad = $classesToLoad;
@@ -139,16 +136,16 @@ class Zend_Tool_Framework_Client_Console
 
         if ($this->_storageOptions != null && isset($this->_storageOptions['directory'])) {
             $storage->setAdapter(
-                new Zend_Tool_Framework_Client_Storage_Directory($this->_storageOptions['directory'])
-                );
+                    new Zend_Tool_Framework_Client_Storage_Directory($this->_storageOptions['directory'])
+            );
         }
 
         // which classes are essential to initializing Zend_Tool_Framework_Client_Console
         $classesToLoad = array(
-            'Zend_Tool_Framework_Client_Console_Manifest',    
+            'Zend_Tool_Framework_Client_Console_Manifest',
             'Zend_Tool_Framework_System_Manifest'
-            );
-            
+        );
+
         if ($this->_classesToLoad) {
             if (is_string($this->_classesToLoad)) {
                 $classesToLoad[] = $this->_classesToLoad;
@@ -156,7 +153,7 @@ class Zend_Tool_Framework_Client_Console
                 $classesToLoad = array_merge($classesToLoad, $this->_classesToLoad);
             }
         }
-        
+
         // add classes to the basic loader from the config file basicloader.classes.1 ..
         if (isset($config->basicloader) && isset($config->basicloader->classes)) {
             foreach ($config->basicloader->classes as $classKey => $className) {
@@ -165,8 +162,8 @@ class Zend_Tool_Framework_Client_Console
         }
 
         $this->_registry->setLoader(
-            new Zend_Tool_Framework_Loader_BasicLoader(array('classesToLoad' => $classesToLoad))
-            );
+                new Zend_Tool_Framework_Loader_BasicLoader(array('classesToLoad' => $classesToLoad))
+        );
 
         return;
     }
@@ -186,14 +183,14 @@ class Zend_Tool_Framework_Client_Console
         if (function_exists('posix_isatty')) {
             $response->addContentDecorator(new Zend_Tool_Framework_Client_Console_ResponseDecorator_Colorizer());
         }
-        
+
         $response->addContentDecorator(new Zend_Tool_Framework_Client_Response_ContentDecorator_Separator())
-            ->setDefaultDecoratorOptions(array('separator' => true));
+                ->setDefaultDecoratorOptions(array('separator' => true));
 
         $optParser = new Zend_Tool_Framework_Client_Console_ArgumentParser();
         $optParser->setArguments($_SERVER['argv'])
-            ->setRegistry($this->_registry)
-            ->parse();
+                ->setRegistry($this->_registry)
+                ->parse();
 
         return;
     }
@@ -210,11 +207,10 @@ class Zend_Tool_Framework_Client_Console
         if ($response->isException()) {
             $helpSystem = new Zend_Tool_Framework_Client_Console_HelpSystem();
             $helpSystem->setRegistry($this->_registry)
-                ->respondWithErrorMessage($response->getException()->getMessage(), $response->getException())
-                ->respondWithSpecialtyAndParamHelp(
-                    $request->getProviderName(),
-                    $request->getActionName()
-                    );
+                    ->respondWithErrorMessage($response->getException()->getMessage(), $response->getException())
+                    ->respondWithSpecialtyAndParamHelp(
+                            $request->getProviderName(), $request->getActionName()
+            );
         }
 
         echo PHP_EOL;
@@ -260,7 +256,6 @@ class Zend_Tool_Framework_Client_Console
     {
         return 'Please provide a value for $' . $missingParameterName;
     }
-
 
     /**
      * convertToClientNaming()

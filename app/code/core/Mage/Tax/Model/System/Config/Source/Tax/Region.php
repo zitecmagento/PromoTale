@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Tax_Model_System_Config_Source_Tax_Region
 {
+
     /**
      * @var Mage_Directory_Model_Region|null
      */
@@ -38,8 +38,7 @@ class Mage_Tax_Model_System_Config_Source_Tax_Region
     public function __construct($arguments = array())
     {
         /** @var Mage_Directory_Model_Region _optionsModel */
-        $this->_optionsModel = !empty($arguments['region_model'])
-            ? $arguments['region_model'] : Mage::getModel('directory/region');
+        $this->_optionsModel = !empty($arguments['region_model']) ? $arguments['region_model'] : Mage::getModel('directory/region');
     }
 
     /**
@@ -49,11 +48,11 @@ class Mage_Tax_Model_System_Config_Source_Tax_Region
      * @param null|string $country
      * @return array
      */
-    public function toOptionArray($noEmpty=false, $country = null)
+    public function toOptionArray($noEmpty = false, $country = null)
     {
         $options = $this->_optionsModel->getCollection()
-            ->addCountryFilter($country)
-            ->toOptionArray();
+                ->addCountryFilter($country)
+                ->toOptionArray();
 
         if ($noEmpty) {
             unset($options[0]);
@@ -68,4 +67,5 @@ class Mage_Tax_Model_System_Config_Source_Tax_Region
         }
         return $options;
     }
+
 }

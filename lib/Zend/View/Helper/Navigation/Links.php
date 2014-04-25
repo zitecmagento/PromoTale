@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Links.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_View_Helper_Navigation_HelperAbstract
  */
@@ -34,32 +34,33 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_View_Helper_Navigation_Links
-    extends Zend_View_Helper_Navigation_HelperAbstract
+class Zend_View_Helper_Navigation_Links extends Zend_View_Helper_Navigation_HelperAbstract
 {
-    /**#@+
+    /*     * #@+
      * Constants used for specifying which link types to find and render
      *
      * @var int
      */
-    const RENDER_ALTERNATE  = 0x0001;
+
+    const RENDER_ALTERNATE = 0x0001;
     const RENDER_STYLESHEET = 0x0002;
-    const RENDER_START      = 0x0004;
-    const RENDER_NEXT       = 0x0008;
-    const RENDER_PREV       = 0x0010;
-    const RENDER_CONTENTS   = 0x0020;
-    const RENDER_INDEX      = 0x0040;
-    const RENDER_GLOSSARY   = 0x0080;
-    const RENDER_COPYRIGHT  = 0x0100;
-    const RENDER_CHAPTER    = 0x0200;
-    const RENDER_SECTION    = 0x0400;
+    const RENDER_START = 0x0004;
+    const RENDER_NEXT = 0x0008;
+    const RENDER_PREV = 0x0010;
+    const RENDER_CONTENTS = 0x0020;
+    const RENDER_INDEX = 0x0040;
+    const RENDER_GLOSSARY = 0x0080;
+    const RENDER_COPYRIGHT = 0x0100;
+    const RENDER_CHAPTER = 0x0200;
+    const RENDER_SECTION = 0x0400;
     const RENDER_SUBSECTION = 0x0800;
-    const RENDER_APPENDIX   = 0x1000;
-    const RENDER_HELP       = 0x2000;
-    const RENDER_BOOKMARK   = 0x4000;
-    const RENDER_CUSTOM     = 0x8000;
-    const RENDER_ALL        = 0xffff;
-    /**#@+**/
+    const RENDER_APPENDIX = 0x1000;
+    const RENDER_HELP = 0x2000;
+    const RENDER_BOOKMARK = 0x4000;
+    const RENDER_CUSTOM = 0x8000;
+    const RENDER_ALL = 0xffff;
+
+    /*     * #@+* */
 
     /**
      * Maps render constants to W3C link types
@@ -67,21 +68,21 @@ class Zend_View_Helper_Navigation_Links
      * @var array
      */
     protected static $_RELATIONS = array(
-        self::RENDER_ALTERNATE  => 'alternate',
+        self::RENDER_ALTERNATE => 'alternate',
         self::RENDER_STYLESHEET => 'stylesheet',
-        self::RENDER_START      => 'start',
-        self::RENDER_NEXT       => 'next',
-        self::RENDER_PREV       => 'prev',
-        self::RENDER_CONTENTS   => 'contents',
-        self::RENDER_INDEX      => 'index',
-        self::RENDER_GLOSSARY   => 'glossary',
-        self::RENDER_COPYRIGHT  => 'copyright',
-        self::RENDER_CHAPTER    => 'chapter',
-        self::RENDER_SECTION    => 'section',
+        self::RENDER_START => 'start',
+        self::RENDER_NEXT => 'next',
+        self::RENDER_PREV => 'prev',
+        self::RENDER_CONTENTS => 'contents',
+        self::RENDER_INDEX => 'index',
+        self::RENDER_GLOSSARY => 'glossary',
+        self::RENDER_COPYRIGHT => 'copyright',
+        self::RENDER_CHAPTER => 'chapter',
+        self::RENDER_SECTION => 'section',
         self::RENDER_SUBSECTION => 'subsection',
-        self::RENDER_APPENDIX   => 'appendix',
-        self::RENDER_HELP       => 'help',
-        self::RENDER_BOOKMARK   => 'bookmark'
+        self::RENDER_APPENDIX => 'appendix',
+        self::RENDER_HELP => 'help',
+        self::RENDER_BOOKMARK => 'bookmark'
     );
 
     /**
@@ -141,9 +142,7 @@ class Zend_View_Helper_Navigation_Links
     public function __call($method, array $arguments = array())
     {
         if (@preg_match('/find(Rel|Rev)(.+)/', $method, $match)) {
-            return $this->findRelation($arguments[0],
-                                       strtolower($match[1]),
-                                       strtolower($match[2]));
+            return $this->findRelation($arguments[0], strtolower($match[1]), strtolower($match[2]));
         }
 
         return parent::__call($method, $arguments);
@@ -222,8 +221,7 @@ class Zend_View_Helper_Navigation_Links
      * @param  Zend_Navigation_Page $page  page to find links for
      * @return array                       related pages
      */
-    public function findAllRelations(Zend_Navigation_Page $page,
-                                     $flag = null)
+    public function findAllRelations(Zend_Navigation_Page $page, $flag = null)
     {
         if (!is_int($flag)) {
             $flag = self::RENDER_ALL;
@@ -272,8 +270,7 @@ class Zend_View_Helper_Navigation_Links
         if (!in_array($rel, array('rel', 'rev'))) {
             #require_once 'Zend/View/Exception.php';
             $e = new Zend_View_Exception(sprintf(
-                'Invalid argument: $rel must be "rel" or "rev"; "%s" given',
-                $rel));
+                            'Invalid argument: $rel must be "rel" or "rev"; "%s" given', $rel));
             $e->setView($this->view);
             throw $e;
         }
@@ -382,8 +379,7 @@ class Zend_View_Helper_Navigation_Links
     {
         $found = null;
         $break = false;
-        $iterator = new RecursiveIteratorIterator($this->_findRoot($page),
-                RecursiveIteratorIterator::SELF_FIRST);
+        $iterator = new RecursiveIteratorIterator($this->_findRoot($page), RecursiveIteratorIterator::SELF_FIRST);
         foreach ($iterator as $intermediate) {
             if ($intermediate === $page) {
                 // current page; break at next accepted page
@@ -416,8 +412,7 @@ class Zend_View_Helper_Navigation_Links
         $found = null;
         $prev = null;
         $iterator = new RecursiveIteratorIterator(
-                $this->_findRoot($page),
-                RecursiveIteratorIterator::SELF_FIRST);
+                $this->_findRoot($page), RecursiveIteratorIterator::SELF_FIRST);
         foreach ($iterator as $intermediate) {
             if (!$this->accept($intermediate)) {
                 continue;
@@ -459,8 +454,8 @@ class Zend_View_Helper_Navigation_Links
         foreach ($root as $chapter) {
             // exclude self and start page from chapters
             if ($chapter !== $page &&
-                !in_array($chapter, $start) &&
-                $this->accept($chapter)) {
+                    !in_array($chapter, $start) &&
+                    $this->accept($chapter)) {
                 $found[] = $chapter;
             }
         }
@@ -563,7 +558,7 @@ class Zend_View_Helper_Navigation_Links
 
         if ($parent = $page->getParent()) {
             if ($parent instanceof Zend_Navigation_Page &&
-                $this->_findRoot($page)->hasPage($parent)) {
+                    $this->_findRoot($page)->hasPage($parent)) {
                 $found = $parent;
             }
         }
@@ -662,8 +657,8 @@ class Zend_View_Helper_Navigation_Links
         } elseif (is_string($mixed)) {
             // value is a string; make an URI page
             return Zend_Navigation_Page::factory(array(
-                'type' => 'uri',
-                'uri'  => $mixed
+                        'type' => 'uri',
+                        'uri' => $mixed
             ));
         } elseif (is_array($mixed) && !empty($mixed)) {
             if ($recursive && is_numeric(key($mixed))) {
@@ -677,10 +672,14 @@ class Zend_View_Helper_Navigation_Links
                 return $pages;
             } else {
                 // pass array to factory directly
-                try {
+                try
+                {
                     $page = Zend_Navigation_Page::factory($mixed);
                     return $page;
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
+                    
                 }
             }
         }
@@ -711,8 +710,7 @@ class Zend_View_Helper_Navigation_Links
         if (!in_array($attrib, array('rel', 'rev'))) {
             #require_once 'Zend/View/Exception.php';
             $e = new Zend_View_Exception(sprintf(
-                    'Invalid relation attribute "%s", must be "rel" or "rev"',
-                    $attrib));
+                            'Invalid relation attribute "%s", must be "rel" or "rev"', $attrib));
             $e->setView($this->view);
             throw $e;
         }
@@ -724,14 +722,14 @@ class Zend_View_Helper_Navigation_Links
         // TODO: add more attribs
         // http://www.w3.org/TR/html401/struct/links.html#h-12.2
         $attribs = array(
-            $attrib  => $relation,
-            'href'   => $href,
-            'title'  => $page->getLabel()
+            $attrib => $relation,
+            'href' => $href,
+            'title' => $page->getLabel()
         );
 
         return '<link' .
-               $this->_htmlAttribs($attribs) .
-               $this->getClosingBracket();
+                $this->_htmlAttribs($attribs) .
+                $this->getClosingBracket();
     }
 
     // Zend_View_Helper_Navigation_Helper:
@@ -780,4 +778,5 @@ class Zend_View_Helper_Navigation_Links
         // return output (trim last newline by spec)
         return strlen($output) ? rtrim($output, self::EOL) : '';
     }
+
 }

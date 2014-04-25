@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,10 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Tax_Rate_Grid_Renderer_Data extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
-    protected function _getValue (Varien_Object $row)
+
+    protected function _getValue(Varien_Object $row)
     {
         $data = parent::_getValue($row);
         if (intval($data) == $data) {
@@ -45,4 +46,5 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid_Renderer_Data extends Mage_Adminhtml_Bl
         }
         return $this->getColumn()->getDefault();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Fault.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_XmlRpc_Fault
  */
 #require_once 'Zend/XmlRpc/Fault.php';
-
 
 /**
  * XMLRPC Server Faults
@@ -49,6 +48,7 @@
  */
 class Zend_XmlRpc_Server_Fault extends Zend_XmlRpc_Fault
 {
+
     /**
      * @var Exception
      */
@@ -73,13 +73,13 @@ class Zend_XmlRpc_Server_Fault extends Zend_XmlRpc_Fault
     public function __construct(Exception $e)
     {
         $this->_exception = $e;
-        $code             = 404;
-        $message          = 'Unknown error';
-        $exceptionClass   = get_class($e);
+        $code = 404;
+        $message = 'Unknown error';
+        $exceptionClass = get_class($e);
 
         foreach (array_keys(self::$_faultExceptionClasses) as $class) {
             if ($e instanceof $class) {
-                $code    = $e->getCode();
+                $code = $e->getCode();
                 $message = $e->getMessage();
                 break;
             }
@@ -158,10 +158,7 @@ class Zend_XmlRpc_Server_Fault extends Zend_XmlRpc_Fault
      */
     public static function attachObserver($class)
     {
-        if (!is_string($class)
-            || !class_exists($class)
-            || !is_callable(array($class, 'observe')))
-        {
+        if (!is_string($class) || !class_exists($class) || !is_callable(array($class, 'observe'))) {
             return false;
         }
 
@@ -198,4 +195,5 @@ class Zend_XmlRpc_Server_Fault extends Zend_XmlRpc_Fault
     {
         return $this->_exception;
     }
+
 }

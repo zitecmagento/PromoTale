@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_Block_Dashboard_Grid
 {
 
@@ -50,13 +50,13 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
             $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
             $storeId = array_pop($storeIds);
         } else {
-            $storeId = (int)$this->getParam('store');
+            $storeId = (int) $this->getParam('store');
         }
         $collection = Mage::getResourceModel('reports/product_collection')
-            ->addAttributeToSelect('*')
-            ->addViewsCount()
-            ->setStoreId($storeId)
-            ->addStoreFilter($storeId);
+                ->addAttributeToSelect('*')
+                ->addViewsCount()
+                ->setStoreId($storeId)
+                ->addStoreFilter($storeId);
 
         $this->setCollection($collection);
 
@@ -66,26 +66,26 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
     protected function _prepareColumns()
     {
         $this->addColumn('name', array(
-            'header'    =>Mage::helper('reports')->__('Product Name'),
-            'sortable'  => false,
-            'index'     =>'name'
+            'header' => Mage::helper('reports')->__('Product Name'),
+            'sortable' => false,
+            'index' => 'name'
         ));
 
         $this->addColumn('price', array(
-            'header'    =>Mage::helper('reports')->__('Price'),
-            'width'     =>'120px',
-            'type'      =>'currency',
-            'currency_code' => (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode(),
-            'sortable'  => false,
-            'index'     =>'price'
+            'header' => Mage::helper('reports')->__('Price'),
+            'width' => '120px',
+            'type' => 'currency',
+            'currency_code' => (string) Mage::app()->getStore((int) $this->getParam('store'))->getBaseCurrencyCode(),
+            'sortable' => false,
+            'index' => 'price'
         ));
 
         $this->addColumn('views', array(
-            'header'    =>Mage::helper('reports')->__('Number of Views'),
-            'width'     =>'120px',
-            'align'     =>'right',
-            'sortable'  => false,
-            'index'     =>'views'
+            'header' => Mage::helper('reports')->__('Number of Views'),
+            'width' => '120px',
+            'align' => 'right',
+            'sortable' => false,
+            'index' => 'views'
         ));
 
         $this->setFilterVisibility(false);
@@ -96,10 +96,11 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
 
     public function getRowUrl($row)
     {
-        $params = array('id'=>$row->getId());
+        $params = array('id' => $row->getId());
         if ($this->getRequest()->getParam('store')) {
             $params['store'] = $this->getRequest()->getParam('store');
         }
         return $this->getUrl('*/catalog_product/edit', $params);
     }
+
 }

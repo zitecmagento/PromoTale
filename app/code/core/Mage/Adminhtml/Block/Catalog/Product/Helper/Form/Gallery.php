@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog product gallery attribute
@@ -52,10 +52,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
 
         /* @var $content Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content */
         $content = Mage::getSingleton('core/layout')
-            ->createBlock('adminhtml/catalog_product_helper_form_gallery_content');
+                ->createBlock('adminhtml/catalog_product_helper_form_gallery_content');
 
         $content->setId($this->getHtmlId() . '_content')
-            ->setElement($this);
+                ->setElement($this);
         return $content->toHtml();
     }
 
@@ -93,7 +93,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
         } else if ($this->getValue() == $defaultValue &&
-                   $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
+                $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
             return false;
         }
         if ($defaultValue === false && !$attribute->getIsRequired() && $this->getValue()) {
@@ -186,4 +186,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     {
         return Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
     }
+
 }

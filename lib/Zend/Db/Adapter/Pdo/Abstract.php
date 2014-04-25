@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Db_Adapter_Abstract
  */
@@ -31,7 +30,6 @@
  * @see Zend_Db_Statement_Pdo
  */
 #require_once 'Zend/Db/Statement/Pdo.php';
-
 
 /**
  * Class for connecting to SQL databases and performing common operations using PDO.
@@ -120,12 +118,10 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
             $this->_config['driver_options'][PDO::ATTR_PERSISTENT] = true;
         }
 
-        try {
+        try
+        {
             $this->_connection = new PDO(
-                $dsn,
-                $this->_config['username'],
-                $this->_config['password'],
-                $this->_config['driver_options']
+                    $dsn, $this->_config['username'], $this->_config['password'], $this->_config['driver_options']
             );
 
             $this->_profiler->queryEnd($q);
@@ -135,15 +131,15 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
 
             // always use exceptions.
             $this->_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        } catch (PDOException $e) {
+        }
+        catch (PDOException $e)
+        {
             /**
              * @see Zend_Db_Adapter_Exception
              */
             #require_once 'Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception($e->getMessage(), $e->getCode(), $e);
         }
-
     }
 
     /**
@@ -234,9 +230,12 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
             }
         }
 
-        try {
+        try
+        {
             return parent::query($sql, $bind);
-        } catch (PDOException $e) {
+        }
+        catch (PDOException $e)
+        {
             /**
              * @see Zend_Db_Statement_Exception
              */
@@ -259,7 +258,8 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
             $sql = $sql->assemble();
         }
 
-        try {
+        try
+        {
             $affected = $this->getConnection()->exec($sql);
 
             if ($affected === false) {
@@ -272,7 +272,9 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
             }
 
             return $affected;
-        } catch (PDOException $e) {
+        }
+        catch (PDOException $e)
+        {
             /**
              * @see Zend_Db_Adapter_Exception
              */
@@ -317,7 +319,8 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
     /**
      * Roll-back a transaction.
      */
-    protected function _rollBack() {
+    protected function _rollBack()
+    {
         $this->_connect();
         $this->_connection->rollBack();
     }
@@ -384,9 +387,12 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
     public function getServerVersion()
     {
         $this->_connect();
-        try {
+        try
+        {
             $version = $this->_connection->getAttribute(PDO::ATTR_SERVER_VERSION);
-        } catch (PDOException $e) {
+        }
+        catch (PDOException $e)
+        {
             // In case of the driver doesn't support getting attributes
             return null;
         }
@@ -397,5 +403,5 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
             return null;
         }
     }
-}
 
+}

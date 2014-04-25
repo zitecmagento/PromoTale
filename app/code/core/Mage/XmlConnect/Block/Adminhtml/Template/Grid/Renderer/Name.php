@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_XmlConnect
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Template_Grid_Renderer_Name
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_XmlConnect_Block_Adminhtml_Template_Grid_Renderer_Name extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     /**
      * Render grid row
      *
@@ -45,4 +46,5 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Grid_Renderer_Name
         $str = $this->escapeHtml($row->getName());
         return $str;
     }
+
 }

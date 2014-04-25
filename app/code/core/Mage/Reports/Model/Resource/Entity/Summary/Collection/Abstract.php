@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reports summary collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Varien_Data_Collection
 {
+
     /**
      * Entity collection for summaries
      *
@@ -54,22 +55,22 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
         switch ($periodType) {
             case "24h":
                 $customStart = Varien_Date::toTimestamp(true) - 86400;
-                $customEnd   = Varien_Date::toTimestamp(true);
+                $customEnd = Varien_Date::toTimestamp(true);
                 break;
 
             case "7d":
                 $customStart = Varien_Date::toTimestamp(true) - 604800;
-                $customEnd   = Varien_Date::toTimestamp(true);
+                $customEnd = Varien_Date::toTimestamp(true);
                 break;
 
             case "30d":
                 $customStart = Varien_Date::toTimestamp(true) - 2592000;
-                $customEnd   = Varien_Date::toTimestamp(true);
+                $customEnd = Varien_Date::toTimestamp(true);
                 break;
 
             case "1y":
                 $customStart = Varien_Date::toTimestamp(true) - 31536000;
-                $customEnd   = Varien_Date::toTimestamp(true);
+                $customEnd = Varien_Date::toTimestamp(true);
                 break;
 
             default:
@@ -80,7 +81,6 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
                     $customEnd = strtotime($customEnd);
                 }
                 break;
-
         }
 
 
@@ -131,4 +131,5 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
     {
         return $this;
     }
+
 }

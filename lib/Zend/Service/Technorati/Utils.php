@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Utils.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Collection of utilities for various Zend_Service_Technorati classes.
  *
@@ -32,6 +32,7 @@
  */
 class Zend_Service_Technorati_Utils
 {
+
     /**
      * Parses, validates and returns a valid Zend_Uri object
      * from given $input.
@@ -55,11 +56,13 @@ class Zend_Service_Technorati_Utils
         if ($input instanceof Zend_Uri_Http) {
             $uri = $input;
         } else {
-            try {
+            try
+            {
                 $uri = Zend_Uri::factory((string) $input);
             }
             // wrap exception under Zend_Service_Technorati_Exception object
-            catch (Exception $e) {
+            catch (Exception $e)
+            {
                 /**
                  * @see Zend_Service_Technorati_Exception
                  */
@@ -75,11 +78,12 @@ class Zend_Service_Technorati_Utils
              */
             #require_once 'Zend/Service/Technorati/Exception.php';
             throw new Zend_Service_Technorati_Exception(
-                "Invalid URL $uri, only HTTP(S) protocols can be used");
+            "Invalid URL $uri, only HTTP(S) protocols can be used");
         }
 
         return $uri;
     }
+
     /**
      * Parses, validates and returns a valid Zend_Date object
      * from given $input.
@@ -103,7 +107,6 @@ class Zend_Service_Technorati_Utils
          * @see Zend_Locale
          */
         #require_once 'Zend/Locale.php';
-
         // allow null as value and return valid Zend_Date objects
         if (($input === null) || ($input instanceof Zend_Date)) {
             return $input;
@@ -125,11 +128,9 @@ class Zend_Service_Technorati_Utils
     /**
      * @todo public static function xpathQueryAndSet() {}
      */
-
     /**
      * @todo public static function xpathQueryAndSetIf() {}
      */
-
     /**
      * @todo public static function xpathQueryAndSetUnless() {}
      */

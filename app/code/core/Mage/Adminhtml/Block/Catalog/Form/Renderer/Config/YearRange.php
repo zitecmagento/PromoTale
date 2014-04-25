@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -37,7 +38,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_YearRange extends Mage_A
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $element->setStyle('width:70px;')
-            ->setName($element->getName() . '[]');
+                ->setName($element->getName() . '[]');
 
         if ($element->getValue()) {
             $values = explode(',', $element->getValue());
@@ -48,7 +49,8 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_YearRange extends Mage_A
         $from = $element->setValue(isset($values[0]) ? $values[0] : null)->getElementHtml();
         $to = $element->setValue(isset($values[1]) ? $values[1] : null)->getElementHtml();
         return Mage::helper('adminhtml')->__('from') . ' ' . $from
-            . ' '
-            . Mage::helper('adminhtml')->__('to') . ' ' . $to;
+                . ' '
+                . Mage::helper('adminhtml')->__('to') . ' ' . $to;
     }
+
 }

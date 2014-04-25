@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Entity Attribute Data Factory
  *
@@ -34,19 +34,21 @@
  */
 class Mage_Eav_Model_Attribute_Data
 {
-    const OUTPUT_FORMAT_JSON    = 'json';
-    const OUTPUT_FORMAT_TEXT    = 'text';
-    const OUTPUT_FORMAT_HTML    = 'html';
-    const OUTPUT_FORMAT_PDF     = 'pdf';
+
+    const OUTPUT_FORMAT_JSON = 'json';
+    const OUTPUT_FORMAT_TEXT = 'text';
+    const OUTPUT_FORMAT_HTML = 'html';
+    const OUTPUT_FORMAT_PDF = 'pdf';
     const OUTPUT_FORMAT_ONELINE = 'oneline';
-    const OUTPUT_FORMAT_ARRAY   = 'array'; // available only for multiply attributes
+    const OUTPUT_FORMAT_ARRAY = 'array'; // available only for multiply attributes
 
     /**
      * Array of attribute data models by input type
      *
      * @var array
      */
-    protected static $_dataModels   = array();
+
+    protected static $_dataModels = array();
 
     /**
      * Return attribute data model by attribute
@@ -70,7 +72,7 @@ class Mage_Eav_Model_Attribute_Data
         } else {
             if (empty(self::$_dataModels[$attribute->getFrontendInput()])) {
                 $dataModelClass = sprintf('eav/attribute_data_%s', $attribute->getFrontendInput());
-                $dataModel      = Mage::getModel($dataModelClass);
+                $dataModel = Mage::getModel($dataModelClass);
                 self::$_dataModels[$attribute->getFrontendInput()] = $dataModel;
             } else {
                 $dataModel = self::$_dataModels[$attribute->getFrontendInput()];
@@ -82,4 +84,5 @@ class Mage_Eav_Model_Attribute_Data
 
         return $dataModel;
     }
+
 }

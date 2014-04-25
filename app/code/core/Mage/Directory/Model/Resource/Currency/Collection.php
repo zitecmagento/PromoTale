@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Directory currency collection model
  *
@@ -35,6 +35,7 @@
  */
 class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Currency name table
      *
@@ -58,8 +59,8 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
     {
         $this->_init('directory/currency');
 
-        $this->_currencyNameTable   = $this->getTable('directory/currency_name');
-        $this->_currencyRateTable   = $this->getTable('directory/currency_rate');
+        $this->_currencyNameTable = $this->getTable('directory/currency_name');
+        $this->_currencyRateTable = $this->getTable('directory/currency_rate');
     }
 
     /**
@@ -71,12 +72,10 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
     public function joinRates($currency)
     {
         $alias = sprintf('%s_rate', $currency);
-        $this->addBindParam(':'.$alias, $currency);
+        $this->addBindParam(':' . $alias, $currency);
         $this->_select
-            ->joinLeft(
-                array($alias => $this->_currencyRateTable),
-                "{$alias}.currency_to = main_table.currency_code AND {$alias}.currency_from=:{$alias}",
-                'rate');
+                ->joinLeft(
+                        array($alias => $this->_currencyRateTable), "{$alias}.currency_to = main_table.currency_code AND {$alias}.currency_from=:{$alias}", 'rate');
 
         return $this;
     }
@@ -121,4 +120,5 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
     {
         return $this->_toOptionArray('currency_code', 'currency_name');
     }
+
 }

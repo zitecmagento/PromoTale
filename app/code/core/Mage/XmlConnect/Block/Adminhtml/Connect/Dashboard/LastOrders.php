@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_LastOrders extends Mage_Adminhtml_Block_Dashboard_Orders_Grid
 {
+
     /**
      * Last orders count limit
      */
@@ -52,7 +54,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_LastOrders extends Mage_
 
         /** @var $collection Mage_Reports_Model_Resource_Order_Collection */
         $collection = Mage::getResourceModel('reports/order_collection')->addItemCountExpr()
-            ->joinCustomerName('customer')->orderByCreatedAt()->setPageSize(self::LAST_ORDER_COUNT_LIMIT);
+                        ->joinCustomerName('customer')->orderByCreatedAt()->setPageSize(self::LAST_ORDER_COUNT_LIMIT);
 
         foreach (Mage::helper('xmlconnect/adminApplication')->getSwitcherList() as $storeId) {
             if ($storeId) {
@@ -76,10 +78,11 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_LastOrders extends Mage_
                 ));
                 $currency_code = Mage::app()->getStore($storeId)->getBaseCurrencyCode();
                 $itemXmlObj->addCustomChild('currency', Mage::app()->getLocale()->currency($currency_code)
-                    ->toCurrency($order->getRevenue()), array('label' => $this->__('Grand Total')));
+                                ->toCurrency($order->getRevenue()), array('label' => $this->__('Grand Total')));
             }
             $collection->clear();
         }
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Interface.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -30,6 +30,7 @@
  */
 interface Zend_Mail_Storage_Folder_Interface
 {
+
     /**
      * get root folder or given folder
      *
@@ -48,7 +49,6 @@ interface Zend_Mail_Storage_Folder_Interface
      * @throws Zend_Mail_Storage_Exception
      */
     public function selectFolder($globalName);
-
 
     /**
      * get Zend_Mail_Storage_Folder instance for current folder

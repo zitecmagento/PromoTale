@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -51,12 +52,7 @@ $installer->getConnection()->dropColumn($this->getTable('sales_quote_temp_text')
 $installer->getConnection()->dropColumn($this->getTable('sales_quote_temp_varchar'), 'store_id');
 
 $installer->getConnection()->addConstraint(
-    'SALE_ORDER_ENTITY_STORE', 
-    $this->getTable('sales_order_entity'),
-    'store_id',
-    $this->getTable('core_store'),
-    'store_id',
-    'SET NULL'
+        'SALE_ORDER_ENTITY_STORE', $this->getTable('sales_order_entity'), 'store_id', $this->getTable('core_store'), 'store_id', 'SET NULL'
 );
 
 $installer->installEntities();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: File.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_CodeGenerator_Php_Abstract
  */
@@ -44,13 +44,13 @@ class Zend_CodeGenerator_Php_File extends Zend_CodeGenerator_Php_Abstract
      */
     protected static $_fileCodeGenerators = array();
 
-    /**#@+
+    /*     * #@+
      * @var string
      */
     protected static $_markerDocblock = '/* Zend_CodeGenerator_Php_File-DocblockMarker */';
     protected static $_markerRequire = '/* Zend_CodeGenerator_Php_File-RequireMarker: {?} */';
     protected static $_markerClass = '/* Zend_CodeGenerator_Php_File-ClassMarker: {?} */';
-    /**#@-*/
+    /*     * #@- */
 
     /**
      * @var string
@@ -93,7 +93,6 @@ class Zend_CodeGenerator_Php_File extends Zend_CodeGenerator_Php_Abstract
         $fileName = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $fileName);
 
         self::$_fileCodeGenerators[$fileName] = $fileCodeGenerator;
-
     }
 
     /**
@@ -110,7 +109,7 @@ class Zend_CodeGenerator_Php_File extends Zend_CodeGenerator_Php_Abstract
         $realpath = realpath($filePath);
 
         if ($realpath === false) {
-            if ( ($realpath = Zend_Reflection_file::findRealpathInIncludePath($filePath)) === false) {
+            if (($realpath = Zend_Reflection_file::findRealpathInIncludePath($filePath)) === false) {
                 #require_once 'Zend/CodeGenerator/Php/Exception.php';
                 throw new Zend_CodeGenerator_Php_Exception('No file for ' . $realpath . ' was found.');
             }
@@ -396,15 +395,15 @@ class Zend_CodeGenerator_Php_File extends Zend_CodeGenerator_Php_Abstract
         $body = $this->getBody();
         if (preg_match('#/\* Zend_CodeGenerator_Php_File-(.*?)Marker:#', $body)) {
             $output .= $body;
-            $body    = '';
+            $body = '';
         }
 
         // Add file docblock, if any
         if (null !== ($docblock = $this->getDocblock())) {
             $docblock->setIndentation('');
             $regex = preg_quote(self::$_markerDocblock, '#');
-            if (preg_match('#'.$regex.'#', $output)) {
-                $output  = preg_replace('#'.$regex.'#', $docblock->generate(), $output, 1);
+            if (preg_match('#' . $regex . '#', $output)) {
+                $output = preg_replace('#' . $regex . '#', $docblock->generate(), $output, 1);
             } else {
                 $output .= $docblock->generate() . self::LINE_FEED;
             }
@@ -430,13 +429,12 @@ class Zend_CodeGenerator_Php_File extends Zend_CodeGenerator_Php_Abstract
             foreach ($classes as $class) {
                 $regex = str_replace('?', $class->getName(), self::$_markerClass);
                 $regex = preg_quote($regex, '#');
-                if (preg_match('#'.$regex.'#', $output)) {
-                    $output = preg_replace('#'.$regex.'#', $class->generate(), $output, 1);
+                if (preg_match('#' . $regex . '#', $output)) {
+                    $output = preg_replace('#' . $regex . '#', $class->generate(), $output, 1);
                 } else {
                     $output .= $class->generate() . self::LINE_FEED;
                 }
             }
-
         }
 
         if (!empty($body)) {

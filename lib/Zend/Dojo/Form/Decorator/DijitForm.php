@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -17,7 +18,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Dojo_Form_Decorator_DijitContainer */
 #require_once 'Zend/Dojo/Form/Decorator/DijitContainer.php';
 
@@ -37,6 +37,7 @@
  */
 class Zend_Dojo_Form_Decorator_DijitForm extends Zend_Dojo_Form_Decorator_DijitContainer
 {
+
     /**
      * Render a form
      *
@@ -48,14 +49,15 @@ class Zend_Dojo_Form_Decorator_DijitForm extends Zend_Dojo_Form_Decorator_DijitC
     public function render($content)
     {
         $element = $this->getElement();
-        $view    = $element->getView();
+        $view = $element->getView();
         if (null === $view) {
             return $content;
         }
 
         $dijitParams = $this->getDijitParams();
-        $attribs     = array_merge($this->getAttribs(), $this->getOptions());
+        $attribs = array_merge($this->getAttribs(), $this->getOptions());
 
         return $view->form($element->getName(), $attribs, $content);
     }
+
 }

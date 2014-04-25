@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos
-    extends Mage_Adminhtml_Block_Widget_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -52,21 +52,20 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos
         return 'sales/order_creditmemo_grid_collection';
     }
 
-
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass())
-            ->addFieldToSelect('entity_id')
-            ->addFieldToSelect('created_at')
-            ->addFieldToSelect('increment_id')
-            ->addFieldToSelect('order_currency_code')
-            ->addFieldToSelect('store_currency_code')
-            ->addFieldToSelect('base_currency_code')
-            ->addFieldToSelect('state')
-            ->addFieldToSelect('grand_total')
-            ->addFieldToSelect('base_grand_total')
-            ->addFieldToSelect('billing_name')
-            ->setOrderFilter($this->getOrder())
+                ->addFieldToSelect('entity_id')
+                ->addFieldToSelect('created_at')
+                ->addFieldToSelect('increment_id')
+                ->addFieldToSelect('order_currency_code')
+                ->addFieldToSelect('store_currency_code')
+                ->addFieldToSelect('base_currency_code')
+                ->addFieldToSelect('state')
+                ->addFieldToSelect('grand_total')
+                ->addFieldToSelect('base_grand_total')
+                ->addFieldToSelect('billing_name')
+                ->setOrderFilter($this->getOrder())
         ;
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -92,17 +91,17 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos
         ));
 
         $this->addColumn('state', array(
-            'header'    => Mage::helper('sales')->__('Status'),
-            'index'     => 'state',
-            'type'      => 'options',
-            'options'   => Mage::getModel('sales/order_creditmemo')->getStates(),
+            'header' => Mage::helper('sales')->__('Status'),
+            'index' => 'state',
+            'type' => 'options',
+            'options' => Mage::getModel('sales/order_creditmemo')->getStates(),
         ));
 
         $this->addColumn('base_grand_total', array(
-            'header'    => Mage::helper('customer')->__('Refunded'),
-            'index'     => 'base_grand_total',
-            'type'      => 'currency',
-            'currency'  => 'base_currency_code',
+            'header' => Mage::helper('customer')->__('Refunded'),
+            'index' => 'base_grand_total',
+            'type' => 'currency',
+            'currency' => 'base_currency_code',
         ));
 
         return parent::_prepareColumns();
@@ -121,11 +120,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos
     public function getRowUrl($row)
     {
         return $this->getUrl(
-            '*/sales_order_creditmemo/view',
-            array(
-                'creditmemo_id'=> $row->getId(),
-                'order_id'  => $row->getOrderId()
-             ));
+                        '*/sales_order_creditmemo/view', array(
+                    'creditmemo_id' => $row->getId(),
+                    'order_id' => $row->getOrderId()
+        ));
     }
 
     public function getGridUrl()
@@ -155,4 +153,5 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos
     {
         return false;
     }
+
 }

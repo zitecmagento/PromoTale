@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Resource transaction model
  *
@@ -35,6 +35,7 @@
  */
 class Mage_Core_Model_Resource_Transaction
 {
+
     /**
      * Objects which will be involved to transaction
      *
@@ -55,6 +56,7 @@ class Mage_Core_Model_Resource_Transaction
      * @var array
      */
     protected $_beforeCommitCallbacks = array();
+
     /**
      * Begin transaction for all involved object resources
      *
@@ -114,7 +116,7 @@ class Mage_Core_Model_Resource_Transaction
      * @param string $alias
      * @return Mage_Core_Model_Resource_Transaction
      */
-    public function addObject(Mage_Core_Model_Abstract $object, $alias='')
+    public function addObject(Mage_Core_Model_Abstract $object, $alias = '')
     {
         $this->_objects[] = $object;
         if (!empty($alias)) {
@@ -144,20 +146,26 @@ class Mage_Core_Model_Resource_Transaction
     public function save()
     {
         $this->_startTransaction();
-        $error     = false;
+        $error = false;
 
-        try {
+        try
+        {
             foreach ($this->_objects as $object) {
                 $object->save();
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $error = $e;
         }
 
         if ($error === false) {
-            try {
+            try
+            {
                 $this->_runCallbacks();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $error = $e;
             }
         }
@@ -183,18 +191,24 @@ class Mage_Core_Model_Resource_Transaction
         $this->_startTransaction();
         $error = false;
 
-        try {
+        try
+        {
             foreach ($this->_objects as $object) {
                 $object->delete();
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $error = $e;
         }
 
         if ($error === false) {
-            try {
+            try
+            {
                 $this->_runCallbacks();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $error = $e;
             }
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstract
 {
+
     /**
      * Tracks for Shippings
      *
@@ -41,7 +42,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
      */
     protected $_tracks = array();
 
-     /**
+    /**
      * Order shipments collection
      *
      * @var array|Mage_Sales_Model_Mysql4_Order_Shipment_Collection
@@ -57,13 +58,13 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     {
         $tracksCollection = $this->getOrder()->getTracksCollection();
 
-        foreach($tracksCollection->getItems() as $track) {
+        foreach ($tracksCollection->getItems() as $track) {
             $shipmentId = $track->getParentId();
             $this->_tracks[$shipmentId][] = $track;
         }
 
         $shipment = Mage::registry('current_shipment');
-        if($shipment) {
+        if ($shipment) {
             $this->_shipmentsCollection = array($shipment);
         } else {
             $this->_shipmentsCollection = $this->getOrder()->getShipmentsCollection();
@@ -78,8 +79,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
             $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
         }
         $this->setChild(
-            'payment_info',
-            $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
+                'payment_info', $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
         );
     }
 
@@ -115,7 +115,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
         return parent::_prepareItem($renderer);
     }
 
-     /**
+    /**
      * Retrieve order shipments collection
      *
      * @return array|Mage_Sales_Model_Mysql4_Order_Shipment_Collection
@@ -149,7 +149,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     public function getShipmentAddressFormattedHtml($shipment)
     {
         $shippingAddress = $shipment->getShippingAddress();
-        if(!($shippingAddress instanceof Mage_Sales_Model_Order_Address)) {
+        if (!($shippingAddress instanceof Mage_Sales_Model_Order_Address)) {
             return '';
         }
         return $shippingAddress->format('html');
@@ -164,7 +164,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     public function getBillingAddressFormattedHtml($order)
     {
         $billingAddress = $order->getBillingAddress();
-        if(!($billingAddress instanceof Mage_Sales_Model_Order_Address)) {
+        if (!($billingAddress instanceof Mage_Sales_Model_Order_Address)) {
             return '';
         }
         return $billingAddress->format('html');
@@ -186,5 +186,5 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
         }
         return $res;
     }
-}
 
+}

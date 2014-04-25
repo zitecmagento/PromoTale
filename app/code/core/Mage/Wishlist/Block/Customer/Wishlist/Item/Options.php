@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -38,9 +39,10 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
      *
      * @var array
      */
+
     protected $_optionsCfg = array('default' => array(
-        'helper' => 'catalog/product_configuration',
-        'template' => 'wishlist/options_list.phtml'
+            'helper' => 'catalog/product_configuration',
+            'template' => 'wishlist/options_list.phtml'
     ));
 
     /**
@@ -60,6 +62,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
      * @param null|string $template
      * @return Mage_Wishlist_Block_Customer_Wishlist_Item_Options
      */
+
     public function addOptionsRenderCfg($productType, $helperName, $template = null)
     {
         $this->_optionsCfg[$productType] = array('helper' => $helperName, 'template' => $template);
@@ -92,8 +95,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
     {
         $item = $this->getItem();
         $data = $this->getOptionsRenderCfg($item->getProduct()->getTypeId());
-        if (empty($data['helper'])
-            || !$this->helper($data['helper']) instanceof Mage_Catalog_Helper_Product_Configuration_Interface
+        if (empty($data['helper']) || !$this->helper($data['helper']) instanceof Mage_Catalog_Helper_Product_Configuration_Interface
         ) {
             Mage::throwException($this->__("Helper for wishlist options rendering doesn't implement required interface."));
         }
@@ -133,4 +135,5 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
 
         return parent::_toHtml();
     }
+
 }

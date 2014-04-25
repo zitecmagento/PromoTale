@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog view layer model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Layer extends Varien_Object
 {
+
     /**
      * Product collections array
      *
@@ -66,9 +67,9 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     public function getStateKey()
     {
         if ($this->_stateKey === null) {
-            $this->_stateKey = 'STORE_'.Mage::app()->getStore()->getId()
-                . '_CAT_' . $this->getCurrentCategory()->getId()
-                . '_CUSTGROUP_' . Mage::getSingleton('customer/session')->getCustomerGroupId();
+            $this->_stateKey = 'STORE_' . Mage::app()->getStore()->getId()
+                    . '_CAT_' . $this->getCurrentCategory()->getId()
+                    . '_CUSTGROUP_' . Mage::getSingleton('customer/session')->getCustomerGroupId();
         }
 
         return $this->_stateKey;
@@ -83,7 +84,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     public function getStateTags(array $additionalTags = array())
     {
         $additionalTags = array_merge($additionalTags, array(
-            Mage_Catalog_Model_Category::CACHE_TAG.$this->getCurrentCategory()->getId()
+            Mage_Catalog_Model_Category::CACHE_TAG . $this->getCurrentCategory()->getId()
         ));
 
         return $additionalTags;
@@ -116,11 +117,11 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     public function prepareProductCollection($collection)
     {
         $collection
-            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->addMinimalPrice()
-            ->addFinalPrice()
-            ->addTaxPercents()
-            ->addUrlRewrite($this->getCurrentCategory()->getId());
+                ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+                ->addMinimalPrice()
+                ->addFinalPrice()
+                ->addTaxPercents()
+                ->addUrlRewrite($this->getCurrentCategory()->getId());
 
         Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
@@ -141,10 +142,10 @@ class Mage_Catalog_Model_Layer extends Varien_Object
         $stateSuffix = '';
         foreach ($this->getState()->getFilters() as $filterItem) {
             $stateSuffix .= '_' . $filterItem->getFilter()->getRequestVar()
-                . '_' . $filterItem->getValueString();
+                    . '_' . $filterItem->getValueString();
         }
         if (!empty($stateSuffix)) {
-            $this->_stateKey = $this->getStateKey().$stateSuffix;
+            $this->_stateKey = $this->getStateKey() . $stateSuffix;
         }
 
         return $this;
@@ -162,8 +163,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
         if (is_null($category)) {
             if ($category = Mage::registry('current_category')) {
                 $this->setData('current_category', $category);
-            }
-            else {
+            } else {
                 $category = Mage::getModel('catalog/category')->load($this->getCurrentStore()->getRootCategoryId());
                 $this->setData('current_category', $category);
             }
@@ -224,10 +224,10 @@ class Mage_Catalog_Model_Layer extends Varien_Object
         /** @var $collection Mage_Catalog_Model_Resource_Product_Attribute_Collection */
         $collection = Mage::getResourceModel('catalog/product_attribute_collection');
         $collection
-            ->setItemObjectClass('catalog/resource_eav_attribute')
-            ->setAttributeSetFilter($setIds)
-            ->addStoreLabel(Mage::app()->getStore()->getId())
-            ->setOrder('position', 'ASC');
+                ->setItemObjectClass('catalog/resource_eav_attribute')
+                ->setAttributeSetFilter($setIds)
+                ->addStoreLabel(Mage::app()->getStore()->getId())
+                ->setOrder('position', 'ASC');
         $collection = $this->_prepareAttributeCollection($collection);
         $collection->load();
 
@@ -283,7 +283,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      */
     protected function _getSetIds()
     {
-        $key = $this->getStateKey().'_SET_IDS';
+        $key = $this->getStateKey() . '_SET_IDS';
         $setIds = $this->getAggregator()->getCacheData($key);
 
         if ($setIds === null) {
@@ -293,4 +293,5 @@ class Mage_Catalog_Model_Layer extends Varien_Object
 
         return $setIds;
     }
+
 }

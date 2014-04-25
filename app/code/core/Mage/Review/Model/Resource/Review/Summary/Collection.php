@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Review summery collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Review_Model_Resource_Review_Summary_Collection extends Varien_Data_Collection_Db
 {
+
     /**
      * Enter description here ...
      *
@@ -68,7 +69,7 @@ class Mage_Review_Model_Resource_Review_Summary_Collection extends Varien_Data_C
     public function addEntityFilter($entityId, $entityType = 1)
     {
         $this->_select->where('entity_pk_value IN(?)', $entityId)
-            ->where('entity_type = ?', $entityType);
+                ->where('entity_type = ?', $entityType);
         return $this;
     }
 
@@ -83,4 +84,5 @@ class Mage_Review_Model_Resource_Review_Summary_Collection extends Varien_Data_C
         $this->_select->where('store_id = ?', $storeId);
         return $this;
     }
+
 }

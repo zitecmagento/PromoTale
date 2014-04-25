@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Subquery.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Search_Lucene_Search_QueryEntry */
 #require_once 'Zend/Search/Lucene/Search/QueryEntry.php';
 
@@ -32,6 +32,7 @@
  */
 class Zend_Search_Lucene_Search_QueryEntry_Subquery extends Zend_Search_Lucene_Search_QueryEntry
 {
+
     /**
      * Query
      *
@@ -61,7 +62,6 @@ class Zend_Search_Lucene_Search_QueryEntry_Subquery extends Zend_Search_Lucene_S
         throw new Zend_Search_Lucene_Search_QueryParserException('\'~\' sign must follow term or phrase');
     }
 
-
     /**
      * Transform entry to a subquery
      *
@@ -74,4 +74,5 @@ class Zend_Search_Lucene_Search_QueryEntry_Subquery extends Zend_Search_Lucene_S
 
         return $this->_query;
     }
+
 }

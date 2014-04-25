@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_Sales_Model_Order_Total_Config_Base extends Mage_Sales_Model_Config_Ordered
 {
+
     /**
      * Cache key for collectors
      *
@@ -91,4 +93,5 @@ class Mage_Sales_Model_Order_Total_Config_Base extends Mage_Sales_Model_Config_O
         }
         return $this->_totalModels;
     }
+
 }

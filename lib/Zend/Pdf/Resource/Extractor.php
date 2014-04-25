@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id:
  */
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element.php';
 #require_once 'Zend/Pdf/Element/Array.php';
@@ -29,7 +29,6 @@
 #require_once 'Zend/Pdf/Element/Null.php';
 #require_once 'Zend/Pdf/Element/Numeric.php';
 #require_once 'Zend/Pdf/Element/String.php';
-
 
 /**
  * Resource extractor class is used to detach resources from original PDF document.
@@ -49,6 +48,7 @@
  */
 class Zend_Pdf_Resource_Extractor
 {
+
     /**
      * PDF objects factory.
      *
@@ -68,7 +68,7 @@ class Zend_Pdf_Resource_Extractor
      */
     public function __construct()
     {
-        $this->_factory   = Zend_Pdf_ElementFactory::createFactory(1);
+        $this->_factory = Zend_Pdf_ElementFactory::createFactory(1);
         $this->_processed = array();
     }
 
@@ -82,5 +82,5 @@ class Zend_Pdf_Resource_Extractor
     {
         return $page->clonePage($this->_factory, $this->_processed);
     }
-}
 
+}

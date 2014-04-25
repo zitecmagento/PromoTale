@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Review extends Mage_Paypal_Block_Express_Review
 {
+
     /**
      * Render PayPal MECL details xml
      *
@@ -93,4 +95,5 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Review extends Mage_Paypal_Block_Ex
 
         return $reviewXmlObj->asNiceXml();
     }
+
 }

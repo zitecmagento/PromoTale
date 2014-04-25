@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Persistent Session Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Use is object new method for object saving
      *
@@ -62,8 +63,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
         $select = parent::_getLoadSelect($field, $value, $object);
         if (!$object->getLoadExpired()) {
             $tableName = $this->getMainTable();
-            $select->join(array('customer' => $this->getTable('customer/entity')),
-                'customer.entity_id = ' . $tableName . '.customer_id'
+            $select->join(array('customer' => $this->getTable('customer/entity')), 'customer.entity_id = ' . $tableName . '.customer_id'
             )->where($tableName . '.updated_at >= ?', $object->getExpiredBefore());
         }
 
@@ -105,12 +105,12 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     public function deleteExpired($websiteId, $expiredBefore)
     {
         $this->_getWriteAdapter()->delete(
-            $this->getMainTable(),
-            array(
-                'website_id = ?' => $websiteId,
-                'updated_at < ?' => $expiredBefore,
-            )
+                $this->getMainTable(), array(
+            'website_id = ?' => $websiteId,
+            'updated_at < ?' => $expiredBefore,
+                )
         );
         return $this;
     }
+
 }

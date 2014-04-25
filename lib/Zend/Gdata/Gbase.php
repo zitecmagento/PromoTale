@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Gbase.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata
  */
@@ -136,7 +135,7 @@ class Zend_Gdata_Gbase extends Zend_Gdata
         if ($location === null) {
             #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                    'Location must not be null');
+            'Location must not be null');
         } else if ($location instanceof Zend_Gdata_Query) {
             $uri = $location->getQueryUrl();
         } else {
@@ -206,4 +205,5 @@ class Zend_Gdata_Gbase extends Zend_Gdata
         }
         return parent::getFeed($uri, 'Zend_Gdata_Gbase_SnippetFeed');
     }
+
 }

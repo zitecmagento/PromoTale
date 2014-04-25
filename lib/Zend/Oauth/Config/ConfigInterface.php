@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 interface Zend_Oauth_Config_ConfigInterface
 {
+
     public function setOptions(array $options);
 
     public function setConsumerKey($key);

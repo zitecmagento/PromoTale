@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Output.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Cache_Core
  */
 #require_once 'Zend/Cache/Core.php';
-
 
 /**
  * @package    Zend_Cache
@@ -62,7 +60,7 @@ class Zend_Cache_Frontend_Output extends Zend_Cache_Core
     {
         $data = $this->load($id, $doNotTestCacheValidity);
         if ($data !== false) {
-            if ( $echoData ) {
+            if ($echoData) {
                 echo($data);
                 return true;
             } else {
@@ -91,7 +89,7 @@ class Zend_Cache_Frontend_Output extends Zend_Cache_Core
             $data = ob_get_contents();
             ob_end_clean();
         } else {
-            $data =& $forcedDatas;
+            $data = & $forcedDatas;
         }
         $id = array_pop($this->_idStack);
         if ($id === null) {

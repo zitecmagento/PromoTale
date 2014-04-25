@@ -43,7 +43,9 @@
 
     <adminhtml_newsletter_queue_preview>
         <reference name="root">
-            <action method="setTemplate"><template>newsletter/preview/iframeswitcher.phtml</template></action>
+            <action method="setTemplate">
+                <template>newsletter/preview/iframeswitcher.phtml</template>
+            </action>
             <block type="adminhtml/newsletter_queue_preview_form" name="preview_form" />
             <block type="adminhtml/store_switcher" name="store_switcher" template="newsletter/preview/store.phtml" />
         </reference>
@@ -51,7 +53,9 @@
 
     <adminhtml_newsletter_template_preview>
         <reference name="root">
-            <action method="setTemplate"><template>newsletter/preview/iframeswitcher.phtml</template></action>
+            <action method="setTemplate">
+                <template>newsletter/preview/iframeswitcher.phtml</template>
+            </action>
             <block type="adminhtml/newsletter_template_preview_form" name="preview_form" />
             <block type="adminhtml/store_switcher" name="store_switcher" template="newsletter/preview/store.phtml" />
         </reference>

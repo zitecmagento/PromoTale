@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Igbinary.php 20574 2010-01-24 17:39:14Z mabe $
  */
-
 /** @see Zend_Serializer_Adapter_AdapterAbstract */
 #require_once 'Zend/Serializer/Adapter/AdapterAbstract.php';
 
@@ -32,6 +32,7 @@
  */
 class Zend_Serializer_Adapter_Igbinary extends Zend_Serializer_Adapter_AdapterAbstract
 {
+
     /**
      * @var string Serialized null value
      */
@@ -44,7 +45,7 @@ class Zend_Serializer_Adapter_Igbinary extends Zend_Serializer_Adapter_AdapterAb
      * @return void
      * @throws Zend_Serializer_Exception If igbinary extension is not present
      */
-    public function __construct($opts = array()) 
+    public function __construct($opts = array())
     {
         if (!extension_loaded('igbinary')) {
             #require_once 'Zend/Serializer/Exception.php';
@@ -95,4 +96,5 @@ class Zend_Serializer_Adapter_Igbinary extends Zend_Serializer_Adapter_AdapterAb
         }
         return $ret;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml catalog product action attribute update controller
@@ -61,10 +61,10 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
         }
 
         /* Collect Data */
-        $inventoryData      = $this->getRequest()->getParam('inventory', array());
-        $attributesData     = $this->getRequest()->getParam('attributes', array());
-        $websiteRemoveData  = $this->getRequest()->getParam('remove_website_ids', array());
-        $websiteAddData     = $this->getRequest()->getParam('add_website_ids', array());
+        $inventoryData = $this->getRequest()->getParam('inventory', array());
+        $attributesData = $this->getRequest()->getParam('attributes', array());
+        $websiteRemoveData = $this->getRequest()->getParam('remove_website_ids', array());
+        $websiteAddData = $this->getRequest()->getParam('add_website_ids', array());
 
         /* Prepare inventory data item options (use config settings) */
         foreach (Mage::helper('cataloginventory')->getConfigItemOptions() as $option) {
@@ -73,21 +73,22 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             }
         }
 
-        try {
+        try
+        {
             if ($attributesData) {
                 $dateFormat = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-                $storeId    = $this->_getHelper()->getSelectedStoreId();
+                $storeId = $this->_getHelper()->getSelectedStoreId();
 
                 foreach ($attributesData as $attributeCode => $value) {
                     $attribute = Mage::getSingleton('eav/config')
-                        ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
+                            ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
                     if (!$attribute->getAttributeId()) {
                         unset($attributesData[$attributeCode]);
                         continue;
                     }
                     if ($attribute->getBackendType() == 'datetime') {
                         if (!empty($value)) {
-                            $filterInput    = new Zend_Filter_LocalizedToNormalized(array(
+                            $filterInput = new Zend_Filter_LocalizedToNormalized(array(
                                 'date_format' => $dateFormat
                             ));
                             $filterInternal = new Zend_Filter_NormalizedToLocalized(array(
@@ -100,7 +101,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                         $attributesData[$attributeCode] = $value;
                     } elseif ($attribute->getFrontendInput() == 'multiselect') {
                         // Check if 'Change' checkbox has been checked by admin for this attribute
-                        $isChanged = (bool)$this->getRequest()->getPost($attributeCode . '_checkbox');
+                        $isChanged = (bool) $this->getRequest()->getPost($attributeCode . '_checkbox');
                         if (!$isChanged) {
                             unset($attributesData[$attributeCode]);
                             continue;
@@ -113,7 +114,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                 }
 
                 Mage::getSingleton('catalog/product_action')
-                    ->updateAttributes($this->_getHelper()->getProductIds(), $attributesData, $storeId);
+                        ->updateAttributes($this->_getHelper()->getProductIds(), $attributesData, $storeId);
             }
             if ($inventoryData) {
                 /** @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
@@ -124,7 +125,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                 foreach ($this->_getHelper()->getProductIds() as $productId) {
                     $stockItem->setData(array());
                     $stockItem->loadByProduct($productId)
-                        ->setProductId($productId);
+                            ->setProductId($productId);
 
                     $stockDataChanged = false;
                     foreach ($inventoryData as $k => $v) {
@@ -141,8 +142,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
 
                 if ($stockItemSaved) {
                     Mage::getSingleton('index/indexer')->indexEvents(
-                        Mage_CatalogInventory_Model_Stock_Item::ENTITY,
-                        Mage_Index_Model_Event::TYPE_SAVE
+                            Mage_CatalogInventory_Model_Stock_Item::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
                     );
                 }
             }
@@ -150,7 +150,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             if ($websiteAddData || $websiteRemoveData) {
                 /* @var $actionModel Mage_Catalog_Model_Product_Action */
                 $actionModel = Mage::getSingleton('catalog/product_action');
-                $productIds  = $this->_getHelper()->getProductIds();
+                $productIds = $this->_getHelper()->getProductIds();
 
                 if ($websiteRemoveData) {
                     $actionModel->updateWebsites($productIds, $websiteRemoveData, 'remove');
@@ -168,22 +168,24 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
 
                 $notice = Mage::getConfig()->getNode('adminhtml/messages/website_chnaged_indexers/label');
                 if ($notice) {
-                    $this->_getSession()->addNotice($this->__((string)$notice, $this->getUrl('adminhtml/process/list')));
+                    $this->_getSession()->addNotice($this->__((string) $notice, $this->getUrl('adminhtml/process/list')));
                 }
             }
 
             $this->_getSession()->addSuccess(
-                $this->__('Total of %d record(s) were updated', count($this->_getHelper()->getProductIds()))
+                    $this->__('Total of %d record(s) were updated', count($this->_getHelper()->getProductIds()))
             );
         }
-        catch (Mage_Core_Exception $e) {
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $this->_getSession()->addException($e, $this->__('An error occurred while updating the product(s) attributes.'));
         }
 
-        $this->_redirect('*/catalog_product/', array('store'=>$this->_getHelper()->getSelectedStoreId()));
+        $this->_redirect('*/catalog_product/', array('store' => $this->_getHelper()->getSelectedStoreId()));
     }
 
     /**
@@ -203,7 +205,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
 
         if ($error) {
             $this->_getSession()->addError($error);
-            $this->_redirect('*/catalog_product/', array('_current'=>true));
+            $this->_redirect('*/catalog_product/', array('_current' => true));
         }
 
         return !$error;
@@ -235,14 +237,15 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
         $attributesData = $this->getRequest()->getParam('attributes', array());
         $data = new Varien_Object();
 
-        try {
+        try
+        {
             if ($attributesData) {
                 $dateFormat = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-                $storeId    = $this->_getHelper()->getSelectedStoreId();
+                $storeId = $this->_getHelper()->getSelectedStoreId();
 
                 foreach ($attributesData as $attributeCode => $value) {
                     $attribute = Mage::getSingleton('eav/config')
-                        ->getAttribute('catalog_product', $attributeCode);
+                            ->getAttribute('catalog_product', $attributeCode);
                     if (!$attribute->getAttributeId()) {
                         unset($attributesData[$attributeCode]);
                         continue;
@@ -251,14 +254,20 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                     $attribute->getBackend()->validate($data);
                 }
             }
-        } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
+        }
+        catch (Mage_Eav_Model_Entity_Attribute_Exception $e)
+        {
             $response->setError(true);
             $response->setAttribute($e->getAttributeCode());
             $response->setMessage($e->getMessage());
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $response->setError(true);
             $response->setMessage($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addException($e, $this->__('An error occurred while updating the product(s) attributes.'));
             $this->_initLayoutMessages('adminhtml/session');
             $response->setError(true);
@@ -267,4 +276,5 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
 
         $this->getResponse()->setBody($response->toJson());
     }
+
 }

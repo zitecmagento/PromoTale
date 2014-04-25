@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type
-    extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
+class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+
     /**
      * Display Product Price on gesture
      */
@@ -42,7 +43,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type
     /**
      * Display Product Price in cart
      */
-    const TYPE_IN_CART    = '2';
+    const TYPE_IN_CART = '2';
 
     /**
      * Display Product Price before order confirmation
@@ -84,4 +85,5 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type
     {
         return $this->getAllOptions();
     }
+
 }

@@ -20,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: VideoResultSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Yahoo_ResultSet
  */
@@ -33,7 +31,6 @@
  */
 #require_once 'Zend/Service/Yahoo/VideoResult.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -43,13 +40,13 @@
  */
 class Zend_Service_Yahoo_VideoResultSet extends Zend_Service_Yahoo_ResultSet
 {
+
     /**
      * Video result set namespace
      *
      * @var string
      */
     protected $_namespace = 'urn:yahoo:srchmv';
-
 
     /**
      * Overrides Zend_Service_Yahoo_ResultSet::current()
@@ -60,4 +57,5 @@ class Zend_Service_Yahoo_VideoResultSet extends Zend_Service_Yahoo_ResultSet
     {
         return new Zend_Service_Yahoo_VideoResult($this->_results->item($this->_currentIndex));
     }
+
 }

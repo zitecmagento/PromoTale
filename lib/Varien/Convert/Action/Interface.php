@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert action interface
  *
@@ -34,10 +34,11 @@
  */
 interface Varien_Convert_Action_Interface
 {
+
     /**
      * Run current action
      *
      * @return Varien_Convert_Action_Abstract
      */
-	public function run();
+    public function run();
 }

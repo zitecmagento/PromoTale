@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,10 +34,12 @@
  */
 class Mage_CatalogRule_Model_Flag extends Mage_Core_Model_Flag
 {
+
     /**
      * Flag code
      *
      * @var string
      */
     protected $_flagCode = 'catalog_rules_dirty';
+
 }

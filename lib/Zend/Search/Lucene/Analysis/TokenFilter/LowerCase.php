@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: LowerCase.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Analysis_TokenFilter */
 #require_once 'Zend/Search/Lucene/Analysis/TokenFilter.php';
-
 
 /**
  * Lower case Token filter.
@@ -34,9 +32,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_Search_Lucene_Analysis_TokenFilter_LowerCase extends Zend_Search_Lucene_Analysis_TokenFilter
 {
+
     /**
      * Normalize Token or remove it (if null is returned)
      *
@@ -46,13 +44,11 @@ class Zend_Search_Lucene_Analysis_TokenFilter_LowerCase extends Zend_Search_Luce
     public function normalize(Zend_Search_Lucene_Analysis_Token $srcToken)
     {
         $newToken = new Zend_Search_Lucene_Analysis_Token(
-                                     strtolower( $srcToken->getTermText() ),
-                                     $srcToken->getStartOffset(),
-                                     $srcToken->getEndOffset());
+                strtolower($srcToken->getTermText()), $srcToken->getStartOffset(), $srcToken->getEndOffset());
 
         $newToken->setPositionIncrement($srcToken->getPositionIncrement());
 
         return $newToken;
     }
-}
 
+}

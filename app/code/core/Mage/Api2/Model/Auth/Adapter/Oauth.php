@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Auth_Adapter_Oauth extends Mage_Api2_Model_Auth_Adapter_Abstract
 {
+
     /**
      * Process request and figure out an API user type and its identifier
      *
@@ -44,11 +46,12 @@ class Mage_Api2_Model_Auth_Adapter_Oauth extends Mage_Api2_Model_Auth_Adapter_Ab
     public function getUserParams(Mage_Api2_Model_Request $request)
     {
         /** @var $oauthServer Mage_Oauth_Model_Server */
-        $oauthServer   = Mage::getModel('oauth/server', $request);
+        $oauthServer = Mage::getModel('oauth/server', $request);
         $userParamsObj = (object) array('type' => null, 'id' => null);
 
-        try {
-            $token    = $oauthServer->checkAccessRequest();
+        try
+        {
+            $token = $oauthServer->checkAccessRequest();
             $userType = $token->getUserType();
 
             if (Mage_Oauth_Model_Token::USER_TYPE_ADMIN == $userType) {
@@ -57,7 +60,9 @@ class Mage_Api2_Model_Auth_Adapter_Oauth extends Mage_Api2_Model_Auth_Adapter_Ab
                 $userParamsObj->id = $token->getCustomerId();
             }
             $userParamsObj->type = $userType;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             throw new Mage_Api2_Exception($oauthServer->reportProblem($e), Mage_Api2_Model_Server::HTTP_UNAUTHORIZED);
         }
         return $userParamsObj;
@@ -75,4 +80,5 @@ class Mage_Api2_Model_Auth_Adapter_Oauth extends Mage_Api2_Model_Auth_Adapter_Ab
 
         return $headerValue && 'oauth' === strtolower(substr($headerValue, 0, 5));
     }
+
 }

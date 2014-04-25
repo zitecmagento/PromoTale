@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav attribute group resource collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Init resource model for collection
      *
@@ -66,4 +67,5 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection extends Mage_Cor
     {
         return $this->addOrder('sort_order', $direction);
     }
+
 }

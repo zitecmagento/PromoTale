@@ -63,11 +63,11 @@
 .image-item-upload .image-placeholder {
     box-shadow:0 0 5px #000;
     -webkit-box-shadow:0 0 5px #d3d3d3;
-       -moz-box-shadow:0 0 5px #d3d3d3;
-            box-shadow:0 0 5px #d3d3d3;
+    -moz-box-shadow:0 0 5px #d3d3d3;
+    box-shadow:0 0 5px #d3d3d3;
     -webkit-box-shadow:0 0 5px rgba(0, 0, 0, .35);
-       -moz-box-shadow:0 0 5px rgba(0, 0, 0, .35);
-            box-shadow:0 0 5px rgba(0, 0, 0, .35);
+    -moz-box-shadow:0 0 5px rgba(0, 0, 0, .35);
+    box-shadow:0 0 5px rgba(0, 0, 0, .35);
     line-height:115px;
     text-align:left;
     height:115px;

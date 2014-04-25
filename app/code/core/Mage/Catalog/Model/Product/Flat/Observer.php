@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Flat observer
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Flat_Observer
 {
+
     /**
      * Retrieve Catalog Product Flat Helper
      *
@@ -49,7 +50,8 @@ class Mage_Catalog_Model_Product_Flat_Observer
      *
      * @return Mage_Catalog_Model_Product_Flat_Indexer
      */
-    protected function _getIndexer() {
+    protected function _getIndexer()
+    {
         return Mage::getSingleton('catalog/product_flat_indexer');
     }
 
@@ -68,14 +70,8 @@ class Mage_Catalog_Model_Product_Flat_Observer
         $attribute = $observer->getEvent()->getAttribute();
         /* @var $attribute Mage_Catalog_Model_Entity_Attribute */
 
-        $enableBefore   = ($attribute->getOrigData('backend_type') == 'static')
-            || ($this->_getHelper()->isAddFilterableAttributes() && $attribute->getOrigData('is_filterable') > 0)
-            || ($attribute->getOrigData('used_in_product_listing') == 1)
-            || ($attribute->getOrigData('used_for_sort_by') == 1);
-        $enableAfter    = ($attribute->getData('backend_type') == 'static')
-            || ($this->_getHelper()->isAddFilterableAttributes() && $attribute->getData('is_filterable') > 0)
-            || ($attribute->getData('used_in_product_listing') == 1)
-            || ($attribute->getData('used_for_sort_by') == 1);
+        $enableBefore = ($attribute->getOrigData('backend_type') == 'static') || ($this->_getHelper()->isAddFilterableAttributes() && $attribute->getOrigData('is_filterable') > 0) || ($attribute->getOrigData('used_in_product_listing') == 1) || ($attribute->getOrigData('used_for_sort_by') == 1);
+        $enableAfter = ($attribute->getData('backend_type') == 'static') || ($this->_getHelper()->isAddFilterableAttributes() && $attribute->getData('is_filterable') > 0) || ($attribute->getData('used_in_product_listing') == 1) || ($attribute->getData('used_for_sort_by') == 1);
 
         if (!$enableAfter && !$enableBefore) {
             return $this;
@@ -84,8 +80,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
         if ($enableBefore && !$enableAfter) {
             // delete attribute data from flat
             $this->_getIndexer()->prepareDataStorage();
-        }
-        else {
+        } else {
             $this->_getIndexer()->updateAttribute($attribute->getAttributeCode());
         }
 
@@ -104,10 +99,10 @@ class Mage_Catalog_Model_Product_Flat_Observer
             return $this;
         }
 
-        $productId  = $observer->getEvent()->getProductId();
-        $status     = $observer->getEvent()->getStatus();
-        $storeId    = $observer->getEvent()->getStoreId();
-        $storeId    = $storeId > 0 ? $storeId : null;
+        $productId = $observer->getEvent()->getProductId();
+        $status = $observer->getEvent()->getStatus();
+        $storeId = $observer->getEvent()->getStoreId();
+        $storeId = $storeId > 0 ? $storeId : null;
 
         $this->_getIndexer()->updateProductStatus($productId, $status, $storeId);
 
@@ -134,8 +129,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
             foreach ($website->getStores() as $store) {
                 if ($observer->getEvent()->getAction() == 'remove') {
                     $this->_getIndexer()->removeProduct($productIds, $store->getId());
-                }
-                else {
+                } else {
                     $this->_getIndexer()->updateProduct($productIds, $store->getId());
                 }
             }
@@ -150,12 +144,13 @@ class Mage_Catalog_Model_Product_Flat_Observer
      * @param Varien_Event_Observer $observer
      * @return Mage_Catalog_Model_Product_Flat_Observer
      */
-    public function catalogProductSaveAfter(Varien_Event_Observer $observer) {
+    public function catalogProductSaveAfter(Varien_Event_Observer $observer)
+    {
         if (!$this->_getHelper()->isAvailable() || !$this->_getHelper()->isBuilt()) {
             return $this;
         }
 
-        $product   = $observer->getEvent()->getProduct();
+        $product = $observer->getEvent()->getProduct();
         $productId = $product->getId();
 
         $this->_getIndexer()->saveProduct($productId);
@@ -279,8 +274,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
 
         $customerGroup = $observer->getEvent()->getObject();
         /* @var $customerGroup Mage_Customer_Model_Group */
-        if ($customerGroup->dataHasChangedFor($customerGroup->getIdFieldName())
-            || $customerGroup->dataHasChangedFor('tax_class_id')) {
+        if ($customerGroup->dataHasChangedFor($customerGroup->getIdFieldName()) || $customerGroup->dataHasChangedFor('tax_class_id')) {
             $this->_getIndexer()->updateEventAttributes();
         }
         return $this;
@@ -297,4 +291,5 @@ class Mage_Catalog_Model_Product_Flat_Observer
     {
         return $this;
     }
+
 }

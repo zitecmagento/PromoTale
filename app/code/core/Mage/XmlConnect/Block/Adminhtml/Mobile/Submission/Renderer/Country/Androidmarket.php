@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Renderer_Country_Androidmarket
-    extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
-    implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Renderer_Country_Androidmarket extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element implements Varien_Data_Form_Element_Renderer_Interface
 {
+
     /**
      * Override setting the template
      *
@@ -44,4 +44,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Renderer_Country_Android
     {
         $this->setTemplate('xmlconnect/form/element/country/androidmarket.phtml');
     }
+
 }

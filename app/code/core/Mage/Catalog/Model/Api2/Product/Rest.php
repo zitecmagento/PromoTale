@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_Api2_Product
 {
+
     /**
      * Current loaded product
      *
@@ -63,18 +65,16 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         /** @var $collection Mage_Catalog_Model_Resource_Product_Collection */
         $collection = Mage::getResourceModel('catalog/product_collection');
         $store = $this->_getStore();
-        $entityOnlyAttributes = $this->getEntityOnlyAttributes($this->getUserType(),
-            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ);
-        $availableAttributes = array_keys($this->getAvailableAttributes($this->getUserType(),
-            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ));
+        $entityOnlyAttributes = $this->getEntityOnlyAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ);
+        $availableAttributes = array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ));
         // available attributes not contain image attribute, but it needed for get image_url
         $availableAttributes[] = 'image';
         $collection->addStoreFilter($store->getId())
-            ->addPriceData($this->_getCustomerGroupId(), $store->getWebsiteId())
-            ->addAttributeToSelect(array_diff($availableAttributes, $entityOnlyAttributes))
-            ->addAttributeToFilter('visibility', array(
-                'neq' => Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE))
-            ->addAttributeToFilter('status', array('eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED));
+                ->addPriceData($this->_getCustomerGroupId(), $store->getWebsiteId())
+                ->addAttributeToSelect(array_diff($availableAttributes, $entityOnlyAttributes))
+                ->addAttributeToFilter('visibility', array(
+                    'neq' => Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE))
+                ->addAttributeToFilter('status', array('eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED));
         $this->_applyCategoryFilter($collection);
         $this->_applyCollectionModifiers($collection);
         $products = $collection->load();
@@ -144,8 +144,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
             /** @var $reviewModel Mage_Review_Model_Review */
             $reviewModel = Mage::getModel('review/review');
-            $productData['total_reviews_count'] = $reviewModel->getTotalReviews($product->getId(), true,
-                $this->_getStore()->getId());
+            $productData['total_reviews_count'] = $reviewModel->getTotalReviews($product->getId(), true, $this->_getStore()->getId());
 
             $productData['tier_price'] = $this->_getTierPrices();
             $productData['has_custom_options'] = count($product->getOptions()) > 0;
@@ -210,8 +209,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             // Check display settings for customers & guests
             if ($this->getApiUser()->getType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE) {
                 // check if product assigned to any website and can be shown
-                if ((!Mage::app()->isSingleStoreMode() && !count($product->getWebsiteIds()))
-                    || !$productHelper->canShow($product)
+                if ((!Mage::app()->isSingleStoreMode() && !count($product->getWebsiteIds())) || !$productHelper->canShow($product)
                 ) {
                     $this->_critical(self::RESOURCE_NOT_FOUND);
                 }
@@ -254,9 +252,9 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
      * @return float
      * @see Mage_Tax_Helper_Data::getPrice()
      */
-    protected function _getPrice($price, $includingTax = null, $shippingAddress = null,
-        $billingAddress = null, $ctc = null, $priceIncludesTax = null
-    ) {
+    protected function _getPrice($price, $includingTax = null, $shippingAddress = null, $billingAddress = null, $ctc = null, $priceIncludesTax = null
+    )
+    {
         $product = $this->_getProduct();
         $store = $this->_getStore();
 
@@ -273,14 +271,14 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         if (is_null($percent)) {
             if ($taxClassId) {
                 $request = Mage::getSingleton('tax/calculation')
-                    ->getRateRequest($shippingAddress, $billingAddress, $ctc, $store);
+                        ->getRateRequest($shippingAddress, $billingAddress, $ctc, $store);
                 $percent = Mage::getSingleton('tax/calculation')->getRate($request->setProductClassId($taxClassId));
             }
         }
         if ($taxClassId && $priceIncludesTax) {
             $request = Mage::getSingleton('tax/calculation')->getRateRequest(false, false, false, $store);
             $includingPercent = Mage::getSingleton('tax/calculation')
-                ->getRate($request->setProductClassId($taxClassId));
+                    ->getRate($request->setProductClassId($taxClassId));
         }
 
         if ($percent === false || is_null($percent)) {
@@ -398,4 +396,5 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     {
         return $price;
     }
+
 }

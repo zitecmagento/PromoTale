@@ -26,7 +26,7 @@
  */
 -->
 <config>
-   <sections>
+    <sections>
         <catalog>
             <groups>
                 <seo>

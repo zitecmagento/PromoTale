@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Api2_Customer_Rest_Customer_V1 extends Mage_Customer_Model_Api2_Customer_Rest
 {
+
     /**
      * Is customer has rights to retrieve/update customer item
      *
@@ -94,4 +96,5 @@ class Mage_Customer_Model_Api2_Customer_Rest_Customer_V1 extends Mage_Customer_M
     {
         $this->_critical(self::RESOURCE_METHOD_NOT_ALLOWED, Mage_Api2_Model_Server::HTTP_FORBIDDEN);
     }
+
 }

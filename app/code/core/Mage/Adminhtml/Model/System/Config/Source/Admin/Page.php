@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Admin system config sturtup page
  *
@@ -34,12 +34,13 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 {
+
     protected $_url;
 
     public function toOptionArray()
     {
         $options = array();
-        $menu    = $this->_buildMenuArray();
+        $menu = $this->_buildMenuArray();
 
         $this->_createOptions($options, $menu);
 
@@ -61,11 +62,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
                 if (isset($menu['children'])) {
                     $this->_createOptions($optionArray, $menu['children']);
                 }
-            }
-            else {
+            } else {
                 $children = array();
 
-                if(isset($menu['children'])) {
+                if (isset($menu['children'])) {
                     $this->_createOptions($children, $menu['children']);
                 }
 
@@ -85,7 +85,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         return $this->_url;
     }
 
-    protected function _buildMenuArray(Varien_Simplexml_Element $parent=null, $path='', $level=0)
+    protected function _buildMenuArray(Varien_Simplexml_Element $parent = null, $path = '', $level = 0)
     {
         if (is_null($parent)) {
             $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
@@ -93,9 +93,8 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
         $parentArr = array();
         $sortOrder = 0;
-        foreach ($parent->children() as $childName=>$child) {
-            if ((1 == $child->disabled)
-                || ($child->depends && !$this->_checkDepends($child->depends))
+        foreach ($parent->children() as $childName => $child) {
+            if ((1 == $child->disabled) || ($child->depends && !$this->_checkDepends($child->depends))
             ) {
                 continue;
             }
@@ -103,10 +102,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
             $menuArr = array();
             $menuArr['label'] = $this->_getHelperValue($child);
 
-            $menuArr['sort_order'] = $child->sort_order ? (int)$child->sort_order : $sortOrder;
+            $menuArr['sort_order'] = $child->sort_order ? (int) $child->sort_order : $sortOrder;
 
             if ($child->action) {
-                $menuArr['url'] = (string)$child->action;
+                $menuArr['url'] = (string) $child->action;
             } else {
                 $menuArr['url'] = '';
             }
@@ -115,7 +114,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
             $menuArr['path'] = $path . $childName;
 
             if ($child->children) {
-                $menuArr['children'] = $this->_buildMenuArray($child->children, $path.$childName.'/', $level+1);
+                $menuArr['children'] = $this->_buildMenuArray($child->children, $path . $childName . '/', $level + 1);
             }
             $parentArr[$childName] = $menuArr;
 
@@ -136,7 +135,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
     protected function _sortMenu($a, $b)
     {
-        return $a['sort_order']<$b['sort_order'] ? -1 : ($a['sort_order']>$b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
     }
 
     protected function _checkDepends(Varien_Simplexml_Element $depends)
@@ -155,15 +154,16 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
     protected function _getHelperValue(Varien_Simplexml_Element $child)
     {
-        $helperName         = 'adminhtml';
-        $titleNodeName      = 'title';
-        $childAttributes    = $child->attributes();
+        $helperName = 'adminhtml';
+        $titleNodeName = 'title';
+        $childAttributes = $child->attributes();
         if (isset($childAttributes['module'])) {
-            $helperName     = (string)$childAttributes['module'];
+            $helperName = (string) $childAttributes['module'];
         }
 
         $titleNodeName = 'title';
 
-        return Mage::helper($helperName)->__((string)$child->$titleNodeName);
+        return Mage::helper($helperName)->__((string) $child->$titleNodeName);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,11 +34,11 @@
  */
 class Mage_Core_Model_Factory
 {
+
     /**
      * Xml path to url rewrite model class alias
      */
     const XML_PATH_URL_REWRITE_MODEL = 'global/url_rewrite/model';
-
     const XML_PATH_INDEX_INDEX_MODEL = 'global/index/index_model';
 
     /**
@@ -131,7 +132,7 @@ class Mage_Core_Model_Factory
      */
     public function getUrlRewriteClassAlias()
     {
-        return (string)$this->_config->getNode(self::XML_PATH_URL_REWRITE_MODEL);
+        return (string) $this->_config->getNode(self::XML_PATH_URL_REWRITE_MODEL);
     }
 
     /**
@@ -139,6 +140,7 @@ class Mage_Core_Model_Factory
      */
     public function getIndexClassAlias()
     {
-        return (string)$this->_config->getNode(self::XML_PATH_INDEX_INDEX_MODEL);
+        return (string) $this->_config->getNode(self::XML_PATH_INDEX_INDEX_MODEL);
     }
+
 }

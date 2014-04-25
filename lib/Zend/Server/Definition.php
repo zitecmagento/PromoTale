@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 class Zend_Server_Definition implements Countable, Iterator
 {
+
     /**
      * @var array Array of Zend_Server_Method_Definition objects
      */
@@ -264,4 +266,5 @@ class Zend_Server_Definition implements Countable, Iterator
     {
         return (bool) $this->current();
     }
+
 }

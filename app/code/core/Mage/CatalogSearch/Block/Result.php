@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product search result block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
 {
+
     /**
      * Catalog Product collection
      *
@@ -66,7 +67,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
             $breadcrumbs->addCrumb('home', array(
                 'label' => $this->__('Home'),
                 'title' => $this->__('Go to Home Page'),
-                'link'  => Mage::getBaseUrl()
+                'link' => Mage::getBaseUrl()
             ))->addCrumb('search', array(
                 'label' => $title,
                 'title' => $title
@@ -108,18 +109,18 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     public function setListOrders()
     {
         $category = Mage::getSingleton('catalog/layer')
-            ->getCurrentCategory();
+                ->getCurrentCategory();
         /* @var $category Mage_Catalog_Model_Category */
         $availableOrders = $category->getAvailableSortByOptions();
         unset($availableOrders['position']);
         $availableOrders = array_merge(array(
             'relevance' => $this->__('Relevance')
-        ), $availableOrders);
+                ), $availableOrders);
 
         $this->getListBlock()
-            ->setAvailableOrders($availableOrders)
-            ->setDefaultDirection('desc')
-            ->setSortBy('relevance');
+                ->setAvailableOrders($availableOrders)
+                ->setDefaultDirection('desc')
+                ->setSortBy('relevance');
 
         return $this;
     }
@@ -132,10 +133,10 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     public function setListModes()
     {
         $this->getListBlock()
-            ->setModes(array(
-                'grid' => $this->__('Grid'),
-                'list' => $this->__('List'))
-            );
+                ->setModes(array(
+                    'grid' => $this->__('Grid'),
+                    'list' => $this->__('List'))
+        );
         return $this;
     }
 
@@ -148,7 +149,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     {
 //        $this->getListBlock()
 //           ->setCollection($this->_getProductCollection());
-       return $this;
+        return $this;
     }
 
     /**
@@ -212,4 +213,5 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     {
         return Mage::helper('catalogsearch')->getNoteMessages();
     }
+
 }

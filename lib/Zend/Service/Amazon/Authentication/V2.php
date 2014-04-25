@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * @see Zend_Service_Amazon_Authentication
  */
@@ -38,6 +38,7 @@
  */
 class Zend_Service_Amazon_Authentication_V2 extends Zend_Service_Amazon_Authentication
 {
+
     /**
      * Signature Version
      */
@@ -47,7 +48,7 @@ class Zend_Service_Amazon_Authentication_V2 extends Zend_Service_Amazon_Authenti
      * Signature Encoding Method
      */
     protected $_signatureMethod = 'HmacSHA256';
-    
+
     /**
      * Type of http request
      * @var string
@@ -62,27 +63,28 @@ class Zend_Service_Amazon_Authentication_V2 extends Zend_Service_Amazon_Authenti
      */
     public function generateSignature($url, array &$parameters)
     {
-        $parameters['AWSAccessKeyId']   = $this->_accessKey;
+        $parameters['AWSAccessKeyId'] = $this->_accessKey;
         $parameters['SignatureVersion'] = $this->_signatureVersion;
-        $parameters['Version']          = $this->_apiVersion;
-        $parameters['SignatureMethod']  = $this->_signatureMethod;
-        if(!isset($parameters['Timestamp'])) {
-            $parameters['Timestamp']    = gmdate('Y-m-d\TH:i:s\Z', time()+10);
+        $parameters['Version'] = $this->_apiVersion;
+        $parameters['SignatureMethod'] = $this->_signatureMethod;
+        if (!isset($parameters['Timestamp'])) {
+            $parameters['Timestamp'] = gmdate('Y-m-d\TH:i:s\Z', time() + 10);
         }
 
         $data = $this->_signParameters($url, $parameters);
-        
+
         return $data;
     }
-    
+
     /**
      * Set http request type to POST or GET
      * @param $method string
      */
-    public function setHttpMethod($method = "POST") {
+    public function setHttpMethod($method = "POST")
+    {
         $this->_httpMethod = strtoupper($method);
     }
-    
+
     /**
      * Get the current http request type
      * @return string
@@ -123,7 +125,7 @@ class Zend_Service_Amazon_Authentication_V2 extends Zend_Service_Amazon_Authenti
         unset($paramaters['Signature']);
 
         $arrData = array();
-        foreach($paramaters as $key => $value) {
+        foreach ($paramaters as $key => $value) {
             $arrData[] = $key . '=' . str_replace('%7E', '~', rawurlencode($value));
         }
 
@@ -135,4 +137,5 @@ class Zend_Service_Amazon_Authentication_V2 extends Zend_Service_Amazon_Authenti
 
         return $data;
     }
+
 }

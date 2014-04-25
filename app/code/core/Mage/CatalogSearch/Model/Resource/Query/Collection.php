@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog search query collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Store for filter
      *
@@ -84,18 +85,18 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
     public function setQueryFilter($query)
     {
         $ifSynonymFor = $this->getConnection()
-            ->getIfNullSql('synonym_for', 'query_text');
+                ->getIfNullSql('synonym_for', 'query_text');
         $this->getSelect()->reset(Zend_Db_Select::FROM)->distinct(true)
-            ->from(
-                array('main_table' => $this->getTable('catalogsearch/search_query')),
-                array('query'      => $ifSynonymFor, 'num_results')
-            )
-            ->where('num_results > 0 AND display_in_terms = 1 AND query_text LIKE ?',
-                Mage::getResourceHelper('core')->addLikeEscape($query, array('position' => 'start')))
-            ->order('popularity ' . Varien_Db_Select::SQL_DESC);
+                ->from(
+                        array('main_table' => $this->getTable('catalogsearch/search_query')), array('query' => $ifSynonymFor,
+                    'num_results')
+                )
+                ->where('num_results > 0 AND display_in_terms = 1 AND query_text LIKE ?', Mage::getResourceHelper('core')->addLikeEscape($query, array(
+                            'position' => 'start')))
+                ->order('popularity ' . Varien_Db_Select::SQL_DESC);
         if ($this->getStoreId()) {
             $this->getSelect()
-                ->where('store_id = ?', (int)$this->getStoreId());
+                    ->where('store_id = ?', (int) $this->getStoreId());
         }
         return $this;
     }
@@ -109,26 +110,25 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
     public function setPopularQueryFilter($storeIds = null)
     {
         $ifSynonymFor = new Zend_Db_Expr($this->getConnection()
-            ->getCheckSql("synonym_for IS NOT NULL AND synonym_for != ''", 'synonym_for', 'query_text'));
+                        ->getCheckSql("synonym_for IS NOT NULL AND synonym_for != ''", 'synonym_for', 'query_text'));
 
         $this->getSelect()
-            ->reset(Zend_Db_Select::FROM)
-            ->reset(Zend_Db_Select::COLUMNS)
-            ->distinct(true)
-            ->from(
-                array('main_table' => $this->getTable('catalogsearch/search_query')),
-                array('name' => $ifSynonymFor, 'num_results', 'popularity')
-            );
+                ->reset(Zend_Db_Select::FROM)
+                ->reset(Zend_Db_Select::COLUMNS)
+                ->distinct(true)
+                ->from(
+                        array('main_table' => $this->getTable('catalogsearch/search_query')), array('name' => $ifSynonymFor,
+                    'num_results', 'popularity')
+        );
         if ($storeIds) {
             $this->addStoreFilter($storeIds);
             $this->getSelect()->where('num_results > 0');
-        }
-        elseif (null === $storeIds) {
+        } elseif (null === $storeIds) {
             $this->addStoreFilter(Mage::app()->getStore()->getId());
             $this->getSelect()->where('num_results > 0');
         }
 
-        $this->getSelect()->order(array('popularity desc','name'));
+        $this->getSelect()->order(array('popularity desc', 'name'));
 
         return $this;
     }
@@ -158,4 +158,5 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
         $this->getSelect()->where('main_table.store_id IN (?)', $storeIds);
         return $this;
     }
+
 }

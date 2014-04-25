@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Application
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Application extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     /**
      * Render grid row
      *
@@ -47,5 +48,6 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Application
             $str = ' --- ';
         }
         return $str;
-     }
+    }
+
 }

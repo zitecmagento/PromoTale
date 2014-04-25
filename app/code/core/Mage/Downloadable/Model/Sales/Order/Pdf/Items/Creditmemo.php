@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Order Creditmemo Downloadable Pdf Items renderer
  *
@@ -32,73 +32,72 @@
  * @package    Mage_Downloadable
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Creditmemo
-    extends Mage_Downloadable_Model_Sales_Order_Pdf_Items_Abstract
+class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Downloadable_Model_Sales_Order_Pdf_Items_Abstract
 {
+
     /**
      * Draw item line
      *
      */
     public function draw()
     {
-        $order  = $this->getOrder();
-        $item   = $this->getItem();
-        $pdf    = $this->getPdf();
-        $page   = $this->getPage();
-        $lines  = array();
+        $order = $this->getOrder();
+        $item = $this->getItem();
+        $pdf = $this->getPdf();
+        $page = $this->getPage();
+        $lines = array();
 
         // draw Product name
         $lines[0] = array(array(
-            'text' => Mage::helper('core/string')->str_split($item->getName(), 35, true, true),
-            'feed' => 35,
+                'text' => Mage::helper('core/string')->str_split($item->getName(), 35, true, true),
+                'feed' => 35,
         ));
 
         // draw SKU
         $lines[0][] = array(
-            'text'  => Mage::helper('core/string')->str_split($this->getSku($item), 17),
-            'feed'  => 255,
+            'text' => Mage::helper('core/string')->str_split($this->getSku($item), 17),
+            'feed' => 255,
             'align' => 'right'
         );
 
         // draw Total (ex)
         $lines[0][] = array(
-            'text'  => $order->formatPriceTxt($item->getRowTotal()),
-            'feed'  => 330,
-            'font'  => 'bold',
+            'text' => $order->formatPriceTxt($item->getRowTotal()),
+            'feed' => 330,
+            'font' => 'bold',
             'align' => 'right',
         );
 
         // draw Discount
         $lines[0][] = array(
-            'text'  => $order->formatPriceTxt(-$item->getDiscountAmount()),
-            'feed'  => 380,
-            'font'  => 'bold',
+            'text' => $order->formatPriceTxt(-$item->getDiscountAmount()),
+            'feed' => 380,
+            'font' => 'bold',
             'align' => 'right'
         );
 
         // draw QTY
         $lines[0][] = array(
-            'text'  => $item->getQty() * 1,
-            'feed'  => 445,
-            'font'  => 'bold',
+            'text' => $item->getQty() * 1,
+            'feed' => 445,
+            'font' => 'bold',
             'align' => 'right',
         );
 
         // draw Tax
         $lines[0][] = array(
-            'text'  => $order->formatPriceTxt($item->getTaxAmount()),
-            'feed'  => 495,
-            'font'  => 'bold',
+            'text' => $order->formatPriceTxt($item->getTaxAmount()),
+            'feed' => 495,
+            'font' => 'bold',
             'align' => 'right'
         );
 
         // draw Total (inc)
-        $subtotal = $item->getRowTotal() + $item->getTaxAmount() + $item->getHiddenTaxAmount()
-            - $item->getDiscountAmount();
+        $subtotal = $item->getRowTotal() + $item->getTaxAmount() + $item->getHiddenTaxAmount() - $item->getDiscountAmount();
         $lines[0][] = array(
-            'text'  => $order->formatPriceTxt($subtotal),
-            'feed'  => 565,
-            'font'  => 'bold',
+            'text' => $order->formatPriceTxt($subtotal),
+            'feed' => 565,
+            'font' => 'bold',
             'align' => 'right'
         );
 
@@ -141,11 +140,12 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Creditmemo
         }
 
         $lineBlock = array(
-            'lines'  => $lines,
+            'lines' => $lines,
             'height' => 20
         );
 
         $page = $pdf->drawLineBlocks($page, array($lineBlock), array('table_header' => true));
         $this->setPage($page);
     }
+
 }

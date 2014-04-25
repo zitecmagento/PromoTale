@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * HTML select element block
@@ -67,7 +67,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      * @param array  $params HTML attributes
      * @return Mage_Core_Block_Html_Select
      */
-    public function addOption($value, $label, $params=array())
+    public function addOption($value, $label, $params = array())
     {
         $this->_options[] = array('value' => $value, 'label' => $label, 'params' => $params);
         return $this;
@@ -151,10 +151,10 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
         }
 
         $html = '<select name="' . $this->getName() . '" id="' . $this->getId() . '" class="'
-            . $this->getClass() . '" title="' . $this->getTitle() . '" ' . $this->getExtraParams() . '>';
+                . $this->getClass() . '" title="' . $this->getTitle() . '" ' . $this->getExtraParams() . '>';
         $values = $this->getValue();
 
-        if (!is_array($values)){
+        if (!is_array($values)) {
             if (!is_null($values)) {
                 $values = array($values);
             } else {
@@ -165,12 +165,12 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
         $isArrayOption = true;
         foreach ($this->getOptions() as $key => $option) {
             if ($isArrayOption && is_array($option)) {
-                $value  = $option['value'];
-                $label  = (string)$option['label'];
+                $value = $option['value'];
+                $label = (string) $option['label'];
                 $params = (!empty($option['params'])) ? $option['params'] : array();
             } else {
-                $value = (string)$key;
-                $label = (string)$option;
+                $value = (string) $key;
+                $label = (string) $option;
                 $isArrayOption = false;
                 $params = array();
             }
@@ -185,19 +185,17 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
                         );
                     }
                     $html .= $this->_optionToHtml(
-                        $optionGroup,
-                        in_array($optionGroup['value'], $values)
+                            $optionGroup, in_array($optionGroup['value'], $values)
                     );
                 }
                 $html .= '</optgroup>';
             } else {
                 $html .= $this->_optionToHtml(
-                    array(
-                        'value' => $value,
-                        'label' => $label,
-                        'params' => $params
-                    ),
-                    in_array($value, $values)
+                        array(
+                    'value' => $value,
+                    'label' => $label,
+                    'params' => $params
+                        ), in_array($value, $values)
                 );
             }
         }
@@ -232,11 +230,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
             }
         }
 
-        return sprintf('<option value="%s"%s %s>%s</option>',
-            $this->escapeHtml($option['value']),
-            $selectedHtml,
-            $params,
-            $this->escapeHtml($option['label']));
+        return sprintf('<option value="%s"%s %s>%s</option>', $this->escapeHtml($option['value']), $selectedHtml, $params, $this->escapeHtml($option['label']));
     }
 
     /**
@@ -259,4 +253,5 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
     {
         return sprintf('%u', crc32($this->getName() . $this->getId() . $optionValue));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_CatalogInventory_Model_Api2_Stock_Item extends Mage_Api2_Model_Resource
 {
+
     /**
      * Load stock item by id
      *
@@ -49,4 +51,5 @@ class Mage_CatalogInventory_Model_Api2_Stock_Item extends Mage_Api2_Model_Resour
         }
         return $stockItem;
     }
+
 }

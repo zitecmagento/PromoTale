@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product description block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Block_Product_View_Description extends Mage_Core_Block_Template
 {
+
     protected $_product = null;
 
     function getProduct()
@@ -43,4 +44,5 @@ class Mage_Catalog_Block_Product_View_Description extends Mage_Core_Block_Templa
         }
         return $this->_product;
     }
+
 }

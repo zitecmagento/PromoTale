@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Decorator_Abstract */
 #require_once 'Zend/Form/Decorator/Abstract.php';
 
@@ -43,6 +43,7 @@
  */
 class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
 {
+
     /**
      * Whether or not to escape the description
      * @var bool
@@ -153,7 +154,7 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
     public function render($content)
     {
         $element = $this->getElement();
-        $view    = $element->getView();
+        $view = $element->getView();
         if (null === $view) {
             return $content;
         }
@@ -171,11 +172,11 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
 
         $separator = $this->getSeparator();
         $placement = $this->getPlacement();
-        $tag       = $this->getTag();
-        $class     = $this->getClass();
-        $escape    = $this->getEscape();
+        $tag = $this->getTag();
+        $class = $this->getClass();
+        $escape = $this->getEscape();
 
-        $options   = $this->getOptions();
+        $options = $this->getOptions();
 
         if ($escape) {
             $description = $view->escape($description);
@@ -196,4 +197,5 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
                 return $content . $separator . $description;
         }
     }
+
 }

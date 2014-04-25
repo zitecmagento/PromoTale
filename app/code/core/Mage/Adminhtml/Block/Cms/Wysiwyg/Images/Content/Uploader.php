@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,9 +31,10 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
-*/
+ */
 class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Uploader extends Mage_Adminhtml_Block_Media_Uploader
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -46,15 +48,15 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Uploader extends Mage_Admi
             $files[] = '*.' . $ext;
         }
         $this->getConfig()
-            ->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/*/upload', array('type' => $type)))
-            ->setParams($params)
-            ->setFileField('image')
-            ->setFilters(array(
-                'images' => array(
-                    'label' => $this->helper('cms')->__('Images (%s)', implode(', ', $labels)),
-                    'files' => $files
-                )
-            ));
+                ->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/*/upload', array('type' => $type)))
+                ->setParams($params)
+                ->setFileField('image')
+                ->setFilters(array(
+                    'images' => array(
+                        'label' => $this->helper('cms')->__('Images (%s)', implode(', ', $labels)),
+                        'files' => $files
+                    )
+        ));
     }
 
     /**
@@ -68,4 +70,5 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Uploader extends Mage_Admi
         }
         return $this->getRequest()->getParam('type');
     }
+
 }

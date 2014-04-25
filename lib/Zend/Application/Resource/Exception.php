@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 22609 2010-07-17 08:47:59Z torio $
  */
-
 /**
  * @see Zend_Application_Exception
  */
@@ -37,4 +37,5 @@
  */
 class Zend_Application_Resource_Exception extends Zend_Application_Exception
 {
+    
 }

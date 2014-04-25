@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml sales shipment comment view block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Comments extends Mage_Adminhtml_Block_Text_List
 {
+
     /**
      * Retrieve creditmemo model instance
      *
@@ -63,4 +64,5 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Comments extends Mage_Adm
     {
         return $this->getCreditmemo();
     }
+
 }

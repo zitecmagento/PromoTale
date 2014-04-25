@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Token.php 20277 2010-01-14 14:17:12Z kokx $
  */
-
 /**
  * @see Zend_Markup_TokenList
  */
@@ -33,8 +33,9 @@
  */
 class Zend_Markup_Token
 {
-    const TYPE_NONE    = 'none';
-    const TYPE_TAG     = 'tag';
+
+    const TYPE_NONE = 'none';
+    const TYPE_TAG = 'tag';
 
     /**
      * Children of this token
@@ -85,7 +86,6 @@ class Zend_Markup_Token
      */
     protected $_parent;
 
-
     /**
      * Construct the token
      *
@@ -97,17 +97,14 @@ class Zend_Markup_Token
      * @return void
      */
     public function __construct(
-        $tag,
-        $type,
-        $name = '',
-        array $attributes = array(),
-        Zend_Markup_Token $parent = null
-    ) {
-        $this->_tag        = $tag;
-        $this->_type       = $type;
-        $this->_name       = $name;
+    $tag, $type, $name = '', array $attributes = array(), Zend_Markup_Token $parent = null
+    )
+    {
+        $this->_tag = $tag;
+        $this->_type = $type;
+        $this->_name = $name;
         $this->_attributes = $attributes;
-        $this->_parent     = $parent;
+        $this->_parent = $parent;
     }
 
     // accessors
@@ -260,7 +257,7 @@ class Zend_Markup_Token
         return $this->_children;
     }
 
-	/**
+    /**
      * Does this token have any children
      *
      * @return bool
@@ -299,8 +296,9 @@ class Zend_Markup_Token
      */
     public function __clone()
     {
-        $this->_parent   = null;
+        $this->_parent = null;
         $this->_children = null;
-        $this->_tag      = '';
+        $this->_tag = '';
     }
+
 }

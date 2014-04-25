@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 23204 2010-10-21 15:35:21Z ralph $
  */
-
 /**
  * @see Zend_Loader_Autoloader
  */
@@ -70,7 +70,7 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
         $registry->setClient($this);
 
         // NOTE: at this moment, $this->_registry should contain the registry object
-        
+
         if ($options) {
             $this->setOptions($options);
         }
@@ -110,7 +110,7 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
 
         $manifest = $this->_registry->getManifestRepository();
         $manifest->addManifest(new Zend_Tool_Framework_Client_Manifest());
-        
+
         // setup the debug log
         if (!$this->_debugLogger instanceof Zend_Log) {
             #require_once 'Zend/Log.php';
@@ -137,9 +137,7 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
         if ($this instanceof Zend_Tool_Framework_Client_Interactive_OutputInterface) {
             $this->_registry->getResponse()->setContentCallback(array($this, 'handleInteractiveOutput'));
         }
-
     }
-
 
     /**
      * This method should be implemented by the client implementation to
@@ -147,6 +145,7 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
      */
     protected function _preInit()
     {
+        
     }
 
     /**
@@ -163,6 +162,7 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
      */
     protected function _postDispatch()
     {
+        
     }
 
     /**
@@ -177,7 +177,7 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
         $this->_registry = $registry;
         return $this;
     }
-    
+
     /**
      * getRegistry();
      * 
@@ -211,7 +211,6 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
         $inputHandler->setClient($this);
         $inputHandler->setInputRequest($inputRequest);
         return $inputHandler->handle();
-
     }
 
     /**
@@ -222,7 +221,8 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
     {
         $this->initialize();
 
-        try {
+        try
+        {
 
             $this->_preDispatch();
 
@@ -239,10 +239,10 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
                 }
 
                 $this->_handleDispatch();
-
             }
-
-        } catch (Exception $exception) {
+        }
+        catch (Exception $exception)
+        {
             $this->_registry->getResponse()->setException($exception);
         }
 
@@ -288,7 +288,7 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
         }
 
         // get the actual method and param information
-        $methodName       = $actionableMethod['methodName'];
+        $methodName = $actionableMethod['methodName'];
         $methodParameters = $actionableMethod['parameterInfo'];
 
         // get the provider params
@@ -317,7 +317,7 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
 
         $this->_handleDispatchExecution($provider, $methodName, $callParameters);
     }
-    
+
     protected function _handleDispatchExecution($class, $methodName, $callParameters)
     {
         if (method_exists($class, $methodName)) {

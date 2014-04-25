@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Model_Order_Creditmemo_Config extends Mage_Sales_Model_Order_Total_Config_Base
 {
+
     /**
      * Cache key for collectors
      *
@@ -47,4 +49,5 @@ class Mage_Sales_Model_Order_Creditmemo_Config extends Mage_Sales_Model_Order_To
     {
         parent::__construct(Mage::getConfig()->getNode('global/sales/order_creditmemo'));
     }
+
 }

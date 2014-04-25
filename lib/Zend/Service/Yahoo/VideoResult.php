@@ -20,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: VideoResult.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Yahoo_Result
  */
 #require_once 'Zend/Service/Yahoo/Result.php';
-
 
 /**
  * @category   Zend
@@ -37,6 +34,7 @@
  */
 class Zend_Service_Yahoo_VideoResult extends Zend_Service_Yahoo_Result
 {
+
     /**
      * Summary info for the video
      *
@@ -114,7 +112,6 @@ class Zend_Service_Yahoo_VideoResult extends Zend_Service_Yahoo_Result
      */
     protected $_namespace = 'urn:yahoo:srchmv';
 
-
     /**
      * Initializes the video result
      *
@@ -123,10 +120,12 @@ class Zend_Service_Yahoo_VideoResult extends Zend_Service_Yahoo_Result
      */
     public function __construct(DOMElement $result)
     {
-        $this->_fields = array('Summary', 'RefererUrl', 'FileSize', 'FileFormat', 'Height', 'Width', 'Duration', 'Channels', 'Streaming', 'Thumbnail');
+        $this->_fields = array('Summary', 'RefererUrl', 'FileSize', 'FileFormat', 'Height', 'Width', 'Duration', 'Channels',
+            'Streaming', 'Thumbnail');
 
         parent::__construct($result);
 
         $this->_setThumbnail();
     }
+
 }

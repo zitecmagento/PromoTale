@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Proxy.php 22797 2010-08-06 15:02:12Z alexander $
  */
-
 /** Zend_Pdf_ElementFactory_Interface */
 #require_once 'Zend/Pdf/ElementFactory/Interface.php';
 
@@ -32,13 +32,13 @@
  */
 class Zend_Pdf_ElementFactory_Proxy implements Zend_Pdf_ElementFactory_Interface
 {
+
     /**
      * Factory object
      *
      * @var Zend_Pdf_ElementFactory_Interface
      */
     private $_factory;
-
 
     /**
      * Object constructor
@@ -231,4 +231,5 @@ class Zend_Pdf_ElementFactory_Proxy implements Zend_Pdf_ElementFactory_Interface
     {
         return $this->_factory->isModified();
     }
+
 }

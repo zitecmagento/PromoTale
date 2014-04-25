@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Shipping table rates collection
  *
@@ -32,7 +32,7 @@
  * @package     Mage_Shipping
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection
-    extends Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection
+class Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection extends Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection
 {
+    
 }

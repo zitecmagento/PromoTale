@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_PbridgeController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Load only action layout handles
      *
@@ -106,7 +108,7 @@ class Mage_XmlConnect_PbridgeController extends Mage_Core_Controller_Front_Actio
         $originalPaymentMethod = $helper->escapeHtml($this->getRequest()->getParam('original_payment_method', false));
         $token = $helper->escapeHtml($this->getRequest()->getParam('token', false));
         $ccLast4 = $helper->escapeHtml($this->getRequest()->getParam('cc_last4', false));
-        $ccType  = $helper->escapeHtml($this->getRequest()->getParam('cc_type', false));
+        $ccType = $helper->escapeHtml($this->getRequest()->getParam('cc_type', false));
 
         if ($originalPaymentMethod && $token && $ccLast4 && $ccType) {
             $message = Mage::helper('enterprise_pbridge')->__('Payment Bridge Selected');
@@ -133,4 +135,5 @@ EOT;
         $content = html_entity_decode(Mage::helper('xmlconnect')->htmlize($replacePattern));
         $this->getResponse()->setBody(str_replace($replacePattern, $body, $content));
     }
+
 }

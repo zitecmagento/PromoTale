@@ -82,9 +82,9 @@
                                 <title>Newsletter Templates</title>
                             </template>
                         </children>
-                   </newsletter>
-               </children>
-           </admin>
-       </resources>
+                    </newsletter>
+                </children>
+            </admin>
+        </resources>
     </acl>
 </config>

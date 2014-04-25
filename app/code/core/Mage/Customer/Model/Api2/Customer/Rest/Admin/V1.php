@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Mage_Customer_Model_Api2_Customer_Rest
 {
+
     /**
      * Retrieve information about customer
      * Add last logged in datetime
@@ -64,12 +66,18 @@ class Mage_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Mage_Customer_Mode
         /** @var $customer Mage_Customer_Model_Customer */
         $customer = parent::_loadCustomerById($this->getRequest()->getParam('id'));
 
-        try {
+        try
+        {
             $customer->delete();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Template
 {
+
     // Cache kay for saving verification result
     const VERIFICATION_RESULT_CACHE_KEY = 'configuration_files_access_level_verification';
 
@@ -39,7 +40,7 @@ class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Te
      * Time out for HTTP verification request
      * @var int
      */
-    private $_verificationTimeOut  = 2;
+    private $_verificationTimeOut = 2;
 
     /**
      * Check verification result and return true if system must to show notification message
@@ -54,7 +55,7 @@ class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Te
         if ($this->_isFileAccessible()) {
             return true;
         }
-        $adminSessionLifetime = (int)Mage::getStoreConfig('admin/security/session_cookie_lifetime');
+        $adminSessionLifetime = (int) Mage::getStoreConfig('admin/security/session_cookie_lifetime');
         Mage::app()->saveCache(true, self::VERIFICATION_RESULT_CACHE_KEY, array(), $adminSessionLifetime);
         return false;
     }
@@ -90,4 +91,5 @@ class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Te
         }
         return parent::_toHtml();
     }
+
 }

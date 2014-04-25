@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Feed.php 23170 2010-10-19 18:29:24Z mabe $
  */
-
 /**
  * @see Zend_Feed_Reader_Extension_FeedAbstract
  */
@@ -45,9 +45,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Reader_Extension_Atom_Feed
-    extends Zend_Feed_Reader_Extension_FeedAbstract
+class Zend_Feed_Reader_Extension_Atom_Feed extends Zend_Feed_Reader_Extension_FeedAbstract
 {
+
     /**
      * Get a single author
      *
@@ -93,7 +93,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
             $authors = null;
         } else {
             $authors = new Zend_Feed_Reader_Collection_Author(
-                Zend_Feed_Reader::arrayUnique($authors)
+                    Zend_Feed_Reader::arrayUnique($authors)
             );
         }
 
@@ -308,14 +308,14 @@ class Zend_Feed_Reader_Extension_Atom_Feed
         if (!$imageUrl) {
             $image = null;
         } else {
-            $image = array('uri'=>$imageUrl);
+            $image = array('uri' => $imageUrl);
         }
 
         $this->_data['image'] = $image;
 
         return $this->_data['image'];
     }
-    
+
     /**
      * Get the feed image
      *
@@ -332,7 +332,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
         if (!$imageUrl) {
             $image = null;
         } else {
-            $image = array('uri'=>$imageUrl);
+            $image = array('uri' => $imageUrl);
         }
 
         $this->_data['icon'] = $image;
@@ -375,8 +375,8 @@ class Zend_Feed_Reader_Extension_Atom_Feed
         $link = null;
 
         $list = $this->_xpath->query(
-            $this->getXpathPrefix() . '/atom:link[@rel="alternate"]/@href' . '|' .
-            $this->getXpathPrefix() . '/atom:link[not(@rel)]/@href'
+                $this->getXpathPrefix() . '/atom:link[@rel="alternate"]/@href' . '|' .
+                $this->getXpathPrefix() . '/atom:link[not(@rel)]/@href'
         );
 
         if ($list->length) {
@@ -420,9 +420,9 @@ class Zend_Feed_Reader_Extension_Atom_Feed
             return $this->_data['hubs'];
         }
         $hubs = array();
-        
+
         $list = $this->_xpath->query($this->getXpathPrefix()
-            . '//atom:link[@rel="hub"]/@href');
+                . '//atom:link[@rel="hub"]/@href');
 
         if ($list->length) {
             foreach ($list as $uri) {
@@ -458,7 +458,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
 
         return $this->_data['title'];
     }
-    
+
     /**
      * Get all categories
      *
@@ -511,9 +511,9 @@ class Zend_Feed_Reader_Extension_Atom_Feed
         $author = array();
 
         $emailNode = $element->getElementsByTagName('email');
-        $nameNode  = $element->getElementsByTagName('name');
-        $uriNode   = $element->getElementsByTagName('uri');
-        
+        $nameNode = $element->getElementsByTagName('name');
+        $uriNode = $element->getElementsByTagName('uri');
+
         if ($emailNode->length && strlen($emailNode->item(0)->nodeValue) > 0) {
             $author['email'] = $emailNode->item(0)->nodeValue;
         }
@@ -554,8 +554,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
      */
     protected function _registerNamespaces()
     {
-        if ($this->getType() == Zend_Feed_Reader::TYPE_ATOM_10
-            || $this->getType() == Zend_Feed_Reader::TYPE_ATOM_03
+        if ($this->getType() == Zend_Feed_Reader::TYPE_ATOM_10 || $this->getType() == Zend_Feed_Reader::TYPE_ATOM_03
         ) {
             return; // pre-registered at Feed level
         }
@@ -578,13 +577,12 @@ class Zend_Feed_Reader_Extension_Atom_Feed
         $dom = $this->getDomDocument();
         $prefixAtom03 = $dom->lookupPrefix(Zend_Feed_Reader::NAMESPACE_ATOM_03);
         $prefixAtom10 = $dom->lookupPrefix(Zend_Feed_Reader::NAMESPACE_ATOM_10);
-        if ($dom->isDefaultNamespace(Zend_Feed_Reader::NAMESPACE_ATOM_10)
-        || !empty($prefixAtom10)) {
+        if ($dom->isDefaultNamespace(Zend_Feed_Reader::NAMESPACE_ATOM_10) || !empty($prefixAtom10)) {
             return Zend_Feed_Reader::TYPE_ATOM_10;
         }
-        if ($dom->isDefaultNamespace(Zend_Feed_Reader::NAMESPACE_ATOM_03)
-        || !empty($prefixAtom03)) {
+        if ($dom->isDefaultNamespace(Zend_Feed_Reader::NAMESPACE_ATOM_03) || !empty($prefixAtom03)) {
             return Zend_Feed_Reader::TYPE_ATOM_03;
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Extension model
  *
@@ -34,18 +34,19 @@
  */
 class Mage_Connect_Model_Extension extends Varien_Object
 {
+
     /**
-    * Cache for targets
-    *
-    * @var array
-    */
+     * Cache for targets
+     *
+     * @var array
+     */
     protected $_targets;
 
     /**
-    * Internal cache for package
-    *
-    * @var Mage_Connect_Package
-    */
+     * Internal cache for package
+     *
+     * @var Mage_Connect_Package
+     */
     protected $_package;
 
     /**
@@ -62,20 +63,20 @@ class Mage_Connect_Model_Extension extends Varien_Object
     }
 
     /**
-    * Set package object.
-    *
-    * @return Mage_Connect_Model_Extension
-    */
+     * Set package object.
+     *
+     * @return Mage_Connect_Model_Extension
+     */
     public function generatePackageXml()
     {
         Mage::getSingleton('connect/session')
-            ->setLocalExtensionPackageFormData($this->getData());
+                ->setLocalExtensionPackageFormData($this->getData());
 
         $this->_setPackage()
-            ->_setRelease()
-            ->_setAuthors()
-            ->_setDependencies()
-            ->_setContents();
+                ->_setRelease()
+                ->_setAuthors()
+                ->_setDependencies()
+                ->_setContents();
         if (!$this->getPackage()->validate()) {
             $message = $this->getPackage()->getErrors();
             throw Mage::exception('Mage_Core', Mage::helper('connect')->__($message[0]));
@@ -85,65 +86,64 @@ class Mage_Connect_Model_Extension extends Varien_Object
     }
 
     /**
-    * Set general information.
-    *
-    * @return Mage_Connect_Model_Extension
-    */
+     * Set general information.
+     *
+     * @return Mage_Connect_Model_Extension
+     */
     protected function _setPackage()
     {
         $this->getPackage()
-            ->setName($this->getData('name'))
-            ->setChannel($this->getData('channel'))
-            ->setLicense($this->getData('license'), $this->getData('license_uri'))
-            ->setSummary($this->getData('summary'))
-            ->setDescription($this->getData('description'));
+                ->setName($this->getData('name'))
+                ->setChannel($this->getData('channel'))
+                ->setLicense($this->getData('license'), $this->getData('license_uri'))
+                ->setSummary($this->getData('summary'))
+                ->setDescription($this->getData('description'));
         return $this;
     }
 
     /**
-    * Set release information
-    *
-    * @return Mage_Connect_Model_Extension
-    */
+     * Set release information
+     *
+     * @return Mage_Connect_Model_Extension
+     */
     protected function _setRelease()
     {
         $this->getPackage()
-            ->setDate(date('Y-m-d'))
-            ->setTime(date('H:i:s'))
-            ->setVersion($this->getData('version')?$this->getData('version'):$this->getData('release_version'))
-            ->setStability($this->getData('stability'))
-            ->setNotes($this->getData('notes'));
+                ->setDate(date('Y-m-d'))
+                ->setTime(date('H:i:s'))
+                ->setVersion($this->getData('version') ? $this->getData('version') : $this->getData('release_version'))
+                ->setStability($this->getData('stability'))
+                ->setNotes($this->getData('notes'));
         return $this;
     }
 
     /**
-    * Set authors
-    *
-    * @return Mage_Connect_Model_Extension
-    */
+     * Set authors
+     *
+     * @return Mage_Connect_Model_Extension
+     */
     protected function _setAuthors()
     {
         $authors = $this->getData('authors');
         foreach ($authors['name'] as $i => $name) {
-            $user  = $authors['user'][$i];
+            $user = $authors['user'][$i];
             $email = $authors['email'][$i];
             $this->getPackage()->addAuthor($name, $user, $email);
         }
         return $this;
     }
 
-
     protected function packageFilesToArray($filesString)
     {
         $packageFiles = array();
-        if($filesString) {
+        if ($filesString) {
             $filesArray = preg_split("/[\n\r]+/", $filesString);
-            foreach($filesArray as $file) {
+            foreach ($filesArray as $file) {
                 $file = trim($file, "/");
                 $res = explode(DIRECTORY_SEPARATOR, $file, 2);
                 array_map('trim', $res);
-                if(2 == count($res)) {
-                    $packageFiles[] = array('target'=>$res[0], 'path'=>$res[1]);
+                if (2 == count($res)) {
+                    $packageFiles[] = array('target' => $res[0], 'path' => $res[1]);
                 }
             }
         }
@@ -151,19 +151,19 @@ class Mage_Connect_Model_Extension extends Varien_Object
     }
 
     /**
-    * Set php, php extensions, another packages dependencies
-    *
-    * @return Mage_Connect_Model_Extension
-    */
+     * Set php, php extensions, another packages dependencies
+     *
+     * @return Mage_Connect_Model_Extension
+     */
     protected function _setDependencies()
     {
         $this->getPackage()
-            ->clearDependencies()
-            ->setDependencyPhpVersion($this->getData('depends_php_min'), $this->getData('depends_php_max'));
+                ->clearDependencies()
+                ->setDependencyPhpVersion($this->getData('depends_php_min'), $this->getData('depends_php_max'));
 
-        foreach ($this->getData('depends') as $deptype=>$deps) {
-            foreach ($deps['name'] as $i=>$type) {
-                if (0===$i) {
+        foreach ($this->getData('depends') as $deptype => $deps) {
+            foreach ($deps['name'] as $i => $type) {
+                if (0 === $i) {
                     continue;
                 }
                 $name = $deps['name'][$i];
@@ -174,9 +174,7 @@ class Mage_Connect_Model_Extension extends Varien_Object
                 $packageFiles = $this->packageFilesToArray($files);
 
                 if ($deptype !== 'extension') {
-                    $channel = !empty($deps['channel'][$i])
-                        ? $deps['channel'][$i]
-                        : 'connect.magentocommerce.com/core';
+                    $channel = !empty($deps['channel'][$i]) ? $deps['channel'][$i] : 'connect.magentocommerce.com/core';
                 }
                 switch ($deptype) {
                     case 'package':
@@ -193,16 +191,16 @@ class Mage_Connect_Model_Extension extends Varien_Object
     }
 
     /**
-    * Set contents. Add file or entire directory.
-    *
-    * @return Mage_Connect_Model_Extension
-    */
+     * Set contents. Add file or entire directory.
+     *
+     * @return Mage_Connect_Model_Extension
+     */
     protected function _setContents()
     {
         $this->getPackage()->clearContents();
         $contents = $this->getData('contents');
-        foreach ($contents['target'] as $i=>$target) {
-            if (0===$i) {
+        foreach ($contents['target'] as $i => $target) {
+            if (0 === $i) {
                 continue;
             }
             switch ($contents['type'][$i]) {
@@ -223,10 +221,10 @@ class Mage_Connect_Model_Extension extends Varien_Object
     }
 
     /**
-    * Save package file to var/connect.
-    *
-    * @return boolean
-    */
+     * Save package file to var/connect.
+     *
+     * @return boolean
+     */
     public function savePackage()
     {
         if ($this->getData('file_name') != '') {
@@ -275,10 +273,10 @@ class Mage_Connect_Model_Extension extends Varien_Object
     }
 
     /**
-    * Create package file
-    *
-    * @return boolean
-    */
+     * Create package file
+     *
+     * @return boolean
+     */
     public function createPackage()
     {
         $path = Mage::helper('connect')->getLocalPackagesPath();
@@ -293,10 +291,10 @@ class Mage_Connect_Model_Extension extends Varien_Object
     }
 
     /**
-    * Create package file compatible with previous version of Magento Connect Manager
-    *
-    * @return boolean
-    */
+     * Create package file compatible with previous version of Magento Connect Manager
+     *
+     * @return boolean
+     */
     public function createPackageV1x()
     {
         $path = Mage::helper('connect')->getLocalPackagesPathV1x();
@@ -311,25 +309,25 @@ class Mage_Connect_Model_Extension extends Varien_Object
     }
 
     /**
-    * Retrieve stability value and name for options
-    *
-    * @return array
-    */
+     * Retrieve stability value and name for options
+     *
+     * @return array
+     */
     public function getStabilityOptions()
     {
         return array(
-            'devel'     => 'Development',
-            'alpha'     => 'Alpha',
-            'beta'      => 'Beta',
-            'stable'    => 'Stable',
+            'devel' => 'Development',
+            'alpha' => 'Alpha',
+            'beta' => 'Beta',
+            'stable' => 'Stable',
         );
     }
 
     /**
-    * Retrieve targets
-    *
-    * @return array
-    */
+     * Retrieve targets
+     *
+     * @return array
+     */
     public function getLabelTargets()
     {
         if (!is_array($this->_targets)) {

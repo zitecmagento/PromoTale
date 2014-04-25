@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Options_Giftcard extends Mage_XmlConnect_Block_Catalog_Product_Options
 {
+
     /**
      * Get sender name
      *
@@ -43,7 +45,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Giftcard extends Mage_XmlCon
         $senderName = $this->getDefaultValue('giftcard_sender_name');
         if (!strlen($senderName)) {
             $firstName = (string) Mage::getSingleton('customer/session')->getCustomer()->getFirstname();
-            $lastName  = (string) Mage::getSingleton('customer/session')->getCustomer()->getLastname();
+            $lastName = (string) Mage::getSingleton('customer/session')->getCustomer()->getLastname();
 
             if ($firstName && $lastName) {
                 $senderName = $firstName . ' ' . $lastName;
@@ -171,7 +173,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Giftcard extends Mage_XmlCon
                         $amountNode->addAttribute('selected', 1);
                     }
                     $amountNode->addAttribute('formatted_price', $xmlModel->xmlAttribute(
-                        $coreHelper->currency($price, true, false)
+                                    $coreHelper->currency($price, true, false)
                     ));
                     $amountNode->addAttribute('price', $price);
                 }
@@ -190,7 +192,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Giftcard extends Mage_XmlCon
                 $openAmountNode->addAttribute('selected_amount', $this->getDefaultValue('custom_giftcard_amount'));
             }
             if ($priceModel->getMinAmount($product)) {
-                $minPrice  = $product->getOpenAmountMin();
+                $minPrice = $product->getOpenAmountMin();
                 $minAmount = $coreHelper->currency($minPrice, true, false);
             } else {
                 $minAmount = $minPrice = 0;
@@ -199,7 +201,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Giftcard extends Mage_XmlCon
             $openAmountNode->addAttribute('min_amount', $minPrice);
 
             if ($priceModel->getMaxAmount($product)) {
-                $maxPrice  = $product->getOpenAmountMax();
+                $maxPrice = $product->getOpenAmountMax();
                 $maxAmount = $coreHelper->currency($maxPrice, true, false);
             } else {
                 $maxAmount = $maxPrice = 0;
@@ -214,8 +216,8 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Giftcard extends Mage_XmlCon
          * Render Gift Card form options
          */
         $form = $optionsXmlObj->addCustomChild('form', null, array(
-            'name'      => 'giftcard-send-form',
-            'method'    => 'post'
+            'name' => 'giftcard-send-form',
+            'method' => 'post'
         ));
 
         $senderFieldset = $form->addCustomChild('fieldset', null, array(
@@ -223,9 +225,9 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Giftcard extends Mage_XmlCon
         ));
 
         $senderFieldset->addField('giftcard_sender_name', 'text', array(
-            'label'     => Mage::helper('enterprise_giftcard')->__('Sender Name'),
-            'required'  => 'true',
-            'value'     => $this->getSenderName()
+            'label' => Mage::helper('enterprise_giftcard')->__('Sender Name'),
+            'required' => 'true',
+            'value' => $this->getSenderName()
         ));
 
         $recipientFieldset = $form->addCustomChild('fieldset', null, array(
@@ -233,36 +235,37 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Giftcard extends Mage_XmlCon
         ));
 
         $recipientFieldset->addField('giftcard_recipient_name', 'text', array(
-            'label'     => Mage::helper('enterprise_giftcard')->__('Recipient Name'),
-            'required'  => 'true',
-            'value'     => $this->getDefaultValue('giftcard_recipient_name')
+            'label' => Mage::helper('enterprise_giftcard')->__('Recipient Name'),
+            'required' => 'true',
+            'value' => $this->getDefaultValue('giftcard_recipient_name')
         ));
 
         if ($this->isEmailAvailable($product)) {
             $senderFieldset->addField('giftcard_sender_email', 'email', array(
-                'label'     => Mage::helper('enterprise_giftcard')->__('Sender Email'),
-                'required'  => 'true',
-                'value'     => $this->getSenderEmail()
+                'label' => Mage::helper('enterprise_giftcard')->__('Sender Email'),
+                'required' => 'true',
+                'value' => $this->getSenderEmail()
             ));
 
             $recipientFieldset->addField('giftcard_recipient_email', 'email', array(
-                'label'     => Mage::helper('enterprise_giftcard')->__('Recipient Email'),
-                'required'  => 'true',
-                'value'     => $this->getDefaultValue('giftcard_recipient_email')
+                'label' => Mage::helper('enterprise_giftcard')->__('Recipient Email'),
+                'required' => 'true',
+                'value' => $this->getDefaultValue('giftcard_recipient_email')
             ));
         }
 
         if ($this->isMessageAvailable($product)) {
             $messageMaxLength = (int) Mage::getStoreConfig(
-                Enterprise_GiftCard_Model_Giftcard::XML_PATH_MESSAGE_MAX_LENGTH
+                            Enterprise_GiftCard_Model_Giftcard::XML_PATH_MESSAGE_MAX_LENGTH
             );
             $recipientFieldset->addField('giftcard_message', 'textarea', array(
-                'label'     => Mage::helper('enterprise_giftcard')->__('Message'),
-                'required'  => 'false',
-                'max_length'=> $messageMaxLength,
-                'value'     => $this->getDefaultValue('giftcard_message')
+                'label' => Mage::helper('enterprise_giftcard')->__('Message'),
+                'required' => 'false',
+                'max_length' => $messageMaxLength,
+                'value' => $this->getDefaultValue('giftcard_message')
             ));
         }
         return $isObject ? $xmlModel : $xmlModel->asNiceXml();
     }
+
 }

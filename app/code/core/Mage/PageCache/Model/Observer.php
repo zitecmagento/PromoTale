@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_PageCache_Model_Observer
 {
+
     const XML_NODE_ALLOWED_CACHE = 'frontend/cache/allowed_requests';
 
     /**
@@ -93,4 +95,5 @@ class Mage_PageCache_Model_Observer
 
         return $this;
     }
+
 }

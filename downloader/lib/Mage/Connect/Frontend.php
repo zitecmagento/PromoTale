@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,6 +26,7 @@
  */
 class Mage_Connect_Frontend
 {
+
     /**
      * Silent flag. If set no output is produced to view.
      * Should be used in derived classes.
@@ -81,7 +83,7 @@ class Mage_Connect_Frontend
      */
     public function getErrors($clear = true)
     {
-        if(!$clear) {
+        if (!$clear) {
             return $this->_errors;
         }
         $out = $this->_errors;
@@ -172,7 +174,7 @@ class Mage_Connect_Frontend
      */
     public function log($msg)
     {
-
+        
     }
 
     /**
@@ -183,7 +185,7 @@ class Mage_Connect_Frontend
      */
     public function output($data)
     {
-
+        
     }
 
     /**
@@ -194,7 +196,7 @@ class Mage_Connect_Frontend
      */
     public static function getInstance($class)
     {
-        $class = __CLASS__."_".$class;
+        $class = __CLASS__ . "_" . $class;
         return new $class();
     }
 
@@ -207,7 +209,7 @@ class Mage_Connect_Frontend
      */
     public function getOutput($clearPrevious = true)
     {
-
+        
     }
 
     /**
@@ -255,13 +257,13 @@ class Mage_Connect_Frontend
     }
 
     /**
-    * Method for ask client about rewrite all files.
-    *
-    * @param $string
-    */
+     * Method for ask client about rewrite all files.
+     *
+     * @param $string
+     */
     public function confirm($string)
     {
-
+        
     }
-}
 
+}

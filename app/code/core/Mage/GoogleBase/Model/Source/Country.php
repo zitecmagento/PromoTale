@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_GoogleBase_Model_Source_Country
 {
+
     public function toOptionArray()
     {
         $_allowed = Mage::getSingleton('googlebase/config')->getAllowedCountries();
@@ -43,4 +45,5 @@ class Mage_GoogleBase_Model_Source_Country
         }
         return $result;
     }
+
 }

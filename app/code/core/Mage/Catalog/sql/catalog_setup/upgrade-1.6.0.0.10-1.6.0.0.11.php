@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,8 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_Catalog_Model_Resource_Setup */
-$installer  = $this;
+$installer = $this;
 
 $attributeId = $this->getAttribute('catalog_product', 'group_price', 'attribute_id');
 $installer->updateAttribute('catalog_product', $attributeId, array(), null, 5);

@@ -23,7 +23,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /** @var $upsModel Mage_Usa_Model_Shipping_Carrier_Ups */
 $upsModel = Mage::getSingleton('usa/shipping_carrier_ups');
 $orShipArr = $upsModel->getCode('originShipment');
@@ -39,18 +38,18 @@ if (!$storeCode && $websiteCode) {
     $web = Mage::getModel('Mage_Core_Model_Website')->load($websiteCode);
     $storedAllowedMethods = explode(',', $web->getConfig('carriers/ups/allowed_methods'));
     $storedOriginShipment = $web->getConfig('carriers/ups/origin_shipment');
-    $storedFreeShipment   = $web->getConfig('carriers/ups/free_method');
-    $storedUpsType        = $web->getConfig('carriers/ups/type');
+    $storedFreeShipment = $web->getConfig('carriers/ups/free_method');
+    $storedUpsType = $web->getConfig('carriers/ups/type');
 } elseif ($storeCode) {
     $storedAllowedMethods = explode(',', Mage::getStoreConfig('carriers/ups/allowed_methods', $storeCode));
     $storedOriginShipment = Mage::getStoreConfig('carriers/ups/origin_shipment', $storeCode);
-    $storedFreeShipment   = Mage::getStoreConfig('carriers/ups/free_method', $storeCode);
-    $storedUpsType        = Mage::getStoreConfig('carriers/ups/type', $storeCode);
+    $storedFreeShipment = Mage::getStoreConfig('carriers/ups/free_method', $storeCode);
+    $storedUpsType = Mage::getStoreConfig('carriers/ups/type', $storeCode);
 } else {
     $storedAllowedMethods = explode(',', Mage::getStoreConfig('carriers/ups/allowed_methods'));
     $storedOriginShipment = Mage::getStoreConfig('carriers/ups/origin_shipment');
-    $storedFreeShipment   = Mage::getStoreConfig('carriers/ups/free_method');
-    $storedUpsType        = Mage::getStoreConfig('carriers/ups/type');
+    $storedFreeShipment = Mage::getStoreConfig('carriers/ups/free_method');
+    $storedUpsType = Mage::getStoreConfig('carriers/ups/type');
 }
 ?>
 <script type="text/javascript">
@@ -88,23 +87,23 @@ if (!$storeCode && $websiteCode) {
                 return;
             }
 
-            this.checkingUpsXmlId = ['carriers_ups_gateway_xml_url','carriers_ups_username',
-                'carriers_ups_password','carriers_ups_access_license_number'];
+            this.checkingUpsXmlId = ['carriers_ups_gateway_xml_url', 'carriers_ups_username',
+                'carriers_ups_password', 'carriers_ups_access_license_number'];
             this.checkingUpsId = ['carriers_ups_gateway_url'];
             this.originShipmentTitle = '';
             this.allowedMethodsId = 'carriers_ups_allowed_methods';
             this.freeShipmentId = 'carriers_ups_free_method';
-            this.onlyUpsXmlElements = ['carriers_ups_gateway_xml_url','carriers_ups_tracking_xml_url',
+            this.onlyUpsXmlElements = ['carriers_ups_gateway_xml_url', 'carriers_ups_tracking_xml_url',
                 'carriers_ups_shipconfirm_xml_url', 'carriers_ups_shipaccept_xml_url',
-                'carriers_ups_username','carriers_ups_password','carriers_ups_access_license_number',
-                'carriers_ups_origin_shipment','carriers_ups_negotiated_active','carriers_ups_shipper_number',
+                'carriers_ups_username', 'carriers_ups_password', 'carriers_ups_access_license_number',
+                'carriers_ups_origin_shipment', 'carriers_ups_negotiated_active', 'carriers_ups_shipper_number',
                 'carriers_ups_mode_xml'];
             this.onlyUpsElements = ['carriers_ups_gateway_url'];
 
             this.storedOriginShipment = '<?php echo $storedOriginShipment ?>';
             this.storedFreeShipment = '<?php echo $storedFreeShipment ?>';
             this.storedUpsType = '<?php echo $storedUpsType ?>';
-            <?php /** @var $_coreHelper Mage_Core_Helper_Data */ $_coreHelper = Mage::helper('core'); ?>
+<?php /** @var $_coreHelper Mage_Core_Helper_Data */ $_coreHelper = Mage::helper('core'); ?>
             this.storedAllowedMethods = <?php echo $_coreHelper->jsonEncode($storedAllowedMethods) ?>;
             this.originShipmentObj = <?php echo $_coreHelper->jsonEncode($orShipArr) ?>;
             this.originShipmentObj['default'] = <?php echo $_coreHelper->jsonEncode($defShipArr) ?>;
@@ -115,8 +114,8 @@ if (!$storeCode && $websiteCode) {
         updateAllowedMethods: function(originShipmentTitle)
         {
             var allowedMethods = $(this.allowedMethodsId), // multiselect
-                freeMethod = $(this.freeShipmentId), // single-choice select
-                originShipment = this.originShipmentObj[originShipmentTitle];
+                    freeMethod = $(this.freeShipmentId), // single-choice select
+                    originShipment = this.originShipmentObj[originShipmentTitle];
 
             while (allowedMethods.length > 0) {
                 allowedMethods.remove(0);
@@ -126,32 +125,32 @@ if (!$storeCode && $websiteCode) {
                 freeMethod.remove(0);
             }
 
-            freeMethod.insert(new Element('option', {value:''}).update('None'));
+            freeMethod.insert(new Element('option', {value: ''}).update('None'));
 
             var code, option;
             for (code in originShipment) {
-                option = new Element('option', {value:code}).update(originShipment[code]);
+                option = new Element('option', {value: code}).update(originShipment[code]);
                 if ((originShipmentTitle == this.storedOriginShipment || originShipmentTitle == 'default')
-                    && this.storedFreeShipment == code
-                ) {
+                        && this.storedFreeShipment == code
+                        ) {
                     option.selected = true;
                 }
                 freeMethod.insert(option);
 
-                option = new Element('option', {value:code}).update(originShipment[code]);
+                option = new Element('option', {value: code}).update(originShipment[code]);
                 if (this.storedUpsType == 'UPS') {
                     if (originShipmentTitle != 'default' || inArray(this.storedAllowedMethods, code)) {
                         option.selected = true;
                     }
                 } else if (originShipmentTitle != this.storedOriginShipment
-                    || inArray(this.storedAllowedMethods, code)
-                ) {
+                        || inArray(this.storedAllowedMethods, code)
+                        ) {
                     option.selected = true;
                 }
 
                 if ((originShipmentTitle == 'default' || originShipmentTitle == this.storedOriginShipment)
-                    && inArray(this.storedAllowedMethods, code)
-                ) {
+                        && inArray(this.storedAllowedMethods, code)
+                        ) {
                     option.selected = true;
                 }
 

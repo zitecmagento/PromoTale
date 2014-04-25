@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Abstract.php 21329 2010-03-04 22:06:08Z thomas $
  */
-
 /**
  * @see Zend_Locale
  */
@@ -45,6 +45,7 @@
  */
 abstract class Zend_Measure_Abstract
 {
+
     /**
      * Plain value in standard unit
      *
@@ -198,9 +199,12 @@ abstract class Zend_Measure_Abstract
             throw new Zend_Measure_Exception("Type ($type) is unknown");
         }
 
-        try {
+        try
+        {
             $value = Zend_Locale_Format::getNumber($value, array('locale' => $locale));
-        } catch(Exception $e) {
+        }
+        catch (Exception $e)
+        {
             #require_once 'Zend/Measure/Exception.php';
             throw new Zend_Measure_Exception($e->getMessage(), $e->getCode(), $e);
         }
@@ -287,8 +291,8 @@ abstract class Zend_Measure_Abstract
             }
 
             $slength = strlen($value);
-            $length  = 0;
-            for($i = 1; $i <= $slength; ++$i) {
+            $length = 0;
+            for ($i = 1; $i <= $slength; ++$i) {
                 if ($value[$slength - $i] != '0') {
                     $length = 26 - $i;
                     break;
@@ -296,7 +300,7 @@ abstract class Zend_Measure_Abstract
             }
 
             $this->_value = Zend_Locale_Math::round($value, $length);
-            $this->_type  = $type;
+            $this->_type = $type;
         }
         return $this;
     }
@@ -375,7 +379,7 @@ abstract class Zend_Measure_Abstract
     public function add($object)
     {
         $object->setType($this->getType());
-        $value  = $this->getValue(-1) + $object->getValue(-1);
+        $value = $this->getValue(-1) + $object->getValue(-1);
 
         $this->setValue($value, $this->getType(), $this->_locale);
         return $this;
@@ -390,7 +394,7 @@ abstract class Zend_Measure_Abstract
     public function sub($object)
     {
         $object->setType($this->getType());
-        $value  = $this->getValue(-1) - $object->getValue(-1);
+        $value = $this->getValue(-1) - $object->getValue(-1);
 
         $this->setValue($value, $this->getType(), $this->_locale);
         return $this;
@@ -405,7 +409,7 @@ abstract class Zend_Measure_Abstract
     public function compare($object)
     {
         $object->setType($this->getType());
-        $value  = $this->getValue(-1) - $object->getValue(-1);
+        $value = $this->getValue(-1) - $object->getValue(-1);
 
         if ($value < 0) {
             return -1;
@@ -415,4 +419,5 @@ abstract class Zend_Measure_Abstract
 
         return 0;
     }
+
 }

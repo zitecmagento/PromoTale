@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TagsResult.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Technorati_Result
  */
 #require_once 'Zend/Service/Technorati/Result.php';
-
 
 /**
  * Represents a single Technorati TopTags or BlogPostTags query result object.
@@ -40,6 +38,7 @@
  */
 class Zend_Service_Technorati_TagsResult extends Zend_Service_Technorati_Result
 {
+
     /**
      * Name of the tag.
      *
@@ -56,7 +55,6 @@ class Zend_Service_Technorati_TagsResult extends Zend_Service_Technorati_Result
      */
     protected $_posts;
 
-
     /**
      * Constructs a new object object from DOM Document.
      *
@@ -64,12 +62,12 @@ class Zend_Service_Technorati_TagsResult extends Zend_Service_Technorati_Result
      */
     public function __construct(DomElement $dom)
     {
-        $this->_fields = array( '_tag'   => 'tag',
-                                '_posts' => 'posts');
+        $this->_fields = array('_tag' => 'tag',
+            '_posts' => 'posts');
         parent::__construct($dom);
 
         // filter fields
-        $this->_tag   = (string) $this->_tag;
+        $this->_tag = (string) $this->_tag;
         $this->_posts = (int) $this->_posts;
     }
 
@@ -78,7 +76,8 @@ class Zend_Service_Technorati_TagsResult extends Zend_Service_Technorati_Result
      *
      * @return  string
      */
-    public function getTag() {
+    public function getTag()
+    {
         return $this->_tag;
     }
 
@@ -87,7 +86,9 @@ class Zend_Service_Technorati_TagsResult extends Zend_Service_Technorati_Result
      *
      * @return  int
      */
-    public function getPosts() {
+    public function getPosts()
+    {
         return $this->_posts;
     }
+
 }

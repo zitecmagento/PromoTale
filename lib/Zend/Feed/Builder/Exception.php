@@ -19,13 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Feed_Exception
  */
 #require_once 'Zend/Feed/Exception.php';
-
 
 /**
  * Zend_Feed_Builder exception class
@@ -37,4 +34,5 @@
  */
 class Zend_Feed_Builder_Exception extends Zend_Feed_Exception
 {
+    
 }

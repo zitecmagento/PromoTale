@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,8 +34,10 @@
  */
 class Mage_Captcha_Model_Config_Form_Backend extends Mage_Captcha_Model_Config_Form_Abstract
 {
+
     /**
      * @var string
      */
     protected $_configPath = 'default/captcha/backend/areas';
+
 }

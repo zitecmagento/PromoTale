@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Code93ext.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
 /**
  * @see Zend_Validate_Barcode_AdapterAbstract
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Validate_Barcode_Code93ext extends Zend_Validate_Barcode_AdapterAbstract
 {
+
     /**
      * Allowed barcode lengths
      * @var integer
@@ -55,4 +56,5 @@ class Zend_Validate_Barcode_Code93ext extends Zend_Validate_Barcode_AdapterAbstr
     {
         $this->setCheck(false);
     }
+
 }

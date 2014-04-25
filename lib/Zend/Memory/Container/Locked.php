@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Locked.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Memory_Container */
 #require_once 'Zend/Memory/Container.php';
 
@@ -34,13 +34,13 @@
  */
 class Zend_Memory_Container_Locked extends Zend_Memory_Container
 {
+
     /**
      * Value object
      *
      * @var string
      */
     public $value;
-
 
     /**
      * Object constructor
@@ -110,4 +110,5 @@ class Zend_Memory_Container_Locked extends Zend_Memory_Container
     {
         /* Do nothing */
     }
+
 }

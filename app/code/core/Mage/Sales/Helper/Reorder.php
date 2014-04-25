@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Sales_Helper_Reorder extends Mage_Core_Helper_Data
 {
+
     const XML_PATH_SALES_REORDER_ALLOW = 'sales/reorder/allow';
 
     public function isAllow()
@@ -63,4 +65,5 @@ class Mage_Sales_Helper_Reorder extends Mage_Core_Helper_Data
             return true;
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Cms_Wysiwyg_Enabled
 {
+
     public function toOptionArray()
     {
         return array(
@@ -50,4 +52,5 @@ class Mage_Adminhtml_Model_System_Config_Source_Cms_Wysiwyg_Enabled
             )
         );
     }
+
 }

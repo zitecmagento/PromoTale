@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -53,11 +54,11 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Product extends Mage_Adminhtml_Block
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('catalog/product')->getCollection()
-            ->setStore($this->_getStore())
-            ->addAttributeToSelect('name')
-            ->addAttributeToSelect('sku')
-            ->addAttributeToSelect('price')
-            ->addAttributeToSelect('attribute_set_id');
+                ->setStore($this->_getStore())
+                ->addAttributeToSelect('name')
+                ->addAttributeToSelect('sku')
+                ->addAttributeToSelect('price')
+                ->addAttributeToSelect('attribute_set_id');
 //            ->addFilterByRequiredOptions();
 
         $store = $this->_getStore();
@@ -79,53 +80,51 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Product extends Mage_Adminhtml_Block
     protected function _prepareColumns()
     {
         $this->addColumn('id', array(
-            'header'    => Mage::helper('sales')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60px',
-            'index'     => 'entity_id'
+            'header' => Mage::helper('sales')->__('ID'),
+            'sortable' => true,
+            'width' => '60px',
+            'index' => 'entity_id'
         ));
         $this->addColumn('name', array(
-            'header'    => Mage::helper('sales')->__('Product Name'),
-            'index'     => 'name',
-            'column_css_class'=> 'name'
+            'header' => Mage::helper('sales')->__('Product Name'),
+            'index' => 'name',
+            'column_css_class' => 'name'
         ));
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
-            ->setEntityTypeFilter(Mage::getModel('catalog/product')->getResource()->getTypeId())
-            ->load()
-            ->toOptionHash();
+                ->setEntityTypeFilter(Mage::getModel('catalog/product')->getResource()->getTypeId())
+                ->load()
+                ->toOptionHash();
 
-        $this->addColumn('type',
-            array(
-                'header'=> Mage::helper('catalog')->__('Type'),
-                'width' => '60px',
-                'index' => 'type_id',
-                'type'  => 'options',
-                'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+        $this->addColumn('type', array(
+            'header' => Mage::helper('catalog')->__('Type'),
+            'width' => '60px',
+            'index' => 'type_id',
+            'type' => 'options',
+            'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
         ));
 
-        $this->addColumn('set_name',
-            array(
-                'header'=> Mage::helper('catalog')->__('Attrib. Set Name'),
-                'width' => '100px',
-                'index' => 'attribute_set_id',
-                'type'  => 'options',
-                'options' => $sets,
+        $this->addColumn('set_name', array(
+            'header' => Mage::helper('catalog')->__('Attrib. Set Name'),
+            'width' => '100px',
+            'index' => 'attribute_set_id',
+            'type' => 'options',
+            'options' => $sets,
         ));
 
         $this->addColumn('sku', array(
-            'header'    => Mage::helper('sales')->__('SKU'),
-            'width'     => '80px',
-            'index'     => 'sku',
-            'column_css_class'=> 'sku'
+            'header' => Mage::helper('sales')->__('SKU'),
+            'width' => '80px',
+            'index' => 'sku',
+            'column_css_class' => 'sku'
         ));
         $this->addColumn('price', array(
-            'header'    => Mage::helper('sales')->__('Price'),
-            'align'     => 'center',
-            'type'      => 'currency',
+            'header' => Mage::helper('sales')->__('Price'),
+            'align' => 'center',
+            'type' => 'currency',
             'currency_code' => $this->_getStore()->getCurrentCurrencyCode(),
-            'rate'      => $this->_getStore()->getBaseCurrency()->getRate($this->_getStore()->getCurrentCurrencyCode()),
-            'index'     => 'price'
+            'rate' => $this->_getStore()->getBaseCurrency()->getRate($this->_getStore()->getCurrentCurrencyCode()),
+            'index' => 'price'
         ));
 
         return parent::_prepareColumns();
@@ -137,8 +136,8 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Product extends Mage_Adminhtml_Block
         $this->getMassactionBlock()->setFormFieldName('product');
 
         $this->getMassactionBlock()->addItem('add', array(
-             'label'    => $this->__('Add to Google Base'),
-             'url'      => $this->getUrl('*/*/massAdd', array('_current' => true)),
+            'label' => $this->__('Add to Google Base'),
+            'url' => $this->getUrl('*/*/massAdd', array('_current' => true)),
         ));
         return $this;
     }
@@ -151,8 +150,8 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Product extends Mage_Adminhtml_Block
     protected function _getGoogleBaseProductIds()
     {
         $collection = Mage::getResourceModel('googlebase/item_collection')
-            ->addStoreFilterId($this->_getStore()->getId())
-            ->load();
+                ->addStoreFilterId($this->_getStore()->getId())
+                ->load();
         $productIds = array();
         foreach ($collection as $item) {
             $productIds[] = $item->getProductId();
@@ -164,4 +163,5 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Product extends Mage_Adminhtml_Block
     {
         return Mage::app()->getStore($this->getRequest()->getParam('store'));
     }
+
 }

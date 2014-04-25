@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Dojo_Form_Element_Dijit */
 #require_once 'Zend/Dojo/Form/Element/Dijit.php';
 
@@ -36,6 +36,7 @@
  */
 class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
 {
+
     /**
      * Is the checkbox checked?
      * @var bool
@@ -53,7 +54,7 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
      * @var array
      */
     public $options = array(
-        'checkedValue'   => '1',
+        'checkedValue' => '1',
         'uncheckedValue' => '0',
     );
 
@@ -97,7 +98,7 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
         parent::setOptions($options);
 
         $curValue = $this->getValue();
-        $test     = array($this->getCheckedValue(), $this->getUncheckedValue());
+        $test = array($this->getCheckedValue(), $this->getUncheckedValue());
         if (!in_array($curValue, $test)) {
             $this->setValue($curValue);
         }
@@ -202,5 +203,5 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
     {
         return $this->checked;
     }
-}
 
+}

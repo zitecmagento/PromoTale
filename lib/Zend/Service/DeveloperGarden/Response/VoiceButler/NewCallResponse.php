@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: NewCallResponse.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Response_VoiceButler_VoiceButlerAbstract
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse
-    extends Zend_Service_DeveloperGarden_Response_VoiceButler_VoiceButlerAbstract
+class Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse extends Zend_Service_DeveloperGarden_Response_VoiceButler_VoiceButlerAbstract
 {
+
     /**
      * returns the session id
      * @return string
@@ -57,4 +57,5 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse
     {
         return $this->getSessionId();
     }
+
 }

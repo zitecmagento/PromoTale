@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Simplexml_Form_Element_Custom extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
 {
+
     /**
      * Init custom element
      *
@@ -51,7 +53,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Custom extends Mage_XmlConnec
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
      * @return Mage_XmlConnect_Model_Simplexml_Form_Element_Custom
      */
-    protected  function _addRequiredAttributes(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
+    protected function _addRequiredAttributes(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
         $this->_addId($xmlObj);
 
@@ -60,7 +62,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Custom extends Mage_XmlConnec
 
             if (null !== $data) {
                 $xmlObj->addAttribute($attribute, $xmlObj->xmlAttribute($data));
-            } elseif(null !== $defValue){
+            } elseif (null !== $defValue) {
                 $xmlObj->addAttribute($attribute, $xmlObj->xmlAttribute($defValue));
             } else {
                 Mage::throwException(Mage::helper('xmlconnect')->__('%s attribute is required.', $attribute));
@@ -68,4 +70,5 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Custom extends Mage_XmlConnec
         }
         return $this;
     }
+
 }

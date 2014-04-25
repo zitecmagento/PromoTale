@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Store group resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Store_Group extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table
      *
@@ -68,12 +69,12 @@ class Mage_Core_Model_Resource_Store_Group extends Mage_Core_Model_Resource_Db_A
     protected function _updateWebsiteDefaultGroup($websiteId, $groupId)
     {
         $select = $this->_getWriteAdapter()->select()
-            ->from($this->getMainTable(), 'COUNT(*)')
-            ->where('website_id = :website');
-        $count  = $this->_getWriteAdapter()->fetchOne($select, array('website' => $websiteId));
+                ->from($this->getMainTable(), 'COUNT(*)')
+                ->where('website_id = :website');
+        $count = $this->_getWriteAdapter()->fetchOne($select, array('website' => $websiteId));
 
         if ($count == 1) {
-            $bind  = array('default_group_id' => $groupId);
+            $bind = array('default_group_id' => $groupId);
             $where = array('website_id = ?' => $websiteId);
             $this->_getWriteAdapter()->update($this->getTable('core/website'), $bind, $where);
         }
@@ -90,12 +91,12 @@ class Mage_Core_Model_Resource_Store_Group extends Mage_Core_Model_Resource_Db_A
     {
         if ($model->getOriginalWebsiteId() && $model->getWebsiteId() != $model->getOriginalWebsiteId()) {
             $select = $this->_getWriteAdapter()->select()
-               ->from($this->getTable('core/website'), 'default_group_id')
-               ->where('website_id = :website_id');
+                    ->from($this->getTable('core/website'), 'default_group_id')
+                    ->where('website_id = :website_id');
             $groupId = $this->_getWriteAdapter()->fetchOne($select, array('website_id' => $model->getOriginalWebsiteId()));
 
             if ($groupId == $model->getId()) {
-                $bind  = array('default_group_id' => 0);
+                $bind = array('default_group_id' => 0);
                 $where = array('website_id = ?' => $model->getOriginalWebsiteId());
                 $this->_getWriteAdapter()->update($this->getTable('core/website'), $bind, $where);
             }
@@ -112,7 +113,7 @@ class Mage_Core_Model_Resource_Store_Group extends Mage_Core_Model_Resource_Db_A
      */
     protected function _updateStoreWebsite($groupId, $websiteId)
     {
-        $bind  = array('website_id' => $websiteId);
+        $bind = array('website_id' => $websiteId);
         $where = array('group_id = ?' => $groupId);
         $this->_getWriteAdapter()->update($this->getTable('core/store'), $bind, $where);
         return $this;
@@ -127,10 +128,11 @@ class Mage_Core_Model_Resource_Store_Group extends Mage_Core_Model_Resource_Db_A
      */
     protected function _saveDefaultStore($groupId, $storeId)
     {
-        $bind  = array('default_store_id' => $storeId);
+        $bind = array('default_store_id' => $storeId);
         $where = array('group_id = ?' => $groupId);
         $this->_getWriteAdapter()->update($this->getMainTable(), $bind, $where);
 
         return $this;
     }
+
 }

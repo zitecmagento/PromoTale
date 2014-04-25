@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 class Zend_Service_DeveloperGarden_Request_BaseUserService_GetQuotaInformation
 {
+
     /**
      * string module id
      *
@@ -69,4 +71,5 @@ class Zend_Service_DeveloperGarden_Request_BaseUserService_GetQuotaInformation
     {
         return $this->moduleId;
     }
+
 }

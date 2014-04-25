@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Adminhtml_Connect_UserController extends Mage_XmlConnect_Controller_AdminAction
 {
+
     /**
      * Get admin user session
      *
@@ -48,18 +50,22 @@ class Mage_XmlConnect_Adminhtml_Connect_UserController extends Mage_XmlConnect_C
      */
     public function loginFormAction()
     {
-        try {
+        try
+        {
             $result = $this->loadLayout(false)->getLayout()
-                ->addBlock('xmlconnect/adminhtml_connect_loginform', 'login_form')->toHtml();
+                            ->addBlock('xmlconnect/adminhtml_connect_loginform', 'login_form')->toHtml();
             $this->getResponse()->setBody($result);
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::logException($e);
             $this->_message(Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_USER_SPACE_DEFAULT, $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message(
-                Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT,
-                $this->__('An error occurred while loading login form.')
+                    Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT, $this->__('An error occurred while loading login form.')
             );
         }
     }
@@ -69,14 +75,14 @@ class Mage_XmlConnect_Adminhtml_Connect_UserController extends Mage_XmlConnect_C
      */
     public function loginAction()
     {
-        try {
+        try
+        {
             $session = $this->_getSession();
             $request = $this->getRequest();
 
             if ($session->isLoggedIn()) {
                 $this->_message(
-                    Mage_XmlConnect_Model_Simplexml_Message::MESSAGE_STATUS_SUCCESS,
-                    $this->__('Authentication complete.')
+                        Mage_XmlConnect_Model_Simplexml_Message::MESSAGE_STATUS_SUCCESS, $this->__('Authentication complete.')
                 );
                 return;
             }
@@ -90,29 +96,29 @@ class Mage_XmlConnect_Adminhtml_Connect_UserController extends Mage_XmlConnect_C
                 $request->setPost('login', null);
                 if ($user && $session->isLoggedIn()) {
                     $this->_message(
-                        Mage_XmlConnect_Model_Simplexml_Message::MESSAGE_STATUS_SUCCESS,
-                        $this->__('Authentication complete.')
+                            Mage_XmlConnect_Model_Simplexml_Message::MESSAGE_STATUS_SUCCESS, $this->__('Authentication complete.')
                     );
                     return;
                 } else {
                     $this->_message(
-                        Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_USER_SPACE_DEFAULT,
-                        $this->__('Invalid login or password.')
+                            Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_USER_SPACE_DEFAULT, $this->__('Invalid login or password.')
                     );
                     return;
                 }
             }
             $this->_message(
-                Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_CLIENT_SP_DEFAULT,
-                $this->__('Post data is empty.')
+                    Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_CLIENT_SP_DEFAULT, $this->__('Post data is empty.')
             );
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message(Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_USER_SPACE_DEFAULT, $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message(
-                Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT,
-                $this->__('An error occurred while loading login form.')
+                    Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT, $this->__('An error occurred while loading login form.')
             );
         }
     }
@@ -122,20 +128,23 @@ class Mage_XmlConnect_Adminhtml_Connect_UserController extends Mage_XmlConnect_C
      */
     public function logoutAction()
     {
-        try {
+        try
+        {
             $this->_getSession()->unsetAll();
             $this->_getSession()->getCookie()->delete($this->_getSession()->getSessionName());
             $this->_message(
-                Mage_XmlConnect_Model_Simplexml_Message::MESSAGE_STATUS_SUCCESS,
-                Mage::helper('adminhtml')->__('You have logged out.')
+                    Mage_XmlConnect_Model_Simplexml_Message::MESSAGE_STATUS_SUCCESS, Mage::helper('adminhtml')->__('You have logged out.')
             );
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message(Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_USER_SPACE_DEFAULT, $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message(
-                Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT,
-                $this->__('An error occurred while loading login form.')
+                    Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT, $this->__('An error occurred while loading login form.')
             );
         }
     }
@@ -162,4 +171,5 @@ class Mage_XmlConnect_Adminhtml_Connect_UserController extends Mage_XmlConnect_C
     {
         return false;
     }
+
 }

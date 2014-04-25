@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ProjectProfileFile.php 20851 2010-02-02 21:45:51Z ralph $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Filesystem_File
  */
@@ -51,10 +51,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Project_Context_System_ProjectProfileFile
-    extends Zend_Tool_Project_Context_Filesystem_File
-    implements Zend_Tool_Project_Context_System_Interface,
-               Zend_Tool_Project_Context_System_NotOverwritable
+class Zend_Tool_Project_Context_System_ProjectProfileFile extends Zend_Tool_Project_Context_Filesystem_File implements Zend_Tool_Project_Context_System_Interface, Zend_Tool_Project_Context_System_NotOverwritable
 {
 
     /**
@@ -66,7 +63,7 @@ class Zend_Tool_Project_Context_System_ProjectProfileFile
      * @var Zend_Tool_Project_Profile
      */
     protected $_profile = null;
-    
+
     /**
      * getName()
      *
@@ -76,7 +73,7 @@ class Zend_Tool_Project_Context_System_ProjectProfileFile
     {
         return 'ProjectProfileFile';
     }
-    
+
     /**
      * setProfile()
      *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Dataflow Batch abstract model
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Dataflow_Model_Batch_Abstract extends Mage_Core_Model_Abstract
 {
+
     /**
      * Set batch data
      * automatic convert to serialize data
@@ -88,4 +89,5 @@ abstract class Mage_Dataflow_Model_Batch_Abstract extends Mage_Core_Model_Abstra
         }
         return $this->getResource()->deleteCollection($this);
     }
+
 }

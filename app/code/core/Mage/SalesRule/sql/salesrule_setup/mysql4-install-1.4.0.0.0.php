@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
@@ -128,13 +128,13 @@ CREATE TABLE `{$installer->getTable('coupon_aggregated_order')}` (
 /**
  * add attributes discount_description, shipping_discount_amount, base_shipping_discount_amount
  */
-$installer->addAttribute('quote_address', 'discount_description', array('type'=>'varchar'));
-$installer->addAttribute('quote_address', 'shipping_discount_amount', array('type'=>'decimal'));
-$installer->addAttribute('quote_address', 'base_shipping_discount_amount', array('type'=>'decimal'));
+$installer->addAttribute('quote_address', 'discount_description', array('type' => 'varchar'));
+$installer->addAttribute('quote_address', 'shipping_discount_amount', array('type' => 'decimal'));
+$installer->addAttribute('quote_address', 'base_shipping_discount_amount', array('type' => 'decimal'));
 
 
-$installer->addAttribute('order', 'discount_description', array('type'=>'varchar'));
-$installer->addAttribute('order', 'shipping_discount_amount', array('type'=>'decimal'));
-$installer->addAttribute('order', 'base_shipping_discount_amount', array('type'=>'decimal'));
+$installer->addAttribute('order', 'discount_description', array('type' => 'varchar'));
+$installer->addAttribute('order', 'shipping_discount_amount', array('type' => 'decimal'));
+$installer->addAttribute('order', 'base_shipping_discount_amount', array('type' => 'decimal'));
 
 $installer->endSetup();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Extension.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Reflection_Class
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Reflection_Extension extends ReflectionExtension
 {
+
     /**
      * Get extension function reflection objects
      *
@@ -45,7 +46,7 @@ class Zend_Reflection_Extension extends ReflectionExtension
      */
     public function getFunctions($reflectionClass = 'Zend_Reflection_Function')
     {
-        $phpReflections  = parent::getFunctions();
+        $phpReflections = parent::getFunctions();
         $zendReflections = array();
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
             $instance = new $reflectionClass($phpReflection->getName());
@@ -68,7 +69,7 @@ class Zend_Reflection_Extension extends ReflectionExtension
      */
     public function getClasses($reflectionClass = 'Zend_Reflection_Class')
     {
-        $phpReflections  = parent::getClasses();
+        $phpReflections = parent::getClasses();
         $zendReflections = array();
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
             $instance = new $reflectionClass($phpReflection->getName());
@@ -82,4 +83,5 @@ class Zend_Reflection_Extension extends ReflectionExtension
         unset($phpReflections);
         return $zendReflections;
     }
+
 }

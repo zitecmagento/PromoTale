@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Notification_Inbox extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     public function __construct()
     {
         $this->_controller = 'notification';
@@ -47,4 +48,5 @@ class Mage_Adminhtml_Block_Notification_Inbox extends Mage_Adminhtml_Block_Widge
 
         return parent::_prepareLayout();
     }
+
 }

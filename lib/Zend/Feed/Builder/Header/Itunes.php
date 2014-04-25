@@ -20,7 +20,6 @@
  * @version    $Id: Itunes.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * ITunes rss extension
  *
@@ -33,6 +32,7 @@
  */
 class Zend_Feed_Builder_Header_Itunes extends ArrayObject
 {
+
     /**
      * Constructor
      *

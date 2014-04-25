@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_GoogleBase_Block_Adminhtml_Types_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -51,33 +53,29 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Grid extends Mage_Adminhtml_Block_Wi
 
     protected function _prepareColumns()
     {
-        $this->addColumn('attribute_set_name',
-            array(
-                'header'    => $this->__('Attributes Set'),
-                'index'     => 'attribute_set_name',
+        $this->addColumn('attribute_set_name', array(
+            'header' => $this->__('Attributes Set'),
+            'index' => 'attribute_set_name',
         ));
 
-        $this->addColumn('gbase_itemtype',
-            array(
-                'header'    => $this->__('Google Base Item type'),
-                'index'     => 'gbase_itemtype',
+        $this->addColumn('gbase_itemtype', array(
+            'header' => $this->__('Google Base Item type'),
+            'index' => 'gbase_itemtype',
         ));
 
-        $this->addColumn('target_country',
-            array(
-                'header'    => $this->__('Target Country'),
-                'width'     => '150px',
-                'index'     => 'target_country',
-                'renderer'  => 'googlebase/adminhtml_types_renderer_country',
-                'filter'    => false
+        $this->addColumn('target_country', array(
+            'header' => $this->__('Target Country'),
+            'width' => '150px',
+            'index' => 'target_country',
+            'renderer' => 'googlebase/adminhtml_types_renderer_country',
+            'filter' => false
         ));
 
-        $this->addColumn('items_total',
-            array(
-                'header'    => Mage::helper('catalog')->__('Total Qty Base Items'),
-                'width'     => '150px',
-                'index'     => 'items_total',
-                'filter'    => false
+        $this->addColumn('items_total', array(
+            'header' => Mage::helper('catalog')->__('Total Qty Base Items'),
+            'width' => '150px',
+            'index' => 'items_total',
+            'filter' => false
         ));
 
         return parent::_prepareColumns();
@@ -85,11 +83,12 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Grid extends Mage_Adminhtml_Block_Wi
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id'=>$row->getId(), '_current'=>true));
+        return $this->getUrl('*/*/edit', array('id' => $row->getId(), '_current' => true));
     }
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current'=>true));
+        return $this->getUrl('*/*/grid', array('_current' => true));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Composite_Error extends Mage_Core_Block_Template
 {
+
     /**
      * Returns error message to show what kind of error happened during retrieving of product
      * configuration controls
@@ -44,4 +46,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Error extends Mage_Core_Blo
         $message = Mage::registry('composite_configure_result_error_message');
         return Mage::helper('core')->jsonEncode(array('error' => true, 'message' => $message));
     }
+
 }

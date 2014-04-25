@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,10 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ResetForm.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Pdf_Action */
 #require_once 'Zend/Pdf/Action.php';
-
 
 /**
  * PDF 'Set fields to their default values' action
@@ -35,5 +34,5 @@
  */
 class Zend_Pdf_Action_ResetForm extends Zend_Pdf_Action
 {
+    
 }
-

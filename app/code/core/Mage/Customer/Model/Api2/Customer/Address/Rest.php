@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Customer_Model_Api2_Customer_Address
 {
+
     /**
      * Create customer address
      *
@@ -63,11 +65,16 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         $address->setData($data);
         $address->setCustomer($customer);
 
-        try {
+        try
+        {
             $address->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
         return $this->_getLocation($address);
@@ -98,9 +105,9 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         $data = array();
         /* @var $address Mage_Customer_Model_Address */
         foreach ($this->_getCollectionForRetrieve() as $address) {
-            $addressData           = $address->getData();
+            $addressData = $address->getData();
             $addressData['street'] = $address->getStreet();
-            $data[]                = array_merge($addressData, $this->_getDefaultAddressesInfo($address));
+            $data[] = array_merge($addressData, $this->_getDefaultAddressesInfo($address));
         }
         return $data;
     }
@@ -131,8 +138,8 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
     protected function _getDefaultAddressesInfo(Mage_Customer_Model_Address $address)
     {
         return array(
-            'is_default_billing'  => (int)$this->_isDefaultBillingAddress($address),
-            'is_default_shipping' => (int)$this->_isDefaultShippingAddress($address)
+            'is_default_billing' => (int) $this->_isDefaultBillingAddress($address),
+            'is_default_shipping' => (int) $this->_isDefaultShippingAddress($address)
         );
     }
 
@@ -149,8 +156,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         $validator = $this->_getValidator();
 
         $data = $validator->filter($data);
-        if (!$validator->isValidData($data, true)
-            || !$validator->isValidDataForChangeAssociationWithCountry($address, $data)) {
+        if (!$validator->isValidData($data, true) || !$validator->isValidDataForChangeAssociationWithCountry($address, $data)) {
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
@@ -158,17 +164,22 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         }
         if (isset($data['region'])) {
             $data['region'] = $this->_getRegionIdByNameOrCode(
-                $data['region'], isset($data['country_id']) ? $data['country_id'] : $address->getCountryId()
+                    $data['region'], isset($data['country_id']) ? $data['country_id'] : $address->getCountryId()
             );
             $data['region_id'] = null; // to avoid overwrite region during update in address model _beforeSave()
         }
         $address->addData($data);
 
-        try {
+        try
+        {
             $address->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -183,16 +194,21 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
 
         if ($this->_isDefaultBillingAddress($address) || $this->_isDefaultShippingAddress($address)) {
             $this->_critical(
-                'Address is default for customer so is not allowed to be deleted',
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                    'Address is default for customer so is not allowed to be deleted', Mage_Api2_Model_Server::HTTP_BAD_REQUEST
             );
         }
-        try {
+        try
+        {
             $address->delete();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
+
 }

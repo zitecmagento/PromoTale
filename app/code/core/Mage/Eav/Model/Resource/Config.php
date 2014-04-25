@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Resource Config model
  *
@@ -34,19 +34,20 @@
  */
 class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Array of entity types
      *
      * @var array
      */
-    protected static $_entityTypes   = array();
+    protected static $_entityTypes = array();
 
     /**
      * Array of attributes
      *
      * @var array
      */
-    protected static $_attributes    = array();
+    protected static $_attributes = array();
 
     /**
      * Resource initialization
@@ -69,7 +70,7 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
         }
         if (empty(self::$_entityTypes)) {
             $select = $adapter->select()->from($this->getMainTable());
-            $data   = $adapter->fetchAll($select);
+            $data = $adapter->fetchAll($select);
             foreach ($data as $row) {
                 self::$_entityTypes['by_id'][$row['entity_type_id']] = $row;
                 self::$_entityTypes['by_code'][$row['entity_type_code']] = $row;
@@ -89,10 +90,10 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
     {
         if (!isset(self::$_attributes[$typeId])) {
             $adapter = $this->_getReadAdapter();
-            $bind    = array('entity_type_id' => $typeId);
-            $select  = $adapter->select()
-                ->from($this->getTable('eav/attribute'))
-                ->where('entity_type_id = :entity_type_id');
+            $bind = array('entity_type_id' => $typeId);
+            $select = $adapter->select()
+                    ->from($this->getTable('eav/attribute'))
+                    ->where('entity_type_id = :entity_type_id');
 
             self::$_attributes[$typeId] = $adapter->fetchAll($select, $bind);
         }
@@ -111,17 +112,15 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
         $this->_loadTypes();
 
         if (is_numeric($entityType)) {
-            $info = isset(self::$_entityTypes['by_id'][$entityType])
-                ? self::$_entityTypes['by_id'][$entityType] : null;
+            $info = isset(self::$_entityTypes['by_id'][$entityType]) ? self::$_entityTypes['by_id'][$entityType] : null;
         } else {
-            $info = isset(self::$_entityTypes['by_code'][$entityType])
-                ? self::$_entityTypes['by_code'][$entityType] : null;
+            $info = isset(self::$_entityTypes['by_code'][$entityType]) ? self::$_entityTypes['by_code'][$entityType] : null;
         }
 
         $data = array();
         if ($info) {
-            $data['entity']     = $info;
-            $attributes         = $this->_loadTypeAttributes($info['entity_type_id']);
+            $data['entity'] = $info;
+            $attributes = $this->_loadTypeAttributes($info['entity_type_id']);
             $data['attributes'] = array();
             foreach ($attributes as $attribute) {
                 $data['attributes'][$attribute['attribute_id']] = $attribute;
@@ -131,4 +130,5 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
 
         return $data;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_Product_Option_Type_Default
 {
+
     /**
      * Validate user input for option
      *
@@ -53,7 +55,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         }
         if (!$this->_isSingleSelection()) {
             $valuesCollection = $option->getOptionValuesByOptionId($value, $this->getProduct()->getStoreId())
-                ->load();
+                    ->load();
             if ($valuesCollection->count() != count($value)) {
                 $this->setIsValid(false);
                 Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option(s).'));
@@ -87,7 +89,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     {
         if ($this->_formattedOptionValue === null) {
             $this->_formattedOptionValue = Mage::helper('core')->escapeHtml(
-                $this->getEditableOptionValue($optionValue)
+                    $this->getEditableOptionValue($optionValue)
             );
         }
         return $this->_formattedOptionValue;
@@ -133,8 +135,8 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                         $this->getListener()
                                 ->setHasError(true)
                                 ->setMessage(
-                                    $this->_getWrongConfigurationMessage()
-                                );
+                                        $this->_getWrongConfigurationMessage()
+                        );
                         $result = '';
                         break;
                     }
@@ -149,8 +151,8 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                     $this->getListener()
                             ->setHasError(true)
                             ->setMessage(
-                                $this->_getWrongConfigurationMessage()
-                            );
+                                    $this->_getWrongConfigurationMessage()
+                    );
                 }
                 $result = '';
             }
@@ -214,20 +216,18 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         $result = 0;
 
         if (!$this->_isSingleSelection()) {
-            foreach(explode(',', $optionValue) as $value) {
+            foreach (explode(',', $optionValue) as $value) {
                 if ($_result = $option->getValueById($value)) {
                     $result += $this->_getChargableOptionPrice(
-                        $_result->getPrice(),
-                        $_result->getPriceType() == 'percent',
-                        $basePrice
+                            $_result->getPrice(), $_result->getPriceType() == 'percent', $basePrice
                     );
                 } else {
                     if ($this->getListener()) {
                         $this->getListener()
                                 ->setHasError(true)
                                 ->setMessage(
-                                    $this->_getWrongConfigurationMessage()
-                                );
+                                        $this->_getWrongConfigurationMessage()
+                        );
                         break;
                     }
                 }
@@ -235,17 +235,15 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         } elseif ($this->_isSingleSelection()) {
             if ($_result = $option->getValueById($optionValue)) {
                 $result = $this->_getChargableOptionPrice(
-                    $_result->getPrice(),
-                    $_result->getPriceType() == 'percent',
-                    $basePrice
+                        $_result->getPrice(), $_result->getPriceType() == 'percent', $basePrice
                 );
             } else {
                 if ($this->getListener()) {
                     $this->getListener()
                             ->setHasError(true)
                             ->setMessage(
-                                $this->_getWrongConfigurationMessage()
-                            );
+                                    $this->_getWrongConfigurationMessage()
+                    );
                 }
             }
         }
@@ -266,7 +264,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
 
         if (!$this->_isSingleSelection()) {
             $skus = array();
-            foreach(explode(',', $optionValue) as $value) {
+            foreach (explode(',', $optionValue) as $value) {
                 if ($optionSku = $option->getValueById($value)) {
                     $skus[] = $optionSku->getSku();
                 } else {
@@ -274,8 +272,8 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                         $this->getListener()
                                 ->setHasError(true)
                                 ->setMessage(
-                                    $this->_getWrongConfigurationMessage()
-                                );
+                                        $this->_getWrongConfigurationMessage()
+                        );
                         break;
                     }
                 }
@@ -289,8 +287,8 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                     $this->getListener()
                             ->setHasError(true)
                             ->setMessage(
-                                $this->_getWrongConfigurationMessage()
-                            );
+                                    $this->_getWrongConfigurationMessage()
+                    );
                 }
                 return '';
             }
@@ -314,4 +312,5 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         );
         return in_array($this->getOption()->getType(), $_single);
     }
+
 }

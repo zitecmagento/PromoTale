@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout
-    extends Mage_Adminhtml_Block_Widget
+class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Mage_Adminhtml_Block_Widget
 {
+
     protected $_layoutHandles = array();
 
     /**
@@ -125,16 +126,14 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout
     protected function _toHtml()
     {
         $selectBlock = $this->getLayout()->createBlock('core/html_select')
-            ->setName($this->getSelectName())
-            ->setId('layout_handle')
-            ->setClass('required-entry select')
-            ->setExtraParams("onchange=\"WidgetInstance.loadSelectBoxByType(\'block_reference\', " .
-                            "this.up(\'div.pages\'), this.value)\"")
-            ->setOptions($this->getLayoutHandles(
-                $this->getArea(),
-                $this->getPackage(),
-                $this->getTheme()));
-        return parent::_toHtml().$selectBlock->toHtml();
+                ->setName($this->getSelectName())
+                ->setId('layout_handle')
+                ->setClass('required-entry select')
+                ->setExtraParams("onchange=\"WidgetInstance.loadSelectBoxByType(\'block_reference\', " .
+                        "this.up(\'div.pages\'), this.value)\"")
+                ->setOptions($this->getLayoutHandles(
+                        $this->getArea(), $this->getPackage(), $this->getTheme()));
+        return parent::_toHtml() . $selectBlock->toHtml();
     }
 
     /**
@@ -168,7 +167,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout
                 if ($this->_filterLayoutHandle($node->getName())) {
                     $helper = Mage::helper(Mage_Core_Model_Layout::findTranslationModuleName($node));
                     $this->_layoutHandles[$node->getName()] = $this->helper('core')->jsQuoteEscape(
-                        $helper->__((string)$node->label)
+                            $helper->__((string) $node->label)
                     );
                 }
             }
@@ -184,10 +183,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout
      */
     protected function _filterLayoutHandle($layoutHandle)
     {
-        $wildCard = '/('.implode(')|(', $this->getLayoutHandlePatterns()).')/';
+        $wildCard = '/(' . implode(')|(', $this->getLayoutHandlePatterns()) . ')/';
         if (preg_match($wildCard, $layoutHandle)) {
             return false;
         }
         return true;
     }
+
 }

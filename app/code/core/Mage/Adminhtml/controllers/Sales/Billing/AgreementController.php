@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Billing agreements
      *
@@ -38,11 +40,11 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
     public function indexAction()
     {
         $this->_title($this->__('Sales'))
-            ->_title($this->__('Billing Agreements'));
+                ->_title($this->__('Billing Agreements'));
 
         $this->loadLayout()
-            ->_setActiveMenu('sales/billing_agreement')
-            ->renderLayout();
+                ->_setActiveMenu('sales/billing_agreement')
+                ->renderLayout();
     }
 
     /**
@@ -52,7 +54,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
     public function gridAction()
     {
         $this->loadLayout(false)
-            ->renderLayout();
+                ->renderLayout();
     }
 
     /**
@@ -65,12 +67,12 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
 
         if ($agreementModel) {
             $this->_title($this->__('Sales'))
-                ->_title($this->__('Billing Agreements'))
-                ->_title(sprintf("#%s", $agreementModel->getReferenceId()));
+                    ->_title($this->__('Billing Agreements'))
+                    ->_title(sprintf("#%s", $agreementModel->getReferenceId()));
 
             $this->loadLayout()
-                ->_setActiveMenu('sales/billing_agreement')
-                ->renderLayout();
+                    ->_setActiveMenu('sales/billing_agreement')
+                    ->renderLayout();
             return;
         }
 
@@ -86,7 +88,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
     {
         $this->_initBillingAgreement();
         $this->loadLayout(false)
-            ->renderLayout();
+                ->renderLayout();
     }
 
     /**
@@ -97,7 +99,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
     {
         $this->_initCustomer();
         $this->loadLayout(false)
-            ->renderLayout();
+                ->renderLayout();
     }
 
     /**
@@ -109,14 +111,19 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
         $agreementModel = $this->_initBillingAgreement();
 
         if ($agreementModel && $agreementModel->canCancel()) {
-            try {
+            try
+            {
                 $agreementModel->cancel();
                 $this->_getSession()->addSuccess($this->__('The billing agreement has been canceled.'));
                 $this->_redirect('*/*/view', array('_current' => true));
                 return;
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->addError($this->__('Failed to cancel the billing agreement.'));
                 Mage::logException($e);
             }
@@ -133,14 +140,19 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
         $agreementModel = $this->_initBillingAgreement();
 
         if ($agreementModel) {
-            try {
+            try
+            {
                 $agreementModel->delete();
                 $this->_getSession()->addSuccess($this->__('The billing agreement has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->addError($this->__('Failed to delete the billing agreement.'));
                 Mage::logException($e);
             }
@@ -218,4 +230,5 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
                 break;
         }
     }
+
 }

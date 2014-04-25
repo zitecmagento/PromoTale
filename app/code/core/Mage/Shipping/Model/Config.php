@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,17 +24,16 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Shipping_Model_Config extends Varien_Object
 {
+
     /**
      * Shipping origin settings
      */
     const XML_PATH_ORIGIN_COUNTRY_ID = 'shipping/origin/country_id';
-    const XML_PATH_ORIGIN_REGION_ID  = 'shipping/origin/region_id';
-    const XML_PATH_ORIGIN_CITY       = 'shipping/origin/city';
-    const XML_PATH_ORIGIN_POSTCODE   = 'shipping/origin/postcode';
+    const XML_PATH_ORIGIN_REGION_ID = 'shipping/origin/region_id';
+    const XML_PATH_ORIGIN_CITY = 'shipping/origin/city';
+    const XML_PATH_ORIGIN_POSTCODE = 'shipping/origin/postcode';
 
     protected static $_carriers;
 
@@ -48,7 +48,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
         $carriers = array();
         $config = Mage::getStoreConfig('carriers', $store);
         foreach ($config as $code => $carrierConfig) {
-            if (Mage::getStoreConfigFlag('carriers/'.$code.'/active', $store)) {
+            if (Mage::getStoreConfigFlag('carriers/' . $code . '/active', $store)) {
                 $carrierModel = $this->_getCarrier($code, $carrierConfig, $store);
                 if ($carrierModel) {
                     $carriers[$code] = $carrierModel;
@@ -86,7 +86,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
      */
     public function getCarrierInstance($carrierCode, $store = null)
     {
-        $carrierConfig =  Mage::getStoreConfig('carriers/'.$carrierCode, $store);
+        $carrierConfig = Mage::getStoreConfig('carriers/' . $carrierCode, $store);
         if (!empty($carrierConfig)) {
             return $this->_getCarrier($carrierCode, $carrierConfig, $store);
         }
@@ -112,9 +112,12 @@ class Mage_Shipping_Model_Config extends Varien_Object
          * Added protection from not existing models usage.
          * Related with module uninstall process
          */
-        try {
+        try
+        {
             $carrier = Mage::getModel($modelName);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             return false;
         }
@@ -122,4 +125,5 @@ class Mage_Shipping_Model_Config extends Varien_Object
         self::$_carriers[$code] = $carrier;
         return self::$_carriers[$code];
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_Model_Api2_Product_Image_Rest
 {
+
     /**
      * Product image add
      *
@@ -52,15 +54,15 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         }
         $imageFileContent = @base64_decode($data['file_content'], true);
         if (!$imageFileContent) {
-            $this->_critical('The image content must be valid base64 encoded data',
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+            $this->_critical('The image content must be valid base64 encoded data', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
         unset($data['file_content']);
 
         $apiTempDir = Mage::getBaseDir('var') . DS . 'api' . DS . Mage::getSingleton('api/session')->getSessionId();
         $imageFileName = $this->_getFileName($data);
 
-        try {
+        try
+        {
             $ioAdapter = new Varien_Io_File();
             $ioAdapter->checkAndCreateFolder($apiTempDir);
             $ioAdapter->open(array('path' => $apiTempDir));
@@ -68,15 +70,18 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
             unset($imageFileContent);
 
             // try to create Image object to check if image data is valid
-            try {
+            try
+            {
                 new Varien_Image($apiTempDir . DS . $imageFileName);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $ioAdapter->rmdir($apiTempDir, true);
                 $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
             }
             $product = $this->_getProduct();
             $imageFileUri = $this->_getMediaGallery()
-                ->addImage($product, $apiTempDir . DS . $imageFileName, null, false, false);
+                    ->addImage($product, $apiTempDir . DS . $imageFileName, null, false, false);
             $ioAdapter->rmdir($apiTempDir, true);
             // updateImage() must be called to add image data that is missing after addImage() call
             $this->_getMediaGallery()->updateImage($product, $imageFileUri, $data);
@@ -86,9 +91,13 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
             }
             $product->save();
             return $this->_getImageLocation($this->_getCreatedImageId($imageFileUri));
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
         }
     }
@@ -105,7 +114,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         $imageId = null;
 
         $imageData = Mage::getResourceModel('catalog/product_attribute_backend_media')
-            ->loadGallery($this->_getProduct(), $this->_getMediaGallery());
+                ->loadGallery($this->_getProduct(), $this->_getMediaGallery());
         foreach ($imageData as $image) {
             if ($image['file'] == $imageFileUri) {
                 $imageId = $image['value_id'];
@@ -153,7 +162,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      */
     protected function _update(array $data)
     {
-        $imageId = (int)$this->getRequest()->getParam('image');
+        $imageId = (int) $this->getRequest()->getParam('image');
         $imageFileUri = $this->_getImageFileById($imageId);
         $product = $this->_getProduct();
         $this->_getMediaGallery()->updateImage($product, $imageFileUri, $data);
@@ -165,11 +174,16 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
             }
             $this->_getMediaGallery()->setMediaAttribute($product, $data['types'], $imageFileUri);
         }
-        try {
+        try
+        {
             $product->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -181,15 +195,20 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      */
     protected function _delete()
     {
-        $imageId = (int)$this->getRequest()->getParam('image');
+        $imageId = (int) $this->getRequest()->getParam('image');
         $product = $this->_getProduct();
         $imageFileUri = $this->_getImageFileById($imageId);
         $this->_getMediaGallery()->removeImage($product, $imageFileUri);
-        try {
+        try
+        {
             $product->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -224,14 +243,15 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
-            new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
+                new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
         );
         $params = array(
             'api_type' => $this->getRequest()->getApiType(),
-            'id'       => $this->getRequest()->getParam('id'),
-            'image'    => $imageId
+            'id' => $this->getRequest()->getParam('id'),
+            'image' => $imageId
         );
         $uri = $chain->assemble($params);
         return '/' . $uri;
     }
+
 }

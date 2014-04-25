@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Initialize Grid block
      *
@@ -77,16 +79,16 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Grid extends Mage_A
     protected function _prepareColumns()
     {
         $this->addColumn('folder', array(
-            'header'  => Mage::helper('connect')->__('Folder'),
-            'index'   => 'folder',
-            'width'   => 100,
-            'type'    => 'options',
+            'header' => Mage::helper('connect')->__('Folder'),
+            'index' => 'folder',
+            'width' => 100,
+            'type' => 'options',
             'options' => $this->getCollection()->collectFolders()
         ));
 
         $this->addColumn('package', array(
             'header' => Mage::helper('connect')->__('Package'),
-            'index'  => 'package',
+            'index' => 'package',
         ));
 
         return parent::_prepareColumns();
@@ -114,4 +116,5 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Grid extends Mage_A
     {
         return $this->getUrl('*/*/load', array('id' => strtr(base64_encode($row->getFilenameId()), '+/=', '-_,')));
     }
+
 }

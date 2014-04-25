@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -44,4 +45,3 @@ class Mage_Adminhtml_Block_System_Convert_Profile extends Mage_Adminhtml_Block_W
     }
 
 }
-

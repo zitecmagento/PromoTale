@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Acl_Filter
 {
+
     /**
      * Attributes allowed for use
      *
@@ -126,11 +128,11 @@ class Mage_Api2_Model_Acl_Filter
             }
             if ($helper->isAllAttributesAllowed($this->_resource->getUserType())) {
                 $this->_allowedAttributes = array_keys($this->_resource->getAvailableAttributes(
-                    $this->_resource->getUserType(), $operationType
+                                $this->_resource->getUserType(), $operationType
                 ));
             } else {
                 $this->_allowedAttributes = $helper->getAllowedAttributes(
-                    $this->_resource->getUserType(), $this->_resource->getResourceType(), $operationType
+                        $this->_resource->getUserType(), $this->_resource->getResourceType(), $operationType
                 );
             }
             // force attributes to be no filtered
@@ -151,7 +153,7 @@ class Mage_Api2_Model_Acl_Filter
     public function getAttributesToInclude()
     {
         if (null === $this->_attributesToInclude) {
-            $allowedAttrs   = $this->getAllowedAttributes(Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ);
+            $allowedAttrs = $this->getAllowedAttributes(Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ);
             $requestedAttrs = $this->_resource->getRequest()->getRequestedAttributes();
 
             if ($requestedAttrs) {
@@ -190,4 +192,5 @@ class Mage_Api2_Model_Acl_Filter
     {
         return $this->_filter($this->getAttributesToInclude(), $retrievedData);
     }
+
 }

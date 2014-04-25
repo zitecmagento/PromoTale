@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
 {
+
     /**
      * Payment methods array
      *
@@ -61,14 +63,13 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
     {
         if (is_null($this->_relatedOrders)) {
             $this->_relatedOrders = Mage::getResourceModel('sales/order_collection')
-                ->addFieldToSelect('*')
-                ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
-                ->addFieldToFilter(
-                    'state',
-                    array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates())
-                )
-                ->addBillingAgreementsFilter($this->_billingAgreementInstance->getAgreementId())
-                ->setOrder('created_at', 'desc');
+                    ->addFieldToSelect('*')
+                    ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
+                    ->addFieldToFilter(
+                            'state', array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates())
+                    )
+                    ->addBillingAgreementsFilter($this->_billingAgreementInstance->getAgreementId())
+                    ->setOrder('created_at', 'desc');
         }
         return $this->_relatedOrders;
     }
@@ -91,8 +92,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
                 $value = $this->helper('core')->formatDate($order->getCreatedAt(), 'short', true);
                 break;
             case 'shipping_address':
-                $value = $order->getShippingAddress()
-                    ? $this->escapeHtml($order->getShippingAddress()->getName()) : $this->__('N/A');
+                $value = $order->getShippingAddress() ? $this->escapeHtml($order->getShippingAddress()->getName()) : $this->__('N/A');
                 break;
             case 'order_total':
                 $value = $order->formatPrice($order->getGrandTotal());
@@ -123,7 +123,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
         parent::_prepareLayout();
 
         $pager = $this->getLayout()->createBlock('page/html_pager')
-            ->setCollection($this->getRelatedOrders())->setIsOutputRequired(false);
+                        ->setCollection($this->getRelatedOrders())->setIsOutputRequired(false);
         $this->setChild('pager', $pager);
         $this->getRelatedOrders()->load();
 
@@ -159,9 +159,9 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
 
             $this->setCanCancel($this->_billingAgreementInstance->canCancel());
             $this->setCancelUrl(
-                $this->getUrl('*/billing_agreement/cancel', array(
-                    '_current' => true,
-                    'payment_method' => $this->_billingAgreementInstance->getMethodCode()))
+                    $this->getUrl('*/billing_agreement/cancel', array(
+                        '_current' => true,
+                        'payment_method' => $this->_billingAgreementInstance->getMethodCode()))
             );
 
             $paymentMethodTitle = $this->_billingAgreementInstance->getAgreementLabel();
@@ -170,11 +170,11 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             $createdAt = $this->_billingAgreementInstance->getCreatedAt();
             $updatedAt = $this->_billingAgreementInstance->getUpdatedAt();
             $this->setAgreementCreatedAt(
-                ($createdAt) ? $this->helper('core')->formatDate($createdAt, 'short', true) : $this->__('N/A')
+                    ($createdAt) ? $this->helper('core')->formatDate($createdAt, 'short', true) : $this->__('N/A')
             );
             if ($updatedAt) {
                 $this->setAgreementUpdatedAt(
-                    $this->helper('core')->formatDate($updatedAt, 'short', true)
+                        $this->helper('core')->formatDate($updatedAt, 'short', true)
                 );
             }
             $this->setAgreementStatus($this->_billingAgreementInstance->getStatusLabel());
@@ -182,4 +182,5 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
 
         return parent::_toHtml();
     }
+
 }

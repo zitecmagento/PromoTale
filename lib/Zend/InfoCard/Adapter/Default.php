@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Default.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_InfoCard_Adapter_Interface
  */
@@ -39,6 +39,7 @@
  */
 class Zend_InfoCard_Adapter_Default implements Zend_InfoCard_Adapter_Interface
 {
+
     /**
      * Store the assertion (pass-thru does nothing)
      *
@@ -76,4 +77,5 @@ class Zend_InfoCard_Adapter_Default implements Zend_InfoCard_Adapter_Interface
     {
         return null;
     }
+
 }

@@ -33,14 +33,38 @@
             </action>
         </reference>
         <reference name="head">
-            <action method="removeItem"><type>js</type><name>lib/ccard.js</name></action>
-            <action method="removeItem"><type>js</type><name>scriptaculous/controls.js</name></action>
-            <action method="removeItem"><type>js</type><name>scriptaculous/builder.js</name></action>
-            <action method="removeItem"><type>js</type><name>scriptaculous/dragdrop.js</name></action>
-            <action method="removeItem"><type>js</type><name>scriptaculous/controls.js</name></action>
-            <action method="removeItem"><type>js</type><name>scriptaculous/slider.js</name></action>
-            <action method="removeItem"><type>js</type><name>varien/js.js</name></action>
-            <action method="removeItem"><type>js</type><name>varien/menu.js</name></action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lib/ccard.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/controls.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/builder.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/dragdrop.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/controls.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/slider.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>varien/js.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>varien/menu.js</name>
+            </action>
         </reference>
         <remove name="top.links"/>
         <remove name="top.search"/>
@@ -52,7 +76,9 @@
         <remove name="js_cookie" />
         <block type="page/html" name="root" output="toHtml" template="page/empty.phtml">
             <block type="page/html_head" name="head" as="head" template="oauth/authorize/head-simple.phtml">
-                <action method="addCss"><stylesheet>css/oauth-simple.css</stylesheet></action>
+                <action method="addCss">
+                    <stylesheet>css/oauth-simple.css</stylesheet>
+                </action>
             </block>
             <block type="core/text_list" name="content"/>
         </block>

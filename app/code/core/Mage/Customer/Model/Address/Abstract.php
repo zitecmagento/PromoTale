@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,10 +34,11 @@
  */
 class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 {
+
     /**
      * Possible customer address types
      */
-    const TYPE_BILLING  = 'billing';
+    const TYPE_BILLING = 'billing';
     const TYPE_SHIPPING = 'shipping';
 
     /**
@@ -90,7 +92,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         if ($config->getAttribute('customer_address', 'middlename')->getIsVisible() && $this->getMiddlename()) {
             $name .= ' ' . $this->getMiddlename();
         }
-        $name .=  ' ' . $this->getLastname();
+        $name .= ' ' . $this->getLastname();
         if ($config->getAttribute('customer_address', 'suffix')->getIsVisible() && $this->getSuffix()) {
             $name .= ' ' . $this->getSuffix();
         }
@@ -103,7 +105,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      * @param   int $line address line index
      * @return  string
      */
-    public function getStreet($line=0)
+    public function getStreet($line = 0)
     {
         $street = parent::getData('street');
         if (-1 === $line) {
@@ -112,8 +114,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
             $arr = is_array($street) ? $street : explode("\n", $street);
             if (0 === $line || $line === null) {
                 return $arr;
-            } elseif (isset($arr[$line-1])) {
-                return $arr[$line-1];
+            } elseif (isset($arr[$line - 1])) {
+                return $arr[$line - 1];
             } else {
                 return '';
             }
@@ -174,8 +176,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function explodeStreetAddress()
     {
         $streetLines = $this->getStreet();
-        foreach ($streetLines as $i=>$line) {
-            $this->setData('street'.($i+1), $line);
+        foreach ($streetLines as $i => $line) {
+            $this->setData('street' . ($i + 1), $line);
         }
         return $this;
     }
@@ -197,26 +199,24 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function getRegion()
     {
         $regionId = $this->getData('region_id');
-        $region   = $this->getData('region');
+        $region = $this->getData('region');
 
         if ($regionId) {
-               if ($this->getRegionModel($regionId)->getCountryId() == $this->getCountryId()) {
-                   $region = $this->getRegionModel($regionId)->getName();
+            if ($this->getRegionModel($regionId)->getCountryId() == $this->getCountryId()) {
+                $region = $this->getRegionModel($regionId)->getName();
                 $this->setData('region', $region);
             }
         }
 
         if (!empty($region) && is_string($region)) {
             $this->setData('region', $region);
-        }
-        elseif (!$regionId && is_numeric($region)) {
+        } elseif (!$regionId && is_numeric($region)) {
             if ($this->getRegionModel($region)->getCountryId() == $this->getCountryId()) {
                 $this->setData('region', $this->getRegionModel($region)->getName());
                 $this->setData('region_id', $region);
             }
-        }
-        elseif ($regionId && !$region) {
-               if ($this->getRegionModel($regionId)->getCountryId() == $this->getCountryId()) {
+        } elseif ($regionId && !$region) {
+            if ($this->getRegionModel($regionId)->getCountryId() == $this->getCountryId()) {
                 $this->setData('region', $this->getRegionModel($regionId)->getName());
             }
         }
@@ -231,19 +231,17 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function getRegionCode()
     {
         $regionId = $this->getData('region_id');
-        $region   = $this->getData('region');
+        $region = $this->getData('region');
 
         if (!$regionId && is_numeric($region)) {
             if ($this->getRegionModel($region)->getCountryId() == $this->getCountryId()) {
                 $this->setData('region_code', $this->getRegionModel($region)->getCode());
             }
-        }
-        elseif ($regionId) {
+        } elseif ($regionId) {
             if ($this->getRegionModel($regionId)->getCountryId() == $this->getCountryId()) {
                 $this->setData('region_code', $this->getRegionModel($regionId)->getCode());
             }
-        }
-        elseif (is_string($region)) {
+        } elseif (is_string($region)) {
             $this->setData('region_code', $region);
         }
         return $this->getData('region_code');
@@ -252,14 +250,14 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function getRegionId()
     {
         $regionId = $this->getData('region_id');
-        $region   = $this->getData('region');
+        $region = $this->getData('region');
         if (!$regionId) {
             if (is_numeric($region)) {
                 $this->setData('region_id', $region);
                 $this->unsRegion();
             } else {
                 $regionModel = Mage::getModel('directory/region')
-                    ->loadByCode($this->getRegionCode(), $this->getCountryId());
+                        ->loadByCode($this->getRegionCode(), $this->getCountryId());
                 $this->setData('region_id', $regionModel->getId());
             }
         }
@@ -268,11 +266,11 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 
     public function getCountry()
     {
-        /*if ($this->getData('country_id') && !$this->getData('country')) {
-            $this->setData('country', Mage::getModel('directory/country')
-                ->load($this->getData('country_id'))->getIso2Code());
-        }
-        return $this->getData('country');*/
+        /* if ($this->getData('country_id') && !$this->getData('country')) {
+          $this->setData('country', Mage::getModel('directory/country')
+          ->load($this->getData('country_id'))->getIso2Code());
+          }
+          return $this->getData('country'); */
         $country = $this->getCountryId();
         return $country ? $country : $this->getData('country');
     }
@@ -284,9 +282,9 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      */
     public function getCountryModel()
     {
-        if(!isset(self::$_countryModels[$this->getCountryId()])) {
+        if (!isset(self::$_countryModels[$this->getCountryId()])) {
             self::$_countryModels[$this->getCountryId()] = Mage::getModel('directory/country')
-                ->load($this->getCountryId());
+                    ->load($this->getCountryId());
         }
 
         return self::$_countryModels[$this->getCountryId()];
@@ -297,13 +295,13 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      *
      * @return Mage_Directory_Model_Country
      */
-    public function getRegionModel($region=null)
+    public function getRegionModel($region = null)
     {
-        if(is_null($region)) {
+        if (is_null($region)) {
             $region = $this->getRegionId();
         }
 
-        if(!isset(self::$_regionModels[$region])) {
+        if (!isset(self::$_regionModels[$region])) {
             self::$_regionModels[$region] = Mage::getModel('directory/region')->load($region);
         }
 
@@ -321,7 +319,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     /**
      * @deprecated for public function format
      */
-    public function getFormated($html=false)
+    public function getFormated($html = false)
     {
         return $this->format($html ? 'html' : 'text');
         //Mage::getModel('directory/country')->load($this->getCountryId())->formatAddress($this, $html);
@@ -329,8 +327,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 
     public function format($type)
     {
-        if(!($formatType = $this->getConfig()->getFormatByCode($type))
-            || !$formatType->getRenderer()) {
+        if (!($formatType = $this->getConfig()->getFormatByCode($type)) || !$formatType->getRenderer()) {
             return null;
         }
         Mage::dispatchEvent('customer_address_format', array('type' => $formatType, 'address' => $this));
@@ -386,8 +383,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         }
 
         $_havingOptionalZip = Mage::helper('directory')->getCountriesWithOptionalZip();
-        if (!in_array($this->getCountryId(), $_havingOptionalZip)
-            && !Zend_Validate::is($this->getPostcode(), 'NotEmpty')
+        if (!in_array($this->getCountryId(), $_havingOptionalZip) && !Zend_Validate::is($this->getPostcode(), 'NotEmpty')
         ) {
             $this->addError(Mage::helper('customer')->__('Please enter the zip/postal code.'));
         }
@@ -396,9 +392,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
             $this->addError(Mage::helper('customer')->__('Please enter the country.'));
         }
 
-        if ($this->getCountryModel()->getRegionCollection()->getSize()
-               && !Zend_Validate::is($this->getRegionId(), 'NotEmpty')
-               && Mage::helper('directory')->isRegionRequired($this->getCountryId())
+        if ($this->getCountryModel()->getRegionCollection()->getSize() && !Zend_Validate::is($this->getRegionId(), 'NotEmpty') && Mage::helper('directory')->isRegionRequired($this->getCountryId())
         ) {
             $this->addError(Mage::helper('customer')->__('Please enter the state/province.'));
         }
@@ -447,4 +441,5 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         $this->_errors = array();
         return $this;
     }
+
 }

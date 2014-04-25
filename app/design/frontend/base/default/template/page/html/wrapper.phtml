@@ -28,7 +28,6 @@
 /**
  * @deprecated  after 1.4.0.0-alpha3
  */
-
 /**
  * This template is for generic wrapper purposes, including ajax.updater loaded blocks
  *
@@ -45,6 +44,6 @@
  */
 ?>
 <?php $_tag = $this->hasTag() ? $this->getTag() : "div" ?>
-<<?php echo $_tag?> id="<?php echo $this->getId()?>" <?php echo $this->getParams()?>>
-<?php echo $this->getChildHtml()?>
-</<?php echo $_tag?>>
+<<?php echo $_tag ?> id="<?php echo $this->getId() ?>" <?php echo $this->getParams() ?>>
+<?php echo $this->getChildHtml() ?>
+</<?php echo $_tag ?>>

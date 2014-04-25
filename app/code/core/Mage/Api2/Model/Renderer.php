@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Api2_Model_Renderer
 {
+
     /**
      * Get Renderer of given type
      *
@@ -44,7 +46,7 @@ abstract class Mage_Api2_Model_Renderer
     public static function factory($acceptTypes)
     {
         /** @var $helper Mage_Api2_Helper_Data */
-        $helper   = Mage::helper('api2');
+        $helper = Mage::helper('api2');
         $adapters = $helper->getResponseRenderAdapters();
 
         if (!is_array($acceptTypes)) {
@@ -56,8 +58,7 @@ abstract class Mage_Api2_Model_Renderer
         foreach ($acceptTypes as $type) {
             foreach ($adapters as $item) {
                 $itemType = $item->type;
-                if ($type == $itemType
-                    || $type == current(explode('/', $itemType)) . '/*' || $type == '*/*'
+                if ($type == $itemType || $type == current(explode('/', $itemType)) . '/*' || $type == '*/*'
                 ) {
                     $adapterPath = $item->model;
                     break 2;
@@ -68,8 +69,7 @@ abstract class Mage_Api2_Model_Renderer
         //if server can't respond in any of accepted types it SHOULD send 406(not acceptable)
         if (null === $adapterPath) {
             throw new Mage_Api2_Exception(
-                'Server can not understand Accept HTTP header media type.',
-                Mage_Api2_Model_Server::HTTP_NOT_ACCEPTABLE
+            'Server can not understand Accept HTTP header media type.', Mage_Api2_Model_Server::HTTP_NOT_ACCEPTABLE
             );
         }
 
@@ -80,4 +80,5 @@ abstract class Mage_Api2_Model_Renderer
 
         return $adapter;
     }
+
 }

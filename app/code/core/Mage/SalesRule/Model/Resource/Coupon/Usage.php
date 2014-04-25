@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SalesRule Model Resource Coupon_Usage
  *
@@ -34,6 +34,7 @@
  */
 class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Constructor
      *
@@ -62,23 +63,20 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
 
         if ($timesUsed > 0) {
             $this->_getWriteAdapter()->update(
-                $this->getMainTable(),
-                array(
-                    'times_used' => $timesUsed + 1
-                ),
-                array(
-                    'coupon_id = ?' => $couponId,
-                    'customer_id = ?' => $customerId,
-                )
+                    $this->getMainTable(), array(
+                'times_used' => $timesUsed + 1
+                    ), array(
+                'coupon_id = ?' => $couponId,
+                'customer_id = ?' => $customerId,
+                    )
             );
         } else {
             $this->_getWriteAdapter()->insert(
-                $this->getMainTable(),
-                array(
-                    'coupon_id' => $couponId,
-                    'customer_id' => $customerId,
-                    'times_used' => 1
-                )
+                    $this->getMainTable(), array(
+                'coupon_id' => $couponId,
+                'customer_id' => $customerId,
+                'times_used' => 1
+                    )
             );
         }
     }
@@ -97,9 +95,9 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
         $read = $this->_getReadAdapter();
         if ($read && $couponId && $customerId) {
             $select = $read->select()
-                ->from($this->getMainTable())
-                ->where('customer_id =:customet_id')
-                ->where('coupon_id = :coupon_id');
+                    ->from($this->getMainTable())
+                    ->where('customer_id =:customet_id')
+                    ->where('coupon_id = :coupon_id');
             $data = $read->fetchRow($select, array(':coupon_id' => $couponId, ':customet_id' => $customerId));
             if ($data) {
                 $object->setData($data);
@@ -110,4 +108,5 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
         }
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
 {
+
     /**
      * Database adapter
      *
@@ -40,9 +41,7 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
      */
     public function __construct(array $config = array())
     {
-        $this->_adapter = isset($config['adapter'])
-            ? $config['adapter']
-            : Mage::getSingleton('core/resource')->getConnection(Mage_Core_Model_Resource::DEFAULT_READ_RESOURCE);
+        $this->_adapter = isset($config['adapter']) ? $config['adapter'] : Mage::getSingleton('core/resource')->getConnection(Mage_Core_Model_Resource::DEFAULT_READ_RESOURCE);
     }
 
     /**
@@ -69,7 +68,7 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
                     $selectOperator = ' IN (?)';
                 } else {
                     $selectOperator = ' LIKE ?';
-                    $value          = '%' . $value . '%';
+                    $value = '%' . $value . '%';
                 }
                 if (substr($operator, 0, 1) == '!') {
                     $selectOperator = ' NOT' . $selectOperator;
@@ -101,4 +100,5 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
         }
         return $result;
     }
+
 }

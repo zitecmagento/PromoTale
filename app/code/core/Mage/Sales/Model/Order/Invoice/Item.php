@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Enter description here ...
@@ -100,9 +100,9 @@
  */
 class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
 {
+
     protected $_eventPrefix = 'sales_invoice_item';
     protected $_eventObject = 'invoice_item';
-
     protected $_invoice = null;
     protected $_orderItem = null;
 
@@ -125,6 +125,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
         $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('invoice_item');
         return $this;
     }
+
     /**
      * Declare invoice instance
      *
@@ -170,10 +171,9 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
         if (is_null($this->_orderItem)) {
             if ($this->getInvoice()) {
                 $this->_orderItem = $this->getInvoice()->getOrder()->getItemById($this->getOrderItemId());
-            }
-            else {
+            } else {
                 $this->_orderItem = Mage::getModel('sales/order_item')
-                    ->load($this->getOrderItemId());
+                        ->load($this->getOrderItemId());
             }
         }
         return $this->_orderItem;
@@ -189,8 +189,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     {
         if ($this->getOrderItem()->getIsQtyDecimal()) {
             $qty = (float) $qty;
-        }
-        else {
+        } else {
             $qty = (int) $qty;
         }
         $qty = $qty > 0 ? $qty : 0;
@@ -201,10 +200,9 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
         $qty = sprintf("%F", $qty);
         if ($qty <= $qtyToInvoice || $this->getOrderItem()->isDummy()) {
             $this->setData('qty', $qty);
-        }
-        else {
+        } else {
             Mage::throwException(
-                Mage::helper('sales')->__('Invalid qty to invoice item "%s"', $this->getName())
+                    Mage::helper('sales')->__('Invalid qty to invoice item "%s"', $this->getName())
             );
         }
         return $this;
@@ -218,18 +216,18 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     public function register()
     {
         $orderItem = $this->getOrderItem();
-        $orderItem->setQtyInvoiced($orderItem->getQtyInvoiced()+$this->getQty());
+        $orderItem->setQtyInvoiced($orderItem->getQtyInvoiced() + $this->getQty());
 
-        $orderItem->setTaxInvoiced($orderItem->getTaxInvoiced()+$this->getTaxAmount());
-        $orderItem->setBaseTaxInvoiced($orderItem->getBaseTaxInvoiced()+$this->getBaseTaxAmount());
-        $orderItem->setHiddenTaxInvoiced($orderItem->getHiddenTaxInvoiced()+$this->getHiddenTaxAmount());
-        $orderItem->setBaseHiddenTaxInvoiced($orderItem->getBaseHiddenTaxInvoiced()+$this->getBaseHiddenTaxAmount());
+        $orderItem->setTaxInvoiced($orderItem->getTaxInvoiced() + $this->getTaxAmount());
+        $orderItem->setBaseTaxInvoiced($orderItem->getBaseTaxInvoiced() + $this->getBaseTaxAmount());
+        $orderItem->setHiddenTaxInvoiced($orderItem->getHiddenTaxInvoiced() + $this->getHiddenTaxAmount());
+        $orderItem->setBaseHiddenTaxInvoiced($orderItem->getBaseHiddenTaxInvoiced() + $this->getBaseHiddenTaxAmount());
 
-        $orderItem->setDiscountInvoiced($orderItem->getDiscountInvoiced()+$this->getDiscountAmount());
-        $orderItem->setBaseDiscountInvoiced($orderItem->getBaseDiscountInvoiced()+$this->getBaseDiscountAmount());
+        $orderItem->setDiscountInvoiced($orderItem->getDiscountInvoiced() + $this->getDiscountAmount());
+        $orderItem->setBaseDiscountInvoiced($orderItem->getBaseDiscountInvoiced() + $this->getBaseDiscountAmount());
 
-        $orderItem->setRowInvoiced($orderItem->getRowInvoiced()+$this->getRowTotal());
-        $orderItem->setBaseRowInvoiced($orderItem->getBaseRowInvoiced()+$this->getBaseRowTotal());
+        $orderItem->setRowInvoiced($orderItem->getRowInvoiced() + $this->getRowTotal());
+        $orderItem->setBaseRowInvoiced($orderItem->getBaseRowInvoiced() + $this->getBaseRowTotal());
         return $this;
     }
 
@@ -241,19 +239,19 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     public function cancel()
     {
         $orderItem = $this->getOrderItem();
-        $orderItem->setQtyInvoiced($orderItem->getQtyInvoiced()-$this->getQty());
+        $orderItem->setQtyInvoiced($orderItem->getQtyInvoiced() - $this->getQty());
 
-        $orderItem->setTaxInvoiced($orderItem->getTaxInvoiced()-$this->getTaxAmount());
-        $orderItem->setBaseTaxInvoiced($orderItem->getBaseTaxInvoiced()-$this->getBaseTaxAmount());
-        $orderItem->setHiddenTaxInvoiced($orderItem->getHiddenTaxInvoiced()-$this->getHiddenTaxAmount());
-        $orderItem->setBaseHiddenTaxInvoiced($orderItem->getBaseHiddenTaxInvoiced()-$this->getBaseHiddenTaxAmount());
+        $orderItem->setTaxInvoiced($orderItem->getTaxInvoiced() - $this->getTaxAmount());
+        $orderItem->setBaseTaxInvoiced($orderItem->getBaseTaxInvoiced() - $this->getBaseTaxAmount());
+        $orderItem->setHiddenTaxInvoiced($orderItem->getHiddenTaxInvoiced() - $this->getHiddenTaxAmount());
+        $orderItem->setBaseHiddenTaxInvoiced($orderItem->getBaseHiddenTaxInvoiced() - $this->getBaseHiddenTaxAmount());
 
 
-        $orderItem->setDiscountInvoiced($orderItem->getDiscountInvoiced()-$this->getDiscountAmount());
-        $orderItem->setBaseDiscountInvoiced($orderItem->getBaseDiscountInvoiced()-$this->getBaseDiscountAmount());
+        $orderItem->setDiscountInvoiced($orderItem->getDiscountInvoiced() - $this->getDiscountAmount());
+        $orderItem->setBaseDiscountInvoiced($orderItem->getBaseDiscountInvoiced() - $this->getBaseDiscountAmount());
 
-        $orderItem->setRowInvoiced($orderItem->getRowInvoiced()-$this->getRowTotal());
-        $orderItem->setBaseRowInvoiced($orderItem->getBaseRowInvoiced()-$this->getBaseRowTotal());
+        $orderItem->setRowInvoiced($orderItem->getRowInvoiced() - $this->getRowTotal());
+        $orderItem->setBaseRowInvoiced($orderItem->getBaseRowInvoiced() - $this->getBaseRowTotal());
         return $this;
     }
 
@@ -264,13 +262,13 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      */
     public function calcRowTotal()
     {
-        $invoice        = $this->getInvoice();
-        $orderItem      = $this->getOrderItem();
-        $orderItemQty   = $orderItem->getQtyOrdered();
+        $invoice = $this->getInvoice();
+        $orderItem = $this->getOrderItem();
+        $orderItemQty = $orderItem->getQtyOrdered();
 
-        $rowTotal            = $orderItem->getRowTotal() - $orderItem->getRowInvoiced();
-        $baseRowTotal        = $orderItem->getBaseRowTotal() - $orderItem->getBaseRowInvoiced();
-        $rowTotalInclTax     = $orderItem->getRowTotalInclTax();
+        $rowTotal = $orderItem->getRowTotal() - $orderItem->getRowInvoiced();
+        $baseRowTotal = $orderItem->getBaseRowTotal() - $orderItem->getBaseRowInvoiced();
+        $rowTotalInclTax = $orderItem->getRowTotalInclTax();
         $baseRowTotalInclTax = $orderItem->getBaseRowTotalInclTax();
 
         if (!$this->isLast()) {
@@ -296,7 +294,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      */
     public function isLast()
     {
-        if ((string)(float)$this->getQty() == (string)(float)$this->getOrderItem()->getQtyToInvoice()) {
+        if ((string) (float) $this->getQty() == (string) (float) $this->getOrderItem()->getQtyToInvoice()) {
             return true;
         }
         return false;
@@ -325,11 +323,12 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      */
     protected function _afterSave()
     {
-        if (null ==! $this->_orderItem) {
+        if (null == !$this->_orderItem) {
             $this->_orderItem->save();
         }
 
         parent::_afterSave();
         return $this;
     }
+
 }

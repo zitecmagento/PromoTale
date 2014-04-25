@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
+
     /**
      * Invoke collector for nominal items
      *
@@ -39,8 +41,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
-        $collector = Mage::getSingleton('sales/quote_address_total_nominal_collector',
-            array('store' => $address->getQuote()->getStore())
+        $collector = Mage::getSingleton('sales/quote_address_total_nominal_collector', array('store' => $address->getQuote()->getStore())
         );
 
         // invoke nominal totals
@@ -50,7 +51,8 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
 
         // aggregate collected amounts into one to have sort of grand total per item
         foreach ($address->getAllNominalItems() as $item) {
-            $rowTotal = 0; $baseRowTotal = 0;
+            $rowTotal = 0;
+            $baseRowTotal = 0;
             $totalDetails = array();
             foreach ($collector->getCollectors() as $model) {
                 $itemRowTotal = $model->getItemRowTotal($item);
@@ -61,9 +63,9 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
                 } else {
                     $isCompounded = false;
                 }
-                if ((float)$itemRowTotal > 0 && $label = $model->getLabel()) {
+                if ((float) $itemRowTotal > 0 && $label = $model->getLabel()) {
                     $totalDetails[] = new Varien_Object(array(
-                        'label'  => $label,
+                        'label' => $label,
                         'amount' => $itemRowTotal,
                         'is_compounded' => $isCompounded,
                     ));
@@ -88,12 +90,13 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
         $items = $address->getAllNominalItems();
         if ($items) {
             $address->addTotal(array(
-                'code'    => $this->getCode(),
-                'title'   => Mage::helper('sales')->__('Nominal Items'),
-                'items'   => $items,
-                'area'    => 'footer',
+                'code' => $this->getCode(),
+                'title' => Mage::helper('sales')->__('Nominal Items'),
+                'items' => $items,
+                'area' => 'footer',
             ));
         }
         return $this;
     }
+
 }

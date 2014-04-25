@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: AuthorizedRequest.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /** Zend_Oauth_Token */
 #require_once 'Zend/Oauth/Token.php';
 
@@ -30,6 +30,7 @@
  */
 class Zend_Oauth_Token_AuthorizedRequest extends Zend_Oauth_Token
 {
+
     /**
      * @var array
      */
@@ -75,8 +76,7 @@ class Zend_Oauth_Token_AuthorizedRequest extends Zend_Oauth_Token
      */
     public function isValid()
     {
-        if (isset($this->_params[self::TOKEN_PARAM_KEY])
-            && !empty($this->_params[self::TOKEN_PARAM_KEY])
+        if (isset($this->_params[self::TOKEN_PARAM_KEY]) && !empty($this->_params[self::TOKEN_PARAM_KEY])
         ) {
             return true;
         }
@@ -99,4 +99,5 @@ class Zend_Oauth_Token_AuthorizedRequest extends Zend_Oauth_Token
         }
         return $params;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Compare Helper
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
 {
+
     /**
      * Product Compare Items Collection
      *
@@ -84,7 +85,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
             $itemIds[] = $item->getId();
         }
 
-         $params = array(
+        $params = array(
             'items' => implode(',', $itemIds),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
         );
@@ -192,8 +193,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     {
         if (!$this->_itemCollection) {
             $this->_itemCollection = Mage::getResourceModel('catalog/product_compare_item_collection')
-                ->useProductItem(true)
-                ->setStoreId(Mage::app()->getStore()->getId());
+                    ->useProductItem(true)
+                    ->setStoreId(Mage::app()->getStore()->getId());
 
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $this->_itemCollection->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
@@ -204,14 +205,14 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
             }
 
             Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection($this->_itemCollection);
+                    ->addVisibleInSiteFilterToCollection($this->_itemCollection);
 
             /* Price data is added to consider item stock status using price index */
             $this->_itemCollection->addPriceData();
 
             $this->_itemCollection->addAttributeToSelect('name')
-                ->addUrlRewrite()
-                ->load();
+                    ->addUrlRewrite()
+                    ->load();
 
             /* update compare items count */
             $this->_getSession()->setCatalogCompareItemsCount(count($this->_itemCollection));
@@ -234,7 +235,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
         } else {
             /** @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection */
             $collection = Mage::getResourceModel('catalog/product_compare_item_collection')
-                ->useProductItem(true);
+                    ->useProductItem(true);
             if (!$logout && Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $collection->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
             } elseif ($this->_customerId) {
@@ -247,7 +248,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
             $collection->addPriceData();
 
             Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection($collection);
+                    ->addVisibleInSiteFilterToCollection($collection);
 
             $count = $collection->getSize();
         }
@@ -289,7 +290,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function setAllowUsedFlat($flag)
     {
-        $this->_allowUsedFlat = (bool)$flag;
+        $this->_allowUsedFlat = (bool) $flag;
         return $this;
     }
 
@@ -314,4 +315,5 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
         $this->_customerId = $id;
         return $this;
     }
+
 }

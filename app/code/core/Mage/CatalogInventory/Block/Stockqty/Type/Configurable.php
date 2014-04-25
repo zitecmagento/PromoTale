@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product stock qty block for configurable product type
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogInventory_Block_Stockqty_Type_Configurable extends Mage_CatalogInventory_Block_Stockqty_Composite
 {
+
     /**
      * Retrieve child products
      *
@@ -42,6 +43,7 @@ class Mage_CatalogInventory_Block_Stockqty_Type_Configurable extends Mage_Catalo
     protected function _getChildProducts()
     {
         return $this->_getProduct()->getTypeInstance(true)
-            ->getUsedProducts(null, $this->_getProduct());
+                        ->getUsedProducts(null, $this->_getProduct());
     }
+
 }

@@ -28,46 +28,76 @@
 -->
 <layout version="0.1.0">
 
-<!--
-Default layout, loads most of the pages
--->
+    <!--
+    Default layout, loads most of the pages
+    -->
 
     <default>
         <!-- Mage_Customer -->
         <reference name="top.links">
-            <action method="addLink" translate="label title" module="customer"><label>My Account</label><url helper="customer/getAccountUrl"/><title>My Account</title><prepare/><urlParams/><position>10</position></action>
+            <action method="addLink" translate="label title" module="customer">
+                <label>My Account</label>
+                <url helper="customer/getAccountUrl"/>
+                <title>My Account</title>
+                <prepare/>
+                <urlParams/>
+                <position>10</position>
+            </action>
         </reference>
         <reference name="account.links">
-            <action method="addLink" translate="label title before_text" module="customer"><label>Register</label><url helper="customer/getRegisterUrl" /><title>Register</title><prepare/><urlParams/><position>100</position></action>
+            <action method="addLink" translate="label title before_text" module="customer">
+                <label>Register</label>
+                <url helper="customer/getRegisterUrl" />
+                <title>Register</title>
+                <prepare/>
+                <urlParams/>
+                <position>100</position>
+            </action>
         </reference>
     </default>
 
-<!--
-Load this update on every page when customer is logged in
--->
+    <!--
+    Load this update on every page when customer is logged in
+    -->
 
     <customer_logged_in>
         <reference name="account.links">
-            <action method="addLink" translate="label title" module="customer"><label>Log Out</label><url helper="customer/getLogoutUrl"/><title>Log Out</title><prepare/><urlParams/><position>2</position></action>
-            <action method="removeLinkByUrl"><url helper="customer/getRegisterUrl" /></action>
+            <action method="addLink" translate="label title" module="customer">
+                <label>Log Out</label>
+                <url helper="customer/getLogoutUrl"/>
+                <title>Log Out</title>
+                <prepare/>
+                <urlParams/>
+                <position>2</position>
+            </action>
+            <action method="removeLinkByUrl">
+                <url helper="customer/getRegisterUrl" />
+            </action>
         </reference>
     </customer_logged_in>
 
-<!--
-Load this update on every page when customer is logged out
--->
+    <!--
+    Load this update on every page when customer is logged out
+    -->
 
     <customer_logged_out>
         <reference name="account.links">
-            <action method="addLink" translate="label title" module="customer"><label>Log In</label><url helper="customer/getLoginUrl"/><title>Log In</title><prepare/><urlParams/><position>1</position></action>
+            <action method="addLink" translate="label title" module="customer">
+                <label>Log In</label>
+                <url helper="customer/getLoginUrl"/>
+                <title>Log In</title>
+                <prepare/>
+                <urlParams/>
+                <position>1</position>
+            </action>
             <!-- <action method="addLink" translate="label title" module="customer"><label>register</label><url helper="customer/getRegisterUrl" /><title>register</title><prepare/><urlParams/><position>100</position><li/><a/><before_text> or </before_text><after_text>.</after_text></action> -->
         </reference>
         <remove name="reorder"></remove>
     </customer_logged_out>
 
-<!--
-Layout for customer login page
--->
+    <!--
+    Layout for customer login page
+    -->
 
     <customer_account_login translate="label">
         <label>Customer Account Login Form</label>
@@ -76,16 +106,18 @@ Layout for customer login page
         <remove name="left"/>
 
         <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
         </reference>
         <reference name="content">
             <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml" />
         </reference>
     </customer_account_login>
 
-<!--
-Layout for customer log out page
--->
+    <!--
+    Layout for customer log out page
+    -->
 
     <customer_account_logoutsuccess translate="label">
         <label>Customer Account Logout Success</label>
@@ -94,16 +126,18 @@ Layout for customer log out page
         <remove name="left"/>
 
         <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
         </reference>
         <reference name="content">
             <block type="core/template" name="customer_logout" template="customer/logout.phtml"/>
         </reference>
     </customer_account_logoutsuccess>
 
-<!--
-New customer registration
--->
+    <!--
+    New customer registration
+    -->
 
     <customer_account_create translate="label">
         <label>Customer Account Registration Form</label>
@@ -112,7 +146,9 @@ New customer registration
         <remove name="left"/>
 
         <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
         </reference>
         <reference name="content">
             <block type="customer/form_register" name="customer_form_register" template="customer/form/register.phtml">
@@ -129,11 +165,17 @@ New customer registration
         <remove name="left"/>
 
         <reference name="head">
-            <action method="setTitle" translate="title" module="customer"><title>Forgot Your Password</title></action>
+            <action method="setTitle" translate="title" module="customer">
+                <title>Forgot Your Password</title>
+            </action>
         </reference>
         <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
-            <action method="setHeaderTitle" translate="title" module="customer"><title>Password forgotten</title></action>
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+            <action method="setHeaderTitle" translate="title" module="customer">
+                <title>Password forgotten</title>
+            </action>
         </reference>
         <reference name="content">
             <!--<block type="core/template" name="forgotPassword" template="customer/form/forgotpassword.phtml"/>-->
@@ -169,8 +211,12 @@ New customer registration
         <remove name="left"/>
 
         <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
-            <action method="setHeaderTitle" translate="title" module="customer"><title>Send confirmation link</title></action>
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+            <action method="setHeaderTitle" translate="title" module="customer">
+                <title>Send confirmation link</title>
+            </action>
         </reference>
         <reference name="content">
             <block type="core/template" name="accountConfirmation" template="customer/form/confirmation.phtml"/>
@@ -181,20 +227,24 @@ New customer registration
         <label>Customer Account Edit Form</label>
         <update handle="customer_account"/>
         <reference name="root">
-            <action method="setHeaderTitle" translate="title" module="customer"><title>Edit Account Info</title></action>
+            <action method="setHeaderTitle" translate="title" module="customer">
+                <title>Edit Account Info</title>
+            </action>
         </reference>
         <reference name="my.account.wrapper">
             <block type="customer/form_edit" name="customer_edit" template="customer/form/edit.phtml"/>
         </reference>
 
         <reference name="left">
-          <action method="unsetChild"><name>left.permanent.callout</name></action>
+            <action method="unsetChild">
+                <name>left.permanent.callout</name>
+            </action>
         </reference>
     </customer_account_edit>
 
-<!--
-Customer account pages, rendered for all tabs in dashboard
--->
+    <!--
+    Customer account pages, rendered for all tabs in dashboard
+    -->
 
     <customer_account translate="label">
         <label>Customer My Account (All Pages)</label>
@@ -202,37 +252,59 @@ Customer account pages, rendered for all tabs in dashboard
         <remove name="sale.reorder.sidebar"/-->
         <!-- Mage_Customer -->
         <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
         </reference>
 
         <reference name="top.links">
             <block type="customer/account_navigation" name="customer_account_navigation" template="customer/account/navigation.phtml">
-                <action method="setPosition"><value>20</value></action>
-                <action method="addLink" translate="label" module="customer"><name>account</name><path>customer/account/</path><label>Account Dashboard</label></action>
-                <action method="addLink" translate="label" module="customer"><name>account_edit</name><path>customer/account/edit/</path><label>Account Information</label></action>
-                <action method="addLink" translate="label" module="customer"><name>address_book</name><path>customer/address/</path><label>Address Book</label></action>
+                <action method="setPosition">
+                    <value>20</value>
+                </action>
+                <action method="addLink" translate="label" module="customer">
+                    <name>account</name>
+                    <path>customer/account/</path>
+                    <label>Account Dashboard</label>
+                </action>
+                <action method="addLink" translate="label" module="customer">
+                    <name>account_edit</name>
+                    <path>customer/account/edit/</path>
+                    <label>Account Information</label>
+                </action>
+                <action method="addLink" translate="label" module="customer">
+                    <name>address_book</name>
+                    <path>customer/address/</path>
+                    <label>Address Book</label>
+                </action>
             </block>
-            <action method="addLinkBlock"><blockName>customer_account_navigation</blockName></action>
+            <action method="addLinkBlock">
+                <blockName>customer_account_navigation</blockName>
+            </action>
         </reference>
 
         <reference name="content">
             <block type="page/html_wrapper" name="my.account.wrapper" translate="label">
                 <label>My Account Wrapper</label>
-                <action method="setElementClass"><value>my-account</value></action>
+                <action method="setElementClass">
+                    <value>my-account</value>
+                </action>
             </block>
         </reference>
     </customer_account>
 
-<!--
-Customer account home dashboard layout
--->
+    <!--
+    Customer account home dashboard layout
+    -->
 
     <customer_account_index translate="label">
         <label>Customer My Account Dashboard</label>
         <update handle="customer_account"/>
         <!-- Mage_Customer -->
         <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
         </reference>
         <reference name="my.account.wrapper">
             <block type="customer/account_dashboard" name="customer_account_dashboard" template="customer/account/dashboard.phtml">
@@ -246,9 +318,9 @@ Customer account home dashboard layout
 
     </customer_account_index>
 
-<!--
-Customer account address book
--->
+    <!--
+    Customer account address book
+    -->
 
     <customer_address_index translate="label">
         <label>Customer My Account Address Book</label>
@@ -259,9 +331,9 @@ Customer account address book
         </reference>
     </customer_address_index>
 
-<!--
-Customer account address edit page
--->
+    <!--
+    Customer account address edit page
+    -->
 
     <customer_address_form translate="label">
         <label>Customer My Account Address Edit Form</label>

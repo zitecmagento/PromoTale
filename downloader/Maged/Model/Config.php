@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,15 +26,16 @@
  */
 
 /**
-* Class config
-*
-* @category   Mage
-* @package    Mage_Connect
-* @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
-* @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*/
+ * Class config
+ *
+ * @category   Mage
+ * @package    Mage_Connect
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 class Maged_Model_Config extends Maged_Model_Config_Abstract
 {
+
     /**
      * Get channel config class
      * @return Maged_Model_Config_Interface
@@ -43,9 +45,12 @@ class Maged_Model_Config extends Maged_Model_Config_Abstract
         $this->load();
         $channel = trim($this->get('root_channel'));
         if (!empty($channel)) {
-            try {
-                return $this->controller()->model('config_'.$channel, true);
-            } catch (Exception $e) {
+            try
+            {
+                return $this->controller()->model('config_' . $channel, true);
+            }
+            catch (Exception $e)
+            {
                 throw new Exception('Not valid config.ini file.');
             }
         } else {
@@ -54,11 +59,11 @@ class Maged_Model_Config extends Maged_Model_Config_Abstract
     }
 
     /**
-    * Save post data to config
-    *
-    * @param array $p
-    * @return Maged_Model_Config
-    */
+     * Save post data to config
+     *
+     * @param array $p
+     * @return Maged_Model_Config
+     */
     public function saveConfigPost($p)
     {
         $configParams = array(
@@ -73,12 +78,13 @@ class Maged_Model_Config extends Maged_Model_Config_Abstract
             'root_channel',
             'ftp',
         );
-        foreach ($configParams as $paramName){
+        foreach ($configParams as $paramName) {
             if (isset($p[$paramName])) {
-               $this->set($paramName, $p[$paramName]);
+                $this->set($paramName, $p[$paramName]);
             }
         }
         $this->save();
         return $this;
     }
+
 }

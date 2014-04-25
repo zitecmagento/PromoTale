@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,11 +24,10 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $conn->dropForeignKey('poll_answer', 'FK_POLL_PARENT');
 $conn->dropForeignKey('poll_vote', 'FK_POLL_ANSWER');
 $this->startSetup()
-    ->run("
+        ->run("
         ALTER TABLE {$this->getTable('poll')} CHANGE `poll_id` `poll_id` INT UNSIGNED NOT NULL AUTO_INCREMENT;
         ALTER TABLE {$this->getTable('poll_answer')} CHANGE `poll_id` `poll_id` INT UNSIGNED NOT NULL DEFAULT '0';
         ALTER TABLE {$this->getTable('poll_answer')} CHANGE `answer_id` `answer_id` INT UNSIGNED NOT NULL AUTO_INCREMENT;
@@ -42,4 +42,4 @@ $this->startSetup()
         ALTER TABLE `{$this->getTable('poll_answer')}` ADD CONSTRAINT `FK_POLL_PARENT` FOREIGN KEY (`poll_id`) REFERENCES {$this->getTable('poll')} (`poll_id`) ON DELETE CASCADE ON UPDATE CASCADE;
         ALTER TABLE `{$this->getTable('poll_vote')}` ADD CONSTRAINT `FK_POLL_ANSWER` FOREIGN KEY (`poll_answer_id`) REFERENCES {$this->getTable('poll_answer')} (`answer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ")
-    ->endSetup();
+        ->endSetup();

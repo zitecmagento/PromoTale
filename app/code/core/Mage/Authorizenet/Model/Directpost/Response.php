@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
 {
+
     /**
      * Generates an Md5 hash to compare against AuthNet's.
      *
@@ -59,8 +61,7 @@ class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
      */
     public function isValidHash($merchantMd5, $merchantApiLogin)
     {
-        return $this->generateHash($merchantMd5, $merchantApiLogin, $this->getXAmount(), $this->getXTransId())
-            == $this->getData('x_MD5_Hash');
+        return $this->generateHash($merchantMd5, $merchantApiLogin, $this->getXAmount(), $this->getXTransId()) == $this->getData('x_MD5_Hash');
     }
 
     /**
@@ -72,4 +73,5 @@ class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
     {
         return $this->getXResponseCode() == Mage_Authorizenet_Model_Directpost::RESPONSE_CODE_APPROVED;
     }
+
 }

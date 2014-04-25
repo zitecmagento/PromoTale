@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: $
  */
-
 /**
  * @see Zend_Service_ShortUrl_AbstractShortener
  */
@@ -34,15 +34,15 @@
  */
 class Zend_Service_ShortUrl_MetamarkNet extends Zend_Service_ShortUrl_AbstractShortener
 {
+
     /**
      * Base URI of the service
      *
      * @var string
      */
     protected $_baseUri = 'http://xrl.us/';
-    
     protected $_apiUri = 'http://metamark.net/api/rest/simple';
-    
+
     /**
      * This function shortens long url
      *
@@ -53,16 +53,16 @@ class Zend_Service_ShortUrl_MetamarkNet extends Zend_Service_ShortUrl_AbstractSh
     public function shorten($url)
     {
         $this->_validateUri($url);
-        
+
         $this->getHttpClient()->setUri($this->_apiUri);
         $this->getHttpClient()->setParameterGet('long_url', $url);
-        
+
         $response = $this->getHttpClient()->request();
-        
+
         return $response->getBody();
     }
 
-   /**
+    /**
      * Reveals target for short URL
      *
      * @param string $shortenedUrl URL to reveal target of
@@ -74,12 +74,13 @@ class Zend_Service_ShortUrl_MetamarkNet extends Zend_Service_ShortUrl_AbstractSh
         $this->_validateUri($shortenedUrl);
 
         $this->_verifyBaseUri($shortenedUrl);
-        
+
         $this->getHttpClient()->setUri($this->_apiUri);
         $this->getHttpClient()->setParameterGet('short_url', $shortenedUrl);
-        
+
         $response = $this->getHttpClient()->request();
-        
+
         return $response->getBody();
     }
+
 }

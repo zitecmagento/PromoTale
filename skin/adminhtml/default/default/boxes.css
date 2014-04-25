@@ -74,7 +74,7 @@
     font-weight:bold;
     text-align:center;
     z-index:501;
-    }
+}
 #loading-mask {
     background:background:url(../images/blank.gif) repeat;
     position:absolute;
@@ -85,7 +85,7 @@
     opacity:0.80;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; /* IE8 */
     z-index:500;
-    }
+}
 #loading-mask .loader {
     position:fixed;
     top:45%;
@@ -99,7 +99,7 @@
     font-weight:bold;
     text-align:center;
     z-index:1000;
-    }
+}
 
 #message-popup-window-mask { position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:980; background-color:#efefef; opacity:.5; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";/*IE8*/ }
 .message-popup { position:absolute; z-index:990; width:407px; top:-9999em; left:50%; margin:0 0 0 -203px; background:#f3bf8f; padding:0 4px 4px; }
@@ -525,7 +525,7 @@ td.divider              { font-size:1px; line-height:0; }
     height:265px;
     background:transparent url(images/db-scroll-bg.gif) no-repeat top;
     z-index:10000;
-    }
+}
 .auto-scroll                { overflow:auto; height:11em; }
 .root                       { position:relative; height:260px; margin:0; width:1px; }
 .thumb                      { position:absolute; height:40px; width:16px; margin-top:-28px; z-index:11000; }
@@ -543,7 +543,7 @@ td.divider              { font-size:1px; line-height:0; }
     clip:rect(0 467px 200px 0);
     overflow:auto;
     border:0;
-    }
+}
 .scrollContent              { position:absolute; left:0; top:0; }
 
 /* Horizontal scroll */
@@ -601,7 +601,7 @@ div.main-col-inner { float:left; /* Fixes some inner clears in the liquid main-c
     line-height:1.8em;
     margin-bottom:14px;
     margin-left:1.3em;
-    }
+}
 
 /* Search autocomplete */
 div.autocomplete {
@@ -612,7 +612,7 @@ div.autocomplete {
     border:1px solid #888;
     margin:0;
     padding:0;
-    }
+}
 div.autocomplete ul { margin:0; padding:0; }
 div.autocomplete ul li.selected { background-color:#dcebf0; }
 div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; text-align:left; color:#2f2f2f; line-height:1.3em; }
@@ -638,7 +638,7 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
     margin-bottom:18px;
     border-bottom:4px solid #dfdfdf;
     padding-bottom:.25em;
-    }
+}
 .content-header table           { width:100%; }
 .content-header h3              { float:left; margin:.3em .5em 0 0; color:#eb5e00; font-size:1.25em; line-height:1.2em; }
 .content-header .head h3        { float:none; }
@@ -1070,14 +1070,14 @@ ul.item-options li { padding-left:.7em; }
     height:16px;
     margin:0 5px 3px 0;
     background:url(images/product_rating_blank_star.gif) repeat-x;
-    }
+}
 .rating-box .rating {
     position:absolute;
     top:0;
     left:0;
     height:16px;
     background:url(images/product_rating_full_star.gif) repeat-x;
-    }
+}
 .field-row .ratings             { width:120px; float:left; clear:right; }
 .field-row .ratings-container   { width:250px; float:left; }
 .product-review-box             { width:450px; }
@@ -1245,7 +1245,7 @@ ul.config-tabs dt {
     font-weight:bold;
     text-transform:uppercase;
     color:#306375;
-    }
+}
 ul.config-tabs dl           { margin-bottom:16px; }
 ul.config-tabs a.last span  { background-image:none; }
 
@@ -1331,32 +1331,32 @@ td.label label.enabled { background:url(images/icon-enabled.png) no-repeat 100% 
 
 .field-tooltip:hover > div:hover,
 .field-tooltip > div {
-/*     -moz-transition-property:opacity, visibility, bottom;
-    -moz-transition-duration:0.4s, 0s;
-    -moz-transition-timing-function:linear;
-    -moz-transition-delay:0.3s, 0.7s;
-    -webkit-transition-property:opacity, visibility, bottom;
-    -webkit-transition-duration:0.4s, 0s;
-    -webkit-transition-timing-function:linear;
-    -webkit-transition-delay:0.1s, 0.5s;
-    -o-transition-property:opacity, visibility, bottom;
-    -o-transition-duration:0.4s, 0s;
-    -o-transition-timing-function:linear;
-    -o-transition-delay:0.1s, 0.5s;
-    transition-property:opacity, visibility, bottom;
-    transition-duration:0.4s, 0s;
-    transition-timing-function:linear;
-    transition-delay:0.1s, 0.5s; */
-    }
+    /*     -moz-transition-property:opacity, visibility, bottom;
+        -moz-transition-duration:0.4s, 0s;
+        -moz-transition-timing-function:linear;
+        -moz-transition-delay:0.3s, 0.7s;
+        -webkit-transition-property:opacity, visibility, bottom;
+        -webkit-transition-duration:0.4s, 0s;
+        -webkit-transition-timing-function:linear;
+        -webkit-transition-delay:0.1s, 0.5s;
+        -o-transition-property:opacity, visibility, bottom;
+        -o-transition-duration:0.4s, 0s;
+        -o-transition-timing-function:linear;
+        -o-transition-delay:0.1s, 0.5s;
+        transition-property:opacity, visibility, bottom;
+        transition-duration:0.4s, 0s;
+        transition-timing-function:linear;
+        transition-delay:0.1s, 0.5s; */
+}
 
 .field-tooltip:hover > div { opacity:1; width:301px; visibility:visible; bottom:30px; }
 
 .field-tooltip:hover > div { opacity:1; width:301px; visibility:visible; bottom:30px;
-/*     -moz-transition-duration:0.2s, 0s; -moz-transition-delay:0.1s, 0s;
-    -webkit-transition-duration:0.2s, 0s; -webkit-transition-delay:0.1s, 0s;
-    -o-transition-duration:0.2s, 0s; -o-transition-delay:0.1s, 0s;
-    transition-duration:0.2s, 0s; transition-delay:0.1s, 0s; */
-    }
+                             /*     -moz-transition-duration:0.2s, 0s; -moz-transition-delay:0.1s, 0s;
+                                 -webkit-transition-duration:0.2s, 0s; -webkit-transition-delay:0.1s, 0s;
+                                 -o-transition-duration:0.2s, 0s; -o-transition-delay:0.1s, 0s;
+                                 transition-duration:0.2s, 0s; transition-delay:0.1s, 0s; */
+}
 
 
 /* Import/export */
@@ -1454,7 +1454,7 @@ ul.super-product-attributes { padding-left:15px; }
     padding-left:15px;
     margin-top:2px;
     margin-bottom:2px;
-    }
+}
 
 
 /** Product Gallery Image Previews **/
@@ -1481,7 +1481,7 @@ ul.super-product-attributes { padding-left:15px; }
     padding-left:20px;
     color:#ebebff;
     background:url(images/fam_help.gif) no-repeat 0 50%;
-    }
+}
 #page-help-link:link, #page-help-link:visited { text-decoration:none; }
 #page-help-link:hover { color:white; }
 

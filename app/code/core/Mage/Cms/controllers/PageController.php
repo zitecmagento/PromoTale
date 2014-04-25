@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CMS Page controller
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Cms_PageController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * View CMS page action
      *
@@ -41,9 +42,10 @@ class Mage_Cms_PageController extends Mage_Core_Controller_Front_Action
     public function viewAction()
     {
         $pageId = $this->getRequest()
-            ->getParam('page_id', $this->getRequest()->getParam('id', false));
+                ->getParam('page_id', $this->getRequest()->getParam('id', false));
         if (!Mage::helper('cms/page')->renderPage($this, $pageId)) {
             $this->_forward('noRoute');
         }
     }
+
 }

@@ -20,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ResultSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Amazon_Item
  */
 #require_once 'Zend/Service/Amazon/Item.php';
-
 
 /**
  * @category   Zend
@@ -37,6 +34,7 @@
  */
 class Zend_Service_Amazon_ResultSet implements SeekableIterator
 {
+
     /**
      * A DOMNodeList of <Item> elements
      *
@@ -167,4 +165,5 @@ class Zend_Service_Amazon_ResultSet implements SeekableIterator
     {
         return null !== $this->_results && $this->_currentIndex < $this->_results->length;
     }
+
 }

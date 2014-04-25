@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Tag
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 {
+
     protected function _getTagId()
     {
         $tagId = (int) $this->getRequest()->getParam('tagId');
@@ -49,7 +50,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function indexAction()
     {
-        if( !Mage::getSingleton('customer/session')->isLoggedIn() ) {
+        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             Mage::getSingleton('customer/session')->authenticate($this);
             return;
         }
@@ -74,7 +75,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function viewAction()
     {
-        if( !Mage::getSingleton('customer/session')->isLoggedIn() ) {
+        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             Mage::getSingleton('customer/session')->authenticate($this);
             return;
         }
@@ -93,8 +94,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
             $this->_initLayoutMessages('checkout/session');
             $this->getLayout()->getBlock('head')->setTitle(Mage::helper('tag')->__('My Tags'));
             $this->renderLayout();
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
     }
@@ -111,27 +111,29 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function removeAction()
     {
-        if( !Mage::getSingleton('customer/session')->isLoggedIn() ) {
+        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             Mage::getSingleton('customer/session')->authenticate($this);
             return;
         }
 
         $tagId = $this->_getTagId();
         if ($tagId) {
-            try {
+            try
+            {
                 $model = Mage::registry('tagModel');
                 $model->deactivate();
                 $tag = Mage::getModel('tag/tag')->load($tagId)->aggregate();
                 Mage::getSingleton('tag/session')->addSuccess(Mage::helper('tag')->__('The tag has been deleted.'));
                 $this->getResponse()->setRedirect(Mage::getUrl('*/*/', array(
-                    self::PARAM_NAME_URL_ENCODED => Mage::helper('core')->urlEncode(Mage::getUrl('customer/account/'))
+                            self::PARAM_NAME_URL_ENCODED => Mage::helper('core')->urlEncode(Mage::getUrl('customer/account/'))
                 )));
                 return;
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::getSingleton('tag/session')->addError(Mage::helper('tag')->__('Unable to remove tag. Please, try again later.'));
             }
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
     }
@@ -145,4 +147,5 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
     {
         $this->_forward('noRoute');
     }
+
 }

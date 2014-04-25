@@ -26,7 +26,7 @@
  */
 -->
 <config>
-   <sections>
+    <sections>
         <catalog>
             <groups>
                 <review translate="label" module="review">

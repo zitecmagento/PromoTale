@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Login.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Mail_Protocol_Smtp
  */
 #require_once 'Zend/Mail/Protocol/Smtp.php';
-
 
 /**
  * Performs LOGIN authentication
@@ -38,6 +36,7 @@
  */
 class Zend_Mail_Protocol_Smtp_Auth_Login extends Zend_Mail_Protocol_Smtp
 {
+
     /**
      * LOGIN username
      *
@@ -45,14 +44,12 @@ class Zend_Mail_Protocol_Smtp_Auth_Login extends Zend_Mail_Protocol_Smtp
      */
     protected $_username;
 
-
     /**
      * LOGIN password
      *
      * @var string
      */
     protected $_password;
-
 
     /**
      * Constructor.
@@ -76,7 +73,6 @@ class Zend_Mail_Protocol_Smtp_Auth_Login extends Zend_Mail_Protocol_Smtp
         parent::__construct($host, $port, $config);
     }
 
-
     /**
      * Perform LOGIN authentication with supplied credentials
      *
@@ -95,4 +91,5 @@ class Zend_Mail_Protocol_Smtp_Auth_Login extends Zend_Mail_Protocol_Smtp
         $this->_expect(235);
         $this->_auth = true;
     }
+
 }

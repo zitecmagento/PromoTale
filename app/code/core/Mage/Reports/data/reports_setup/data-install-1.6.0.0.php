@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 /*
@@ -36,27 +36,27 @@ $installer->startSetup();
 $eventTypeData = array(
     array(
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_VIEW,
-        'event_name'    => 'catalog_product_view'
+        'event_name' => 'catalog_product_view'
     ),
     array(
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_SEND,
-        'event_name'    => 'sendfriend_product'
+        'event_name' => 'sendfriend_product'
     ),
     array(
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_COMPARE,
-        'event_name'    => 'catalog_product_compare_add_product'
+        'event_name' => 'catalog_product_compare_add_product'
     ),
     array(
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_TO_CART,
-        'event_name'    => 'checkout_cart_add_product'
+        'event_name' => 'checkout_cart_add_product'
     ),
     array(
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_TO_WISHLIST,
-        'event_name'    => 'wishlist_add_product'
+        'event_name' => 'wishlist_add_product'
     ),
     array(
         'event_type_id' => Mage_Reports_Model_Event::EVENT_WISHLIST_SHARE,
-        'event_name'    => 'wishlist_share'
+        'event_name' => 'wishlist_share'
     )
 );
 
@@ -75,7 +75,7 @@ $installer->endSetup();
 /** @var $cms Mage_Cms_Model_Page */
 $cms = Mage::getModel('cms/page')->load('home', 'identifier');
 
-$reportLayoutUpdate    = '<!--<reference name="content">
+$reportLayoutUpdate = '<!--<reference name="content">
         <block type="catalog/product_new" name="home.catalog.product.new" alias="product_new" template="catalog/product/new.phtml" after="cms_page">
             <action method="addPriceBlockType">
                 <type>bundle</type>

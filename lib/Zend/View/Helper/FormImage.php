@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FormImage.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Abstract class for extension
  */
 #require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to generate an "image" element
@@ -38,6 +36,7 @@
  */
 class Zend_View_Helper_FormImage extends Zend_View_Helper_FormElement
 {
+
     /**
      * Generates an 'image' element.
      *
@@ -57,7 +56,6 @@ class Zend_View_Helper_FormImage extends Zend_View_Helper_FormElement
     {
         $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, value, attribs, options, listsep, disable
-
         // Determine if we should use the value or the src attribute
         if (isset($attribs['src'])) {
             $src = ' src="' . $this->view->escape($attribs['src']) . '"';
@@ -83,7 +81,7 @@ class Zend_View_Helper_FormImage extends Zend_View_Helper_FormElement
         // XHTML or HTML end tag?
         $endTag = ' />';
         if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {
-            $endTag= '>';
+            $endTag = '>';
         }
 
         // build the element
@@ -98,4 +96,5 @@ class Zend_View_Helper_FormImage extends Zend_View_Helper_FormElement
 
         return $xhtml;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,12 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_Paypal_Model_Resource_Setup */
 $installer = $this;
 
 $installer->getConnection()
-    ->addColumn($installer->getTable('paypal/settlement_report_row'), 'payment_tracking_id', array(
-        'type'    => Varien_Db_Ddl_Table::TYPE_TEXT,
-        'comment' => 'Payment Tracking ID',
-        'length'  => '255'
-    ));
+        ->addColumn($installer->getTable('paypal/settlement_report_row'), 'payment_tracking_id', array(
+            'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
+            'comment' => 'Payment Tracking ID',
+            'length' => '255'
+        ));

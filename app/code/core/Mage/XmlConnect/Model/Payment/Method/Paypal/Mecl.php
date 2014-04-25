@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Payment_Method_Paypal_Mecl extends Mage_Paypal_Model_Express
 {
+
     /**
      * Store MECL payment method code
      */
@@ -93,7 +95,7 @@ class Mage_XmlConnect_Model_Payment_Method_Paypal_Mecl extends Mage_Paypal_Model
         }
 
         return (bool) Mage::getModel('paypal/config')->setStoreId($storeId)
-            ->isMethodAvailable(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
+                        ->isMethodAvailable(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
     }
 
     /**
@@ -105,4 +107,5 @@ class Mage_XmlConnect_Model_Payment_Method_Paypal_Mecl extends Mage_Paypal_Model
     {
         return Mage::helper('xmlconnect')->__('PayPal Mobile Express Checkout');
     }
+
 }

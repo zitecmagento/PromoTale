@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * AdminNotification survey model
  *
@@ -34,7 +34,8 @@
  */
 class Mage_AdminNotification_Model_Survey
 {
-    protected static $_flagCode  = 'admin_notification_survey';
+
+    protected static $_flagCode = 'admin_notification_survey';
     protected static $_flagModel = null;
 
     const SURVEY_URL = 'www.magentocommerce.com/instsurvey.html';
@@ -47,8 +48,8 @@ class Mage_AdminNotification_Model_Survey
     public static function isSurveyUrlValid()
     {
         $curl = new Varien_Http_Adapter_Curl();
-        $curl->setConfig(array('timeout'   => 5))
-            ->write(Zend_Http_Client::GET, self::getSurveyUrl(), '1.0');
+        $curl->setConfig(array('timeout' => 5))
+                ->write(Zend_Http_Client::GET, self::getSurveyUrl(), '1.0');
         $response = $curl->read();
         $curl->close();
 
@@ -108,7 +109,8 @@ class Mage_AdminNotification_Model_Survey
         if (is_null($flagData)) {
             $flagData = array();
         }
-        $flagData = array_merge($flagData, array('survey_viewed' => (bool)$viewed));
+        $flagData = array_merge($flagData, array('survey_viewed' => (bool) $viewed));
         self::_getFlagModel()->setFlagData($flagData)->save();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** @see Zend_Service_Abstract */
 #require_once 'Zend/Service/Abstract.php';
 
@@ -40,6 +40,7 @@
  */
 class Zend_Service_ReCaptcha extends Zend_Service_Abstract
 {
+
     /**
      * URI to the regular API
      *
@@ -91,8 +92,8 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
         'ssl' => false, /* Use SSL or not when generating the recaptcha */
         'error' => null, /* The error message to display in the recaptcha */
         'xhtml' => false /* Enable XHTML output (this will not be XHTML Strict
-                            compliant since the IFRAME is necessary when
-                            Javascript is disabled) */
+              compliant since the IFRAME is necessary when
+              Javascript is disabled) */
     );
 
     /**
@@ -124,8 +125,7 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
      * @param string $ip
      * @param array|Zend_Config $params
      */
-    public function __construct($publicKey = null, $privateKey = null,
-                                $params = null, $options = null, $ip = null)
+    public function __construct($publicKey = null, $privateKey = null, $params = null, $options = null, $ip = null)
     {
         if ($publicKey !== null) {
             $this->setPublicKey($publicKey);
@@ -161,9 +161,12 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
      */
     public function __toString()
     {
-        try {
+        try
+        {
             $return = $this->getHtml();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $return = '';
             trigger_error($e->getMessage(), E_USER_WARNING);
         }
@@ -230,7 +233,7 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
             #require_once 'Zend/Service/ReCaptcha/Exception.php';
 
             throw new Zend_Service_ReCaptcha_Exception(
-                'Expected array or Zend_Config object'
+            'Expected array or Zend_Config object'
             );
         }
 
@@ -294,7 +297,7 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
             #require_once 'Zend/Service/ReCaptcha/Exception.php';
 
             throw new Zend_Service_ReCaptcha_Exception(
-                'Expected array or Zend_Config object'
+            'Expected array or Zend_Config object'
             );
         }
 
@@ -477,14 +480,14 @@ HTML;
         $httpClient = self::getHttpClient();
 
         $postParams = array('privatekey' => $this->_privateKey,
-                            'remoteip'   => $this->_ip,
-                            'challenge'  => $challengeField,
-                            'response'   => $responseField);
+            'remoteip' => $this->_ip,
+            'challenge' => $challengeField,
+            'response' => $responseField);
 
         /* Make the POST and return the response */
         return $httpClient->setUri(self::VERIFY_SERVER)
-                          ->setParameterPost($postParams)
-                          ->request(Zend_Http_Client::POST);
+                        ->setParameterPost($postParams)
+                        ->request(Zend_Http_Client::POST);
     }
 
     /**
@@ -503,4 +506,5 @@ HTML;
 
         return new Zend_Service_ReCaptcha_Response(null, null, $response);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Order Tax Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Model_Resource_Order_Tax extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Model initialization
      *
@@ -42,4 +43,5 @@ class Mage_Sales_Model_Resource_Order_Tax extends Mage_Core_Model_Resource_Db_Ab
     {
         $this->_init('sales/order_tax', 'tax_id');
     }
+
 }

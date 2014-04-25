@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Wddx.php 20574 2010-01-24 17:39:14Z mabe $
  */
-
 /** @see Zend_Serializer_Adapter_AdapterAbstract */
 #require_once 'Zend/Serializer/Adapter/AdapterAbstract.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_Serializer_Adapter_Wddx extends Zend_Serializer_Adapter_AdapterAbstract
 {
+
     /**
      * @var array Default options
      */
@@ -71,7 +72,7 @@ class Zend_Serializer_Adapter_Wddx extends Zend_Serializer_Adapter_AdapterAbstra
         $opts = $opts + $this->_options;
 
         if (isset($opts['comment']) && $opts['comment']) {
-            $wddx = wddx_serialize_value($value, (string)$opts['comment']);
+            $wddx = wddx_serialize_value($value, (string) $opts['comment']);
         } else {
             $wddx = wddx_serialize_value($value);
         }
@@ -99,13 +100,16 @@ class Zend_Serializer_Adapter_Wddx extends Zend_Serializer_Adapter_AdapterAbstra
         if ($ret === null) {
             // check if the returned NULL is valid
             // or based on an invalid wddx string
-            try {
+            try
+            {
                 $simpleXml = new SimpleXMLElement($wddx);
                 if (isset($simpleXml->data[0]->null[0])) {
                     return null; // valid null
                 }
                 $errMsg = 'Can\'t unserialize wddx string';
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $errMsg = $e->getMessage();
             }
 
@@ -115,4 +119,5 @@ class Zend_Serializer_Adapter_Wddx extends Zend_Serializer_Adapter_AdapterAbstra
 
         return $ret;
     }
+
 }

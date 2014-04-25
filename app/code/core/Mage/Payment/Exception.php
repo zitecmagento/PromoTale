@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Payment exception
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Payment_Exception extends Exception
 {
+
     protected $_code = null;
 
     public function __construct($message = null, $code = 0)
@@ -46,4 +47,5 @@ class Mage_Payment_Exception extends Exception
     {
         return $this->_code;
     }
+
 }

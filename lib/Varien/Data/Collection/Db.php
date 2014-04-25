@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Base items collection class
  *
@@ -34,6 +34,7 @@
  */
 class Varien_Data_Collection_Db extends Varien_Data_Collection
 {
+
     /**
      * DB connection
      *
@@ -100,7 +101,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected $_isOrdersRendered = false;
 
-    public function __construct($conn=null)
+    public function __construct($conn = null)
     {
         parent::__construct();
         if (!is_null($conn)) {
@@ -132,9 +133,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     public function initCache($object, $idPrefix, $tags)
     {
         $this->_cacheConf = array(
-            'object'    => $object,
-            'prefix'    => $idPrefix,
-            'tags'      => $tags
+            'object' => $object,
+            'prefix' => $idPrefix,
+            'tags' => $tags
         );
         return $this;
     }
@@ -308,7 +309,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     private function _setOrder($field, $direction, $unshift = false)
     {
         $this->_isOrdersRendered = false;
-        $field = (string)$this->_getMappedField($field);
+        $field = (string) $this->_getMappedField($field);
         $direction = (strtoupper($direction) == self::SORT_ORDER_ASC) ? self::SORT_ORDER_ASC : self::SORT_ORDER_DESC;
 
         unset($this->_orders[$field]); // avoid ordering by the same field twice
@@ -340,7 +341,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         foreach ($this->_filters as $filter) {
             switch ($filter['type']) {
                 case 'or' :
-                    $condition = $this->_conn->quoteInto($filter['field'].'=?', $filter['value']);
+                    $condition = $this->_conn->quoteInto($filter['field'] . '=?', $filter['value']);
                     $this->_select->orWhere($condition);
                     break;
                 case 'string' :
@@ -350,11 +351,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     $field = $this->_getMappedField($filter['field']);
                     $condition = $filter['value'];
                     $this->_select->where(
-                        $this->_getConditionSql($field, $condition), null, Varien_Db_Select::TYPE_CONDITION
+                            $this->_getConditionSql($field, $condition), null, Varien_Db_Select::TYPE_CONDITION
                     );
                     break;
                 default:
-                    $condition = $this->_conn->quoteInto($filter['field'].'=?', $filter['value']);
+                    $condition = $this->_conn->quoteInto($filter['field'] . '=?', $filter['value']);
                     $this->_select->where($condition);
             }
         }
@@ -367,6 +368,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _renderFiltersBefore()
     {
+        
     }
 
     /**
@@ -387,8 +389,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $conditions = array();
             foreach ($field as $key => $currField) {
                 $conditions[] = $this->_translateCondition(
-                    $currField,
-                    isset($condition[$key]) ? $condition[$key] : null
+                        $currField, isset($condition[$key]) ? $condition[$key] : null
                 );
             }
 
@@ -498,7 +499,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if (!$this->_isOrdersRendered) {
             foreach ($this->_orders as $field => $direction) {
                 $this->_select->order(new Zend_Db_Expr($field . ' ' . $direction));
-             }
+            }
             $this->_isOrdersRendered = true;
         }
 
@@ -512,7 +513,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _renderLimit()
     {
-        if($this->_pageSize){
+        if ($this->_pageSize) {
             $this->_select->limitPage($this->getCurPage(), $this->_pageSize);
         }
 
@@ -559,8 +560,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $this->_beforeLoad();
 
         $this->_renderFilters()
-             ->_renderOrders()
-             ->_renderLimit();
+                ->_renderOrders()
+                ->_renderLimit();
 
         $this->printLogQuery($printQuery, $logQuery);
         $data = $this->getData();
@@ -592,7 +593,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         if (null === $this->_fetchStmt) {
             $this->_fetchStmt = $this->getConnection()
-                ->query($this->getSelect());
+                    ->query($this->getSelect());
         }
         $data = $this->_fetchStmt->fetch();
         if (!empty($data) && is_array($data)) {
@@ -622,7 +623,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @param   string $labelField
      * @return  array
      */
-    protected function _toOptionHashOptimized($valueField='id', $labelField='name')
+    protected function _toOptionHashOptimized($valueField = 'id', $labelField = 'name')
     {
         $result = array();
         while ($item = $this->fetchItem()) {
@@ -640,8 +641,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         if ($this->_data === null) {
             $this->_renderFilters()
-                 ->_renderOrders()
-                 ->_renderLimit();
+                    ->_renderOrders()
+                    ->_renderLimit();
             $this->_data = $this->_fetchAll($this->_select);
             $this->_afterLoadData();
         }
@@ -688,12 +689,13 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return  Varien_Data_Collection_Db
      */
-    public function printLogQuery($printQuery = false, $logQuery = false, $sql = null) {
+    public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
+    {
         if ($printQuery) {
             echo is_null($sql) ? $this->getSelect()->__toString() : $sql;
         }
 
-        if ($logQuery){
+        if ($logQuery) {
             Mage::log(is_null($sql) ? $this->getSelect()->__toString() : $sql);
         }
         return $this;
@@ -784,9 +786,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _getSelectCacheId($select)
     {
-        $id = md5((string)$select);
+        $id = md5((string) $select);
         if (isset($this->_cacheConf['prefix'])) {
-            $id = $this->_cacheConf['prefix'].'_'.$id;
+            $id = $this->_cacheConf['prefix'] . '_' . $id;
         }
         return $id;
     }
@@ -830,11 +832,12 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         if (is_null($this->_map)) {
             $this->_map = array($group => array());
-        } else if(is_null($this->_map[$group])) {
+        } else if (is_null($this->_map[$group])) {
             $this->_map[$group] = array();
         }
         $this->_map[$group][$filter] = $alias;
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,9 +34,11 @@
  */
 class Mage_Eav_Block_Adminhtml_Attribute_Edit_Js extends Mage_Adminhtml_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('eav/attribute/edit/js.phtml');
     }
+
 }

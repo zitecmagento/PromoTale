@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Visitor log collection
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Log
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Visitor data table name
      *
@@ -105,10 +105,10 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      */
     protected $_fieldMap = array(
         'customer_firstname' => 'customer_firstname_table.value',
-        'customer_lastname'  => 'customer_lastname_table.value',
-        'customer_email'     => 'customer_email_table.email',
-        'customer_id'        => 'customer_table.customer_id',
-        'url'                => 'url_info_table.url'
+        'customer_lastname' => 'customer_lastname_table.value',
+        'customer_email' => 'customer_email_table.email',
+        'customer_id' => 'customer_table.customer_id',
+        'url' => 'url_info_table.url'
     );
 
     /**
@@ -118,14 +118,14 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     {
         $this->_init('log/visitor');
 
-        $this->_visitorTable     = $this->getTable('log/visitor');
+        $this->_visitorTable = $this->getTable('log/visitor');
         $this->_visitorInfoTable = $this->getTable('log/visitor_info');
-        $this->_urlTable         = $this->getTable('log/url_table');
-        $this->_urlInfoTable     = $this->getTable('log/url_info_table');
-        $this->_customerTable    = $this->getTable('log/customer');
-        $this->_summaryTable     = $this->getTable('log/summary_table');
+        $this->_urlTable = $this->getTable('log/url_table');
+        $this->_urlInfoTable = $this->getTable('log/url_info_table');
+        $this->_customerTable = $this->getTable('log/customer');
+        $this->_summaryTable = $this->getTable('log/summary_table');
         $this->_summaryTypeTable = $this->getTable('log/summary_type_table');
-        $this->_quoteTable       = $this->getTable('log/quote_table');
+        $this->_quoteTable = $this->getTable('log/quote_table');
     }
 
     /**
@@ -136,9 +136,9 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     public function showCustomersOnly()
     {
         $this->getSelect()
-            ->where('customer_table.customer_id > 0')
-            ->group('customer_table.customer_id');
-        
+                ->where('customer_table.customer_id > 0')
+                ->group('customer_table.customer_id');
+
         return $this;
     }
 
@@ -172,8 +172,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      */
     protected function _getRangeByType($typeCode)
     {
-        switch ($typeCode)
-        {
+        switch ($typeCode) {
             case 'day':
                 $range = 'DAY';
                 break;
@@ -184,7 +183,6 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
             default:
                 $range = 'MINUTE';
                 break;
-
         }
 
         return $range;
@@ -218,7 +216,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      */
     protected function _getFieldMap($fieldName)
     {
-        if(isset($this->_fieldMap[$fieldName])) {
+        if (isset($this->_fieldMap[$fieldName])) {
             return $this->_fieldMap[$fieldName];
         } else {
             return 'main_table.' . $fieldName;
@@ -260,4 +258,5 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     {
         $this->getSelect()->where('visitor_table.store_id IN (?)', $storeIds);
     }
+
 }

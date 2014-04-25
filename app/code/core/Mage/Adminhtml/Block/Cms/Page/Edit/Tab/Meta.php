@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Meta
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Meta extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -63,14 +63,14 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Meta
             'name' => 'meta_keywords',
             'label' => Mage::helper('cms')->__('Keywords'),
             'title' => Mage::helper('cms')->__('Meta Keywords'),
-            'disabled'  => $isElementDisabled
+            'disabled' => $isElementDisabled
         ));
 
         $fieldset->addField('meta_description', 'textarea', array(
             'name' => 'meta_description',
             'label' => Mage::helper('cms')->__('Description'),
             'title' => Mage::helper('cms')->__('Meta Description'),
-            'disabled'  => $isElementDisabled
+            'disabled' => $isElementDisabled
         ));
 
         Mage::dispatchEvent('adminhtml_cms_page_edit_tab_meta_prepare_form', array('form' => $form));
@@ -132,4 +132,5 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Meta
     {
         return Mage::getSingleton('admin/session')->isAllowed('cms/page/' . $action);
     }
+
 }

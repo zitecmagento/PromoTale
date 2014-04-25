@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Model_Shipping_Carrier_Abstract
 {
+
     /**
      * Response condition code for service is unavailable at the requested date
      */
@@ -57,8 +59,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
     protected function _getShipDate($domestic = true)
     {
         return $this->_determineShippingDay(
-            $this->getConfigData($domestic ? 'shipment_days' : 'intl_shipment_days'),
-            date(self::REQUEST_DATE_FORMAT)
+                        $this->getConfigData($domestic ? 'shipment_days' : 'intl_shipment_days'), date(self::REQUEST_DATE_FORMAT)
         );
     }
 
@@ -86,4 +87,5 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
 
         return date(self::REQUEST_DATE_FORMAT, strtotime("$date +$i day"));
     }
+
 }

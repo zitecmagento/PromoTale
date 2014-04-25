@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Core_Helper_Translate extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Save translation data to database for specific area
      *
@@ -41,14 +43,18 @@ class Mage_Core_Helper_Translate extends Mage_Core_Helper_Abstract
      */
     public function apply($translate, $area, $returnType = 'json')
     {
-        try {
+        try
+        {
             if ($area) {
                 Mage::getDesign()->setArea($area);
             }
             Mage::getModel('core/translate_inline')->processAjaxPost($translate);
             return $returnType == 'json' ? "{success:true}" : true;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             return $returnType == 'json' ? "{error:true,message:'" . $e->getMessage() . "'}" : false;
         }
     }
+
 }

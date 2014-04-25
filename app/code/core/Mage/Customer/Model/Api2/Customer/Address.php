@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
 {
+
     /**
      * Resource specific method to retrieve attributes' codes. May be overriden in child.
      *
@@ -89,15 +91,15 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
         $collection = Mage::getResourceModel('directory/region_collection');
 
         $collection->getSelect()
-            ->reset() // to avoid locale usage
-            ->from(array('main_table' => $collection->getMainTable()), 'region_id');
+                ->reset() // to avoid locale usage
+                ->from(array('main_table' => $collection->getMainTable()), 'region_id');
 
         $collection->addCountryFilter($countryId)
-            ->addFieldToFilter(array('default_name', 'code'), array($region, $region));
+                ->addFieldToFilter(array('default_name', 'code'), array($region, $region));
 
         $id = $collection->getResource()->getReadConnection()->fetchOne($collection->getSelect());
 
-        return $id ? (int)$id : $region;
+        return $id ? (int) $id : $region;
     }
 
     /**
@@ -135,4 +137,5 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
         }
         return $customer;
     }
+
 }

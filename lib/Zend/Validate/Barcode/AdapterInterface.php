@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 interface Zend_Validate_Barcode_AdapterInterface
 {
+
     /**
      * Checks the length of a barcode
      *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Downloadable_Model_Link_Api_V2 extends Mage_Downloadable_Model_Link_Api
 {
+
     /**
      * Clean the object, leave only property values
      *
@@ -64,4 +66,5 @@ class Mage_Downloadable_Model_Link_Api_V2 extends Mage_Downloadable_Model_Link_A
         $this->_prepareData($resource);
         return parent::add($productId, $resource, $resourceType, $store, $identifierType);
     }
+
 }

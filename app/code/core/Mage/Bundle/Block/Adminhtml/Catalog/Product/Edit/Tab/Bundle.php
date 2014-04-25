@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,11 @@
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_Adminhtml_Block_Widget
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     protected $_product = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -59,19 +61,16 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
      */
     protected function _prepareLayout()
     {
-        $this->setChild('add_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label' => Mage::helper('bundle')->__('Add New Option'),
-                    'class' => 'add',
-                    'id'    => 'add_new_option',
-                    'on_click' => 'bOption.add()'
-                ))
+        $this->setChild('add_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('bundle')->__('Add New Option'),
+                            'class' => 'add',
+                            'id' => 'add_new_option',
+                            'on_click' => 'bOption.add()'
+                        ))
         );
 
-        $this->setChild('options_box',
-            $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option',
-                'adminhtml.catalog.product.edit.tab.bundle.option')
+        $this->setChild('options_box', $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option', 'adminhtml.catalog.product.edit.tab.bundle.option')
         );
 
         return parent::_prepareLayout();
@@ -111,16 +110,20 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
     {
         return Mage::helper('bundle')->__('Bundle Items');
     }
+
     public function getTabTitle()
     {
         return Mage::helper('bundle')->__('Bundle Items');
     }
+
     public function canShowTab()
     {
         return true;
     }
+
     public function isHidden()
     {
         return false;
     }
+
 }

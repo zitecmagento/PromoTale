@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes extends Mage_Adminhtml_Block_Catalog_Form
 {
+
     protected function _prepareForm()
     {
 
@@ -61,7 +63,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
             }
         }
 
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', array('form'=>$form));
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', array('form' => $form));
         $form->addValues($values);
         $form->setFieldNameSuffix('product');
         $this->setForm($form);
@@ -70,16 +72,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
     protected function _getAdditionalElementTypes()
     {
         $result = array(
-            'price'   => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_price'),
-            'image'   => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
+            'price' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_price'),
+            'image' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
             'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean')
         );
 
         $response = new Varien_Object();
         $response->setTypes(array());
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', array('response'=>$response));
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', array('response' => $response));
 
-        foreach ($response->getTypes() as $typeName=>$typeClass) {
+        foreach ($response->getTypes() as $typeName => $typeClass) {
             $result[$typeName] = $typeClass;
         }
 
@@ -91,4 +93,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
         parent::_toHtml();
         return $this->getForm()->getElement('group_fields')->getChildrenHtml();
     }
+
 }

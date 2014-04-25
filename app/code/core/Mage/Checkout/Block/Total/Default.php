@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Default Total Row Renderer
  *
@@ -32,6 +32,7 @@
  */
 class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
 {
+
     protected $_template = 'checkout/total/default.phtml';
     protected $_store;
 
@@ -64,4 +65,5 @@ class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
     {
         return $this->_store;
     }
+
 }

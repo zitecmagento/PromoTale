@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer log resource
  *
@@ -34,4 +34,5 @@
  */
 class Mage_Log_Model_Mysql4_Customer extends Mage_Log_Model_Resource_Customer
 {
+    
 }

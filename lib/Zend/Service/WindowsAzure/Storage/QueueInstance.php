@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: QueueInstance.php 22773 2010-08-03 07:18:27Z maartenba $
  */
-
 /**
  * @see Zend_Service_WindowsAzure_Exception
  */
@@ -41,21 +41,22 @@
  * @property array   $Metadata                 Key/value pairs of meta data
  * @property integer $ApproximateMessageCount  The approximate number of messages in the queue
  */
-class Zend_Service_WindowsAzure_Storage_QueueInstance
-	extends Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
+class Zend_Service_WindowsAzure_Storage_QueueInstance extends Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
 {
+
     /**
      * Constructor
      * 
      * @param string $name          Name
      * @param array  $metadata      Key/value pairs of meta data
      */
-    public function __construct($name, $metadata = array()) 
+    public function __construct($name, $metadata = array())
     {
         $this->_data = array(
-            'name'         => $name,
-            'metadata'     => $metadata,
+            'name' => $name,
+            'metadata' => $metadata,
             'approximatemessagecount' => 0
         );
     }
+
 }

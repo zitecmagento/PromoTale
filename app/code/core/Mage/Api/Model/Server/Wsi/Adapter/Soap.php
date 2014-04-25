@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api_Model_Server_WSI_Adapter_Soap extends Mage_Api_Model_Server_Adapter_Soap
 {
+
     /**
      * Run webservice
      *
@@ -46,63 +48,53 @@ class Mage_Api_Model_Server_WSI_Adapter_Soap extends Mage_Api_Model_Server_Adapt
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             $wsdlConfig = Mage::getModel('api/wsdl_config');
             $wsdlConfig->setHandler($this->getHandler())
-                ->init();
+                    ->init();
             $this->getController()->getResponse()
-                ->clearHeaders()
-                ->setHeader('Content-Type','text/xml; charset='.$apiConfigCharset)
-                ->setBody(
-                        preg_replace(
-                            '/(\>\<)/i',
-                            ">\n<",
-                            str_replace(
-                                    '<soap:operation soapAction=""></soap:operation>',
-                                    "<soap:operation soapAction=\"\" />\n",
-                                    str_replace(
-                                            '<soap:body use="literal"></soap:body>',
-                                            "<soap:body use=\"literal\" />\n",
-                                            preg_replace(
-                                                '/<\?xml version="([^\"]+)"([^\>]+)>/i',
-                                                '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
-                                                $wsdlConfig->getWsdlContent()
+                    ->clearHeaders()
+                    ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)
+                    ->setBody(
+                            preg_replace(
+                                    '/(\>\<)/i', ">\n<", str_replace(
+                                            '<soap:operation soapAction=""></soap:operation>', "<soap:operation soapAction=\"\" />\n", str_replace(
+                                                    '<soap:body use="literal"></soap:body>', "<soap:body use=\"literal\" />\n", preg_replace(
+                                                            '/<\?xml version="([^\"]+)"([^\>]+)>/i', '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>', $wsdlConfig->getWsdlContent()
+                                                    )
                                             )
                                     )
                             )
-                        )
-                );
+            );
         } else {
-            try {
+            try
+            {
                 $this->_instantiateServer();
 
                 $content = str_replace(
-                    '><',
-                    ">\n<",
-                    str_replace(
-                        '<soap:operation soapAction=""></soap:operation>',
-                        "<soap:operation soapAction=\"\" />\n",
-                        str_replace(
-                            '<soap:body use="literal"></soap:body>',
-                            "<soap:body use=\"literal\" />\n",
-                            preg_replace(
-                                '/<\?xml version="([^\"]+)"([^\>]+)>/i',
-                                '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>',
-                                $this->_soap->handle()
-                            )
+                        '><', ">\n<", str_replace(
+                                '<soap:operation soapAction=""></soap:operation>', "<soap:operation soapAction=\"\" />\n", str_replace(
+                                        '<soap:body use="literal"></soap:body>', "<soap:body use=\"literal\" />\n", preg_replace(
+                                                '/<\?xml version="([^\"]+)"([^\>]+)>/i', '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>', $this->_soap->handle()
+                                        )
+                                )
                         )
-                    )
                 );
 
                 $this->getController()->getResponse()
-                    ->clearHeaders()
-                    ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)
-                    ->setHeader('Content-Length', strlen($content), true)
-                    ->setBody($content);
-            } catch (Zend_Soap_Server_Exception $e) {
+                        ->clearHeaders()
+                        ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)
+                        ->setHeader('Content-Length', strlen($content), true)
+                        ->setBody($content);
+            }
+            catch (Zend_Soap_Server_Exception $e)
+            {
                 $this->fault($e->getCode(), $e->getMessage());
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->fault($e->getCode(), $e->getMessage());
             }
         }
 
         return $this;
     }
+
 }

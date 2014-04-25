@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
 {
+
     /**
      * Identifuer of default store
      * used for loading default data for entity
@@ -76,7 +78,6 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      * @var boolean
      */
     protected $_isReadonly = false;
-
 
     /**
      * Lock attribute
@@ -165,11 +166,11 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     {
         if ($this->hasLockedAttributes()) {
             if (is_array($key)) {
-                 foreach ($this->getLockedAttributes() as $attribute) {
-                     if (isset($key[$attribute])) {
-                         unset($key[$attribute]);
-                     }
-                 }
+                foreach ($this->getLockedAttributes() as $attribute) {
+                    if (isset($key[$attribute])) {
+                        unset($key[$attribute]);
+                    }
+                }
             } elseif ($this->isLockedAttribute($key)) {
                 return $this;
             }
@@ -194,7 +195,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     public function unsetData($key = null)
     {
         if ((!is_null($key) && $this->isLockedAttribute($key)) ||
-            $this->isReadonly()) {
+                $this->isReadonly()) {
             return $this;
         }
 
@@ -209,7 +210,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     public function getResourceCollection()
     {
         $collection = parent::getResourceCollection()
-            ->setStoreId($this->getStoreId());
+                ->setStoreId($this->getStoreId());
         return $collection;
     }
 
@@ -224,9 +225,9 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     public function loadByAttribute($attribute, $value, $additionalAttributes = '*')
     {
         $collection = $this->getResourceCollection()
-            ->addAttributeToSelect($additionalAttributes)
-            ->addAttributeToFilter($attribute, $value)
-            ->setPage(1,1);
+                ->addAttributeToSelect($additionalAttributes)
+                ->addAttributeToFilter($attribute, $value)
+                ->setPage(1, 1);
 
         foreach ($collection as $object) {
             return $object;
@@ -355,7 +356,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      */
     public function setIsReadonly($value)
     {
-        $this->_isReadonly = (bool)$value;
+        $this->_isReadonly = (bool) $value;
         return $this;
     }
 

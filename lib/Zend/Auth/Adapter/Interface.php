@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Interface.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Auth_Result
  */
 #require_once 'Zend/Auth/Result.php';
-
 
 /**
  * @category   Zend
@@ -36,6 +34,7 @@
  */
 interface Zend_Auth_Adapter_Interface
 {
+
     /**
      * Performs an authentication attempt
      *

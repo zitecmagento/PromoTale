@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 {
+
     public function __construct()
     {
         $this->_storeIdSessionField = "cart_store_id";
@@ -53,14 +54,17 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     {
         $storeId = $this->_getStoreId($store);
 
-        try {
-            /*@var $quote Mage_Sales_Model_Quote*/
+        try
+        {
+            /* @var $quote Mage_Sales_Model_Quote */
             $quote = Mage::getModel('sales/quote');
             $quote->setStoreId($storeId)
                     ->setIsActive(false)
                     ->setIsMultiShipping(false)
                     ->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('create_quote_fault', $e->getMessage());
         }
         return (int) $quote->getId();
@@ -79,7 +83,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 
         if ($quote->getGiftMessageId() > 0) {
             $quote->setGiftMessage(
-                Mage::getSingleton('giftmessage/message')->load($quote->getGiftMessageId())->getMessage()
+                    Mage::getSingleton('giftmessage/message')->load($quote->getGiftMessageId())->getMessage()
             );
         }
 
@@ -91,7 +95,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         foreach ($quote->getAllItems() as $item) {
             if ($item->getGiftMessageId() > 0) {
                 $item->setGiftMessage(
-                    Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage()
+                        Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage()
                 );
             }
 
@@ -146,8 +150,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         if ($quote->getIsMultiShipping()) {
             $this->_fault('invalid_checkout_type');
         }
-        if ($quote->getCheckoutMethod() == Mage_Checkout_Model_Api_Resource_Customer::MODE_GUEST
-                && !Mage::helper('checkout')->isAllowedGuestCheckout($quote, $quote->getStoreId())) {
+        if ($quote->getCheckoutMethod() == Mage_Checkout_Model_Api_Resource_Customer::MODE_GUEST && !Mage::helper('checkout')->isAllowedGuestCheckout($quote, $quote->getStoreId())) {
             $this->_fault('guest_checkout_is_not_enabled');
         }
 
@@ -155,37 +158,44 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         $customerResource = Mage::getModel("checkout/api_resource_customer");
         $isNewCustomer = $customerResource->prepareCustomerForQuote($quote);
 
-        try {
+        try
+        {
             $quote->collectTotals();
             /** @var $service Mage_Sales_Model_Service_Quote */
             $service = Mage::getModel('sales/service_quote', $quote);
             $service->submitAll();
 
             if ($isNewCustomer) {
-                try {
+                try
+                {
                     $customerResource->involveNewCustomer($quote);
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     Mage::logException($e);
                 }
             }
 
             $order = $service->getOrder();
             if ($order) {
-                Mage::dispatchEvent('checkout_type_onepage_save_order_after',
-                    array('order' => $order, 'quote' => $quote));
+                Mage::dispatchEvent('checkout_type_onepage_save_order_after', array('order' => $order, 'quote' => $quote));
 
-                try {
+                try
+                {
                     $order->sendNewOrderEmail();
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     Mage::logException($e);
                 }
             }
 
             Mage::dispatchEvent(
-                'checkout_submit_all_after',
-                array('order' => $order, 'quote' => $quote)
+                    'checkout_submit_all_after', array('order' => $order, 'quote' => $quote)
             );
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('create_order_fault', $e->getMessage());
         }
 
@@ -216,4 +226,5 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 
         return $agreements;
     }
+
 }

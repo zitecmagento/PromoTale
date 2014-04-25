@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Key for cache
      */
@@ -72,7 +74,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getTranslatorScript()
     {
-        $script = 'var Translator = new Translate('.$this->getTranslateJson().');';
+        $script = 'var Translator = new Translate(' . $this->getTranslateJson() . ');';
         return $this->getScript($script);
     }
 
@@ -85,7 +87,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     public function getScript($script)
     {
         return '<script type="text/javascript">//<![CDATA[
-        '.$script.'
+        ' . $script . '
         //]]></script>';
     }
 
@@ -97,7 +99,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function includeScript($file)
     {
-        return '<script type="text/javascript" src="'.$this->getJsUrl($file).'"></script>'."\n";
+        return '<script type="text/javascript" src="' . $this->getJsUrl($file) . '"></script>' . "\n";
     }
 
     /**
@@ -108,7 +110,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function includeSkinScript($file)
     {
-        return '<script type="text/javascript" src="'.$this->getJsSkinUrl($file).'"></script>';
+        return '<script type="text/javascript" src="' . $this->getJsSkinUrl($file) . '"></script>';
     }
 
     /**
@@ -119,7 +121,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getJsUrl($file)
     {
-        return Mage::getBaseUrl('js').$file;
+        return Mage::getBaseUrl('js') . $file;
     }
 
     /**
@@ -145,10 +147,10 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
             $messages = $this->_getXmlConfig()->getXpath('*/message');
             if (!empty($messages)) {
                 foreach ($messages as $message) {
-                    $messageText = (string)$message;
+                    $messageText = (string) $message;
                     $module = $message->getParent()->getAttribute("module");
                     $this->_translateData[$messageText] = Mage::helper(empty($module) ? 'core' : $module
-                    )->__($messageText);
+                            )->__($messageText);
                 }
             }
 
@@ -179,12 +181,12 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                 Mage::getConfig()->loadModulesConfiguration(self::JAVASCRIPT_TRANSLATE_CONFIG_FILENAME, $xmlConfig);
 
                 if ($canUsaCache) {
-                    Mage::app()->saveCache($xmlConfig->getXmlString(), self::JAVASCRIPT_TRANSLATE_CONFIG_KEY,
-                        array(Mage_Core_Model_Config::CACHE_TAG));
+                    Mage::app()->saveCache($xmlConfig->getXmlString(), self::JAVASCRIPT_TRANSLATE_CONFIG_KEY, array(Mage_Core_Model_Config::CACHE_TAG));
                 }
             }
             $this->_config = $xmlConfig;
         }
         return $this->_config;
     }
+
 }

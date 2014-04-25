@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: MediaGroup.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Media_Extension_MediaGroup
  */
@@ -120,27 +119,27 @@ class Zend_Gdata_YouTube_Extension_MediaGroup extends Zend_Gdata_Media_Extension
         $element = parent::getDOM($doc, $majorVersion, $minorVersion);
         if ($this->_duration !== null) {
             $element->appendChild(
-                $this->_duration->getDOM($element->ownerDocument));
+                    $this->_duration->getDOM($element->ownerDocument));
         }
         if ($this->_private !== null) {
             $element->appendChild(
-                $this->_private->getDOM($element->ownerDocument));
+                    $this->_private->getDOM($element->ownerDocument));
         }
         if ($this->_videoid != null) {
             $element->appendChild(
-                $this->_videoid->getDOM($element->ownerDocument));
+                    $this->_videoid->getDOM($element->ownerDocument));
         }
         if ($this->_uploaded != null) {
             $element->appendChild(
-                $this->_uploaded->getDOM($element->ownerDocument));
+                    $this->_uploaded->getDOM($element->ownerDocument));
         }
         if ($this->_mediacredit != null) {
             $element->appendChild(
-                $this->_mediacredit->getDOM($element->ownerDocument));
+                    $this->_mediacredit->getDOM($element->ownerDocument));
         }
         if ($this->_mediarating != null) {
             $element->appendChild(
-                $this->_mediarating->getDOM($element->ownerDocument));
+                    $this->_mediarating->getDOM($element->ownerDocument));
         }
         return $element;
     }
@@ -182,17 +181,17 @@ class Zend_Gdata_YouTube_Extension_MediaGroup extends Zend_Gdata_Media_Extension
                 break;
             case $this->lookupNamespace('yt') . ':' . 'videoid':
                 $videoid = new Zend_Gdata_YouTube_Extension_VideoId();
-                $videoid ->transferFromDOM($child);
+                $videoid->transferFromDOM($child);
                 $this->_videoid = $videoid;
                 break;
             case $this->lookupNamespace('yt') . ':' . 'uploaded':
                 $uploaded = new Zend_Gdata_YouTube_Extension_Uploaded();
-                $uploaded ->transferFromDOM($child);
+                $uploaded->transferFromDOM($child);
                 $this->_uploaded = $uploaded;
                 break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 
@@ -333,4 +332,5 @@ class Zend_Gdata_YouTube_Extension_MediaGroup extends Zend_Gdata_Media_Extension
         $this->_mediacredit = $value;
         return $this;
     }
+
 }

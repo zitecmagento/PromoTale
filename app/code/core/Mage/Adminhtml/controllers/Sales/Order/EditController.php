@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,8 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 require_once('CreateController.php');
+
 /**
  * Adminhtml sales order edit controller
  *
@@ -34,6 +35,7 @@ require_once('CreateController.php');
  */
 class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Order_CreateController
 {
+
     /**
      * Start edit order initialization
      */
@@ -43,19 +45,23 @@ class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Ord
         $orderId = $this->getRequest()->getParam('order_id');
         $order = Mage::getModel('sales/order')->load($orderId);
 
-        try {
+        try
+        {
             if ($order->getId()) {
                 $this->_getSession()->setUseOldShippingMethod(true);
                 $this->_getOrderCreateModel()->initFromOrder($order);
                 $this->_redirect('*/*');
-            }
-            else {
+            } else {
                 $this->_redirect('*/sales_order/');
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             $this->_redirect('*/sales_order/view', array('order_id' => $orderId));
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::getSingleton('adminhtml/session')->addException($e, $e->getMessage());
             $this->_redirect('*/sales_order/view', array('order_id' => $orderId));
         }
@@ -70,8 +76,8 @@ class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Ord
         $this->loadLayout();
 
         $this->_initSession()
-            ->_setActiveMenu('sales/order')
-            ->renderLayout();
+                ->_setActiveMenu('sales/order')
+                ->renderLayout();
     }
 
     /**
@@ -83,4 +89,5 @@ class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Ord
     {
         return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/edit');
     }
+
 }

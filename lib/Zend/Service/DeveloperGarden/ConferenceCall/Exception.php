@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * Zend_Service_Exception
  */
@@ -35,4 +35,5 @@
  */
 class Zend_Service_DeveloperGarden_ConferenceCall_Exception extends Zend_Service_DeveloperGarden_Exception
 {
+    
 }

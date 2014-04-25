@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Newsletter Data Helper
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     const XML_PATH_TEMPLATE_FILTER = 'global/newsletter/tempate_filter';
 
     /**
@@ -45,12 +46,12 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     public function getConfirmationUrl($subscriber)
     {
         return Mage::getModel('core/url')
-            ->setStore($subscriber->getStoreId())
-            ->getUrl('newsletter/subscriber/confirm', array(
-                'id'     => $subscriber->getId(),
-                'code'   => $subscriber->getCode(),
-                '_nosid' => true
-            ));
+                        ->setStore($subscriber->getStoreId())
+                        ->getUrl('newsletter/subscriber/confirm', array(
+                            'id' => $subscriber->getId(),
+                            'code' => $subscriber->getCode(),
+                            '_nosid' => true
+        ));
     }
 
     /**
@@ -62,12 +63,12 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     public function getUnsubscribeUrl($subscriber)
     {
         return Mage::getModel('core/url')
-            ->setStore($subscriber->getStoreId())
-            ->getUrl('newsletter/subscriber/unsubscribe', array(
-                'id'     => $subscriber->getId(),
-                'code'   => $subscriber->getCode(),
-                '_nosid' => true
-            ));
+                        ->setStore($subscriber->getStoreId())
+                        ->getUrl('newsletter/subscriber/unsubscribe', array(
+                            'id' => $subscriber->getId(),
+                            'code' => $subscriber->getCode(),
+                            '_nosid' => true
+        ));
     }
 
     /**
@@ -77,7 +78,8 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getTemplateProcessor()
     {
-        $model = (string)Mage::getConfig()->getNode(self::XML_PATH_TEMPLATE_FILTER);
+        $model = (string) Mage::getConfig()->getNode(self::XML_PATH_TEMPLATE_FILTER);
         return Mage::getModel($model);
     }
+
 }

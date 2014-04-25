@@ -21,7 +21,6 @@
  * @version    $Id: ListmaniaList.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Amazon_ListmaniaList
 {
+
     /**
      * @var string
      */
@@ -55,4 +55,5 @@ class Zend_Service_Amazon_ListmaniaList
             $this->$el = (string) $xpath->query("./az:$el/text()", $dom)->item(0)->data;
         }
     }
+
 }

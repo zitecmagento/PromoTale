@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Result.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Represents a single Technorati Search query result object.
  * It is never returned as a standalone object,
@@ -35,6 +35,7 @@
  */
 abstract class Zend_Service_Technorati_Result
 {
+
     /**
      * An associative array of 'fieldName' => 'xmlfieldtag'
      *
@@ -59,7 +60,6 @@ abstract class Zend_Service_Technorati_Result
      */
     protected $_xpath;
 
-
     /**
      * Constructs a new object from DOM Element.
      * Properties are automatically fetched from XML
@@ -79,7 +79,7 @@ abstract class Zend_Service_Technorati_Result
         $this->_fields = array_merge($this->_fields, $fields);
 
         // add results to appropriate fields
-        foreach($this->_fields as $phpName => $xmlName) {
+        foreach ($this->_fields as $phpName => $xmlName) {
             $query = "./$xmlName/text()";
             $node = $this->_xpath->query($query, $this->_dom);
             if ($node->length == 1) {
@@ -118,4 +118,5 @@ abstract class Zend_Service_Technorati_Result
     {
         return $this->_dom->ownerDocument->saveXML($this->_dom);
     }
+
 }

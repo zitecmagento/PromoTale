@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Mcrypt plugin
  *
@@ -34,12 +34,13 @@
  */
 class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
 {
+
     /**
      * Constuctor
      *
      * @param array $data
      */
-    public function __construct(array $data=array())
+    public function __construct(array $data = array())
     {
         parent::__construct($data);
     }
@@ -65,11 +66,10 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
         if (!$this->getInitVector()) {
             if (MCRYPT_MODE_CBC == $this->getMode()) {
                 $this->setInitVector(substr(
-                    md5(mcrypt_create_iv (mcrypt_enc_get_iv_size($this->getHandler()), MCRYPT_RAND)),
-                    - mcrypt_enc_get_iv_size($this->getHandler())
+                                md5(mcrypt_create_iv(mcrypt_enc_get_iv_size($this->getHandler()), MCRYPT_RAND)), - mcrypt_enc_get_iv_size($this->getHandler())
                 ));
             } else {
-                $this->setInitVector(mcrypt_create_iv (mcrypt_enc_get_iv_size($this->getHandler()), MCRYPT_RAND));
+                $this->setInitVector(mcrypt_create_iv(mcrypt_enc_get_iv_size($this->getHandler()), MCRYPT_RAND));
             }
         }
 
@@ -77,7 +77,7 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
 
         if (strlen($key) > $maxKeySize) { // strlen() intentionally, to count bytes, rather than characters
             $this->setHandler(null);
-            throw new Varien_Exception('Maximum key size must be smaller '.$maxKeySize);
+            throw new Varien_Exception('Maximum key size must be smaller ' . $maxKeySize);
         }
 
         mcrypt_generic_init($this->getHandler(), $key, $this->getInitVector());
@@ -135,4 +135,5 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
         mcrypt_generic_deinit($this->getHandler());
         mcrypt_module_close($this->getHandler());
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Insignificant.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Search_Query */
 #require_once 'Zend/Search/Lucene/Search/Query.php';
-
 
 /**
  * The insignificant query returns empty result, but doesn't limit result set as a part of other queries
@@ -36,6 +34,7 @@
  */
 class Zend_Search_Lucene_Search_Query_Insignificant extends Zend_Search_Lucene_Search_Query
 {
+
     /**
      * Re-write query into primitive queries in the context of specified index
      *
@@ -135,5 +134,5 @@ class Zend_Search_Lucene_Search_Query_Insignificant extends Zend_Search_Lucene_S
     {
         return '<InsignificantQuery>';
     }
-}
 
+}

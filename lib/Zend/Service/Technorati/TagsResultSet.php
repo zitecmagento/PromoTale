@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TagsResultSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Technorati_ResultSet
  */
 #require_once 'Zend/Service/Technorati/ResultSet.php';
-
 
 /**
  * Represents a Technorati TopTags or BlogPostTags queries result set.
@@ -38,6 +36,7 @@
  */
 class Zend_Service_Technorati_TagsResultSet extends Zend_Service_Technorati_ResultSet
 {
+
     /**
      * Constructs a new object object from DOM Document.
      *
@@ -47,7 +46,7 @@ class Zend_Service_Technorati_TagsResultSet extends Zend_Service_Technorati_Resu
     {
         parent::__construct($dom, $options);
 
-        $this->_totalResultsReturned  = (int) $this->_xpath->evaluate("count(/tapi/document/item)");
+        $this->_totalResultsReturned = (int) $this->_xpath->evaluate("count(/tapi/document/item)");
         $this->_totalResultsAvailable = (int) $this->_totalResultsReturned;
     }
 
@@ -64,4 +63,5 @@ class Zend_Service_Technorati_TagsResultSet extends Zend_Service_Technorati_Resu
         #require_once 'Zend/Service/Technorati/TagsResult.php';
         return new Zend_Service_Technorati_TagsResult($this->_results->item($this->_currentIndex));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,10 +34,10 @@
  */
 class Mage_Rss_Block_List extends Mage_Core_Block_Template
 {
+
     const XML_PATH_RSS_METHODS = 'rss';
 
     protected $_rssFeeds = array();
-
 
     /**
      * Add Link elements to head
@@ -45,11 +46,11 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        $head   = $this->getLayout()->getBlock('head');
-        $feeds  = $this->getRssMiscFeeds();
+        $head = $this->getLayout()->getBlock('head');
+        $feeds = $this->getRssMiscFeeds();
         if ($head && !empty($feeds)) {
             foreach ($feeds as $feed) {
-                $head->addItem('rss', $feed['url'], 'title="'.$feed['label'].'"');
+                $head->addItem('rss', $feed['url'], 'title="' . $feed['label'] . '"');
             }
         }
         return parent::_prepareLayout();
@@ -72,7 +73,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
      * @param   string $label
      * @return  Mage_Core_Helper_Abstract
      */
-    public function addRssFeed($url, $label, $param = array(), $customerGroup=false)
+    public function addRssFeed($url, $label, $param = array(), $customerGroup = false)
     {
         $param = array_merge($param, array('store_id' => $this->getCurrentStoreId()));
         if ($customerGroup) {
@@ -80,17 +81,17 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
         }
 
         $this->_rssFeeds[] = new Varien_Object(
-            array(
-                'url'   => Mage::getUrl($url, $param),
-                'label' => $label
-            )
+                array(
+            'url' => Mage::getUrl($url, $param),
+            'label' => $label
+                )
         );
         return $this;
     }
 
     public function resetRssFeed()
     {
-        $this->_rssFeeds=array();
+        $this->_rssFeeds = array();
     }
 
     public function getCurrentStoreId()
@@ -116,18 +117,18 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
         $this->CategoriesRssFeed();
         return $this->getRssFeeds();
 
-/*      $section = Mage::getSingleton('adminhtml/config')->getSections();
-        $catalogFeeds = $section->rss->groups->catalog->fields[0];
-        $res = array();
-        foreach($catalogFeeds as $code => $feed){
-            $prefix = self::XML_PATH_RSS_METHODS.'/catalog/'.$code;
-            if (!Mage::getStoreConfig($prefix) || $code=='tag') {
-                continue;
-            }
-            $res[$code] = $feed;
-        }
-        return $res;
-*/
+        /*      $section = Mage::getSingleton('adminhtml/config')->getSections();
+          $catalogFeeds = $section->rss->groups->catalog->fields[0];
+          $res = array();
+          foreach($catalogFeeds as $code => $feed){
+          $prefix = self::XML_PATH_RSS_METHODS.'/catalog/'.$code;
+          if (!Mage::getStoreConfig($prefix) || $code=='tag') {
+          continue;
+          }
+          $res[$code] = $feed;
+          }
+          return $res;
+         */
     }
 
     public function getRssMiscFeeds()
@@ -140,47 +141,47 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     }
 
     /*
-    public function getCatalogRssUrl($code)
-    {
-        $store_id = Mage::app()->getStore()->getId();
-        $param = array('store_id' => $store_id);
-        $custGroup = Mage::getSingleton('customer/session')->getCustomerGroupId();
-        if ($custGroup) {
-            $param = array_merge($param, array('cid' => $custGroup));
-        }
+      public function getCatalogRssUrl($code)
+      {
+      $store_id = Mage::app()->getStore()->getId();
+      $param = array('store_id' => $store_id);
+      $custGroup = Mage::getSingleton('customer/session')->getCustomerGroupId();
+      if ($custGroup) {
+      $param = array_merge($param, array('cid' => $custGroup));
+      }
 
-        return Mage::getUrl('rss/catalog/'.$code, $param);
-    }
-    */
+      return Mage::getUrl('rss/catalog/'.$code, $param);
+      }
+     */
 
     public function NewProductRssFeed()
     {
-        $path = self::XML_PATH_RSS_METHODS.'/catalog/new';
-        if((bool)Mage::getStoreConfig($path)){
+        $path = self::XML_PATH_RSS_METHODS . '/catalog/new';
+        if ((bool) Mage::getStoreConfig($path)) {
             $this->addRssFeed($path, $this->__('New Products'));
         }
     }
 
     public function SpecialProductRssFeed()
     {
-        $path = self::XML_PATH_RSS_METHODS.'/catalog/special';
-        if((bool)Mage::getStoreConfig($path)){
-            $this->addRssFeed($path, $this->__('Special Products'),array(),true);
+        $path = self::XML_PATH_RSS_METHODS . '/catalog/special';
+        if ((bool) Mage::getStoreConfig($path)) {
+            $this->addRssFeed($path, $this->__('Special Products'), array(), true);
         }
     }
 
     public function SalesRuleProductRssFeed()
     {
-        $path = self::XML_PATH_RSS_METHODS.'/catalog/salesrule';
-        if((bool)Mage::getStoreConfig($path)){
-            $this->addRssFeed($path, $this->__('Coupons/Discounts'),array(),true);
+        $path = self::XML_PATH_RSS_METHODS . '/catalog/salesrule';
+        if ((bool) Mage::getStoreConfig($path)) {
+            $this->addRssFeed($path, $this->__('Coupons/Discounts'), array(), true);
         }
     }
 
     public function CategoriesRssFeed()
     {
-        $path = self::XML_PATH_RSS_METHODS.'/catalog/category';
-        if((bool)Mage::getStoreConfig($path)){
+        $path = self::XML_PATH_RSS_METHODS . '/catalog/category';
+        if ((bool) Mage::getStoreConfig($path)) {
             $category = Mage::getModel('catalog/category');
 
             /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection */
@@ -193,17 +194,18 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
             }
 
             $collection = $category->getCollection()
-                ->addAttributeToSelect('url_key')
-                ->addAttributeToSelect('name')
-                ->addAttributeToSelect('is_anchor')
-                ->addAttributeToFilter('is_active',1)
-                ->addIdFilter($nodeIds)
-                ->addAttributeToSort('name')
-                ->load();
+                    ->addAttributeToSelect('url_key')
+                    ->addAttributeToSelect('name')
+                    ->addAttributeToSelect('is_anchor')
+                    ->addAttributeToFilter('is_active', 1)
+                    ->addIdFilter($nodeIds)
+                    ->addAttributeToSort('name')
+                    ->load();
 
             foreach ($collection as $category) {
-                $this->addRssFeed('rss/catalog/category', $category->getName(),array('cid'=>$category->getId()));
+                $this->addRssFeed('rss/catalog/category', $category->getName(), array('cid' => $category->getId()));
             }
         }
     }
+
 }

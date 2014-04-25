@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_CatalogSearch_Model_Fulltext_Observer
 {
+
     /**
      * Retrieve fulltext (indexer) model
      *
@@ -54,8 +56,8 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
         $product = $observer->getEvent()->getProduct();
 
         $this->_getFulltextModel()
-            ->rebuildIndex(null, $product->getId())
-            ->resetSearchResults();
+                ->rebuildIndex(null, $product->getId())
+                ->resetSearchResults();
 
         return $this;
     }
@@ -71,8 +73,8 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
         $product = $observer->getEvent()->getProduct();
 
         $this->_getFulltextModel()
-            ->cleanIndex(null, $product->getId())
-            ->resetSearchResults();
+                ->cleanIndex(null, $product->getId())
+                ->resetSearchResults();
 
         return $this;
     }
@@ -104,15 +106,14 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
             if ($attribute->getIsSearchable()) {
                 $showNotice = true;
             }
-        }
-        elseif ($attribute->dataHasChangedFor('is_searchable')) {
+        } elseif ($attribute->dataHasChangedFor('is_searchable')) {
             $showNotice = true;
         }
 
         if ($showNotice) {
             $url = Mage::getSingleton('adminhtml/url')->getUrl('adminhtml/system_cache');
             Mage::getSingleton('adminhtml/session')->addNotice(
-                Mage::helper('catalogsearch')->__('Attribute setting change related with Search Index. Please run <a href="%s">Rebuild Search Index</a> process.', $url)
+                    Mage::helper('catalogsearch')->__('Attribute setting change related with Search Index. Please run <a href="%s">Rebuild Search Index</a> process.', $url)
             );
         }
 
@@ -127,7 +128,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     public function refreshIndexAfterImport()
     {
         $this->_getFulltextModel()
-            ->rebuildIndex();
+                ->rebuildIndex();
         return $this;
     }
 
@@ -160,13 +161,12 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
             foreach (Mage::app()->getWebsite($websiteId)->getStoreIds() as $storeId) {
                 if ($actionType == 'remove') {
                     $this->_getFulltextModel()
-                        ->cleanIndex($storeId, $productIds)
-                        ->resetSearchResults();
-                }
-                elseif ($actionType == 'add') {
+                            ->cleanIndex($storeId, $productIds)
+                            ->resetSearchResults();
+                } elseif ($actionType == 'add') {
                     $this->_getFulltextModel()
-                        ->rebuildIndex($storeId, $productIds)
-                        ->resetSearchResults();
+                            ->rebuildIndex($storeId, $productIds)
+                            ->resetSearchResults();
                 }
             }
         }
@@ -186,8 +186,9 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
         /* @var $store Mage_Core_Model_Store */
 
         $this->_getFulltextModel()
-            ->cleanIndex($store->getId());
+                ->cleanIndex($store->getId());
 
         return $this;
     }
+
 }

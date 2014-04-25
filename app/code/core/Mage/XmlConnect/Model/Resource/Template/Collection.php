@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Resource_Template_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Internal constructor
      *
@@ -63,10 +65,10 @@ class Mage_XmlConnect_Model_Resource_Template_Collection extends Mage_Core_Model
     protected function _joinApplicationName()
     {
         $this->getSelect()->joinLeft(
-            array('app' => $this->getTable('xmlconnect/application')),
-            'app.application_id = main_table.application_id',
-            array('app_name' => 'app.name', 'app_code' => 'app.code')
+                array('app' => $this->getTable('xmlconnect/application')), 'app.application_id = main_table.application_id', array(
+            'app_name' => 'app.name', 'app_code' => 'app.code')
         );
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Date conversion model
  *
@@ -32,6 +32,7 @@
  */
 class Mage_Core_Model_Date
 {
+
     /**
      * Current config offset in seconds
      *
@@ -77,7 +78,7 @@ class Mage_Core_Model_Date
         $result = true;
         $offset = 0;
 
-        if (!is_null($timezone)){
+        if (!is_null($timezone)) {
             $oldzone = @date_default_timezone_get();
             $result = date_default_timezone_set($timezone);
         }
@@ -86,7 +87,7 @@ class Mage_Core_Model_Date
             $offset = gmmktime(0, 0, 0, 1, 2, 1970) - mktime(0, 0, 0, 1, 2, 1970);
         }
 
-        if (!is_null($timezone)){
+        if (!is_null($timezone)) {
             date_default_timezone_set($oldzone);
         }
 
@@ -155,12 +156,11 @@ class Mage_Core_Model_Date
             return false;
         }
 
-        $date      = Mage::app()->getLocale()->date($result);
+        $date = Mage::app()->getLocale()->date($result);
         $timestamp = $date->get(Zend_Date::TIMESTAMP) - $date->get(Zend_Date::TIMEZONE_SECS);
 
         unset($date);
         return $timestamp;
-
     }
 
     /**
@@ -180,7 +180,7 @@ class Mage_Core_Model_Date
             $result = strtotime($input);
         }
 
-        $date      = Mage::app()->getLocale()->date($result);
+        $date = Mage::app()->getLocale()->date($result);
         $timestamp = $date->get(Zend_Date::TIMESTAMP) + $date->get(Zend_Date::TIMEZONE_SECS);
 
         unset($date);
@@ -221,7 +221,7 @@ class Mage_Core_Model_Date
             return false;
         }
         foreach (array('hour' => 23, 'minute' => 59, 'second' => 59) as $var => $maxValue) {
-            $value = (int)$$var;
+            $value = (int) $$var;
             if (($value < 0) || ($value > $maxValue)) {
                 return false;
             }
@@ -263,7 +263,7 @@ class Mage_Core_Model_Date
 
         // apply reg rule to found format
         $regex = array_shift($regRule);
-        $mask  = array_shift($regRule);
+        $mask = array_shift($regRule);
         if (!preg_match($regex, $dateTimeString, $matches)) {
             Mage::throwException(Mage::helper('core')->__('Specified date/time "%1$s" do not match format "%2$s".', $dateTimeString, $dateTimeFormat));
         }
@@ -273,7 +273,7 @@ class Mage_Core_Model_Date
         foreach (array('y', 'm', 'd', 'h', 'i', 's') as $key) {
             $value = 0;
             if (isset($mask[$key]) && isset($matches[$mask[$key]])) {
-                $value = (int)$matches[$mask[$key]];
+                $value = (int) $matches[$mask[$key]];
             }
             $result[] = $value;
         }
@@ -285,4 +285,5 @@ class Mage_Core_Model_Date
 
         return $result;
     }
+
 }

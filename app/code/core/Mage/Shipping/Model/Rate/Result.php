@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Shipping_Model_Rate_Result
 {
+
     /**
      * Shippin method rates
      *
@@ -86,8 +86,7 @@ class Mage_Shipping_Model_Rate_Result
         }
         if ($result instanceof Mage_Shipping_Model_Rate_Result_Abstract) {
             $this->_rates[] = $result;
-        }
-        elseif ($result instanceof Mage_Shipping_Model_Rate_Result) {
+        } elseif ($result instanceof Mage_Shipping_Model_Rate_Result) {
             $rates = $result->getAllRates();
             foreach ($rates as $rate) {
                 $this->append($rate);
@@ -215,4 +214,5 @@ class Mage_Shipping_Model_Rate_Result
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: BasicLoader.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
 /**
  * @see Zend_Tool_Framework_Loader_Abstract
  */
@@ -43,9 +43,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_Loader_BasicLoader 
-    implements Zend_Tool_Framework_Loader_Interface, Zend_Tool_Framework_Registry_EnabledInterface
+class Zend_Tool_Framework_Loader_BasicLoader implements Zend_Tool_Framework_Loader_Interface, Zend_Tool_Framework_Registry_EnabledInterface
 {
+
     /**
      * @var Zend_Tool_Framework_Repository_Interface
      */
@@ -55,14 +55,14 @@ class Zend_Tool_Framework_Loader_BasicLoader
      * @var array
      */
     protected $_classesToLoad = array();
-    
+
     public function __construct($options = array())
     {
         if ($options) {
             $this->setOptions($options);
         }
     }
-    
+
     public function setOptions(Array $options)
     {
         foreach ($options as $optionName => $optionValue) {
@@ -72,7 +72,7 @@ class Zend_Tool_Framework_Loader_BasicLoader
             }
         }
     }
-    
+
     /**
      * setRegistry() - required by the enabled interface to get an instance of
      * the registry
@@ -95,17 +95,17 @@ class Zend_Tool_Framework_Loader_BasicLoader
         $this->_classesToLoad = $classesToLoad;
         return $this;
     }
-    
+
     public function load()
     {
         $manifestRegistry = $this->_registry->getManifestRepository();
         $providerRegistry = $this->_registry->getProviderRepository();
-        
+
         $loadedClasses = array();
-        
+
         // loop through the loaded classes and ensure that
         foreach ($this->_classesToLoad as $class) {
-            
+
             if (!class_exists($class)) {
                 Zend_Loader::loadClass($class);
             }
@@ -121,7 +121,6 @@ class Zend_Tool_Framework_Loader_BasicLoader
                 $providerRegistry->addProvider($reflectionClass->newInstance());
                 $loadedClasses[] = $class;
             }
-
         }
 
         return $loadedClasses;
@@ -134,9 +133,8 @@ class Zend_Tool_Framework_Loader_BasicLoader
     private function _isManifestImplementation($reflectionClass)
     {
         return (
-            $reflectionClass->implementsInterface('Zend_Tool_Framework_Manifest_Interface')
-                && !$reflectionClass->isAbstract()
-        );
+                $reflectionClass->implementsInterface('Zend_Tool_Framework_Manifest_Interface') && !$reflectionClass->isAbstract()
+                );
     }
 
     /**
@@ -148,10 +146,8 @@ class Zend_Tool_Framework_Loader_BasicLoader
         $providerRegistry = $this->_registry->getProviderRepository();
 
         return (
-            $reflectionClass->implementsInterface('Zend_Tool_Framework_Provider_Interface')
-                && !$reflectionClass->isAbstract()
-                && !$providerRegistry->hasProvider($reflectionClass->getName(), false)
-        );
+                $reflectionClass->implementsInterface('Zend_Tool_Framework_Provider_Interface') && !$reflectionClass->isAbstract() && !$providerRegistry->hasProvider($reflectionClass->getName(), false)
+                );
     }
-    
+
 }

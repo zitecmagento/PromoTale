@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /**
  * There are two modes to run this script:
  *
@@ -117,29 +116,29 @@
  * --encryption_key             // optional, will be automatically generated and displayed on success, if not specified
  *
  */
-
-if (version_compare(phpversion(), '5.2.0', '<')===true) {
+if (version_compare(phpversion(), '5.2.0', '<') === true) {
     die('ERROR: Whoops, it looks like you have an invalid PHP version. Magento supports PHP 5.2.0 or newer.');
 }
 set_include_path(dirname(__FILE__) . PATH_SEPARATOR . get_include_path());
 require 'app/Mage.php';
 
-try {
+try
+{
     $app = Mage::app('default');
 
     $installer = Mage::getSingleton('install/installer_console');
     /* @var $installer Mage_Install_Model_Installer_Console */
 
     if ($installer->init($app)          // initialize installer
-        && $installer->checkConsole()   // check if the script is run in shell, otherwise redirect to web-installer
-        && $installer->setArgs()        // set and validate script arguments
-        && $installer->install())       // do install
-    {
+            && $installer->checkConsole()   // check if the script is run in shell, otherwise redirect to web-installer
+            && $installer->setArgs()        // set and validate script arguments
+            && $installer->install()) {       // do install
         echo 'SUCCESS: ' . $installer->getEncryptionKey() . "\n";
         exit;
     }
-
-} catch (Exception $e) {
+}
+catch (Exception $e)
+{
     Mage::printException($e);
 }
 

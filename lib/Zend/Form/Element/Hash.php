@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Element_Xhtml */
 #require_once 'Zend/Form/Element/Xhtml.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_Form_Element_Hash extends Zend_Form_Element_Xhtml
 {
+
     /**
      * Use formHidden view helper by default
      * @var string
@@ -79,8 +80,8 @@ class Zend_Form_Element_Hash extends Zend_Form_Element_Xhtml
         parent::__construct($spec, $options);
 
         $this->setAllowEmpty(false)
-             ->setRequired(true)
-             ->initCsrfValidator();
+                ->setRequired(true)
+                ->initCsrfValidator();
     }
 
     /**
@@ -249,11 +250,12 @@ class Zend_Form_Element_Hash extends Zend_Form_Element_Xhtml
     protected function _generateHash()
     {
         $this->_hash = md5(
-            mt_rand(1,1000000)
-            .  $this->getSalt()
-            .  $this->getName()
-            .  mt_rand(1,1000000)
+                mt_rand(1, 1000000)
+                . $this->getSalt()
+                . $this->getName()
+                . mt_rand(1, 1000000)
         );
         $this->setValue($this->_hash);
     }
+
 }

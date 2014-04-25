@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,24 +25,26 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php  foreach ($types as $type) {
-            if ( $messages = $this->getMessages($type) ) {
-                if ( !$html ) {
-                    $html .= '<ul class="messages">';
-                }
-                $html .= '<li class="' . $type . '-msg">';
-                $html .= '<ul>';
+<?php
 
-                foreach ( $messages as $message ) {
-                    $html.= '<li>';
-                    $html.= $message->getText();
-                    $html.= '</li>';
-                }
-                $html .= '</ul>';
-                $html .= '</li>';
-            }
+foreach ($types as $type) {
+    if ($messages = $this->getMessages($type)) {
+        if (!$html) {
+            $html .= '<ul class="messages">';
         }
-        if ( $html) {
-            $html .= '</ul>';
+        $html .= '<li class="' . $type . '-msg">';
+        $html .= '<ul>';
+
+        foreach ($messages as $message) {
+            $html.= '<li>';
+            $html.= $message->getText();
+            $html.= '</li>';
         }
+        $html .= '</ul>';
+        $html .= '</li>';
+    }
+}
+if ($html) {
+    $html .= '</ul>';
+}
 ?>

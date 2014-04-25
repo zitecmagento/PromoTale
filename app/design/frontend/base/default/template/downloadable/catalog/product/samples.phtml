@@ -23,8 +23,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
-
 /**
  * Downloadable product links
  *
@@ -35,11 +33,11 @@
 <?php if ($this->hasSamples()): ?>
     <dl class="item-options">
         <dt><?php echo $this->getSamplesTitle() ?></dt>
-        <?php $_samples = $this->getSamples() ?>
+    <?php $_samples = $this->getSamples() ?>
         <?php foreach ($_samples as $_sample): ?>
             <dd>
-                <a href="<?php echo $this->getSampleUrl($_sample) ?>" <?php echo $this->getIsOpenInNewWindow()?'onclick="this.target=\'_blank\'"':''; ?>><?php echo $this->escapeHtml($_sample->getTitle()); ?></a>
+                <a href="<?php echo $this->getSampleUrl($_sample) ?>" <?php echo $this->getIsOpenInNewWindow() ? 'onclick="this.target=\'_blank\'"' : ''; ?>><?php echo $this->escapeHtml($_sample->getTitle()); ?></a>
             </dd>
-        <?php endforeach; ?>
+    <?php endforeach; ?>
     </dl>
-<?php endif; ?>
+    <?php endif; ?>

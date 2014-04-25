@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Form_Renderer_File extends Enterprise_Customer_Block_Form_Renderer_File
 {
+
     /**
      * Field type
      *
@@ -68,7 +70,7 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_File extends Enterprise_Custo
         );
 
         $attributes += Mage::helper('xmlconnect/customer_form_renderer')
-            ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
+                ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
 
         $fieldXmlObj = $fieldsetXmlObj->addField($this->getHtmlId(), $this->_filedType, $attributes);
         $this->_addValidator($fieldXmlObj);
@@ -92,21 +94,22 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_File extends Enterprise_Custo
             if (!empty($validateRules['max_file_size'])) {
                 $minTextLength = (int) $validateRules['max_file_size'];
                 $validatorXmlObj->addRule(array(
-                    'type'          => 'max_file_size',
-                    'value'         => $minTextLength,
-                    'field_label'   => $this->getLabel()
+                    'type' => 'max_file_size',
+                    'value' => $minTextLength,
+                    'field_label' => $this->getLabel()
                 ));
             }
 
             if (!empty($validateRules['file_extensions'])) {
                 $maxTextLength = $validateRules['file_extensions'];
                 $validatorXmlObj->addRule(array(
-                    'type'          => 'file_extensions',
-                    'value'         => $maxTextLength,
-                    'field_label'   => $this->getLabel()
+                    'type' => 'file_extensions',
+                    'value' => $maxTextLength,
+                    'field_label' => $this->getLabel()
                 ));
             }
         }
         return $this;
     }
+
 }

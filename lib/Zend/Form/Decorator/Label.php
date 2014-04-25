@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Decorator_Abstract */
 #require_once 'Zend/Form/Decorator/Abstract.php';
 
@@ -45,6 +45,7 @@
  */
 class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
 {
+
     /**
      * Default placement: prepend
      * @var string
@@ -138,7 +139,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
      */
     public function getClass()
     {
-        $class   = '';
+        $class = '';
         $element = $this->getElement();
 
         $decoratorClass = $this->getOption('class');
@@ -146,7 +147,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
             $class .= ' ' . $decoratorClass;
         }
 
-        $type  = $element->isRequired() ? 'required' : 'optional';
+        $type = $element->isRequired() ? 'required' : 'optional';
 
         if (!strstr($class, $type)) {
             $class .= ' ' . $type;
@@ -196,11 +197,10 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
     {
         $tail = substr($method, -6);
         $head = substr($method, 0, 3);
-        if (in_array($head, array('get', 'set'))
-            && (('Prefix' == $tail) || ('Suffix' == $tail))
+        if (in_array($head, array('get', 'set')) && (('Prefix' == $tail) || ('Suffix' == $tail))
         ) {
             $position = substr($method, -6);
-            $type     = strtolower(substr($method, 3, 3));
+            $type = strtolower(substr($method, 3, 3));
             switch ($type) {
                 case 'req':
                     $key = 'required' . $position;
@@ -278,7 +278,6 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
         return $label;
     }
 
-
     /**
      * Render a label
      *
@@ -288,18 +287,18 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
     public function render($content)
     {
         $element = $this->getElement();
-        $view    = $element->getView();
+        $view = $element->getView();
         if (null === $view) {
             return $content;
         }
 
-        $label     = $this->getLabel();
+        $label = $this->getLabel();
         $separator = $this->getSeparator();
         $placement = $this->getPlacement();
-        $tag       = $this->getTag();
-        $id        = $this->getId();
-        $class     = $this->getClass();
-        $options   = $this->getOptions();
+        $tag = $this->getTag();
+        $id = $this->getId();
+        $class = $this->getClass();
+        $options = $this->getOptions();
 
 
         if (empty($label) && empty($tag)) {
@@ -317,7 +316,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
             #require_once 'Zend/Form/Decorator/HtmlTag.php';
             $decorator = new Zend_Form_Decorator_HtmlTag();
             $decorator->setOptions(array('tag' => $tag,
-                                         'id'  => $id . '-label'));
+                'id' => $id . '-label'));
 
             $label = $decorator->render($label);
         }
@@ -329,4 +328,5 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
                 return $label . $separator . $content;
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -17,7 +18,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Element_Xhtml */
 #require_once 'Zend/Form/Element/Xhtml.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
 {
+
     /**
      * Plugin loader type
      */
@@ -82,10 +83,10 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('File')
-                 ->addDecorator('Errors')
-                 ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
-                 ->addDecorator('HtmlTag', array('tag' => 'dd'))
-                 ->addDecorator('Label', array('tag' => 'dt'));
+                    ->addDecorator('Errors')
+                    ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
+                    ->addDecorator('HtmlTag', array('tag' => 'dd'))
+                    ->addDecorator('Label', array('tag' => 'dt'));
         }
         return $this;
     }
@@ -151,8 +152,8 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
 
         if (empty($type)) {
             $pluginPrefix = rtrim($prefix, '_') . '_Transfer_Adapter';
-            $pluginPath   = rtrim($path, DIRECTORY_SEPARATOR) . '/Transfer/Adapter/';
-            $loader       = $this->getPluginLoader(self::TRANSFER_ADAPTER);
+            $pluginPath = rtrim($path, DIRECTORY_SEPARATOR) . '/Transfer/Adapter/';
+            $loader = $this->getPluginLoader(self::TRANSFER_ADAPTER);
             $loader->addPrefixPath($pluginPrefix, $pluginPath);
             return parent::addPrefixPath($prefix, $path, null);
         }
@@ -174,7 +175,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
             $this->_adapter = $adapter;
         } elseif (is_string($adapter)) {
             $loader = $this->getPluginLoader(self::TRANSFER_ADAPTER);
-            $class  = $loader->load($adapter);
+            $class = $loader->load($adapter);
             $this->_adapter = new $class;
         } else {
             #require_once 'Zend/Form/Element/Exception.php';
@@ -259,7 +260,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
      */
     public function getValidator($name)
     {
-        $adapter    = $this->getTransferAdapter();
+        $adapter = $this->getTransferAdapter();
         return $adapter->getValidator($name);
     }
 
@@ -419,7 +420,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
             return true;
         }
 
-        $adapter    = $this->getTransferAdapter();
+        $adapter = $this->getTransferAdapter();
         $translator = $this->getTranslator();
         if ($translator !== null) {
             $adapter->setTranslator($translator);
@@ -434,7 +435,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
             }
         }
 
-        if($adapter->isValid($this->getName())) {
+        if ($adapter->isValid($this->getName())) {
             $this->_validated = true;
             return true;
         }
@@ -881,8 +882,8 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     protected function _getErrorMessages()
     {
         $translator = $this->getTranslator();
-        $messages   = $this->getErrorMessages();
-        $value      = $this->getFileName();
+        $messages = $this->getErrorMessages();
+        $value = $this->getFileName();
         foreach ($messages as $key => $message) {
             if (null !== $translator) {
                 $message = $translator->translate($message);
@@ -904,4 +905,5 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
 
         return $messages;
     }
+
 }

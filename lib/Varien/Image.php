@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,8 +34,8 @@
  */
 class Varien_Image
 {
-    protected $_adapter;
 
+    protected $_adapter;
     protected $_fileName;
 
     /**
@@ -44,11 +45,11 @@ class Varien_Image
      * @param string $fileName
      * @return void
      */
-    function __construct($fileName=null, $adapter=Varien_Image_Adapter::ADAPTER_GD2)
+    function __construct($fileName = null, $adapter = Varien_Image_Adapter::ADAPTER_GD2)
     {
         $this->_getAdapter($adapter);
         $this->_fileName = $fileName;
-        if( isset($fileName) ) {
+        if (isset($fileName)) {
             $this->open();
         }
     }
@@ -63,7 +64,7 @@ class Varien_Image
     {
         $this->_getAdapter()->checkDependencies();
 
-        if( !file_exists($this->_fileName) ) {
+        if (!file_exists($this->_fileName)) {
             throw new Exception("File '{$this->_fileName}' does not exists.");
         }
 
@@ -89,7 +90,7 @@ class Varien_Image
      * @access public
      * @return void
      */
-    public function save($destination=null, $newFileName=null)
+    public function save($destination = null, $newFileName = null)
     {
         $this->_getAdapter()->save($destination, $newFileName);
     }
@@ -116,7 +117,7 @@ class Varien_Image
      * @access public
      * @return void
      */
-    public function crop($top=0, $left=0, $right=0, $bottom=0)
+    public function crop($top = 0, $left = 0, $right = 0, $bottom = 0)
     {
         $this->_getAdapter()->crop($top, $left, $right, $bottom);
     }
@@ -181,9 +182,9 @@ class Varien_Image
      * @access public
      * @return void
      */
-    public function watermark($watermarkImage, $positionX=0, $positionY=0, $watermarkImageOpacity=30, $repeat=false)
+    public function watermark($watermarkImage, $positionX = 0, $positionY = 0, $watermarkImageOpacity = 30, $repeat = false)
     {
-        if( !file_exists($watermarkImage) ) {
+        if (!file_exists($watermarkImage)) {
             throw new Exception("Required file '{$watermarkImage}' does not exists.");
         }
         $this->_getAdapter()->watermark($watermarkImage, $positionX, $positionY, $watermarkImageOpacity, $repeat);
@@ -208,7 +209,7 @@ class Varien_Image
      */
     public function process()
     {
-
+        
     }
 
     /**
@@ -219,7 +220,7 @@ class Varien_Image
      */
     public function instruction()
     {
-
+        
     }
 
     /**
@@ -288,10 +289,10 @@ class Varien_Image
      * @param string $adapter
      * @return Varien_Image_Adapter_Abstract
      */
-    protected function _getAdapter($adapter=null)
+    protected function _getAdapter($adapter = null)
     {
-        if( !isset($this->_adapter) ) {
-            $this->_adapter = Varien_Image_Adapter::factory( $adapter );
+        if (!isset($this->_adapter)) {
+            $this->_adapter = Varien_Image_Adapter::factory($adapter);
         }
         return $this->_adapter;
     }
@@ -315,4 +316,5 @@ class Varien_Image
     {
         return $this->_getAdapter()->getOriginalHeight();
     }
+
 }

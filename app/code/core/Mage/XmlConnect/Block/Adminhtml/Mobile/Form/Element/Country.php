@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Country extends Varien_Data_Form_Element_Checkboxes
 {
+
     /**
      * Flag of using the border in the table's TD
      *
@@ -45,7 +47,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Country extends Varien
      *
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setType('checkbox');
@@ -65,7 +67,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Country extends Varien
             return '';
         }
 
-        $columns = (int)$this->getData('columns');
+        $columns = (int) $this->getData('columns');
         $columns = $columns ? $columns : 1;
         $rows = ceil(count($values) / $columns);
         $row = $column = 0;
@@ -166,4 +168,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Country extends Varien
 
         return $html;
     }
+
 }

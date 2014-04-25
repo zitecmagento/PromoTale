@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Xmlconnect_Block_Adminhtml_Mobile_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Class constructor
      */
@@ -64,47 +66,46 @@ class Mage_Xmlconnect_Block_Adminhtml_Mobile_Grid extends Mage_Adminhtml_Block_W
     protected function _prepareColumns()
     {
         $this->addColumn('name', array(
-            'header'    => $this->__('App Name'),
-            'align'     => 'left',
-            'index'     => 'name',
+            'header' => $this->__('App Name'),
+            'align' => 'left',
+            'index' => 'name',
         ));
 
         $this->addColumn('code', array(
-            'header'    => $this->__('App Code'),
-            'align'     => 'left',
-            'index'     => 'code',
-            'width'     => '200',
+            'header' => $this->__('App Code'),
+            'align' => 'left',
+            'index' => 'code',
+            'width' => '200',
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', array(
-                'header'        => $this->__('Store View'),
-                'index'         => 'store_id',
-                'type'          => 'store',
-                'store_view'    => true,
-                'sortable'      => false,
-                'width'         => '250',
+                'header' => $this->__('Store View'),
+                'index' => 'store_id',
+                'type' => 'store',
+                'store_view' => true,
+                'sortable' => false,
+                'width' => '250',
             ));
         }
 
         $this->addColumn('type', array(
-            'header'    => $this->__('Device'),
-            'type'      => 'text',
-            'index'     => 'type',
-            'align'     => 'center',
-            'filter'    => 'adminhtml/widget_grid_column_filter_select',
-            'options'   => Mage::helper('xmlconnect')->getSupportedDevices(),
-            'renderer'  => 'xmlconnect/adminhtml_mobile_grid_renderer_type',
+            'header' => $this->__('Device'),
+            'type' => 'text',
+            'index' => 'type',
+            'align' => 'center',
+            'filter' => 'adminhtml/widget_grid_column_filter_select',
+            'options' => Mage::helper('xmlconnect')->getSupportedDevices(),
+            'renderer' => 'xmlconnect/adminhtml_mobile_grid_renderer_type',
         ));
 
         $this->addColumn('status', array(
-            'header'    => $this->__('Status'),
-            'index'     => 'status',
-            'renderer'  => 'xmlconnect/adminhtml_mobile_grid_renderer_bool',
-            'align'     => 'center',
-            'filter'    => 'adminhtml/widget_grid_column_filter_select',
-            'options'   => Mage::helper('xmlconnect')->getStatusOptions(),
-
+            'header' => $this->__('Status'),
+            'index' => 'status',
+            'renderer' => 'xmlconnect/adminhtml_mobile_grid_renderer_bool',
+            'align' => 'center',
+            'filter' => 'adminhtml/widget_grid_column_filter_select',
+            'options' => Mage::helper('xmlconnect')->getStatusOptions(),
         ));
 
         return parent::_prepareColumns();
@@ -120,4 +121,5 @@ class Mage_Xmlconnect_Block_Adminhtml_Mobile_Grid extends Mage_Adminhtml_Block_W
     {
         return $this->getUrl('*/*/edit', array('application_id' => $row->getId()));
     }
+
 }

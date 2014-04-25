@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,10 +30,9 @@
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement
-    extends Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Columns, that should be removed from grid
      *
@@ -78,7 +78,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement
     public function canShowTab()
     {
         $customer = Mage::registry('current_customer');
-        return (bool)$customer->getId();
+        return (bool) $customer->getId();
     }
 
     /**
@@ -93,7 +93,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/sales_billing_agreement/customerGrid', array('_current'=>true));
+        return $this->getUrl('*/sales_billing_agreement/customerGrid', array('_current' => true));
     }
 
     /**
@@ -114,8 +114,8 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/billing_agreement_collection')
-            ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId())
-            ->setOrder('created_at');
+                ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId())
+                ->setOrder('created_at');
         $this->setCollection($collection);
         return Mage_Adminhtml_Block_Widget_Grid::_prepareCollection();
     }
@@ -136,4 +136,5 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement
         }
         return $result;
     }
+
 }

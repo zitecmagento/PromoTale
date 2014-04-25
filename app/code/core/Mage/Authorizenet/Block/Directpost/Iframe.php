@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Authorizenet_Block_Directpost_Iframe extends Mage_Core_Block_Template
 {
+
     /**
      * Request params
      * @var array
@@ -71,4 +73,5 @@ class Mage_Authorizenet_Block_Directpost_Iframe extends Mage_Core_Block_Template
     {
         return $this->_params;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
@@ -33,7 +33,7 @@ $imagesAttributesIds = implode(",", array(
     (int) $installer->getAttributeId('catalog_product', 'small_image'),
     (int) $installer->getAttributeId('catalog_product', 'image'),
     (int) $installer->getAttributeId('catalog_product', 'thumbnail')
-));
+        ));
 
 
 $installer->startSetup();

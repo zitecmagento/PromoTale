@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Category Flat Indexer Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_Abstract
 {
+
     /**
      * Data key for matching result to be saved in
      */
@@ -127,10 +128,8 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
             } elseif ($event->getType() == Mage_Index_Model_Event::TYPE_SAVE) {
                 /** @var $store Mage_Core_Model_Store */
                 $store = $event->getDataObject();
-                if ($store && ($store->isObjectNew()
-                    || $store->dataHasChangedFor('group_id')
-                    || $store->dataHasChangedFor('root_category_id')
-                )) {
+                if ($store && ($store->isObjectNew() || $store->dataHasChangedFor('group_id') || $store->dataHasChangedFor('root_category_id')
+                        )) {
                     $result = true;
                 } else {
                     $result = false;
@@ -141,8 +140,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
         } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             /** @var $storeGroup Mage_Core_Model_Store_Group */
             $storeGroup = $event->getDataObject();
-            if ($storeGroup
-                && ($storeGroup->dataHasChangedFor('website_id') || $storeGroup->dataHasChangedFor('root_category_id'))
+            if ($storeGroup && ($storeGroup->dataHasChangedFor('website_id') || $storeGroup->dataHasChangedFor('root_category_id'))
             ) {
                 $result = true;
             } else {
@@ -259,4 +257,5 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
     {
         $this->_getIndexer()->reindexAll();
     }
+
 }

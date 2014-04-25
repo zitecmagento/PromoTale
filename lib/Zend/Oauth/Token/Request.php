@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Request.php 20217 2010-01-12 16:01:57Z matthew $
  */
-
 /** Zend_Oauth_Token */
 #require_once 'Zend/Oauth/Token.php';
 
@@ -30,6 +30,7 @@
  */
 class Zend_Oauth_Token_Request extends Zend_Oauth_Token
 {
+
     /**
      * Constructor
      *
@@ -37,9 +38,9 @@ class Zend_Oauth_Token_Request extends Zend_Oauth_Token
      * @param null|Zend_Oauth_Http_Utility $utility
      */
     public function __construct(
-        Zend_Http_Response $response = null,
-        Zend_Oauth_Http_Utility $utility = null
-    ) {
+    Zend_Http_Response $response = null, Zend_Oauth_Http_Utility $utility = null
+    )
+    {
         parent::__construct($response, $utility);
 
         // detect if server supports OAuth 1.0a
@@ -47,4 +48,5 @@ class Zend_Oauth_Token_Request extends Zend_Oauth_Token
             Zend_Oauth_Client::$supportsRevisionA = true;
         }
     }
+
 }

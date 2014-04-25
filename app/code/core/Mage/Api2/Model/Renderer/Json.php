@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Renderer_Json implements Mage_Api2_Model_Renderer_Interface
 {
+
     /**
      * Adapter mime type
      */
@@ -58,4 +60,5 @@ class Mage_Api2_Model_Renderer_Json implements Mage_Api2_Model_Renderer_Interfac
     {
         return self::MIME_TYPE;
     }
+
 }

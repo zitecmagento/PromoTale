@@ -28,9 +28,9 @@
 -->
 <layout version="0.1.0">
 
-<!--
-Default layout, loads most of the pages
--->
+    <!--
+    Default layout, loads most of the pages
+    -->
 
     <default>
         <!-- Mage_Tag -->
@@ -39,27 +39,31 @@ Default layout, loads most of the pages
         </reference>
     </default>
 
-<!--
-Customer account home dashboard layout
--->
+    <!--
+    Customer account home dashboard layout
+    -->
 
     <customer_account_index>
         <!-- Mage_Tag -->
         <reference name="customer_account_dashboard">
-            <action method="unsetChild"><name>customer_account_dashboard_info2</name></action>
+            <action method="unsetChild">
+                <name>customer_account_dashboard_info2</name>
+            </action>
             <block type="tag/customer_recent" name="customer_account_dashboard_info2" as="info2" template="tag/customer/recent.phtml"/>
         </reference>
     </customer_account_index>
 
-<!--
-All tags page
--->
+    <!--
+    All tags page
+    -->
 
     <tag_list_index translate="label">
         <label>Tags List (All Available)</label>
         <!-- Mage_Tag -->
         <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
         </reference>
         <reference name="content">
             <block type="tag/all" name="tags_all" template="tag/cloud.phtml"/>
@@ -70,7 +74,9 @@ All tags page
         <label>Tagged Products List</label>
         <!-- Mage_Tag -->
         <reference name="root">
-            <action method="setMyClass"><value>product-tags-list</value></action>
+            <action method="setMyClass">
+                <value>product-tags-list</value>
+            </action>
         </reference>
         <reference name="content">
             <block type="tag/product_result" name="tag_products" template="catalogsearch/result.phtml">
@@ -78,7 +84,9 @@ All tags page
                     <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
                         <block type="page/html_pager" name="product_list_toolbar_pager"/>
                     </block>
-                    <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+                    <action method="setToolbarBlockName">
+                        <name>product_list_toolbar</name>
+                    </action>
                 </block>
                 <action method="setListOrders"/>
                 <action method="setListModes"/>
@@ -91,7 +99,9 @@ All tags page
         <label>Customer My Account My Tags List</label>
         <update handle="customer_account"/>
         <reference name="root">
-            <action method="setHeaderTitle" translate="title" module="customer"><title>My Account</title></action>
+            <action method="setHeaderTitle" translate="title" module="customer">
+                <title>My Account</title>
+            </action>
         </reference>
         <reference name="my.account.wrapper">
             <block type="tag/customer_tags" name="customer_tags" template="tag/customer/tags.phtml"/>
@@ -102,7 +112,9 @@ All tags page
         <label>Customer My Account Tag View</label>
         <update handle="customer_account"/>
         <reference name="root">
-            <action method="setHeaderTitle" translate="title" module="customer"><title>My Account</title></action>
+            <action method="setHeaderTitle" translate="title" module="customer">
+                <title>My Account</title>
+            </action>
         </reference>
         <reference name="my.account.wrapper">
             <block type="tag/customer_view" name="customer_view" template="tag/customer/view.phtml"/>

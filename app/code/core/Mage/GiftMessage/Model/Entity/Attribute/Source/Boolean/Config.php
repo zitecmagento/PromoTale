@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Gift Message attribute source model
  *
@@ -36,6 +36,7 @@
  */
 class Mage_GiftMessage_Model_Entity_Attribute_Source_Boolean_Config extends Mage_Eav_Model_Entity_Attribute_Source_Boolean
 {
+
     /**
      * Retrieve all attribute options
      *
@@ -47,15 +48,15 @@ class Mage_GiftMessage_Model_Entity_Attribute_Source_Boolean_Config extends Mage
             $this->_options = array(
                 array(
                     'label' => Mage::helper('giftmessage')->__('Yes'),
-                    'value' =>  1
+                    'value' => 1
                 ),
                 array(
                     'label' => Mage::helper('giftmessage')->__('No'),
-                    'value' =>  0
+                    'value' => 0
                 ),
                 array(
                     'label' => Mage::helper('giftmessage')->__('Use config'),
-                    'value' =>  2
+                    'value' => 2
                 )
             );
         }

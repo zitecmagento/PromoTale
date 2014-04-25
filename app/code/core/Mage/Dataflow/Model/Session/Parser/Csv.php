@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert csv parser
  *
@@ -40,12 +40,12 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
 
-        if ($fDel=='\\t') {
+        if ($fDel == '\\t') {
             $fDel = "\t";
         }
 
         // fixed for multibyte characters
-        setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode().'.UTF-8');
+        setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode() . '.UTF-8');
 
         $fp = tmpfile();
         fputs($fp, $this->getData());
@@ -55,27 +55,27 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
         $sessionId = Mage::registry('current_dataflow_session_id');
         $import = Mage::getModel('dataflow/import');
         $map = new Varien_Convert_Mapper_Column();
-        for ($i=0; $line = fgetcsv($fp, 4096, $fDel, $fEnc); $i++) {
-            if (0==$i) {
+        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc); $i++) {
+            if (0 == $i) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
                     continue;
                 } else {
-                    foreach ($line as $j=>$f) {
-                        $fields[$j] = 'column'.($j+1);
+                    foreach ($line as $j => $f) {
+                        $fields[$j] = 'column' . ($j + 1);
                     }
                 }
             }
             $row = array();
-            foreach ($fields as $j=>$f) {
+            foreach ($fields as $j => $f) {
                 $row[$f] = $line[$j];
             }
             /*
-            if ($i <= 100)
-            {
-                $data[] = $row;
-            }
-            */
+              if ($i <= 100)
+              {
+              $data[] = $row;
+              }
+             */
             //$map = new Varien_Convert_Mapper_Column();
             $map->setData(array($row));
             $map->map();
@@ -92,7 +92,9 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
         unset($sessionId);
         //$this->setData($data);
         return $this;
-    } // end
+    }
+
+// end
 
     public function unparse()
     {
@@ -103,7 +105,7 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
         $fEsc = $this->getVar('escape', '\\');
         $lDel = "\r\n";
 
-        if ($fDel=='\\t') {
+        if ($fDel == '\\t') {
             $fDel = "\t";
         }
 
@@ -114,22 +116,22 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
         if ($this->getVar('fieldnames')) {
             $line = array();
             foreach ($fields as $f) {
-                $line[] = $fEnc.str_replace(array('"', '\\'), array($fEsc.'"', $fEsc.'\\'), $f).$fEnc;
+                $line[] = $fEnc . str_replace(array('"', '\\'), array($fEsc . '"', $fEsc . '\\'), $f) . $fEnc;
             }
             $lines[] = join($fDel, $line);
         }
-        foreach ($data as $i=>$row) {
+        foreach ($data as $i => $row) {
             $line = array();
             foreach ($fields as $f) {
                 /*
-                if (isset($row[$f]) && (preg_match('\"', $row[$f]) || preg_match('\\', $row[$f]))) {
-                    $tmp = str_replace('\\', '\\\\',$row[$f]);
-                    echo str_replace('"', '\"',$tmp).'<br>';
-                }
-                */
-                $v = isset($row[$f]) ? str_replace(array('"', '\\'), array($fEsc.'"', $fEsc.'\\'), $row[$f]) : '';
+                  if (isset($row[$f]) && (preg_match('\"', $row[$f]) || preg_match('\\', $row[$f]))) {
+                  $tmp = str_replace('\\', '\\\\',$row[$f]);
+                  echo str_replace('"', '\"',$tmp).'<br>';
+                  }
+                 */
+                $v = isset($row[$f]) ? str_replace(array('"', '\\'), array($fEsc . '"', $fEsc . '\\'), $row[$f]) : '';
 
-                $line[] = $fEnc.$v.$fEnc;
+                $line[] = $fEnc . $v . $fEnc;
             }
             $lines[] = join($fDel, $line);
         }

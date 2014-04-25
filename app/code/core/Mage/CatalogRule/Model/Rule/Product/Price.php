@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Rule Product Aggregated Price per date Model
@@ -51,6 +51,7 @@
  */
 class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
 {
+
     /**
      * Initialize resource model
      *
@@ -72,13 +73,12 @@ class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
      * @param string $websiteDate
      * @return Mage_CatalogRule_Model_Rule_Product_Price
      */
-    public function applyPriceRuleToIndexTable(Varien_Db_Select $select, $indexTable, $entityId, $customerGroupId,
-        $websiteId, $updateFields, $websiteDate)
+    public function applyPriceRuleToIndexTable(Varien_Db_Select $select, $indexTable, $entityId, $customerGroupId, $websiteId, $updateFields, $websiteDate)
     {
 
-        $this->_getResource()->applyPriceRuleToIndexTable($select, $indexTable, $entityId, $customerGroupId, $websiteId,
-            $updateFields, $websiteDate);
+        $this->_getResource()->applyPriceRuleToIndexTable($select, $indexTable, $entityId, $customerGroupId, $websiteId, $updateFields, $websiteDate);
 
         return $this;
     }
+
 }

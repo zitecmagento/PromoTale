@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_GoogleBase_Block_Adminhtml_Items_Item extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -52,27 +54,23 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Item extends Mage_Adminhtml_Block_Wi
 
     protected function _prepareColumns()
     {
-        $this->addColumn('name',
-            array(
-                'header'    => $this->__('Product Name'),
-                'width'     => '30%',
-                'index'     => 'name',
+        $this->addColumn('name', array(
+            'header' => $this->__('Product Name'),
+            'width' => '30%',
+            'index' => 'name',
         ));
 
-        $this->addColumn('gbase_item_id',
-            array(
-                'header'    => $this->__('Google Base ID'),
-                'width'     => '150px',
-                'index'     => 'gbase_item_id',
-                'renderer'  => 'googlebase/adminhtml_items_renderer_id',
-
+        $this->addColumn('gbase_item_id', array(
+            'header' => $this->__('Google Base ID'),
+            'width' => '150px',
+            'index' => 'gbase_item_id',
+            'renderer' => 'googlebase/adminhtml_items_renderer_id',
         ));
 
-        $this->addColumn('gbase_itemtype',
-            array(
-                'header'    => $this->__('Google Base Item Type'),
-                'width'     => '150px',
-                'index'     => 'gbase_itemtype',
+        $this->addColumn('gbase_itemtype', array(
+            'header' => $this->__('Google Base Item Type'),
+            'width' => '150px',
+            'index' => 'gbase_itemtype',
         ));
 
 //        $this->addColumn('published',
@@ -83,38 +81,34 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Item extends Mage_Adminhtml_Block_Wi
 //                'index'     => 'published',
 //        ));
 
-        $this->addColumn('expires',
-            array(
-                'header'    => $this->__('Expires'),
-                'type'      => 'datetime',
-                'width'     => '100px',
-                'index'     => 'expires',
+        $this->addColumn('expires', array(
+            'header' => $this->__('Expires'),
+            'type' => 'datetime',
+            'width' => '100px',
+            'index' => 'expires',
         ));
 
-        $this->addColumn('impr',
-            array(
-                'header'    => $this->__('Impr.'),
-                'width'     => '150px',
-                'index'     => 'impr',
-                'filter'    => false,
+        $this->addColumn('impr', array(
+            'header' => $this->__('Impr.'),
+            'width' => '150px',
+            'index' => 'impr',
+            'filter' => false,
         ));
 
-        $this->addColumn('clicks',
-            array(
-                'header'    => $this->__('Clicks'),
-                'width'     => '150px',
-                'index'     => 'clicks',
-                'filter'    => false,
+        $this->addColumn('clicks', array(
+            'header' => $this->__('Clicks'),
+            'width' => '150px',
+            'index' => 'clicks',
+            'filter' => false,
         ));
 
-        $this->addColumn('active',
-            array(
-                'header'    => $this->__('Active'),
-                'width'     => '150px',
-                'type'      => 'options',
-                'width'     => '70px',
-                'options'   => Mage::getSingleton('googlebase/source_statuses')->getStatuses(),
-                'index'     => 'is_hidden',
+        $this->addColumn('active', array(
+            'header' => $this->__('Active'),
+            'width' => '150px',
+            'type' => 'options',
+            'width' => '70px',
+            'options' => Mage::getSingleton('googlebase/source_statuses')->getStatuses(),
+            'index' => 'is_hidden',
         ));
 
         return parent::_prepareColumns();
@@ -127,25 +121,25 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Item extends Mage_Adminhtml_Block_Wi
         $this->setNoFilterMassactionColumn(true);
 
         $this->getMassactionBlock()->addItem('delete', array(
-             'label'    => $this->__('Delete'),
-             'url'      => $this->getUrl('*/*/massDelete', array('_current' => true)),
-             'confirm'  => $this->__('Are you sure?')
+            'label' => $this->__('Delete'),
+            'url' => $this->getUrl('*/*/massDelete', array('_current' => true)),
+            'confirm' => $this->__('Are you sure?')
         ));
 
         $this->getMassactionBlock()->addItem('publish', array(
-             'label'    => $this->__('Publish'),
-             'url'      => $this->getUrl('*/*/massPublish', array('_current' => true))
+            'label' => $this->__('Publish'),
+            'url' => $this->getUrl('*/*/massPublish', array('_current' => true))
         ));
 
         $this->getMassactionBlock()->addItem('unpublish', array(
-             'label'    => $this->__('Hide'),
-             'url'      => $this->getUrl('*/*/massHide', array('_current' => true))
+            'label' => $this->__('Hide'),
+            'url' => $this->getUrl('*/*/massHide', array('_current' => true))
         ));
 
         $this->getMassactionBlock()->addItem('refresh', array(
-             'label'    => $this->__('Synchronize'),
-             'url'      => $this->getUrl('*/*/refresh', array('_current' => true)),
-             'confirm'  => $this->__('This action will update items statistics and remove the items which are not available in Google Base. Continue?')
+            'label' => $this->__('Synchronize'),
+            'url' => $this->getUrl('*/*/refresh', array('_current' => true)),
+            'confirm' => $this->__('This action will update items statistics and remove the items which are not available in Google Base. Continue?')
         ));
         return $this;
     }
@@ -181,4 +175,5 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Item extends Mage_Adminhtml_Block_Wi
     {
         return Mage::app()->getStore($this->getRequest()->getParam('store'));
     }
+
 }

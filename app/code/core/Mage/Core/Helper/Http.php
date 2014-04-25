@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,7 +34,8 @@
  */
 class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 {
-    const XML_NODE_REMOTE_ADDR_HEADERS  = 'global/remote_addr_headers';
+
+    const XML_NODE_REMOTE_ADDR_HEADERS = 'global/remote_addr_headers';
 
     /**
      * Remote address cache
@@ -49,7 +51,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      */
     public function authValidate($headers = null)
     {
-        if(!is_null($headers)) {
+        if (!is_null($headers)) {
             $_SERVER = $headers;
         }
 
@@ -58,8 +60,8 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 
         // moshe's fix for CGI
         if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
-            foreach ($_SERVER as $k=>$v) {
-                if (substr($k, -18)==='HTTP_AUTHORIZATION' && !empty($v)) {
+            foreach ($_SERVER as $k => $v) {
+                if (substr($k, -18) === 'HTTP_AUTHORIZATION' && !empty($v)) {
                     $_SERVER['HTTP_AUTHORIZATION'] = $v;
                     break;
                 }
@@ -75,8 +77,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         elseif (!empty($_SERVER['HTTP_AUTHORIZATION'])) {
             $auth = $_SERVER['HTTP_AUTHORIZATION'];
             list($user, $pass) = explode(':', base64_decode(substr($auth, strpos($auth, " ") + 1)));
-        }
-        elseif (!empty($_SERVER['Authorization'])) {
+        } elseif (!empty($_SERVER['Authorization'])) {
             $auth = $_SERVER['Authorization'];
             list($user, $pass) = explode(':', base64_decode(substr($auth, strpos($auth, " ") + 1)));
         }
@@ -95,10 +96,10 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     public function authFailed()
     {
         Mage::app()->getResponse()
-            ->setHeader('HTTP/1.1','401 Unauthorized')
-            ->setHeader('WWW-Authenticate','Basic realm="RSS Feeds"')
-            ->setBody('<h1>401 Unauthorized</h1>')
-            ->sendResponse();
+                ->setHeader('HTTP/1.1', '401 Unauthorized')
+                ->setHeader('WWW-Authenticate', 'Basic realm="RSS Feeds"')
+                ->setBody('<h1>401 Unauthorized</h1>')
+                ->sendResponse();
         exit;
     }
 
@@ -113,7 +114,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         $element = Mage::getConfig()->getNode(self::XML_NODE_REMOTE_ADDR_HEADERS);
         if ($element instanceof Mage_Core_Model_Config_Element) {
             foreach ($element->children() as $node) {
-                $headers[] = (string)$node;
+                $headers[] = (string) $node;
             }
         }
 
@@ -262,4 +263,5 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     {
         return preg_match('#^(1?\d{1,2}|2([0-4]\d|5[0-5]))(\.(1?\d{1,2}|2([0-4]\d|5[0-5]))){3}$#', $address);
     }
+
 }

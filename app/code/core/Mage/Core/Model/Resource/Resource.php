@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Resource Resource Model
  *
@@ -34,19 +34,20 @@
  */
 class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Database versions
      *
      * @var array
      */
-    protected static $_versions        = null;
+    protected static $_versions = null;
 
     /**
      * Resource data versions cache array
      *
      * @var array
      */
-    protected static $_dataVersions    = null;
+    protected static $_dataVersions = null;
 
     /**
      * Define main table
@@ -69,14 +70,13 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      */
     protected function _loadVersionData($needType)
     {
-        if ((($needType == 'db') && is_null(self::$_versions))
-            || (($needType == 'data') && is_null(self::$_dataVersions))) {
-            self::$_versions     = array(); // Db version column always exists
+        if ((($needType == 'db') && is_null(self::$_versions)) || (($needType == 'data') && is_null(self::$_dataVersions))) {
+            self::$_versions = array(); // Db version column always exists
             self::$_dataVersions = null; // Data version array will be filled only if Data column exist
 
             if ($this->_getReadAdapter()->isTableExists($this->getMainTable())) {
                 $select = $this->_getReadAdapter()->select()
-                    ->from($this->getMainTable(), '*');
+                        ->from($this->getMainTable(), '*');
                 $rowset = $this->_getReadAdapter()->fetchAll($select);
                 foreach ($rowset as $row) {
                     self::$_versions[$row['code']] = $row['version'];
@@ -92,7 +92,6 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
 
         return $this;
     }
-
 
     /**
      * Get Module version from DB
@@ -119,15 +118,13 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     public function setDbVersion($resName, $version)
     {
         $dbModuleInfo = array(
-            'code'    => $resName,
+            'code' => $resName,
             'version' => $version,
         );
 
         if ($this->getDbVersion($resName)) {
             self::$_versions[$resName] = $version;
-            return $this->_getWriteAdapter()->update($this->getMainTable(),
-                    $dbModuleInfo,
-                    array('code = ?' => $resName));
+            return $this->_getWriteAdapter()->update($this->getMainTable(), $dbModuleInfo, array('code = ?' => $resName));
         } else {
             self::$_versions[$resName] = $version;
             return $this->_getWriteAdapter()->insert($this->getMainTable(), $dbModuleInfo);
@@ -161,8 +158,8 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     public function setDataVersion($resName, $version)
     {
         $data = array(
-            'code'          => $resName,
-            'data_version'  => $version
+            'code' => $resName,
+            'data_version' => $version
         );
 
         if ($this->getDbVersion($resName) || $this->getDataVersion($resName)) {
@@ -174,4 +171,5 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
         }
         return $this;
     }
+
 }

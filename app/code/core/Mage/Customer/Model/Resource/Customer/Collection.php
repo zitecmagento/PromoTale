@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customers collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -50,12 +51,11 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
     public function groupByEmail()
     {
         $this->getSelect()
-            ->from(
-                array('email' => $this->getEntity()->getEntityTable()),
-                array('email_count' => new Zend_Db_Expr('COUNT(email.entity_id)'))
-            )
-            ->where('email.entity_id = e.entity_id')
-            ->group('email.email');
+                ->from(
+                        array('email' => $this->getEntity()->getEntityTable()), array('email_count' => new Zend_Db_Expr('COUNT(email.entity_id)'))
+                )
+                ->where('email.entity_id = e.entity_id')
+                ->group('email.email');
 
         return $this;
     }
@@ -79,24 +79,21 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
         $concatenate = array();
         if (isset($fields['prefix'])) {
             $concatenate[] = $adapter->getCheckSql(
-                '{{prefix}} IS NOT NULL AND {{prefix}} != \'\'',
-                $adapter->getConcatSql(array('LTRIM(RTRIM({{prefix}}))', '\' \'')),
-                '\'\'');
+                    '{{prefix}} IS NOT NULL AND {{prefix}} != \'\'', $adapter->getConcatSql(array('LTRIM(RTRIM({{prefix}}))',
+                        '\' \'')), '\'\'');
         }
         $concatenate[] = 'LTRIM(RTRIM({{firstname}}))';
         $concatenate[] = '\' \'';
         if (isset($fields['middlename'])) {
             $concatenate[] = $adapter->getCheckSql(
-                '{{middlename}} IS NOT NULL AND {{middlename}} != \'\'',
-                $adapter->getConcatSql(array('LTRIM(RTRIM({{middlename}}))', '\' \'')),
-                '\'\'');
+                    '{{middlename}} IS NOT NULL AND {{middlename}} != \'\'', $adapter->getConcatSql(array('LTRIM(RTRIM({{middlename}}))',
+                        '\' \'')), '\'\'');
         }
         $concatenate[] = 'LTRIM(RTRIM({{lastname}}))';
         if (isset($fields['suffix'])) {
             $concatenate[] = $adapter
-                    ->getCheckSql('{{suffix}} IS NOT NULL AND {{suffix}} != \'\'',
-                $adapter->getConcatSql(array('\' \'', 'LTRIM(RTRIM({{suffix}}))')),
-                '\'\'');
+                    ->getCheckSql('{{suffix}} IS NOT NULL AND {{suffix}} != \'\'', $adapter->getConcatSql(array('\' \'',
+                        'LTRIM(RTRIM({{suffix}}))')), '\'\'');
         }
 
         $nameExpr = $adapter->getConcatSql($concatenate);
@@ -132,4 +129,5 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
         $idsSelect->resetJoinLeft();
         return $idsSelect;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product stock qty default block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogInventory_Block_Stockqty_Default extends Mage_CatalogInventory_Block_Stockqty_Abstract
 {
+
     /**
      * Render block HTML
      *
@@ -56,4 +57,5 @@ class Mage_CatalogInventory_Block_Stockqty_Default extends Mage_CatalogInventory
     {
         return array_merge(parent::getCacheTags(), $this->_getProduct()->getCacheIdTags());
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Repository.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 #require_once 'Zend/Tool/Project/Context/System/Interface.php';
 #require_once 'Zend/Tool/Project/Context/System/TopLevelRestrictable.php';
 #require_once 'Zend/Tool/Project/Context/System/NotOverwritable.php';
@@ -34,9 +34,8 @@ class Zend_Tool_Project_Context_Repository implements Countable
 
     protected static $_instance = null;
     protected static $_isInitialized = false;
-
     protected $_shortContextNames = array();
-    protected $_contexts          = array();
+    protected $_contexts = array();
 
     /**
      * Enter description here...
@@ -62,8 +61,8 @@ class Zend_Tool_Project_Context_Repository implements Countable
     {
         if (self::$_isInitialized == false) {
             $this->addContextClass('Zend_Tool_Project_Context_System_ProjectDirectory')
-                 ->addContextClass('Zend_Tool_Project_Context_System_ProjectProfileFile')
-                 ->addContextClass('Zend_Tool_Project_Context_System_ProjectProvidersDirectory');
+                    ->addContextClass('Zend_Tool_Project_Context_System_ProjectProfileFile')
+                    ->addContextClass('Zend_Tool_Project_Context_System_ProjectProvidersDirectory');
             self::$_isInitialized = true;
         }
     }
@@ -79,7 +78,6 @@ class Zend_Tool_Project_Context_Repository implements Countable
             $this->addContextClass($class);
         }
     }
-
 
     public function addContextClass($contextClass)
     {
@@ -103,27 +101,27 @@ class Zend_Tool_Project_Context_Repository implements Countable
      */
     public function addContext(Zend_Tool_Project_Context_Interface $context)
     {
-        $isSystem       = ($context instanceof Zend_Tool_Project_Context_System_Interface);
-        $isTopLevel     = ($context instanceof Zend_Tool_Project_Context_System_TopLevelRestrictable);
+        $isSystem = ($context instanceof Zend_Tool_Project_Context_System_Interface);
+        $isTopLevel = ($context instanceof Zend_Tool_Project_Context_System_TopLevelRestrictable);
         $isOverwritable = !($context instanceof Zend_Tool_Project_Context_System_NotOverwritable);
 
         $index = (count($this->_contexts)) ? max(array_keys($this->_contexts)) + 1 : 1;
 
         $normalName = $this->_normalizeName($context->getName());
 
-        if (isset($this->_shortContextNames[$normalName]) && ($this->_contexts[$this->_shortContextNames[$normalName]]['isOverwritable'] === false) ) {
+        if (isset($this->_shortContextNames[$normalName]) && ($this->_contexts[$this->_shortContextNames[$normalName]]['isOverwritable'] === false)) {
             #require_once 'Zend/Tool/Project/Context/Exception.php';
             throw new Zend_Tool_Project_Context_Exception('Context ' . $context->getName() . ' is not overwriteable.');
         }
 
         $this->_shortContextNames[$normalName] = $index;
         $this->_contexts[$index] = array(
-            'isTopLevel'     => $isTopLevel,
-            'isSystem'       => $isSystem,
+            'isTopLevel' => $isTopLevel,
+            'isSystem' => $isSystem,
             'isOverwritable' => $isOverwritable,
-            'normalName'     => $normalName,
-            'context'        => $context
-            );
+            'normalName' => $normalName,
+            'context' => $context
+        );
 
         return $this;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,16 +24,16 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4
 {
+
     /**
      * Tables foreign key data array
      * [tbl_name] = array(create foreign key strings)
      *
      * @var array
      */
-    protected $_foreignKeys    = array();
+    protected $_foreignKeys = array();
 
     /**
      * Retrieve SQL fragment for drop table
@@ -82,13 +83,11 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             return '';
         }
 
-        return sprintf("ALTER TABLE %s\n  %s;\n",
-            $this->_getReadAdapter()->quoteIdentifier($tableName),
-            join(",\n  ", $foreignKeys)
+        return sprintf("ALTER TABLE %s\n  %s;\n", $this->_getReadAdapter()->quoteIdentifier($tableName), join(",\n  ", $foreignKeys)
         );
     }
 
-     /**
+    /**
      * Get create script for table
      *
      * @param string $tableName
@@ -101,15 +100,16 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
         $quotedTableName = $this->_getReadAdapter()->quoteIdentifier($tableName);
 
         if ($addDropIfExists) {
-            $script .= 'DROP TABLE IF EXISTS ' . $quotedTableName .";\n";
+            $script .= 'DROP TABLE IF EXISTS ' . $quotedTableName . ";\n";
         }
         //TODO fix me
-        $sql     = 'SHOW CREATE TABLE ' . $quotedTableName;
-        $data    = $this->_getReadAdapter()->fetchRow($sql);
-        $script .= isset($data['Create Table']) ? $data['Create Table'].";\n" : '';
+        $sql = 'SHOW CREATE TABLE ' . $quotedTableName;
+        $data = $this->_getReadAdapter()->fetchRow($sql);
+        $script .= isset($data['Create Table']) ? $data['Create Table'] . ";\n" : '';
 
         return $script;
     }
+
     /**
      * Retrieve SQL fragment for create table
      *
@@ -119,31 +119,25 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
      */
     public function getTableCreateSql($tableName, $withForeignKeys = false)
     {
-        $adapter         = $this->_getReadAdapter();
+        $adapter = $this->_getReadAdapter();
         $quotedTableName = $adapter->quoteIdentifier($tableName);
-        $query           = 'SHOW CREATE TABLE ' . $quotedTableName;
-        $row             = $adapter->fetchRow($query);
+        $query = 'SHOW CREATE TABLE ' . $quotedTableName;
+        $row = $adapter->fetchRow($query);
 
         if (!$row || !isset($row['Table']) || !isset($row['Create Table'])) {
             return false;
         }
 
-        $regExp  = '/,\s+CONSTRAINT `([^`]*)` FOREIGN KEY \(`([^`]*)`\) '
-            . 'REFERENCES `([^`]*)` \(`([^`]*)`\)'
-            . '( ON DELETE (RESTRICT|CASCADE|SET NULL|NO ACTION))?'
-            . '( ON UPDATE (RESTRICT|CASCADE|SET NULL|NO ACTION))?/';
+        $regExp = '/,\s+CONSTRAINT `([^`]*)` FOREIGN KEY \(`([^`]*)`\) '
+                . 'REFERENCES `([^`]*)` \(`([^`]*)`\)'
+                . '( ON DELETE (RESTRICT|CASCADE|SET NULL|NO ACTION))?'
+                . '( ON UPDATE (RESTRICT|CASCADE|SET NULL|NO ACTION))?/';
         $matches = array();
         preg_match_all($regExp, $row['Create Table'], $matches, PREG_SET_ORDER);
 
         if (is_array($matches)) {
             foreach ($matches as $match) {
-                $this->_foreignKeys[$tableName][] = sprintf('ADD CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s)%s%s',
-                    $adapter->quoteIdentifier($match[1]),
-                    $adapter->quoteIdentifier($match[2]),
-                    $adapter->quoteIdentifier($match[3]),
-                    $adapter->quoteIdentifier($match[4]),
-                    isset($match[5]) ? $match[5] : '',
-                    isset($match[7]) ? $match[7] : ''
+                $this->_foreignKeys[$tableName][] = sprintf('ADD CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s)%s%s', $adapter->quoteIdentifier($match[1]), $adapter->quoteIdentifier($match[2]), $adapter->quoteIdentifier($match[3]), $adapter->quoteIdentifier($match[4]), isset($match[5]) ? $match[5] : '', isset($match[7]) ? $match[7] : ''
                 );
             }
         }
@@ -156,6 +150,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
 
         return $sql . ';';
     }
+
     /**
      * Returns SQL header data, move from original resource model
      *
@@ -166,22 +161,21 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
         $dbConfig = $this->_getReadAdapter()->getConfig();
 
         $versionRow = $this->_getReadAdapter()->fetchRow('SHOW VARIABLES LIKE \'version\'');
-        $hostName   = !empty($dbConfig['unix_socket']) ? $dbConfig['unix_socket']
-            : (!empty($dbConfig['host']) ? $dbConfig['host'] : 'localhost');
+        $hostName = !empty($dbConfig['unix_socket']) ? $dbConfig['unix_socket'] : (!empty($dbConfig['host']) ? $dbConfig['host'] : 'localhost');
 
         $header = "-- Magento DB backup\n"
-            . "--\n"
-            . "-- Host: {$hostName}    Database: {$dbConfig['dbname']}\n"
-            . "-- ------------------------------------------------------\n"
-            . "-- Server version: {$versionRow['Value']}\n\n"
-            . "/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;\n"
-            . "/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;\n"
-            . "/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;\n"
-            . "/*!40101 SET NAMES utf8 */;\n"
-            . "/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;\n"
-            . "/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;\n"
-            . "/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;\n"
-            . "/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;\n";
+                . "--\n"
+                . "-- Host: {$hostName}    Database: {$dbConfig['dbname']}\n"
+                . "-- ------------------------------------------------------\n"
+                . "-- Server version: {$versionRow['Value']}\n\n"
+                . "/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;\n"
+                . "/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;\n"
+                . "/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;\n"
+                . "/*!40101 SET NAMES utf8 */;\n"
+                . "/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;\n"
+                . "/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;\n"
+                . "/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;\n"
+                . "/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;\n";
 
         return $header;
     }
@@ -194,13 +188,13 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
     public function getFooter()
     {
         $footer = "\n/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;\n"
-            . "/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */; \n"
-            . "/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;\n"
-            . "/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;\n"
-            . "/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;\n"
-            . "/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;\n"
-            . "/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;\n"
-            . "\n-- Dump completed on " . Mage::getSingleton('core/date')->gmtDate() . " GMT";
+                . "/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */; \n"
+                . "/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;\n"
+                . "/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;\n"
+                . "/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;\n"
+                . "/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;\n"
+                . "/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;\n"
+                . "\n-- Dump completed on " . Mage::getSingleton('core/date')->gmtDate() . " GMT";
 
         return $footer;
     }
@@ -215,10 +209,10 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
     {
         $quotedTableName = $this->_getReadAdapter()->quoteIdentifier($tableName);
         return "\n--\n"
-            . "-- Dumping data for table {$quotedTableName}\n"
-            . "--\n\n"
-            . "LOCK TABLES {$quotedTableName} WRITE;\n"
-            . "/*!40000 ALTER TABLE {$quotedTableName} DISABLE KEYS */;\n";
+                . "-- Dumping data for table {$quotedTableName}\n"
+                . "--\n\n"
+                . "LOCK TABLES {$quotedTableName} WRITE;\n"
+                . "/*!40000 ALTER TABLE {$quotedTableName} DISABLE KEYS */;\n";
     }
 
     /**
@@ -231,7 +225,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
     {
         $quotedTableName = $this->_getReadAdapter()->quoteIdentifier($tableName);
         return "/*!40000 ALTER TABLE {$quotedTableName} ENABLE KEYS */;\n"
-            . "UNLOCK TABLES;\n";
+                . "UNLOCK TABLES;\n";
     }
 
     /**
@@ -247,9 +241,9 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
         $sql = null;
         $adapter = $this->_getWriteAdapter();
         $select = $adapter->select()
-            ->from($tableName)
-            ->limit($count, $offset);
-        $query  = $adapter->query($select);
+                ->from($tableName)
+                ->limit($count, $offset);
+        $query = $adapter->query($select);
 
         while ($row = $query->fetch()) {
             if ($sql === null) {
@@ -267,6 +261,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
 
         return $sql;
     }
+
     /**
      * Return table data SQL insert
      *
@@ -277,6 +272,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
     {
         return $this->getPartInsertSql($tableName);
     }
+
     /**
      * Quote Table Row
      *
@@ -286,10 +282,10 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
      */
     protected function _quoteRow($tableName, array $row)
     {
-        $adapter   = $this->_getReadAdapter();
-        $describe  = $adapter->describeTable($tableName);
+        $adapter = $this->_getReadAdapter();
+        $describe = $adapter->describeTable($tableName);
         $dataTypes = array('bigint', 'mediumint', 'smallint', 'tinyint');
-        $rowData   = array();
+        $rowData = array();
         foreach ($row as $k => $v) {
             if ($v === null) {
                 $value = 'NULL';
@@ -319,4 +315,5 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
     {
         $this->_getReadAdapter()->query("SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED");
     }
+
 }

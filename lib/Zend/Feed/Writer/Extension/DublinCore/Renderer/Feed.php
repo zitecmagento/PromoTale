@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,20 +19,18 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Feed.php 20325 2010-01-16 00:17:59Z padraic $
  */
- 
 /**
  * @see Zend_Feed_Writer_Extension_RendererAbstract
  */
 #require_once 'Zend/Feed/Writer/Extension/RendererAbstract.php';
- 
+
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Writer_Extension_DublinCore_Renderer_Feed
-    extends Zend_Feed_Writer_Extension_RendererAbstract
+class Zend_Feed_Writer_Extension_DublinCore_Renderer_Feed extends Zend_Feed_Writer_Extension_RendererAbstract
 {
 
     /**
@@ -42,7 +41,7 @@ class Zend_Feed_Writer_Extension_DublinCore_Renderer_Feed
      * @var bool
      */
     protected $_called = false;
-    
+
     /**
      * Render feed
      * 
@@ -58,7 +57,7 @@ class Zend_Feed_Writer_Extension_DublinCore_Renderer_Feed
             $this->_appendNamespaces();
         }
     }
-    
+
     /**
      * Append namespaces to feed element
      * 
@@ -66,8 +65,7 @@ class Zend_Feed_Writer_Extension_DublinCore_Renderer_Feed
      */
     protected function _appendNamespaces()
     {
-        $this->getRootElement()->setAttribute('xmlns:dc',
-            'http://purl.org/dc/elements/1.1/');  
+        $this->getRootElement()->setAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1/');
     }
 
     /**
@@ -88,9 +86,10 @@ class Zend_Feed_Writer_Extension_DublinCore_Renderer_Feed
             if (array_key_exists('name', $data)) {
                 $text = $dom->createTextNode($data['name']);
                 $author->appendChild($text);
-                $root->appendChild($author);  
+                $root->appendChild($author);
             }
         }
         $this->_called = true;
     }
+
 }

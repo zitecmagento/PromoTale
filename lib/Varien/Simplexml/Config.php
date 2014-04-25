@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Base class for simplexml based configurations
@@ -107,14 +107,15 @@ class Varien_Simplexml_Config
      * @param string|Varien_Simplexml_Element $sourceData
      * @param string $sourceType
      */
-    public function __construct($sourceData=null) {
+    public function __construct($sourceData = null)
+    {
         if (is_null($sourceData)) {
             return;
         }
         if ($sourceData instanceof Varien_Simplexml_Element) {
-           $this->setXml($sourceData);
+            $this->setXml($sourceData);
         } elseif (is_string($sourceData) && !empty($sourceData)) {
-            if (strlen($sourceData)<1000 && is_readable($sourceData)) {
+            if (strlen($sourceData) < 1000 && is_readable($sourceData)) {
                 $this->loadFile($sourceData);
             } else {
                 $this->loadString($sourceData);
@@ -143,7 +144,7 @@ class Varien_Simplexml_Config
      * @param   string $path
      * @return  Varien_Simplexml_Element
      */
-    public function getNode($path=null)
+    public function getNode($path = null)
     {
         if (!$this->_xml instanceof Varien_Simplexml_Element) {
             return false;
@@ -293,7 +294,7 @@ class Varien_Simplexml_Config
     {
         if (is_null($data)) {
             $this->_cacheChecksum = null;
-        } elseif (false===$data || 0===$data) {
+        } elseif (false === $data || 0 === $data) {
             $this->_cacheChecksum = false;
         } else {
             $this->_cacheChecksum = md5($data);
@@ -309,13 +310,13 @@ class Varien_Simplexml_Config
      */
     public function updateCacheChecksum($data)
     {
-        if (false===$this->getCacheChecksum()) {
+        if (false === $this->getCacheChecksum()) {
             return $this;
         }
-        if (false===$data || 0===$data) {
+        if (false === $data || 0 === $data) {
             $this->_cacheChecksum = false;
         } else {
-            $this->setCacheChecksum($this->getCacheChecksum().':'.$data);
+            $this->setCacheChecksum($this->getCacheChecksum() . ':' . $data);
         }
         return $this;
     }
@@ -337,7 +338,7 @@ class Varien_Simplexml_Config
      */
     public function getCacheChecksumId()
     {
-        return $this->getCacheId().'__CHECKSUM';
+        return $this->getCacheId() . '__CHECKSUM';
     }
 
     /**
@@ -358,14 +359,14 @@ class Varien_Simplexml_Config
     public function validateCacheChecksum()
     {
         $newChecksum = $this->getCacheChecksum();
-        if (false===$newChecksum) {
+        if (false === $newChecksum) {
             return false;
         }
         if (is_null($newChecksum)) {
             return true;
         }
         $cachedChecksum = $this->getCache()->load($this->getCacheChecksumId());
-        return $newChecksum===false && $cachedChecksum===false || $newChecksum===$cachedChecksum;
+        return $newChecksum === false && $cachedChecksum === false || $newChecksum === $cachedChecksum;
     }
 
     /**
@@ -396,12 +397,12 @@ class Varien_Simplexml_Config
      * @param array $tags
      * @return Varien_Simplexml_Config
      */
-    public function saveCache($tags=null)
+    public function saveCache($tags = null)
     {
         if ($this->getCacheSaved()) {
             return $this;
         }
-        if (false===$this->getCacheChecksum()) {
+        if (false === $this->getCacheChecksum()) {
             return $this;
         }
 
@@ -463,7 +464,7 @@ class Varien_Simplexml_Config
      * @param int|boolean $lifetime
      * @return boolean
      */
-    protected function _saveCache($data, $id, $tags=array(), $lifetime=false)
+    protected function _saveCache($data, $id, $tags = array(), $lifetime = false)
     {
         return $this->getCache()->save($data, $id, $tags, $lifetime);
     }
@@ -545,7 +546,7 @@ class Varien_Simplexml_Config
      * @param boolean $overwrite
      * @return Varien_Simplexml_Config
      */
-    public function setNode($path, $value, $overwrite=true)
+    public function setNode($path, $value, $overwrite = true)
     {
         $xml = $this->_xml->setNode($path, $value, $overwrite);
         return $this;
@@ -564,7 +565,7 @@ class Varien_Simplexml_Config
         }
 
         foreach ($targets as $target) {
-            $sources = $this->getXpath((string)$target['extends']);
+            $sources = $this->getXpath((string) $target['extends']);
             if ($sources) {
                 foreach ($sources as $source) {
                     $target->extend($source);
@@ -595,7 +596,7 @@ class Varien_Simplexml_Config
      * @param boolean $overwrite
      * @return Varien_Simplexml_Config
      */
-    public function extend(Varien_Simplexml_Config $config, $overwrite=true)
+    public function extend(Varien_Simplexml_Config $config, $overwrite = true)
     {
         $this->getNode()->extend($config->getNode(), $overwrite);
         return $this;

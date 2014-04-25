@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: PostCode.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -37,14 +37,15 @@
  */
 class Zend_Validate_PostCode extends Zend_Validate_Abstract
 {
-    const INVALID  = 'postcodeInvalid';
+
+    const INVALID = 'postcodeInvalid';
     const NO_MATCH = 'postcodeNoMatch';
 
     /**
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID  => "Invalid type given. String or integer expected",
+        self::INVALID => "Invalid type given. String or integer expected",
         self::NO_MATCH => "'%value%' does not appear to be a postal code",
     );
 
@@ -125,17 +126,15 @@ class Zend_Validate_PostCode extends Zend_Validate_Abstract
     {
         #require_once 'Zend/Locale.php';
         $this->_locale = Zend_Locale::findLocale($locale);
-        $locale        = new Zend_Locale($this->_locale);
-        $region        = $locale->getRegion();
+        $locale = new Zend_Locale($this->_locale);
+        $region = $locale->getRegion();
         if (empty($region)) {
             #require_once 'Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception("Unable to detect a region for the locale '$locale'");
         }
 
         $format = Zend_Locale::getTranslation(
-            $locale->getRegion(),
-            'postaltoterritory',
-            $this->_locale
+                        $locale->getRegion(), 'postaltoterritory', $this->_locale
         );
 
         if (empty($format)) {
@@ -207,4 +206,5 @@ class Zend_Validate_PostCode extends Zend_Validate_Abstract
 
         return true;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: ExcludeMimeType.php 21935 2010-04-18 16:21:35Z thomas $
  */
-
 /**
  * @see Zend_Validate_File_MimeType
  */
@@ -34,7 +34,8 @@
  */
 class Zend_Validate_File_ExcludeMimeType extends Zend_Validate_File_MimeType
 {
-    const FALSE_TYPE   = 'fileExcludeMimeTypeFalse';
+
+    const FALSE_TYPE = 'fileExcludeMimeTypeFalse';
     const NOT_DETECTED = 'fileExcludeMimeTypeNotDetected';
     const NOT_READABLE = 'fileExcludeMimeTypeNotReadable';
 
@@ -98,7 +99,7 @@ class Zend_Validate_File_ExcludeMimeType extends Zend_Validate_File_MimeType
 
         $types = explode('/', $this->_type);
         $types = array_merge($types, explode('-', $this->_type));
-        foreach($mimetype as $mime) {
+        foreach ($mimetype as $mime) {
             if (in_array($mime, $types)) {
                 return $this->_throw($file, self::FALSE_TYPE);
             }
@@ -106,4 +107,5 @@ class Zend_Validate_File_ExcludeMimeType extends Zend_Validate_File_MimeType
 
         return true;
     }
+
 }

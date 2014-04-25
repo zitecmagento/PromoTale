@@ -21,7 +21,6 @@
  * @version    $Id: Item.php 21883 2010-04-16 14:57:07Z dragonbe $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Amazon_Item
 {
+
     /**
      * @var string
      */
@@ -105,9 +105,7 @@ class Zend_Service_Amazon_Item
      * @var Zend_Service_Amazon_ListmaniaLists[]
      */
     public $ListmaniaLists = array();
-
     protected $_dom;
-
 
     /**
      * Parse the given <Item> element
@@ -120,14 +118,14 @@ class Zend_Service_Amazon_Item
      */
     public function __construct($dom)
     {
-    	if (null === $dom) {
-    		#require_once 'Zend/Service/Amazon/Exception.php';
-    		throw new Zend_Service_Amazon_Exception('Item element is empty');
-    	}
-    	if (!$dom instanceof DOMElement) {
-    		#require_once 'Zend/Service/Amazon/Exception.php';
-    		throw new Zend_Service_Amazon_Exception('Item is not a valid DOM element');
-    	}
+        if (null === $dom) {
+            #require_once 'Zend/Service/Amazon/Exception.php';
+            throw new Zend_Service_Amazon_Exception('Item element is empty');
+        }
+        if (!$dom instanceof DOMElement) {
+            #require_once 'Zend/Service/Amazon/Exception.php';
+            throw new Zend_Service_Amazon_Exception('Item is not a valid DOM element');
+        }
         $xpath = new DOMXPath($dom->ownerDocument);
         $xpath->registerNamespace('az', 'http://webservices.amazon.com/AWSECommerceService/2005-10-05');
         $this->ASIN = $xpath->query('./az:ASIN/text()', $dom)->item(0)->data;
@@ -259,7 +257,6 @@ class Zend_Service_Amazon_Item
         $this->_dom = $dom;
     }
 
-
     /**
      * Returns the item's original XML
      *
@@ -269,4 +266,5 @@ class Zend_Service_Amazon_Item
     {
         return $this->_dom->ownerDocument->saveXML($this->_dom);
     }
+
 }

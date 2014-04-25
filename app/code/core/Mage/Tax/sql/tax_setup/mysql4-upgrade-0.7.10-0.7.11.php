@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Tax_Model_Mysql4_Setup */
 
@@ -46,11 +46,7 @@ $installer->run("
 ");
 
 $installer->getConnection()->addConstraint(
-    'FK_TAX_ORDER_AGGREGATED_CREATED_STORE',
-    $this->getTable('tax_order_aggregated_created'), 
-    'store_id',
-    $this->getTable('core_store'), 
-    'store_id'
+        'FK_TAX_ORDER_AGGREGATED_CREATED_STORE', $this->getTable('tax_order_aggregated_created'), 'store_id', $this->getTable('core_store'), 'store_id'
 );
 
 $installer->endSetup();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Product_Option_Type_Default
 {
+
     /**
      * Validate user input for option
      *
@@ -88,4 +90,5 @@ class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Pro
     {
         return Mage::helper('core')->escapeHtml($value);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: UpdateConferenceTemplateParticipantRequest.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Request_RequestAbstract
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTemplateParticipantRequest
-    extends Zend_Service_DeveloperGarden_Request_RequestAbstract
+class Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTemplateParticipantRequest extends Zend_Service_DeveloperGarden_Request_RequestAbstract
 {
+
     /**
      * the template id
      *
@@ -65,13 +65,13 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTempla
      * @param string $participantId
      * @param Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
      */
-    public function __construct($environment, $templateId, $participantId,
-        Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant = null
-    ) {
+    public function __construct($environment, $templateId, $participantId, Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant = null
+    )
+    {
         parent::__construct($environment);
         $this->setTemplateId($templateId)
-             ->setParticipantId($participantId)
-             ->setParticipant($participant);
+                ->setParticipantId($participantId)
+                ->setParticipant($participant);
     }
 
     /**
@@ -105,9 +105,11 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTempla
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTemplateParticipantRequest
      */
     public function setParticipant(
-        Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
-    ) {
+    Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
+    )
+    {
         $this->participant = $participant;
         return $this;
     }
+
 }

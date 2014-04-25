@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sales_Order_Abstract
 {
+
     /**
      * Retrieve required options from parent
      */
@@ -72,7 +74,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
     public function getCustomerGroupName()
     {
         if ($this->getOrder()) {
-            return Mage::getModel('customer/group')->load((int)$this->getOrder()->getCustomerGroupId())->getCode();
+            return Mage::getModel('customer/group')->load((int) $this->getOrder()->getCustomerGroupId())->getCode();
         }
         return null;
     }
@@ -87,7 +89,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
 
     public function getViewUrl($orderId)
     {
-        return $this->getUrl('*/sales_order/view', array('order_id'=>$orderId));
+        return $this->getUrl('*/sales_order/view', array('order_id' => $orderId));
     }
 
     /**
@@ -117,23 +119,23 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
         $accountData = array();
 
         /* @var $config Mage_Eav_Model_Config */
-        $config     = Mage::getSingleton('eav/config');
+        $config = Mage::getSingleton('eav/config');
         $entityType = 'customer';
-        $customer   = Mage::getModel('customer/customer');
+        $customer = Mage::getModel('customer/customer');
         foreach ($config->getEntityAttributeCodes($entityType) as $attributeCode) {
             /* @var $attribute Mage_Customer_Model_Attribute */
             $attribute = $config->getAttribute($entityType, $attributeCode);
             if (!$attribute->getIsVisible() || $attribute->getIsSystem()) {
                 continue;
             }
-            $orderKey   = sprintf('customer_%s', $attribute->getAttributeCode());
+            $orderKey = sprintf('customer_%s', $attribute->getAttributeCode());
             $orderValue = $this->getOrder()->getData($orderKey);
             if ($orderValue != '') {
                 $customer->setData($attribute->getAttributeCode(), $orderValue);
-                $dataModel  = Mage_Customer_Model_Attribute_Data::factory($attribute, $customer);
-                $value      = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_HTML);
-                $sortOrder  = $attribute->getSortOrder() + $attribute->getIsUserDefined() ? 200 : 0;
-                $sortOrder  = $this->_prepareAccountDataSortOrder($accountData, $sortOrder);
+                $dataModel = Mage_Customer_Model_Attribute_Data::factory($attribute, $customer);
+                $value = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_HTML);
+                $sortOrder = $attribute->getSortOrder() + $attribute->getIsUserDefined() ? 200 : 0;
+                $sortOrder = $this->_prepareAccountDataSortOrder($accountData, $sortOrder);
                 $accountData[$sortOrder] = array(
                     'label' => $attribute->getFrontendLabel(),
                     'value' => $this->escapeHtml($value, array('br'))
@@ -153,13 +155,13 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
      * @param string $label
      * @return string
      */
-    public function getAddressEditLink($address, $label='')
+    public function getAddressEditLink($address, $label = '')
     {
         if (empty($label)) {
             $label = $this->__('Edit');
         }
-        $url = $this->getUrl('*/sales_order/address', array('address_id'=>$address->getId()));
-        return '<a href="'.$url.'">' . $label . '</a>';
+        $url = $this->getUrl('*/sales_order/address', array('address_id' => $address->getId()));
+        return '<a href="' . $url . '">' . $label . '</a>';
     }
 
     /**
@@ -170,4 +172,5 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
     {
         return !Mage::getStoreConfigFlag('sales/general/hide_customer_ip', $this->getOrder()->getStoreId());
     }
+
 }

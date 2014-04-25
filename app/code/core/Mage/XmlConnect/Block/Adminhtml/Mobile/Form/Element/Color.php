@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Color extends Varien_Data_Form_Element_Text
 {
+
     /**
      * Return html code for current block
      *
@@ -43,4 +45,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Color extends Varien_D
         $this->addClass('color {required:false,hash:true}');
         return parent::getHtml();
     }
+
 }

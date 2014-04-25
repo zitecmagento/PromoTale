@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* $installer Mage_Core_Model_Resource_Setup */
 
@@ -33,8 +33,7 @@ $pathesForReplace = array(
 );
 
 foreach ($pathesForReplace as $from => $to) {
-    $installer->run(sprintf("UPDATE `%s` SET `path` = '%s' WHERE `path` = '%s'",
-        $this->getTable('core/config_data'), $to, $from
+    $installer->run(sprintf("UPDATE `%s` SET `path` = '%s' WHERE `path` = '%s'", $this->getTable('core/config_data'), $to, $from
     ));
 }
 
@@ -42,9 +41,9 @@ foreach ($pathesForReplace as $from => $to) {
  * Create new attribute group and move gift_message_available attribute to this group
  */
 $entityTypeId = $installer->getEntityTypeId('catalog_product');
-$attributeId  = $installer->getAttributeId('catalog_product', 'gift_message_available');
+$attributeId = $installer->getAttributeId('catalog_product', 'gift_message_available');
 
-$attributeSets = $installer->_conn->fetchAll('select * from '.$this->getTable('eav/attribute_set').' where entity_type_id=?', $entityTypeId);
+$attributeSets = $installer->_conn->fetchAll('select * from ' . $this->getTable('eav/attribute_set') . ' where entity_type_id=?', $entityTypeId);
 foreach ($attributeSets as $attributeSet) {
     $setId = $attributeSet['attribute_set_id'];
     $installer->addAttributeGroup($entityTypeId, $setId, 'Gift Options');

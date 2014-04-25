@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Message.php 20981 2010-02-08 15:51:02Z matthew $
  */
-
 /** Zend_Log_Filter_Abstract */
 #require_once 'Zend/Log/Filter/Abstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Log_Filter_Message extends Zend_Log_Filter_Abstract
 {
+
     /**
      * @var string
      */
@@ -60,15 +61,15 @@ class Zend_Log_Filter_Message extends Zend_Log_Filter_Abstract
      * @return Zend_Log_Filter_Message
      * @throws Zend_Log_Exception
      */
-    static public function factory($config) 
+    static public function factory($config)
     {
         $config = self::_parseConfig($config);
         $config = array_merge(array(
             'regexp' => null
-        ), $config);
+                ), $config);
 
         return new self(
-            $config['regexp']
+                $config['regexp']
         );
     }
 
@@ -82,4 +83,5 @@ class Zend_Log_Filter_Message extends Zend_Log_Filter_Abstract
     {
         return preg_match($this->_regexp, $event['message']) > 0;
     }
+
 }

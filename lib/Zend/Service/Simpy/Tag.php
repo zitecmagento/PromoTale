@@ -21,7 +21,6 @@
  * @version    $Id: Tag.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Simpy_Tag
 {
+
     /**
      * Name of the tag
      *
@@ -54,7 +54,7 @@ class Zend_Service_Simpy_Tag
      */
     public function __construct($node)
     {
-        $map =& $node->attributes;
+        $map = & $node->attributes;
         $this->_tag = $map->getNamedItem('name')->nodeValue;
         $this->_count = $map->getNamedItem('count')->nodeValue;
     }
@@ -78,4 +78,5 @@ class Zend_Service_Simpy_Tag
     {
         return $this->_count;
     }
+
 }

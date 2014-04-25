@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: OpenXml.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Document */
 #require_once 'Zend/Search/Lucene/Document.php';
-
 
 /**
  * OpenXML document.
@@ -36,6 +34,7 @@
  */
 abstract class Zend_Search_Lucene_Document_OpenXml extends Zend_Search_Lucene_Document
 {
+
     /**
      * Xml Schema - Relationships
      *
@@ -88,17 +87,17 @@ abstract class Zend_Search_Lucene_Document_OpenXml extends Zend_Search_Lucene_Do
             if ($rel["Type"] == Zend_Search_Lucene_Document_OpenXml::SCHEMA_COREPROPERTIES) {
                 // Found core properties! Read in contents...
                 $contents = simplexml_load_string(
-                    $package->getFromName(dirname($rel["Target"]) . "/" . basename($rel["Target"]))
+                        $package->getFromName(dirname($rel["Target"]) . "/" . basename($rel["Target"]))
                 );
 
                 foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_DUBLINCORE) as $child) {
-                    $coreProperties[$child->getName()] = (string)$child;
+                    $coreProperties[$child->getName()] = (string) $child;
                 }
                 foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_COREPROPERTIES) as $child) {
-                    $coreProperties[$child->getName()] = (string)$child;
+                    $coreProperties[$child->getName()] = (string) $child;
                 }
                 foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_DUBLINCORETERMS) as $child) {
-                    $coreProperties[$child->getName()] = (string)$child;
+                    $coreProperties[$child->getName()] = (string) $child;
                 }
             }
         }
@@ -112,12 +111,14 @@ abstract class Zend_Search_Lucene_Document_OpenXml extends Zend_Search_Lucene_Do
      * @param string $path
      * @return string
      */
-    protected function absoluteZipPath($path) {
+    protected function absoluteZipPath($path)
+    {
         $path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
         $parts = array_filter(explode(DIRECTORY_SEPARATOR, $path), 'strlen');
         $absolutes = array();
         foreach ($parts as $part) {
-            if ('.' == $part) continue;
+            if ('.' == $part)
+                continue;
             if ('..' == $part) {
                 array_pop($absolutes);
             } else {
@@ -126,4 +127,5 @@ abstract class Zend_Search_Lucene_Document_OpenXml extends Zend_Search_Lucene_Do
         }
         return implode('/', $absolutes);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_PaypalUk_Model_Api_Express_Nvp extends Mage_PaypalUk_Model_Api_Nvp
 {
+
     /**
      * Set specific data when negative line item case
      */
@@ -43,4 +45,5 @@ class Mage_PaypalUk_Model_Api_Express_Nvp extends Mage_PaypalUk_Model_Api_Nvp
         $this->_doExpressCheckoutPaymentResponse[] = 'PAYMENTINFO_0_TRANSACTIONID';
         $this->_requiredResponseParams[self::DO_EXPRESS_CHECKOUT_PAYMENT][] = 'PAYMENTINFO_0_TRANSACTIONID';
     }
+
 }

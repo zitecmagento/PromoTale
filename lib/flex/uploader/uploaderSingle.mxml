@@ -24,16 +24,16 @@
  */
 -->
 <mx:Application
-	xmlns:mx="http://www.adobe.com/2006/mxml"
-	width="32"
-	height="20"
-	xmlns:upload="varien.upload.*"
-	xmlns:bridge="bridge.*"
-	layout="absolute"
-	backgroundGradientAlphas="[1.0, 1.0]"
-  	backgroundGradientColors="[#D7E5EF, #D7E5EF]"
-	>
-	<mx:Script>
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    width="32"
+    height="20"
+    xmlns:upload="varien.upload.*"
+    xmlns:bridge="bridge.*"
+    layout="absolute"
+    backgroundGradientAlphas="[1.0, 1.0]"
+    backgroundGradientColors="[#D7E5EF, #D7E5EF]"
+>
+    <mx:Script>
 		<![CDATA[			
 			public function hideBrowseButton():void {
 				btnBrowse.visible = false;
@@ -44,46 +44,46 @@
 				btnRemove.visible = false;
 			}
 		]]>
-	</mx:Script>
-	<upload:UploaderSingle id="upload" ></upload:UploaderSingle>
-	<bridge:FABridge></bridge:FABridge>
-	<mx:Button
-		label="..."
-		click="upload.browse();"
-		alpha="1"
-		width="32"
-		height="20"
-		borderColor="#ED6502"
-		color="#FFFFFF"
-		textRollOverColor="#FFFFFF"
-		fontSize="12"
-		fontFamily="arial,helvetica,sans-serif"
-		cornerRadius="0"
-		x="0" 
-		y="0"
-		fillAlphas="[1.0, 1.0]"
-		fillColors="[#FA8F29, #FA8F29]"
- 		id="btnBrowse"
-		>
-	</mx:Button>
-	<mx:Button
-		label="X"
-		click="upload.removeFiles(); btnBrowse.visible = true; btnRemove.visible = false;"
-		alpha="1"
-		height="20"
-		borderColor="#EC5314"
-		color="#FFFFFF"
-		textRollOverColor="#FFFFFF"
-		fontSize="12"
-		fontFamily="arial,helvetica,sans-serif"
-		cornerRadius="0"
-		fillAlphas="[1.0, 1.0]"
-		fillColors="[#EC5314, #EC5314]"
- 		id="btnRemove"
- 		width="32"
- 		y="0"
- 		x="0"
- 		visible="false"
- 		>
-	</mx:Button>
+    </mx:Script>
+    <upload:UploaderSingle id="upload" ></upload:UploaderSingle>
+    <bridge:FABridge></bridge:FABridge>
+    <mx:Button
+        label="..."
+        click="upload.browse();"
+        alpha="1"
+        width="32"
+        height="20"
+        borderColor="#ED6502"
+        color="#FFFFFF"
+        textRollOverColor="#FFFFFF"
+        fontSize="12"
+        fontFamily="arial,helvetica,sans-serif"
+        cornerRadius="0"
+        x="0" 
+        y="0"
+        fillAlphas="[1.0, 1.0]"
+        fillColors="[#FA8F29, #FA8F29]"
+        id="btnBrowse"
+    >
+    </mx:Button>
+    <mx:Button
+        label="X"
+        click="upload.removeFiles(); btnBrowse.visible = true; btnRemove.visible = false;"
+        alpha="1"
+        height="20"
+        borderColor="#EC5314"
+        color="#FFFFFF"
+        textRollOverColor="#FFFFFF"
+        fontSize="12"
+        fontFamily="arial,helvetica,sans-serif"
+        cornerRadius="0"
+        fillAlphas="[1.0, 1.0]"
+        fillColors="[#EC5314, #EC5314]"
+        id="btnRemove"
+        width="32"
+        y="0"
+        x="0"
+        visible="false"
+    >
+    </mx:Button>
 </mx:Application>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Entity store resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Resource_Entity_Store extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -53,15 +54,15 @@ class Mage_Eav_Model_Resource_Entity_Store extends Mage_Core_Model_Resource_Db_A
     public function loadByEntityStore(Mage_Core_Model_Abstract $object, $entityTypeId, $storeId)
     {
         $adapter = $this->_getWriteAdapter();
-        $bind    = array(
+        $bind = array(
             ':entity_type_id' => $entityTypeId,
-            ':store_id'       => $storeId
+            ':store_id' => $storeId
         );
         $select = $adapter->select()
-            ->from($this->getMainTable())
-            ->forUpdate(true)
-            ->where('entity_type_id = :entity_type_id')
-            ->where('store_id = :store_id');
+                ->from($this->getMainTable())
+                ->forUpdate(true)
+                ->where('entity_type_id = :entity_type_id')
+                ->where('store_id = :store_id');
         $data = $adapter->fetchRow($select, $bind);
 
         if (!$data) {
@@ -74,4 +75,5 @@ class Mage_Eav_Model_Resource_Entity_Store extends Mage_Core_Model_Resource_Db_A
 
         return true;
     }
+
 }

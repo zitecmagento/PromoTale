@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 class Zend_Server_Cache
 {
+
     /**
      * @var array Methods to skip when caching server
      */
@@ -49,9 +51,7 @@ class Zend_Server_Cache
      */
     public static function save($filename, Zend_Server_Interface $server)
     {
-        if (!is_string($filename)
-            || (!file_exists($filename) && !is_writable(dirname($filename))))
-        {
+        if (!is_string($filename) || (!file_exists($filename) && !is_writable(dirname($filename)))) {
             return false;
         }
 
@@ -108,10 +108,7 @@ class Zend_Server_Cache
      */
     public static function get($filename, Zend_Server_Interface $server)
     {
-        if (!is_string($filename)
-            || !file_exists($filename)
-            || !is_readable($filename))
-        {
+        if (!is_string($filename) || !file_exists($filename) || !is_readable($filename)) {
             return false;
         }
 
@@ -144,4 +141,5 @@ class Zend_Server_Cache
 
         return false;
     }
+
 }

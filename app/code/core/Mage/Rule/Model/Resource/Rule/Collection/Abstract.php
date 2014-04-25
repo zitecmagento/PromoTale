@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package Mage_Rule
  * @author Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract
-    extends Mage_Core_Model_Resource_Db_Collection_Abstract
+abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Store associated with rule entities information map
      *
@@ -114,11 +115,10 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract
             }
 
             $subSelect = $this->getConnection()->select()
-                ->from(array('website' => $this->getTable($entityInfo['associations_table'])), '')
-                ->where('website.' . $entityInfo['entity_id_field'] . ' IN (?)', $websiteId);
+                    ->from(array('website' => $this->getTable($entityInfo['associations_table'])), '')
+                    ->where('website.' . $entityInfo['entity_id_field'] . ' IN (?)', $websiteId);
             $this->getSelect()->exists(
-                $subSelect,
-                'main_table.' . $entityInfo['rule_id_field'] . ' = website.' . $entityInfo['rule_id_field']
+                    $subSelect, 'main_table.' . $entityInfo['rule_id_field'] . ' = website.' . $entityInfo['rule_id_field']
             );
         }
         return $this;
@@ -142,17 +142,17 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract
         return $this;
     }
 
-   /**
-    * Filter collection to only active or inactive rules
-    *
-    * @param int $isActive
-    *
-    * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
-    */
+    /**
+     * Filter collection to only active or inactive rules
+     *
+     * @param int $isActive
+     *
+     * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
+     */
     public function addIsActiveFilter($isActive = 1)
     {
         if (!$this->getFlag('is_active_filter')) {
-            $this->addFieldToFilter('is_active', (int)$isActive ? 1 : 0);
+            $this->addFieldToFilter('is_active', (int) $isActive ? 1 : 0);
             $this->setFlag('is_active_filter', true);
         }
         return $this;
@@ -173,15 +173,10 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract
         }
 
         $e = Mage::exception(
-            'Mage_Core',
-            Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType)
+                        'Mage_Core', Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType)
         );
         throw $e;
     }
-
-
-
-
 
     /**
      * Set environment for all rules in collection
@@ -232,4 +227,5 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract
     {
         return $this;
     }
+
 }

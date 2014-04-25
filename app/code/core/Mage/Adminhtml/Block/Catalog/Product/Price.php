@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product price block
  *
@@ -33,5 +33,5 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product_Price
 {
-
+    
 }

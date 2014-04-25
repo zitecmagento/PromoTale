@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Varien_Filter
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Varien_Filter_Template implements Zend_Filter_Interface
 {
+
     /**
      * Cunstruction regular expression
      */
@@ -66,7 +67,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      */
     public function setVariables(array $variables)
     {
-        foreach($variables as $name=>$value) {
+        foreach ($variables as $name => $value) {
             $this->_templateVars[$name] = $value;
         }
         return $this;
@@ -103,19 +104,22 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     {
         // "depend" and "if" operands should be first
         foreach (array(
-            self::CONSTRUCTION_DEPEND_PATTERN => 'dependDirective',
-            self::CONSTRUCTION_IF_PATTERN     => 'ifDirective',
-            ) as $pattern => $directive) {
+    self::CONSTRUCTION_DEPEND_PATTERN => 'dependDirective',
+    self::CONSTRUCTION_IF_PATTERN => 'ifDirective',
+        ) as $pattern => $directive) {
             if (preg_match_all($pattern, $value, $constructions, PREG_SET_ORDER)) {
-                foreach($constructions as $index => $construction) {
+                foreach ($constructions as $index => $construction) {
                     $replacedValue = '';
                     $callback = array($this, $directive);
-                    if(!is_callable($callback)) {
+                    if (!is_callable($callback)) {
                         continue;
                     }
-                    try {
+                    try
+                    {
                         $replacedValue = call_user_func($callback, $construction);
-                    } catch (Exception $e) {
+                    }
+                    catch (Exception $e)
+                    {
                         throw $e;
                     }
                     $value = str_replace($construction[0], $replacedValue, $value);
@@ -123,16 +127,19 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             }
         }
 
-        if(preg_match_all(self::CONSTRUCTION_PATTERN, $value, $constructions, PREG_SET_ORDER)) {
-            foreach($constructions as $index=>$construction) {
+        if (preg_match_all(self::CONSTRUCTION_PATTERN, $value, $constructions, PREG_SET_ORDER)) {
+            foreach ($constructions as $index => $construction) {
                 $replacedValue = '';
-                $callback = array($this, $construction[1].'Directive');
-                if(!is_callable($callback)) {
+                $callback = array($this, $construction[1] . 'Directive');
+                if (!is_callable($callback)) {
                     continue;
                 }
-                try {
+                try
+                {
                     $replacedValue = call_user_func($callback, $construction);
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     throw $e;
                 }
                 $value = str_replace($construction[0], $replacedValue, $value);
@@ -141,10 +148,9 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         return $value;
     }
 
-
     public function varDirective($construction)
     {
-        if (count($this->_templateVars)==0) {
+        if (count($this->_templateVars) == 0) {
             // If template preprocessing
             return $construction[0];
         }
@@ -157,7 +163,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     {
         // Processing of {include template=... [...]} statement
         $includeParameters = $this->_getIncludeParameters($construction[2]);
-        if(!isset($includeParameters['template']) or !$this->getIncludeProcessor()) {
+        if (!isset($includeParameters['template']) or !$this->getIncludeProcessor()) {
             // Not specified template or not seted include processor
             $replacedValue = '{Error in include processing}';
         } else {
@@ -172,12 +178,12 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
     public function dependDirective($construction)
     {
-        if (count($this->_templateVars)==0) {
+        if (count($this->_templateVars) == 0) {
             // If template preprocessing
             return $construction[0];
         }
 
-        if($this->_getVariable($construction[1], '')=='') {
+        if ($this->_getVariable($construction[1], '') == '') {
             return '';
         } else {
             return $construction[2];
@@ -190,7 +196,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             return $construction[0];
         }
 
-        if($this->_getVariable($construction[1], '') == '') {
+        if ($this->_getVariable($construction[1], '') == '') {
             if (isset($construction[3]) && isset($construction[4])) {
                 return $construction[4];
             }
@@ -219,14 +225,14 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         return $params;
     }
 
-     /**
+    /**
      * Return variable value for var construction
      *
      * @param string $value raw parameters
      * @param string $default default value
      * @return string
      */
-    protected function _getVariable($value, $default='{no_value_defined}')
+    protected function _getVariable($value, $default = '{no_value_defined}')
     {
         Varien_Profiler::start("email_template_proccessing_variables");
         $tokenizer = new Varien_Filter_Template_Tokenizer_Variable();
@@ -234,25 +240,21 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         $stackVars = $tokenizer->tokenize();
         $result = $default;
         $last = 0;
-        for($i = 0; $i < count($stackVars); $i ++) {
+        for ($i = 0; $i < count($stackVars); $i ++) {
             if ($i == 0 && isset($this->_templateVars[$stackVars[$i]['name']])) {
                 // Getting of template value
-                $stackVars[$i]['variable'] =& $this->_templateVars[$stackVars[$i]['name']];
-            } elseif (isset($stackVars[$i-1]['variable']) && $stackVars[$i-1]['variable'] instanceof Varien_Object) {
+                $stackVars[$i]['variable'] = & $this->_templateVars[$stackVars[$i]['name']];
+            } elseif (isset($stackVars[$i - 1]['variable']) && $stackVars[$i - 1]['variable'] instanceof Varien_Object) {
                 // If object calling methods or getting properties
                 if ($stackVars[$i]['type'] == 'property') {
                     $caller = 'get' . uc_words($stackVars[$i]['name'], '');
-                    $stackVars[$i]['variable'] = method_exists($stackVars[$i-1]['variable'], $caller)
-                        ? $stackVars[$i-1]['variable']->$caller()
-                        : $stackVars[$i-1]['variable']->getData($stackVars[$i]['name']);
+                    $stackVars[$i]['variable'] = method_exists($stackVars[$i - 1]['variable'], $caller) ? $stackVars[$i - 1]['variable']->$caller() : $stackVars[$i - 1]['variable']->getData($stackVars[$i]['name']);
                 } elseif ($stackVars[$i]['type'] == 'method') {
                     // Calling of object method
-                    if (method_exists($stackVars[$i-1]['variable'], $stackVars[$i]['name'])
-                        || substr($stackVars[$i]['name'], 0, 3) == 'get'
+                    if (method_exists($stackVars[$i - 1]['variable'], $stackVars[$i]['name']) || substr($stackVars[$i]['name'], 0, 3) == 'get'
                     ) {
                         $stackVars[$i]['variable'] = call_user_func_array(
-                            array($stackVars[$i-1]['variable'], $stackVars[$i]['name']),
-                            $stackVars[$i]['args']
+                                array($stackVars[$i - 1]['variable'], $stackVars[$i]['name']), $stackVars[$i]['args']
                         );
                     }
                 }
@@ -260,11 +262,12 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             }
         }
 
-        if(isset($stackVars[$last]['variable'])) {
+        if (isset($stackVars[$last]['variable'])) {
             // If value for construction exists set it
             $result = $stackVars[$last]['variable'];
         }
         Varien_Profiler::stop("email_template_proccessing_variables");
         return $result;
     }
+
 }

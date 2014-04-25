@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Resource_History extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Constructor, setting table and index field
      *
@@ -78,7 +80,7 @@ class Mage_XmlConnect_Model_Resource_History extends Mage_Core_Model_Resource_Db
         $paramArray = array();
         $idFieldName = Mage::getModel('xmlconnect/application')->getIdFieldName();
         $select = $this->_getReadAdapter()->select()->from($this->getMainTable(), 'params')
-            ->where($idFieldName . '=?', $id)->order(array('created_at ' . Zend_Db_Select::SQL_DESC));
+                        ->where($idFieldName . '=?', $id)->order(array('created_at ' . Zend_Db_Select::SQL_DESC));
 
         $params = $this->_getReadAdapter()->fetchOne($select);
 
@@ -87,4 +89,5 @@ class Mage_XmlConnect_Model_Resource_History extends Mage_Core_Model_Resource_Db
         }
         return $paramArray;
     }
+
 }

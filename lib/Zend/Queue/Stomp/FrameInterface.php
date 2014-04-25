@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 interface Zend_Queue_Stomp_FrameInterface
 {
+
     /**
      * Get the status of the auto content length
      *
@@ -129,7 +131,6 @@ interface Zend_Queue_Stomp_FrameInterface
      * @throws Zend_Queue_Exception
      */
     public function setCommand($command);
-
 
     /**
      * Takes the current parameters and returns a Stomp Frame

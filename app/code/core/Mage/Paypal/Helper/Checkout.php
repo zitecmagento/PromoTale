@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Paypal_Helper_Checkout extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Restore last active quote based on checkout session
      *
@@ -41,11 +43,11 @@ class Mage_Paypal_Helper_Checkout extends Mage_Core_Helper_Abstract
             $quote = $this->_getQuote($order->getQuoteId());
             if ($quote->getId()) {
                 $quote->setIsActive(1)
-                    ->setReservedOrderId(null)
-                    ->save();
+                        ->setReservedOrderId(null)
+                        ->save();
                 $this->_getCheckoutSession()
-                    ->replaceQuote($quote)
-                    ->unsLastRealOrderId();
+                        ->replaceQuote($quote)
+                        ->unsLastRealOrderId();
                 return true;
             }
         }
@@ -88,4 +90,5 @@ class Mage_Paypal_Helper_Checkout extends Mage_Core_Helper_Abstract
     {
         return Mage::getModel('sales/quote')->load($quoteId);
     }
+
 }

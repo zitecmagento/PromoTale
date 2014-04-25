@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Tax_Model_Sales_Pdf_Tax extends Mage_Sales_Model_Order_Pdf_Total_Default
 {
+
     /**
      * Check if tax amount should be included to grandtotal block
      * array(
@@ -40,7 +41,7 @@ class Mage_Tax_Model_Sales_Pdf_Tax extends Mage_Sales_Model_Order_Pdf_Total_Defa
     public function getTotalsForDisplay()
     {
         $store = $this->getOrder()->getStore();
-        $config= Mage::getSingleton('tax/config');
+        $config = Mage::getSingleton('tax/config');
         if ($config->displaySalesTaxWithGrandTotal($store)) {
             return array();
         }
@@ -49,13 +50,12 @@ class Mage_Tax_Model_Sales_Pdf_Tax extends Mage_Sales_Model_Order_Pdf_Total_Defa
         $totals = array();
 
         if ($config->displaySalesFullSummary($store)) {
-           $totals = $this->getFullTaxInfo();
+            $totals = $this->getFullTaxInfo();
         }
 
         $totals = array_merge($totals, parent::getTotalsForDisplay());
 
         return $totals;
     }
-
 
 }

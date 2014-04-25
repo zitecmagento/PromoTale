@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Standalone.php 20143 2010-01-08 15:17:11Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_Placeholder_Registry */
 #require_once 'Zend/View/Helper/Placeholder/Registry.php';
 
@@ -36,6 +36,7 @@
  */
 abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_View_Helper_Abstract implements IteratorAggregate, Countable, ArrayAccess
 {
+
     /**
      * @var Zend_View_Helper_Placeholder_Container_Abstract
      */
@@ -123,8 +124,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
     protected function _escape($string)
     {
         $enc = 'UTF-8';
-        if ($this->view instanceof Zend_View_Interface
-            && method_exists($this->view, 'getEncoding')
+        if ($this->view instanceof Zend_View_Interface && method_exists($this->view, 'getEncoding')
         ) {
             $enc = $this->view->getEncoding();
         }
@@ -321,4 +321,5 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
     {
         return $this->getContainer()->getIterator();
     }
+
 }

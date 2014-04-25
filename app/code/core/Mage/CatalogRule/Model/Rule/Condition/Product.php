@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,12 +25,12 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Rule Product Condition data model
  */
 class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Condition_Product_Abstract
 {
+
     /**
      * Validate product attribute value for condition
      *
@@ -51,7 +52,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         $result = $this->_validateProduct($object);
         $this->_restoreOldAttrValue($object, $oldAttrValue);
 
-        return (bool)$result;
+        return (bool) $result;
     }
 
     /**
@@ -92,10 +93,8 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         $attrCode = $this->getAttribute();
         $storeId = $object->getStoreId();
         $defaultStoreId = Mage_Core_Model_App::ADMIN_STORE_ID;
-        $productValues  = isset($this->_entityAttributeValues[$object->getId()])
-            ? $this->_entityAttributeValues[$object->getId()] : array();
-        $defaultValue = isset($productValues[$defaultStoreId])
-            ? $productValues[$defaultStoreId] : $object->getData($attrCode);
+        $productValues = isset($this->_entityAttributeValues[$object->getId()]) ? $this->_entityAttributeValues[$object->getId()] : array();
+        $defaultValue = isset($productValues[$defaultStoreId]) ? $productValues[$defaultStoreId] : $object->getData($attrCode);
         $value = isset($productValues[$storeId]) ? $productValues[$storeId] : $defaultValue;
 
         $value = $this->_prepareDatetimeValue($value, $object);
@@ -135,4 +134,5 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         }
         return $value;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Composite_Configure extends Mage_Adminhtml_Block_Widget
 {
+
     protected $_product;
 
     /**
@@ -71,4 +73,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Configure extends Mage_Admi
         $this->_product = $product;
         return $this;
     }
+
 }

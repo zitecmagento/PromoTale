@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Details extends Mage_Paypal_Block_Express_Review_Details
 {
+
     /**
      * Add cart details to XML object
      *
@@ -59,8 +61,9 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Details extends Mage_Paypal_Block_E
      * @return Mage_XmlConnect_Model_Simplexml_Element
      */
     public function getItemXml(
-        Mage_Sales_Model_Quote_Item $item, Mage_XmlConnect_Model_Simplexml_Element $reviewXmlObj
-    ) {
+    Mage_Sales_Model_Quote_Item $item, Mage_XmlConnect_Model_Simplexml_Element $reviewXmlObj
+    )
+    {
         $renderer = $this->getItemRenderer($item->getProductType())->setItem($item)->setQuote($this->getQuote());
         return $renderer->addProductToXmlObj($reviewXmlObj);
     }
@@ -80,4 +83,5 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Details extends Mage_Paypal_Block_E
         );
         return $this;
     }
+
 }

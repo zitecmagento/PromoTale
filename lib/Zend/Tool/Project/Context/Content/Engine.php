@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Engine.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Content_Engine_CodeGenerator
  */
@@ -43,6 +43,7 @@
  */
 class Zend_Tool_Project_Context_Content_Engine
 {
+
     /**
      * @var Zend_Tool_Framework_Client_Storage
      */
@@ -69,7 +70,7 @@ class Zend_Tool_Project_Context_Content_Engine
         $this->_engines = array(
             new Zend_Tool_Project_Context_Content_Engine_CodeGenerator($storage, $this->_keyInStorage),
             new Zend_Tool_Project_Context_Content_Engine_Phtml($storage, $this->_keyInStorage),
-            );
+        );
     }
 
     /**
@@ -91,9 +92,7 @@ class Zend_Tool_Project_Context_Content_Engine
                 if ($content != null) {
                     break;
                 }
-
             }
-
         }
 
         if ($content == null) {

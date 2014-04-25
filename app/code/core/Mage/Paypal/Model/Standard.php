@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,12 +33,13 @@
  */
 class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 {
-    protected $_code  = Mage_Paypal_Model_Config::METHOD_WPS;
+
+    protected $_code = Mage_Paypal_Model_Config::METHOD_WPS;
     protected $_formBlockType = 'paypal/standard_form';
     protected $_infoBlockType = 'paypal/payment_info';
-    protected $_isInitializeNeeded      = true;
-    protected $_canUseInternal          = false;
-    protected $_canUseForMultishipping  = false;
+    protected $_isInitializeNeeded = true;
+    protected $_canUseInternal = false;
+    protected $_canUseForMultishipping = false;
 
     /**
      * Config instance
@@ -56,7 +58,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         return $this->getConfig()->isCurrencyCodeSupported($currencyCode);
     }
 
-     /**
+    /**
      * Get paypal session namespace
      *
      * @return Mage_Paypal_Model_Session
@@ -93,9 +95,9 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     public function createFormBlock($name)
     {
         $block = $this->getLayout()->createBlock('paypal/standard_form', $name)
-            ->setMethod('paypal_standard')
-            ->setPayment($this->getPayment())
-            ->setTemplate('paypal/standard/form.phtml');
+                ->setMethod('paypal_standard')
+                ->setPayment($this->getPayment())
+                ->setTemplate('paypal/standard/form.phtml');
 
         return $block;
     }
@@ -107,7 +109,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      */
     public function getOrderPlaceRedirectUrl()
     {
-          return Mage::getUrl('paypal/standard/redirect', array('_secure' => true));
+        return Mage::getUrl('paypal/standard/redirect', array('_secure' => true));
     }
 
     /**
@@ -122,12 +124,12 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         /* @var $api Mage_Paypal_Model_Api_Standard */
         $api = Mage::getModel('paypal/api_standard')->setConfigObject($this->getConfig());
         $api->setOrderId($orderIncrementId)
-            ->setCurrencyCode($order->getBaseCurrencyCode())
-            //->setPaymentAction()
-            ->setOrder($order)
-            ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
-            ->setReturnUrl(Mage::getUrl('paypal/standard/success'))
-            ->setCancelUrl(Mage::getUrl('paypal/standard/cancel'));
+                ->setCurrencyCode($order->getBaseCurrencyCode())
+                //->setPaymentAction()
+                ->setOrder($order)
+                ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
+                ->setReturnUrl(Mage::getUrl('paypal/standard/success'))
+                ->setCancelUrl(Mage::getUrl('paypal/standard/cancel'));
 
         // export address
         $isOrderVirtual = $order->getIsVirtual();
@@ -140,7 +142,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
         // add cart totals and line items
         $api->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
-            ->setIsLineItemsEnabled($this->_config->lineItemsEnabled)
+                ->setIsLineItemsEnabled($this->_config->lineItemsEnabled)
         ;
         $api->setCartSummary($this->_getAggregatedCartSummary());
         $api->setLocale($api->getLocaleCode());
@@ -214,4 +216,5 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         }
         return Mage::app()->getStore($this->getStore())->getFrontendName();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Bundle_Model_Source_Option_Selection_Price_Type
 {
+
     public function toOptionArray()
     {
         return array(
@@ -40,4 +42,5 @@ class Mage_Bundle_Model_Source_Option_Selection_Price_Type
             array('value' => '1', 'label' => Mage::helper('bundle')->__('Percent')),
         );
     }
+
 }

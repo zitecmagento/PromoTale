@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 interface Zend_Auth_Storage_Interface
 {
+
     /**
      * Returns true if and only if storage is empty
      *

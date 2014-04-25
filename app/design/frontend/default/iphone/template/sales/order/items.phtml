@@ -24,16 +24,16 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php  $_order = $this->getOrder() ?>
+<?php $_order = $this->getOrder() ?>
 <table class="data-table" id="my-orders-table" summary="<?php echo $this->__('Items Ordered') ?>">
     <tfoot>
         <?php echo $this->getChildHtml('order_totals') ?>
     </tfoot>
-        <?php $_items = $_order->getItemsCollection(); ?>
-        <?php $_index = 0; ?>
-            <?php $_count = $_items->count(); ?>
-        <?php foreach ($_items as $_item): ?>
+    <?php $_items = $_order->getItemsCollection(); ?>
+    <?php $_index = 0; ?>
+    <?php $_count = $_items->count(); ?>
+    <?php foreach ($_items as $_item): ?>
         <?php if ($_item->getParentItem()) continue; ?>
         <?php echo $this->getItemHtml($_item) ?>
-        <?php endforeach; ?>
+    <?php endforeach; ?>
 </table>

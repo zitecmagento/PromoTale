@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 class Zend_Server_Method_Definition
 {
+
     /**
      * @var Zend_Server_Method_Callback
      */
@@ -282,12 +284,13 @@ class Zend_Server_Method_Definition
         }
 
         return array(
-            'name'            => $this->getName(),
-            'callback'        => $this->getCallback()->toArray(),
-            'prototypes'      => $signatures,
-            'methodHelp'      => $this->getMethodHelp(),
+            'name' => $this->getName(),
+            'callback' => $this->getCallback()->toArray(),
+            'prototypes' => $signatures,
+            'methodHelp' => $this->getMethodHelp(),
             'invokeArguments' => $this->getInvokeArguments(),
-            'object'          => $this->getObject(),
+            'object' => $this->getObject(),
         );
     }
+
 }

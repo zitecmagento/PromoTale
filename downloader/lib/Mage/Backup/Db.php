@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Backup_Db extends Mage_Backup_Abstract
 {
+
     /**
      * Implements Rollback functionality for Db
      *
@@ -71,9 +73,9 @@ class Mage_Backup_Db extends Mage_Backup_Abstract
         $lineLength = strlen($cleanLine);
 
         $returnResult = false;
-        if ($lineLength > 0){
-            $lastSymbolIndex = $lineLength-1;
-            if ($cleanLine[$lastSymbolIndex] == ';'){
+        if ($lineLength > 0) {
+            $lastSymbolIndex = $lineLength - 1;
+            if ($cleanLine[$lastSymbolIndex] == ';') {
                 $returnResult = true;
             }
         }
@@ -94,10 +96,10 @@ class Mage_Backup_Db extends Mage_Backup_Abstract
         $this->_lastOperationSucceed = false;
 
         $backup = Mage::getModel('backup/backup')
-            ->setTime($this->getTime())
-            ->setType($this->getType())
-            ->setPath($this->getBackupsDir())
-            ->setName($this->getName());
+                ->setTime($this->getTime())
+                ->setType($this->getType())
+                ->setPath($this->getBackupsDir())
+                ->setName($this->getName());
 
         $backupDb = Mage::getModel('backup/db');
         $backupDb->createBackup($backup);
@@ -116,4 +118,5 @@ class Mage_Backup_Db extends Mage_Backup_Abstract
     {
         return 'db';
     }
+
 }

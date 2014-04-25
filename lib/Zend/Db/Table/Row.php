@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Row.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Db_Table_Row_Abstract
  */
 #require_once 'Zend/Db/Table/Row/Abstract.php';
-
 
 /**
  * Reference concrete class that extends Zend_Db_Table_Row_Abstract.
@@ -39,4 +37,5 @@
  */
 class Zend_Db_Table_Row extends Zend_Db_Table_Row_Abstract
 {
+    
 }

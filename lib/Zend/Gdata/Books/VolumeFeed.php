@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: VolumeFeed.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Feed
  */
@@ -51,12 +50,11 @@ class Zend_Gdata_Books_VolumeFeed extends Zend_Gdata_Feed
         parent::__construct($element);
     }
 
-     /**
-      * The classname for individual feed elements.
-      *
-      * @var string
-      */
-     protected $_entryClassName = 'Zend_Gdata_Books_VolumeEntry';
+    /**
+     * The classname for individual feed elements.
+     *
+     * @var string
+     */
+    protected $_entryClassName = 'Zend_Gdata_Books_VolumeEntry';
 
 }
-

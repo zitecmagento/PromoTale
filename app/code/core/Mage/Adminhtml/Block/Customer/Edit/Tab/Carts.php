@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Carts extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Add shopping cart grid of each website
      *
@@ -41,8 +43,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Carts extends Mage_Adminhtml_Block_
         $isShared = count($sharedWebsiteIds) > 1;
         foreach ($sharedWebsiteIds as $websiteId) {
             $blockName = 'customer_cart_' . $websiteId;
-            $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_cart',
-                $blockName, array('website_id' => $websiteId));
+            $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_cart', $blockName, array('website_id' => $websiteId));
             if ($isShared) {
                 $block->setCartHeader($this->__('Shopping Cart from %s', Mage::app()->getWebsite($websiteId)->getName()));
             }
@@ -61,4 +62,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Carts extends Mage_Adminhtml_Block_
         Mage::dispatchEvent('adminhtml_block_html_before', array('block' => $this));
         return $this->getChildHtml();
     }
+
 }

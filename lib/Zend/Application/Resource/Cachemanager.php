@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Cachemanager.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
 #require_once 'Zend/Application/Resource/ResourceAbstract.php';
 
 /**
@@ -33,6 +33,7 @@
  */
 class Zend_Application_Resource_Cachemanager extends Zend_Application_Resource_ResourceAbstract
 {
+
     /**
      * @var Zend_Cache_Manager
      */
@@ -57,7 +58,7 @@ class Zend_Application_Resource_Cachemanager extends Zend_Application_Resource_R
     {
         if (null === $this->_manager) {
             $this->_manager = new Zend_Cache_Manager;
-            
+
             $options = $this->getOptions();
             foreach ($options as $key => $value) {
                 if ($this->_manager->hasCacheTemplate($key)) {
@@ -67,7 +68,8 @@ class Zend_Application_Resource_Cachemanager extends Zend_Application_Resource_R
                 }
             }
         }
-        
+
         return $this->_manager;
     }
+
 }

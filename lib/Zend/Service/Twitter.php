@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Twitter.php 23312 2010-11-08 19:45:00Z matthew $
  */
-
 /**
  * @see Zend_Rest_Client
  */
@@ -54,45 +54,45 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * This should be reviewed in the future...
      */
     const STATUS_MAX_CHARACTERS = 246;
-    
+
     /**
      * OAuth Endpoint
      */
     const OAUTH_BASE_URI = 'http://twitter.com/oauth';
-    
+
     /**
      * @var Zend_Http_CookieJar
      */
     protected $_cookieJar;
-    
+
     /**
      * Date format for 'since' strings
      *
      * @var string
      */
     protected $_dateFormat = 'D, d M Y H:i:s T';
-    
+
     /**
      * Username
      *
      * @var string
      */
     protected $_username;
-    
+
     /**
      * Current method type (for method proxying)
      *
      * @var string
      */
     protected $_methodType;
-    
+
     /**
      * Zend_Oauth Consumer
      *
      * @var Zend_Oauth_Consumer
      */
     protected $_oauthConsumer = null;
-    
+
     /**
      * Types of API methods
      *
@@ -107,7 +107,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         'favorite',
         'block'
     );
-    
+
     /**
      * Options passed to constructor
      *
@@ -131,7 +131,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     public function __construct($options = null, Zend_Oauth_Consumer $consumer = null)
     {
         $this->setUri('http://api.twitter.com');
-        if (!is_array($options)) $options = array();
+        if (!is_array($options))
+            $options = array();
         $options['siteUrl'] = self::OAUTH_BASE_URI;
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -140,8 +141,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         if (isset($options['username'])) {
             $this->setUsername($options['username']);
         }
-        if (isset($options['accessToken'])
-        && $options['accessToken'] instanceof Zend_Oauth_Token_Access) {
+        if (isset($options['accessToken']) && $options['accessToken'] instanceof Zend_Oauth_Token_Access) {
             $this->setLocalHttpClient($options['accessToken']->getHttpClient($options));
         } else {
             $this->setLocalHttpClient(clone self::getHttpClient());
@@ -166,7 +166,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         $this->_localHttpClient->setHeaders('Accept-Charset', 'ISO-8859-1,utf-8');
         return $this;
     }
-    
+
     /**
      * Get the local HTTP client as distinct from the static HTTP client
      * inherited from Zend_Rest_Client
@@ -177,7 +177,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     {
         return $this->_localHttpClient;
     }
-    
+
     /**
      * Checks for an authorised state
      *
@@ -225,7 +225,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         if (!in_array($type, $this->_methodTypes)) {
             include_once 'Zend/Service/Twitter/Exception.php';
             throw new Zend_Service_Twitter_Exception(
-                'Invalid method type "' . $type . '"'
+            'Invalid method type "' . $type . '"'
             );
         }
         $this->_methodType = $type;
@@ -252,14 +252,14 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         if (empty($this->_methodType)) {
             include_once 'Zend/Service/Twitter/Exception.php';
             throw new Zend_Service_Twitter_Exception(
-                'Invalid method "' . $method . '"'
+            'Invalid method "' . $method . '"'
             );
         }
         $test = $this->_methodType . ucfirst($method);
         if (!method_exists($this, $test)) {
             include_once 'Zend/Service/Twitter/Exception.php';
             throw new Zend_Service_Twitter_Exception(
-                'Invalid method "' . $test . '"'
+            'Invalid method "' . $test . '"'
             );
         }
 
@@ -276,10 +276,10 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         if (!$this->isAuthorised() && $this->getUsername() !== null) {
             #require_once 'Zend/Service/Twitter/Exception.php';
             throw new Zend_Service_Twitter_Exception(
-                'Twitter session is unauthorised. You need to initialize '
-                . 'Zend_Service_Twitter with an OAuth Access Token or use '
-                . 'its OAuth functionality to obtain an Access Token before '
-                . 'attempting any API actions that require authorisation'
+            'Twitter session is unauthorised. You need to initialize '
+            . 'Zend_Service_Twitter with an OAuth Access Token or use '
+            . 'its OAuth functionality to obtain an Access Token before '
+            . 'attempting any API actions that require authorisation'
             );
         }
         $client = $this->_localHttpClient;
@@ -465,14 +465,14 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         if ($len > self::STATUS_MAX_CHARACTERS) {
             include_once 'Zend/Service/Twitter/Exception.php';
             throw new Zend_Service_Twitter_Exception(
-                'Status must be no more than '
-                . self::STATUS_MAX_CHARACTERS
-                . ' characters in length'
+            'Status must be no more than '
+            . self::STATUS_MAX_CHARACTERS
+            . ' characters in length'
             );
         } elseif (0 == $len) {
             include_once 'Zend/Service/Twitter/Exception.php';
             throw new Zend_Service_Twitter_Exception(
-                'Status must contain at least one character'
+            'Status must contain at least one character'
             );
         }
         $data = array('status' => $status);
@@ -589,7 +589,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     {
         $this->_init();
         $path = '/1/users/show.xml';
-        $response = $this->_get($path, array('id'=>$id));
+        $response = $this->_get($path, array('id' => $id));
         return new Zend_Rest_Client_Result($response->getBody());
     }
 
@@ -673,11 +673,11 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         $len = iconv_strlen($text, 'UTF-8');
         if (0 == $len) {
             throw new Zend_Service_Twitter_Exception(
-                'Direct message must contain at least one character'
+            'Direct message must contain at least one character'
             );
         } elseif (140 < $len) {
             throw new Zend_Service_Twitter_Exception(
-                'Direct message must contain no more than 140 characters'
+            'Direct message must contain no more than 140 characters'
             );
         }
         $data = array('user' => $user, 'text' => $text);
@@ -947,9 +947,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         if (!preg_match('/^[a-zA-Z0-9_]{0,15}$/', $name)) {
             #require_once 'Zend/Service/Twitter/Exception.php';
             throw new Zend_Service_Twitter_Exception(
-                'Screen name, "' . $name
-                . '" should only contain alphanumeric characters and'
-                . ' underscores, and not exceed 15 characters.');
+            'Screen name, "' . $name
+            . '" should only contain alphanumeric characters and'
+            . ' underscores, and not exceed 15 characters.');
         }
         return $name;
     }
@@ -967,7 +967,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         if (!$this->_uri instanceof Zend_Uri_Http) {
             #require_once 'Zend/Rest/Client/Exception.php';
             throw new Zend_Rest_Client_Exception(
-                'URI object must be set before performing call'
+            'URI object must be set before performing call'
             );
         }
 

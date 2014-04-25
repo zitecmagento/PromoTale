@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,14 +24,12 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Checkout_Block_Cart_Coupon extends Mage_Checkout_Block_Cart_Abstract
 {
+
     public function getCouponCode()
     {
         return $this->getQuote()->getCouponCode();
     }
-
 
 }

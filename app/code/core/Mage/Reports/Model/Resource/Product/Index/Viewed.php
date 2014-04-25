@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reports Viewed Product Index Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Reports_Model_Resource_Product_Index_Viewed extends Mage_Reports_Model_Resource_Product_Index_Abstract
 {
+
     /**
      * Initialize connection and main resource table
      *
@@ -42,4 +43,5 @@ class Mage_Reports_Model_Resource_Product_Index_Viewed extends Mage_Reports_Mode
     {
         $this->_init('reports/viewed_product_index', 'index_id');
     }
+
 }

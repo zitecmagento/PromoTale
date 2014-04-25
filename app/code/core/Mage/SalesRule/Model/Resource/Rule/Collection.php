@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales Rules resource collection model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Resource_Rule_Collection_Abstract
 {
+
     /**
      * Store associated with rule entities information map
      *
@@ -42,13 +43,13 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
     protected $_associatedEntitiesMap = array(
         'website' => array(
             'associations_table' => 'salesrule/website',
-            'rule_id_field'      => 'rule_id',
-            'entity_id_field'    => 'website_id'
+            'rule_id_field' => 'rule_id',
+            'entity_id_field' => 'website_id'
         ),
         'customer_group' => array(
             'associations_table' => 'salesrule/customer_group',
-            'rule_id_field'      => 'rule_id',
-            'entity_id_field'    => 'customer_group_id'
+            'rule_id_field' => 'rule_id',
+            'entity_id_field' => 'customer_group_id'
         )
     );
 
@@ -87,18 +88,16 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
 
             if (strlen($couponCode)) {
                 $select->joinLeft(
-                    array('rule_coupons' => $this->getTable('salesrule/coupon')),
-                    'main_table.rule_id = rule_coupons.rule_id ',
-                    array('code')
+                        array('rule_coupons' => $this->getTable('salesrule/coupon')), 'main_table.rule_id = rule_coupons.rule_id ', array(
+                    'code')
                 );
-            $select->where('(main_table.coupon_type = ? ', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON)
-                ->orWhere('(main_table.coupon_type = ? AND rule_coupons.type = 0',
-                    Mage_SalesRule_Model_Rule::COUPON_TYPE_AUTO)
-                ->orWhere('main_table.coupon_type = ? AND main_table.use_auto_generation = 1 ' .
-                    'AND rule_coupons.type = 1', Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC)
-                ->orWhere('main_table.coupon_type = ? AND main_table.use_auto_generation = 0 ' .
-                    'AND rule_coupons.type = 0)', Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC)
-                ->where('rule_coupons.code = ?)', $couponCode);
+                $select->where('(main_table.coupon_type = ? ', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON)
+                        ->orWhere('(main_table.coupon_type = ? AND rule_coupons.type = 0', Mage_SalesRule_Model_Rule::COUPON_TYPE_AUTO)
+                        ->orWhere('main_table.coupon_type = ? AND main_table.use_auto_generation = 1 ' .
+                                'AND rule_coupons.type = 1', Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC)
+                        ->orWhere('main_table.coupon_type = ? AND main_table.use_auto_generation = 0 ' .
+                                'AND rule_coupons.type = 0)', Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC)
+                        ->where('rule_coupons.code = ?)', $couponCode);
             } else {
                 $this->addFieldToFilter('main_table.coupon_type', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON);
             }
@@ -133,18 +132,15 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
             $entityInfo = $this->_getAssociatedEntityInfo('customer_group');
             $connection = $this->getConnection();
             $this->getSelect()
-                ->joinInner(
-                    array('customer_group_ids' => $this->getTable($entityInfo['associations_table'])),
-                    $connection->quoteInto(
-                        'main_table.' . $entityInfo['rule_id_field']
-                            . ' = customer_group_ids.' . $entityInfo['rule_id_field']
-                            . ' AND customer_group_ids.' . $entityInfo['entity_id_field'] . ' = ?',
-                        (int)$customerGroupId
-                    ),
-                    array()
-                )
-                ->where('from_date is null or from_date <= ?', $now)
-                ->where('to_date is null or to_date >= ?', $now);
+                    ->joinInner(
+                            array('customer_group_ids' => $this->getTable($entityInfo['associations_table'])), $connection->quoteInto(
+                                    'main_table.' . $entityInfo['rule_id_field']
+                                    . ' = customer_group_ids.' . $entityInfo['rule_id_field']
+                                    . ' AND customer_group_ids.' . $entityInfo['entity_id_field'] . ' = ?', (int) $customerGroupId
+                            ), array()
+                    )
+                    ->where('from_date is null or from_date <= ?', $now)
+                    ->where('to_date is null or to_date >= ?', $now);
 
             $this->addIsActiveFilter();
 
@@ -163,11 +159,10 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
     {
         parent::_initSelect();
         $this->getSelect()
-            ->joinLeft(
-                array('rule_coupons' => $this->getTable('salesrule/coupon')),
-                'main_table.rule_id = rule_coupons.rule_id AND rule_coupons.is_primary = 1',
-                array('code')
-            );
+                ->joinLeft(
+                        array('rule_coupons' => $this->getTable('salesrule/coupon')), 'main_table.rule_id = rule_coupons.rule_id AND rule_coupons.is_primary = 1', array(
+                    'code')
+        );
         return $this;
     }
 
@@ -199,10 +194,10 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
     public function addAllowedSalesRulesFilter()
     {
         $this->addFieldToFilter(
-            'main_table.use_auto_generation',
-            array('neq' => 1)
+                'main_table.use_auto_generation', array('neq' => 1)
         );
 
         return $this;
     }
+
 }

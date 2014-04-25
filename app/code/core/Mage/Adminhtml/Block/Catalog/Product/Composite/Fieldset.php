@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset extends Mage_Core_Block_Text_List
 {
+
     /**
      *
      * Iterates through fieldsets and fetches complete html
@@ -59,4 +61,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset extends Mage_Core_
 
         return parent::_toHtml();
     }
+
 }

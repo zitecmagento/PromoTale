@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax report resource model with aggregation by updated at
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Tax_Model_Resource_Report_Tax_Updatedat extends Mage_Tax_Model_Resource_Report_Tax_Createdat
 {
+
     /**
      * Resource initialization
      */
@@ -53,4 +54,5 @@ class Mage_Tax_Model_Resource_Report_Tax_Updatedat extends Mage_Tax_Model_Resour
     {
         return $this->_aggregateByOrder('updated_at', $from, $to);
     }
+
 }

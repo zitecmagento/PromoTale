@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product alert for back in stock collection
  *
@@ -34,4 +34,5 @@
  */
 class Mage_ProductAlert_Model_Mysql4_Stock_Collection extends Mage_ProductAlert_Model_Resource_Stock_Collection
 {
+    
 }

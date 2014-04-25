@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Authorizenet_Model_Directpost_Observer
 {
+
     /**
      * Save order into registry to use it in the overloaded controller.
      *
@@ -65,8 +67,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
                 /* @var $controller Mage_Core_Controller_Varien_Action */
                 $controller = $observer->getEvent()->getData('controller_action');
                 $result = Mage::helper('core')->jsonDecode(
-                    $controller->getResponse()->getBody('default'),
-                    Zend_Json::TYPE_ARRAY
+                        $controller->getResponse()->getBody('default'), Zend_Json::TYPE_ARRAY
                 );
 
                 if (empty($result['error'])) {
@@ -77,7 +78,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
                     $session->setLastOrderIncrementId($order->getIncrementId());
                     $requestToPaygate = $payment->getMethodInstance()->generateRequestFromOrder($order);
                     $requestToPaygate->setControllerActionName($controller->getRequest()->getControllerName());
-                    $requestToPaygate->setIsSecure((string)Mage::app()->getStore()->isCurrentlySecure());
+                    $requestToPaygate->setIsSecure((string) Mage::app()->getStore()->isCurrentlySecure());
 
                     $result['directpost'] = array('fields' => $requestToPaygate->getData());
 
@@ -99,10 +100,11 @@ class Mage_Authorizenet_Model_Directpost_Observer
      */
     public function updateAllEditIncrements(Varien_Event_Observer $observer)
     {
-         /* @var $order Mage_Sales_Model_Order */
+        /* @var $order Mage_Sales_Model_Order */
         $order = $observer->getEvent()->getData('order');
         Mage::helper('authorizenet')->updateOrderEditIncrements($order);
 
         return $this;
     }
+
 }

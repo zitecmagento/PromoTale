@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Set themes template and color fieldsets
      */
@@ -46,71 +48,47 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes extends Mage
         $data = $model->getFormData();
         $this->setColorFieldset(array(
             array('id' => 'field_colors', 'label' => $this->__('Colors'), 'fields' => array(
-                $this->_addColorBox(
-                    'conf[native][navigationBar][tintColor]',
-                    $this->__('Header Background Color'),
-                    $data
-                ),
-                $this->_addColorBox(
-                    'conf[native][body][primaryColor]',
-                    $this->__('Primary Color'),
-                    $data
-                ),
-                $this->_addColorBox(
-                    'conf[native][body][secondaryColor]',
-                    $this->__('Secondary Color'),
-                    $data
-                ),
-                $this->_addColorBox(
-                    'conf[native][categoryItem][backgroundColor]',
-                    $this->__('Category Item Background Color'),
-                    $data
-                ),
-                $this->_addColorBox(
-                    'conf[native][categoryItem][tintColor]',
-                    $this->__('Category Button Color'),
-                    $data
-                ),
-            )),
+                    $this->_addColorBox(
+                            'conf[native][navigationBar][tintColor]', $this->__('Header Background Color'), $data
+                    ),
+                    $this->_addColorBox(
+                            'conf[native][body][primaryColor]', $this->__('Primary Color'), $data
+                    ),
+                    $this->_addColorBox(
+                            'conf[native][body][secondaryColor]', $this->__('Secondary Color'), $data
+                    ),
+                    $this->_addColorBox(
+                            'conf[native][categoryItem][backgroundColor]', $this->__('Category Item Background Color'), $data
+                    ),
+                    $this->_addColorBox(
+                            'conf[native][categoryItem][tintColor]', $this->__('Category Button Color'), $data
+                    ),
+                )),
             array('id' => 'field_fonts', 'label' => $this->__('Fonts'), 'fields' => array(
-                $this->_addColorBox(
-                    'conf[extra][fontColors][header]',
-                    $this->__('Header Font Color'),
-                    $data
-                ),
-                $this->_addColorBox(
-                    'conf[extra][fontColors][primary]',
-                    $this->__('Primary Font Color'),
-                    $data
-                ),
-                $this->_addColorBox(
-                    'conf[extra][fontColors][secondary]',
-                    $this->__('Secondary Font Color'),
-                    $data
-                ),
-                $this->_addColorBox(
-                    'conf[extra][fontColors][price]',
-                    $this->__('Price Font Color'),
-                    $data
-                ),
-            )),
+                    $this->_addColorBox(
+                            'conf[extra][fontColors][header]', $this->__('Header Font Color'), $data
+                    ),
+                    $this->_addColorBox(
+                            'conf[extra][fontColors][primary]', $this->__('Primary Font Color'), $data
+                    ),
+                    $this->_addColorBox(
+                            'conf[extra][fontColors][secondary]', $this->__('Secondary Font Color'), $data
+                    ),
+                    $this->_addColorBox(
+                            'conf[extra][fontColors][price]', $this->__('Price Font Color'), $data
+                    ),
+                )),
             array('id' => 'field_advanced', 'label' => $this->__('Advanced Settings'), 'fields' => array(
-                $this->_addColorBox(
-                    'conf[native][body][backgroundColor]',
-                    $this->__('Background Color'),
-                    $data
-                ),
-                $this->_addColorBox(
-                    'conf[native][body][scrollBackgroundColor]',
-                    $this->__('Scroll Background Color'),
-                    $data
-                ),
-                $this->_addColorBox(
-                    'conf[native][itemActions][relatedProductBackgroundColor]',
-                    $this->__('Related Product Background Color'),
-                    $data
-                ),
-            )),
+                    $this->_addColorBox(
+                            'conf[native][body][backgroundColor]', $this->__('Background Color'), $data
+                    ),
+                    $this->_addColorBox(
+                            'conf[native][body][scrollBackgroundColor]', $this->__('Scroll Background Color'), $data
+                    ),
+                    $this->_addColorBox(
+                            'conf[native][itemActions][relatedProductBackgroundColor]', $this->__('Related Product Background Color'), $data
+                    ),
+                )),
         ));
     }
 
@@ -140,8 +118,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes extends Mage
     protected function _addColorBox($id, $label, $data)
     {
         return array(
-            'id'    => $id,
-            'name'  => $id,
+            'id' => $id,
+            'name' => $id,
             'label' => $label,
             'value' => isset($data[$id]) ? $data[$id] : ''
         );
@@ -196,4 +174,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes extends Mage
     {
         return $this->getUrl('*/*/resetTheme');
     }
+
 }

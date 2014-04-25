@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,15 +24,10 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /** @var $installer Mage_Catalog_Model_Resource_Setup */
-
 foreach (array('news_from_date', 'custom_design_from') as $attributeCode) {
     $installer->updateAttribute(
-        Mage_Catalog_Model_Product::ENTITY,
-        $attributeCode,
-        'backend_model',
-        'catalog/product_attribute_backend_startdate'
+            Mage_Catalog_Model_Product::ENTITY, $attributeCode, 'backend_model', 'catalog/product_attribute_backend_startdate'
     );
 }

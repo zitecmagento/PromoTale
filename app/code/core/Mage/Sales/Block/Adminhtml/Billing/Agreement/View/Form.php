@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Form extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Define custom template
      *
@@ -40,4 +42,5 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Form extends Mage_Adminh
         parent::_construct();
         $this->setTemplate('sales/billing/agreement/view/form.phtml');
     }
+
 }

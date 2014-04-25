@@ -1,6 +1,6 @@
 <?php
-// $Id: bcpowmod.php,v 1.1 2007/07/02 04:19:55 terrafrost Exp $
 
+// $Id: bcpowmod.php,v 1.1 2007/07/02 04:19:55 terrafrost Exp $
 
 /**
  * Replace bcpowmod()
@@ -20,25 +20,25 @@ function php_compat_bcpowmod($x, $y, $modulus, $scale = 0)
     // Sanity check
     if (!is_scalar($x)) {
         user_error('bcpowmod() expects parameter 1 to be string, ' .
-            gettype($x) . ' given', E_USER_WARNING);
+                gettype($x) . ' given', E_USER_WARNING);
         return false;
     }
 
     if (!is_scalar($y)) {
         user_error('bcpowmod() expects parameter 2 to be string, ' .
-            gettype($y) . ' given', E_USER_WARNING);
+                gettype($y) . ' given', E_USER_WARNING);
         return false;
     }
 
     if (!is_scalar($modulus)) {
         user_error('bcpowmod() expects parameter 3 to be string, ' .
-            gettype($modulus) . ' given', E_USER_WARNING);
+                gettype($modulus) . ' given', E_USER_WARNING);
         return false;
     }
 
     if (!is_scalar($scale)) {
         user_error('bcpowmod() expects parameter 4 to be integer, ' .
-            gettype($scale) . ' given', E_USER_WARNING);
+                gettype($scale) . ' given', E_USER_WARNING);
         return false;
     }
 
@@ -53,14 +53,15 @@ function php_compat_bcpowmod($x, $y, $modulus, $scale = 0)
         $y = bcdiv($y, '2');
     }
 
-    return $t;    
+    return $t;
 }
-
 
 // Define
 if (!function_exists('bcpowmod')) {
+
     function bcpowmod($x, $y, $modulus, $scale = 0)
     {
         return php_compat_bcpowmod($x, $y, $modulus, $scale);
     }
+
 }

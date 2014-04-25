@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -113,7 +114,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function addRequestParam($url, $param)
     {
-        $startDelimiter = (false === strpos($url,'?'))? '?' : '&';
+        $startDelimiter = (false === strpos($url, '?')) ? '?' : '&';
 
         $arrQueryParams = array();
         foreach ($param as $key => $value) {
@@ -168,4 +169,5 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     {
         return Mage::getSingleton($name, $arguments);
     }
+
 }

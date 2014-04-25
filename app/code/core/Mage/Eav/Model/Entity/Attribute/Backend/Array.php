@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Eav_Model_Entity_Attribute_Backend_Array extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Prepare data for save
      *
@@ -50,4 +52,5 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Array extends Mage_Eav_Model_Entit
 
         return parent::beforeSave($object);
     }
+
 }

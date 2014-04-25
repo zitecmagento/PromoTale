@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Options_Virtual extends Mage_XmlConnect_Block_Catalog_Product_Options
 {
+
     /**
      * Generate virtual product options xml
      *
@@ -45,4 +47,5 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Virtual extends Mage_XmlConn
         $xmlModel = $this->getProductCustomOptionsXmlObject($product);
         return $isObject ? $xmlModel : $xmlModel->asNiceXml();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: StringToUpper.php 22790 2010-08-03 19:16:33Z thomas $
  */
-
 /**
  * @see Zend_Filter_Interface
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Filter_StringToUpper implements Zend_Filter_Interface
 {
+
     /**
      * Encoding for the input string
      *
@@ -50,7 +51,7 @@ class Zend_Filter_StringToUpper implements Zend_Filter_Interface
             $options = $options->toArray();
         } else if (!is_array($options)) {
             $options = func_get_args();
-            $temp    = array();
+            $temp = array();
             if (!empty($options)) {
                 $temp['encoding'] = array_shift($options);
             }
@@ -118,4 +119,5 @@ class Zend_Filter_StringToUpper implements Zend_Filter_Interface
 
         return strtoupper((string) $value);
     }
+
 }

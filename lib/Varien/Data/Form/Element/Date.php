@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,13 @@
  */
 class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
 {
+
     /**
      * @var Zend_Date
      */
     protected $_value;
 
-    public function __construct($attributes=array())
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setType('text');
@@ -55,14 +57,13 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
     protected function _toTimestamp($value)
     {
 
-        $value = (int)$value;
+        $value = (int) $value;
         if ($value > 3155760000) {
             $value = 0;
         }
 
         return $value;
     }
-    
 
     /**
      * Set date value
@@ -102,10 +103,12 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
                 $locale = null;
             }
         }
-        try {
+        try
+        {
             $this->_value = new Zend_Date($value, $format, $locale);
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $this->_value = '';
         }
         return $this;
@@ -155,16 +158,14 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         $this->addClass('input-text');
 
         $html = sprintf(
-            '<input name="%s" id="%s" value="%s" %s style="width:110px !important;" />'
-            .' <img src="%s" alt="" class="v-middle" id="%s_trig" title="%s" style="%s" />',
-            $this->getName(), $this->getHtmlId(), $this->_escape($this->getValue()), $this->serialize($this->getHtmlAttributes()),
-            $this->getImage(), $this->getHtmlId(), 'Select Date', ($this->getDisabled() ? 'display:none;' : '')
+                '<input name="%s" id="%s" value="%s" %s style="width:110px !important;" />'
+                . ' <img src="%s" alt="" class="v-middle" id="%s_trig" title="%s" style="%s" />', $this->getName(), $this->getHtmlId(), $this->_escape($this->getValue()), $this->serialize($this->getHtmlAttributes()), $this->getImage(), $this->getHtmlId(), 'Select Date', ($this->getDisabled() ? 'display:none;' : '')
         );
         $outputFormat = $this->getFormat();
         if (empty($outputFormat)) {
             throw new Exception('Output format is not specified. Please, specify "format" key in constructor, or set it using setFormat().');
         }
-        $displayFormat = Varien_Date::convertZendToStrFtime($outputFormat, true, (bool)$this->getTime());
+        $displayFormat = Varien_Date::convertZendToStrFtime($outputFormat, true, (bool) $this->getTime());
 
         $html .= sprintf('
             <script type="text/javascript">
@@ -178,13 +179,12 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
                     singleClick : true
                 });
             //]]>
-            </script>',
-            $this->getHtmlId(), $displayFormat,
-            $this->getTime() ? 'true' : 'false', $this->getHtmlId()
+            </script>', $this->getHtmlId(), $displayFormat, $this->getTime() ? 'true' : 'false', $this->getHtmlId()
         );
 
         $html .= $this->getAfterElementHtml();
 
         return $html;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Sqlsrv.php 21887 2010-04-16 18:28:10Z juokaz $
  */
-
 /**
  * @see Zend_Db_Statement
  */
@@ -121,7 +121,6 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
         return 0;
     }
 
-
     /**
      * Retrieves the error code, if any, associated with the last operation on
      * the statement handle.
@@ -141,7 +140,6 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
 
         return $error[0]['code'];
     }
-
 
     /**
      * Retrieves an array of error information, if any, associated with the
@@ -166,7 +164,6 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
         );
     }
 
-
     /**
      * Executes a prepared statement.
      *
@@ -189,10 +186,10 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
 
             // make all params passed by reference
             $params_ = array();
-            $temp    = array();
-            $i       = 1;
+            $temp = array();
+            $i = 1;
             foreach ($params as $param) {
-                $temp[$i]  = $param;
+                $temp[$i] = $param;
                 $params_[] = &$temp[$i];
                 $i++;
             }
@@ -259,15 +256,15 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
                 break;
             case Zend_Db::FETCH_BOTH:
                 $assoc = array_combine($this->_keys, $values);
-                $row   = array_merge($values, $assoc);
+                $row = array_merge($values, $assoc);
                 break;
             case Zend_Db::FETCH_OBJ:
                 $row = (object) array_combine($this->_keys, $values);
                 break;
             case Zend_Db::FETCH_BOUND:
                 $assoc = array_combine($this->_keys, $values);
-                $row   = array_merge($values, $assoc);
-                $row   = $this->_fetchBound($row);
+                $row = array_merge($values, $assoc);
+                $row = $this->_fetchBound($row);
                 break;
             default:
                 #require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
@@ -376,11 +373,11 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
             #require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
             throw new Zend_Db_Statement_Sqlsrv_Exception(sqlsrv_errors());
         }
-		
-		// reset column keys
-		$this->_keys = null;
 
-		return true;
+        // reset column keys
+        $this->_keys = null;
+
+        return true;
     }
 
     /**
@@ -411,8 +408,8 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
 
         return $num_rows;
     }
-	
-	/**
+
+    /**
      * Returns an array containing all of the result set rows.
      *
      * @param int $style OPTIONAL Fetch mode.
@@ -437,4 +434,5 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
         }
         return $results;
     }
+
 }

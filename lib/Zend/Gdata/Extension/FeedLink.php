@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FeedLink.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Extension
  */
@@ -50,8 +49,7 @@ class Zend_Gdata_Extension_FeedLink extends Zend_Gdata_Extension
     protected $_rel = null;
     protected $_feed = null;
 
-    public function __construct($href = null, $rel = null,
-            $countHint = null, $readOnly = null, $feed = null)
+    public function __construct($href = null, $rel = null, $countHint = null, $readOnly = null, $feed = null)
     {
         parent::__construct();
         $this->_countHint = $countHint;
@@ -91,37 +89,35 @@ class Zend_Gdata_Extension_FeedLink extends Zend_Gdata_Extension
                 $feed->transferFromDOM($child);
                 $this->_feed = $feed;
                 break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 
     protected function takeAttributeFromDOM($attribute)
     {
         switch ($attribute->localName) {
-        case 'countHint':
-            $this->_countHint = $attribute->nodeValue;
-            break;
-        case 'href':
-            $this->_href = $attribute->nodeValue;
-            break;
-        case 'readOnly':
-            if ($attribute->nodeValue == "true") {
-                $this->_readOnly = true;
-            }
-            else if ($attribute->nodeValue == "false") {
-                $this->_readOnly = false;
-            }
-            else {
-                throw new Zend_Gdata_App_InvalidArgumentException("Expected 'true' or 'false' for gCal:selected#value.");
-            }
-            break;
-        case 'rel':
-            $this->_rel = $attribute->nodeValue;
-            break;
-        default:
-            parent::takeAttributeFromDOM($attribute);
+            case 'countHint':
+                $this->_countHint = $attribute->nodeValue;
+                break;
+            case 'href':
+                $this->_href = $attribute->nodeValue;
+                break;
+            case 'readOnly':
+                if ($attribute->nodeValue == "true") {
+                    $this->_readOnly = true;
+                } else if ($attribute->nodeValue == "false") {
+                    $this->_readOnly = false;
+                } else {
+                    throw new Zend_Gdata_App_InvalidArgumentException("Expected 'true' or 'false' for gCal:selected#value.");
+                }
+                break;
+            case 'rel':
+                $this->_rel = $attribute->nodeValue;
+                break;
+            default:
+                parent::takeAttributeFromDOM($attribute);
         }
     }
 

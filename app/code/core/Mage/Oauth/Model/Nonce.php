@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * oAuth nonce model
  *
@@ -40,6 +40,7 @@
  */
 class Mage_Oauth_Model_Nonce extends Mage_Core_Model_Abstract
 {
+
     /**
      * Initialize resource model
      *
@@ -67,4 +68,5 @@ class Mage_Oauth_Model_Nonce extends Mage_Core_Model_Abstract
         }
         return $this;
     }
+
 }

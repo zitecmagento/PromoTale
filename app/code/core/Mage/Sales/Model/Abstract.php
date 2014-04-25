@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,6 +33,7 @@
  */
 abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
 {
+
     /**
      * Get object store identifier
      *
@@ -61,10 +63,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
     public function getCreatedAtDate()
     {
         return Mage::app()->getLocale()->date(
-            Varien_Date::toTimestamp($this->getCreatedAt()),
-            null,
-            null,
-            true
+                        Varien_Date::toTimestamp($this->getCreatedAt()), null, null, true
         );
     }
 
@@ -76,9 +75,8 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
     public function getCreatedAtStoreDate()
     {
         return Mage::app()->getLocale()->storeDate(
-            $this->getStore(),
-            Varien_Date::toTimestamp($this->getCreatedAt()),
-            true
+                        $this->getStore(), Varien_Date::toTimestamp($this->getCreatedAt()), true
         );
     }
+
 }

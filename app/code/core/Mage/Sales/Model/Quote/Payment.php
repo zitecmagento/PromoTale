@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -82,9 +83,9 @@
  */
 class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
 {
+
     protected $_eventPrefix = 'sales_quote_payment';
     protected $_eventObject = 'payment';
-
     protected $_quote;
 
     /**
@@ -131,11 +132,10 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
     {
         $data = new Varien_Object($data);
         Mage::dispatchEvent(
-            $this->_eventPrefix . '_import_data_before',
-            array(
-                $this->_eventObject=>$this,
-                'input'=>$data,
-            )
+                $this->_eventPrefix . '_import_data_before', array(
+            $this->_eventObject => $this,
+            'input' => $data,
+                )
         );
 
         $this->setMethod($data->getMethod());
@@ -147,16 +147,15 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
          */
         $this->getQuote()->collectTotals();
 
-        if (!$method->isAvailable($this->getQuote())
-            || !$method->isApplicableToQuote($this->getQuote(), $data->getChecks())
+        if (!$method->isAvailable($this->getQuote()) || !$method->isApplicableToQuote($this->getQuote(), $data->getChecks())
         ) {
             Mage::throwException(Mage::helper('sales')->__('The requested Payment Method is not available.'));
         }
 
         $method->assignData($data);
         /*
-        * validating the payment data
-        */
+         * validating the payment data
+         */
         $method->validate();
         return $this;
     }
@@ -171,9 +170,12 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         if ($this->getQuote()) {
             $this->setQuoteId($this->getQuote()->getId());
         }
-        try {
+        try
+        {
             $method = $this->getMethodInstance();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             return parent::_beforeSave();
         }
         $method->prepareSave();
@@ -218,4 +220,5 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         $method = parent::getMethodInstance();
         return $method->setStore($this->getQuote()->getStore());
     }
+
 }

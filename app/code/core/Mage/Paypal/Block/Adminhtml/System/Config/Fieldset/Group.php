@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Group
-    extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
+class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Group extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
 {
+
     /**
      * Return header comment part of html for fieldset
      *
@@ -49,8 +50,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Group
         }
 
         $html = '<div class="comment">' . $element->getComment()
-            . ' <a target="_blank" href="' . $groupConfig['help_url'] . '">'
-            . Mage::helper('paypal')->__('Help') . '</a></div>';
+                . ' <a target="_blank" href="' . $groupConfig['help_url'] . '">'
+                . Mage::helper('paypal')->__('Help') . '</a></div>';
 
         return $html;
     }
@@ -74,4 +75,5 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Group
 
         return false;
     }
+
 }

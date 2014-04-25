@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml AdminNotification Severity Renderer
  *
@@ -32,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Notification_Grid_Renderer_Severity
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Notification_Grid_Renderer_Severity extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     /**
      * Renders grid column
      *
@@ -65,4 +65,5 @@ class Mage_Adminhtml_Block_Notification_Grid_Renderer_Severity
         }
         return '<span class="grid-severity-' . $class . '"><span>' . $value . '</span></span>';
     }
+
 }

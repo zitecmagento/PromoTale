@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: BlobContainer.php 22773 2010-08-03 07:18:27Z maartenba $
  */
-
 /**
  * @see Zend_Service_WindowsAzure_Exception
  */
@@ -44,13 +44,14 @@
  */
 class Zend_Service_WindowsAzure_Storage_BlobContainer
 {
+
     /**
      * Data
      * 
      * @var array
      */
     protected $_data = null;
-    
+
     /**
      * Constructor
      * 
@@ -59,23 +60,24 @@ class Zend_Service_WindowsAzure_Storage_BlobContainer
      * @param string $lastModified  Last modified date
      * @param array  $metadata      Key/value pairs of meta data
      */
-    public function __construct($name, $etag, $lastModified, $metadata = array()) 
+    public function __construct($name, $etag, $lastModified, $metadata = array())
     {
         $this->_data = array(
-            'name'         => $name,
-            'etag'         => $etag,
+            'name' => $name,
+            'etag' => $etag,
             'lastmodified' => $lastModified,
-            'metadata'     => $metadata
+            'metadata' => $metadata
         );
     }
-    
+
     /**
      * Magic overload for setting properties
      * 
      * @param string $name     Name of the property
      * @param string $value    Value to set
      */
-    public function __set($name, $value) {
+    public function __set($name, $value)
+    {
         if (array_key_exists(strtolower($name), $this->_data)) {
             $this->_data[strtolower($name)] = $value;
             return;
@@ -89,11 +91,13 @@ class Zend_Service_WindowsAzure_Storage_BlobContainer
      * 
      * @param string $name     Name of the property
      */
-    public function __get($name) {
+    public function __get($name)
+    {
         if (array_key_exists(strtolower($name), $this->_data)) {
             return $this->_data[strtolower($name)];
         }
 
         throw new Exception("Unknown property: " . $name);
     }
+
 }

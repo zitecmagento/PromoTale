@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -28,6 +29,7 @@
  */
 interface Zend_Http_UserAgent_Storage
 {
+
     /**
      * Returns true if and only if storage is empty
      *

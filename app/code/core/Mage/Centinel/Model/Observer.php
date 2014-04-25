@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * 3D Secure Validation Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Centinel_Model_Observer extends Varien_Object
 {
+
     /**
      * Set cmpi data to payment
      *
@@ -95,8 +96,7 @@ class Mage_Centinel_Model_Observer extends Varien_Object
 
         if ($method && $method->getIsCentinelValidationEnabled()) {
             $paymentFormBlock->setChild(
-               'payment.method.' . $method->getCode() . 'centinel.logo',
-                Mage::helper('centinel')->getMethodFormBlock($method)
+                    'payment.method.' . $method->getCode() . 'centinel.logo', Mage::helper('centinel')->getMethodFormBlock($method)
             );
         }
         return $this;
@@ -138,4 +138,5 @@ class Mage_Centinel_Model_Observer extends Varien_Object
         $this->checkoutSubmitAllAfter($observer);
         return $this;
     }
+
 }

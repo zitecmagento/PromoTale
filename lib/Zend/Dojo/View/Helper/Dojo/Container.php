@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Container.php 23368 2010-11-18 19:56:30Z bittarman $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Dojo */
 #require_once 'Zend/Dojo.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_Dojo_View_Helper_Dojo_Container
 {
+
     /**
      * @var Zend_View_Interface
      */
@@ -216,24 +217,24 @@ class Zend_Dojo_View_Helper_Dojo_Container
      */
     public function setOptions($options)
     {
-        if($options instanceof Zend_Config) {
+        if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         }
 
-        foreach($options as $key => $value) {
+        foreach ($options as $key => $value) {
             $key = strtolower($key);
-            switch($key) {
+            switch ($key) {
                 case 'requiremodules':
                     $this->requireModule($value);
                     break;
                 case 'modulepaths':
-                    foreach($value as $module => $path) {
+                    foreach ($value as $module => $path) {
                         $this->registerModulePath($module, $path);
                     }
                     break;
                 case 'layers':
                     $value = (array) $value;
-                    foreach($value as $layer) {
+                    foreach ($value as $layer) {
                         $this->addLayer($layer);
                     }
                     break;
@@ -254,13 +255,13 @@ class Zend_Dojo_View_Helper_Dojo_Container
                     break;
                 case 'stylesheetmodules':
                     $value = (array) $value;
-                    foreach($value as $module) {
+                    foreach ($value as $module) {
                         $this->addStylesheetModule($module);
                     }
                     break;
                 case 'stylesheets':
                     $value = (array) $value;
-                    foreach($value as $stylesheet) {
+                    foreach ($value as $stylesheet) {
                         $this->addStylesheet($stylesheet);
                     }
                     break;
@@ -268,7 +269,7 @@ class Zend_Dojo_View_Helper_Dojo_Container
                     $this->registerDojoStylesheet($value);
                     break;
                 case 'enable':
-                    if($value) {
+                    if ($value) {
                         $this->enable();
                     } else {
                         $this->disable();
@@ -619,7 +620,7 @@ class Zend_Dojo_View_Helper_Dojo_Container
     public function registerDojoStylesheet($flag = null)
     {
         if (null === $flag) {
-             return $this->_registerDojoStylesheet;
+            return $this->_registerDojoStylesheet;
         }
 
         $this->_registerDojoStylesheet = (bool) $flag;
@@ -702,7 +703,7 @@ class Zend_Dojo_View_Helper_Dojo_Container
      */
     public function onLoadCaptureEnd()
     {
-        $data               = ob_get_clean();
+        $data = ob_get_clean();
         $this->_captureLock = false;
 
         $this->addOnLoad($data);
@@ -724,7 +725,7 @@ class Zend_Dojo_View_Helper_Dojo_Container
         }
 
         $this->_dijits[$id] = array(
-            'id'     => $id,
+            'id' => $id,
             'params' => $params,
         );
 
@@ -856,7 +857,7 @@ class Zend_Dojo_View_Helper_Dojo_Container
     public function registerDijitLoader()
     {
         if (!$this->_dijitLoaderRegistered) {
-            $js =<<<EOJ
+            $js = <<<EOJ
 function() {
     dojo.forEach(zendDijits, function(info) {
         var n = dojo.byId(info.id);
@@ -940,7 +941,7 @@ EOJ;
      */
     public function javascriptCaptureEnd()
     {
-        $data               = ob_get_clean();
+        $data = ob_get_clean();
         $this->_captureLock = false;
 
         $this->addJavascript($data);
@@ -970,11 +971,11 @@ EOJ;
             $this->registerDijitLoader();
         }
 
-        $html  = $this->_renderStylesheets() . PHP_EOL
-               . $this->_renderDjConfig() . PHP_EOL
-               . $this->_renderDojoScriptTag() . PHP_EOL
-               . $this->_renderLayers() . PHP_EOL
-               . $this->_renderExtras();
+        $html = $this->_renderStylesheets() . PHP_EOL
+                . $this->_renderDjConfig() . PHP_EOL
+                . $this->_renderDojoScriptTag() . PHP_EOL
+                . $this->_renderLayers() . PHP_EOL
+                . $this->_renderExtras();
         return $html;
     }
 
@@ -1002,15 +1003,15 @@ EOJ;
     {
         if ($this->useCdn()) {
             $base = $this->getCdnBase()
-                  . $this->getCdnVersion();
+                    . $this->getCdnVersion();
         } else {
             $base = $this->_getLocalRelativePath();
         }
 
         $registeredStylesheets = $this->getStylesheetModules();
         foreach ($registeredStylesheets as $stylesheet) {
-            $themeName     = substr($stylesheet, strrpos($stylesheet, '.') + 1);
-            $stylesheet    = str_replace('.', '/', $stylesheet);
+            $themeName = substr($stylesheet, strrpos($stylesheet, '.') + 1);
+            $stylesheet = str_replace('.', '/', $stylesheet);
             $stylesheets[] = $base . '/' . $stylesheet . '/' . $themeName . '.css';
         }
 
@@ -1028,7 +1029,7 @@ EOJ;
 
         array_reverse($stylesheets);
         $style = '<style type="text/css">' . PHP_EOL
-               . (($this->_isXhtml) ? '<!--' : '<!--') . PHP_EOL;
+                . (($this->_isXhtml) ? '<!--' : '<!--') . PHP_EOL;
         foreach ($stylesheets as $stylesheet) {
             $style .= '    @import "' . $stylesheet . '";' . PHP_EOL;
         }
@@ -1052,10 +1053,10 @@ EOJ;
 
         #require_once 'Zend/Json.php';
         $scriptTag = '<script type="text/javascript">' . PHP_EOL
-                   . (($this->_isXhtml) ? '//<![CDATA[' : '//<!--') . PHP_EOL
-                   . '    var djConfig = ' . Zend_Json::encode($djConfigValues) . ';' . PHP_EOL
-                   . (($this->_isXhtml) ? '//]]>' : '//-->') . PHP_EOL
-                   . '</script>';
+                . (($this->_isXhtml) ? '//<![CDATA[' : '//<!--') . PHP_EOL
+                . '    var djConfig = ' . Zend_Json::encode($djConfigValues) . ';' . PHP_EOL
+                . (($this->_isXhtml) ? '//]]>' : '//-->') . PHP_EOL
+                . '</script>';
 
         return $scriptTag;
     }
@@ -1096,8 +1097,7 @@ EOJ;
         }
 
         $enc = 'UTF-8';
-        if ($this->view instanceof Zend_View_Interface
-            && method_exists($this->view, 'getEncoding')
+        if ($this->view instanceof Zend_View_Interface && method_exists($this->view, 'getEncoding')
         ) {
             $enc = $this->view->getEncoding();
         }
@@ -1105,8 +1105,7 @@ EOJ;
         $html = array();
         foreach ($layers as $path) {
             $html[] = sprintf(
-                '<script type="text/javascript" src="%s"></script>',
-                htmlspecialchars($path, ENT_QUOTES, $enc)
+                    '<script type="text/javascript" src="%s"></script>', htmlspecialchars($path, ENT_QUOTES, $enc)
             );
         }
 
@@ -1124,7 +1123,7 @@ EOJ;
         $modulePaths = $this->getModulePaths();
         if (!empty($modulePaths)) {
             foreach ($modulePaths as $module => $path) {
-                $js[] =  'dojo.registerModulePath("' . $this->view->escape($module) . '", "' . $this->view->escape($path) . '");';
+                $js[] = 'dojo.registerModulePath("' . $this->view->escape($module) . '", "' . $this->view->escape($path) . '");';
             }
         }
 
@@ -1167,10 +1166,10 @@ EOJ;
         }
 
         $html = '<script type="text/javascript">' . PHP_EOL
-              . (($this->_isXhtml) ? '//<![CDATA[' : '//<!--') . PHP_EOL
-              . $content
-              . (($this->_isXhtml) ? '//]]>' : '//-->') . PHP_EOL
-              . PHP_EOL . '</script>';
+                . (($this->_isXhtml) ? '//<![CDATA[' : '//<!--') . PHP_EOL
+                . $content
+                . (($this->_isXhtml) ? '//]]>' : '//-->') . PHP_EOL
+                . PHP_EOL . '</script>';
         return $html;
     }
 
@@ -1202,4 +1201,5 @@ EOJ;
     {
         return $this->_zendLoadActions;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,27 +30,33 @@
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Paypal_Model_Observer
 {
+
     /**
      * Goes to reports.paypal.com and fetches Settlement reports.
      * @return Mage_Paypal_Model_Observer
      */
     public function fetchReports()
     {
-        try {
+        try
+        {
             $reports = Mage::getModel('paypal/report_settlement');
             /* @var $reports Mage_Paypal_Model_Report_Settlement */
             $credentials = $reports->getSftpCredentials(true);
             foreach ($credentials as $config) {
-                try {
+                try
+                {
                     $reports->fetchAndSave($config);
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     Mage::logException($e);
                 }
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
         }
     }
@@ -97,8 +104,7 @@ class Mage_Paypal_Model_Observer
                 /* @var $controller Mage_Core_Controller_Varien_Action */
                 $controller = $observer->getEvent()->getData('controller_action');
                 $result = Mage::helper('core')->jsonDecode(
-                    $controller->getResponse()->getBody('default'),
-                    Zend_Json::TYPE_ARRAY
+                        $controller->getResponse()->getBody('default'), Zend_Json::TYPE_ARRAY
                 );
 
                 if (empty($result['error'])) {
@@ -128,16 +134,16 @@ class Mage_Paypal_Model_Observer
     public function loadCountryDependentSolutionsConfig(Varien_Event_Observer $observer)
     {
         $requestParam = Mage_Paypal_Block_Adminhtml_System_Config_Field_Country::REQUEST_PARAM_COUNTRY;
-        $countryCode  = Mage::app()->getRequest()->getParam($requestParam);
+        $countryCode = Mage::app()->getRequest()->getParam($requestParam);
         if (is_null($countryCode) || preg_match('/^[a-zA-Z]{2}$/', $countryCode) == 0) {
-            $countryCode = (string)Mage::getSingleton('adminhtml/config_data')
-                ->getConfigDataValue('paypal/general/merchant_country');
+            $countryCode = (string) Mage::getSingleton('adminhtml/config_data')
+                            ->getConfigDataValue('paypal/general/merchant_country');
         }
         if (empty($countryCode)) {
             $countryCode = Mage::helper('core')->getDefaultCountry();
         }
 
-        $paymentGroups   = $observer->getEvent()->getConfig()->getNode('sections/payment/groups');
+        $paymentGroups = $observer->getEvent()->getConfig()->getNode('sections/payment/groups');
         $paymentsConfigs = $paymentGroups->xpath('paypal_payments/*/backend_config/' . $countryCode);
         if ($paymentsConfigs) {
             foreach ($paymentsConfigs as $config) {
@@ -148,12 +154,13 @@ class Mage_Paypal_Model_Observer
 
         $payments = $paymentGroups->xpath('paypal_payments/*');
         foreach ($payments as $payment) {
-            if ((int)$payment->include) {
-                $fields = $paymentGroups->xpath((string)$payment->group . '/fields');
+            if ((int) $payment->include) {
+                $fields = $paymentGroups->xpath((string) $payment->group . '/fields');
                 if (isset($fields[0])) {
                     $fields[0]->appendChild($payment, true);
                 }
             }
         }
     }
+
 }

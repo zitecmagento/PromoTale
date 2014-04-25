@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer->startSetup();
@@ -40,16 +40,13 @@ $installer->run("CREATE TABLE `{$ruleGroupWebsiteTable}` (
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
 
 $installer->getConnection()->addConstraint(
-    'FK_CATALOGRULE_GROUP_WEBSITE_RULE', $ruleGroupWebsiteTable, 'rule_id',
-    $installer->getTable('catalogrule/rule'), 'rule_id', 'CASCADE', 'CASCADE'
+        'FK_CATALOGRULE_GROUP_WEBSITE_RULE', $ruleGroupWebsiteTable, 'rule_id', $installer->getTable('catalogrule/rule'), 'rule_id', 'CASCADE', 'CASCADE'
 );
 $installer->getConnection()->addConstraint(
-    'FK_CATALOGRULE_GROUP_WEBSITE_GROUP', $ruleGroupWebsiteTable, 'customer_group_id',
-    $installer->getTable('customer/customer_group'), 'customer_group_id', 'CASCADE', 'CASCADE'
+        'FK_CATALOGRULE_GROUP_WEBSITE_GROUP', $ruleGroupWebsiteTable, 'customer_group_id', $installer->getTable('customer/customer_group'), 'customer_group_id', 'CASCADE', 'CASCADE'
 );
 $installer->getConnection()->addConstraint(
-    'FK_CATALOGRULE_GROUP_WEBSITE_WEBSITE', $ruleGroupWebsiteTable, 'website_id',
-    $installer->getTable('core/website'), 'website_id', 'CASCADE', 'CASCADE'
+        'FK_CATALOGRULE_GROUP_WEBSITE_WEBSITE', $ruleGroupWebsiteTable, 'website_id', $installer->getTable('core/website'), 'website_id', 'CASCADE', 'CASCADE'
 );
 
 $installer->run("ALTER TABLE `{$ruleGroupWebsiteTable}` ADD PRIMARY KEY ( `rule_id` , `customer_group_id`, `website_id` )");

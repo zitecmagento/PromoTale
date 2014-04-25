@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Geo.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata
  */
@@ -51,7 +50,6 @@ class Zend_Gdata_Geo extends Zend_Gdata
         array('georss', 'http://www.georss.org/georss', 1, 0),
         array('gml', 'http://www.opengis.net/gml', 1, 0)
     );
-
 
     /**
      * Create Zend_Gdata_Geo object

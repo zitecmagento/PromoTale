@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Class.php 23051 2010-10-07 17:01:21Z mabe $
  */
-
 /**
  * @see Zend_Cache_Core
  */
 #require_once 'Zend/Cache/Core.php';
-
 
 /**
  * @package    Zend_Cache
@@ -34,6 +33,7 @@
  */
 class Zend_Cache_Frontend_Class extends Zend_Cache_Core
 {
+
     /**
      * Available options
      *
@@ -82,13 +82,13 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
      */
     private $_cachedEntity = null;
 
-     /**
-      * The class name of the cached object or cached abstract class
-      *
-      * Used to differentiate between different classes with the same method calls.
-      *
-      * @var string
-      */
+    /**
+     * The class name of the cached object or cached abstract class
+     *
+     * Used to differentiate between different classes with the same method calls.
+     *
+     * @var string
+     */
     private $_cachedEntityLabel = '';
 
     /**
@@ -172,7 +172,7 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
         }
         $this->_cachedEntity = $cachedEntity;
         $this->_specificOptions['cached_entity'] = $cachedEntity;
-        if (is_string($this->_cachedEntity)){
+        if (is_string($this->_cachedEntity)) {
             $this->_cachedEntityLabel = $this->_cachedEntity;
         } else {
             $ro = new ReflectionObject($this->_cachedEntity);
@@ -210,7 +210,7 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
         }
 
         $id = $this->_makeId($name, $parameters);
-        if ( ($rs = $this->load($id)) && isset($rs[0], $rs[1]) ) {
+        if (($rs = $this->load($id)) && isset($rs[0], $rs[1])) {
             // A cache is available
             $output = $rs[0];
             $return = $rs[1];
@@ -219,12 +219,15 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
             ob_start();
             ob_implicit_flush(false);
 
-            try {
+            try
+            {
                 $return = call_user_func_array(array($this->_cachedEntity, $name), $parameters);
                 $output = ob_get_clean();
                 $data = array($output, $return);
                 $this->save($data, $id, $this->_tags, $this->_specificLifetime, $this->_priority);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 ob_end_clean();
                 throw $e;
             }

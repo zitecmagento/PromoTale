@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product options abstract type block
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Core_Block_Template
 {
+
     /**
      * Product object
      *
@@ -96,8 +97,8 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     {
         if ($option = $this->getOption()) {
             return $this->_formatPrice(array(
-                'is_percent'    => ($option->getPriceType() == 'percent'),
-                'pricing_value' => $option->getPrice($option->getPriceType() == 'percent')
+                        'is_percent' => ($option->getPriceType() == 'percent'),
+                        'pricing_value' => $option->getPrice($option->getPriceType() == 'percent')
             ));
         }
         return '';
@@ -109,7 +110,7 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
      * @param array $value
      * @return string
      */
-    protected function _formatPrice($value, $flag=true)
+    protected function _formatPrice($value, $flag = true)
     {
         if ($value['pricing_value'] == 0) {
             return '';
@@ -134,13 +135,13 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
         } elseif ($taxHelper->displayBothPrices()) {
             $priceStr .= $this->helper('core')->currencyByStore($_priceExclTax, $store, true, $flag);
             if ($_priceInclTax != $_priceExclTax) {
-                $priceStr .= ' ('.$sign.$this->helper('core')
-                    ->currencyByStore($_priceInclTax, $store, true, $flag).' '.$this->__('Incl. Tax').')';
+                $priceStr .= ' (' . $sign . $this->helper('core')
+                                ->currencyByStore($_priceInclTax, $store, true, $flag) . ' ' . $this->__('Incl. Tax') . ')';
             }
         }
 
         if ($flag) {
-            $priceStr = '<span class="price-notice">'.$priceStr.'</span>';
+            $priceStr = '<span class="price-notice">' . $priceStr . '</span>';
         }
 
         return $priceStr;
@@ -174,4 +175,5 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
         $store = $this->getProduct()->getStore();
         return $this->helper('core')->currencyByStore($price, $store, false);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Directory currency backend model
  *
@@ -36,6 +36,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Currency_Default extends Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract
 {
+
     /**
      * Check default currency is available in installed currencies
      * Check default currency is available in allowed currencies
@@ -54,4 +55,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Default extends Mage_A
 
         return $this;
     }
+
 }

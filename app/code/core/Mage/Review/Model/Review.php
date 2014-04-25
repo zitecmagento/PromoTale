@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -61,13 +62,12 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      * Review entity codes
      *
      */
-    const ENTITY_PRODUCT_CODE   = 'product';
-    const ENTITY_CUSTOMER_CODE  = 'customer';
-    const ENTITY_CATEGORY_CODE  = 'category';
-
-    const STATUS_APPROVED       = 1;
-    const STATUS_PENDING        = 2;
-    const STATUS_NOT_APPROVED   = 3;
+    const ENTITY_PRODUCT_CODE = 'product';
+    const ENTITY_CUSTOMER_CODE = 'customer';
+    const ENTITY_CATEGORY_CODE = 'category';
+    const STATUS_APPROVED = 1;
+    const STATUS_PENDING = 2;
+    const STATUS_NOT_APPROVED = 3;
 
     protected function _construct()
     {
@@ -84,7 +84,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
         return Mage::getResourceModel('review/review_status_collection');
     }
 
-    public function getTotalReviews($entityPkValue, $approvedOnly=false, $storeId=0)
+    public function getTotalReviews($entityPkValue, $approvedOnly = false, $storeId = 0)
     {
         return $this->getResource()->getTotalReviews($entityPkValue, $approvedOnly, $storeId);
     }
@@ -95,11 +95,11 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
         return $this;
     }
 
-    public function getEntitySummary($product, $storeId=0)
+    public function getEntitySummary($product, $storeId = 0)
     {
         $summaryData = Mage::getModel('review/review_summary')
-            ->setStoreId($storeId)
-            ->load($product->getId());
+                ->setStoreId($storeId)
+                ->load($product->getId());
         $summary = new Varien_Object();
         $summary->setData($summaryData->getData());
         $product->setRatingSummary($summary);
@@ -166,11 +166,11 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
         }
 
         $summaryData = Mage::getResourceModel('review/review_summary_collection')
-            ->addEntityFilter($entityIds)
-            ->addStoreFilter(Mage::app()->getStore()->getId())
-            ->load();
+                ->addEntityFilter($entityIds)
+                ->addStoreFilter(Mage::app()->getStore()->getId())
+                ->load();
 
-        foreach ($collection->getItems() as $_item ) {
+        foreach ($collection->getItems() as $_item) {
             foreach ($summaryData as $_summary) {
                 if ($_summary->getEntityPkValue() == $_item->getEntityId()) {
                     $_item->setRatingSummary($_summary);
@@ -207,7 +207,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     {
         $store = Mage::app()->getStore($store);
         if ($store) {
-            return in_array($store->getId(), (array)$this->getStores());
+            return in_array($store->getId(), (array) $this->getStores());
         }
 
         return false;
@@ -223,4 +223,5 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     {
         return $this->getResource()->getEntityIdByCode($entityCode);
     }
+
 }

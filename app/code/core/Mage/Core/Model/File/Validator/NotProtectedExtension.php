@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Validator for check not protected file extensions
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate_Abstract
 {
+
     const PROTECTED_EXTENSION = 'protectedExtension';
 
     /**
@@ -96,7 +97,6 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
         return $this;
     }
 
-
     /**
      * Returns true if and only if $value meets the validation requirements
      *
@@ -119,4 +119,5 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
 
         return true;
     }
+
 }

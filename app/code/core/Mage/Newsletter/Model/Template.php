@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -56,6 +57,7 @@
  */
 class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
 {
+
     /**
      * Template Text Preprocessed flag
      *
@@ -88,10 +90,10 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
     public function validate()
     {
         $validators = array(
-            'template_code'         => array(Zend_Filter_Input::ALLOW_EMPTY => false),
-            'template_type'         => 'Int',
+            'template_code' => array(Zend_Filter_Input::ALLOW_EMPTY => false),
+            'template_type' => 'Int',
             'template_sender_email' => 'EmailAddress',
-            'template_sender_name'  => array(Zend_Filter_Input::ALLOW_EMPTY => false)
+            'template_sender_name' => array(Zend_Filter_Input::ALLOW_EMPTY => false)
         );
         $data = array();
         foreach (array_keys($validators) as $validateField) {
@@ -106,8 +108,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
                     foreach ($messages as $message) {
                         $errorMessages[] = $message;
                     }
-                }
-                else {
+                } else {
                     $errorMessages[] = $messages;
                 }
             }
@@ -147,10 +148,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
      */
     public function isValidForSend()
     {
-        return !Mage::getStoreConfigFlag('system/smtp/disable')
-            && $this->getTemplateSenderName()
-            && $this->getTemplateSenderEmail()
-            && $this->getTemplateSubject();
+        return !Mage::getStoreConfigFlag('system/smtp/disable') && $this->getTemplateSenderName() && $this->getTemplateSenderEmail() && $this->getTemplateSubject();
     }
 
     /**
@@ -158,7 +156,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
      *
      * @return int|string
      */
-    public function getType(){
+    public function getType()
+    {
         return $this->getTemplateType();
     }
 
@@ -206,11 +205,11 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
             $processor->setStoreId(Mage::app()->getStore());
         } else {
             $processor->setStoreId(Mage::app()->getRequest()->getParam('store_id'));
-        } 
+        }
 
         $processor
-            ->setIncludeProcessor(array($this, 'getInclude'))
-            ->setVariables($variables);
+                ->setIncludeProcessor(array($this, 'getInclude'))
+                ->setVariables($variables);
 
         if ($usePreprocess && $this->isPreprocessed()) {
             return $processor->filter($this->getPreparedTemplateText(true));
@@ -247,8 +246,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
     public function getInclude($templateCode, array $variables)
     {
         return Mage::getModel('newsletter/template')
-            ->loadByCode($templateCode)
-            ->getProcessedTemplate($variables);
+                        ->loadByCode($templateCode)
+                        ->getProcessedTemplate($variables);
     }
 
     /**
@@ -265,7 +264,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
         return $this->_mail;
     }
 
-
     /**
      * Send mail to subscriber
      *
@@ -275,8 +273,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
      * @param   Mage_Newsletter_Model_Queue|null          $queue        queue model, used for problems reporting.
      * @return boolean
      * @deprecated since 1.4.0.1
-     **/
-    public function send($subscriber, array $variables = array(), $name=null, Mage_Newsletter_Model_Queue $queue=null)
+     * */
+    public function send($subscriber, array $variables = array(), $name = null, Mage_Newsletter_Model_Queue $queue = null)
     {
         if (!$this->isValidForSend()) {
             return false;
@@ -285,11 +283,10 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
         $email = '';
         if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
             $email = $subscriber->getSubscriberEmail();
-            if (is_null($name) && ($subscriber->hasCustomerFirstname() || $subscriber->hasCustomerLastname()) ) {
+            if (is_null($name) && ($subscriber->hasCustomerFirstname() || $subscriber->hasCustomerLastname())) {
                 $name = $subscriber->getCustomerFirstname() . ' ' . $subscriber->getCustomerLastname();
             }
-        }
-        else {
+        } else {
             $email = (string) $subscriber;
         }
 
@@ -306,22 +303,23 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
 
         if ($this->isPlain()) {
             $mail->setBodyText($text);
-        }
-        else {
+        } else {
             $mail->setBodyHTML($text);
         }
 
         $mail->setSubject($this->getProcessedTemplateSubject($variables));
         $mail->setFrom($this->getTemplateSenderEmail(), $this->getTemplateSenderName());
 
-        try {
+        try
+        {
             $mail->send();
             $this->_mail = null;
             if (!is_null($queue)) {
                 $subscriber->received($queue);
             }
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
                 // If letter sent for subscriber, we create a problem report entry
                 $problem = Mage::getModel('newsletter/problem');
@@ -385,11 +383,11 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
     public function getTemplateText()
     {
         if (!$this->getData('template_text') && !$this->getId()) {
-            $this->setData('template_text',
-                Mage::helper('newsletter')->__('Follow this link to unsubscribe <!-- This tag is for unsubscribe link  --><a href="{{var subscriber.getUnsubscriptionLink()}}">{{var subscriber.getUnsubscriptionLink()}}</a>')
+            $this->setData('template_text', Mage::helper('newsletter')->__('Follow this link to unsubscribe <!-- This tag is for unsubscribe link  --><a href="{{var subscriber.getUnsubscriptionLink()}}">{{var subscriber.getUnsubscriptionLink()}}</a>')
             );
         }
 
         return $this->getData('template_text');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Tax_Model_Sales_Pdf_Shipping extends Mage_Sales_Model_Order_Pdf_Total_Default
 {
+
     /**
      * Get array of arrays with totals information for display in PDF
      * array(
@@ -40,11 +41,11 @@ class Mage_Tax_Model_Sales_Pdf_Shipping extends Mage_Sales_Model_Order_Pdf_Total
     public function getTotalsForDisplay()
     {
         $store = $this->getOrder()->getStore();
-        $config= Mage::getSingleton('tax/config');
+        $config = Mage::getSingleton('tax/config');
         $amount = $this->getOrder()->formatPriceTxt($this->getAmount());
         $amountInclTax = $this->getSource()->getShippingInclTax();
         if (!$amountInclTax) {
-            $amountInclTax = $this->getAmount()+$this->getSource()->getShippingTaxAmount();
+            $amountInclTax = $this->getAmount() + $this->getSource()->getShippingTaxAmount();
         }
         $amountInclTax = $this->getOrder()->formatPriceTxt($amountInclTax);
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
@@ -52,30 +53,31 @@ class Mage_Tax_Model_Sales_Pdf_Shipping extends Mage_Sales_Model_Order_Pdf_Total
         if ($config->displaySalesShippingBoth($store)) {
             $totals = array(
                 array(
-                    'amount'    => $this->getAmountPrefix().$amount,
-                    'label'     => Mage::helper('tax')->__('Shipping (Excl. Tax)') . ':',
+                    'amount' => $this->getAmountPrefix() . $amount,
+                    'label' => Mage::helper('tax')->__('Shipping (Excl. Tax)') . ':',
                     'font_size' => $fontSize
                 ),
                 array(
-                    'amount'    => $this->getAmountPrefix().$amountInclTax,
-                    'label'     => Mage::helper('tax')->__('Shipping (Incl. Tax)') . ':',
+                    'amount' => $this->getAmountPrefix() . $amountInclTax,
+                    'label' => Mage::helper('tax')->__('Shipping (Incl. Tax)') . ':',
                     'font_size' => $fontSize
                 ),
             );
         } elseif ($config->displaySalesShippingInclTax($store)) {
             $totals = array(array(
-                'amount'    => $this->getAmountPrefix().$amountInclTax,
-                'label'     => Mage::helper('sales')->__($this->getTitle()) . ':',
-                'font_size' => $fontSize
+                    'amount' => $this->getAmountPrefix() . $amountInclTax,
+                    'label' => Mage::helper('sales')->__($this->getTitle()) . ':',
+                    'font_size' => $fontSize
             ));
         } else {
             $totals = array(array(
-                'amount'    => $this->getAmountPrefix().$amount,
-                'label'     => Mage::helper('sales')->__($this->getTitle()) . ':',
-                'font_size' => $fontSize
+                    'amount' => $this->getAmountPrefix() . $amount,
+                    'label' => Mage::helper('sales')->__($this->getTitle()) . ':',
+                    'font_size' => $fontSize
             ));
         }
 
         return $totals;
     }
+
 }

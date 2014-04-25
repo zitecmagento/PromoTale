@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Resource_Acl_Global_Rule extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize resource model
      *
@@ -42,4 +44,5 @@ class Mage_Api2_Model_Resource_Acl_Global_Rule extends Mage_Core_Model_Resource_
     {
         $this->_init('api2/acl_rule', 'entity_id');
     }
+
 }

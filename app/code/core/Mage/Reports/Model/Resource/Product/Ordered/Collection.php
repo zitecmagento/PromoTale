@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Products Ordered (Bestsellers) Report collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Reports_Model_Resource_Product_Collection
 {
+
     /**
      * Join fields
      *
@@ -44,8 +45,8 @@ class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Report
     protected function _joinFields($from = '', $to = '')
     {
         $this->addAttributeToSelect('*')
-            ->addOrderedQty($from, $to)
-            ->setOrder('ordered_qty', self::SORT_ORDER_DESC);
+                ->addOrderedQty($from, $to)
+                ->setOrder('ordered_qty', self::SORT_ORDER_DESC);
 
         return $this;
     }
@@ -60,7 +61,7 @@ class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Report
     public function setDateRange($from, $to)
     {
         $this->_reset()
-            ->_joinFields($from, $to);
+                ->_joinFields($from, $to);
         return $this;
     }
 
@@ -77,4 +78,5 @@ class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Report
         $this->addStoreFilter($storeId);
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,19 +25,18 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Resources and connections registry and factory
  *
  */
 class Mage_Core_Model_Resource
 {
-    const AUTO_UPDATE_CACHE_KEY  = 'DB_AUTOUPDATE';
-    const AUTO_UPDATE_ONCE       = 0;
-    const AUTO_UPDATE_NEVER      = -1;
-    const AUTO_UPDATE_ALWAYS     = 1;
 
-    const DEFAULT_READ_RESOURCE  = 'core_read';
+    const AUTO_UPDATE_CACHE_KEY = 'DB_AUTOUPDATE';
+    const AUTO_UPDATE_ONCE = 0;
+    const AUTO_UPDATE_NEVER = -1;
+    const AUTO_UPDATE_ALWAYS = 1;
+    const DEFAULT_READ_RESOURCE = 'core_read';
     const DEFAULT_WRITE_RESOURCE = 'core_write';
     const DEFAULT_SETUP_RESOURCE = 'core_setup';
 
@@ -45,14 +45,14 @@ class Mage_Core_Model_Resource
      *
      * @var array
      */
-    protected $_connectionTypes    = array();
+    protected $_connectionTypes = array();
 
     /**
      * Instances of actual connections
      *
      * @var array
      */
-    protected $_connections        = array();
+    protected $_connections = array();
 
     /**
      * Names of actual connections that wait to set cache
@@ -66,7 +66,7 @@ class Mage_Core_Model_Resource
      *
      * @var array
      */
-    protected $_entities           = array();
+    protected $_entities = array();
 
     /**
      * Mapped tables cache array
@@ -107,7 +107,7 @@ class Mage_Core_Model_Resource
             return $this->_connections[$origName];
         }
 
-        $connection = $this->_newConnection((string)$connConfig->type, $connConfig);
+        $connection = $this->_newConnection((string) $connConfig->type, $connConfig);
         if ($connection) {
             if (Mage::app()->getIsCacheLocked()) {
                 $this->_skippedConnections[$name] = true;
@@ -134,7 +134,7 @@ class Mage_Core_Model_Resource
     {
         $config = Mage::getConfig()->getResourceTypeConfig($type);
         if (!empty($config->adapter)) {
-            return (string)$config->adapter;
+            return (string) $config->adapter;
         }
         return false;
     }
@@ -157,7 +157,7 @@ class Mage_Core_Model_Resource
 
         $connection = false;
         // try to get adapter and create connection
-        $className  = $this->_getConnectionAdapterClassName($type);
+        $className = $this->_getConnectionAdapterClassName($type);
         if ($className) {
             // define profiler settings
             $config['profiler'] = isset($config['profiler']) && $config['profiler'] != 'false';
@@ -262,12 +262,12 @@ class Mage_Core_Model_Resource
             list($model, $entity) = $parts;
             $entityConfig = false;
             if (!empty(Mage::getConfig()->getNode()->global->models->{$model}->resourceModel)) {
-                $resourceModel = (string)Mage::getConfig()->getNode()->global->models->{$model}->resourceModel;
-                $entityConfig  = $this->getEntity($resourceModel, $entity);
+                $resourceModel = (string) Mage::getConfig()->getNode()->global->models->{$model}->resourceModel;
+                $entityConfig = $this->getEntity($resourceModel, $entity);
             }
 
             if ($entityConfig && !empty($entityConfig->table)) {
-                $tableName = (string)$entityConfig->table;
+                $tableName = (string) $entityConfig->table;
             } else {
                 Mage::throwException(Mage::helper('core')->__('Can\'t retrieve entity config: %s', $modelEntity));
             }
@@ -276,17 +276,17 @@ class Mage_Core_Model_Resource
         }
 
         Mage::dispatchEvent('resource_get_tablename', array(
-            'resource'      => $this,
-            'model_entity'  => $modelEntity,
-            'table_name'    => $tableName,
-            'table_suffix'  => $tableSuffix
+            'resource' => $this,
+            'model_entity' => $modelEntity,
+            'table_name' => $tableName,
+            'table_suffix' => $tableSuffix
         ));
 
         $mappedTableName = $this->getMappedTableName($tableName);
         if ($mappedTableName) {
             $tableName = $mappedTableName;
         } else {
-            $tablePrefix = (string)Mage::getConfig()->getTablePrefix();
+            $tablePrefix = (string) Mage::getConfig()->getTablePrefix();
             $tableName = $tablePrefix . $tableName;
         }
 
@@ -334,7 +334,7 @@ class Mage_Core_Model_Resource
     {
         $zeroDate = $this->getConnection(self::DEFAULT_READ_RESOURCE)->getSuggestedZeroDate();
         if (!empty($row) && is_array($row)) {
-            foreach ($row as $key=>&$value) {
+            foreach ($row as $key => &$value) {
                 if (is_string($value) && $value === $zeroDate) {
                     $value = '';
                 }
@@ -379,6 +379,7 @@ class Mage_Core_Model_Resource
         #Mage::app()->saveCache($value, self::AUTO_UPDATE_CACHE_KEY);
         return $this;
     }
+
     /**
      * Retrieve 32bit UNIQUE HASH for a Table index
      *
@@ -390,7 +391,7 @@ class Mage_Core_Model_Resource
     public function getIdxName($tableName, $fields, $indexType = Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX)
     {
         return $this->getConnection(self::DEFAULT_READ_RESOURCE)
-            ->getIndexName($this->getTableName($tableName), $fields, $indexType);
+                        ->getIndexName($this->getTableName($tableName), $fields, $indexType);
     }
 
     /**
@@ -405,7 +406,7 @@ class Mage_Core_Model_Resource
     public function getFkName($priTableName, $priColumnName, $refTableName, $refColumnName)
     {
         return $this->getConnection(self::DEFAULT_READ_RESOURCE)
-            ->getForeignKeyName($this->getTableName($priTableName), $priColumnName,
-                $this->getTableName($refTableName), $refColumnName);
+                        ->getForeignKeyName($this->getTableName($priTableName), $priColumnName, $this->getTableName($refTableName), $refColumnName);
     }
+
 }

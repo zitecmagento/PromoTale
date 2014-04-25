@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Cms_Page extends Mage_Cms_Block_Page
 {
+
     /**
      * Page Id getter
      *
@@ -42,4 +44,5 @@ class Mage_XmlConnect_Block_Cms_Page extends Mage_Cms_Block_Page
     {
         return $this->getRequest()->getParam('id');
     }
+
 }

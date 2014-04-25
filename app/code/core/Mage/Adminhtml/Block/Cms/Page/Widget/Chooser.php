@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,13 @@
  */
 class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Block construction, prepare grid params
      *
      * @param array $arguments Object data
      */
-    public function __construct($arguments=array())
+    public function __construct($arguments = array())
     {
         parent::__construct($arguments);
         //$this->setDefaultSort('name');
@@ -58,16 +60,16 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
         $sourceUrl = $this->getUrl('*/cms_page_widget/chooser', array('uniq_id' => $uniqId));
 
         $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
-            ->setElement($element)
-            ->setTranslationHelper($this->getTranslationHelper())
-            ->setConfig($this->getConfig())
-            ->setFieldsetId($this->getFieldsetId())
-            ->setSourceUrl($sourceUrl)
-            ->setUniqId($uniqId);
+                ->setElement($element)
+                ->setTranslationHelper($this->getTranslationHelper())
+                ->setConfig($this->getConfig())
+                ->setFieldsetId($this->getFieldsetId())
+                ->setSourceUrl($sourceUrl)
+                ->setUniqId($uniqId);
 
 
         if ($element->getValue()) {
-            $page = Mage::getModel('cms/page')->load((int)$element->getValue());
+            $page = Mage::getModel('cms/page')->load((int) $element->getValue());
             if ($page->getId()) {
                 $chooser->setLabel($page->getTitle());
             }
@@ -90,9 +92,9 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
                 var trElement = Event.findElement(event, "tr");
                 var pageTitle = trElement.down("td").next().innerHTML;
                 var pageId = trElement.down("td").innerHTML.replace(/^\s+|\s+$/g,"");
-                '.$chooserJsObject.'.setElementValue(pageId);
-                '.$chooserJsObject.'.setElementLabel(pageTitle);
-                '.$chooserJsObject.'.close();
+                ' . $chooserJsObject . '.setElementValue(pageId);
+                ' . $chooserJsObject . '.setElementLabel(pageTitle);
+                ' . $chooserJsObject . '.close();
             }
         ';
         return $js;
@@ -121,38 +123,38 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     protected function _prepareColumns()
     {
         $this->addColumn('chooser_id', array(
-            'header'    => Mage::helper('cms')->__('ID'),
-            'align'     => 'right',
-            'index'     => 'page_id',
-            'width'     => 50
+            'header' => Mage::helper('cms')->__('ID'),
+            'align' => 'right',
+            'index' => 'page_id',
+            'width' => 50
         ));
 
         $this->addColumn('chooser_title', array(
-            'header'    => Mage::helper('cms')->__('Title'),
-            'align'     => 'left',
-            'index'     => 'title',
+            'header' => Mage::helper('cms')->__('Title'),
+            'align' => 'left',
+            'index' => 'title',
         ));
 
         $this->addColumn('chooser_identifier', array(
-            'header'    => Mage::helper('cms')->__('URL Key'),
-            'align'     => 'left',
-            'index'     => 'identifier'
+            'header' => Mage::helper('cms')->__('URL Key'),
+            'align' => 'left',
+            'index' => 'identifier'
         ));
 
         $this->addColumn('chooser_root_template', array(
-            'header'    => Mage::helper('cms')->__('Layout'),
-            'index'     => 'root_template',
-            'type'      => 'options',
-            'options'   => Mage::getSingleton('page/source_layout')->getOptions(),
-            'width'   => '100',
+            'header' => Mage::helper('cms')->__('Layout'),
+            'index' => 'root_template',
+            'type' => 'options',
+            'options' => Mage::getSingleton('page/source_layout')->getOptions(),
+            'width' => '100',
         ));
 
         $this->addColumn('chooser_is_active', array(
-            'header'    => Mage::helper('cms')->__('Status'),
-            'index'     => 'is_active',
-            'type'      => 'options',
-            'options'   => Mage::getModel('cms/page')->getAvailableStatuses(),
-            'width'     => '100',
+            'header' => Mage::helper('cms')->__('Status'),
+            'index' => 'is_active',
+            'type' => 'options',
+            'options' => Mage::getModel('cms/page')->getAvailableStatuses(),
+            'width' => '100',
         ));
 
         return parent::_prepareColumns();
@@ -162,4 +164,5 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     {
         return $this->getUrl('*/cms_page_widget/chooser', array('_current' => true));
     }
+
 }

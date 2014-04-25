@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Iterator.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Paginator_Adapter_Interface
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Paginator_Adapter_Iterator implements Zend_Paginator_Adapter_Interface
 {
+
     /**
      * Iterator which implements Countable
      *
@@ -99,4 +100,5 @@ class Zend_Paginator_Adapter_Iterator implements Zend_Paginator_Adapter_Interfac
     {
         return $this->_count;
     }
+
 }

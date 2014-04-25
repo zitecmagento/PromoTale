@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
 {
+
     /**
      * Get available attributes of API resource
      *
@@ -89,6 +91,7 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
                 $isAttributeVisible = true;
             }
         }
-        return (bool)$isAttributeVisible;
+        return (bool) $isAttributeVisible;
     }
+
 }

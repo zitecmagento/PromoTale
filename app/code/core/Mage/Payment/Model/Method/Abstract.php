@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,29 +32,29 @@
  */
 abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 {
-    const ACTION_ORDER             = 'order';
-    const ACTION_AUTHORIZE         = 'authorize';
-    const ACTION_AUTHORIZE_CAPTURE = 'authorize_capture';
 
-    const STATUS_UNKNOWN    = 'UNKNOWN';
-    const STATUS_APPROVED   = 'APPROVED';
-    const STATUS_ERROR      = 'ERROR';
-    const STATUS_DECLINED   = 'DECLINED';
-    const STATUS_VOID       = 'VOID';
-    const STATUS_SUCCESS    = 'SUCCESS';
+    const ACTION_ORDER = 'order';
+    const ACTION_AUTHORIZE = 'authorize';
+    const ACTION_AUTHORIZE_CAPTURE = 'authorize_capture';
+    const STATUS_UNKNOWN = 'UNKNOWN';
+    const STATUS_APPROVED = 'APPROVED';
+    const STATUS_ERROR = 'ERROR';
+    const STATUS_DECLINED = 'DECLINED';
+    const STATUS_VOID = 'VOID';
+    const STATUS_SUCCESS = 'SUCCESS';
 
     /**
      * Bit masks to specify different payment method checks.
      * @see Mage_Payment_Model_Method_Abstract::isApplicableToQuote
      */
-    const CHECK_USE_FOR_COUNTRY       = 1;
-    const CHECK_USE_FOR_CURRENCY      = 2;
-    const CHECK_USE_CHECKOUT          = 4;
+    const CHECK_USE_FOR_COUNTRY = 1;
+    const CHECK_USE_FOR_CURRENCY = 2;
+    const CHECK_USE_CHECKOUT = 4;
     const CHECK_USE_FOR_MULTISHIPPING = 8;
-    const CHECK_USE_INTERNAL          = 16;
-    const CHECK_ORDER_TOTAL_MIN_MAX   = 32;
-    const CHECK_RECURRING_PROFILES    = 64;
-    const CHECK_ZERO_TOTAL            = 128;
+    const CHECK_USE_INTERNAL = 16;
+    const CHECK_ORDER_TOTAL_MIN_MAX = 32;
+    const CHECK_RECURRING_PROFILES = 64;
+    const CHECK_ZERO_TOTAL = 128;
 
     protected $_code;
     protected $_formBlockType = 'payment/form';
@@ -63,29 +64,30 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Payment Method features
      * @var bool
      */
-    protected $_isGateway                   = false;
-    protected $_canOrder                    = false;
-    protected $_canAuthorize                = false;
-    protected $_canCapture                  = false;
-    protected $_canCapturePartial           = false;
-    protected $_canCaptureOnce              = false;
-    protected $_canRefund                   = false;
-    protected $_canRefundInvoicePartial     = false;
-    protected $_canVoid                     = false;
-    protected $_canUseInternal              = true;
-    protected $_canUseCheckout              = true;
-    protected $_canUseForMultishipping      = true;
-    protected $_isInitializeNeeded          = false;
-    protected $_canFetchTransactionInfo     = false;
-    protected $_canReviewPayment            = false;
-    protected $_canCreateBillingAgreement   = false;
-    protected $_canManageRecurringProfiles  = true;
+    protected $_isGateway = false;
+    protected $_canOrder = false;
+    protected $_canAuthorize = false;
+    protected $_canCapture = false;
+    protected $_canCapturePartial = false;
+    protected $_canCaptureOnce = false;
+    protected $_canRefund = false;
+    protected $_canRefundInvoicePartial = false;
+    protected $_canVoid = false;
+    protected $_canUseInternal = true;
+    protected $_canUseCheckout = true;
+    protected $_canUseForMultishipping = true;
+    protected $_isInitializeNeeded = false;
+    protected $_canFetchTransactionInfo = false;
+    protected $_canReviewPayment = false;
+    protected $_canCreateBillingAgreement = false;
+    protected $_canManageRecurringProfiles = true;
+
     /**
      * TODO: whether a captured transaction may be voided by this gateway
      * This may happen when amount is captured, but not settled
      * @var bool
      */
-    protected $_canCancelInvoice        = false;
+    protected $_canCancelInvoice = false;
 
     /**
      * Fields that should be replaced in debug with '***'
@@ -96,7 +98,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 
     public function __construct()
     {
-
+        
     }
 
     /**
@@ -281,14 +283,13 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     public function canUseForCountry($country)
     {
         /*
-        for specific country, the flag will set up as 1
-        */
-        if($this->getConfigData('allowspecific')==1){
+          for specific country, the flag will set up as 1
+         */
+        if ($this->getConfigData('allowspecific') == 1) {
             $availableCountries = explode(',', $this->getConfigData('specificcountry'));
-            if(!in_array($country, $availableCountries)){
+            if (!in_array($country, $availableCountries)) {
                 return false;
             }
-
         }
         return true;
     }
@@ -321,8 +322,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function canManageRecurringProfiles()
     {
-        return $this->_canManageRecurringProfiles
-               && ($this instanceof Mage_Payment_Model_Recurring_Profile_MethodInterface);
+        return $this->_canManageRecurringProfiles && ($this instanceof Mage_Payment_Model_Recurring_Profile_MethodInterface);
     }
 
     /**
@@ -389,19 +389,19 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function validate()
     {
-         /**
-          * to validate payment method is allowed for billing country or not
-          */
-         $paymentInfo = $this->getInfoInstance();
-         if ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
-             $billingCountry = $paymentInfo->getOrder()->getBillingAddress()->getCountryId();
-         } else {
-             $billingCountry = $paymentInfo->getQuote()->getBillingAddress()->getCountryId();
-         }
-         if (!$this->canUseForCountry($billingCountry)) {
-             Mage::throwException(Mage::helper('payment')->__('Selected payment type is not allowed for billing country.'));
-         }
-         return $this;
+        /**
+         * to validate payment method is allowed for billing country or not
+         */
+        $paymentInfo = $this->getInfoInstance();
+        if ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
+            $billingCountry = $paymentInfo->getOrder()->getBillingAddress()->getCountryId();
+        } else {
+            $billingCountry = $paymentInfo->getQuote()->getBillingAddress()->getCountryId();
+        }
+        if (!$this->canUseForCountry($billingCountry)) {
+            Mage::throwException(Mage::helper('payment')->__('Selected payment type is not allowed for billing country.'));
+        }
+        return $this;
     }
 
     /**
@@ -617,7 +617,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         if (null === $storeId) {
             $storeId = $this->getStore();
         }
-        $path = 'payment/'.$this->getCode().'/'.$field;
+        $path = 'payment/' . $this->getCode() . '/' . $field;
         return Mage::getStoreConfig($path, $storeId);
     }
 
@@ -631,14 +631,13 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     {
         if (is_array($data)) {
             $this->getInfoInstance()->addData($data);
-        }
-        elseif ($data instanceof Varien_Object) {
+        } elseif ($data instanceof Varien_Object) {
             $this->getInfoInstance()->addData($data->getData());
         }
         return $this;
     }
 
-   /**
+    /**
      * Parepare info instance for save
      *
      * @return Mage_Payment_Model_Abstract
@@ -660,13 +659,13 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     public function isAvailable($quote = null)
     {
         $checkResult = new StdClass;
-        $isActive = (bool)(int)$this->getConfigData('active', $quote ? $quote->getStoreId() : null);
+        $isActive = (bool) (int) $this->getConfigData('active', $quote ? $quote->getStoreId() : null);
         $checkResult->isAvailable = $isActive;
         $checkResult->isDeniedInConfig = !$isActive; // for future use in observers
         Mage::dispatchEvent('payment_method_is_active', array(
-            'result'          => $checkResult,
+            'result' => $checkResult,
             'method_instance' => $this,
-            'quote'           => $quote,
+            'quote' => $quote,
         ));
 
         if ($checkResult->isAvailable && $quote) {
@@ -725,8 +724,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         }
         if ($checksBitMask & self::CHECK_ZERO_TOTAL) {
             $total = $quote->getBaseSubtotal() + $quote->getShippingAddress()->getBaseShippingAmount();
-            if ($total < 0.0001 && $this->getCode() != 'free'
-                && !($this->canManageRecurringProfiles() && $quote->hasRecurringItems())
+            if ($total < 0.0001 && $this->getCode() != 'free' && !($this->canManageRecurringProfiles() && $quote->hasRecurringItems())
             ) {
                 return false;
             }
@@ -768,8 +766,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     {
         if ($this->getDebugFlag()) {
             Mage::getModel('core/log_adapter', 'payment_' . $this->getCode() . '.log')
-               ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
-               ->log($debugData);
+                    ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
+                    ->log($debugData);
         }
     }
 
@@ -792,4 +790,5 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     {
         $this->_debug($debugData);
     }
+
 }

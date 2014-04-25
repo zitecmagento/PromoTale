@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_Sales_Block_Order_Tax extends Mage_Core_Block_Template
 {
+
     /**
      * Retrieve current order model instance
      *
@@ -43,4 +45,5 @@ class Mage_Sales_Block_Order_Tax extends Mage_Core_Block_Template
     {
         return Mage::registry('current_order');
     }
+
 }

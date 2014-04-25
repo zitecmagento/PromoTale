@@ -10,7 +10,7 @@
     overflow:hidden;
     zoom:1;
     color:#15428b;
-	font:bold 11px tahoma,arial,verdana,sans-serif;
+    font:bold 11px tahoma,arial,verdana,sans-serif;
     padding:5px 3px 4px 5px;
     border:1px solid #99bbe8;
     background: transparent url(../images/default/panel/white-top-bottom.gif) repeat-x 0 -1px;
@@ -32,7 +32,7 @@
 }
 .x-panel-tl .x-panel-header {
     color:#15428b;
-	 font:bold 11px tahoma,arial,verdana,sans-serif;
+    font:bold 11px tahoma,arial,verdana,sans-serif;
     padding:5px 0 4px 0;
     border:0 none;
     background:transparent;
@@ -45,30 +45,30 @@
 }
 .x-panel-inline-icon {
     width:16px;
-	 height:16px;
+    height:16px;
     background-repeat:no-repeat;
     background-position:0 0;
-	 vertical-align:middle;
-	 margin-right:4px;
-	 margin-top:-1px;
-	 margin-bottom:-1px;
+    vertical-align:middle;
+    margin-right:4px;
+    margin-top:-1px;
+    margin-bottom:-1px;
 }
 .x-panel-tc {
-	background: transparent url(../images/default/panel/white-top-bottom.gif) repeat-x 0 0;
-	overflow:hidden;
+    background: transparent url(../images/default/panel/white-top-bottom.gif) repeat-x 0 0;
+    overflow:hidden;
 }
 .x-panel-tl {
-	background: transparent url(../images/default/panel/white-corners-sprite.gif) no-repeat 0 0;
-	padding-left:6px;
+    background: transparent url(../images/default/panel/white-corners-sprite.gif) no-repeat 0 0;
+    padding-left:6px;
     zoom:1;
     border-bottom:1px solid #99bbe8;
 }
 .x-panel-tr {
-	background: transparent url(../images/default/panel/white-corners-sprite.gif) no-repeat right 0;
-	padding-right:6px;
+    background: transparent url(../images/default/panel/white-corners-sprite.gif) no-repeat right 0;
+    padding-right:6px;
 }
 .x-panel-bc {
-	background: transparent url(../images/default/panel/white-top-bottom.gif) repeat-x 0 bottom;
+    background: transparent url(../images/default/panel/white-top-bottom.gif) repeat-x 0 bottom;
     zoom:1;
 }
 .x-panel-bc .x-panel-footer {
@@ -77,16 +77,16 @@
 }
 
 .x-panel-nofooter .x-panel-bc {
-	height:1px;
+    height:1px;
 }
 .x-panel-bl {
-	background: transparent url(../images/default/panel/white-corners-sprite.gif) no-repeat 0 bottom;
-	padding-left:1px;
+    background: transparent url(../images/default/panel/white-corners-sprite.gif) no-repeat 0 bottom;
+    padding-left:1px;
     zoom:1;
 }
 .x-panel-br {
-	background: transparent url(../images/default/panel/white-corners-sprite.gif) no-repeat right bottom;
-	padding-right:1px;
+    background: transparent url(../images/default/panel/white-corners-sprite.gif) no-repeat right bottom;
+    padding-right:1px;
     zoom:1;
 }
 .x-panel-mc {
@@ -101,13 +101,13 @@
     border:0 none;
 }
 .x-panel-ml {
-	background: #fff url(../images/default/panel/white-left-right.gif) repeat-y 0 0;
-	padding-left:1px;
+    background: #fff url(../images/default/panel/white-left-right.gif) repeat-y 0 0;
+    padding-left:1px;
     zoom:1;
 }
 .x-panel-mr {
-	background: transparent url(../images/default/panel/white-left-right.gif) repeat-y right 0;
-	padding-right:1px;
+    background: transparent url(../images/default/panel/white-left-right.gif) repeat-y right 0;
+    padding-right:1px;
     zoom:1;
 }
 .x-panel-blue .x-panel-tl, .x-panel-blue .x-panel-tr, .x-panel-blue .x-panel-bl, .x-panel-blue .x-panel-br {
@@ -117,7 +117,7 @@
     background-image:url(../images/default/panel/top-bottom.gif);
 }
 .x-panel-blue .x-panel-ml, .x-panel-blue .x-panel-mr {
-	background-image:url(../images/default/panel/left-right.gif);
+    background-image:url(../images/default/panel/left-right.gif);
 }
 .x-panel-blue .x-panel-mc{
     padding-top:6px;
@@ -125,29 +125,29 @@
 }
 
 .x-panel-blue .x-panel-tl {
-	padding-left:6px;
+    padding-left:6px;
 }
 .x-panel-blue .x-panel-tr {
-	padding-right:6px;
+    padding-right:6px;
 }
 .x-panel-blue .x-panel-bc .x-panel-footer {
     padding-bottom:6px;
 }
 .x-panel-blue .x-panel-nofooter .x-panel-bc {
-	height:6px;
+    height:6px;
 }
 .x-panel-blue .x-panel-bl {
-	padding-left:6px;
+    padding-left:6px;
 }
 .x-panel-blue .x-panel-br {
-	padding-right:6px;
+    padding-right:6px;
 }
 
 .x-panel-blue .x-panel-ml {
-	padding-left:6px;
+    padding-left:6px;
 }
 .x-panel-blue .x-panel-mr {
-	padding-right:6px;
+    padding-right:6px;
 }
 
 .x-panel-bwrap {
@@ -299,57 +299,57 @@
 }
 
 .x-panel-btns-ct .x-btn{
-	float:right;
-	clear:none;
+    float:right;
+    clear:none;
 }
 .x-panel-btns-ct .x-panel-btns td {
-	border:0;
-	padding:0;
+    border:0;
+    padding:0;
 }
 .x-panel-btns-ct .x-panel-btns-right table{
-	float:right;
-	clear:none;
+    float:right;
+    clear:none;
 }
 .x-panel-btns-ct .x-panel-btns-left table{
-	float:left;
-	clear:none;
+    float:left;
+    clear:none;
 }
 .x-panel-btns-ct .x-panel-btns-center{
-	text-align:center; /*ie*/
+    text-align:center; /*ie*/
 }
 .x-panel-btns-ct .x-panel-btns-center table{
-	margin:0 auto; /*everyone else*/
+    margin:0 auto; /*everyone else*/
 }
 .x-panel-btns-ct table td.x-panel-btn-td{
-	padding:3px;
+    padding:3px;
 }
 
 .x-panel-btns-ct .x-btn-focus .x-btn-left{
-	background-position:0 -147px;
+    background-position:0 -147px;
 }
 .x-panel-btns-ct .x-btn-focus .x-btn-right{
-	background-position:0 -168px;
+    background-position:0 -168px;
 }
 .x-panel-btns-ct .x-btn-focus .x-btn-center{
-	background-position:0 -189px;
+    background-position:0 -189px;
 }
 
 .x-panel-btns-ct .x-btn-over .x-btn-left{
-	background-position:0 -63px;
+    background-position:0 -63px;
 }
 .x-panel-btns-ct .x-btn-over .x-btn-right{
-	background-position:0 -84px;
+    background-position:0 -84px;
 }
 .x-panel-btns-ct .x-btn-over .x-btn-center{
-	background-position:0 -105px;
+    background-position:0 -105px;
 }
 
 .x-panel-btns-ct .x-btn-click .x-btn-center{
-	background-position:0 -126px;
+    background-position:0 -126px;
 }
 .x-panel-btns-ct .x-btn-click  .x-btn-right{
-	background-position:0 -84px;
+    background-position:0 -84px;
 }
 .x-panel-btns-ct .x-btn-click .x-btn-left{
-	background-position:0 -63px;
+    background-position:0 -63px;
 }

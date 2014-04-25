@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Magento Core Exception
  *
@@ -35,6 +35,7 @@
  */
 class Mage_Core_Exception extends Exception
 {
+
     protected $_messages = array();
 
     public function addMessage(Mage_Core_Model_Message_Abstract $message)
@@ -46,7 +47,7 @@ class Mage_Core_Exception extends Exception
         return $this;
     }
 
-    public function getMessages($type='')
+    public function getMessages($type = '')
     {
         if ('' == $type) {
             $arrRes = array();
@@ -74,4 +75,5 @@ class Mage_Core_Exception extends Exception
         }
         return $this;
     }
+
 }

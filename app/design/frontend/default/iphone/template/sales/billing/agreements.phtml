@@ -37,36 +37,36 @@
         <?php echo $this->getChildHtml('pager'); ?>
         <table id="billing-agreements" class="info-table">
             <tbody>
-                <?php foreach($billingAgreements as $item): ?>
-                <tr>
-                    <th><span class="nobr"><?php echo $this->__('Reference ID'); ?></span></th>
+                <?php foreach ($billingAgreements as $item): ?>
+                    <tr>
+                        <th><span class="nobr"><?php echo $this->__('Reference ID'); ?></span></th>
+                    </tr>
+                <td><span class="nobr"><?php echo $this->getItemValue($item, 'reference_id') ?></span></td>
                 </tr>
-                    <td><span class="nobr"><?php echo $this->getItemValue($item, 'reference_id') ?></span></td>
+                <th><?php echo $this->__('Status'); ?></th>
                 </tr>
-                    <th><?php echo $this->__('Status'); ?></th>
-                </tr>
-                    <td><?php echo $this->getItemValue($item, 'status') ?></td>
+                <td><?php echo $this->getItemValue($item, 'status') ?></td>
                 <tr>
                     <th><span class="nobr"><?php echo $this->__('Created At'); ?></span></th>
                 </tr>
-                    <td><span class="nobr"><?php echo $this->getItemValue($item, 'created_at') ?></span></td>
+                <td><span class="nobr"><?php echo $this->getItemValue($item, 'created_at') ?></span></td>
                 </tr>
                 <tr>
                     <th><span class="nobr"><?php echo $this->__('Updated At'); ?></span></th>
                 </tr>
-                    <td><span class="nobr"><?php echo $this->getItemValue($item, 'updated_at') ?></span></td>
+                <td><span class="nobr"><?php echo $this->getItemValue($item, 'updated_at') ?></span></td>
                 </tr>
-                    <th><span class="nobr"><?php echo $this->__('Payment Method'); ?></span></th>
+                <th><span class="nobr"><?php echo $this->__('Payment Method'); ?></span></th>
                 </tr>
-                    <td><?php echo $this->getItemValue($item, 'payment_method_label') ?></td>
+                <td><?php echo $this->getItemValue($item, 'payment_method_label') ?></td>
                 <tr>
                     <td><a href="<?php echo $this->getItemValue($item, 'edit_url') ?>"><?php echo $this->__('View') ?></a></td>
                 </tr>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>
-        <p><?php echo $this->__('There are no billing agreements yet.')?></p>
+        <p><?php echo $this->__('There are no billing agreements yet.') ?></p>
     <?php endif; ?>
 
     <?php $paymentMethods = $this->getWizardPaymentMethodOptions() ?>

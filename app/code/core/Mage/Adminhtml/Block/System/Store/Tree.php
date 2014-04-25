@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml store tree
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
 {
+
     /**
      * Cell Template
      *
@@ -58,8 +59,8 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     protected function _prepareLayout()
     {
         $this->_cellTemplate = $this->getLayout()
-            ->createBlock('adminhtml/template')
-            ->setTemplate('system/store/cell.phtml');
+                ->createBlock('adminhtml/template')
+                ->setTemplate('system/store/cell.phtml');
         return parent::_prepareLayout();
     }
 
@@ -129,10 +130,10 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     public function renderWebsite(Mage_Core_Model_Website $website)
     {
         return $this->_createCellTemplate()
-            ->setObject($website)
-            ->setLinkUrl($this->getUrl('*/*/editWebsite', array('website_id' => $website->getWebsiteId())))
-            ->setInfo($this->__('Code') . ': ' . $this->escapeHtml($website->getCode()))
-            ->toHtml();
+                        ->setObject($website)
+                        ->setLinkUrl($this->getUrl('*/*/editWebsite', array('website_id' => $website->getWebsiteId())))
+                        ->setInfo($this->__('Code') . ': ' . $this->escapeHtml($website->getCode()))
+                        ->toHtml();
     }
 
     /**
@@ -145,10 +146,10 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     {
         $rootCategory = Mage::getModel('catalog/category')->load($storeGroup->getRootCategoryId());
         return $this->_createCellTemplate()
-            ->setObject($storeGroup)
-            ->setLinkUrl($this->getUrl('*/*/editGroup', array('group_id' => $storeGroup->getGroupId())))
-            ->setInfo($this->__('Root Category') . ': ' . $this->escapeHtml($rootCategory->getName()))
-            ->toHtml();
+                        ->setObject($storeGroup)
+                        ->setLinkUrl($this->getUrl('*/*/editGroup', array('group_id' => $storeGroup->getGroupId())))
+                        ->setInfo($this->__('Root Category') . ': ' . $this->escapeHtml($rootCategory->getName()))
+                        ->toHtml();
     }
 
     /**
@@ -160,9 +161,9 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     public function renderStore(Mage_Core_Model_Store $store)
     {
         $cell = $this->_createCellTemplate()
-            ->setObject($store)
-            ->setLinkUrl($this->getUrl('*/*/editStore', array('store_id' => $store->getStoreId())))
-            ->setInfo($this->__('Code') . ': ' . $this->escapeHtml($store->getCode()));
+                ->setObject($store)
+                ->setLinkUrl($this->getUrl('*/*/editStore', array('store_id' => $store->getStoreId())))
+                ->setInfo($this->__('Code') . ': ' . $this->escapeHtml($store->getCode()));
         if (!$store->getIsActive()) {
             $cell->setClass('strike');
         }

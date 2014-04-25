@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -69,7 +70,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
 
     public function getStoreSelectorDisplay()
     {
-        $storeId    = $this->getStoreId();
+        $storeId = $this->getStoreId();
         $customerId = $this->getCustomerId();
         if (!is_null($customerId) && !$storeId) {
             return 'block';
@@ -79,7 +80,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
 
     public function getDataSelectorDisplay()
     {
-        $storeId    = $this->getStoreId();
+        $storeId = $this->getStoreId();
         $customerId = $this->getCustomerId();
         if (!is_null($customerId) && $storeId) {
             return 'block';
@@ -96,11 +97,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
 
             /* @var $addressForm Mage_Customer_Model_Form */
             $addressForm = Mage::getModel('customer/form')
-                ->setFormCode('adminhtml_customer_address')
-                ->setStore($this->getStore());
+                    ->setFormCode('adminhtml_customer_address')
+                    ->setStore($this->getStore());
             foreach ($this->getCustomer()->getAddresses() as $address) {
                 $data['addresses'][$address->getId()] = $addressForm->setEntity($address)
-                    ->outputData(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON);
+                        ->outputData(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON);
             }
         }
         if (!is_null($this->getStoreId())) {
@@ -108,9 +109,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
             $currency = Mage::app()->getLocale()->currency($this->getStore()->getCurrentCurrencyCode());
             $symbol = $currency->getSymbol() ? $currency->getSymbol() : $currency->getShortName();
             $data['currency_symbol'] = $symbol;
-            $data['shipping_method_reseted'] = !(bool)$this->getQuote()->getShippingAddress()->getShippingMethod();
+            $data['shipping_method_reseted'] = !(bool) $this->getQuote()->getShippingAddress()->getShippingMethod();
             $data['payment_method'] = $this->getQuote()->getPayment()->getMethod();
         }
         return Mage::helper('core')->jsonEncode($data);
     }
+
 }

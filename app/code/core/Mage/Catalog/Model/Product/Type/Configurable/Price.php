@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Model_Product_Type_Price
 {
+
     /**
      * Get product final price
      *
@@ -40,7 +42,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
      * @param   Mage_Catalog_Model_Product $product
      * @return  double
      */
-    public function getFinalPrice($qty=null, $product)
+    public function getFinalPrice($qty = null, $product)
     {
         if (is_null($qty) && !is_null($product->getCalculatedFinalPrice())) {
             return $product->getCalculatedFinalPrice();
@@ -84,16 +86,14 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         foreach ($attributes as $attribute) {
             $attributeId = $attribute->getProductAttribute()->getId();
             $value = $this->_getValueByIndex(
-                $attribute->getPrices() ? $attribute->getPrices() : array(),
-                isset($selectedAttributes[$attributeId]) ? $selectedAttributes[$attributeId] : null
+                    $attribute->getPrices() ? $attribute->getPrices() : array(), isset($selectedAttributes[$attributeId]) ? $selectedAttributes[$attributeId] : null
             );
             $product->setParentId(true);
             if ($value) {
                 if ($value['pricing_value'] != 0) {
                     $product->setConfigurablePrice($this->_calcSelectionPrice($value, $finalPrice));
                     Mage::dispatchEvent(
-                        'catalog_product_type_configurable_price',
-                        array('product' => $product)
+                            'catalog_product_type_configurable_price', array('product' => $product)
                     );
                     $price += $product->getConfigurablePrice();
                 }
@@ -111,8 +111,8 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
      */
     protected function _calcSelectionPrice($priceInfo, $productPrice)
     {
-        if($priceInfo['is_percent']) {
-            $ratio = $priceInfo['pricing_value']/100;
+        if ($priceInfo['is_percent']) {
+            $ratio = $priceInfo['pricing_value'] / 100;
             $price = $productPrice * $ratio;
         } else {
             $price = $priceInfo['pricing_value'];
@@ -120,12 +120,14 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         return $price;
     }
 
-    protected function _getValueByIndex($values, $index) {
+    protected function _getValueByIndex($values, $index)
+    {
         foreach ($values as $value) {
-            if($value['value_index'] == $index) {
+            if ($value['value_index'] == $index) {
                 return $value;
             }
         }
         return false;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -47,6 +48,5 @@ class Zend_Tool_Framework_Client_Interactive_InputResponse
     {
         return $this->_content;
     }
-
 
 }

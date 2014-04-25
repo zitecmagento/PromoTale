@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceAccount
 {
+
     /**
      * type of billing
      *
@@ -59,4 +61,5 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceAccount
     {
         return $this->billingtype;
     }
+
 }

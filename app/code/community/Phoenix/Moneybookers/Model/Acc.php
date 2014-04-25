@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,9 +20,11 @@
  */
 class Phoenix_Moneybookers_Model_Acc extends Phoenix_Moneybookers_Model_Abstract
 {
+
     /**
      * unique internal payment method identifier
      */
-    protected $_code			= 'moneybookers_acc';
-    protected $_paymentMethod	= 'ACC';
+    protected $_code = 'moneybookers_acc';
+    protected $_paymentMethod = 'ACC';
+
 }

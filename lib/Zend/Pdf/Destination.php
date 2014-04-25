@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,15 +20,12 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Destination.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element.php';
 
 
 /** Zend_Pdf_Target */
 #require_once 'Zend/Pdf/Target.php';
-
 
 /**
  * Abstract PDF destination representation class
@@ -39,6 +37,7 @@
  */
 abstract class Zend_Pdf_Destination extends Zend_Pdf_Target
 {
+
     /**
      * Load Destination object from a specified resource
      *
@@ -49,7 +48,7 @@ abstract class Zend_Pdf_Destination extends Zend_Pdf_Target
     public static function load(Zend_Pdf_Element $resource)
     {
         #require_once 'Zend/Pdf/Element.php';
-        if ($resource->getType() == Zend_Pdf_Element::TYPE_NAME  ||  $resource->getType() == Zend_Pdf_Element::TYPE_STRING) {
+        if ($resource->getType() == Zend_Pdf_Element::TYPE_NAME || $resource->getType() == Zend_Pdf_Element::TYPE_STRING) {
             #require_once 'Zend/Pdf/Destination/Named.php';
             return new Zend_Pdf_Destination_Named($resource);
         }
@@ -110,4 +109,5 @@ abstract class Zend_Pdf_Destination extends Zend_Pdf_Target
                 break;
         }
     }
+
 }

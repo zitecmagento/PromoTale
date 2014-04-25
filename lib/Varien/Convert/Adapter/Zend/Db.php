@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert zend db adapter
  *
@@ -34,6 +34,7 @@
  */
 class Varien_Convert_Adapter_Zend_Db extends Varien_Convert_Adapter_Abstract
 {
+
     public function getResource()
     {
         if (!$this->_resource) {
@@ -51,4 +52,5 @@ class Varien_Convert_Adapter_Zend_Db extends Varien_Convert_Adapter_Abstract
     {
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -40,4 +41,5 @@ class Zend_Tool_Project_Profile_Iterator_EnabledResourceFilter extends Recursive
     {
         return $this->current()->isEnabled();
     }
+
 }

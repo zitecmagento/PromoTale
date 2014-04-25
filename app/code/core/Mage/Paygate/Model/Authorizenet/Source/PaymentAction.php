@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,6 +33,7 @@
  */
 class Mage_Paygate_Model_Authorizenet_Source_PaymentAction
 {
+
     public function toOptionArray()
     {
         return array(
@@ -45,4 +47,5 @@ class Mage_Paygate_Model_Authorizenet_Source_PaymentAction
             ),
         );
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Admin rule resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table
      *
@@ -50,7 +51,8 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function saveRel(Mage_Admin_Model_Rules $rule)
     {
-        try {
+        try
+        {
             $adapter = $this->_getWriteAdapter();
             $adapter->beginTransaction();
             $roleId = $rule->getRoleId();
@@ -64,12 +66,12 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
             $postedResources = $rule->getResources();
             if ($postedResources) {
                 $row = array(
-                    'role_type'   => 'G',
+                    'role_type' => 'G',
                     'resource_id' => 'all',
-                    'privileges'  => '', // not used yet
-                    'assert_id'   => 0,
-                    'role_id'     => $roleId,
-                    'permission'  => 'allow'
+                    'privileges' => '', // not used yet
+                    'assert_id' => 0,
+                    'role_id' => $roleId,
+                    'permission' => 'allow'
                 );
 
                 // If all was selected save it only and nothing else.
@@ -79,7 +81,7 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
                     $adapter->insert($this->getMainTable(), $insertData);
                 } else {
                     foreach (Mage::getModel('admin/roles')->getResourcesList2D() as $index => $resName) {
-                        $row['permission']  = (in_array($resName, $postedResources) ? 'allow' : 'deny');
+                        $row['permission'] = (in_array($resName, $postedResources) ? 'allow' : 'deny');
                         $row['resource_id'] = trim($resName, '/');
 
                         $insertData = $this->_prepareDataForTable(new Varien_Object($row), $this->getMainTable());
@@ -89,12 +91,17 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
             }
 
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $adapter->rollBack();
             throw $e;
-        } catch (Exception $e){
+        }
+        catch (Exception $e)
+        {
             $adapter->rollBack();
             Mage::logException($e);
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstract
 {
+
     protected $_matchedEntities = array();
 
     /**
@@ -114,7 +116,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     public function matchEvent(Mage_Index_Model_Event $event)
     {
         $entity = $event->getEntity();
-        $type   = $event->getType();
+        $type = $event->getType();
         return $this->matchEntityAndType($entity, $type);
     }
 
@@ -153,7 +155,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     public function callEventHandler(Mage_Index_Model_Event $event)
     {
         if ($event->getEntity()) {
-            $method = $this->_camelize($event->getEntity().'_'.$event->getType());
+            $method = $this->_camelize($event->getEntity() . '_' . $event->getType());
         } else {
             $method = $this->_camelize($event->getType());
         }
@@ -227,4 +229,5 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     {
         return $this->_isVisible;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Connection.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Queue_Stomp_Client_ConnectionInterface
  */
@@ -34,9 +34,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Queue_Stomp_Client_Connection
-    implements Zend_Queue_Stomp_Client_ConnectionInterface
+class Zend_Queue_Stomp_Client_Connection implements Zend_Queue_Stomp_Client_ConnectionInterface
 {
+
     const READ_TIMEOUT_DEFAULT_USEC = 0; // 0 microseconds
     const READ_TIMEOUT_DEFAULT_SEC = 5; // 5 seconds
 
@@ -44,6 +44,7 @@ class Zend_Queue_Stomp_Client_Connection
      * Connection options
      * @var array
      */
+
     protected $_options;
 
     /**
@@ -81,7 +82,7 @@ class Zend_Queue_Stomp_Client_Connection
         if (!isset($options['timeout_sec'])) {
             $options['timeout_sec'] = self::READ_TIMEOUT_DEFAULT_SEC;
         }
-        if (! isset($options['timeout_usec'])) {
+        if (!isset($options['timeout_usec'])) {
             $options['timeout_usec'] = self::READ_TIMEOUT_DEFAULT_USEC;
         }
 
@@ -97,6 +98,7 @@ class Zend_Queue_Stomp_Client_Connection
      */
     public function __destruct()
     {
+        
     }
 
     /**
@@ -117,7 +119,6 @@ class Zend_Queue_Stomp_Client_Connection
         // @todo: Should be fixed.
         // When the socket is "closed", it will trigger the below error when php exits
         // Fatal error: Exception thrown without a stack frame in Unknown on line 0
-
         // Danlo: I suspect this is because this has already been claimed by the interpeter
         // thus trying to shutdown this resources, which is already shutdown is a problem.
         if (is_resource($this->_socket)) {
@@ -171,17 +172,13 @@ class Zend_Queue_Stomp_Client_Connection
      */
     public function canRead()
     {
-        $read   = array($this->_socket);
-        $write  = null;
+        $read = array($this->_socket);
+        $write = null;
         $except = null;
 
         return stream_select(
-            $read,
-            $write,
-            $except,
-            $this->_options['timeout_sec'],
-            $this->_options['timeout_usec']
-        ) == 1;
+                        $read, $write, $except, $this->_options['timeout_sec'], $this->_options['timeout_usec']
+                ) == 1;
         // see http://us.php.net/manual/en/function.stream-select.php
     }
 
@@ -196,7 +193,7 @@ class Zend_Queue_Stomp_Client_Connection
         $this->ping();
 
         $response = '';
-        $prev     = '';
+        $prev = '';
 
         // while not end of file.
         while (!feof($this->_socket)) {
@@ -249,9 +246,7 @@ class Zend_Queue_Stomp_Client_Connection
      */
     public function getFrameClass()
     {
-        return isset($this->_options['frameClass'])
-            ? $this->_options['frameClass']
-            : 'Zend_Queue_Stomp_Frame';
+        return isset($this->_options['frameClass']) ? $this->_options['frameClass'] : 'Zend_Queue_Stomp_Frame';
     }
 
     /**
@@ -277,4 +272,5 @@ class Zend_Queue_Stomp_Client_Connection
 
         return $frame;
     }
+
 }

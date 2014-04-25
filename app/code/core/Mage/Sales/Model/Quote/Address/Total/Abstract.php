@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales Quote Address Total  abstract model
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
 {
+
     /**
      * Total Code name
      *
@@ -47,7 +48,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * @var bool
      */
     protected $_canAddAmountToAddress = true;
-    protected $_canSetAddressAmount   = true;
+    protected $_canSetAddressAmount = true;
 
     /**
      * Key for item row total getting
@@ -139,7 +140,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     {
         if ($this->_address === null) {
             Mage::throwException(
-                Mage::helper('sales')->__('Address model is not defined.')
+                    Mage::helper('sales')->__('Address model is not defined.')
             );
         }
         return $this->_address;
@@ -182,7 +183,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     protected function _addAmount($amount)
     {
         if ($this->_canAddAmountToAddress) {
-            $this->_getAddress()->addTotalAmount($this->getCode(),$amount);
+            $this->_getAddress()->addTotalAmount($this->getCode(), $amount);
         }
         return $this;
     }
@@ -266,4 +267,5 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     {
         return $config;
     }
+
 }

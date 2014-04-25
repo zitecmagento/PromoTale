@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_GoogleBase_Model_Service_Feed extends Mage_GoogleBase_Model_Service
 {
+
     const ITEM_TYPES_LOCATION = 'http://www.google.com/base/feeds/itemtypes';
     const ITEMS_LOCATION = 'http://www.google.com/base/feeds/items';
 
@@ -69,10 +71,13 @@ class Mage_GoogleBase_Model_Service_Feed extends Mage_GoogleBase_Model_Service
         } elseif (!stristr($id, 'content=')) {
             $id = $id . '&content=attributes,meta';
         }
-        try {
+        try
+        {
             $entry = $this->getService($storeId)->getGbaseItemEntry($id);
             return $this->_getEntryStats($entry);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             return null;
         }
     }
@@ -96,19 +101,19 @@ class Mage_GoogleBase_Model_Service_Feed extends Mage_GoogleBase_Model_Service
         $expirationDate = $entry->getGbaseAttribute('expiration_date');
         if (isset($expirationDate[0]) && is_object($expirationDate[0])) {
             $result['expires'] = Mage::getSingleton('googlebase/service_item')
-                                    ->gBaseDate2DateTime($expirationDate[0]->getText());
+                    ->gBaseDate2DateTime($expirationDate[0]->getText());
         }
 
         $allAttributes = $entry->getExtensionElements();
         $elementsCount = count($allAttributes);
-        if($elementsCount) {
+        if ($elementsCount) {
             $statsElement = null;
             for ($i = 0; $i < $elementsCount; $i++) {
                 /**
                  * @var $extAttribute Zend_Gdata_App_Extension_Element
                  */
                 $extAttribute = $allAttributes[$i];
-                if ((string)$extAttribute->rootElement == 'stats') {
+                if ((string) $extAttribute->rootElement == 'stats') {
                     $statsElement = $extAttribute;
                     break;
                 }
@@ -124,7 +129,7 @@ class Mage_GoogleBase_Model_Service_Feed extends Mage_GoogleBase_Model_Service
                 $_currentElement = $_stats[$i];
                 $_currentAttributes = $_currentElement->getExtensionAttributes();
                 if (isset($_currentAttributes['total']) && isset($_currentAttributes['total']['value'])) {
-                    $result[(string)$_currentElement->rootElement] = $_currentAttributes['total']['value'];
+                    $result[(string) $_currentElement->rootElement] = $_currentAttributes['total']['value'];
                 }
             }
         }
@@ -155,7 +160,7 @@ class Mage_GoogleBase_Model_Service_Feed extends Mage_GoogleBase_Model_Service
                     $itemTypes[$type] = $item;
 
                     $attributes = array();
-                    foreach($typeAttributes as $attr) {
+                    foreach ($typeAttributes as $attr) {
                         $name = $attr->extensionAttributes['name']['value'];
                         $type = $attr->extensionAttributes['type']['value'];
                         $attribute = new Varien_Object();
@@ -189,4 +194,5 @@ class Mage_GoogleBase_Model_Service_Feed extends Mage_GoogleBase_Model_Service
         }
         return array();
     }
+
 }

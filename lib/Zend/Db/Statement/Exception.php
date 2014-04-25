@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 20513 2010-01-22 07:55:48Z ralph $
  */
-
 /**
  * @see Zend_Db_Exception
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Db_Statement_Exception extends Zend_Db_Exception
 {
+
     /**
      * Check if this general exception has a specific database driver specific exception nested inside.
      *
@@ -53,4 +54,5 @@ class Zend_Db_Statement_Exception extends Zend_Db_Exception
     {
         return $this->getPrevious();
     }
+
 }

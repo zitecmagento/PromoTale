@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Lastmod.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -38,6 +38,7 @@
  */
 class Zend_Validate_Sitemap_Lastmod extends Zend_Validate_Abstract
 {
+
     /**
      * Regular expression to use when validating
      *
@@ -49,7 +50,7 @@ class Zend_Validate_Sitemap_Lastmod extends Zend_Validate_Abstract
      *
      */
     const NOT_VALID = 'sitemapLastmodNotValid';
-    const INVALID   = 'sitemapLastmodInvalid';
+    const INVALID = 'sitemapLastmodInvalid';
 
     /**
      * Validation failure message template definitions
@@ -58,7 +59,7 @@ class Zend_Validate_Sitemap_Lastmod extends Zend_Validate_Abstract
      */
     protected $_messageTemplates = array(
         self::NOT_VALID => "'%value%' is no valid sitemap lastmod",
-        self::INVALID   => "Invalid type given. String expected",
+        self::INVALID => "Invalid type given. String expected",
     );
 
     /**
@@ -85,4 +86,5 @@ class Zend_Validate_Sitemap_Lastmod extends Zend_Validate_Abstract
 
         return true;
     }
+
 }

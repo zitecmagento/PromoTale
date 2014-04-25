@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Nirvanix.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Http_Client
  */
@@ -38,6 +38,7 @@
  */
 class Zend_Service_Nirvanix
 {
+
     /**
      * Options to pass to namespace proxies
      * @param array
@@ -56,14 +57,14 @@ class Zend_Service_Nirvanix
     public function __construct($authParams, $options = array())
     {
         // merge options with default options
-        $defaultOptions = array('defaults'   => array(),
-                                'httpClient' => new Zend_Http_Client(),
-                                'host'       => 'http://services.nirvanix.com');
+        $defaultOptions = array('defaults' => array(),
+            'httpClient' => new Zend_Http_Client(),
+            'host' => 'http://services.nirvanix.com');
         $this->_options = array_merge($defaultOptions, $options);
 
         // login and save sessionToken to default POST params
         $resp = $this->getService('Authentication')->login($authParams);
-        $this->_options['defaults']['sessionToken'] = (string)$resp->SessionToken;
+        $this->_options['defaults']['sessionToken'] = (string) $resp->SessionToken;
     }
 
     /**

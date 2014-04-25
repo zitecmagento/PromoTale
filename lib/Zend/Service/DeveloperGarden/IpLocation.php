@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: IpLocation.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Client_ClientAbstract
  */
@@ -68,9 +68,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_IpLocation 
-    extends Zend_Service_DeveloperGarden_Client_ClientAbstract
+class Zend_Service_DeveloperGarden_IpLocation extends Zend_Service_DeveloperGarden_Client_ClientAbstract
 {
+
     /**
      * wsdl file
      *
@@ -92,11 +92,11 @@ class Zend_Service_DeveloperGarden_IpLocation
      *
      */
     protected $_classMap = array(
-        'LocateIPResponseType'  => 'Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponseType',
+        'LocateIPResponseType' => 'Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponseType',
         'IPAddressLocationType' => 'Zend_Service_DeveloperGarden_Response_IpLocation_IPAddressLocationType',
-        'RegionType'            => 'Zend_Service_DeveloperGarden_Response_IpLocation_RegionType',
-        'GeoCoordinatesType'    => 'Zend_Service_DeveloperGarden_Response_IpLocation_GeoCoordinatesType',
-        'CityType'              => 'Zend_Service_DeveloperGarden_Response_IpLocation_CityType',
+        'RegionType' => 'Zend_Service_DeveloperGarden_Response_IpLocation_RegionType',
+        'GeoCoordinatesType' => 'Zend_Service_DeveloperGarden_Response_IpLocation_GeoCoordinatesType',
+        'CityType' => 'Zend_Service_DeveloperGarden_Response_IpLocation_CityType',
     );
 
     /**
@@ -108,8 +108,7 @@ class Zend_Service_DeveloperGarden_IpLocation
     public function locateIP($ip)
     {
         $request = new Zend_Service_DeveloperGarden_Request_IpLocation_LocateIPRequest(
-            $this->getEnvironment(),
-            $ip
+                $this->getEnvironment(), $ip
         );
 
         $result = $this->getSoapClient()->locateIP($request);
@@ -117,4 +116,5 @@ class Zend_Service_DeveloperGarden_IpLocation
         $response = new Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponse($result);
         return $response->parse();
     }
+
 }

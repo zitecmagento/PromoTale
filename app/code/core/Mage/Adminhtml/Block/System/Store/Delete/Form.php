@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml cms block edit form
@@ -56,19 +56,19 @@ class Mage_Adminhtml_Block_System_Store_Delete_Form extends Mage_Adminhtml_Block
         $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('core')->__('Backup Options'), 'class' => 'fieldset-wide'));
 
         $fieldset->addField('item_id', 'hidden', array(
-            'name'  => 'item_id',
+            'name' => 'item_id',
             'value' => $dataObject->getId(),
         ));
 
         $fieldset->addField('create_backup', 'select', array(
-            'label'     => Mage::helper('adminhtml')->__('Create DB Backup'),
-            'title'     => Mage::helper('adminhtml')->__('Create DB Backup'),
-            'name'      => 'create_backup',
-            'options'   => array(
+            'label' => Mage::helper('adminhtml')->__('Create DB Backup'),
+            'title' => Mage::helper('adminhtml')->__('Create DB Backup'),
+            'name' => 'create_backup',
+            'options' => array(
                 '1' => Mage::helper('adminhtml')->__('Yes'),
                 '0' => Mage::helper('adminhtml')->__('No'),
             ),
-            'value'     => '1',
+            'value' => '1',
         ));
 
         $form->setUseContainer(true);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Rule
-    extends Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Abstract
+class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Rule extends Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Abstract
 {
+
     /**
      * Init validator rule element
      *
@@ -43,4 +44,5 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Rule
     {
         parent::__construct($attributes);
     }
+
 }

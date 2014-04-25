@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,10 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: GoTo.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Destination.php';
-
 #require_once 'Zend/Pdf/Element/Dictionary.php';
 #require_once 'Zend/Pdf/Element/Name.php';
 
@@ -40,13 +39,13 @@
  */
 class Zend_Pdf_Action_GoTo extends Zend_Pdf_Action
 {
+
     /**
      * GoTo Action destination
      *
      * @var Zend_Pdf_Destination
      */
     protected $_destination;
-
 
     /**
      * Object constructor
@@ -81,9 +80,9 @@ class Zend_Pdf_Action_GoTo extends Zend_Pdf_Action
 
         $dictionary = new Zend_Pdf_Element_Dictionary();
         $dictionary->Type = new Zend_Pdf_Element_Name('Action');
-        $dictionary->S    = new Zend_Pdf_Element_Name('GoTo');
+        $dictionary->S = new Zend_Pdf_Element_Name('GoTo');
         $dictionary->Next = null;
-        $dictionary->D    = $destination->getResource();
+        $dictionary->D = $destination->getResource();
 
         return new Zend_Pdf_Action_GoTo($dictionary, new SplObjectStorage());
     }
@@ -113,4 +112,5 @@ class Zend_Pdf_Action_GoTo extends Zend_Pdf_Action
     {
         return $this->_destination;
     }
+
 }

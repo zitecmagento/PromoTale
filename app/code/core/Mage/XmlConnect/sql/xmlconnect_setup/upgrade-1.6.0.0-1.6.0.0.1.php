@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_XmlConnect_Model_Resource_Setup */
 $installer = $this;
 $installer->startSetup();
@@ -38,36 +38,31 @@ $appTableName = $installer->getTable('xmlconnect/application');
  */
 $imagesTableName = $installer->getTable('xmlconnect/images');
 $imagesTable = $installer->getConnection()
-    ->newTable($imagesTableName)
-    ->addColumn('image_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-            'identity'  => true,
-            'unsigned'  => true,
-            'nullable'  => false,
-            'primary'   => true,
-        ), 'Image Id')
-    ->addColumn('application_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
-            'unsigned'  => true,
-            'nullable'  => false,
-        ), 'Application Id')
-    ->addColumn('image_file', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-            'nullable'  => false,
-        ), 'Image File')
-    ->addColumn('image_type', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-            'nullable'  => false,
-        ), 'Image Type')
-    ->addColumn('order', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-            'unsigned'  => true,
-            'nullable'  => false,
-        ), 'Order')
-    ->addForeignKey(
-        $installer->getFkName($imagesTableName, 'application_id', $appTableName, 'application_id'),
-        'application_id',
-        $appTableName,
-        'application_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
-    )
-    ->setComment('Xmlconnect Images');
+        ->newTable($imagesTableName)
+        ->addColumn('image_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+            'identity' => true,
+            'unsigned' => true,
+            'nullable' => false,
+            'primary' => true,
+                ), 'Image Id')
+        ->addColumn('application_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+            'unsigned' => true,
+            'nullable' => false,
+                ), 'Application Id')
+        ->addColumn('image_file', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
+            'nullable' => false,
+                ), 'Image File')
+        ->addColumn('image_type', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
+            'nullable' => false,
+                ), 'Image Type')
+        ->addColumn('order', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+            'unsigned' => true,
+            'nullable' => false,
+                ), 'Order')
+        ->addForeignKey(
+                $installer->getFkName($imagesTableName, 'application_id', $appTableName, 'application_id'), 'application_id', $appTableName, 'application_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE
+        )
+        ->setComment('Xmlconnect Images');
 $installer->getConnection()->createTable($imagesTable);
 
 $installer->endSetup();

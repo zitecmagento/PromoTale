@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Create Configuranle procuct Settings Tab Block
  *
@@ -34,28 +34,28 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Prepare block children and data
      *
      */
     protected function _prepareLayout()
     {
-        $onclick = "setSuperSettings('".$this->getContinueUrl()."','attribute-checkbox', 'attributes')";
-        $this->setChild('continue_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('catalog')->__('Continue'),
-                    'onclick'   => $onclick,
-                    'class'     => 'save'
-                ))
+        $onclick = "setSuperSettings('" . $this->getContinueUrl() . "','attribute-checkbox', 'attributes')";
+        $this->setChild('continue_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('catalog')->__('Continue'),
+                            'onclick' => $onclick,
+                            'class' => 'save'
+                        ))
         );
 
         $backButton = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
-                'label'     => Mage::helper('catalog')->__('Back'),
-                'onclick'   => "setLocation('".$this->getBackUrl()."')",
-                'class'     => 'back'
-            ));
+                ->setData(array(
+            'label' => Mage::helper('catalog')->__('Back'),
+            'onclick' => "setLocation('" . $this->getBackUrl() . "')",
+            'class' => 'back'
+        ));
 
         $this->setChild('back_button', $backButton);
         parent::_prepareLayout();
@@ -80,17 +80,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
     {
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('settings', array(
-            'legend'=>Mage::helper('catalog')->__('Select Configurable Attributes ')
+            'legend' => Mage::helper('catalog')->__('Select Configurable Attributes ')
         ));
 
-        $product    = $this->_getProduct();
+        $product = $this->_getProduct();
         $attributes = $product->getTypeInstance(true)
-            ->getSetAttributes($product);
+                ->getSetAttributes($product);
 
         $fieldset->addField('req_text', 'note', array(
             'text' => '<ul class="messages"><li class="notice-msg"><ul><li>'
-                    .  $this->__('Only attributes with scope "Global", input type "Dropdown" and Use To Create Configurable Product "Yes" are available.')
-                    . '</li></ul></li></ul>'
+            . $this->__('Only attributes with scope "Global", input type "Dropdown" and Use To Create Configurable Product "Yes" are available.')
+            . '</li></ul></li></ul>'
         ));
 
         $hasAttributes = false;
@@ -98,10 +98,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
         foreach ($attributes as $attribute) {
             if ($product->getTypeInstance(true)->canUseAttribute($attribute, $product)) {
                 $hasAttributes = true;
-                $fieldset->addField('attribute_'.$attribute->getAttributeId(), 'checkbox', array(
+                $fieldset->addField('attribute_' . $attribute->getAttributeId(), 'checkbox', array(
                     'label' => $attribute->getFrontend()->getLabel(),
                     'title' => $attribute->getFrontend()->getLabel(),
-                    'name'  => 'attribute',
+                    'name' => 'attribute',
                     'class' => 'attribute-checkbox',
                     'value' => $attribute->getAttributeId()
                 ));
@@ -110,16 +110,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
 
         if ($hasAttributes) {
             $fieldset->addField('attributes', 'hidden', array(
-                        'name'  => 'attribute_validate',
-                        'value' => '',
-                        'class' => 'validate-super-product-attributes'
-                    ));
+                'name' => 'attribute_validate',
+                'value' => '',
+                'class' => 'validate-super-product-attributes'
+            ));
 
             $fieldset->addField('continue_button', 'note', array(
                 'text' => $this->getChildHtml('continue_button'),
             ));
-        }
-        else {
+        } else {
             $fieldset->addField('note_text', 'note', array(
                 'text' => $this->__('This attribute set does not have attributes which we can use for configurable product')
             ));
@@ -142,8 +141,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
     public function getContinueUrl()
     {
         return $this->getUrl('*/*/new', array(
-            '_current'   => true,
-            'attributes' => '{{attributes}}'
+                    '_current' => true,
+                    'attributes' => '{{attributes}}'
         ));
     }
 
@@ -154,6 +153,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
      */
     public function getBackUrl()
     {
-        return $this->getUrl('*/*/new', array('set'=>null, 'type'=>null));
+        return $this->getUrl('*/*/new', array('set' => null, 'type' => null));
     }
+
 }

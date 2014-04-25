@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Admin role resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Admin_Model_Resource_Role extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table
      *
@@ -51,10 +52,11 @@ class Mage_Admin_Model_Resource_Role extends Mage_Core_Model_Resource_Db_Abstrac
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        if ( !$object->getId() ) {
+        if (!$object->getId()) {
             $object->setCreated($this->formatDate(true));
         }
         $object->setModified($this->formatDate(true));
         return $this;
     }
+
 }

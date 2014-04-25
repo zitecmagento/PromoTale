@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 if (version_compare(phpversion(), '5.2.0', '<')) {
     echo 'It looks like you have an invalid PHP version. Magento supports PHP 5.2.0 or newer';
     exit;
@@ -48,7 +48,6 @@ if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
 }
 
 #ini_set('display_errors', 1);
-
 // emulate index.php entry point for correct URLs generation in API
 Mage::register('custom_entry_point', true);
 Mage::$headersSentThrowsException = false;
@@ -74,12 +73,15 @@ if (in_array($apiAlias, Mage_Api2_Model_Server::getApiTypes())) {
     if (null === $adapterCode) {
         $adapterCode = $apiAlias;
     }
-    try {
+    try
+    {
         $server->initialize($adapterCode);
         $server->run();
 
         Mage::app()->getResponse()->sendResponse();
-    } catch (Exception $e) {
+    }
+    catch (Exception $e)
+    {
         Mage::logException($e);
 
         echo $e->getMessage();

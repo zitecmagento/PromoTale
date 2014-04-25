@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Category *_sort_by Attributes Source Model
  *
@@ -32,15 +32,16 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Category_Attribute_Source_Sortby
-    extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
+class Mage_Catalog_Model_Category_Attribute_Source_Sortby extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+
     /**
      * Retrieve Catalog Config Singleton
      *
      * @return Mage_Catalog_Model_Config
      */
-    protected function _getCatalogConfig() {
+    protected function _getCatalogConfig()
+    {
         return Mage::getSingleton('catalog/config');
     }
 
@@ -53,8 +54,8 @@ class Mage_Catalog_Model_Category_Attribute_Source_Sortby
     {
         if (is_null($this->_options)) {
             $this->_options = array(array(
-                'label' => Mage::helper('catalog')->__('Best Value'),
-                'value' => 'position'
+                    'label' => Mage::helper('catalog')->__('Best Value'),
+                    'value' => 'position'
             ));
             foreach ($this->_getCatalogConfig()->getAttributesUsedForSortBy() as $attribute) {
                 $this->_options[] = array(
@@ -65,4 +66,5 @@ class Mage_Catalog_Model_Category_Attribute_Source_Sortby
         }
         return $this->_options;
     }
+
 }

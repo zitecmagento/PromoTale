@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Xmlconnect_Block_Cart_CartTotals_Nodes_Giftcardaccount extends Mage_Checkout_Block_Total_Default
 {
+
     /**
      * Add gift card balance to xml
      *
@@ -66,4 +68,5 @@ class Mage_Xmlconnect_Block_Cart_CartTotals_Nodes_Giftcardaccount extends Mage_C
         }
         return $giftCardsXmlObj;
     }
+
 }

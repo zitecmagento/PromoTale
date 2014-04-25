@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Entry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Feed_Reader
  */
@@ -40,9 +40,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Reader_Extension_DublinCore_Entry
-    extends Zend_Feed_Reader_Extension_EntryAbstract
+class Zend_Feed_Reader_Extension_DublinCore_Entry extends Zend_Feed_Reader_Extension_EntryAbstract
 {
+
     /**
      * Get an author entry
      *
@@ -92,7 +92,7 @@ class Zend_Feed_Reader_Extension_DublinCore_Entry
                 );
             }
             $authors = new Zend_Feed_Reader_Collection_Author(
-                Zend_Feed_Reader::arrayUnique($authors)
+                    Zend_Feed_Reader::arrayUnique($authors)
             );
         } else {
             $authors = null;
@@ -102,7 +102,7 @@ class Zend_Feed_Reader_Extension_DublinCore_Entry
 
         return $this->_data['authors'];
     }
-    
+
     /**
      * Get categories (subjects under DC)
      *
@@ -113,13 +113,13 @@ class Zend_Feed_Reader_Extension_DublinCore_Entry
         if (array_key_exists('categories', $this->_data)) {
             return $this->_data['categories'];
         }
-        
+
         $list = $this->_xpath->evaluate($this->getXpathPrefix() . '//dc11:subject');
 
         if (!$list->length) {
             $list = $this->_xpath->evaluate($this->getXpathPrefix() . '//dc10:subject');
         }
-        
+
         if ($list->length) {
             $categoryCollection = new Zend_Feed_Reader_Collection_Category;
             foreach ($list as $category) {
@@ -132,11 +132,10 @@ class Zend_Feed_Reader_Extension_DublinCore_Entry
         } else {
             $categoryCollection = new Zend_Feed_Reader_Collection_Category;
         }
-        
+
         $this->_data['categories'] = $categoryCollection;
-        return $this->_data['categories'];  
+        return $this->_data['categories'];
     }
-    
 
     /**
      * Get the entry content
@@ -236,7 +235,7 @@ class Zend_Feed_Reader_Extension_DublinCore_Entry
             return $this->_data['date'];
         }
 
-        $d    = null;
+        $d = null;
         $date = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/dc11:date)');
 
         if (!$date) {
@@ -263,4 +262,5 @@ class Zend_Feed_Reader_Extension_DublinCore_Entry
         $this->_xpath->registerNamespace('dc10', 'http://purl.org/dc/elements/1.0/');
         $this->_xpath->registerNamespace('dc11', 'http://purl.org/dc/elements/1.1/');
     }
+
 }

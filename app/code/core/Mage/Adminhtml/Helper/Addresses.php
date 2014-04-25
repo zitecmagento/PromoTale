@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Helper_Addresses extends Mage_Core_Helper_Abstract
 {
+
     const DEFAULT_STREET_LINES_COUNT = 2;
 
     /**
@@ -43,9 +45,10 @@ class Mage_Adminhtml_Helper_Addresses extends Mage_Core_Helper_Abstract
      */
     public function processStreetAttribute(Mage_Customer_Model_Attribute $attribute)
     {
-        if($attribute->getScopeMultilineCount() <= 0) {
+        if ($attribute->getScopeMultilineCount() <= 0) {
             $attribute->setScopeMultilineCount(self::DEFAULT_STREET_LINES_COUNT);
         }
         return $attribute;
     }
+
 }

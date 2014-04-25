@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Amazon.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Rest_Client
  */
@@ -35,6 +34,7 @@
  */
 class Zend_Service_Amazon
 {
+
     /**
      * Amazon Web Services Access Key ID
      *
@@ -58,11 +58,11 @@ class Zend_Service_Amazon
      * @var array
      */
     protected $_baseUriList = array('US' => 'http://webservices.amazon.com',
-                                    'UK' => 'http://webservices.amazon.co.uk',
-                                    'DE' => 'http://webservices.amazon.de',
-                                    'JP' => 'http://webservices.amazon.co.jp',
-                                    'FR' => 'http://webservices.amazon.fr',
-                                    'CA' => 'http://webservices.amazon.ca');
+        'UK' => 'http://webservices.amazon.co.uk',
+        'DE' => 'http://webservices.amazon.de',
+        'JP' => 'http://webservices.amazon.co.jp',
+        'FR' => 'http://webservices.amazon.fr',
+        'CA' => 'http://webservices.amazon.ca');
 
     /**
      * Reference to REST client object
@@ -70,7 +70,6 @@ class Zend_Service_Amazon
      * @var Zend_Rest_Client
      */
     protected $_rest = null;
-
 
     /**
      * Constructs a new Amazon Web Services Client
@@ -97,7 +96,6 @@ class Zend_Service_Amazon
         $this->_baseUri = $this->_baseUriList[$countryCode];
     }
 
-
     /**
      * Search for Items
      *
@@ -122,7 +120,7 @@ class Zend_Service_Amazon
              */
             #require_once 'Zend/Service/Exception.php';
             throw new Zend_Service_Exception('An error occurred sending request. Status code: '
-                                           . $response->getStatus());
+            . $response->getStatus());
         }
 
         $dom = new DOMDocument();
@@ -135,7 +133,6 @@ class Zend_Service_Amazon
         #require_once 'Zend/Service/Amazon/ResultSet.php';
         return new Zend_Service_Amazon_ResultSet($dom);
     }
-
 
     /**
      * Look up item(s) by ASIN
@@ -163,7 +160,7 @@ class Zend_Service_Amazon
              */
             #require_once 'Zend/Service/Exception.php';
             throw new Zend_Service_Exception(
-                'An error occurred sending request. Status code: ' . $response->getStatus()
+            'An error occurred sending request. Status code: ' . $response->getStatus()
             );
         }
 
@@ -189,7 +186,6 @@ class Zend_Service_Amazon
         return new Zend_Service_Amazon_ResultSet($dom);
     }
 
-
     /**
      * Returns a reference to the REST client
      *
@@ -197,7 +193,7 @@ class Zend_Service_Amazon
      */
     public function getRestClient()
     {
-        if($this->_rest === null) {
+        if ($this->_rest === null) {
             $this->_rest = new Zend_Rest_Client();
         }
         return $this->_rest;
@@ -215,7 +211,6 @@ class Zend_Service_Amazon
         return $this;
     }
 
-
     /**
      * Prepare options for request
      *
@@ -227,9 +222,9 @@ class Zend_Service_Amazon
     protected function _prepareOptions($query, array $options, array $defaultOptions)
     {
         $options['AWSAccessKeyId'] = $this->appId;
-        $options['Service']        = 'AWSECommerceService';
-        $options['Operation']      = (string) $query;
-        $options['Version']        = '2005-10-05';
+        $options['Service'] = 'AWSECommerceService';
+        $options['Operation'] = (string) $query;
+        $options['Version'] = '2005-10-05';
 
         // de-canonicalize out sort key
         if (isset($options['ResponseGroup'])) {
@@ -243,8 +238,9 @@ class Zend_Service_Amazon
 
         $options = array_merge($defaultOptions, $options);
 
-        if($this->_secretKey !== null) {
-            $options['Timestamp'] = gmdate("Y-m-d\TH:i:s\Z");;
+        if ($this->_secretKey !== null) {
+            $options['Timestamp'] = gmdate("Y-m-d\TH:i:s\Z");
+            ;
             ksort($options);
             $options['Signature'] = self::computeSignature($this->_baseUri, $this->_secretKey, $options);
         }
@@ -266,7 +262,7 @@ class Zend_Service_Amazon
 
         $signature = self::buildRawSignature($baseUri, $options);
         return base64_encode(
-            Zend_Crypt_Hmac::compute($secretKey, 'sha256', $signature, Zend_Crypt_Hmac::BINARY)
+                Zend_Crypt_Hmac::compute($secretKey, 'sha256', $signature, Zend_Crypt_Hmac::BINARY)
         );
     }
 
@@ -281,16 +277,13 @@ class Zend_Service_Amazon
     {
         ksort($options);
         $params = array();
-        foreach($options AS $k => $v) {
-            $params[] = $k."=".rawurlencode($v);
+        foreach ($options AS $k => $v) {
+            $params[] = $k . "=" . rawurlencode($v);
         }
 
-        return sprintf("GET\n%s\n/onca/xml\n%s",
-            str_replace('http://', '', $baseUri),
-            implode("&", $params)
+        return sprintf("GET\n%s\n/onca/xml\n%s", str_replace('http://', '', $baseUri), implode("&", $params)
         );
     }
-
 
     /**
      * Check result for errors
@@ -308,7 +301,7 @@ class Zend_Service_Amazon
             $code = $xpath->query('//az:Error/az:Code/text()')->item(0)->data;
             $message = $xpath->query('//az:Error/az:Message/text()')->item(0)->data;
 
-            switch($code) {
+            switch ($code) {
                 case 'AWS.ECommerceService.NoExactMatches':
                     break;
                 default:
@@ -320,4 +313,5 @@ class Zend_Service_Amazon
             }
         }
     }
+
 }

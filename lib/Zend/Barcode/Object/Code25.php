@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Code25.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Barcode_Object_ObjectAbstract
  */
@@ -40,6 +40,7 @@
  */
 class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
 {
+
     /**
      * Coding map
      * - 0 = narrow bar
@@ -65,12 +66,11 @@ class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
      */
     protected function _calculateBarcodeWidth()
     {
-        $quietZone       = $this->getQuietZone();
-        $startCharacter  = (2 * $this->_barThickWidth + 4 * $this->_barThinWidth) * $this->_factor;
-        $characterLength = (3 * $this->_barThinWidth + 2 * $this->_barThickWidth + 5 * $this->_barThinWidth)
-                         * $this->_factor;
-        $encodedData     = strlen($this->getText()) * $characterLength;
-        $stopCharacter   = (2 * $this->_barThickWidth + 4 * $this->_barThinWidth) * $this->_factor;
+        $quietZone = $this->getQuietZone();
+        $startCharacter = (2 * $this->_barThickWidth + 4 * $this->_barThinWidth) * $this->_factor;
+        $characterLength = (3 * $this->_barThinWidth + 2 * $this->_barThickWidth + 5 * $this->_barThinWidth) * $this->_factor;
+        $encodedData = strlen($this->getText()) * $characterLength;
+        $stopCharacter = (2 * $this->_barThickWidth + 4 * $this->_barThinWidth) * $this->_factor;
         return $quietZone + $startCharacter + $encodedData + $stopCharacter + $quietZone;
     }
 
@@ -92,12 +92,12 @@ class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
         $barcodeTable = array();
 
         // Start character (30301)
-        $barcodeTable[] = array(1 , $this->_barThickWidth , 0 , 1);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , 1);
-        $barcodeTable[] = array(1 , $this->_barThickWidth , 0 , 1);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , 1);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 1);
-        $barcodeTable[] = array(0 , 1);
+        $barcodeTable[] = array(1, $this->_barThickWidth, 0, 1);
+        $barcodeTable[] = array(0, $this->_barThinWidth, 0, 1);
+        $barcodeTable[] = array(1, $this->_barThickWidth, 0, 1);
+        $barcodeTable[] = array(0, $this->_barThinWidth, 0, 1);
+        $barcodeTable[] = array(1, $this->_barThinWidth, 0, 1);
+        $barcodeTable[] = array(0, 1);
 
         $text = str_split($this->getText());
         foreach ($text as $char) {
@@ -105,17 +105,17 @@ class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
             foreach ($barcodeChar as $c) {
                 /* visible, width, top, length */
                 $width = $c ? $this->_barThickWidth : $this->_barThinWidth;
-                $barcodeTable[] = array(1 , $width , 0 , 1);
-                $barcodeTable[] = array(0 , 1);
+                $barcodeTable[] = array(1, $width, 0, 1);
+                $barcodeTable[] = array(0, 1);
             }
         }
 
         // Stop character (30103)
-        $barcodeTable[] = array(1 , $this->_barThickWidth , 0 , 1);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , 1);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 1);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , 1);
-        $barcodeTable[] = array(1 , $this->_barThickWidth , 0 , 1);
+        $barcodeTable[] = array(1, $this->_barThickWidth, 0, 1);
+        $barcodeTable[] = array(0, $this->_barThinWidth, 0, 1);
+        $barcodeTable[] = array(1, $this->_barThinWidth, 0, 1);
+        $barcodeTable[] = array(0, $this->_barThinWidth, 0, 1);
+        $barcodeTable[] = array(1, $this->_barThickWidth, 0, 1);
         return $barcodeTable;
     }
 
@@ -128,16 +128,17 @@ class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
     public function getChecksum($text)
     {
         $this->_checkText($text);
-        $factor   = 3;
+        $factor = 3;
         $checksum = 0;
 
         for ($i = strlen($text); $i > 0; $i --) {
             $checksum += intval($text{$i - 1}) * $factor;
-            $factor    = 4 - $factor;
+            $factor = 4 - $factor;
         }
 
         $checksum = (10 - ($checksum % 10)) % 10;
 
         return $checksum;
     }
+
 }

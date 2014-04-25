@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,9 +20,11 @@
  */
 class Phoenix_Moneybookers_Model_Idl extends Phoenix_Moneybookers_Model_Abstract
 {
+
     /**
      * unique internal payment method identifier
      */
-    protected $_code			= 'moneybookers_idl';
-    protected $_paymentMethod	= 'IDL';
+    protected $_code = 'moneybookers_idl';
+    protected $_paymentMethod = 'IDL';
+
 }

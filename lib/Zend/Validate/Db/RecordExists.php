@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: RecordExists.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Validate_Db_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Validate_Db_RecordExists extends Zend_Validate_Db_Abstract
 {
+
     public function isValid($value)
     {
         $valid = true;
@@ -48,4 +49,5 @@ class Zend_Validate_Db_RecordExists extends Zend_Validate_Db_Abstract
 
         return $valid;
     }
+
 }

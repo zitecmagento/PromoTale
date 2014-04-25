@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ResultSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Technorati_Result
  */
 #require_once 'Zend/Service/Technorati/Result.php';
-
 
 /**
  * This is the most essential result set.
@@ -44,6 +42,7 @@
  */
 abstract class Zend_Service_Technorati_ResultSet implements SeekableIterator
 {
+
     /**
      * The total number of results available
      *
@@ -66,7 +65,6 @@ abstract class Zend_Service_Technorati_ResultSet implements SeekableIterator
      * @var     int
      */
     //TODO public $firstResultPosition;
-
 
     /**
      * A DomNodeList of results
@@ -108,7 +106,6 @@ abstract class Zend_Service_Technorati_ResultSet implements SeekableIterator
      */
     protected $_currentIndex = 0;
 
-
     /**
      * Parses the search response and retrieves the results for iteration.
      *
@@ -124,16 +121,13 @@ abstract class Zend_Service_Technorati_ResultSet implements SeekableIterator
         // to display start and limit.
         // The value is printed out in XML using many different tag names,
         // too hard to get it from XML
-
         // Additionally, the following tags should be always available
         // according to API documentation but... this is not the truth!
         // - querytime
         // - limit
         // - start (sometimes rankingstart)
-
         // query tag is only available for some requests, the same for url.
         // For now ignore them.
-
         //$start = isset($options['start']) ? $options['start'] : 1;
         //$limit = isset($options['limit']) ? $options['limit'] : 20;
         //$this->_firstResultPosition = $start;
@@ -153,8 +147,8 @@ abstract class Zend_Service_Technorati_ResultSet implements SeekableIterator
      */
     protected function _init(DomDocument $dom, $options = array())
     {
-        $this->_dom     = $dom;
-        $this->_xpath   = new DOMXPath($dom);
+        $this->_dom = $dom;
+        $this->_xpath = new DOMXPath($dom);
 
         $this->_results = $this->_xpath->query("//item");
     }
@@ -168,7 +162,6 @@ abstract class Zend_Service_Technorati_ResultSet implements SeekableIterator
     {
         return (int) $this->_totalResultsReturned;
     }
-
 
     /**
      * Number of available results.
@@ -265,8 +258,9 @@ abstract class Zend_Service_Technorati_ResultSet implements SeekableIterator
      *
      * @return void
      */
-    public function __sleep() {
-        $this->_xml     = $this->getXml();
+    public function __sleep()
+    {
+        $this->_xml = $this->getXml();
         $vars = array_keys(get_object_vars($this));
         return array_diff($vars, array('_dom', '_xpath'));
     }
@@ -280,10 +274,12 @@ abstract class Zend_Service_Technorati_ResultSet implements SeekableIterator
      *
      * @return void
      */
-    public function __wakeup() {
+    public function __wakeup()
+    {
         $dom = new DOMDocument();
         $dom->loadXml($this->_xml);
         $this->_init($dom);
         $this->_xml = null; // reset XML content
     }
+
 }

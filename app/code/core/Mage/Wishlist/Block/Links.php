@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Links block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
 {
+
     /**
      * Position in link list
      * @var int
@@ -121,4 +122,5 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
         }
         return parent::getCacheTags();
     }
+
 }

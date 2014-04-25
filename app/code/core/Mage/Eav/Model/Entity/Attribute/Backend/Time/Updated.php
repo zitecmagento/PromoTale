@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Eav_Model_Entity_Attribute_Backend_Time_Updated extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Set modified date
      *
@@ -44,4 +46,5 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Updated extends Mage_Eav_Mode
         $object->setData($this->getAttribute()->getAttributeCode(), Varien_Date::now());
         return $this;
     }
+
 }

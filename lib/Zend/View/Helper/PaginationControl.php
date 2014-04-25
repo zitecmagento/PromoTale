@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 class Zend_View_Helper_PaginationControl
 {
+
     /**
      * View instance
      *
@@ -142,4 +144,5 @@ class Zend_View_Helper_PaginationControl
 
         return $this->view->partial($partial, $pages);
     }
+
 }

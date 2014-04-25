@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Common.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Define constant used to provide correct file processing order    */
 /** @todo Section should be removed with ZF 2.0 release as obsolete  */
 define('ZEND_SEARCH_LUCENE_COMMON_ANALYZER_PROCESSED', true);
@@ -34,7 +33,6 @@ define('ZEND_SEARCH_LUCENE_COMMON_ANALYZER_PROCESSED', true);
 
 /** Zend_Search_Lucene_Analysis_TokenFilter */
 #require_once 'Zend/Search/Lucene/Analysis/TokenFilter.php';
-
 
 /**
  * Common implementation of the Zend_Search_Lucene_Analysis_Analyzer interface.
@@ -51,6 +49,7 @@ define('ZEND_SEARCH_LUCENE_COMMON_ANALYZER_PROCESSED', true);
  */
 abstract class Zend_Search_Lucene_Analysis_Analyzer_Common extends Zend_Search_Lucene_Analysis_Analyzer
 {
+
     /**
      * The set of Token filters applied to the Token stream.
      * Array of Zend_Search_Lucene_Analysis_TokenFilter objects.
@@ -88,5 +87,5 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer_Common extends Zend_Search_L
 
         return $token;
     }
-}
 
+}

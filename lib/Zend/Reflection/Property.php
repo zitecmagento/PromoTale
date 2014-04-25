@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -28,6 +29,7 @@
  */
 class Zend_Reflection_Property extends ReflectionProperty
 {
+
     /**
      * Get declaring class reflection object
      *
@@ -35,7 +37,7 @@ class Zend_Reflection_Property extends ReflectionProperty
      */
     public function getDeclaringClass($reflectionClass = 'Zend_Reflection_Class')
     {
-        $phpReflection  = parent::getDeclaringClass();
+        $phpReflection = parent::getDeclaringClass();
         $zendReflection = new $reflectionClass($phpReflection->getName());
         if (!$zendReflection instanceof Zend_Reflection_Class) {
             #require_once 'Zend/Reflection/Exception.php';
@@ -65,4 +67,5 @@ class Zend_Reflection_Property extends ReflectionProperty
         }
         return $r;
     }
+
 }

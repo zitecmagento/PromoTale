@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product price block
  *
@@ -33,6 +33,7 @@
  */
 class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstract
 {
+
     /**
      * Price display type
      *
@@ -135,18 +136,18 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
 
                     // if applicable, adjust the tier prices
                     if (isset($bundlePriceModel)) {
-                        $price['price']         = $bundlePriceModel->getLowestPrice($parent, $price['price']);
+                        $price['price'] = $bundlePriceModel->getLowestPrice($parent, $price['price']);
                         $price['website_price'] = $bundlePriceModel->getLowestPrice($parent, $price['website_price']);
                     }
 
                     $tierPrice = Mage::app()->getStore()->convertPrice(
-                        Mage::helper('tax')->getPrice($product, $price['website_price'])
+                            Mage::helper('tax')->getPrice($product, $price['website_price'])
                     );
                     $price['formated_price'] = Mage::app()->getStore()->formatPrice($tierPrice);
                     $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(
-                        Mage::app()->getStore()->convertPrice(
-                            Mage::helper('tax')->getPrice($product, $price['website_price'], true)
-                        )
+                            Mage::app()->getStore()->convertPrice(
+                                    Mage::helper('tax')->getPrice($product, $price['website_price'], true)
+                            )
                     );
 
                     if (Mage::helper('catalog')->canApplyMsrp($product)) {
@@ -229,4 +230,5 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
     {
         return $this->getProduct()->getResource()->getAttribute($attribute);
     }
+
 }

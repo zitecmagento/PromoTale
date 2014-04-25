@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * File lines iterator
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Backup_Filesystem_Iterator_File extends SplFileObject
 {
+
     /**
      * The statement that was last read during iteration
      *
@@ -109,4 +110,5 @@ class Mage_Backup_Filesystem_Iterator_File extends SplFileObject
 
         return $returnResult;
     }
+
 }

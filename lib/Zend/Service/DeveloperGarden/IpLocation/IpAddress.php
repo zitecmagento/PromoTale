@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: IpAddress.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Validate_Ip
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_DeveloperGarden_IpLocation_IpAddress
 {
+
     /**
      * the ip version
      * ip v4 = 4
@@ -51,9 +52,8 @@ class Zend_Service_DeveloperGarden_IpLocation_IpAddress
      */
     private $_versionSupported = array(
         4,
-        //6, not supported yet
+            //6, not supported yet
     );
-
     private $_address = null;
 
     /**
@@ -67,7 +67,7 @@ class Zend_Service_DeveloperGarden_IpLocation_IpAddress
     public function __construct($ip, $version = 4)
     {
         $this->setIp($ip)
-             ->setVersion($version);
+                ->setVersion($version);
     }
 
     /**
@@ -111,7 +111,7 @@ class Zend_Service_DeveloperGarden_IpLocation_IpAddress
     {
         if (!in_array($version, $this->_versionSupported)) {
             #require_once 'Zend/Service/DeveloperGarden/Exception.php';
-            throw new Zend_Service_DeveloperGarden_Exception('Ip Version ' . (int)$version . ' is not supported.');
+            throw new Zend_Service_DeveloperGarden_Exception('Ip Version ' . (int) $version . ' is not supported.');
         }
 
         $this->_version = $version;
@@ -127,4 +127,5 @@ class Zend_Service_DeveloperGarden_IpLocation_IpAddress
     {
         return $this->_version;
     }
+
 }

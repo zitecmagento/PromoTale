@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert action abstract
  *
@@ -36,6 +36,7 @@
  */
 abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_Interface
 {
+
     /**
      * Action parameters
      *
@@ -66,7 +67,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
      * @param mixed $default
      * @return mixed
      */
-    public function getParam($key, $default=null)
+    public function getParam($key, $default = null)
     {
         if (!isset($this->_params[$key])) {
             return $default;
@@ -81,7 +82,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
      * @param mixed $value
      * @return Varien_Convert_Action_Abstract
      */
-    public function setParam($key, $value=null)
+    public function setParam($key, $value = null)
     {
         if (is_array($key) && is_null($value)) {
             $this->_params = $key;
@@ -154,7 +155,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
      * @param string $name
      * @return Varien_Convert_Container_Abstract
      */
-    public function getContainer($name=null)
+    public function getContainer($name = null)
     {
         if (!is_null($name)) {
             return $this->getProfile()->getContainer($name);
@@ -176,10 +177,10 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
     {
         if ($method = $this->getParam('method')) {
             if (!method_exists($this->getContainer(), $method)) {
-                $this->addException('Unable to run action method: '.$method, Varien_Convert_Exception::FATAL);
+                $this->addException('Unable to run action method: ' . $method, Varien_Convert_Exception::FATAL);
             }
 
-            $this->getContainer()->addException('Starting '.get_class($this->getContainer()).' :: '.$method);
+            $this->getContainer()->addException('Starting ' . get_class($this->getContainer()) . ' :: ' . $method);
 
             if ($this->getParam('from')) {
                 $this->getContainer()->setData($this->getContainer($this->getParam('from'))->getData());

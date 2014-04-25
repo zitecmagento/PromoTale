@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -137,4 +138,6 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Shipping_Model_Rate_Request extends Varien_Object
-{}
+{
+    
+}

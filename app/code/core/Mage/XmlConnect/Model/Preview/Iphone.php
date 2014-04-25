@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Preview_Iphone extends Mage_XmlConnect_Model_Preview_Abstract
 {
+
     /**
      * Get application banner image url
      *
@@ -43,9 +45,9 @@ class Mage_XmlConnect_Model_Preview_Iphone extends Mage_XmlConnect_Model_Preview
     {
         $result = array();
         $bannerImages = $this->getImageModel()
-            ->getDeviceImagesByType(Mage_XmlConnect_Model_Device_Iphone::IMAGE_TYPE_PORTRAIT_BANNER);
+                ->getDeviceImagesByType(Mage_XmlConnect_Model_Device_Iphone::IMAGE_TYPE_PORTRAIT_BANNER);
         if (!empty($bannerImages)) {
-            $width  = Mage_XmlConnect_Model_Device_Iphone::PREVIEW_PORTRAIT_BANNER_WIDTH;
+            $width = Mage_XmlConnect_Model_Device_Iphone::PREVIEW_PORTRAIT_BANNER_WIDTH;
             $height = Mage_XmlConnect_Model_Device_Iphone::PREVIEW_PORTRAIT_BANNER_HEIGHT;
             foreach ($bannerImages as $banner) {
                 if (!isset($banner['image_file'])) {
@@ -75,4 +77,5 @@ class Mage_XmlConnect_Model_Preview_Iphone extends Mage_XmlConnect_Model_Preview
         }
         return $backgroundImage;
     }
+
 }

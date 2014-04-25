@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file contains the SOAP_Fault class, used for all error objects in this
  * package.
@@ -22,7 +23,6 @@
  * @license    http://www.php.net/license/2_02.txt  PHP License 2.02
  * @link       http://pear.php.net/package/SOAP
  */
-
 /** PEAR_Error */
 require_once 'PEAR.php';
 
@@ -47,6 +47,7 @@ require_once 'PEAR.php';
  */
 class SOAP_Fault extends PEAR_Error
 {
+
     /**
      * Constructor.
      *
@@ -57,9 +58,7 @@ class SOAP_Fault extends PEAR_Error
      * @param array $mode          @see PEAR_Error
      * @param array $options       @see PEAR_Error
      */
-    function SOAP_Fault($faultstring = 'unknown error', $faultcode = 'Client',
-                        $faultactor = null, $detail = null, $mode = null,
-                        $options = null)
+    function SOAP_Fault($faultstring = 'unknown error', $faultcode = 'Client', $faultactor = null, $detail = null, $mode = null, $options = null)
     {
         parent::PEAR_Error($faultstring, $faultcode, $mode, $options, $detail);
         if ($faultactor) {
@@ -76,11 +75,11 @@ class SOAP_Fault extends PEAR_Error
     {
         $msg = new SOAP_Base();
         $params = array();
-        $params[] = new SOAP_Value('faultcode', 'QName', SOAP_BASE::SOAPENVPrefix().':' . $this->code);
+        $params[] = new SOAP_Value('faultcode', 'QName', SOAP_BASE::SOAPENVPrefix() . ':' . $this->code);
         $params[] = new SOAP_Value('faultstring', 'string', $this->message);
         $params[] = new SOAP_Value('faultactor', 'anyURI', $this->error_message_prefix);
         if (PEAR::getStaticProperty('SOAP_Fault', 'backtrace') &&
-            isset($this->backtrace)) {
+                isset($this->backtrace)) {
             $params[] = new SOAP_Value('detail', 'string', $this->backtrace);
         } else {
             $params[] = new SOAP_Value('detail', 'string', $this->userinfo);

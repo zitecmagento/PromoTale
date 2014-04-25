@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Sales_Block_Adminhtml_Billing_Agreement extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     /**
      * Initialize billing agreements grid container
      *
@@ -43,4 +45,5 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement extends Mage_Adminhtml_Block_
         parent::__construct();
         $this->_removeButton('add');
     }
+
 }

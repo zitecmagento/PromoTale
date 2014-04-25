@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Type Price Indexer interface
  *
@@ -34,12 +34,13 @@
  */
 interface Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
 {
+
     /**
      * Reindex temporary (price result data) for all products
      *
      */
     public function reindexAll()
-;
+    ;
 
     /**
      * Reindex temporary (price result data) for defined product(s)
@@ -47,7 +48,7 @@ interface Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
      * @param int|array $entityIds
      */
     public function reindexEntity($entityIds)
-;
+    ;
 
     /**
      * Register data required by product type process in event object
@@ -55,5 +56,5 @@ interface Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
      * @param Mage_Index_Model_Event $event
      */
     public function registerEvent(Mage_Index_Model_Event $event)
-;
+    ;
 }

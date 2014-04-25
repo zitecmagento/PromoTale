@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,17 +34,17 @@
  */
 class Mage_Core_Model_Resource_Setup
 {
-    const DEFAULT_SETUP_CONNECTION  = 'core_setup';
-    const VERSION_COMPARE_EQUAL     = 0;
-    const VERSION_COMPARE_LOWER     = -1;
-    const VERSION_COMPARE_GREATER   = 1;
 
-    const TYPE_DB_INSTALL           = 'install';
-    const TYPE_DB_UPGRADE           = 'upgrade';
-    const TYPE_DB_ROLLBACK          = 'rollback';
-    const TYPE_DB_UNINSTALL         = 'uninstall';
-    const TYPE_DATA_INSTALL         = 'data-install';
-    const TYPE_DATA_UPGRADE         = 'data-upgrade';
+    const DEFAULT_SETUP_CONNECTION = 'core_setup';
+    const VERSION_COMPARE_EQUAL = 0;
+    const VERSION_COMPARE_LOWER = -1;
+    const VERSION_COMPARE_GREATER = 1;
+    const TYPE_DB_INSTALL = 'install';
+    const TYPE_DB_UPGRADE = 'upgrade';
+    const TYPE_DB_ROLLBACK = 'rollback';
+    const TYPE_DB_UNINSTALL = 'uninstall';
+    const TYPE_DATA_INSTALL = 'data-install';
+    const TYPE_DATA_UPGRADE = 'data-upgrade';
 
     /**
      * Setup resource name
@@ -85,12 +86,14 @@ class Mage_Core_Model_Resource_Setup
      * @var Varien_Db_Adapter_Pdo_Mysql
      */
     protected $_conn;
+
     /**
      * Tables cache array
      *
      * @var array
      */
     protected $_tables = array();
+
     /**
      * Tables data cache array
      *
@@ -136,7 +139,7 @@ class Mage_Core_Model_Resource_Setup
             $this->_connectionConfig = $config->getResourceConnectionConfig(self::DEFAULT_SETUP_CONNECTION);
         }
 
-        $modName = (string)$this->_resourceConfig->setup->module;
+        $modName = (string) $this->_resourceConfig->setup->module;
         $this->_moduleConfig = $config->getModuleConfig($modName);
         $connection = Mage::getSingleton('core/resource')->getConnection($this->_resourceName);
         /**
@@ -196,7 +199,6 @@ class Mage_Core_Model_Resource_Setup
     {
         if (is_array($tableName)) {
             return join('_', $tableName);
-
         }
         return $tableName;
     }
@@ -278,13 +280,13 @@ class Mage_Core_Model_Resource_Setup
      */
     public function applyDataUpdates()
     {
-        $dataVer= $this->_getResource()->getDataVersion($this->_resourceName);
-        $configVer = (string)$this->_moduleConfig->version;
+        $dataVer = $this->_getResource()->getDataVersion($this->_resourceName);
+        $configVer = (string) $this->_moduleConfig->version;
         if ($dataVer !== false) {
-             $status = version_compare($configVer, $dataVer);
-             if ($status == self::VERSION_COMPARE_GREATER) {
-                 $this->_upgradeData($dataVer, $configVer);
-             }
+            $status = version_compare($configVer, $dataVer);
+            if ($status == self::VERSION_COMPARE_GREATER) {
+                $this->_upgradeData($dataVer, $configVer);
+            }
         } elseif ($configVer) {
             $this->_installData($configVer);
         }
@@ -299,20 +301,20 @@ class Mage_Core_Model_Resource_Setup
     public function applyUpdates()
     {
         $dbVer = $this->_getResource()->getDbVersion($this->_resourceName);
-        $configVer = (string)$this->_moduleConfig->version;
+        $configVer = (string) $this->_moduleConfig->version;
 
         /**
          * Hook queries in adapter, so that in MySQL compatibility mode extensions and custom modules will avoid
          * errors due to changes in database structure
          */
-        if (((string)$this->_moduleConfig->codePool != 'core') && Mage::helper('core')->useDbCompatibleMode()) {
+        if (((string) $this->_moduleConfig->codePool != 'core') && Mage::helper('core')->useDbCompatibleMode()) {
             $this->_hookQueries();
         }
 
         // Module is installed
         if ($dbVer !== false) {
-             $status = version_compare($configVer, $dbVer);
-             switch ($status) {
+            $status = version_compare($configVer, $dbVer);
+            switch ($status) {
                 case self::VERSION_COMPARE_LOWER:
                     $this->_rollbackResourceDb($configVer, $dbVer);
                     break;
@@ -322,7 +324,7 @@ class Mage_Core_Model_Resource_Setup
                 default:
                     return true;
                     break;
-             }
+            }
         } elseif ($configVer) {
             $this->_installResourceDb($configVer);
         }
@@ -376,7 +378,7 @@ class Mage_Core_Model_Resource_Setup
     public function callbackQueryHook(&$sql, &$bind)
     {
         Mage::getSingleton('core/resource_setup_query_modifier', array($this->getConnection()))
-            ->processQuery($sql, $bind);
+                ->processQuery($sql, $bind);
         return $this;
     }
 
@@ -475,17 +477,17 @@ class Mage_Core_Model_Resource_Setup
      */
     protected function _getAvailableDbFiles($actionType, $fromVersion, $toVersion)
     {
-        $resModel   = (string)$this->_connectionConfig->model;
-        $modName    = (string)$this->_moduleConfig[0]->getName();
+        $resModel = (string) $this->_connectionConfig->model;
+        $modName = (string) $this->_moduleConfig[0]->getName();
 
-        $filesDir   = Mage::getModuleDir('sql', $modName) . DS . $this->_resourceName;
+        $filesDir = Mage::getModuleDir('sql', $modName) . DS . $this->_resourceName;
         if (!is_dir($filesDir) || !is_readable($filesDir)) {
             return array();
         }
 
-        $dbFiles    = array();
-        $typeFiles  = array();
-        $regExpDb   = sprintf('#^%s-(.*)\.(php|sql)$#i', $actionType);
+        $dbFiles = array();
+        $typeFiles = array();
+        $regExpDb = sprintf('#^%s-(.*)\.(php|sql)$#i', $actionType);
         $regExpType = sprintf('#^%s-%s-(.*)\.(php|sql)$#i', $resModel, $actionType);
         $handlerDir = dir($filesDir);
         while (false !== ($file = $handlerDir->read())) {
@@ -519,27 +521,26 @@ class Mage_Core_Model_Resource_Setup
      */
     protected function _getAvailableDataFiles($actionType, $fromVersion, $toVersion)
     {
-        $modName    = (string)$this->_moduleConfig[0]->getName();
-        $files      = array();
+        $modName = (string) $this->_moduleConfig[0]->getName();
+        $files = array();
 
-        $filesDir   = Mage::getModuleDir('data', $modName) . DS . $this->_resourceName;
+        $filesDir = Mage::getModuleDir('data', $modName) . DS . $this->_resourceName;
         if (is_dir($filesDir) && is_readable($filesDir)) {
-            $regExp     = sprintf('#^%s-(.*)\.php$#i', $actionType);
+            $regExp = sprintf('#^%s-(.*)\.php$#i', $actionType);
             $handlerDir = dir($filesDir);
             while (false !== ($file = $handlerDir->read())) {
                 $matches = array();
                 if (preg_match($regExp, $file, $matches)) {
                     $files[$matches[1]] = $filesDir . DS . $file;
                 }
-
             }
             $handlerDir->close();
         }
 
         // search data files in old location
-        $filesDir   = Mage::getModuleDir('sql', $modName) . DS . $this->_resourceName;
+        $filesDir = Mage::getModuleDir('sql', $modName) . DS . $this->_resourceName;
         if (is_dir($filesDir) && is_readable($filesDir)) {
-            $regExp     = sprintf('#^%s-%s-(.*)\.php$#i', $this->_connectionConfig->model, $actionType);
+            $regExp = sprintf('#^%s-%s-(.*)\.php$#i', $this->_connectionConfig->model, $actionType);
             $handlerDir = dir($filesDir);
 
             while (false !== ($file = $handlerDir->read())) {
@@ -576,7 +577,6 @@ class Mage_Core_Model_Resource_Setup
             case self::TYPE_DATA_UPGRADE:
                 $this->_getResource()->setDataVersion($this->_resourceName, $version);
                 break;
-
         }
 
         return $this;
@@ -591,7 +591,6 @@ class Mage_Core_Model_Resource_Setup
      * @return string|false
      * @throws Mage_Core_Exception
      */
-
     protected function _modifyResourceDb($actionType, $fromVersion, $toVersion)
     {
         switch ($actionType) {
@@ -617,10 +616,11 @@ class Mage_Core_Model_Resource_Setup
             $fileName = $file['fileName'];
             $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
             $this->getConnection()->disallowDdlCache();
-            try {
+            try
+            {
                 switch ($fileType) {
                     case 'php':
-                        $conn   = $this->getConnection();
+                        $conn = $this->getConnection();
                         $result = include $fileName;
                         break;
                     case 'sql':
@@ -640,7 +640,9 @@ class Mage_Core_Model_Resource_Setup
                 if ($result) {
                     $this->_setResourceVersion($actionType, $file['toVersion']);
                 }
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 printf('<pre>%s</pre>', print_r($e, true));
                 throw Mage::exception('Mage_Core', Mage::helper('core')->__('Error in file: "%s" - %s', $fileName, $e->getMessage()));
             }
@@ -671,7 +673,7 @@ class Mage_Core_Model_Resource_Setup
                     if (version_compare($version, $toVersion) !== self::VERSION_COMPARE_GREATER) {
                         $arrRes[0] = array(
                             'toVersion' => $version,
-                            'fileName'  => $file
+                            'fileName' => $file
                         );
                     }
                 }
@@ -684,16 +686,15 @@ class Mage_Core_Model_Resource_Setup
                     $versionInfo = explode('-', $version);
 
                     // In array must be 2 elements: 0 => version from, 1 => version to
-                    if (count($versionInfo)!=2) {
+                    if (count($versionInfo) != 2) {
                         break;
                     }
                     $infoFrom = $versionInfo[0];
-                    $infoTo   = $versionInfo[1];
-                    if (version_compare($infoFrom, $fromVersion) !== self::VERSION_COMPARE_LOWER
-                        && version_compare($infoTo, $toVersion) !== self::VERSION_COMPARE_GREATER) {
+                    $infoTo = $versionInfo[1];
+                    if (version_compare($infoFrom, $fromVersion) !== self::VERSION_COMPARE_LOWER && version_compare($infoTo, $toVersion) !== self::VERSION_COMPARE_GREATER) {
                         $arrRes[] = array(
                             'toVersion' => $infoTo,
-                            'fileName'  => $file
+                            'fileName' => $file
                         );
                     }
                 }
@@ -708,8 +709,7 @@ class Mage_Core_Model_Resource_Setup
         return $arrRes;
     }
 
-
-/******************* UTILITY METHODS *****************/
+    /*     * ***************** UTILITY METHODS **************** */
 
     /**
      * Retrieve row or field from table by id or string and parent id
@@ -722,7 +722,7 @@ class Mage_Core_Model_Resource_Setup
      * @param string|integer $parentId
      * @return mixed|boolean
      */
-    public function getTableRow($table, $idField, $id, $field=null, $parentField=null, $parentId=0)
+    public function getTableRow($table, $idField, $id, $field = null, $parentField = null, $parentId = 0)
     {
         if (strpos($table, '/') !== false) {
             $table = $this->getTable($table);
@@ -730,10 +730,10 @@ class Mage_Core_Model_Resource_Setup
 
         if (empty($this->_setupCache[$table][$parentId][$id])) {
             $adapter = $this->getConnection();
-            $bind    = array('id_field' => $id);
-            $select  = $adapter->select()
-                ->from($table)
-                ->where($adapter->quoteIdentifier($idField) . '= :id_field');
+            $bind = array('id_field' => $id);
+            $select = $adapter->select()
+                    ->from($table)
+                    ->where($adapter->quoteIdentifier($idField) . '= :id_field');
             if (!is_null($parentField)) {
                 $select->where($adapter->quoteIdentifier($parentField) . '= :parent_id');
                 $bind['parent_id'] = $parentId;
@@ -744,13 +744,10 @@ class Mage_Core_Model_Resource_Setup
         if (is_null($field)) {
             return $this->_setupCache[$table][$parentId][$id];
         }
-        return isset($this->_setupCache[$table][$parentId][$id][$field])
-            ? $this->_setupCache[$table][$parentId][$id][$field]
-            : false;
+        return isset($this->_setupCache[$table][$parentId][$id][$field]) ? $this->_setupCache[$table][$parentId][$id][$field] : false;
     }
 
-
-     /**
+    /**
      * Delete table row
      *
      * @param string $table
@@ -811,8 +808,7 @@ class Mage_Core_Model_Resource_Setup
 
         if (isset($this->_setupCache[$table][$parentId][$id])) {
             if (is_array($field)) {
-                $this->_setupCache[$table][$parentId][$id] =
-                    array_merge($this->_setupCache[$table][$parentId][$id], $field);
+                $this->_setupCache[$table][$parentId][$id] = array_merge($this->_setupCache[$table][$parentId][$id], $field);
             } else {
                 $this->_setupCache[$table][$parentId][$id][$field] = $value;
             }
@@ -836,10 +832,7 @@ class Mage_Core_Model_Resource_Setup
         if (strpos($table, '/') !== false) {
             $table = $this->getTable($table);
         }
-        $query = sprintf('UPDATE %s SET %s WHERE %s',
-            $this->getConnection()->quoteIdentifier($table),
-            $conditionExpr,
-            $valueExpr);
+        $query = sprintf('UPDATE %s SET %s WHERE %s', $this->getConnection()->quoteIdentifier($table), $conditionExpr, $valueExpr);
 
         $this->getConnection()->query($query);
 
@@ -859,10 +852,9 @@ class Mage_Core_Model_Resource_Setup
         }
 
         return $this->getConnection()->isTableExists($table);
-
     }
 
-/******************* CONFIG *****************/
+    /*     * ***************** CONFIG **************** */
 
     /**
      * Undefined
@@ -874,7 +866,7 @@ class Mage_Core_Model_Resource_Setup
      * @return Mage_Core_Model_Resource_Setup
      * @deprecated since 1.4.0.1
      */
-    public function addConfigField($path, $label, array $data=array(), $default=null)
+    public function addConfigField($path, $label, array $data = array(), $default = null)
     {
         return $this;
     }
@@ -889,17 +881,17 @@ class Mage_Core_Model_Resource_Setup
      * @param int $inherit
      * @return Mage_Core_Model_Resource_Setup
      */
-    public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit=0)
+    public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit = 0)
     {
         $table = $this->getTable('core/config_data');
         // this is a fix for mysql 4.1
         $this->getConnection()->showTableStatus($table);
 
-        $data  = array(
-            'scope'     => $scope,
-            'scope_id'  => $scopeId,
-            'path'      => $path,
-            'value'     => $value
+        $data = array(
+            'scope' => $scope,
+            'scope_id' => $scopeId,
+            'path' => $path,
+            'value' => $value
         );
         $this->getConnection()->insertOnDuplicate($table, $data, array('value'));
         return $this;
@@ -981,7 +973,7 @@ class Mage_Core_Model_Resource_Setup
     public function getFkName($priTableName, $priColumnName, $refTableName, $refColumnName)
     {
         return Mage::getSingleton('core/resource')
-            ->getFkName($priTableName, $priColumnName, $refTableName, $refColumnName);
+                        ->getFkName($priTableName, $priColumnName, $refTableName, $refColumnName);
     }
 
     /**
@@ -1004,4 +996,5 @@ class Mage_Core_Model_Resource_Setup
     {
         return $this;
     }
+
 }

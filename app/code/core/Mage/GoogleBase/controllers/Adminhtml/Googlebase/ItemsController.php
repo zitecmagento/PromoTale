@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,25 +32,26 @@
  * @package    Mage_GoogleBase
  * @name       Mage_GoogleBase_Adminhtml_Googlebase_ItemsController
  * @author     Magento Core Team <core@magentocommerce.com>
-*/
+ */
 class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtml_Controller_Action
 {
+
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('catalog/googlebase/items')
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Catalog'), Mage::helper('adminhtml')->__('Catalog'))
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Google Base'), Mage::helper('adminhtml')->__('Google Base'));
+                ->_setActiveMenu('catalog/googlebase/items')
+                ->_addBreadcrumb(Mage::helper('adminhtml')->__('Catalog'), Mage::helper('adminhtml')->__('Catalog'))
+                ->_addBreadcrumb(Mage::helper('adminhtml')->__('Google Base'), Mage::helper('adminhtml')->__('Google Base'));
         return $this;
     }
 
     public function indexAction()
     {
         $this->_title($this->__('Catalog'))
-             ->_title($this->__('Google base'))
-             ->_title($this->__('Manage Items'));
+                ->_title($this->__('Google base'))
+                ->_title($this->__('Manage Items'));
 
-        if (0 === (int)$this->getRequest()->getParam('store')) {
+        if (0 === (int) $this->getRequest()->getParam('store')) {
             $this->_redirect('*/*/', array('store' => Mage::app()->getAnyStoreView()->getId(), '_current' => true));
             return;
         }
@@ -57,35 +59,35 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
 
         if ($this->getRequest()->getParam('captcha_token') && $this->getRequest()->getParam('captcha_url')) {
             $contentBlock->setGbaseCaptchaToken(
-                Mage::helper('core')->urlDecode($this->getRequest()->getParam('captcha_token'))
+                    Mage::helper('core')->urlDecode($this->getRequest()->getParam('captcha_token'))
             );
             $contentBlock->setGbaseCaptchaUrl(
-                Mage::helper('core')->urlDecode($this->getRequest()->getParam('captcha_url'))
+                    Mage::helper('core')->urlDecode($this->getRequest()->getParam('captcha_url'))
             );
         }
 
         if (!$this->_getConfig()->isValidBaseCurrencyCode($this->_getStore()->getId())) {
             $_countryInfo = $this->_getConfig()->getTargetCountryInfo($this->_getStore()->getId());
             $this->_getSession()->addNotice(
-                $this->__("Base Currency should be set to %s for %s in system configuration. Otherwise item prices won't be correct in Google Base.",$_countryInfo['currency_name'],$_countryInfo['name'])
+                    $this->__("Base Currency should be set to %s for %s in system configuration. Otherwise item prices won't be correct in Google Base.", $_countryInfo['currency_name'], $_countryInfo['name'])
             );
         }
 
         $this->_initAction()
-            ->_addBreadcrumb(Mage::helper('googlebase')->__('Items'), Mage::helper('googlebase')->__('Items'))
-            ->_addContent($contentBlock)
-            ->renderLayout();
+                ->_addBreadcrumb(Mage::helper('googlebase')->__('Items'), Mage::helper('googlebase')->__('Items'))
+                ->_addContent($contentBlock)
+                ->renderLayout();
     }
 
     public function gridAction()
     {
         $this->loadLayout();
         return $this->getResponse()->setBody(
-            $this->getLayout()
-                ->createBlock('googlebase/adminhtml_items_item')
-                ->setIndex($this->getRequest()->getParam('index'))
-                ->toHtml()
-           );
+                        $this->getLayout()
+                                ->createBlock('googlebase/adminhtml_items_item')
+                                ->setIndex($this->getRequest()->getParam('index'))
+                                ->toHtml()
+        );
     }
 
     public function massAddAction()
@@ -95,18 +97,19 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
 
         $totalAdded = 0;
 
-        try {
+        try
+        {
             if (is_array($productIds)) {
                 foreach ($productIds as $productId) {
                     $product = Mage::getSingleton('catalog/product')
-                        ->setStoreId($storeId)
-                        ->load($productId);
+                            ->setStoreId($storeId)
+                            ->load($productId);
 
                     if ($product->getId()) {
                         Mage::getModel('googlebase/item')
-                            ->setProduct($product)
-                            ->insertItem()
-                            ->save();
+                                ->setProduct($product)
+                                ->insertItem()
+                                ->save();
 
                         $totalAdded++;
                     }
@@ -115,24 +118,30 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
 
             if ($totalAdded > 0) {
                 $this->_getSession()->addSuccess(
-                    $this->__('Total of %d product(s) have been added to Google Base.', $totalAdded)
+                        $this->__('Total of %d product(s) have been added to Google Base.', $totalAdded)
                 );
             } elseif (is_null($productIds)) {
                 $this->_getSession()->addError($this->__('Session expired during export. Please revise exported products and repeat the process if necessary.'));
             } else {
                 $this->_getSession()->addError($this->__('No products were added to Google Base'));
             }
-        } catch (Zend_Gdata_App_CaptchaRequiredException $e) {
+        }
+        catch (Zend_Gdata_App_CaptchaRequiredException $e)
+        {
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectToCaptcha($e);
             return;
-        } catch (Zend_Gdata_App_Exception $e) {
-            $this->_getSession()->addError( $this->_parseGdataExceptionMessage($e->getMessage()) );
-        } catch (Exception $e) {
+        }
+        catch (Zend_Gdata_App_Exception $e)
+        {
+            $this->_getSession()->addError($this->_parseGdataExceptionMessage($e->getMessage()));
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
         }
 
-        $this->_redirect('*/*/index', array('store'=>$storeId));
+        $this->_redirect('*/*/index', array('store' => $storeId));
     }
 
     public function massDeleteAction()
@@ -142,7 +151,8 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
 
         $totalDeleted = 0;
 
-        try {
+        try
+        {
             foreach ($itemIds as $itemId) {
                 $item = Mage::getModel('googlebase/item')->load($itemId);
                 if ($item->getId()) {
@@ -153,22 +163,28 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
             }
             if ($totalDeleted > 0) {
                 $this->_getSession()->addSuccess(
-                    $this->__('Total of %d items(s) have been removed from Google Base.', $totalDeleted)
+                        $this->__('Total of %d items(s) have been removed from Google Base.', $totalDeleted)
                 );
             } else {
                 $this->_getSession()->addError($this->__('No items were deleted from Google Base'));
             }
-        } catch (Zend_Gdata_App_CaptchaRequiredException $e) {
+        }
+        catch (Zend_Gdata_App_CaptchaRequiredException $e)
+        {
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectToCaptcha($e);
             return;
-        } catch (Zend_Gdata_App_Exception $e) {
-            $this->_getSession()->addError( $this->_parseGdataExceptionMessage($e->getMessage()) );
-        } catch (Exception $e) {
+        }
+        catch (Zend_Gdata_App_Exception $e)
+        {
+            $this->_getSession()->addError($this->_parseGdataExceptionMessage($e->getMessage()));
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
         }
 
-        $this->_redirect('*/*/index', array('store'=>$storeId));
+        $this->_redirect('*/*/index', array('store' => $storeId));
     }
 
     public function massPublishAction()
@@ -178,7 +194,8 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
 
         $totalPublished = 0;
 
-        try {
+        try
+        {
             if (!empty($itemIds) && is_array($itemIds)) {
                 foreach ($itemIds as $itemId) {
                     $item = Mage::getModel('googlebase/item')->load($itemId);
@@ -190,22 +207,28 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
             }
             if ($totalPublished > 0) {
                 $this->_getSession()->addSuccess(
-                    $this->__('Total of %d items(s) have been published.', $totalPublished)
+                        $this->__('Total of %d items(s) have been published.', $totalPublished)
                 );
             } else {
                 $this->_getSession()->addError($this->__('No items were published'));
             }
-        } catch (Zend_Gdata_App_CaptchaRequiredException $e) {
+        }
+        catch (Zend_Gdata_App_CaptchaRequiredException $e)
+        {
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectToCaptcha($e);
             return;
-        } catch (Zend_Gdata_App_Exception $e) {
-            $this->_getSession()->addError( $this->_parseGdataExceptionMessage($e->getMessage()) );
-        } catch (Exception $e) {
+        }
+        catch (Zend_Gdata_App_Exception $e)
+        {
+            $this->_getSession()->addError($this->_parseGdataExceptionMessage($e->getMessage()));
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
         }
 
-        $this->_redirect('*/*/index', array('store'=>$storeId));
+        $this->_redirect('*/*/index', array('store' => $storeId));
     }
 
     public function massHideAction()
@@ -215,7 +238,8 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
 
         $totalHidden = 0;
 
-        try {
+        try
+        {
             foreach ($itemIds as $itemId) {
                 $item = Mage::getModel('googlebase/item')->load($itemId);
                 if ($item->getId()) {
@@ -225,22 +249,28 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
             }
             if ($totalHidden > 0) {
                 $this->_getSession()->addSuccess(
-                    $this->__('Total of %d items(s) have been saved as inactive items.', $totalHidden)
+                        $this->__('Total of %d items(s) have been saved as inactive items.', $totalHidden)
                 );
             } else {
                 $this->_getSession()->addError($this->__('No items were saved as inactive items'));
             }
-        } catch (Zend_Gdata_App_CaptchaRequiredException $e) {
+        }
+        catch (Zend_Gdata_App_CaptchaRequiredException $e)
+        {
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectToCaptcha($e);
             return;
-        } catch (Zend_Gdata_App_Exception $e) {
-            $this->_getSession()->addError( $this->_parseGdataExceptionMessage($e->getMessage()) );
-        } catch (Exception $e) {
+        }
+        catch (Zend_Gdata_App_Exception $e)
+        {
+            $this->_getSession()->addError($this->_parseGdataExceptionMessage($e->getMessage()));
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
         }
 
-        $this->_redirect('*/*/index', array('store'=>$storeId));
+        $this->_redirect('*/*/index', array('store' => $storeId));
     }
 
     /**
@@ -252,7 +282,8 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
         $totalUpdated = 0;
         $totalDeleted = 0;
 
-        try {
+        try
+        {
             $itemIds = $this->getRequest()->getParam('item');
             foreach ($itemIds as $itemId) {
                 $item = Mage::getModel('googlebase/item')->load($itemId);
@@ -285,44 +316,53 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
             }
 
             $this->_getSession()->addSuccess(
-                $this->__('Total of %d items(s) have been deleted; total of %d items(s) have been updated.', $totalDeleted, $totalUpdated)
+                    $this->__('Total of %d items(s) have been deleted; total of %d items(s) have been updated.', $totalDeleted, $totalUpdated)
             );
-
-        } catch (Zend_Gdata_App_CaptchaRequiredException $e) {
+        }
+        catch (Zend_Gdata_App_CaptchaRequiredException $e)
+        {
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectToCaptcha($e);
             return;
-        } catch (Zend_Gdata_App_Exception $e) {
-            $this->_getSession()->addError( $this->_parseGdataExceptionMessage($e->getMessage()) );
-        } catch (Exception $e) {
+        }
+        catch (Zend_Gdata_App_Exception $e)
+        {
+            $this->_getSession()->addError($this->_parseGdataExceptionMessage($e->getMessage()));
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
         }
 
-        $this->_redirect('*/*/index', array('store'=>$storeId));
+        $this->_redirect('*/*/index', array('store' => $storeId));
     }
 
     public function confirmCaptchaAction()
     {
         $storeId = $this->_getStore()->getId();
-        try {
+        try
+        {
             Mage::getModel('googlebase/service')->getClient(
-                $storeId,
-                Mage::helper('core')->urlDecode($this->getRequest()->getParam('captcha_token')),
-                $this->getRequest()->getParam('user_confirm')
+                    $storeId, Mage::helper('core')->urlDecode($this->getRequest()->getParam('captcha_token')), $this->getRequest()->getParam('user_confirm')
             );
             $this->_getSession()->addSuccess($this->__('Captcha has been confirmed.'));
-
-        } catch (Zend_Gdata_App_CaptchaRequiredException $e) {
+        }
+        catch (Zend_Gdata_App_CaptchaRequiredException $e)
+        {
             $this->_getSession()->addError($this->__('Captcha confirmation error: %s', $e->getMessage()));
             $this->_redirectToCaptcha($e);
             return;
-        } catch (Zend_Gdata_App_Exception $e) {
-            $this->_getSession()->addError( $this->_parseGdataExceptionMessage($e->getMessage()) );
-        } catch (Exception $e) {
+        }
+        catch (Zend_Gdata_App_Exception $e)
+        {
+            $this->_getSession()->addError($this->_parseGdataExceptionMessage($e->getMessage()));
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($this->__('Captcha confirmation error: %s', $e->getMessage()));
         }
 
-        $this->_redirect('*/*/index', array('store'=>$storeId));
+        $this->_redirect('*/*/index', array('store' => $storeId));
     }
 
     /**
@@ -332,11 +372,10 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
      */
     protected function _redirectToCaptcha($e)
     {
-        $this->_redirect('*/*/index',
-            array('store' => $this->_getStore()->getId(),
-                'captcha_token' => Mage::helper('core')->urlEncode($e->getCaptchaToken()),
-                'captcha_url' => Mage::helper('core')->urlEncode($e->getCaptchaUrl())
-            )
+        $this->_redirect('*/*/index', array('store' => $this->_getStore()->getId(),
+            'captcha_token' => Mage::helper('core')->urlEncode($e->getCaptchaToken()),
+            'captcha_url' => Mage::helper('core')->urlEncode($e->getCaptchaUrl())
+                )
         );
     }
 
@@ -348,7 +387,7 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
      */
     public function _getStore()
     {
-        $store = Mage::app()->getStore((int)$this->getRequest()->getParam('store', 0));
+        $store = Mage::app()->getStore((int) $this->getRequest()->getParam('store', 0));
         if ((!$store) || 0 == $store->getId()) {
             Mage::throwException($this->__('Unable to select a Store View.'));
         }
@@ -396,4 +435,5 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
         }
         return implode(". ", $result);
     }
+
 }

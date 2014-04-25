@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog extends Mage_Catalog_Block_Product_List_Toolbar
 {
+
     /**
      * Limit for product sorting fields to return
      */
@@ -81,12 +83,12 @@ class Mage_XmlConnect_Block_Catalog extends Mage_Catalog_Block_Product_List_Tool
     public function getProductSortFieldsXmlObject()
     {
         /** @var $ordersXmlObject Mage_XmlConnect_Model_Simplexml_Element */
-        $ordersXmlObject    = Mage::getModel('xmlconnect/simplexml_element', '<orders></orders>');
+        $ordersXmlObject = Mage::getModel('xmlconnect/simplexml_element', '<orders></orders>');
         /* @var $category Mage_Catalog_Model_Category */
-        $category           = Mage::getModel('catalog/category');
-        $sortOptions        = $category->getAvailableSortByOptions();
-        $sortOptions        = array_slice($sortOptions, 0, self::PRODUCT_SORT_FIELDS_NUMBER);
-        $defaultSort        = $category->getDefaultSortBy();
+        $category = Mage::getModel('catalog/category');
+        $sortOptions = $category->getAvailableSortByOptions();
+        $sortOptions = array_slice($sortOptions, 0, self::PRODUCT_SORT_FIELDS_NUMBER);
+        $defaultSort = $category->getDefaultSortBy();
         foreach ($sortOptions as $code => $name) {
             $item = $ordersXmlObject->addChild('item');
             if ($code == $defaultSort) {
@@ -107,16 +109,16 @@ class Mage_XmlConnect_Block_Catalog extends Mage_Catalog_Block_Product_List_Tool
     public function getSearchProductSortFieldsXmlObject()
     {
         /** @var $ordersXmlObject Mage_XmlConnect_Model_Simplexml_Element */
-        $ordersXmlObject    = Mage::getModel('xmlconnect/simplexml_element', '<orders></orders>');
+        $ordersXmlObject = Mage::getModel('xmlconnect/simplexml_element', '<orders></orders>');
         /* @var $category Mage_Catalog_Model_Category */
-        $category           = Mage::getModel('catalog/category');
-        $sortOptions        = $category->getAvailableSortByOptions();
-        $sortOptions        = array_slice($sortOptions, 0, self::PRODUCT_SORT_FIELDS_NUMBER);
+        $category = Mage::getModel('catalog/category');
+        $sortOptions = $category->getAvailableSortByOptions();
+        $sortOptions = array_slice($sortOptions, 0, self::PRODUCT_SORT_FIELDS_NUMBER);
         unset($sortOptions['position']);
-        $sortOptions        = array_merge(array('relevance' => $this->__('Relevance')), $sortOptions);
+        $sortOptions = array_merge(array('relevance' => $this->__('Relevance')), $sortOptions);
         $this->setAvailableOrders($sortOptions)->setDefaultDirection('desc')->setSortBy('relevance');
 
-        foreach($this->getAvailableOrders() as $key => $order) {
+        foreach ($this->getAvailableOrders() as $key => $order) {
             $item = $ordersXmlObject->addChild('item');
             if ($this->isOrderCurrent($key)) {
                 $item->addAttribute('isDefault', 1);
@@ -126,4 +128,5 @@ class Mage_XmlConnect_Block_Catalog extends Mage_Catalog_Block_Product_List_Tool
         }
         return $ordersXmlObject;
     }
+
 }

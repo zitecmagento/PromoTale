@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Paypal_Block_Payflow_Advanced_Iframe extends Mage_Paypal_Block_Payflow_Link_Iframe
 {
+
     /**
      * Set payment method code
      */
@@ -60,8 +62,9 @@ class Mage_Paypal_Block_Payflow_Advanced_Iframe extends Mage_Paypal_Block_Payflo
     public function isTestMode()
     {
         $mode = Mage::helper('payment')
-            ->getMethodInstance(Mage_Paypal_Model_Config::METHOD_PAYFLOWADVANCED)
-            ->getConfigData('sandbox_flag');
+                ->getMethodInstance(Mage_Paypal_Model_Config::METHOD_PAYFLOWADVANCED)
+                ->getConfigData('sandbox_flag');
         return (bool) $mode;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  *
  */
-
 /**
  * Zend
  */
@@ -37,4 +37,5 @@
  */
 class Zend_Db_Adapter_Mysqli_Exception extends Zend_Db_Adapter_Exception
 {
+    
 }

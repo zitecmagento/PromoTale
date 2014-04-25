@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Form Attribute Resource Model
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Eav_Model_Resource_Form_Attribute extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Return form attribute IDs by form code
      *
@@ -42,11 +43,12 @@ abstract class Mage_Eav_Model_Resource_Form_Attribute extends Mage_Core_Model_Re
      */
     public function getFormAttributeIds($formCode)
     {
-        $bind   = array('form_code' => $formCode);
+        $bind = array('form_code' => $formCode);
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), 'attribute_id')
-            ->where('form_code = :form_code');
+                ->from($this->getMainTable(), 'attribute_id')
+                ->where('form_code = :form_code');
 
         return $this->_getReadAdapter()->fetchCol($select, $bind);
     }
+
 }

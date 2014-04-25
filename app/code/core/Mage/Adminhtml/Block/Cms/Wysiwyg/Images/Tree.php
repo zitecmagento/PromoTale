@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -47,9 +48,9 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Tree extends Mage_Adminhtml_Block_
         $jsonArray = array();
         foreach ($collection as $item) {
             $jsonArray[] = array(
-                'text'  => $helper->getShortFilename($item->getBasename(), 20),
-                'id'    => $helper->convertPathToId($item->getFilename()),
-                'cls'   => 'folder'
+                'text' => $helper->getShortFilename($item->getBasename(), 20),
+                'id' => $helper->convertPathToId($item->getFilename()),
+                'cls' => 'folder'
             );
         }
         return Zend_Json::encode($jsonArray);
@@ -96,4 +97,5 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Tree extends Mage_Adminhtml_Block_
         }
         return $treePath;
     }
+
 }

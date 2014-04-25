@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 $installer->startSetup();
@@ -34,41 +34,41 @@ $installer->startSetup();
  *             already done in sales upgrade
  *
 
-$orderEntityType = $installer->getEntityType('order');
-$orderEntityTypeId = $orderEntityType['entity_type_id'];
+  $orderEntityType = $installer->getEntityType('order');
+  $orderEntityTypeId = $orderEntityType['entity_type_id'];
 
 
-$attribute = $installer->getAttribute($orderEntityTypeId, 'coupon_code');
+  $attribute = $installer->getAttribute($orderEntityTypeId, 'coupon_code');
 
-$installer->getConnection()->addColumn($this->getTable('sales/order'), $attribute['attribute_code'], "varchar(255) NULL DEFAULT NULL");
+  $installer->getConnection()->addColumn($this->getTable('sales/order'), $attribute['attribute_code'], "varchar(255) NULL DEFAULT NULL");
 
-try {
-    $installer->getConnection()->beginTransaction();
+  try {
+  $installer->getConnection()->beginTransaction();
 
-    $installer->run("
-        UPDATE {$this->getTable('sales/order')} AS o, {$this->getTable('sales/order')}_varchar AS od
-        SET o.{$attribute['attribute_code']} = od.value
-        WHERE od.entity_id = o.entity_id
-            AND od.attribute_id = {$attribute['attribute_id']}
-            AND od.entity_type_id = {$orderEntityTypeId}
-    ");
+  $installer->run("
+  UPDATE {$this->getTable('sales/order')} AS o, {$this->getTable('sales/order')}_varchar AS od
+  SET o.{$attribute['attribute_code']} = od.value
+  WHERE od.entity_id = o.entity_id
+  AND od.attribute_id = {$attribute['attribute_id']}
+  AND od.entity_type_id = {$orderEntityTypeId}
+  ");
 
-    $installer->run("
-        DELETE FROM {$this->getTable('sales/order')}_{$attribute['backend_type']}
-        WHERE attribute_id = {$attribute['attribute_id']}
-            AND entity_type_id = {$orderEntityTypeId}
-    ");
+  $installer->run("
+  DELETE FROM {$this->getTable('sales/order')}_{$attribute['backend_type']}
+  WHERE attribute_id = {$attribute['attribute_id']}
+  AND entity_type_id = {$orderEntityTypeId}
+  ");
 
-    $installer->updateAttribute($orderEntityTypeId, $attribute['attribute_code'], array('backend_type' => 'static'));
+  $installer->updateAttribute($orderEntityTypeId, $attribute['attribute_code'], array('backend_type' => 'static'));
 
-    $installer->getConnection()->commit();
+  $installer->getConnection()->commit();
 
-} catch (Exception $e) {
-    $installer->getConnection()->rollback();
-    $installer->getConnection()->dropColumn($this->getTable('sales/order'), $attribute['attribute_code']);
-    throw $e;
-}
-*/
+  } catch (Exception $e) {
+  $installer->getConnection()->rollback();
+  $installer->getConnection()->dropColumn($this->getTable('sales/order'), $attribute['attribute_code']);
+  throw $e;
+  }
+ */
 
 $installer->run("
     CREATE TABLE `{$installer->getTable('salesrule/coupon_aggregated')}` (
@@ -103,19 +103,11 @@ $installer->run("
 ");
 
 $installer->getConnection()->addConstraint(
-    'FK_SALESTRULE_COUPON_AGGREGATED_ORDER_STORE',
-    $this->getTable('salesrule/coupon_aggregated_order'),
-    'store_id',
-    $this->getTable('core_store'),
-    'store_id'
+        'FK_SALESTRULE_COUPON_AGGREGATED_ORDER_STORE', $this->getTable('salesrule/coupon_aggregated_order'), 'store_id', $this->getTable('core_store'), 'store_id'
 );
 
 $installer->getConnection()->addConstraint(
-    'FK_SALESTRULE_COUPON_AGGREGATED_STORE',
-    $this->getTable('salesrule/coupon_aggregated'),
-    'store_id',
-    $this->getTable('core_store'),
-    'store_id'
+        'FK_SALESTRULE_COUPON_AGGREGATED_STORE', $this->getTable('salesrule/coupon_aggregated'), 'store_id', $this->getTable('core_store'), 'store_id'
 );
 
 $installer->endSetup();

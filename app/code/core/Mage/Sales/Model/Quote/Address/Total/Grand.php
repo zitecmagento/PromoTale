@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Model_Quote_Address_Total_Grand extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
+
     /**
      * Collect grand total address amount
      *
@@ -41,17 +43,17 @@ class Mage_Sales_Model_Quote_Address_Total_Grand extends Mage_Sales_Model_Quote_
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
-        $grandTotal     = $address->getGrandTotal();
+        $grandTotal = $address->getGrandTotal();
         $baseGrandTotal = $address->getBaseGrandTotal();
 
-        $store      = $address->getQuote()->getStore();
-        $totals     = array_sum($address->getAllTotalAmounts());
-        $totals     = $store->roundPrice($totals);
+        $store = $address->getQuote()->getStore();
+        $totals = array_sum($address->getAllTotalAmounts());
+        $totals = $store->roundPrice($totals);
         $baseTotals = array_sum($address->getAllBaseTotalAmounts());
         $baseTotals = $store->roundPrice($baseTotals);
 
-        $address->setGrandTotal($grandTotal+$totals);
-        $address->setBaseGrandTotal($baseGrandTotal+$baseTotals);
+        $address->setGrandTotal($grandTotal + $totals);
+        $address->setBaseGrandTotal($baseGrandTotal + $baseTotals);
         return $this;
     }
 
@@ -64,11 +66,12 @@ class Mage_Sales_Model_Quote_Address_Total_Grand extends Mage_Sales_Model_Quote_
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $address->addTotal(array(
-            'code'  => $this->getCode(),
+            'code' => $this->getCode(),
             'title' => Mage::helper('sales')->__('Grand Total'),
             'value' => $address->getGrandTotal(),
-            'area'  => 'footer',
+            'area' => 'footer',
         ));
         return $this;
     }
+
 }

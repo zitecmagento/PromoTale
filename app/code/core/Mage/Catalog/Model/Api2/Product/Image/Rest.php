@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_Model_Api2_Product_Rest
 {
+
     /**
      * Attribute code for media gallery
      */
@@ -44,10 +46,10 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      * @var array
      */
     protected $_mimeTypes = array(
-        'image/jpg'  => 'jpg',
+        'image/jpg' => 'jpg',
         'image/jpeg' => 'jpg',
-        'image/gif'  => 'gif',
-        'image/png'  => 'png'
+        'image/gif' => 'gif',
+        'image/png' => 'png'
     );
 
     /**
@@ -59,7 +61,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     protected function _retrieve()
     {
         $imageData = array();
-        $imageId = (int)$this->getRequest()->getParam('image');
+        $imageId = (int) $this->getRequest()->getParam('image');
         $galleryData = $this->_getProduct()->getData(self::GALLERY_ATTRIBUTE_CODE);
 
         if (!isset($galleryData['images']) || !is_array($galleryData['images'])) {
@@ -106,8 +108,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     {
         $attributes = $this->_getProduct()->getTypeInstance(true)->getSetAttributes($this->_getProduct());
 
-        if (!isset($attributes[self::GALLERY_ATTRIBUTE_CODE])
-            || !$attributes[self::GALLERY_ATTRIBUTE_CODE] instanceof Mage_Eav_Model_Entity_Attribute_Abstract
+        if (!isset($attributes[self::GALLERY_ATTRIBUTE_CODE]) || !$attributes[self::GALLERY_ATTRIBUTE_CODE] instanceof Mage_Eav_Model_Entity_Attribute_Abstract
         ) {
             $this->_critical('Requested product does not support images', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
@@ -126,12 +127,12 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     protected function _formatImageData($image)
     {
         $result = array(
-            'id'        => $image['value_id'],
-            'label'     => $image['label'],
-            'position'  => $image['position'],
-            'exclude'   => $image['disabled'],
-            'url'       => $this->_getMediaConfig()->getMediaUrl($image['file']),
-            'types'     => $this->_getImageTypesAssignedToProduct($image['file'])
+            'id' => $image['value_id'],
+            'label' => $image['label'],
+            'position' => $image['position'],
+            'exclude' => $image['disabled'],
+            'url' => $this->_getMediaConfig()->getMediaUrl($image['file']),
+            'types' => $this->_getImageTypesAssignedToProduct($image['file'])
         );
         return $result;
     }
@@ -219,4 +220,5 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
         }
         return $file;
     }
+
 }

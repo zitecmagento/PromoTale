@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
@@ -32,26 +32,20 @@ $installer->startSetup();
 $categoryIndexTable = $installer->getTable('catalog/category_product_index');
 
 $installer->getConnection()->addColumn(
-    $categoryIndexTable,
-    'store_id',
-    'smallint(5) unsigned NOT NULL default \'0\''
+        $categoryIndexTable, 'store_id', 'smallint(5) unsigned NOT NULL default \'0\''
 );
 
 $installer->getConnection()->addColumn(
-    $categoryIndexTable,
-    'visibility',
-    'tinyint(3) unsigned NOT NULL'
+        $categoryIndexTable, 'visibility', 'tinyint(3) unsigned NOT NULL'
 );
 
 
 /**
  * Clear relation with root category
  */
-$installer->getConnection()->delete($categoryIndexTable, 'category_id='.Mage_Catalog_Model_Category::TREE_ROOT_ID);
+$installer->getConnection()->delete($categoryIndexTable, 'category_id=' . Mage_Catalog_Model_Category::TREE_ROOT_ID);
 $installer->getConnection()->addKey(
-    $categoryIndexTable,
-    'FK_CATALOG_CATEGORY_PRODUCT_INDEX_CATEGORY_ENTITY',
-    array('category_id')
+        $categoryIndexTable, 'FK_CATALOG_CATEGORY_PRODUCT_INDEX_CATEGORY_ENTITY', array('category_id')
 );
 $installer->getConnection()->dropKey($categoryIndexTable, 'IDX_CATEGORY_POSITION');
 $installer->getConnection()->dropKey($categoryIndexTable, 'UNQ_CATEGORY_PRODUCT');
@@ -69,9 +63,9 @@ $storesData = $installer->getConnection()->fetchAll("
 ");
 
 foreach ($storesData as $storeData) {
-    $storeId   = $storeData['store_id'];
+    $storeId = $storeData['store_id'];
     $websiteId = $storeData['website_id'];
-    $path      = $storeData['root_path'];
+    $path = $storeData['root_path'];
 
     $query = "INSERT INTO {$categoryIndexTable}
        (`category_id`, `product_id`, `position`, `is_parent`, `store_id`, `visibility`)
@@ -99,29 +93,19 @@ foreach ($storesData as $storeData) {
 $installer->getConnection()->delete($categoryIndexTable, 'store_id=0');
 
 $installer->getConnection()->addKey(
-    $categoryIndexTable,
-    'UNQ_CATEGORY_PRODUCT',
-    array('store_id', 'category_id', 'product_id')
+        $categoryIndexTable, 'UNQ_CATEGORY_PRODUCT', array('store_id', 'category_id', 'product_id')
 );
 
 $installer->getConnection()->addKey(
-    $categoryIndexTable,
-    'IDX_JOIN',
-    array('product_id', 'store_id', 'category_id', 'visibility')
+        $categoryIndexTable, 'IDX_JOIN', array('product_id', 'store_id', 'category_id', 'visibility')
 );
 
 $installer->getConnection()->addKey(
-    $categoryIndexTable,
-    'IDX_BASE',
-    array('store_id', 'category_id', 'visibility', 'is_parent', 'position')
+        $categoryIndexTable, 'IDX_BASE', array('store_id', 'category_id', 'visibility', 'is_parent', 'position')
 );
 
 $installer->getConnection()->addConstraint(
-    'FK_CATEGORY_PRODUCT_INDEX_STORE',
-    $categoryIndexTable,
-    'store_id',
-    $installer->getTable('core/store'),
-    'store_id'
+        'FK_CATEGORY_PRODUCT_INDEX_STORE', $categoryIndexTable, 'store_id', $installer->getTable('core/store'), 'store_id'
 );
 
 $installer->endSetup();

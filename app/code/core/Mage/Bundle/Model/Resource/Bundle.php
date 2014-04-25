@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bundle Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource_Data_Abstract
 {
+
     /**
      * Preparing select for getting selection's raw data by product id
      * also can be specified extra parameter for limit which columns should be selected
@@ -45,14 +46,12 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
     protected function _getSelect($productId, $columns = array())
     {
         return $this->_getReadAdapter()->select()
-            ->from(array("bundle_option" => $this->getTable('bundle/option')), array('type', 'option_id'))
-            ->where("bundle_option.parent_id = ?", $productId)
-            ->where("bundle_option.required = 1")
-            ->joinLeft(array(
-                "bundle_selection" => $this->getTable('bundle/selection')),
-                "bundle_selection.option_id = bundle_option.option_id",
-                $columns
-            );
+                        ->from(array("bundle_option" => $this->getTable('bundle/option')), array('type', 'option_id'))
+                        ->where("bundle_option.parent_id = ?", $productId)
+                        ->where("bundle_option.required = 1")
+                        ->joinLeft(array(
+                            "bundle_selection" => $this->getTable('bundle/selection')), "bundle_selection.option_id = bundle_option.option_id", $columns
+        );
     }
 
     /**
@@ -64,8 +63,7 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
     public function getSelectionsData($productId)
     {
         return $this->_getReadAdapter()->fetchAll($this->_getSelect(
-            $productId,
-            array("*")
+                                $productId, array("*")
         ));
     }
 
@@ -77,16 +75,14 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
     public function dropAllQuoteChildItems($productId)
     {
         $quoteItemIds = $this->_getReadAdapter()->fetchCol(
-            $this->_getReadAdapter()->select()
-            ->from($this->getTable('sales/quote_item'), array('item_id'))
-            ->where('product_id = :product_id'),
-            array('product_id' => $productId)
+                $this->_getReadAdapter()->select()
+                        ->from($this->getTable('sales/quote_item'), array('item_id'))
+                        ->where('product_id = :product_id'), array('product_id' => $productId)
         );
 
         if ($quoteItemIds) {
             $this->_getWriteAdapter()->delete(
-                $this->getTable('sales/quote_item'),
-                array('parent_item_id IN(?)' => $quoteItemIds)
+                    $this->getTable('sales/quote_item'), array('parent_item_id IN(?)' => $quoteItemIds)
             );
         }
     }
@@ -106,7 +102,7 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
             $where['selection_id NOT IN (?) '] = $ids;
         }
         $this->_getWriteAdapter()
-            ->delete($this->getTable('bundle/selection'), $where);
+                ->delete($this->getTable('bundle/selection'), $where);
     }
 
     /**
@@ -119,8 +115,9 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
     public function saveProductRelations($parentId, $childIds)
     {
         Mage::getResourceSingleton('catalog/product_relation')
-            ->processRelations($parentId, $childIds);
+                ->processRelations($parentId, $childIds);
 
         return $this;
     }
+
 }

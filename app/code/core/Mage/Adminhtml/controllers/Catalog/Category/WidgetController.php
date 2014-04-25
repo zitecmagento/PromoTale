@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog category widgets controller for CMS WYSIWYG
  *
@@ -34,13 +34,14 @@
  */
 class Mage_Adminhtml_Catalog_Category_WidgetController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Chooser Source action
      */
     public function chooserAction()
     {
         $this->getResponse()->setBody(
-            $this->_getCategoryTreeBlock()->toHtml()
+                $this->_getCategoryTreeBlock()->toHtml()
         );
     }
 
@@ -57,7 +58,7 @@ class Mage_Adminhtml_Catalog_Category_WidgetController extends Mage_Adminhtml_Co
                 Mage::register('current_category', $category);
             }
             $this->getResponse()->setBody(
-                $this->_getCategoryTreeBlock()->getTreeJson($category)
+                    $this->_getCategoryTreeBlock()->getTreeJson($category)
             );
         }
     }
@@ -65,8 +66,9 @@ class Mage_Adminhtml_Catalog_Category_WidgetController extends Mage_Adminhtml_Co
     protected function _getCategoryTreeBlock()
     {
         return $this->getLayout()->createBlock('adminhtml/catalog_category_widget_chooser', '', array(
-            'id' => $this->getRequest()->getParam('uniq_id'),
-            'use_massaction' => $this->getRequest()->getParam('use_massaction', false)
+                    'id' => $this->getRequest()->getParam('uniq_id'),
+                    'use_massaction' => $this->getRequest()->getParam('use_massaction', false)
         ));
     }
+
 }

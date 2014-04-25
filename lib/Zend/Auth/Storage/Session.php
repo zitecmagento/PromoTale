@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Session.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Auth_Storage_Interface
  */
@@ -32,7 +31,6 @@
  */
 #require_once 'Zend/Session.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Auth
@@ -42,6 +40,7 @@
  */
 class Zend_Auth_Storage_Session implements Zend_Auth_Storage_Interface
 {
+
     /**
      * Default session namespace
      */
@@ -83,8 +82,8 @@ class Zend_Auth_Storage_Session implements Zend_Auth_Storage_Interface
     public function __construct($namespace = self::NAMESPACE_DEFAULT, $member = self::MEMBER_DEFAULT)
     {
         $this->_namespace = $namespace;
-        $this->_member    = $member;
-        $this->_session   = new Zend_Session_Namespace($this->_namespace);
+        $this->_member = $member;
+        $this->_session = new Zend_Session_Namespace($this->_namespace);
     }
 
     /**
@@ -147,4 +146,5 @@ class Zend_Auth_Storage_Session implements Zend_Auth_Storage_Interface
     {
         unset($this->_session->{$this->_member});
     }
+
 }

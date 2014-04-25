@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
 {
+
     protected $_groups = array();
     protected $_stores = array();
     protected $_loaded = false;
@@ -53,11 +55,11 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
 
         $websiteId = Mage::app()->getStore()->getWebsiteId();
         $storeCollection = Mage::getModel('core/store')
-            ->getCollection()
-            ->addWebsiteFilter($websiteId);
+                ->getCollection()
+                ->addWebsiteFilter($websiteId);
         $groupCollection = Mage::getModel('core/store_group')
-            ->getCollection()
-            ->addWebsiteFilter($websiteId);
+                ->getCollection()
+                ->addWebsiteFilter($websiteId);
         foreach ($groupCollection as $group) {
             $this->_groups[$group->getId()] = $group;
         }
@@ -118,4 +120,5 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
     {
         return Mage::app()->getStore()->getCode();
     }
+
 }

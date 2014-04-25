@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,6 +33,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  */class Mage_Catalog_Model_Product_Attribute_Source_Inputtype extends Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype
 {
+
     /**
      * Get product input types as option array
      *
@@ -52,7 +54,7 @@
 
         $response = new Varien_Object();
         $response->setTypes(array());
-        Mage::dispatchEvent('adminhtml_product_attribute_types', array('response'=>$response));
+        Mage::dispatchEvent('adminhtml_product_attribute_types', array('response' => $response));
         $_disabledTypes = array();
         $_hiddenFields = array();
         foreach ($response->getTypes() as $type) {
@@ -74,4 +76,5 @@
 
         return array_merge(parent::toOptionArray(), $inputTypes);
     }
+
 }

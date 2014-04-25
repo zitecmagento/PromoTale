@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Xmlconnect_Block_Cart_CartTotals_Default extends Mage_Checkout_Block_Total_Default
 {
+
     /**
      * Total id prefix
      *
@@ -90,4 +92,5 @@ class Mage_Xmlconnect_Block_Cart_CartTotals_Default extends Mage_Checkout_Block_
     {
         return $this->_totalIdPrefix;
     }
+
 }

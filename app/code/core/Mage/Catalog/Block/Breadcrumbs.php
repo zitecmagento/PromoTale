@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,7 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Catalog breadcrumbs
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
 {
+
     /**
      * Retrieve HTML title value separator (with space)
      *
@@ -41,7 +43,7 @@ class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
      */
     public function getTitleSeparator($store = null)
     {
-        $separator = (string)Mage::getStoreConfig('catalog/seo/title_separator', $store);
+        $separator = (string) Mage::getStoreConfig('catalog/seo/title_separator', $store);
         return ' ' . $separator . ' ';
     }
 
@@ -54,13 +56,13 @@ class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
     {
         if ($breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs')) {
             $breadcrumbsBlock->addCrumb('home', array(
-                'label'=>Mage::helper('catalog')->__('Home'),
-                'title'=>Mage::helper('catalog')->__('Go to Home Page'),
-                'link'=>Mage::getBaseUrl()
+                'label' => Mage::helper('catalog')->__('Home'),
+                'title' => Mage::helper('catalog')->__('Go to Home Page'),
+                'link' => Mage::getBaseUrl()
             ));
 
             $title = array();
-            $path  = Mage::helper('catalog')->getBreadcrumbPath();
+            $path = Mage::helper('catalog')->getBreadcrumbPath();
 
             foreach ($path as $name => $breadcrumb) {
                 $breadcrumbsBlock->addCrumb($name, $breadcrumb);
@@ -73,4 +75,5 @@ class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
         }
         return parent::_prepareLayout();
     }
+
 }

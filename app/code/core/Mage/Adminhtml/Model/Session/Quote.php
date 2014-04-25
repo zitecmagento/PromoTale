@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstract
 {
+
     const XML_PATH_DEFAULT_CREATEACCOUNT_GROUP = 'customer/create_account/default_group';
 
     /**
@@ -40,28 +42,28 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
      *
      * @var Mage_Sales_Model_Quote
      */
-    protected $_quote   = null;
+    protected $_quote = null;
 
     /**
      * Customer mofrl object
      *
      * @var Mage_Customer_Model_Customer
      */
-    protected $_customer= null;
+    protected $_customer = null;
 
     /**
      * Store model object
      *
      * @var Mage_Core_Model_Store
      */
-    protected $_store   = null;
+    protected $_store = null;
 
     /**
      * Order model object
      *
      * @var Mage_Sales_Model_Order
      */
-    protected $_order   = null;
+    protected $_order = null;
 
     public function __construct()
     {
@@ -82,14 +84,13 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
             $this->_quote = Mage::getModel('sales/quote');
             if ($this->getStoreId() && $this->getQuoteId()) {
                 $this->_quote->setStoreId($this->getStoreId())
-                    ->load($this->getQuoteId());
-            }
-            elseif($this->getStoreId() && $this->hasCustomerId()) {
+                        ->load($this->getQuoteId());
+            } elseif ($this->getStoreId() && $this->hasCustomerId()) {
                 $this->_quote->setStoreId($this->getStoreId())
-                    ->setCustomerGroupId(Mage::getStoreConfig(self::XML_PATH_DEFAULT_CREATEACCOUNT_GROUP))
-                    ->assignCustomer($this->getCustomer())
-                    ->setIsActive(false)
-                    ->save();
+                        ->setCustomerGroupId(Mage::getStoreConfig(self::XML_PATH_DEFAULT_CREATEACCOUNT_GROUP))
+                        ->assignCustomer($this->getCustomer())
+                        ->setIsActive(false)
+                        ->save();
                 $this->setQuoteId($this->_quote->getId());
             }
             $this->_quote->setIgnoreOldQty(true);
@@ -110,13 +111,13 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
         return $this;
     }
 
-/**
+    /**
      * Retrieve customer model object
      * @param bool $forceReload
      * @param bool $useSetStore
      * @return Mage_Customer_Model_Customer
      */
-    public function getCustomer($forceReload=false, $useSetStore=false)
+    public function getCustomer($forceReload = false, $useSetStore = false)
     {
         if (is_null($this->_customer) || $forceReload) {
             $this->_customer = Mage::getModel('customer/customer');
@@ -161,4 +162,5 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
         }
         return $this->_order;
     }
+
 }

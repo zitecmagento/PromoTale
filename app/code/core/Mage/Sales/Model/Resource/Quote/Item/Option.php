@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Item option resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Model_Resource_Quote_Item_Option extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Main table and field initialization
      *
@@ -42,4 +43,5 @@ class Mage_Sales_Model_Resource_Quote_Item_Option extends Mage_Core_Model_Resour
     {
         $this->_init('sales/quote_item_option', 'option_id');
     }
+
 }

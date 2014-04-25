@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Model_Export_Adapter_Csv extends Mage_ImportExport_Model_Export_Adapter_Abstract
 {
+
     /**
      * Field delimiter.
      *
@@ -110,12 +112,10 @@ class Mage_ImportExport_Model_Export_Adapter_Csv extends Mage_ImportExport_Model
             $this->setHeaderCols(array_keys($rowData));
         }
         fputcsv(
-            $this->_fileHandler,
-            array_merge($this->_headerCols, array_intersect_key($rowData, $this->_headerCols)),
-            $this->_delimiter,
-            $this->_enclosure
+                $this->_fileHandler, array_merge($this->_headerCols, array_intersect_key($rowData, $this->_headerCols)), $this->_delimiter, $this->_enclosure
         );
 
         return $this;
     }
+
 }

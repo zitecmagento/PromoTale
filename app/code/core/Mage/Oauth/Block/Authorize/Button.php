@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_Block_Authorize_Button extends Mage_Oauth_Block_Authorize_ButtonBaseAbstract
 {
+
     /**
      * Retrieve confirm authorization url path
      *
@@ -52,4 +54,5 @@ class Mage_Oauth_Block_Authorize_Button extends Mage_Oauth_Block_Authorize_Butto
     {
         return 'oauth/authorize/reject';
     }
+
 }

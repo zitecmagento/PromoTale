@@ -48,7 +48,7 @@
  *   ...to a naming convention that makes more sense to you.
  *
  */
-function MultiSelector( list_target, field_name, max, new_element_html, delete_text, new_file_input ){
+function MultiSelector(list_target, field_name, max, new_element_html, delete_text, new_file_input) {
 
     // Where to write the list
     this.list_target = list_target;
@@ -59,11 +59,12 @@ function MultiSelector( list_target, field_name, max, new_element_html, delete_t
     // How many elements?
     this.id = 0;
     // Is there a maximum?
-    if( max ){
+    if (max) {
         this.max = max;
     } else {
         this.max = -1;
-    };
+    }
+    ;
     this.new_element_html = new_element_html;
     this.delete_text = delete_text;
     this.new_file_input = new_file_input;
@@ -71,10 +72,10 @@ function MultiSelector( list_target, field_name, max, new_element_html, delete_t
     /**
      * Add a new file input element
      */
-    this.addElement = function( element ){
+    this.addElement = function(element) {
 
         // Make sure it's a file input element
-        if( element.tagName == 'INPUT' && element.type == 'file' ){
+        if (element.tagName == 'INPUT' && element.type == 'file') {
 
             // Element name -- what number am I?
             // element.name = 'file_' + this.id++;
@@ -85,20 +86,20 @@ function MultiSelector( list_target, field_name, max, new_element_html, delete_t
             element.multi_selector = this;
 
             // What to do when a file is selected
-            element.onchange = function(){
+            element.onchange = function() {
 
                 // New file input
-                var new_element = document.createElement( 'input' );
+                var new_element = document.createElement('input');
                 new_element.type = 'file';
 
                 // Add new element
-                this.parentNode.insertBefore( new_element, this );
+                this.parentNode.insertBefore(new_element, this);
 
                 // Apply 'update' to element
-                this.multi_selector.addElement( new_element );
+                this.multi_selector.addElement(new_element);
 
                 // Update list
-                this.multi_selector.addListRow( this );
+                this.multi_selector.addListRow(this);
 
                 // Hide this: we can't use display:none because Safari doesn't like it
                 this.style.position = 'absolute';
@@ -106,9 +107,10 @@ function MultiSelector( list_target, field_name, max, new_element_html, delete_t
 
             };
             // If we've reached maximum number, disable input element
-            if( this.max != -1 && this.count >= this.max ){
+            if (this.max != -1 && this.count >= this.max) {
                 element.disabled = true;
-            };
+            }
+            ;
 
             // File element counter
             this.count++;
@@ -117,34 +119,35 @@ function MultiSelector( list_target, field_name, max, new_element_html, delete_t
 
         } else {
             // This can only be applied to file input elements!
-            alert( 'Error: not a file input element' );
-        };
+            alert('Error: not a file input element');
+        }
+        ;
 
     };
 
     /**
      * Add a new row to the list of files
      */
-    this.addListRow = function( element ){
+    this.addListRow = function(element) {
 
-/*
-        // Row div
-        var new_row = document.createElement( 'div' );
-*/
+        /*
+         // Row div
+         var new_row = document.createElement( 'div' );
+         */
 
         // Sort order input
-        var new_row_input = document.createElement( 'input' );
+        var new_row_input = document.createElement('input');
         new_row_input.type = 'text';
         new_row_input.name = 'general[position_new][]';
         new_row_input.size = '3';
         new_row_input.value = '0';
 
         // Delete button
-        var new_row_button = document.createElement( 'input' );
+        var new_row_button = document.createElement('input');
         new_row_button.type = 'checkbox';
         new_row_button.value = 'Delete';
 
-        var new_row_span = document.createElement( 'span' );
+        var new_row_span = document.createElement('span');
         new_row_span.innerHTML = this.delete_text;
 
         table = this.list_target;
@@ -153,10 +156,10 @@ function MultiSelector( list_target, field_name, max, new_element_html, delete_t
         noOfRows = table.rows.length;
 
         // no of columns in the pre-last row:
-        noOfCols = table.rows[noOfRows-2].cells.length;
+        noOfCols = table.rows[noOfRows - 2].cells.length;
 
         // insert row at pre-last:
-        var x=table.insertRow(noOfRows-1);
+        var x = table.insertRow(noOfRows - 1);
 
         // insert cells in row.
         for (var j = 0; j < noOfCols; j++) {
@@ -169,11 +172,11 @@ function MultiSelector( list_target, field_name, max, new_element_html, delete_t
 //                newCell.innerHTML = this.new_element_html.replace(/%file%/g, element.value).replace(/%id%/g, this.id).replace(/%j%/g, j)
 //                    + this.new_file_input.replace(/%file%/g, element.value).replace(/%id%/g, this.id).replace(/%j%/g, j);
 //            }
-            if (j==3) {
-                newCell.appendChild( new_row_input );
+            if (j == 3) {
+                newCell.appendChild(new_row_input);
             }
-            else if (j==4) {
-                newCell.appendChild( new_row_button );
+            else if (j == 4) {
+                newCell.appendChild(new_row_button);
             }
             else {
 //                newCell.innerHTML = this.new_file_input.replace(/%file%/g, element.value).replace(/%id%/g, this.id).replace(/%j%/g, j);
@@ -188,13 +191,13 @@ function MultiSelector( list_target, field_name, max, new_element_html, delete_t
 //		new_row.element = element;
 
         // Delete function
-        new_row_button.onclick= function(){
+        new_row_button.onclick = function() {
 
             // Remove element from form
-            this.parentNode.element.parentNode.removeChild( this.parentNode.element );
+            this.parentNode.element.parentNode.removeChild(this.parentNode.element);
 
             // Remove this row from the list
-            this.parentNode.parentNode.removeChild( this.parentNode );
+            this.parentNode.parentNode.removeChild(this.parentNode);
 
             // Decrement counter
             this.parentNode.element.multi_selector.count--;
@@ -221,38 +224,39 @@ function MultiSelector( list_target, field_name, max, new_element_html, delete_t
     };
 
     // Insert row into table.
-    this.insRowLast = function ( table ){
+    this.insRowLast = function(table) {
 
         // noOfRpws in table.
         noOfRows = table.rows.length;
         // no of columns of last row.
-        noOfCols = table.rows[noOfRows-1].cells.length;
+        noOfCols = table.rows[noOfRows - 1].cells.length;
 
         // insert row at last.
-        var x=table.insertRow(noOfRows);
+        var x = table.insertRow(noOfRows);
 
         // insert cells in row.
         for (var j = 0; j < noOfCols; j++) {
             newCell = x.insertCell(j);
-            newCell.innerHTML="NEW CELL" + j;
+            newCell.innerHTML = "NEW CELL" + j;
         }
 
     };
 
     //delete row
-    this.deleteRow = function ( table, row ){
+    this.deleteRow = function(table, row) {
 
         table.deleteRow(row);
 
     };
 
     //delete last row
-    this.deleteRow = function ( table ){
+    this.deleteRow = function(table) {
 
         noOfRows = table.rows.length;
-        table.deleteRow(noOfRows-1);
+        table.deleteRow(noOfRows - 1);
 
     };
 
 
-};
+}
+;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax report collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resource_Report_Collection_Abstract
 {
+
     /**
      * Enter description here ...
      *
@@ -53,7 +54,7 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
      *
      * @var unknown
      */
-    protected $_selectedColumns    = array();
+    protected $_selectedColumns = array();
 
     /**
      * Initialize custom resource model
@@ -84,11 +85,11 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
 
         if (!$this->isTotals() && !$this->isSubTotals()) {
             $this->_selectedColumns = array(
-                'period'                => $this->_periodFormat,
-                'code'                  => 'code',
-                'percent'               => 'percent',
-                'orders_count'          => 'SUM(orders_count)',
-                'tax_base_amount_sum'   => 'SUM(tax_base_amount_sum)'
+                'period' => $this->_periodFormat,
+                'code' => 'code',
+                'percent' => 'percent',
+                'orders_count' => 'SUM(orders_count)',
+                'tax_base_amount_sum' => 'SUM(tax_base_amount_sum)'
             );
         }
 
@@ -110,7 +111,7 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
      */
     protected function _initSelect()
     {
-        $this->getSelect()->from($this->getResource()->getMainTable() , $this->_getSelectedColumns());
+        $this->getSelect()->from($this->getResource()->getMainTable(), $this->_getSelectedColumns());
         if (!$this->isTotals() && !$this->isSubTotals()) {
             $this->getSelect()->group(array($this->_periodFormat, 'code', 'percent'));
         }
@@ -128,4 +129,5 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
 
         return $this;
     }
+
 }

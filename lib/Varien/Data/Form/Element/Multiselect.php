@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,7 +34,8 @@
  */
 class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abstract
 {
-    public function __construct($attributes=array())
+
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setType('select');
@@ -58,7 +60,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
             $html .= '<input type="hidden" name="' . parent::getName() . '" value="" />';
         }
         $html .= '<select id="' . $this->getHtmlId() . '" name="' . $this->getName() . '" ' .
-            $this->serialize($this->getHtmlAttributes()) . ' multiple="multiple">' . "\n";
+                $this->serialize($this->getHtmlAttributes()) . ' multiple="multiple">' . "\n";
 
         $value = $this->getValue();
         if (!is_array($value)) {
@@ -73,8 +75,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
                         $html .= $this->_optionToHtml($groupItem, $value);
                     }
                     $html .= '</optgroup>' . "\n";
-                }
-                else {
+                } else {
                     $html .= $this->_optionToHtml($option, $value);
                 }
             }
@@ -93,19 +94,19 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
 
     public function getDefaultHtml()
     {
-        $result = ( $this->getNoSpan() === true ) ? '' : '<span class="field-row">'."\n";
+        $result = ( $this->getNoSpan() === true ) ? '' : '<span class="field-row">' . "\n";
         $result.= $this->getLabelHtml();
         $result.= $this->getElementHtml();
 
 
-        if($this->getSelectAll() && $this->getDeselectAll()) {
+        if ($this->getSelectAll() && $this->getDeselectAll()) {
             $result .= '<a href="#" onclick="return ' . $this->getJsObjectName() . '.selectAll()">' .
-                $this->getSelectAll() . '</a> <span class="separator">&nbsp;|&nbsp;</span>';
+                    $this->getSelectAll() . '</a> <span class="separator">&nbsp;|&nbsp;</span>';
             $result .= '<a href="#" onclick="return ' . $this->getJsObjectName() . '.deselectAll()">' .
-                $this->getDeselectAll() . '</a>';
+                    $this->getDeselectAll() . '</a>';
         }
 
-        $result.= ( $this->getNoSpan() === true ) ? '' : '</span>'."\n";
+        $result.= ( $this->getNoSpan() === true ) ? '' : '</span>' . "\n";
 
 
         $result.= '<script type="text/javascript">' . "\n";
@@ -130,19 +131,21 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
         return $result;
     }
 
-    public function getJsObjectName() {
-         return $this->getHtmlId() . 'ElementControl';
+    public function getJsObjectName()
+    {
+        return $this->getHtmlId() . 'ElementControl';
     }
 
     protected function _optionToHtml($option, $selected)
     {
-        $html = '<option value="'.$this->_escape($option['value']).'"';
-        $html.= isset($option['title']) ? 'title="'.$this->_escape($option['title']).'"' : '';
-        $html.= isset($option['style']) ? 'style="'.$option['style'].'"' : '';
-        if (in_array((string)$option['value'], $selected)) {
+        $html = '<option value="' . $this->_escape($option['value']) . '"';
+        $html.= isset($option['title']) ? 'title="' . $this->_escape($option['title']) . '"' : '';
+        $html.= isset($option['style']) ? 'style="' . $option['style'] . '"' : '';
+        if (in_array((string) $option['value'], $selected)) {
             $html.= ' selected="selected"';
         }
-        $html.= '>'.$this->_escape($option['label']). '</option>'."\n";
+        $html.= '>' . $this->_escape($option['label']) . '</option>' . "\n";
         return $html;
     }
+
 }

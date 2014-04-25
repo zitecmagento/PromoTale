@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Alnum.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -32,8 +32,9 @@
  */
 class Zend_Validate_Alnum extends Zend_Validate_Abstract
 {
-    const INVALID      = 'alnumInvalid';
-    const NOT_ALNUM    = 'notAlnum';
+
+    const INVALID = 'alnumInvalid';
+    const NOT_ALNUM = 'notAlnum';
     const STRING_EMPTY = 'alnumStringEmpty';
 
     /**
@@ -57,8 +58,8 @@ class Zend_Validate_Alnum extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID      => "Invalid type given. String, integer or float expected",
-        self::NOT_ALNUM    => "'%value%' contains characters which are non alphabetic and no digits",
+        self::INVALID => "Invalid type given. String, integer or float expected",
+        self::NOT_ALNUM => "'%value%' contains characters which are non alphabetic and no digits",
         self::STRING_EMPTY => "'%value%' is an empty string",
     );
 

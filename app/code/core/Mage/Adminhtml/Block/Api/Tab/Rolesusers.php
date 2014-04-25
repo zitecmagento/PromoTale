@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,8 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-class Mage_Adminhtml_Block_Api_Tab_Rolesusers extends Mage_Adminhtml_Block_Widget_Tabs {
+class Mage_Adminhtml_Block_Api_Tab_Rolesusers extends Mage_Adminhtml_Block_Widget_Tabs
+{
 
     public function __construct()
     {
@@ -34,8 +35,8 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesusers extends Mage_Adminhtml_Block_Widge
 
         $users = Mage::getModel("api/user")->getCollection()->load();
         $this->setTemplate('api/rolesusers.phtml')
-            ->assign('users', $users->getItems())
-            ->assign('roleId', $roleId);
+                ->assign('users', $users->getItems())
+                ->assign('roleId', $roleId);
     }
 
     protected function _prepareLayout()

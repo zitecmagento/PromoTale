@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist Data Helper
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Config key 'Display Wishlist Summary'
      */
@@ -172,10 +173,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
 
         $storedDisplayOutOfStockProducts = $this->_getCustomerSession()->getDisplayOutOfStockProducts();
         $currentDisplayOutOfStockProducts = Mage::getStoreConfig(self::XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK);
-        if (!$this->_getCustomerSession()->hasWishlistItemCount()
-                || ($currentDisplayType != $storedDisplayType)
-                || $this->_getCustomerSession()->hasDisplayOutOfStockProducts()
-                || ($currentDisplayOutOfStockProducts != $storedDisplayOutOfStockProducts)) {
+        if (!$this->_getCustomerSession()->hasWishlistItemCount() || ($currentDisplayType != $storedDisplayType) || $this->_getCustomerSession()->hasDisplayOutOfStockProducts() || ($currentDisplayOutOfStockProducts != $storedDisplayOutOfStockProducts)) {
             $this->calculate();
         }
 
@@ -232,10 +230,10 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (is_null($this->_productCollection)) {
             $this->_productCollection = $this->getWishlist()
-                ->getProductCollection();
+                    ->getProductCollection();
 
             Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection($this->_productCollection);
+                    ->addVisibleInSiteFilterToCollection($this->_productCollection);
         }
         return $this->_productCollection;
     }
@@ -273,8 +271,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getRemoveUrl($item)
     {
-        return $this->_getUrl('wishlist/index/remove',
-            array('item' => $item->getWishlistItemId())
+        return $this->_getUrl('wishlist/index/remove', array('item' => $item->getWishlistItemId())
         );
     }
 
@@ -287,7 +284,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     public function getConfigureUrl($item)
     {
         return $this->_getUrl('wishlist/index/configure', array(
-            'item' => $item->getWishlistItemId()
+                    'item' => $item->getWishlistItemId()
         ));
     }
 
@@ -374,12 +371,12 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getAddToCartUrl($item)
     {
-        $continueUrl  = $this->_getHelperInstance('core')->urlEncode(
-            $this->_getUrl('*/*/*', array(
-                '_current'      => true,
-                '_use_rewrite'  => true,
-                '_store_to_url' => true,
-            ))
+        $continueUrl = $this->_getHelperInstance('core')->urlEncode(
+                $this->_getUrl('*/*/*', array(
+                    '_current' => true,
+                    '_use_rewrite' => true,
+                    '_store_to_url' => true,
+                ))
         );
         $params = array(
             'item' => is_string($item) ? $item : $item->getWishlistItemId(),
@@ -420,10 +417,10 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getSharedAddToCartUrl($item)
     {
-        $continueUrl  = Mage::helper('core')->urlEncode(Mage::getUrl('*/*/*', array(
-            '_current'      => true,
-            '_use_rewrite'  => true,
-            '_store_to_url' => true,
+        $continueUrl = Mage::helper('core')->urlEncode(Mage::getUrl('*/*/*', array(
+                    '_current' => true,
+                    '_use_rewrite' => true,
+                    '_store_to_url' => true,
         )));
 
         $params = array(
@@ -517,8 +514,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
             $params['wishlist_id'] = $wishlistId;
         }
         return $this->_getUrl(
-            'rss/index/wishlist',
-            $params
+                        'rss/index/wishlist', $params
         );
     }
 
@@ -572,7 +568,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
             }
             $session->setWishlistDisplayType(Mage::getStoreConfig(self::XML_PATH_WISHLIST_LINK_USE_QTY));
             $session->setDisplayOutOfStockProducts(
-                Mage::getStoreConfig(self::XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK)
+                    Mage::getStoreConfig(self::XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK)
             );
         }
         $session->setWishlistItemCount($count);
@@ -589,4 +585,5 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfig(self::XML_PATH_WISHLIST_LINK_USE_QTY);
     }
+
 }

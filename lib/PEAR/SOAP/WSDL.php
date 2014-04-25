@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file contains the code for dealing with WSDL access and services.
  *
@@ -21,7 +22,6 @@
  * @license    http://www.php.net/license/2_02.txt  PHP License 2.02
  * @link       http://pear.php.net/package/SOAP
  */
-
 require_once 'SOAP/Base.php';
 require_once 'SOAP/Fault.php';
 require_once 'HTTP/Request.php';
@@ -46,6 +46,7 @@ define('WSDL_CACHE_MAX_AGE', 43200);
  */
 class SOAP_WSDL extends SOAP_Base
 {
+
     var $tns = null;
     var $definition = array();
     var $namespaces = array();
@@ -125,18 +126,18 @@ class SOAP_WSDL extends SOAP_Base
      * @var array
      */
     var $_reserved = array('abstract', 'and', 'array', 'as', 'break', 'case',
-                           'catch', 'cfunction', 'class', 'clone', 'const',
-                           'continue', 'declare', 'default', 'die', 'do',
-                           'echo', 'else', 'elseif', 'empty', 'enddeclare',
-                           'endfor', 'endforeach', 'endif', 'endswitch',
-                           'endwhile', 'eval', 'exception', 'exit', 'extends',
-                           'final', 'for', 'foreach', 'function', 'global',
-                           'if', 'implements', 'include', 'include_once',
-                           'interface', 'isset', 'list', 'new', 'old_function',
-                           'or', 'php_user_filter', 'print', 'private',
-                           'protected', 'public', 'require', 'require_once',
-                           'return', 'static', 'switch', 'this', 'throw',
-                           'try', 'unset', 'use', 'var', 'while', 'xor');
+        'catch', 'cfunction', 'class', 'clone', 'const',
+        'continue', 'declare', 'default', 'die', 'do',
+        'echo', 'else', 'elseif', 'empty', 'enddeclare',
+        'endfor', 'endforeach', 'endif', 'endswitch',
+        'endwhile', 'eval', 'exception', 'exit', 'extends',
+        'final', 'for', 'foreach', 'function', 'global',
+        'if', 'implements', 'include', 'include_once',
+        'interface', 'isset', 'list', 'new', 'old_function',
+        'or', 'php_user_filter', 'print', 'private',
+        'protected', 'public', 'require', 'require_once',
+        'return', 'static', 'switch', 'this', 'throw',
+        'try', 'unset', 'use', 'var', 'while', 'xor');
 
     /**
      * Regular expressions for invalid PHP labels.
@@ -160,18 +161,14 @@ class SOAP_WSDL extends SOAP_Base
      *
      * @access public
      */
-    function SOAP_WSDL($wsdl_uri    = false,
-                       $proxy       = array(),
-                       $cacheUse    = false,
-                       $cacheMaxAge = WSDL_CACHE_MAX_AGE,
-                       $docs        = false)
+    function SOAP_WSDL($wsdl_uri = false, $proxy = array(), $cacheUse = false, $cacheMaxAge = WSDL_CACHE_MAX_AGE, $docs = false)
     {
         parent::SOAP_Base('WSDL');
-        $this->uri         = $wsdl_uri;
-        $this->proxy       = $proxy;
-        $this->cacheUse    = !empty($cacheUse);
+        $this->uri = $wsdl_uri;
+        $this->proxy = $proxy;
+        $this->cacheUse = !empty($cacheUse);
         $this->cacheMaxAge = $cacheMaxAge;
-        $this->docs        = $docs;
+        $this->docs = $docs;
         if (is_string($cacheUse)) {
             $this->cacheDir = $cacheUse;
         }
@@ -229,12 +226,9 @@ class SOAP_WSDL extends SOAP_Base
      * @param string $service_desc     Optional description of the WSDL
      *                                 service.
      */
-    function parseObject($wsdl_obj, $targetNamespace, $service_name,
-                         $service_desc = '')
+    function parseObject($wsdl_obj, $targetNamespace, $service_name, $service_desc = '')
     {
-        $parser = new SOAP_WSDL_ObjectParser($wsdl_obj, $this,
-                                             $targetNamespace, $service_name,
-                                             $service_desc);
+        $parser = new SOAP_WSDL_ObjectParser($wsdl_obj, $this, $targetNamespace, $service_name, $service_desc);
 
         if ($parser->fault) {
             $this->_raiseSoapFault($parser->fault);
@@ -247,9 +241,7 @@ class SOAP_WSDL extends SOAP_Base
             return $this->_getfault();
         }
 
-        return (isset($this->services[$this->service]['ports'][$portName]['address']['location']))
-                ? $this->services[$this->service]['ports'][$portName]['address']['location']
-                : $this->_raiseSoapFault("No endpoint for port for $portName", $this->uri);
+        return (isset($this->services[$this->service]['ports'][$portName]['address']['location'])) ? $this->services[$this->service]['ports'][$portName]['address']['location'] : $this->_raiseSoapFault("No endpoint for port for $portName", $this->uri);
     }
 
     function _getPortName($operation, $service)
@@ -259,7 +251,7 @@ class SOAP_WSDL extends SOAP_Base
             foreach ($ports as $port => $portAttrs) {
                 $type = $ports[$port]['type'];
                 if ($type == 'soap' &&
-                    isset($this->bindings[$portAttrs['binding']]['operations'][$operation])) {
+                        isset($this->bindings[$portAttrs['binding']]['operations'][$operation])) {
                     return $port;
                 }
             }
@@ -304,7 +296,7 @@ class SOAP_WSDL extends SOAP_Base
         }
 
         if (!isset($this->services[$this->service]['ports'][$portName]['binding']) ||
-            !($binding = $this->services[$this->service]['ports'][$portName]['binding'])) {
+                !($binding = $this->services[$this->service]['ports'][$portName]['binding'])) {
             return $this->_raiseSoapFault("No binding for port $portName in WSDL.", $this->uri);
         }
 
@@ -334,8 +326,8 @@ class SOAP_WSDL extends SOAP_Base
         if (is_array($this->messages[$inputMsg])) {
             foreach ($this->messages[$inputMsg] as $pname => $pattrs) {
                 if ($opData['style'] == 'document' &&
-                    $opData['input']['use'] == 'literal' &&
-                    $pname == 'parameters') {
+                        $opData['input']['use'] == 'literal' &&
+                        $pname == 'parameters') {
                     $opData['parameters'] = true;
                     $opData['namespace'] = $this->namespaces[$pattrs['namespace']];
                     $el = $this->elements[$pattrs['namespace']][$pattrs['type']];
@@ -353,8 +345,8 @@ class SOAP_WSDL extends SOAP_Base
         if (is_array($this->messages[$outputMsg])) {
             foreach ($this->messages[$outputMsg] as $pname => $pattrs) {
                 if ($opData['style'] == 'document' &&
-                    $opData['output']['use'] == 'literal' &&
-                    $pname == 'parameters') {
+                        $opData['output']['use'] == 'literal' &&
+                        $pname == 'parameters') {
 
                     $el = $this->elements[$pattrs['namespace']][$pattrs['type']];
                     if (isset($el['elements'])) {
@@ -426,7 +418,7 @@ class SOAP_WSDL extends SOAP_Base
             }
         }
         // Find the operation that uses this message.
-        foreach($this->portTypes as $porttype) {
+        foreach ($this->portTypes as $porttype) {
             foreach ($porttype as $opname => $opinfo) {
                 foreach ($checkmessages as $messagename) {
                     if ($opinfo['input']['message'] == $messagename) {
@@ -518,25 +510,23 @@ class SOAP_WSDL extends SOAP_Base
     {
         $comments = '';
         $el = $this->elements[$_argtype['namespace']][$_argtype['type']];
-        $tns = isset($this->ns[$el['namespace']])
-            ? $this->ns[$el['namespace']]
-            : $_argtype['namespace'];
+        $tns = isset($this->ns[$el['namespace']]) ? $this->ns[$el['namespace']] : $_argtype['namespace'];
 
         if (!empty($el['complex']) ||
-            (isset($el['type']) &&
-             isset($this->complexTypes[$tns][$el['type']]))) {
+                (isset($el['type']) &&
+                isset($this->complexTypes[$tns][$el['type']]))) {
             // The element is a complex type.
             $comments .= "        // {$_argtype['type']} is a ComplexType, refer to the WSDL for more info.\n";
             $attrname = "{$_argtype['type']}_attr";
             if (isset($el['type']) &&
-                isset($this->complexTypes[$tns][$el['type']]['attribute'])) {
+                    isset($this->complexTypes[$tns][$el['type']]['attribute'])) {
                 $comments .= "        // {$_argtype['type']} may require attributes, refer to the WSDL for more info.\n";
             }
             $comments .= "        \${$attrname}['xmlns'] = '{$this->namespaces[$_argtype['namespace']]}';\n";
             $comments .= "        \${$_argtype['type']} = new SOAP_Value('{$_argtype['type']}', false, \${$_argtype['type']}, \$$attrname);\n";
             $this->_addArg($args, $argarray, $_argtype['type']);
             if (isset($el['type']) &&
-                isset($this->complexTypes[$tns][$el['type']]['attribute'])) {
+                    isset($this->complexTypes[$tns][$el['type']]['attribute'])) {
                 if ($args) {
                     $args .= ', ';
                 }
@@ -545,8 +535,8 @@ class SOAP_WSDL extends SOAP_Base
         } elseif (isset($el['elements'])) {
             foreach ($el['elements'] as $ename => $element) {
                 $comments .= "        \$$ename = new SOAP_Value('{{$this->namespaces[$element['namespace']]}}$ename', '" .
-                    (isset($element['type']) ? $element['type'] : false) .
-                    "', \$$ename);\n";
+                        (isset($element['type']) ? $element['type'] : false) .
+                        "', \$$ename);\n";
                 $this->_addArg($args, $argarray, $ename);
             }
         } else {
@@ -561,12 +551,12 @@ class SOAP_WSDL extends SOAP_Base
     {
         $comments = '';
         if (isset($this->complexTypes[$_argtype['namespace']][$_argtype['type']])) {
-            $comments  = "        // $_argname is a ComplexType {$_argtype['type']},\n" .
-                "        // refer to wsdl for more info\n";
+            $comments = "        // $_argname is a ComplexType {$_argtype['type']},\n" .
+                    "        // refer to wsdl for more info\n";
             if (isset($this->complexTypes[$_argtype['namespace']][$_argtype['type']]['attribute'])) {
                 $comments .= "        // $_argname may require attributes, refer to wsdl for more info\n";
             }
-            $wrapname = '{' . $this->namespaces[$_argtype['namespace']].'}' . $_argtype['type'];
+            $wrapname = '{' . $this->namespaces[$_argtype['namespace']] . '}' . $_argtype['type'];
             $comments .= "        \$$_argname = new SOAP_Value('$_argname', '$wrapname', \$$_argname);\n";
         }
 
@@ -612,9 +602,9 @@ class SOAP_WSDL extends SOAP_Base
 
         if (is_array($this->proxy) && count($this->proxy)) {
             $class = "class $classname extends SOAP_Client\n{\n" .
-            "    function $classname(\$path = '$clienturl')\n    {\n" .
-            "        \$this->SOAP_Client(\$path, 0, 0,\n" .
-            '                           array(';
+                    "    function $classname(\$path = '$clienturl')\n    {\n" .
+                    "        \$this->SOAP_Client(\$path, 0, 0,\n" .
+                    '                           array(';
 
             foreach ($this->proxy as $key => $val) {
                 if (is_array($val)) {
@@ -631,9 +621,9 @@ class SOAP_WSDL extends SOAP_Base
             $class = str_replace(', ))', '))', $class);
         } else {
             $class = "class $classname extends SOAP_Client\n{\n" .
-            "    function $classname(\$path = '$clienturl')\n    {\n" .
-            "        \$this->SOAP_Client(\$path, 0);\n" .
-            "    }\n";
+                    "    function $classname(\$path = '$clienturl')\n    {\n" .
+                    "        \$this->SOAP_Client(\$path, 0);\n" .
+                    "    }\n";
         }
 
         // Get the binding, from that get the port type.
@@ -674,7 +664,7 @@ class SOAP_WSDL extends SOAP_Base
                     foreach ($this->messages[$argtype] as $_argname => $_argtype) {
                         $_argname = $this->_sanitize($_argname);
                         if ($opstyle == 'document' && $use == 'literal' &&
-                            $_argtype['name'] == 'parameters') {
+                                $_argtype['name'] == 'parameters') {
                             // The type or element refered to is used for
                             // parameters.
                             $elattrs = null;
@@ -697,7 +687,7 @@ class SOAP_WSDL extends SOAP_Base
                                 }
                             }
                             if ($el['complex'] && $argarray) {
-                                $wrapname = '{' . $this->namespaces[$_argtype['namespace']].'}' . $el['name'];
+                                $wrapname = '{' . $this->namespaces[$_argtype['namespace']] . '}' . $el['name'];
                                 $comments .= "        \${$el['name']} = new SOAP_Value('$wrapname', false, \$v = array($argarray));\n";
                                 $argarray = "'{$el['name']}' => \${$el['name']}";
                             }
@@ -715,7 +705,6 @@ class SOAP_WSDL extends SOAP_Base
             }
 
             // Validate entries.
-
             // Operation names are function names, so try to make sure it's
             // legal. This could potentially cause collisions, but let's try
             // to make everything callable and see how many problems that
@@ -732,15 +721,15 @@ class SOAP_WSDL extends SOAP_Base
             }
 
             $class .= "    function &$opname_php($args)\n    {\n$comments$wrappers" .
-                "        \$result = \$this->call('$opname',\n" .
-                "                              \$v = $argarray,\n" .
-                "                              array('namespace' => '$namespace',\n" .
-                "                                    'soapaction' => '$soapaction',\n" .
-                "                                    'style' => '$opstyle',\n" .
-                "                                    'use' => '$use'" .
-                ($this->trace ? ",\n                                    'trace' => true" : '') . "));\n" .
-                "        return \$result;\n" .
-                "    }\n";
+                    "        \$result = \$this->call('$opname',\n" .
+                    "                              \$v = $argarray,\n" .
+                    "                              array('namespace' => '$namespace',\n" .
+                    "                                    'soapaction' => '$soapaction',\n" .
+                    "                                    'style' => '$opstyle',\n" .
+                    "                                    'use' => '$use'" .
+                    ($this->trace ? ",\n                                    'trace' => true" : '') . "));\n" .
+                    "        return \$result;\n" .
+                    "    }\n";
         }
 
         $class .= "}\n";
@@ -752,7 +741,7 @@ class SOAP_WSDL extends SOAP_Base
     {
         $proxycode = '';
         foreach (array_keys($this->services[$this->service]['ports']) as $key) {
-            $port =& $this->services[$this->service]['ports'][$key];
+            $port = & $this->services[$this->service]['ports'][$key];
             $proxycode .= $this->generateProxyCode($port);
         }
         return $proxycode;
@@ -761,7 +750,7 @@ class SOAP_WSDL extends SOAP_Base
     function &getProxy($port = '', $name = '')
     {
         if ($this->_isfault()) {
-            $fault =& $this->_getfault();
+            $fault = & $this->_getfault();
             return $fault;
         }
 
@@ -815,7 +804,7 @@ class SOAP_WSDL extends SOAP_Base
     {
         $t = null;
         if (isset($this->ns[$namespace]) &&
-            isset($this->elements[$this->ns[$namespace]][$name]['type'])) {
+                isset($this->elements[$this->ns[$namespace]][$name]['type'])) {
 
             $type = $this->elements[$this->ns[$namespace]][$name]['type'];
             $ns = $this->elements[$this->ns[$namespace]][$name]['namespace'];
@@ -845,8 +834,8 @@ class SOAP_WSDL extends SOAP_Base
             if (isset($t['elements'][$child_name]['type']))
                 return $t['elements'][$child_name]['type'];
         } elseif (isset($this->ns[$ns]) &&
-                  isset($this->elements[$this->ns[$ns]][$name]['complex']) &&
-                  $this->elements[$this->ns[$ns]][$name]['complex']) {
+                isset($this->elements[$this->ns[$ns]][$name]['complex']) &&
+                $this->elements[$this->ns[$ns]][$name]['complex']) {
             // Type is not an element but complex.
             return $this->elements[$this->ns[$ns]][$name]['elements'][$child_name]['type'];
         }
@@ -870,14 +859,12 @@ class SOAP_WSDL extends SOAP_Base
             foreach ($this->complexTypes as $types) {
                 if (isset($types[$type->name])) {
                     if (isset($types[$type->name]['type'])) {
-                        list($arraytype_ns, $arraytype, $array_depth) = isset($types[$type->name]['arrayType'])
-                            ? $this->_getDeepestArrayType($types[$type->name]['namespace'], $types[$type->name]['arrayType'])
-                            : array($this->namespaces[$types[$type->name]['namespace']], null, 0);
+                        list($arraytype_ns, $arraytype, $array_depth) = isset($types[$type->name]['arrayType']) ? $this->_getDeepestArrayType($types[$type->name]['namespace'], $types[$type->name]['arrayType']) : array(
+                            $this->namespaces[$types[$type->name]['namespace']], null, 0);
                         return array($types[$type->name]['type'], $arraytype, $arraytype_ns, $array_depth);
                     }
                     if (isset($types[$type->name]['arrayType'])) {
-                        list($arraytype_ns, $arraytype, $array_depth) =
-                            $this->_getDeepestArrayType($types[$type->name]['namespace'], $types[$type->name]['arrayType']);
+                        list($arraytype_ns, $arraytype, $array_depth) = $this->_getDeepestArrayType($types[$type->name]['namespace'], $types[$type->name]['arrayType']);
                         return array('Array', $arraytype, $arraytype_ns, $array_depth);
                     }
                     if (!empty($types[$type->name]['elements'][$name->name])) {
@@ -899,7 +886,7 @@ class SOAP_WSDL extends SOAP_Base
                 if ($arrayType = $this->complexTypes[$p][$type->name]['arrayType']) {
                     $type->name = 'Array';
                 } elseif ($this->complexTypes[$p][$type->name]['order'] == 'sequence' &&
-                          array_key_exists('elements', $this->complexTypes[$p][$type->name])) {
+                        array_key_exists('elements', $this->complexTypes[$p][$type->name])) {
                     reset($this->complexTypes[$p][$type->name]['elements']);
                     // assume an array
                     if (count($this->complexTypes[$p][$type->name]['elements']) == 1) {
@@ -949,11 +936,10 @@ class SOAP_WSDL extends SOAP_Base
         }
 
         if (array_key_exists($nsPrefix, $this->complexTypes) &&
-            array_key_exists($arrayType, $this->complexTypes[$nsPrefix]) &&
-            array_key_exists('arrayType', $this->complexTypes[$nsPrefix][$arrayType])) {
+                array_key_exists($arrayType, $this->complexTypes[$nsPrefix]) &&
+                array_key_exists('arrayType', $this->complexTypes[$nsPrefix][$arrayType])) {
             $trail[] = $nsPrefix . ':' . $arrayType;
-            $result = $this->_getDeepestArrayType($this->complexTypes[$nsPrefix][$arrayType]['namespace'],
-                                                  $this->complexTypes[$nsPrefix][$arrayType]['arrayType']);
+            $result = $this->_getDeepestArrayType($this->complexTypes[$nsPrefix][$arrayType]['namespace'], $this->complexTypes[$nsPrefix][$arrayType]['arrayType']);
             return array($result[0], $result[1], $result[2] + 1);
         }
         return array($this->namespaces[$nsPrefix], $arrayType, 0);
@@ -963,6 +949,7 @@ class SOAP_WSDL extends SOAP_Base
 
 class SOAP_WSDL_Cache extends SOAP_Base
 {
+
     /**
      * Use WSDL cache?
      *
@@ -990,9 +977,7 @@ class SOAP_WSDL_Cache extends SOAP_Base
      * @param boolean $cashUse      Use caching?
      * @param integer $cacheMaxAge  Cache maximum lifetime (in seconds)
      */
-    function SOAP_WSDL_Cache($cacheUse = false,
-                             $cacheMaxAge = WSDL_CACHE_MAX_AGE,
-                             $cacheDir = null)
+    function SOAP_WSDL_Cache($cacheUse = false, $cacheMaxAge = WSDL_CACHE_MAX_AGE, $cacheDir = null)
     {
         parent::SOAP_Base('WSDLCACHE');
         $this->_cacheUse = $cacheUse;
@@ -1036,9 +1021,9 @@ class SOAP_WSDL_Cache extends SOAP_Base
         $cachename = $md5_wsdl = $file_data = '';
         if ($this->_cacheUse) {
             // Try to retrieve WSDL from cache
-            $cachename = $this->_cacheDir() . '/' . md5($wsdl_fname). ' .wsdl';
+            $cachename = $this->_cacheDir() . '/' . md5($wsdl_fname) . ' .wsdl';
             if (file_exists($cachename) &&
-                $file_data = file_get_contents($cachename)) {
+                    $file_data = file_get_contents($cachename)) {
                 $md5_wsdl = md5($file_data);
                 if ($cache) {
                     if ($cache != $md5_wsdl) {
@@ -1075,17 +1060,13 @@ class SOAP_WSDL_Cache extends SOAP_Base
                 }
 
                 if (isset($proxy_params['proxy_host']) &&
-                    isset($proxy_params['proxy_port']) &&
-                    isset($proxy_params['proxy_user']) &&
-                    isset($proxy_params['proxy_pass'])) {
-                    $rq->setProxy($proxy_params['proxy_host'],
-                                  $proxy_params['proxy_port'],
-                                  $proxy_params['proxy_user'],
-                                  $proxy_params['proxy_pass']);
+                        isset($proxy_params['proxy_port']) &&
+                        isset($proxy_params['proxy_user']) &&
+                        isset($proxy_params['proxy_pass'])) {
+                    $rq->setProxy($proxy_params['proxy_host'], $proxy_params['proxy_port'], $proxy_params['proxy_user'], $proxy_params['proxy_pass']);
                 } elseif (isset($proxy_params['proxy_host']) &&
-                          isset($proxy_params['proxy_port'])) {
-                    $rq->setProxy($proxy_params['proxy_host'],
-                                  $proxy_params['proxy_port']);
+                        isset($proxy_params['proxy_port'])) {
+                    $rq->setProxy($proxy_params['proxy_host'], $proxy_params['proxy_port']);
                 }
 
                 $result = $rq->sendRequest();
@@ -1133,16 +1114,13 @@ class SOAP_WSDL_Parser extends SOAP_Base
      * Parser vars.
      */
     var $cache;
-
     var $tns = null;
     var $soapns = array('soap');
     var $uri = '';
     var $wsdl = null;
-
     var $status = '';
     var $element_stack = array();
     var $parentElement = '';
-
     var $schema = '';
     var $schemaStatus = '';
     var $schema_stack = array();
@@ -1156,9 +1134,7 @@ class SOAP_WSDL_Parser extends SOAP_Base
     function SOAP_WSDL_Parser($uri, &$wsdl, $docs = false)
     {
         parent::SOAP_Base('WSDLPARSER');
-        $this->cache = new SOAP_WSDL_Cache($wsdl->cacheUse,
-                                            $wsdl->cacheMaxAge,
-                                            $wsdl->cacheDir);
+        $this->cache = new SOAP_WSDL_Cache($wsdl->cacheUse, $wsdl->cacheMaxAge, $wsdl->cacheDir);
         $this->uri = $uri;
         $this->wsdl = &$wsdl;
         $this->docs = $docs;
@@ -1183,9 +1159,7 @@ class SOAP_WSDL_Parser extends SOAP_Base
         }
 
         if (!xml_parse($parser, $fd, true)) {
-            $detail = sprintf('XML error on line %d: %s',
-                              xml_get_current_line_number($parser),
-                              xml_error_string(xml_get_error_code($parser)));
+            $detail = sprintf('XML error on line %d: %s', xml_get_current_line_number($parser), xml_error_string(xml_get_error_code($parser)));
             return $this->_raiseSoapFault("Unable to parse WSDL file $uri\n$detail");
         }
         xml_parser_free($parser);
@@ -1215,569 +1189,568 @@ class SOAP_WSDL_Parser extends SOAP_Base
 
         // Find status, register data.
         switch ($this->status) {
-        case 'types':
-            // sect 2.2 wsdl:types
-            // children: xsd:schema
-            $parent_tag = '';
-            $stack_size = count($this->schema_stack);
-            if ($stack_size) {
-                $parent_tag = $this->schema_stack[$stack_size - 1];
-            }
-
-            switch ($qname->name) {
-            case 'schema':
-                // No parent should be in the stack.
-                if (!$parent_tag || $parent_tag == 'types') {
-                    if (array_key_exists('targetNamespace', $attrs)) {
-                        $this->schema = $this->wsdl->getNamespaceAttributeName($attrs['targetNamespace']);
-                    } else {
-                        $this->schema = $this->wsdl->getNamespaceAttributeName($this->wsdl->tns);
-                    }
-                    $this->wsdl->complexTypes[$this->schema] = array();
-                    $this->wsdl->elements[$this->schema] = array();
-                }
-                break;
-
-            case 'complexType':
-                if ($parent_tag == 'schema') {
-                    $this->currentComplexType = $attrs['name'];
-                    if (!isset($attrs['namespace'])) {
-                        $attrs['namespace'] = $this->schema;
-                    }
-                    $this->wsdl->complexTypes[$this->schema][$this->currentComplexType] = $attrs;
-                    if (array_key_exists('base', $attrs)) {
-                        $qn = new QName($attrs['base']);
-                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = $qn->name;
-                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['namespace'] = $qn->ns;
-                    } else {
-                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Struct';
-                    }
-                    $this->schemaStatus = 'complexType';
-                } else {
-                    $this->wsdl->elements[$this->schema][$this->currentElement]['complex'] = true;
-                }
-                break;
-
-            case 'element':
-                if (isset($attrs['type'])) {
-                    $qn = new QName($attrs['type']);
-                    $attrs['type'] = $qn->name;
-                    if ($qn->ns && array_key_exists($qn->ns, $this->wsdl->namespaces)) {
-                        $attrs['namespace'] = $qn->ns;
-                    }
+            case 'types':
+                // sect 2.2 wsdl:types
+                // children: xsd:schema
+                $parent_tag = '';
+                $stack_size = count($this->schema_stack);
+                if ($stack_size) {
+                    $parent_tag = $this->schema_stack[$stack_size - 1];
                 }
 
-                $parentElement = '';
-                $stack_size = count($this->schema_element_stack);
-                if ($stack_size > 0) {
-                    $parentElement = $this->schema_element_stack[$stack_size - 1];
-                }
-
-                if (isset($attrs['ref'])) {
-                    $qn = new QName($attrs['ref']);
-                    $this->currentElement = $qn->name;
-                } else {
-                    $this->currentElement = $attrs['name'];
-                }
-                $this->schema_element_stack[] = $this->currentElement;
-                if (!isset($attrs['namespace'])) {
-                    $attrs['namespace'] = $this->schema;
-                }
-
-                if ($parent_tag == 'schema') {
-                    $this->wsdl->elements[$this->schema][$this->currentElement] = $attrs;
-                    $this->wsdl->elements[$this->schema][$this->currentElement]['complex'] = false;
-                    $this->schemaStatus = 'element';
-                } elseif ($this->currentComplexType) {
-                    // we're inside a complexType
-                    if ((isset($this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['order']) &&
-                         $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['order'] == 'sequence')
-                        && $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] == 'Array') {
-                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['arrayType'] = isset($attrs['type']) ? $attrs['type'] : null;
-                    }
-                    $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['elements'][$this->currentElement] = $attrs;
-                } else {
-                    $this->wsdl->elements[$this->schema][$parentElement]['elements'][$this->currentElement] = $attrs;
-                }
-                break;
-
-            case 'complexContent':
-            case 'simpleContent':
-                break;
-
-            case 'extension':
-            case 'restriction':
-                if ($this->schemaStatus == 'complexType') {
-                    if (!empty($attrs['base'])) {
-                        $qn = new QName($attrs['base']);
-                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = $qn->name;
-
-                        // Types that extend from other types aren't
-                        // *of* those types. Reflect this by denoting
-                        // which type they extend. I'm leaving the
-                        // 'type' setting here since I'm not sure what
-                        // removing it might break at the moment.
-                        if ($qname->name == 'extension') {
-                            $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['extends'] = $qn->name;
+                switch ($qname->name) {
+                    case 'schema':
+                        // No parent should be in the stack.
+                        if (!$parent_tag || $parent_tag == 'types') {
+                            if (array_key_exists('targetNamespace', $attrs)) {
+                                $this->schema = $this->wsdl->getNamespaceAttributeName($attrs['targetNamespace']);
+                            } else {
+                                $this->schema = $this->wsdl->getNamespaceAttributeName($this->wsdl->tns);
+                            }
+                            $this->wsdl->complexTypes[$this->schema] = array();
+                            $this->wsdl->elements[$this->schema] = array();
                         }
-                    } else {
-                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Struct';
-                    }
-                }
-                break;
+                        break;
 
-            case 'sequence':
-                if ($this->schemaStatus == 'complexType') {
-                    $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['order'] = $qname->name;
-                    if (!isset($this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'])) {
-                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Array';
-                    }
-                }
-                break;
+                    case 'complexType':
+                        if ($parent_tag == 'schema') {
+                            $this->currentComplexType = $attrs['name'];
+                            if (!isset($attrs['namespace'])) {
+                                $attrs['namespace'] = $this->schema;
+                            }
+                            $this->wsdl->complexTypes[$this->schema][$this->currentComplexType] = $attrs;
+                            if (array_key_exists('base', $attrs)) {
+                                $qn = new QName($attrs['base']);
+                                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = $qn->name;
+                                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['namespace'] = $qn->ns;
+                            } else {
+                                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Struct';
+                            }
+                            $this->schemaStatus = 'complexType';
+                        } else {
+                            $this->wsdl->elements[$this->schema][$this->currentElement]['complex'] = true;
+                        }
+                        break;
 
-            case 'all':
-                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['order'] = $qname->name;
-                if (!isset($this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'])) {
-                    $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Struct';
-                }
-                break;
+                    case 'element':
+                        if (isset($attrs['type'])) {
+                            $qn = new QName($attrs['type']);
+                            $attrs['type'] = $qn->name;
+                            if ($qn->ns && array_key_exists($qn->ns, $this->wsdl->namespaces)) {
+                                $attrs['namespace'] = $qn->ns;
+                            }
+                        }
 
-            case 'choice':
-                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['order'] = $qname->name;
-                if (!isset($this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'])) {
-                    $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Array';
-                }
+                        $parentElement = '';
+                        $stack_size = count($this->schema_element_stack);
+                        if ($stack_size > 0) {
+                            $parentElement = $this->schema_element_stack[$stack_size - 1];
+                        }
 
-            case 'attribute':
-                if ($this->schemaStatus == 'complexType') {
-                    if (isset($attrs['name'])) {
-                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['attribute'][$attrs['name']] = $attrs;
-                    } else {
                         if (isset($attrs['ref'])) {
-                            $q = new QName($attrs['ref']);
-                            foreach ($attrs as $k => $v) {
-                                if ($k != 'ref' && strstr($k, $q->name)) {
-                                    $vq = new QName($v);
-                                    if ($q->name == 'arrayType') {
-                                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType][$q->name] = $vq->name. $vq->arrayInfo;
-                                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Array';
-                                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['namespace'] = $vq->ns;
-                                    } else {
-                                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType][$q->name] = $vq->name;
+                            $qn = new QName($attrs['ref']);
+                            $this->currentElement = $qn->name;
+                        } else {
+                            $this->currentElement = $attrs['name'];
+                        }
+                        $this->schema_element_stack[] = $this->currentElement;
+                        if (!isset($attrs['namespace'])) {
+                            $attrs['namespace'] = $this->schema;
+                        }
+
+                        if ($parent_tag == 'schema') {
+                            $this->wsdl->elements[$this->schema][$this->currentElement] = $attrs;
+                            $this->wsdl->elements[$this->schema][$this->currentElement]['complex'] = false;
+                            $this->schemaStatus = 'element';
+                        } elseif ($this->currentComplexType) {
+                            // we're inside a complexType
+                            if ((isset($this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['order']) &&
+                                    $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['order'] == 'sequence') && $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] == 'Array') {
+                                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['arrayType'] = isset($attrs['type']) ? $attrs['type'] : null;
+                            }
+                            $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['elements'][$this->currentElement] = $attrs;
+                        } else {
+                            $this->wsdl->elements[$this->schema][$parentElement]['elements'][$this->currentElement] = $attrs;
+                        }
+                        break;
+
+                    case 'complexContent':
+                    case 'simpleContent':
+                        break;
+
+                    case 'extension':
+                    case 'restriction':
+                        if ($this->schemaStatus == 'complexType') {
+                            if (!empty($attrs['base'])) {
+                                $qn = new QName($attrs['base']);
+                                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = $qn->name;
+
+                                // Types that extend from other types aren't
+                                // *of* those types. Reflect this by denoting
+                                // which type they extend. I'm leaving the
+                                // 'type' setting here since I'm not sure what
+                                // removing it might break at the moment.
+                                if ($qname->name == 'extension') {
+                                    $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['extends'] = $qn->name;
+                                }
+                            } else {
+                                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Struct';
+                            }
+                        }
+                        break;
+
+                    case 'sequence':
+                        if ($this->schemaStatus == 'complexType') {
+                            $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['order'] = $qname->name;
+                            if (!isset($this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'])) {
+                                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Array';
+                            }
+                        }
+                        break;
+
+                    case 'all':
+                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['order'] = $qname->name;
+                        if (!isset($this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'])) {
+                            $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Struct';
+                        }
+                        break;
+
+                    case 'choice':
+                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['order'] = $qname->name;
+                        if (!isset($this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'])) {
+                            $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Array';
+                        }
+
+                    case 'attribute':
+                        if ($this->schemaStatus == 'complexType') {
+                            if (isset($attrs['name'])) {
+                                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['attribute'][$attrs['name']] = $attrs;
+                            } else {
+                                if (isset($attrs['ref'])) {
+                                    $q = new QName($attrs['ref']);
+                                    foreach ($attrs as $k => $v) {
+                                        if ($k != 'ref' && strstr($k, $q->name)) {
+                                            $vq = new QName($v);
+                                            if ($q->name == 'arrayType') {
+                                                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType][$q->name] = $vq->name . $vq->arrayInfo;
+                                                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Array';
+                                                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['namespace'] = $vq->ns;
+                                            } else {
+                                                $this->wsdl->complexTypes[$this->schema][$this->currentComplexType][$q->name] = $vq->name;
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
+                        break;
                 }
-                break;
-            }
 
-            $this->schema_stack[] = $qname->name;
-            break;
-
-        case 'message':
-            // sect 2.3 wsdl:message child wsdl:part
-            switch ($qname->name) {
-            case 'part':
-                $qn = null;
-                if (isset($attrs['type'])) {
-                    $qn = new QName($attrs['type']);
-                } elseif (isset($attrs['element'])) {
-                    $qn = new QName($attrs['element']);
-                }
-                if ($qn) {
-                    $attrs['type'] = $qn->name;
-                    $attrs['namespace'] = $qn->ns;
-                }
-                $this->wsdl->messages[$this->currentMessage][$attrs['name']] = $attrs;
-                // error in wsdl
-
-            case 'documentation':
+                $this->schema_stack[] = $qname->name;
                 break;
 
-            default:
-                break;
-            }
-            break;
-
-        case 'portType':
-            // sect 2.4
-            switch ($qname->name) {
-            case 'operation':
-                // attributes: name
-                // children: wsdl:input wsdl:output wsdl:fault
-                $this->currentOperation = $attrs['name'];
-                $this->wsdl->portTypes[$this->currentPortType][$this->currentOperation] = $attrs;
-                break;
-
-            case 'input':
-            case 'output':
-            case 'fault':
-                // wsdl:input wsdl:output wsdl:fault
-                // attributes: name message parameterOrder(optional)
-                if ($this->currentOperation) {
-                    if (isset($this->wsdl->portTypes[$this->currentPortType][$this->currentOperation][$name])) {
-                        $this->wsdl->portTypes[$this->currentPortType][$this->currentOperation][$name] = array_merge($this->wsdl->portTypes[$this->currentPortType][$this->currentOperation][$name], $attrs);
-                    } else {
-                        $this->wsdl->portTypes[$this->currentPortType][$this->currentOperation][$name] = $attrs;
-                    }
-                    if (array_key_exists('message', $attrs)) {
-                        $qn = new QName($attrs['message']);
-                        $this->wsdl->portTypes[$this->currentPortType][$this->currentOperation][$name]['message'] = $qn->name;
-                        $this->wsdl->portTypes[$this->currentPortType][$this->currentOperation][$name]['namespace'] = $qn->ns;
-                    }
-                }
-                break;
-
-            case 'documentation':
-                break;
-
-            default:
-                break;
-            }
-            break;
-
-        case 'binding':
-            $ns = $qname->ns ? $this->wsdl->namespaces[$qname->ns] : SCHEMA_WSDL;
-            switch ($ns) {
-            case SCHEMA_SOAP:
-            case SCHEMA_SOAP12:
-                // this deals with wsdl section 3 soap binding
+            case 'message':
+                // sect 2.3 wsdl:message child wsdl:part
                 switch ($qname->name) {
-                case 'binding':
-                    // sect 3.3
-                    // soap:binding, attributes: transport(required), style(optional, default = document)
-                    // if style is missing, it is assumed to be 'document'
-                    if (!isset($attrs['style'])) {
-                        $attrs['style'] = 'document';
-                    }
-                    $this->wsdl->bindings[$this->currentBinding] = array_merge($this->wsdl->bindings[$this->currentBinding], $attrs);
-                    break;
+                    case 'part':
+                        $qn = null;
+                        if (isset($attrs['type'])) {
+                            $qn = new QName($attrs['type']);
+                        } elseif (isset($attrs['element'])) {
+                            $qn = new QName($attrs['element']);
+                        }
+                        if ($qn) {
+                            $attrs['type'] = $qn->name;
+                            $attrs['namespace'] = $qn->ns;
+                        }
+                        $this->wsdl->messages[$this->currentMessage][$attrs['name']] = $attrs;
+                    // error in wsdl
 
-                case 'operation':
-                    // sect 3.4
-                    // soap:operation, attributes: soapAction(required), style(optional, default = soap:binding:style)
-                    if (!isset($attrs['style'])) {
-                        $attrs['style'] = $this->wsdl->bindings[$this->currentBinding]['style'];
-                    }
-                    if (isset($this->wsdl->bindings[$this->currentBinding]['operations'][$this->currentOperation])) {
-                        $this->wsdl->bindings[$this->currentBinding]['operations'][$this->currentOperation] = array_merge($this->wsdl->bindings[$this->currentBinding]['operations'][$this->currentOperation], $attrs);
-                    } else {
-                        $this->wsdl->bindings[$this->currentBinding]['operations'][$this->currentOperation] = $attrs;
-                    }
-                    break;
+                    case 'documentation':
+                        break;
 
-                case 'body':
-                    // sect 3.5
-                    // soap:body attributes:
-                    // part - optional.  listed parts must appear in body, missing means all parts appear in body
-                    // use - required. encoded|literal
-                    // encodingStyle - optional.  space seperated list of encodings (uri's)
-                    $this->wsdl->bindings[$this->currentBinding]
-                                    ['operations'][$this->currentOperation][$this->opStatus] = $attrs;
-                    break;
-
-                case 'fault':
-                    // sect 3.6
-                    // soap:fault attributes: name use  encodingStyle namespace
-                    $this->wsdl->bindings[$this->currentBinding]
-                                    ['operations'][$this->currentOperation][$this->opStatus] = $attrs;
-                    break;
-
-                case 'header':
-                    // sect 3.7
-                    // soap:header attributes: message part use encodingStyle namespace
-                    $this->wsdl->bindings[$this->currentBinding]
-                                    ['operations'][$this->currentOperation][$this->opStatus]['headers'][] = $attrs;
-                    break;
-
-                case 'headerfault':
-                    // sect 3.7
-                    // soap:header attributes: message part use encodingStyle namespace
-                    $header = count($this->wsdl->bindings[$this->currentBinding]
-                                    ['operations'][$this->currentOperation][$this->opStatus]['headers'])-1;
-                    $this->wsdl->bindings[$this->currentBinding]
-                                    ['operations'][$this->currentOperation][$this->opStatus]['headers'][$header]['fault'] = $attrs;
-                    break;
-
-                case 'documentation':
-                    break;
-
-                default:
-                    // error!  not a valid element inside binding
-                    break;
+                    default:
+                        break;
                 }
                 break;
 
-            case SCHEMA_WSDL:
-                // XXX verify correct namespace
-                // for now, default is the 'wsdl' namespace
-                // other possible namespaces include smtp, http, etc. for alternate bindings
+            case 'portType':
+                // sect 2.4
                 switch ($qname->name) {
-                case 'operation':
-                    // sect 2.5
-                    // wsdl:operation attributes: name
-                    $this->currentOperation = $attrs['name'];
-                    break;
+                    case 'operation':
+                        // attributes: name
+                        // children: wsdl:input wsdl:output wsdl:fault
+                        $this->currentOperation = $attrs['name'];
+                        $this->wsdl->portTypes[$this->currentPortType][$this->currentOperation] = $attrs;
+                        break;
 
-                case 'output':
-                case 'input':
-                case 'fault':
-                    // sect 2.5
-                    // wsdl:input attributes: name
-                    $this->opStatus = $qname->name;
-                    break;
+                    case 'input':
+                    case 'output':
+                    case 'fault':
+                        // wsdl:input wsdl:output wsdl:fault
+                        // attributes: name message parameterOrder(optional)
+                        if ($this->currentOperation) {
+                            if (isset($this->wsdl->portTypes[$this->currentPortType][$this->currentOperation][$name])) {
+                                $this->wsdl->portTypes[$this->currentPortType][$this->currentOperation][$name] = array_merge($this->wsdl->portTypes[$this->currentPortType][$this->currentOperation][$name], $attrs);
+                            } else {
+                                $this->wsdl->portTypes[$this->currentPortType][$this->currentOperation][$name] = $attrs;
+                            }
+                            if (array_key_exists('message', $attrs)) {
+                                $qn = new QName($attrs['message']);
+                                $this->wsdl->portTypes[$this->currentPortType][$this->currentOperation][$name]['message'] = $qn->name;
+                                $this->wsdl->portTypes[$this->currentPortType][$this->currentOperation][$name]['namespace'] = $qn->ns;
+                            }
+                        }
+                        break;
 
-                case 'documentation':
-                    break;
+                    case 'documentation':
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
                 }
                 break;
 
-            case SCHEMA_WSDL_HTTP:
-                switch ($qname->name) {
-                case 'binding':
-                    // sect 4.4
-                    // http:binding attributes: verb
-                    // parent: wsdl:binding
-                    $this->wsdl->bindings[$this->currentBinding] = array_merge($this->wsdl->bindings[$this->currentBinding], $attrs);
-                    break;
-
-                case 'operation':
-                    // sect 4.5
-                    // http:operation attributes: location
-                    // parent: wsdl:operation
-                    $this->wsdl->bindings[$this->currentBinding]['operations']
-                                                        [$this->currentOperation] = $attrs;
-                    break;
-
-                case 'urlEncoded':
-                    // sect 4.6
-                    // http:urlEncoded attributes: location
-                    // parent: wsdl:input wsdl:output etc.
-                    $this->wsdl->bindings[$this->currentBinding]['operations'][$this->opStatus]
-                                                        [$this->currentOperation]['uri'] = 'urlEncoded';
-                    break;
-
-                case 'urlReplacement':
-                    // sect 4.7
-                    // http:urlReplacement attributes: location
-                    // parent: wsdl:input wsdl:output etc.
-                    $this->wsdl->bindings[$this->currentBinding]['operations'][$this->opStatus]
-                                                        [$this->currentOperation]['uri'] = 'urlReplacement';
-                    break;
-
-                case 'documentation':
-                    break;
-
-                default:
-                    // error
-                    break;
-                }
-
-            case SCHEMA_MIME:
-                // sect 5
-                // all mime parts are children of wsdl:input, wsdl:output, etc.
-                // unsuported as of yet
-                switch ($qname->name) {
-                case 'content':
-                    // sect 5.3 mime:content
-                    // <mime:content part="nmtoken"? type="string"?/>
-                    // part attribute only required if content is child of multipart related,
-                    //        it contains the name of the part
-                    // type attribute contains the mime type
-                case 'multipartRelated':
-                    // sect 5.4 mime:multipartRelated
-                case 'part':
-                case 'mimeXml':
-                    // sect 5.6 mime:mimeXml
-                    // <mime:mimeXml part="nmtoken"?/>
-                    //
-                case 'documentation':
-                    break;
-
-                default:
-                    // error
-                    break;
-                }
-
-            case SCHEMA_DIME:
-                // DIME is defined in:
-                // http://gotdotnet.com/team/xml_wsspecs/dime/WSDL-Extension-for-DIME.htm
-                // all DIME parts are children of wsdl:input, wsdl:output, etc.
-                // unsuported as of yet
-                switch ($qname->name) {
-                case 'message':
-                    // sect 4.1 dime:message
-                    // appears in binding section
-                    $this->wsdl->bindings[$this->currentBinding]['dime'] = $attrs;
-                    break;
-
-                default:
-                    break;
-                }
-
-            default:
-                break;
-            }
-            break;
-
-        case 'service':
-            $ns = $qname->ns ? $this->wsdl->namespaces[$qname->ns] : SCHEMA_WSDL;
-
-            switch ($qname->name) {
-            case 'port':
-                // sect 2.6 wsdl:port attributes: name binding
-                $this->currentPort = $attrs['name'];
-                $this->wsdl->services[$this->currentService]['ports'][$this->currentPort] = $attrs;
-                // XXX hack to deal with binding namespaces
-                $qn = new QName($attrs['binding']);
-                $this->wsdl->services[$this->currentService]['ports'][$this->currentPort]['binding'] = $qn->name;
-                $this->wsdl->services[$this->currentService]['ports'][$this->currentPort]['namespace'] = $qn->ns;
-                break;
-
-            case 'address':
-                $this->wsdl->services[$this->currentService]['ports'][$this->currentPort]['address'] = $attrs;
-                // what TYPE of port is it?  SOAP or HTTP?
+            case 'binding':
                 $ns = $qname->ns ? $this->wsdl->namespaces[$qname->ns] : SCHEMA_WSDL;
                 switch ($ns) {
-                case SCHEMA_WSDL_HTTP:
-                    $this->wsdl->services[$this->currentService]['ports'][$this->currentPort]['type']='http';
-                    break;
+                    case SCHEMA_SOAP:
+                    case SCHEMA_SOAP12:
+                        // this deals with wsdl section 3 soap binding
+                        switch ($qname->name) {
+                            case 'binding':
+                                // sect 3.3
+                                // soap:binding, attributes: transport(required), style(optional, default = document)
+                                // if style is missing, it is assumed to be 'document'
+                                if (!isset($attrs['style'])) {
+                                    $attrs['style'] = 'document';
+                                }
+                                $this->wsdl->bindings[$this->currentBinding] = array_merge($this->wsdl->bindings[$this->currentBinding], $attrs);
+                                break;
 
-                case SCHEMA_SOAP:
-                    $this->wsdl->services[$this->currentService]['ports'][$this->currentPort]['type']='soap';
-                    break;
+                            case 'operation':
+                                // sect 3.4
+                                // soap:operation, attributes: soapAction(required), style(optional, default = soap:binding:style)
+                                if (!isset($attrs['style'])) {
+                                    $attrs['style'] = $this->wsdl->bindings[$this->currentBinding]['style'];
+                                }
+                                if (isset($this->wsdl->bindings[$this->currentBinding]['operations'][$this->currentOperation])) {
+                                    $this->wsdl->bindings[$this->currentBinding]['operations'][$this->currentOperation] = array_merge($this->wsdl->bindings[$this->currentBinding]['operations'][$this->currentOperation], $attrs);
+                                } else {
+                                    $this->wsdl->bindings[$this->currentBinding]['operations'][$this->currentOperation] = $attrs;
+                                }
+                                break;
 
-                default:
-                    // Shouldn't happen, we'll assume SOAP.
-                    $this->wsdl->services[$this->currentService]['ports'][$this->currentPort]['type']='soap';
+                            case 'body':
+                                // sect 3.5
+                                // soap:body attributes:
+                                // part - optional.  listed parts must appear in body, missing means all parts appear in body
+                                // use - required. encoded|literal
+                                // encodingStyle - optional.  space seperated list of encodings (uri's)
+                                $this->wsdl->bindings[$this->currentBinding]
+                                        ['operations'][$this->currentOperation][$this->opStatus] = $attrs;
+                                break;
+
+                            case 'fault':
+                                // sect 3.6
+                                // soap:fault attributes: name use  encodingStyle namespace
+                                $this->wsdl->bindings[$this->currentBinding]
+                                        ['operations'][$this->currentOperation][$this->opStatus] = $attrs;
+                                break;
+
+                            case 'header':
+                                // sect 3.7
+                                // soap:header attributes: message part use encodingStyle namespace
+                                $this->wsdl->bindings[$this->currentBinding]
+                                        ['operations'][$this->currentOperation][$this->opStatus]['headers'][] = $attrs;
+                                break;
+
+                            case 'headerfault':
+                                // sect 3.7
+                                // soap:header attributes: message part use encodingStyle namespace
+                                $header = count($this->wsdl->bindings[$this->currentBinding]
+                                                ['operations'][$this->currentOperation][$this->opStatus]['headers']) - 1;
+                                $this->wsdl->bindings[$this->currentBinding]
+                                        ['operations'][$this->currentOperation][$this->opStatus]['headers'][$header]['fault'] = $attrs;
+                                break;
+
+                            case 'documentation':
+                                break;
+
+                            default:
+                                // error!  not a valid element inside binding
+                                break;
+                        }
+                        break;
+
+                    case SCHEMA_WSDL:
+                        // XXX verify correct namespace
+                        // for now, default is the 'wsdl' namespace
+                        // other possible namespaces include smtp, http, etc. for alternate bindings
+                        switch ($qname->name) {
+                            case 'operation':
+                                // sect 2.5
+                                // wsdl:operation attributes: name
+                                $this->currentOperation = $attrs['name'];
+                                break;
+
+                            case 'output':
+                            case 'input':
+                            case 'fault':
+                                // sect 2.5
+                                // wsdl:input attributes: name
+                                $this->opStatus = $qname->name;
+                                break;
+
+                            case 'documentation':
+                                break;
+
+                            default:
+                                break;
+                        }
+                        break;
+
+                    case SCHEMA_WSDL_HTTP:
+                        switch ($qname->name) {
+                            case 'binding':
+                                // sect 4.4
+                                // http:binding attributes: verb
+                                // parent: wsdl:binding
+                                $this->wsdl->bindings[$this->currentBinding] = array_merge($this->wsdl->bindings[$this->currentBinding], $attrs);
+                                break;
+
+                            case 'operation':
+                                // sect 4.5
+                                // http:operation attributes: location
+                                // parent: wsdl:operation
+                                $this->wsdl->bindings[$this->currentBinding]['operations']
+                                        [$this->currentOperation] = $attrs;
+                                break;
+
+                            case 'urlEncoded':
+                                // sect 4.6
+                                // http:urlEncoded attributes: location
+                                // parent: wsdl:input wsdl:output etc.
+                                $this->wsdl->bindings[$this->currentBinding]['operations'][$this->opStatus]
+                                        [$this->currentOperation]['uri'] = 'urlEncoded';
+                                break;
+
+                            case 'urlReplacement':
+                                // sect 4.7
+                                // http:urlReplacement attributes: location
+                                // parent: wsdl:input wsdl:output etc.
+                                $this->wsdl->bindings[$this->currentBinding]['operations'][$this->opStatus]
+                                        [$this->currentOperation]['uri'] = 'urlReplacement';
+                                break;
+
+                            case 'documentation':
+                                break;
+
+                            default:
+                                // error
+                                break;
+                        }
+
+                    case SCHEMA_MIME:
+                        // sect 5
+                        // all mime parts are children of wsdl:input, wsdl:output, etc.
+                        // unsuported as of yet
+                        switch ($qname->name) {
+                            case 'content':
+                            // sect 5.3 mime:content
+                            // <mime:content part="nmtoken"? type="string"?/>
+                            // part attribute only required if content is child of multipart related,
+                            //        it contains the name of the part
+                            // type attribute contains the mime type
+                            case 'multipartRelated':
+                            // sect 5.4 mime:multipartRelated
+                            case 'part':
+                            case 'mimeXml':
+                            // sect 5.6 mime:mimeXml
+                            // <mime:mimeXml part="nmtoken"?/>
+                            //
+                case 'documentation':
+                                break;
+
+                            default:
+                                // error
+                                break;
+                        }
+
+                    case SCHEMA_DIME:
+                        // DIME is defined in:
+                        // http://gotdotnet.com/team/xml_wsspecs/dime/WSDL-Extension-for-DIME.htm
+                        // all DIME parts are children of wsdl:input, wsdl:output, etc.
+                        // unsuported as of yet
+                        switch ($qname->name) {
+                            case 'message':
+                                // sect 4.1 dime:message
+                                // appears in binding section
+                                $this->wsdl->bindings[$this->currentBinding]['dime'] = $attrs;
+                                break;
+
+                            default:
+                                break;
+                        }
+
+                    default:
+                        break;
                 }
-
                 break;
 
-            case 'documentation':
-                break;
+            case 'service':
+                $ns = $qname->ns ? $this->wsdl->namespaces[$qname->ns] : SCHEMA_WSDL;
 
-            default:
-                break;
-            }
+                switch ($qname->name) {
+                    case 'port':
+                        // sect 2.6 wsdl:port attributes: name binding
+                        $this->currentPort = $attrs['name'];
+                        $this->wsdl->services[$this->currentService]['ports'][$this->currentPort] = $attrs;
+                        // XXX hack to deal with binding namespaces
+                        $qn = new QName($attrs['binding']);
+                        $this->wsdl->services[$this->currentService]['ports'][$this->currentPort]['binding'] = $qn->name;
+                        $this->wsdl->services[$this->currentService]['ports'][$this->currentPort]['namespace'] = $qn->ns;
+                        break;
+
+                    case 'address':
+                        $this->wsdl->services[$this->currentService]['ports'][$this->currentPort]['address'] = $attrs;
+                        // what TYPE of port is it?  SOAP or HTTP?
+                        $ns = $qname->ns ? $this->wsdl->namespaces[$qname->ns] : SCHEMA_WSDL;
+                        switch ($ns) {
+                            case SCHEMA_WSDL_HTTP:
+                                $this->wsdl->services[$this->currentService]['ports'][$this->currentPort]['type'] = 'http';
+                                break;
+
+                            case SCHEMA_SOAP:
+                                $this->wsdl->services[$this->currentService]['ports'][$this->currentPort]['type'] = 'soap';
+                                break;
+
+                            default:
+                                // Shouldn't happen, we'll assume SOAP.
+                                $this->wsdl->services[$this->currentService]['ports'][$this->currentPort]['type'] = 'soap';
+                        }
+
+                        break;
+
+                    case 'documentation':
+                        break;
+
+                    default:
+                        break;
+                }
         }
 
         // Top level elements found under wsdl:definitions.
         switch ($qname->name) {
-        case 'import':
-            // sect 2.1.1 wsdl:import attributes: namespace location
-            if ((isset($attrs['location']) || isset($attrs['schemaLocation'])) &&
-                !isset($this->wsdl->imports[$attrs['namespace']])) {
-                $uri = isset($attrs['location']) ? $attrs['location'] : $attrs['schemaLocation'];
-                $location = @parse_url($uri);
-                if (!isset($location['scheme'])) {
-                    $base = @parse_url($this->uri);
-                    $uri = $this->mergeUrl($base, $uri);
-                }
+            case 'import':
+                // sect 2.1.1 wsdl:import attributes: namespace location
+                if ((isset($attrs['location']) || isset($attrs['schemaLocation'])) &&
+                        !isset($this->wsdl->imports[$attrs['namespace']])) {
+                    $uri = isset($attrs['location']) ? $attrs['location'] : $attrs['schemaLocation'];
+                    $location = @parse_url($uri);
+                    if (!isset($location['scheme'])) {
+                        $base = @parse_url($this->uri);
+                        $uri = $this->mergeUrl($base, $uri);
+                    }
 
-                $this->wsdl->imports[$attrs['namespace']] = $attrs;
-                $import_parser_class = get_class($this);
-                $import_parser = new $import_parser_class($uri, $this->wsdl, $this->docs);
-                if ($import_parser->fault) {
-                    unset($this->wsdl->imports[$attrs['namespace']]);
-                    return false;
+                    $this->wsdl->imports[$attrs['namespace']] = $attrs;
+                    $import_parser_class = get_class($this);
+                    $import_parser = new $import_parser_class($uri, $this->wsdl, $this->docs);
+                    if ($import_parser->fault) {
+                        unset($this->wsdl->imports[$attrs['namespace']]);
+                        return false;
+                    }
+                    $this->currentImport = $attrs['namespace'];
                 }
-                $this->currentImport = $attrs['namespace'];
-            }
             // Continue on to the 'types' case - lack of break; is
             // intentional.
 
-        case 'types':
-            // sect 2.2 wsdl:types
-            $this->status = 'types';
-            break;
-
-        case 'schema':
-            // We can hit this at the top level if we've been asked to
-            // import an XSD file.
-            if (!empty($attrs['targetNamespace'])) {
-                $this->schema = $this->wsdl->getNamespaceAttributeName($attrs['targetNamespace']);
-            } else {
-                $this->schema = $this->wsdl->getNamespaceAttributeName($this->wsdl->tns);
-            }
-            $this->wsdl->complexTypes[$this->schema] = array();
-            $this->wsdl->elements[$this->schema] = array();
-            $this->schema_stack[] = $qname->name;
-            $this->status = 'types';
-            break;
-
-        case 'message':
-            // sect 2.3 wsdl:message attributes: name children:wsdl:part
-            $this->status = 'message';
-            if (isset($attrs['name'])) {
-                $this->currentMessage = $attrs['name'];
-                $this->wsdl->messages[$this->currentMessage] = array();
-            }
-            break;
-
-        case 'portType':
-            // sect 2.4 wsdl:portType
-            // attributes: name
-            // children: wsdl:operation
-            $this->status = 'portType';
-            $this->currentPortType = $attrs['name'];
-            $this->wsdl->portTypes[$this->currentPortType] = array();
-            break;
-
-        case 'binding':
-            // sect 2.5 wsdl:binding attributes: name type
-            // children: wsdl:operation soap:binding http:binding
-            if ($qname->ns && $qname->ns != $this->tns) {
+            case 'types':
+                // sect 2.2 wsdl:types
+                $this->status = 'types';
                 break;
-            }
-            $this->status = 'binding';
-            $this->currentBinding = $attrs['name'];
-            $qn = new QName($attrs['type']);
-            $this->wsdl->bindings[$this->currentBinding]['type'] = $qn->name;
-            $this->wsdl->bindings[$this->currentBinding]['namespace'] = $qn->ns;
-            break;
 
-        case 'service':
-            // sect 2.7 wsdl:service attributes: name children: ports
-            $this->currentService = $attrs['name'];
-            $this->wsdl->services[$this->currentService]['ports'] = array();
-            $this->status = 'service';
-            break;
+            case 'schema':
+                // We can hit this at the top level if we've been asked to
+                // import an XSD file.
+                if (!empty($attrs['targetNamespace'])) {
+                    $this->schema = $this->wsdl->getNamespaceAttributeName($attrs['targetNamespace']);
+                } else {
+                    $this->schema = $this->wsdl->getNamespaceAttributeName($this->wsdl->tns);
+                }
+                $this->wsdl->complexTypes[$this->schema] = array();
+                $this->wsdl->elements[$this->schema] = array();
+                $this->schema_stack[] = $qname->name;
+                $this->status = 'types';
+                break;
 
-        case 'definitions':
-            // sec 2.1 wsdl:definitions
-            // attributes: name targetNamespace xmlns:*
-            // children: wsdl:import wsdl:types wsdl:message wsdl:portType wsdl:binding wsdl:service
-            $this->wsdl->definition = $attrs;
-            foreach ($attrs as $key => $value) {
-                if (strstr($key, 'xmlns:') !== false) {
-                    $qn = new QName($key);
-                    // XXX need to refactor ns handling.
-                    $this->wsdl->namespaces[$qn->name] = $value;
-                    $this->wsdl->ns[$value] = $qn->name;
-                    if ($key == 'targetNamespace' ||
-                        strcasecmp($value,SOAP_SCHEMA) == 0) {
-                        $this->soapns[] = $qn->name;
-                    } else {
-                        if (in_array($value, $this->_XMLSchema)) {
-                            $this->wsdl->xsd = $value;
+            case 'message':
+                // sect 2.3 wsdl:message attributes: name children:wsdl:part
+                $this->status = 'message';
+                if (isset($attrs['name'])) {
+                    $this->currentMessage = $attrs['name'];
+                    $this->wsdl->messages[$this->currentMessage] = array();
+                }
+                break;
+
+            case 'portType':
+                // sect 2.4 wsdl:portType
+                // attributes: name
+                // children: wsdl:operation
+                $this->status = 'portType';
+                $this->currentPortType = $attrs['name'];
+                $this->wsdl->portTypes[$this->currentPortType] = array();
+                break;
+
+            case 'binding':
+                // sect 2.5 wsdl:binding attributes: name type
+                // children: wsdl:operation soap:binding http:binding
+                if ($qname->ns && $qname->ns != $this->tns) {
+                    break;
+                }
+                $this->status = 'binding';
+                $this->currentBinding = $attrs['name'];
+                $qn = new QName($attrs['type']);
+                $this->wsdl->bindings[$this->currentBinding]['type'] = $qn->name;
+                $this->wsdl->bindings[$this->currentBinding]['namespace'] = $qn->ns;
+                break;
+
+            case 'service':
+                // sect 2.7 wsdl:service attributes: name children: ports
+                $this->currentService = $attrs['name'];
+                $this->wsdl->services[$this->currentService]['ports'] = array();
+                $this->status = 'service';
+                break;
+
+            case 'definitions':
+                // sec 2.1 wsdl:definitions
+                // attributes: name targetNamespace xmlns:*
+                // children: wsdl:import wsdl:types wsdl:message wsdl:portType wsdl:binding wsdl:service
+                $this->wsdl->definition = $attrs;
+                foreach ($attrs as $key => $value) {
+                    if (strstr($key, 'xmlns:') !== false) {
+                        $qn = new QName($key);
+                        // XXX need to refactor ns handling.
+                        $this->wsdl->namespaces[$qn->name] = $value;
+                        $this->wsdl->ns[$value] = $qn->name;
+                        if ($key == 'targetNamespace' ||
+                                strcasecmp($value, SOAP_SCHEMA) == 0) {
+                            $this->soapns[] = $qn->name;
+                        } else {
+                            if (in_array($value, $this->_XMLSchema)) {
+                                $this->wsdl->xsd = $value;
+                            }
                         }
                     }
                 }
-            }
-            if (isset($ns) && $ns) {
-                $namespace = 'xmlns:' . $ns;
-                if (!$this->wsdl->definition[$namespace]) {
-                    return $this->_raiseSoapFault("parse error, no namespace for $namespace", $this->uri);
+                if (isset($ns) && $ns) {
+                    $namespace = 'xmlns:' . $ns;
+                    if (!$this->wsdl->definition[$namespace]) {
+                        return $this->_raiseSoapFault("parse error, no namespace for $namespace", $this->uri);
+                    }
+                    $this->tns = $ns;
                 }
-                $this->tns = $ns;
-            }
-            break;
+                break;
         }
     }
 
@@ -1804,11 +1777,8 @@ class SOAP_WSDL_Parser extends SOAP_Base
             if (count($this->schema_stack) <= 1) {
                 /* Correct the type for sequences with multiple
                  * elements. */
-                if (isset($this->currentComplexType) && isset($this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'])
-                    && $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] == 'Array'
-                    && array_key_exists('elements', $this->wsdl->complexTypes[$this->schema][$this->currentComplexType])
-                    && count($this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['elements']) > 1) {
-                        $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Struct';
+                if (isset($this->currentComplexType) && isset($this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type']) && $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] == 'Array' && array_key_exists('elements', $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]) && count($this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['elements']) > 1) {
+                    $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['type'] = 'Struct';
                 }
             }
             if (stristr($name, 'complexType')) {
@@ -1841,35 +1811,35 @@ class SOAP_WSDL_Parser extends SOAP_Base
             }
 
             switch ($this->status) {
-            case 'service':
-                $ptr =& $this->wsdl->services[$this->currentService];
-                break;
+                case 'service':
+                    $ptr = & $this->wsdl->services[$this->currentService];
+                    break;
 
-            case 'portType':
-                $ptr =& $this->wsdl->portTypes[$this->currentPortType][$this->currentOperation];
-                break;
+                case 'portType':
+                    $ptr = & $this->wsdl->portTypes[$this->currentPortType][$this->currentOperation];
+                    break;
 
-            case 'binding':
-                $ptr =& $this->wsdl->bindings[$this->currentBinding];
-                break;
+                case 'binding':
+                    $ptr = & $this->wsdl->bindings[$this->currentBinding];
+                    break;
 
-            case 'message':
-                $ptr =& $this->wsdl->messages[$this->currentMessage];
-                break;
+                case 'message':
+                    $ptr = & $this->wsdl->messages[$this->currentMessage];
+                    break;
 
-            case 'operation':
-                break;
+                case 'operation':
+                    break;
 
-            case 'types':
-                if (isset($this->currentComplexType) &&
-                    isset($this->wsdl->complexTypes[$this->schema][$this->currentComplexType])) {
-                    if ($this->currentElement) {
-                        $ptr =& $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['elements'][$this->currentElement];
-                    } else {
-                        $ptr =& $this->wsdl->complexTypes[$this->schema][$this->currentComplexType];
+                case 'types':
+                    if (isset($this->currentComplexType) &&
+                            isset($this->wsdl->complexTypes[$this->schema][$this->currentComplexType])) {
+                        if ($this->currentElement) {
+                            $ptr = & $this->wsdl->complexTypes[$this->schema][$this->currentComplexType]['elements'][$this->currentElement];
+                        } else {
+                            $ptr = & $this->wsdl->complexTypes[$this->schema][$this->currentComplexType];
+                        }
                     }
-                }
-                break;
+                    break;
             }
 
             if (isset($ptr)) {
@@ -1960,6 +1930,7 @@ class SOAP_WSDL_Parser extends SOAP_Base
  */
 class SOAP_WSDL_ObjectParser extends SOAP_Base
 {
+
     /**
      * Target namespace for the WSDL document will have the following
      * prefix.
@@ -1984,8 +1955,7 @@ class SOAP_WSDL_ObjectParser extends SOAP_Base
      * @param string $service_desc     Optional description of the WSDL
      *                                 <service>.
      */
-    function SOAP_WSDL_ObjectParser($objects, &$wsdl, $targetNamespace,
-                                    $service_name, $service_desc = '')
+    function SOAP_WSDL_ObjectParser($objects, &$wsdl, $targetNamespace, $service_name, $service_desc = '')
     {
         parent::SOAP_Base('WSDLOBJECTPARSER');
 
@@ -2031,7 +2001,6 @@ class SOAP_WSDL_ObjectParser extends SOAP_Base
         $this->wsdl->namespaces[$this->tnsPrefix] = 'urn:' . $service_name;                 // Target namespace
         $this->wsdl->namespaces['xsd'] = array_search('xsd', $this->_namespaces);           // XML Schema
         $this->wsdl->namespaces[SOAP_BASE::SOAPENCPrefix()] = array_search(SOAP_BASE::SOAPENCPrefix(), $this->_namespaces); // SOAP types
-
         // XXX Refactor $namespace/$ns for Shane :-)
         unset($this->wsdl->ns['urn:' . $service_name]);
         $this->wsdl->ns += array_flip($this->wsdl->namespaces);
@@ -2052,7 +2021,7 @@ class SOAP_WSDL_ObjectParser extends SOAP_Base
     function _parse($object, $schemaNamespace, $service_name)
     {
         // Create namespace prefix for the schema
-        list($schPrefix,) = $this->_getTypeNs('{' . $schemaNamespace . '}');
+        list($schPrefix, ) = $this->_getTypeNs('{' . $schemaNamespace . '}');
 
         // Parse all the types defined by the object in whatever
         // schema language we are using (currently __typedef arrays)
@@ -2063,15 +2032,14 @@ class SOAP_WSDL_ObjectParser extends SOAP_Base
 
             // Create type definition
             $this->wsdl->complexTypes[$schPrefix][$typeName] = array('name' => $typeName);
-            $thisType =& $this->wsdl->complexTypes[$schPrefix][$typeName];
+            $thisType = & $this->wsdl->complexTypes[$schPrefix][$typeName];
 
             // According to Dmitri's documentation, __typedef comes in two
             // flavors:
             // Array = array(array("item" => "value"))
             // Struct = array("item1" => "value1", "item2" => "value2", ...)
             if (is_array($typeValue)) {
-                if (is_array(current($typeValue)) && count($typeValue) == 1
-                    && count(current($typeValue)) == 1) {
+                if (is_array(current($typeValue)) && count($typeValue) == 1 && count(current($typeValue)) == 1) {
                     // It's an array
                     $thisType['type'] = 'Array';
                     $nsType = current(current($typeValue));
@@ -2116,23 +2084,23 @@ class SOAP_WSDL_ObjectParser extends SOAP_Base
                 unset($thisMessage);
 
                 switch ($messageType) {
-                case 'in':
-                    $this->wsdl->messages[$operationName . 'Request'] = array();
-                    $thisMessage =& $this->wsdl->messages[$operationName . 'Request'];
-                    break;
+                    case 'in':
+                        $this->wsdl->messages[$operationName . 'Request'] = array();
+                        $thisMessage = & $this->wsdl->messages[$operationName . 'Request'];
+                        break;
 
-                case 'out':
-                    $this->wsdl->messages[$operationName . 'Response'] = array();
-                    $thisMessage =& $this->wsdl->messages[$operationName . 'Response'];
-                    break;
+                    case 'out':
+                        $this->wsdl->messages[$operationName . 'Response'] = array();
+                        $thisMessage = & $this->wsdl->messages[$operationName . 'Response'];
+                        break;
 
-                case 'alias':
-                    // Do nothing
-                    break;
+                    case 'alias':
+                        // Do nothing
+                        break;
 
-                default:
-                    // Error condition
-                    break;
+                    default:
+                        // Error condition
+                        break;
                 }
 
                 if (isset($thisMessage)) {
@@ -2143,7 +2111,7 @@ class SOAP_WSDL_ObjectParser extends SOAP_Base
                             'name' => $partName,
                             'type' => $typeName,
                             'namespace' => $nsPrefix
-                            );
+                        );
                     }
                 }
             }
@@ -2156,24 +2124,24 @@ class SOAP_WSDL_ObjectParser extends SOAP_Base
         if (!isset($this->wsdl->portTypes[$service_name . 'Port'])) {
             $this->wsdl->portTypes[$service_name . 'Port'] = array();
         }
-        $thisPortType =& $this->wsdl->portTypes[$service_name . 'Port'];
+        $thisPortType = & $this->wsdl->portTypes[$service_name . 'Port'];
 
         foreach ($object->__dispatch_map as $operationName => $messages) {
             $thisPortType[$operationName] = array('name' => $operationName);
 
             foreach ($messages as $messageType => $messageParts) {
                 switch ($messageType) {
-                case 'in':
-                    $thisPortType[$operationName]['input'] = array(
-                        'message' => $operationName . 'Request',
-                        'namespace' => $this->tnsPrefix);
-                    break;
+                    case 'in':
+                        $thisPortType[$operationName]['input'] = array(
+                            'message' => $operationName . 'Request',
+                            'namespace' => $this->tnsPrefix);
+                        break;
 
-                case 'out':
-                    $thisPortType[$operationName]['output'] = array(
-                        'message' => $operationName . 'Response',
-                        'namespace' => $this->tnsPrefix);
-                    break;
+                    case 'out':
+                        $thisPortType[$operationName]['output'] = array(
+                            'message' => $operationName . 'Response',
+                            'namespace' => $this->tnsPrefix);
+                        break;
                 }
             }
         }
@@ -2193,8 +2161,7 @@ class SOAP_WSDL_ObjectParser extends SOAP_Base
      * @param string $service_desc     Optional description of the WSDL
      *                                 <service>.
      */
-    function _generateBindingsAndServices($schemaNamespace, $service_name,
-                                          $service_desc = '')
+    function _generateBindingsAndServices($schemaNamespace, $service_name, $service_desc = '')
     {
         // Populate tree with bindings information
         // XXX Current implementation only supports one binding that
@@ -2202,12 +2169,12 @@ class SOAP_WSDL_ObjectParser extends SOAP_Base
         // XXX Is this the correct use of $schemaNamespace here?
         // *** <wsdl:binding> ***
         $this->wsdl->bindings[$service_name . 'Binding'] = array(
-                'type' => $service_name . 'Port',
-                'namespace' => $this->tnsPrefix,
-                'style' => 'rpc',
-                'transport' => SCHEMA_SOAP_HTTP,
-                'operations' => array());
-        $thisBinding =& $this->wsdl->bindings[$service_name . 'Binding'];
+            'type' => $service_name . 'Port',
+            'namespace' => $this->tnsPrefix,
+            'style' => 'rpc',
+            'transport' => SCHEMA_SOAP_HTTP,
+            'operations' => array());
+        $thisBinding = & $this->wsdl->bindings[$service_name . 'Binding'];
 
         foreach ($this->wsdl->portTypes[$service_name . 'Port'] as $operationName => $operationData) {
             $thisBinding['operations'][$operationName] = array(
@@ -2217,9 +2184,9 @@ class SOAP_WSDL_ObjectParser extends SOAP_Base
             foreach (array('input', 'output') as $messageType)
                 if (isset($operationData[$messageType])) {
                     $thisBinding['operations'][$operationName][$messageType] = array(
-                            'use' => 'encoded',
-                            'namespace' => $schemaNamespace,
-                            'encodingStyle' => SOAP_SCHEMA_ENCODING);
+                        'use' => 'encoded',
+                        'namespace' => $schemaNamespace,
+                        'encodingStyle' => SOAP_SCHEMA_ENCODING);
                 }
         }
 
@@ -2229,20 +2196,20 @@ class SOAP_WSDL_ObjectParser extends SOAP_Base
         // *** <wsdl:service> ***
 
         $this->wsdl->services[$service_name . 'Service'] = array('ports' => array());
-        $thisService =& $this->wsdl->services[$service_name . 'Service']['ports'];
+        $thisService = & $this->wsdl->services[$service_name . 'Service']['ports'];
         $https = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) ||
-            getenv('SSL_PROTOCOL_VERSION');
+                getenv('SSL_PROTOCOL_VERSION');
 
         foreach ($this->wsdl->bindings as $bindingName => $bindingData) {
             $thisService[$bindingData['type']] = array(
-                    'name' => $bindingData['type'],
-                    'binding' => $bindingName,
-                    'namespace' => $this->tnsPrefix,
-                    'address' => array('location' =>
-                        ($https ? 'https://' : 'http://') .
-                        $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'] .
-                        (isset($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '')),
-                    'type' => 'soap');
+                'name' => $bindingData['type'],
+                'binding' => $bindingName,
+                'namespace' => $this->tnsPrefix,
+                'address' => array('location' =>
+                    ($https ? 'https://' : 'http://') .
+                    $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'] .
+                    (isset($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '')),
+                'type' => 'soap');
         }
 
         // Set service
@@ -2253,9 +2220,9 @@ class SOAP_WSDL_ObjectParser extends SOAP_Base
         // *** <wsdl:definitions> ***
 
         $this->wsdl->definition = array(
-                'name' => $service_name,
-                'targetNamespace' => $this->wsdl->namespaces[$this->tnsPrefix],
-                'xmlns' => SCHEMA_WSDL);
+            'name' => $service_name,
+            'targetNamespace' => $this->wsdl->namespaces[$this->tnsPrefix],
+            'xmlns' => SCHEMA_WSDL);
 
         foreach ($this->wsdl->namespaces as $nsPrefix => $namespace) {
             $this->wsdl->definition['xmlns:' . $nsPrefix] = $namespace;

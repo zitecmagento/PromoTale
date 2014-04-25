@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml_Block_Abstract
 {
+
     /**
      * name => id mapper
      * @var array
@@ -106,9 +108,9 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
             return '';
         }
         return '<script type="text/javascript"> new FormElementDependenceController('
-            . $this->_getDependsJson()
-            . ($this->_configOptions ? ', ' . Mage::helper('core')->jsonEncode($this->_configOptions) : '')
-            . '); </script>';
+                . $this->_getDependsJson()
+                . ($this->_configOptions ? ', ' . Mage::helper('core')->jsonEncode($this->_configOptions) : '')
+                . '); </script>';
     }
 
     /**
@@ -125,4 +127,5 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
         }
         return Mage::helper('core')->jsonEncode($result);
     }
+
 }

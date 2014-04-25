@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -34,5 +35,4 @@ interface Zend_Wildfire_Channel_Interface
      * @return boolean Returns TRUE if channel is ready.
      */
     public function isReady();
-
 }

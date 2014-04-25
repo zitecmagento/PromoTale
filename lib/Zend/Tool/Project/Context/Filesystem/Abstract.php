@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Interface
  */
@@ -161,5 +161,4 @@ abstract class Zend_Tool_Project_Context_Filesystem_Abstract implements Zend_Too
      *
      */
     abstract public function delete();
-
 }

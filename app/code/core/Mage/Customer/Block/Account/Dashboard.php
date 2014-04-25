@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
 {
+
     protected $_subscription = null;
 
     public function getCustomer()
@@ -42,42 +44,42 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
 
     public function getAccountUrl()
     {
-        return Mage::getUrl('customer/account/edit', array('_secure'=>true));
+        return Mage::getUrl('customer/account/edit', array('_secure' => true));
     }
 
     public function getAddressesUrl()
     {
-        return Mage::getUrl('customer/address/index', array('_secure'=>true));
+        return Mage::getUrl('customer/address/index', array('_secure' => true));
     }
 
     public function getAddressEditUrl($address)
     {
-        return Mage::getUrl('customer/address/edit', array('_secure'=>true, 'id'=>$address->getId()));
+        return Mage::getUrl('customer/address/edit', array('_secure' => true, 'id' => $address->getId()));
     }
 
     public function getOrdersUrl()
     {
-        return Mage::getUrl('customer/order/index', array('_secure'=>true));
+        return Mage::getUrl('customer/order/index', array('_secure' => true));
     }
 
     public function getReviewsUrl()
     {
-        return Mage::getUrl('review/customer/index', array('_secure'=>true));
+        return Mage::getUrl('review/customer/index', array('_secure' => true));
     }
 
     public function getWishlistUrl()
     {
-        return Mage::getUrl('customer/wishlist/index', array('_secure'=>true));
+        return Mage::getUrl('customer/wishlist/index', array('_secure' => true));
     }
 
     public function getTagsUrl()
     {
-
+        
     }
 
     public function getSubscriptionObject()
     {
-        if(is_null($this->_subscription)) {
+        if (is_null($this->_subscription)) {
             $this->_subscription = Mage::getModel('newsletter/subscriber')->loadByCustomer($this->getCustomer());
         }
 
@@ -91,7 +93,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
 
     public function getSubscriptionText()
     {
-        if($this->getSubscriptionObject()->isSubscribed()) {
+        if ($this->getSubscriptionObject()->isSubscribed()) {
             return Mage::helper('customer')->__('You are currently subscribed to our newsletter.');
         }
 
@@ -124,4 +126,5 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
         }
         return $this->getUrl('customer/account/');
     }
+
 }

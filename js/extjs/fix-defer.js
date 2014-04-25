@@ -23,11 +23,11 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-(function(){
+(function() {
     var eDefer = Function.prototype.defer;
     Function.prototype.defer = function() {
         var argLen = arguments.length;
-        if (argLen==0 || (argLen==1 && arguments[0]==1)) {
+        if (argLen == 0 || (argLen == 1 && arguments[0] == 1)) {
             //common for Prototype Ajax requests
             return this.delay.curry(0.01).apply(this, arguments);
         }

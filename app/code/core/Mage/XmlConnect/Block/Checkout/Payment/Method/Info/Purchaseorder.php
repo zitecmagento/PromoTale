@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Purchaseorder extends Mage_Payment_Block_Info_Purchaseorder
 {
+
     /**
      * Add Purchase Order Payment info to order XML object
      *
@@ -48,4 +50,5 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Purchaseorder extends M
             'label' => Mage::helper('sales')->__('Purchase Order Number:')
         ));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_Element_Renderer_Interface
 {
+
     /**
      * Country region collections
      *
@@ -46,7 +48,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
 
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        $html = '<tr>'."\n";
+        $html = '<tr>' . "\n";
 
         $countryId = false;
         if ($country = $element->getForm()->getElement('country_id')) {
@@ -57,9 +59,9 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
         if ($countryId) {
             if (!isset(self::$_regionCollections[$countryId])) {
                 self::$_regionCollections[$countryId] = Mage::getModel('directory/country')
-                    ->setId($countryId)
-                    ->getLoadedRegionCollection()
-                    ->toOptionArray();
+                        ->setId($countryId)
+                        ->getLoadedRegionCollection()
+                        ->toOptionArray();
             }
             $regionCollection = self::$_regionCollections[$countryId];
         }
@@ -85,17 +87,17 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
 
         if ($regionCollection && count($regionCollection) > 0) {
             $elementClass = $element->getClass();
-            $html.= '<td class="label">'.$element->getLabelHtml().'</td>';
+            $html.= '<td class="label">' . $element->getLabelHtml() . '</td>';
             $html.= '<td class="value">';
 
             $html .= '<select id="' . $regionIdHtmlId . '" name="' . $regionIdHtmlName . '" '
-                 . $element->serialize($htmlAttributes) .'>' . "\n";
+                    . $element->serialize($htmlAttributes) . '>' . "\n";
             foreach ($regionCollection as $region) {
-                $selected = ($regionId==$region['value']) ? ' selected="selected"' : '';
-                $value =  is_numeric($region['value'])?(int)$region['value']:"";
-                $html.= '<option value="'.$value.'"' . $selected . '>'
-                    . Mage::helper('adminhtml')->escapeHtml(Mage::helper('directory')->__($region['label']))
-                    . '</option>';
+                $selected = ($regionId == $region['value']) ? ' selected="selected"' : '';
+                $value = is_numeric($region['value']) ? (int) $region['value'] : "";
+                $html.= '<option value="' . $value . '"' . $selected . '>'
+                        . Mage::helper('adminhtml')->escapeHtml(Mage::helper('directory')->__($region['label']))
+                        . '</option>';
             }
             $html.= '</select>' . "\n";
 
@@ -105,19 +107,20 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
             $element->setClass($elementClass);
         } else {
             $element->setClass('input-text');
-            $html.= '<td class="label"><label for="'.$element->getHtmlId().'">'
-                . $element->getLabel()
-                . ' <span class="required" style="display:none">*</span></label></td>';
+            $html.= '<td class="label"><label for="' . $element->getHtmlId() . '">'
+                    . $element->getLabel()
+                    . ' <span class="required" style="display:none">*</span></label></td>';
 
             $element->setRequired(false);
             $html.= '<td class="value">';
             $html .= '<input id="' . $regionHtmlId . '" name="' . $regionHtmlName
-                . '" value="' . $element->getEscapedValue() . '" '
-                . $element->serialize($htmlAttributes) . "/>" . "\n";
+                    . '" value="' . $element->getEscapedValue() . '" '
+                    . $element->serialize($htmlAttributes) . "/>" . "\n";
             $html .= '<input type="hidden" name="' . $regionIdHtmlName . '" id="' . $regionIdHtmlId . '" value=""/>';
-            $html .= '</td>'."\n";
+            $html .= '</td>' . "\n";
         }
-        $html.= '</tr>'."\n";
+        $html.= '</tr>' . "\n";
         return $html;
     }
+
 }

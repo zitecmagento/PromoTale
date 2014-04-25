@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Checkout_Model_Observer
 {
+
     public function unsetAll()
     {
         Mage::getSingleton('checkout/session')->unsetAll();
@@ -40,16 +42,18 @@ class Mage_Checkout_Model_Observer
 
     public function loadCustomerQuote()
     {
-        try {
+        try
+        {
             Mage::getSingleton('checkout/session')->loadCustomerQuote();
         }
-        catch (Mage_Core_Exception $e) {
+        catch (Mage_Core_Exception $e)
+        {
             Mage::getSingleton('checkout/session')->addError($e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             Mage::getSingleton('checkout/session')->addException(
-                $e,
-                Mage::helper('checkout')->__('Load customer quote error')
+                    $e, Mage::helper('checkout')->__('Load customer quote error')
             );
         }
     }
@@ -62,4 +66,5 @@ class Mage_Checkout_Model_Observer
             Mage::getSingleton('checkout/session')->getQuoteId($quote->getId());
         }
     }
+
 }

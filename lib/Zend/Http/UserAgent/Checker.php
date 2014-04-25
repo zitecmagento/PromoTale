@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,7 +30,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_Http_UserAgent_Checker extends Zend_Http_UserAgent_Desktop
 {
 
@@ -40,15 +40,15 @@ class Zend_Http_UserAgent_Checker extends Zend_Http_UserAgent_Desktop
      */
     protected static $_uaSignatures = array(
         'abilogic',
-        'checklink', 
-        'checker', 
-        'linksmanager', 
-        'mojoo', 
-        'notifixious', 
-        'ploetz', 
-        'zeller', 
-        'sitebar', 
-        'xenu', 
+        'checklink',
+        'checker',
+        'linksmanager',
+        'mojoo',
+        'notifixious',
+        'ploetz',
+        'zeller',
+        'sitebar',
+        'xenu',
         'sleuth',
     );
 
@@ -73,4 +73,5 @@ class Zend_Http_UserAgent_Checker extends Zend_Http_UserAgent_Desktop
     {
         return 'bot';
     }
+
 }

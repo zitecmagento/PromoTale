@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -56,6 +57,7 @@
  */
 class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 {
+
     /**
      * Prefix of model events names
      *
@@ -80,30 +82,30 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     {
         $this->_beforeSave();
         $data = array(
-                'firstname' => $this->getFirstname(),
-                'lastname'  => $this->getLastname(),
-                'email'     => $this->getEmail(),
-                'modified'  => Mage::getSingleton('core/date')->gmtDate()
-            );
+            'firstname' => $this->getFirstname(),
+            'lastname' => $this->getLastname(),
+            'email' => $this->getEmail(),
+            'modified' => Mage::getSingleton('core/date')->gmtDate()
+        );
 
         if ($this->getId() > 0) {
-            $data['user_id']   = $this->getId();
+            $data['user_id'] = $this->getId();
         }
 
-        if ( $this->getUsername() ) {
-            $data['username']   = $this->getUsername();
+        if ($this->getUsername()) {
+            $data['username'] = $this->getUsername();
         }
 
         if ($this->getApiKey()) {
-            $data['api_key']   = $this->_getEncodedApiKey($this->getApiKey());
+            $data['api_key'] = $this->_getEncodedApiKey($this->getApiKey());
         }
 
         if ($this->getNewApiKey()) {
-            $data['api_key']   = $this->_getEncodedApiKey($this->getNewApiKey());
+            $data['api_key'] = $this->_getEncodedApiKey($this->getNewApiKey());
         }
 
-        if ( !is_null($this->getIsActive()) ) {
-            $data['is_active']  = intval($this->getIsActive());
+        if (!is_null($this->getIsActive())) {
+            $data['is_active'] = intval($this->getIsActive());
         }
 
         $this->setData($data);
@@ -195,7 +197,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @return Object|Mage_Api_Model_Resource_User_Collection
      */
-    public function getCollection() {
+    public function getCollection()
+    {
         return Mage::getResourceModel('api/user_collection');
     }
 
@@ -207,7 +210,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     public function getName($separator = ' ')
     {
-        return $this->getFirstname().$separator.$this->getLastname();
+        return $this->getFirstname() . $separator . $this->getLastname();
     }
 
     /**
@@ -227,7 +230,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     public function getAclRole()
     {
-        return 'U'.$this->getUserId();
+        return 'U' . $this->getUserId();
     }
 
     /**
@@ -265,11 +268,11 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
         if ($this->authenticate($username, $apiKey)) {
             $this->setSessid($sessId);
             $this->getResource()->cleanOldSessions($this)
-                ->recordLogin($this)
-                ->recordSession($this);
+                    ->recordLogin($this)
+                    ->recordSession($this);
             Mage::dispatchEvent('api_user_authenticated', array(
-               'model'    => $this,
-               'api_key'  => $apiKey,
+                'model' => $this,
+                'api_key' => $apiKey,
             ));
         }
 
@@ -305,7 +308,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * @param string $sessId
      * @return Mage_Api_Model_User
      */
-    public function loadBySessId ($sessId)
+    public function loadBySessId($sessId)
     {
         $this->setData($this->getResource()->loadBySessId($sessId));
         return $this;
@@ -355,4 +358,5 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     {
         return Mage::helper($helperName);
     }
+
 }

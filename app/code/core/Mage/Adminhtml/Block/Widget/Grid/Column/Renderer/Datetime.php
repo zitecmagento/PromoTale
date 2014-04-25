@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     /**
      * Date format string
      */
@@ -50,12 +50,14 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime
         $format = $this->getColumn()->getFormat();
         if (!$format) {
             if (is_null(self::$_format)) {
-                try {
+                try
+                {
                     self::$_format = Mage::app()->getLocale()->getDateTimeFormat(
-                        Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM
+                            Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM
                     );
                 }
-                catch (Exception $e) {
+                catch (Exception $e)
+                {
                     Mage::logException($e);
                 }
             }
@@ -74,17 +76,19 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime
     {
         if ($data = $this->_getValue($row)) {
             $format = $this->_getFormat();
-            try {
+            try
+            {
                 $data = Mage::app()->getLocale()
-                    ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
+                                ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
             }
             catch (Exception $e)
             {
                 $data = Mage::app()->getLocale()
-                    ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
+                                ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
             }
             return $data;
         }
         return $this->getColumn()->getDefault();
     }
+
 }

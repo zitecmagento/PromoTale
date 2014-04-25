@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main extends Mage_Adminhtml_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -42,13 +43,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main extends Ma
 
     protected function _prepareLayout()
     {
-        $this->setChild('addButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('catalog')->__('Add New Set'),
-                    'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/add') . '\')',
-                    'class' => 'add',
-                ))
+        $this->setChild('addButton', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('catalog')->__('Add New Set'),
+                            'onclick' => 'setLocation(\'' . $this->getUrl('*/*/add') . '\')',
+                            'class' => 'add',
+                        ))
         );
         return parent::_prepareLayout();
     }
@@ -68,4 +68,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main extends Ma
         Mage::dispatchEvent('adminhtml_catalog_product_attribute_set_toolbar_main_html_before', array('block' => $this));
         return parent::_toHtml();
     }
+
 }

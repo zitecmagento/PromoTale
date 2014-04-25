@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Centinel_Block_Logo extends Mage_Core_Block_Template
 {
+
     protected function _construct()
     {
         parent::_construct();
@@ -44,4 +46,5 @@ class Mage_Centinel_Block_Logo extends Mage_Core_Block_Template
     {
         return $this->getMethod()->getCode();
     }
+
 }

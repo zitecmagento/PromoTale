@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** @see PHPUnit_Framework_ExpectationFailedException */
 #require_once 'PHPUnit/Framework/ExpectationFailedException.php';
 
@@ -35,4 +35,5 @@
  */
 class Zend_Test_PHPUnit_Constraint_Exception extends PHPUnit_Framework_ExpectationFailedException
 {
+    
 }

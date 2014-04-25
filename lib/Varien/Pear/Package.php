@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright  Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
  * Pear package routines
  * *
@@ -31,7 +31,6 @@
  * @package    Varien_Pear
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 require_once "Varien/Pear.php";
 
 require_once "PEAR/PackageFileManager.php";
@@ -45,23 +44,22 @@ require_once "PEAR/PackageFile/v2/Validator.php";
 require_once "PEAR/PackageFile/Generator/v2.php";
 
 // add missing but required constant...
-define ('PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES', 1001);
-$GLOBALS['_PEAR_PACKAGEFILEMANAGER2_ERRORS']['en']['PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES'] =
-    'Directory "%s" is not a SVN directory (it must have the .svn/entries file)';
+define('PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES', 1001);
+$GLOBALS['_PEAR_PACKAGEFILEMANAGER2_ERRORS']['en']['PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES'] = 'Directory "%s" is not a SVN directory (it must have the .svn/entries file)';
 
 class Varien_Pear_Package
 {
+
     protected $_data = array(
         'options' => array(
-            'baseinstalldir'=>'',
-            'filelistgenerator'=>'file',
-            'packagedirectory'=>'.',
-            'outputdirectory'=>'.',
+            'baseinstalldir' => '',
+            'filelistgenerator' => 'file',
+            'packagedirectory' => '.',
+            'outputdirectory' => '.',
         ),
         'package' => array(),
         'release' => array(),
     );
-
     protected $_pear;
     protected $_pfm;
 
@@ -82,7 +80,7 @@ class Varien_Pear_Package
 
     public function set($key, $data)
     {
-        if (''===$key) {
+        if ('' === $key) {
             $this->_data = $data;
             return $this;
         }
@@ -91,7 +89,7 @@ class Varien_Pear_Package
         $keyArr = explode('/', $key);
 
         $ref = &$this->_data;
-        for ($i=0, $l=sizeof($keyArr); $i<$l; $i++) {
+        for ($i = 0, $l = sizeof($keyArr); $i < $l; $i++) {
             $k = $keyArr[$i];
             if (!isset($ref[$k])) {
                 $ref[$k] = array();
@@ -105,15 +103,15 @@ class Varien_Pear_Package
 
     public function get($key)
     {
-        if (''===$key) {
+        if ('' === $key) {
             return $this->_data;
         }
 
         // accept a/b/c as ['a']['b']['c']
         $keyArr = explode('/', $key);
         $data = $this->_data;
-        foreach ($keyArr as $i=>$k) {
-            if ($k==='') {
+        foreach ($keyArr as $i => $k) {
+            if ($k === '') {
                 return null;
             }
             if (is_array($data)) {
@@ -140,7 +138,7 @@ class Varien_Pear_Package
      * @param string|PEAR_PackageFile_v1 $package
      * @return PEAR_PackageFileManager2|PEAR_Error
      */
-    public function getPfm($package=null)
+    public function getPfm($package = null)
     {
         if (!$this->_pfm) {
             if (is_null($package)) {
@@ -170,7 +168,7 @@ class Varien_Pear_Package
         return $this;
     }
 
-    public function generatePackage($make=false)
+    public function generatePackage($make = false)
     {
         PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
@@ -189,8 +187,7 @@ class Varien_Pear_Package
             $pfm->writePackageFile();
 
             $outputDir = $this->get('options/outputdirectory');
-            MagePearWrapper::getInstance()->run('package', array(),
-                array($outputDir.'package.xml', $outputDir.'package2.xml')
+            MagePearWrapper::getInstance()->run('package', array(), array($outputDir . 'package.xml', $outputDir . 'package2.xml')
             );
         } else {
             $pfm1->debugPackageFile();
@@ -202,7 +199,7 @@ class Varien_Pear_Package
 
     public function defineData()
     {
-        $this->set('options/outputdirectory', $this->getPear()->getPearDir().DS.'output');
+        $this->set('options/outputdirectory', $this->getPear()->getPearDir() . DS . 'output');
         $this->set('options/filelistgenerator', 'php');
         $this->set('options/simpleoutput', true);
 
@@ -218,4 +215,5 @@ class Varien_Pear_Package
     {
         return $this;
     }
+
 }

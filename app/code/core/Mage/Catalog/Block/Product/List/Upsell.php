@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,22 +32,18 @@
  * @package    Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_Abstract
 {
+
     /**
      * Default MAP renderer type
      *
      * @var string
      */
     protected $_mapRenderer = 'msrp_noform';
-
     protected $_columnCount = 4;
-
     protected $_items;
-
     protected $_itemCollection;
-
     protected $_itemLimits = array();
 
     protected function _prepareData()
@@ -54,12 +51,11 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         $product = Mage::registry('product');
         /* @var $product Mage_Catalog_Model_Product */
         $this->_itemCollection = $product->getUpSellProductCollection()
-            ->setPositionOrder()
-            ->addStoreFilter()
+                ->setPositionOrder()
+                ->addStoreFilter()
         ;
         if (Mage::helper('catalog')->isModuleEnabled('Mage_Checkout')) {
-            Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter($this->_itemCollection,
-                Mage::getSingleton('checkout/session')->getQuoteId()
+            Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter($this->_itemCollection, Mage::getSingleton('checkout/session')->getQuoteId()
             );
 
             $this->_addProductAttributesAndPrices($this->_itemCollection);
@@ -77,9 +73,9 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
          * Updating collection with desired items
          */
         Mage::dispatchEvent('catalog_product_upsell', array(
-            'product'       => $product,
-            'collection'    => $this->_itemCollection,
-            'limit'         => $this->getItemLimit()
+            'product' => $product,
+            'collection' => $this->_itemCollection,
+            'limit' => $this->getItemLimit()
         ));
 
         foreach ($this->_itemCollection as $product) {
@@ -110,7 +106,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
 
     public function getRowCount()
     {
-        return ceil(count($this->getItemCollection()->getItems())/$this->getColumnCount());
+        return ceil(count($this->getItemCollection()->getItems()) / $this->getColumnCount());
     }
 
     public function setColumnCount($columns)
@@ -162,8 +158,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         }
         if (isset($this->_itemLimits[$type])) {
             return $this->_itemLimits[$type];
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -177,4 +172,5 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
     {
         return array_merge(parent::getCacheTags(), $this->getItemsTags($this->getItems()));
     }
+
 }

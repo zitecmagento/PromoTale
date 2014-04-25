@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Widget
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -53,76 +55,69 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     protected function _prepareLayout()
     {
         if (!$this->getRequest()->getParam('popup')) {
-            $this->setChild('back_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData(array(
-                        'label'     => Mage::helper('catalog')->__('Back'),
-                        'onclick'   => 'setLocation(\''
-                            . $this->getUrl('*/*/', array('store'=>$this->getRequest()->getParam('store', 0))).'\')',
-                        'class' => 'back'
-                    ))
+            $this->setChild('back_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                            ->setData(array(
+                                'label' => Mage::helper('catalog')->__('Back'),
+                                'onclick' => 'setLocation(\''
+                                . $this->getUrl('*/*/', array('store' => $this->getRequest()->getParam('store', 0))) . '\')',
+                                'class' => 'back'
+                            ))
             );
         } else {
-            $this->setChild('back_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData(array(
-                        'label'     => Mage::helper('catalog')->__('Close Window'),
-                        'onclick'   => 'window.close()',
-                        'class' => 'cancel'
-                    ))
+            $this->setChild('back_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                            ->setData(array(
+                                'label' => Mage::helper('catalog')->__('Close Window'),
+                                'onclick' => 'window.close()',
+                                'class' => 'cancel'
+                            ))
             );
         }
 
         if (!$this->getProduct()->isReadonly()) {
-            $this->setChild('reset_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData(array(
-                        'label'     => Mage::helper('catalog')->__('Reset'),
-                        'onclick'   => 'setLocation(\''.$this->getUrl('*/*/*', array('_current'=>true)).'\')'
-                    ))
+            $this->setChild('reset_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                            ->setData(array(
+                                'label' => Mage::helper('catalog')->__('Reset'),
+                                'onclick' => 'setLocation(\'' . $this->getUrl('*/*/*', array('_current' => true)) . '\')'
+                            ))
             );
 
-            $this->setChild('save_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData(array(
-                        'label'     => Mage::helper('catalog')->__('Save'),
-                        'onclick'   => 'productForm.submit()',
-                        'class' => 'save'
-                    ))
+            $this->setChild('save_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                            ->setData(array(
+                                'label' => Mage::helper('catalog')->__('Save'),
+                                'onclick' => 'productForm.submit()',
+                                'class' => 'save'
+                            ))
             );
         }
 
         if (!$this->getRequest()->getParam('popup')) {
             if (!$this->getProduct()->isReadonly()) {
-                $this->setChild('save_and_edit_button',
-                    $this->getLayout()->createBlock('adminhtml/widget_button')
-                        ->setData(array(
-                            'label'     => Mage::helper('catalog')->__('Save and Continue Edit'),
-                            'onclick'   => 'saveAndContinueEdit(\''.$this->getSaveAndContinueUrl().'\')',
-                            'class' => 'save'
-                        ))
+                $this->setChild('save_and_edit_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                                ->setData(array(
+                                    'label' => Mage::helper('catalog')->__('Save and Continue Edit'),
+                                    'onclick' => 'saveAndContinueEdit(\'' . $this->getSaveAndContinueUrl() . '\')',
+                                    'class' => 'save'
+                                ))
                 );
             }
             if ($this->getProduct()->isDeleteable()) {
-                $this->setChild('delete_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                        ->setData(array(
-                            'label'     => Mage::helper('catalog')->__('Delete'),
-                            'onclick'   => 'confirmSetLocation(\''
-                                . Mage::helper('catalog')->__('Are you sure?').'\', \''.$this->getDeleteUrl().'\')',
-                            'class'  => 'delete'
-                        ))
+                $this->setChild('delete_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                                ->setData(array(
+                                    'label' => Mage::helper('catalog')->__('Delete'),
+                                    'onclick' => 'confirmSetLocation(\''
+                                    . Mage::helper('catalog')->__('Are you sure?') . '\', \'' . $this->getDeleteUrl() . '\')',
+                                    'class' => 'delete'
+                                ))
                 );
             }
 
             if ($this->getProduct()->isDuplicable()) {
-                $this->setChild('duplicate_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData(array(
-                        'label'     => Mage::helper('catalog')->__('Duplicate'),
-                        'onclick'   => 'setLocation(\'' . $this->getDuplicateUrl() . '\')',
-                        'class'  => 'add'
-                    ))
+                $this->setChild('duplicate_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                                ->setData(array(
+                                    'label' => Mage::helper('catalog')->__('Duplicate'),
+                                    'onclick' => 'setLocation(\'' . $this->getDuplicateUrl() . '\')',
+                                    'class' => 'add'
+                                ))
                 );
             }
         }
@@ -162,21 +157,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
 
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', array('_current'=>true));
+        return $this->getUrl('*/*/validate', array('_current' => true));
     }
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current'=>true, 'back'=>null));
+        return $this->getUrl('*/*/save', array('_current' => true, 'back' => null));
     }
 
     public function getSaveAndContinueUrl()
     {
         return $this->getUrl('*/*/save', array(
-            '_current'   => true,
-            'back'       => 'edit',
-            'tab'        => '{{tab_id}}',
-            'active_tab' => null
+                    '_current' => true,
+                    'back' => 'edit',
+                    'tab' => '{{tab_id}}',
+                    'active_tab' => null
         ));
     }
 
@@ -201,12 +196,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
 
     public function getDeleteUrl()
     {
-        return $this->getUrl('*/*/delete', array('_current'=>true));
+        return $this->getUrl('*/*/delete', array('_current' => true));
     }
 
     public function getDuplicateUrl()
     {
-        return $this->getUrl('*/*/duplicate', array('_current'=>true));
+        return $this->getUrl('*/*/duplicate', array('_current' => true));
     }
 
     public function getHeader()
@@ -214,8 +209,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
         $header = '';
         if ($this->getProduct()->getId()) {
             $header = $this->escapeHtml($this->getProduct()->getName());
-        }
-        else {
+        } else {
             $header = Mage::helper('catalog')->__('New Product');
         }
         if ($setName = $this->getAttributeSetName()) {
@@ -228,7 +222,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     {
         if ($setId = $this->getProduct()->getAttributeSetId()) {
             $set = Mage::getModel('eav/entity_attribute_set')
-                ->load($setId);
+                    ->load($setId);
             return $set->getAttributeSetName();
         }
         return '';
@@ -236,8 +230,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
 
     public function getIsConfigured()
     {
-        if ($this->getProduct()->isConfigurable()
-            && !($superAttributes = $this->getProduct()
+        if ($this->getProduct()->isConfigurable() && !($superAttributes = $this->getProduct()
                 ->getTypeInstance(true)
                 ->getUsedProductAttributeIds($this->getProduct()))
         ) {
@@ -251,4 +244,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     {
         return addslashes(htmlspecialchars($this->getRequest()->getParam('tab')));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,9 +31,9 @@
  * @file        Poll.php
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
 {
+
     /**
      * Poll templates
      *
@@ -110,9 +111,9 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
     public function getActivePollsIds()
     {
         return $this->_pollModel
-            ->setExcludeFilter($this->getVotedPollsIds())
-            ->setStoreFilter(Mage::app()->getStore()->getId())
-            ->getAllIds();
+                        ->setExcludeFilter($this->getVotedPollsIds())
+                        ->setStoreFilter(Mage::app()->getStore()->getId())
+                        ->getAllIds();
     }
 
     /**
@@ -131,9 +132,9 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
             // get random not voted yet poll
             $votedIds = $this->getVotedPollsIds();
             $pollId = $this->_pollModel
-                ->setExcludeFilter($votedIds)
-                ->setStoreFilter(Mage::app()->getStore()->getId())
-                ->getRandomId();
+                    ->setExcludeFilter($votedIds)
+                    ->setStoreFilter(Mage::app()->getStore()->getId())
+                    ->getRandomId();
         }
         $this->setPollId($pollId);
 
@@ -154,10 +155,10 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
         $poll = $this->_pollModel->load($pollId);
 
         $pollAnswers = Mage::getModel('poll/poll_answer')
-            ->getResourceCollection()
-            ->addPollFilter($pollId)
-            ->load()
-            ->countPercent($poll);
+                ->getResourceCollection()
+                ->addPollFilter($pollId)
+                ->load()
+                ->countPercent($poll);
 
         // correct rounded percents to be always equal 100
         $percentsSorted = array();
@@ -182,7 +183,6 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
             'action' => Mage::getUrl('poll/vote/add', array('poll_id' => $pollId, '_secure' => true))
         );
     }
-
 
     /**
      * Add poll template
@@ -224,7 +224,6 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
         }
         return parent::_toHtml();
     }
-
 
     /**
      * Get cache key informative items that must be preserved in cache placeholders

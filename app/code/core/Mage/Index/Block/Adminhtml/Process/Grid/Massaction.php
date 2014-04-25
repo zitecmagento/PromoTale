@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Index_Block_Adminhtml_Process_Grid_Massaction extends Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
 {
+
     /**
      * Get ids for only visible indexers
      *
@@ -51,4 +53,5 @@ class Mage_Index_Block_Adminhtml_Process_Grid_Massaction extends Mage_Adminhtml_
 
         return implode(',', $ids);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer Form Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Customer_Model_Form extends Mage_Eav_Model_Form
 {
+
     /**
      * Current module pathname
      *
@@ -57,6 +58,7 @@ class Mage_Customer_Model_Form extends Mage_Eav_Model_Form
     protected function _getFormAttributeCollection()
     {
         return parent::_getFormAttributeCollection()
-            ->addFieldToFilter('attribute_code', array('neq' => 'created_at'));
+                        ->addFieldToFilter('attribute_code', array('neq' => 'created_at'));
     }
+
 }

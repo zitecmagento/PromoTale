@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -38,11 +39,12 @@
  * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Reports_Model_Event_Type extends Mage_Core_Model_Abstract
 {
+
     protected function _construct()
     {
         $this->_init('reports/event_type');
     }
+
 }

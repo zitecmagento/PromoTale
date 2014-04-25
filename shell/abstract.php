@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Shell_Abstract
 {
+
     /**
      * Is include Mage and initialize application
      *
@@ -52,21 +54,21 @@ abstract class Mage_Shell_Abstract
      *
      * @var string
      */
-    protected $_appCode     = 'admin';
+    protected $_appCode = 'admin';
 
     /**
      * Initialize application code type (store, website, store_group)
      *
      * @var string
      */
-    protected $_appType     = 'store';
+    protected $_appType = 'store';
 
     /**
      * Input arguments
      *
      * @var array
      */
-    protected $_args        = array();
+    protected $_args = array();
 
     /**
      * Factory instance
@@ -222,4 +224,5 @@ USAGE;
         }
         return false;
     }
+
 }

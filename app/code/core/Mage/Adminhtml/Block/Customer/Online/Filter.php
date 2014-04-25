@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Customer_Online_Filter extends Mage_Adminhtml_Block_Widget_Form
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -43,27 +44,24 @@ class Mage_Adminhtml_Block_Customer_Online_Filter extends Mage_Adminhtml_Block_W
     {
         $form = new Varien_Data_Form();
 
-        $form->addField('filter_value', 'select',
+        $form->addField('filter_value', 'select', array(
+            'name' => 'filter_value',
+            'onchange' => 'this.form.submit()',
+            'values' => array(
                 array(
-                    'name' => 'filter_value',
-                    'onchange' => 'this.form.submit()',
-                    'values' => array(
-                        array(
-                            'label' => Mage::helper('customer')->__('All'),
-                            'value' => '',
-                        ),
-
-                        array(
-                            'label' => Mage::helper('customer')->__('Customers Only'),
-                            'value' => 'filterCustomers',
-                        ),
-
-                        array(
-                            'label' => Mage::helper('customer')->__('Visitors Only'),
-                            'value' => 'filterGuests',
-                        )
-                    ),
-                    'no_span' => true
+                    'label' => Mage::helper('customer')->__('All'),
+                    'value' => '',
+                ),
+                array(
+                    'label' => Mage::helper('customer')->__('Customers Only'),
+                    'value' => 'filterCustomers',
+                ),
+                array(
+                    'label' => Mage::helper('customer')->__('Visitors Only'),
+                    'value' => 'filterGuests',
+                )
+            ),
+            'no_span' => true
                 )
         );
 
@@ -74,4 +72,5 @@ class Mage_Adminhtml_Block_Customer_Online_Filter extends Mage_Adminhtml_Block_W
         $this->setForm($form);
         return parent::_prepareForm();
     }
+
 }

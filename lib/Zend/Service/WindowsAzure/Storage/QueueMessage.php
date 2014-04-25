@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: QueueMessage.php 22773 2010-08-03 07:18:27Z maartenba $
  */
-
 /**
  * @see Zend_Service_WindowsAzure_Exception
  */
@@ -45,9 +45,9 @@
  * @property int    $DequeueCount      Number of times the message has been dequeued. This value is incremented each time the message is subsequently dequeued.
  * @property string $MessageText       Message text
  */
-class Zend_Service_WindowsAzure_Storage_QueueMessage
-	extends Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
+class Zend_Service_WindowsAzure_Storage_QueueMessage extends Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
 {
+
     /**
      * Constructor
      * 
@@ -59,16 +59,17 @@ class Zend_Service_WindowsAzure_Storage_QueueMessage
      * @param int    $dequeueCount      Number of times the message has been dequeued. This value is incremented each time the message is subsequently dequeued.
      * @param string $messageText       Message text
      */
-    public function __construct($messageId, $insertionTime, $expirationTime, $popReceipt, $timeNextVisible, $dequeueCount, $messageText) 
+    public function __construct($messageId, $insertionTime, $expirationTime, $popReceipt, $timeNextVisible, $dequeueCount, $messageText)
     {
         $this->_data = array(
-            'messageid'       => $messageId,
-            'insertiontime'   => $insertionTime,
-            'expirationtime'  => $expirationTime,
-            'popreceipt'      => $popReceipt,
+            'messageid' => $messageId,
+            'insertiontime' => $insertionTime,
+            'expirationtime' => $expirationTime,
+            'popreceipt' => $popReceipt,
             'timenextvisible' => $timeNextVisible,
-        	'dequeuecount'    => $dequeueCount,
-            'messagetext'     => $messageText
+            'dequeuecount' => $dequeueCount,
+            'messagetext' => $messageText
         );
     }
+
 }

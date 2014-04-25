@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Internal constructor
      *
@@ -65,13 +67,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
     {
         if ($this->getWidgetInstance()->isCompleteToCreate()) {
             $this->_addButton(
-                'save_and_edit_button',
-                array(
-                    'label'     => Mage::helper('widget')->__('Save and Continue Edit'),
-                    'class'     => 'save',
-                    'onclick'   => 'saveAndContinueEdit()'
-                ),
-                100
+                    'save_and_edit_button', array(
+                'label' => Mage::helper('widget')->__('Save and Continue Edit'),
+                'class' => 'save',
+                'onclick' => 'saveAndContinueEdit()'
+                    ), 100
             );
         } else {
             $this->removeButton('save');
@@ -88,8 +88,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
     {
         if ($this->getWidgetInstance()->getId()) {
             return Mage::helper('widget')->__('Widget "%s"', $this->escapeHtml($this->getWidgetInstance()->getTitle()));
-        }
-        else {
+        } else {
             return Mage::helper('widget')->__('New Widget Instance');
         }
     }
@@ -101,7 +100,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      */
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', array('_current'=>true));
+        return $this->getUrl('*/*/validate', array('_current' => true));
     }
 
     /**
@@ -111,6 +110,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current'=>true, 'back'=>null));
+        return $this->getUrl('*/*/save', array('_current' => true, 'back' => null));
     }
+
 }

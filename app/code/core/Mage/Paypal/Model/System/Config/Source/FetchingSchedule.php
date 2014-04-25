@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,9 +30,10 @@
  */
 class Mage_Paypal_Model_System_Config_Source_FetchingSchedule
 {
+
     public function toOptionArray()
     {
-        return array (
+        return array(
             1 => Mage::helper('paypal')->__("Daily"),
             3 => Mage::helper('paypal')->__("Every 3 days"),
             7 => Mage::helper('paypal')->__("Every 7 days"),
@@ -41,4 +43,5 @@ class Mage_Paypal_Model_System_Config_Source_FetchingSchedule
             40 => Mage::helper('paypal')->__("Every 40 days"),
         );
     }
+
 }

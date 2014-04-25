@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,5 +35,5 @@
  */
 class Mage_Paypal_Block_Payflow_Advanced_Review extends Mage_Paypal_Block_Payflow_Link_Review
 {
-
+    
 }

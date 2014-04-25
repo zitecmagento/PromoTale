@@ -33,8 +33,12 @@
         </reference>
         <reference name="head">
             <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
-            <action method="addJs"><file>mage/adminhtml/product/composite/configure.js</file></action>
-            <action method="addJs"><file>varien/configurable.js</file></action>
+            <action method="addJs">
+                <file>mage/adminhtml/product/composite/configure.js</file>
+            </action>
+            <action method="addJs">
+                <file>varien/configurable.js</file>
+            </action>
         </reference>
         <reference name="left">
             <block type="adminhtml/customer_edit_tabs" name="customer_edit_tabs">
@@ -42,7 +46,10 @@
                     <block type="adminhtml/customer_edit_tab_view_sales" name="sales" template="customer/tab/view/sales.phtml" before="-" />
                     <block type="adminhtml/customer_edit_tab_view_accordion" name="accordion" />
                 </block>
-                <action method="addTab"><name>customer_edit_tab_view</name><block>customer_edit_tab_view</block></action>
+                <action method="addTab">
+                    <name>customer_edit_tab_view</name>
+                    <block>customer_edit_tab_view</block>
+                </action>
             </block>
         </reference>
         <reference name="js">

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Tag.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Loader */
 #require_once 'Zend/Loader.php';
 
@@ -30,13 +30,14 @@
  */
 class Zend_Reflection_Docblock_Tag implements Reflector
 {
+
     /**
      * @var array Array of Class names
      */
     protected static $_tagClasses = array(
-        'param'  => 'Zend_Reflection_Docblock_Tag_Param',
+        'param' => 'Zend_Reflection_Docblock_Tag_Param',
         'return' => 'Zend_Reflection_Docblock_Tag_Return',
-        );
+    );
 
     /**
      * @var string
@@ -84,6 +85,7 @@ class Zend_Reflection_Docblock_Tag implements Reflector
      */
     public static function export()
     {
+        
     }
 
     /**
@@ -96,7 +98,7 @@ class Zend_Reflection_Docblock_Tag implements Reflector
      */
     public function __toString()
     {
-        $str = "Docblock Tag [ * @".$this->_name." ]".PHP_EOL;
+        $str = "Docblock Tag [ * @" . $this->_name . " ]" . PHP_EOL;
 
         return $str;
     }
@@ -142,4 +144,5 @@ class Zend_Reflection_Docblock_Tag implements Reflector
     {
         return $this->_description;
     }
+
 }

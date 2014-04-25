@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Entry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Feed_Reader
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Feed_Reader_Extension_Podcast_Entry extends Zend_Feed_Reader_Extension_EntryAbstract
 {
+
     /**
      * Get the entry author
      *
@@ -199,4 +200,5 @@ class Zend_Feed_Reader_Extension_Podcast_Entry extends Zend_Feed_Reader_Extensio
     {
         $this->_xpath->registerNamespace('itunes', 'http://www.itunes.com/dtds/podcast-1.0.dtd');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,17 +34,18 @@
  */
 class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
 {
+
     protected function _prepareLayout()
     {
         $this->getLayout()->getBlock('head')
-            ->setTitle(Mage::helper('customer')->__('Address Book'));
+                ->setTitle(Mage::helper('customer')->__('Address Book'));
 
         return parent::_prepareLayout();
     }
 
     public function getAddAddressUrl()
     {
-        return $this->getUrl('customer/address/new', array('_secure'=>true));
+        return $this->getUrl('customer/address/new', array('_secure' => true));
     }
 
     public function getBackUrl()
@@ -51,7 +53,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
         if ($this->getRefererUrl()) {
             return $this->getRefererUrl();
         }
-        return $this->getUrl('customer/account/', array('_secure'=>true));
+        return $this->getUrl('customer/account/', array('_secure' => true));
     }
 
     public function getDeleteUrl()
@@ -61,7 +63,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
 
     public function getAddressEditUrl($address)
     {
-        return $this->getUrl('customer/address/edit', array('_secure'=>true, 'id'=>$address->getId()));
+        return $this->getUrl('customer/address/edit', array('_secure' => true, 'id' => $address->getId()));
     }
 
     public function getPrimaryBillingAddress()
@@ -100,4 +102,5 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
         }
         return $customer;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Transfer.php 21201 2010-02-24 22:13:20Z thomas $
  */
-
 /**
  * @see Zend_Loader
  */
@@ -34,6 +34,7 @@
  */
 class Zend_File_Transfer
 {
+
     /**
      * Array holding all directions
      *
@@ -64,7 +65,7 @@ class Zend_File_Transfer
      */
     public function setAdapter($adapter, $direction = false, $options = array())
     {
-        if (Zend_Loader::isReadable('Zend/File/Transfer/Adapter/' . ucfirst($adapter). '.php')) {
+        if (Zend_Loader::isReadable('Zend/File/Transfer/Adapter/' . ucfirst($adapter) . '.php')) {
             $adapter = 'Zend_File_Transfer_Adapter_' . ucfirst($adapter);
         }
 
@@ -122,4 +123,5 @@ class Zend_File_Transfer
         #require_once 'Zend/File/Transfer/Exception.php';
         throw new Zend_File_Transfer_Exception("Unknown method '" . $method . "' called!");
     }
+
 }

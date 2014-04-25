@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: PregReplace.php 21085 2010-02-18 21:08:39Z thomas $
  */
-
 /**
  * @see Zend_Filter_Interface
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Filter_PregReplace implements Zend_Filter_Interface
 {
+
     /**
      * Pattern to match
      * @var mixed
@@ -90,7 +91,7 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
             $options = $options->toArray();
         } else if (!is_array($options)) {
             $options = func_get_args();
-            $temp    = array();
+            $temp = array();
             if (!empty($options)) {
                 $temp['match'] = array_shift($options);
             }

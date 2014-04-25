@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Eav_Model_Entity_Attribute_Backend_Increment extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Set new increment id
      *
@@ -47,4 +49,5 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Increment extends Mage_Eav_Model_E
 
         return $this;
     }
+
 }

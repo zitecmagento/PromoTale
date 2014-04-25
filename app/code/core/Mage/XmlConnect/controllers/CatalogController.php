@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Action
 {
+
     /**
      * Category list
      *
@@ -43,13 +45,18 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
         if ($this->_checkApiForward('categoryDetails', Mage_XmlConnect_Helper_Data::DEVICE_API_V_23)) {
             return;
         }
-        try {
+        try
+        {
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::logException($e);
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message($this->__('An error occurred while loading categories.'), self::MESSAGE_STATUS_ERROR);
         }
@@ -62,13 +69,18 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
      */
     public function categoryDetailsAction()
     {
-        try {
+        try
+        {
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::logException($e);
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message($this->__('An error occurred while loading categories.'), self::MESSAGE_STATUS_ERROR);
         }
@@ -81,12 +93,17 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
      */
     public function filtersAction()
     {
-        try {
+        try
+        {
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message($this->__('An error occurred while loading category filters.'), self::MESSAGE_STATUS_ERROR);
         }
@@ -102,11 +119,12 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
         if ($this->_checkApiForward('productView', Mage_XmlConnect_Helper_Data::DEVICE_API_V_23)) {
             return;
         }
-        try {
+        try
+        {
             // Prepare data
             /** @var $productHelper Mage_Catalog_Helper_Product */
             $productHelper = Mage::helper('catalog/product');
-            $productId  = (int) $this->getRequest()->getParam('id');
+            $productId = (int) $this->getRequest()->getParam('id');
             $params = new Varien_Object();
             $params->setCategoryId(false);
 
@@ -117,9 +135,13 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
             $this->getLayout()->getBlock('xmlconnect.catalog.product')->setProduct($product);
             $this->renderLayout();
             return;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to load product info.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -132,11 +154,12 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
      */
     public function productViewAction()
     {
-        try {
+        try
+        {
             // Prepare data
             /** @var $productHelper Mage_Catalog_Helper_Product */
             $productHelper = Mage::helper('catalog/product');
-            $productId  = (int) $this->getRequest()->getParam('id');
+            $productId = (int) $this->getRequest()->getParam('id');
             $params = new Varien_Object();
             $params->setCategoryId(false);
 
@@ -147,9 +170,13 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
             $this->getLayout()->getBlock('xmlconnect.catalog.product')->setProduct($product);
             $this->renderLayout();
             return;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to load product info.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -162,12 +189,17 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
      */
     public function productOptionsAction()
     {
-        try {
+        try
+        {
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to load product options.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -180,15 +212,20 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
      */
     public function productGalleryAction()
     {
-        try {
+        try
+        {
             $productId = $this->getRequest()->getParam('id', null);
 
             $this->loadLayout(false);
             $this->getLayout()->getBlock('xmlconnect.catalog.product.gallery')->setProductId($productId);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to load product gallery.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -201,12 +238,17 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
      */
     public function productReviewsAction()
     {
-        try {
+        try
+        {
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to load product reviews.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -219,12 +261,17 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
      */
     public function productReviewAction()
     {
-        try {
+        try
+        {
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to load product review.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -279,12 +326,17 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
             }
         }
 
-        try {
+        try
+        {
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to load search.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -336,12 +388,17 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
             }
         }
 
-        try {
+        try
+        {
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to load search.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -355,12 +412,17 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
     public function searchSuggestAction()
     {
         $this->getRequest()->setParam('q', $this->getRequest()->getParam('query'));
-        try {
+        try
+        {
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to load search.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -385,7 +447,7 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
 
         if (!$helper->isAllowForGuest() && !$session->isLoggedIn()) {
             $this->_message(
-                $this->__('Customer not logged in.'), self::MESSAGE_STATUS_ERROR, array('logged_in' => '0')
+                    $this->__('Customer not logged in.'), self::MESSAGE_STATUS_ERROR, array('logged_in' => '0')
             );
             return $this;
         }
@@ -393,7 +455,7 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
         /**
          * Initialize product
          */
-        $productId  = (int)$this->getRequest()->getParam('product_id');
+        $productId = (int) $this->getRequest()->getParam('product_id');
         if (!$productId) {
             $this->_message($this->__('No product selected.'), self::MESSAGE_STATUS_ERROR);
             return $this;
@@ -409,20 +471,20 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
         /**
          * Initialize send friend model
          */
-        $model  = Mage::getModel('sendfriend/sendfriend');
+        $model = Mage::getModel('sendfriend/sendfriend');
         $model->setRemoteAddr(Mage::helper('core/http')->getRemoteAddr(true));
         $model->setCookie(Mage::app()->getCookie());
         $model->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
 
         Mage::register('send_to_friend_model', $model);
-/*
-        if ($model->getMaxSendsToFriend()) {
-            $this->_message($this->__('Messages cannot be sent more than %d times in an hour.',
-                    $model->getMaxSendsToFriend()),
-                    self::MESSAGE_STATUS_WARNING);
-            return $this;
-        }
-*/
+        /*
+          if ($model->getMaxSendsToFriend()) {
+          $this->_message($this->__('Messages cannot be sent more than %d times in an hour.',
+          $model->getMaxSendsToFriend()),
+          self::MESSAGE_STATUS_WARNING);
+          return $this;
+          }
+         */
         $data = $this->getRequest()->getPost();
 
         if (!$data) {
@@ -430,7 +492,7 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
             return $this;
         }
 
-        $sender = (array)$this->getRequest()->getPost('sender');
+        $sender = (array) $this->getRequest()->getPost('sender');
         if ($session->isLoggedIn()) {
             $sender['email'] = $session->getCustomer()->getEmail();
             $sender['name'] = $session->getCustomer()->getFirstName() . ' ' . $session->getCustomer()->getLastName();
@@ -450,7 +512,8 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
         $model->setRecipients($this->getRequest()->getPost('recipients'));
         $model->setProduct($product);
 
-        try {
+        try
+        {
             $validate = $model->validate();
             if ($validate === true) {
                 $model->send();
@@ -465,11 +528,16 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
                     return;
                 }
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Some emails were not sent.'), self::MESSAGE_STATUS_ERROR);
         }
         return $this;
     }
+
 }

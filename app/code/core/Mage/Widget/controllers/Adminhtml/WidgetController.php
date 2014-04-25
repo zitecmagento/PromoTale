@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Wisywyg widget plugin main page
      */
@@ -52,7 +54,8 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
      */
     public function loadOptionsAction()
     {
-        try {
+        try
+        {
             $this->loadLayout('empty');
             if ($paramsJson = $this->getRequest()->getParam('widget')) {
                 $request = Mage::helper('core')->jsonDecode($paramsJson);
@@ -67,7 +70,9 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
                 }
                 $this->renderLayout();
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $result = array('error' => true, 'message' => $e->getMessage());
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
@@ -84,4 +89,5 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
         $html = Mage::getSingleton('widget/widget')->getWidgetDeclaration($type, $params, $asIs);
         $this->getResponse()->setBody($html);
     }
+
 }

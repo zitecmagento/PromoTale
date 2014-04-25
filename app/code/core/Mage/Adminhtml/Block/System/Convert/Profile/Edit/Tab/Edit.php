@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit extends Mage_Adminhtml_Block_Widget_Form
 {
+
     public function initForm()
     {
         $form = new Varien_Data_Form();
@@ -41,8 +43,8 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit extends Mage_Adm
         $model = Mage::registry('current_convert_profile');
 
         $fieldset = $form->addFieldset('base_fieldset', array(
-            'legend'=>Mage::helper('adminhtml')->__('General Information'),
-            'class'=>'fieldset-wide'
+            'legend' => Mage::helper('adminhtml')->__('General Information'),
+            'class' => 'fieldset-wide'
         ));
 
         $fieldset->addField('name', 'text', array(
@@ -67,4 +69,5 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit extends Mage_Adm
 
         return $this;
     }
+
 }

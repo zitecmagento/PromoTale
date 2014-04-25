@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Paypal_Block_Express_Review_Shipping extends Mage_Checkout_Block_Onepage_Shipping
 {
+
     /**
      * Return Sales Quote Address model (shipping address)
      *
@@ -50,4 +52,5 @@ class Mage_Paypal_Block_Express_Review_Shipping extends Mage_Checkout_Block_Onep
 
         return $this->_address;
     }
+
 }

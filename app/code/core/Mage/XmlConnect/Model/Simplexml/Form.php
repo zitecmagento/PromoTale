@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplexml_Form_Abstract
 {
+
     /**
      * All form elements collection
      *
@@ -47,7 +49,7 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
      */
     protected $_elementsIndex;
 
-    /**#@+
+    /*     * #@+
      * Custom form components renderer
      *
      * @var object
@@ -57,7 +59,8 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
     static protected $_defaultValidatorRenderer;
     static protected $_defaultValidatorRuleRenderer;
     static protected $_defaultFieldsetElementRenderer;
-    /**#@-*/
+
+    /*     * #@- */
 
     /**
      * Init simple xml form
@@ -79,8 +82,9 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
      * @return null
      */
     public static function setElementRenderer(
-        Mage_XmlConnect_Model_Simplexml_Form_Element_Renderer_Interface $renderer
-    ) {
+    Mage_XmlConnect_Model_Simplexml_Form_Element_Renderer_Interface $renderer
+    )
+    {
         self::$_defaultElementRenderer = $renderer;
     }
 
@@ -92,8 +96,9 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
      * @return null
      */
     public static function setValidatorRenderer(
-        Mage_XmlConnect_Model_Simplexml_Form_Element_Renderer_Interface $renderer
-    ) {
+    Mage_XmlConnect_Model_Simplexml_Form_Element_Renderer_Interface $renderer
+    )
+    {
         self::$_defaultValidatorRenderer = $renderer;
     }
 
@@ -105,8 +110,9 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
      * @return null
      */
     public static function setValidatorRuleRenderer(
-        Mage_XmlConnect_Model_Simplexml_Form_Element_Renderer_Interface $renderer
-    ) {
+    Mage_XmlConnect_Model_Simplexml_Form_Element_Renderer_Interface $renderer
+    )
+    {
         self::$_defaultValidatorRuleRenderer = $renderer;
     }
 
@@ -118,8 +124,9 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
      * @return null
      */
     public static function setFieldsetRenderer(
-        Mage_XmlConnect_Model_Simplexml_Form_Element_Renderer_Interface $renderer
-    ) {
+    Mage_XmlConnect_Model_Simplexml_Form_Element_Renderer_Interface $renderer
+    )
+    {
         self::$_defaultFieldsetRenderer = $renderer;
     }
 
@@ -131,8 +138,9 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
      * @return null
      */
     public static function setFieldsetElementRenderer(
-        Mage_XmlConnect_Model_Simplexml_Form_Element_Renderer_Interface $renderer
-    ) {
+    Mage_XmlConnect_Model_Simplexml_Form_Element_Renderer_Interface $renderer
+    )
+    {
         self::$_defaultFieldsetElementRenderer = $renderer;
     }
 
@@ -409,4 +417,5 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
         }
         return $newName;
     }
+
 }

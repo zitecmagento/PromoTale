@@ -1,0 +1,58 @@
+<?php
+/**
+ * Zitec Promotale
+ * @category   Zitec
+ * @package    Zitec_Promotale
+ * @copyright  Copyright (c) 2014 Zitec COM (http://www.zitec.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Template for Mage_Adminhtml_Block_Widget_Grid
+ *
+ *  getRuleOverThresholdProducts()
+ *  countProducts()
+ *  getRuleSavingStatus()
+ */
+$products = $this->getRuleOverThresholdProducts();
+$countProds = $this->countProducts();
+?>
+<div class="grid">
+    <h2 class="promotion-alert">
+        <?php echo Mage::helper('catalogrule')->__('There are %s products with discount higher then threshold', $countProds); ?>
+    </h2>
+    <?php if ($this->getRuleSavingStatus()) : ?>
+        <h3 class="promotion-alert applied">
+            <?php echo Mage::helper('catalogrule')->__('Promotion was saved even if there are some products with discount higher than threshold'); ?>
+        </h3>
+    <?php else : ?>
+        <h3 class="promotion-alert not-applied">
+            <?php echo Mage::helper('catalogrule')->__('Promotion was deactivated because there are some products with discount higher than threshold'); ?>
+        </h3>
+    <?php endif; ?>
+    <table class="data" id="table-promotion-alert">
+        <thead>
+            <tr class="headings">
+                <th><span class="nobr"><?php echo Mage::helper('catalogrule')->__('Product name') ?></span></th>
+                <th><span class="nobr"><?php echo Mage::helper('catalogrule')->__('SKU') ?></span></th>
+                <th><span class="nobr"><?php echo Mage::helper('catalogrule')->__('URL') ?></span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($products)) : ?>
+                <?php foreach ($products as $_prod) : ?>
+                    <tr>
+                        <td><?php echo $_prod->getName() ?></td>
+                        <td><?php echo $_prod->getSku() ?></td>
+                        <td><a target="_blank" href="<?php echo $_prod->getProductUrl() ?>"><?php echo Mage::helper('catalogrule')->__('View product') ?></a></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <tr>
+                    <td colspan="4"><?php echo Mage::helper('catalogrule')->__("No products in this list") ?></td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>

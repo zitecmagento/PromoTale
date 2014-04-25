@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Controller.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Controller_Action */
 #require_once 'Zend/Controller/Action.php';
 
@@ -34,6 +34,7 @@
  */
 abstract class Zend_Rest_Controller extends Zend_Controller_Action
 {
+
     /**
      * The index action handles index/list requests; it should respond with a
      * list of the requested resources.
@@ -66,5 +67,4 @@ abstract class Zend_Rest_Controller extends Zend_Controller_Action
      * identified by the 'id' value.
      */
     abstract public function deleteAction();
-
 }

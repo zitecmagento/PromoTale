@@ -23,30 +23,30 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-if(!window.Flex) {
+if (!window.Flex) {
     alert('Flex library not loaded');
 } else {
     Flex.ImageEditor = Class.create();
     Flex.ImageEditor.prototype = {
         flex: null,
-        filters:null,
-        containerId:null,
-        flexContainerId:null,
-        container:null,
+        filters: null,
+        containerId: null,
+        flexContainerId: null,
+        container: null,
         initialize: function(containerId, movieSrc, config) {
             this.containerId = containerId;
-            this.container   = $(containerId);
+            this.container = $(containerId);
 
             this.container.controller = this;
 
             this.config = config;
             this.flexContainerId = this.containerId + '-flash';
-            Element.insert(this.container, {bottom: '<div id="'+this.flexContainerId+'"></div>'});
+            Element.insert(this.container, {bottom: '<div id="' + this.flexContainerId + '"></div>'});
 
             this.flex = new Flex.Object({
-                width:  "1024",
+                width: "1024",
                 height: "786",
-                src:    movieSrc,
+                src: movieSrc,
                 wmode: 'transparent'
             });
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Registry.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Registry */
 #require_once 'Zend/Registry.php';
 
@@ -39,6 +39,7 @@
  */
 class Zend_View_Helper_Placeholder_Registry
 {
+
     /**
      * Zend_Registry key under which placeholder registry exists
      * @const string
@@ -116,7 +117,7 @@ class Zend_View_Helper_Placeholder_Registry
     public function containerExists($key)
     {
         $key = (string) $key;
-        $return =  array_key_exists($key, $this->_items);
+        $return = array_key_exists($key, $this->_items);
         return $return;
     }
 
@@ -185,4 +186,5 @@ class Zend_View_Helper_Placeholder_Registry
     {
         return $this->_containerClass;
     }
+
 }

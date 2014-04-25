@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -51,4 +52,3 @@ class Mage_Adminhtml_Block_Permissions_Users extends Mage_Adminhtml_Block_Templa
     }
 
 }
-

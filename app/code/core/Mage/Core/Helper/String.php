@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
 {
+
     const ICONV_CHARSET = 'UTF-8';
 
     /**
@@ -116,7 +118,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 $lastDelimetr = $this->strpos($this->strrev($part), $needle);
                 $tmpNewStr = '';
                 $tmpNewStr = $this->substr($this->strrev($part), 0, $lastDelimetr)
-                    . $insert . $this->substr($this->strrev($part), $lastDelimetr);
+                        . $insert . $this->substr($this->strrev($part), $lastDelimetr);
                 $newStr .= $this->strrev($tmpNewStr);
             } else {
                 $newStr .= $part;
@@ -138,7 +140,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (!$strlen) {
             return $result;
         }
-        for ($i = $strlen-1; $i >= 0; $i--) {
+        for ($i = $strlen - 1; $i >= 0; $i--) {
             $result .= $this->substr($str, $i, 1);
         }
         return $result;
@@ -177,8 +179,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         // split smartly, keeping words
         else {
             $split = preg_split('/(' . $wordSeparatorRegex . '+)/siu', $str, null, PREG_SPLIT_DELIM_CAPTURE);
-            $i        = 0;
-            $space    = '';
+            $i = 0;
+            $space = '';
             $spaceLen = 0;
             foreach ($split as $key => $part) {
                 if ($trim) {
@@ -186,16 +188,15 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                     if ($key % 2) {
                         continue;
                     }
-                    $space    = ' ';
+                    $space = ' ';
                     $spaceLen = 1;
                 }
                 if (empty($result[$i])) {
                     $currentLength = 0;
-                    $result[$i]    = '';
-                    $space         = '';
-                    $spaceLen      = 0;
-                }
-                else {
+                    $result[$i] = '';
+                    $space = '';
+                    $spaceLen = 0;
+                } else {
                     $currentLength = $this->strlen($result[$i]);
                 }
                 $partLength = $this->strlen($part);
@@ -246,8 +247,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         foreach ($split as $word) {
             if ($uniqueOnly) {
                 $result[$word] = $word;
-            }
-            else {
+            } else {
                 $result[] = $word;
             }
         }
@@ -266,7 +266,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     public function cleanString($string)
     {
         return '"libiconv"' == ICONV_IMPL ?
-            iconv(self::ICONV_CHARSET, self::ICONV_CHARSET . '//IGNORE', $string) : $string;
+                iconv(self::ICONV_CHARSET, self::ICONV_CHARSET . '//IGNORE', $string) : $string;
     }
 
     /**
@@ -296,7 +296,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         $oldLocale = setlocale(LC_COLLATE, "0");
         $localeCode = Mage::app()->getLocale()->getLocaleCode();
         // use fallback locale if $localeCode is not available
-        setlocale(LC_COLLATE,  $localeCode . '.UTF8', 'C.UTF-8', 'en_US.utf8');
+        setlocale(LC_COLLATE, $localeCode . '.UTF8', 'C.UTF-8', 'en_US.utf8');
         ksort($sort, SORT_LOCALE_STRING);
         setlocale(LC_COLLATE, $oldLocale);
 

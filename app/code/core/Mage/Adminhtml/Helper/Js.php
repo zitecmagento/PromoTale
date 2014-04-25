@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Helper_Js extends Mage_Core_Helper_Js
 {
+
     /**
      * Decode serialized grid data
      *
@@ -56,7 +58,7 @@ class Mage_Adminhtml_Helper_Js extends Mage_Core_Helper_Js
         $isSimplified = (false === strpos($encoded, '='));
         $result = array();
         parse_str($encoded, $decoded);
-        foreach($decoded as $key => $value) {
+        foreach ($decoded as $key => $value) {
             if (is_numeric($key)) {
                 if ($isSimplified) {
                     $result[] = $key;
@@ -68,4 +70,5 @@ class Mage_Adminhtml_Helper_Js extends Mage_Core_Helper_Js
         }
         return $result;
     }
+
 }

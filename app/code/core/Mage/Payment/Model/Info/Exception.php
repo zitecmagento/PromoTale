@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Session Exception
  *
@@ -35,4 +35,6 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Payment_Model_Info_Exception extends Mage_Core_Exception
-{}
+{
+    
+}

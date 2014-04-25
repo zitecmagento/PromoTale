@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Dataflow batch Io model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Dataflow_Model_Batch_Io
 {
+
     const TMP_DIR = '/var/tmp/';
     const TMP_NAME = 'batch_%d.tmp';
 
@@ -171,8 +172,7 @@ class Mage_Dataflow_Model_Batch_Io
     {
         if ($csv) {
             $content = $this->getIoAdapter()->streamReadCsv($delimiter, $enclosure);
-        }
-        else {
+        } else {
             $content = $this->getIoAdapter()->streamRead(1024);
             $this->_fileSize += strlen($content);
         }
@@ -203,4 +203,5 @@ class Mage_Dataflow_Model_Batch_Io
     {
         return $this->_fileSize;
     }
+
 }

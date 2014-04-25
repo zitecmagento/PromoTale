@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Crc32.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_File_Hash
  */
@@ -34,20 +34,21 @@
  */
 class Zend_Validate_File_Crc32 extends Zend_Validate_File_Hash
 {
+
     /**
      * @const string Error constants
      */
     const DOES_NOT_MATCH = 'fileCrc32DoesNotMatch';
-    const NOT_DETECTED   = 'fileCrc32NotDetected';
-    const NOT_FOUND      = 'fileCrc32NotFound';
+    const NOT_DETECTED = 'fileCrc32NotDetected';
+    const NOT_FOUND = 'fileCrc32NotFound';
 
     /**
      * @var array Error message templates
      */
     protected $_messageTemplates = array(
         self::DOES_NOT_MATCH => "File '%value%' does not match the given crc32 hashes",
-        self::NOT_DETECTED   => "A crc32 hash could not be evaluated for the given file",
-        self::NOT_FOUND      => "File '%value%' is not readable or does not exist",
+        self::NOT_DETECTED => "A crc32 hash could not be evaluated for the given file",
+        self::NOT_FOUND => "File '%value%' is not readable or does not exist",
     );
 
     /**
@@ -168,7 +169,7 @@ class Zend_Validate_File_Crc32 extends Zend_Validate_File_Hash
             return $this->_throw($file, self::NOT_DETECTED);
         }
 
-        foreach($hashes as $hash) {
+        foreach ($hashes as $hash) {
             if ($filehash === $hash) {
                 return true;
             }
@@ -176,4 +177,5 @@ class Zend_Validate_File_Crc32 extends Zend_Validate_File_Hash
 
         return $this->_throw($file, self::DOES_NOT_MATCH);
     }
+
 }

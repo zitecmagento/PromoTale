@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Planet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Barcode_Object_Postnet
  */
@@ -59,4 +59,5 @@ class Zend_Barcode_Object_Planet extends Zend_Barcode_Object_Postnet
         8 => "01101",
         9 => "01011"
     );
+
 }

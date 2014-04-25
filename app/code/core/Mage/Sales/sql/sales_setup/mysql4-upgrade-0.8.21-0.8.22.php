@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /**
  * Add "Save in address book" attribute to quote address
  *
@@ -37,5 +36,5 @@ $installer = $this;
 
 $installer->startSetup();
 $installer->getConnection()->addColumn($installer->getTable('sales_quote_address'), 'save_in_address_book', 'tinyint(1) default 0 after `customer_id`');
-$installer->addAttribute('quote_address', 'save_in_address_book', array('type'=>'static'));
+$installer->addAttribute('quote_address', 'save_in_address_book', array('type' => 'static'));
 $installer->endSetup();

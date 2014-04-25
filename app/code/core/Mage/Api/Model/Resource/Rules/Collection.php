@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Api Rules Resource Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Api_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Resource collection initialization
      *
@@ -51,7 +52,7 @@ class Mage_Api_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_
      */
     public function getByRoles($id)
     {
-        $this->getSelect()->where("role_id = ?", (int)$id);
+        $this->getSelect()->where("role_id = ?", (int) $id);
         return $this;
     }
 
@@ -63,7 +64,8 @@ class Mage_Api_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_
     public function addSortByLength()
     {
         $this->getSelect()->columns(array('length' => $this->getConnection()->getLengthSql('resource_id')))
-            ->order('length DESC');
+                ->order('length DESC');
         return $this;
     }
+
 }

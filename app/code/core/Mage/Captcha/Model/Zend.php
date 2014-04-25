@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha_Model_Interface
 {
+
     /**
      * Key in session for captcha code
      */
@@ -46,7 +48,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Max captcha lengths default value
      */
-    const DEFAULT_WORD_LENGTH_TO   = 5;
+    const DEFAULT_WORD_LENGTH_TO = 5;
 
     /**
      * Helper Instance
@@ -61,17 +63,17 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     protected $_expiration;
 
     /**
-    * Override default value to prevent a captcha cut off
-    * @var int
-    * @see Zend_Captcha_Image::$_fsize
-    */
+     * Override default value to prevent a captcha cut off
+     * @var int
+     * @see Zend_Captcha_Image::$_fsize
+     */
     protected $_fsize = 22;
 
     /**
      * Captcha form id
      * @var string
      */
-    protected  $_formId;
+    protected $_formId;
 
     /**
      * Zend captcha constructor
@@ -120,9 +122,8 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
             return false;
         }
 
-        return ($this->_isShowAlways() || $this->_isOverLimitAttempts($login)
-            || $this->getSession()->getData($this->_getFormIdKey('show_captcha'))
-        );
+        return ($this->_isShowAlways() || $this->_isOverLimitAttempts($login) || $this->getSession()->getData($this->_getFormIdKey('show_captcha'))
+                );
     }
 
     /**
@@ -143,7 +144,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _getAllowedAttemptsForSameLogin()
     {
-        return (int)$this->_getHelper()->getConfigNode('failed_attempts_login');
+        return (int) $this->_getHelper()->getConfigNode('failed_attempts_login');
     }
 
     /**
@@ -153,7 +154,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _getAllowedAttemptsFromSameIp()
     {
-        return (int)$this->_getHelper()->getConfigNode('failed_attempts_ip');
+        return (int) $this->_getHelper()->getConfigNode('failed_attempts_ip');
     }
 
     /**
@@ -189,9 +190,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _isUserAuth()
     {
-        return Mage::app()->getStore()->isAdmin()
-            ? Mage::getSingleton('admin/session')->isLoggedIn()
-            : Mage::getSingleton('customer/session')->isLoggedIn();
+        return Mage::app()->getStore()->isAdmin() ? Mage::getSingleton('admin/session')->isLoggedIn() : Mage::getSingleton('customer/session')->isLoggedIn();
     }
 
     /**
@@ -201,7 +200,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     public function isCaseSensitive()
     {
-        return (string)$this->_getHelper()->getConfigNode('case_sensitive');
+        return (string) $this->_getHelper()->getConfigNode('case_sensitive');
     }
 
     /**
@@ -226,7 +225,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
              * as "timeout" configuration parameter specifies timeout in minutes - we multiply it on 60 to set
              * expiration in seconds
              */
-            $this->_expiration = (int)$this->_getHelper()->getConfigNode('timeout') * 60;
+            $this->_expiration = (int) $this->_getHelper()->getConfigNode('timeout') * 60;
         }
         return $this->_expiration;
     }
@@ -262,7 +261,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         $storedWord = $this->getWord();
         $this->_clearWord();
 
-        if (!$word || !$storedWord){
+        if (!$word || !$storedWord) {
             return false;
         }
 
@@ -283,7 +282,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         return Mage::getSingleton('customer/session');
     }
 
-     /**
+    /**
      * Return full URL to captcha image
      *
      * @return string
@@ -317,7 +316,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _getFontPath()
     {
-        $font = (string)$this->_getHelper()->getConfigNode('font');
+        $font = (string) $this->_getHelper()->getConfigNode('font');
         $fonts = $this->_getHelper()->getFonts();
 
         if (isset($fonts[$font])) {
@@ -366,7 +365,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _getSymbols()
     {
-        return str_split((string)$this->_getHelper()->getConfigNode('symbols'));
+        return str_split((string) $this->_getHelper()->getConfigNode('symbols'));
     }
 
     /**
@@ -378,15 +377,15 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     {
         $from = 0;
         $to = 0;
-        $length = (string)$this->_getHelper()->getConfigNode('length');
+        $length = (string) $this->_getHelper()->getConfigNode('length');
         if (!is_numeric($length)) {
             if (preg_match('/(\d+)-(\d+)/', $length, $matches)) {
-                $from = (int)$matches[1];
-                $to = (int)$matches[2];
+                $from = (int) $matches[1];
+                $to = (int) $matches[2];
             }
         } else {
-            $from = (int)$length;
-            $to = (int)$length;
+            $from = (int) $length;
+            $to = (int) $length;
         }
 
         if (($to < $from) || ($from < 1) || ($to < 1)) {
@@ -409,7 +408,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
             return true;
         }
 
-        if ((string)$this->_getHelper()->getConfigNode('mode') == Mage_Captcha_Helper_Data::MODE_ALWAYS) {
+        if ((string) $this->_getHelper()->getConfigNode('mode') == Mage_Captcha_Helper_Data::MODE_ALWAYS) {
             return true;
         }
 
@@ -430,7 +429,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _isEnabled()
     {
-        return (string)$this->_getHelper()->getConfigNode('enable');
+        return (string) $this->_getHelper()->getConfigNode('enable');
     }
 
     /**
@@ -465,8 +464,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _setWord($word)
     {
-        $this->getSession()->setData($this->_getFormIdKey(self::SESSION_WORD),
-            array('data' => $word, 'expires' => time() + $this->getTimeout())
+        $this->getSession()->setData($this->_getFormIdKey(self::SESSION_WORD), array('data' => $word, 'expires' => time() + $this->getTimeout())
         );
         $this->_word = $word;
         return $this;
@@ -485,11 +483,11 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     }
 
     /**
-    * Override function to generate less curly captcha that will not cut off
-    *
-    * @see Zend_Captcha_Image::_randomSize()
-    * @return int
-    */
+     * Override function to generate less curly captcha that will not cut off
+     *
+     * @see Zend_Captcha_Image::_randomSize()
+     * @return int
+     */
     protected function _randomSize()
     {
         return mt_rand(280, 300) / 100;
@@ -505,4 +503,5 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     {
         //do nothing
     }
+
 }

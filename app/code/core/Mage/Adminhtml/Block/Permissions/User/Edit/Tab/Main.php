@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form
 {
 
@@ -43,46 +43,46 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Main extends Mage_Adminhtml
 
         $form->setHtmlIdPrefix('user_');
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('adminhtml')->__('Account Information')));
+        $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('adminhtml')->__('Account Information')));
 
         if ($model->getUserId()) {
             $fieldset->addField('user_id', 'hidden', array(
                 'name' => 'user_id',
             ));
         } else {
-            if (! $model->hasData('is_active')) {
+            if (!$model->hasData('is_active')) {
                 $model->setIsActive(1);
             }
         }
 
         $fieldset->addField('username', 'text', array(
-            'name'  => 'username',
+            'name' => 'username',
             'label' => Mage::helper('adminhtml')->__('User Name'),
-            'id'    => 'username',
+            'id' => 'username',
             'title' => Mage::helper('adminhtml')->__('User Name'),
             'required' => true,
         ));
 
         $fieldset->addField('firstname', 'text', array(
-            'name'  => 'firstname',
+            'name' => 'firstname',
             'label' => Mage::helper('adminhtml')->__('First Name'),
-            'id'    => 'firstname',
+            'id' => 'firstname',
             'title' => Mage::helper('adminhtml')->__('First Name'),
             'required' => true,
         ));
 
         $fieldset->addField('lastname', 'text', array(
-            'name'  => 'lastname',
+            'name' => 'lastname',
             'label' => Mage::helper('adminhtml')->__('Last Name'),
-            'id'    => 'lastname',
+            'id' => 'lastname',
             'title' => Mage::helper('adminhtml')->__('Last Name'),
             'required' => true,
         ));
 
         $fieldset->addField('email', 'text', array(
-            'name'  => 'email',
+            'name' => 'email',
             'label' => Mage::helper('adminhtml')->__('Email'),
-            'id'    => 'customer_email',
+            'id' => 'customer_email',
             'title' => Mage::helper('adminhtml')->__('User Email'),
             'class' => 'required-entry validate-email',
             'required' => true,
@@ -90,33 +90,32 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Main extends Mage_Adminhtml
 
         if ($model->getUserId()) {
             $fieldset->addField('password', 'password', array(
-                'name'  => 'new_password',
+                'name' => 'new_password',
                 'label' => Mage::helper('adminhtml')->__('New Password'),
-                'id'    => 'new_pass',
+                'id' => 'new_pass',
                 'title' => Mage::helper('adminhtml')->__('New Password'),
                 'class' => 'input-text validate-admin-password',
             ));
 
             $fieldset->addField('confirmation', 'password', array(
-                'name'  => 'password_confirmation',
+                'name' => 'password_confirmation',
                 'label' => Mage::helper('adminhtml')->__('Password Confirmation'),
-                'id'    => 'confirmation',
+                'id' => 'confirmation',
                 'class' => 'input-text validate-cpassword',
             ));
-        }
-        else {
-           $fieldset->addField('password', 'password', array(
-                'name'  => 'password',
+        } else {
+            $fieldset->addField('password', 'password', array(
+                'name' => 'password',
                 'label' => Mage::helper('adminhtml')->__('Password'),
-                'id'    => 'customer_pass',
+                'id' => 'customer_pass',
                 'title' => Mage::helper('adminhtml')->__('Password'),
                 'class' => 'input-text required-entry validate-admin-password',
                 'required' => true,
             ));
-           $fieldset->addField('confirmation', 'password', array(
-                'name'  => 'password_confirmation',
+            $fieldset->addField('confirmation', 'password', array(
+                'name' => 'password_confirmation',
                 'label' => Mage::helper('adminhtml')->__('Password Confirmation'),
-                'id'    => 'confirmation',
+                'id' => 'confirmation',
                 'title' => Mage::helper('adminhtml')->__('Password Confirmation'),
                 'class' => 'input-text required-entry validate-cpassword',
                 'required' => true,
@@ -125,19 +124,19 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Main extends Mage_Adminhtml
 
         if (Mage::getSingleton('admin/session')->getUser()->getId() != $model->getUserId()) {
             $fieldset->addField('is_active', 'select', array(
-                'name'  	=> 'is_active',
-                'label' 	=> Mage::helper('adminhtml')->__('This account is'),
-                'id'    	=> 'is_active',
-                'title' 	=> Mage::helper('adminhtml')->__('Account Status'),
-                'class' 	=> 'input-select',
-                'style'		=> 'width: 80px',
-                'options'	=> array('1' => Mage::helper('adminhtml')->__('Active'), '0' => Mage::helper('adminhtml')->__('Inactive')),
+                'name' => 'is_active',
+                'label' => Mage::helper('adminhtml')->__('This account is'),
+                'id' => 'is_active',
+                'title' => Mage::helper('adminhtml')->__('Account Status'),
+                'class' => 'input-select',
+                'style' => 'width: 80px',
+                'options' => array('1' => Mage::helper('adminhtml')->__('Active'), '0' => Mage::helper('adminhtml')->__('Inactive')),
             ));
         }
 
         $fieldset->addField('user_roles', 'hidden', array(
             'name' => 'user_roles',
-            'id'   => '_user_roles',
+            'id' => '_user_roles',
         ));
 
         $data = $model->getData();
@@ -150,4 +149,5 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Main extends Mage_Adminhtml
 
         return parent::_prepareForm();
     }
+
 }

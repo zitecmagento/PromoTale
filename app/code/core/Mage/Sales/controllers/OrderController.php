@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
 {
 
@@ -90,4 +90,5 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
         $this->_forward('noRoute');
         return;
     }
+
 }

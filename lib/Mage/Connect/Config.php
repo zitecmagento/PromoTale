@@ -1,9 +1,10 @@
 <?php
 
-class Mage_Connect_Config
-implements Iterator
+class Mage_Connect_Config implements Iterator
 {
+
     protected $_configFile;
+
     const HEADER = "::ConnectConfig::v::1.0::";
     const DEFAULT_DOWNLOADER_PATH = "downloader";
     const DEFAULT_CACHE_PATH = ".cache";
@@ -12,85 +13,82 @@ implements Iterator
 
     protected function initProperties()
     {
-        $this->properties = array (
-           'php_ini' => array(
+        $this->properties = array(
+            'php_ini' => array(
                 'type' => 'file',
                 'value' => '',
                 'prompt' => 'location of php.ini',
                 'doc' => "It's a location of PHP.ini to use blah",
                 'possible' => '/path/php.ini',
-        ),
-           'protocol' => array(
+            ),
+            'protocol' => array(
                 'type' => 'set',
                 'value' => 'http',
                 'prompt' => 'preffered protocol',
                 'doc' => 'preffered protocol',
                 'rules' => array('http', 'ftp')
-        ),
-           'preferred_state' => array(
+            ),
+            'preferred_state' => array(
                 'type' => 'set',
                 'value' => 'stable',
                 'prompt' => 'preferred package state',
                 'doc' => 'preferred package state',
-                'rules' => array('beta','alpha','stable','devel')
-        ),
-           'global_dir_mode' => array (
+                'rules' => array('beta', 'alpha', 'stable', 'devel')
+            ),
+            'global_dir_mode' => array(
                 'type' => 'octal',
                 'value' => 0777,
                 'prompt' => 'directory creation mode',
                 'doc' => 'directory creation mode',
                 'possible' => '0777, 0666 etc.',
-        ),
-           'global_file_mode' => array (
+            ),
+            'global_file_mode' => array(
                 'type' => 'octal',
                 'value' => 0666,
                 'prompt' => 'file creation mode',
                 'doc' => 'file creation mode',
                 'possible' => '0777, 0666 etc.',
-        ),
+            ),
             'downloader_path' => array(
                 'type' => 'dir',
                 'value' => 'downloader',
                 'prompt' => 'relative path, location of magento downloader',
                 'doc' => "relative path, location of magento downloader",
                 'possible' => 'path',
-        ),
+            ),
             'magento_root' => array(
                 'type' => 'dir',
                 'value' => '',
                 'prompt' => 'location of magento root dir',
                 'doc' => "Location of magento",
                 'possible' => '/path',
-        ),
+            ),
             'root_channel' => array(
                 'type' => 'string',
                 'value' => 'core',
                 'prompt' => '',
                 'doc' => "",
                 'possible' => '',
-        ),
-        
+            ),
         );
-
     }
-    
+
     public function getDownloaderPath()
     {
         return $this->magento_root . DIRECTORY_SEPARATOR . $this->downloader_path;
     }
-    
+
     public function getPackagesCacheDir()
     {
-        return $this->getDownloaderPath() . DIRECTORY_SEPARATOR . self::DEFAULT_CACHE_PATH;        
+        return $this->getDownloaderPath() . DIRECTORY_SEPARATOR . self::DEFAULT_CACHE_PATH;
     }
-    
+
     public function getChannelCacheDir($channel)
     {
-        $channel = trim( $channel, "\\/");
-        return $this->getPackagesCacheDir(). DIRECTORY_SEPARATOR . $channel; 
+        $channel = trim($channel, "\\/");
+        return $this->getPackagesCacheDir() . DIRECTORY_SEPARATOR . $channel;
     }
-    
-    
+
     public function __construct($configFile = "connect.cfg")
     {
         $this->initProperties();
@@ -102,7 +100,7 @@ implements Iterator
     {
         return $this->_configFile;
     }
-    
+
     public function load()
     {
         /**
@@ -113,7 +111,7 @@ implements Iterator
         $f = fopen($this->_configFile, "a+");
         fseek($f, 0, SEEK_SET);
         $size = filesize($this->_configFile);
-        if(!$size) {
+        if (!$size) {
             $this->store();
             return;
         }
@@ -121,7 +119,7 @@ implements Iterator
         $headerLen = strlen(self::HEADER);
         $contents = fread($f, $headerLen);
 
-        if(self::HEADER != $contents) {
+        if (self::HEADER != $contents) {
             $this->store();
             return;
         }
@@ -130,11 +128,11 @@ implements Iterator
         $contents = fread($f, $size);
 
         $data = @unserialize($contents);
-        if($data === unserialize(false)) {
+        if ($data === unserialize(false)) {
             $this->store();
             return;
         }
-        foreach($data as $k=>$v) {
+        foreach ($data as $k => $v) {
             $this->$k = $v;
         }
         fclose($f);
@@ -149,13 +147,12 @@ implements Iterator
         @fclose($f);
     }
 
-
     public function validate($key, $val)
     {
         $rules = $this->extractField($key, 'rules');
-        if(null === $rules) {
+        if (null === $rules) {
             return true;
-        } elseif( is_array($rules) ) {
+        } elseif (is_array($rules)) {
             return in_array($val, $rules);
         }
         return false;
@@ -164,16 +161,16 @@ implements Iterator
     public function possible($key)
     {
         $data = $this->getKey($key);
-        if(! $data) {
+        if (!$data) {
             return null;
         }
-        if('set' == $data['type']) {
+        if ('set' == $data['type']) {
             return implode("|", $data['rules']);
         }
-        if(!empty($data['possible'])) {
+        if (!empty($data['possible'])) {
             return $data['possible'];
         }
-        return "<".$data['type'].">";
+        return "<" . $data['type'] . ">";
     }
 
     public function type($key)
@@ -186,15 +183,13 @@ implements Iterator
         return $this->extractField($key, 'doc');
     }
 
-
     public function extractField($key, $field)
     {
-        if(!isset($this->properties[$key][$field])) {
+        if (!isset($this->properties[$key][$field])) {
             return null;
         }
         return $this->properties[$key][$field];
     }
-
 
     public function hasKey($fld)
     {
@@ -203,29 +198,34 @@ implements Iterator
 
     public function getKey($fld)
     {
-        if($this->hasKey($fld)) {
+        if ($this->hasKey($fld)) {
             return $this->properties[$fld];
         }
         return null;
     }
 
-    public function rewind() {
+    public function rewind()
+    {
         reset($this->properties);
     }
 
-    public function valid() {
+    public function valid()
+    {
         return current($this->properties) !== false;
     }
 
-    public function key() {
+    public function key()
+    {
         return key($this->properties);
     }
 
-    public function current() {
+    public function current()
+    {
         return current($this->properties);
     }
 
-    public function next() {
+    public function next()
+    {
         next($this->properties);
     }
 
@@ -246,7 +246,7 @@ implements Iterator
             if ($value === null) {
                 $value = '';
             }
-            if($this->properties[$var]['value'] !== $value) {
+            if ($this->properties[$var]['value'] !== $value) {
                 $this->properties[$var]['value'] = $value;
                 $this->store();
             }
@@ -256,7 +256,7 @@ implements Iterator
     public function toArray($withRules = false)
     {
         $out = array();
-        foreach($this as $k=>$v) {
+        foreach ($this as $k => $v) {
             $out[$k] = $withRules ? $v : $v['value'];
         }
         return $out;

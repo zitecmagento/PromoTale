@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -32,6 +33,7 @@
  */
 class Zend_Server_Reflection_Parameter
 {
+
     /**
      * @var ReflectionParameter
      */
@@ -158,4 +160,5 @@ class Zend_Server_Reflection_Parameter
     {
         return $this->_position;
     }
+
 }

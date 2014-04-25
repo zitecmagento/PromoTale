@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist sidebar block
  *
@@ -34,7 +34,8 @@
  */
 class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
 {
-    const XML_PATH_CHECKOUT_SIDEBAR_COUNT   = 'checkout/sidebar/count';
+
+    const XML_PATH_CHECKOUT_SIDEBAR_COUNT = 'checkout/sidebar/count';
 
     /**
      * Class constructor
@@ -97,7 +98,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
                 } else {
                     $subtotal = $totals['subtotal']->getValueInclTax();
                 }
-            } elseif($config->displayCartSubtotalInclTax()) {
+            } elseif ($config->displayCartSubtotalInclTax()) {
                 $subtotal = $totals['subtotal']->getValueInclTax();
             } else {
                 $subtotal = $totals['subtotal']->getValue();
@@ -130,11 +131,12 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
      * @param bool $exclShippingTax
      * @return float
      */
-    private function _addTax($price, $exclShippingTax=true) {
+    private function _addTax($price, $exclShippingTax = true)
+    {
         $totals = $this->getTotals();
         if (isset($totals['tax'])) {
             if ($exclShippingTax) {
-                $price += $totals['tax']->getValue()-$this->_getShippingTaxAmount();
+                $price += $totals['tax']->getValue() - $this->_getShippingTaxAmount();
             } else {
                 $price += $totals['tax']->getValue();
             }
@@ -175,7 +177,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
     public function getIncExcTax($flag)
     {
         $text = Mage::helper('tax')->getIncExcText($flag);
-        return $text ? ' ('.$text.')' : '';
+        return $text ? ' (' . $text . ')' : '';
     }
 
     /**
@@ -227,6 +229,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
      *
      * @return array
      */
+
     public function getTotalsCache()
     {
         if (empty($this->_totals)) {
@@ -301,12 +304,11 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
         /** @var $item Mage_Sales_Model_Quote_Item */
         foreach ($this->getItems() as $item) {
             $items[] = $item->getProduct();
-       }
+        }
 
         return array_merge(
-            parent::getCacheTags(),
-            (!$quoteTags)? array() : $quoteTags,
-            $this->getItemsTags($items)
+                parent::getCacheTags(), (!$quoteTags) ? array() : $quoteTags, $this->getItemsTags($items)
         );
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -46,12 +47,12 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml
         $collection = Mage::getResourceModel('reports/tag_product_collection');
 
         $collection->addTagedCount()
-            ->addProductFilter($this->getRequest()->getParam('id'))
-            ->addStatusFilter(Mage::getModel('tag/tag')->getApprovedStatus())
-            ->addStoresVisibility()
-            ->setActiveFilter()
-            ->addGroupByTag()
-            ->setRelationId();
+                ->addProductFilter($this->getRequest()->getParam('id'))
+                ->addStatusFilter(Mage::getModel('tag/tag')->getApprovedStatus())
+                ->addStoresVisibility()
+                ->setActiveFilter()
+                ->addGroupByTag()
+                ->setRelationId();
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -61,23 +62,23 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml
     {
 
         $this->addColumn('tag_name', array(
-            'header'    =>Mage::helper('reports')->__('Tag Name'),
-            'index'     =>'tag_name'
+            'header' => Mage::helper('reports')->__('Tag Name'),
+            'index' => 'tag_name'
         ));
 
         $this->addColumn('taged', array(
-            'header'    =>Mage::helper('reports')->__('Tag Use'),
-            'index'     =>'taged',
-            'align'     => 'right'
+            'header' => Mage::helper('reports')->__('Tag Use'),
+            'index' => 'taged',
+            'align' => 'right'
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('visible', array(
-                'header'    => Mage::helper('reports')->__('Visible In'),
-                'sortable'  => false,
-                'index'     => 'stores',
-                'type'      => 'store',
-                'store_view'=> true
+                'header' => Mage::helper('reports')->__('Visible In'),
+                'sortable' => false,
+                'index' => 'stores',
+                'type' => 'store',
+                'store_view' => true
             ));
         }
 
@@ -90,4 +91,3 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml
     }
 
 }
-

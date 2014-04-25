@@ -1,4 +1,5 @@
 <?php
+
 /**
  * {license_notice}
  *
@@ -13,6 +14,7 @@
  */
 class Magento_Profiler_Output_Csvfile extends Magento_Profiler_OutputAbstract
 {
+
     /**
      * @var string
      */
@@ -84,4 +86,5 @@ class Magento_Profiler_Output_Csvfile extends Magento_Profiler_OutputAbstract
             fputcsv($fileHandle, $row, $this->_delimiter, $this->_enclosure);
         }
     }
+
 }

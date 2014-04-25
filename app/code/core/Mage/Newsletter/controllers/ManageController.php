@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customers newsletter subscription controller
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Action predispatch
      *
@@ -65,20 +66,23 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         if (!$this->_validateFormKey()) {
             return $this->_redirect('customer/account/');
         }
-        try {
+        try
+        {
             Mage::getSingleton('customer/session')->getCustomer()
-            ->setStoreId(Mage::app()->getStore()->getId())
-            ->setIsSubscribed((boolean)$this->getRequest()->getParam('is_subscribed', false))
-            ->save();
-            if ((boolean)$this->getRequest()->getParam('is_subscribed', false)) {
+                    ->setStoreId(Mage::app()->getStore()->getId())
+                    ->setIsSubscribed((boolean) $this->getRequest()->getParam('is_subscribed', false))
+                    ->save();
+            if ((boolean) $this->getRequest()->getParam('is_subscribed', false)) {
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been saved.'));
             } else {
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been removed.'));
             }
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             Mage::getSingleton('customer/session')->addError($this->__('An error occurred while saving your subscription.'));
         }
         $this->_redirect('customer/account/');
     }
+
 }

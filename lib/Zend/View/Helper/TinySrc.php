@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_HtmlElement */
 #require_once 'Zend/View/Helper/HtmlElement.php';
 
@@ -54,6 +54,7 @@
  */
 class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
 {
+
     const TINYSRC_BASE = 'http://i.tinysrc.mobi';
 
     /**
@@ -80,10 +81,10 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
      * @var array
      */
     protected $_defaultOptions = array(
-        'base_url'   => null,
-        'format'     => null,
-        'width'      => false,
-        'height'     => false,
+        'base_url' => null,
+        'format' => null,
+        'width' => false,
+        'height' => false,
         'create_tag' => true,
     );
 
@@ -111,10 +112,10 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
 
         $url = '/' . $this->_mergeBaseUrl($options) . ltrim($image, '/');
 
-        $src = self::TINYSRC_BASE 
-             . $this->_mergeFormat($options) 
-             . $this->_mergeDimensions($options)
-             . $url;
+        $src = self::TINYSRC_BASE
+                . $this->_mergeFormat($options)
+                . $this->_mergeDimensions($options)
+                . $url;
 
         if (!$options['create_tag']) {
             return $src;
@@ -288,7 +289,7 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
      * @param  array $options 
      * @return string
      */
-    protected function _mergeFormat(array $options) 
+    protected function _mergeFormat(array $options)
     {
         if (in_array($options['format'], array('png', 'jpeg'))) {
             return '/' . $options['format'];
@@ -314,4 +315,5 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
         $dimensions .= '/' . $options['height'];
         return $dimensions;
     }
+
 }

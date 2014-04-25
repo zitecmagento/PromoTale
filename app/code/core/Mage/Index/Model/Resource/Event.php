@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Index Event Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Enter description here ...
      *
@@ -56,9 +57,9 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
          */
         if (!$object->getId()) {
             $select = $this->_getReadAdapter()->select()
-                ->from($this->getMainTable())
-                ->where('type=?', $object->getType())
-                ->where('entity=?', $object->getEntity());
+                    ->from($this->getMainTable())
+                    ->where('type=?', $object->getType())
+                    ->where('entity=?', $object->getEntity());
             if ($object->hasEntityPk()) {
                 $select->where('entity_pk=?', $object->getEntityPk());
             }
@@ -89,14 +90,14 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
                     if (is_null($processStatus) || $processStatus == Mage_Index_Model_Process::EVENT_STATUS_DONE) {
                         $this->_getWriteAdapter()->delete($processTable, array(
                             'process_id = ?' => $processId,
-                            'event_id = ?'   => $object->getId(),
+                            'event_id = ?' => $object->getId(),
                         ));
                         continue;
                     }
                     $data = array(
                         'process_id' => $processId,
-                        'event_id'   => $object->getId(),
-                        'status'     => $processStatus
+                        'event_id' => $object->getId(),
+                        'status' => $processStatus
                     );
                     $this->_getWriteAdapter()->insertOnDuplicate($processTable, $data, array('status'));
                 }
@@ -123,9 +124,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
             $whereCondition = array('process_id = ?' => $process);
         }
         $this->_getWriteAdapter()->update(
-            $this->getTable('index/process_event'),
-            array('status' => $status),
-            $whereCondition
+                $this->getTable('index/process_event'), array('status' => $status), $whereCondition
         );
         return $this;
     }
@@ -139,10 +138,11 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
     public function getUnprocessedEvents($process)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('index/process_event'))
-            ->where('process_id = ?', $process->getId())
-            ->where('status = ?', Mage_Index_Model_Process::EVENT_STATUS_NEW);
+                ->from($this->getTable('index/process_event'))
+                ->where('process_id = ?', $process->getId())
+                ->where('status = ?', Mage_Index_Model_Process::EVENT_STATUS_NEW);
 
         return $this->_getReadAdapter()->fetchAll($select);
     }
+
 }

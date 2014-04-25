@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,9 +34,10 @@
  */
 class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
+
     /**
-    * Constructor
-    */
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();
@@ -45,10 +47,10 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tabs extends Mage_Admin
     }
 
     /**
-    * Set tabs
-    *
-    * @return Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tabs
-    */
+     * Set tabs
+     *
+     * @return Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tabs
+     */
     protected function _beforeToHtml()
     {
 //        $this->addTab('package', array(
@@ -87,11 +89,11 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tabs extends Mage_Admin
     }
 
     /**
-    * Retrieve HTML for tab
-    *
-    * @param string $tab
-    * @return string
-    */
+     * Retrieve HTML for tab
+     *
+     * @param string $tab
+     * @return string
+     */
     protected function _getTabHtml($tab)
     {
 //        return $this->getLayout()

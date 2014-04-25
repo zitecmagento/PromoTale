@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Sales_Model_Service_Order
 {
+
     /**
      * Order object
      *
@@ -50,8 +52,8 @@ class Mage_Sales_Model_Service_Order
      */
     public function __construct(Mage_Sales_Model_Order $order)
     {
-        $this->_order       = $order;
-        $this->_convertor   = Mage::getModel('sales/convert_order');
+        $this->_order = $order;
+        $this->_convertor = Mage::getModel('sales/convert_order');
     }
 
     /**
@@ -258,10 +260,9 @@ class Mage_Sales_Model_Service_Order
         $creditmemo->setInvoice($invoice);
 
         $invoiceQtysRefunded = array();
-        foreach($invoice->getOrder()->getCreditmemosCollection() as $createdCreditmemo) {
-            if ($createdCreditmemo->getState() != Mage_Sales_Model_Order_Creditmemo::STATE_CANCELED
-                && $createdCreditmemo->getInvoiceId() == $invoice->getId()) {
-                foreach($createdCreditmemo->getAllItems() as $createdCreditmemoItem) {
+        foreach ($invoice->getOrder()->getCreditmemosCollection() as $createdCreditmemo) {
+            if ($createdCreditmemo->getState() != Mage_Sales_Model_Order_Creditmemo::STATE_CANCELED && $createdCreditmemo->getInvoiceId() == $invoice->getId()) {
+                foreach ($createdCreditmemo->getAllItems() as $createdCreditmemoItem) {
                     $orderItemId = $createdCreditmemoItem->getOrderItem()->getId();
                     if (isset($invoiceQtysRefunded[$orderItemId])) {
                         $invoiceQtysRefunded[$orderItemId] += $createdCreditmemoItem->getQty();
@@ -273,7 +274,7 @@ class Mage_Sales_Model_Service_Order
         }
 
         $invoiceQtysRefundLimits = array();
-        foreach($invoice->getAllItems() as $invoiceItem) {
+        foreach ($invoice->getAllItems() as $invoiceItem) {
             $invoiceQtyCanBeRefunded = $invoiceItem->getQty();
             $orderItemId = $invoiceItem->getOrderItem()->getId();
             if (isset($invoiceQtysRefunded[$orderItemId])) {
@@ -317,9 +318,7 @@ class Mage_Sales_Model_Service_Order
             $order = $invoice->getOrder();
             $isShippingInclTax = Mage::getSingleton('tax/config')->displaySalesShippingInclTax($order->getStoreId());
             if ($isShippingInclTax) {
-                $baseAllowedAmount = $order->getBaseShippingInclTax()
-                        - $order->getBaseShippingRefunded()
-                        - $order->getBaseShippingTaxRefunded();
+                $baseAllowedAmount = $order->getBaseShippingInclTax() - $order->getBaseShippingRefunded() - $order->getBaseShippingTaxRefunded();
             } else {
                 $baseAllowedAmount = $order->getBaseShippingAmount() - $order->getBaseShippingRefunded();
                 $baseAllowedAmount = min($baseAllowedAmount, $invoice->getBaseShippingAmount());
@@ -341,7 +340,7 @@ class Mage_Sales_Model_Service_Order
     {
         $this->updateLocaleNumbers($data);
         if (isset($data['shipping_amount'])) {
-            $creditmemo->setBaseShippingAmount((float)$data['shipping_amount']);
+            $creditmemo->setBaseShippingAmount((float) $data['shipping_amount']);
         }
 
         if (isset($data['adjustment_positive'])) {
@@ -361,7 +360,7 @@ class Mage_Sales_Model_Service_Order
      * @param array $qtys
      * @return bool
      */
-    protected function _canInvoiceItem($item, $qtys=array())
+    protected function _canInvoiceItem($item, $qtys = array())
     {
         if ($item->getLockedDoInvoice()) {
             return false;
@@ -382,7 +381,7 @@ class Mage_Sales_Model_Service_Order
                     }
                 }
                 return false;
-            } else if($item->getParentItem()) {
+            } else if ($item->getParentItem()) {
                 $parent = $item->getParentItem();
                 if (empty($qtys)) {
                     return $parent->getQtyToInvoice() > 0;
@@ -403,7 +402,7 @@ class Mage_Sales_Model_Service_Order
      * @param array $qtys
      * @return bool
      */
-    protected function _canShipItem($item, $qtys=array())
+    protected function _canShipItem($item, $qtys = array())
     {
         if ($item->getIsVirtual() || $item->getLockedDoShip()) {
             return false;
@@ -430,7 +429,7 @@ class Mage_Sales_Model_Service_Order
                     }
                 }
                 return false;
-            } else if($item->getParentItem()) {
+            } else if ($item->getParentItem()) {
                 $parent = $item->getParentItem();
                 if (empty($qtys)) {
                     return $parent->getQtyToShip() > 0;
@@ -439,7 +438,7 @@ class Mage_Sales_Model_Service_Order
                 }
             }
         } else {
-            return $item->getQtyToShip()>0;
+            return $item->getQtyToShip() > 0;
         }
     }
 
@@ -451,7 +450,7 @@ class Mage_Sales_Model_Service_Order
      * @param array $invoiceQtysRefundLimits
      * @return bool
      */
-    protected function _canRefundItem($item, $qtys=array(), $invoiceQtysRefundLimits=array())
+    protected function _canRefundItem($item, $qtys = array(), $invoiceQtysRefundLimits = array())
     {
         $this->updateLocaleNumbers($qtys);
         if ($item->isDummy()) {
@@ -468,7 +467,7 @@ class Mage_Sales_Model_Service_Order
                     }
                 }
                 return false;
-            } else if($item->getParentItem()) {
+            } else if ($item->getParentItem()) {
                 $parent = $item->getParentItem();
                 if (empty($qtys)) {
                     return $this->_canRefundNoDummyItem($parent, $invoiceQtysRefundLimits);
@@ -488,7 +487,7 @@ class Mage_Sales_Model_Service_Order
      * @param array $invoiceQtysRefundLimits
      * @return bool
      */
-    protected function _canRefundNoDummyItem($item, $invoiceQtysRefundLimits=array())
+    protected function _canRefundNoDummyItem($item, $invoiceQtysRefundLimits = array())
     {
         if ($item->getQtyToRefund() < 0) {
             return false;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Boolean.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Search_Weight */
 #require_once 'Zend/Search/Lucene/Search/Weight.php';
-
 
 /**
  * @category   Zend
@@ -34,6 +32,7 @@
  */
 class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search_Weight
 {
+
     /**
      * IndexReader.
      *
@@ -56,7 +55,6 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
      */
     private $_weights;
 
-
     /**
      * Zend_Search_Lucene_Search_Weight_Boolean constructor
      * query - the query that this concerns.
@@ -65,11 +63,10 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
      * @param Zend_Search_Lucene_Search_Query $query
      * @param Zend_Search_Lucene_Interface    $reader
      */
-    public function __construct(Zend_Search_Lucene_Search_Query $query,
-                                Zend_Search_Lucene_Interface    $reader)
+    public function __construct(Zend_Search_Lucene_Search_Query $query, Zend_Search_Lucene_Interface $reader)
     {
-        $this->_query   = $query;
-        $this->_reader  = $reader;
+        $this->_query = $query;
+        $this->_reader = $reader;
         $this->_weights = array();
 
         $signs = $query->getSigns();
@@ -81,7 +78,6 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
         }
     }
 
-
     /**
      * The weight for this query
      * Standard Weight::$_value is not used for boolean queries
@@ -92,7 +88,6 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
     {
         return $this->_query->getBoost();
     }
-
 
     /**
      * The sum of squared weights of contained query clauses.
@@ -117,7 +112,6 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
         return $sum;
     }
 
-
     /**
      * Assigns the query normalization factor to this.
      *
@@ -132,6 +126,5 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
             $weight->normalize($queryNorm);
         }
     }
+
 }
-
-

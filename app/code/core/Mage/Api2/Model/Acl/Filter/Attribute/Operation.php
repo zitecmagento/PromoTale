@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Acl_Filter_Attribute_Operation
 {
+
     /**
      * Get options paramets
      *
@@ -60,8 +62,9 @@ class Mage_Api2_Model_Acl_Filter_Attribute_Operation
     static public function toArray()
     {
         return array(
-            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ  => Mage::helper('api2')->__('Read'),
+            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ => Mage::helper('api2')->__('Read'),
             Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE => Mage::helper('api2')->__('Write')
         );
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax class resource
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Tax_Model_Resource_Class extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      *
@@ -51,9 +52,10 @@ class Mage_Tax_Model_Resource_Class extends Mage_Core_Model_Resource_Db_Abstract
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = array(array(
-            'field' => array('class_type', 'class_name'),
-            'title' => Mage::helper('tax')->__('An error occurred while saving this tax class. A class with the same name'),
+                'field' => array('class_type', 'class_name'),
+                'title' => Mage::helper('tax')->__('An error occurred while saving this tax class. A class with the same name'),
         ));
         return $this;
     }
+
 }

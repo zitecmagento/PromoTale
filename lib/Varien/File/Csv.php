@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,7 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Csv parse
  *
@@ -31,15 +32,16 @@
  */
 class Varien_File_Csv
 {
-    protected $_lineLength= 0;
+
+    protected $_lineLength = 0;
     protected $_delimiter = ',';
     protected $_enclosure = '"';
-    
-    public function __construct() 
+
+    public function __construct()
     {
         
     }
-    
+
     /**
      * Set max file line length
      *
@@ -51,7 +53,7 @@ class Varien_File_Csv
         $this->_lineLength = $length;
         return $this;
     }
-    
+
     /**
      * Set CSV column delimiter
      *
@@ -63,7 +65,7 @@ class Varien_File_Csv
         $this->_delimiter = $delimiter;
         return $this;
     }
-    
+
     /**
      * Set CSV column value enclosure
      *
@@ -75,7 +77,7 @@ class Varien_File_Csv
         $this->_enclosure = $enclosure;
         return $this;
     }
-    
+
     /**
      * Retrieve CSV file data as array
      *
@@ -86,9 +88,9 @@ class Varien_File_Csv
     {
         $data = array();
         if (!file_exists($file)) {
-            throw new Exception('File "'.$file.'" do not exists');
+            throw new Exception('File "' . $file . '" do not exists');
         }
-        
+
         $fh = fopen($file, 'r');
         while ($rowData = fgetcsv($fh, $this->_lineLength, $this->_delimiter, $this->_enclosure)) {
             $data[] = $rowData;
@@ -96,7 +98,7 @@ class Varien_File_Csv
         fclose($fh);
         return $data;
     }
-    
+
     /**
      * Retrieve CSV file data as pairs
      *
@@ -105,18 +107,18 @@ class Varien_File_Csv
      * @param   int $valueIndex
      * @return  array
      */
-    public function getDataPairs($file, $keyIndex=0, $valueIndex=1)
+    public function getDataPairs($file, $keyIndex = 0, $valueIndex = 1)
     {
         $data = array();
         $csvData = $this->getData($file);
         foreach ($csvData as $rowData) {
-        	if (isset($rowData[$keyIndex])) {
-        	    $data[$rowData[$keyIndex]] = isset($rowData[$valueIndex]) ? $rowData[$valueIndex] : null;
-        	}
+            if (isset($rowData[$keyIndex])) {
+                $data[$rowData[$keyIndex]] = isset($rowData[$valueIndex]) ? $rowData[$valueIndex] : null;
+            }
         }
         return $data;
     }
-    
+
     /**
      * Saving data row array into file
      *
@@ -133,21 +135,22 @@ class Varien_File_Csv
         fclose($fh);
         return $this;
     }
-    
-    public function fputcsv(&$handle, $fields = array(), $delimiter = ',', $enclosure = '"') {
+
+    public function fputcsv(&$handle, $fields = array(), $delimiter = ',', $enclosure = '"')
+    {
         $str = '';
         $escape_char = '\\';
         foreach ($fields as $value) {
             if (strpos($value, $delimiter) !== false ||
-                strpos($value, $enclosure) !== false ||
-                strpos($value, "\n") !== false ||
-                strpos($value, "\r") !== false ||
-                strpos($value, "\t") !== false ||
-                strpos($value, ' ') !== false) {
+                    strpos($value, $enclosure) !== false ||
+                    strpos($value, "\n") !== false ||
+                    strpos($value, "\r") !== false ||
+                    strpos($value, "\t") !== false ||
+                    strpos($value, ' ') !== false) {
                 $str2 = $enclosure;
                 $escaped = 0;
                 $len = strlen($value);
-                for ($i=0;$i<$len;$i++) {
+                for ($i = 0; $i < $len; $i++) {
                     if ($value[$i] == $escape_char) {
                         $escaped = 1;
                     } else if (!$escaped && $value[$i] == $enclosure) {
@@ -155,17 +158,17 @@ class Varien_File_Csv
                     } else {
                         $escaped = 0;
                     }
-                        $str2 .= $value[$i];
+                    $str2 .= $value[$i];
                 }
                 $str2 .= $enclosure;
-                $str .= $str2.$delimiter;
+                $str .= $str2 . $delimiter;
             } else {
-                $str .= $enclosure.$value.$enclosure.$delimiter;
+                $str .= $enclosure . $value . $enclosure . $delimiter;
             }
         }
-        $str = substr($str,0,-1);
+        $str = substr($str, 0, -1);
         $str .= "\n";
         return fwrite($handle, $str);
     }
-    
+
 }

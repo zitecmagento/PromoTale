@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Downloadable_Block_Sales_Order_Item_Renderer_Downloadable extends Mage_Sales_Block_Order_Item_Renderer_Default
 {
+
     protected $_purchasedLinks = null;
 
     /**
@@ -42,11 +44,11 @@ class Mage_Downloadable_Block_Sales_Order_Item_Renderer_Downloadable extends Mag
      */
     public function getLinks()
     {
-            $this->_purchasedLinks = Mage::getModel('downloadable/link_purchased')
+        $this->_purchasedLinks = Mage::getModel('downloadable/link_purchased')
                 ->load($this->getOrderItem()->getOrder()->getId(), 'order_id');
-            $purchasedItems = Mage::getModel('downloadable/link_purchased_item')->getCollection()
+        $purchasedItems = Mage::getModel('downloadable/link_purchased_item')->getCollection()
                 ->addFieldToFilter('order_item_id', $this->getOrderItem()->getId());
-            $this->_purchasedLinks->setPurchasedItems($purchasedItems);
+        $this->_purchasedLinks->setPurchasedItems($purchasedItems);
 
         return $this->_purchasedLinks;
     }

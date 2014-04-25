@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * File storage database model class
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage_Database_Abstract
 {
+
     /**
      * Prefix of model events names
      *
@@ -76,8 +77,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     {
         if (is_null($this->_directoryModel)) {
             $this->_directoryModel = Mage::getModel(
-                'core/file_storage_directory_database',
-                array('connection' => $this->getConnectionName()));
+                            'core/file_storage_directory_database', array('connection' => $this->getConnectionName()));
         }
 
         return $this->_directoryModel;
@@ -149,7 +149,8 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      * @param  int $count
      * @return bool|array
      */
-    public function exportDirectories($offset = 0, $count = 100) {
+    public function exportDirectories($offset = 0, $count = 100)
+    {
         return $this->getDirectoryModel()->exportDirectories($offset, $count);
     }
 
@@ -159,7 +160,8 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      * @param  array $dirs
      * @return Mage_Core_Model_File_Storage_Directory_Database
      */
-    public function importDirectories($dirs) {
+    public function importDirectories($dirs)
+    {
         return $this->getDirectoryModel()->importDirectories($dirs);
     }
 
@@ -173,7 +175,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     public function exportFiles($offset = 0, $count = 100)
     {
         $offset = ((int) $offset >= 0) ? (int) $offset : 0;
-        $count  = ((int) $count >= 1) ? (int) $count : 1;
+        $count = ((int) $count >= 1) ? (int) $count : 1;
 
         $result = $this->_getResource()->getFiles($offset, $count);
         if (empty($result)) {
@@ -201,17 +203,17 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
                 continue;
             }
 
-            try {
+            try
+            {
                 $file['update_time'] = $dateSingleton->date();
-                $file['directory_id'] = (isset($file['directory']) && strlen($file['directory']))
-                    ? Mage::getModel(
-                        'core/file_storage_directory_database',
-                        array('connection' => $this->getConnectionName()))
-                            ->loadByPath($file['directory'])->getId()
-                    : null;
+                $file['directory_id'] = (isset($file['directory']) && strlen($file['directory'])) ? Mage::getModel(
+                                        'core/file_storage_directory_database', array('connection' => $this->getConnectionName()))
+                                ->loadByPath($file['directory'])->getId() : null;
 
                 $this->_getResource()->saveFile($file);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_errors[] = $e->getMessage();
                 Mage::logException($e);
             }
@@ -264,10 +266,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     public function copyFile($oldFilePath, $newFilePath)
     {
         $this->_getResource()->copyFile(
-            basename($oldFilePath),
-            dirname($oldFilePath),
-            basename($newFilePath),
-            dirname($newFilePath)
+                basename($oldFilePath), dirname($oldFilePath), basename($newFilePath), dirname($newFilePath)
         );
 
         return $this;
@@ -283,10 +282,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     public function renameFile($oldFilePath, $newFilePath)
     {
         $this->_getResource()->renameFile(
-            basename($oldFilePath),
-            dirname($oldFilePath),
-            basename($newFilePath),
-            dirname($newFilePath)
+                basename($oldFilePath), dirname($oldFilePath), basename($newFilePath), dirname($newFilePath)
         );
 
         $newPath = dirname($newFilePath);
@@ -330,4 +326,5 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
 
         return $this;
     }
+
 }

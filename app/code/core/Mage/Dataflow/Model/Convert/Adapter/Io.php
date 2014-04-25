@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert IO adapter
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
+
     const XML_PATH_EXPORT_LOCAL_VALID_PATH = 'general/file/importexport_local_valid_paths';
 
     /**
@@ -53,10 +54,10 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                 case 'file':
                     //validate export/import path
                     $path = rtrim($ioConfig['path'], '\\/')
-                          . DS . $ioConfig['filename'];
+                            . DS . $ioConfig['filename'];
                     /** @var $validator Mage_Core_Model_File_Validator_AvailablePath */
                     $validator = Mage::getModel('core/file_validator_availablePath');
-                    $validator->setPaths( Mage::getStoreConfig(self::XML_PATH_EXPORT_LOCAL_VALID_PATH) );
+                    $validator->setPaths(Mage::getStoreConfig(self::XML_PATH_EXPORT_LOCAL_VALID_PATH));
                     if (!$validator->isValid($path)) {
                         foreach ($validator->getMessages() as $message) {
                             Mage::throwException($message);
@@ -64,8 +65,8 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                         }
                     }
 
-                    if (preg_match('#^' . preg_quote(DS, '#').'#', $this->getVar('path')) ||
-                        preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))) {
+                    if (preg_match('#^' . preg_quote(DS, '#') . '#', $this->getVar('path')) ||
+                            preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))) {
 
                         $path = $this->_resource->getCleanPath($this->getVar('path'));
                     } else {
@@ -100,9 +101,12 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             if ($isError) {
                 return false;
             }
-            try {
+            try
+            {
                 $this->_resource->open($ioConfig);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $message = Mage::helper('dataflow')->__('An error occurred while opening file: "%s".', $e->getMessage());
                 Mage::throwException($message);
             }
@@ -155,7 +159,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
 
         $filename = $this->getVar('filename');
 
-        $result   = $this->getResource()->write($filename, $dataFile, 0777);
+        $result = $this->getResource()->write($filename, $dataFile, 0777);
 
         if (false === $result) {
             $message = Mage::helper('dataflow')->__('Could not save file: %s.', $filename);
@@ -169,4 +173,5 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
         }
         return $this;
     }
+
 }

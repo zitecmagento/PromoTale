@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Checkout_Block_Total_Nominal extends Mage_Checkout_Block_Total_Default
 {
+
     /**
      * Custom template
      *
@@ -132,4 +134,5 @@ class Mage_Checkout_Block_Total_Nominal extends Mage_Checkout_Block_Total_Defaul
         }
         return '';
     }
+
 }

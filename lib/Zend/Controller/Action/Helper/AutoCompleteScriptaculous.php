@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: AutoCompleteScriptaculous.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Controller_Action_Helper_AutoComplete_Abstract
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Controller_Action_Helper_AutoCompleteScriptaculous extends Zend_Controller_Action_Helper_AutoComplete_Abstract
 {
+
     /**
      * Validate data for autocompletion
      *
@@ -79,4 +80,5 @@ class Zend_Controller_Action_Helper_AutoCompleteScriptaculous extends Zend_Contr
 
         return $data;
     }
+
 }

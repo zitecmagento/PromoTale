@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 abstract class Zend_Amf_Parse_Serializer
 {
+
     /**
      * Reference to the current output stream being constructed
      *

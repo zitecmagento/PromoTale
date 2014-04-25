@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Directory Region Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Table with localized region names
      *
@@ -62,27 +63,23 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      */
     protected function _getLoadSelect($field, $value, $object)
     {
-        $select  = parent::_getLoadSelect($field, $value, $object);
+        $select = parent::_getLoadSelect($field, $value, $object);
         $adapter = $this->_getReadAdapter();
 
-        $locale       = Mage::app()->getLocale()->getLocaleCode();
+        $locale = Mage::app()->getLocale()->getLocaleCode();
         $systemLocale = Mage::app()->getDistroLocaleCode();
 
         $regionField = $adapter->quoteIdentifier($this->getMainTable() . '.' . $this->getIdFieldName());
 
         $condition = $adapter->quoteInto('lrn.locale = ?', $locale);
         $select->joinLeft(
-            array('lrn' => $this->_regionNameTable),
-            "{$regionField} = lrn.region_id AND {$condition}",
-            array());
+                array('lrn' => $this->_regionNameTable), "{$regionField} = lrn.region_id AND {$condition}", array());
 
         if ($locale != $systemLocale) {
-            $nameExpr  = $adapter->getCheckSql('lrn.region_id is null', 'srn.name', 'lrn.name');
+            $nameExpr = $adapter->getCheckSql('lrn.region_id is null', 'srn.name', 'lrn.name');
             $condition = $adapter->quoteInto('srn.locale = ?', $systemLocale);
             $select->joinLeft(
-                array('srn' => $this->_regionNameTable),
-                "{$regionField} = srn.region_id AND {$condition}",
-                array('name' => $nameExpr));
+                    array('srn' => $this->_regionNameTable), "{$regionField} = srn.region_id AND {$condition}", array('name' => $nameExpr));
         } else {
             $select->columns(array('name'), 'lrn');
         }
@@ -102,17 +99,15 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      */
     protected function _loadByCountry($object, $countryId, $value, $field)
     {
-        $adapter        = $this->_getReadAdapter();
-        $locale         = Mage::app()->getLocale()->getLocaleCode();
-        $joinCondition  = $adapter->quoteInto('rname.region_id = region.region_id AND rname.locale = ?', $locale);
-        $select         = $adapter->select()
-            ->from(array('region' => $this->getMainTable()))
-            ->joinLeft(
-                array('rname' => $this->_regionNameTable),
-                $joinCondition,
-                array('name'))
-            ->where('region.country_id = ?', $countryId)
-            ->where("region.{$field} = ?", $value);
+        $adapter = $this->_getReadAdapter();
+        $locale = Mage::app()->getLocale()->getLocaleCode();
+        $joinCondition = $adapter->quoteInto('rname.region_id = region.region_id AND rname.locale = ?', $locale);
+        $select = $adapter->select()
+                ->from(array('region' => $this->getMainTable()))
+                ->joinLeft(
+                        array('rname' => $this->_regionNameTable), $joinCondition, array('name'))
+                ->where('region.country_id = ?', $countryId)
+                ->where("region.{$field} = ?", $value);
 
         $data = $adapter->fetchRow($select);
         if ($data) {
@@ -135,7 +130,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      */
     public function loadByCode(Mage_Directory_Model_Region $region, $regionCode, $countryId)
     {
-        return $this->_loadByCountry($region, $countryId, (string)$regionCode, 'code');
+        return $this->_loadByCountry($region, $countryId, (string) $regionCode, 'code');
     }
 
     /**
@@ -149,6 +144,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      */
     public function loadByName(Mage_Directory_Model_Region $region, $regionName, $countryId)
     {
-        return $this->_loadByCountry($region, $countryId, (string)$regionName, 'default_name');
+        return $this->_loadByCountry($region, $countryId, (string) $regionName, 'default_name');
     }
+
 }

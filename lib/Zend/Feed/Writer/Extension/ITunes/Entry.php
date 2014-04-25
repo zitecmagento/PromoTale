@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Entry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
- 
+
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
@@ -27,20 +28,21 @@
  */
 class Zend_Feed_Writer_Extension_ITunes_Entry
 {
+
     /**
      * Array of Feed data for rendering by Extension's renderers
      *
      * @var array
      */
     protected $_data = array();
-    
+
     /**
      * Encoding of all text values
      *
      * @var string
      */
     protected $_encoding = 'UTF-8';
-    
+
     /**
      * Set feed encoding
      * 
@@ -52,7 +54,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
         $this->_encoding = $enc;
         return $this;
     }
-    
+
     /**
      * Get feed encoding
      * 
@@ -62,7 +64,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
     {
         return $this->_encoding;
     }
-    
+
     /**
      * Set a block value of "yes" or "no". You may also set an empty string.
      *
@@ -83,7 +85,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
         }
         $this->_data['block'] = $value;
     }
-    
+
     /**
      * Add authors to itunes entry
      * 
@@ -97,7 +99,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
         }
         return $this;
     }
-    
+
     /**
      * Add author to itunes entry
      * 
@@ -114,10 +116,10 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
         if (!isset($this->_data['authors'])) {
             $this->_data['authors'] = array();
         }
-        $this->_data['authors'][] = $value;   
+        $this->_data['authors'][] = $value;
         return $this;
     }
-    
+
     /**
      * Set duration
      * 
@@ -127,9 +129,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
     public function setItunesDuration($value)
     {
         $value = (string) $value;
-        if (!ctype_digit($value)
-            && !preg_match("/^\d+:[0-5]{1}[0-9]{1}$/", $value)
-            && !preg_match("/^\d+:[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}$/", $value)
+        if (!ctype_digit($value) && !preg_match("/^\d+:[0-5]{1}[0-9]{1}$/", $value) && !preg_match("/^\d+:[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}$/", $value)
         ) {
             #require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('invalid parameter: "duration" may only'
@@ -138,7 +138,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
         $this->_data['duration'] = $value;
         return $this;
     }
-    
+
     /**
      * Set "explicit" flag
      * 
@@ -147,7 +147,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
      */
     public function setItunesExplicit($value)
     {
-        if (!in_array($value, array('yes','no','clean'))) {
+        if (!in_array($value, array('yes', 'no', 'clean'))) {
             #require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('invalid parameter: "explicit" may only'
             . ' be one of "yes", "no" or "clean"');
@@ -155,7 +155,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
         $this->_data['explicit'] = $value;
         return $this;
     }
-    
+
     /**
      * Set keywords
      * 
@@ -179,7 +179,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
         $this->_data['keywords'] = $value;
         return $this;
     }
-    
+
     /**
      * Set subtitle
      * 
@@ -196,7 +196,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
         $this->_data['subtitle'] = $value;
         return $this;
     }
-    
+
     /**
      * Set summary
      * 
@@ -213,7 +213,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
         $this->_data['summary'] = $value;
         return $this;
     }
-    
+
     /**
      * Overloading to itunes specific setters
      * 
@@ -224,19 +224,18 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
     public function __call($method, array $params)
     {
         $point = Zend_Feed_Writer::lcfirst(substr($method, 9));
-        if (!method_exists($this, 'setItunes' . ucfirst($point))
-            && !method_exists($this, 'addItunes' . ucfirst($point))
+        if (!method_exists($this, 'setItunes' . ucfirst($point)) && !method_exists($this, 'addItunes' . ucfirst($point))
         ) {
             #require_once 'Zend/Feed/Writer/Exception/InvalidMethodException.php';
             throw new Zend_Feed_Writer_Exception_InvalidMethodException(
-                'invalid method: ' . $method
+            'invalid method: ' . $method
             );
         }
-        if (!array_key_exists($point, $this->_data) 
-            || empty($this->_data[$point])
+        if (!array_key_exists($point, $this->_data) || empty($this->_data[$point])
         ) {
             return null;
         }
         return $this->_data[$point];
     }
+
 }

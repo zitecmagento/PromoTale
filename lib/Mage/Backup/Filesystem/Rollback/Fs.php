@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Backup_Filesystem_Rollback_Fs extends Mage_Backup_Filesystem_Rollback_Abstract
 {
+
     /**
      * Files rollback implementation via local filesystem
      *
@@ -50,14 +52,12 @@ class Mage_Backup_Filesystem_Rollback_Fs extends Mage_Backup_Filesystem_Rollback
         $fsHelper = new Mage_Backup_Filesystem_Helper();
 
         $filesInfo = $fsHelper->getInfo(
-            $this->_snapshot->getRootDir(),
-            Mage_Backup_Filesystem_Helper::INFO_WRITABLE,
-            $this->_snapshot->getIgnorePaths()
+                $this->_snapshot->getRootDir(), Mage_Backup_Filesystem_Helper::INFO_WRITABLE, $this->_snapshot->getIgnorePaths()
         );
 
         if (!$filesInfo['writable']) {
             throw new Mage_Backup_Exception_NotEnoughPermissions(
-                'Unable to make rollback because not all files are writable'
+            'Unable to make rollback because not all files are writable'
             );
         }
 
@@ -75,4 +75,5 @@ class Mage_Backup_Filesystem_Rollback_Fs extends Mage_Backup_Filesystem_Rollback
         $fsHelper->rm($this->_snapshot->getRootDir(), $this->_snapshot->getIgnorePaths());
         $archiver->unpack($snapshotPath, $this->_snapshot->getRootDir());
     }
+
 }

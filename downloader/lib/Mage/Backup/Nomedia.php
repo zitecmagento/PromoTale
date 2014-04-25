@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Backup_Nomedia extends Mage_Backup_Snapshot
 {
+
     /**
      * Implementation Rollback functionality for Snapshot
      *
@@ -79,4 +81,5 @@ class Mage_Backup_Nomedia extends Mage_Backup_Snapshot
 
         return $this;
     }
+
 }

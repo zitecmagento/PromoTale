@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -45,8 +46,8 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
     {
         $this->setCacheTags(array(self::CACHE_TAG));
         /*
-        * setting cache to save the rss for 10 minutes
-        */
+         * setting cache to save the rss for 10 minutes
+         */
         $this->setCacheKey('rss_order_new');
         $this->setCacheLifetime(600);
     }
@@ -54,22 +55,22 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         $order = Mage::getModel('sales/order');
-        $passDate = $order->getResource()->formatDate(mktime(0,0,0,date('m'),date('d')-7));
+        $passDate = $order->getResource()->formatDate(mktime(0, 0, 0, date('m'), date('d') - 7));
 
         $newurl = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order', array('_secure' => true, '_nosecret' => true));
         $title = Mage::helper('rss')->__('New Orders');
 
         $rssObj = Mage::getModel('rss/rss');
         $data = array('title' => $title,
-                'description' => $title,
-                'link'        => $newurl,
-                'charset'     => 'UTF-8',
-                );
+            'description' => $title,
+            'link' => $newurl,
+            'charset' => 'UTF-8',
+        );
         $rssObj->_addHeader($data);
 
         $collection = $order->getCollection()
-            ->addAttributeToFilter('created_at', array('date'=>true, 'from'=> $passDate))
-            ->addAttributeToSort('created_at','desc')
+                ->addAttributeToFilter('created_at', array('date' => true, 'from' => $passDate))
+                ->addAttributeToSort('created_at', 'desc')
         ;
 
         $detailBlock = Mage::getBlockSingleton('rss/order_details');
@@ -77,7 +78,8 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
         Mage::dispatchEvent('rss_order_new_collection_select', array('collection' => $collection));
 
         Mage::getSingleton('core/resource_iterator')
-            ->walk($collection->getSelect(), array(array($this, 'addNewOrderXmlCallback')), array('rssObj'=> $rssObj, 'order'=>$order , 'detailBlock' => $detailBlock));
+                ->walk($collection->getSelect(), array(array($this, 'addNewOrderXmlCallback')), array('rssObj' => $rssObj,
+                    'order' => $order, 'detailBlock' => $detailBlock));
 
         return $rssObj->createRssXml();
     }
@@ -90,14 +92,16 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
         $order->reset()->load($args['row']['entity_id']);
         if ($order && $order->getId()) {
             $title = Mage::helper('rss')->__('Order #%s created at %s', $order->getIncrementId(), $this->formatDate($order->getCreatedAt()));
-            $url = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/view', array('_secure' => true, 'order_id' => $order->getId(), '_nosecret' => true));
+            $url = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/view', array('_secure' => true, 'order_id' => $order->getId(),
+                '_nosecret' => true));
             $detailBlock->setOrder($order);
             $data = array(
-                    'title'         => $title,
-                    'link'          => $url,
-                    'description'   => $detailBlock->toHtml()
-                    );
+                'title' => $title,
+                'link' => $url,
+                'description' => $detailBlock->toHtml()
+            );
             $rssObj->_addEntry($data);
         }
     }
+
 }

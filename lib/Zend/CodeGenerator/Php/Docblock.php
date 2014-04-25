@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Docblock.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_CodeGenerator_Php_Abstract
  */
@@ -38,6 +38,7 @@
  */
 class Zend_CodeGenerator_Php_Docblock extends Zend_CodeGenerator_Php_Abstract
 {
+
     /**
      * @var string
      */
@@ -153,9 +154,9 @@ class Zend_CodeGenerator_Php_Docblock extends Zend_CodeGenerator_Php_Abstract
         } elseif (!$tag instanceof Zend_CodeGenerator_Php_Docblock_Tag) {
             #require_once 'Zend/CodeGenerator/Php/Exception.php';
             throw new Zend_CodeGenerator_Php_Exception(
-                'setTag() expects either an array of method options or an '
-                . 'instance of Zend_CodeGenerator_Php_Docblock_Tag'
-                );
+            'setTag() expects either an array of method options or an '
+            . 'instance of Zend_CodeGenerator_Php_Docblock_Tag'
+            );
         }
 
         $this->_tags[] = $tag;
@@ -183,7 +184,7 @@ class Zend_CodeGenerator_Php_Docblock extends Zend_CodeGenerator_Php_Abstract
             return $this->_docCommentize($this->getSourceContent());
         }
 
-        $output  = '';
+        $output = '';
         if (null !== ($sd = $this->getShortDescription())) {
             $output .= $sd . self::LINE_FEED . self::LINE_FEED;
         }

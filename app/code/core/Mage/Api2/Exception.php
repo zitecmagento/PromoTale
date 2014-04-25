@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Exception extends Exception
 {
+
     /**
      * Exception constructor
      *
@@ -47,4 +49,5 @@ class Mage_Api2_Exception extends Exception
 
         parent::__construct($message, $code);
     }
+
 }

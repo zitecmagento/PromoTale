@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Simple.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element/Name.php';
 
@@ -61,6 +60,7 @@
  */
 abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
 {
+
     /**
      * Object representing the font's cmap (character to glyph map).
      * @var Zend_Pdf_Cmap
@@ -92,11 +92,10 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
      */
     protected $_missingGlyphWidth = 0;
 
+    /*     * ** Public Interface *** */
 
-    /**** Public Interface ****/
 
-
-  /* Object Lifecycle */
+    /* Object Lifecycle */
 
     /**
      * Object constructor
@@ -280,4 +279,5 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
     {
         return iconv('CP1252', $charEncoding, $string);
     }
+
 }

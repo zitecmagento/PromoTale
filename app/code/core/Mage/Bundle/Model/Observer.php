@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Bundle_Model_Observer
 {
+
     /**
      * Setting Bundle Items Data to product for father processing
      *
@@ -63,7 +65,7 @@ class Mage_Bundle_Model_Observer
         }
 
         $product->setCanSaveBundleSelections(
-            (bool)$request->getPost('affect_bundle_product_selections') && !$product->getCompositeReadonly()
+                (bool) $request->getPost('affect_bundle_product_selections') && !$product->getCompositeReadonly()
         );
 
         return $this;
@@ -89,7 +91,7 @@ class Mage_Bundle_Model_Observer
 
         /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection */
         $collection = $observer->getEvent()->getCollection();
-        $limit      = $observer->getEvent()->getLimit();
+        $limit = $observer->getEvent()->getLimit();
         if (is_array($limit)) {
             if (isset($limit['upsell'])) {
                 $limit = $limit['upsell'];
@@ -99,7 +101,7 @@ class Mage_Bundle_Model_Observer
         }
 
         /* @var $resource Mage_Bundle_Model_Mysql4_Selection */
-        $resource   = Mage::getResourceSingleton('bundle/selection');
+        $resource = Mage::getResourceSingleton('bundle/selection');
 
         $productIds = array_keys($collection->getItems());
         if (!is_null($limit) && $limit <= count($productIds)) {
@@ -107,9 +109,9 @@ class Mage_Bundle_Model_Observer
         }
 
         // retrieve bundle product ids
-        $bundleIds  = $resource->getParentIdsByChild($product->getId());
+        $bundleIds = $resource->getParentIdsByChild($product->getId());
         // exclude up-sell product ids
-        $bundleIds  = array_diff($bundleIds, $productIds);
+        $bundleIds = array_diff($bundleIds, $productIds);
 
         if (!$bundleIds) {
             return $this;
@@ -117,20 +119,20 @@ class Mage_Bundle_Model_Observer
 
         /* @var $bundleCollection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
         $bundleCollection = $product->getCollection()
-            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->addStoreFilter()
-            ->addMinimalPrice()
-            ->addFinalPrice()
-            ->addTaxPercents();
+                ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+                ->addStoreFilter()
+                ->addMinimalPrice()
+                ->addFinalPrice()
+                ->addTaxPercents();
 
         Mage::getSingleton('catalog/product_visibility')
-            ->addVisibleInCatalogFilterToCollection($bundleCollection);
+                ->addVisibleInCatalogFilterToCollection($bundleCollection);
 
         if (!is_null($limit)) {
             $bundleCollection->setPageSize($limit);
         }
         $bundleCollection->addFieldToFilter('entity_id', array('in' => $bundleIds))
-            ->setFlag('do_not_use_category_id', true);
+                ->setFlag('do_not_use_category_id', true);
 
         if ($collection instanceof Varien_Data_Collection) {
             foreach ($bundleCollection as $item) {
@@ -203,8 +205,7 @@ class Mage_Bundle_Model_Observer
         $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
         $optionCollection = $product->getTypeInstance(true)->getOptionsCollection($product);
         $selectionCollection = $product->getTypeInstance(true)->getSelectionsCollection(
-            $product->getTypeInstance(true)->getOptionsIds($product),
-            $product
+                $product->getTypeInstance(true)->getOptionsIds($product), $product
         );
         $optionCollection->appendSelections($selectionCollection);
 
@@ -214,12 +215,12 @@ class Mage_Bundle_Model_Observer
         $i = 0;
         foreach ($optionCollection as $option) {
             $optionRawData[$i] = array(
-                    'required' => $option->getData('required'),
-                    'position' => $option->getData('position'),
-                    'type' => $option->getData('type'),
-                    'title' => $option->getData('title')?$option->getData('title'):$option->getData('default_title'),
-                    'delete' => ''
-                );
+                'required' => $option->getData('required'),
+                'position' => $option->getData('position'),
+                'type' => $option->getData('type'),
+                'title' => $option->getData('title') ? $option->getData('title') : $option->getData('default_title'),
+                'delete' => ''
+            );
             foreach ($option->getSelections() as $selection) {
                 $selectionRawData[$i][] = array(
                     'product_id' => $selection->getProductId(),
@@ -251,7 +252,7 @@ class Mage_Bundle_Model_Observer
         $product = $observer->getEvent()->getProduct();
         if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
             Mage::helper('adminhtml/catalog')
-                ->setAttributeTabBlock('bundle/adminhtml_catalog_product_edit_tab_attributes');
+                    ->setAttributeTabBlock('bundle/adminhtml_catalog_product_edit_tab_attributes');
         }
         return $this;
     }
@@ -282,7 +283,7 @@ class Mage_Bundle_Model_Observer
         $product = $observer->getEvent()->getProduct();
         if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
             Mage::getSingleton('bundle/price_index')
-                ->addPriceIndexToProduct($product);
+                    ->addPriceIndexToProduct($product);
         }
 
         return $this;
@@ -304,4 +305,5 @@ class Mage_Bundle_Model_Observer
 
         return $this;
     }
+
 }

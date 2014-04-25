@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 class Zend_Text_Table_Row
 {
+
     /**
      * List of all columns
      *
@@ -52,8 +54,8 @@ class Zend_Text_Table_Row
      */
     public function createColumn($content, array $options = null)
     {
-        $align    = null;
-        $colSpan  = null;
+        $align = null;
+        $colSpan = null;
         $encoding = null;
 
         if ($options !== null) {
@@ -134,9 +136,7 @@ class Zend_Text_Table_Row
      * @throws Zend_Text_Table_Exception When there are too many columns
      * @return string
      */
-    public function render(array $columnWidths,
-                           Zend_Text_Table_Decorator_Interface $decorator,
-                           $padding = 0)
+    public function render(array $columnWidths, Zend_Text_Table_Decorator_Interface $decorator, $padding = 0)
     {
         // Prepare an array to store all column widths
         $this->_columnWidths = array();
@@ -150,8 +150,8 @@ class Zend_Text_Table_Row
 
         // First we have to render all columns, to get the maximum height
         $renderedColumns = array();
-        $maxHeight       = 0;
-        $colNum          = 0;
+        $maxHeight = 0;
+        $colNum = 0;
         foreach ($this->_columns as $column) {
             // Get the colspan of the column
             $colSpan = $column->getColSpan();
@@ -163,9 +163,7 @@ class Zend_Text_Table_Row
             }
 
             // Calculate the column width
-            $columnWidth = ($colSpan - 1 + array_sum(array_slice($columnWidths,
-                                                                 $colNum,
-                                                                 $colSpan)));
+            $columnWidth = ($colSpan - 1 + array_sum(array_slice($columnWidths, $colNum, $colSpan)));
 
             // Render the column and split it's lines into an array
             $result = explode("\n", $column->render($columnWidth, $padding));
@@ -175,7 +173,7 @@ class Zend_Text_Table_Row
 
             // Store the rendered column and calculate the new max height
             $renderedColumns[] = $result;
-            $maxHeight         = max($maxHeight, count($result));
+            $maxHeight = max($maxHeight, count($result));
 
             // Set up the internal column number
             $colNum += $colSpan;
@@ -185,8 +183,7 @@ class Zend_Text_Table_Row
         // it with an empty column
         if ($colNum < count($columnWidths)) {
             $remainingWidth = (count($columnWidths) - $colNum - 1) +
-                               array_sum(array_slice($columnWidths,
-                                                     $colNum));
+                    array_sum(array_slice($columnWidths, $colNum));
             $renderedColumns[] = array(str_repeat(' ', $remainingWidth));
 
             $this->_columnWidths[] = $remainingWidth;
@@ -212,4 +209,5 @@ class Zend_Text_Table_Row
 
         return $result;
     }
+
 }

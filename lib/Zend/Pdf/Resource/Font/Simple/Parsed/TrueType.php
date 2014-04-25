@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TrueType.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element/Name.php';
 
@@ -44,6 +43,7 @@
  */
 class Zend_Pdf_Resource_Font_Simple_Parsed_TrueType extends Zend_Pdf_Resource_Font_Simple_Parsed
 {
+
     /**
      * Object constructor
      *
@@ -58,7 +58,7 @@ class Zend_Pdf_Resource_Font_Simple_Parsed_TrueType extends Zend_Pdf_Resource_Fo
 
         $this->_fontType = Zend_Pdf_Font::TYPE_TRUETYPE;
 
-        $this->_resource->Subtype  = new Zend_Pdf_Element_Name('TrueType');
+        $this->_resource->Subtype = new Zend_Pdf_Element_Name('TrueType');
 
         $fontDescriptor = Zend_Pdf_Resource_Font_FontDescriptor::factory($this, $fontParser, $embeddingOptions);
         $this->_resource->FontDescriptor = $this->_objectFactory->newObject($fontDescriptor);

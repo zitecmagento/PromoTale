@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Abstract
 {
+
     /**
      * Current application model
      *
@@ -97,7 +99,7 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Abstract
                     $this->_buildRecursive($subSection, $tab);
                 }
             } else {
-                $value = (string)$value;
+                $value = (string) $value;
                 if ($value != '') {
                     $section->addChild($key, Mage::helper('core')->escapeHtml($value));
                 }
@@ -116,7 +118,7 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Abstract
         /** @var $xml Mage_XmlConnect_Model_Simplexml_Element */
         $xml = Mage::getModel('xmlconnect/simplexml_element', '<configuration></configuration>');
         $this->_buildRecursive($xml, Mage::helper('xmlconnect')->excludeXmlConfigKeys($this->_app->getRenderConf()))
-            ->_addLocalization($xml);
+                ->_addLocalization($xml);
         return $xml->asNiceXml();
     }
 
@@ -135,4 +137,5 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Abstract
         ));
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Abstract
 {
+
     /**
      * Render customer address list xml
      *
@@ -40,13 +42,13 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Abstra
      */
     protected function _toHtml()
     {
-        $addressXmlObj          = Mage::getModel('xmlconnect/simplexml_element', '<address></address>');
-        $customer               = Mage::getSingleton('customer/session')->getCustomer();
+        $addressXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<address></address>');
+        $customer = Mage::getSingleton('customer/session')->getCustomer();
 
-        $billingAddssesId      = $customer->getDefaultBilling();
-        $shippingAddssesId     = $customer->getDefaultShipping();
-        $billingAddress         = $customer->getAddressById($billingAddssesId);
-        $shippingAddress        = $customer->getAddressById($shippingAddssesId);
+        $billingAddssesId = $customer->getDefaultBilling();
+        $shippingAddssesId = $customer->getDefaultShipping();
+        $billingAddress = $customer->getAddressById($billingAddssesId);
+        $shippingAddress = $customer->getAddressById($shippingAddssesId);
 
         if ($billingAddress && $billingAddress->getId()) {
             $item = $addressXmlObj->addChild('item');
@@ -81,8 +83,7 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Abstra
      * @param Mage_XmlConnect_Model_Simplexml_Element $item
      * @return array
      */
-    public function prepareAddressData(Mage_Customer_Model_Address $address,
-        Mage_XmlConnect_Model_Simplexml_Element $item)
+    public function prepareAddressData(Mage_Customer_Model_Address $address, Mage_XmlConnect_Model_Simplexml_Element $item)
     {
         if (!$address) {
             return array();
@@ -104,7 +105,7 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Abstra
                 $data['region'] = $address->getRegion();
             } else {
                 $dataModel = Mage_Customer_Model_Attribute_Data::factory($attribute, $address);
-                $value     = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ONELINE);
+                $value = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ONELINE);
                 if ($attribute->getFrontendInput() == 'multiline') {
                     $values = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY);
                     // explode lines
@@ -124,4 +125,5 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Abstra
             $item->addChild($key, $item->escapeXml($value));
         }
     }
+
 }

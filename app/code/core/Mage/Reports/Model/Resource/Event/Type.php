@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report event type resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Reports_Model_Resource_Event_Type extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Main table initialization 
      *
@@ -42,4 +43,5 @@ class Mage_Reports_Model_Resource_Event_Type extends Mage_Core_Model_Resource_Db
     {
         $this->_init('reports/event_type', 'event_type_id');
     }
+
 }

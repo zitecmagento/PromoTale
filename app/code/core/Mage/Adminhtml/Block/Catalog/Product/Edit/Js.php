@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Js extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Get currently edited product
      *
@@ -49,4 +50,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Js extends Mage_Adminhtml_Block_
         }
         return Mage::app()->getStore();
     }
+
 }

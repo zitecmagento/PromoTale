@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Customer_Edit_Renderer_Attribute_Group
-    extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
+class Mage_Adminhtml_Block_Customer_Edit_Renderer_Attribute_Group extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
 {
+
     /**
      * Override parent constructor just for setting custom template
      */
@@ -71,8 +72,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Attribute_Group
     public function getDisableAutoGroupChangeCheckboxState()
     {
         $customer = Mage::registry('current_customer');
-        $checkedByDefault = ($customer && $customer->getId())
-            ? false : Mage::helper('customer/address')->getDisableAutoGroupAssignDefaultValue();
+        $checkedByDefault = ($customer && $customer->getId()) ? false : Mage::helper('customer/address')->getDisableAutoGroupAssignDefaultValue();
 
         $value = $this->getDisableAutoGroupChangeAttributeValue();
         $state = '';
@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Attribute_Group
     public function getDisableAutoGroupChangeCheckboxElementName()
     {
         return $this->getElement()->getForm()->getFieldNameSuffix()
-            . '[' . $this->_getDisableAutoGroupChangeElementHtmlId() . ']';
+                . '[' . $this->_getDisableAutoGroupChangeElementHtmlId() . ']';
     }
 
     /**
@@ -102,4 +102,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Attribute_Group
     {
         return $this->_getDisableAutoGroupChangeElementHtmlId();
     }
+
 }

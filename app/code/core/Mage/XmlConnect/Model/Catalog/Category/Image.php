@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Product_Image
 {
+
     /**
      * Set file names for base file and new file
      *
@@ -59,16 +61,16 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
         if (!$file) {
             // check if placeholder defined in config
             $isConfigPlaceholder = Mage::getStoreConfig(
-                'catalog/placeholder/' . $this->getDestinationSubdir() . '_placeholder'
+                            'catalog/placeholder/' . $this->getDestinationSubdir() . '_placeholder'
             );
-            $configPlaceholder   = '/placeholder/' . $isConfigPlaceholder;
+            $configPlaceholder = '/placeholder/' . $isConfigPlaceholder;
             if ($isConfigPlaceholder && file_exists($baseDir . $configPlaceholder)) {
                 $file = $configPlaceholder;
             } else {
                 // replace file with skin or default skin placeholder
-                $skinBaseDir     = Mage::getDesign()->getSkinBaseDir();
+                $skinBaseDir = Mage::getDesign()->getSkinBaseDir();
                 $skinPlaceholder = '/images/xmlconnect/catalog/category/placeholder/' . $this->getDestinationSubdir()
-                    . '.jpg';
+                        . '.jpg';
 
                 $file = $skinPlaceholder;
                 if (file_exists($skinBaseDir . $file)) {
@@ -77,7 +79,7 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
                     $baseDir = Mage::getDesign()->getSkinBaseDir(array('_theme' => 'default'));
                     if (!file_exists($baseDir . $file)) {
                         $baseDir = Mage::getDesign()->getSkinBaseDir(
-                            array('_theme' => 'default', '_package' => 'base')
+                                array('_theme' => 'default', '_package' => 'base')
                         );
                     }
                 }
@@ -103,10 +105,10 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
 
         // add misk params as a hash
         $miscParams = array(
-            ($this->_keepAspectRatio  ? '' : 'non') . 'proportional',
-            ($this->_keepFrame        ? '' : 'no')  . 'frame',
-            ($this->_keepTransparency ? '' : 'no')  . 'transparency',
-            ($this->_constrainOnly ? 'do' : 'not')  . 'constrainonly',
+            ($this->_keepAspectRatio ? '' : 'non') . 'proportional',
+            ($this->_keepFrame ? '' : 'no') . 'frame',
+            ($this->_keepTransparency ? '' : 'no') . 'transparency',
+            ($this->_constrainOnly ? 'do' : 'not') . 'constrainonly',
             $this->_rgbToString($this->_backgroundColor),
             'angle' . $this->_angle,
             'quality' . $this->_quality
@@ -205,4 +207,5 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
         }
         return implode($result);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Decorator_Abstract */
 #require_once 'Zend/Form/Decorator/Abstract.php';
 
@@ -40,10 +40,9 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: File.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-class Zend_Form_Decorator_File
-    extends Zend_Form_Decorator_Abstract
-    implements Zend_Form_Decorator_Marker_File_Interface
+class Zend_Form_Decorator_File extends Zend_Form_Decorator_Abstract implements Zend_Form_Decorator_Marker_File_Interface
 {
+
     /**
      * Attributes that should not be passed to helper
      * @var array
@@ -63,7 +62,7 @@ class Zend_Form_Decorator_File
      */
     public function getAttribs()
     {
-        $attribs   = $this->getOptions();
+        $attribs = $this->getOptions();
 
         if (null !== ($element = $this->getElement())) {
             $attribs = array_merge($attribs, $element->getAttribs());
@@ -96,16 +95,16 @@ class Zend_Form_Decorator_File
             return $content;
         }
 
-        $name      = $element->getName();
-        $attribs   = $this->getAttribs();
+        $name = $element->getName();
+        $attribs = $this->getAttribs();
         if (!array_key_exists('id', $attribs)) {
             $attribs['id'] = $name;
         }
 
         $separator = $this->getSeparator();
         $placement = $this->getPlacement();
-        $markup    = array();
-        $size      = $element->getMaxFileSize();
+        $markup = array();
+        $size = $element->getMaxFileSize();
         if ($size > 0) {
             $element->setMaxFileSize(0);
             $markup[] = $view->formHidden('MAX_FILE_SIZE', $size);
@@ -121,7 +120,7 @@ class Zend_Form_Decorator_File
             $name .= "[]";
             $count = $element->getMultiFile();
             for ($i = 0; $i < $count; ++$i) {
-                $htmlAttribs        = $attribs;
+                $htmlAttribs = $attribs;
                 $htmlAttribs['id'] .= '-' . $i;
                 $markup[] = $view->formFile($name, $htmlAttribs);
             }
@@ -139,4 +138,5 @@ class Zend_Form_Decorator_File
                 return $content . $separator . $markup;
         }
     }
+
 }

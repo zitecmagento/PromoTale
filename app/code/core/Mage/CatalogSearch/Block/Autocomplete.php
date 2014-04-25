@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
 {
+
     protected $_suggestData = null;
 
     protected function _toHtml()
@@ -56,8 +58,8 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
                 $item['row_class'] .= ' last';
             }
 
-            $html .=  '<li title="'.$this->escapeHtml($item['title']).'" class="'.$item['row_class'].'">'
-                . '<span class="amount">'.$item['num_of_results'].'</span>'.$this->escapeHtml($item['title']).'</li>';
+            $html .= '<li title="' . $this->escapeHtml($item['title']) . '" class="' . $item['row_class'] . '">'
+                    . '<span class="amount">' . $item['num_of_results'] . '</span>' . $this->escapeHtml($item['title']) . '</li>';
         }
 
         $html.= '</ul>';
@@ -75,14 +77,13 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
             foreach ($collection as $item) {
                 $_data = array(
                     'title' => $item->getQueryText(),
-                    'row_class' => (++$counter)%2?'odd':'even',
+                    'row_class' => ( ++$counter) % 2 ? 'odd' : 'even',
                     'num_of_results' => $item->getNumResults()
                 );
 
                 if ($item->getQueryText() == $query) {
                     array_unshift($data, $_data);
-                }
-                else {
+                } else {
                     $data[] = $_data;
                 }
             }
@@ -90,7 +91,8 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
         }
         return $this->_suggestData;
     }
-/*
- *
-*/
+
+    /*
+     *
+     */
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Reviews extends Mage_Adminhtml_Block_Review_Grid
 {
+
     /**
      * Hide grid mass action elements
      *
@@ -52,4 +54,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Reviews extends Mage_Adminht
     {
         return $this->getUrl('*/*/reviews', array('_current' => true));
     }
+
 }

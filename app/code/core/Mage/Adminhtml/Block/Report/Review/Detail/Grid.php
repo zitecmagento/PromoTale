@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -44,14 +45,12 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
     {
 
         //$collection = Mage::getModel('review/review')->getProductCollection();
-
         //$collection->getSelect()
         //    ->where('rt.entity_pk_value='.(int)$this->getRequest()->getParam('id'));
-
         //$collection->getEntity()->setStore(0);
 
         $collection = Mage::getResourceModel('reports/review_collection')
-            ->addProductFilter((int)$this->getRequest()->getParam('id'));
+                ->addProductFilter((int) $this->getRequest()->getParam('id'));
 
         $this->setCollection($collection);
 
@@ -64,27 +63,27 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
     {
 
         $this->addColumn('nickname', array(
-            'header'    =>Mage::helper('reports')->__('Customer'),
-            'width'     =>'100px',
-            'index'     =>'nickname'
+            'header' => Mage::helper('reports')->__('Customer'),
+            'width' => '100px',
+            'index' => 'nickname'
         ));
 
         $this->addColumn('title', array(
-            'header'    =>Mage::helper('reports')->__('Title'),
-            'width'     =>'150px',
-            'index'     =>'title'
+            'header' => Mage::helper('reports')->__('Title'),
+            'width' => '150px',
+            'index' => 'title'
         ));
 
         $this->addColumn('detail', array(
-            'header'    =>Mage::helper('reports')->__('Detail'),
-            'index'     =>'detail'
+            'header' => Mage::helper('reports')->__('Detail'),
+            'index' => 'detail'
         ));
 
         $this->addColumn('created_at', array(
-            'header'    =>Mage::helper('reports')->__('Created At'),
-            'index'     =>'created_at',
-            'width'     =>'200px',
-            'type'      =>'datetime'
+            'header' => Mage::helper('reports')->__('Created At'),
+            'index' => 'created_at',
+            'width' => '200px',
+            'type' => 'datetime'
         ));
 
         $this->setFilterVisibility(false);
@@ -96,4 +95,3 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
     }
 
 }
-

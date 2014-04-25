@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: AccessController.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_Memory_Container_Interface
  */
@@ -43,13 +43,13 @@
  */
 class Zend_Memory_AccessController implements Zend_Memory_Container_Interface
 {
+
     /**
      * Memory container object
      *
      * @var Zend_Memory_Container
      */
     private $_memContainer;
-
 
     /**
      * Object constructor
@@ -68,7 +68,6 @@ class Zend_Memory_AccessController implements Zend_Memory_Container_Interface
     {
         $this->_memContainer->destroy();
     }
-
 
     /**
      * Get string value reference
@@ -100,7 +99,6 @@ class Zend_Memory_AccessController implements Zend_Memory_Container_Interface
     {
         $this->_memContainer->lock();
     }
-
 
     /**
      * Unlock object
@@ -146,4 +144,5 @@ class Zend_Memory_AccessController implements Zend_Memory_Container_Interface
     {
         $this->_memContainer->$property = $value;
     }
+
 }

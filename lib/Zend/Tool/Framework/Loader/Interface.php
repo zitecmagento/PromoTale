@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 interface Zend_Tool_Framework_Loader_Interface
 {
+
     /**
      * Load Providers and Manifests
      *

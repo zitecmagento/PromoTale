@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HttpResponse.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
 /**
  * @see Zend_Feed_Pubsubhubbub
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Feed_Pubsubhubbub_HttpResponse
 {
+
     /**
      * The body of any response to the current callback request
      *
@@ -107,7 +108,7 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
      */
     public function setHeader($name, $value, $replace = false)
     {
-        $name  = $this->_normalizeHeader($name);
+        $name = $this->_normalizeHeader($name);
         $value = (string) $value;
         if ($replace) {
             foreach ($this->_headers as $key => $header) {
@@ -117,8 +118,8 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
             }
         }
         $this->_headers[] = array(
-            'name'    => $name,
-            'value'   => $value,
+            'name' => $name,
+            'value' => $value,
             'replace' => $replace,
         );
 
@@ -231,4 +232,5 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
         $filtered = str_replace(' ', '-', $filtered);
         return $filtered;
     }
+
 }

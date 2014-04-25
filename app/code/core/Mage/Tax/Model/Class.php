@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -38,14 +39,15 @@
  * @package     Mage_Tax
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Tax_Model_Class extends Mage_Core_Model_Abstract
 {
-    const TAX_CLASS_TYPE_CUSTOMER   = 'CUSTOMER';
-    const TAX_CLASS_TYPE_PRODUCT    = 'PRODUCT';
+
+    const TAX_CLASS_TYPE_CUSTOMER = 'CUSTOMER';
+    const TAX_CLASS_TYPE_PRODUCT = 'PRODUCT';
 
     public function _construct()
     {
         $this->_init('tax/class');
     }
+
 }

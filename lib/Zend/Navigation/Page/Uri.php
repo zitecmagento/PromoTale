@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Uri.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Navigation_Page_Abstract
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Navigation_Page_Uri extends Zend_Navigation_Page
 {
+
     /**
      * Page URI
      *
@@ -55,7 +56,7 @@ class Zend_Navigation_Page_Uri extends Zend_Navigation_Page
         if (null !== $uri && !is_string($uri)) {
             #require_once 'Zend/Navigation/Exception.php';
             throw new Zend_Navigation_Exception(
-                    'Invalid argument: $uri must be a string or null');
+            'Invalid argument: $uri must be a string or null');
         }
 
         $this->_uri = $uri;
@@ -92,9 +93,9 @@ class Zend_Navigation_Page_Uri extends Zend_Navigation_Page
     public function toArray()
     {
         return array_merge(
-            parent::toArray(),
-            array(
-                'uri' => $this->getUri()
-            ));
+                parent::toArray(), array(
+            'uri' => $this->getUri()
+        ));
     }
+
 }

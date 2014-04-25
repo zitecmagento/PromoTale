@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order creditmemo items collection
  *
@@ -34,19 +34,20 @@
  */
 class Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection extends Mage_Sales_Model_Resource_Collection_Abstract
 {
+
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix    = 'sales_order_creditmemo_item_collection';
+    protected $_eventPrefix = 'sales_order_creditmemo_item_collection';
 
     /**
      * Event object
      *
      * @var string
      */
-    protected $_eventObject    = 'order_creditmemo_item_collection';
+    protected $_eventObject = 'order_creditmemo_item_collection';
 
     /**
      * Model initialization
@@ -68,4 +69,5 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection extends Mage_Sa
         $this->addFieldToFilter('parent_id', $creditmemoId);
         return $this;
     }
+
 }

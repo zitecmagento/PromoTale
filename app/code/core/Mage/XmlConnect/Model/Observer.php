@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Observer
 {
+
     /**
      * List of config field names which changing affects mobile applications behaviour
      *
@@ -59,9 +61,7 @@ class Mage_XmlConnect_Model_Observer
     public function restrictWebsite($observer)
     {
         $controller = $observer->getEvent()->getController();
-        if ($controller instanceof Mage_XmlConnect_Controller_AdminAction
-            || $controller instanceof Mage_XmlConnect_Controller_Action
-            || Mage::app()->getRequest()->getModuleName() == 'xmlconnect'
+        if ($controller instanceof Mage_XmlConnect_Controller_AdminAction || $controller instanceof Mage_XmlConnect_Controller_Action || Mage::app()->getRequest()->getModuleName() == 'xmlconnect'
         ) {
             $observer->getEvent()->getResult()->setShouldProceed(false);
         }
@@ -75,8 +75,7 @@ class Mage_XmlConnect_Model_Observer
     public function changeUpdatedAtParamOnConfigSave($observer)
     {
         $configData = $observer->getEvent()->getConfigData();
-        if ($configData && (int)$configData->isValueChanged()
-            && in_array($configData->getPath(), $this->_appDependOnConfigFieldPathes)
+        if ($configData && (int) $configData->isValueChanged() && in_array($configData->getPath(), $this->_appDependOnConfigFieldPathes)
         ) {
             Mage::getModel('xmlconnect/application')->updateAllAppsUpdatedAtParameter();
         }
@@ -114,7 +113,7 @@ class Mage_XmlConnect_Model_Observer
     {
         $countOfQueue = Mage::getStoreConfig(Mage_XmlConnect_Model_Queue::XML_PATH_CRON_MESSAGES_COUNT);
         $collection = Mage::getModel('xmlconnect/queue')->getCollection()->addOnlyForSendingFilter()
-            ->setPageSize($countOfQueue)->setCurPage(1)->load();
+                        ->setPageSize($countOfQueue)->setCurPage(1)->load();
         foreach ($collection as $message) {
             if ($message->getId()) {
                 Mage::helper('xmlconnect')->sendBroadcastMessage($message);
@@ -157,11 +156,10 @@ class Mage_XmlConnect_Model_Observer
     {
         /** @var $request Mage_Core_Controller_Request_Http */
         $request = Mage::app()->getRequest();
-        if (false === $this->_checkAdminController($request, $event->getControllerAction())
-            && !Mage::getSingleton('admin/session')->isLoggedIn()
+        if (false === $this->_checkAdminController($request, $event->getControllerAction()) && !Mage::getSingleton('admin/session')->isLoggedIn()
         ) {
             $request->setParam('forwarded', true)->setRouteName('adminhtml')->setControllerName('connect_user')
-                ->setActionName('loginform')->setDispatched(false);
+                    ->setActionName('loginform')->setDispatched(false);
         }
     }
 
@@ -176,8 +174,7 @@ class Mage_XmlConnect_Model_Observer
     {
         if ($controllerAction instanceof Mage_XmlConnect_Controller_AdminAction) {
             foreach ($controllerAction->getAllowedControllerActions() as $controller => $allowedActions) {
-                if ($request->getControllerName() == $controller
-                    && in_array(strtolower($request->getActionName()), $allowedActions)
+                if ($request->getControllerName() == $controller && in_array(strtolower($request->getActionName()), $allowedActions)
                 ) {
                     return true;
                 }
@@ -185,4 +182,5 @@ class Mage_XmlConnect_Model_Observer
             return false;
         }
     }
+
 }

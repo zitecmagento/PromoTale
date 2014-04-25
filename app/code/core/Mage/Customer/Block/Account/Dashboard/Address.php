@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Customer_Block_Account_Dashboard_Address extends Mage_Core_Block_Template
 {
+
     public function getCustomer()
     {
         return Mage::getSingleton('customer/session')->getCustomer();
@@ -43,7 +44,7 @@ class Mage_Customer_Block_Account_Dashboard_Address extends Mage_Core_Block_Temp
     {
         $address = $this->getCustomer()->getPrimaryShippingAddress();
 
-        if( $address instanceof Varien_Object ) {
+        if ($address instanceof Varien_Object) {
             return $address->format('html');
         } else {
             return Mage::helper('customer')->__('You have not set a default shipping address.');
@@ -54,7 +55,7 @@ class Mage_Customer_Block_Account_Dashboard_Address extends Mage_Core_Block_Temp
     {
         $address = $this->getCustomer()->getPrimaryBillingAddress();
 
-        if( $address instanceof Varien_Object ) {
+        if ($address instanceof Varien_Object) {
             return $address->format('html');
         } else {
             return Mage::helper('customer')->__('You have not set a default billing address.');
@@ -63,16 +64,17 @@ class Mage_Customer_Block_Account_Dashboard_Address extends Mage_Core_Block_Temp
 
     public function getPrimaryShippingAddressEditUrl()
     {
-        return Mage::getUrl('customer/address/edit', array('id'=>$this->getCustomer()->getDefaultShipping()));
+        return Mage::getUrl('customer/address/edit', array('id' => $this->getCustomer()->getDefaultShipping()));
     }
 
     public function getPrimaryBillingAddressEditUrl()
     {
-        return Mage::getUrl('customer/address/edit', array('id'=>$this->getCustomer()->getDefaultBilling()));
+        return Mage::getUrl('customer/address/edit', array('id' => $this->getCustomer()->getDefaultBilling()));
     }
 
     public function getAddressBookUrl()
     {
         return $this->getUrl('customer/address/');
     }
+
 }

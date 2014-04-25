@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
 {
+
     protected function _construct()
     {
         parent::_construct();
@@ -45,8 +47,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
             $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
         }
         $this->setChild(
-            'payment_info',
-            $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
+                'payment_info', $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
         );
     }
 
@@ -106,12 +107,14 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
         return Mage::getUrl('*/*/creditmemo', array('order_id' => $order->getId()));
     }
 
-
-    public function getPrintShipmentUrl($shipment){
+    public function getPrintShipmentUrl($shipment)
+    {
         return Mage::getUrl('*/*/printShipment', array('shipment_id' => $shipment->getId()));
     }
 
-    public function getPrintAllShipmentsUrl($order){
+    public function getPrintAllShipmentsUrl($order)
+    {
         return Mage::getUrl('*/*/printShipment', array('order_id' => $order->getId()));
     }
+
 }

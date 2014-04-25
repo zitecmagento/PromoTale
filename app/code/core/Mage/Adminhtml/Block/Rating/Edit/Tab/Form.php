@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Prepare rating edit form
      *
@@ -45,7 +46,7 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
         $this->setForm($form);
 
         $fieldset = $form->addFieldset('rating_form', array(
-            'legend'=>Mage::helper('rating')->__('Rating Title')
+            'legend' => Mage::helper('rating')->__('Rating Title')
         ));
 
         $fieldset->addField('rating_code', 'text', array(
@@ -66,25 +67,25 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
             $form->setValues(Mage::getSingleton('adminhtml/session')->getRatingData());
             $data = Mage::getSingleton('adminhtml/session')->getRatingData();
             if (isset($data['rating_codes'])) {
-               $this->_setRatingCodes($data['rating_codes']);
+                $this->_setRatingCodes($data['rating_codes']);
             }
             Mage::getSingleton('adminhtml/session')->setRatingData(null);
         } elseif (Mage::registry('rating_data')) {
             $form->setValues(Mage::registry('rating_data')->getData());
             if (Mage::registry('rating_data')->getRatingCodes()) {
-               $this->_setRatingCodes(Mage::registry('rating_data')->getRatingCodes());
+                $this->_setRatingCodes(Mage::registry('rating_data')->getRatingCodes());
             }
         }
 
         if (Mage::registry('rating_data')) {
             $collection = Mage::getModel('rating/rating_option')
-                ->getResourceCollection()
-                ->addRatingFilter(Mage::registry('rating_data')->getId())
-                ->load();
+                    ->getResourceCollection()
+                    ->addRatingFilter(Mage::registry('rating_data')->getId())
+                    ->load();
 
             $i = 1;
             foreach ($collection->getItems() as $item) {
-                $fieldset->addField('option_code_' . $item->getId() , 'hidden', array(
+                $fieldset->addField('option_code_' . $item->getId(), 'hidden', array(
                     'required' => true,
                     'name' => 'option_title[' . $item->getId() . ']',
                     'value' => ($item->getCode()) ? $item->getCode() : $i,
@@ -127,10 +128,11 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
         return parent::_prepareForm();
     }
 
-    protected function _setRatingCodes($ratingCodes) {
-        foreach($ratingCodes as $store=>$value) {
-            if($element = $this->getForm()->getElement('rating_code_' . $store)) {
-               $element->setValue($value);
+    protected function _setRatingCodes($ratingCodes)
+    {
+        foreach ($ratingCodes as $store => $value) {
+            if ($element = $this->getForm()->getElement('rating_code_' . $store)) {
+                $element->setValue($value);
             }
         }
     }
@@ -146,12 +148,11 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
 <ul class="messages">
     <li class="notice-msg">
         <ul>
-            <li>'.Mage::helper('rating')->__('If you do not specify a rating title for a store, the default value will be used.').'</li>
+            <li>' . Mage::helper('rating')->__('If you do not specify a rating title for a store, the default value will be used.') . '</li>
         </ul>
     </li>
 </ul>
 </div>';
     }
-
 
 }

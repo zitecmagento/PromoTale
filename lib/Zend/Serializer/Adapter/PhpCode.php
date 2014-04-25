@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: PhpCode.php 20574 2010-01-24 17:39:14Z mabe $
  */
-
 /** @see Zend_Serializer_Adapter_AdapterAbstract */
 #require_once 'Zend/Serializer/Adapter/AdapterAbstract.php';
 
@@ -32,6 +32,7 @@
  */
 class Zend_Serializer_Adapter_PhpCode extends Zend_Serializer_Adapter_AdapterAbstract
 {
+
     /**
      * Serialize PHP using var_export
      * 
@@ -58,10 +59,11 @@ class Zend_Serializer_Adapter_PhpCode extends Zend_Serializer_Adapter_AdapterAbs
     {
         $eval = @eval('$ret=' . $code . ';');
         if ($eval === false) {
-                $lastErr = error_get_last();
-                #require_once 'Zend/Serializer/Exception.php';
-                throw new Zend_Serializer_Exception('eval failed: ' . $lastErr['message']);
+            $lastErr = error_get_last();
+            #require_once 'Zend/Serializer/Exception.php';
+            throw new Zend_Serializer_Exception('eval failed: ' . $lastErr['message']);
         }
         return $ret;
     }
+
 }

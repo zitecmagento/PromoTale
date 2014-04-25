@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Onepage_Address extends Mage_Core_Block_Abstract
 {
+
     /**
      * Save address action
      */
@@ -66,4 +68,5 @@ class Mage_XmlConnect_Block_Checkout_Onepage_Address extends Mage_Core_Block_Abs
 
         return $xmlObj->asNiceXml();
     }
+
 }

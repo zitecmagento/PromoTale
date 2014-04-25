@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -45,13 +46,14 @@
  */
 class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 {
+
     /**
      * Predefined event types
      */
-    const TYPE_SAVE        = 'save';
-    const TYPE_DELETE      = 'delete';
+    const TYPE_SAVE = 'save';
+    const TYPE_DELETE = 'delete';
     const TYPE_MASS_ACTION = 'mass_action';
-    const TYPE_REINDEX     = 'reindex';
+    const TYPE_REINDEX = 'reindex';
 
     /**
      * Array of related processes ids
@@ -132,7 +134,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * @param   $processId
      * @return  Mage_Index_Model_Event
      */
-    public function addProcessId($processId, $status=Mage_Index_Model_Process::EVENT_STATUS_NEW)
+    public function addProcessId($processId, $status = Mage_Index_Model_Process::EVENT_STATUS_NEW)
     {
         $this->_processIds[$processId] = $status;
         return $this;
@@ -195,7 +197,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 
         if (!empty($data['new_data'])) {
             $previousNewData = unserialize($data['new_data']);
-            $currentNewData  = $this->getNewData(false);
+            $currentNewData = $this->getNewData(false);
             $currentNewData = $this->_mergeNewDataRecursive($previousNewData, $currentNewData);
             $this->setNewData(serialize($currentNewData));
         }
@@ -271,7 +273,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * @param null | mixed $value
      * @return Mage_Index_Model_Event
      */
-    public function addOldData($key, $value=null)
+    public function addOldData($key, $value = null)
     {
         return $this;
     }
@@ -283,7 +285,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * @param null | mixed $value
      * @return Mage_Index_Model_Event
      */
-    public function addNewData($key, $value=null)
+    public function addNewData($key, $value = null)
     {
         $newData = $this->getNewData(false);
         if (!is_array($key)) {
@@ -337,4 +339,5 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
         }
         return parent::_beforeSave();
     }
+
 }

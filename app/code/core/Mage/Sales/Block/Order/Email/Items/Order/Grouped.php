@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales Order Email items grouped renderer
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Block_Order_Email_Items_Order_Grouped extends Mage_Sales_Block_Order_Email_Items_Order_Default
 {
+
     /**
      * Prepare item html
      *
@@ -42,7 +43,8 @@ class Mage_Sales_Block_Order_Email_Items_Order_Grouped extends Mage_Sales_Block_
      * @return string
      */
     protected function _toHtml()
-    {   if ($this->getItem()->getOrderItem()) {
+    {
+        if ($this->getItem()->getOrderItem()) {
             $item = $this->getItem()->getOrderItem();
         } else {
             $item = $this->getItem();
@@ -54,4 +56,5 @@ class Mage_Sales_Block_Order_Email_Items_Order_Grouped extends Mage_Sales_Block_
         }
         return parent::_toHtml();
     }
+
 }

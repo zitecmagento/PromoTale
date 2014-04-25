@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Memory.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Search_Lucene_Storage_File */
 #require_once 'Zend/Search/Lucene/Storage/File.php';
 
@@ -32,6 +32,7 @@
  */
 class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_File
 {
+
     /**
      * FileData
      *
@@ -45,7 +46,6 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
      * @var integer
      */
     private $_position = 0;
-
 
     /**
      * Object constractor
@@ -71,7 +71,6 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
         return $returnValue;
     }
 
-
     /**
      * Sets the file position indicator and advances the file pointer.
      * The new position, measured in bytes from the beginning of the file,
@@ -88,7 +87,7 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
      * @param integer $whence
      * @return integer
      */
-    public function seek($offset, $whence=SEEK_SET)
+    public function seek($offset, $whence = SEEK_SET)
     {
         switch ($whence) {
             case SEEK_SET:
@@ -140,7 +139,7 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
      * @param string $data
      * @param integer $length
      */
-    protected function _fwrite($data, $length=null)
+    protected function _fwrite($data, $length = null)
     {
         // We do not need to check if file position points to the end of "file".
         // Only append operation is supported now
@@ -228,7 +227,7 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
      * @param string $data
      * @param integer $num
      */
-    public function writeBytes($data, $num=null)
+    public function writeBytes($data, $num = null)
     {
         // We do not need to check if file position points to the end of "file".
         // Only append operation is supported now
@@ -242,7 +241,6 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
         $this->_position = strlen($this->_data);
     }
 
-
     /**
      * Reads an integer from the current position in the file
      * and advances the file pointer.
@@ -254,12 +252,11 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
         $str = substr($this->_data, $this->_position, 4);
         $this->_position += 4;
 
-        return  ord($str[0]) << 24 |
+        return ord($str[0]) << 24 |
                 ord($str[1]) << 16 |
-                ord($str[2]) << 8  |
+                ord($str[2]) << 8 |
                 ord($str[3]);
     }
-
 
     /**
      * Writes an integer to the end of file.
@@ -272,14 +269,13 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
         // Only append operation is supported now
 
         settype($value, 'integer');
-        $this->_data .= chr($value>>24 & 0xFF) .
-                        chr($value>>16 & 0xFF) .
-                        chr($value>>8  & 0xFF) .
-                        chr($value     & 0xFF);
+        $this->_data .= chr($value >> 24 & 0xFF) .
+                chr($value >> 16 & 0xFF) .
+                chr($value >> 8 & 0xFF) .
+                chr($value & 0xFF);
 
         $this->_position = strlen($this->_data);
     }
-
 
     /**
      * Returns a long integer from the current position in the file
@@ -298,13 +294,13 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
             $str = substr($this->_data, $this->_position, 8);
             $this->_position += 8;
 
-            return  ord($str[0]) << 56  |
-                    ord($str[1]) << 48  |
-                    ord($str[2]) << 40  |
-                    ord($str[3]) << 32  |
-                    ord($str[4]) << 24  |
-                    ord($str[5]) << 16  |
-                    ord($str[6]) << 8   |
+            return ord($str[0]) << 56 |
+                    ord($str[1]) << 48 |
+                    ord($str[2]) << 40 |
+                    ord($str[3]) << 32 |
+                    ord($str[4]) << 24 |
+                    ord($str[5]) << 16 |
+                    ord($str[6]) << 8 |
                     ord($str[7]);
         } else {
             return $this->readLong32Bit();
@@ -328,21 +324,20 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
          */
         if (PHP_INT_SIZE > 4) {
             settype($value, 'integer');
-            $this->_data .= chr($value>>56 & 0xFF) .
-                            chr($value>>48 & 0xFF) .
-                            chr($value>>40 & 0xFF) .
-                            chr($value>>32 & 0xFF) .
-                            chr($value>>24 & 0xFF) .
-                            chr($value>>16 & 0xFF) .
-                            chr($value>>8  & 0xFF) .
-                            chr($value     & 0xFF);
+            $this->_data .= chr($value >> 56 & 0xFF) .
+                    chr($value >> 48 & 0xFF) .
+                    chr($value >> 40 & 0xFF) .
+                    chr($value >> 32 & 0xFF) .
+                    chr($value >> 24 & 0xFF) .
+                    chr($value >> 16 & 0xFF) .
+                    chr($value >> 8 & 0xFF) .
+                    chr($value & 0xFF);
         } else {
             $this->writeLong32Bit($value);
         }
 
         $this->_position = strlen($this->_data);
     }
-
 
     /**
      * Returns a long integer from the current position in the file,
@@ -354,23 +349,22 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
     public function readLong32Bit()
     {
         $wordHigh = $this->readInt();
-        $wordLow  = $this->readInt();
+        $wordLow = $this->readInt();
 
-        if ($wordHigh & (int)0x80000000) {
+        if ($wordHigh & (int) 0x80000000) {
             // It's a negative value since the highest bit is set
-            if ($wordHigh == (int)0xFFFFFFFF  &&  ($wordLow & (int)0x80000000)) {
+            if ($wordHigh == (int) 0xFFFFFFFF && ($wordLow & (int) 0x80000000)) {
                 return $wordLow;
             } else {
                 #require_once 'Zend/Search/Lucene/Exception.php';
                 throw new Zend_Search_Lucene_Exception('Long integers lower than -2147483648 (0x80000000) are not supported on 32-bit platforms.');
             }
-
         }
 
         if ($wordLow < 0) {
             // Value is large than 0x7FFF FFFF. Represent low word as float.
             $wordLow &= 0x7FFFFFFF;
-            $wordLow += (float)0x80000000;
+            $wordLow += (float) 0x80000000;
         }
 
         if ($wordHigh == 0) {
@@ -378,9 +372,8 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
             return $wordLow;
         }
 
-        return $wordHigh*(float)0x100000000/* 0x00000001 00000000 */ + $wordLow;
+        return $wordHigh * (float) 0x100000000/* 0x00000001 00000000 */ + $wordLow;
     }
-
 
     /**
      * Writes long integer to the end of file (32-bit platforms implementation)
@@ -390,17 +383,17 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
      */
     public function writeLong32Bit($value)
     {
-        if ($value < (int)0x80000000) {
+        if ($value < (int) 0x80000000) {
             #require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Long integers lower than -2147483648 (0x80000000) are not supported on 32-bit platforms.');
         }
 
         if ($value < 0) {
-            $wordHigh = (int)0xFFFFFFFF;
-            $wordLow  = (int)$value;
+            $wordHigh = (int) 0xFFFFFFFF;
+            $wordLow = (int) $value;
         } else {
-            $wordHigh = (int)($value/(float)0x100000000/* 0x00000001 00000000 */);
-            $wordLow  = $value - $wordHigh*(float)0x100000000/* 0x00000001 00000000 */;
+            $wordHigh = (int) ($value / (float) 0x100000000/* 0x00000001 00000000 */);
+            $wordLow = $value - $wordHigh * (float) 0x100000000/* 0x00000001 00000000 */;
 
             if ($wordLow > 0x7FFFFFFF) {
                 // Highest bit of low word is set. Translate it to the corresponding negative integer value
@@ -424,7 +417,7 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
         $nextByte = ord($this->_data[$this->_position++]);
         $val = $nextByte & 0x7F;
 
-        for ($shift=7; ($nextByte & 0x80) != 0; $shift += 7) {
+        for ($shift = 7; ($nextByte & 0x80) != 0; $shift += 7) {
             $nextByte = ord($this->_data[$this->_position++]);
             $val |= ($nextByte & 0x7F) << $shift;
         }
@@ -443,14 +436,13 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
 
         settype($value, 'integer');
         while ($value > 0x7F) {
-            $this->_data .= chr( ($value & 0x7F)|0x80 );
+            $this->_data .= chr(($value & 0x7F) | 0x80);
             $value >>= 7;
         }
         $this->_data .= chr($value);
 
         $this->_position = strlen($this->_data);
     }
-
 
     /**
      * Reads a string from the current position in the file
@@ -476,32 +468,31 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
              * Standard UTF-8 representation uses four bytes for supplementary
              * characters.
              */
-
             $str_val = substr($this->_data, $this->_position, $strlen);
             $this->_position += $strlen;
 
-            for ($count = 0; $count < $strlen; $count++ ) {
+            for ($count = 0; $count < $strlen; $count++) {
                 if (( ord($str_val[$count]) & 0xC0 ) == 0xC0) {
                     $addBytes = 1;
-                    if (ord($str_val[$count]) & 0x20 ) {
+                    if (ord($str_val[$count]) & 0x20) {
                         $addBytes++;
 
                         // Never used. Java2 doesn't encode strings in four bytes
-                        if (ord($str_val[$count]) & 0x10 ) {
+                        if (ord($str_val[$count]) & 0x10) {
                             $addBytes++;
                         }
                     }
                     $str_val .= substr($this->_data, $this->_position, $addBytes);
                     $this->_position += $addBytes;
-                    $strlen          += $addBytes;
+                    $strlen += $addBytes;
 
                     // Check for null character. Java2 encodes null character
                     // in two bytes.
-                    if (ord($str_val[$count])   == 0xC0 &&
-                        ord($str_val[$count+1]) == 0x80   ) {
+                    if (ord($str_val[$count]) == 0xC0 &&
+                            ord($str_val[$count + 1]) == 0x80) {
                         $str_val[$count] = 0;
-                        $str_val = substr($str_val,0,$count+1)
-                                 . substr($str_val,$count+2);
+                        $str_val = substr($str_val, 0, $count + 1)
+                                . substr($str_val, $count + 2);
                     }
                     $count += $addBytes;
                 }
@@ -531,17 +522,15 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
          * Standard UTF-8 representation uses four bytes for supplementary
          * characters.
          */
-
         // We do not need to check if file position points to the end of "file".
         // Only append operation is supported now
-
         // convert input to a string before iterating string characters
         settype($str, 'string');
 
         $chars = $strlen = strlen($str);
         $containNullChars = false;
 
-        for ($count = 0; $count < $strlen; $count++ ) {
+        for ($count = 0; $count < $strlen; $count++) {
             /**
              * String is already in Java 2 representation.
              * We should only calculate actual string length and replace
@@ -549,18 +538,18 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
              */
             if ((ord($str[$count]) & 0xC0) == 0xC0) {
                 $addBytes = 1;
-                if (ord($str[$count]) & 0x20 ) {
+                if (ord($str[$count]) & 0x20) {
                     $addBytes++;
 
                     // Never used. Java2 doesn't encode strings in four bytes
                     // and we dont't support non-BMP characters
-                    if (ord($str[$count]) & 0x10 ) {
+                    if (ord($str[$count]) & 0x10) {
                         $addBytes++;
                     }
                 }
                 $chars -= $addBytes;
 
-                if (ord($str[$count]) == 0 ) {
+                if (ord($str[$count]) == 0) {
                     $containNullChars = true;
                 }
                 $count += $addBytes;
@@ -575,14 +564,12 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
         $this->writeVInt($chars);
         if ($containNullChars) {
             $this->_data .= str_replace($str, "\x00", "\xC0\x80");
-
         } else {
             $this->_data .= $str;
         }
 
         $this->_position = strlen($this->_data);
     }
-
 
     /**
      * Reads binary data from the current position in the file
@@ -597,5 +584,5 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
         $this->_position += $length;
         return $returnValue;
     }
-}
 
+}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,12 +35,13 @@
  */
 class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Serializeable field: additional_information
      *
      * @var array
      */
-    protected $_serializableFields   = array(
+    protected $_serializableFields = array(
         'additional_information' => array(null, array())
     );
 
@@ -61,7 +63,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
     public function loadObjectByTxnId(Mage_Paypal_Model_Payment_Transaction $transaction, $txnId)
     {
         $select = $this->_getLoadByUniqueKeySelect($txnId);
-        $data   = $this->_getWriteAdapter()->fetchRow($select);
+        $data = $this->_getWriteAdapter()->fetchRow($select);
         $transaction->setData($data);
         $this->unserializeFields($transaction);
         $this->_afterLoad($transaction);
@@ -77,12 +79,12 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $transaction)
     {
-        $txnId       = $transaction->getData('txn_id');
+        $txnId = $transaction->getData('txn_id');
         $idFieldName = $this->getIdFieldName();
 
         // make sure unique key won't cause trouble
         if ($transaction->isFailsafe()) {
-            $autoincrementId = (int)$this->_lookupByTxnId($txnId, $idFieldName);
+            $autoincrementId = (int) $this->_lookupByTxnId($txnId, $idFieldName);
             if ($autoincrementId) {
                 $transaction->setData($idFieldName, $autoincrementId)->isObjectNew(false);
             }
@@ -118,7 +120,8 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
     private function _getLoadByUniqueKeySelect($txnId, $columns = '*')
     {
         return $this->_getWriteAdapter()->select()
-            ->from($this->getMainTable(), $columns)
-            ->where('txn_id = ?', $txnId);
+                        ->from($this->getMainTable(), $columns)
+                        ->where('txn_id = ?', $txnId);
     }
+
 }

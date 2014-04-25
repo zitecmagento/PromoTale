@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,7 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-final class Mage_Connect_Command_Remote
-extends Mage_Connect_Command
+final class Mage_Connect_Command_Remote extends Mage_Connect_Command
 {
 
     /**
@@ -39,40 +38,42 @@ extends Mage_Connect_Command
     {
 
         $this->cleanupParams($params);
-        try {
+        try
+        {
             $packager = new Mage_Connect_Packager();
-            $channelAuth = isset($options['auth'])?$options['auth']:array();
+            $channelAuth = isset($options['auth']) ? $options['auth'] : array();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
+            if ($ftp) {
                 list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
             } else {
                 $cache = $this->getSconfig();
                 $config = $this->config();
             }
 
-            if(!empty($params[0])) {
+            if (!empty($params[0])) {
                 $channels = $params[0];
                 $cache->getChannel($channels);
             } else {
                 $channels = $cache->getChannelNames();
             }
             $rest = $this->rest();
-            if(!empty($channelAuth)){
+            if (!empty($channelAuth)) {
                 $rest->getLoader()->setCredentials($channelAuth['username'], $channelAuth['password']);
             }
             $ups = $packager->getUpgradesList($channels, $cache, $config, $rest);
 
-            if(count($ups)) {
-                $data = array($command => array('data'=>$ups));
+            if (count($ups)) {
+                $data = array($command => array('data' => $ups));
             } else {
                 $data = "No upgrades available";
             }
             $this->ui()->output($data);
-        } catch(Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->doError($command, $e->getMessage());
         }
     }
-
 
     /**
      * List available
@@ -81,33 +82,34 @@ extends Mage_Connect_Command
      * @param $params
      * @return unknown_type
      */
-
     public function doListAvailable($command, $options, $params)
     {
         $this->cleanupParams($params);
 
-        try {
+        try
+        {
             $packager = new Mage_Connect_Packager();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
+            if ($ftp) {
                 list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
             } else {
                 $cache = $this->getSconfig();
                 $config = $this->config();
             }
 
-            if(!empty($params[0])) {
+            if (!empty($params[0])) {
                 $channels = array($params[0]);
                 $cache->getChannel($channels[0]);
             } else {
-                $channels =  $cache->getChannelNames();
+                $channels = $cache->getChannelNames();
             }
-            
-            
+
+
 
             $packs = array();
             foreach ($channels as $channel) {
-                try {
+                try
+                {
                     $chan = $cache->getChannel($channel);
                     $uri = $cache->chanUrl($channel);
 
@@ -115,31 +117,33 @@ extends Mage_Connect_Command
                     $rest->setChannel($uri);
 
                     $packages = $rest->getPackages();
-                    if(!count($packages)) {
+                    if (!count($packages)) {
                         $this->ui()->output("Channel '{$channel}' has no packages");
                         continue;
                     }
-                    $packs[$channel]['title'] = "Packages for channel '".$channel."':";
-                    foreach($packages as $p) {
+                    $packs[$channel]['title'] = "Packages for channel '" . $channel . "':";
+                    foreach ($packages as $p) {
                         $packageName = $p['n'];
                         $releases = array();
-                        foreach($p['r'] as $k=>$r) {
+                        foreach ($p['r'] as $k => $r) {
                             $releases[$r] = $rest->shortStateToLong($k);
                         }
                         $packs[$channel]['packages'][$packageName]['releases'] = $releases;
                     }
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     $this->doError($command, $e->getMessage());
                 }
             }
             $dataOut = array();
-            $dataOut[$command]= array('data'=>$packs);
+            $dataOut[$command] = array('data' => $packs);
             $this->ui()->output($dataOut);
-
-        } catch(Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->doError($command, $e->getMessage());
         }
-         
     }
 
     /**
@@ -154,8 +158,9 @@ extends Mage_Connect_Command
     {
         $this->cleanupParams($params);
         //$this->splitPackageArgs($params);
-        try {
-            if(count($params) < 2) {
+        try
+        {
+            if (count($params) < 2) {
                 throw new Exception("Arguments should be: channel Package");
             }
 
@@ -164,7 +169,7 @@ extends Mage_Connect_Command
 
             $packager = $this->getPackager();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
+            if ($ftp) {
                 list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
             } else {
                 $cache = $this->getSconfig();
@@ -177,20 +182,22 @@ extends Mage_Connect_Command
             $rest = $this->rest();
             $rest->setChannel($uri);
             $c = $rest->getReleases($package);
-            if(!count($c)) {
+            if (!count($c)) {
                 throw new Exception("No releases found for package");
             }
             $version = $cache->detectVersionFromRestArray($c);
             $dir = $config->getChannelCacheDir($channel);
-            $file = $dir.DIRECTORY_SEPARATOR.$package."-".$version.".tgz";
+            $file = $dir . DIRECTORY_SEPARATOR . $package . "-" . $version . ".tgz";
             $rest->downloadPackageFileOfRelease($package, $version, $file);
-            if($ftp) {
+            if ($ftp) {
                 @unlink($config->getFilename());
                 @unlink($cache->getFilename());
             }
-            $this->ui()->output("Saved to: ". $file);
-        } catch (Exception $e) {
-            if($ftp) {
+            $this->ui()->output("Saved to: " . $file);
+        }
+        catch (Exception $e)
+        {
+            if ($ftp) {
                 @unlink($config->getFilename());
                 @unlink($cache->getFilename());
             }
@@ -208,24 +215,23 @@ extends Mage_Connect_Command
     public function doClearCache($command, $options, $params)
     {
         $this->cleanupParams($params);
-        try {
+        try
+        {
             $packager = new Mage_Connect_Packager();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
+            if ($ftp) {
                 list($cache, $ftpObj) = $packager->getRemoteCache($ftp);
                 $cache->clear();
-                $packager->writeToRemoteCache($cache, $ftpObj);              
+                $packager->writeToRemoteCache($cache, $ftpObj);
             } else {
                 $cache = $this->getSconfig();
                 $cache->clear();
             }
-        } catch (Exception $e) {
-             $this->doError($command, $e->getMessage());
+        }
+        catch (Exception $e)
+        {
+            $this->doError($command, $e->getMessage());
         }
     }
-
-
-
-
 
 }

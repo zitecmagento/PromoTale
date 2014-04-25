@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report event types collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Reports_Model_Resource_Event_Type_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Resource initialization
      *
@@ -52,4 +53,5 @@ class Mage_Reports_Model_Resource_Event_Type_Collection extends Mage_Core_Model_
     {
         return parent::_toOptionArray('event_type_id', 'event_name');
     }
+
 }

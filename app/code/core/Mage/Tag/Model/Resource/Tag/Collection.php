@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tag collection model
  *
@@ -34,26 +34,27 @@
  */
 class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Use getFlag('store_filter') & setFlag('store_filter', true) instead.
      *
      * @var bool
      */
-    protected $_isStoreFilter  = false;
+    protected $_isStoreFilter = false;
 
     /**
      * Joined tables
      *
      * @var array
      */
-    protected $_joinFlags      = array();
+    protected $_joinFlags = array();
 
     /**
      * Mapping for fields
      *
      * @var array
      */
-    public $_map               = array(
+    public $_map = array(
         'fields' => array(
             'tag_id' => 'main_table.tag_id'
         ),
@@ -153,17 +154,14 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     {
         if (!$this->getFlag('popularity')) {
             $this->getSelect()
-            ->joinLeft(
-                array('relation' => $this->getTable('tag/relation')),
-                'main_table.tag_id = relation.tag_id',
-                array()
-            )
-            ->joinLeft(
-                array('summary' => $this->getTable('tag/summary')),
-                'relation.tag_id = summary.tag_id AND relation.store_id = summary.store_id',
-                array('popularity')
-            )
-            ->group('main_table.tag_id');
+                    ->joinLeft(
+                            array('relation' => $this->getTable('tag/relation')), 'main_table.tag_id = relation.tag_id', array()
+                    )
+                    ->joinLeft(
+                            array('summary' => $this->getTable('tag/summary')), 'relation.tag_id = summary.tag_id AND relation.store_id = summary.store_id', array(
+                        'popularity')
+                    )
+                    ->group('main_table.tag_id');
 
             /*
              * Allow analytic function usage
@@ -193,11 +191,10 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
                     ->quoteInto(' AND ' . $tableAlias . '.store_id IN(?)', $storeId);
 
             $this->getSelect()
-                ->joinLeft(
-                    array($tableAlias => $this->getTable('tag/summary')),
-                    'main_table.tag_id = ' . $tableAlias . '.tag_id' . $joinCondition,
-                    array('store_id','popularity', 'customers', 'products'
-                ));
+                    ->joinLeft(
+                            array($tableAlias => $this->getTable('tag/summary')), 'main_table.tag_id = ' . $tableAlias . '.tag_id' . $joinCondition, array(
+                        'store_id', 'popularity', 'customers', 'products'
+            ));
 
             $this->addFilterToMap('store_id', $tableAlias . '.store_id');
             $this->addFilterToMap('popularity', $tableAlias . '.popularity');
@@ -232,8 +229,8 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         $tagsStores = array();
         if (sizeof($tagIds) > 0) {
             $select = $this->getConnection()->select()
-                ->from($this->getTable('tag/summary'), array('store_id', 'tag_id'))
-                ->where('tag_id IN(?)', $tagIds);
+                    ->from($this->getTable('tag/summary'), array('store_id', 'tag_id'))
+                    ->where('tag_id IN(?)', $tagIds);
             $tagsRaw = $this->getConnection()->fetchAll($select);
 
             foreach ($tagsRaw as $tag) {
@@ -268,14 +265,14 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if ($this->getFlag('relation') && 'popularity' == $field) {
             // TOFIX
             $this->getSelect()->having(
-                $this->_getConditionSql('COUNT(relation.tag_relation_id)', $condition)
+                    $this->_getConditionSql('COUNT(relation.tag_relation_id)', $condition)
             );
         } elseif ($this->getFlag('summary') && in_array(
-            $field, array('customers', 'products', 'uses', 'historical_uses', 'popularity')
-        )) {
+                        $field, array('customers', 'products', 'uses', 'historical_uses', 'popularity')
+                )) {
             $this->getSelect()->where($this->_getConditionSql('summary.' . $field, $condition));
         } else {
-           parent::addFieldToFilter($field, $condition);
+            parent::addFieldToFilter($field, $condition);
         }
         return $this;
     }
@@ -308,8 +305,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if (!$this->getFlag('store_filter')) {
 
             $this->getSelect()->joinLeft(
-                array('summary_store' => $this->getTable('tag/summary')),
-                'main_table.tag_id = summary_store.tag_id'
+                    array('summary_store' => $this->getTable('tag/summary')), 'main_table.tag_id = summary_store.tag_id'
             );
 
             $this->getSelect()->where('summary_store.store_id IN (?)', $storeId);
@@ -386,10 +382,10 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     public function addCustomerFilter($customerId)
     {
         $this->getSelect()
-            ->where('relation.customer_id = ?', $customerId);
+                ->where('relation.customer_id = ?', $customerId);
         if ($this->getFlag('prelation')) {
             $this->getSelect()
-                ->where('prelation.customer_id = ?', $customerId);
+                    ->where('prelation.customer_id = ?', $customerId);
         }
         return $this;
     }
@@ -415,9 +411,9 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     {
         $this->setFlag('relation', true);
         $this->getSelect()->joinLeft(
-            array('relation' => $this->getTable('tag/relation')),
-            'main_table.tag_id=relation.tag_id'
+                array('relation' => $this->getTable('tag/relation')), 'main_table.tag_id=relation.tag_id'
         );
         return $this;
     }
+
 }

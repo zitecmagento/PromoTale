@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
+
     /**
      * Initialize tab
      *
@@ -42,4 +44,5 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tabs extends Mage_Adminh
         $this->setDestElementId('billing_agreement_view');
         $this->setTitle($this->__('Billing Agreement View'));
     }
+
 }

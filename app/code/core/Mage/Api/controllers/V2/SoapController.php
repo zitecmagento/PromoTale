@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,9 +34,10 @@
  */
 class Mage_Api_V2_SoapController extends Mage_Api_Controller_Action
 {
+
     public function indexAction()
     {
-        if(Mage::helper('api/data')->isComplianceWSI()){
+        if (Mage::helper('api/data')->isComplianceWSI()) {
             $handler_name = 'soap_wsi';
         } else {
             $handler_name = 'soap_v2';
@@ -43,6 +45,9 @@ class Mage_Api_V2_SoapController extends Mage_Api_Controller_Action
 
         /* @var $server Mage_Api_Model_Server */
         $this->_getServer()->init($this, $handler_name, $handler_name)
-            ->run();
+                ->run();
     }
-} // Class Mage_Api_IndexController End
+
+}
+
+// Class Mage_Api_IndexController End

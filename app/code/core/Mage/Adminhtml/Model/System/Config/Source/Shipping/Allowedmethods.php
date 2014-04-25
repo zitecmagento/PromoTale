@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -27,9 +28,7 @@
 /**
  * @deprecated after 1.4.0.0-rc1
  */
-class Mage_Adminhtml_Model_System_Config_Source_Shipping_Allowedmethods
-    extends Mage_Adminhtml_Model_System_Config_Source_Shipping_Allmethods
+class Mage_Adminhtml_Model_System_Config_Source_Shipping_Allowedmethods extends Mage_Adminhtml_Model_System_Config_Source_Shipping_Allmethods
 {
-
-
+    
 }

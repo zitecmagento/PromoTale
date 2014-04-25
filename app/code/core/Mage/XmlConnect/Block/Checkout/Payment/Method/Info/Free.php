@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Free extends Mage_Payment_Block_Info
 {
+
     /**
      * Add Check / Money order info to order XML object
      *
@@ -44,4 +46,5 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Free extends Mage_Payme
         $orderItemXmlObj->addAttribute('type', $this->getMethod()->getCode());
         $orderItemXmlObj->addAttribute('title', $orderItemXmlObj->xmlAttribute($this->getMethod()->getTitle()));
     }
+
 }

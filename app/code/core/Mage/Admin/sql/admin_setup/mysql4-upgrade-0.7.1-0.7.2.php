@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
@@ -36,8 +36,8 @@ $duplicatedUsers = $installer->getConnection()->fetchPairs("
 SELECT user_id, username FROM {$tableAdmins} GROUP by username HAVING COUNT(user_id) > 1
 ");
 $installer->run("DELETE FROM {$tableAdmins} WHERE username "
-    . $installer->getConnection()->quoteInto('IN (?) ', array_values($duplicatedUsers))
-    . 'AND user_id ' . $installer->getConnection()->quoteInto('NOT IN (?) ', array_keys($duplicatedUsers))
+        . $installer->getConnection()->quoteInto('IN (?) ', array_values($duplicatedUsers))
+        . 'AND user_id ' . $installer->getConnection()->quoteInto('NOT IN (?) ', array_keys($duplicatedUsers))
 );
 
 // add unique key to username field

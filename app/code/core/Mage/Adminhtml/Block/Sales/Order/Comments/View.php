@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Retrieve required options from parent
      */
@@ -53,11 +55,11 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
     protected function _prepareLayout()
     {
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
-                'id'      => 'submit_comment_button',
-                'label'   => Mage::helper('sales')->__('Submit Comment'),
-                'class'   => 'save'
-            ));
+                ->setData(array(
+            'id' => 'submit_comment_button',
+            'label' => Mage::helper('sales')->__('Submit Comment'),
+            'class' => 'save'
+        ));
         $this->setChild('submit_button', $button);
 
         return parent::_prepareLayout();
@@ -65,7 +67,7 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
 
     public function getSubmitUrl()
     {
-        return $this->getUrl('*/*/addComment',array('id'=>$this->getEntity()->getId()));
+        return $this->getUrl('*/*/addComment', array('id' => $this->getEntity()->getId()));
     }
 
     public function canSendCommentEmail()
@@ -81,4 +83,5 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
 
         return true;
     }
+
 }

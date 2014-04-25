@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Paypal_Model_System_Config_Source_RequireBillingAddress
 {
+
     /**
      * Options getter
      *
@@ -40,4 +42,5 @@ class Mage_Paypal_Model_System_Config_Source_RequireBillingAddress
         $configModel = Mage::getModel('paypal/config');
         return $configModel->getRequireBillingAddressOptions();
     }
+
 }

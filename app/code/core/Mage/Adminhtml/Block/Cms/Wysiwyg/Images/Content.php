@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content extends Mage_Adminhtml_Block_Widget_Container
 {
+
     /**
      * Block construction
      */
@@ -42,34 +44,34 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content extends Mage_Adminhtml_Blo
         $this->_headerText = $this->helper('cms')->__('Media Storage');
         $this->_removeButton('back')->_removeButton('edit');
         $this->_addButton('newfolder', array(
-            'class'   => 'save',
-            'label'   => $this->helper('cms')->__('Create Folder...'),
-            'type'    => 'button',
+            'class' => 'save',
+            'label' => $this->helper('cms')->__('Create Folder...'),
+            'type' => 'button',
             'onclick' => 'MediabrowserInstance.newFolder();'
         ));
 
         $this->_addButton('delete_folder', array(
-            'class'   => 'delete no-display',
-            'label'   => $this->helper('cms')->__('Delete Folder'),
-            'type'    => 'button',
+            'class' => 'delete no-display',
+            'label' => $this->helper('cms')->__('Delete Folder'),
+            'type' => 'button',
             'onclick' => 'MediabrowserInstance.deleteFolder();',
-            'id'      => 'button_delete_folder'
+            'id' => 'button_delete_folder'
         ));
 
         $this->_addButton('delete_files', array(
-            'class'   => 'delete no-display',
-            'label'   => $this->helper('cms')->__('Delete File'),
-            'type'    => 'button',
+            'class' => 'delete no-display',
+            'label' => $this->helper('cms')->__('Delete File'),
+            'type' => 'button',
             'onclick' => 'MediabrowserInstance.deleteFiles();',
-            'id'      => 'button_delete_files'
+            'id' => 'button_delete_files'
         ));
 
         $this->_addButton('insert_files', array(
-            'class'   => 'save no-display',
-            'label'   => $this->helper('cms')->__('Insert File'),
-            'type'    => 'button',
+            'class' => 'save no-display',
+            'label' => $this->helper('cms')->__('Insert File'),
+            'type' => 'button',
             'onclick' => 'MediabrowserInstance.insert();',
-            'id'      => 'button_insert_files'
+            'id' => 'button_insert_files'
         ));
     }
 
@@ -93,16 +95,16 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content extends Mage_Adminhtml_Blo
         $setupObject = new Varien_Object();
 
         $setupObject->setData(array(
-            'newFolderPrompt'                 => $this->helper('cms')->__('New Folder Name:'),
+            'newFolderPrompt' => $this->helper('cms')->__('New Folder Name:'),
             'deleteFolderConfirmationMessage' => $this->helper('cms')->__('Are you sure you want to delete current folder?'),
-            'deleteFileConfirmationMessage'   => $this->helper('cms')->__('Are you sure you want to delete the selected file?'),
+            'deleteFileConfirmationMessage' => $this->helper('cms')->__('Are you sure you want to delete the selected file?'),
             'targetElementId' => $this->getTargetElementId(),
-            'contentsUrl'     => $this->getContentsUrl(),
-            'onInsertUrl'     => $this->getOnInsertUrl(),
-            'newFolderUrl'    => $this->getNewfolderUrl(),
+            'contentsUrl' => $this->getContentsUrl(),
+            'onInsertUrl' => $this->getOnInsertUrl(),
+            'newFolderUrl' => $this->getNewfolderUrl(),
             'deleteFolderUrl' => $this->getDeletefolderUrl(),
-            'deleteFilesUrl'  => $this->getDeleteFilesUrl(),
-            'headerText'      => $this->getHeaderText()
+            'deleteFilesUrl' => $this->getDeleteFilesUrl(),
+            'headerText' => $this->getHeaderText()
         ));
 
         return Mage::helper('core')->jsonEncode($setupObject);
@@ -158,4 +160,5 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content extends Mage_Adminhtml_Blo
     {
         return $this->getRequest()->getParam('target_element_id');
     }
+
 }

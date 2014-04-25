@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Type_Api extends Mage_Api_Model_Resource_Abstract
 {
+
     /**
      * Retrieve product type list
      *
@@ -42,13 +44,16 @@ class Mage_Catalog_Model_Product_Type_Api extends Mage_Api_Model_Resource_Abstra
     {
         $result = array();
 
-        foreach (Mage_Catalog_Model_Product_Type::getOptionArray() as $type=>$label) {
+        foreach (Mage_Catalog_Model_Product_Type::getOptionArray() as $type => $label) {
             $result[] = array(
-                'type'  => $type,
+                'type' => $type,
                 'label' => $label
             );
         }
 
         return $result;
     }
-} // Class Mage_Catalog_Model_Product_Type_Api End
+
+}
+
+// Class Mage_Catalog_Model_Product_Type_Api End

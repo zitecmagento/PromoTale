@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Resource_Template extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Constructor, setting table and index field
      *
@@ -42,4 +44,5 @@ class Mage_XmlConnect_Model_Resource_Template extends Mage_Core_Model_Resource_D
     {
         $this->_init('xmlconnect/template', 'template_id');
     }
+
 }

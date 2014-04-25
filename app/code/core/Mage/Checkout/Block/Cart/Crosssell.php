@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abstract
 {
+
     /**
      * Items quantity will be capped to this value
      *
@@ -55,7 +57,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
                 $lastAdded = (int) $this->_getLastAddedProductId();
                 if ($lastAdded) {
                     $collection = $this->_getCollection()
-                        ->addProductFilter($lastAdded);
+                            ->addProductFilter($lastAdded);
                     if (!empty($ninProductIds)) {
                         $collection->addExcludeProductFilter($ninProductIds);
                     }
@@ -70,17 +72,16 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
                 if (count($items) < $this->_maxItemCount) {
                     $filterProductIds = array_merge($this->_getCartProductIds(), $this->_getCartProductIdsRel());
                     $collection = $this->_getCollection()
-                        ->addProductFilter($filterProductIds)
-                        ->addExcludeProductFilter($ninProductIds)
-                        ->setPageSize($this->_maxItemCount-count($items))
-                        ->setGroupBy()
-                        ->setPositionOrder()
-                        ->load();
+                            ->addProductFilter($filterProductIds)
+                            ->addExcludeProductFilter($ninProductIds)
+                            ->setPageSize($this->_maxItemCount - count($items))
+                            ->setGroupBy()
+                            ->setPositionOrder()
+                            ->load();
                     foreach ($collection as $item) {
                         $items[] = $item;
                     }
                 }
-                
             }
 
             $this->setData('items', $items);
@@ -129,9 +130,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
         $productIds = array();
         foreach ($this->getQuote()->getAllItems() as $quoteItem) {
             $productTypeOpt = $quoteItem->getOptionByCode('product_type');
-            if ($productTypeOpt instanceof Mage_Sales_Model_Quote_Item_Option
-                && $productTypeOpt->getValue() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE
-                && $productTypeOpt->getProductId()
+            if ($productTypeOpt instanceof Mage_Sales_Model_Quote_Item_Option && $productTypeOpt->getValue() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE && $productTypeOpt->getProductId()
             ) {
                 $productIds[] = $productTypeOpt->getProductId();
             }
@@ -168,10 +167,10 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
     protected function _getCollection()
     {
         $collection = Mage::getModel('catalog/product_link')->useCrossSellLinks()
-            ->getProductCollection()
-            ->setStoreId(Mage::app()->getStore()->getId())
-            ->addStoreFilter()
-            ->setPageSize($this->_maxItemCount);
+                ->getProductCollection()
+                ->setStoreId(Mage::app()->getStore()->getId())
+                ->addStoreFilter()
+                ->setPageSize($this->_maxItemCount);
         $this->_addProductAttributesAndPrices($collection);
 
         Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($collection);
@@ -180,4 +179,5 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
 
         return $collection;
     }
+
 }

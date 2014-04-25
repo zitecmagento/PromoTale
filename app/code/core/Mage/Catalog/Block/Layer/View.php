@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
 {
+
     /**
      * State block name
      *
@@ -83,11 +85,11 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      */
     protected function _initBlocks()
     {
-        $this->_stateBlockName              = 'catalog/layer_state';
-        $this->_categoryBlockName           = 'catalog/layer_filter_category';
-        $this->_attributeFilterBlockName    = 'catalog/layer_filter_attribute';
-        $this->_priceFilterBlockName        = 'catalog/layer_filter_price';
-        $this->_decimalFilterBlockName      = 'catalog/layer_filter_decimal';
+        $this->_stateBlockName = 'catalog/layer_state';
+        $this->_categoryBlockName = 'catalog/layer_filter_category';
+        $this->_attributeFilterBlockName = 'catalog/layer_filter_attribute';
+        $this->_priceFilterBlockName = 'catalog/layer_filter_price';
+        $this->_decimalFilterBlockName = 'catalog/layer_filter_decimal';
     }
 
     /**
@@ -110,11 +112,11 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
     protected function _prepareLayout()
     {
         $stateBlock = $this->getLayout()->createBlock($this->_stateBlockName)
-            ->setLayer($this->getLayer());
+                ->setLayer($this->getLayer());
 
         $categoryBlock = $this->getLayout()->createBlock($this->_categoryBlockName)
-            ->setLayer($this->getLayer())
-            ->init();
+                ->setLayer($this->getLayer())
+                ->init();
 
         $this->setChild('layer_state', $stateBlock);
         $this->setChild('category_filter', $categoryBlock);
@@ -129,11 +131,10 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
                 $filterBlockName = $this->_attributeFilterBlockName;
             }
 
-            $this->setChild($attribute->getAttributeCode() . '_filter',
-                $this->getLayout()->createBlock($filterBlockName)
-                    ->setLayer($this->getLayer())
-                    ->setAttributeModel($attribute)
-                    ->init());
+            $this->setChild($attribute->getAttributeCode() . '_filter', $this->getLayout()->createBlock($filterBlockName)
+                            ->setLayer($this->getLayer())
+                            ->setAttributeModel($attribute)
+                            ->init());
         }
 
         $this->getLayer()->apply();
@@ -252,4 +253,5 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
     {
         return $this->getChild('layer_state')->getClearUrl();
     }
+
 }

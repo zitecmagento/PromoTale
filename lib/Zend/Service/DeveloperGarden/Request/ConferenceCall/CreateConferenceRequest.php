@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CreateConferenceRequest.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Request_RequestAbstract
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceRequest
-    extends Zend_Service_DeveloperGarden_Request_RequestAbstract
+class Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceRequest extends Zend_Service_DeveloperGarden_Request_RequestAbstract
 {
+
     /**
      * account to be used for this conference
      *
@@ -73,16 +73,14 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceReques
      * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $conferenceSchedule
      * @param integer $account
      */
-    public function __construct($environment, $ownerId,
-        Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails,
-        Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $conferenceSchedule = null,
-        $account = null
-    ) {
+    public function __construct($environment, $ownerId, Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails, Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $conferenceSchedule = null, $account = null
+    )
+    {
         parent::__construct($environment);
         $this->setOwnerId($ownerId)
-             ->setDetail($conferenceDetails)
-             ->setSchedule($conferenceSchedule)
-             ->setAccount($account);
+                ->setDetail($conferenceDetails)
+                ->setSchedule($conferenceSchedule)
+                ->setAccount($account);
     }
 
     /**
@@ -92,8 +90,9 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceReques
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceRequest
      */
     public function setSchedule(
-        Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $schedule = null
-    ) {
+    Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $schedule = null
+    )
+    {
         $this->schedule = $schedule;
         return $this;
     }
@@ -133,4 +132,5 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceReques
         $this->account = $account;
         return $this;
     }
+
 }

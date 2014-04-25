@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Review Observer Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Review_Model_Observer
 {
+
     /**
      * Add review summary info for tagged product collection
      *
@@ -44,7 +45,7 @@ class Mage_Review_Model_Observer
     {
         $collection = $observer->getEvent()->getCollection();
         Mage::getSingleton('review/review')
-            ->appendSummary($collection);
+                ->appendSummary($collection);
 
         return $this;
     }
@@ -81,4 +82,5 @@ class Mage_Review_Model_Observer
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -52,6 +53,7 @@
  */
 class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
 {
+
     /**
      * List of tax titles
      *
@@ -81,8 +83,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
     {
-        if ($this->getCode() === '' || $this->getTaxCountryId() === '' || $this->getRate() === ''
-            || $this->getZipIsRange() && ($this->getZipFrom() === '' || $this->getZipTo() === '')
+        if ($this->getCode() === '' || $this->getTaxCountryId() === '' || $this->getRate() === '' || $this->getZipIsRange() && ($this->getZipFrom() === '' || $this->getZipTo() === '')
         ) {
             Mage::throwException(Mage::helper('tax')->__('Please fill all required fields with valid information.'));
         }
@@ -116,9 +117,9 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
             }
 
             $this->setTaxPostcode($taxPostCode)
-                ->setZipIsRange(null)
-                ->setZipFrom(null)
-                ->setZipTo(null);
+                    ->setZipIsRange(null)
+                    ->setZipFrom(null)
+                    ->setZipTo(null);
         }
 
         parent::_beforeSave();
@@ -186,11 +187,11 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
             foreach ($titles as $store => $title) {
                 if ($title !== '') {
                     $this->getTitleModel()
-                        ->setId(null)
-                        ->setTaxCalculationRateId($this->getId())
-                        ->setStoreId((int) $store)
-                        ->setValue($title)
-                        ->save();
+                            ->setId(null)
+                            ->setTaxCalculationRateId($this->getId())
+                            ->setStoreId((int) $store)
+                            ->setValue($title)
+                            ->save();
                 }
             }
         }
@@ -246,7 +247,6 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
         return $this;
     }
 
-
     /**
      * Check if rate exists in tax rule
      *
@@ -256,4 +256,5 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     {
         return $this->getResource()->isInRule($this->getId());
     }
+
 }

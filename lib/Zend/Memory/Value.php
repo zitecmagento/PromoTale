@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Value.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * String value object
  *
@@ -32,7 +32,9 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @todo       also implement Countable for PHP 5.1 but not yet to stay 5.0 compatible
  */
-class Zend_Memory_Value implements ArrayAccess {
+class Zend_Memory_Value implements ArrayAccess
+{
+
     /**
      * Value
      *
@@ -54,7 +56,6 @@ class Zend_Memory_Value implements ArrayAccess {
      */
     private $_trace;
 
-
     /**
      * Object constructor
      *
@@ -65,7 +66,7 @@ class Zend_Memory_Value implements ArrayAccess {
     {
         $this->_container = $container;
 
-        $this->_value = (string)$value;
+        $this->_value = (string) $value;
 
         /**
          * Object is marked as just modified by memory manager
@@ -78,7 +79,6 @@ class Zend_Memory_Value implements ArrayAccess {
         $this->_trace = false;
     }
 
-
     /**
      * ArrayAccess interface method
      * returns true if string offset exists
@@ -88,7 +88,7 @@ class Zend_Memory_Value implements ArrayAccess {
      */
     public function offsetExists($offset)
     {
-        return $offset >= 0  &&  $offset < strlen($this->_value);
+        return $offset >= 0 && $offset < strlen($this->_value);
     }
 
     /**
@@ -136,7 +136,6 @@ class Zend_Memory_Value implements ArrayAccess {
         }
     }
 
-
     /**
      * To string conversion
      *
@@ -146,7 +145,6 @@ class Zend_Memory_Value implements ArrayAccess {
     {
         return $this->_value;
     }
-
 
     /**
      * Get string value reference
@@ -174,4 +172,5 @@ class Zend_Memory_Value implements ArrayAccess {
     {
         $this->_trace = true;
     }
+
 }

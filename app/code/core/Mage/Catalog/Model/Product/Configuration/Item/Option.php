@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Product_Configuration_Item_Option extends Varien_Object
-    implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
+class Mage_Catalog_Model_Product_Configuration_Item_Option extends Varien_Object implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {
+
     /**
      * Returns value of this option
      * @return mixed
@@ -42,4 +43,5 @@ class Mage_Catalog_Model_Product_Configuration_Item_Option extends Varien_Object
     {
         return $this->_getData('value');
     }
+
 }

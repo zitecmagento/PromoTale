@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -35,6 +36,7 @@
  */
 abstract class Zend_Amf_Parse_Deserializer
 {
+
     /**
      * The raw string that represents the AMF request.
      *

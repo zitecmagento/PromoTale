@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Resource_Application_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Constructor, setting table
      *
@@ -42,4 +44,5 @@ class Mage_XmlConnect_Model_Resource_Application_Collection extends Mage_Core_Mo
     {
         $this->_init('xmlconnect/application');
     }
+
 }

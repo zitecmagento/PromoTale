@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     protected $_renamedImages = array();
 
     /**
@@ -81,7 +83,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         if ($this->getAttribute()->getIsRequired()) {
             $value = $object->getData($this->getAttribute()->getAttributeCode());
             if ($this->getAttribute()->isValueEmpty($value)) {
-                if ( !(is_array($value) && count($value)>0) ) {
+                if (!(is_array($value) && count($value) > 0)) {
                     return false;
                 }
             }
@@ -104,29 +106,29 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             return;
         }
 
-        if(!is_array($value['images']) && strlen($value['images']) > 0) {
-           $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
+        if (!is_array($value['images']) && strlen($value['images']) > 0) {
+            $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
         }
 
         if (!is_array($value['images'])) {
-           $value['images'] = array();
+            $value['images'] = array();
         }
 
 
 
         $clearImages = array();
-        $newImages   = array();
+        $newImages = array();
         $existImages = array();
-        if ($object->getIsDuplicate()!=true) {
+        if ($object->getIsDuplicate() != true) {
             foreach ($value['images'] as &$image) {
-                if(!empty($image['removed'])) {
+                if (!empty($image['removed'])) {
                     $clearImages[] = $image['file'];
                 } else if (!isset($image['value_id'])) {
-                    $newFile                   = $this->_moveImageFromTmp($image['file']);
+                    $newFile = $this->_moveImageFromTmp($image['file']);
                     $image['new_file'] = $newFile;
                     $newImages[$image['file']] = $image;
                     $this->_renamedImages[$image['file']] = $newFile;
-                    $image['file']             = $newFile;
+                    $image['file'] = $newFile;
                 } else {
                     $existImages[$image['file']] = $image;
                 }
@@ -159,11 +161,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
             if (in_array($attrData, array_keys($newImages))) {
                 $object->setData($mediaAttrCode, $newImages[$attrData]['new_file']);
-                $object->setData($mediaAttrCode.'_label', $newImages[$attrData]['label']);
+                $object->setData($mediaAttrCode . '_label', $newImages[$attrData]['label']);
             }
 
             if (in_array($attrData, array_keys($existImages))) {
-                $object->setData($mediaAttrCode.'_label', $existImages[$attrData]['label']);
+                $object->setData($mediaAttrCode . '_label', $existImages[$attrData]['label']);
             }
         }
 
@@ -213,7 +215,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $storeIds = array_keys($storeIds);
 
         $images = Mage::getResourceModel('catalog/product')
-            ->getAssignedImages($object, $storeIds);
+                ->getAssignedImages($object, $storeIds);
 
         $picturesInOtherStores = array();
         foreach ($images as $image) {
@@ -223,19 +225,19 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $toDelete = array();
         $filesToValueIds = array();
         foreach ($value['images'] as &$image) {
-            if(!empty($image['removed'])) {
-                if(isset($image['value_id']) && !isset($picturesInOtherStores[$image['file']])) {
+            if (!empty($image['removed'])) {
+                if (isset($image['value_id']) && !isset($picturesInOtherStores[$image['file']])) {
                     $toDelete[] = $image['value_id'];
                 }
                 continue;
             }
 
-            if(!isset($image['value_id'])) {
+            if (!isset($image['value_id'])) {
                 $data = array();
-                $data['entity_id']      = $object->getId();
-                $data['attribute_id']   = $this->getAttribute()->getId();
-                $data['value']          = $image['file'];
-                $image['value_id']      = $this->_getResource()->insertGallery($data);
+                $data['entity_id'] = $object->getId();
+                $data['attribute_id'] = $this->getAttribute()->getId();
+                $data['value'] = $image['file'];
+                $image['value_id'] = $this->_getResource()->insertGallery($data);
             }
 
             $this->_getResource()->deleteGalleryValueInStore($image['value_id'], $object->getStoreId());
@@ -243,7 +245,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             // Add per store labels, position, disabled
             $data = array();
             $data['value_id'] = $image['value_id'];
-            $data['label']    = $image['label'];
+            $data['label'] = $image['label'];
             $data['position'] = (int) $image['position'];
             $data['disabled'] = (int) $image['disabled'];
             $data['store_id'] = (int) $object->getStoreId();
@@ -265,8 +267,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @param boolean                    $exclude           mark image as disabled in product page view
      * @return string
      */
-    public function addImage(Mage_Catalog_Model_Product $product, $file,
-        $mediaAttribute = null, $move = false, $exclude = true)
+    public function addImage(Mage_Catalog_Model_Product $product, $file, $mediaAttribute = null, $move = false, $exclude = true)
     {
         $file = realpath($file);
 
@@ -277,14 +278,14 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         Mage::dispatchEvent('catalog_product_media_add_image', array('product' => $product, 'image' => $file));
 
         $pathinfo = pathinfo($file);
-        $imgExtensions = array('jpg','jpeg','gif','png');
+        $imgExtensions = array('jpg', 'jpeg', 'gif', 'png');
         if (!isset($pathinfo['extension']) || !in_array(strtolower($pathinfo['extension']), $imgExtensions)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid image file type.'));
         }
 
-        $fileName       = Mage_Core_Model_File_Uploader::getCorrectFileName($pathinfo['basename']);
+        $fileName = Mage_Core_Model_File_Uploader::getCorrectFileName($pathinfo['basename']);
         $dispretionPath = Mage_Core_Model_File_Uploader::getDispretionPath($fileName);
-        $fileName       = $dispretionPath . DS . $fileName;
+        $fileName = $dispretionPath . DS . $fileName;
 
         $fileName = $this->_getNotDuplicatedFilename($fileName, $dispretionPath);
 
@@ -292,9 +293,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $ioAdapter->setAllowCreateFolders(true);
         $distanationDirectory = dirname($this->_getConfig()->getTmpMediaPath($fileName));
 
-        try {
+        try
+        {
             $ioAdapter->open(array(
-                'path'=>$distanationDirectory
+                'path' => $distanationDirectory
             ));
 
             /** @var $storageHelper Mage_Core_Helper_File_Storage_Database */
@@ -311,7 +313,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 $ioAdapter->chmod($this->_getConfig()->getTmpMediaPath($fileName), 0777);
             }
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             Mage::throwException(Mage::helper('catalog')->__('Failed to move file: %s', $e->getMessage()));
         }
 
@@ -334,9 +337,9 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         $position++;
         $mediaGalleryData['images'][] = array(
-            'file'     => $fileName,
+            'file' => $fileName,
             'position' => $position,
-            'label'    => '',
+            'label' => '',
             'disabled' => (int) $exclude
         );
 
@@ -360,8 +363,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @param boolean $exclude mark image as disabled in product page view
      * @return array array of parallel arrays with original and renamed files
      */
-    public function addImagesWithDifferentMediaAttributes(Mage_Catalog_Model_Product $product,
-        $fileAndAttributesArray, $filePath = '', $move = false, $exclude = true) {
+    public function addImagesWithDifferentMediaAttributes(Mage_Catalog_Model_Product $product, $fileAndAttributesArray, $filePath = '', $move = false, $exclude = true)
+    {
 
         $alreadyAddedFiles = array();
         $alreadyAddedFilesNames = array();
@@ -379,7 +382,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             if (!is_null($value['mediaAttribute'])) {
                 $this->setMediaAttribute($product, $value['mediaAttribute'], $savedFileName);
             }
-
         }
 
         return array('alreadyAddedFiles' => $alreadyAddedFiles, 'alreadyAddedFilesNames' => $alreadyAddedFilesNames);
@@ -396,10 +398,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     public function updateImage(Mage_Catalog_Model_Product $product, $file, $data)
     {
         $fieldsMap = array(
-            'label'    => 'label',
+            'label' => 'label',
             'position' => 'position',
             'disabled' => 'disabled',
-            'exclude'  => 'disabled'
+            'exclude' => 'disabled'
         );
 
         $attrCode = $this->getAttribute()->getAttributeCode();
@@ -412,7 +414,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         foreach ($mediaGalleryData['images'] as &$image) {
             if ($image['file'] == $file) {
-                foreach ($fieldsMap as $mappedField=>$realField) {
+                foreach ($fieldsMap as $mappedField => $realField) {
                     if (isset($data[$mappedField])) {
                         $image[$realField] = $data[$mappedField];
                     }
@@ -555,15 +557,18 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     {
         $ioObject = new Varien_Io_File();
         $destDirectory = dirname($this->_getConfig()->getMediaPath($file));
-        try {
-            $ioObject->open(array('path'=>$destDirectory));
-        } catch (Exception $e) {
+        try
+        {
+            $ioObject->open(array('path' => $destDirectory));
+        }
+        catch (Exception $e)
+        {
             $ioObject->mkdir($destDirectory, 0777, true);
-            $ioObject->open(array('path'=>$destDirectory));
+            $ioObject->open(array('path' => $destDirectory));
         }
 
-        if (strrpos($file, '.tmp') == strlen($file)-4) {
-            $file = substr($file, 0, strlen($file)-4);
+        if (strrpos($file, '.tmp') == strlen($file) - 4) {
+            $file = substr($file, 0, strlen($file) - 4);
         }
         $destFile = $this->_getUniqueFileName($file, $ioObject->dirsep());
 
@@ -572,15 +577,13 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         if ($storageHelper->checkDbUsage()) {
             $storageHelper->renameFile(
-                $this->_getConfig()->getTmpMediaShortUrl($file),
-                $this->_getConfig()->getMediaShortUrl($destFile));
+                    $this->_getConfig()->getTmpMediaShortUrl($file), $this->_getConfig()->getMediaShortUrl($destFile));
 
             $ioObject->rm($this->_getConfig()->getTmpMediaPath($file));
             $ioObject->rm($this->_getConfig()->getMediaPath($destFile));
         } else {
             $ioObject->mv(
-                $this->_getConfig()->getTmpMediaPath($file),
-                $this->_getConfig()->getMediaPath($destFile)
+                    $this->_getConfig()->getTmpMediaPath($file), $this->_getConfig()->getMediaPath($destFile)
             );
         }
 
@@ -594,16 +597,16 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @param <type> $dirsep
      * @return string
      */
-    protected function _getUniqueFileName($file, $dirsep) {
+    protected function _getUniqueFileName($file, $dirsep)
+    {
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
             $destFile = Mage::helper('core/file_storage_database')
-                ->getUniqueFilename(
-                    Mage::getSingleton('catalog/product_media_config')->getBaseMediaUrlAddition(),
-                    $file
-                );
+                    ->getUniqueFilename(
+                    Mage::getSingleton('catalog/product_media_config')->getBaseMediaUrlAddition(), $file
+            );
         } else {
             $destFile = dirname($file) . $dirsep
-                . Mage_Core_Model_File_Uploader::getNewFileName($this->_getConfig()->getMediaPath($file));
+                    . Mage_Core_Model_File_Uploader::getNewFileName($this->_getConfig()->getMediaPath($file));
         }
 
         return $destFile;
@@ -617,34 +620,34 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      */
     protected function _copyImage($file)
     {
-        try {
+        try
+        {
             $ioObject = new Varien_Io_File();
             $destDirectory = dirname($this->_getConfig()->getMediaPath($file));
-            $ioObject->open(array('path'=>$destDirectory));
+            $ioObject->open(array('path' => $destDirectory));
 
             $destFile = $this->_getUniqueFileName($file, $ioObject->dirsep());
 
-            if (!$ioObject->fileExists($this->_getConfig()->getMediaPath($file),true)) {
+            if (!$ioObject->fileExists($this->_getConfig()->getMediaPath($file), true)) {
                 throw new Exception();
             }
 
             if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
                 Mage::helper('core/file_storage_database')
-                    ->copyFile($this->_getConfig()->getMediaShortUrl($file),
-                               $this->_getConfig()->getMediaShortUrl($destFile));
+                        ->copyFile($this->_getConfig()->getMediaShortUrl($file), $this->_getConfig()->getMediaShortUrl($destFile));
 
                 $ioObject->rm($this->_getConfig()->getMediaPath($destFile));
             } else {
                 $ioObject->cp(
-                    $this->_getConfig()->getMediaPath($file),
-                    $this->_getConfig()->getMediaPath($destFile)
+                        $this->_getConfig()->getMediaPath($file), $this->_getConfig()->getMediaPath($destFile)
                 );
             }
-
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $file = $this->_getConfig()->getMediaPath($file);
             Mage::throwException(
-                Mage::helper('catalog')->__('Failed to copy file %s. Please, delete media with non-existing images and try again.', $file)
+                    Mage::helper('catalog')->__('Failed to copy file %s. Please, delete media with non-existing images and try again.', $file)
             );
         }
 
@@ -661,10 +664,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         $this->_getResource()->duplicate(
-            $this,
-            (isset($mediaGalleryData['duplicate']) ? $mediaGalleryData['duplicate'] : array()),
-            $object->getOriginalId(),
-            $object->getId()
+                $this, (isset($mediaGalleryData['duplicate']) ? $mediaGalleryData['duplicate'] : array()), $object->getOriginalId(), $object->getId()
         );
 
         return $this;
@@ -680,9 +680,9 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     protected function _getNotDuplicatedFilename($fileName, $dispretionPath)
     {
         $fileMediaName = $dispretionPath . DS
-                  . Mage_Core_Model_File_Uploader::getNewFileName($this->_getConfig()->getMediaPath($fileName));
+                . Mage_Core_Model_File_Uploader::getNewFileName($this->_getConfig()->getMediaPath($fileName));
         $fileTmpMediaName = $dispretionPath . DS
-                  . Mage_Core_Model_File_Uploader::getNewFileName($this->_getConfig()->getTmpMediaPath($fileName));
+                . Mage_Core_Model_File_Uploader::getNewFileName($this->_getConfig()->getTmpMediaPath($fileName));
 
         if ($fileMediaName != $fileTmpMediaName) {
             if ($fileMediaName != $fileName) {
@@ -694,4 +694,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         return $fileMediaName;
     }
-} // Class Mage_Catalog_Model_Product_Attribute_Backend_Media End
+
+}
+
+// Class Mage_Catalog_Model_Product_Attribute_Backend_Media End

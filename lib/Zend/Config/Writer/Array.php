@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Array.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Config_Writer
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Config_Writer_Array extends Zend_Config_Writer_FileAbstract
 {
+
     /**
      * Render a Zend_Config into a PHP Array config string.
      *
@@ -40,7 +41,7 @@ class Zend_Config_Writer_Array extends Zend_Config_Writer_FileAbstract
      */
     public function render()
     {
-        $data        = $this->_config->toArray();
+        $data = $this->_config->toArray();
         $sectionName = $this->_config->getSectionName();
 
         if (is_string($sectionName)) {
@@ -48,8 +49,9 @@ class Zend_Config_Writer_Array extends Zend_Config_Writer_FileAbstract
         }
 
         $arrayString = "<?php\n"
-                     . "return " . var_export($data, true) . ";\n";
+                . "return " . var_export($data, true) . ";\n";
 
         return $arrayString;
     }
+
 }

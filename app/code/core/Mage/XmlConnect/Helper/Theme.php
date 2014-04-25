@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Helper_Theme extends Mage_Adminhtml_Helper_Data
 {
+
     /**
      * Color Themes Cache
      *
@@ -47,33 +49,31 @@ class Mage_XmlConnect_Helper_Theme extends Mage_Adminhtml_Helper_Data
      */
     public function getThemeAjaxParameters()
     {
-        $themesArray = array (
+        $themesArray = array(
             'conf_native_navigationBar_tintColor'
-                => 'conf[native][navigationBar][tintColor]',
+            => 'conf[native][navigationBar][tintColor]',
             'conf_native_body_primaryColor'
-                => 'conf[native][body][primaryColor]',
+            => 'conf[native][body][primaryColor]',
             'conf_native_body_secondaryColor'
-                => 'conf[native][body][secondaryColor]',
+            => 'conf[native][body][secondaryColor]',
             'conf_native_categoryItem_backgroundColor'
-                => 'conf[native][categoryItem][backgroundColor]',
+            => 'conf[native][categoryItem][backgroundColor]',
             'conf_native_categoryItem_tintColor'
-                => 'conf[native][categoryItem][tintColor]',
-
+            => 'conf[native][categoryItem][tintColor]',
             'conf_extra_fontColors_header'
-                => 'conf[extra][fontColors][header]',
+            => 'conf[extra][fontColors][header]',
             'conf_extra_fontColors_primary'
-                => 'conf[extra][fontColors][primary]',
+            => 'conf[extra][fontColors][primary]',
             'conf_extra_fontColors_secondary'
-                => 'conf[extra][fontColors][secondary]',
+            => 'conf[extra][fontColors][secondary]',
             'conf_extra_fontColors_price'
-                => 'conf[extra][fontColors][price]',
-
+            => 'conf[extra][fontColors][price]',
             'conf_native_body_backgroundColor'
-                => 'conf[native][body][backgroundColor]',
+            => 'conf[native][body][backgroundColor]',
             'conf_native_body_scrollBackgroundColor'
-                => 'conf[native][body][scrollBackgroundColor]',
+            => 'conf[native][body][scrollBackgroundColor]',
             'conf_native_itemActions_relatedProductBackgroundColor'
-                => 'conf[native][itemActions][relatedProductBackgroundColor]'
+            => 'conf[native][itemActions][relatedProductBackgroundColor]'
         );
         return $themesArray;
     }
@@ -130,7 +130,7 @@ class Mage_XmlConnect_Helper_Theme extends Mage_Adminhtml_Helper_Data
 
         if (!($currentTheme instanceof Mage_XmlConnect_Model_Theme)) {
             Mage::throwException(
-                Mage::helper('xmlconnect')->__('Can\'t load selected theme. Please check your media folder permissions.')
+                    Mage::helper('xmlconnect')->__('Can\'t load selected theme. Please check your media folder permissions.')
             );
         }
 
@@ -171,9 +171,10 @@ EOT;
     public function getAllThemes($flushCache = false)
     {
         if (!$this->_themeArray || $flushCache) {
-            try {
-                $saveLibxmlErrors   = libxml_use_internal_errors(true);
-                $this->_themeArray  = array();
+            try
+            {
+                $saveLibxmlErrors = libxml_use_internal_errors(true);
+                $this->_themeArray = array();
                 $themeDir = $this->getMediaThemePath();
 
                 $ioFile = new Varien_Io_File();
@@ -193,7 +194,9 @@ EOT;
                 }
                 asort($this->_themeArray);
                 libxml_use_internal_errors($saveLibxmlErrors);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::logException($e);
             }
         }
@@ -248,12 +251,13 @@ EOT;
      */
     public function getDefaultThemes()
     {
-        $saveLibxmlErrors   = libxml_use_internal_errors(true);
-        $defaultThemeArray  = array();
+        $saveLibxmlErrors = libxml_use_internal_errors(true);
+        $defaultThemeArray = array();
         $themeDir = $this->_getDefaultThemePath();
         $ioFile = new Varien_Io_File();
         $ioFile->open(array('path' => $themeDir));
-        try {
+        try
+        {
             $fileList = $ioFile->ls(Varien_Io_File::GREP_FILES);
             foreach ($fileList as $file) {
                 $src = $themeDir . DS . $file['text'];
@@ -263,7 +267,9 @@ EOT;
                 }
             }
             libxml_use_internal_errors($saveLibxmlErrors);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
         }
         if (!count($defaultThemeArray)) {
@@ -325,7 +331,7 @@ EOT;
         foreach ($fileList as $file) {
             $f = $file['text'];
             $src = $defaultThemeDir . DS . $f;
-            $dst = $themeDir . DS .$f;
+            $dst = $themeDir . DS . $f;
 
             if ($theme && ($theme . '.xml') != $f) {
                 continue;
@@ -401,7 +407,7 @@ EOT;
     public function getThemeLabel(array $themes, $themeId = false)
     {
         $themeLabel = '';
-        $themeId    = $themeId ? $themeId : $this->getThemeId();
+        $themeId = $themeId ? $themeId : $this->getThemeId();
 
         foreach ($themes as $theme) {
             if ($theme->getName() == $themeId) {
@@ -429,4 +435,5 @@ EOT;
         }
         return $result;
     }
+
 }

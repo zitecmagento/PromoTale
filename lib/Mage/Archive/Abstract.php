@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Archive_Abstract
 {
+
     /**
      * Write data to file. If file can't be opened - throw exception
      *
@@ -44,7 +46,7 @@ class Mage_Archive_Abstract
     protected function _writeFile($destination, $data)
     {
         $destination = trim($destination);
-        if(false === file_put_contents($destination, $data)) {
+        if (false === file_put_contents($destination, $data)) {
             throw new Mage_Exception("Can't write to file: " . $destination);
         }
         return true;
@@ -76,7 +78,7 @@ class Mage_Archive_Abstract
      * @param bool $withExtension
      * @return mixed|string
      */
-    public function getFilename($source, $withExtension=false)
+    public function getFilename($source, $withExtension = false)
     {
         $file = str_replace(dirname($source) . DS, '', $source);
         if (!$withExtension) {
@@ -84,4 +86,5 @@ class Mage_Archive_Abstract
         }
         return $file;
     }
+
 }

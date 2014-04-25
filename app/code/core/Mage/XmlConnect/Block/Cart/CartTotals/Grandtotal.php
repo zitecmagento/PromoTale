@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Xmlconnect_Block_Cart_CartTotals_Grandtotal extends Mage_Tax_Block_Checkout_Grandtotal
 {
+
     /**
      * Total id prefix
      *
@@ -47,7 +49,7 @@ class Mage_Xmlconnect_Block_Cart_CartTotals_Grandtotal extends Mage_Tax_Block_Ch
      */
     protected function _toHtml()
     {
-        $grandTotalValue = $this->getTotal()->getValue() ? $this->getTotal()->getValue(): 0;
+        $grandTotalValue = $this->getTotal()->getValue() ? $this->getTotal()->getValue() : 0;
 
         /** @var $cartXmlObject Mage_XmlConnect_Model_Simplexml_Element */
         $cartXmlObject = $this->getCartObject();
@@ -104,4 +106,5 @@ class Mage_Xmlconnect_Block_Cart_CartTotals_Grandtotal extends Mage_Tax_Block_Ch
     {
         return $this->_totalIdPrefix;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Currency.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
 /** Zend_View_Helper_Abstract.php */
 #require_once 'Zend/View/Helper/Abstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_View_Helper_Currency extends Zend_View_Helper_Abstract
 {
+
     /**
      * Currency object
      *
@@ -116,4 +117,5 @@ class Zend_View_Helper_Currency extends Zend_View_Helper_Abstract
     {
         return $this->_currency;
     }
+
 }

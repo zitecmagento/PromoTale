@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax class collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Tax_Model_Resource_Class_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -72,4 +73,5 @@ class Mage_Tax_Model_Resource_Class_Collection extends Mage_Core_Model_Resource_
     {
         return $this->_toOptionHash('class_id', 'class_name');
     }
+
 }

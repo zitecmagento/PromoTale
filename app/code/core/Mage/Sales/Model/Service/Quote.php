@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Sales_Model_Service_Quote
 {
+
     /**
      * Quote object
      *
@@ -78,8 +80,8 @@ class Mage_Sales_Model_Service_Quote
      */
     public function __construct(Mage_Sales_Model_Quote $quote)
     {
-        $this->_quote       = $quote;
-        $this->_convertor   = Mage::getModel('sales/convert_quote');
+        $this->_quote = $quote;
+        $this->_convertor = Mage::getModel('sales/convert_quote');
     }
 
     /**
@@ -183,13 +185,16 @@ class Mage_Sales_Model_Service_Quote
         /**
          * We can use configuration data for declare new order status
          */
-        Mage::dispatchEvent('checkout_type_onepage_save_order', array('order'=>$order, 'quote'=>$quote));
-        Mage::dispatchEvent('sales_model_service_quote_submit_before', array('order'=>$order, 'quote'=>$quote));
-        try {
+        Mage::dispatchEvent('checkout_type_onepage_save_order', array('order' => $order, 'quote' => $quote));
+        Mage::dispatchEvent('sales_model_service_quote_submit_before', array('order' => $order, 'quote' => $quote));
+        try
+        {
             $transaction->save();
             $this->_inactivateQuote();
-            Mage::dispatchEvent('sales_model_service_quote_submit_success', array('order'=>$order, 'quote'=>$quote));
-        } catch (Exception $e) {
+            Mage::dispatchEvent('sales_model_service_quote_submit_success', array('order' => $order, 'quote' => $quote));
+        }
+        catch (Exception $e)
+        {
 
             if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
                 // reset customer ID's on exception, because customer not saved
@@ -204,10 +209,10 @@ class Mage_Sales_Model_Service_Quote
                 $item->setItemId(null);
             }
 
-            Mage::dispatchEvent('sales_model_service_quote_submit_failure', array('order'=>$order, 'quote'=>$quote));
+            Mage::dispatchEvent('sales_model_service_quote_submit_failure', array('order' => $order, 'quote' => $quote));
             throw $e;
         }
-        Mage::dispatchEvent('sales_model_service_quote_submit_after', array('order'=>$order, 'quote'=>$quote));
+        Mage::dispatchEvent('sales_model_service_quote_submit_after', array('order' => $order, 'quote' => $quote));
         $this->_order = $order;
         return $order;
     }
@@ -234,10 +239,13 @@ class Mage_Sales_Model_Service_Quote
         // don't allow submitNominalItems() to inactivate quote
         $shouldInactivateQuoteOld = $this->_shouldInactivateQuote;
         $this->_shouldInactivateQuote = false;
-        try {
+        try
+        {
             $this->submitNominalItems();
             $this->_shouldInactivateQuote = $shouldInactivateQuoteOld;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_shouldInactivateQuote = $shouldInactivateQuoteOld;
             throw $e;
         }
@@ -294,11 +302,11 @@ class Mage_Sales_Model_Service_Quote
             $addressValidation = $address->validate();
             if ($addressValidation !== true) {
                 Mage::throwException(
-                    Mage::helper('sales')->__('Please check shipping address information. %s', implode(' ', $addressValidation))
+                        Mage::helper('sales')->__('Please check shipping address information. %s', implode(' ', $addressValidation))
                 );
             }
-            $method= $address->getShippingMethod();
-            $rate  = $address->getShippingRateByCode($method);
+            $method = $address->getShippingMethod();
+            $rate = $address->getShippingRateByCode($method);
             if (!$this->getQuote()->isVirtual() && (!$method || !$rate)) {
                 Mage::throwException(Mage::helper('sales')->__('Please specify a shipping method.'));
             }
@@ -307,7 +315,7 @@ class Mage_Sales_Model_Service_Quote
         $addressValidation = $this->getQuote()->getBillingAddress()->validate();
         if ($addressValidation !== true) {
             Mage::throwException(
-                Mage::helper('sales')->__('Please check billing address information. %s', implode(' ', $addressValidation))
+                    Mage::helper('sales')->__('Please check billing address information. %s', implode(' ', $addressValidation))
             );
         }
 
@@ -344,4 +352,5 @@ class Mage_Sales_Model_Service_Quote
             }
         }
     }
+
 }

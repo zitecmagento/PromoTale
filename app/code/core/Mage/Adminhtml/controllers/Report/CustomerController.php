@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,29 +35,30 @@
  */
 class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller_Action
 {
+
     public function _initAction()
     {
         $act = $this->getRequest()->getActionName();
-        if(!$act)
+        if (!$act)
             $act = 'default';
 
         $this->loadLayout()
-            ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
-            ->_addBreadcrumb(Mage::helper('reports')->__('Customers'), Mage::helper('reports')->__('Customers'));
+                ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
+                ->_addBreadcrumb(Mage::helper('reports')->__('Customers'), Mage::helper('reports')->__('Customers'));
         return $this;
     }
 
     public function accountsAction()
     {
         $this->_title($this->__('Reports'))
-             ->_title($this->__('Customers'))
-             ->_title($this->__('New Accounts'));
+                ->_title($this->__('Customers'))
+                ->_title($this->__('New Accounts'));
 
         $this->_initAction()
-            ->_setActiveMenu('report/customer/accounts')
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('New Accounts'), Mage::helper('adminhtml')->__('New Accounts'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/report_customer_accounts'))
-            ->renderLayout();
+                ->_setActiveMenu('report/customer/accounts')
+                ->_addBreadcrumb(Mage::helper('adminhtml')->__('New Accounts'), Mage::helper('adminhtml')->__('New Accounts'))
+                ->_addContent($this->getLayout()->createBlock('adminhtml/report_customer_accounts'))
+                ->renderLayout();
     }
 
     /**
@@ -64,9 +66,9 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
      */
     public function exportAccountsCsvAction()
     {
-        $fileName   = 'new_accounts.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_customer_accounts_grid')
-            ->getCsv();
+        $fileName = 'new_accounts.csv';
+        $content = $this->getLayout()->createBlock('adminhtml/report_customer_accounts_grid')
+                ->getCsv();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -76,9 +78,9 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
      */
     public function exportAccountsExcelAction()
     {
-        $fileName   = 'accounts.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_customer_accounts_grid')
-            ->getExcel($fileName);
+        $fileName = 'accounts.xml';
+        $content = $this->getLayout()->createBlock('adminhtml/report_customer_accounts_grid')
+                ->getExcel($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -86,15 +88,14 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
     public function ordersAction()
     {
         $this->_title($this->__('Reports'))
-             ->_title($this->__('Customers'))
-             ->_title($this->__('Customers by Number of Orders'));
+                ->_title($this->__('Customers'))
+                ->_title($this->__('Customers by Number of Orders'));
 
         $this->_initAction()
-            ->_setActiveMenu('report/customer/orders')
-            ->_addBreadcrumb(Mage::helper('reports')->__('Customers by Number of Orders'),
-                Mage::helper('reports')->__('Customers by Number of Orders'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/report_customer_orders'))
-            ->renderLayout();
+                ->_setActiveMenu('report/customer/orders')
+                ->_addBreadcrumb(Mage::helper('reports')->__('Customers by Number of Orders'), Mage::helper('reports')->__('Customers by Number of Orders'))
+                ->_addContent($this->getLayout()->createBlock('adminhtml/report_customer_orders'))
+                ->renderLayout();
     }
 
     /**
@@ -102,9 +103,9 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
      */
     public function exportOrdersCsvAction()
     {
-        $fileName   = 'customers_orders.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_customer_orders_grid')
-            ->getCsv();
+        $fileName = 'customers_orders.csv';
+        $content = $this->getLayout()->createBlock('adminhtml/report_customer_orders_grid')
+                ->getCsv();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -114,9 +115,9 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
      */
     public function exportOrdersExcelAction()
     {
-        $fileName   = 'customers_orders.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_customer_orders_grid')
-            ->getExcel($fileName);
+        $fileName = 'customers_orders.xml';
+        $content = $this->getLayout()->createBlock('adminhtml/report_customer_orders_grid')
+                ->getExcel($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -124,15 +125,14 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
     public function totalsAction()
     {
         $this->_title($this->__('Reports'))
-             ->_title($this->__('Customers'))
-             ->_title($this->__('Customers by Orders Total'));
+                ->_title($this->__('Customers'))
+                ->_title($this->__('Customers by Orders Total'));
 
         $this->_initAction()
-            ->_setActiveMenu('report/customer/totals')
-            ->_addBreadcrumb(Mage::helper('reports')->__('Customers by Orders Total'),
-                Mage::helper('reports')->__('Customers by Orders Total'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/report_customer_totals'))
-            ->renderLayout();
+                ->_setActiveMenu('report/customer/totals')
+                ->_addBreadcrumb(Mage::helper('reports')->__('Customers by Orders Total'), Mage::helper('reports')->__('Customers by Orders Total'))
+                ->_addContent($this->getLayout()->createBlock('adminhtml/report_customer_totals'))
+                ->renderLayout();
     }
 
     /**
@@ -140,9 +140,9 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
      */
     public function exportTotalsCsvAction()
     {
-        $fileName   = 'cuatomer_totals.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_customer_totals_grid')
-            ->getCsv();
+        $fileName = 'cuatomer_totals.csv';
+        $content = $this->getLayout()->createBlock('adminhtml/report_customer_totals_grid')
+                ->getCsv();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -152,9 +152,9 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
      */
     public function exportTotalsExcelAction()
     {
-        $fileName   = 'customer_totals.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_customer_totals_grid')
-            ->getExcel($fileName);
+        $fileName = 'customer_totals.xml';
+        $content = $this->getLayout()->createBlock('adminhtml/report_customer_totals_grid')
+                ->getExcel($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -176,4 +176,5 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
                 break;
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 interface Zend_InfoCard_Xml_KeyInfo_Interface
 {
+
     /**
      * Return an object representing a KeyInfo data type
      *

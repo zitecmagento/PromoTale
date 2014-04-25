@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Whether clear checkout session when logout
      *
@@ -84,8 +86,8 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
         Mage::dispatchEvent('persistent_session_expired');
         $customerSession = Mage::getSingleton('customer/session');
         $customerSession
-            ->setCustomerId(null)
-            ->setCustomerGroupId(null);
+                ->setCustomerId(null)
+                ->setCustomerGroupId(null);
         if ($this->_clearCheckoutSession) {
             Mage::getSingleton('checkout/session')->unsetAll();
         }
@@ -104,7 +106,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
             $customerSession = Mage::getSingleton('customer/session');
             if (!$customerSession->isLoggedIn()) {
                 $customerSession->setCustomerId(null)
-                    ->setCustomerGroupId(null);
+                        ->setCustomerGroupId(null);
             }
 
             Mage::getSingleton('persistent/observer')->setQuoteGuest();
@@ -121,8 +123,9 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
     public function expressCheckoutAction()
     {
         Mage::getSingleton('core/session')->addNotice(
-            Mage::helper('persistent')->__('Shopping cart has been updated with appropriate prices')
+                Mage::helper('persistent')->__('Shopping cart has been updated with appropriate prices')
         );
         $this->_redirect('checkout/cart');
     }
+
 }

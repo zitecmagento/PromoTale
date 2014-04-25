@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customers collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Customer_Model_Resource_Address_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -57,4 +58,5 @@ class Mage_Customer_Model_Resource_Address_Collection extends Mage_Eav_Model_Ent
         }
         return $this;
     }
+
 }

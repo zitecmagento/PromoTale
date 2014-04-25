@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: BlackHole.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
 /**
  * @see Zend_Cache_Backend_Interface
  */
@@ -36,10 +36,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cache_Backend_BlackHole 
-    extends Zend_Cache_Backend 
-    implements Zend_Cache_Backend_ExtendedInterface
+class Zend_Cache_Backend_BlackHole extends Zend_Cache_Backend implements Zend_Cache_Backend_ExtendedInterface
 {
+
     /**
      * Test if a cache is available for the given id and (if yes) return it (false else)
      *
@@ -229,11 +228,11 @@ class Zend_Cache_Backend_BlackHole
     {
         return array(
             'automatic_cleaning' => true,
-            'tags'               => true,
-            'expired_read'       => true,
-            'priority'           => true,
-            'infinite_lifetime'  => true,
-            'get_list'           => true,
+            'tags' => true,
+            'expired_read' => true,
+            'priority' => true,
+            'infinite_lifetime' => true,
+            'get_list' => true,
         );
     }
 
@@ -246,5 +245,7 @@ class Zend_Cache_Backend_BlackHole
      */
     public function ___expire($id)
     {
+        
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,12 +24,10 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Payment_Model_Method_Checkmo extends Mage_Payment_Model_Method_Abstract
 {
 
-    protected $_code  = 'checkmo';
+    protected $_code = 'checkmo';
     protected $_formBlockType = 'payment/form_checkmo';
     protected $_infoBlockType = 'payment/info_checkmo';
 

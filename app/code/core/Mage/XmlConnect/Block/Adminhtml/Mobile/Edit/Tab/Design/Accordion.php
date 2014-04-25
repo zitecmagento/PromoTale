@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package      Mage_Xmlconnect
  * @author       Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion
-    extends Mage_Adminhtml_Block_Widget_Accordion
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion extends Mage_Adminhtml_Block_Widget_Accordion
 {
+
     /**
      * Add accordion item by specified block
      *
@@ -49,9 +50,10 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion
         }
 
         $this->addItem($itemId, array(
-            'title'   => $block->getTitle(),
+            'title' => $block->getTitle(),
             'content' => $block->toHtml(),
-            'open'    => $block->getIsOpen(),
+            'open' => $block->getIsOpen(),
         ));
     }
+
 }

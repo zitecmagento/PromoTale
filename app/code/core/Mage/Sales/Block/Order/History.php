@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
 {
 
@@ -41,10 +41,10 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
         $this->setTemplate('sales/order/history.phtml');
 
         $orders = Mage::getResourceModel('sales/order_collection')
-            ->addFieldToSelect('*')
-            ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
-            ->addFieldToFilter('state', array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()))
-            ->setOrder('created_at', 'desc')
+                ->addFieldToSelect('*')
+                ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
+                ->addFieldToFilter('state', array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()))
+                ->setOrder('created_at', 'desc')
         ;
 
         $this->setOrders($orders);
@@ -57,7 +57,7 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
         parent::_prepareLayout();
 
         $pager = $this->getLayout()->createBlock('page/html_pager', 'sales.order.history.pager')
-            ->setCollection($this->getOrders());
+                ->setCollection($this->getOrders());
         $this->setChild('pager', $pager);
         $this->getOrders()->load();
         return $this;
@@ -87,4 +87,5 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
     {
         return $this->getUrl('customer/account/');
     }
+
 }

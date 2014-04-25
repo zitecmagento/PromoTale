@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 interface Magento_Db_Object_Interface
 {
+
     /**
      * Describe database object
      *

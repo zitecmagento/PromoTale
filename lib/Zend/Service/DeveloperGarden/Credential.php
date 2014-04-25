@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 class Zend_Service_DeveloperGarden_Credential
 {
+
     /**
      * Service Auth Username
      *
@@ -142,9 +144,7 @@ class Zend_Service_DeveloperGarden_Credential
         $retValue = $this->_username;
         if ($withRealm) {
             $retValue = sprintf(
-                '%s@%s',
-                $this->_username,
-                $this->_realm
+                    '%s@%s', $this->_username, $this->_realm
             );
         }
         return $retValue;
@@ -182,5 +182,5 @@ class Zend_Service_DeveloperGarden_Credential
     {
         return $this->_realm;
     }
-}
 
+}

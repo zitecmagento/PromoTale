@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Interface.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -28,16 +28,15 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 interface Zend_Mail_Part_Interface extends RecursiveIterator
 {
+
     /**
      * Check if part is a multipart message
      *
      * @return bool if part is multipart
      */
     public function isMultipart();
-
 
     /**
      * Body of part
@@ -71,7 +70,6 @@ interface Zend_Mail_Part_Interface extends RecursiveIterator
      * @return int number of sub-parts
      */
     public function countParts();
-
 
     /**
      * Get all headers
@@ -112,7 +110,6 @@ interface Zend_Mail_Part_Interface extends RecursiveIterator
      * @throws Zend_Exception, Zend_Mail_Exception
      */
     public function getHeaderField($name, $wantedPart = 0, $firstName = 0);
-
 
     /**
      * Getter for mail headers - name is matched in lowercase

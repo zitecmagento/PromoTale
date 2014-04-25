@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
 {
+
     const XML_PATH_SITEMAP_VALID_PATHS = 'general/file/sitemap_generate_valid_paths';
 
     /**
@@ -106,4 +108,5 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
         $path = array_merge($path, $helper->getPublicFilesValidPath());
         return $path;
     }
+
 }

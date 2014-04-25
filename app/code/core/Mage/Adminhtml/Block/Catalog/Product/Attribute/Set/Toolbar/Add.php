@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mage_Adminhtml_Block_Template
 {
+
     protected function _construct()
     {
         $this->setTemplate('catalog/product/attribute/set/toolbar/add.phtml');
@@ -40,23 +42,20 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mag
 
     protected function _prepareLayout()
     {
-        $this->setChild('save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('catalog')->__('Save Attribute Set'),
-                    'onclick'   => 'if (addSet.submit()) disableElements(\'save\');',
-                    'class' => 'save'
+        $this->setChild('save_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('catalog')->__('Save Attribute Set'),
+                            'onclick' => 'if (addSet.submit()) disableElements(\'save\');',
+                            'class' => 'save'
         )));
-        $this->setChild('back_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('catalog')->__('Back'),
-                    'onclick'   => 'setLocation(\''.$this->getUrl('*/*/').'\')',
-                    'class' => 'back'
+        $this->setChild('back_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('catalog')->__('Back'),
+                            'onclick' => 'setLocation(\'' . $this->getUrl('*/*/') . '\')',
+                            'class' => 'back'
         )));
 
-        $this->setChild('setForm',
-            $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_formset')
+        $this->setChild('setForm', $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_formset')
         );
         return parent::_prepareLayout();
     }
@@ -85,4 +84,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mag
     {
         return $this->getChild('setForm')->getForm()->getId();
     }
+
 }

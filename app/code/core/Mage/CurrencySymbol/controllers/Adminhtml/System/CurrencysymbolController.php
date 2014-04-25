@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Show Currency Symbols Management dialog
      */
@@ -40,18 +42,16 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
     {
         // set active menu and breadcrumbs
         $this->loadLayout()
-            ->_setActiveMenu('system/currency')
-            ->_addBreadcrumb(
-                Mage::helper('currencysymbol')->__('System'),
-                Mage::helper('currencysymbol')->__('System')
-            )
-            ->_addBreadcrumb(
-                Mage::helper('currencysymbol')->__('Manage Currency Rates'),
-                Mage::helper('currencysymbol')->__('Manage Currency Rates')
-            );
+                ->_setActiveMenu('system/currency')
+                ->_addBreadcrumb(
+                        Mage::helper('currencysymbol')->__('System'), Mage::helper('currencysymbol')->__('System')
+                )
+                ->_addBreadcrumb(
+                        Mage::helper('currencysymbol')->__('Manage Currency Rates'), Mage::helper('currencysymbol')->__('Manage Currency Rates')
+        );
 
         $this->_title($this->__('System'))
-            ->_title($this->__('Manage Currency Rates'));
+                ->_title($this->__('Manage Currency Rates'));
         $this->renderLayout();
     }
 
@@ -67,12 +67,15 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
             }
         }
 
-        try {
+        try
+        {
             Mage::getModel('currencysymbol/system_currencysymbol')->setCurrencySymbolsData($symbolsDataArray);
             Mage::getSingleton('connect/session')->addSuccess(
-                Mage::helper('currencysymbol')->__('Custom currency symbols were applied successfully.')
+                    Mage::helper('currencysymbol')->__('Custom currency symbols were applied successfully.')
             );
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }
 
@@ -97,4 +100,5 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
     {
         return Mage::getSingleton('admin/session')->isAllowed('system/currency/symbols');
     }
+
 }

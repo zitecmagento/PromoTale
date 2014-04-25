@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_XmlConnect_Model_ImageLimits_Abstract extends Mage_Core_Model_Abstract
 {
+
     /**
      * Default update type
      *
@@ -156,7 +158,7 @@ abstract class Mage_XmlConnect_Model_ImageLimits_Abstract extends Mage_Core_Mode
             $data = $param['data'];
             $path = $param['path'];
 
-            $target =& $this->findPath($this->_configuration, $path);
+            $target = & $this->findPath($this->_configuration, $path);
             switch ($function) {
                 case 'zoom':
                     if (is_array($target)) {
@@ -203,12 +205,12 @@ abstract class Mage_XmlConnect_Model_ImageLimits_Abstract extends Mage_Core_Mode
      */
     public function &findPath(&$array, $path)
     {
-        $target =& $array;
+        $target = & $array;
         if ($path !== '/') {
             $pathArray = explode('/', $path);
             foreach ($pathArray as $node) {
                 if (is_array($target) && isset($target[$node])) {
-                    $target =& $target[$node];
+                    $target = & $target[$node];
                 } else {
                     return null;
                 }
@@ -247,10 +249,10 @@ abstract class Mage_XmlConnect_Model_ImageLimits_Abstract extends Mage_Core_Mode
     protected function _update(&$target, $data)
     {
         if (is_array($target) && is_array($data)) {
-                $data = array_intersect_key($data, $target);
-                foreach ($data as $key => $val) {
-                    $target[$key] = $val;
-                }
+            $data = array_intersect_key($data, $target);
+            foreach ($data as $key => $val) {
+                $target[$key] = $val;
+            }
         } elseif (is_array($target)) {
             foreach ($target as $key => $val) {
                 $target[$key] = $data;
@@ -292,4 +294,5 @@ abstract class Mage_XmlConnect_Model_ImageLimits_Abstract extends Mage_Core_Mode
             $item = (int) round($item * $value);
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SmsValidation.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Client_ClientAbstract
  */
@@ -80,6 +80,7 @@
  */
 class Zend_Service_DeveloperGarden_SmsValidation extends Zend_Service_DeveloperGarden_Client_ClientAbstract
 {
+
 // @codeCoverageIgnoreStart
     /**
      * wsdl file
@@ -102,11 +103,11 @@ class Zend_Service_DeveloperGarden_SmsValidation extends Zend_Service_DeveloperG
      *
      */
     protected $_classMap = array(
-        'getValidatedNumbersResponse'   => 'Zend_Service_DeveloperGarden_Response_SmsValidation_GetValidatedNumbersResponse',
-        'ValidatedNumber'               => 'Zend_Service_DeveloperGarden_Response_SmsValidation_ValidatedNumber',
+        'getValidatedNumbersResponse' => 'Zend_Service_DeveloperGarden_Response_SmsValidation_GetValidatedNumbersResponse',
+        'ValidatedNumber' => 'Zend_Service_DeveloperGarden_Response_SmsValidation_ValidatedNumber',
         'sendValidationKeywordResponse' => 'Zend_Service_DeveloperGarden_Response_SmsValidation_SendValidationKeywordResponse',
-        'validateResponse'              => 'Zend_Service_DeveloperGarden_Response_SmsValidation_ValidateResponse',
-        'invalidateResponse'            => 'Zend_Service_DeveloperGarden_Response_SmsValidation_InvalidateResponse',
+        'validateResponse' => 'Zend_Service_DeveloperGarden_Response_SmsValidation_ValidateResponse',
+        'invalidateResponse' => 'Zend_Service_DeveloperGarden_Response_SmsValidation_InvalidateResponse',
     );
 
     /**
@@ -119,14 +120,12 @@ class Zend_Service_DeveloperGarden_SmsValidation extends Zend_Service_DeveloperG
     public function validate($keyword = null, $number = null)
     {
         $request = new Zend_Service_DeveloperGarden_Request_SmsValidation_Validate(
-            $this->getEnvironment(),
-            $keyword,
-            $number
+                $this->getEnvironment(), $keyword, $number
         );
 
         return $this->getSoapClient()
-                    ->validate($request)
-                    ->parse();
+                        ->validate($request)
+                        ->parse();
     }
 
     /**
@@ -138,13 +137,12 @@ class Zend_Service_DeveloperGarden_SmsValidation extends Zend_Service_DeveloperG
     public function inValidate($number = null)
     {
         $request = new Zend_Service_DeveloperGarden_Request_SmsValidation_Invalidate(
-            $this->getEnvironment(),
-            $number
+                $this->getEnvironment(), $number
         );
 
         return $this->getSoapClient()
-                    ->invalidate($request)
-                    ->parse();
+                        ->invalidate($request)
+                        ->parse();
     }
 
     /**
@@ -163,7 +161,7 @@ class Zend_Service_DeveloperGarden_SmsValidation extends Zend_Service_DeveloperG
     public function sendValidationKeyword($number = null, $message = null, $originator = null, $account = null)
     {
         $request = new Zend_Service_DeveloperGarden_Request_SmsValidation_SendValidationKeyword(
-            $this->getEnvironment()
+                $this->getEnvironment()
         );
         $request->setNumber($number)
                 ->setMessage($message)
@@ -171,8 +169,8 @@ class Zend_Service_DeveloperGarden_SmsValidation extends Zend_Service_DeveloperG
                 ->setAccount($account);
 
         return $this->getSoapClient()
-                    ->sendValidationKeyword($request)
-                    ->parse();
+                        ->sendValidationKeyword($request)
+                        ->parse();
     }
 
     /**
@@ -183,11 +181,12 @@ class Zend_Service_DeveloperGarden_SmsValidation extends Zend_Service_DeveloperG
     public function getValidatedNumbers()
     {
         $request = new Zend_Service_DeveloperGarden_Request_SmsValidation_GetValidatedNumbers(
-            $this->getEnvironment()
+                $this->getEnvironment()
         );
         return $this->getSoapClient()
-                    ->getValidatedNumbers($request)
-                    ->parse();
+                        ->getValidatedNumbers($request)
+                        ->parse();
     }
+
 // @codeCoverageIgnoreEnd
 }

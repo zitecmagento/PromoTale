@@ -21,7 +21,6 @@
  * @version    $Id: Yahoo.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Yahoo
 {
+
     /**
      * Yahoo Developer Application ID
      *
@@ -44,7 +44,6 @@ class Zend_Service_Yahoo
      * @var Zend_Rest_Client
      */
     protected $_rest;
-
 
     /**
      * Sets the application ID and instantiates the REST client
@@ -62,7 +61,6 @@ class Zend_Service_Yahoo
         $this->_rest = new Zend_Rest_Client('http://search.yahooapis.com');
     }
 
-
     /**
      * Retrieve Inlink Data from siteexplorer.yahoo.com.  A basic query
      * consists simply of a URL.  Additional options that can be
@@ -79,8 +77,8 @@ class Zend_Service_Yahoo
      */
     public function inlinkDataSearch($query, array $options = array())
     {
-        static $defaultOptions = array('results'     => '50',
-                                       'start'    => 1);
+        static $defaultOptions = array('results' => '50',
+            'start' => 1);
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
         $this->_validateInlinkDataSearch($options);
@@ -95,7 +93,7 @@ class Zend_Service_Yahoo
              */
             #require_once 'Zend/Service/Exception.php';
             throw new Zend_Service_Exception('An error occurred sending request. Status code: ' .
-                                             $response->getStatus());
+            $response->getStatus());
         }
 
         $dom = new DOMDocument();
@@ -109,7 +107,6 @@ class Zend_Service_Yahoo
         #require_once 'Zend/Service/Yahoo/InlinkDataResultSet.php';
         return new Zend_Service_Yahoo_InlinkDataResultSet($dom);
     }
-
 
     /**
      * Perform a search of images.  The most basic query consists simply
@@ -131,11 +128,11 @@ class Zend_Service_Yahoo
      */
     public function imageSearch($query, array $options = array())
     {
-        static $defaultOptions = array('type'       => 'all',
-                                       'results'    => 10,
-                                       'start'      => 1,
-                                       'format'     => 'any',
-                                       'coloration' => 'any');
+        static $defaultOptions = array('type' => 'all',
+            'results' => 10,
+            'start' => 1,
+            'format' => 'any',
+            'coloration' => 'any');
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
 
@@ -151,7 +148,7 @@ class Zend_Service_Yahoo
              */
             #require_once 'Zend/Service/Exception.php';
             throw new Zend_Service_Exception('An error occurred sending request. Status code: ' .
-                                             $response->getStatus());
+            $response->getStatus());
         }
 
         $dom = new DOMDocument();
@@ -165,7 +162,6 @@ class Zend_Service_Yahoo
         #require_once 'Zend/Service/Yahoo/ImageResultSet.php';
         return new Zend_Service_Yahoo_ImageResultSet($dom);
     }
-
 
     /**
      * Perform a search on local.yahoo.com.  The basic search
@@ -197,9 +193,9 @@ class Zend_Service_Yahoo
     public function localSearch($query, array $options = array())
     {
         static $defaultOptions = array('results' => 10,
-                                       'start'   => 1,
-                                       'sort'    => 'distance',
-                                       'radius'  => 5);
+            'start' => 1,
+            'sort' => 'distance',
+            'radius' => 5);
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
 
@@ -215,7 +211,7 @@ class Zend_Service_Yahoo
              */
             #require_once 'Zend/Service/Exception.php';
             throw new Zend_Service_Exception('An error occurred sending request. Status code: ' .
-                                             $response->getStatus());
+            $response->getStatus());
         }
 
         $dom = new DOMDocument();
@@ -229,7 +225,6 @@ class Zend_Service_Yahoo
         #require_once 'Zend/Service/Yahoo/LocalResultSet.php';
         return new Zend_Service_Yahoo_LocalResultSet($dom);
     }
-
 
     /**
      * Execute a search on news.yahoo.com. This method minimally takes a
@@ -251,9 +246,9 @@ class Zend_Service_Yahoo
      */
     public function newsSearch($query, array $options = array())
     {
-        static $defaultOptions = array('type'     => 'all',
-                                       'start'    => 1,
-                                       'sort'     => 'rank');
+        static $defaultOptions = array('type' => 'all',
+            'start' => 1,
+            'sort' => 'rank');
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
 
@@ -269,7 +264,7 @@ class Zend_Service_Yahoo
              */
             #require_once 'Zend/Service/Exception.php';
             throw new Zend_Service_Exception('An error occurred sending request. Status code: ' .
-                                             $response->getStatus());
+            $response->getStatus());
         }
 
         $dom = new DOMDocument();
@@ -283,7 +278,6 @@ class Zend_Service_Yahoo
         #require_once 'Zend/Service/Yahoo/NewsResultSet.php';
         return new Zend_Service_Yahoo_NewsResultSet($dom);
     }
-
 
     /**
      * Retrieve Page Data from siteexplorer.yahoo.com.  A basic query
@@ -300,8 +294,8 @@ class Zend_Service_Yahoo
      */
     public function pageDataSearch($query, array $options = array())
     {
-        static $defaultOptions = array('results'     => '50',
-                                       'start'    => 1);
+        static $defaultOptions = array('results' => '50',
+            'start' => 1);
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
         $this->_validatePageDataSearch($options);
@@ -316,7 +310,7 @@ class Zend_Service_Yahoo
              */
             #require_once 'Zend/Service/Exception.php';
             throw new Zend_Service_Exception('An error occurred sending request. Status code: ' .
-                                             $response->getStatus());
+            $response->getStatus());
         }
 
         $dom = new DOMDocument();
@@ -330,7 +324,6 @@ class Zend_Service_Yahoo
         #require_once 'Zend/Service/Yahoo/PageDataResultSet.php';
         return new Zend_Service_Yahoo_PageDataResultSet($dom);
     }
-
 
     /**
      * Perform a search of videos.  The most basic query consists simply
@@ -351,10 +344,10 @@ class Zend_Service_Yahoo
      */
     public function videoSearch($query, array $options = array())
     {
-        static $defaultOptions = array('type'       => 'all',
-                                       'results'    => 10,
-                                       'start'      => 1,
-                                       'format'     => 'any');
+        static $defaultOptions = array('type' => 'all',
+            'results' => 10,
+            'start' => 1,
+            'format' => 'any');
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
 
@@ -370,7 +363,7 @@ class Zend_Service_Yahoo
              */
             #require_once 'Zend/Service/Exception.php';
             throw new Zend_Service_Exception('An error occurred sending request. Status code: ' .
-                                             $response->getStatus());
+            $response->getStatus());
         }
 
         $dom = new DOMDocument();
@@ -384,7 +377,6 @@ class Zend_Service_Yahoo
         #require_once 'Zend/Service/Yahoo/VideoResultSet.php';
         return new Zend_Service_Yahoo_VideoResultSet($dom);
     }
-
 
     /**
      * Perform a web content search on search.yahoo.com.  A basic query
@@ -409,10 +401,10 @@ class Zend_Service_Yahoo
      */
     public function webSearch($query, array $options = array())
     {
-        static $defaultOptions = array('type'     => 'all',
-                                       'start'    => 1,
-                                       'results'  => 10,
-                                       'format'   => 'any');
+        static $defaultOptions = array('type' => 'all',
+            'start' => 1,
+            'results' => 10,
+            'format' => 'any');
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
         $this->_validateWebSearch($options);
@@ -427,7 +419,7 @@ class Zend_Service_Yahoo
              */
             #require_once 'Zend/Service/Exception.php';
             throw new Zend_Service_Exception('An error occurred sending request. Status code: ' .
-                                             $response->getStatus());
+            $response->getStatus());
         }
 
         $dom = new DOMDocument();
@@ -442,7 +434,6 @@ class Zend_Service_Yahoo
         return new Zend_Service_Yahoo_WebResultSet($dom);
     }
 
-
     /**
      * Returns a reference to the REST client
      *
@@ -452,7 +443,6 @@ class Zend_Service_Yahoo
     {
         return $this->_rest;
     }
-
 
     /**
      * Validate Inlink Data Search Options
@@ -494,7 +484,6 @@ class Zend_Service_Yahoo
         }
     }
 
-
     /**
      * Validate Image Search Options
      *
@@ -509,7 +498,7 @@ class Zend_Service_Yahoo
         $this->_compareOptions($options, $validOptions);
 
         if (isset($options['type'])) {
-            switch($options['type']) {
+            switch ($options['type']) {
                 case 'all':
                 case 'any':
                 case 'phrase':
@@ -574,11 +563,10 @@ class Zend_Service_Yahoo
                      */
                     #require_once 'Zend/Service/Exception.php';
                     throw new Zend_Service_Exception("Invalid value for option 'coloration': "
-                                                   . "{$options['coloration']}");
+                    . "{$options['coloration']}");
             }
         }
     }
-
 
     /**
      * Validate Local Search Options
@@ -590,7 +578,7 @@ class Zend_Service_Yahoo
     protected function _validateLocalSearch(array $options)
     {
         $validOptions = array('appid', 'query', 'results', 'start', 'sort', 'radius', 'street',
-                              'city', 'state', 'zip', 'location', 'latitude', 'longitude');
+            'city', 'state', 'zip', 'location', 'latitude', 'longitude');
 
         $this->_compareOptions($options, $validOptions);
 
@@ -666,7 +654,6 @@ class Zend_Service_Yahoo
         }
     }
 
-
     /**
      * Validate News Search Options
      *
@@ -710,7 +697,6 @@ class Zend_Service_Yahoo
         $this->_validateInArray('type', $options['type'], array('all', 'any', 'phrase'));
     }
 
-
     /**
      * Validate Page Data Search Options
      *
@@ -746,7 +732,6 @@ class Zend_Service_Yahoo
             throw new Zend_Service_Exception("Invalid value for option 'start': {$options['start']}");
         }
     }
-
 
     /**
      * Validate Video Search Options
@@ -788,10 +773,10 @@ class Zend_Service_Yahoo
         }
 
         if (isset($options['format'])) {
-            $this->_validateInArray('format', $options['format'], array('any', 'avi', 'flash', 'mpeg', 'msmedia', 'quicktime', 'realmedia'));
+            $this->_validateInArray('format', $options['format'], array('any', 'avi', 'flash', 'mpeg', 'msmedia', 'quicktime',
+                'realmedia'));
         }
     }
-
 
     /**
      * Validate Web Search Options
@@ -803,7 +788,7 @@ class Zend_Service_Yahoo
     protected function _validateWebSearch(array $options)
     {
         $validOptions = array('appid', 'query', 'results', 'start', 'language', 'type', 'format', 'adult_ok',
-                              'similar_ok', 'country', 'site', 'subscription', 'license', 'region');
+            'similar_ok', 'country', 'site', 'subscription', 'license', 'region');
 
         $this->_compareOptions($options, $validOptions);
 
@@ -835,20 +820,19 @@ class Zend_Service_Yahoo
 
         $this->_validateInArray('type', $options['type'], array('all', 'any', 'phrase'));
         $this->_validateInArray('format', $options['format'], array('any', 'html', 'msword', 'pdf', 'ppt', 'rss',
-                                                                    'txt', 'xls'));
+            'txt', 'xls'));
         if (isset($options['license'])) {
             $this->_validateInArray('license', $options['license'], array('any', 'cc_any', 'cc_commercial',
-                                                                      'cc_modifiable'));
+                'cc_modifiable'));
         }
 
-        if (isset($options['region'])){
+        if (isset($options['region'])) {
             $this->_validateInArray('region', $options['region'], array('ar', 'au', 'at', 'br', 'ca', 'ct', 'dk', 'fi',
-                                                                          'fr', 'de', 'in', 'id', 'it', 'my', 'mx',
-                                                                          'nl', 'no', 'ph', 'ru', 'sg', 'es', 'se',
-                                                                          'ch', 'th', 'uk', 'us'));
+                'fr', 'de', 'in', 'id', 'it', 'my', 'mx',
+                'nl', 'no', 'ph', 'ru', 'sg', 'es', 'se',
+                'ch', 'th', 'uk', 'us'));
         }
     }
-
 
     /**
      * Prepare options for sending to Yahoo!
@@ -866,7 +850,6 @@ class Zend_Service_Yahoo
         return array_merge($defaultOptions, $options);
     }
 
-
     /**
      * Throws an exception if the chosen language is not supported
      *
@@ -879,7 +862,7 @@ class Zend_Service_Yahoo
         $languages = array('ar', 'bg', 'ca', 'szh', 'tzh', 'hr', 'cs', 'da', 'nl', 'en', 'et', 'fi', 'fr', 'de', 'el',
             'he', 'hu', 'is', 'id', 'it', 'ja', 'ko', 'lv', 'lt', 'no', 'fa', 'pl', 'pt', 'ro', 'ru', 'sk', 'sr', 'sl',
             'es', 'sv', 'th', 'tr'
-            );
+        );
         if (!in_array($lang, $languages)) {
             /**
              * @see Zend_Service_Exception
@@ -888,7 +871,6 @@ class Zend_Service_Yahoo
             throw new Zend_Service_Exception("The selected language '$lang' is not supported");
         }
     }
-
 
     /**
      * Utility function to check for a difference between two arrays.
@@ -910,7 +892,6 @@ class Zend_Service_Yahoo
         }
     }
 
-
     /**
      * Check that a named value is in the given array
      *
@@ -930,7 +911,6 @@ class Zend_Service_Yahoo
             throw new Zend_Service_Exception("Invalid value for option '$name': $value");
         }
     }
-
 
     /**
      * Check if response is an error
@@ -953,4 +933,5 @@ class Zend_Service_Yahoo
             throw new Zend_Service_Exception($message);
         }
     }
+
 }

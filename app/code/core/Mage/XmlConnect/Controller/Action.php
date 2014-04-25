@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,30 +34,31 @@
  */
 abstract class Mage_XmlConnect_Controller_Action extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Message status `error`
      */
-    const MESSAGE_STATUS_ERROR      = 'error';
+    const MESSAGE_STATUS_ERROR = 'error';
 
     /**
      * Message status `warning`
      */
-    const MESSAGE_STATUS_WARNING    = 'warning';
+    const MESSAGE_STATUS_WARNING = 'warning';
 
     /**
      * Message status `success`
      */
-    const MESSAGE_STATUS_SUCCESS    = 'success';
+    const MESSAGE_STATUS_SUCCESS = 'success';
 
     /**
      * Message type `alert`
      */
-    const MESSAGE_TYPE_ALERT        = 'alert';
+    const MESSAGE_TYPE_ALERT = 'alert';
 
     /**
      * Message type `prompt`
      */
-    const MESSAGE_TYPE_PROMPT       = 'prompt';
+    const MESSAGE_TYPE_PROMPT = 'prompt';
 
     /**
      * Declare content type header
@@ -73,7 +75,7 @@ abstract class Mage_XmlConnect_Controller_Action extends Mage_Core_Controller_Fr
          * Load application by specified code and make sure that application exists
          */
         $cookieName = Mage_XmlConnect_Model_Application::APP_CODE_COOKIE_NAME;
-        $appCode    = isset($_COOKIE[$cookieName]) ? (string) $_COOKIE[$cookieName] : '';
+        $appCode = isset($_COOKIE[$cookieName]) ? (string) $_COOKIE[$cookieName] : '';
         $screenSizeCookieName = Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME;
         $screenSize = isset($_COOKIE[$screenSizeCookieName]) ? (string) $_COOKIE[$screenSizeCookieName] : '';
         if (!$appCode) {
@@ -84,11 +86,10 @@ abstract class Mage_XmlConnect_Controller_Action extends Mage_Core_Controller_Fr
         /**
          * Check is website offline
          */
-        if ((int)Mage::getStoreConfig('general/restriction/is_active')
-            && (int)Mage::getStoreConfig('general/restriction/mode') == 0
+        if ((int) Mage::getStoreConfig('general/restriction/is_active') && (int) Mage::getStoreConfig('general/restriction/mode') == 0
         ) {
             $this->_message(
-                Mage::helper('xmlconnect')->__('Website is offline.'), self::MESSAGE_STATUS_SUCCESS
+                    Mage::helper('xmlconnect')->__('Website is offline.'), self::MESSAGE_STATUS_SUCCESS
             );
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return;
@@ -118,8 +119,7 @@ abstract class Mage_XmlConnect_Controller_Action extends Mage_Core_Controller_Fr
         $body = $this->getResponse()->getBody();
         if (empty($body) && !$this->getFlag('forwarded')) {
             $this->_message(
-                Mage::helper('xmlconnect')->__('An error occurred while processing your request.'),
-                self::MESSAGE_STATUS_ERROR
+                    Mage::helper('xmlconnect')->__('An error occurred while processing your request.'), self::MESSAGE_STATUS_ERROR
             );
         }
     }
@@ -176,4 +176,5 @@ abstract class Mage_XmlConnect_Controller_Action extends Mage_Core_Controller_Fr
         }
         return false;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Rules resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      *
@@ -53,7 +54,8 @@ class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
         $adapter = $this->_getWriteAdapter();
         $adapter->beginTransaction();
 
-        try {
+        try
+        {
             $roleId = $rule->getRoleId();
             $adapter->delete($this->getMainTable(), array('role_id = ?' => $roleId));
             $masterResources = Mage::getModel('api/roles')->getResourcesList2D();
@@ -61,15 +63,15 @@ class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
             if ($postedResources = $rule->getResources()) {
                 foreach ($masterResources as $index => $resName) {
                     if (!$masterAdmin) {
-                        $permission = (in_array($resName, $postedResources))? 'allow' : 'deny';
+                        $permission = (in_array($resName, $postedResources)) ? 'allow' : 'deny';
                         $adapter->insert($this->getMainTable(), array(
-                            'role_type'     => 'G',
-                            'resource_id'   => trim($resName, '/'),
-                            'api_privileges'    => null,
-                            'assert_id'     => 0,
-                            'role_id'       => $roleId,
-                            'api_permission'    => $permission
-                            ));
+                            'role_type' => 'G',
+                            'resource_id' => trim($resName, '/'),
+                            'api_privileges' => null,
+                            'assert_id' => 0,
+                            'role_id' => $roleId,
+                            'api_permission' => $permission
+                        ));
                     }
                     if ($resName == 'all' && $permission == 'allow') {
                         $masterAdmin = true;
@@ -78,10 +80,15 @@ class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
             }
 
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             throw $e;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $adapter->rollBack();
         }
     }
+
 }

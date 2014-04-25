@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,23 +24,23 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Adminhtml_Model_System_Config_Source_Country
 {
+
     protected $_options;
 
-    public function toOptionArray($isMultiselect=false)
+    public function toOptionArray($isMultiselect = false)
     {
         if (!$this->_options) {
             $this->_options = Mage::getResourceModel('directory/country_collection')->loadData()->toOptionArray(false);
         }
 
         $options = $this->_options;
-        if(!$isMultiselect){
-            array_unshift($options, array('value'=>'', 'label'=> Mage::helper('adminhtml')->__('--Please Select--')));
+        if (!$isMultiselect) {
+            array_unshift($options, array('value' => '', 'label' => Mage::helper('adminhtml')->__('--Please Select--')));
         }
 
         return $options;
     }
+
 }

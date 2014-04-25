@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HelperBroker.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Controller_Action_HelperBroker_PriorityStack
  */
@@ -39,6 +39,7 @@
  */
 class Zend_Controller_Action_HelperBroker
 {
+
     /**
      * $_actionController - ActionController reference
      *
@@ -97,7 +98,7 @@ class Zend_Controller_Action_HelperBroker
     static public function addPrefix($prefix)
     {
         $prefix = rtrim($prefix, '_');
-        $path   = str_replace('_', DIRECTORY_SEPARATOR, $prefix);
+        $path = str_replace('_', DIRECTORY_SEPARATOR, $prefix);
         self::getPluginLoader()->addPrefixPath($prefix, $path);
     }
 
@@ -148,7 +149,7 @@ class Zend_Controller_Action_HelperBroker
      */
     public static function getStaticHelper($name)
     {
-        $name  = self::_normalizeHelperName($name);
+        $name = self::_normalizeHelperName($name);
         $stack = self::getStack();
 
         if (!isset($stack->{$name})) {
@@ -175,7 +176,7 @@ class Zend_Controller_Action_HelperBroker
      */
     public static function getExistingHelper($name)
     {
-        $name  = self::_normalizeHelperName($name);
+        $name = self::_normalizeHelperName($name);
         $stack = self::getStack();
 
         if (!isset($stack->{$name})) {
@@ -286,7 +287,7 @@ class Zend_Controller_Action_HelperBroker
      */
     public function getHelper($name)
     {
-        $name  = self::_normalizeHelperName($name);
+        $name = self::_normalizeHelperName($name);
         $stack = self::getStack();
 
         if (!isset($stack->{$name})) {
@@ -304,7 +305,7 @@ class Zend_Controller_Action_HelperBroker
 
         if ($initialize) {
             $helper->setActionController($this->_actionController)
-                   ->init();
+                    ->init();
         }
 
         return $helper;
@@ -362,9 +363,12 @@ class Zend_Controller_Action_HelperBroker
      */
     protected static function _loadHelper($name)
     {
-        try {
+        try
+        {
             $class = self::getPluginLoader()->load($name);
-        } catch (Zend_Loader_PluginLoader_Exception $e) {
+        }
+        catch (Zend_Loader_PluginLoader_Exception $e)
+        {
             #require_once 'Zend/Controller/Action/Exception.php';
             throw new Zend_Controller_Action_Exception('Action Helper by name ' . $name . ' not found', 0, $e);
         }
@@ -378,4 +382,5 @@ class Zend_Controller_Action_HelperBroker
 
         self::getStack()->push($helper);
     }
+
 }

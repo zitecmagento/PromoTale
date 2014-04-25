@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: LockManager.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Search_Lucene_Storage_Directory */
 #require_once 'Zend/Search/Lucene/Storage/Directory.php';
 
@@ -35,13 +35,14 @@
  */
 class Zend_Search_Lucene_LockManager
 {
+
     /**
      * consts for name of file to show lock status
      */
-    const WRITE_LOCK_FILE                = 'write.lock.file';
-    const READ_LOCK_FILE                 = 'read.lock.file';
+    const WRITE_LOCK_FILE = 'write.lock.file';
+    const READ_LOCK_FILE = 'read.lock.file';
     const READ_LOCK_PROCESSING_LOCK_FILE = 'read-lock-processing.lock.file';
-    const OPTIMIZATION_LOCK_FILE         = 'optimization.lock.file';
+    const OPTIMIZATION_LOCK_FILE = 'optimization.lock.file';
 
     /**
      * Obtain exclusive write lock on the index
@@ -118,7 +119,6 @@ class Zend_Search_Lucene_LockManager
         $lock = $lockDirectory->getFileObject(self::READ_LOCK_PROCESSING_LOCK_FILE);
         $lock->unlock();
     }
-
 
     /**
      * Obtain shared read lock on the index

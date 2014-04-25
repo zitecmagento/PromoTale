@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: And.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Ldap_Filter_Logical
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Ldap_Filter_And extends Zend_Ldap_Filter_Logical
 {
+
     /**
      * Creates an 'and' grouping filter.
      *
@@ -45,4 +46,5 @@ class Zend_Ldap_Filter_And extends Zend_Ldap_Filter_Logical
     {
         parent::__construct($subfilters, self::TYPE_AND);
     }
+
 }

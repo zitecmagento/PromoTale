@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Xmlconnect_Block_Checkout_Cart_Item_Renderer_Configurable
-    extends Mage_Checkout_Block_Cart_Item_Renderer_Configurable
+class Mage_Xmlconnect_Block_Checkout_Cart_Item_Renderer_Configurable extends Mage_Checkout_Block_Cart_Item_Renderer_Configurable
 {
+
     /**
      * Get product thumbnail image
      *
@@ -42,12 +43,11 @@ class Mage_Xmlconnect_Block_Checkout_Cart_Item_Renderer_Configurable
     public function getProductThumbnail()
     {
         $product = $this->getChildProduct();
-        if (!$product || !$product->getData('thumbnail')
-            || ($product->getData('thumbnail') == 'no_selection')
-            || (Mage::getStoreConfig(self::CONFIGURABLE_PRODUCT_IMAGE) == self::USE_PARENT_IMAGE)
+        if (!$product || !$product->getData('thumbnail') || ($product->getData('thumbnail') == 'no_selection') || (Mage::getStoreConfig(self::CONFIGURABLE_PRODUCT_IMAGE) == self::USE_PARENT_IMAGE)
         ) {
             $product = $this->getProduct();
         }
         return $this->helper('xmlconnect/catalog_product_image')->init($product, 'thumbnail');
     }
+
 }

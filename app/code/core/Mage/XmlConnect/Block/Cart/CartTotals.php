@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Cart_CartTotals extends Mage_Checkout_Block_Cart_Totals
 {
+
     /**
      * Default totals renderer
      *
@@ -52,7 +54,7 @@ class Mage_XmlConnect_Block_Cart_CartTotals extends Mage_Checkout_Block_Cart_Tot
         /** @var $totalsXmlObj Mage_XmlConnect_Model_Simplexml_Element */
         $totalsXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<totals></totals>');
 
-        foreach($this->getTotals() as $total) {
+        foreach ($this->getTotals() as $total) {
             $code = $total->getCode();
             if ($total->getAs()) {
                 $code = $total->getAs();
@@ -92,4 +94,5 @@ class Mage_XmlConnect_Block_Cart_CartTotals extends Mage_Checkout_Block_Cart_Tot
         $block->setTotals($this->getTotals());
         return $block;
     }
+
 }

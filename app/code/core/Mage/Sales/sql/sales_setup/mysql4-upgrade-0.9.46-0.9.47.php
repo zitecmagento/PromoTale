@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 $installer = $this;
 
@@ -42,7 +41,8 @@ $installer->getConnection()->addColumn($this->getTable('sales_order'), $attribut
 $installer->getConnection()->addColumn($this->getTable('sales_order'), $attributes[1]['attribute_code'], "varchar(255) NOT NULL DEFAULT ''");
 
 
-try {
+try
+{
     $installer->getConnection()->beginTransaction();
 
     foreach ($attributes as $attribute) {
@@ -66,8 +66,9 @@ try {
     }
 
     $installer->getConnection()->commit();
-
-} catch (Exception $e) {
+}
+catch (Exception $e)
+{
     $installer->getConnection()->rollback();
     foreach ($attributes as $attribute) {
         $installer->getConnection()->dropColumn($this->getTable('sales_order'), $attribute['attribute_code']);
@@ -106,21 +107,11 @@ $installer->run("
 ");
 
 $installer->getConnection()->addConstraint(
-    'SALES_SHIPPING_AGGREGATED_STORE',
-    $installer->getTable('sales/shipping_aggregated'),
-    'store_id',
-    $installer->getTable('core/store'),
-    'store_id',
-    'SET NULL'
+        'SALES_SHIPPING_AGGREGATED_STORE', $installer->getTable('sales/shipping_aggregated'), 'store_id', $installer->getTable('core/store'), 'store_id', 'SET NULL'
 );
 
 $installer->getConnection()->addConstraint(
-    'SALES_SHIPPING_AGGREGATED_ORDER_STORE',
-    $installer->getTable('sales/shipping_aggregated_order'),
-    'store_id',
-    $installer->getTable('core/store'),
-    'store_id',
-    'SET NULL'
+        'SALES_SHIPPING_AGGREGATED_ORDER_STORE', $installer->getTable('sales/shipping_aggregated_order'), 'store_id', $installer->getTable('core/store'), 'store_id', 'SET NULL'
 );
 
 $this->endSetup();

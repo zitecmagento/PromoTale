@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales resource abstract
  *
@@ -34,61 +34,62 @@
  */
 abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model_Resource_Abstract
 {
+
     /**
      * Is grid available
      *
      * @var boolean
      */
-    protected $_grid                         = false;
+    protected $_grid = false;
 
     /**
      * Use additional is object new check for this resource
      *
      * @var boolean
      */
-    protected $_useIsObjectNew               = true;
+    protected $_useIsObjectNew = true;
 
     /**
      * Flag for using of increment id
      *
      * @var boolean
      */
-    protected $_useIncrementId               = false;
+    protected $_useIncrementId = false;
 
     /**
      * Entity code for increment id (Eav entity code)
      *
      * @var string
      */
-    protected $_entityTypeForIncrementId     = '';
+    protected $_entityTypeForIncrementId = '';
 
     /**
      * Grid virtual columns
      *
      * @var array|null
      */
-    protected $_virtualGridColumns           = null;
+    protected $_virtualGridColumns = null;
 
     /**
      * Grid columns
      *
      * @var array|null
      */
-    protected $_gridColumns                  = null;
+    protected $_gridColumns = null;
 
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix                  = 'sales_resource';
+    protected $_eventPrefix = 'sales_resource';
 
     /**
      * Event object
      *
      * @var string
      */
-    protected $_eventObject                  = 'resource';
+    protected $_eventObject = 'resource';
 
     /**
      * Add new virtual grid column
@@ -105,7 +106,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
 
         if (!in_array($alias, $this->getGridColumns())) {
             Mage::throwException(
-                Mage::helper('sales')->__('Please specify a valid grid column alias name that exists in grid table.')
+                    Mage::helper('sales')->__('Please specify a valid grid column alias name that exists in grid table.')
             );
         }
 
@@ -162,7 +163,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
             if ($this->_eventPrefix && $this->_eventObject) {
                 $proxy = new Varien_Object();
                 $proxy->setIds($ids)
-                    ->setData($this->_eventObject, $this);
+                        ->setData($this->_eventObject, $this);
 
                 Mage::dispatchEvent($this->_eventPrefix . '_update_grid_records', array('proxy' => $proxy));
                 $ids = $proxy->getIds();
@@ -191,9 +192,9 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     public function getUpdateGridRecordsSelect($ids, &$flatColumnsToSelect, $gridColumns = null)
     {
         $flatColumns = array_keys($this->_getReadAdapter()
-            ->describeTable(
-                $this->getMainTable()
-            )
+                        ->describeTable(
+                                $this->getMainTable()
+                        )
         );
 
         if ($gridColumns === null) {
@@ -227,20 +228,18 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
             $tableAlias = 'table_' . $alias;
 
             $joinConditionExpr = array();
-            foreach ($joinCondition as $fkField=>$pkField) {
+            foreach ($joinCondition as $fkField => $pkField) {
                 $pkField = $adapter->quoteIdentifier(
-                    $tableAlias . '.' . $pkField
+                        $tableAlias . '.' . $pkField
                 );
                 $fkField = $adapter->quoteIdentifier(
-                    $mainTableAlias . '.' . $fkField
+                        $mainTableAlias . '.' . $fkField
                 );
                 $joinConditionExpr[] = $fkField . '=' . $pkField;
             }
 
             $select->joinLeft(
-                array($tableAlias=> $table),
-                implode(' AND ', $joinConditionExpr),
-                array($alias => str_replace('{{table}}', $tableAlias, $column))
+                    array($tableAlias => $table), implode(' AND ', $joinConditionExpr), array($alias => str_replace('{{table}}', $tableAlias, $column))
             );
 
             $columnsToSelect[] = $alias;
@@ -259,7 +258,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
         if ($this->_gridColumns === null) {
             if ($this->_grid) {
                 $this->_gridColumns = array_keys(
-                    $this->_getReadAdapter()->describeTable($this->getGridTable())
+                        $this->_getReadAdapter()->describeTable($this->getGridTable())
                 );
             } else {
                 $this->_gridColumns = array();
@@ -339,7 +338,8 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
 
         if (is_array($attribute) && !empty($attribute)) {
             $this->beginTransaction();
-            try {
+            try
+            {
                 $this->_beforeSaveAttribute($object, $attribute);
                 $data = new Varien_Object();
                 foreach ($attribute as $code) {
@@ -349,13 +349,15 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
                 $updateArray = $this->_prepareDataForTable($data, $this->getMainTable());
                 $this->_postSaveFieldsUpdate($object, $updateArray);
                 if (!$object->getForceUpdateGridRecords() &&
-                    count(array_intersect($this->getGridColumns(), $attribute)) > 0
+                        count(array_intersect($this->getGridColumns(), $attribute)) > 0
                 ) {
                     $this->updateGridRecords($object->getId());
                 }
                 $this->_afterSaveAttribute($object, $attribute);
                 $this->commit();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->rollBack();
                 throw $e;
             }
@@ -392,8 +394,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     {
         if ($object->getId() && !empty($data)) {
             $table = $this->getMainTable();
-            $this->_getWriteAdapter()->update($table, $data,
-                array($this->getIdFieldName() . '=?' => (int) $object->getId())
+            $this->_getWriteAdapter()->update($table, $data, array($this->getIdFieldName() . '=?' => (int) $object->getId())
             );
             $object->addData($data);
         }
@@ -440,18 +441,16 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
         $adapter = $this->_getWriteAdapter();
         $column = array();
         $select = $adapter->select()
-            ->from(array('main_table' => $this->getMainTable()), $column)
-            ->where('main_table.' . $field .' = ?', $entityId);
+                ->from(array('main_table' => $this->getMainTable()), $column)
+                ->where('main_table.' . $field . ' = ?', $entityId);
         $this->joinVirtualGridColumnsToSelect('main_table', $select, $column);
         $fieldsToUpdate = $adapter->fetchRow($select);
         if ($fieldsToUpdate) {
             $adapter->update(
-                $this->getGridTable(),
-                $fieldsToUpdate,
-                $adapter->quoteInto($this->getGridTable() . '.' . $field . ' = ?', $entityId)
+                    $this->getGridTable(), $fieldsToUpdate, $adapter->quoteInto($this->getGridTable() . '.' . $field . ' = ?', $entityId)
             );
         }
         return $this;
     }
-}
 
+}

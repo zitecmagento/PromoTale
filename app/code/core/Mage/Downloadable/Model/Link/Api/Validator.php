@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resource_Abstract
 {
+
     /**
      * Acceptable resourceTypes array
      * @var array
@@ -52,26 +54,26 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     protected $_defaultAttributes = array(
         'link' => array(
-            'title' => 'Title',                         // $1
-            'price' => 'Price',                         // $2
-            'number_of_downloads' => 'NumOfDownloads',  // if no set is_unlimited to 1 $3
-            'is_unlimited' => 'Unlimited',              // 1|0 $4
-            'is_shareable' => 'Shareable',              // 1|0|2 (2) $5
-            'type' => 'UploadType',                     // file|url (file) $6
-            'file' => 'File',                           // array(name, base64_content) $7
-            'link_url' => 'Url',                        // URL $8
-            'sort_order' => 'Order',                    // int (0) $9
+            'title' => 'Title', // $1
+            'price' => 'Price', // $2
+            'number_of_downloads' => 'NumOfDownloads', // if no set is_unlimited to 1 $3
+            'is_unlimited' => 'Unlimited', // 1|0 $4
+            'is_shareable' => 'Shareable', // 1|0|2 (2) $5
+            'type' => 'UploadType', // file|url (file) $6
+            'file' => 'File', // array(name, base64_content) $7
+            'link_url' => 'Url', // URL $8
+            'sort_order' => 'Order', // int (0) $9
             'sample' => array(
-                'type' => 'UploadType',                 // file|url (file) $6
-                'file' => 'File',                       // array(name, base64_content) $7
+                'type' => 'UploadType', // file|url (file) $6
+                'file' => 'File', // array(name, base64_content) $7
                 'url' => 'Url'                          // URL $8
             )
         ),
         'sample' => array(
-            'title' => 'Title',                         // $1
-            'type' => 'UploadType',                     // file|url (file) $6
-            'file' => 'File',                           // array(name, base64_content) $7
-            'sample_url' => 'Url',                      // URL $8
+            'title' => 'Title', // $1
+            'type' => 'UploadType', // file|url (file) $6
+            'file' => 'File', // array(name, base64_content) $7
+            'sample_url' => 'Url', // URL $8
             'sort_order' => 'Order'                     // int (0) $9
         )
     );
@@ -154,12 +156,10 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateFileDetails(&$var)
     {
-        if (!isset ($var['name']) || !is_string($var['name']) || strlen($var['name']) === 0) {
+        if (!isset($var['name']) || !is_string($var['name']) || strlen($var['name']) === 0) {
             throw new Exception('no_filename');
         }
-        if (!isset ($var['base64_content'])
-            || !is_string($var['base64_content'])
-            || strlen($var['base64_content']) === 0
+        if (!isset($var['base64_content']) || !is_string($var['base64_content']) || strlen($var['base64_content']) === 0
         ) {
             throw new Exception('no_file_base64_content');
         }
@@ -192,7 +192,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
     public function validateTitle(&$var)
     {
         if (!is_string($var) || strlen($var) === 0) {
-           throw new Exception('no_title');
+            throw new Exception('no_title');
         }
     }
 
@@ -203,7 +203,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validatePrice(&$var)
     {
-        $var = is_numeric($var)? floatval($var) : floatval(0);
+        $var = is_numeric($var) ? floatval($var) : floatval(0);
     }
 
     /**
@@ -213,7 +213,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateNumOfDownloads(&$var)
     {
-        $var = is_numeric($var)? intval($var) : 0;
+        $var = is_numeric($var) ? intval($var) : 0;
     }
 
     /**
@@ -223,7 +223,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateUnlimited(&$var)
     {
-        $var = ((is_numeric($var) && $var >= 0 && $var <= 1) || (is_bool($var)))? intval($var) : 0;
+        $var = ((is_numeric($var) && $var >= 0 && $var <= 1) || (is_bool($var))) ? intval($var) : 0;
     }
 
     /**
@@ -233,7 +233,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateShareable(&$var)
     {
-        $var = (is_numeric($var) && $var >= 0 && $var <= 2)? intval($var) : 2;
+        $var = (is_numeric($var) && $var >= 0 && $var <= 2) ? intval($var) : 2;
     }
 
     /**
@@ -243,7 +243,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateFile(&$var)
     {
-        $var = is_array($var)? $var : null;
+        $var = is_array($var) ? $var : null;
     }
 
     /**
@@ -271,7 +271,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateOrder(&$var)
     {
-        $var = is_numeric($var)? intval($var) : 0;
+        $var = is_numeric($var) ? intval($var) : 0;
     }
 
     /**
@@ -281,6 +281,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateUploadType(&$var)
     {
-        $var = in_array($var, $this->_uploadTypes)? $var : 'file';
+        $var = in_array($var, $this->_uploadTypes) ? $var : 'file';
     }
+
 }

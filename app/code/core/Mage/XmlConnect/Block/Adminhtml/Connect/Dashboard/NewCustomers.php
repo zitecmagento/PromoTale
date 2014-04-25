@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_NewCustomers
-    extends Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest
+class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_NewCustomers extends Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest
 {
+
     /**
      * Customers count to display
      */
@@ -59,7 +60,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_NewCustomers
     {
         /** @var $collection Mage_Reports_Model_Resource_Customer_Collection */
         $collection = Mage::getResourceModel('reports/customer_collection')->addCustomerName()
-            ->setPageSize(self::CUSTOMERS_COUNT_LIMIT);
+                ->setPageSize(self::CUSTOMERS_COUNT_LIMIT);
 
         $storeFilter = 0;
         if ($storeId) {
@@ -97,7 +98,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_NewCustomers
                 'store_id' => $storeId ? $storeId : Mage_XmlConnect_Helper_AdminApplication::ALL_STORE_VIEWS
             ));
 
-            if(!count($this->getCollection()->getItems()) > 0) {
+            if (!count($this->getCollection()->getItems()) > 0) {
                 continue;
             }
 
@@ -113,17 +114,14 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_NewCustomers
                     'label' => $this->__('Number of Orders')
                 ));
                 $itemListXml->addCustomChild(
-                    'orders_avg_amount',
-                    $orderHelper->preparePrice($item->getOrdersAvgAmount(), $storeId),
-                    array('label' => $this->__('Average Order Amount'))
+                        'orders_avg_amount', $orderHelper->preparePrice($item->getOrdersAvgAmount(), $storeId), array('label' => $this->__('Average Order Amount'))
                 );
                 $itemListXml->addCustomChild(
-                    'orders_sum_amount',
-                    $orderHelper->preparePrice($item->getOrdersSumAmount(), $storeId),
-                    array('label' => $this->__('Total Order Amount'))
+                        'orders_sum_amount', $orderHelper->preparePrice($item->getOrdersSumAmount(), $storeId), array('label' => $this->__('Total Order Amount'))
                 );
             }
         }
         return $this;
     }
+
 }

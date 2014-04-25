@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,21 +24,20 @@
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Connect_Structures_Node
 {
-    
-    protected $_data = null;    
-    protected $_metadata = array();    
-    protected $_arcs = array();    
+
+    protected $_data = null;
+    protected $_metadata = array();
+    protected $_arcs = array();
     protected $_graph = null;
-    
+
     /**
      * Node graph getter
      *
      * @return Mage_Connect_Structures_Graph
      */
-    public function &getGraph() 
+    public function &getGraph()
     {
         return $this->_graph;
     }
@@ -50,9 +50,9 @@ class Mage_Connect_Structures_Node
      *
      * @param $graph
      */
-    public function setGraph(&$graph) 
+    public function setGraph(&$graph)
     {
-        $this->_graph =& $graph;
+        $this->_graph = & $graph;
     }
 
     /**
@@ -64,7 +64,7 @@ class Mage_Connect_Structures_Node
      * @return   mixed   Data stored in node
      * @access   public
      */
-    public function &getData() 
+    public function &getData()
     {
         return $this->_data;
     }
@@ -76,9 +76,9 @@ class Mage_Connect_Structures_Node
      *   
      * @return   mixed   Data to store in node
      */
-    public function setData($data) 
+    public function setData($data)
     {
-        $this->_data =& $data;
+        $this->_data = & $data;
     }
 
     /**
@@ -89,7 +89,7 @@ class Mage_Connect_Structures_Node
      * @return   boolean
      * @access   public
      */
-    public function metadataKeyExists($key) 
+    public function metadataKeyExists($key)
     {
         return array_key_exists($key, $this->_metadata);
     }
@@ -102,15 +102,15 @@ class Mage_Connect_Structures_Node
      * @param    boolean $nullIfNonexistent (defaults to false).
      * @return   mixed   
      */
-    public function & getMetadata($key, $nullIfNonexistent = false) 
+    public function & getMetadata($key, $nullIfNonexistent = false)
     {
         if (array_key_exists($key, $this->_metadata)) {
             return $this->_metadata[$key];
         } elseif ($nullIfNonexistent) {
-                $a = null;
-                return $a;
+            $a = null;
+            return $a;
         } else {
-            throw new Exception(__METHOD__." : requested key doesn't exist: {$key}");            
+            throw new Exception(__METHOD__ . " : requested key doesn't exist: {$key}");
         }
     }
 
@@ -120,14 +120,13 @@ class Mage_Connect_Structures_Node
      *
      * @param    string  Key
      */
-    public function unsetMetadata($key) 
+    public function unsetMetadata($key)
     {
         if (array_key_exists($key, $this->_metadata)) {
             unset($this->_metadata[$key]);
-        }    
-        
+        }
     }
-        
+
     /**
      *
      * Node metadata setter
@@ -139,14 +138,14 @@ class Mage_Connect_Structures_Node
      * @param    string  $key
      * @param    mixed   $data
      */
-    public function setMetadata($key, $data) 
+    public function setMetadata($key, $data)
     {
-        $this->_metadata[$key] =& $data;
+        $this->_metadata[$key] = & $data;
     }
 
-    protected function _connectTo(&$destinationNode) 
+    protected function _connectTo(&$destinationNode)
     {
-        $this->_arcs[] =& $destinationNode;
+        $this->_arcs[] = & $destinationNode;
     }
 
     /**
@@ -157,17 +156,17 @@ class Mage_Connect_Structures_Node
     public function connectTo(&$destinationNode)
     {
         $class = get_class($this);
-        if(!$destinationNode instanceof $class) {
-            throw new Exception(__METHOD__." : argument should be instance of {$class}");
+        if (!$destinationNode instanceof $class) {
+            throw new Exception(__METHOD__ . " : argument should be instance of {$class}");
         }
-         
+
         // Nodes must already be in graphs to be connected
         if ($this->_graph == null) {
-            throw new Exception(__METHOD__." : tried to connect to null graph");
+            throw new Exception(__METHOD__ . " : tried to connect to null graph");
         }
 
         if ($destinationNode->getGraph() == null) {
-            throw new Exception(__METHOD__." : tried to connect to node that is not connected to any graph");
+            throw new Exception(__METHOD__ . " : tried to connect to node that is not connected to any graph");
         }
 
         // Connect here
@@ -177,7 +176,6 @@ class Mage_Connect_Structures_Node
             $destinationNode->_connectTo($this);
         }
     }
-
 
     /**
      * Return nodes connected to this one.
@@ -196,9 +194,9 @@ class Mage_Connect_Structures_Node
     public function connectsTo(&$target)
     {
         $arcKeys = array_keys($this->_arcs);
-        foreach($arcKeys as $key) {
-            $arc =& $this->_arcs[$key];
-            if ($target === $arc) { 
+        foreach ($arcKeys as $key) {
+            $arc = & $this->_arcs[$key];
+            if ($target === $arc) {
                 return true;
             }
         }
@@ -216,7 +214,7 @@ class Mage_Connect_Structures_Node
      *  
      * @return int
      */
-    public function inDegree() 
+    public function inDegree()
     {
         $result = 0;
 
@@ -227,14 +225,13 @@ class Mage_Connect_Structures_Node
             return $this->outDegree();
         }
 
-        $graphNodes =& $this->_graph->getNodes();
+        $graphNodes = & $this->_graph->getNodes();
         foreach (array_keys($graphNodes) as $key) {
             if ($graphNodes[$key]->connectsTo($this)) {
                 $result++;
             }
         }
         return $result;
-
     }
 
     /**

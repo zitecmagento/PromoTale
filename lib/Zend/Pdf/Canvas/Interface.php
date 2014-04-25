@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Style.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Canvas is an abstract rectangle drawing area which can be dropped into
  * page object at specified place.
@@ -30,6 +30,7 @@
  */
 interface Zend_Pdf_Canvas_Interface
 {
+
     /**
      * Returns dictionaries of used resources.
      *
@@ -278,7 +279,7 @@ interface Zend_Pdf_Canvas_Interface
      * @param mixed $param6
      * @return Zend_Pdf_Canvas_Interface
      */
-    public function  drawCircle($x, $y, $radius, $param4 = null, $param5 = null, $param6 = null);
+    public function drawCircle($x, $y, $radius, $param4 = null, $param5 = null, $param6 = null);
 
     /**
      * Draw an ellipse inside the specified rectangle.
@@ -351,9 +352,8 @@ interface Zend_Pdf_Canvas_Interface
      * @param integer $fillMethod
      * @return Zend_Pdf_Canvas_Interface
      */
-    public function drawPolygon($x, $y,
-                                $fillType = Zend_Pdf_Page::SHAPE_DRAW_FILL_AND_STROKE,
-                                $fillMethod = Zend_Pdf_Page::FILL_METHOD_NON_ZERO_WINDING);
+    public function drawPolygon($x, $y, $fillType = Zend_Pdf_Page::SHAPE_DRAW_FILL_AND_STROKE, $fillMethod = Zend_Pdf_Page::FILL_METHOD_NON_ZERO_WINDING);
+
     /**
      * Draw a rectangle.
      *
@@ -391,8 +391,7 @@ interface Zend_Pdf_Canvas_Interface
      * @param integer $fillType
      * @return Zend_Pdf_Canvas_Interface
      */
-    public function drawRoundedRectangle($x1, $y1, $x2, $y2, $radius,
-                                         $fillType = Zend_Pdf_Page::SHAPE_DRAW_FILL_AND_STROKE);
+    public function drawRoundedRectangle($x1, $y1, $x2, $y2, $radius, $fillType = Zend_Pdf_Page::SHAPE_DRAW_FILL_AND_STROKE);
 
     /**
      * Draw a line of text at the specified position.
@@ -407,7 +406,7 @@ interface Zend_Pdf_Canvas_Interface
      */
     public function drawText($text, $x, $y, $charEncoding = '');
 
-     /**
+    /**
      * Close the path by drawing a straight line back to it's beginning.
      *
      * @internal (needs implementation)

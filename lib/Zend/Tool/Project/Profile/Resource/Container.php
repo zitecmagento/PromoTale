@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Container.php 20851 2010-02-02 21:45:51Z ralph $
  */
-
 /**
  * @see Zend_Tool_Project_Profile_Resource_SearchConstraints
  */
@@ -50,7 +50,7 @@ class Zend_Tool_Project_Profile_Resource_Container implements RecursiveIterator,
      * @var bool
      */
     protected $_appendable = true;
-    
+
     /**
      * @var array
      */
@@ -78,7 +78,6 @@ class Zend_Tool_Project_Profile_Resource_Container implements RecursiveIterator,
         /**
          * @todo This should be re-written with better support for a filter iterator, its the way to go
          */
-
         if ($nonMatchSearchConstraints) {
             $filterIterator = new Zend_Tool_Project_Profile_Iterator_ContextFilter($this, array('denyNames' => $nonMatchSearchConstraints));
             $riIterator = new RecursiveIteratorIterator($filterIterator, RecursiveIteratorIterator::SELF_FIRST);
@@ -86,9 +85,9 @@ class Zend_Tool_Project_Profile_Resource_Container implements RecursiveIterator,
             $riIterator = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::SELF_FIRST);
         }
 
-        $foundResource     = false;
+        $foundResource = false;
         $currentConstraint = $matchSearchConstraints->getConstraint();
-        $foundDepth        = 0;
+        $foundDepth = 0;
 
         foreach ($riIterator as $currentResource) {
 
@@ -107,7 +106,7 @@ class Zend_Tool_Project_Profile_Resource_Container implements RecursiveIterator,
                     if (!is_array($currentConstraint->params)) {
                         #require_once 'Zend/Tool/Project/Profile/Exception.php';
                         throw new Zend_Tool_Project_Profile_Exception('Search parameter specifics must be in the form of an array for key "'
-                            . $currentConstraint->name .'"');
+                        . $currentConstraint->name . '"');
                     }
                     foreach ($currentConstraint->params as $paramName => $paramValue) {
                         if (!isset($currentResourceAttributes[$paramName]) || $currentResourceAttributes[$paramName] != $paramValue) {
@@ -125,9 +124,7 @@ class Zend_Tool_Project_Profile_Resource_Container implements RecursiveIterator,
                         break;
                     }
                 }
-
             }
-
         }
 
         return $foundResource;
@@ -253,7 +250,7 @@ class Zend_Tool_Project_Profile_Resource_Container implements RecursiveIterator,
     {
         return (array_key_exists($name, $this->_attributes)) ? $this->_attributes[$name] : null;
     }
-    
+
     /**
      * hasAttribute()
      * 

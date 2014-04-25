@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Category Attribute Default and Available Sort By Backend Model
  *
@@ -32,9 +32,9 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Validate process
      *
@@ -55,9 +55,10 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
         if ($this->getAttribute()->getIsRequired()) {
             $attributeValue = $object->getData($attributeCode);
             if ($this->getAttribute()->isValueEmpty($attributeValue)) {
-                if (is_array($attributeValue) && count($attributeValue)>0) {
+                if (is_array($attributeValue) && count($attributeValue) > 0) {
+                    
                 } else {
-                    if(!$isUseConfig) {
+                    if (!$isUseConfig) {
                         return false;
                     }
                 }
@@ -76,8 +77,8 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
                 if (!is_array($available)) {
                     $available = explode(',', $available);
                 }
-                $data = (!in_array('default_sort_by', $postDataConfig))? $object->getData($attributeCode):
-                       Mage::getStoreConfig("catalog/frontend/default_sort_by");
+                $data = (!in_array('default_sort_by', $postDataConfig)) ? $object->getData($attributeCode) :
+                        Mage::getStoreConfig("catalog/frontend/default_sort_by");
                 if (!in_array($data, $available)) {
                     Mage::throwException(Mage::helper('eav')->__('Default Product Listing Sort by does not exist in Available Product Listing Sort By.'));
                 }
@@ -97,7 +98,8 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
      * @param Varien_Object $object
      * @return Mage_Catalog_Model_Category_Attribute_Backend_Sortby
      */
-    public function beforeSave($object) {
+    public function beforeSave($object)
+    {
         $attributeCode = $this->getAttribute()->getName();
         if ($attributeCode == 'available_sort_by') {
             $data = $object->getData($attributeCode);
@@ -112,7 +114,8 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
         return $this;
     }
 
-    public function afterLoad($object) {
+    public function afterLoad($object)
+    {
         $attributeCode = $this->getAttribute()->getName();
         if ($attributeCode == 'available_sort_by') {
             $data = $object->getData($attributeCode);
@@ -122,4 +125,5 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
         }
         return $this;
     }
+
 }

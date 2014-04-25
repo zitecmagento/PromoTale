@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert exception
  *
@@ -34,15 +34,14 @@
  */
 class Varien_Convert_Exception extends Varien_Exception
 {
+
     const NOTICE = 'NOTICE';
     const WARNING = 'WARNING';
     const ERROR = 'ERROR';
     const FATAL = 'FATAL';
 
     protected $_container;
-
     protected $_level;
-
     protected $_position;
 
     public function setContainer($container)
@@ -77,4 +76,5 @@ class Varien_Convert_Exception extends Varien_Exception
         $this->_position = $position;
         return $this;
     }
+
 }

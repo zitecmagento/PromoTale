@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Group_Api extends Mage_Api_Model_Resource_Abstract
 {
+
     /**
      * Retrieve groups
      *
@@ -50,4 +52,5 @@ class Mage_Customer_Model_Group_Api extends Mage_Api_Model_Resource_Abstract
 
         return $result;
     }
+
 }

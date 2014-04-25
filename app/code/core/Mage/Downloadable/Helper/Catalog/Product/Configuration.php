@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Downloadable
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_Abstract
-    implements Mage_Catalog_Helper_Product_Configuration_Interface
+class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_Abstract implements Mage_Catalog_Helper_Product_Configuration_Interface
 {
+
     /**
      * Retrieves item links options
      *
@@ -47,7 +48,7 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
         $linkIds = $item->getOptionByCode('downloadable_link_ids');
         if ($linkIds) {
             $productLinks = $product->getTypeInstance(true)
-                ->getLinks($product);
+                    ->getLinks($product);
             foreach (explode(',', $linkIds->getValue()) as $linkId) {
                 if (isset($productLinks[$linkId])) {
                     $itemLinks[] = $productLinks[$linkId];
@@ -96,4 +97,5 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
 
         return $options;
     }
+
 }

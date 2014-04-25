@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Form
-    extends Mage_Adminhtml_Block_Widget_Form
+class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Prepare coupon codes generation parameters form
      *
@@ -59,59 +60,59 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Form
             $gridBlockJsObject = $gridBlock->getJsObjectName();
         }
 
-        $fieldset = $form->addFieldset('information_fieldset', array('legend'=>Mage::helper('salesrule')->__('Coupons Information')));
+        $fieldset = $form->addFieldset('information_fieldset', array('legend' => Mage::helper('salesrule')->__('Coupons Information')));
         $fieldset->addClass('ignore-validate');
 
         $fieldset->addField('rule_id', 'hidden', array(
-            'name'     => 'rule_id',
-            'value'    => $ruleId
+            'name' => 'rule_id',
+            'value' => $ruleId
         ));
 
         $fieldset->addField('qty', 'text', array(
-            'name'     => 'qty',
-            'label'    => Mage::helper('salesrule')->__('Coupon Qty'),
-            'title'    => Mage::helper('salesrule')->__('Coupon Qty'),
+            'name' => 'qty',
+            'label' => Mage::helper('salesrule')->__('Coupon Qty'),
+            'title' => Mage::helper('salesrule')->__('Coupon Qty'),
             'required' => true,
-            'class'    => 'validate-digits validate-greater-than-zero'
+            'class' => 'validate-digits validate-greater-than-zero'
         ));
 
         $fieldset->addField('length', 'text', array(
-            'name'     => 'length',
-            'label'    => Mage::helper('salesrule')->__('Code Length'),
-            'title'    => Mage::helper('salesrule')->__('Code Length'),
+            'name' => 'length',
+            'label' => Mage::helper('salesrule')->__('Code Length'),
+            'title' => Mage::helper('salesrule')->__('Code Length'),
             'required' => true,
-            'note'     => Mage::helper('salesrule')->__('Excluding prefix, suffix and separators.'),
-            'value'    => $couponHelper->getDefaultLength(),
-            'class'    => 'validate-digits validate-greater-than-zero'
+            'note' => Mage::helper('salesrule')->__('Excluding prefix, suffix and separators.'),
+            'value' => $couponHelper->getDefaultLength(),
+            'class' => 'validate-digits validate-greater-than-zero'
         ));
 
         $fieldset->addField('format', 'select', array(
-            'label'    => Mage::helper('salesrule')->__('Code Format'),
-            'name'     => 'format',
-            'options'  => $couponHelper->getFormatsList(),
+            'label' => Mage::helper('salesrule')->__('Code Format'),
+            'name' => 'format',
+            'options' => $couponHelper->getFormatsList(),
             'required' => true,
-            'value'    => $couponHelper->getDefaultFormat()
+            'value' => $couponHelper->getDefaultFormat()
         ));
 
         $fieldset->addField('prefix', 'text', array(
-            'name'  => 'prefix',
+            'name' => 'prefix',
             'label' => Mage::helper('salesrule')->__('Code Prefix'),
             'title' => Mage::helper('salesrule')->__('Code Prefix'),
             'value' => $couponHelper->getDefaultPrefix()
         ));
 
         $fieldset->addField('suffix', 'text', array(
-            'name'  => 'suffix',
+            'name' => 'suffix',
             'label' => Mage::helper('salesrule')->__('Code Suffix'),
             'title' => Mage::helper('salesrule')->__('Code Suffix'),
             'value' => $couponHelper->getDefaultSuffix()
         ));
 
         $fieldset->addField('dash', 'text', array(
-            'name'  => 'dash',
+            'name' => 'dash',
             'label' => Mage::helper('salesrule')->__('Dash Every X Characters'),
             'title' => Mage::helper('salesrule')->__('Dash Every X Characters'),
-            'note'  => Mage::helper('salesrule')->__('If empty no separation.'),
+            'note' => Mage::helper('salesrule')->__('If empty no separation.'),
             'value' => $couponHelper->getDefaultDashInterval(),
             'class' => 'validate-digits'
         ));
@@ -121,9 +122,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Form
 
         $fieldset->addField('generate_button', 'note', array(
             'text' => $this->getButtonHtml(
-                Mage::helper('salesrule')->__('Generate'),
-                "generateCouponCodes('{$idPrefix}' ,'{$generateUrl}', '{$gridBlockJsObject}')",
-                'generate'
+                    Mage::helper('salesrule')->__('Generate'), "generateCouponCodes('{$idPrefix}' ,'{$generateUrl}', '{$gridBlockJsObject}')", 'generate'
             )
         ));
 
@@ -143,4 +142,5 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Form
     {
         return $this->getUrl('*/*/generate');
     }
+
 }

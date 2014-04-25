@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Plain.php 22653 2010-07-22 18:41:39Z mabe $
  */
-
-
 /**
  * @see Zend_Mail_Protocol_Smtp
  */
 #require_once 'Zend/Mail/Protocol/Smtp.php';
-
 
 /**
  * Performs PLAIN authentication
@@ -38,6 +36,7 @@
  */
 class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
 {
+
     /**
      * PLAIN username
      *
@@ -45,14 +44,12 @@ class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
      */
     protected $_username;
 
-
     /**
      * PLAIN password
      *
      * @var string
      */
     protected $_password;
-
 
     /**
      * Constructor.
@@ -76,7 +73,6 @@ class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
         parent::__construct($host, $port, $config);
     }
 
-
     /**
      * Perform PLAIN authentication with supplied credentials
      *
@@ -93,4 +89,5 @@ class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
         $this->_expect(235);
         $this->_auth = true;
     }
+
 }

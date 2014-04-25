@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Acl extends Zend_Acl
 {
+
     /**
      * REST ACL roles collection
      *
@@ -152,8 +154,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
                     /** @var $role Mage_Api2_Model_Acl_Global_Role */
                     $role = $this->_getRolesCollection()->getItemById($rule->getRoleId());
                     $privileges = $this->_getConfig()->getResourceUserPrivileges(
-                        $this->_resourceType,
-                        $role->getConfigNodeName()
+                            $this->_resourceType, $role->getConfigNodeName()
                     );
 
                     if (!array_key_exists($this->_operation, $privileges)) {
@@ -184,4 +185,5 @@ class Mage_Api2_Model_Acl extends Zend_Acl
         }
         return parent::addRole((string) $roleId);
     }
+
 }

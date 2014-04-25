@@ -24,14 +24,12 @@
  */
 var centinelValidator = new Class.create();
 centinelValidator.prototype = {
-
-    initialize : function(method, validationUrl, containerId){
+    initialize: function(method, validationUrl, containerId) {
         this.method = method;
         this.validationUrl = validationUrl;
         this.containerId = containerId;
     },
-
-    validate : function(){
+    validate: function() {
         if (order.paymentMethod != this.method) {
             return false;
         }
@@ -40,10 +38,10 @@ centinelValidator.prototype = {
         params.json = true;
 
         new Ajax.Request(this.validationUrl, {
-            parameters:params,
-            method:'post',
+            parameters: params,
+            method: 'post',
             onSuccess: function(transport) {
-            var response = transport.responseText.evalJSON();
+                var response = transport.responseText.evalJSON();
                 if (response.authenticationUrl) {
                     this.autenticationStart(response.authenticationUrl);
                 }
@@ -53,18 +51,15 @@ centinelValidator.prototype = {
             }.bind(this)
         });
     },
-
-    autenticationStart : function(url) {
+    autenticationStart: function(url) {
         this.getContainer().src = url;
         this.getContainer().style.display = 'block';
     },
-
-    autenticationFinish : function(message) {
+    autenticationFinish: function(message) {
         alert(message);
         this.getContainer().style.display = 'none';
     },
-
-    getContainer : function() {
+    getContainer: function() {
         return $(this.containerId);
     }
 

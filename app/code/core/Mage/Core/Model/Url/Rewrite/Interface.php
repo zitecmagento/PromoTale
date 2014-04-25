@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 interface Mage_Core_Model_Url_Rewrite_Interface
 {
+
     /**
      * Load rewrite information for request
      *

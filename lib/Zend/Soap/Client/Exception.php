@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Exception */
 #require_once 'Zend/Exception.php';
 
@@ -31,5 +31,6 @@
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 class Zend_Soap_Client_Exception extends Zend_Exception
-{}
-
+{
+    
+}

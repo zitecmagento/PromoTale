@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Interface.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Auth HTTP Resolver Interface
  *
@@ -35,6 +35,7 @@
  */
 interface Zend_Auth_Adapter_Http_Resolver_Interface
 {
+
     /**
      * Resolve username/realm to password/hash/etc.
      *

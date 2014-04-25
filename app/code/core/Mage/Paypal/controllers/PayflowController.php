@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * When a customer cancel payment from payflow gateway.
      */
@@ -40,8 +42,8 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
     {
         $gotoSection = $this->_cancelPayment();
         $redirectBlock = $this->_getIframeBlock()
-            ->setGotoSection($gotoSection)
-            ->setTemplate('paypal/payflowlink/redirect.phtml');
+                ->setGotoSection($gotoSection)
+                ->setTemplate('paypal/payflowlink/redirect.phtml');
         $this->getResponse()->setBody($redirectBlock->toHtml());
     }
 
@@ -51,7 +53,7 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
     public function returnUrlAction()
     {
         $redirectBlock = $this->_getIframeBlock()
-            ->setTemplate('paypal/payflowlink/redirect.phtml');
+                ->setTemplate('paypal/payflowlink/redirect.phtml');
 
         $session = $this->_getCheckout();
         if ($session->getLastRealOrderId()) {
@@ -82,7 +84,7 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
     public function formAction()
     {
         $this->getResponse()
-            ->setBody($this->_getIframeBlock()->toHtml());
+                ->setBody($this->_getIframeBlock()->toHtml());
     }
 
     /**
@@ -94,9 +96,12 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
         if (isset($data['INVNUM'])) {
             /** @var $paymentModel Mage_Paypal_Model_Payflowlink */
             $paymentModel = Mage::getModel('paypal/payflowlink');
-            try {
+            try
+            {
                 $paymentModel->process($data);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::logException($e);
             }
         }
@@ -139,6 +144,7 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
     {
         $this->loadLayout('paypal_payflow_link_iframe');
         return $this->getLayout()
-            ->getBlock('payflow.link.iframe');
+                        ->getBlock('payflow.link.iframe');
     }
+
 }

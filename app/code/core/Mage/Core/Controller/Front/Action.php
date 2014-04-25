@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Base front controller
  *
@@ -33,6 +33,7 @@
  */
 class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Action
 {
+
     /**
      * Session namespace to refer in other places
      */
@@ -73,8 +74,8 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     public function postDispatch()
     {
         parent::postDispatch();
-        if (!$this->getFlag('', self::FLAG_NO_START_SESSION )) {
-            Mage::getSingleton('core/session')->setLastUrl(Mage::getUrl('*/*/*', array('_current'=>true)));
+        if (!$this->getFlag('', self::FLAG_NO_START_SESSION)) {
+            Mage::getSingleton('core/session')->setLastUrl(Mage::getUrl('*/*/*', array('_current' => true)));
         }
         return $this;
     }
@@ -102,9 +103,9 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
      * @return Mage_Adminhtml_Controller_Action
      */
-    protected function _prepareDownloadResponse($fileName, $content, $contentType = 'application/octet-stream',
-        $contentLength = null
-    ) {
+    protected function _prepareDownloadResponse($fileName, $content, $contentType = 'application/octet-stream', $contentLength = null
+    )
+    {
         $session = Mage::getSingleton('admin/session');
         if ($session->isFirstPageAfterLogin()) {
             $this->_redirect($session->getUser()->getStartupPageUrl());
@@ -112,26 +113,26 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
         }
 
         $isFile = false;
-        $file   = null;
+        $file = null;
         if (is_array($content)) {
             if (!isset($content['type']) || !isset($content['value'])) {
                 return $this;
             }
             if ($content['type'] == 'filename') {
-                $isFile         = true;
-                $file           = $content['value'];
-                $contentLength  = filesize($file);
+                $isFile = true;
+                $file = $content['value'];
+                $contentLength = filesize($file);
             }
         }
 
         $this->getResponse()
-            ->setHttpResponseCode(200)
-            ->setHeader('Pragma', 'public', true)
-            ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
-            ->setHeader('Content-type', $contentType, true)
-            ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength)
-            ->setHeader('Content-Disposition', 'attachment; filename="'.$fileName.'"')
-            ->setHeader('Last-Modified', date('r'));
+                ->setHttpResponseCode(200)
+                ->setHeader('Pragma', 'public', true)
+                ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
+                ->setHeader('Content-type', $contentType, true)
+                ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength)
+                ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+                ->setHeader('Last-Modified', date('r'));
 
         if (!is_null($content)) {
             if ($isFile) {
@@ -159,4 +160,5 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
         }
         return $this;
     }
+
 }

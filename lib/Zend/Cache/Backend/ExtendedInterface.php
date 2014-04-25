@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ExtendedInterface.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Cache_Backend_Interface
  */
@@ -122,5 +122,4 @@ interface Zend_Cache_Backend_ExtendedInterface extends Zend_Cache_Backend_Interf
      * @return array associative of with capabilities
      */
     public function getCapabilities();
-
 }

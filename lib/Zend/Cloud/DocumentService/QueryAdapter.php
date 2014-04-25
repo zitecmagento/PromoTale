@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LICENSE
  *
@@ -39,6 +40,7 @@
  */
 interface Zend_Cloud_DocumentService_QueryAdapter
 {
+
     /**
      * SELECT clause (fields to be selected)
      * 

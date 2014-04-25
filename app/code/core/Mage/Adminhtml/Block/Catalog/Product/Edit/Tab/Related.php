@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Set grid params
      *
@@ -78,7 +80,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', array('in' => $productIds));
             } else {
-                if($productIds) {
+                if ($productIds) {
                     $this->getCollection()->addFieldToFilter('entity_id', array('nin' => $productIds));
                 }
             }
@@ -96,9 +98,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('catalog/product_link')->useRelatedLinks()
-            ->getProductCollection()
-            ->setProduct($this->_getProduct())
-            ->addAttributeToSelect('*');
+                ->getProductCollection()
+                ->setProduct($this->_getProduct())
+                ->addAttributeToSelect('*');
 
         if ($this->isReadonly()) {
             $productIds = $this->_getSelectedProducts();
@@ -131,86 +133,86 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
     {
         if (!$this->isReadonly()) {
             $this->addColumn('in_products', array(
-                'header_css_class'  => 'a-center',
-                'type'              => 'checkbox',
-                'name'              => 'in_products',
-                'values'            => $this->_getSelectedProducts(),
-                'align'             => 'center',
-                'index'             => 'entity_id'
+                'header_css_class' => 'a-center',
+                'type' => 'checkbox',
+                'name' => 'in_products',
+                'values' => $this->_getSelectedProducts(),
+                'align' => 'center',
+                'index' => 'entity_id'
             ));
         }
 
         $this->addColumn('entity_id', array(
-            'header'    => Mage::helper('catalog')->__('ID'),
-            'sortable'  => true,
-            'width'     => 60,
-            'index'     => 'entity_id'
+            'header' => Mage::helper('catalog')->__('ID'),
+            'sortable' => true,
+            'width' => 60,
+            'index' => 'entity_id'
         ));
 
         $this->addColumn('name', array(
-            'header'    => Mage::helper('catalog')->__('Name'),
-            'index'     => 'name'
+            'header' => Mage::helper('catalog')->__('Name'),
+            'index' => 'name'
         ));
 
         $this->addColumn('type', array(
-            'header'    => Mage::helper('catalog')->__('Type'),
-            'width'     => 100,
-            'index'     => 'type_id',
-            'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+            'header' => Mage::helper('catalog')->__('Type'),
+            'width' => 100,
+            'index' => 'type_id',
+            'type' => 'options',
+            'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
         ));
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
-            ->setEntityTypeFilter(Mage::getModel('catalog/product')->getResource()->getTypeId())
-            ->load()
-            ->toOptionHash();
+                ->setEntityTypeFilter(Mage::getModel('catalog/product')->getResource()->getTypeId())
+                ->load()
+                ->toOptionHash();
 
         $this->addColumn('set_name', array(
-            'header'    => Mage::helper('catalog')->__('Attrib. Set Name'),
-            'width'     => 130,
-            'index'     => 'attribute_set_id',
-            'type'      => 'options',
-            'options'   => $sets,
+            'header' => Mage::helper('catalog')->__('Attrib. Set Name'),
+            'width' => 130,
+            'index' => 'attribute_set_id',
+            'type' => 'options',
+            'options' => $sets,
         ));
 
         $this->addColumn('status', array(
-            'header'    => Mage::helper('catalog')->__('Status'),
-            'width'     => 90,
-            'index'     => 'status',
-            'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+            'header' => Mage::helper('catalog')->__('Status'),
+            'width' => 90,
+            'index' => 'status',
+            'type' => 'options',
+            'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
         ));
 
         $this->addColumn('visibility', array(
-            'header'    => Mage::helper('catalog')->__('Visibility'),
-            'width'     => 90,
-            'index'     => 'visibility',
-            'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_visibility')->getOptionArray(),
+            'header' => Mage::helper('catalog')->__('Visibility'),
+            'width' => 90,
+            'index' => 'visibility',
+            'type' => 'options',
+            'options' => Mage::getSingleton('catalog/product_visibility')->getOptionArray(),
         ));
 
         $this->addColumn('sku', array(
-            'header'    => Mage::helper('catalog')->__('SKU'),
-            'width'     => 80,
-            'index'     => 'sku'
+            'header' => Mage::helper('catalog')->__('SKU'),
+            'width' => 80,
+            'index' => 'sku'
         ));
 
         $this->addColumn('price', array(
-            'header'        => Mage::helper('catalog')->__('Price'),
-            'type'          => 'currency',
+            'header' => Mage::helper('catalog')->__('Price'),
+            'type' => 'currency',
             'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
-            'index'         => 'price'
+            'index' => 'price'
         ));
 
         $this->addColumn('position', array(
-            'header'            => Mage::helper('catalog')->__('Position'),
-            'name'              => 'position',
-            'type'              => 'number',
-            'validate_class'    => 'validate-number',
-            'index'             => 'position',
-            'width'             => 60,
-            'editable'          => !$this->_getProduct()->getRelatedReadonly(),
-            'edit_only'         => !$this->_getProduct()->getId()
+            'header' => Mage::helper('catalog')->__('Position'),
+            'name' => 'position',
+            'type' => 'number',
+            'validate_class' => 'validate-number',
+            'index' => 'position',
+            'width' => 60,
+            'editable' => !$this->_getProduct()->getRelatedReadonly(),
+            'edit_only' => !$this->_getProduct()->getId()
         ));
 
         return parent::_prepareColumns();
@@ -223,9 +225,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
      */
     public function getGridUrl()
     {
-        return $this->getData('grid_url')
-            ? $this->getData('grid_url')
-            : $this->getUrl('*/*/relatedGrid', array('_current' => true));
+        return $this->getData('grid_url') ? $this->getData('grid_url') : $this->getUrl('*/*/relatedGrid', array('_current' => true));
     }
 
     /**
@@ -255,4 +255,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
         }
         return $products;
     }
+
 }

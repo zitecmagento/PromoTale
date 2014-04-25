@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,10 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Unknown.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Pdf_Destination_Explicit */
 #require_once 'Zend/Pdf/Destination/Explicit.php';
-
 
 /**
  * Unrecognized explicit destination representation class
@@ -34,4 +33,5 @@
  */
 class Zend_Pdf_Destination_Unknown extends Zend_Pdf_Destination_Explicit
 {
+    
 }

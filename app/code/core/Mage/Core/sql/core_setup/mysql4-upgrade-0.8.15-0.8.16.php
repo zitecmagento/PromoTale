@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,11 +24,10 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 $installer->startSetup();
 $installer->getConnection()->addColumn(
-    $installer->getTable('core_email_template'), 'template_styles', "text AFTER `template_text`"
+        $installer->getTable('core_email_template'), 'template_styles', "text AFTER `template_text`"
 );
 $installer->endSetup();

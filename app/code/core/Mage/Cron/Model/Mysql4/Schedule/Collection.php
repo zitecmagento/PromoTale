@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Schedules Collection
  *
@@ -34,4 +34,5 @@
  */
 class Mage_Cron_Model_Mysql4_Schedule_Collection extends Mage_Cron_Model_Resource_Schedule_Collection
 {
+    
 }

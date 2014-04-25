@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,20 +24,21 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Adminhtml_Model_System_Config_Source_Payment_Cctype
 {
+
     public function toOptionArray()
     {
-        $options =  array();
+        $options = array();
 
         foreach (Mage::getSingleton('payment/config')->getCcTypes() as $code => $name) {
             $options[] = array(
-               'value' => $code,
-               'label' => $name
+                'value' => $code,
+                'label' => $name
             );
         }
 
         return $options;
     }
+
 }

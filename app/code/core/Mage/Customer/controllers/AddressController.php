@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer address controller
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Retrieve customer session object
      *
@@ -106,7 +107,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         if ($this->getRequest()->isPost()) {
             $customer = $this->_getSession()->getCustomer();
             /* @var $address Mage_Customer_Model_Address */
-            $address  = Mage::getModel('customer/address');
+            $address = Mage::getModel('customer/address');
             $addressId = $this->getRequest()->getParam('id');
             if ($addressId) {
                 $existsAddress = $customer->getAddressById($addressId);
@@ -120,18 +121,19 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
             /* @var $addressForm Mage_Customer_Model_Form */
             $addressForm = Mage::getModel('customer/form');
             $addressForm->setFormCode('customer_address_edit')
-                ->setEntity($address);
-            $addressData    = $addressForm->extractData($this->getRequest());
-            $addressErrors  = $addressForm->validateData($addressData);
+                    ->setEntity($address);
+            $addressData = $addressForm->extractData($this->getRequest());
+            $addressErrors = $addressForm->validateData($addressData);
             if ($addressErrors !== true) {
                 $errors = $addressErrors;
             }
 
-            try {
+            try
+            {
                 $addressForm->compactData($addressData);
                 $address->setCustomerId($customer->getId())
-                    ->setIsDefaultBilling($this->getRequest()->getParam('default_billing', false))
-                    ->setIsDefaultShipping($this->getRequest()->getParam('default_shipping', false));
+                        ->setIsDefaultBilling($this->getRequest()->getParam('default_billing', false))
+                        ->setIsDefaultShipping($this->getRequest()->getParam('default_shipping', false));
 
                 $addressErrors = $address->validate();
                 if ($addressErrors !== true) {
@@ -141,7 +143,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                 if (count($errors) === 0) {
                     $address->save();
                     $this->_getSession()->addSuccess($this->__('The address has been saved.'));
-                    $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure'=>true)));
+                    $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure' => true)));
                     return;
                 } else {
                     $this->_getSession()->setAddressFormData($this->getRequest()->getPost());
@@ -149,12 +151,16 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                         $this->_getSession()->addError($errorMessage);
                     }
                 }
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_getSession()->setAddressFormData($this->getRequest()->getPost())
-                    ->addException($e, $e->getMessage());
-            } catch (Exception $e) {
+                        ->addException($e, $e->getMessage());
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->setAddressFormData($this->getRequest()->getPost())
-                    ->addException($e, $this->__('Cannot save address.'));
+                        ->addException($e, $this->__('Cannot save address.'));
             }
         }
 
@@ -175,13 +181,17 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
-            try {
+            try
+            {
                 $address->delete();
                 $this->_getSession()->addSuccess($this->__('The address has been deleted.'));
-            } catch (Exception $e){
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->addException($e, $this->__('An error occurred while deleting the address.'));
             }
         }
         $this->getResponse()->setRedirect(Mage::getUrl('*/*/index'));
     }
+
 }

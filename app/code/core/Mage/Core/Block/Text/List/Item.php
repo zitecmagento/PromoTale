@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * List item block
  *
@@ -32,6 +32,7 @@
  */
 class Mage_Core_Block_Text_List_Item extends Mage_Core_Block_Text
 {
+
     function setLink($liParams, $innerText)
     {
         $this->setLiParams($liParams);
@@ -45,13 +46,13 @@ class Mage_Core_Block_Text_List_Item extends Mage_Core_Block_Text
         $this->setText('<li');
         $params = $this->getLiParams();
         if (!empty($params) && is_array($params)) {
-            foreach ($params as $key=>$value) {
-                $this->addText(' '.$key.'="'.addslashes($value).'"');
+            foreach ($params as $key => $value) {
+                $this->addText(' ' . $key . '="' . addslashes($value) . '"');
             }
         } elseif (is_string($params)) {
-            $this->addText(' '.$params);
+            $this->addText(' ' . $params);
         }
-        $this->addText('>'.$this->getInnerText().'</li>'."\r\n");
+        $this->addText('>' . $this->getInnerText() . '</li>' . "\r\n");
 
         return parent::_toHtml();
     }

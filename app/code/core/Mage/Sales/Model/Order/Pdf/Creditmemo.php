@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales Order Creditmemo PDF model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_Abstract
 {
+
     /**
      * Draw table header for product items
      *
@@ -57,47 +58,47 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
         );
 
         $lines[0][] = array(
-            'text'  => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('SKU'), 12, true, true),
-            'feed'  => 255,
+            'text' => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('SKU'), 12, true, true),
+            'feed' => 255,
             'align' => 'right'
         );
 
         $lines[0][] = array(
-            'text'  => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('Total (ex)'), 12, true, true),
-            'feed'  => 330,
+            'text' => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('Total (ex)'), 12, true, true),
+            'feed' => 330,
             'align' => 'right',
-            //'width' => 50,
+                //'width' => 50,
         );
 
         $lines[0][] = array(
-            'text'  => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('Discount'), 12, true, true),
-            'feed'  => 380,
+            'text' => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('Discount'), 12, true, true),
+            'feed' => 380,
             'align' => 'right',
-            //'width' => 50,
+                //'width' => 50,
         );
 
         $lines[0][] = array(
-            'text'  => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('Qty'), 12, true, true),
-            'feed'  => 445,
+            'text' => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('Qty'), 12, true, true),
+            'feed' => 445,
             'align' => 'right',
-            //'width' => 30,
+                //'width' => 30,
         );
 
         $lines[0][] = array(
-            'text'  => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('Tax'), 12, true, true),
-            'feed'  => 495,
+            'text' => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('Tax'), 12, true, true),
+            'feed' => 495,
             'align' => 'right',
-            //'width' => 45,
+                //'width' => 45,
         );
 
         $lines[0][] = array(
-            'text'  => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('Total (inc)'), 12, true, true),
-            'feed'  => 565,
+            'text' => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('Total (inc)'), 12, true, true),
+            'feed' => 565,
             'align' => 'right'
         );
 
         $lineBlock = array(
-            'lines'  => $lines,
+            'lines' => $lines,
             'height' => 10
         );
 
@@ -127,7 +128,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
                 Mage::app()->getLocale()->emulate($creditmemo->getStoreId());
                 Mage::app()->setCurrentStore($creditmemo->getStoreId());
             }
-            $page  = $this->newPage();
+            $page = $this->newPage();
             $order = $creditmemo->getOrder();
             /* Add image */
             $this->insertLogo($page, $creditmemo->getStore());
@@ -135,19 +136,16 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
             $this->insertAddress($page, $creditmemo->getStore());
             /* Add head */
             $this->insertOrder(
-                $page,
-                $order,
-                Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_CREDITMEMO_PUT_ORDER_ID, $order->getStoreId())
+                    $page, $order, Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_CREDITMEMO_PUT_ORDER_ID, $order->getStoreId())
             );
             /* Add document text and number */
             $this->insertDocumentNumber(
-                $page,
-                Mage::helper('sales')->__('Credit Memo # ') . $creditmemo->getIncrementId()
+                    $page, Mage::helper('sales')->__('Credit Memo # ') . $creditmemo->getIncrementId()
             );
             /* Add table head */
             $this->_drawHeader($page);
             /* Add body */
-            foreach ($creditmemo->getAllItems() as $item){
+            foreach ($creditmemo->getAllItems() as $item) {
                 if ($item->getOrderItem()->getParentItem()) {
                     continue;
                 }
@@ -179,4 +177,5 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
         }
         return $page;
     }
+
 }

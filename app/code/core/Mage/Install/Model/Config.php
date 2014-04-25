@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Install config
  *
@@ -35,14 +35,14 @@
 class Mage_Install_Model_Config extends Varien_Simplexml_Config
 {
 
-    const XML_PATH_WIZARD_STEPS     = 'wizard/steps';
-    const XML_PATH_CHECK_WRITEABLE  = 'check/filesystem/writeable';
+    const XML_PATH_WIZARD_STEPS = 'wizard/steps';
+    const XML_PATH_CHECK_WRITEABLE = 'check/filesystem/writeable';
     const XML_PATH_CHECK_EXTENSIONS = 'check/php/extensions';
 
     protected $_optionsMapping = array(self::XML_PATH_CHECK_WRITEABLE => array(
-        'app_etc' => 'etc_dir',
-        'var'     => 'var_dir',
-        'media'   => 'media_dir',
+            'app_etc' => 'etc_dir',
+            'var' => 'var_dir',
+            'media' => 'media_dir',
     ));
 
     public function __construct()
@@ -62,8 +62,8 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
     public function getWizardSteps()
     {
         $steps = array();
-        foreach ((array)$this->getNode(self::XML_PATH_WIZARD_STEPS) as $stepName => $step) {
-            $stepObject = new Varien_Object((array)$step);
+        foreach ((array) $this->getNode(self::XML_PATH_WIZARD_STEPS) as $stepName => $step) {
+            $stepObject = new Varien_Object((array) $step);
             $stepObject->setName($stepName);
             $steps[] = $stepObject;
         }
@@ -109,7 +109,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
         $paths = array();
         $items = (array) $this->getNode(self::XML_PATH_CHECK_WRITEABLE);
         foreach ($items as $nodeKey => $item) {
-            $value = (array)$item;
+            $value = (array) $item;
             if (isset($this->_optionsMapping[self::XML_PATH_CHECK_WRITEABLE][$nodeKey])) {
                 $configKey = $this->_optionsMapping[self::XML_PATH_CHECK_WRITEABLE][$nodeKey];
                 $value['path'] = Mage::app()->getConfig()->getOptions()->getData($configKey);
@@ -138,8 +138,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
                 foreach ($value as $subname => $subvalue) {
                     $res[$name][] = $subname;
                 }
-            }
-            else {
+            } else {
                 $res[$name] = (array) $value;
             }
         }

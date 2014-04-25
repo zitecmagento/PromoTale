@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table
      *
@@ -74,7 +76,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
 
         $data = array(
             'logdate' => now(),
-            'lognum'  => $user->getLognum() + 1
+            'lognum' => $user->getLognum() + 1
         );
 
         $condition = array(
@@ -97,8 +99,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         $adapter = $this->_getReadAdapter();
 
         $select = $adapter->select()
-                    ->from($this->getMainTable())
-                    ->where('username=:username');
+                ->from($this->getMainTable())
+                ->where('username=:username');
 
         $binds = array(
             'username' => $username
@@ -123,13 +125,13 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             return null;
         }
 
-        if ( $userId > 0 ) {
+        if ($userId > 0) {
             $adapter = $this->_getReadAdapter();
 
             $select = $adapter->select();
             $select->from($this->getTable('admin/role'))
-                ->where('parent_id > :parent_id')
-                ->where('user_id = :user_id');
+                    ->where('parent_id > :parent_id')
+                    ->where('user_id = :user_id');
 
             $binds = array(
                 'parent_id' => 0,
@@ -208,17 +210,22 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
 
         $uid = $user->getId();
         $adapter->beginTransaction();
-        try {
+        try
+        {
             $conditions = array(
                 'user_id = ?' => $uid
             );
 
             $adapter->delete($this->getMainTable(), $conditions);
             $adapter->delete($this->getTable('admin/role'), $conditions);
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             throw $e;
             return false;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $adapter->rollBack();
             return false;
         }
@@ -245,7 +252,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
 
         $adapter->beginTransaction();
 
-        try {
+        try
+        {
             $conditions = array(
                 'user_id = ?' => (int) $user->getId(),
             );
@@ -260,21 +268,25 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
                 }
 
                 $data = new Varien_Object(array(
-                    'parent_id'     => $rid,
-                    'tree_level'    => $row['tree_level'] + 1,
-                    'sort_order'    => 0,
-                    'role_type'     => 'U',
-                    'user_id'       => $user->getId(),
-                    'role_name'     => $user->getFirstname()
+                    'parent_id' => $rid,
+                    'tree_level' => $row['tree_level'] + 1,
+                    'sort_order' => 0,
+                    'role_type' => 'U',
+                    'user_id' => $user->getId(),
+                    'role_name' => $user->getFirstname()
                 ));
 
                 $insertData = $this->_prepareDataForTable($data, $this->getTable('admin/role'));
                 $adapter->insert($this->getTable('admin/role'), $insertData);
             }
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             throw $e;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $adapter->rollBack();
             throw $e;
         }
@@ -290,20 +302,18 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      */
     public function getRoles(Mage_Core_Model_Abstract $user)
     {
-        if ( !$user->getId() ) {
+        if (!$user->getId()) {
             return array();
         }
 
-        $table  = $this->getTable('admin/role');
-        $adapter   = $this->_getReadAdapter();
+        $table = $this->getTable('admin/role');
+        $adapter = $this->_getReadAdapter();
 
         $select = $adapter->select()
-                    ->from($table, array())
-                    ->joinLeft(
-                        array('ar' => $table),
-                        "(ar.role_id = {$table}.parent_id and ar.role_type = 'G')",
-                        array('role_id'))
-                    ->where("{$table}.user_id = :user_id");
+                ->from($table, array())
+                ->joinLeft(
+                        array('ar' => $table), "(ar.role_id = {$table}.parent_id and ar.role_type = 'G')", array('role_id'))
+                ->where("{$table}.user_id = :user_id");
 
         $binds = array(
             'user_id' => (int) $user->getId(),
@@ -329,7 +339,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         $dbh = $this->_getWriteAdapter();
 
         $aRoles = $this->hasAssigned2Role($user);
-        if ( sizeof($aRoles) > 0 ) {
+        if (sizeof($aRoles) > 0) {
             foreach ($aRoles as $idx => $data) {
                 $conditions = array(
                     'role_id = ?' => $data['role_id'],
@@ -347,12 +357,12 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         }
 
         $data = new Varien_Object(array(
-            'parent_id'  => $user->getRoleId(),
+            'parent_id' => $user->getRoleId(),
             'tree_level' => ($role->getTreeLevel() + 1),
             'sort_order' => 0,
-            'role_type'  => 'U',
-            'user_id'    => $user->getUserId(),
-            'role_name'  => $user->getFirstname()
+            'role_type' => 'U',
+            'user_id' => $user->getUserId(),
+            'role_name' => $user->getFirstname()
         ));
 
         $insertData = $this->_prepareDataForTable($data, $this->getTable('admin/role'));
@@ -370,17 +380,17 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      */
     public function deleteFromRole(Mage_Core_Model_Abstract $user)
     {
-        if ( $user->getUserId() <= 0 ) {
+        if ($user->getUserId() <= 0) {
             return $this;
         }
-        if ( $user->getRoleId() <= 0 ) {
+        if ($user->getRoleId() <= 0) {
             return $this;
         }
 
         $dbh = $this->_getWriteAdapter();
 
         $condition = array(
-            'user_id = ?'   => (int) $user->getId(),
+            'user_id = ?' => (int) $user->getId(),
             'parent_id = ?' => (int) $user->getRoleId(),
         );
 
@@ -396,19 +406,19 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      */
     public function roleUserExists(Mage_Core_Model_Abstract $user)
     {
-        if ( $user->getUserId() > 0 ) {
+        if ($user->getUserId() > 0) {
             $roleTable = $this->getTable('admin/role');
 
             $dbh = $this->_getReadAdapter();
 
             $binds = array(
                 'parent_id' => $user->getRoleId(),
-                'user_id'   => $user->getUserId(),
+                'user_id' => $user->getUserId(),
             );
 
             $select = $dbh->select()->from($roleTable)
-                ->where('parent_id = :parent_id')
-                ->where('user_id = :user_id');
+                    ->where('parent_id = :parent_id')
+                    ->where('user_id = :user_id');
 
             return $dbh->fetchCol($select, $binds);
         } else {
@@ -429,13 +439,13 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
 
         $binds = array(
             'username' => $user->getUsername(),
-            'email'    => $user->getEmail(),
-            'user_id'  => (int) $user->getId(),
+            'email' => $user->getEmail(),
+            'user_id' => (int) $user->getId(),
         );
 
         $select->from($this->getMainTable())
-            ->where('(username = :username OR email = :email)')
-            ->where('user_id <> :user_id');
+                ->where('(username = :username OR email = :email)')
+                ->where('user_id <> :user_id');
 
         return $adapter->fetchRow($select, $binds);
     }
@@ -451,12 +461,11 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     {
         if ($object->getId()) {
             $this->_getWriteAdapter()->update(
-                $this->getMainTable(),
-                array('extra' => $data),
-                array('user_id = ?' => (int) $object->getId())
+                    $this->getMainTable(), array('extra' => $data), array('user_id = ?' => (int) $object->getId())
             );
         }
 
         return $this;
     }
+
 }

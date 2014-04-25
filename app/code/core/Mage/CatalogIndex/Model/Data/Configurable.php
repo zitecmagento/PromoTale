@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,16 +32,17 @@
  */
 class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_Data_Abstract
 {
+
     /**
      * Defines when product type has children
      *
      * @var boolean
      */
     protected $_haveChildren = array(
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS=>false,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES=>false,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES=>true,
-                        );
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => false,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES => false,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES => true,
+    );
 
     /**
      * Defines when product type has parents
@@ -54,7 +56,7 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
         $this->_init('catalogindex/data_configurable');
     }
 
-   /**
+    /**
      * Retreive product type code
      *
      * @return string
@@ -72,9 +74,10 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     protected function _getLinkSettings()
     {
         return array(
-                    'table'=>'catalog/product_super_link',
-                    'parent_field'=>'parent_id',
-                    'child_field'=>'product_id',
-                    );
+            'table' => 'catalog/product_super_link',
+            'parent_field' => 'parent_id',
+            'child_field' => 'product_id',
+        );
     }
+
 }

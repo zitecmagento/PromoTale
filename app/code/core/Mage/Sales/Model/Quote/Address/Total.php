@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Sales_Model_Quote_Address_Total extends Varien_Object
 {
+
     /**
      * Merge numeric total values
      *
@@ -38,9 +38,10 @@ class Mage_Sales_Model_Quote_Address_Total extends Varien_Object
         $newData = $total->getData();
         foreach ($newData as $key => $value) {
             if (is_numeric($value)) {
-                $this->setData($key, $this->_getData($key)+$value);
+                $this->setData($key, $this->_getData($key) + $value);
             }
         }
         return $this;
     }
+
 }

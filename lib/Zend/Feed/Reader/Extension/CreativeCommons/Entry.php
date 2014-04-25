@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Entry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Feed_Reader_Extension_EntryAbstract
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Feed_Reader_Extension_CreativeCommons_Entry extends Zend_Feed_Reader_Extension_EntryAbstract
 {
+
     /**
      * Get the entry license
      *
@@ -70,13 +71,13 @@ class Zend_Feed_Reader_Extension_CreativeCommons_Entry extends Zend_Feed_Reader_
 
         if ($list->length) {
             foreach ($list as $license) {
-                    $licenses[] = $license->nodeValue;
+                $licenses[] = $license->nodeValue;
             }
 
             $licenses = array_unique($licenses);
         } else {
             $cc = new Zend_Feed_Reader_Extension_CreativeCommons_Feed(
-                $this->_domDocument, $this->_data['type'], $this->_xpath
+                    $this->_domDocument, $this->_data['type'], $this->_xpath
             );
             $licenses = $cc->getLicenses();
         }
@@ -94,4 +95,5 @@ class Zend_Feed_Reader_Extension_CreativeCommons_Entry extends Zend_Feed_Reader_
     {
         $this->_xpath->registerNamespace('cc', 'http://backend.userland.com/creativeCommonsRssModule');
     }
+
 }

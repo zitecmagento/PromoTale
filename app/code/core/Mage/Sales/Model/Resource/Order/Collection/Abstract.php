@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order collection
  *
@@ -34,19 +34,20 @@
  */
 abstract class Mage_Sales_Model_Resource_Order_Collection_Abstract extends Mage_Sales_Model_Resource_Collection_Abstract
 {
+
     /**
      * Order object
      *
      * @var Mage_Sales_Model_Order
      */
-    protected $_salesOrder   = null;
+    protected $_salesOrder = null;
 
     /**
      * Order field for setOrderFilter
      *
      * @var string
      */
-    protected $_orderField   = 'parent_id';
+    protected $_orderField = 'parent_id';
 
     /**
      * Set sales order model as parent collection object
@@ -100,4 +101,5 @@ abstract class Mage_Sales_Model_Resource_Order_Collection_Abstract extends Mage_
         }
         return $this;
     }
+
 }

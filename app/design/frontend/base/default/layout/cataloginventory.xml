@@ -28,18 +28,18 @@
 -->
 <layout version="0.1.0">
 
-<!--
-Product view
--->
+    <!--
+    Product view
+    -->
     <catalog_product_view>
         <reference name="product.info.extrahint">
             <block type="cataloginventory/qtyincrements" name="product.info.extrahint.qtyincrements" template="cataloginventory/qtyincrements.phtml"/>
         </reference>
     </catalog_product_view>
 
-<!--
-Additional block dependent on product type
--->
+    <!--
+    Additional block dependent on product type
+    -->
     <PRODUCT_TYPE_simple>
         <reference name="product.info.simple.extra">
             <block type="cataloginventory/stockqty_default" template="cataloginventory/stockqty/default.phtml"/>

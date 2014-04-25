@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Most viewed product report aggregate resource model
  *
@@ -34,9 +34,10 @@
  */
 class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model_Resource_Report_Abstract
 {
-    const AGGREGATION_DAILY   = 'reports/viewed_aggregated_daily';
+
+    const AGGREGATION_DAILY = 'reports/viewed_aggregated_daily';
     const AGGREGATION_MONTHLY = 'reports/viewed_aggregated_monthly';
-    const AGGREGATION_YEARLY  = 'reports/viewed_aggregated_yearly';
+    const AGGREGATION_YEARLY = 'reports/viewed_aggregated_yearly';
 
     /**
      * Model initialization
@@ -56,7 +57,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
      */
     public function aggregate($from = null, $to = null)
     {
-        $mainTable   = $this->getMainTable();
+        $mainTable = $this->getMainTable();
         $adapter = $this->_getWriteAdapter();
 
         // convert input dates to UTC to be comparable with DATETIME fields in DB
@@ -67,8 +68,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
 
         if ($from !== null || $to !== null) {
             $subSelect = $this->_getTableDateRangeSelect(
-                $this->getTable('reports/event'),
-                'logged_at', 'logged_at', $from, $to
+                    $this->getTable('reports/event'), 'logged_at', 'logged_at', $from, $to
             );
         } else {
             $subSelect = null;
@@ -76,10 +76,9 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
         $this->_clearTableByDateRange($mainTable, $from, $to, $subSelect);
         // convert dates from UTC to current admin timezone
         $periodExpr = $adapter->getDatePartSql(
-            $this->getStoreTZOffsetQuery(
-                array('source_table' => $this->getTable('reports/event')),
-                'source_table.logged_at', $from, $to
-            )
+                $this->getStoreTZOffsetQuery(
+                        array('source_table' => $this->getTable('reports/event')), 'source_table.logged_at', $from, $to
+                )
         );
 
         $helper = Mage::getResourceHelper('core');
@@ -94,53 +93,46 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
         $viewsNumExpr = new Zend_Db_Expr('COUNT(source_table.event_id)');
 
         $columns = array(
-            'period'                 => $periodExpr,
-            'store_id'               => 'source_table.store_id',
-            'product_id'             => 'source_table.object_id',
-            'product_name'           => new Zend_Db_Expr(
-                sprintf('MIN(%s)',
-                    $adapter->getIfNullSql('product_name.value','product_default_name.value')
-                )
-            ),
-            'product_price'          => new Zend_Db_Expr(
-                sprintf('%s',
-                    $helper->prepareColumn(
-                        sprintf('MIN(%s)',
-                            $adapter->getIfNullSql(
-                                $adapter->getIfNullSql('product_price.value','product_default_price.value'), 0)
-                        ),
-                        $select->getPart(Zend_Db_Select::GROUP)
+            'period' => $periodExpr,
+            'store_id' => 'source_table.store_id',
+            'product_id' => 'source_table.object_id',
+            'product_name' => new Zend_Db_Expr(
+                    sprintf('MIN(%s)', $adapter->getIfNullSql('product_name.value', 'product_default_name.value')
                     )
-                )
             ),
-            'views_num'            => $viewsNumExpr
+            'product_price' => new Zend_Db_Expr(
+                    sprintf('%s', $helper->prepareColumn(
+                                    sprintf('MIN(%s)', $adapter->getIfNullSql(
+                                                    $adapter->getIfNullSql('product_price.value', 'product_default_price.value'), 0)
+                                    ), $select->getPart(Zend_Db_Select::GROUP)
+                            )
+                    )
+            ),
+            'views_num' => $viewsNumExpr
         );
 
         $select
-            ->from(
-                array(
-                    'source_table' => $this->getTable('reports/event')),
-                $columns)
-            ->where('source_table.event_type_id = ?', Mage_Reports_Model_Event::EVENT_PRODUCT_VIEW);
+                ->from(
+                        array(
+                    'source_table' => $this->getTable('reports/event')), $columns)
+                ->where('source_table.event_type_id = ?', Mage_Reports_Model_Event::EVENT_PRODUCT_VIEW);
 
         /** @var Mage_Catalog_Model_Resource_Product $product */
-        $product  = Mage::getResourceSingleton('catalog/product');
+        $product = Mage::getResourceSingleton('catalog/product');
 
         $select->joinInner(
-            array(
-                'product' => $this->getTable('catalog/product')),
-            'product.entity_id = source_table.object_id',
-            array()
+                array(
+            'product' => $this->getTable('catalog/product')), 'product.entity_id = source_table.object_id', array()
         );
 
         // join product attributes Name & Price
         $nameAttribute = $product->getAttribute('name');
-        $joinExprProductName       = array(
+        $joinExprProductName = array(
             'product_name.entity_id = product.entity_id',
             'product_name.store_id = source_table.store_id',
             $adapter->quoteInto('product_name.attribute_id = ?', $nameAttribute->getAttributeId())
         );
-        $joinExprProductName        = implode(' AND ', $joinExprProductName);
+        $joinExprProductName = implode(' AND ', $joinExprProductName);
         $joinExprProductDefaultName = array(
             'product_default_name.entity_id = product.entity_id',
             'product_default_name.store_id = 0',
@@ -148,24 +140,20 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
         );
         $joinExprProductDefaultName = implode(' AND ', $joinExprProductDefaultName);
         $select->joinLeft(
-            array(
-                'product_name' => $nameAttribute->getBackend()->getTable()),
-            $joinExprProductName,
-            array()
-        )
-        ->joinLeft(
-            array(
-                'product_default_name' => $nameAttribute->getBackend()->getTable()),
-            $joinExprProductDefaultName,
-            array()
+                        array(
+                    'product_name' => $nameAttribute->getBackend()->getTable()), $joinExprProductName, array()
+                )
+                ->joinLeft(
+                        array(
+                    'product_default_name' => $nameAttribute->getBackend()->getTable()), $joinExprProductDefaultName, array()
         );
-        $priceAttribute                    = $product->getAttribute('price');
-        $joinExprProductPrice    = array(
+        $priceAttribute = $product->getAttribute('price');
+        $joinExprProductPrice = array(
             'product_price.entity_id = product.entity_id',
             'product_price.store_id = source_table.store_id',
             $adapter->quoteInto('product_price.attribute_id = ?', $priceAttribute->getAttributeId())
         );
-        $joinExprProductPrice    = implode(' AND ', $joinExprProductPrice);
+        $joinExprProductPrice = implode(' AND ', $joinExprProductPrice);
 
         $joinExprProductDefPrice = array(
             'product_default_price.entity_id = product.entity_id',
@@ -174,14 +162,10 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
         );
         $joinExprProductDefPrice = implode(' AND ', $joinExprProductDefPrice);
         $select->joinLeft(
-            array('product_price' => $priceAttribute->getBackend()->getTable()),
-            $joinExprProductPrice,
-            array()
-        )
-        ->joinLeft(
-            array('product_default_price' => $priceAttribute->getBackend()->getTable()),
-            $joinExprProductDefPrice,
-            array()
+                        array('product_price' => $priceAttribute->getBackend()->getTable()), $joinExprProductPrice, array()
+                )
+                ->joinLeft(
+                        array('product_default_price' => $priceAttribute->getBackend()->getTable()), $joinExprProductDefPrice, array()
         );
 
         $havingPart = array($adapter->prepareSqlCondition($viewsNumExpr, array('gt' => 0)));
@@ -194,19 +178,19 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
         $select->having(implode(' AND ', $havingPart));
 
         $select->useStraightJoin();
-        $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $this->getMainTable(),
-            array_keys($columns));
+        $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $this->getMainTable(), array_keys($columns));
         $adapter->query($insertQuery);
 
         Mage::getResourceHelper('reports')
-            ->updateReportRatingPos('day', 'views_num', $mainTable, $this->getTable(self::AGGREGATION_DAILY));
+                ->updateReportRatingPos('day', 'views_num', $mainTable, $this->getTable(self::AGGREGATION_DAILY));
         Mage::getResourceHelper('reports')
-            ->updateReportRatingPos('month', 'views_num', $mainTable, $this->getTable(self::AGGREGATION_MONTHLY));
+                ->updateReportRatingPos('month', 'views_num', $mainTable, $this->getTable(self::AGGREGATION_MONTHLY));
         Mage::getResourceHelper('reports')
-            ->updateReportRatingPos('year', 'views_num', $mainTable, $this->getTable(self::AGGREGATION_YEARLY));
+                ->updateReportRatingPos('year', 'views_num', $mainTable, $this->getTable(self::AGGREGATION_YEARLY));
 
         $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_PRODUCT_VIEWED_FLAG_CODE);
 
         return $this;
     }
+
 }

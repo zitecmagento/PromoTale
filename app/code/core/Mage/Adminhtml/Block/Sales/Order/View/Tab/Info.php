@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info
-    extends Mage_Adminhtml_Block_Sales_Order_Abstract
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info extends Mage_Adminhtml_Block_Sales_Order_Abstract implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Retrieve order model instance
      *
@@ -63,8 +63,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info
     public function getOrderTotalData()
     {
         return array(
-            'can_display_total_due'      => true,
-            'can_display_total_paid'     => true,
+            'can_display_total_due' => true,
+            'can_display_total_paid' => true,
             'can_display_total_refunded' => true,
         );
     }
@@ -114,7 +114,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info
 
     public function getViewUrl($orderId)
     {
-        return $this->getUrl('*/*/*', array('order_id'=>$orderId));
+        return $this->getUrl('*/*/*', array('order_id' => $orderId));
     }
 
     /**
@@ -139,4 +139,5 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info
     {
         return false;
     }
+
 }

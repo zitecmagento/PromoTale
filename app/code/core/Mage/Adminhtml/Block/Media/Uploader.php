@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -53,7 +54,7 @@ class Mage_Adminhtml_Block_Media_Uploader extends Mage_Adminhtml_Block_Widget
                 'label' => Mage::helper('adminhtml')->__('Media (.avi, .flv, .swf)'),
                 'files' => array('*.avi', '*.flv', '*.swf')
             ),
-            'all'    => array(
+            'all' => array(
                 'label' => Mage::helper('adminhtml')->__('All Files'),
                 'files' => array('*.*')
             )
@@ -63,37 +64,34 @@ class Mage_Adminhtml_Block_Media_Uploader extends Mage_Adminhtml_Block_Widget
     protected function _prepareLayout()
     {
         $this->setChild(
-            'browse_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData(array(
-                    'id'      => $this->_getButtonId('browse'),
-                    'label'   => Mage::helper('adminhtml')->__('Browse Files...'),
-                    'type'    => 'button',
-                    'onclick' => $this->getJsObjectName() . '.browse()'
-                ))
+                'browse_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->addData(array(
+                            'id' => $this->_getButtonId('browse'),
+                            'label' => Mage::helper('adminhtml')->__('Browse Files...'),
+                            'type' => 'button',
+                            'onclick' => $this->getJsObjectName() . '.browse()'
+                        ))
         );
 
         $this->setChild(
-            'upload_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData(array(
-                    'id'      => $this->_getButtonId('upload'),
-                    'label'   => Mage::helper('adminhtml')->__('Upload Files'),
-                    'type'    => 'button',
-                    'onclick' => $this->getJsObjectName() . '.upload()'
-                ))
+                'upload_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->addData(array(
+                            'id' => $this->_getButtonId('upload'),
+                            'label' => Mage::helper('adminhtml')->__('Upload Files'),
+                            'type' => 'button',
+                            'onclick' => $this->getJsObjectName() . '.upload()'
+                        ))
         );
 
         $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData(array(
-                    'id'      => '{{id}}-delete',
-                    'class'   => 'delete',
-                    'type'    => 'button',
-                    'label'   => Mage::helper('adminhtml')->__('Remove'),
-                    'onclick' => $this->getJsObjectName() . '.removeFile(\'{{fileId}}\')'
-                ))
+                'delete_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->addData(array(
+                            'id' => '{{id}}-delete',
+                            'class' => 'delete',
+                            'type' => 'button',
+                            'label' => Mage::helper('adminhtml')->__('Remove'),
+                            'onclick' => $this->getJsObjectName() . '.removeFile(\'{{fileId}}\')'
+                        ))
         );
 
         return parent::_prepareLayout();
@@ -146,7 +144,7 @@ class Mage_Adminhtml_Block_Media_Uploader extends Mage_Adminhtml_Block_Widget
      */
     public function getConfig()
     {
-        if(is_null($this->_config)) {
+        if (is_null($this->_config)) {
             $this->_config = new Varien_Object();
         }
 
@@ -171,20 +169,20 @@ class Mage_Adminhtml_Block_Media_Uploader extends Mage_Adminhtml_Block_Widget
     public function getDataMaxSizeInBytes()
     {
         $iniSize = $this->getDataMaxSize();
-        $size = substr($iniSize, 0, strlen($iniSize)-1);
+        $size = substr($iniSize, 0, strlen($iniSize) - 1);
         $parsedSize = 0;
-        switch (strtolower(substr($iniSize, strlen($iniSize)-1))) {
+        switch (strtolower(substr($iniSize, strlen($iniSize) - 1))) {
             case 't':
-                $parsedSize = $size*(1024*1024*1024*1024);
+                $parsedSize = $size * (1024 * 1024 * 1024 * 1024);
                 break;
             case 'g':
-                $parsedSize = $size*(1024*1024*1024);
+                $parsedSize = $size * (1024 * 1024 * 1024);
                 break;
             case 'm':
-                $parsedSize = $size*(1024*1024);
+                $parsedSize = $size * (1024 * 1024);
                 break;
             case 'k':
-                $parsedSize = $size*1024;
+                $parsedSize = $size * 1024;
                 break;
             case 'b':
             default:
@@ -214,6 +212,7 @@ class Mage_Adminhtml_Block_Media_Uploader extends Mage_Adminhtml_Block_Widget
             $theme = $design->getDefaultTheme();
         }
         return Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . 'skin/' .
-            $design->getArea() . '/' . $design->getPackageName() . '/' . $theme . '/' . $url;
+                $design->getArea() . '/' . $design->getPackageName() . '/' . $theme . '/' . $url;
     }
+
 }

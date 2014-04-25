@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Rss
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Action
 {
+
     public function preDispatch()
     {
         $path = '';
@@ -60,4 +61,5 @@ class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Act
         $this->loadLayout(false);
         $this->renderLayout();
     }
+
 }

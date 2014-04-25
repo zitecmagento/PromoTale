@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 {
+
     /**
      * Attributes map array per entity type
      *
@@ -48,15 +50,14 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @var array
      */
     protected $_ignoredAttributeCodes = array(
-        'global'    =>  array('entity_id', 'attribute_set_id', 'entity_type_id')
+        'global' => array('entity_id', 'attribute_set_id', 'entity_type_id')
     );
 
     /**
      * Field name in session for saving store id
      * @var string
      */
-    protected $_storeIdSessionField   = 'store_id';
-
+    protected $_storeIdSessionField = 'store_id';
 
     /**
      * Check if quote already exist with provided quoteId for creating
@@ -70,9 +71,12 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
             return false;
         }
 
-        try {
+        try
+        {
             $quote = $this->_getQuote($quoteId);
-        } catch (Mage_Api_Exception $e) {
+        }
+        catch (Mage_Api_Exception $e)
+        {
             return false;
         }
 
@@ -93,14 +97,15 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     protected function _getStoreId($store = null)
     {
         if (is_null($store)) {
-            $store = ($this->_getSession()->hasData($this->_storeIdSessionField)
-                        ? $this->_getSession()->getData($this->_storeIdSessionField) : 0);
+            $store = ($this->_getSession()->hasData($this->_storeIdSessionField) ? $this->_getSession()->getData($this->_storeIdSessionField) : 0);
         }
 
-        try {
+        try
+        {
             $storeId = Mage::app()->getStore($store)->getId();
-
-        } catch (Mage_Core_Model_Store_Exception $e) {
+        }
+        catch (Mage_Core_Model_Store_Exception $e)
+        {
             $this->_fault('store_not_exists');
         }
 
@@ -158,9 +163,9 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param array|null $attributes
      * @return Mage_Checkout_Model_Api_Resource
      */
-    protected function _updateAttributes($data, $object, $type,  array $attributes = null)
+    protected function _updateAttributes($data, $object, $type, array $attributes = null)
     {
-        foreach ($data as $attribute=>$value) {
+        foreach ($data as $attribute => $value) {
             if ($this->_isAllowedAttribute($attribute, $type, $attributes)) {
                 $object->setData($attribute, $value);
             }
@@ -185,7 +190,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
             return $result;
         }
 
-        foreach ($object->getData() as $attribute=>$value) {
+        foreach ($object->getData() as $attribute => $value) {
             if (is_object($value)) {
                 continue;
             }
@@ -195,12 +200,12 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
             }
         }
 
-        foreach ($this->_attributesMap['global'] as $alias=>$attributeCode) {
+        foreach ($this->_attributesMap['global'] as $alias => $attributeCode) {
             $result[$alias] = $object->getData($attributeCode);
         }
 
         if (isset($this->_attributesMap[$type])) {
-            foreach ($this->_attributesMap[$type] as $alias=>$attributeCode) {
+            foreach ($this->_attributesMap[$type] as $alias => $attributeCode) {
                 $result[$alias] = $object->getData($attributeCode);
             }
         }
@@ -218,8 +223,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      */
     protected function _isAllowedAttribute($attributeCode, $type, array $attributes = null)
     {
-        if (!empty($attributes)
-            && !(in_array($attributeCode, $attributes))) {
+        if (!empty($attributes) && !(in_array($attributeCode, $attributes))) {
             return false;
         }
 
@@ -227,8 +231,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
             return false;
         }
 
-        if (isset($this->_ignoredAttributeCodes[$type])
-            && in_array($attributeCode, $this->_ignoredAttributeCodes[$type])) {
+        if (isset($this->_ignoredAttributeCodes[$type]) && in_array($attributeCode, $this->_ignoredAttributeCodes[$type])) {
             return false;
         }
 

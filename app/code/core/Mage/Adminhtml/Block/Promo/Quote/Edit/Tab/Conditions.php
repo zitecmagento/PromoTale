@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,10 +33,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Prepare content for tab
      *
@@ -86,30 +86,30 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions
         $form->setHtmlIdPrefix('rule_');
 
         $renderer = Mage::getBlockSingleton('adminhtml/widget_form_renderer_fieldset')
-            ->setTemplate('promo/fieldset.phtml')
-            ->setNewChildUrl($this->getUrl('*/promo_quote/newConditionHtml/form/rule_conditions_fieldset'));
+                ->setTemplate('promo/fieldset.phtml')
+                ->setNewChildUrl($this->getUrl('*/promo_quote/newConditionHtml/form/rule_conditions_fieldset'));
 
         $fieldset = $form->addFieldset('conditions_fieldset', array(
-            'legend'=>Mage::helper('salesrule')->__('Apply the rule only if the following conditions are met (leave blank for all products)')
-        ))->setRenderer($renderer);
+                    'legend' => Mage::helper('salesrule')->__('Apply the rule only if the following conditions are met (leave blank for all products)')
+                ))->setRenderer($renderer);
 
         $fieldset->addField('conditions', 'text', array(
             'name' => 'conditions',
             'label' => Mage::helper('salesrule')->__('Conditions'),
             'title' => Mage::helper('salesrule')->__('Conditions'),
         ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/conditions'));
-/*
-        $fieldset = $form->addFieldset('actions_fieldset', array(
-            'legend'=>Mage::helper('salesrule')->__('Apply the rule to cart items matching the following conditions')
-        ))->setRenderer($renderer);
+        /*
+          $fieldset = $form->addFieldset('actions_fieldset', array(
+          'legend'=>Mage::helper('salesrule')->__('Apply the rule to cart items matching the following conditions')
+          ))->setRenderer($renderer);
 
-        $fieldset->addField('actions', 'text', array(
-            'name' => 'actions',
-            'label' => Mage::helper('salesrule')->__('Apply To'),
-            'title' => Mage::helper('salesrule')->__('Apply To'),
-            'required' => true,
-        ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/actions'));
-*/
+          $fieldset->addField('actions', 'text', array(
+          'name' => 'actions',
+          'label' => Mage::helper('salesrule')->__('Apply To'),
+          'title' => Mage::helper('salesrule')->__('Apply To'),
+          'required' => true,
+          ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/actions'));
+         */
         $form->setValues($model->getData());
 
         //$form->setUseContainer(true);
@@ -118,4 +118,5 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions
 
         return parent::_prepareForm();
     }
+
 }

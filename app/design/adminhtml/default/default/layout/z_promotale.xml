@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* Zitec Promotale
+* @category   Zitec
+* @package    Zitec_Promotale
+* @copyright  Copyright (c) 2014 Zitec COM (http://www.zitec.com)
+* @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*/
+-->
+<layout>
+    <adminhtml_promo_catalog_edit>
+        <reference name="promo_catalog_edit_tabs">
+            <block type="zitec_promotale/promo_catalog_edit_tab_overthreshold" name="promo_catalog_edit_tab_overthreshold"  template="zitec/promotale/overthreshold.phtml" ></block>
+            <action method="addTab">
+                <name>overthreshold</name>
+                <block>promo_catalog_edit_tab_overthreshold</block>
+            </action>
+        </reference>
+    </adminhtml_promo_catalog_edit>
+
+    <adminhtml_promotale_dashboard>
+        <reference name="content">
+            <block type="core/template" name="promotale_dashboard" as="promotale_dashboard" template="zitec/promotale/dashboard.phtml"/>
+        </reference>
+    </adminhtml_promotale_dashboard>
+</layout>

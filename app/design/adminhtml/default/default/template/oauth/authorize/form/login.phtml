@@ -23,19 +23,17 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * Admin login form template
  *
  * @var $this Mage_Oauth_Block_Adminhtml_Oauth_Authorize
  * @see Mage_Oauth_Block_Adminhtml_Oauth_Authorize
  */
-
- ?>
+?>
 <div class="login-container">
     <div class="login-box">
         <div class="login-form">
-            <?php echo $this->getMessagesBlock()->toHtml() ?>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
             <?php if (!$this->getHasException()): ?>
                 <form method="post" action="<?php echo $this->getPostActionUrl() ?>" id="loginForm">
                     <fieldset>
@@ -49,17 +47,18 @@
                         <div class="clear"></div>
                         <div class="form-buttons">
                             <button type="submit" class="form-button" title="<?php echo $this->__('Login') ?>" ><?php echo $this->__('Login') ?></button>
-                            <button onclick="document.location.href='<?php echo $this->getRejectUrl() ?>'; return false;" title="<?php echo $this->__('Reject') ?>"><?php echo $this->__('Reject') ?></button>
+                            <button onclick="document.location.href = '<?php echo $this->getRejectUrl() ?>';
+                                        return false;" title="<?php echo $this->__('Reject') ?>"><?php echo $this->__('Reject') ?></button>
                         </div>
                         <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>"/>
                     </fieldset>
                 </form>
                 <script type="text/javascript">
-                //<![CDATA[
-                     var loginForm = new varienForm('loginForm');
-                //]]>
+                    //<![CDATA[
+                    var loginForm = new varienForm('loginForm');
+                    //]]>
                 </script>
-            <?php endif; ?>
+<?php endif; ?>
         </div>
         <p class="legal"><?php echo $this->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', date('Y')) ?></p>
         <div class="bottom"></div>

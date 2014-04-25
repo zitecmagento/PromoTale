@@ -29,19 +29,19 @@
 
     if (gallery) {
         var galleryLength = gallery.childElements().size(),
-            galleryWidth  = gallery.up().getDimensions().width,
-            galleryMax    = galleryLength * galleryWidth,
-            step          = galleryWidth;
+                galleryWidth = gallery.up().getDimensions().width,
+                galleryMax = galleryLength * galleryWidth,
+                step = galleryWidth;
 
         if (galleryLength > 1) {
             gallery.childElements().each(function(img) {
-                img.wrap('div', { 'class' : 'gallery-item' });
+                img.wrap('div', {'class': 'gallery-item'});
             });
 
-            gallery.setStyle({ 'width' : galleryMax + 'px' });
+            gallery.setStyle({'width': galleryMax + 'px'});
 
-            setInterval(function () {
-                new Effect.Move(gallery, { x: -step, mode: 'absolute' });
+            setInterval(function() {
+                new Effect.Move(gallery, {x: -step, mode: 'absolute'});
                 step === galleryMax - galleryWidth ? step = 0 : step += galleryWidth;
             }, 5000);
         }

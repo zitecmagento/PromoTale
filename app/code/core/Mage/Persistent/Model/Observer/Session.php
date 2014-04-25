@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Persistent Session Observer
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Persistent_Model_Observer_Session
 {
+
     /**
      * Create/Update and Load session when customer log in
      *
@@ -63,12 +64,12 @@ class Mage_Persistent_Model_Observer_Session
         // Check if session is wrong or not exists, so create new session
         if (!$sessionModel->getId() || ($sessionModel->getCustomerId() != $customer->getId())) {
             $sessionModel = Mage::getModel('persistent/session')
-                ->setLoadExpired()
-                ->loadByCustomerId($customer->getId());
+                    ->setLoadExpired()
+                    ->loadByCustomerId($customer->getId());
             if (!$sessionModel->getId()) {
                 $sessionModel = Mage::getModel('persistent/session')
-                    ->setCustomerId($customer->getId())
-                    ->save();
+                        ->setCustomerId($customer->getId())
+                        ->save();
             }
 
             Mage::helper('persistent/session')->setSession($sessionModel);
@@ -77,9 +78,7 @@ class Mage_Persistent_Model_Observer_Session
         // Set new cookie
         if ($sessionModel->getId()) {
             Mage::getSingleton('core/cookie')->set(
-                Mage_Persistent_Model_Session::COOKIE_NAME,
-                $sessionModel->getKey(),
-                $persistentLifeTime
+                    Mage_Persistent_Model_Session::COOKIE_NAME, $sessionModel->getKey(), $persistentLifeTime
             );
         }
     }
@@ -126,8 +125,7 @@ class Mage_Persistent_Model_Observer_Session
         $request = $observer->getEvent()->getFront()->getRequest();
 
         // Quote Id could be changed only by logged in customer
-        if (Mage::getSingleton('customer/session')->isLoggedIn()
-            || ($request && $request->getActionName() == 'logout' && $request->getControllerName() == 'account')
+        if (Mage::getSingleton('customer/session')->isLoggedIn() || ($request && $request->getActionName() == 'logout' && $request->getControllerName() == 'account')
         ) {
             $sessionModel->save();
         }
@@ -140,8 +138,7 @@ class Mage_Persistent_Model_Observer_Session
      */
     public function setRememberMeCheckedStatus(Varien_Event_Observer $observer)
     {
-        if (!Mage::helper('persistent')->canProcess($observer)
-            || !Mage::helper('persistent')->isEnabled() || !Mage::helper('persistent')->isRememberMeEnabled()
+        if (!Mage::helper('persistent')->canProcess($observer) || !Mage::helper('persistent')->isEnabled() || !Mage::helper('persistent')->isRememberMeEnabled()
         ) {
             return;
         }
@@ -150,12 +147,11 @@ class Mage_Persistent_Model_Observer_Session
         $controllerAction = $observer->getEvent()->getControllerAction();
         if ($controllerAction) {
             $rememberMeCheckbox = $controllerAction->getRequest()->getPost('persistent_remember_me');
-            Mage::helper('persistent/session')->setRememberMeChecked((bool)$rememberMeCheckbox);
+            Mage::helper('persistent/session')->setRememberMeChecked((bool) $rememberMeCheckbox);
             if (
-                $controllerAction->getFullActionName() == 'checkout_onepage_saveBilling'
-                    || $controllerAction->getFullActionName() == 'customer_account_createpost'
+                    $controllerAction->getFullActionName() == 'checkout_onepage_saveBilling' || $controllerAction->getFullActionName() == 'customer_account_createpost'
             ) {
-                Mage::getSingleton('checkout/session')->setRememberMeChecked((bool)$rememberMeCheckbox);
+                Mage::getSingleton('checkout/session')->setRememberMeChecked((bool) $rememberMeCheckbox);
             }
         }
     }
@@ -167,8 +163,7 @@ class Mage_Persistent_Model_Observer_Session
      */
     public function renewCookie(Varien_Event_Observer $observer)
     {
-        if (!Mage::helper('persistent')->canProcess($observer)
-            || !Mage::helper('persistent')->isEnabled() || !Mage::helper('persistent/session')->isPersistent()
+        if (!Mage::helper('persistent')->canProcess($observer) || !Mage::helper('persistent')->isEnabled() || !Mage::helper('persistent/session')->isPersistent()
         ) {
             return;
         }
@@ -176,13 +171,12 @@ class Mage_Persistent_Model_Observer_Session
         /** @var $controllerAction Mage_Core_Controller_Front_Action */
         $controllerAction = $observer->getEvent()->getControllerAction();
 
-        if (Mage::getSingleton('customer/session')->isLoggedIn()
-            || $controllerAction->getFullActionName() == 'customer_account_logout'
+        if (Mage::getSingleton('customer/session')->isLoggedIn() || $controllerAction->getFullActionName() == 'customer_account_logout'
         ) {
             Mage::getSingleton('core/cookie')->renew(
-                Mage_Persistent_Model_Session::COOKIE_NAME,
-                Mage::helper('persistent')->getLifeTime()
+                    Mage_Persistent_Model_Session::COOKIE_NAME, Mage::helper('persistent')->getLifeTime()
             );
         }
     }
+
 }

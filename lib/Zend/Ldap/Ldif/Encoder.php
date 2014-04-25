@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,15 +32,16 @@
  */
 class Zend_Ldap_Ldif_Encoder
 {
+
     /**
      * Additional options used during encoding
      *
      * @var array
      */
     protected $_options = array(
-        'sort'    => true,
+        'sort' => true,
         'version' => 1,
-        'wrap'    => 78
+        'wrap' => 78
     );
 
     /**
@@ -111,7 +113,7 @@ class Zend_Ldap_Ldif_Encoder
             $this->_pushAttribute($last, $item);
         }
         $items[] = $item;
-        return (count($items)>1) ? $items : $items[0];
+        return (count($items) > 1) ? $items : $items[0];
     }
 
     /**
@@ -180,7 +182,7 @@ class Zend_Ldap_Ldif_Encoder
      */
     protected function _encodeString($string, &$base64 = null)
     {
-        $string = (string)$string;
+        $string = (string) $string;
         if (!is_numeric($string) && empty($string)) {
             return '';
         }
@@ -199,7 +201,7 @@ class Zend_Ldap_Ldif_Encoder
          *                ; any value <= 127 decimal except NUL, LF,
          *                ; and CR
          */
-        $unsafe_char      = array(0, 10, 13);
+        $unsafe_char = array(0, 10, 13);
 
         $base64 = false;
         for ($i = 0; $i < strlen($string); $i++) {
@@ -277,8 +279,7 @@ class Zend_Ldap_Ldif_Encoder
     {
         $string = '';
         $attributes = array_change_key_case($attributes, CASE_LOWER);
-        if (!$this->_versionWritten && array_key_exists('dn', $attributes) && isset($this->_options['version'])
-                && array_key_exists('objectclass', $attributes)) {
+        if (!$this->_versionWritten && array_key_exists('dn', $attributes) && isset($this->_options['version']) && array_key_exists('objectclass', $attributes)) {
             $string .= sprintf('version: %d', $this->_options['version']) . PHP_EOL;
             $this->_versionWritten = true;
         }
@@ -301,4 +302,5 @@ class Zend_Ldap_Ldif_Encoder
         }
         return trim($string, PHP_EOL);
     }
+
 }

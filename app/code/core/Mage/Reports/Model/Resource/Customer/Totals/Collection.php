@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customers by totals Report collection
  *
@@ -34,11 +34,13 @@
  */
 class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Reports_Model_Resource_Order_Collection
 {
+
     protected function _construct()
     {
         parent::_construct();
         $this->_useAnalyticFunction = true;
     }
+
     /**
      * Join fields
      *
@@ -49,9 +51,9 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
     protected function _joinFields($from = '', $to = '')
     {
         $this->joinCustomerName()
-            ->groupByCustomer()
-            ->addOrdersCount()
-            ->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to, 'datetime' => true));
+                ->groupByCustomer()
+                ->addOrdersCount()
+                ->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to, 'datetime' => true));
         return $this;
     }
 
@@ -65,7 +67,7 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
     public function setDateRange($from, $to)
     {
         $this->_reset()
-            ->_joinFields($from, $to);
+                ->_joinFields($from, $to);
         return $this;
     }
 
@@ -78,14 +80,15 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
     public function setStoreIds($storeIds)
     {
         if ($storeIds) {
-            $this->addAttributeToFilter('store_id', array('in' => (array)$storeIds));
+            $this->addAttributeToFilter('store_id', array('in' => (array) $storeIds));
             $this->addSumAvgTotals(1)
-                ->orderByTotalAmount();
+                    ->orderByTotalAmount();
         } else {
             $this->addSumAvgTotals()
-                ->orderByTotalAmount();
+                    ->orderByTotalAmount();
         }
 
         return $this;
     }
+
 }

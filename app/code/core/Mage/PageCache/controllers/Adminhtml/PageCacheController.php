@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_PageCache_Adminhtml_PageCacheController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Retrieve session model
      *
@@ -50,21 +52,23 @@ class Mage_PageCache_Adminhtml_PageCacheController extends Mage_Adminhtml_Contro
      */
     public function cleanAction()
     {
-        try {
+        try
+        {
             if (Mage::helper('pagecache')->isEnabled()) {
                 Mage::helper('pagecache')->getCacheControlInstance()->clean();
                 $this->_getSession()->addSuccess(
-                    Mage::helper('pagecache')->__('The external full page cache has been cleaned.')
+                        Mage::helper('pagecache')->__('The external full page cache has been cleaned.')
                 );
             }
         }
-        catch (Mage_Core_Exception $e) {
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $this->_getSession()->addException(
-                $e,
-                Mage::helper('pagecache')->__('An error occurred while clearing the external full page cache.')
+                    $e, Mage::helper('pagecache')->__('An error occurred while clearing the external full page cache.')
             );
         }
         $this->_redirect('*/cache/index');
@@ -79,4 +83,5 @@ class Mage_PageCache_Adminhtml_PageCacheController extends Mage_Adminhtml_Contro
     {
         return Mage::getSingleton('admin/session')->isAllowed('page_cache');
     }
+
 }

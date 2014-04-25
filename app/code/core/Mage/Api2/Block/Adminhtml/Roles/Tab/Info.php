@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Block for rendering role info tab
  *
@@ -34,9 +34,9 @@
  * @method Mage_Api2_Model_Acl_Global_Role getRole()
  * @method Mage_Api2_Block_Adminhtml_Roles_Tab_Info setRole(Mage_Api2_Model_Acl_Global_Role $role)
  */
-class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Prepare form object
      */
@@ -45,13 +45,13 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widg
         $form = new Varien_Data_Form();
 
         $fieldset = $form->addFieldset('base_fieldset', array(
-            'legend'    => Mage::helper('adminhtml')->__('Role Information')
+            'legend' => Mage::helper('adminhtml')->__('Role Information')
         ));
 
         $data = array(
-            'name'  => 'role_name',
+            'name' => 'role_name',
             'label' => Mage::helper('adminhtml')->__('Role Name'),
-            'id'    => 'role_name',
+            'id' => 'role_name',
             'class' => 'required-entry',
             'required' => true,
         );
@@ -65,17 +65,15 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widg
         }
         $fieldset->addField('role_name', 'text', $data);
 
-        $fieldset->addField('entity_id', 'hidden',
-            array(
-                'name'  => 'id',
-            )
+        $fieldset->addField('entity_id', 'hidden', array(
+            'name' => 'id',
+                )
         );
 
-        $fieldset->addField('in_role_users', 'hidden',
-            array(
-                'name'  => 'in_role_users',
-                'id'    => 'in_role_userz',
-            )
+        $fieldset->addField('in_role_users', 'hidden', array(
+            'name' => 'in_role_users',
+            'id' => 'in_role_userz',
+                )
         );
 
         $fieldset->addField('in_role_users_old', 'hidden', array('name' => 'in_role_users_old'));
@@ -125,4 +123,5 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widg
     {
         return $this->getRole() && Mage_Api2_Model_Acl_Global_Role::isSystemRole($this->getRole());
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,72 +32,70 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_Template
 {
+
     protected $_voteCollection = false;
+
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('rating/detailed.phtml');
-        if( Mage::registry('review_data') ) {
+        if (Mage::registry('review_data')) {
             $this->setReviewId(Mage::registry('review_data')->getReviewId());
         }
     }
 
     public function getRating()
     {
-        if( !$this->getRatingCollection() ) {
-            if( Mage::registry('review_data') ) {
+        if (!$this->getRatingCollection()) {
+            if (Mage::registry('review_data')) {
                 $stores = Mage::registry('review_data')->getStores();
 
                 $stores = array_diff($stores, array(0));
 
                 $ratingCollection = Mage::getModel('rating/rating')
-                    ->getResourceCollection()
-                    ->addEntityFilter('product')
-                    ->setStoreFilter($stores)
-                    ->setPositionOrder()
-                    ->load()
-                    ->addOptionToItems();
+                        ->getResourceCollection()
+                        ->addEntityFilter('product')
+                        ->setStoreFilter($stores)
+                        ->setPositionOrder()
+                        ->load()
+                        ->addOptionToItems();
 
                 $this->_voteCollection = Mage::getModel('rating/rating_option_vote')
-                    ->getResourceCollection()
-                    ->setReviewFilter($this->getReviewId())
-                    ->addOptionInfo()
-                    ->load()
-                    ->addRatingOptions();
-
-            } elseif (!$this->getIsIndependentMode()) {
-                $ratingCollection = Mage::getModel('rating/rating')
-                    ->getResourceCollection()
-                    ->addEntityFilter('product')
-                    ->setStoreFilter(Mage::app()->getStore('default')->getId())
-                    ->setPositionOrder()
-                    ->load()
-                    ->addOptionToItems();
-            } else {
-                $ratingCollection = Mage::getModel('rating/rating')
-                    ->getResourceCollection()
-                    ->addEntityFilter('product')
-                    ->setStoreFilter(
-                        $this->getRequest()->getParam('select_stores')
-                            ? $this->getRequest()->getParam('select_stores')
-                            : $this->getRequest()->getParam('stores')
-                    )
-                    ->setPositionOrder()
-                    ->load()
-                    ->addOptionToItems();
-                if(intval($this->getRequest()->getParam('id'))){
-                    $this->_voteCollection = Mage::getModel('rating/rating_option_vote')
                         ->getResourceCollection()
-                        ->setReviewFilter(intval($this->getRequest()->getParam('id')))
+                        ->setReviewFilter($this->getReviewId())
                         ->addOptionInfo()
                         ->load()
                         ->addRatingOptions();
+            } elseif (!$this->getIsIndependentMode()) {
+                $ratingCollection = Mage::getModel('rating/rating')
+                        ->getResourceCollection()
+                        ->addEntityFilter('product')
+                        ->setStoreFilter(Mage::app()->getStore('default')->getId())
+                        ->setPositionOrder()
+                        ->load()
+                        ->addOptionToItems();
+            } else {
+                $ratingCollection = Mage::getModel('rating/rating')
+                        ->getResourceCollection()
+                        ->addEntityFilter('product')
+                        ->setStoreFilter(
+                                $this->getRequest()->getParam('select_stores') ? $this->getRequest()->getParam('select_stores') : $this->getRequest()->getParam('stores')
+                        )
+                        ->setPositionOrder()
+                        ->load()
+                        ->addOptionToItems();
+                if (intval($this->getRequest()->getParam('id'))) {
+                    $this->_voteCollection = Mage::getModel('rating/rating_option_vote')
+                            ->getResourceCollection()
+                            ->setReviewFilter(intval($this->getRequest()->getParam('id')))
+                            ->addOptionInfo()
+                            ->load()
+                            ->addRatingOptions();
                 }
             }
-            $this->setRatingCollection( ( $ratingCollection->getSize() ) ? $ratingCollection : false );
+            $this->setRatingCollection(( $ratingCollection->getSize() ) ? $ratingCollection : false );
         }
         return $this->getRatingCollection();
     }
@@ -109,19 +108,19 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
 
     public function isSelected($option, $rating)
     {
-        if($this->getIsIndependentMode()) {
+        if ($this->getIsIndependentMode()) {
             $ratings = $this->getRequest()->getParam('ratings');
 
-            if(isset($ratings[$option->getRatingId()])) {
+            if (isset($ratings[$option->getRatingId()])) {
                 return $option->getId() == $ratings[$option->getRatingId()];
-            }elseif(!$this->_voteCollection) {
+            } elseif (!$this->_voteCollection) {
                 return false;
             }
         }
 
-        if($this->_voteCollection) {
-            foreach($this->_voteCollection as $vote) {
-                if($option->getId() == $vote->getOptionId()) {
+        if ($this->_voteCollection) {
+            foreach ($this->_voteCollection as $vote) {
+                if ($option->getId() == $vote->getOptionId()) {
                     return true;
                 }
             }
@@ -129,4 +128,5 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
 
         return false;
     }
+
 }

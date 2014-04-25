@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report Sold Products collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_Model_Resource_Product_Collection
 {
+
     /**
      * Initialize resources
      *
@@ -43,6 +44,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
         parent::_construct();
         $this->_useAnalyticFunction = true;
     }
+
     /**
      * Set Date range to collection
      *
@@ -53,9 +55,9 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     public function setDateRange($from, $to)
     {
         $this->_reset()
-            ->addAttributeToSelect('*')
-            ->addOrderedQty($from, $to)
-            ->setOrder('ordered_qty', self::SORT_ORDER_DESC);
+                ->addAttributeToSelect('*')
+                ->addOrderedQty($from, $to)
+                ->setOrder('ordered_qty', self::SORT_ORDER_DESC);
         return $this;
     }
 
@@ -68,7 +70,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     public function setStoreIds($storeIds)
     {
         if ($storeIds) {
-            $this->getSelect()->where('order_items.store_id IN (?)', (array)$storeIds);
+            $this->getSelect()->where('order_items.store_id IN (?)', (array) $storeIds);
         }
         return $this;
     }
@@ -80,20 +82,20 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
      */
     protected function _productLimitationJoinWebsite()
     {
-        $filters     = $this->_productLimitationFilters;
-        $conditions  = array('product_website.product_id=e.entity_id');
+        $filters = $this->_productLimitationFilters;
+        $conditions = array('product_website.product_id=e.entity_id');
         if (isset($filters['website_ids'])) {
             $conditions[] = $this->getConnection()
-                ->quoteInto('product_website.website_id IN(?)', $filters['website_ids']);
+                    ->quoteInto('product_website.website_id IN(?)', $filters['website_ids']);
 
             $subQuery = $this->getConnection()->select()
-                ->from(array('product_website' => $this->getTable('catalog/product_website')),
-                    array('product_website.product_id')
-                )
-                ->where(join(' AND ', $conditions));
-            $this->getSelect()->where('e.entity_id IN( '.$subQuery.' )');
+                    ->from(array('product_website' => $this->getTable('catalog/product_website')), array('product_website.product_id')
+                    )
+                    ->where(join(' AND ', $conditions));
+            $this->getSelect()->where('e.entity_id IN( ' . $subQuery . ' )');
         }
 
         return $this;
     }
+
 }

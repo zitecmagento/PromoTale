@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist block shared items
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Wishlist_Block_Share_Wishlist extends Mage_Wishlist_Block_Abstract
 {
+
     /**
      * Customer instance
      *
@@ -67,7 +68,7 @@ class Mage_Wishlist_Block_Share_Wishlist extends Mage_Wishlist_Block_Abstract
     {
         if (is_null($this->_customer)) {
             $this->_customer = Mage::getModel('customer/customer')
-                ->load($this->_getWishlist()->getCustomerId());
+                    ->load($this->_getWishlist()->getCustomerId());
         }
 
         return $this->_customer;
@@ -82,4 +83,5 @@ class Mage_Wishlist_Block_Share_Wishlist extends Mage_Wishlist_Block_Abstract
     {
         return Mage::helper('wishlist')->__("%s's Wishlist", $this->escapeHtml($this->getWishlistCustomer()->getFirstname()));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Perform customer VAT ID validation
      *
@@ -41,8 +43,7 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
     protected function _validate()
     {
         return Mage::helper('customer')->checkVatNumber(
-            $this->getRequest()->getParam('country'),
-            $this->getRequest()->getParam('vat')
+                        $this->getRequest()->getParam('country'), $this->getRequest()->getParam('vat')
         );
     }
 
@@ -54,7 +55,7 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
     public function validateAction()
     {
         $result = $this->_validate();
-        $this->getResponse()->setBody((int)$result->getIsValid());
+        $this->getResponse()->setBody((int) $result->getIsValid());
     }
 
     /**
@@ -74,11 +75,11 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
         $storeId = $this->getRequest()->getParam('store_id');
         // Sanitize value if needed
         if (!is_null($storeId)) {
-            $storeId = (int)$storeId;
+            $storeId = (int) $storeId;
         }
 
         $groupId = Mage::helper('customer')->getCustomerGroupIdBasedOnVatNumber(
-            $this->getRequest()->getParam('country'), $result, $storeId
+                $this->getRequest()->getParam('country'), $result, $storeId
         );
 
         $body = $coreHelper->jsonEncode(array(
@@ -88,4 +89,5 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
         ));
         $this->getResponse()->setBody($body);
     }
+
 }

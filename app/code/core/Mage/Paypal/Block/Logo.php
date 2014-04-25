@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Paypal_Block_Logo extends Mage_Core_Block_Template
 {
+
     /**
      * Return URL for Paypal Landing page
      *
@@ -64,4 +66,5 @@ class Mage_Paypal_Block_Logo extends Mage_Core_Block_Template
         $this->setLogoImageUrl($logoUrl);
         return parent::_toHtml();
     }
+
 }

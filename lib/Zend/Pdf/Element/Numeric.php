@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,11 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Numeric.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Pdf_Element */
 #require_once 'Zend/Pdf/Element.php';
-
 
 /**
  * PDF file 'numeric' element implementation
@@ -34,13 +32,13 @@
  */
 class Zend_Pdf_Element_Numeric extends Zend_Pdf_Element
 {
+
     /**
      * Object value
      *
      * @var numeric
      */
     public $value;
-
 
     /**
      * Object constructor
@@ -50,14 +48,13 @@ class Zend_Pdf_Element_Numeric extends Zend_Pdf_Element
      */
     public function __construct($val)
     {
-        if ( !is_numeric($val) ) {
+        if (!is_numeric($val)) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Argument must be numeric');
         }
 
         $this->value = $val;
     }
-
 
     /**
      * Return type of the element.
@@ -69,7 +66,6 @@ class Zend_Pdf_Element_Numeric extends Zend_Pdf_Element
         return Zend_Pdf_Element::TYPE_NUMERIC;
     }
 
-
     /**
      * Return object as string
      *
@@ -79,17 +75,20 @@ class Zend_Pdf_Element_Numeric extends Zend_Pdf_Element
     public function toString($factory = null)
     {
         if (is_integer($this->value)) {
-            return (string)$this->value;
+            return (string) $this->value;
         }
 
         /**
          * PDF doesn't support exponental format.
          * Fixed point format must be used instead
          */
-        $prec = 0; $v = $this->value;
-        while (abs( floor($v) - $v ) > 1e-10) {
-            $prec++; $v *= 10;
+        $prec = 0;
+        $v = $this->value;
+        while (abs(floor($v) - $v) > 1e-10) {
+            $prec++;
+            $v *= 10;
         }
         return sprintf("%.{$prec}F", $this->value);
     }
+
 }

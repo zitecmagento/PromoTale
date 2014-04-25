@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Product Flat Indexer Model
@@ -53,6 +53,7 @@
  */
 class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
 {
+
     /**
      * Catalog product flat entity for indexers
      */
@@ -86,9 +87,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             $this->_getResource()->prepareFlatTable($store);
         }
         Mage::getSingleton('index/indexer')->processEntityAction(
-            new Varien_Object(array('id' => $store)),
-            self::ENTITY,
-            self::EVENT_TYPE_REBUILD
+                new Varien_Object(array('id' => $store)), self::ENTITY, self::EVENT_TYPE_REBUILD
         );
         return $this;
     }
@@ -183,8 +182,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
         if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
             $this->_getResource()->updateProduct($productId, $store);
             $this->_getResource()->updateChildrenDataFromParent($store, $productId);
-        }
-        else {
+        } else {
             $this->_getResource()->removeProduct($productId, $store);
         }
 
@@ -209,12 +207,15 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
 
         $resource = $this->_getResource();
         $resource->beginTransaction();
-        try {
+        try
+        {
             $resource->removeProduct($productIds, $store);
             $resource->updateProduct($productIds, $store);
             $resource->updateRelationProducts($store, $productIds);
             $resource->commit();
-        } catch (Exception $e){
+        }
+        catch (Exception $e)
+        {
             $resource->rollBack();
             throw $e;
         }
@@ -240,12 +241,15 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
 
         $resource = $this->_getResource();
         $resource->beginTransaction();
-        try {
+        try
+        {
             $resource->removeProduct($productIds, $store);
             $resource->saveProduct($productIds, $store);
             $resource->updateRelationProducts($store, $productIds);
             $resource->commit();
-        } catch (Exception $e){
+        }
+        catch (Exception $e)
+        {
             $resource->rollBack();
             throw $e;
         }
@@ -306,4 +310,5 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()->getAttributeCodes();
     }
+
 }

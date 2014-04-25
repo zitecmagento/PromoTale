@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ShippingInfo.php 22791 2010-08-04 16:11:47Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Ebay_Finding_ShippingInfo extends Zend_Service_Ebay_Finding_Abstract
 {
+
     /**
      * The basic shipping cost of the item.
      *
@@ -116,11 +117,12 @@ class Zend_Service_Ebay_Finding_ShippingInfo extends Zend_Service_Ebay_Finding_A
         $ns = Zend_Service_Ebay_Finding::XMLNS_FINDING;
 
         $this->shippingServiceCost = $this->_query(".//$ns:shippingServiceCost[1]", 'float');
-        $this->shippingType        = $this->_query(".//$ns:shippingType[1]", 'string');
-        $this->shipToLocations     = $this->_query(".//$ns:shipToLocations", 'string', true);
+        $this->shippingType = $this->_query(".//$ns:shippingType[1]", 'string');
+        $this->shipToLocations = $this->_query(".//$ns:shipToLocations", 'string', true);
 
         $this->_attributes['shippingServiceCost'] = array(
             'currencyId' => $this->_query(".//$ns:shippingServiceCost[1]/@currencyId[1]", 'string')
         );
     }
+
 }

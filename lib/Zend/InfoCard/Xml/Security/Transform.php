@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -32,6 +33,7 @@
  */
 class Zend_InfoCard_Xml_Security_Transform
 {
+
     /**
      * A list of transforms to apply
      *
@@ -48,7 +50,7 @@ class Zend_InfoCard_Xml_Security_Transform
      */
     protected function _findClassbyURI($uri)
     {
-        switch($uri) {
+        switch ($uri) {
             case 'http://www.w3.org/2000/09/xmldsig#enveloped-signature':
                 return 'Zend_InfoCard_Xml_Security_Transform_EnvelopedSignature';
             case 'http://www.w3.org/2001/10/xml-exc-c14n#':
@@ -70,7 +72,7 @@ class Zend_InfoCard_Xml_Security_Transform
         $class = $this->_findClassbyURI($uri);
 
         $this->_transformList[] = array('uri' => $uri,
-                                        'class' => $class);
+            'class' => $class);
         return $this;
     }
 
@@ -92,7 +94,7 @@ class Zend_InfoCard_Xml_Security_Transform
      */
     public function applyTransforms($strXmlDocument)
     {
-        foreach($this->_transformList as $transform) {
+        foreach ($this->_transformList as $transform) {
             if (!class_exists($transform['class'])) {
                 #require_once 'Zend/Loader.php';
                 Zend_Loader::loadClass($transform['class']);
@@ -102,7 +104,7 @@ class Zend_InfoCard_Xml_Security_Transform
 
             // We can't really test this check because it would require logic changes in the component itself
             // @codeCoverageIgnoreStart
-            if(!($transformer instanceof Zend_InfoCard_Xml_Security_Transform_Interface)) {
+            if (!($transformer instanceof Zend_InfoCard_Xml_Security_Transform_Interface)) {
                 #require_once 'Zend/InfoCard/Xml/Security/Exception.php';
                 throw new Zend_InfoCard_Xml_Security_Exception("Transforms must implement the Transform Interface");
             }
@@ -113,4 +115,5 @@ class Zend_InfoCard_Xml_Security_Transform
 
         return $strXmlDocument;
     }
+
 }

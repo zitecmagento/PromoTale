@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,7 @@
  * @package    Mage_XmlConnect
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Mysql4_Template_Collection
-    extends Mage_XmlConnect_Model_Resource_Template_Collection
+class Mage_XmlConnect_Model_Mysql4_Template_Collection extends Mage_XmlConnect_Model_Resource_Template_Collection
 {
+    
 }

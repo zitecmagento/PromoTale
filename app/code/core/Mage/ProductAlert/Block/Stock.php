@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,13 +25,13 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * @deprecated after 1.4.1.0
  * @see Mage_ProductAlert_Block_Product_View
  */
 class Mage_ProductAlert_Block_Stock extends Mage_Core_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -55,4 +56,5 @@ class Mage_ProductAlert_Block_Stock extends Mage_Core_Block_Template
     {
         return Mage::helper('productalert')->getSaveUrl('stock');
     }
+
 }

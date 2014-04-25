@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -28,6 +29,7 @@
  */
 class Zend_Dojo
 {
+
     /**
      * Base path to AOL CDN
      */
@@ -57,10 +59,10 @@ class Zend_Dojo
     public static function enableForm(Zend_Form $form)
     {
         $form->addPrefixPath('Zend_Dojo_Form_Decorator', 'Zend/Dojo/Form/Decorator', 'decorator')
-             ->addPrefixPath('Zend_Dojo_Form_Element', 'Zend/Dojo/Form/Element', 'element')
-             ->addElementPrefixPath('Zend_Dojo_Form_Decorator', 'Zend/Dojo/Form/Decorator', 'decorator')
-             ->addDisplayGroupPrefixPath('Zend_Dojo_Form_Decorator', 'Zend/Dojo/Form/Decorator')
-             ->setDefaultDisplayGroupClass('Zend_Dojo_Form_DisplayGroup');
+                ->addPrefixPath('Zend_Dojo_Form_Element', 'Zend/Dojo/Form/Element', 'element')
+                ->addElementPrefixPath('Zend_Dojo_Form_Decorator', 'Zend/Dojo/Form/Decorator', 'decorator')
+                ->addDisplayGroupPrefixPath('Zend_Dojo_Form_Decorator', 'Zend/Dojo/Form/Decorator')
+                ->setDefaultDisplayGroupClass('Zend_Dojo_Form_DisplayGroup');
 
         foreach ($form->getSubForms() as $subForm) {
             self::enableForm($subForm);
@@ -83,5 +85,5 @@ class Zend_Dojo
             $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
         }
     }
-}
 
+}

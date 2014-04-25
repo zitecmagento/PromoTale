@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,6 +36,7 @@
  */
 class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
 {
+
     /**
      * Init orders and templates
      */
@@ -53,16 +55,14 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      */
     public function initOrders()
     {
-        $customerId = $this->getCustomerId() ? $this->getCustomerId()
-            : $this->_getCustomerSession()->getCustomer()->getId();
+        $customerId = $this->getCustomerId() ? $this->getCustomerId() : $this->_getCustomerSession()->getCustomer()->getId();
 
         $orders = Mage::getResourceModel('sales/order_collection')
-            ->addAttributeToFilter('customer_id', $customerId)
-            ->addAttributeToFilter('state',
-                array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates())
-            )
-            ->addAttributeToSort('created_at', 'desc')
-            ->setPage(1,1);
+                ->addAttributeToFilter('customer_id', $customerId)
+                ->addAttributeToFilter('state', array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates())
+                )
+                ->addAttributeToSort('created_at', 'desc')
+                ->setPage(1, 1);
         //TODO: add filter by current website
 
         $this->setOrders($orders);
@@ -161,8 +161,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     public function getCacheTags()
     {
         return array_merge(
-            parent::getCacheTags(),
-            $this->getItemsTags($this->_getItemProducts())
+                parent::getCacheTags(), $this->getItemsTags($this->_getItemProducts())
         );
     }
 
@@ -173,10 +172,11 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      */
     protected function _getItemProducts()
     {
-        $products =  array();
+        $products = array();
         foreach ($this->getItems() as $item) {
             $products[] = $item->getProduct();
         }
         return $products;
     }
+
 }

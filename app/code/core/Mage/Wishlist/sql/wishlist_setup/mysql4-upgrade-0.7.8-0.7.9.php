@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 $installer->startSetup();
@@ -41,11 +41,7 @@ CREATE TABLE `{$this->getTable('wishlist/item_option')}` (
 ");
 
 $installer->getConnection()->addConstraint(
-    'FK_WISHLIST_ITEM_OPTION_ITEM_ID',
-    $this->getTable('wishlist/item_option'),
-    'wishlist_item_id',
-    $this->getTable('wishlist/item'),
-    'wishlist_item_id'
+        'FK_WISHLIST_ITEM_OPTION_ITEM_ID', $this->getTable('wishlist/item_option'), 'wishlist_item_id', $this->getTable('wishlist/item'), 'wishlist_item_id'
 );
 
 $installer->endSetup();

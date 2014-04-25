@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -33,6 +34,7 @@
  */
 class Zend_Service_Nirvanix_Response
 {
+
     /**
      * SimpleXMLElement parsed from Nirvanix web service response.
      *
@@ -51,7 +53,7 @@ class Zend_Service_Nirvanix_Response
     {
         $this->_sxml = @simplexml_load_string($xml);
 
-        if (! $this->_sxml instanceof SimpleXMLElement) {
+        if (!$this->_sxml instanceof SimpleXMLElement) {
             $this->_throwException("XML could not be parsed from response: $xml");
         }
 
@@ -60,9 +62,9 @@ class Zend_Service_Nirvanix_Response
             $this->_throwException("Expected XML element Response, got $name");
         }
 
-        $code = (int)$this->_sxml->ResponseCode;
+        $code = (int) $this->_sxml->ResponseCode;
         if ($code != 0) {
-            $msg = (string)$this->_sxml->ErrorMessage;
+            $msg = (string) $this->_sxml->ErrorMessage;
             $this->_throwException($msg, $code);
         }
     }

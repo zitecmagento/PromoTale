@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,8 +32,9 @@
  * @package     Mage_Backup
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Backup_Abstract implements  Mage_Backup_Interface
+abstract class Mage_Backup_Abstract implements Mage_Backup_Interface
 {
+
     /**
      * Backup name
      *
@@ -88,7 +90,6 @@ abstract class Mage_Backup_Abstract implements  Mage_Backup_Interface
      * @var string
      */
     protected $_lastErrorMessage;
-
 
     /**
      * Set Backup Extension
@@ -315,4 +316,5 @@ abstract class Mage_Backup_Abstract implements  Mage_Backup_Interface
 
         return $name;
     }
+
 }

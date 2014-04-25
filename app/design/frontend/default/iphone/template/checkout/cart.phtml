@@ -34,14 +34,14 @@
 <div class="cart">
     <?php echo $this->getChildHtml('form_before') ?>
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-    <?php if(!$this->hasError() && count($this->getItems()) > 1): ?>
+    <?php if (!$this->hasError() && count($this->getItems()) > 1): ?>
         <ul class="checkout-types">
-        <?php foreach ($this->getMethods('methods') as $method): ?>
-            <?php $methodHtml = $this->getMethodHtml($method); ?>
-            <?php if ($methodHtml): ?>
-            <li><?php echo $methodHtml; ?></li>
-            <?php endif; ?>
-        <?php endforeach; ?>
+            <?php foreach ($this->getMethods('methods') as $method): ?>
+                <?php $methodHtml = $this->getMethodHtml($method); ?>
+                <?php if ($methodHtml): ?>
+                    <li><?php echo $methodHtml; ?></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </ul>
     <?php endif; ?>
     <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
@@ -57,15 +57,15 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                <?php foreach($this->getItems() as $_item): ?>
-                    <?php echo $this->getItemHtml($_item) ?>
-                <?php endforeach ?>
+                    <?php foreach ($this->getItems() as $_item): ?>
+                        <?php echo $this->getItemHtml($_item) ?>
+                    <?php endforeach ?>
                 </tbody>
             </table>
         </fieldset>
     </form>
     <?php echo $this->getChildHtml('shopping.cart.table.after'); ?>
-    <div class="cart-collaterals<?php if($this->getChildHtml('crosssell')) echo ' cross-inside'; ?>">
+    <div class="cart-collaterals<?php if ($this->getChildHtml('crosssell')) echo ' cross-inside'; ?>">
         <?php echo $this->getChildHtml('crosssell') ?>
         <div class="deals">
             <?php /* Extensions placeholder */ ?>
@@ -75,20 +75,21 @@
             <?php echo $this->getChildHtml('giftcards') ?>
             <?php echo $this->getChildHtml('giftregistry.cart.link') ?>
         </div>
-        <?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
+        <?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping');
+        endif; ?>
     </div>
     <div class="totals">
-        <?php echo $this->getChildHtml('totals'); ?>
+    <?php echo $this->getChildHtml('totals'); ?>
     </div>
-    <?php if(!$this->hasError()): ?>
+        <?php if (!$this->hasError()): ?>
         <ul class="checkout-types">
-        <?php foreach ($this->getMethods('methods') as $method): ?>
-            <?php $methodHtml = $this->getMethodHtml($method); ?>
-            <?php if ($methodHtml): ?>
-            <li><?php echo $methodHtml; ?></li>
-            <?php endif; ?>
+            <?php foreach ($this->getMethods('methods') as $method): ?>
+                <?php $methodHtml = $this->getMethodHtml($method); ?>
+                <?php if ($methodHtml): ?>
+                    <li><?php echo $methodHtml; ?></li>
+                <?php endif; ?>
         <?php endforeach; ?>
         </ul>
-    <?php endif; ?>
+<?php endif; ?>
 
 </div>

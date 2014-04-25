@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: GetConferenceListRequest.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Request_RequestAbstract
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceListRequest
-    extends Zend_Service_DeveloperGarden_Request_RequestAbstract
+class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceListRequest extends Zend_Service_DeveloperGarden_Request_RequestAbstract
 {
+
     /**
      * @var integer
      */
@@ -71,7 +71,7 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceListReque
     {
         parent::__construct($environment);
         $this->setWhat($what)
-             ->setOwnerId($ownerId);
+                ->setOwnerId($ownerId);
     }
 
     /**
@@ -101,4 +101,5 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceListReque
         $this->ownerId = $ownerId;
         return $this;
     }
+
 }

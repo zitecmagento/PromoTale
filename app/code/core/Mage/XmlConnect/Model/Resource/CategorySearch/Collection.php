@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Resource_CategorySearch_Collection extends Mage_Catalog_Model_Resource_Category_Collection
 {
+
     /**
      * Filter for category collection
      *
@@ -49,7 +51,7 @@ class Mage_XmlConnect_Model_Resource_CategorySearch_Collection extends Mage_Cata
     public function addSearchFilter($query)
     {
         $this->_addNameFilter($query)->_addDescriptionFilter($query)
-            ->_addUrlKeyFilter($query)->addFieldToFilter($this->getCollectionFilter());
+                ->_addUrlKeyFilter($query)->addFieldToFilter($this->getCollectionFilter());
 
         return $this;
     }
@@ -117,4 +119,5 @@ class Mage_XmlConnect_Model_Resource_CategorySearch_Collection extends Mage_Cata
     {
         return $this->_collectionFilter;
     }
+
 }

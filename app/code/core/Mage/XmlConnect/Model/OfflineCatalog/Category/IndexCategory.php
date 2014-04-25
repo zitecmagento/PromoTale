@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_OfflineCatalog_Category_IndexCategory extends Mage_XmlConnect_Model_OfflineCatalog_Abstract
 {
+
     /**
      * Index category url
      */
@@ -58,4 +60,5 @@ class Mage_XmlConnect_Model_OfflineCatalog_Category_IndexCategory extends Mage_X
     {
         return Mage::getBaseUrl() . self::CATEGORY_INDEX_URL;
     }
+
 }

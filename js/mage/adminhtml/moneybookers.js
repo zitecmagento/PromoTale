@@ -18,12 +18,12 @@
  */
 
 Event.observe(window, 'load', function() {
-   initMoneybookers();
+    initMoneybookers();
 });
 
 Moneybookers = Class.create();
 Moneybookers.prototype = {
-    initialize: function(bannerUrl, activateemailUrl, checksecretUrl, checkemailUrl){
+    initialize: function(bannerUrl, activateemailUrl, checksecretUrl, checkemailUrl) {
         this.bannerUrl = bannerUrl;
         this.activateemailUrl = activateemailUrl;
         this.checksecretUrl = checksecretUrl;
@@ -57,7 +57,7 @@ Moneybookers.prototype = {
             };
             var defaults = $$("#row_moneybookers_settings_customer_id .use-default, #row_moneybookers_settings_secret_key .use-default, #row_moneybookers_settings_activationstatus .use-default");
             if (Object.isArray(defaults)) {
-                for (var i=0; i<defaults.length; i++) {
+                for (var i = 0; i < defaults.length; i++) {
                     defaults[i].hide();
                 }
             }
@@ -66,18 +66,17 @@ Moneybookers.prototype = {
 
         this.changeUi();
     },
-
     translate: function(text) {
         try {
-            if(Translator){
-               return Translator.translate(text);
+            if (Translator) {
+                return Translator.translate(text);
             }
         }
-        catch(e){}
+        catch (e) {
+        }
         return text;
     },
-
-    button: function () {
+    button: function() {
         var status, response, result;
         status = this.getStatus();
         if (status < 1) {
@@ -92,7 +91,7 @@ Moneybookers.prototype = {
             }
             else {
                 $("moneybookers_settings_customer_id").value = "";
-                alert(this.txtErrStatus0 + "\n("+response+")");
+                alert(this.txtErrStatus0 + "\n(" + response + ")");
             }
         }
         if (status == 1) {
@@ -103,43 +102,42 @@ Moneybookers.prototype = {
         }
         if (status == 2) {
             response = this.getHttp(this.checksecretUrl + "?email=" + $("moneybookers_settings_moneybookers_email").value
-                + "&secret=" + $("moneybookers_settings_secret_key").value
-                + "&cust_id=" + $("moneybookers_settings_customer_id").value);
+                    + "&secret=" + $("moneybookers_settings_secret_key").value
+                    + "&cust_id=" + $("moneybookers_settings_customer_id").value);
             if (response == "OK") {
                 this.setStatus(3);
                 alert(this.txtNotStatus2);
                 this.alertSaveChanges();
             }
             else {
-                alert(this.txtErrStatus2 + "\n("+response+")");
+                alert(this.txtErrStatus2 + "\n(" + response + ")");
             }
         }
     },
-
-    alertSaveChanges: function () {
+    alertSaveChanges: function() {
         $("moneybookers_multifuncbutton").style.display = "none";
         alert(this.txtNotSavechanges);
     },
-
-    getHttp: function (url) {
+    getHttp: function(url) {
         var response;
         new Ajax.Request(
-            url,
-            {
-                method:       "get",
-                onComplete:   function(transport) {response = transport.responseText;},
-                asynchronous: false
-            });
+                url,
+                {
+                    method: "get",
+                    onComplete: function(transport) {
+                        response = transport.responseText;
+                    },
+                    asynchronous: false
+                });
         return response;
     },
-
-    getInteger: function (number) {
+    getInteger: function(number) {
         number = parseInt(number);
-        if (isNaN(number)) return 0;
+        if (isNaN(number))
+            return 0;
         return number;
     },
-
-    getStatus: function () {
+    getStatus: function() {
         var status = this.getInteger($("moneybookers_settings_activationstatus").value);
         if (status == 1 && $("moneybookers_settings_customer_id").value != '' && $("moneybookers_settings_secret_key").value == '') {
             status = 2;
@@ -147,14 +145,15 @@ Moneybookers.prototype = {
         }
         return status;
     },
-
-    setStatus: function (number) {
+    setStatus: function(number) {
         number = this.getInteger(number);
-        if (number < 0) number = 0;
-        else if (number > 3) number = 3;
+        if (number < 0)
+            number = 0;
+        else if (number > 3)
+            number = 3;
         $("moneybookers_settings_activationstatus").value = number;
     },
-    changeUi: function () {
+    changeUi: function() {
         var status = this.getStatus();
         if (status < 1) {
             $("moneybookers_inf_div").update(this.txtInfStatus0);
@@ -181,8 +180,7 @@ Moneybookers.prototype = {
             $("moneybookers_multifuncbutton").style.display = "block";
         }
     },
-
-    changeStore: function () {
+    changeStore: function() {
         if (!$("moneybookers_settings_moneybookers_email_inherit").checked) {
             if (this.infoOrig.useDefult) {
                 $("moneybookers_settings_customer_id_inherit").click();
@@ -205,7 +203,6 @@ Moneybookers.prototype = {
         }
         this.changeUi();
     },
-
     isStoreView: function() {
         return $("moneybookers_settings_moneybookers_email_inherit") != undefined;
     }

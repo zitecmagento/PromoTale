@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Identical.php 22075 2010-05-02 13:42:08Z thomas $
  */
-
 /** @see Zend_Validate_Abstract */
 #require_once 'Zend/Validate/Abstract.php';
 
@@ -30,11 +30,12 @@
  */
 class Zend_Validate_Identical extends Zend_Validate_Abstract
 {
+
     /**
      * Error codes
      * @const string
      */
-    const NOT_SAME      = 'notSame';
+    const NOT_SAME = 'notSame';
     const MISSING_TOKEN = 'missingToken';
 
     /**
@@ -42,7 +43,7 @@ class Zend_Validate_Identical extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::NOT_SAME      => "The two given tokens do not match",
+        self::NOT_SAME => "The two given tokens do not match",
         self::MISSING_TOKEN => 'No token was provided to match against',
     );
 
@@ -103,7 +104,7 @@ class Zend_Validate_Identical extends Zend_Validate_Abstract
     public function setToken($token)
     {
         $this->_tokenString = (string) $token;
-        $this->_token       = $token;
+        $this->_token = $token;
         return $this;
     }
 
@@ -161,4 +162,5 @@ class Zend_Validate_Identical extends Zend_Validate_Abstract
 
         return true;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Decorator_Abstract */
 #require_once 'Zend/Form/Decorator/Abstract.php';
 
@@ -41,6 +41,7 @@
  */
 class Zend_Form_Decorator_FormElements extends Zend_Form_Decorator_Abstract
 {
+
     /**
      * Merges given two belongsTo (array notation) strings
      *
@@ -69,20 +70,20 @@ class Zend_Form_Decorator_FormElements extends Zend_Form_Decorator_Abstract
      */
     public function render($content)
     {
-        $form    = $this->getElement();
+        $form = $this->getElement();
         if ((!$form instanceof Zend_Form) && (!$form instanceof Zend_Form_DisplayGroup)) {
             return $content;
         }
 
-        $belongsTo      = ($form instanceof Zend_Form) ? $form->getElementsBelongTo() : null;
+        $belongsTo = ($form instanceof Zend_Form) ? $form->getElementsBelongTo() : null;
         $elementContent = '';
-        $separator      = $this->getSeparator();
-        $translator     = $form->getTranslator();
-        $items          = array();
-        $view           = $form->getView();
+        $separator = $this->getSeparator();
+        $translator = $form->getTranslator();
+        $items = array();
+        $view = $form->getView();
         foreach ($form as $item) {
             $item->setView($view)
-                 ->setTranslator($translator);
+                    ->setTranslator($translator);
             if ($item instanceof Zend_Form_Element) {
                 $item->setBelongsTo($belongsTo);
             } elseif (!empty($belongsTo) && ($item instanceof Zend_Form)) {
@@ -100,11 +101,7 @@ class Zend_Form_Decorator_FormElements extends Zend_Form_Decorator_Abstract
 
             $items[] = $item->render();
 
-            if (($item instanceof Zend_Form_Element_File)
-                || (($item instanceof Zend_Form)
-                    && (Zend_Form::ENCTYPE_MULTIPART == $item->getEnctype()))
-                || (($item instanceof Zend_Form_DisplayGroup)
-                    && (Zend_Form::ENCTYPE_MULTIPART == $item->getAttrib('enctype')))
+            if (($item instanceof Zend_Form_Element_File) || (($item instanceof Zend_Form) && (Zend_Form::ENCTYPE_MULTIPART == $item->getEnctype())) || (($item instanceof Zend_Form_DisplayGroup) && (Zend_Form::ENCTYPE_MULTIPART == $item->getAttrib('enctype')))
             ) {
                 if ($form instanceof Zend_Form) {
                     $form->setEnctype(Zend_Form::ENCTYPE_MULTIPART);
@@ -123,4 +120,5 @@ class Zend_Form_Decorator_FormElements extends Zend_Form_Decorator_Abstract
                 return $content . $separator . $elementContent;
         }
     }
+
 }

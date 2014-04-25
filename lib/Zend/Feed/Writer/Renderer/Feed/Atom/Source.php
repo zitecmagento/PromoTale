@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,18 +19,15 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Source.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
- 
 #require_once 'Zend/Feed/Writer/Renderer/Feed/Atom/AtomAbstract.php';
- 
+
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Writer_Renderer_Feed_Atom_Source
-    extends Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
-    implements Zend_Feed_Writer_Renderer_RendererInterface
+class Zend_Feed_Writer_Renderer_Feed_Atom_Source extends Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract implements Zend_Feed_Writer_Renderer_RendererInterface
 {
 
     /**
@@ -38,11 +36,11 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_Source
      * @param  Zend_Feed_Writer_Feed_Source $container 
      * @return void
      */
-    public function __construct (Zend_Feed_Writer_Source $container)
+    public function __construct(Zend_Feed_Writer_Source $container)
     {
         parent::__construct($container);
     }
-    
+
     /**
      * Render Atom Feed Metadata (Source element)
      * 
@@ -71,7 +69,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_Source
         $this->_setAuthors($this->_dom, $root);
         $this->_setCopyright($this->_dom, $root);
         $this->_setCategories($this->_dom, $root);
-        
+
         foreach ($this->_extensions as $ext) {
             $ext->setType($this->getType());
             $ext->setRootElement($this->getRootElement());
@@ -80,7 +78,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_Source
         }
         return $this;
     }
-    
+
     /**
      * Set feed generator string
      * 
@@ -90,7 +88,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_Source
      */
     protected function _setGenerator(DOMDocument $dom, DOMElement $root)
     {
-        if(!$this->getDataContainer()->getGenerator()) {
+        if (!$this->getDataContainer()->getGenerator()) {
             return;
         }
 

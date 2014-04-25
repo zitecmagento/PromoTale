@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -36,9 +37,9 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
 
     public function __construct()
     {
-        $this->_objectId    = 'shipment_id';
-        $this->_controller  = 'sales_order_shipment';
-        $this->_mode        = 'view';
+        $this->_objectId = 'shipment_id';
+        $this->_controller = 'sales_order_shipment';
+        $this->_mode = 'view';
 
         parent::__construct();
 
@@ -46,19 +47,18 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         $this->_removeButton('delete');
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/emails')) {
             $this->_updateButton('save', 'label', Mage::helper('sales')->__('Send Tracking Information'));
-            $this->_updateButton('save',
-                'onclick', "deleteConfirm('"
-                . Mage::helper('sales')->__('Are you sure you want to send Shipment email to customer?')
-                . "', '" . $this->getEmailUrl() . "')"
+            $this->_updateButton('save', 'onclick', "deleteConfirm('"
+                    . Mage::helper('sales')->__('Are you sure you want to send Shipment email to customer?')
+                    . "', '" . $this->getEmailUrl() . "')"
             );
         }
 
         if ($this->getShipment()->getId()) {
             $this->_addButton('print', array(
-                'label'     => Mage::helper('sales')->__('Print'),
-                'class'     => 'save',
-                'onclick'   => 'setLocation(\''.$this->getPrintUrl().'\')'
-                )
+                'label' => Mage::helper('sales')->__('Print'),
+                'class' => 'save',
+                'onclick' => 'setLocation(\'' . $this->getPrintUrl() . '\')'
+                    )
             );
         }
     }
@@ -77,8 +77,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
     {
         if ($this->getShipment()->getEmailSent()) {
             $emailSent = Mage::helper('sales')->__('the shipment email was sent');
-        }
-        else {
+        } else {
             $emailSent = Mage::helper('sales')->__('the shipment email is not sent');
         }
         return Mage::helper('sales')->__('Shipment #%1$s | %3$s (%2$s)', $this->getShipment()->getIncrementId(), $emailSent, $this->formatDate($this->getShipment()->getCreatedAtDate(), 'medium', true));
@@ -87,22 +86,21 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
     public function getBackUrl()
     {
         return $this->getUrl(
-            '*/sales_order/view',
-            array(
-                'order_id'  => $this->getShipment()->getOrderId(),
-                'active_tab'=> 'order_shipments'
-            ));
+                        '*/sales_order/view', array(
+                    'order_id' => $this->getShipment()->getOrderId(),
+                    'active_tab' => 'order_shipments'
+        ));
     }
 
     public function getEmailUrl()
     {
-        return $this->getUrl('*/sales_order_shipment/email', array('shipment_id'  => $this->getShipment()->getId()));
+        return $this->getUrl('*/sales_order_shipment/email', array('shipment_id' => $this->getShipment()->getId()));
     }
 
     public function getPrintUrl()
     {
         return $this->getUrl('*/*/print', array(
-            'invoice_id' => $this->getShipment()->getId()
+                    'invoice_id' => $this->getShipment()->getId()
         ));
     }
 
@@ -116,4 +114,5 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         }
         return $this;
     }
+
 }

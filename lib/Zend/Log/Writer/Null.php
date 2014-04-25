@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Null.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Log_Writer_Abstract */
 #require_once 'Zend/Log/Writer/Abstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Log_Writer_Null extends Zend_Log_Writer_Abstract
 {
+
     /**
      * Write a message to the log.
      *
@@ -41,8 +42,9 @@ class Zend_Log_Writer_Null extends Zend_Log_Writer_Abstract
      */
     protected function _write($event)
     {
+        
     }
-    
+
     /**
      * Create a new instance of Zend_Log_Writer_Null
      * 
@@ -54,4 +56,5 @@ class Zend_Log_Writer_Null extends Zend_Log_Writer_Abstract
     {
         return new self();
     }
+
 }

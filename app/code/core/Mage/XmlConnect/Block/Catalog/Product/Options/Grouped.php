@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Options_Grouped extends Mage_XmlConnect_Block_Catalog_Product_Options
 {
+
     /**
      * Generate bundle product options xml
      *
@@ -70,7 +72,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Grouped extends Mage_XmlConn
             $optionNode->addAttribute('type', 'product');
             $optionNode->addAttribute('label', $xmlModel->escapeXml($item->getName()));
             $optionNode->addAttribute('is_qty_editable', 1);
-            $optionNode->addAttribute('qty', $item->getQty()*1);
+            $optionNode->addAttribute('qty', $item->getQty() * 1);
 
             /**
              * Process product price
@@ -84,7 +86,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Grouped extends Mage_XmlConn
             if ($productPrice != 0) {
                 $productPrice = Mage::helper('xmlconnect')->formatPriceForXml($productPrice);
                 $optionNode->addAttribute('price', Mage::helper('xmlconnect')->formatPriceForXml(
-                    Mage::helper('core')->currency($productPrice, false, false)
+                                Mage::helper('core')->currency($productPrice, false, false)
                 ));
                 $optionNode->addAttribute('formated_price', $this->_formatPriceString($productPrice, $product));
             }
@@ -92,4 +94,5 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Grouped extends Mage_XmlConn
 
         return $isObject ? $xmlModel : $xmlModel->asNiceXml();
     }
+
 }

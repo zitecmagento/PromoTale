@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogInventory Default Stock Status Indexer Resource Model
  *
@@ -32,7 +32,7 @@
  * @package     Mage_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Default
-    extends Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Default extends Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
 {
+    
 }

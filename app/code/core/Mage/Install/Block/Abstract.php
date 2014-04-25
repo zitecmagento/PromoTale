@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,7 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Abstract installation block
  *
@@ -31,6 +32,7 @@
  */
 abstract class Mage_Install_Block_Abstract extends Mage_Core_Block_Template
 {
+
     /**
      * Retrieve installer model
      *
@@ -40,7 +42,7 @@ abstract class Mage_Install_Block_Abstract extends Mage_Core_Block_Template
     {
         return Mage::getSingleton('install/installer');
     }
-    
+
     /**
      * Retrieve wizard model
      *
@@ -50,7 +52,7 @@ abstract class Mage_Install_Block_Abstract extends Mage_Core_Block_Template
     {
         return Mage::getSingleton('install/wizard');
     }
-    
+
     /**
      * Retrieve current installation step
      *
@@ -60,4 +62,5 @@ abstract class Mage_Install_Block_Abstract extends Mage_Core_Block_Template
     {
         return $this->getWizard()->getStepByRequest($this->getRequest());
     }
+
 }

@@ -40,12 +40,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($this->getVirtualQuoteItems() as $_item): ?>
-                    <tr>
-                        <td><?php echo $this->getItemHtml($_item) ?></td>
-                        <td class="a-center"><?php echo $_item->getQty() ?></td>
-                    </tr>
-                <?php endforeach; ?>
+                    <?php foreach ($this->getVirtualQuoteItems() as $_item): ?>
+                        <tr>
+                            <td><?php echo $this->getItemHtml($_item) ?></td>
+                            <td class="a-center"><?php echo $_item->getQty() ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
             <script type="text/javascript">decorateTable('unavailable-shipping-table')</script>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Simple.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Log_Formatter_Interface */
 #require_once 'Zend/Log/Formatter/Interface.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Log_Formatter_Simple implements Zend_Log_Formatter_Interface
 {
+
     /**
      * @var string
      */
@@ -52,7 +53,7 @@ class Zend_Log_Formatter_Simple implements Zend_Log_Formatter_Interface
             $format = self::DEFAULT_FORMAT . PHP_EOL;
         }
 
-        if (! is_string($format)) {
+        if (!is_string($format)) {
             #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception('Format must be a string');
         }
@@ -71,8 +72,7 @@ class Zend_Log_Formatter_Simple implements Zend_Log_Formatter_Interface
         $output = $this->_format;
         foreach ($event as $name => $value) {
 
-            if ((is_object($value) && !method_exists($value,'__toString'))
-                || is_array($value)) {
+            if ((is_object($value) && !method_exists($value, '__toString')) || is_array($value)) {
 
                 $value = gettype($value);
             }

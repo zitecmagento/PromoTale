@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Method.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_CodeGenerator_Php_Member_Abstract
  */
@@ -43,6 +43,7 @@
  */
 class Zend_CodeGenerator_Php_Method extends Zend_CodeGenerator_Php_Member_Abstract
 {
+
     /**
      * @var Zend_CodeGenerator_Php_Docblock
      */
@@ -206,8 +207,8 @@ class Zend_CodeGenerator_Php_Method extends Zend_CodeGenerator_Php_Member_Abstra
         }
 
         $output .= $this->getVisibility()
-            . (($this->isStatic()) ? ' static' : '')
-            . ' function ' . $this->getName() . '(';
+                . (($this->isStatic()) ? ' static' : '')
+                . ' function ' . $this->getName() . '(';
 
         $parameters = $this->getParameters();
         if (!empty($parameters)) {
@@ -222,8 +223,8 @@ class Zend_CodeGenerator_Php_Method extends Zend_CodeGenerator_Php_Member_Abstra
 
         if ($this->_body) {
             $output .= '        '
-                    .  str_replace(self::LINE_FEED, self::LINE_FEED . $indent . $indent, trim($this->_body))
-                    .  self::LINE_FEED;
+                    . str_replace(self::LINE_FEED, self::LINE_FEED . $indent . $indent, trim($this->_body))
+                    . self::LINE_FEED;
         }
 
         $output .= $indent . '}' . self::LINE_FEED;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Utility.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /** Zend_Oauth */
 #require_once 'Zend/Oauth.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Oauth_Http_Utility
 {
+
     /**
      * Assemble all parameters for a generic OAuth request - i.e. no special
      * params other than the defaults expected for any OAuth query.
@@ -43,18 +44,17 @@ class Zend_Oauth_Http_Utility
      * @return array
      */
     public function assembleParams(
-        $url, 
-        Zend_Oauth_Config_ConfigInterface $config,
-        array $serviceProviderParams = null
-    ) {
+    $url, Zend_Oauth_Config_ConfigInterface $config, array $serviceProviderParams = null
+    )
+    {
         $params = array(
-            'oauth_consumer_key'     => $config->getConsumerKey(),
-            'oauth_nonce'            => $this->generateNonce(),
+            'oauth_consumer_key' => $config->getConsumerKey(),
+            'oauth_nonce' => $this->generateNonce(),
             'oauth_signature_method' => $config->getSignatureMethod(),
-            'oauth_timestamp'        => $this->generateTimestamp(),
-            'oauth_version'          => $config->getVersion(),
+            'oauth_timestamp' => $this->generateTimestamp(),
+            'oauth_version' => $config->getVersion(),
         );
-        
+
         if ($config->getToken()->getToken() != null) {
             $params['oauth_token'] = $config->getToken()->getToken();
         }
@@ -65,12 +65,7 @@ class Zend_Oauth_Http_Utility
         }
 
         $params['oauth_signature'] = $this->sign(
-            $params,
-            $config->getSignatureMethod(),
-            $config->getConsumerSecret(),
-            $config->getToken()->getTokenSecret(),
-            $config->getRequestMethod(),
-            $url
+                $params, $config->getSignatureMethod(), $config->getConsumerSecret(), $config->getToken()->getTokenSecret(), $config->getRequestMethod(), $url
         );
 
         return $params;
@@ -88,7 +83,7 @@ class Zend_Oauth_Http_Utility
     public function toEncodedQueryString(array $params, $customParamsOnly = false)
     {
         if ($customParamsOnly) {
-            foreach ($params as $key=>$value) {
+            foreach ($params as $key => $value) {
                 if (preg_match("/^oauth_/", $key)) {
                     unset($params[$key]);
                 }
@@ -96,9 +91,9 @@ class Zend_Oauth_Http_Utility
         }
         $encodedParams = array();
         foreach ($params as $key => $value) {
-            $encodedParams[] = self::urlEncode($key) 
-                             . '=' 
-                             . self::urlEncode($value);
+            $encodedParams[] = self::urlEncode($key)
+                    . '='
+                    . self::urlEncode($value);
         }
         return implode('&', $encodedParams);
     }
@@ -123,9 +118,9 @@ class Zend_Oauth_Http_Utility
                     continue;
                 }
             }
-            $headerValue[] = self::urlEncode($key) 
-                           . '="'
-                           . self::urlEncode($value) . '"';
+            $headerValue[] = self::urlEncode($key)
+                    . '="'
+                    . self::urlEncode($value) . '"';
         }
         return implode(",", $headerValue);
     }
@@ -142,14 +137,15 @@ class Zend_Oauth_Http_Utility
      * @return string
      */
     public function sign(
-        array $params, $signatureMethod, $consumerSecret, $tokenSecret = null, $method = null, $url = null
-    ) {
+    array $params, $signatureMethod, $consumerSecret, $tokenSecret = null, $method = null, $url = null
+    )
+    {
         $className = '';
-        $hashAlgo  = null;
-        $parts     = explode('-', $signatureMethod);
+        $hashAlgo = null;
+        $parts = explode('-', $signatureMethod);
         if (count($parts) > 1) {
             $className = 'Zend_Oauth_Signature_' . ucfirst(strtolower($parts[0]));
-            $hashAlgo  = $parts[1];
+            $hashAlgo = $parts[1];
         } else {
             $className = 'Zend_Oauth_Signature_' . ucfirst(strtolower($signatureMethod));
         }
@@ -214,4 +210,5 @@ class Zend_Oauth_Http_Utility
         $encoded = str_replace('%7E', '~', $encoded);
         return $encoded;
     }
+
 }

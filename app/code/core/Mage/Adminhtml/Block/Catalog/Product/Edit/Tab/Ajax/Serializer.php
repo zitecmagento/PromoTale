@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Ajax_Serializer extends Mage_Core_Block_Template
 {
+
     public function _construct()
     {
         parent::_construct();
@@ -64,8 +66,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Ajax_Serializer extends Mage
     {
         if ($block = $this->getLayout()->getBlock($blockName)) {
             $this->setGridBlock($block)
-                ->setProducts(Mage::registry('current_product')->$getProductFunction())
-                ->setInputElementName($inputName);
+                    ->setProducts(Mage::registry('current_product')->$getProductFunction())
+                    ->setInputElementName($inputName);
         }
     }
+
 }

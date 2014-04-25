@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Dispatcher
 {
+
     /**
      * Template for retrieve resource class name
      */
@@ -57,14 +59,11 @@ class Mage_Api2_Model_Dispatcher
     {
         if (!$request->getModel() || !$request->getApiType()) {
             throw new Mage_Api2_Exception(
-                'Request does not contains all necessary data', Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+            'Request does not contains all necessary data', Mage_Api2_Model_Server::HTTP_BAD_REQUEST
             );
         }
         $model = self::loadResourceModel(
-            $request->getModel(),
-            $request->getApiType(),
-            $this->getApiUser()->getType(),
-            $this->getVersion($request->getResourceType(), $request->getVersion())
+                        $request->getModel(), $request->getApiType(), $this->getApiUser()->getType(), $this->getVersion($request->getResourceType(), $request->getVersion())
         );
 
         $model->setRequest($request);
@@ -88,14 +87,16 @@ class Mage_Api2_Model_Dispatcher
     public static function loadResourceModel($model, $apiType, $userType, $version)
     {
         $class = strtr(
-            self::RESOURCE_CLASS_TEMPLATE,
-            array(':resource' => $model, ':api' => $apiType, ':user' => $userType, ':version' => $version)
+                self::RESOURCE_CLASS_TEMPLATE, array(':resource' => $model, ':api' => $apiType, ':user' => $userType, ':version' => $version)
         );
 
-        try {
+        try
+        {
             /** @var $modelObj Mage_Api2_Model_Resource */
             $modelObj = Mage::getModel($class);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             // getModel() throws exception when in application is in development mode - skip it to next check
         }
         if (empty($modelObj) || !$modelObj instanceof Mage_Api2_Model_Resource) {
@@ -143,8 +144,7 @@ class Mage_Api2_Model_Dispatcher
     {
         if (false !== $requestedVersion && !preg_match('/^[1-9]\d*$/', $requestedVersion)) {
             throw new Mage_Api2_Exception(
-                sprintf('Invalid version "%s" requested.', htmlspecialchars($requestedVersion)),
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+            sprintf('Invalid version "%s" requested.', htmlspecialchars($requestedVersion)), Mage_Api2_Model_Server::HTTP_BAD_REQUEST
             );
         }
         return $this->getConfig()->getResourceLastVersion($resourceType, $requestedVersion);
@@ -159,4 +159,5 @@ class Mage_Api2_Model_Dispatcher
     {
         return Mage::getModel('api2/config');
     }
+
 }

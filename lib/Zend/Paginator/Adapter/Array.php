@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Array.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Paginator_Adapter_Interface
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Paginator_Adapter_Array implements Zend_Paginator_Adapter_Interface
 {
+
     /**
      * Array
      *
@@ -78,4 +79,5 @@ class Zend_Paginator_Adapter_Array implements Zend_Paginator_Adapter_Interface
     {
         return $this->_count;
     }
+
 }

@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Gdata.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_Gdata_App
  */
@@ -64,11 +63,11 @@ class Zend_Gdata extends Zend_Gdata_App
      * @var array
      */
     protected $_registeredPackages = array(
-            'Zend_Gdata_Kind',
-            'Zend_Gdata_Extension',
-            'Zend_Gdata',
-            'Zend_Gdata_App_Extension',
-            'Zend_Gdata_App');
+        'Zend_Gdata_Kind',
+        'Zend_Gdata_Extension',
+        'Zend_Gdata',
+        'Zend_Gdata_App_Extension',
+        'Zend_Gdata_App');
 
     /**
      * Namespaces used for Gdata data
@@ -120,8 +119,7 @@ class Zend_Gdata extends Zend_Gdata_App
      *                                    by passing false to the
      *                                    useObjectMapping() function.
      */
-    public static function import($uri, $client = null,
-        $className='Zend_Gdata_Feed')
+    public static function import($uri, $client = null, $className = 'Zend_Gdata_Feed')
     {
         $app = new Zend_Gdata($client);
         $requestData = $app->decodeRequest('GET', $uri);
@@ -147,7 +145,7 @@ class Zend_Gdata extends Zend_Gdata_App
      *                                    by passing false to the
      *                                    useObjectMapping() function.
      */
-    public function getFeed($location, $className='Zend_Gdata_Feed')
+    public function getFeed($location, $className = 'Zend_Gdata_Feed')
     {
         if (is_string($location)) {
             $uri = $location;
@@ -156,8 +154,8 @@ class Zend_Gdata extends Zend_Gdata_App
         } else {
             #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                    'You must specify the location as either a string URI ' .
-                    'or a child of Zend_Gdata_Query');
+            'You must specify the location as either a string URI ' .
+            'or a child of Zend_Gdata_Query');
         }
         return parent::getFeed($uri, $className);
     }
@@ -172,7 +170,7 @@ class Zend_Gdata extends Zend_Gdata_App
      *                                     by passing false to the
      *                                     useObjectMapping() function.
      */
-    public function getEntry($location, $className='Zend_Gdata_Entry')
+    public function getEntry($location, $className = 'Zend_Gdata_Entry')
     {
         if (is_string($location)) {
             $uri = $location;
@@ -181,8 +179,8 @@ class Zend_Gdata extends Zend_Gdata_App
         } else {
             #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                    'You must specify the location as either a string URI ' .
-                    'or a child of Zend_Gdata_Query');
+            'You must specify the location as either a string URI ' .
+            'or a child of Zend_Gdata_Query');
         }
         return parent::getEntry($uri, $className);
     }
@@ -231,8 +229,8 @@ class Zend_Gdata extends Zend_Gdata_App
     {
         $client = parent::getHttpClient();
         if ($client->getClientLoginToken() ||
-            $client->getAuthSubToken()) {
-                return true;
+                $client->getAuthSubToken()) {
+            return true;
         }
 
         return false;

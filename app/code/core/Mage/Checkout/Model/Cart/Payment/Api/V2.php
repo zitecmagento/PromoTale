@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,15 +32,16 @@
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
- class Mage_Checkout_Model_Cart_Payment_Api_V2 extends Mage_Checkout_Model_Cart_Payment_Api
+class Mage_Checkout_Model_Cart_Payment_Api_V2 extends Mage_Checkout_Model_Cart_Payment_Api
 {
-     protected function _preparePaymentData($data)
-     {
+
+    protected function _preparePaymentData($data)
+    {
         if (null !== ($_data = get_object_vars($data))) {
             return parent::_preparePaymentData($_data);
         }
 
         return array();
-     }
+    }
+
 }

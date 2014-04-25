@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Api2_Customer_Address_Rest_Customer_V1 extends Mage_Customer_Model_Api2_Customer_Address_Rest
 {
+
     /**
      * Load customer address by id
      *
@@ -68,4 +70,5 @@ class Mage_Customer_Model_Api2_Customer_Address_Rest_Customer_V1 extends Mage_Cu
         }
         return $customer;
     }
+
 }

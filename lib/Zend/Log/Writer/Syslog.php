@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Syslog.php 22977 2010-09-19 12:44:00Z intiilapa $
  */
-
 /** Zend_Log */
 #require_once 'Zend/Log.php';
 
@@ -37,19 +37,20 @@
  */
 class Zend_Log_Writer_Syslog extends Zend_Log_Writer_Abstract
 {
+
     /**
      * Maps Zend_Log priorities to PHP's syslog priorities
      * @var array
      */
     protected $_priorities = array(
-        Zend_Log::EMERG  => LOG_EMERG,
-        Zend_Log::ALERT  => LOG_ALERT,
-        Zend_Log::CRIT   => LOG_CRIT,
-        Zend_Log::ERR    => LOG_ERR,
-        Zend_Log::WARN   => LOG_WARNING,
+        Zend_Log::EMERG => LOG_EMERG,
+        Zend_Log::ALERT => LOG_ALERT,
+        Zend_Log::CRIT => LOG_CRIT,
+        Zend_Log::ERR => LOG_ERR,
+        Zend_Log::WARN => LOG_WARNING,
         Zend_Log::NOTICE => LOG_NOTICE,
-        Zend_Log::INFO   => LOG_INFO,
-        Zend_Log::DEBUG  => LOG_DEBUG,
+        Zend_Log::INFO => LOG_INFO,
+        Zend_Log::DEBUG => LOG_DEBUG,
     );
 
     /**
@@ -168,7 +169,7 @@ class Zend_Log_Writer_Syslog extends Zend_Log_Writer_Abstract
     protected function _initializeSyslog()
     {
         self::$_lastApplication = $this->_application;
-        self::$_lastFacility    = $this->_facility;
+        self::$_lastFacility = $this->_facility;
         openlog($this->_application, LOG_PID, $this->_facility);
     }
 
@@ -194,8 +195,7 @@ class Zend_Log_Writer_Syslog extends Zend_Log_Writer_Abstract
             throw new Zend_Log_Exception('Invalid log facility provided; please see http://php.net/openlog for a list of valid facility values');
         }
 
-        if ('WIN' == strtoupper(substr(PHP_OS, 0, 3))
-            && ($facility !== LOG_USER)
+        if ('WIN' == strtoupper(substr(PHP_OS, 0, 3)) && ($facility !== LOG_USER)
         ) {
             #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception('Only LOG_USER is a valid log facility on Windows');
@@ -246,12 +246,11 @@ class Zend_Log_Writer_Syslog extends Zend_Log_Writer_Abstract
             $priority = $this->_defaultPriority;
         }
 
-        if ($this->_application !== self::$_lastApplication
-            || $this->_facility !== self::$_lastFacility)
-        {
+        if ($this->_application !== self::$_lastApplication || $this->_facility !== self::$_lastFacility) {
             $this->_initializeSyslog();
         }
 
         syslog($priority, $event['message']);
     }
+
 }

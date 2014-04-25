@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,7 +34,7 @@ class Mage_Adminhtml_Block_Sales_Order_Address extends Mage_Adminhtml_Block_Widg
     public function __construct()
     {
         $this->_controller = 'sales_order';
-        $this->_mode       = 'address';
+        $this->_mode = 'address';
         parent::__construct();
         $this->_updateButton('save', 'label', Mage::helper('sales')->__('Save Order Address'));
         $this->_removeButton('delete');
@@ -64,8 +65,8 @@ class Mage_Adminhtml_Block_Sales_Order_Address extends Mage_Adminhtml_Block_Widg
     public function getBackUrl()
     {
         return $this->getUrl(
-            '*/*/view',
-            array('order_id'=>Mage::registry('order_address')->getOrder()->getId())
+                        '*/*/view', array('order_id' => Mage::registry('order_address')->getOrder()->getId())
         );
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
 /**
  * Zend_Exception
  */
@@ -30,4 +30,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Oauth_Exception extends Zend_Exception {}
+class Zend_Oauth_Exception extends Zend_Exception
+{
+    
+}

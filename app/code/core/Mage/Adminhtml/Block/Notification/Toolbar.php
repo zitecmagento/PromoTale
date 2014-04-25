@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml AdminNotification toolbar
  *
@@ -34,12 +34,15 @@
  */
 class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Initialize Toolbar block
      *
      */
     protected function _construct()
-    {}
+    {
+        
+    }
 
     /**
      * Retrieve helper
@@ -64,8 +67,7 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
         if ($this->getRequest()->getControllerName() == 'notification') {
             return false;
         }
-        if ($this->getCriticalCount() == 0 && $this->getMajorCount() == 0 && $this->getMinorCount() == 0
-            && $this->getNoticeCount() == 0
+        if ($this->getCriticalCount() == 0 && $this->getMajorCount() == 0 && $this->getMinorCount() == 0 && $this->getNoticeCount() == 0
         ) {
             return false;
         }
@@ -81,7 +83,7 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
     public function getCriticalCount()
     {
         return $this->_getHelper()
-            ->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_CRITICAL);
+                        ->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_CRITICAL);
     }
 
     /**
@@ -92,7 +94,7 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
     public function getMajorCount()
     {
         return $this->_getHelper()
-            ->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR);
+                        ->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR);
     }
 
     /**
@@ -103,7 +105,7 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
     public function getMinorCount()
     {
         return $this->_getHelper()
-            ->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_MINOR);
+                        ->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_MINOR);
     }
 
     /**
@@ -114,7 +116,7 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
     public function getNoticeCount()
     {
         return $this->_getHelper()
-            ->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_NOTICE);
+                        ->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_NOTICE);
     }
 
     /**
@@ -134,8 +136,8 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
      */
     public function getLatestNotice()
     {
-        return  $this->_getHelper()
-            ->getLatestNotice()->getTitle();
+        return $this->_getHelper()
+                        ->getLatestNotice()->getTitle();
     }
 
     /**
@@ -161,4 +163,5 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
         }
         return false;
     }
+
 }

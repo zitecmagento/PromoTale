@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Front.php 20246 2010-01-12 21:36:08Z dasprid $
  */
-
-
 /** Zend_Loader */
 #require_once 'Zend/Loader.php';
 
@@ -37,6 +36,7 @@
  */
 class Zend_Controller_Front
 {
+
     /**
      * Base URL
      * @var string
@@ -139,6 +139,7 @@ class Zend_Controller_Front
      */
     private function __clone()
     {
+        
     }
 
     /**
@@ -208,8 +209,8 @@ class Zend_Controller_Front
     public static function run($controllerDirectory)
     {
         self::getInstance()
-            ->setControllerDirectory($controllerDirectory)
-            ->dispatch();
+                ->setControllerDirectory($controllerDirectory)
+                ->dispatch();
     }
 
     /**
@@ -285,9 +286,12 @@ class Zend_Controller_Front
      */
     public function addModuleDirectory($path)
     {
-        try{
+        try
+        {
             $dir = new DirectoryIterator($path);
-        } catch(Exception $e) {
+        }
+        catch (Exception $e)
+        {
             #require_once 'Zend/Controller/Exception.php';
             throw new Zend_Controller_Exception("Directory $path not readable", 0, $e);
         }
@@ -296,7 +300,7 @@ class Zend_Controller_Front
                 continue;
             }
 
-            $module    = $file->getFilename();
+            $module = $file->getFilename();
 
             // Don't use SCCS directories as modules
             if (preg_match('/^[^a-z]/i', $module) || ('CVS' == $module)) {
@@ -677,7 +681,7 @@ class Zend_Controller_Front
      */
     public function getParam($name)
     {
-        if(isset($this->_invokeParams[$name])) {
+        if (isset($this->_invokeParams[$name])) {
             return $this->_invokeParams[$name];
         }
 
@@ -880,8 +884,8 @@ class Zend_Controller_Front
          * Register request and response objects with plugin broker
          */
         $this->_plugins
-             ->setRequest($this->_request)
-             ->setResponse($this->_response);
+                ->setRequest($this->_request)
+                ->setResponse($this->_response);
 
         /**
          * Initialize router
@@ -894,22 +898,25 @@ class Zend_Controller_Front
          */
         $dispatcher = $this->getDispatcher();
         $dispatcher->setParams($this->getParams())
-                   ->setResponse($this->_response);
+                ->setResponse($this->_response);
 
         // Begin dispatch
-        try {
+        try
+        {
             /**
              * Route request to controller/action, if a router is provided
              */
-
             /**
-            * Notify plugins of router startup
-            */
+             * Notify plugins of router startup
+             */
             $this->_plugins->routeStartup($this->_request);
 
-            try {
+            try
+            {
                 $router->route($this->_request);
-            }  catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 if ($this->throwExceptions()) {
                     throw $e;
                 }
@@ -918,8 +925,8 @@ class Zend_Controller_Front
             }
 
             /**
-            * Notify plugins of router completion
-            */
+             * Notify plugins of router completion
+             */
             $this->_plugins->routeShutdown($this->_request);
 
             /**
@@ -950,9 +957,12 @@ class Zend_Controller_Front
                 /**
                  * Dispatch request
                  */
-                try {
+                try
+                {
                     $dispatcher->dispatch($this->_request, $this->_response);
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     if ($this->throwExceptions()) {
                         throw $e;
                     }
@@ -964,7 +974,9 @@ class Zend_Controller_Front
                  */
                 $this->_plugins->postDispatch($this->_request);
             } while (!$this->_request->isDispatched());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             if ($this->throwExceptions()) {
                 throw $e;
             }
@@ -975,9 +987,12 @@ class Zend_Controller_Front
         /**
          * Notify plugins of dispatch loop completion
          */
-        try {
+        try
+        {
             $this->_plugins->dispatchLoopShutdown();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             if ($this->throwExceptions()) {
                 throw $e;
             }
@@ -991,4 +1006,5 @@ class Zend_Controller_Front
 
         $this->_response->sendResponse();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Part.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_Mime
  */
@@ -32,7 +32,8 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Mime_Part {
+class Zend_Mime_Part
+{
 
     public $type = Zend_Mime::TYPE_OCTETSTREAM;
     public $encoding = Zend_Mime::ENCODING_8BIT;
@@ -46,7 +47,6 @@ class Zend_Mime_Part {
     public $language;
     protected $_content;
     protected $_isStream = false;
-
 
     /**
      * create a new Mime Part.
@@ -79,7 +79,7 @@ class Zend_Mime_Part {
      */
     public function isStream()
     {
-      return $this->_isStream;
+        return $this->_isStream;
     }
 
     /**
@@ -100,13 +100,10 @@ class Zend_Mime_Part {
         switch ($this->encoding) {
             case Zend_Mime::ENCODING_QUOTEDPRINTABLE:
                 $filter = stream_filter_append(
-                    $this->_content,
-                    'convert.quoted-printable-encode',
-                    STREAM_FILTER_READ,
-                    array(
-                        'line-length'      => 76,
-                        'line-break-chars' => Zend_Mime::LINEEND
-                    )
+                        $this->_content, 'convert.quoted-printable-encode', STREAM_FILTER_READ, array(
+                    'line-length' => 76,
+                    'line-break-chars' => Zend_Mime::LINEEND
+                        )
                 );
                 if (!is_resource($filter)) {
                     #require_once 'Zend/Mime/Exception.php';
@@ -115,13 +112,10 @@ class Zend_Mime_Part {
                 break;
             case Zend_Mime::ENCODING_BASE64:
                 $filter = stream_filter_append(
-                    $this->_content,
-                    'convert.base64-encode',
-                    STREAM_FILTER_READ,
-                    array(
-                        'line-length'      => 76,
-                        'line-break-chars' => Zend_Mime::LINEEND
-                    )
+                        $this->_content, 'convert.base64-encode', STREAM_FILTER_READ, array(
+                    'line-length' => 76,
+                    'line-break-chars' => Zend_Mime::LINEEND
+                        )
                 );
                 if (!is_resource($filter)) {
                     #require_once 'Zend/Mime/Exception.php';
@@ -164,7 +158,7 @@ class Zend_Mime_Part {
 
         if ($this->boundary) {
             $contentType .= ';' . $EOL
-                          . " boundary=\"" . $this->boundary . '"';
+                    . " boundary=\"" . $this->boundary . '"';
         }
 
         $headers[] = array('Content-Type', $contentType);
@@ -174,7 +168,7 @@ class Zend_Mime_Part {
         }
 
         if ($this->id) {
-            $headers[]  = array('Content-ID', '<' . $this->id . '>');
+            $headers[] = array('Content-ID', '<' . $this->id . '>');
         }
 
         if ($this->disposition) {
@@ -193,7 +187,7 @@ class Zend_Mime_Part {
             $headers[] = array('Content-Location', $this->location);
         }
 
-        if ($this->language){
+        if ($this->language) {
             $headers[] = array('Content-Language', $this->language);
         }
 
@@ -214,4 +208,5 @@ class Zend_Mime_Part {
 
         return $res;
     }
+
 }

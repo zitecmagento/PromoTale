@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Index_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4
 {
+
     /**
      * Insert data from select statement
      *
@@ -47,4 +49,5 @@ class Mage_Index_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_H
     {
         return $object->insertFromSelect($select, $destTable, $columns, $readToIndex);
     }
+
 }

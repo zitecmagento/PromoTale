@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: PhpSerialize.php 20574 2010-01-24 17:39:14Z mabe $
  */
-
 /** @see Zend_Serializer_Adapter_AdapterAbstract */
 #require_once 'Zend/Serializer/Adapter/AdapterAbstract.php';
 
@@ -32,6 +32,7 @@
  */
 class Zend_Serializer_Adapter_PhpSerialize extends Zend_Serializer_Adapter_AdapterAbstract
 {
+
     /**
      *  @var null|string Serialized boolean false value
      */
@@ -43,7 +44,7 @@ class Zend_Serializer_Adapter_PhpSerialize extends Zend_Serializer_Adapter_Adapt
      * @param  array|Zend_Config $opts 
      * @return void
      */
-    public function __construct($opts = array()) 
+    public function __construct($opts = array())
     {
         parent::__construct($opts);
 
@@ -91,4 +92,5 @@ class Zend_Serializer_Adapter_PhpSerialize extends Zend_Serializer_Adapter_Adapt
         }
         return $ret;
     }
+
 }

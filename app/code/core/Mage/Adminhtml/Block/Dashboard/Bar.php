@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_Abstract
 {
+
     protected $_totals = array();
     protected $_currentCurrencyCode = null;
 
@@ -48,16 +49,16 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
         return $this->_totals;
     }
 
-    public function addTotal($label, $value, $isQuantity=false)
+    public function addTotal($label, $value, $isQuantity = false)
     {
-        /*if (!$isQuantity) {
-            $value = $this->format($value);
-            $decimals = substr($value, -2);
-            $value = substr($value, 0, -2);
-        } else {
-            $value = ($value != '')?$value:0;
-            $decimals = '';
-        }*/
+        /* if (!$isQuantity) {
+          $value = $this->format($value);
+          $decimals = substr($value, -2);
+          $value = substr($value, 0, -2);
+          } else {
+          $value = ($value != '')?$value:0;
+          $decimals = '';
+          } */
         if (!$isQuantity) {
             $value = $this->format($value);
         }
@@ -102,10 +103,10 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
         if (is_null($this->_currentCurrencyCode)) {
             if ($this->getRequest()->getParam('store')) {
                 $this->_currentCurrencyCode = Mage::app()->getStore($this->getRequest()->getParam('store'))->getBaseCurrency();
-            } else if ($this->getRequest()->getParam('website')){
+            } else if ($this->getRequest()->getParam('website')) {
                 $this->_currentCurrencyCode = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getBaseCurrency();
-            } else if ($this->getRequest()->getParam('group')){
-                $this->_currentCurrencyCode =  Mage::app()->getGroup($this->getRequest()->getParam('group'))->getWebsite()->getBaseCurrency();
+            } else if ($this->getRequest()->getParam('group')) {
+                $this->_currentCurrencyCode = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getWebsite()->getBaseCurrency();
             } else {
                 $this->_currentCurrencyCode = Mage::app()->getStore()->getBaseCurrency();
             }
@@ -113,4 +114,5 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
 
         return $this->_currentCurrencyCode;
     }
+
 }

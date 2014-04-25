@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,13 @@
  */
 class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Constants which defines all possible coupon codes formats
      */
-    const COUPON_FORMAT_ALPHANUMERIC    = 'alphanum';
-    const COUPON_FORMAT_ALPHABETICAL    = 'alpha';
-    const COUPON_FORMAT_NUMERIC         = 'num';
+    const COUPON_FORMAT_ALPHANUMERIC = 'alphanum';
+    const COUPON_FORMAT_ALPHABETICAL = 'alpha';
+    const COUPON_FORMAT_NUMERIC = 'num';
 
     /**
      * Defines type of Coupon
@@ -48,16 +50,16 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
     /**
      * XML paths to coupon codes generation options
      */
-    const XML_PATH_SALES_RULE_COUPON_LENGTH        = 'promo/auto_generated_coupon_codes/length';
-    const XML_PATH_SALES_RULE_COUPON_FORMAT        = 'promo/auto_generated_coupon_codes/format';
-    const XML_PATH_SALES_RULE_COUPON_PREFIX        = 'promo/auto_generated_coupon_codes/prefix';
-    const XML_PATH_SALES_RULE_COUPON_SUFFIX        = 'promo/auto_generated_coupon_codes/suffix';
+    const XML_PATH_SALES_RULE_COUPON_LENGTH = 'promo/auto_generated_coupon_codes/length';
+    const XML_PATH_SALES_RULE_COUPON_FORMAT = 'promo/auto_generated_coupon_codes/format';
+    const XML_PATH_SALES_RULE_COUPON_PREFIX = 'promo/auto_generated_coupon_codes/prefix';
+    const XML_PATH_SALES_RULE_COUPON_SUFFIX = 'promo/auto_generated_coupon_codes/suffix';
     const XML_PATH_SALES_RULE_COUPON_DASH_INTERVAL = 'promo/auto_generated_coupon_codes/dash';
 
     /**
      * Config path for character set and separator
      */
-    const XML_CHARSET_NODE      = 'global/salesrule/coupon/charset/%s';
+    const XML_CHARSET_NODE = 'global/salesrule/coupon/charset/%s';
     const XML_CHARSET_SEPARATOR = 'global/salesrule/coupon/separator';
 
     /**
@@ -70,7 +72,7 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
         return array(
             self::COUPON_FORMAT_ALPHANUMERIC => $this->__('Alphanumeric'),
             self::COUPON_FORMAT_ALPHABETICAL => $this->__('Alphabetical'),
-            self::COUPON_FORMAT_NUMERIC      => $this->__('Numeric'),
+            self::COUPON_FORMAT_NUMERIC => $this->__('Numeric'),
         );
     }
 
@@ -81,7 +83,7 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
      */
     public function getDefaultLength()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_SALES_RULE_COUPON_LENGTH);
+        return (int) Mage::getStoreConfig(self::XML_PATH_SALES_RULE_COUPON_LENGTH);
     }
 
     /**
@@ -121,7 +123,7 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
      */
     public function getDefaultDashInterval()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_SALES_RULE_COUPON_DASH_INTERVAL);
+        return (int) Mage::getStoreConfig(self::XML_PATH_SALES_RULE_COUPON_DASH_INTERVAL);
     }
 
     /**
@@ -142,6 +144,7 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
      */
     public function getCodeSeparator()
     {
-        return (string)Mage::app()->getConfig()->getNode(Mage_SalesRule_Helper_Coupon::XML_CHARSET_SEPARATOR);
+        return (string) Mage::app()->getConfig()->getNode(Mage_SalesRule_Helper_Coupon::XML_CHARSET_SEPARATOR);
     }
+
 }

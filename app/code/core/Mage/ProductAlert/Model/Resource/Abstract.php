@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product alert for back in abstract resource model
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Retrieve alert row by object parameters
      *
@@ -45,14 +46,14 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
         $adapter = $this->_getReadAdapter();
         if ($object->getCustomerId() && $object->getProductId() && $object->getWebsiteId()) {
             $select = $adapter->select()
-                ->from($this->getMainTable())
-                ->where('customer_id = :customer_id')
-                ->where('product_id  = :product_id')
-                ->where('website_id  = :website_id');
+                    ->from($this->getMainTable())
+                    ->where('customer_id = :customer_id')
+                    ->where('product_id  = :product_id')
+                    ->where('website_id  = :website_id');
             $bind = array(
                 ':customer_id' => $object->getCustomerId(),
-                ':product_id'  => $object->getProductId(),
-                ':website_id'  => $object->getWebsiteId()
+                ':product_id' => $object->getProductId(),
+                ':website_id' => $object->getWebsiteId()
             );
             return $adapter->fetchRow($select, $bind);
         }
@@ -82,10 +83,10 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
      * @param int $websiteId
      * @return Mage_ProductAlert_Model_Resource_Abstract
      */
-    public function deleteCustomer(Mage_Core_Model_Abstract $object, $customerId, $websiteId=null)
+    public function deleteCustomer(Mage_Core_Model_Abstract $object, $customerId, $websiteId = null)
     {
         $adapter = $this->_getWriteAdapter();
-        $where   = array();
+        $where = array();
         $where[] = $adapter->quoteInto('customer_id=?', $customerId);
         if ($websiteId) {
             $where[] = $adapter->quoteInto('website_id=?', $websiteId);
@@ -93,4 +94,5 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
         $adapter->delete($this->getMainTable(), $where);
         return $this;
     }
+
 }

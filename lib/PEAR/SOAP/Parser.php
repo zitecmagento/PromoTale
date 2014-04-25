@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file contains the code for the SOAP message parser.
  *
@@ -21,7 +22,6 @@
  * @license    http://www.php.net/license/2_02.txt  PHP License 2.02
  * @link       http://pear.php.net/package/SOAP
  */
-
 require_once 'SOAP/Base.php';
 require_once 'SOAP/Value.php';
 
@@ -39,6 +39,7 @@ require_once 'SOAP/Value.php';
  */
 class SOAP_Parser extends SOAP_Base
 {
+
     var $status = '';
     var $position = 0;
     var $depth = 0;
@@ -69,8 +70,7 @@ class SOAP_Parser extends SOAP_Base
      * @param string $encoding    Character set encoding, defaults to 'UTF-8'.
      * @param array $attachments  List of attachments.
      */
-    function SOAP_Parser($xml, $encoding = SOAP_DEFAULT_ENCODING,
-                         $attachments = null)
+    function SOAP_Parser($xml, $encoding = SOAP_DEFAULT_ENCODING, $attachments = null)
     {
         parent::SOAP_Base('Parser');
         $this->_setSchemaVersion(SOAP_XML_SCHEMA_VERSION);
@@ -100,11 +100,7 @@ class SOAP_Parser extends SOAP_Base
 
             // Parse the XML file.
             if (!xml_parse($parser, $xml, true)) {
-                $err = sprintf('XML error on line %d col %d byte %d %s',
-                               xml_get_current_line_number($parser),
-                               xml_get_current_column_number($parser),
-                               xml_get_current_byte_index($parser),
-                               xml_error_string(xml_get_error_code($parser)));
+                $err = sprintf('XML error on line %d col %d byte %d %s', xml_get_current_line_number($parser), xml_get_current_column_number($parser), xml_get_current_byte_index($parser), xml_error_string(xml_get_error_code($parser)));
                 $this->_raiseSoapFault($err, htmlspecialchars($xml));
             }
             xml_parser_free($parser);
@@ -193,17 +189,17 @@ class SOAP_Parser extends SOAP_Base
 
                         // Increment our array pointers.
                         $ad = $ardepth - 1;
-                        $ar[$ad]++;
+                        $ar[$ad] ++;
                         while ($ad > 0 &&
-                               $ar[$ad] >= $this->message[$pos]['arraySize'][$ad]) {
+                        $ar[$ad] >= $this->message[$pos]['arraySize'][$ad]) {
                             $ar[$ad] = 0;
                             $ad--;
-                            $ar[$ad]++;
+                            $ar[$ad] ++;
                         }
                     }
                     $response = $newresp;
                 } elseif (isset($this->message[$pos]['arrayOffset']) &&
-                          $this->message[$pos]['arrayOffset'][0] > 0) {
+                        $this->message[$pos]['arrayOffset'][0] > 0) {
                     // Check for padding.
                     $pad = $this->message[$pos]['arrayOffset'][0] + count($response) * -1;
                     $response = array_pad($response, $pad, null);
@@ -220,26 +216,20 @@ class SOAP_Parser extends SOAP_Base
         }
 
         // Add current node's value.
-        $nqn = new QName($this->message[$pos]['name'],
-                         $this->message[$pos]['namespace']);
-        $tqn = new QName($this->message[$pos]['type'],
-                         $this->message[$pos]['type_namespace']);
+        $nqn = new QName($this->message[$pos]['name'], $this->message[$pos]['namespace']);
+        $tqn = new QName($this->message[$pos]['type'], $this->message[$pos]['type_namespace']);
         if ($response) {
-            $response = new SOAP_Value($nqn->fqn(), $tqn->fqn(), $response,
-                                       $attrs);
+            $response = new SOAP_Value($nqn->fqn(), $tqn->fqn(), $response, $attrs);
             if (isset($this->message[$pos]['arrayType'])) {
                 $response->arrayType = $this->message[$pos]['arrayType'];
             }
         } else {
             // Check if value is an empty array
             if ($tqn->name == 'Array') {
-                $response = new SOAP_Value($nqn->fqn(), $tqn->fqn(), array(),
-                                           $attrs);
+                $response = new SOAP_Value($nqn->fqn(), $tqn->fqn(), array(), $attrs);
                 //if ($pos == 4) var_dump($this->message[$pos], $response);
             } else {
-                $response = new SOAP_Value($nqn->fqn(), $tqn->fqn(),
-                                           $this->message[$pos]['cdata'],
-                                           $attrs);
+                $response = new SOAP_Value($nqn->fqn(), $tqn->fqn(), $this->message[$pos]['cdata'], $attrs);
             }
         }
 
@@ -272,7 +262,6 @@ class SOAP_Parser extends SOAP_Base
             'id' => '');
 
         // Parent/child/depth determinations.
-
         // depth = How many levels removed from root?
         // Set mine as current global depth and increment global depth value.
         $this->message[$pos]['depth'] = $this->depth++;
@@ -306,7 +295,7 @@ class SOAP_Parser extends SOAP_Base
             $this->status = 'body';
             $this->bodyDepth = $this->depth;
 
-        // Set method
+            // Set method
         } elseif ($this->status == 'body') {
             // Is this element allowed to be a root?
             // TODO: this needs to be optimized, we loop through $attrs twice
@@ -351,7 +340,7 @@ class SOAP_Parser extends SOAP_Base
 
                 $this->_namespaces[$value] = $prefix;
 
-            // Set method namespace.
+                // Set method namespace.
             } elseif ($key == 'xmlns') {
                 $qname->ns = $this->_getNamespacePrefix($value);
                 $qname->namespace = $value;
@@ -360,7 +349,7 @@ class SOAP_Parser extends SOAP_Base
             } elseif ($kqn->name == 'mustUnderstand') {
                 $this->message[$pos]['mustUnderstand'] = $value;
 
-            // If it's a type declaration, set type.
+                // If it's a type declaration, set type.
             } elseif ($kqn->name == 'type') {
                 $vqn = new QName($value);
                 $this->message[$pos]['type'] = $vqn->name;
@@ -368,7 +357,6 @@ class SOAP_Parser extends SOAP_Base
 
                 // Should do something here with the namespace of specified
                 // type?
-
             } elseif ($kqn->name == 'arrayType') {
                 $vqn = new QName($value);
                 $this->message[$pos]['type'] = 'Array';
@@ -376,15 +364,12 @@ class SOAP_Parser extends SOAP_Base
                     $this->message[$pos]['arraySize'] = $vqn->arraySize;
                 }
                 $this->message[$pos]['arrayType'] = $vqn->name;
-
             } elseif ($kqn->name == 'offset') {
                 $this->message[$pos]['arrayOffset'] = explode(',', substr($value, 1, strlen($value) - 2));
-
             } elseif ($kqn->name == 'id') {
                 // Save id to reference array.
                 $this->references[$value] = $pos;
                 $this->message[$pos]['id'] = $value;
-
             } elseif ($kqn->name == 'href') {
                 if ($value[0] == '#') {
                     $ref = substr($value, 1);
@@ -439,18 +424,18 @@ class SOAP_Parser extends SOAP_Base
         if ($this->message[$pos]['type'] == '') {
             if (isset($this->message[$pos]['children'])) {
                 /* this is slow, need to look at some faster method
-                $children = explode('|', $this->message[$pos]['children']);
-                if (count($children) > 2 &&
-                    $this->message[$children[1]]['name'] == $this->message[$children[2]]['name']) {
-                    $this->message[$pos]['type'] = 'Array';
-                } else {
-                    $this->message[$pos]['type'] = 'Struct';
-                }*/
+                  $children = explode('|', $this->message[$pos]['children']);
+                  if (count($children) > 2 &&
+                  $this->message[$children[1]]['name'] == $this->message[$children[2]]['name']) {
+                  $this->message[$pos]['type'] = 'Array';
+                  } else {
+                  $this->message[$pos]['type'] = 'Struct';
+                  } */
                 $this->message[$pos]['type'] = 'Struct';
             } else {
                 $parent = $this->message[$pos]['parent'];
                 if ($this->message[$parent]['type'] == 'Array' &&
-                    isset($this->message[$parent]['arrayType'])) {
+                        isset($this->message[$parent]['arrayType'])) {
                     $this->message[$pos]['type'] = $this->message[$parent]['arrayType'];
                 } else {
                     $this->message[$pos]['type'] = 'string';

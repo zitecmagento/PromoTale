@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Oauth_Block_AuthorizeBaseAbstract extends Mage_Oauth_Block_Authorize_Abstract
 {
+
     /**
      * Retrieve user authorize form posting url
      *
@@ -47,8 +49,8 @@ abstract class Mage_Oauth_Block_AuthorizeBaseAbstract extends Mage_Oauth_Block_A
      */
     public function getRejectUrl()
     {
-        $url = $this->getUrl($this->getRejectUrlPath() . ($this->getIsSimple() ? 'Simple' : ''),
-            array('_query' => array('oauth_token' => $this->getToken())));
+        $url = $this->getUrl($this->getRejectUrlPath() . ($this->getIsSimple() ? 'Simple' : ''), array('_query' => array(
+                'oauth_token' => $this->getToken())));
         return $url;
     }
 

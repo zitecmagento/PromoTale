@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -199,5 +200,4 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function setFetchMode($mode);
-
 }

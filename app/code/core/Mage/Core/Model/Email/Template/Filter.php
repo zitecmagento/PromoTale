@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Email Template Filter Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 {
+
     /**
      * Use absolute links flag
      *
@@ -59,10 +60,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @var array
      */
-    protected $_modifiers = array('nl2br'  => '');
-
+    protected $_modifiers = array('nl2br' => '');
     protected $_storeId = null;
-
     protected $_plainTemplateMode = false;
 
     /**
@@ -107,7 +106,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function setPlainTemplateMode($plainTemplateMode)
     {
-        $this->_plainTemplateMode = (bool)$plainTemplateMode;
+        $this->_plainTemplateMode = (bool) $plainTemplateMode;
         return $this;
     }
 
@@ -206,8 +205,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         /* @var $layout Mage_Core_Model_Layout */
         if (isset($params['area'])) {
             $layout->setArea($params['area']);
-        }
-        else {
+        } else {
             $layout->setArea(Mage::app()->getLayout()->getArea());
         }
 
@@ -312,8 +310,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             $path = '';
             $params['_direct'] = $params['direct_url'];
             unset($params['direct_url']);
-        }
-        else {
+        } else {
             $path = isset($params['url']) ? $params['url'] : '';
             unset($params['url']);
         }
@@ -352,7 +349,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function varDirective($construction)
     {
-        if (count($this->_templateVars)==0) {
+        if (count($this->_templateVars) == 0) {
             // If template preprocessing
             return $construction[0];
         }
@@ -380,7 +377,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             if (empty($part)) {
                 continue;
             }
-            $params   = explode(':', $part);
+            $params = explode(':', $part);
             $modifier = array_shift($params);
             if (isset($this->_modifiers[$modifier])) {
                 $callback = $this->_modifiers[$modifier];
@@ -439,8 +436,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         $protocol = $isSecure ? 'https' : 'http';
         if (isset($params['url'])) {
             return $protocol . '://' . $params['url'];
-        }
-        elseif (isset($params['http']) && isset($params['https'])) {
+        } elseif (isset($params['http']) && isset($params['https'])) {
             if ($isSecure) {
                 return $params['https'];
             }
@@ -479,11 +475,9 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         $params = $this->_getIncludeParameters($construction[2]);
         if (isset($params['code'])) {
             $variable = Mage::getModel('core/variable')
-                ->setStoreId($this->getStoreId())
-                ->loadByCode($params['code']);
-            $mode = $this->getPlainTemplateMode()
-                ? Mage_Core_Model_Variable::TYPE_TEXT
-                : Mage_Core_Model_Variable::TYPE_HTML;
+                    ->setStoreId($this->getStoreId())
+                    ->loadByCode($params['code']);
+            $mode = $this->getPlainTemplateMode() ? Mage_Core_Model_Variable::TYPE_TEXT : Mage_Core_Model_Variable::TYPE_HTML;
             if ($value = $variable->getValue($mode)) {
                 $customVarValue = $value;
             }
@@ -500,12 +494,16 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function filter($value)
     {
-        try {
+        try
+        {
             $value = parent::filter($value);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $value = '';
             Mage::logException($e);
         }
         return $value;
     }
+
 }

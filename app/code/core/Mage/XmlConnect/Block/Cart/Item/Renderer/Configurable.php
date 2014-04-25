@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,8 +34,9 @@
  */
 class Mage_XmlConnect_Block_Cart_Item_Renderer_Configurable extends Mage_XmlConnect_Block_Cart_Item_Renderer
 {
+
     const CONFIGURABLE_PRODUCT_IMAGE = 'checkout/cart/configurable_product_image';
-    const USE_PARENT_IMAGE           = 'parent';
+    const USE_PARENT_IMAGE = 'parent';
 
     /**
      * Get item configurable product
@@ -85,4 +87,5 @@ class Mage_XmlConnect_Block_Cart_Item_Renderer_Configurable extends Mage_XmlConn
         $helper = Mage::helper('catalog/product_configuration');
         return $helper->getConfigurableOptions($this->getItem());
     }
+
 }

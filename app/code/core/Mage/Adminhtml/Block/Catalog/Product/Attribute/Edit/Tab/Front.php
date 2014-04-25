@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage_Adminhtml_Block_Widget_Form
 {
 
@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage
 
         $form = new Varien_Data_Form(array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'));
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('catalog')->__('Frontend Properties')));
+        $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('catalog')->__('Frontend Properties')));
 
         $yesno = array(
             array(
@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage
             array(
                 'value' => 1,
                 'label' => Mage::helper('catalog')->__('Yes')
-            ));
+        ));
 
 
         $fieldset->addField('is_searchable', 'select', array(
@@ -88,12 +88,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage
         ));
 
 //        if ($model->getIsUserDefined() || !$model->getId()) {
-            $fieldset->addField('is_visible_on_front', 'select', array(
-                'name' => 'is_visible_on_front',
-                'label' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
-                'title' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
-                'values' => $yesno,
-            ));
+        $fieldset->addField('is_visible_on_front', 'select', array(
+            'name' => 'is_visible_on_front',
+            'label' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
+            'title' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
+            'values' => $yesno,
+        ));
 //        }
 
         $form->setValues($model->getData());

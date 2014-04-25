@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_OfflineCatalogController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Index action
      *
@@ -47,17 +49,21 @@ class Mage_XmlConnect_OfflineCatalogController extends Mage_Core_Controller_Fron
             $this->_forward('noRoute');
             return;
         }
-        try {
+        try
+        {
             $this->loadLayout(false);
             Mage::getModel('xmlconnect/offlineCatalog')->exportData();
             $helper->renderXmlObject();
             Mage::getSingleton('core/session')->addSuccess($this->__('Offline catalog export complete.'));
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             Mage::getSingleton('core/session')->addError($this->__('Offline catalog export failed.'));
         }
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(
-            array('result' => Mage::app()->getLayout()->getMessagesBlock()->getGroupedHtml())
+                        array('result' => Mage::app()->getLayout()->getMessagesBlock()->getGroupedHtml())
         ));
     }
+
 }

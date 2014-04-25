@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: AdapterAbstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Queue
  */
@@ -39,9 +39,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Queue_Adapter_AdapterAbstract
-    implements Zend_Queue_Adapter_AdapterInterface
+abstract class Zend_Queue_Adapter_AdapterAbstract implements Zend_Queue_Adapter_AdapterInterface
 {
+
     /**
      * Default timeout for createQueue() function
      */
@@ -116,7 +116,7 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
         }
 
         $adapterOptions = array();
-        $driverOptions  = array();
+        $driverOptions = array();
 
         // Normalize the options and merge with the defaults
         if (array_key_exists('options', $options)) {
@@ -132,18 +132,19 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
         }
         if (array_key_exists('driverOptions', $options)) {
             // can't use array_merge() because keys might be integers
-            foreach ((array)$options['driverOptions'] as $key => $value) {
+            foreach ((array) $options['driverOptions'] as $key => $value) {
                 $driverOptions[$key] = $value;
             }
         }
         $this->_options = array_merge($this->_options, $options);
-        $this->_options['options']       = $adapterOptions;
+        $this->_options['options'] = $adapterOptions;
         $this->_options['driverOptions'] = $driverOptions;
     }
 
-    /********************************************************************
-    * Queue management functions
-     *********************************************************************/
+    /*     * ******************************************************************
+     * Queue management functions
+     * ******************************************************************* */
+
     /**
      * get the Zend_Queue class that is attached to this object
      *
@@ -187,5 +188,6 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
         $list = $this->getCapabilities();
 
         return (isset($list[$name]) && $list[$name]);
-     }
+    }
+
 }

@@ -7,7 +7,6 @@
  * @package    Zitec_Promotale
  * @copyright  Zitec COM <magento@zitec.ro>
  */
-
 $installer = $this;
 
 $installer->startSetup();

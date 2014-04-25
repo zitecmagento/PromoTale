@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Downloadable products Price indexer resource model
  *
@@ -34,4 +34,5 @@
  */
 class Mage_Downloadable_Model_Mysql4_Indexer_Price extends Mage_Downloadable_Model_Resource_Indexer_Price
 {
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 
@@ -36,47 +36,27 @@ if (file_exists($installFile)) {
      * Unique indexes for reports/viewed_product_index
      */
     $installer->getConnection()->addIndex(
-        $installer->getTable('reports/viewed_product_index'),
-        $installer->getIdxName(
-            'reports/viewed_product_index',
-            array('visitor_id', 'product_id'),
-            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
-        ),
-        array('visitor_id', 'product_id'),
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            $installer->getTable('reports/viewed_product_index'), $installer->getIdxName(
+                    'reports/viewed_product_index', array('visitor_id', 'product_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            ), array('visitor_id', 'product_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     );
     $installer->getConnection()->addIndex(
-        $installer->getTable('reports/viewed_product_index'),
-        $installer->getIdxName(
-            'reports/viewed_product_index',
-            array('customer_id', 'product_id'),
-            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
-        ),
-        array('customer_id', 'product_id'),
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            $installer->getTable('reports/viewed_product_index'), $installer->getIdxName(
+                    'reports/viewed_product_index', array('customer_id', 'product_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            ), array('customer_id', 'product_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     );
 
     /**
      * Unique indexes for reports/compared_product_index
      */
     $installer->getConnection()->addIndex(
-        $installer->getTable('reports/compared_product_index'),
-        $installer->getIdxName(
-            'reports/compared_product_index',
-            array('visitor_id', 'product_id'),
-            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
-        ),
-        array('visitor_id', 'product_id'),
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            $installer->getTable('reports/compared_product_index'), $installer->getIdxName(
+                    'reports/compared_product_index', array('visitor_id', 'product_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            ), array('visitor_id', 'product_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     );
     $installer->getConnection()->addIndex(
-        $installer->getTable('reports/compared_product_index'),
-        $installer->getIdxName(
-            'reports/compared_product_index',
-            array('customer_id', 'product_id'),
-            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
-        ),
-        array('customer_id', 'product_id'),
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            $installer->getTable('reports/compared_product_index'), $installer->getIdxName(
+                    'reports/compared_product_index', array('customer_id', 'product_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            ), array('customer_id', 'product_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     );
 }

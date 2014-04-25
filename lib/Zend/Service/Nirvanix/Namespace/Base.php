@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Base.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Http_Client
  */
@@ -43,6 +43,7 @@
  */
 class Zend_Service_Nirvanix_Namespace_Base
 {
+
     /**
      * HTTP client instance that will be used to make calls to
      * the Nirvanix web services.
@@ -92,7 +93,7 @@ class Zend_Service_Nirvanix_Namespace_Base
             $this->_defaults = $options['defaults'];
         }
 
-        if (! isset($options['httpClient'])) {
+        if (!isset($options['httpClient'])) {
             $options['httpClient'] = new Zend_Http_Client();
         }
         $this->_httpClient = $options['httpClient'];
@@ -169,4 +170,5 @@ class Zend_Service_Nirvanix_Namespace_Base
     {
         return new Zend_Service_Nirvanix_Response($httpResponse->getBody());
     }
+
 }

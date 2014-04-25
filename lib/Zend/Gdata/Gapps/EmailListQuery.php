@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: EmailListQuery.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Gapps_Query
  */
@@ -63,8 +62,7 @@ class Zend_Gdata_Gapps_EmailListQuery extends Zend_Gdata_Gapps_Query
      * @param string $startEmailListName (optional) Value for the
      *          startEmailListName property.
      */
-    public function __construct($domain = null, $emailListName = null,
-            $recipient = null, $startEmailListName = null)
+    public function __construct($domain = null, $emailListName = null, $recipient = null, $startEmailListName = null)
     {
         parent::__construct($domain);
         $this->setEmailListName($emailListName);
@@ -80,10 +78,10 @@ class Zend_Gdata_Gapps_EmailListQuery extends Zend_Gdata_Gapps_Query
      * @param string $value The email list name to filter search results by,
      *          or null to disable.
      */
-     public function setEmailListName($value)
-     {
-         $this->_emailListName = $value;
-     }
+    public function setEmailListName($value)
+    {
+        $this->_emailListName = $value;
+    }
 
     /**
      * Get the email list name to query for. If no name is set, null will be
@@ -110,8 +108,7 @@ class Zend_Gdata_Gapps_EmailListQuery extends Zend_Gdata_Gapps_Query
     {
         if ($value !== null) {
             $this->_params['recipient'] = $value;
-        }
-        else {
+        } else {
             unset($this->_params['recipient']);
         }
     }

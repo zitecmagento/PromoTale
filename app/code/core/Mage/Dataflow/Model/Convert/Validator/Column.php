@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert column validator
  *
@@ -34,7 +34,10 @@
  */
 class Mage_Dataflow_Model_Convert_Validator_Column extends Mage_Dataflow_Model_Convert_Validator_Abstract
 {
+
     public function validate()
     {
+        
     }
+
 }

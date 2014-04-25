@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -17,7 +18,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * Zend_XmlRpc_Response
  */
@@ -35,6 +35,7 @@
  */
 class Zend_XmlRpc_Response_Http extends Zend_XmlRpc_Response
 {
+
     /**
      * Override __toString() to send HTTP Content-Type header
      *
@@ -48,4 +49,5 @@ class Zend_XmlRpc_Response_Http extends Zend_XmlRpc_Response
 
         return parent::__toString();
     }
+
 }

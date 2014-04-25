@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Current model
      *
@@ -136,7 +138,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @param mixed $imageFile
      * @return Mage_Catalog_Helper_Image
      */
-    public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile=null)
+    public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile = null)
     {
         $this->_reset();
         $this->_setModel(Mage::getModel('catalog/product_image'));
@@ -144,16 +146,16 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         $this->setProduct($product);
 
         $this->setWatermark(
-            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_image")
+                Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_image")
         );
         $this->setWatermarkImageOpacity(
-            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_imageOpacity")
+                Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_imageOpacity")
         );
         $this->setWatermarkPosition(
-            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_position")
+                Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_position")
         );
         $this->setWatermarkSize(
-            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_size")
+                Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_size")
         );
 
         if ($imageFile) {
@@ -302,12 +304,12 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @param int $imageOpacity
      * @return Mage_Catalog_Helper_Image
      */
-    public function watermark($fileName, $position, $size=null, $imageOpacity=null)
+    public function watermark($fileName, $position, $size = null, $imageOpacity = null)
     {
         $this->setWatermark($fileName)
-            ->setWatermarkPosition($position)
-            ->setWatermarkSize($size)
-            ->setWatermarkImageOpacity($imageOpacity);
+                ->setWatermarkPosition($position)
+                ->setWatermarkSize($size)
+                ->setWatermarkImageOpacity($imageOpacity);
         return $this;
     }
 
@@ -331,7 +333,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     {
         if (!$this->_placeholder) {
             $attr = $this->_getModel()->getDestinationSubdir();
-            $this->_placeholder = 'images/catalog/product/placeholder/'.$attr.'.jpg';
+            $this->_placeholder = 'images/catalog/product/placeholder/' . $attr . '.jpg';
         }
         return $this->_placeholder;
     }
@@ -343,7 +345,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      */
     public function __toString()
     {
-        try {
+        try
+        {
             $model = $this->_getModel();
 
             if ($this->getImageFile()) {
@@ -369,7 +372,9 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 
                 $url = $model->saveFile()->getUrl();
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $url = Mage::getDesign()->getSkinUrl($this->getPlaceholder());
         }
         return $url;
@@ -630,7 +635,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @return bool
      * @throws Mage_Core_Exception
      */
-    public function validateUploadFile($filePath) {
+    public function validateUploadFile($filePath)
+    {
         if (!getimagesize($filePath)) {
             Mage::throwException($this->__('Disallowed file type.'));
         }

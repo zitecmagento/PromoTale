@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
+
     protected $_totalRenderers;
     protected $_defaultRenderer = 'adminhtml/sales_order_create_totals_default';
 
@@ -60,7 +61,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
 
     protected function _getTotalRenderer($code)
     {
-        $blockName = $code.'_total_renderer';
+        $blockName = $code . '_total_renderer';
         $block = $this->getLayout()->getBlock($blockName);
         if (!$block) {
             $block = $this->_defaultRenderer;
@@ -81,16 +82,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
     public function renderTotal($total, $area = null, $colspan = 1)
     {
         return $this->_getTotalRenderer($total->getCode())
-            ->setTotal($total)
-            ->setColspan($colspan)
-            ->setRenderingArea(is_null($area) ? -1 : $area)
-            ->toHtml();
+                        ->setTotal($total)
+                        ->setColspan($colspan)
+                        ->setRenderingArea(is_null($area) ? -1 : $area)
+                        ->toHtml();
     }
 
     public function renderTotals($area = null, $colspan = 1)
     {
         $html = '';
-        foreach($this->getTotals() as $total) {
+        foreach ($this->getTotals() as $total) {
             if ($total->getArea() != $area && $area != -1) {
                 continue;
             }
@@ -103,4 +104,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
     {
         return Mage::helper('sales')->canSendNewOrderConfirmationEmail($this->getQuote()->getStoreId());
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -49,14 +50,14 @@
  * @package     Mage_Poll
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
 {
+
     const XML_PATH_POLL_CHECK_BY_IP = 'web/polls/poll_check_by_ip';
 
     protected $_pollCookieDefaultName = 'poll';
-    protected $_answersCollection   = array();
-    protected $_storeCollection     = array();
+    protected $_answersCollection = array();
+    protected $_storeCollection = array();
 
     protected function _construct()
     {
@@ -126,7 +127,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
      * @param   int $pollId
      * @return  Mage_Poll_Model_Poll
      */
-    public function setVoted($pollId=null)
+    public function setVoted($pollId = null)
     {
         $this->getCookie()->set($this->getCookieName($pollId), $this->getPollId($pollId));
 
@@ -186,7 +187,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     {
         if ($this->hasAnswer($vote->getPollAnswerId())) {
             $vote->setPollId($this->getId())
-                ->save();
+                    ->save();
             $this->setVoted();
         }
         return $this;
@@ -203,8 +204,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
         $answerId = false;
         if (is_numeric($answer)) {
             $answerId = $answer;
-        }
-        elseif ($answer instanceof Mage_Poll_Model_Poll_Answer) {
+        } elseif ($answer instanceof Mage_Poll_Model_Poll_Answer) {
             $answerId = $answer->getId();
         }
 
@@ -220,14 +220,13 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
         return $this;
     }
 
-
     public function getVotedPollsIds()
     {
         $idsArray = array();
 
         foreach ($this->getCookie()->get() as $cookieName => $cookieValue) {
             $pattern = '#^' . preg_quote($this->_pollCookieDefaultName, '#') . '(\d+)$#';
-            $match   = array();
+            $match = array();
             if (preg_match($pattern, $cookieName, $match)) {
                 if ($match[1] != Mage::getSingleton('core/session')->getJustVotedPoll()) {
                     $idsArray[$match[1]] = $match[1];

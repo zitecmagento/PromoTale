@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Postnet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Barcode_Object_ObjectAbstract
  */
@@ -79,10 +79,10 @@ class Zend_Barcode_Object_Postnet extends Zend_Barcode_Object_ObjectAbstract
      */
     protected function _calculateBarcodeWidth()
     {
-        $quietZone       = $this->getQuietZone();
-        $startCharacter  = (2 * $this->_barThinWidth) * $this->_factor;
-        $stopCharacter   = (1 * $this->_barThinWidth) * $this->_factor;
-        $encodedData     = (10 * $this->_barThinWidth) * $this->_factor * strlen($this->getText());
+        $quietZone = $this->getQuietZone();
+        $startCharacter = (2 * $this->_barThinWidth) * $this->_factor;
+        $stopCharacter = (1 * $this->_barThinWidth) * $this->_factor;
+        $encodedData = (10 * $this->_barThinWidth) * $this->_factor * strlen($this->getText());
         return $quietZone + $startCharacter + $encodedData + $stopCharacter + $quietZone;
     }
 
@@ -91,7 +91,9 @@ class Zend_Barcode_Object_Postnet extends Zend_Barcode_Object_ObjectAbstract
      * @return void
      */
     protected function _checkParams()
-    {}
+    {
+        
+    }
 
     /**
      * Prepare array to draw barcode
@@ -102,21 +104,21 @@ class Zend_Barcode_Object_Postnet extends Zend_Barcode_Object_ObjectAbstract
         $barcodeTable = array();
 
         // Start character (1)
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 1);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , 1);
+        $barcodeTable[] = array(1, $this->_barThinWidth, 0, 1);
+        $barcodeTable[] = array(0, $this->_barThinWidth, 0, 1);
 
         // Text to encode
         $textTable = str_split($this->getText());
         foreach ($textTable as $char) {
             $bars = str_split($this->_codingMap[$char]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array(1 , $this->_barThinWidth , 0.5 - $b * 0.5 , 1);
-                $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , 1);
+                $barcodeTable[] = array(1, $this->_barThinWidth, 0.5 - $b * 0.5, 1);
+                $barcodeTable[] = array(0, $this->_barThinWidth, 0, 1);
             }
         }
 
         // Stop character (1)
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 1);
+        $barcodeTable[] = array(1, $this->_barThinWidth, 0, 1);
         return $barcodeTable;
     }
 
@@ -133,4 +135,5 @@ class Zend_Barcode_Object_Postnet extends Zend_Barcode_Object_ObjectAbstract
         $checksum = (10 - ($sum % 10)) % 10;
         return $checksum;
     }
+
 }

@@ -21,7 +21,6 @@
  * @version    $Id: SimplePost.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Represents a publicly available post
  *
@@ -33,6 +32,7 @@
  */
 class Zend_Service_Delicious_SimplePost
 {
+
     /**
      * @var string Post url
      */
@@ -70,7 +70,7 @@ class Zend_Service_Delicious_SimplePost
             throw new Zend_Service_Delicious_Exception('Title and URL not set.');
         }
 
-        $this->_url   = $post['u'];
+        $this->_url = $post['u'];
         $this->_title = $post['d'];
 
         if (isset($post['t'])) {
@@ -120,4 +120,5 @@ class Zend_Service_Delicious_SimplePost
     {
         return $this->_tags;
     }
+
 }

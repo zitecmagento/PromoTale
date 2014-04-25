@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Shipping_Model_Info extends Varien_Object
 {
+
     /**
      * Tracking info
      *
@@ -51,7 +51,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
 
             if ($this->getOrderId() > 0) {
                 $this->getTrackingInfoByOrder();
-            } elseif($this->getShipId() > 0) {
+            } elseif ($this->getShipId() > 0) {
                 $this->getTrackingInfoByShip();
             } else {
                 $this->getTrackingInfoByTrackId();
@@ -114,12 +114,12 @@ class Mage_Shipping_Model_Info extends Varien_Object
         $order = $this->_initOrder();
         if ($order) {
             $shipments = $order->getShipmentsCollection();
-            foreach ($shipments as $shipment){
+            foreach ($shipments as $shipment) {
                 $increment_id = $shipment->getIncrementId();
                 $tracks = $shipment->getTracksCollection();
 
-                $trackingInfos=array();
-                foreach ($tracks as $track){
+                $trackingInfos = array();
+                foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
                 $shipTrack[$increment_id] = $trackingInfos;
@@ -142,12 +142,11 @@ class Mage_Shipping_Model_Info extends Varien_Object
             $increment_id = $shipment->getIncrementId();
             $tracks = $shipment->getTracksCollection();
 
-            $trackingInfos=array();
-            foreach ($tracks as $track){
+            $trackingInfos = array();
+            foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }
             $shipTrack[$increment_id] = $trackingInfos;
-
         }
         $this->_trackingInfo = $shipTrack;
         return $this->_trackingInfo;
@@ -166,4 +165,5 @@ class Mage_Shipping_Model_Info extends Varien_Object
         }
         return $this->_trackingInfo;
     }
+
 }

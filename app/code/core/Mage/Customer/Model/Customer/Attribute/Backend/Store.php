@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Customer_Attribute_Backend_Store extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     public function beforeSave($object)
     {
         if ($object->getId()) {
@@ -48,4 +50,5 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Store extends Mage_Eav_Mode
         }
         return $this;
     }
+
 }

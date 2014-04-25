@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Resource authorizenet debug model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Paygate_Model_Resource_Authorizenet_Debug extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      *
@@ -42,4 +43,5 @@ class Mage_Paygate_Model_Resource_Authorizenet_Debug extends Mage_Core_Model_Res
     {
         $this->_init('paygate/authorizenet_debug', 'debug_id');
     }
+
 }

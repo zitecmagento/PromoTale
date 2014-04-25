@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Layer Decimal Attribute Filter Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_Filter_Abstract
 {
+
     const MIN_RANGE_POWER = 10;
 
     /**
@@ -91,12 +92,12 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
         }
 
         list($index, $range) = $filter;
-        if ((int)$index && (int)$range) {
-            $this->setRange((int)$range);
+        if ((int) $index && (int) $range) {
+            $this->setRange((int) $range);
 
             $this->_getResource()->applyFilterToCollection($this, $range, $index);
             $this->getLayer()->getState()->addFilter(
-                $this->_createItem($this->_renderItemLabel($range, $index), $filter)
+                    $this->_createItem($this->_renderItemLabel($range, $index), $filter)
             );
 
             $this->_items = array();
@@ -113,7 +114,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     protected function _getCacheKey()
     {
         $key = $this->getLayer()->getStateKey()
-            . '_ATTR_' . $this->getAttributeModel()->getAttributeCode();
+                . '_ATTR_' . $this->getAttributeModel()->getAttributeCode();
         return $key;
     }
 
@@ -126,8 +127,8 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      */
     protected function _renderItemLabel($range, $value)
     {
-        $from   = Mage::app()->getStore()->formatPrice(($value - 1) * $range, false);
-        $to     = Mage::app()->getStore()->formatPrice($value * $range, false);
+        $from = Mage::app()->getStore()->formatPrice(($value - 1) * $range, false);
+        $to = Mage::app()->getStore()->formatPrice($value * $range, false);
         return Mage::helper('catalog')->__('%s - %s', $from, $to);
     }
 
@@ -178,8 +179,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
                 $range = pow(10, (strlen(floor($maxValue)) - $index));
                 $items = $this->getRangeItemCounts($range);
                 $index++;
-            }
-            while ($range > self::MIN_RANGE_POWER && count($items) < 2);
+            } while ($range > self::MIN_RANGE_POWER && count($items) < 2);
             $this->setData('range', $range);
         }
 
@@ -214,9 +214,9 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
 
         $data = $this->getLayer()->getAggregator()->getCacheData($key);
         if ($data === null) {
-            $data       = array();
-            $range      = $this->getRange();
-            $dbRanges   = $this->getRangeItemCounts($range);
+            $data = array();
+            $range = $this->getRange();
+            $dbRanges = $this->getRangeItemCounts($range);
 
             foreach ($dbRanges as $index => $count) {
                 $data[] = array(
@@ -225,9 +225,8 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
                     'count' => $count,
                 );
             }
-
-
         }
         return $data;
     }
+
 }

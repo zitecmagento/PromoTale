@@ -27,11 +27,8 @@ if (!window.Catalog) {
 }
 
 Catalog.Map = {
-
     helpLinks: [],
-
     active: false,
-
     addHelpLink: function(linkElement, title, actualPrice, msrpPrice, addToCartLink) {
         if (typeof linkElement == 'string') {
             linkElement = $$(linkElement)[0];
@@ -82,13 +79,12 @@ Catalog.Map = {
         }
         return helpLink;
     },
-
     setGotoView: function(element, viewPageUrl) {
         $(element).stopObserving('click');
         element.href = viewPageUrl;
-        if(window.opener) {
+        if (window.opener) {
             Event.observe(element, 'click', function(event) {
-                setPLocation(this.href,true);
+                setPLocation(this.href, true);
                 Catalog.Map.hideHelp();
                 event.stop();
             });
@@ -101,24 +97,21 @@ Catalog.Map = {
             });
         }
     },
-
     showSelects: function() {
         var elements = document.getElementsByTagName("select");
-        for (i=0;i< elements.length;i++) {
-            elements[i].style.visibility='visible';
+        for (i = 0; i < elements.length; i++) {
+            elements[i].style.visibility = 'visible';
         }
     },
-
     hideSelects: function() {
         var elements = document.getElementsByTagName("select");
-        for (i=0;i< elements.length;i++) {
-            elements[i].style.visibility='hidden';
+        for (i = 0; i < elements.length; i++) {
+            elements[i].style.visibility = 'hidden';
         }
     },
-
     showHelp: function(event) {
         var helpBox = $('map-popup'),
-            isIE6 = typeof document.body.style.maxHeight === "undefined";
+                isIE6 = typeof document.body.style.maxHeight === "undefined";
         if (!helpBox) {
             return;
         }
@@ -130,13 +123,14 @@ Catalog.Map = {
             bodyNode.insert(helpBox);
             // Fix for FF4-FF5 bug with missing alt text after DOM manipulations
             var paypalImg = helpBox.select('.paypal-logo > a > img')[0];
-            if (paypalImg) paypalImg.src = paypalImg.src;
+            if (paypalImg)
+                paypalImg.src = paypalImg.src;
         }
 
         if (this != Catalog.Map && Catalog.Map.active != this.link) {
             helpBox.style.display = 'none';
             if (!helpBox.offsetPosition) {
-                helpBox.offsetPosition = {left:0, top: 0};
+                helpBox.offsetPosition = {left: 0, top: 0};
             }
 
             helpBox.removeClassName('map-popup-right');
@@ -207,8 +201,8 @@ Catalog.Map = {
 
             //Horizontal line
             var mapText = $('map-popup-text'),
-                mapTextWhatThis = $('map-popup-text-what-this'),
-                mapContent = $('map-popup-content');
+                    mapTextWhatThis = $('map-popup-text-what-this'),
+                    mapContent = $('map-popup-content');
             if (!mapMsrp.visible() && !mapPrice.visible() && !cartButton.visible()) {
                 //If just `What's this?` link
                 $(mapText).hide();
@@ -244,8 +238,7 @@ Catalog.Map = {
 
         Event.stop(event);
     },
-
-    hideHelp: function(){
+    hideHelp: function() {
         var helpBox = $('map-popup');
         if (helpBox) {
             var isIE6 = typeof document.body.style.maxHeight === "undefined";
@@ -256,13 +249,12 @@ Catalog.Map = {
             Catalog.Map.active = false;
         }
     },
-
-    bindProductForm: function(){
+    bindProductForm: function() {
         if (('undefined' != typeof productAddToCartForm) && productAddToCartForm) {
             productAddToCartFormOld = productAddToCartForm;
             productAddToCartForm = new VarienForm('product_addtocart_form_from_popup');
             productAddToCartForm.submitLight = productAddToCartFormOld.submitLight;
-        } else if(!$('product_addtocart_form_from_popup')) {
+        } else if (!$('product_addtocart_form_from_popup')) {
             return false;
         } else if ('undefined' == typeof productAddToCartForm) {
             productAddToCartForm = new VarienForm('product_addtocart_form_from_popup');
@@ -279,7 +271,7 @@ Catalog.Map = {
                 parentResult = productAddToCartFormOld.submit();
                 return false;
             }
-            if(window.opener) {
+            if (window.opener) {
                 var parentButton = button;
                 new Ajax.Request(this.form.action, {
                     parameters: {isAjax: 1, method: 'GET'},
@@ -298,10 +290,10 @@ Catalog.Map = {
                 var oldUrl = form.action;
 
                 if (url) {
-                   form.action = url;
+                    form.action = url;
                 }
                 if (!form.getAttribute('action')) {
-                   form.action = productAddToCartForm.action;
+                    form.action = productAddToCartForm.action;
                 }
                 try {
                     this.form.submit();
@@ -325,7 +317,7 @@ Event.observe(window, 'resize', function(event) {
     }
 })
 
-$(document).observe('bundle:reload-price', function (event) { //reload price
+$(document).observe('bundle:reload-price', function(event) { //reload price
     var data = event.memo, bundle = data.bundle;
     if (!Number(bundle.config.isMAPAppliedDirectly) && !Number(bundle.config.isFixedPrice)) {
         var canApplyMAP = false;
@@ -349,18 +341,18 @@ $(document).observe('bundle:reload-price', function (event) { //reload price
             canApplyMAP = true;
         }
         if (canApplyMAP) {
-            $$('.full-product-price').each(function(e){
+            $$('.full-product-price').each(function(e) {
                 $(e).hide();
             });
-            $$('.map-info').each(function(e){
+            $$('.map-info').each(function(e) {
                 $(e).show();
             });
             event.noReloadPrice = true;
         } else {
-            $$('.full-product-price').each(function(e){
+            $$('.full-product-price').each(function(e) {
                 $(e).show();
             });
-            $$('.map-info').each(function(e){
+            $$('.map-info').each(function(e) {
                 $(e).hide();
             });
         }

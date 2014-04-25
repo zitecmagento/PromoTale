@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 22791 2010-08-04 16:11:47Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Abstract
  */
@@ -39,6 +39,7 @@
  */
 abstract class Zend_Service_Ebay_Finding_Abstract
 {
+
     /**
      * @var DOMElement
      */
@@ -97,6 +98,7 @@ abstract class Zend_Service_Ebay_Finding_Abstract
      */
     protected function _init()
     {
+        
     }
 
     /**
@@ -144,9 +146,9 @@ abstract class Zend_Service_Ebay_Finding_Abstract
     {
         // find values
         $values = array();
-        $nodes  = $this->_xPath->query($path, $this->_dom);
+        $nodes = $this->_xPath->query($path, $this->_dom);
         foreach ($nodes as $node) {
-            $value    = (string) $node->nodeValue;
+            $value = (string) $node->nodeValue;
             $values[] = Zend_Service_Ebay_Abstract::toPhpValue($value, $type);
             if (!$array) {
                 break;
@@ -166,4 +168,5 @@ abstract class Zend_Service_Ebay_Finding_Abstract
         // no nodes fount
         return null;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Catalog_Model_Api2_Product_Category_Rest extends Mage_Catalog_Model_Api2_Product_Rest
 {
+
     /**
      * Product category assign is not available
      *
@@ -102,4 +104,5 @@ abstract class Mage_Catalog_Model_Api2_Product_Category_Rest extends Mage_Catalo
     {
         return $this->_getProduct()->getCategoryCollection()->addIsActiveFilter()->getAllIds();
     }
+
 }

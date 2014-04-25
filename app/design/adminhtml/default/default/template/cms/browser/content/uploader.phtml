@@ -40,10 +40,10 @@
     <div class="clear"></div>
     <div class="no-display" id="<?php echo $this->getHtmlId() ?>-template">
         <div id="{{id}}" class="file-row">
-        <span class="file-info">{{name}} ({{size}})</span>
-        <span class="delete-button"><?php echo $this->getDeleteButtonHtml() ?></span>
-        <span class="progress-text"></span>
-        <div class="clear"></div>
+            <span class="file-info">{{name}} ({{size}})</span>
+            <span class="delete-button"><?php echo $this->getDeleteButtonHtml() ?></span>
+            <span class="progress-text"></span>
+            <div class="clear"></div>
         </div>
     </div>
     <div class="no-display" id="<?php echo $this->getHtmlId() ?>-template-progress">
@@ -53,19 +53,19 @@
 
 <script type="text/javascript">
 //<![CDATA[
-maxUploadFileSizeInBytes = <?php echo $this->getDataMaxSizeInBytes() ?>;
-maxUploadFileSize = '<?php echo $this->getDataMaxSize() ?>';
+    maxUploadFileSizeInBytes = <?php echo $this->getDataMaxSizeInBytes() ?>;
+    maxUploadFileSize = '<?php echo $this->getDataMaxSize() ?>';
 
 <?php echo $this->getJsObjectName() ?> = new Flex.Uploader('<?php echo $this->getHtmlId() ?>', '<?php echo $this->getSkinUrl('media/uploader.swf') ?>', <?php echo $this->getConfigJson() ?>);
-<?php echo $this->getJsObjectName() ?>.onFilesComplete = function(completedFiles){
-    completedFiles.each(function(file){
-        <?php echo $this->getJsObjectName() ?>.removeFile(file.id);
-    });
-    MediabrowserInstance.handleUploadComplete();
-}
+<?php echo $this->getJsObjectName() ?>.onFilesComplete = function(completedFiles) {
+        completedFiles.each(function(file) {
+<?php echo $this->getJsObjectName() ?>.removeFile(file.id);
+        });
+        MediabrowserInstance.handleUploadComplete();
+    }
 // hide flash buttons
-if ($('<?php echo $this->getHtmlId() ?>-flash') != undefined) {
-    $('<?php echo $this->getHtmlId() ?>-flash').setStyle({float:'left'});
-}
+    if ($('<?php echo $this->getHtmlId() ?>-flash') != undefined) {
+        $('<?php echo $this->getHtmlId() ?>-flash').setStyle({float: 'left'});
+    }
 //]]>
 </script>

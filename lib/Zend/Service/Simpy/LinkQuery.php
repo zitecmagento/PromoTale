@@ -21,7 +21,6 @@
  * @version    $Id: LinkQuery.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Simpy_LinkQuery
 {
+
     /**
      * Query string for the query
      *
@@ -197,4 +197,5 @@ class Zend_Service_Simpy_LinkQuery
     {
         return $this->_beforeDate;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Indexer resource model abstraction
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * should be defined because abstract
      *
@@ -79,13 +80,16 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     protected function _executeReplace($data, $storeId, $productId)
     {
         $this->beginTransaction();
-        try {
+        try
+        {
             foreach ($data as $row) {
                 $row[$this->_entityIdFieldName] = $productId;
                 $this->_getWriteAdapter()->insert($this->getMainTable(), $row);
             }
             $this->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->rollBack();
             throw $e;
         }
@@ -110,7 +114,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
         if (!is_null($attributeId))
             $conditions[] = $this->_getWriteAdapter()->quoteInto("{$this->_attributeIdFieldName} = ?", $attributeId);
 
-        $conditions = implode (' AND ', $conditions);
+        $conditions = implode(' AND ', $conditions);
         $this->_getWriteAdapter()->delete($this->getMainTable(), $conditions);
     }
 
@@ -125,15 +129,15 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
         $table = $this->getTable('eav/attribute');
         $select = $this->_getReadAdapter()->select();
         $select->from(array('main_table' => $table), 'attribute_id')
-            ->join(array('additional_table' => $this->getTable('catalog/eav_attribute')), 'additional_table.attribute_id=main_table.attribute_id');
+                ->join(array('additional_table' => $this->getTable('catalog/eav_attribute')), 'additional_table.attribute_id=main_table.attribute_id');
         $select->distinct(true);
 
         if (is_array($conditions)) {
-            foreach ($conditions as $k=>$condition) {
+            foreach ($conditions as $k => $condition) {
                 if (is_array($condition)) {
                     if ($k == 'or') {
                         $function = 'where';
-                        foreach ($condition as $field=>$value) {
+                        foreach ($condition as $field => $value) {
                             if (is_array($value))
                                 $select->$function("{$field} in (?)", $value);
                             else
@@ -153,4 +157,5 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
         }
         return $this->_getReadAdapter()->fetchCol($select);
     }
+
 }

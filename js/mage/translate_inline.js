@@ -34,9 +34,9 @@ TranslateInline.prototype = {
         if (Prototype.Browser.IE) {
             $$('*[translate]').each(this.initializeElement.bind(this));
             var scope = this;
-            Ajax.Responders.register({ onComplete: function() {
-                window.setTimeout(scope.reinitElements.bind(scope), 50)
-            }
+            Ajax.Responders.register({onComplete: function() {
+                    window.setTimeout(scope.reinitElements.bind(scope), 50)
+                }
             });
             var ElementNode = (typeof HTMLElement != 'undefined' ? HTMLElement : Element)
             var ElementUpdate = ElementNode.prototype.update;
@@ -67,18 +67,15 @@ TranslateInline.prototype = {
 
         this.helperDiv = document.createElement('div');
     },
-
     initializeElement: function(el) {
         if (!el.initializedTranslate) {
             el.addClassName('translate-inline');
             el.initializedTranslate = true;
         }
     },
-
     reinitElements: function(el) {
         $$('*[translate]').each(this.initializeElement.bind(this));
     },
-
     trigShow: function(el, event) {
         if (this.trigContentEl != el) {
             this.trigHideClear();
@@ -90,25 +87,22 @@ TranslateInline.prototype = {
             this.trigEl.style.display = 'block';
 
             Event.stop(event);
-        };
+        }
+        ;
     },
-
     trigHide: function() {
         this.trigEl.style.display = 'none';
         this.trigContentEl = null;
     },
-
     trigHideDelayed: function() {
         if (this.trigTimer === null) {
             this.trigTimer = window.setTimeout(this.trigHide.bind(this), 2000);
         }
     },
-
     trigHideClear: function() {
         clearInterval(this.trigTimer);
         this.trigTimer = null;
     },
-
     formShow: function() {
         if (this.formIsShown) {
             return;
@@ -124,21 +118,21 @@ TranslateInline.prototype = {
 
         var content = '<form id="translate-inline-form">';
         var t = new Template(
-            '<div class="magento_table_container"><table cellspacing="0">' +
+                '<div class="magento_table_container"><table cellspacing="0">' +
                 '<tr><th class="label">Location:</th><td class="value">#{location}</td></tr>' +
                 '<tr><th class="label">Scope:</th><td class="value">#{scope}</td></tr>' +
                 '<tr><th class="label">Shown:</th><td class="value">#{shown_escape}</td></tr>' +
                 '<tr><th class="label">Original:</th><td class="value">#{original_escape}</td></tr>' +
                 '<tr><th class="label">Translated:</th><td class="value">#{translated_escape}</td></tr>' +
                 '<tr><th class="label"><label for="perstore_#{i}">Store View Specific:</label></th><td class="value">' +
-                    '<input id="perstore_#{i}" name="translate[#{i}][perstore]" type="checkbox" value="1"/>' +
+                '<input id="perstore_#{i}" name="translate[#{i}][perstore]" type="checkbox" value="1"/>' +
                 '</td></tr>' +
                 '<tr><th class="label"><label for="custom_#{i}">Custom:</label></th><td class="value">' +
-                    '<input name="translate[#{i}][original]" type="hidden" value="#{scope}::#{original_escape}"/>' +
-                    '<input id="custom_#{i}" name="translate[#{i}][custom]" class="input-text" value="#{translated_escape}" />' +
+                '<input name="translate[#{i}][original]" type="hidden" value="#{scope}::#{original_escape}"/>' +
+                '<input id="custom_#{i}" name="translate[#{i}][custom]" class="input-text" value="#{translated_escape}" />' +
                 '</td></tr>' +
-            '</table></div>'
-        );
+                '</table></div>'
+                );
         for (i = 0; i < data.length; i++) {
             data[i]['i'] = i;
             data[i]['shown_escape'] = this.escapeHTML(data[i]['shown']);
@@ -174,7 +168,6 @@ TranslateInline.prototype = {
         });
         this.trigHide();
     },
-
     formOk: function(win) {
         if (this.formIsSubmitted) {
             return;
@@ -202,18 +195,15 @@ TranslateInline.prototype = {
 
         this.formIsSubmitted = false;
     },
-
     ajaxComplete: function(win, transport) {
         win.close();
         this.formClose(win);
     },
-
     formClose: function(win) {
         Windows.overlayShowEffectOptions = this.overlayShowEffectOptions;
         Windows.overlayHideEffectOptions = this.overlayHideEffectOptions;
         this.formIsShown = false;
     },
-
     escapeHTML: function(str) {
         this.helperDiv.innerHTML = '';
         var text = document.createTextNode(str);

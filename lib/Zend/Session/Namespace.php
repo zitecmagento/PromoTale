@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @version    $Id: Namespace.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @since      Preview Release 0.2
  */
-
-
 /**
  * @see Zend_Session
  */
@@ -31,7 +30,6 @@
  * @see Zend_Session_Abstract
  */
 #require_once 'Zend/Session/Abstract.php';
-
 
 /**
  * Zend_Session_Namespace
@@ -160,7 +158,7 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
 
                 // Expire Namespace by Namespace Hop (ENNH)
                 if (isset($_SESSION['__ZF'][$namespace]['ENNH'])) {
-                    $_SESSION['__ZF'][$namespace]['ENNH']--;
+                    $_SESSION['__ZF'][$namespace]['ENNH'] --;
 
                     if ($_SESSION['__ZF'][$namespace]['ENNH'] === 0) {
                         if (isset($_SESSION[$namespace])) {
@@ -174,7 +172,7 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
                 // Expire Namespace Variables by Namespace Hop (ENVNH)
                 if (isset($_SESSION['__ZF'][$namespace]['ENVNH'])) {
                     foreach ($_SESSION['__ZF'][$namespace]['ENVNH'] as $variable => $hops) {
-                        $_SESSION['__ZF'][$namespace]['ENVNH'][$variable]--;
+                        $_SESSION['__ZF'][$namespace]['ENVNH'][$variable] --;
 
                         if ($_SESSION['__ZF'][$namespace]['ENVNH'][$variable] === 0) {
                             if (isset($_SESSION[$namespace][$variable])) {
@@ -184,7 +182,7 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
                             unset($_SESSION['__ZF'][$namespace]['ENVNH'][$variable]);
                         }
                     }
-                    if(empty($_SESSION['__ZF'][$namespace]['ENVNH'])) {
+                    if (empty($_SESSION['__ZF'][$namespace]['ENVNH'])) {
                         unset($_SESSION['__ZF'][$namespace]['ENVNH']);
                     }
                 }
@@ -200,7 +198,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
         }
     }
 
-
     /**
      * getIterator() - return an iteratable object for use in foreach and the like,
      * this completes the IteratorAggregate interface
@@ -212,7 +209,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
         return new ArrayObject(parent::_namespaceGetAll($this->_namespace));
     }
 
-
     /**
      * lock() - mark a session/namespace as readonly
      *
@@ -222,7 +218,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
     {
         self::$_namespaceLocks[$this->_namespace] = true;
     }
-
 
     /**
      * unlock() - unmark a session/namespace to enable read & write
@@ -234,7 +229,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
         unset(self::$_namespaceLocks[$this->_namespace]);
     }
 
-
     /**
      * unlockAll() - unmark all session/namespaces to enable read & write
      *
@@ -244,7 +238,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
     {
         self::$_namespaceLocks = array();
     }
-
 
     /**
      * isLocked() - return lock status, true if, and only if, read-only
@@ -256,7 +249,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
         return isset(self::$_namespaceLocks[$this->_namespace]);
     }
 
-
     /**
      * unsetAll() - unset all variables in this namespace
      *
@@ -266,7 +258,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
     {
         return parent::_namespaceUnset($this->_namespace);
     }
-
 
     /**
      * __get() - method to get a variable in this object's current namespace
@@ -286,7 +277,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
 
         return parent::_namespaceGet($this->_namespace, $name);
     }
-
 
     /**
      * __set() - method to set a variable/value in this object's namespace
@@ -327,7 +317,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
         $_SESSION[$this->_namespace][$name] = $value;
     }
 
-
     /**
      * apply() - enables applying user-selected function, such as array_merge() to the namespace
      * Parameters following the $callback argument are passed to the callback function.
@@ -345,7 +334,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
         $arg_list[0] = $_SESSION[$this->_namespace];
         return call_user_func_array($callback, $arg_list);
     }
-
 
     /**
      * applySet() - enables applying user-selected function, and sets entire namespace to the result
@@ -374,7 +362,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
         return $result;
     }
 
-
     /**
      * __isset() - determine if a variable in this object's namespace is set
      *
@@ -394,7 +381,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
         return parent::_namespaceIsset($this->_namespace, $name);
     }
 
-
     /**
      * __unset() - unset a variable in this object's namespace.
      *
@@ -413,7 +399,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
 
         return parent::_namespaceUnset($this->_namespace, $name);
     }
-
 
     /**
      * setExpirationSeconds() - expire the namespace, or specific variables after a specified
@@ -446,7 +431,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
 
             // apply expiration to entire namespace
             $_SESSION['__ZF'][$this->_namespace]['ENT'] = time() + $seconds;
-
         } else {
 
             if (is_string($variables)) {
@@ -460,7 +444,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
             }
         }
     }
-
 
     /**
      * setExpirationHops() - expire the namespace, or specific variables after a specified
@@ -498,7 +481,6 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
             } else {
                 $_SESSION['__ZF'][$this->_namespace]['ENNH'] = $hops;
             }
-
         } else {
 
             if (is_string($variables)) {
@@ -526,4 +508,5 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
     {
         return $this->_namespace;
     }
+
 }

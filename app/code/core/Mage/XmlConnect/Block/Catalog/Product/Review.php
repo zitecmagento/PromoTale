@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Review extends Mage_XmlConnect_Block_Catalog
 {
+
     /**
      * Limit to product review text length
      */
@@ -61,7 +63,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Review extends Mage_XmlConnect_Block
                 $deviceType = Mage::helper('xmlconnect')->getDeviceType();
                 if ($deviceType != Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD) {
                     $detail = Mage::helper('core/string')
-                        ->truncate($detail, self::REVIEW_DETAIL_TRUNCATE_LEN, '', $remainder, false);
+                            ->truncate($detail, self::REVIEW_DETAIL_TRUNCATE_LEN, '', $remainder, false);
                 }
             }
             $item->addChild('detail', $detail);
@@ -84,7 +86,8 @@ class Mage_XmlConnect_Block_Catalog_Product_Review extends Mage_XmlConnect_Block
      */
     protected function _toHtml()
     {
-        $review = Mage::getModel('review/review')->load((int)$this->getRequest()->getParam('id', 0));
+        $review = Mage::getModel('review/review')->load((int) $this->getRequest()->getParam('id', 0));
         return $this->reviewToXmlObject($review, 'review')->asNiceXml();
     }
+
 }

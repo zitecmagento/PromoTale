@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -38,18 +39,17 @@
  */
 class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 {
-    const BACKORDERS_NO             = 0;
-    const BACKORDERS_YES_NONOTIFY   = 1;
-    const BACKORDERS_YES_NOTIFY     = 2;
+
+    const BACKORDERS_NO = 0;
+    const BACKORDERS_YES_NONOTIFY = 1;
+    const BACKORDERS_YES_NOTIFY = 2;
 
     /* deprecated */
-    const BACKORDERS_BELOW          = 1;
-    const BACKORDERS_YES            = 2;
-
-    const STOCK_OUT_OF_STOCK        = 0;
-    const STOCK_IN_STOCK            = 1;
-
-    const DEFAULT_STOCK_ID          = 1;
+    const BACKORDERS_BELOW = 1;
+    const BACKORDERS_YES = 2;
+    const STOCK_OUT_OF_STOCK = 0;
+    const STOCK_IN_STOCK = 1;
+    const DEFAULT_STOCK_ID = 1;
 
     protected function _construct()
     {
@@ -75,9 +75,9 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     public function addItemsToProducts($productCollection)
     {
         $items = $this->getItemCollection()
-            ->addProductsFilter($productCollection)
-            ->joinStockStatus($productCollection->getStoreId())
-            ->load();
+                ->addProductsFilter($productCollection)
+                ->joinStockStatus($productCollection->getStoreId())
+                ->load();
         $stockItems = array();
         foreach ($items as $item) {
             $stockItems[$item->getProductId()] = $item;
@@ -98,7 +98,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     public function getItemCollection()
     {
         return Mage::getResourceModel('cataloginventory/stock_item_collection')
-            ->addStockFilter($this->getId());
+                        ->addStockFilter($this->getId());
     }
 
     /**
@@ -184,8 +184,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
                     $stockItem->save();
                 }
             }
-        }
-        else {
+        } else {
             Mage::throwException(Mage::helper('cataloginventory')->__('Cannot specify product identifier for the order item.'));
         }
         return $this;
@@ -205,7 +204,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
             $stockItem->addQty($qty);
             if ($stockItem->getCanBackInStock() && $stockItem->getQty() > $stockItem->getMinQty()) {
                 $stockItem->setIsInStock(true)
-                    ->setStockStatusChangedAutomaticallyFlag(true);
+                        ->setStockStatusChangedAutomaticallyFlag(true);
             }
             $stockItem->save();
         }
@@ -235,4 +234,5 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
         $this->getResource()->setInStockFilterToCollection($collection);
         return $this;
     }
+
 }

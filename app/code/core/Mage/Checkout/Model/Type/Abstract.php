@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
 {
+
     /**
      * Retrieve checkout session model
      *
@@ -105,7 +107,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             $address = $this->getCustomer()->getDefaultShippingAddress();
             if (!$address) {
                 foreach ($this->getCustomer()->getAddresses() as $address) {
-                    if($address){
+                    if ($address) {
                         break;
                     }
                 }
@@ -127,7 +129,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             $address = $this->getCustomer()->getDefaultBillingAddress();
             if (!$address) {
                 foreach ($this->getCustomer()->getAddresses() as $address) {
-                    if($address){
+                    if ($address) {
                         break;
                     }
                 }
@@ -140,13 +142,13 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     protected function _createOrderFromAddress($address)
     {
         $order = Mage::getModel('sales/order')->createFromQuoteAddress($address)
-            ->setCustomerId($this->getCustomer()->getId())
-            ->setGlobalCurrencyCode('USD')
-            ->setBaseCurrencyCode('USD')
-            ->setStoreCurrencyCode('USD')
-            ->setOrderCurrencyCode('USD')
-            ->setStoreToBaseRate(1)
-            ->setStoreToOrderRate(1);
+                ->setCustomerId($this->getCustomer()->getId())
+                ->setGlobalCurrencyCode('USD')
+                ->setBaseCurrencyCode('USD')
+                ->setStoreCurrencyCode('USD')
+                ->setOrderCurrencyCode('USD')
+                ->setStoreToBaseRate(1)
+                ->setStoreToOrderRate(1);
         return $order;
     }
 
@@ -156,13 +158,14 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     protected function _emailOrderConfirmation($email, $name, $order)
     {
         $mailer = Mage::getModel('core/email')
-            ->setTemplate('email/order.phtml')
-            ->setType('html')
-            ->setTemplateVar('order', $order)
-            ->setTemplateVar('quote', $this->getQuote())
-            ->setTemplateVar('name', $name)
-            ->setToName($name)
-            ->setToEmail($email)
-            ->send();
+                ->setTemplate('email/order.phtml')
+                ->setType('html')
+                ->setTemplateVar('order', $order)
+                ->setTemplateVar('quote', $this->getQuote())
+                ->setTemplateVar('name', $name)
+                ->setToName($name)
+                ->setToEmail($email)
+                ->send();
     }
+
 }

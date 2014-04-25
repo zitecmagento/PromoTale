@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_List extends Mage_XmlConnect_Block_Catalog_Product
 {
+
     /**
      * Store product collection
      *
@@ -55,7 +57,7 @@ class Mage_XmlConnect_Block_Catalog_Product_List extends Mage_XmlConnect_Block_C
     public function getProductsXmlObject()
     {
         $productsXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<products></products>');
-        $collection     = $this->_getProductCollection();
+        $collection = $this->_getProductCollection();
 
         if (!$collection) {
             return false;
@@ -88,24 +90,24 @@ class Mage_XmlConnect_Block_Catalog_Product_List extends Mage_XmlConnect_Block_C
     protected function _getProductCollection()
     {
         if (is_null($this->_productCollection)) {
-            $filters        = array();
-            $request        = $this->getRequest();
-            $requestParams  = $request->getParams();
-            $layer          = $this->getLayer();
+            $filters = array();
+            $request = $this->getRequest();
+            $requestParams = $request->getParams();
+            $layer = $this->getLayer();
             if (!$layer) {
                 return null;
             }
-            $category       = $this->getCategory();
+            $category = $this->getCategory();
             if ($category && is_object($category) && $category->getId()) {
                 $layer->setCurrentCategory($category);
             }
             if (!$this->getNeedBlockApplyingFilters()) {
-                $attributes     = $layer->getFilterableAttributes();
+                $attributes = $layer->getFilterableAttributes();
                 /**
                  * Apply filters
                  */
                 foreach ($attributes as $attributeItem) {
-                    $attributeCode  = $attributeItem->getAttributeCode();
+                    $attributeCode = $attributeItem->getAttributeCode();
                     list($filterModel, $filterBlock) = $this->helper('xmlconnect')->getFilterByKey($attributeCode);
 
                     $filterModel->setLayer($layer)->setAttributeModel($attributeItem);
@@ -127,7 +129,7 @@ class Mage_XmlConnect_Block_Catalog_Product_List extends Mage_XmlConnect_Block_C
                 list($categoryFilter, $categoryFilterBlock) = $this->helper('xmlconnect')->getFilterByKey('category');
                 $filterParam = parent::REQUEST_FILTER_PARAM_PREFIX . $categoryFilter->getRequestVar();
                 $categoryFilter->setLayer($layer)->setRequestVar($filterParam)
-                    ->apply($this->getRequest(), $categoryFilterBlock);
+                        ->apply($this->getRequest(), $categoryFilterBlock);
                 $filters[] = $categoryFilter;
 
                 $this->_collectedFilters = $filters;
@@ -136,7 +138,7 @@ class Mage_XmlConnect_Block_Catalog_Product_List extends Mage_XmlConnect_Block_C
             /**
              * Products
              */
-            $layer      = $this->getLayer();
+            $layer = $this->getLayer();
             $collection = $layer->getProductCollection();
 
             /**
@@ -147,9 +149,9 @@ class Mage_XmlConnect_Block_Catalog_Product_List extends Mage_XmlConnect_Block_C
             /**
              * Apply offset and count
              */
-            $offset = (int)$request->getParam('offset', 0);
-            $count  = (int)$request->getParam('count', 0);
-            $count  = $count <= 0 ? 1 : $count;
+            $offset = (int) $request->getParam('offset', 0);
+            $count = (int) $request->getParam('count', 0);
+            $count = $count <= 0 ? 1 : $count;
             if ($offset + $count < $collection->getSize()) {
                 $this->setHasProductItems(1);
             }
@@ -204,4 +206,5 @@ class Mage_XmlConnect_Block_Catalog_Product_List extends Mage_XmlConnect_Block_C
     {
         return $this->getProductsXmlObject()->asNiceXml();
     }
+
 }

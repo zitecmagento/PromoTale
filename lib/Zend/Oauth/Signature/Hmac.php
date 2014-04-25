@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Hmac.php 20217 2010-01-12 16:01:57Z matthew $
  */
-
 /** Zend_Oauth_Signature_SignatureAbstract */
 #require_once 'Zend/Oauth/Signature/SignatureAbstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Oauth_Signature_Hmac extends Zend_Oauth_Signature_SignatureAbstract
 {
+
     /**
      * Sign a request
      * 
@@ -44,11 +45,9 @@ class Zend_Oauth_Signature_Hmac extends Zend_Oauth_Signature_SignatureAbstract
     public function sign(array $params, $method = null, $url = null)
     {
         $binaryHash = Zend_Crypt_Hmac::compute(
-            $this->_key,
-            $this->_hashAlgorithm,
-            $this->_getBaseSignatureString($params, $method, $url),
-            Zend_Crypt_Hmac::BINARY
+                        $this->_key, $this->_hashAlgorithm, $this->_getBaseSignatureString($params, $method, $url), Zend_Crypt_Hmac::BINARY
         );
         return base64_encode($binaryHash);
     }
+
 }

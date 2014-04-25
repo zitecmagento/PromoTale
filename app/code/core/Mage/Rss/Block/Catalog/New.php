@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,11 +34,12 @@
  */
 class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
 {
+
     protected function _construct()
     {
         /*
-        * setting cache to save the rss for 10 minutes
-        */
+         * setting cache to save the rss for 10 minutes
+         */
         //$this->setCacheKey('rss_catalog_new_'.$this->_getStoreId());
         //$this->setCacheLifetime(600);
     }
@@ -47,73 +49,70 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         $storeId = $this->_getStoreId();
 
         $newurl = Mage::getUrl('rss/catalog/new/store_id/' . $storeId);
-        $title = Mage::helper('rss')->__('New Products from %s',Mage::app()->getStore()->getGroup()->getName());
+        $title = Mage::helper('rss')->__('New Products from %s', Mage::app()->getStore()->getGroup()->getName());
         $lang = Mage::getStoreConfig('general/locale/code');
 
         $rssObj = Mage::getModel('rss/rss');
         $data = array('title' => $title,
-                'description' => $title,
-                'link'        => $newurl,
-                'charset'     => 'UTF-8',
-                'language'    => $lang
-                );
+            'description' => $title,
+            'link' => $newurl,
+            'charset' => 'UTF-8',
+            'language' => $lang
+        );
         $rssObj->_addHeader($data);
-/*
-oringinal price - getPrice() - inputed in admin
-special price - getSpecialPrice()
-getFinalPrice() - used in shopping cart calculations
-*/
+        /*
+          oringinal price - getPrice() - inputed in admin
+          special price - getSpecialPrice()
+          getFinalPrice() - used in shopping cart calculations
+         */
 
         $product = Mage::getModel('catalog/product');
 
-        $todayStartOfDayDate  = Mage::app()->getLocale()->date()
-            ->setTime('00:00:00')
-            ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+        $todayStartOfDayDate = Mage::app()->getLocale()->date()
+                ->setTime('00:00:00')
+                ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
 
-        $todayEndOfDayDate  = Mage::app()->getLocale()->date()
-            ->setTime('23:59:59')
-            ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+        $todayEndOfDayDate = Mage::app()->getLocale()->date()
+                ->setTime('23:59:59')
+                ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
 
         $products = $product->getCollection()
-            ->setStoreId($storeId)
-            ->addStoreFilter()
-            ->addAttributeToFilter('news_from_date', array('or' => array(
-                0 => array('date' => true, 'to' => $todayEndOfDayDate),
-                1 => array('is' => new Zend_Db_Expr('null')))
-            ), 'left')
-            ->addAttributeToFilter('news_to_date', array('or' => array(
-                0 => array('date' => true, 'from' => $todayStartOfDayDate),
-                1 => array('is' => new Zend_Db_Expr('null')))
-            ), 'left')
-            ->addAttributeToFilter(
-                array(
-                    array('attribute' => 'news_from_date', 'is' => new Zend_Db_Expr('not null')),
-                    array('attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null'))
+                ->setStoreId($storeId)
+                ->addStoreFilter()
+                ->addAttributeToFilter('news_from_date', array('or' => array(
+                        0 => array('date' => true, 'to' => $todayEndOfDayDate),
+                        1 => array('is' => new Zend_Db_Expr('null')))
+                        ), 'left')
+                ->addAttributeToFilter('news_to_date', array('or' => array(
+                        0 => array('date' => true, 'from' => $todayStartOfDayDate),
+                        1 => array('is' => new Zend_Db_Expr('null')))
+                        ), 'left')
+                ->addAttributeToFilter(
+                        array(
+                            array('attribute' => 'news_from_date', 'is' => new Zend_Db_Expr('not null')),
+                            array('attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null'))
+                        )
                 )
-            )
-            ->addAttributeToSort('news_from_date','desc')
-            ->addAttributeToSelect(array('name', 'short_description', 'description', 'thumbnail'), 'inner')
-            ->addAttributeToSelect(
-                array(
+                ->addAttributeToSort('news_from_date', 'desc')
+                ->addAttributeToSelect(array('name', 'short_description', 'description', 'thumbnail'), 'inner')
+                ->addAttributeToSelect(
+                        array(
                     'price', 'special_price', 'special_from_date', 'special_to_date',
                     'msrp_enabled', 'msrp_display_actual_price_type', 'msrp'
-                ),
-                'left'
-            )
-            ->applyFrontendPriceLimitations()
+                        ), 'left'
+                )
+                ->applyFrontendPriceLimitations()
         ;
 
         $products->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
 
         /*
-        using resource iterator to load the data one by one
-        instead of loading all at the same time. loading all data at the same time can cause the big memory allocation.
-        */
+          using resource iterator to load the data one by one
+          instead of loading all at the same time. loading all data at the same time can cause the big memory allocation.
+         */
 
         Mage::getSingleton('core/resource_iterator')->walk(
-                $products->getSelect(),
-                array(array($this, 'addNewItemXmlCallback')),
-                array('rssObj'=> $rssObj, 'product'=>$product)
+                $products->getSelect(), array(array($this, 'addNewItemXmlCallback')), array('rssObj' => $rssObj, 'product' => $product)
         );
 
         return $rssObj->createRssXml();
@@ -142,24 +141,25 @@ getFinalPrice() - used in shopping cart calculations
         //$product->unsetData()->load($args['row']['entity_id']);
         $product->setData($args['row']);
         $description = '<table><tr>'
-            . '<td><a href="'.$product->getProductUrl().'"><img src="'
-            . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
-            .'" border="0" align="left" height="75" width="75"></a></td>'.
-            '<td  style="text-decoration:none;">'.$product->getDescription();
+                . '<td><a href="' . $product->getProductUrl() . '"><img src="'
+                . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
+                . '" border="0" align="left" height="75" width="75"></a></td>' .
+                '<td  style="text-decoration:none;">' . $product->getDescription();
 
         if ($allowedPriceInRss) {
-            $description .= $this->getPriceHtml($product,true);
+            $description .= $this->getPriceHtml($product, true);
         }
 
-        $description .= '</td>'.
-            '</tr></table>';
+        $description .= '</td>' .
+                '</tr></table>';
 
         $rssObj = $args['rssObj'];
         $data = array(
-                'title'         => $product->getName(),
-                'link'          => $product->getProductUrl(),
-                'description'   => $description,
-            );
+            'title' => $product->getName(),
+            'link' => $product->getProductUrl(),
+            'description' => $description,
+        );
         $rssObj->_addEntry($data);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_Template
 {
+
     /**
      * Catalog Layer Filter Attribute model
      *
@@ -85,7 +87,7 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
             Mage::throwException(Mage::helper('catalog')->__('Filter model name must be declared.'));
         }
         $this->_filter = Mage::getModel($this->_filterModelName)
-            ->setLayer($this->getLayer());
+                ->setLayer($this->getLayer());
         $this->_prepareFilter();
 
         $this->_filter->apply($this->getRequest(), $this);
@@ -153,4 +155,5 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
     {
         return parent::_toHtml();
     }
+
 }

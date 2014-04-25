@@ -30,62 +30,124 @@
 
     <adminhtml_catalog_product_downloadable>
         <reference name="product_tabs">
-            <action method="addTab"><name>downloadable_items</name><block>downloadable/adminhtml_catalog_product_edit_tab_downloadable</block></action>
+            <action method="addTab">
+                <name>downloadable_items</name>
+                <block>downloadable/adminhtml_catalog_product_edit_tab_downloadable</block>
+            </action>
         </reference>
     </adminhtml_catalog_product_downloadable>
 
     <adminhtml_sales_order_view>
         <reference name="order_items">
-            <action method="addItemRender"><type>downloadable</type><block>adminhtml/sales_order_view_items_renderer_default</block><template>downloadable/sales/order/view/items/renderer/downloadable.phtml</template></action>
-            <action method="addColumnRender"><column>downloadable</column><block>downloadable/adminhtml_sales_items_column_downloadable_name</block><template>downloadable/sales/items/column/downloadable/name.phtml</template></action>
+            <action method="addItemRender">
+                <type>downloadable</type>
+                <block>adminhtml/sales_order_view_items_renderer_default</block>
+                <template>downloadable/sales/order/view/items/renderer/downloadable.phtml</template>
+            </action>
+            <action method="addColumnRender">
+                <column>downloadable</column>
+                <block>downloadable/adminhtml_sales_items_column_downloadable_name</block>
+                <template>downloadable/sales/items/column/downloadable/name.phtml</template>
+            </action>
         </reference>
     </adminhtml_sales_order_view>
 
     <adminhtml_sales_order_invoice_new>
         <reference name="order_items">
-            <action method="addItemRender"><type>downloadable</type><block>adminhtml/sales_items_renderer_default</block><template>downloadable/sales/order/invoice/create/items/renderer/downloadable.phtml</template></action>
-            <action method="addColumnRender"><column>downloadable</column><block>downloadable/adminhtml_sales_items_column_downloadable_name</block><template>downloadable/sales/items/column/downloadable/invoice/name.phtml</template></action>
+            <action method="addItemRender">
+                <type>downloadable</type>
+                <block>adminhtml/sales_items_renderer_default</block>
+                <template>downloadable/sales/order/invoice/create/items/renderer/downloadable.phtml</template>
+            </action>
+            <action method="addColumnRender">
+                <column>downloadable</column>
+                <block>downloadable/adminhtml_sales_items_column_downloadable_name</block>
+                <template>downloadable/sales/items/column/downloadable/invoice/name.phtml</template>
+            </action>
         </reference>
     </adminhtml_sales_order_invoice_new>
 
     <adminhtml_sales_order_invoice_updateqty>
         <reference name="order_items">
-            <action method="addItemRender"><type>downloadable</type><block>adminhtml/sales_items_renderer_default</block><template>downloadable/sales/order/invoice/create/items/renderer/downloadable.phtml</template></action>
-            <action method="addColumnRender"><column>downloadable</column><block>downloadable/adminhtml_sales_items_column_downloadable_name</block><template>downloadable/sales/items/column/downloadable/invoice/name.phtml</template></action>
+            <action method="addItemRender">
+                <type>downloadable</type>
+                <block>adminhtml/sales_items_renderer_default</block>
+                <template>downloadable/sales/order/invoice/create/items/renderer/downloadable.phtml</template>
+            </action>
+            <action method="addColumnRender">
+                <column>downloadable</column>
+                <block>downloadable/adminhtml_sales_items_column_downloadable_name</block>
+                <template>downloadable/sales/items/column/downloadable/invoice/name.phtml</template>
+            </action>
         </reference>
     </adminhtml_sales_order_invoice_updateqty>
 
     <adminhtml_sales_order_invoice_view>
         <reference name="invoice_items">
-            <action method="addItemRender"><type>downloadable</type><block>adminhtml/sales_items_renderer_default</block><template>downloadable/sales/order/invoice/view/items/renderer/downloadable.phtml</template></action>
-            <action method="addColumnRender"><column>downloadable</column><block>downloadable/adminhtml_sales_items_column_downloadable_name</block><template>downloadable/sales/items/column/downloadable/invoice/name.phtml</template></action>
+            <action method="addItemRender">
+                <type>downloadable</type>
+                <block>adminhtml/sales_items_renderer_default</block>
+                <template>downloadable/sales/order/invoice/view/items/renderer/downloadable.phtml</template>
+            </action>
+            <action method="addColumnRender">
+                <column>downloadable</column>
+                <block>downloadable/adminhtml_sales_items_column_downloadable_name</block>
+                <template>downloadable/sales/items/column/downloadable/invoice/name.phtml</template>
+            </action>
         </reference>
     </adminhtml_sales_order_invoice_view>
 
     <adminhtml_sales_order_creditmemo_new>
         <reference name="order_items">
-            <action method="addItemRender"><type>downloadable</type><block>adminhtml/sales_items_renderer_default</block><template>downloadable/sales/order/creditmemo/create/items/renderer/downloadable.phtml</template></action>
-            <action method="addColumnRender"><column>downloadable</column><block>downloadable/adminhtml_sales_items_column_downloadable_name</block><template>downloadable/sales/items/column/downloadable/creditmemo/name.phtml</template></action>
+            <action method="addItemRender">
+                <type>downloadable</type>
+                <block>adminhtml/sales_items_renderer_default</block>
+                <template>downloadable/sales/order/creditmemo/create/items/renderer/downloadable.phtml</template>
+            </action>
+            <action method="addColumnRender">
+                <column>downloadable</column>
+                <block>downloadable/adminhtml_sales_items_column_downloadable_name</block>
+                <template>downloadable/sales/items/column/downloadable/creditmemo/name.phtml</template>
+            </action>
         </reference>
     </adminhtml_sales_order_creditmemo_new>
 
     <adminhtml_sales_order_creditmemo_updateqty>
         <reference name="order_items">
-            <action method="addItemRender"><type>downloadable</type><block>adminhtml/sales_items_renderer_default</block><template>downloadable/sales/order/creditmemo/create/items/renderer/downloadable.phtml</template></action>
-            <action method="addColumnRender"><column>downloadable</column><block>downloadable/adminhtml_sales_items_column_downloadable_name</block><template>downloadable/sales/items/column/downloadable/creditmemo/name.phtml</template></action>
+            <action method="addItemRender">
+                <type>downloadable</type>
+                <block>adminhtml/sales_items_renderer_default</block>
+                <template>downloadable/sales/order/creditmemo/create/items/renderer/downloadable.phtml</template>
+            </action>
+            <action method="addColumnRender">
+                <column>downloadable</column>
+                <block>downloadable/adminhtml_sales_items_column_downloadable_name</block>
+                <template>downloadable/sales/items/column/downloadable/creditmemo/name.phtml</template>
+            </action>
         </reference>
     </adminhtml_sales_order_creditmemo_updateqty>
 
     <adminhtml_sales_order_creditmemo_view>
         <reference name="creditmemo_items">
-            <action method="addItemRender"><type>downloadable</type><block>adminhtml/sales_items_renderer_default</block><template>downloadable/sales/order/creditmemo/view/items/renderer/downloadable.phtml</template></action>
-            <action method="addColumnRender"><column>downloadable</column><block>downloadable/adminhtml_sales_items_column_downloadable_name</block><template>downloadable/sales/items/column/downloadable/creditmemo/name.phtml</template></action>
+            <action method="addItemRender">
+                <type>downloadable</type>
+                <block>adminhtml/sales_items_renderer_default</block>
+                <template>downloadable/sales/order/creditmemo/view/items/renderer/downloadable.phtml</template>
+            </action>
+            <action method="addColumnRender">
+                <column>downloadable</column>
+                <block>downloadable/adminhtml_sales_items_column_downloadable_name</block>
+                <template>downloadable/sales/items/column/downloadable/creditmemo/name.phtml</template>
+            </action>
         </reference>
     </adminhtml_sales_order_creditmemo_view>
     
     <adminhtml_customer_wishlist>
         <reference name="customer.wishlist.edit.tab">
-            <action method="addProductConfigurationHelper"><type>downloadable</type><name>downloadable/catalog_product_configuration</name></action>
+            <action method="addProductConfigurationHelper">
+                <type>downloadable</type>
+                <name>downloadable/catalog_product_configuration</name>
+            </action>
         </reference>
     </adminhtml_customer_wishlist>
     

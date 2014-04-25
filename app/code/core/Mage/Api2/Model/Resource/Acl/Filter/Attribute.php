@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Resource_Acl_Filter_Attribute extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Attribute Filter resource ID "all"
      */
@@ -59,10 +61,10 @@ class Mage_Api2_Model_Resource_Acl_Filter_Attribute extends Mage_Core_Model_Reso
     public function getAllowedAttributes($userType, $resourceId, $operation)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), 'allowed_attributes')
-            ->where('user_type = ?', $userType)
-            ->where('resource_id = ?', $resourceId)
-            ->where('operation = ?', $operation);
+                ->from($this->getMainTable(), 'allowed_attributes')
+                ->where('user_type = ?', $userType)
+                ->where('resource_id = ?', $resourceId)
+                ->where('operation = ?', $operation);
 
         return $this->getReadConnection()->fetchOne($select);
     }
@@ -78,10 +80,11 @@ class Mage_Api2_Model_Resource_Acl_Filter_Attribute extends Mage_Core_Model_Reso
         $resourceId = self::FILTER_RESOURCE_ALL;
 
         $select = $this->getReadConnection()->select()
-            ->from($this->getMainTable(), new Zend_Db_Expr('COUNT(*)'))
-            ->where('user_type = ?', $userType)
-            ->where('resource_id = ?', $resourceId);
+                ->from($this->getMainTable(), new Zend_Db_Expr('COUNT(*)'))
+                ->where('user_type = ?', $userType)
+                ->where('resource_id = ?', $resourceId);
 
         return ($this->getReadConnection()->fetchOne($select) == 1);
     }
+
 }

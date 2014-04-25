@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Simplexml_Form_Element_Collection implements ArrayAccess, IteratorAggregate
 {
+
     /**
      * Elements storage
      *
@@ -199,4 +201,5 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Collection implements ArrayAc
         }
         return null;
     }
+
 }

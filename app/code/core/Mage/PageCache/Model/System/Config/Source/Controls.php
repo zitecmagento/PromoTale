@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_PageCache_Model_System_Config_Source_Controls
 {
+
     /**
      * Return array of external cache controls for using as options
      *
@@ -49,4 +51,5 @@ class Mage_PageCache_Model_System_Config_Source_Controls
         }
         return $options;
     }
+
 }

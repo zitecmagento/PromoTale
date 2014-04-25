@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Initialize collection model
      *
@@ -54,4 +56,5 @@ class Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection extends Mage_Core
         $this->addFilter('user_type', $userType, 'public');
         return $this;
     }
+
 }

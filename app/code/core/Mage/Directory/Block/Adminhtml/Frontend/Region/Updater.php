@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,18 +24,15 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-class Mage_Directory_Block_Adminhtml_Frontend_Region_Updater
-    extends Mage_Adminhtml_Block_System_Config_Form_Field
+class Mage_Directory_Block_Adminhtml_Frontend_Region_Updater extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
+
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $html = parent::_getElementHtml($element);
-        $html .= "<script type=\"text/javascript\">var updater = new RegionUpdater('tax_defaults_country', 'tax_region', 'tax_defaults_region', ".$this->helper('directory')->getRegionJson().", 'disable');</script>";
+        $html .= "<script type=\"text/javascript\">var updater = new RegionUpdater('tax_defaults_country', 'tax_region', 'tax_defaults_region', " . $this->helper('directory')->getRegionJson() . ", 'disable');</script>";
 
         return $html;
     }
+
 }
-
-
-

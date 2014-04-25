@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,14 +26,15 @@
  */
 
 /**
-* Helper class that simplifies files stream reading and writing
-*
-* @category    Mage
-* @package     Mage_Archive
-* @author      Magento Core Team <core@magentocommerce.com>
-*/
+ * Helper class that simplifies files stream reading and writing
+ *
+ * @category    Mage
+ * @package     Mage_Archive
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Archive_Helper_File
 {
+
     /**
      * Full path to directory where file located
      *
@@ -78,8 +80,8 @@ class Mage_Archive_Helper_File
         $pathInfo = pathinfo($filePath);
 
         $this->_filePath = $filePath;
-        $this->_fileLocation = isset($pathInfo['dirname'])  ? $pathInfo['dirname'] : '';
-        $this->_fileName     = isset($pathInfo['basename']) ? $pathInfo['basename'] : '';
+        $this->_fileLocation = isset($pathInfo['dirname']) ? $pathInfo['dirname'] : '';
+        $this->_fileName = isset($pathInfo['basename']) ? $pathInfo['basename'] : '';
     }
 
     /**
@@ -252,11 +254,12 @@ class Mage_Archive_Helper_File
     }
 
     /**
-    * Check whether requested mode is readable mode
-    *
-    * @param string $mode
-    */
-    protected function _isReadableMode($mode) {
+     * Check whether requested mode is readable mode
+     *
+     * @param string $mode
+     */
+    protected function _isReadableMode($mode)
+    {
         return !$this->_isWritableMode($mode);
     }
 
@@ -271,4 +274,5 @@ class Mage_Archive_Helper_File
             throw new Mage_Exception('File not opened');
         }
     }
+
 }

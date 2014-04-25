@@ -26,7 +26,7 @@
  */
 -->
 <config>
-   <sections>
+    <sections>
         <payment translate="label" module="payment">
             <label>Payment Methods</label>
             <tab>sales</tab>
@@ -117,7 +117,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><centinel>1</centinel></depends>
+                            <depends>
+                                <centinel>1</centinel>
+                            </depends>
                         </centinel_is_mode_strict>
                         <centinel_api_url translate="label comment">
                             <label>Centinel API URL</label>
@@ -128,10 +130,12 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><centinel>1</centinel></depends>
+                            <depends>
+                                <centinel>1</centinel>
+                            </depends>
                         </centinel_api_url>
 
-                         <allowspecific translate="label">
+                        <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
                             <frontend_type>allowspecific</frontend_type>
                             <sort_order>50</sort_order>
@@ -213,7 +217,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </title>
-                         <allowspecific translate="label">
+                        <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
                             <frontend_type>allowspecific</frontend_type>
                             <sort_order>50</sort_order>
@@ -341,24 +345,24 @@
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
-<!--
-                        <min_order_total translate="label">
-                            <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>98</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </min_order_total>
-                        <max_order_total translate="label">
-                            <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>99</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </max_order_total>
--->
+                        <!--
+                                                <min_order_total translate="label">
+                                                    <label>Minimum Order Total</label>
+                                                    <frontend_type>text</frontend_type>
+                                                    <sort_order>98</sort_order>
+                                                    <show_in_default>1</show_in_default>
+                                                    <show_in_website>1</show_in_website>
+                                                    <show_in_store>0</show_in_store>
+                                                </min_order_total>
+                                                <max_order_total translate="label">
+                                                    <label>Maximum Order Total</label>
+                                                    <frontend_type>text</frontend_type>
+                                                    <sort_order>99</sort_order>
+                                                    <show_in_default>1</show_in_default>
+                                                    <show_in_website>1</show_in_website>
+                                                    <show_in_store>0</show_in_store>
+                                                </max_order_total>
+                        -->
                         <model>
                         </model>
                     </fields>

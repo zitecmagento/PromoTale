@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert abstract adapter
  *
@@ -34,6 +34,7 @@
  */
 abstract class Varien_Convert_Adapter_Abstract extends Varien_Convert_Container_Abstract implements Varien_Convert_Adapter_Interface
 {
+
     /**
      * Adapter resource instance
      *
@@ -62,4 +63,5 @@ abstract class Varien_Convert_Adapter_Abstract extends Varien_Convert_Container_
         $this->_resource = $resource;
         return $this;
     }
+
 }

@@ -57,13 +57,13 @@
 .listing-type-list .listing-item:after,
 .listing-type-list .product-info .product-reviews:after,
 .my-review-detail:after {
-	content:".";
-	display:block;
-	clear:both;
-	height:0;
-	font-size:0;
-	line-height:0em;
-	visibility:hidden;
-	overflow:hidden;
-	}
+    content:".";
+    display:block;
+    clear:both;
+    height:0;
+    font-size:0;
+    line-height:0em;
+    visibility:hidden;
+    overflow:hidden;
+}
 .middle {display:inline-block;}

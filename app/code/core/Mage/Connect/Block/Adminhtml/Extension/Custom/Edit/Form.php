@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Prepare Extension Package Form
      *
@@ -41,9 +43,9 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Form extends Mage_Admin
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(array(
-            'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
-            'method'    => 'post'
+            'id' => 'edit_form',
+            'action' => $this->getData('action'),
+            'method' => 'post'
         ));
 
         $form->setUseContainer(true);

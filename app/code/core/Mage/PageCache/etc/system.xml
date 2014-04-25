@@ -52,7 +52,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><enabled>1</enabled></depends>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
                             <comment>If empty, default value will be used.</comment>
                         </cookie_lifetime>
                         <control translate="label">
@@ -63,7 +65,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><enabled>1</enabled></depends>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
                         </control>
                     </fields>
                 </external_page_cache>

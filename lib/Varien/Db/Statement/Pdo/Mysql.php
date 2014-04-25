@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Mysql DB Statement
  *
@@ -34,6 +34,7 @@
  */
 class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
 {
+
     /**
      * Executes statement with binding values to it.
      * Allows transferring specific options to DB driver.
@@ -78,9 +79,12 @@ class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
             $statement->bindParam($paramName, $bindValues[$name], $dataType, $length, $driverOptions);
         }
 
-        try {
+        try
+        {
             return $statement->execute();
-        } catch (PDOException $e) {
+        }
+        catch (PDOException $e)
+        {
             throw new Zend_Db_Statement_Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
@@ -110,4 +114,5 @@ class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
             return parent::_execute($params);
         }
     }
+
 }

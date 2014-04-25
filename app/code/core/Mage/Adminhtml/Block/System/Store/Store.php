@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,13 +32,13 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widget_Container
 {
+
     public function __construct()
     {
-        $this->_controller  = 'system_store';
-        $this->_headerText  = Mage::helper('adminhtml')->__('Manage Stores');
+        $this->_controller = 'system_store';
+        $this->_headerText = Mage::helper('adminhtml')->__('Manage Stores');
         $this->setTemplate('system/store/container.phtml');
         parent::__construct();
     }
@@ -46,23 +47,23 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
     {
         /* Add website button */
         $this->_addButton('add', array(
-            'label'     => Mage::helper('core')->__('Create Website'),
-            'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/newWebsite') .'\')',
-            'class'     => 'add',
+            'label' => Mage::helper('core')->__('Create Website'),
+            'onclick' => 'setLocation(\'' . $this->getUrl('*/*/newWebsite') . '\')',
+            'class' => 'add',
         ));
 
         /* Add Store Group button */
         $this->_addButton('add_group', array(
-            'label'     => Mage::helper('core')->__('Create Store'),
-            'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/newGroup') .'\')',
-            'class'     => 'add',
+            'label' => Mage::helper('core')->__('Create Store'),
+            'onclick' => 'setLocation(\'' . $this->getUrl('*/*/newGroup') . '\')',
+            'class' => 'add',
         ));
 
         /* Add Store button */
         $this->_addButton('add_store', array(
-            'label'     => Mage::helper('core')->__('Create Store View'),
-            'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/newStore') .'\')',
-            'class'     => 'add',
+            'label' => Mage::helper('core')->__('Create Store View'),
+            'onclick' => 'setLocation(\'' . $this->getUrl('*/*/newStore') . '\')',
+            'class' => 'add',
         ));
 
         return parent::_prepareLayout();
@@ -91,4 +92,5 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
             $this->getChildHtml('add_new_store')
         ));
     }
+
 }

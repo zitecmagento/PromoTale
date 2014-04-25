@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Standard.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element/Name.php';
 
@@ -64,10 +63,10 @@
  */
 abstract class Zend_Pdf_Resource_Font_Simple_Standard extends Zend_Pdf_Resource_Font_Simple
 {
-  /**** Public Interface ****/
+    /*     * ** Public Interface *** */
 
 
-  /* Object Lifecycle */
+    /* Object Lifecycle */
 
     /**
      * Object constructor
@@ -77,6 +76,7 @@ abstract class Zend_Pdf_Resource_Font_Simple_Standard extends Zend_Pdf_Resource_
         $this->_fontType = Zend_Pdf_Font::TYPE_STANDARD;
 
         parent::__construct();
-        $this->_resource->Subtype  = new Zend_Pdf_Element_Name('Type1');
+        $this->_resource->Subtype = new Zend_Pdf_Element_Name('Type1');
     }
+
 }

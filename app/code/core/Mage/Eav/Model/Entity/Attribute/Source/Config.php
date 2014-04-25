@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Entity/Attribute/Model - attribute selection source from configuration
  *
@@ -36,6 +36,7 @@
  */
 class Mage_Eav_Model_Entity_Attribute_Source_Config extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+
     /**
      * Config Node Path
      *
@@ -66,12 +67,13 @@ class Mage_Eav_Model_Entity_Attribute_Source_Config extends Mage_Eav_Model_Entit
             }
             foreach ($options as $option) {
                 $this->_options[] = array(
-                    'value' => (string)$option->value,
-                    'label' => Mage::helper('eav')->__((string)$option->label)
+                    'value' => (string) $option->value,
+                    'label' => Mage::helper('eav')->__((string) $option->label)
                 );
             }
         }
 
         return $this->_options;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Resource model CatalogIndex Data Abstract
  *
@@ -34,19 +34,20 @@
  */
 class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Attribute id by code cache
      *
      * @var array
      */
-    protected $_attributeCodeIds     = array();
+    protected $_attributeCodeIds = array();
 
     /**
      * Link select object
      *
      * @var Zend_Db_Select
      */
-    protected $_linkSelect           = null;
+    protected $_linkSelect = null;
 
     /**
      * Set link select
@@ -101,16 +102,16 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
             $fields = array(
                 'entity_id',
                 'type_id',
-                'attribute_id'  => 'IF(c.value_id > 0, c.attribute_id, d.attribute_id)',
-                'value'         => 'IF(c.value_id > 0, c.value, d.value)'
+                'attribute_id' => 'IF(c.value_id > 0, c.attribute_id, d.attribute_id)',
+                'value' => 'IF(c.value_id > 0, c.value, d.value)'
             );
 
             $select = $this->_getReadAdapter()->select()
-                ->from(array('product'=>$this->getTable('catalog/product')), $fields)
-                ->where('product.entity_id in (?)', $products)
-                ->joinRight(array('d'=>$tableName), $defaultCondition, array())
-                ->joinLeft(array('c'=>$tableName), $condition, array())
-                ->where('c.attribute_id IN (?) OR d.attribute_id IN (?)', $attributes);
+                    ->from(array('product' => $this->getTable('catalog/product')), $fields)
+                    ->where('product.entity_id in (?)', $products)
+                    ->joinRight(array('d' => $tableName), $defaultCondition, array())
+                    ->joinLeft(array('c' => $tableName), $condition, array())
+                    ->where('c.attribute_id IN (?) OR d.attribute_id IN (?)', $attributes);
             $part = $this->_getReadAdapter()->fetchAll($select);
 
             if (is_array($part)) {
@@ -140,21 +141,18 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
         }
 
         $select = $this->_getReadAdapter()->select();
-        $select->from(array('l'=>$this->getTable($table)), array("l.{$idField}"))
-            ->where("l.{$whereField} {$idsConditionSymbol}", $id);
-        foreach ($additionalWheres as $field=>$condition) {
+        $select->from(array('l' => $this->getTable($table)), array("l.{$idField}"))
+                ->where("l.{$whereField} {$idsConditionSymbol}", $id);
+        foreach ($additionalWheres as $field => $condition) {
             $select->where("l.$field = ?", $condition);
         }
 
         // add status filter
-        $this->_addAttributeFilter($select, 'status', 'l', $idField, $store,
-            Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+        $this->_addAttributeFilter($select, 'status', 'l', $idField, $store, Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
         // add website filter
         if ($websiteId = Mage::app()->getStore($store)->getWebsiteId()) {
             $select->join(
-                array('w' => $this->getTable('catalog/product_website')),
-                "l.{$idField}=w.product_id AND w.website_id={$websiteId}",
-                array()
+                    array('w' => $this->getTable('catalog/product_website')), "l.{$idField}=w.product_id AND w.website_id={$websiteId}", array()
             );
         }
 
@@ -176,7 +174,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      */
     protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = array())
     {
-
+        
     }
 
     /**
@@ -191,13 +189,13 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
     {
         $website = Mage::app()->getStore($store)->getWebsiteId();
 
-        $fields = array('customer_group_id', 'minimal_value'=>'MIN(value)');
+        $fields = array('customer_group_id', 'minimal_value' => 'MIN(value)');
         $select = $this->_getReadAdapter()->select()
-            ->from(array('base'=>$this->getTable('catalogindex/price')), $fields)
-            ->where('base.entity_id in (?)', $products)
-            ->where('base.attribute_id in (?)', $priceAttributes)
-            ->where('base.website_id = ?', $website)
-            ->group('base.customer_group_id');
+                ->from(array('base' => $this->getTable('catalogindex/price')), $fields)
+                ->where('base.entity_id in (?)', $products)
+                ->where('base.attribute_id in (?)', $priceAttributes)
+                ->where('base.website_id = ?', $website)
+                ->group('base.customer_group_id');
         return $this->_getReadAdapter()->fetchAll($select);
     }
 
@@ -221,17 +219,14 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
         $condition = "product.entity_id = c.entity_id";
 
         $select = $this->_getReadAdapter()->select()
-            ->from(array('product'=>$this->getTable('catalog/product')), $fields)
-            ->joinLeft(array('c'=>"{$this->getTable('catalog/product')}_tier_price"), $condition, array())
-            ->where('product.entity_id in (?)', $products);
-        if (Mage::helper('catalog')->isPriceGlobal())
-        {
+                ->from(array('product' => $this->getTable('catalog/product')), $fields)
+                ->joinLeft(array('c' => "{$this->getTable('catalog/product')}_tier_price"), $condition, array())
+                ->where('product.entity_id in (?)', $products);
+        if (Mage::helper('catalog')->isPriceGlobal()) {
             $select->where('c.website_id=?', 0);
-        }
-        elseif (Mage::app()->getWebsite($website)->getBaseCurrencyCode() != Mage::app()->getBaseCurrencyCode()) {
+        } elseif (Mage::app()->getWebsite($website)->getBaseCurrencyCode() != Mage::app()->getBaseCurrencyCode()) {
             $select->where('c.website_id=?', $website);
-        }
-        else {
+        } else {
             $select->where('c.website_id IN(?)', array(0, $website));
         }
 
@@ -253,63 +248,53 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
     {
         $adapter = $this->_getReadAdapter();
         $attribute = Mage::getSingleton('eav/config')
-            ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
+                ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
         /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
         $attributeTable = $attribute->getBackend()->getTable();
         if ($attribute->getBackendType() == 'static') {
             $tableAlias = sprintf('t_%s', $attribute->getAttributeCode());
-            $joinCond   = join(' AND ', array(
+            $joinCond = join(' AND ', array(
                 sprintf('`%s`.`%s`=`%s`.`entity_id`', $table, $field, $tableAlias)
             ));
             $select
-                ->join(
-                    array($tableAlias => $attributeTable),
-                    $joinCond,
-                    array())
-                ->where(sprintf('%s.%s IN(?)', $tableAlias, $attribute->getAttributeCode()), $value);
-        }
-        elseif ($attribute->isScopeGlobal()) {
+                    ->join(
+                            array($tableAlias => $attributeTable), $joinCond, array())
+                    ->where(sprintf('%s.%s IN(?)', $tableAlias, $attribute->getAttributeCode()), $value);
+        } elseif ($attribute->isScopeGlobal()) {
             $tableAlias = sprintf('t_%s', $attribute->getAttributeCode());
-            $joinCond   = join(' AND ', array(
+            $joinCond = join(' AND ', array(
                 sprintf('`%s`.`%s`=`%s`.`entity_id`', $table, $field, $tableAlias),
                 $adapter->quoteInto(sprintf('`%s`.`attribute_id`=?', $tableAlias), $attribute->getAttributeId()),
                 $adapter->quoteInto(sprintf('`%s`.`store_id`=?', $tableAlias), 0)
             ));
             $select
-                ->join(
-                    array($tableAlias => $attributeTable),
-                    $joinCond,
-                    array())
-                ->where(sprintf('%s.value IN(?)', $tableAlias), $value);
-        }
-        else {
-            $tableGlobal    = sprintf('t_global_%s', $attribute->getAttributeCode());
-            $tableStore     = sprintf('t_store_%s', $attribute->getAttributeCode());
+                    ->join(
+                            array($tableAlias => $attributeTable), $joinCond, array())
+                    ->where(sprintf('%s.value IN(?)', $tableAlias), $value);
+        } else {
+            $tableGlobal = sprintf('t_global_%s', $attribute->getAttributeCode());
+            $tableStore = sprintf('t_store_%s', $attribute->getAttributeCode());
             $joinCondGlobal = join(' AND ', array(
                 sprintf('`%s`.`%s`=`%s`.`entity_id`', $table, $field, $tableGlobal),
                 $adapter->quoteInto(sprintf('`%s`.`attribute_id`=?', $tableGlobal), $attribute->getAttributeId()),
                 $adapter->quoteInto(sprintf('`%s`.`store_id`=?', $tableGlobal), 0)
             ));
-            $joinCondStore  = join(' AND ', array(
+            $joinCondStore = join(' AND ', array(
                 sprintf('`%s`.`entity_id`=`%s`.`entity_id`', $tableGlobal, $tableStore),
                 sprintf('`%s`.`attribute_id`=`%s`.`attribute_id`', $tableGlobal, $tableStore),
                 $adapter->quoteInto(sprintf('`%s`.`store_id`=?', $tableStore), $store)
             ));
-            $whereCond      = sprintf('IF(`%s`.`value_id`>0, `%s`.`value`, `%s`.`value`) IN(?)',
-                $tableStore, $tableStore, $tableGlobal);
+            $whereCond = sprintf('IF(`%s`.`value_id`>0, `%s`.`value`, `%s`.`value`) IN(?)', $tableStore, $tableStore, $tableGlobal);
 
             $select
-                ->join(
-                    array($tableGlobal => $attributeTable),
-                    $joinCondGlobal,
-                    array())
-                ->joinLeft(
-                    array($tableStore => $attributeTable),
-                    $joinCondStore,
-                    array())
-                ->where($whereCond, $value);
+                    ->join(
+                            array($tableGlobal => $attributeTable), $joinCondGlobal, array())
+                    ->joinLeft(
+                            array($tableStore => $attributeTable), $joinCondStore, array())
+                    ->where($whereCond, $value);
         }
 
         return $this;
     }
+
 }

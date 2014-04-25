@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,15 +35,15 @@
  */
 class Varien_Date
 {
+
     /**
      * Date format, used as default. Compatible with Zend_Date
      *
      */
     const DATETIME_INTERNAL_FORMAT = 'yyyy-MM-dd HH:mm:ss';
     const DATE_INTERNAL_FORMAT = 'yyyy-MM-dd';
-
-    const DATETIME_PHP_FORMAT       = 'Y-m-d H:i:s';
-    const DATE_PHP_FORMAT           = 'Y-m-d';
+    const DATETIME_PHP_FORMAT = 'Y-m-d H:i:s';
+    const DATE_PHP_FORMAT = 'Y-m-d';
 
     /**
      * Zend Date To local date according Map array
@@ -52,33 +53,34 @@ class Varien_Date
     private static $_convertZendToStrftimeDate = array(
         'yyyy-MM-ddTHH:mm:ssZZZZ' => '%c',
         'EEEE' => '%A',
-        'EEE'  => '%a',
-        'D'    => '%j',
+        'EEE' => '%a',
+        'D' => '%j',
         'MMMM' => '%B',
-        'MMM'  => '%b',
-        'MM'   => '%m',
-        'M'    => '%m',
-        'dd'   => '%d',
-        'd'    => '%e',
+        'MMM' => '%b',
+        'MM' => '%m',
+        'M' => '%m',
+        'dd' => '%d',
+        'd' => '%e',
         'yyyy' => '%Y',
-        'yy'   => '%Y',
-        'y'    => '%Y'
+        'yy' => '%Y',
+        'y' => '%Y'
     );
+
     /**
      * Zend Date To local time according Map array
      *
      * @var array
      */
     private static $_convertZendToStrftimeTime = array(
-        'a'  => '%p',
+        'a' => '%p',
         'hh' => '%I',
-        'h'  => '%I',
+        'h' => '%I',
         'HH' => '%H',
-        'H'  => '%H',
+        'H' => '%H',
         'mm' => '%M',
         'ss' => '%S',
-        'z'  => '%Z',
-        'v'  => '%Z'
+        'z' => '%Z',
+        'v' => '%Z'
     );
 
     /**
@@ -114,6 +116,7 @@ class Varien_Date
         }
         return $value;
     }
+
     /**
      * Convert date to UNIX timestamp
      * Returns current UNIX timestamp if date is true
@@ -178,5 +181,5 @@ class Varien_Date
         $format = $includeTime ? self::DATETIME_PHP_FORMAT : self::DATE_PHP_FORMAT;
         return date($format, $date);
     }
-}
 
+}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Custom constructor.
      *
@@ -52,8 +54,8 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
     protected function _initAction()
     {
         $this->_title($this->__('Import/Export'))
-            ->loadLayout()
-            ->_setActiveMenu('system/importexport');
+                ->loadLayout()
+                ->_setActiveMenu('system/importexport');
 
         return $this;
     }
@@ -77,11 +79,11 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
     {
         $maxUploadSize = Mage::helper('importexport')->getMaxUploadSize();
         $this->_getSession()->addNotice(
-            $this->__('Total size of uploadable files must not exceed %s', $maxUploadSize)
+                $this->__('Total size of uploadable files must not exceed %s', $maxUploadSize)
         );
         $this->_initAction()
-            ->_title($this->__('Import'))
-            ->_addBreadcrumb($this->__('Import'), $this->__('Import'));
+                ->_title($this->__('Import'))
+                ->_addBreadcrumb($this->__('Import'), $this->__('Import'));
 
         $this->renderLayout();
     }
@@ -102,18 +104,21 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
             /** @var $importModel Mage_ImportExport_Model_Import */
             $importModel = Mage::getModel('importexport/import');
 
-            try {
+            try
+            {
                 $importModel->importSource();
                 $importModel->invalidateIndex();
                 $resultBlock->addAction('show', 'import_validation_container')
-                    ->addAction('innerHTML', 'import_validation_container_header', $this->__('Status'));
-            } catch (Exception $e) {
+                        ->addAction('innerHTML', 'import_validation_container_header', $this->__('Status'));
+            }
+            catch (Exception $e)
+            {
                 $resultBlock->addError($e->getMessage());
                 $this->renderLayout();
                 return;
             }
             $resultBlock->addAction('hide', array('edit_form', 'upload_button', 'messages'))
-                ->addSuccess($this->__('Import successfully done.'));
+                    ->addSuccess($this->__('Import successfully done.'));
             $this->renderLayout();
         } else {
             $this->_redirect('*/*/index');
@@ -134,12 +139,13 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
             $resultBlock = $this->getLayout()->getBlock('import.frame.result');
             // common actions
             $resultBlock->addAction('show', 'import_validation_container')
-                ->addAction('clear', array(
-                    Mage_ImportExport_Model_Import::FIELD_NAME_SOURCE_FILE,
-                    Mage_ImportExport_Model_Import::FIELD_NAME_IMG_ARCHIVE_FILE)
-                );
+                    ->addAction('clear', array(
+                        Mage_ImportExport_Model_Import::FIELD_NAME_SOURCE_FILE,
+                        Mage_ImportExport_Model_Import::FIELD_NAME_IMG_ARCHIVE_FILE)
+            );
 
-            try {
+            try
+            {
                 /** @var $import Mage_ImportExport_Model_Import */
                 $import = Mage::getModel('importexport/import');
                 $validationResult = $import->validateSource($import->setData($data)->uploadSource());
@@ -150,21 +156,20 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                     if (!$validationResult) {
                         if ($import->getProcessedRowsCount() == $import->getInvalidRowsCount()) {
                             $resultBlock->addNotice(
-                                $this->__('File is totally invalid. Please fix errors and re-upload file')
+                                    $this->__('File is totally invalid. Please fix errors and re-upload file')
                             );
                         } elseif ($import->getErrorsCount() >= $import->getErrorsLimit()) {
                             $resultBlock->addNotice(
-                                $this->__('Errors limit (%d) reached. Please fix errors and re-upload file', $import->getErrorsLimit())
+                                    $this->__('Errors limit (%d) reached. Please fix errors and re-upload file', $import->getErrorsLimit())
                             );
                         } else {
                             if ($import->isImportAllowed()) {
                                 $resultBlock->addNotice(
-                                    $this->__('Please fix errors and re-upload file or simply press "Import" button to skip rows with errors'),
-                                    true
+                                        $this->__('Please fix errors and re-upload file or simply press "Import" button to skip rows with errors'), true
                                 );
                             } else {
                                 $resultBlock->addNotice(
-                                    $this->__('File is partially valid, but import is not possible'), false
+                                        $this->__('File is partially valid, but import is not possible'), false
                                 );
                             }
                         }
@@ -176,20 +181,22 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                     } else {
                         if ($import->isImportAllowed()) {
                             $resultBlock->addSuccess(
-                                $this->__('File is valid! To start import process press "Import" button'), true
+                                    $this->__('File is valid! To start import process press "Import" button'), true
                             );
                         } else {
                             $resultBlock->addError(
-                                $this->__('File is valid, but import is not possible'), false
+                                    $this->__('File is valid, but import is not possible'), false
                             );
                         }
                     }
                     $resultBlock->addNotice($import->getNotices());
                     $resultBlock->addNotice($this->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d', $import->getProcessedRowsCount(), $import->getProcessedEntitiesCount(), $import->getInvalidRowsCount(), $import->getErrorsCount()));
                 }
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $resultBlock->addNotice($this->__('Please fix errors and re-upload file'))
-                    ->addError($e->getMessage());
+                        ->addError($e->getMessage());
             }
             $this->renderLayout();
         } elseif ($this->getRequest()->isPost() && empty($_FILES)) {
@@ -202,4 +209,5 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
             $this->_redirect('*/*/index');
         }
     }
+
 }

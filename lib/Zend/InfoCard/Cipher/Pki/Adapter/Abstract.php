@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_InfoCard_Cipher_Pki_Interface
  */
@@ -36,6 +36,7 @@
  */
 abstract class Zend_InfoCard_Cipher_Pki_Adapter_Abstract implements Zend_InfoCard_Cipher_Pki_Interface
 {
+
     /**
      * OAEP Padding public key encryption
      */
@@ -62,7 +63,7 @@ abstract class Zend_InfoCard_Cipher_Pki_Adapter_Abstract implements Zend_InfoCar
      */
     public function setPadding($padding)
     {
-        switch($padding) {
+        switch ($padding) {
             case self::OAEP_PADDING:
             case self::NO_PADDING:
                 $this->_padding = $padding;
@@ -85,4 +86,5 @@ abstract class Zend_InfoCard_Cipher_Pki_Adapter_Abstract implements Zend_InfoCar
     {
         return $this->_padding;
     }
+
 }

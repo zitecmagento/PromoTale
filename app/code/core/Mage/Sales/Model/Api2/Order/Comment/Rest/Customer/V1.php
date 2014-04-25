@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Model_Api2_Order_Comment_Rest_Customer_V1 extends Mage_Sales_Model_Api2_Order_Comment_Rest
 {
+
     /**
      * Load order by id
      *
@@ -63,4 +65,5 @@ class Mage_Sales_Model_Api2_Order_Comment_Rest_Customer_V1 extends Mage_Sales_Mo
 
         return $collection;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * System congifuration shipping methods allow all countries selec
  *
@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Select_Allowspecific extends
 
     public function getHtml()
     {
-        if(!$this->getValue() || $this->getValue()!=1) {
+        if (!$this->getValue() || $this->getValue() != 1) {
             $this->getForm()->getElement($this->_getSpecificCountryElementId())->setDisabled('disabled');
         }
         return parent::getHtml();

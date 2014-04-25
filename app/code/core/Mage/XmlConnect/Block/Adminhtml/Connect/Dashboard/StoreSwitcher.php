@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_StoreSwitcher extends Mage_Adminhtml_Block_Store_Switcher
 {
+
     /**
      * Add sales info to xml object
      *
@@ -47,7 +49,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_StoreSwitcher extends Ma
 
             /** @var $storeSwitcherField Mage_XmlConnect_Model_Simplexml_Form_Element_Custom */
             $storeSwitcherField = Mage::getModel('xmlconnect/simplexml_form_element_custom', array(
-                'label' => $this->__('Choose Store View')
+                        'label' => $this->__('Choose Store View')
             ));
             $storeSwitcherField->setId('store_id');
             $storeSwitcherXmlObj = $storeSwitcherField->toXmlObject();
@@ -73,8 +75,8 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_StoreSwitcher extends Ma
         $switcherItemsXmlObj = $storeSwitcherXmlObj->addCustomChild('values');
 
         if ($this->hasDefaultOption()) {
-            $this->_addSwitcherItem($switcherItemsXmlObj, Mage_XmlConnect_Helper_AdminApplication::ALL_STORE_VIEWS,
-                array('label' => $this->getDefaultStoreName(), 'level' => 1));
+            $this->_addSwitcherItem($switcherItemsXmlObj, Mage_XmlConnect_Helper_AdminApplication::ALL_STORE_VIEWS, array(
+                'label' => $this->getDefaultStoreName(), 'level' => 1));
         }
 
         foreach ($websites as $website) {
@@ -102,14 +104,14 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_StoreSwitcher extends Ma
                 $showWebsite = true;
                 $this->_addSwitcherItem($switcherItemsXmlObj, null, array(
                     'label' => $website->getName(), 'level' => 1
-                ), true);
+                        ), true);
             }
 
             if ($showGroup == false) {
                 $showGroup = true;
                 $this->_addSwitcherItem($switcherItemsXmlObj, null, array(
                     'label' => $group->getName(), 'level' => 2
-                ), true);
+                        ), true);
             }
 
             if ($this->getStoreId() == $store->getId()) {
@@ -149,7 +151,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_StoreSwitcher extends Ma
     protected function _getStoreSwitcherParams()
     {
         $result = array();
-        $websites =  $this->getWebsites();
+        $websites = $this->getWebsites();
         foreach ($websites as $website) {
             $showWebsite = false;
             foreach ($website->getGroups() as $group) {
@@ -163,11 +165,11 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_StoreSwitcher extends Ma
 
                     if ($showGroup == false) {
                         $showGroup = true;
-                        $result[$website->getId()]['store_list'][$group->getId()]['name'] =  $group->getName();
+                        $result[$website->getId()]['store_list'][$group->getId()]['name'] = $group->getName();
                         $result[$website->getId()]['store_list'][$group->getId()]['view_list'] = array();
                     }
                     $result[$website->getId()]['store_list'][$group->getId()]['view_list'][$store->getId()] = $store
-                        ->getName();
+                            ->getName();
                 }
             }
         }
@@ -195,4 +197,5 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_StoreSwitcher extends Ma
         Mage::register('store_switcher', $this->_getStoreSwitcherParams());
         return $this;
     }
+
 }

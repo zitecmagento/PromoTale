@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Pbridge_Result extends Mage_Core_Block_Abstract
 {
+
     /**
      * Return url for redirect with params of Payment Bridge incoming data
      *
@@ -42,9 +44,9 @@ class Mage_XmlConnect_Block_Checkout_Pbridge_Result extends Mage_Core_Block_Abst
     {
         $pbParams = Mage::helper('enterprise_pbridge')->getPbridgeParams();
         $params = array_merge(
-            array('_nosid' => true, 'method' => 'pbridge_' . $pbParams['original_payment_method']),
-            $pbParams
+                array('_nosid' => true, 'method' => 'pbridge_' . $pbParams['original_payment_method']), $pbParams
         );
         return Mage::getUrl('xmlconnect/pbridge/output', $params);
     }
+
 }

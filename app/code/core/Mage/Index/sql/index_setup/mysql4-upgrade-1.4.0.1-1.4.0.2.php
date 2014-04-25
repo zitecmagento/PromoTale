@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,12 +24,8 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 
 $installer->getConnection()->changeColumn(
-    $this->getTable('index/process'),
-    'status',
-    'status',
-    "enum('pending','working','require_reindex') DEFAULT 'pending' NOT NULL"
+        $this->getTable('index/process'), 'status', 'status', "enum('pending','working','require_reindex') DEFAULT 'pending' NOT NULL"
 );

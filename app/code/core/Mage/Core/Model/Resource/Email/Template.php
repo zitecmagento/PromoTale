@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Template db resource
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize email template resource model
      *
@@ -52,8 +53,8 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
     public function loadByCode($templateCode)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable())
-            ->where('template_code = :template_code');
+                ->from($this->getMainTable())
+                ->where('template_code = :template_code');
         $result = $this->_getReadAdapter()->fetchRow($select, array('template_code' => $templateCode));
 
         if (!$result) {
@@ -72,8 +73,8 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
     {
         if ($template->getTemplateActual() != 0 || is_null($template->getTemplateActual())) {
             $select = $this->_getReadAdapter()->select()
-                ->from($this->getMainTable(), 'COUNT(*)')
-                ->where('template_code = :template_code');
+                    ->from($this->getMainTable(), 'COUNT(*)')
+                    ->where('template_code = :template_code');
             $bind = array(
                 'template_code' => $template->getTemplateCode()
             );
@@ -104,7 +105,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
             $object->setCreatedAt($this->formatDate(true));
         }
         $object->setModifiedAt($this->formatDate(true));
-        $object->setTemplateType((int)$object->getTemplateType());
+        $object->setTemplateType((int) $object->getTemplateType());
 
         return parent::_beforeSave($object);
     }
@@ -129,10 +130,11 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
         }
         $bind['template_id'] = $templateId;
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('core/config_data'), array('scope', 'scope_id', 'path'))
-            ->where('value LIKE :template_id')
-            ->where(join(' OR ', $orWhere));
+                ->from($this->getTable('core/config_data'), array('scope', 'scope_id', 'path'))
+                ->where('value LIKE :template_id')
+                ->where(join(' OR ', $orWhere));
 
         return $this->_getReadAdapter()->fetchAll($select, $bind);
     }
+
 }

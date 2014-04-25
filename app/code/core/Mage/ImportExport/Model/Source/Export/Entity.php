@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Model_Source_Export_Entity
 {
+
     /**
      * Prepare and return array of export entities ids and their names
      *
@@ -41,7 +43,8 @@ class Mage_ImportExport_Model_Source_Export_Entity
     public function toOptionArray()
     {
         return Mage_ImportExport_Model_Config::getModelsComboOptions(
-            Mage_ImportExport_Model_Export::CONFIG_KEY_ENTITIES, true
+                        Mage_ImportExport_Model_Export::CONFIG_KEY_ENTITIES, true
         );
     }
+
 }

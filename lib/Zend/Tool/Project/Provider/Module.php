@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Module.php 23419 2010-11-20 21:37:46Z ramon $
  */
-
 /**
  * @see Zend_Tool_Project_Provider_Abstract
  */
@@ -46,9 +46,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Project_Provider_Module
-    extends Zend_Tool_Project_Provider_Abstract
-    implements Zend_Tool_Framework_Provider_Pretendable
+class Zend_Tool_Project_Provider_Module extends Zend_Tool_Project_Provider_Abstract implements Zend_Tool_Framework_Provider_Pretendable
 {
 
     public static function createResources(Zend_Tool_Project_Profile $profile, $moduleName, Zend_Tool_Project_Profile_Resource $targetModuleResource = null)
@@ -60,7 +58,7 @@ class Zend_Tool_Project_Provider_Module
             $targetModuleEnabledResources = array(
                 'ControllersDirectory', 'ModelsDirectory', 'ViewsDirectory',
                 'ViewScriptsDirectory', 'ViewHelpersDirectory', 'ViewFiltersDirectory'
-                );
+            );
         }
 
         // find the actual modules directory we will use to house our module
@@ -76,12 +74,11 @@ class Zend_Tool_Project_Provider_Module
 
         // create a context filter so that we can pull out only what we need from the module skeleton
         $moduleContextFilterIterator = new Zend_Tool_Project_Profile_Iterator_ContextFilter(
-            $targetModuleResource,
-            array(
-                'denyNames' => array('ModulesDirectory', 'ViewControllerScriptsDirectory'),
-                'denyType'  => 'Zend_Tool_Project_Context_Filesystem_File'
+                $targetModuleResource, array(
+            'denyNames' => array('ModulesDirectory', 'ViewControllerScriptsDirectory'),
+            'denyType' => 'Zend_Tool_Project_Context_Filesystem_File'
                 )
-            );
+        );
 
         // the iterator for the module skeleton
         $targetIterator = new RecursiveIteratorIterator($moduleContextFilterIterator, RecursiveIteratorIterator::SELF_FIRST);
@@ -121,7 +118,6 @@ class Zend_Tool_Project_Provider_Module
             } else {
                 $currentChildResource->setEnabled($targetSubResource->isEnabled());
             }
-
         }
 
         return $moduleDirectory;
@@ -170,8 +166,6 @@ class Zend_Tool_Project_Provider_Module
             // store changes to the profile
             $this->_storeProfile();
         }
-
     }
 
 }
-

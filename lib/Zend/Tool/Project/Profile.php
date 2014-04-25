@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Profile.php 20851 2010-02-02 21:45:51Z ralph $
  */
-
 /**
  * @see Zend_Tool_Project_Profile_FileParser_Xml
  */
@@ -48,7 +48,7 @@ class Zend_Tool_Project_Profile extends Zend_Tool_Project_Profile_Resource_Conta
      * @var bool
      */
     protected static $_traverseEnabled = false;
-    
+
     /**
      * Constructor, standard usage would allow the setting of options
      *
@@ -85,9 +85,8 @@ class Zend_Tool_Project_Profile extends Zend_Tool_Project_Profile_Resource_Conta
         #require_once 'Zend/Tool/Project/Profile/Iterator/EnabledResourceFilter.php';
 
         return new RecursiveIteratorIterator(
-            new Zend_Tool_Project_Profile_Iterator_EnabledResourceFilter($this),
-            RecursiveIteratorIterator::SELF_FIRST
-            );
+                new Zend_Tool_Project_Profile_Iterator_EnabledResourceFilter($this), RecursiveIteratorIterator::SELF_FIRST
+        );
     }
 
     /**
@@ -227,11 +226,12 @@ class Zend_Tool_Project_Profile extends Zend_Tool_Project_Profile_Resource_Conta
             $string .= $resource->getName() . PHP_EOL;
             $rii = new RecursiveIteratorIterator($resource, RecursiveIteratorIterator::SELF_FIRST);
             foreach ($rii as $item) {
-                $string .= str_repeat('  ', $rii->getDepth()+1) . $item->getName()
+                $string .= str_repeat('  ', $rii->getDepth() + 1) . $item->getName()
                         . ((count($attributes = $item->getAttributes()) > 0) ? ' [' . http_build_query($attributes) . ']' : '')
                         . PHP_EOL;
             }
         }
         return $string;
     }
+
 }

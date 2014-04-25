@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales report shipping collection
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order
-    extends Mage_Sales_Model_Resource_Report_Collection_Abstract
+class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order extends Mage_Sales_Model_Resource_Report_Collection_Abstract
 {
+
     /**
      * Period format
      *
@@ -47,7 +47,7 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order
      *
      * @var array
      */
-    protected $_selectedColumns    = array();
+    protected $_selectedColumns = array();
 
     /**
      * Initialize custom resource model
@@ -72,17 +72,17 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order
         if ('month' == $this->_period) {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m');
         } elseif ('year' == $this->_period) {
-             $this->_periodFormat = $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
+            $this->_periodFormat = $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
         } else {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m-%d');
         }
 
         if (!$this->isTotals() && !$this->isSubTotals()) {
             $this->_selectedColumns = array(
-                'period'                => $this->_periodFormat,
-                'shipping_description'  => 'shipping_description',
-                'orders_count'          => 'SUM(orders_count)',
-                'total_shipping'        => 'SUM(total_shipping)',
+                'period' => $this->_periodFormat,
+                'shipping_description' => 'shipping_description',
+                'orders_count' => 'SUM(orders_count)',
+                'total_shipping' => 'SUM(total_shipping)',
                 'total_shipping_actual' => 'SUM(total_shipping_actual)',
             );
         }
@@ -106,8 +106,7 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order
     protected function _initSelect()
     {
         $this->getSelect()->from(
-            $this->getResource()->getMainTable() , 
-            $this->_getSelectedColumns()
+                $this->getResource()->getMainTable(), $this->_getSelectedColumns()
         );
 
         if (!$this->isTotals() && !$this->isSubTotals()) {
@@ -123,4 +122,5 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order
         }
         return $this;
     }
+
 }

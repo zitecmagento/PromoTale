@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,11 +32,12 @@
  */
 class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
 {
+
     // List of exceptions throwable during prepareAndRender() method
     public $ERR_NO_PRODUCT_LOADED = 1;
     public $ERR_BAD_CONTROLLER_INTERFACE = 2;
 
-     /**
+    /**
      * Inits layout for viewing product page
      *
      * @param Mage_Catalog_Model_Product $product
@@ -64,7 +66,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
         $layoutUpdates = $settings->getLayoutUpdates();
         if ($layoutUpdates) {
             if (is_array($layoutUpdates)) {
-                foreach($layoutUpdates as $layoutUpdate) {
+                foreach ($layoutUpdates as $layoutUpdate) {
                     $update->addUpdate($layoutUpdate);
                 }
             }
@@ -87,7 +89,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
             $root->addBodyClass('product-' . $product->getUrlKey());
             if ($currentCategory instanceof Mage_Catalog_Model_Category) {
                 $root->addBodyClass('categorypath-' . $currentCategory->getUrlPath())
-                    ->addBodyClass('category-' . $currentCategory->getUrlKey());
+                        ->addBodyClass('category-' . $currentCategory->getUrlKey());
             }
         }
 
@@ -144,8 +146,9 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
         $this->initProductLayout($product, $controller);
 
         $controller->initLayoutMessages(array('catalog/session', 'tag/session', 'checkout/session'))
-            ->renderLayout();
+                ->renderLayout();
 
         return $this;
     }
+
 }

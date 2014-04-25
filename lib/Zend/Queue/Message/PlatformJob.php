@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: PlatformJob.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Queue_Message
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
 {
+
     /**
      * @var ZendApi_Job
      */
@@ -107,7 +108,7 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
      */
     public function getJobId()
     {
-        return (($this->_id) ?  $this->_id : $this->_job->getID());
+        return (($this->_id) ? $this->_id : $this->_job->getID());
     }
 
     /**
@@ -150,7 +151,8 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
      *
      * @return void
      */
-    protected function _setJobProperties() {
+    protected function _setJobProperties()
+    {
 
         if (isset($this->_data['script'])) {
             $this->_job->setScript($this->_data['script']);
@@ -180,7 +182,7 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
             $endTime = isset($this->_data['end_time']) ? $this->_data['end_time'] : null;
             $this->_job->setRecurrenceData($this->_data['interval'], $endTime);
         } elseif (isset($this->_data['interval']) && ($this->_data['interval'] === '')) {
-            $this->_job->setRecurrenceData(0,0);
+            $this->_job->setRecurrenceData(0, 0);
         }
 
         if (isset($this->_data['scheduled_time'])) {
@@ -191,4 +193,5 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
             $this->_job->setApplicationID($this->_data['application_id']);
         }
     }
+
 }

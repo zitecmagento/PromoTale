@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Block_Adminhtml_Export_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Prepare form before rendering HTML.
      *
@@ -41,25 +43,25 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit_Form extends Mage_Adminhtml_
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(array(
-            'id'     => 'edit_form',
+            'id' => 'edit_form',
             'action' => $this->getUrl('*/*/getFilter'),
             'method' => 'post'
         ));
         $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('importexport')->__('Export Settings')));
         $fieldset->addField('entity', 'select', array(
-            'name'     => 'entity',
-            'title'    => Mage::helper('importexport')->__('Entity Type'),
-            'label'    => Mage::helper('importexport')->__('Entity Type'),
+            'name' => 'entity',
+            'title' => Mage::helper('importexport')->__('Entity Type'),
+            'label' => Mage::helper('importexport')->__('Entity Type'),
             'required' => false,
             'onchange' => 'editForm.getFilter();',
-            'values'   => Mage::getModel('importexport/source_export_entity')->toOptionArray()
+            'values' => Mage::getModel('importexport/source_export_entity')->toOptionArray()
         ));
         $fieldset->addField('file_format', 'select', array(
-            'name'     => 'file_format',
-            'title'    => Mage::helper('importexport')->__('Export File Format'),
-            'label'    => Mage::helper('importexport')->__('Export File Format'),
+            'name' => 'file_format',
+            'title' => Mage::helper('importexport')->__('Export File Format'),
+            'label' => Mage::helper('importexport')->__('Export File Format'),
             'required' => false,
-            'values'   => Mage::getModel('importexport/source_export_format')->toOptionArray()
+            'values' => Mage::getModel('importexport/source_export_format')->toOptionArray()
         ));
 
         $form->setUseContainer(true);
@@ -67,4 +69,5 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit_Form extends Mage_Adminhtml_
 
         return parent::_prepareForm();
     }
+
 }

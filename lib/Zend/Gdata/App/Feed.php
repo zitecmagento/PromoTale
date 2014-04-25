@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Feed.php 22880 2010-08-21 23:44:00Z ramon $
  */
-
 /**
  * @see Zend_Gdata_App_Entry
  */
@@ -40,8 +39,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
-        implements Iterator, ArrayAccess, Countable
+class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent implements Iterator, ArrayAccess, Countable
 {
 
     /**
@@ -111,16 +109,16 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-        case $this->lookupNamespace('atom') . ':' . 'entry':
-            $newEntry = new $this->_entryClassName($child);
-            $newEntry->setHttpClient($this->getHttpClient());
-            $newEntry->setMajorProtocolVersion($this->getMajorProtocolVersion());
-            $newEntry->setMinorProtocolVersion($this->getMinorProtocolVersion());
-            $this->_entry[] = $newEntry;
-            break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            case $this->lookupNamespace('atom') . ':' . 'entry':
+                $newEntry = new $this->_entryClassName($child);
+                $newEntry->setHttpClient($this->getHttpClient());
+                $newEntry->setMajorProtocolVersion($this->getMajorProtocolVersion());
+                $newEntry->setMinorProtocolVersion($this->getMinorProtocolVersion());
+                $this->_entry[] = $newEntry;
+                break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 
@@ -270,7 +268,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
         return (array_key_exists($key, $this->_entry));
     }
 
-   /**
+    /**
      * Retrieve the next set of results from this feed.
      *
      * @throws Zend_Gdata_App_Exception
@@ -291,7 +289,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
         return $service->getFeed($nextLinkHref, get_class($this));
     }
 
-   /**
+    /**
      * Retrieve the previous set of results from this feed.
      *
      * @throws Zend_Gdata_App_Exception

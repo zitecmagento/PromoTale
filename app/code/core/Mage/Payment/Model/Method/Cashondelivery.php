@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,7 +36,7 @@ class Mage_Payment_Model_Method_Cashondelivery extends Mage_Payment_Model_Method
      *
      * @var string
      */
-    protected $_code  = 'cashondelivery';
+    protected $_code = 'cashondelivery';
 
     /**
      * Cash On Delivery payment block paths

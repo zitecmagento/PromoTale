@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,21 +24,21 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Adminhtml_Model_System_Config_Source_Language
 {
+
     protected $_options;
-    
+
     public function toOptionArray($isMultiselect)
     {
         if (!$this->_options) {
             $this->_options = Mage::getResourceModel('core/language_collection')->loadData()->toOptionArray();
         }
         $options = $this->_options;
-        if(!$isMultiselect){
-            array_unshift($options, array('value'=>'', 'label'=>''));
+        if (!$isMultiselect) {
+            array_unshift($options, array('value' => '', 'label' => ''));
         }
         return $options;
     }
+
 }

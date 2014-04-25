@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,9 +34,10 @@
  */
 class Mage_Checkout_Block_Onepage_Link extends Mage_Core_Block_Template
 {
+
     public function getCheckoutUrl()
     {
-        return $this->getUrl('checkout/onepage', array('_secure'=>true));
+        return $this->getUrl('checkout/onepage', array('_secure' => true));
     }
 
     public function isDisabled()
@@ -47,4 +49,5 @@ class Mage_Checkout_Block_Onepage_Link extends Mage_Core_Block_Template
     {
         return $this->helper('checkout')->canOnepageCheckout();
     }
+
 }

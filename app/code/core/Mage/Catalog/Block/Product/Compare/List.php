@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog products compare block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product_Compare_Abstract
 {
+
     /**
      * Product Compare items collection
      *
@@ -77,11 +78,11 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
      */
     public function getAddToWishlistUrl($product)
     {
-        $continueUrl    = Mage::helper('core')->urlEncode($this->getUrl('customer/account'));
-        $urlParamName   = Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED;
+        $continueUrl = Mage::helper('core')->urlEncode($this->getUrl('customer/account'));
+        $urlParamName = Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED;
 
         $params = array(
-            $urlParamName   => $continueUrl
+            $urlParamName => $continueUrl
         );
 
         return $this->helper('wishlist')->getAddUrlWithParams($product, $params);
@@ -112,8 +113,8 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
             Mage::helper('catalog/product_compare')->setAllowUsedFlat(false);
 
             $this->_items = Mage::getResourceModel('catalog/product_compare_item_collection')
-                ->useProductItem(true)
-                ->setStoreId(Mage::app()->getStore()->getId());
+                    ->useProductItem(true)
+                    ->setStoreId(Mage::app()->getStore()->getId());
 
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $this->_items->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
@@ -124,13 +125,13 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
             }
 
             $this->_items
-                ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-                ->loadComparableAttributes()
-                ->addMinimalPrice()
-                ->addTaxPercents();
+                    ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+                    ->loadComparableAttributes()
+                    ->addMinimalPrice()
+                    ->addTaxPercents();
 
             Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection($this->_items);
+                    ->addVisibleInSiteFilterToCollection($this->_items);
         }
 
         return $this->_items;
@@ -163,15 +164,14 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
             return Mage::helper('catalog')->__('N/A');
         }
 
-        if ($attribute->getSourceModel()
-            || in_array($attribute->getFrontendInput(), array('select','boolean','multiselect'))
+        if ($attribute->getSourceModel() || in_array($attribute->getFrontendInput(), array('select', 'boolean', 'multiselect'))
         ) {
             //$value = $attribute->getSource()->getOptionText($product->getData($attribute->getAttributeCode()));
             $value = $attribute->getFrontend()->getValue($product);
         } else {
             $value = $product->getData($attribute->getAttributeCode());
         }
-        return ((string)$value == '') ? Mage::helper('catalog')->__('No') : $value;
+        return ((string) $value == '') ? Mage::helper('catalog')->__('No') : $value;
     }
 
     /**
@@ -181,7 +181,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
      */
     public function getPrintUrl()
     {
-        return $this->getUrl('*/*/*', array('_current'=>true, 'print'=>1));
+        return $this->getUrl('*/*/*', array('_current' => true, 'print' => 1));
     }
 
     /**
@@ -195,4 +195,5 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
         $this->_customerId = $id;
         return $this;
     }
+
 }

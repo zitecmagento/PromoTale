@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist block customer items
  *
@@ -37,6 +37,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /*
      * List of product options rendering configurations by product type
      */
+
     protected $_optionsCfg = array();
 
     /**
@@ -108,6 +109,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      * @param null|string $template
      * @return Mage_Wishlist_Block_Customer_Wishlist
      */
+
     public function addOptionsRenderCfg($productType, $helperName, $template = null)
     {
         $this->_optionsCfg[$productType] = array('helper' => $helperName, 'template' => $template);
@@ -167,8 +169,8 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
         }
 
         return $block->setTemplate($template)
-            ->setOptionList($helper->getOptions($item))
-            ->toHtml();
+                        ->setOptionList($helper->getOptions($item))
+                        ->toHtml();
     }
 
     /**
@@ -183,4 +185,5 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
         $qty = $this->getQty($item);
         return $qty ? $qty : 1;
     }
+
 }

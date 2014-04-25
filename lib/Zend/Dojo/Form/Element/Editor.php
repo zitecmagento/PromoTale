@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Editor.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Dojo_Form_Element_Dijit */
 #require_once 'Zend/Dojo/Form/Element/Dijit.php';
 
@@ -35,6 +35,7 @@
  */
 class Zend_Dojo_Form_Element_Editor extends Zend_Dojo_Form_Element_Dijit
 {
+
     /**
      * @var string View helper
      */
@@ -378,7 +379,7 @@ class Zend_Dojo_Form_Element_Editor extends Zend_Dojo_Form_Element_Dijit
     public function getFocusOnLoad()
     {
         if (!$this->hasDijitParam('focusOnLoad')) {
-             return false;
+            return false;
         }
         return $this->getDijitParam('focusOnLoad');
     }
@@ -592,8 +593,9 @@ class Zend_Dojo_Form_Element_Editor extends Zend_Dojo_Form_Element_Dijit
     public function getUpdateInterval()
     {
         if (!$this->hasDijitParam('updateInterval')) {
-             return 200;
+            return 200;
         }
         return $this->getDijitParam('updateInterval');
     }
+
 }

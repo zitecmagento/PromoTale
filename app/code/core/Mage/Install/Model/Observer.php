@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,10 @@
  */
 class Mage_Install_Model_Observer
 {
+
     public function bindLocale($observer)
     {
-        if ($locale=$observer->getEvent()->getLocale()) {
+        if ($locale = $observer->getEvent()->getLocale()) {
             if ($choosedLocale = Mage::getSingleton('install/session')->getLocale()) {
                 $locale->setLocaleCode($choosedLocale);
             }
@@ -47,4 +49,5 @@ class Mage_Install_Model_Observer
         echo "<p>Please contact developers with error messages on this page.</p>";
         echo Mage::printException($observer->getEvent()->getException());
     }
+
 }

@@ -122,7 +122,7 @@
         </layout>
     </adminhtml>
     <admin>
-         <routers>
+        <routers>
             <adminhtml>
                 <args>
                     <modules>

@@ -55,7 +55,7 @@
                             <title>Refunds</title>
                             <action>adminhtml/report_sales/refunded</action>
                         </refunded>
-                         <coupons translate="title" module="reports">
+                        <coupons translate="title" module="reports">
                             <title>Coupons</title>
                             <action>adminhtml/report_sales/coupons</action>
                         </coupons>
@@ -158,7 +158,7 @@
                                     <refunded translate="title">
                                         <title>Total refunded</title>
                                     </refunded>
-                                     <coupons translate="title">
+                                    <coupons translate="title">
                                         <title>Coupons</title>
                                     </coupons>
                                 </children>

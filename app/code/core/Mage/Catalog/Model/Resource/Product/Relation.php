@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Relations Resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize resource model and define main table
      *
@@ -53,8 +54,8 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
     public function processRelations($parentId, $childIds)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), array('child_id'))
-            ->where('parent_id = ?', $parentId);
+                ->from($this->getMainTable(), array('child_id'))
+                ->where('parent_id = ?', $parentId);
         $old = $this->_getReadAdapter()->fetchCol($select);
         $new = $childIds;
 
@@ -66,7 +67,7 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
             foreach ($insert as $childId) {
                 $insertData[] = array(
                     'parent_id' => $parentId,
-                    'child_id'  => $childId
+                    'child_id' => $childId
                 );
             }
             $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $insertData);
@@ -81,4 +82,5 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
 
         return $this;
     }
+
 }

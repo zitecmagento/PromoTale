@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 class Mage_PaypalUk_Model_Express_Checkout extends Mage_Paypal_Model_Express_Checkout
 {
+
     /**
      * Api Model Type
      *
@@ -52,4 +54,5 @@ class Mage_PaypalUk_Model_Express_Checkout extends Mage_Paypal_Model_Express_Che
         parent::updateShippingMethod($methodCode);
         $this->_quote->save();
     }
+
 }

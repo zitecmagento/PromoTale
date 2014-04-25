@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Capture.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
-
 /**
  * @see Zend_Cache_Core
  */
 #require_once 'Zend/Cache/Core.php';
-
 
 /**
  * @package    Zend_Cache
@@ -35,6 +33,7 @@
  */
 class Zend_Cache_Frontend_Capture extends Zend_Cache_Core
 {
+
     /**
      * Page identifiers
      * @var array
@@ -46,7 +45,6 @@ class Zend_Cache_Frontend_Capture extends Zend_Cache_Core
      * @var array
      */
     protected $_tags = array();
-    
     protected $_extension = null;
 
     /**
@@ -85,4 +83,5 @@ class Zend_Cache_Frontend_Capture extends Zend_Cache_Core
         }
         return $data;
     }
+
 }

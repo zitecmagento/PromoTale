@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog indexer price processor
@@ -54,6 +54,7 @@
  */
 class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
+
     protected $_customerGroups = array();
     protected $_processChildrenForConfigurable = false;
 
@@ -108,4 +109,5 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
         $conditions = "frontend_input = 'price' AND attribute_code <> 'price'";
         return $conditions;
     }
+
 }

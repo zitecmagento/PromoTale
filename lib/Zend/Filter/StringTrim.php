@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: StringTrim.php 23401 2010-11-19 18:52:08Z ramon $
  */
-
 /**
  * @see Zend_Filter_Interface
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Filter_StringTrim implements Zend_Filter_Interface
 {
+
     /**
      * List of characters provided to the trim() function
      *
@@ -53,9 +54,9 @@ class Zend_Filter_StringTrim implements Zend_Filter_Interface
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } else if (!is_array($options)) {
-            $options          = func_get_args();
+            $options = func_get_args();
             $temp['charlist'] = array_shift($options);
-            $options          = $temp;
+            $options = $temp;
         }
 
         if (array_key_exists('charlist', $options)) {
@@ -113,12 +114,11 @@ class Zend_Filter_StringTrim implements Zend_Filter_Interface
     protected function _unicodeTrim($value, $charlist = '\\\\s')
     {
         $chars = preg_replace(
-            array( '/[\^\-\]\\\]/S', '/\\\{4}/S', '/\//'),
-            array( '\\\\\\0', '\\', '\/' ),
-            $charlist
+                array('/[\^\-\]\\\]/S', '/\\\{4}/S', '/\//'), array('\\\\\\0', '\\', '\/'), $charlist
         );
 
         $pattern = '^[' . $chars . ']*|[' . $chars . ']*$';
         return preg_replace("/$pattern/sSD", '', $value);
     }
+
 }

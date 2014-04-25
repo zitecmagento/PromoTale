@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 abstract class Zend_Uri
 {
+
     /**
      * Scheme of this URI (http, ftp, etc.)
      *
@@ -53,9 +55,12 @@ abstract class Zend_Uri
      */
     public function __toString()
     {
-        try {
+        try
+        {
             return $this->getUri();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             trigger_error($e->getMessage(), E_USER_WARNING);
             return '';
         }
@@ -71,9 +76,12 @@ abstract class Zend_Uri
      */
     public static function check($uri)
     {
-        try {
+        try
+        {
             $uri = self::factory($uri);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             return false;
         }
 
@@ -96,8 +104,8 @@ abstract class Zend_Uri
     public static function factory($uri = 'http', $className = null)
     {
         // Separate the scheme from the scheme-specific parts
-        $uri            = explode(':', $uri, 2);
-        $scheme         = strtolower($uri[0]);
+        $uri = explode(':', $uri, 2);
+        $scheme = strtolower($uri[0]);
         $schemeSpecific = isset($uri[1]) === true ? $uri[1] : '';
 
         if (strlen($scheme) === 0) {
@@ -118,13 +126,13 @@ abstract class Zend_Uri
              */
             switch ($scheme) {
                 case 'http':
-                    // Break intentionally omitted
+                // Break intentionally omitted
                 case 'https':
                     $className = 'Zend_Uri_Http';
                     break;
 
                 case 'mailto':
-                    // TODO
+                // TODO
                 default:
                     #require_once 'Zend/Uri/Exception.php';
                     throw new Zend_Uri_Exception("Scheme \"$scheme\" is not supported");
@@ -133,16 +141,19 @@ abstract class Zend_Uri
         }
 
         #require_once 'Zend/Loader.php';
-        try {
+        try
+        {
             Zend_Loader::loadClass($className);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             #require_once 'Zend/Uri/Exception.php';
             throw new Zend_Uri_Exception("\"$className\" not found");
         }
 
         $schemeHandler = new $className($scheme, $schemeSpecific);
 
-        if (! $schemeHandler instanceof Zend_Uri) {
+        if (!$schemeHandler instanceof Zend_Uri) {
             #require_once 'Zend/Uri/Exception.php';
             throw new Zend_Uri_Exception("\"$className\" is not an instance of Zend_Uri");
         }

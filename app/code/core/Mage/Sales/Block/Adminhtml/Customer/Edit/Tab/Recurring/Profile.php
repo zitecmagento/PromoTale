@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,10 +30,9 @@
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile
-    extends Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Disable filters and paging
      *
@@ -71,7 +71,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile
     public function canShowTab()
     {
         $customer = Mage::registry('current_customer');
-        return (bool)$customer->getId();
+        return (bool) $customer->getId();
     }
 
     /**
@@ -92,7 +92,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/recurring_profile_collection')
-            ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId());
+                ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId());
         if (!$this->getParam($this->getVarNameSort())) {
             $collection->setOrder('profile_id', 'desc');
         }
@@ -119,4 +119,5 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile
     {
         return $this->getUrl('*/sales_recurring_profile/customerGrid', array('_current' => true));
     }
+
 }

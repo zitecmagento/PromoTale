@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Action
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
+class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
 {
+
     /**
      * Render grid row
      *
@@ -44,31 +45,32 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Action
     {
         $actions = array(
             array(
-                'caption'   => $this->__('Preview'),
-                'url'       => $this->getUrl('*/*/previewQueue', array('id' => $row->getId())),
-                'popup'     => true,
+                'caption' => $this->__('Preview'),
+                'url' => $this->getUrl('*/*/previewQueue', array('id' => $row->getId())),
+                'popup' => true,
             ),
         );
 
         if ($row->getStatus() == Mage_XmlConnect_Model_Queue::STATUS_IN_QUEUE) {
             $actions[] = array(
-                'caption'   => $this->__('Edit'),
-                'url'       => $this->getUrl('*/*/editQueue', array('id' => $row->getId())),
+                'caption' => $this->__('Edit'),
+                'url' => $this->getUrl('*/*/editQueue', array('id' => $row->getId())),
             );
             $actions[] = array(
-                'caption'   => $this->__('Cancel'),
-                'url'       => $this->getUrl('*/*/cancelQueue', array('id' => $row->getId())),
-                'confirm'   => $this->__('Are you sure you want to cancel a message?')
+                'caption' => $this->__('Cancel'),
+                'url' => $this->getUrl('*/*/cancelQueue', array('id' => $row->getId())),
+                'confirm' => $this->__('Are you sure you want to cancel a message?')
             );
         }
 
         $actions[] = array(
-            'caption'   => $this->__('Delete'),
-            'url'       => $this->getUrl('*/*/deleteQueue', array('id' => $row->getId())),
-            'confirm'   => $this->__('Are you sure you want to delete a message?')
+            'caption' => $this->__('Delete'),
+            'url' => $this->getUrl('*/*/deleteQueue', array('id' => $row->getId())),
+            'confirm' => $this->__('Are you sure you want to delete a message?')
         );
 
         $this->getColumn()->setActions($actions);
         return parent::render($row);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog grouped product info block
  *
@@ -34,19 +34,20 @@
  */
 class Mage_Catalog_Block_Product_View_Type_Grouped extends Mage_Catalog_Block_Product_View_Abstract
 {
+
     public function getAssociatedProducts()
     {
         return $this->getProduct()->getTypeInstance(true)
-            ->getAssociatedProducts($this->getProduct());
+                        ->getAssociatedProducts($this->getProduct());
     }
-
 
     /**
      * Set preconfigured values to grouped associated products
      *
      * @return Mage_Catalog_Block_Product_View_Type_Grouped
      */
-    public function setPreconfiguredValue() {
+    public function setPreconfiguredValue()
+    {
         $configValues = $this->getProduct()->getPreconfiguredValues()->getSuperGroup();
         if (is_array($configValues)) {
             $associatedProducts = $this->getAssociatedProducts();
@@ -58,4 +59,5 @@ class Mage_Catalog_Block_Product_View_Type_Grouped extends Mage_Catalog_Block_Pr
         }
         return $this;
     }
+
 }

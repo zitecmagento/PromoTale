@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Soap.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /**
  * @see Zend_Soap_Client
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
 {
+
     /**
      * class with credential interface
      *
@@ -179,8 +180,7 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
          * Security Element
          */
         $securityElement = $dom->createElementNS(
-            self::WSSE_NAMESPACE_SECEXT,
-            'wsse:' . self::WSSE_SECURITY_ELEMENT
+                self::WSSE_NAMESPACE_SECEXT, 'wsse:' . self::WSSE_SECURITY_ELEMENT
         );
         $securityElement->setAttribute('mustUnderstand', true);
 
@@ -188,26 +188,21 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
          * Username Token Element
          */
         $usernameTokenElement = $dom->createElementNS(
-            self::WSSE_NAMESPACE_SECEXT,
-            self::WSSE_ELEMENT_USERNAMETOKEN
+                self::WSSE_NAMESPACE_SECEXT, self::WSSE_ELEMENT_USERNAMETOKEN
         );
 
         /**
          * Username Element
          */
         $usernameElement = $dom->createElementNS(
-            self::WSSE_NAMESPACE_SECEXT,
-            self::WSSE_ELEMENT_USERNAME,
-            $this->_credential->getUsername(true)
+                self::WSSE_NAMESPACE_SECEXT, self::WSSE_ELEMENT_USERNAME, $this->_credential->getUsername(true)
         );
 
         /**
          * Password Element
          */
         $passwordElement = $dom->createElementNS(
-            self::WSSE_NAMESPACE_SECEXT,
-            self::WSSE_ELEMENT_PASSWORD,
-            $this->_credential->getPassword()
+                self::WSSE_NAMESPACE_SECEXT, self::WSSE_ELEMENT_PASSWORD, $this->_credential->getPassword()
         );
         $passwordElement->setAttribute('Type', self::WSSE_ELEMENT_PASSWORD_TYPE);
 
@@ -218,17 +213,11 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
         $dom->appendChild($securityElement);
 
         $authSoapVar = new SoapVar(
-            $dom->saveXML($securityElement),
-            XSD_ANYXML,
-            self::WSSE_NAMESPACE_SECEXT,
-            self::WSSE_SECURITY_ELEMENT
+                $dom->saveXML($securityElement), XSD_ANYXML, self::WSSE_NAMESPACE_SECEXT, self::WSSE_SECURITY_ELEMENT
         );
 
         $authSoapHeader = new SoapHeader(
-            self::WSSE_NAMESPACE_SECEXT,
-            self::WSSE_SECURITY_ELEMENT,
-            $authSoapVar,
-            true
+                self::WSSE_NAMESPACE_SECEXT, self::WSSE_SECURITY_ELEMENT, $authSoapVar, true
         );
 
         return $authSoapHeader;
@@ -241,29 +230,20 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
      * @return SoapHeader
      */
     public function getWsseTokenHeader(
-        Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse $token
-    ) {
+    Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse $token
+    )
+    {
         $format = '<wsse:%s xmlns:wsse="%s" SOAP-ENV:mustUnderstand="1">%s</wsse:%s>';
         $securityHeader = sprintf(
-            $format,
-            self::WSSE_SECURITY_ELEMENT,
-            self::WSSE_NAMESPACE_SECEXT,
-            $token->getTokenData(),
-            self::WSSE_SECURITY_ELEMENT
+                $format, self::WSSE_SECURITY_ELEMENT, self::WSSE_NAMESPACE_SECEXT, $token->getTokenData(), self::WSSE_SECURITY_ELEMENT
         );
 
         $authSoapVar = new SoapVar(
-            $securityHeader,
-            XSD_ANYXML,
-            self::WSSE_NAMESPACE_SECEXT,
-            self::WSSE_SECURITY_ELEMENT
+                $securityHeader, XSD_ANYXML, self::WSSE_NAMESPACE_SECEXT, self::WSSE_SECURITY_ELEMENT
         );
 
         $authSoapHeader = new SoapHeader(
-            self::WSSE_NAMESPACE_SECEXT,
-            self::WSSE_SECURITY_ELEMENT,
-            $authSoapVar,
-            true
+                self::WSSE_NAMESPACE_SECEXT, self::WSSE_SECURITY_ELEMENT, $authSoapVar, true
         );
 
         return $authSoapHeader;
@@ -276,29 +256,20 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
      * @return SoapHeader
      */
     public function getWsseSecurityTokenHeader(
-        Zend_Service_DeveloperGarden_Response_SecurityTokenServer_GetTokensResponse $token
-    ) {
+    Zend_Service_DeveloperGarden_Response_SecurityTokenServer_GetTokensResponse $token
+    )
+    {
         $format = '<wsse:%s xmlns:wsse="%s" SOAP-ENV:mustUnderstand="1">%s</wsse:%s>';
         $securityHeader = sprintf(
-            $format,
-            self::WSSE_SECURITY_ELEMENT,
-            self::WSSE_NAMESPACE_SECEXT,
-            $token->getTokenData(),
-            self::WSSE_SECURITY_ELEMENT
+                $format, self::WSSE_SECURITY_ELEMENT, self::WSSE_NAMESPACE_SECEXT, $token->getTokenData(), self::WSSE_SECURITY_ELEMENT
         );
 
         $authSoapVar = new SoapVar(
-            $securityHeader,
-            XSD_ANYXML,
-            self::WSSE_NAMESPACE_SECEXT,
-            self::WSSE_SECURITY_ELEMENT
+                $securityHeader, XSD_ANYXML, self::WSSE_NAMESPACE_SECEXT, self::WSSE_SECURITY_ELEMENT
         );
 
         $authSoapHeader = new SoapHeader(
-            self::WSSE_NAMESPACE_SECEXT,
-            self::WSSE_SECURITY_ELEMENT,
-            $authSoapVar,
-            true
+                self::WSSE_NAMESPACE_SECEXT, self::WSSE_SECURITY_ELEMENT, $authSoapVar, true
         );
 
         return $authSoapHeader;
@@ -321,8 +292,9 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
      * @return Zend_Service_DeveloperGarden_Client_Soap
      */
     public function addWsseTokenHeader(
-        Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse $token
-    ) {
+    Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse $token
+    )
+    {
         return $this->addSoapInputHeader($this->getWsseTokenHeader($token));
     }
 
@@ -333,8 +305,10 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
      * @return Zend_Service_DeveloperGarden_Client_Soap
      */
     public function addWsseSecurityTokenHeader(
-        Zend_Service_DeveloperGarden_Response_SecurityTokenServer_GetTokensResponse $token
-    ) {
+    Zend_Service_DeveloperGarden_Response_SecurityTokenServer_GetTokensResponse $token
+    )
+    {
         return $this->addSoapInputHeader($this->getWsseSecurityTokenHeader($token));
     }
+
 }

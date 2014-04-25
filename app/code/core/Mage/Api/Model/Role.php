@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -48,6 +49,7 @@
  */
 class Mage_Api_Model_Role extends Mage_Core_Model_Abstract
 {
+
     /**
      * Initialize resource
      */
@@ -55,4 +57,5 @@ class Mage_Api_Model_Role extends Mage_Core_Model_Abstract
     {
         $this->_init('api/role');
     }
+
 }

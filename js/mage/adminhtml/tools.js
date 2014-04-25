@@ -22,12 +22,12 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-function setLocation(url){
+function setLocation(url) {
     window.location.href = url;
 }
 
-function confirmSetLocation(message, url){
-    if( confirm(message) ) {
+function confirmSetLocation(message, url) {
+    if (confirm(message)) {
         setLocation(url);
     }
     return false;
@@ -37,15 +37,15 @@ function deleteConfirm(message, url) {
     confirmSetLocation(message, url);
 }
 
-function setElementDisable(element, disable){
-    if($(element)){
+function setElementDisable(element, disable) {
+    if ($(element)) {
         $(element).disabled = disable;
     }
 }
 
 function toggleParentVis(obj) {
     obj = $(obj).parentNode;
-    if( obj.style.display == 'none' ) {
+    if (obj.style.display == 'none') {
         obj.style.display = '';
     } else {
         obj.style.display = 'none';
@@ -57,7 +57,7 @@ function toggleParentVis(obj) {
 function toggleFieldsetVis(obj) {
     id = obj;
     obj = $(obj);
-    if( obj.style.display == 'none' ) {
+    if (obj.style.display == 'none') {
         obj.style.display = '';
     } else {
         obj.style.display = 'none';
@@ -65,13 +65,13 @@ function toggleFieldsetVis(obj) {
     obj = obj.parentNode.childElements();
     for (var i = 0; i < obj.length; i++) {
         if (obj[i].id != undefined
-            && obj[i].id == id
-            && obj[(i-1)].classNames() == 'entry-edit-head')
+                && obj[i].id == id
+                && obj[(i - 1)].classNames() == 'entry-edit-head')
         {
-            if (obj[i-1].style.display == 'none') {
-                obj[i-1].style.display = '';
+            if (obj[i - 1].style.display == 'none') {
+                obj[i - 1].style.display = '';
             } else {
-                obj[i-1].style.display = 'none';
+                obj[i - 1].style.display = 'none';
             }
         }
     }
@@ -79,22 +79,22 @@ function toggleFieldsetVis(obj) {
 
 function toggleVis(obj) {
     obj = $(obj);
-    if( obj.style.display == 'none' ) {
+    if (obj.style.display == 'none') {
         obj.style.display = '';
     } else {
         obj.style.display = 'none';
     }
 }
 
-function imagePreview(element){
-    if($(element)){
+function imagePreview(element) {
+    if ($(element)) {
         var win = window.open('', 'preview', 'width=400,height=400,resizable=1,scrollbars=1');
         win.document.open();
-        win.document.write('<body style="padding:0;margin:0"><img src="'+$(element).src+'" id="image_preview"/></body>');
+        win.document.write('<body style="padding:0;margin:0"><img src="' + $(element).src + '" id="image_preview"/></body>');
         win.document.close();
-        Event.observe(win, 'load', function(){
+        Event.observe(win, 'load', function() {
             var img = win.document.getElementById('image_preview');
-            win.resizeTo(img.width+40, img.height+80)
+            win.resizeTo(img.width + 40, img.height + 80)
         });
     }
 }
@@ -117,8 +117,8 @@ Event.observe(window, 'load', function() {
     }
 });
 
-function toggleValueElements(checkbox, container, excludedElements, checked){
-    if(container && checkbox){
+function toggleValueElements(checkbox, container, excludedElements, checked) {
+    if (container && checkbox) {
         var ignoredElements = [checkbox];
         if (typeof excludedElements != 'undefined') {
             if (Object.prototype.toString.call(excludedElements) != '[object Array]') {
@@ -131,10 +131,11 @@ function toggleValueElements(checkbox, container, excludedElements, checked){
         //var elems = container.select('select', 'input');
         var elems = Element.select(container, ['select', 'input', 'textarea', 'button', 'img']);
         var isDisabled = (checked != undefined ? checked : checkbox.checked);
-        elems.each(function (elem) {
+        elems.each(function(elem) {
             if (checkByProductPriceType(elem)) {
                 var i = ignoredElements.length;
-                while (i-- && elem != ignoredElements[i]);
+                while (i-- && elem != ignoredElements[i])
+                    ;
                 if (i != -1) {
                     return;
                 }
@@ -157,7 +158,7 @@ function toggleValueElements(checkbox, container, excludedElements, checked){
  * @todo add validation for fields
  */
 function submitAndReloadArea(area, url) {
-    if($(area)) {
+    if ($(area)) {
         var fields = $(area).select('input', 'select', 'textarea');
         var data = Form.serializeElements(fields, true);
         url = url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true');
@@ -171,7 +172,7 @@ function submitAndReloadArea(area, url) {
                         if (response.error) {
                             alert(response.message);
                         }
-                        if(response.ajaxExpired && response.ajaxRedirect) {
+                        if (response.ajaxExpired && response.ajaxRedirect) {
                             setLocation(response.ajaxRedirect);
                         }
                     } else {
@@ -188,25 +189,25 @@ function submitAndReloadArea(area, url) {
 
 /********** MESSAGES ***********/
 /*
-Event.observe(window, 'load', function() {
-    $$('.messages .error-msg').each(function(el) {
-        new Effect.Highlight(el, {startcolor:'#E13422', endcolor:'#fdf9f8', duration:1});
-    });
-    $$('.messages .warning-msg').each(function(el) {
-        new Effect.Highlight(el, {startcolor:'#E13422', endcolor:'#fdf9f8', duration:1});
-    });
-    $$('.messages .notice-msg').each(function(el) {
-        new Effect.Highlight(el, {startcolor:'#E5B82C', endcolor:'#fbf7e9', duration:1});
-    });
-    $$('.messages .success-msg').each(function(el) {
-        new Effect.Highlight(el, {startcolor:'#507477', endcolor:'#f2fafb', duration:1});
-    });
-});
-*/
-function syncOnchangeValue(baseElem, distElem){
-    var compare = {baseElem:baseElem, distElem:distElem}
-    Event.observe(baseElem, 'change', function(){
-        if($(this.baseElem) && $(this.distElem)){
+ Event.observe(window, 'load', function() {
+ $$('.messages .error-msg').each(function(el) {
+ new Effect.Highlight(el, {startcolor:'#E13422', endcolor:'#fdf9f8', duration:1});
+ });
+ $$('.messages .warning-msg').each(function(el) {
+ new Effect.Highlight(el, {startcolor:'#E13422', endcolor:'#fdf9f8', duration:1});
+ });
+ $$('.messages .notice-msg').each(function(el) {
+ new Effect.Highlight(el, {startcolor:'#E5B82C', endcolor:'#fbf7e9', duration:1});
+ });
+ $$('.messages .success-msg').each(function(el) {
+ new Effect.Highlight(el, {startcolor:'#507477', endcolor:'#f2fafb', duration:1});
+ });
+ });
+ */
+function syncOnchangeValue(baseElem, distElem) {
+    var compare = {baseElem: baseElem, distElem: distElem}
+    Event.observe(baseElem, 'change', function() {
+        if ($(this.baseElem) && $(this.distElem)) {
             $(this.distElem).value = $(this.baseElem).value;
         }
     }.bind(compare));
@@ -232,7 +233,7 @@ function updateElementAtCursor(el, value, win) {
 
 // Firebug detection
 function firebugEnabled() {
-    if(window.console && window.console.firebug) {
+    if (window.console && window.console.firebug) {
         return true;
     }
     return false;
@@ -248,11 +249,11 @@ function enableElement(elem) {
     elem.removeClassName('disabled');
 }
 
-function disableElements(search){
+function disableElements(search) {
     $$('.' + search).each(disableElement);
 }
 
-function enableElements(search){
+function enableElements(search) {
     $$('.' + search).each(enableElement);
 }
 
@@ -266,7 +267,7 @@ var toolbarToggle = {
     compatible: !navigator.appVersion.match('MSIE 6.'), // Whether object is compatible with browser (do not support old browsers, legacy code)
 
     // Inits object and pushes it into work. Can be used to init/reset(update) object by current DOM.
-    reset: function () {
+    reset: function() {
         // Maybe we are already using floating toolbar - just remove it to update from html
         if (this.headerCopy) {
             this.headerCopy.remove();
@@ -274,9 +275,8 @@ var toolbarToggle = {
         this.createToolbar();
         this.updateForScroll();
     },
-
     // Creates toolbar and inits all needed properties
-    createToolbar: function () {
+    createToolbar: function() {
         if (!this.compatible) {
             return;
         }
@@ -320,22 +320,20 @@ var toolbarToggle = {
             placeholder.remove();
         }
     },
-
     // Checks whether object properties are ready and valid
-    ready: function () {
+    ready: function() {
         // Return definitely boolean value
         return (this.compatible && this.header && this.headerCopy && this.headerCopy.parentNode) ? true : false;
     },
-
     // Updates toolbars for current scroll - shows/hides normal and floating toolbar
-    updateForScroll: function () {
+    updateForScroll: function() {
         if (!this.ready()) {
             return;
         }
 
         // scrolling offset calculation via www.quirksmode.org
         var s;
-        if (self.pageYOffset){
+        if (self.pageYOffset) {
             s = self.pageYOffset;
         } else if (document.documentElement && document.documentElement.scrollTop) {
             s = document.documentElement.scrollTop;
@@ -352,9 +350,8 @@ var toolbarToggle = {
             this.showNormalToolbar();
         }
     },
-
     // Shows normal toolbar (and hides floating one)
-    showNormalToolbar: function () {
+    showNormalToolbar: function() {
         if (!this.ready()) {
             return;
         }
@@ -362,7 +359,7 @@ var toolbarToggle = {
         var buttons = $$('.content-buttons')[0];
         if (buttons && buttons.oldParent && buttons.oldParent != buttons.parentNode) {
             buttons.remove();
-            if(buttons.oldBefore) {
+            if (buttons.oldBefore) {
                 buttons.oldParent.insertBefore(buttons, buttons.oldBefore);
             } else {
                 buttons.oldParent.appendChild(buttons);
@@ -371,11 +368,10 @@ var toolbarToggle = {
 
         this.headerCopy.style.display = 'none';
     },
-
     // Shows floating toolbar (and hides normal one)
     // Notice that buttons could had changed in html by setting new inner html,
     // so our added custom properties (placeholder, oldParent) can be not present in them any more
-    showFloatingToolbar: function () {
+    showFloatingToolbar: function() {
         if (!this.ready()) {
             return;
         }
@@ -412,9 +408,8 @@ var toolbarToggle = {
 
         this.headerCopy.style.display = 'block';
     },
-
     // Starts object on window load
-    startOnLoad: function () {
+    startOnLoad: function() {
         if (!this.compatible) {
             return;
         }
@@ -424,17 +419,15 @@ var toolbarToggle = {
         }
         Event.observe(window, 'load', this.funcOnWindowLoad);
     },
-
     // Removes object start on window load
-    removeOnLoad: function () {
+    removeOnLoad: function() {
         if (!this.funcOnWindowLoad) {
             return;
         }
         Event.stopObserving(window, 'load', this.funcOnWindowLoad);
     },
-
     // Starts object by creating toolbar and enabling scroll/resize events
-    start: function () {
+    start: function() {
         if (!this.compatible) {
             return;
         }
@@ -442,16 +435,14 @@ var toolbarToggle = {
         this.reset();
         this.startListening();
     },
-
     // Stops object by removing toolbar and stopping listening to events
-    stop: function () {
+    stop: function() {
         this.stopListening();
         this.removeOnLoad();
         this.showNormalToolbar();
     },
-
     // Addes events on scroll/resize
-    startListening: function () {
+    startListening: function() {
         if (this.eventsAdded) {
             return;
         }
@@ -465,9 +456,8 @@ var toolbarToggle = {
 
         this.eventsAdded = true;
     },
-
     // Removes listening to events on resize/update
-    stopListening: function () {
+    stopListening: function() {
         if (!this.eventsAdded) {
             return;
         }
@@ -515,7 +505,7 @@ var Cookie = {
     },
     read: function(cookieName) {
         var cookies = this.all();
-        if(cookies[cookieName]) {
+        if (cookies[cookieName]) {
             return cookies[cookieName];
         }
         return null;
@@ -524,8 +514,8 @@ var Cookie = {
         var expires = '';
         if (cookieLifeTime) {
             var date = new Date();
-            date.setTime(date.getTime()+(cookieLifeTime*1000));
-            expires = '; expires='+date.toGMTString();
+            date.setTime(date.getTime() + (cookieLifeTime * 1000));
+            expires = '; expires=' + date.toGMTString();
         }
         var urlPath = '/' + BASE_URL.split('/').slice(3).join('/'); // Get relative path
         document.cookie = escape(cookieName) + "=" + escape(cookieValue) + expires + "; path=" + urlPath;
@@ -547,18 +537,18 @@ var Fieldset = {
         } else {
             collapsed = $(containerId + '-head').collapsed;
         }
-        if (collapsed==1 || collapsed===undefined) {
-           $(containerId + '-head').removeClassName('open');
-           if($(containerId + '-head').up('.section-config')) {
+        if (collapsed == 1 || collapsed === undefined) {
+            $(containerId + '-head').removeClassName('open');
+            if ($(containerId + '-head').up('.section-config')) {
                 $(containerId + '-head').up('.section-config').removeClassName('active');
-           }
-           $(containerId).hide();
+            }
+            $(containerId).hide();
         } else {
-           $(containerId + '-head').addClassName('open');
-           if($(containerId + '-head').up('.section-config')) {
+            $(containerId + '-head').addClassName('open');
+            if ($(containerId + '-head').up('.section-config')) {
                 $(containerId + '-head').up('.section-config').addClassName('active');
-           }
-           $(containerId).show();
+            }
+            $(containerId).show();
         }
     },
     toggleCollapse: function(containerId, saveThroughAjax) {
@@ -568,7 +558,7 @@ var Fieldset = {
             collapsed = $(containerId + '-head').collapsed;
         }
         //Cookie.read(this.cookiePrefix + containerId);
-        if(collapsed==1 || collapsed===undefined) {
+        if (collapsed == 1 || collapsed === undefined) {
             //Cookie.write(this.cookiePrefix + containerId,  0, 30*24*60*60);
             if ($(containerId + '-state')) {
                 $(containerId + '-state').value = 1;
@@ -587,7 +577,7 @@ var Fieldset = {
             this.saveState(saveThroughAjax, {container: containerId, value: $(containerId + '-state').value});
         }
     },
-    addToPrefix: function (value) {
+    addToPrefix: function(value) {
         this.cookiePrefix += value + '-';
     },
     saveState: function(url, parameters) {
@@ -601,10 +591,10 @@ var Fieldset = {
 
 var Base64 = {
     // private property
-    _keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-     //'+/=', '-_,'
+    _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+    //'+/=', '-_,'
     // public method for encoding
-    encode: function (input) {
+    encode: function(input) {
         var output = "";
         var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
         var i = 0;
@@ -628,15 +618,14 @@ var Base64 = {
                 enc4 = 64;
             }
             output = output +
-            this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
-            this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+                    this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
+                    this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
         }
 
         return output;
     },
-
     // public method for decoding
-    decode: function (input) {
+    decode: function(input) {
         var output = "";
         var chr1, chr2, chr3;
         var enc1, enc2, enc3, enc4;
@@ -667,28 +656,23 @@ var Base64 = {
         output = Base64._utf8_decode(output);
         return output;
     },
-
-    mageEncode: function(input){
+    mageEncode: function(input) {
         return this.encode(input).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, ',');
     },
-
-    mageDecode: function(output){
+    mageDecode: function(output) {
         output = output.replace(/\-/g, '+').replace(/_/g, '/').replace(/,/g, '=');
         return this.decode(output);
     },
-
-    idEncode: function(input){
+    idEncode: function(input) {
         return this.encode(input).replace(/\+/g, ':').replace(/\//g, '_').replace(/=/g, '-');
     },
-
-    idDecode: function(output){
+    idDecode: function(output) {
         output = output.replace(/\-/g, '=').replace(/_/g, '/').replace(/\:/g, '\+');
         return this.decode(output);
     },
-
     // private method for UTF-8 encoding
-    _utf8_encode : function (string) {
-        string = string.replace(/\r\n/g,"\n");
+    _utf8_encode: function(string) {
+        string = string.replace(/\r\n/g, "\n");
         var utftext = "";
 
         for (var n = 0; n < string.length; n++) {
@@ -698,7 +682,7 @@ var Base64 = {
             if (c < 128) {
                 utftext += String.fromCharCode(c);
             }
-            else if((c > 127) && (c < 2048)) {
+            else if ((c > 127) && (c < 2048)) {
                 utftext += String.fromCharCode((c >> 6) | 192);
                 utftext += String.fromCharCode((c & 63) | 128);
             }
@@ -710,14 +694,13 @@ var Base64 = {
         }
         return utftext;
     },
-
     // private method for UTF-8 decoding
-    _utf8_decode : function (utftext) {
+    _utf8_decode: function(utftext) {
         var string = "";
         var i = 0;
         var c = c1 = c2 = 0;
 
-        while ( i < utftext.length ) {
+        while (i < utftext.length) {
 
             c = utftext.charCodeAt(i);
 
@@ -725,14 +708,14 @@ var Base64 = {
                 string += String.fromCharCode(c);
                 i++;
             }
-            else if((c > 191) && (c < 224)) {
-                c2 = utftext.charCodeAt(i+1);
+            else if ((c > 191) && (c < 224)) {
+                c2 = utftext.charCodeAt(i + 1);
                 string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
                 i += 2;
             }
             else {
-                c2 = utftext.charCodeAt(i+1);
-                c3 = utftext.charCodeAt(i+2);
+                c2 = utftext.charCodeAt(i + 1);
+                c3 = utftext.charCodeAt(i + 2);
                 string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
                 i += 3;
             }

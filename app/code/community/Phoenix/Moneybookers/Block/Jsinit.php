@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,6 +20,7 @@
  */
 class Phoenix_Moneybookers_Block_Jsinit extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Include JS in head if section is moneybookers
      */
@@ -27,8 +29,8 @@ class Phoenix_Moneybookers_Block_Jsinit extends Mage_Adminhtml_Block_Template
         $section = $this->getAction()->getRequest()->getParam('section', false);
         if ($section == 'moneybookers') {
             $this->getLayout()
-                ->getBlock('head')
-                ->addJs('mage/adminhtml/moneybookers.js');
+                    ->getBlock('head')
+                    ->addJs('mage/adminhtml/moneybookers.js');
         }
         parent::_prepareLayout();
     }
@@ -46,4 +48,5 @@ class Phoenix_Moneybookers_Block_Jsinit extends Mage_Adminhtml_Block_Template
             return '';
         }
     }
+
 }

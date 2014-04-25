@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Gmp.php 23439 2010-11-23 21:10:14Z alexander $
  */
-
 /**
  * @see Zend_Crypt_Math_BigInteger_Interface
  */
@@ -156,7 +156,6 @@ class Zend_Crypt_Math_BigInteger_Gmp implements Zend_Crypt_Math_BigInteger_Inter
         return gmp_strval($result);
     }
 
-
     public function binaryToInteger($operand)
     {
         $result = '0';
@@ -167,7 +166,6 @@ class Zend_Crypt_Math_BigInteger_Gmp implements Zend_Crypt_Math_BigInteger_Inter
         }
         return gmp_strval($result);
     }
-
 
     public function integerToBinary($operand)
     {
@@ -181,11 +179,10 @@ class Zend_Crypt_Math_BigInteger_Gmp implements Zend_Crypt_Math_BigInteger_Inter
         return $return;
     }
 
-
     public function hexToDecimal($operand)
     {
         $return = '0';
-        while(strlen($hex)) {
+        while (strlen($hex)) {
             $hex = hexdec(substr($operand, 0, 4));
             $dec = gmp_add(gmp_mul($return, 65536), $hex);
             $operand = substr($operand, 4);

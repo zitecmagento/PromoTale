@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,7 +32,7 @@ class Zend_Controller_Action_HelperBroker_PriorityStack implements IteratorAggre
 {
 
     protected $_helpersByPriority = array();
-    protected $_helpersByNameRef  = array();
+    protected $_helpersByNameRef = array();
     protected $_nextDefaultPriority = 1;
 
     /**

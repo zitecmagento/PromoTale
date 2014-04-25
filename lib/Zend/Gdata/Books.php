@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Books.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata
  */
@@ -62,6 +61,7 @@
  */
 class Zend_Gdata_Books extends Zend_Gdata
 {
+
     const VOLUME_FEED_URI = 'http://books.google.com/books/feeds/volumes';
     const MY_LIBRARY_FEED_URI = 'http://books.google.com/books/feeds/users/me/collections/library/volumes';
     const MY_ANNOTATION_FEED_URI = 'http://books.google.com/books/feeds/users/me/volumes';
@@ -90,7 +90,7 @@ class Zend_Gdata_Books extends Zend_Gdata
         $this->registerPackage('Zend_Gdata_Books_Extension');
         parent::__construct($client, $applicationId);
         $this->_httpClient->setParameterPost('service', self::AUTH_SERVICE_NAME);
-     }
+    }
 
     /**
      * Retrieves a feed of volumes.
@@ -187,7 +187,7 @@ class Zend_Gdata_Books extends Zend_Gdata
             $uri = $location;
         }
         return parent::insertEntry(
-            $entry, $uri, 'Zend_Gdata_Books_VolumeEntry');
+                        $entry, $uri, 'Zend_Gdata_Books_VolumeEntry');
     }
 
     /**

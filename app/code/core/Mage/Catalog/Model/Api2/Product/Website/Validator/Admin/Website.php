@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Mage_Api2_Model_Resource_Validator
 {
+
     /**
      * Validate data for website assignment to product.
      * If fails validation, then this method returns false, and
@@ -61,8 +63,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
 
         // Validate product to website association
         if (in_array($website->getId(), $product->getWebsiteIds())) {
-            $this->_addError(sprintf('Product #%d is already assigned to website #%d', $product->getId(),
-                $website->getId()));
+            $this->_addError(sprintf('Product #%d is already assigned to website #%d', $product->getId(), $website->getId()));
             return false;
         }
 
@@ -102,8 +103,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
     protected function _checkStoreFrom($product, $website, $storeData)
     {
         if (!isset($storeData['store_from']) || !is_numeric($storeData['store_from'])) {
-            $this->_addError(sprintf('Invalid value for "store_from" for the website with ID #%d.',
-                $website->getId()));
+            $this->_addError(sprintf('Invalid value for "store_from" for the website with ID #%d.', $website->getId()));
             return $this;
         }
 
@@ -111,14 +111,13 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
         // and if it belongs to the product being edited
         $storeFrom = Mage::getModel('core/store')->load($storeData['store_from']);
         if (!$storeFrom->getId()) {
-            $this->_addError(sprintf('Store not found #%d for website #%d.', $storeData['store_from'],
-                $website->getId()));
+            $this->_addError(sprintf('Store not found #%d for website #%d.', $storeData['store_from'], $website->getId()));
             return $this;
         }
 
         if (!in_array($storeFrom->getId(), $product->getStoreIds())) {
             $this->_addError(sprintf('Store #%d from which we will copy the information does not belong'
-                . ' to the product #%d being edited.', $storeFrom->getId(), $product->getId()));
+                            . ' to the product #%d being edited.', $storeFrom->getId(), $product->getId()));
         }
 
         return $this;
@@ -134,8 +133,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
     protected function _checkStoreTo($website, $storeData)
     {
         if (!isset($storeData['store_to']) || !is_numeric($storeData['store_to'])) {
-            $this->_addError(sprintf('Invalid value for "store_to" for the website with ID #%d.',
-                $website->getId()));
+            $this->_addError(sprintf('Invalid value for "store_to" for the website with ID #%d.', $website->getId()));
             return $this;
         }
 
@@ -143,14 +141,13 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
         // and if it belongs to the website being added
         $storeTo = Mage::getModel('core/store')->load($storeData['store_to']);
         if (!$storeTo->getId()) {
-            $this->_addError(sprintf('Store not found #%d for website #%d.', $storeData['store_to'],
-                $website->getId()));
+            $this->_addError(sprintf('Store not found #%d for website #%d.', $storeData['store_to'], $website->getId()));
             return $this;
         }
 
         if (!in_array($storeTo->getId(), $website->getStoreIds())) {
             $this->_addError(sprintf('Store #%d to which we will copy the information does not belong'
-                . ' to the website #%d being added.', $storeTo->getId(), $website->getId()));
+                            . ' to the website #%d being added.', $storeTo->getId(), $website->getId()));
         }
 
         return $this;
@@ -169,9 +166,9 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
     public function isWebsiteAssignedToProduct(Mage_Core_Model_Website $website, Mage_Catalog_Model_Product $product)
     {
         if (false === array_search($website->getId(), $product->getWebsiteIds())) {
-            $this->_addError(sprintf('Product #%d isn\'t assigned to website #%d', $product->getId(),
-                $website->getId()));
+            $this->_addError(sprintf('Product #%d isn\'t assigned to website #%d', $product->getId(), $website->getId()));
         }
         return !count($this->getErrors());
     }
+
 }

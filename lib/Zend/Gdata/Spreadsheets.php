@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Spreadsheets.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_Gdata
  */
@@ -94,6 +93,7 @@
  */
 class Zend_Gdata_Spreadsheets extends Zend_Gdata
 {
+
     const SPREADSHEETS_FEED_URI = 'http://spreadsheets.google.com/feeds/spreadsheets';
     const SPREADSHEETS_POST_URI = 'http://spreadsheets.google.com/feeds/spreadsheets/private/full';
     const WORKSHEETS_FEED_LINK_URI = 'http://schemas.google.com/spreadsheets/2006#worksheetsfeed';
@@ -295,7 +295,7 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
      */
     public function updateCell($row, $col, $inputValue, $key, $wkshtId = 'default')
     {
-        $cell = 'R'.$row.'C'.$col;
+        $cell = 'R' . $row . 'C' . $col;
 
         $query = new Zend_Gdata_Spreadsheets_CellQuery();
         $query->setSpreadsheetKey($key);

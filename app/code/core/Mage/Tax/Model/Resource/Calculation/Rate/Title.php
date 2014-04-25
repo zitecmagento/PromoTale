@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax Rate Title Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Tax_Model_Resource_Calculation_Rate_Title extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -51,9 +52,10 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Title extends Mage_Core_Model_Res
     public function deleteByRateId($rateId)
     {
         $conn = $this->_getWriteAdapter();
-        $where = $conn->quoteInto('tax_calculation_rate_id = ?', (int)$rateId);
+        $where = $conn->quoteInto('tax_calculation_rate_id = ?', (int) $rateId);
         $conn->delete($this->getMainTable(), $where);
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * AdminNotification Inbox model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * AdminNotification Resource initialization
      *
@@ -53,11 +54,11 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->getMainTable())
-            ->order($this->getIdFieldName() . ' DESC')
-            ->where('is_read != 1')
-            ->where('is_remove != 1')
-            ->limit(1);
+                ->from($this->getMainTable())
+                ->order($this->getIdFieldName() . ' DESC')
+                ->where('is_read != 1')
+                ->where('is_remove != 1')
+                ->limit(1);
         $data = $adapter->fetchRow($select);
 
         if ($data) {
@@ -79,12 +80,12 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->getMainTable(), array(
-                'severity'     => 'severity',
-                'count_notice' => new Zend_Db_Expr('COUNT(' . $this->getIdFieldName() . ')')))
-            ->group('severity')
-            ->where('is_remove=?', 0)
-            ->where('is_read=?', 0);
+                ->from($this->getMainTable(), array(
+                    'severity' => 'severity',
+                    'count_notice' => new Zend_Db_Expr('COUNT(' . $this->getIdFieldName() . ')')))
+                ->group('severity')
+                ->where('is_remove=?', 0)
+                ->where('is_read=?', 0);
         $return = $adapter->fetchPairs($select);
         return $return;
     }
@@ -100,8 +101,8 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
         $adapter = $this->_getWriteAdapter();
         foreach ($data as $item) {
             $select = $adapter->select()
-                ->from($this->getMainTable())
-                ->where('title = ?', $item['title']);
+                    ->from($this->getMainTable())
+                    ->where('title = ?', $item['title']);
 
             if (empty($item['url'])) {
                 $select->where('url IS NULL');
@@ -121,4 +122,5 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
             }
         }
     }
+
 }

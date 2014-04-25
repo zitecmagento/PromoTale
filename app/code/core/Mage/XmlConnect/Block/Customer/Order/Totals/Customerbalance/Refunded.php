@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Customer_Order_Totals_Customerbalance_Refunded
-    extends Enterprise_CustomerBalance_Block_Sales_Order_Customerbalance
+class Mage_XmlConnect_Block_Customer_Order_Totals_Customerbalance_Refunded extends Enterprise_CustomerBalance_Block_Sales_Order_Customerbalance
 {
+
     /**
      * Add order total rendered to XML object
      *
@@ -82,4 +83,5 @@ class Mage_XmlConnect_Block_Customer_Order_Totals_Customerbalance_Refunded
     {
         return Mage::helper('xmlconnect/customer_order')->formatPrice($this, $amount);
     }
+
 }

@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Health.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata
  */
@@ -59,23 +58,19 @@
  */
 class Zend_Gdata_Health extends Zend_Gdata
 {
+
     /**
      * URIs of the AuthSub/OAuth feeds.
      */
-    const AUTHSUB_PROFILE_FEED_URI =
-        'https://www.google.com/health/feeds/profile/default';
-    const AUTHSUB_REGISTER_FEED_URI =
-        'https://www.google.com/health/feeds/register/default';
+    const AUTHSUB_PROFILE_FEED_URI = 'https://www.google.com/health/feeds/profile/default';
+    const AUTHSUB_REGISTER_FEED_URI = 'https://www.google.com/health/feeds/register/default';
 
     /**
      * URIs of the ClientLogin feeds.
      */
-    const CLIENTLOGIN_PROFILELIST_FEED_URI =
-        'https://www.google.com/health/feeds/profile/list';
-    const CLIENTLOGIN_PROFILE_FEED_URI =
-        'https://www.google.com/health/feeds/profile/ui';
-    const CLIENTLOGIN_REGISTER_FEED_URI =
-        'https://www.google.com/health/feeds/register/ui';
+    const CLIENTLOGIN_PROFILELIST_FEED_URI = 'https://www.google.com/health/feeds/profile/list';
+    const CLIENTLOGIN_PROFILE_FEED_URI = 'https://www.google.com/health/feeds/profile/ui';
+    const CLIENTLOGIN_REGISTER_FEED_URI = 'https://www.google.com/health/feeds/register/ui';
 
     /**
      * Authentication service names for Google Health and the H9 Sandbox.
@@ -98,13 +93,11 @@ class Zend_Gdata_Health extends Zend_Gdata
      * @var bool
      */
     private $_useH9Sandbox = false;
-
-    public static $namespaces =
-        array('ccr' => 'urn:astm-org:CCR',
-              'batch' => 'http://schemas.google.com/gdata/batch',
-              'h9m' => 'http://schemas.google.com/health/metadata',
-              'gAcl' => 'http://schemas.google.com/acl/2007',
-              'gd' => 'http://schemas.google.com/g/2005');
+    public static $namespaces = array('ccr' => 'urn:astm-org:CCR',
+        'batch' => 'http://schemas.google.com/gdata/batch',
+        'h9m' => 'http://schemas.google.com/health/metadata',
+        'gAcl' => 'http://schemas.google.com/acl/2007',
+        'gd' => 'http://schemas.google.com/g/2005');
 
     /**
      * Create Zend_Gdata_Health object
@@ -140,12 +133,13 @@ class Zend_Gdata_Health extends Zend_Gdata
      * @param string $id The profile ID
      * @return Zend_Gdata_Health Provides a fluent interface
      */
-    public function setProfileID($id) {
+    public function setProfileID($id)
+    {
         $this->_profileID = $id;
         return $this;
     }
 
-     /**
+    /**
      * Retrieves the list of profiles associated with the user's ClientLogin
      * credentials.
      *
@@ -157,10 +151,10 @@ class Zend_Gdata_Health extends Zend_Gdata
         if ($this->_httpClient->getClientLoginToken() === null) {
             #require_once 'Zend/Gdata/App/AuthException.php';
             throw new Zend_Gdata_App_AuthException(
-                'Profiles list feed is only available when using ClientLogin');
+            'Profiles list feed is only available when using ClientLogin');
         }
 
-        if($query === null)  {
+        if ($query === null) {
             $uri = self::CLIENTLOGIN_PROFILELIST_FEED_URI;
         } else if ($query instanceof Zend_Gdata_Query) {
             $uri = $query->getQueryUrl();
@@ -187,16 +181,16 @@ class Zend_Gdata_Health extends Zend_Gdata
     public function getHealthProfileFeed($query = null)
     {
         if ($this->_httpClient->getClientLoginToken() !== null &&
-            $this->getProfileID() == null) {
+                $this->getProfileID() == null) {
             #require_once 'Zend/Gdata/App/AuthException.php';
             throw new Zend_Gdata_App_AuthException(
-                'Profile ID must not be null. Did you call setProfileID()?');
+            'Profile ID must not be null. Did you call setProfileID()?');
         }
 
         if ($query instanceof Zend_Gdata_Query) {
             $uri = $query->getQueryUrl();
         } else if ($this->_httpClient->getClientLoginToken() !== null &&
-                   $query == null) {
+                $query == null) {
             $uri = self::CLIENTLOGIN_PROFILE_FEED_URI . '/' . $this->getProfileID();
         } else if ($query === null) {
             $uri = self::AUTHSUB_PROFILE_FEED_URI;
@@ -223,7 +217,7 @@ class Zend_Gdata_Health extends Zend_Gdata
         if ($query === null) {
             #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'Query must not be null');
+            'Query must not be null');
         } else if ($query instanceof Zend_Gdata_Query) {
             $uri = $query->getQueryUrl();
         } else {
@@ -252,7 +246,7 @@ class Zend_Gdata_Health extends Zend_Gdata
             } else {
                 #require_once 'Zend/Gdata/App/AuthException.php';
                 throw new Zend_Gdata_App_AuthException(
-                    'Profile ID must not be null. Did you call setProfileID()?');
+                'Profile ID must not be null. Did you call setProfileID()?');
             }
         } else {
             $uri = self::AUTHSUB_REGISTER_FEED_URI;
@@ -271,4 +265,5 @@ class Zend_Gdata_Health extends Zend_Gdata
 
         return $this->insertEntry($entry, $uri, 'Zend_Gdata_Health_ProfileEntry');
     }
+
 }

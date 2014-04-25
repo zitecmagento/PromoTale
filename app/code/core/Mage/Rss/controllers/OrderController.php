@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Rss
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Rss_OrderController extends Mage_Core_Controller_Front_Action
 {
+
     public function newAction()
     {
         $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
@@ -47,7 +48,7 @@ class Mage_Rss_OrderController extends Mage_Core_Controller_Front_Action
             $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
             Mage::helper('rss')->authFrontend();
         } else {
-            $this->_redirect('rss/order/customer', array('_secure'=>true));
+            $this->_redirect('rss/order/customer', array('_secure' => true));
             return $this;
         }
     }
@@ -57,7 +58,7 @@ class Mage_Rss_OrderController extends Mage_Core_Controller_Front_Action
      */
     public function statusAction()
     {
-        $order = Mage::helper('rss/order')->getOrderByStatusUrlKey((string)$this->getRequest()->getParam('data'));
+        $order = Mage::helper('rss/order')->getOrderByStatusUrlKey((string) $this->getRequest()->getParam('data'));
         if (!is_null($order)) {
             Mage::register('current_order', $order);
             $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
@@ -81,4 +82,5 @@ class Mage_Rss_OrderController extends Mage_Core_Controller_Front_Action
         }
         return parent::preDispatch();
     }
+
 }

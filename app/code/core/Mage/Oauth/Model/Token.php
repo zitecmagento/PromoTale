@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -60,27 +61,29 @@
  */
 class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
 {
-    /**#@+
+    /*     * #@+
      * Token types
      */
-    const TYPE_REQUEST = 'request';
-    const TYPE_ACCESS  = 'access';
-    /**#@- */
 
-    /**#@+
+    const TYPE_REQUEST = 'request';
+    const TYPE_ACCESS = 'access';
+    /*     * #@- */
+
+    /*     * #@+
      * Lengths of token fields
      */
-    const LENGTH_TOKEN    = 32;
-    const LENGTH_SECRET   = 32;
+    const LENGTH_TOKEN = 32;
+    const LENGTH_SECRET = 32;
     const LENGTH_VERIFIER = 32;
-    /**#@- */
+    /*     * #@- */
 
-    /**#@+
+    /*     * #@+
      * Customer types
      */
-    const USER_TYPE_ADMIN    = 'admin';
+    const USER_TYPE_ADMIN = 'admin';
     const USER_TYPE_CUSTOMER = 'customer';
-    /**#@- */
+
+    /*     * #@- */
 
     /**
      * Initialize resource model
@@ -178,10 +181,10 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         $helper = Mage::helper('oauth');
 
         $this->setData(array(
-            'consumer_id'  => $consumerId,
-            'type'         => self::TYPE_REQUEST,
-            'token'        => $helper->generateToken(),
-            'secret'       => $helper->generateTokenSecret(),
+            'consumer_id' => $consumerId,
+            'type' => self::TYPE_REQUEST,
+            'token' => $helper->generateToken(),
+            'secret' => $helper->generateTokenSecret(),
             'callback_url' => $callbackUrl
         ));
         $this->save();
@@ -243,8 +246,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     {
         /** @var $validatorUrl Mage_Core_Model_Url_Validator */
         $validatorUrl = Mage::getSingleton('core/url_validator');
-        if (Mage_Oauth_Model_Server::CALLBACK_ESTABLISHED != $this->getCallbackUrl()
-            && !$validatorUrl->isValid($this->getCallbackUrl())
+        if (Mage_Oauth_Model_Server::CALLBACK_ESTABLISHED != $this->getCallbackUrl() && !$validatorUrl->isValid($this->getCallbackUrl())
         ) {
             $messages = $validatorUrl->getMessages();
             Mage::throwException(array_shift($messages));
@@ -252,7 +254,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
 
         /** @var $validatorLength Mage_Oauth_Model_Consumer_Validator_KeyLength */
         $validatorLength = Mage::getModel(
-            'oauth/consumer_validator_keyLength');
+                        'oauth/consumer_validator_keyLength');
         $validatorLength->setLength(self::LENGTH_SECRET);
         $validatorLength->setName('Token Secret Key');
         if (!$validatorLength->isValid($this->getSecret())) {
@@ -294,4 +296,5 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
 
         return $this->getData('consumer');
     }
+
 }

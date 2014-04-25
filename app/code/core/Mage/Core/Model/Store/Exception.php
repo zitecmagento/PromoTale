@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core store exception
  *
@@ -33,4 +33,6 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Store_Exception extends Mage_Core_Exception
-{}
+{
+    
+}

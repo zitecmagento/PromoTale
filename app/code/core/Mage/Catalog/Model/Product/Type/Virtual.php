@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Type_Virtual extends Mage_Catalog_Model_Product_Type_Abstract
 {
+
     /**
      * Check is virtual product
      *
@@ -43,4 +45,5 @@ class Mage_Catalog_Model_Product_Type_Virtual extends Mage_Catalog_Model_Product
     {
         return true;
     }
+
 }

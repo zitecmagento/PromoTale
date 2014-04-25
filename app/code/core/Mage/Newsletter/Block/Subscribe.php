@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Newsletter
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Newsletter_Block_Subscribe extends Mage_Core_Block_Template
 {
+
     public function getSuccessMessage()
     {
         $message = Mage::getSingleton('newsletter/session')->getSuccess();
@@ -56,4 +57,5 @@ class Mage_Newsletter_Block_Subscribe extends Mage_Core_Block_Template
     {
         return $this->getUrl('newsletter/subscriber/new', array('_secure' => true));
     }
+
 }

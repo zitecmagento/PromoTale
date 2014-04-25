@@ -80,16 +80,16 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                       </stock_threshold_qty>
+                        </stock_threshold_qty>
                         <display_product_stock_status translate="label">
-                             <label>Display products availability in stock in the frontend</label>
-                             <frontend_type>select</frontend_type>
-                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                             <sort_order>50</sort_order>
-                             <show_in_default>1</show_in_default>
-                             <show_in_website>1</show_in_website>
-                             <show_in_store>1</show_in_store>
-                         </display_product_stock_status>
+                            <label>Display products availability in stock in the frontend</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </display_product_stock_status>
                     </fields>
                 </options>
                 <item_options translate="label comment">
@@ -147,8 +147,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                       </min_sale_qty>
-                       <notify_stock_qty translate="label">
+                        </min_sale_qty>
+                        <notify_stock_qty translate="label">
                             <label>Notify for Quantity Below</label>
                             <frontend_type>text</frontend_type>
                             <validate>validate-number</validate>
@@ -156,8 +156,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                       </notify_stock_qty>
-                       <auto_return translate="label">
+                        </notify_stock_qty>
+                        <auto_return translate="label">
                             <label>Automatically Return Credit Memo Item to Stock</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -165,8 +165,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                       </auto_return>
-                       <enable_qty_increments translate="label">
+                        </auto_return>
+                        <enable_qty_increments translate="label">
                             <label>Enable Qty Increments</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -174,8 +174,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                       </enable_qty_increments>
-                       <qty_increments translate="label">
+                        </enable_qty_increments>
+                        <qty_increments translate="label">
                             <label>Qty Increments</label>
                             <frontend_type>text</frontend_type>
                             <validate>validate-number validate-greater-than-zero</validate>
@@ -184,8 +184,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><enable_qty_increments>1</enable_qty_increments></depends>
-                       </qty_increments>
+                            <depends>
+                                <enable_qty_increments>1</enable_qty_increments>
+                            </depends>
+                        </qty_increments>
                     </fields>
                 </item_options>
             </groups>

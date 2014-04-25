@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Ean13.php 22999 2010-09-23 19:43:14Z mikaelkael $
  */
-
 /**
  * @see Zend_Barcode_Object_ObjectAbstract
  */
@@ -59,19 +59,18 @@ class Zend_Barcode_Object_Ean13 extends Zend_Barcode_Object_ObjectAbstract
         'C' => array(
             0 => "1110010", 1 => "1100110", 2 => "1101100", 3 => "1000010", 4 => "1011100",
             5 => "1001110", 6 => "1010000", 7 => "1000100", 8 => "1001000", 9 => "1110100"
-        ));
-
+    ));
     protected $_parities = array(
-        0 => array('A','A','A','A','A','A'),
-        1 => array('A','A','B','A','B','B'),
-        2 => array('A','A','B','B','A','B'),
-        3 => array('A','A','B','B','B','A'),
-        4 => array('A','B','A','A','B','B'),
-        5 => array('A','B','B','A','A','B'),
-        6 => array('A','B','B','B','A','A'),
-        7 => array('A','B','A','B','A','B'),
-        8 => array('A','B','A','B','B','A'),
-        9 => array('A','B','B','A','B','A')
+        0 => array('A', 'A', 'A', 'A', 'A', 'A'),
+        1 => array('A', 'A', 'B', 'A', 'B', 'B'),
+        2 => array('A', 'A', 'B', 'B', 'A', 'B'),
+        3 => array('A', 'A', 'B', 'B', 'B', 'A'),
+        4 => array('A', 'B', 'A', 'A', 'B', 'B'),
+        5 => array('A', 'B', 'B', 'A', 'A', 'B'),
+        6 => array('A', 'B', 'B', 'B', 'A', 'A'),
+        7 => array('A', 'B', 'A', 'B', 'A', 'B'),
+        8 => array('A', 'B', 'A', 'B', 'B', 'A'),
+        9 => array('A', 'B', 'B', 'A', 'B', 'A')
     );
 
     /**
@@ -91,11 +90,11 @@ class Zend_Barcode_Object_Ean13 extends Zend_Barcode_Object_ObjectAbstract
      */
     protected function _calculateBarcodeWidth()
     {
-        $quietZone       = $this->getQuietZone();
-        $startCharacter  = (3 * $this->_barThinWidth) * $this->_factor;
+        $quietZone = $this->getQuietZone();
+        $startCharacter = (3 * $this->_barThinWidth) * $this->_factor;
         $middleCharacter = (5 * $this->_barThinWidth) * $this->_factor;
-        $stopCharacter   = (3 * $this->_barThinWidth) * $this->_factor;
-        $encodedData     = (7 * $this->_barThinWidth) * $this->_factor * 12;
+        $stopCharacter = (3 * $this->_barThinWidth) * $this->_factor;
+        $encodedData = (7 * $this->_barThinWidth) * $this->_factor * 12;
         return $quietZone + $startCharacter + $middleCharacter + $encodedData + $stopCharacter + $quietZone;
     }
 
@@ -104,7 +103,9 @@ class Zend_Barcode_Object_Ean13 extends Zend_Barcode_Object_ObjectAbstract
      * @return void
      */
     protected function _checkParams()
-    {}
+    {
+        
+    }
 
     /**
      * Prepare array to draw barcode
@@ -116,9 +117,9 @@ class Zend_Barcode_Object_Ean13 extends Zend_Barcode_Object_ObjectAbstract
         $height = ($this->_drawText) ? 1.1 : 1;
 
         // Start character (101)
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
+        $barcodeTable[] = array(1, $this->_barThinWidth, 0, $height);
+        $barcodeTable[] = array(0, $this->_barThinWidth, 0, $height);
+        $barcodeTable[] = array(1, $this->_barThinWidth, 0, $height);
 
         $textTable = str_split($this->getText());
         $parity = $this->_parities[$textTable[0]];
@@ -127,29 +128,29 @@ class Zend_Barcode_Object_Ean13 extends Zend_Barcode_Object_ObjectAbstract
         for ($i = 1; $i < 7; $i++) {
             $bars = str_split($this->_codingMap[$parity[$i - 1]][$textTable[$i]]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array($b , $this->_barThinWidth , 0 , 1);
+                $barcodeTable[] = array($b, $this->_barThinWidth, 0, 1);
             }
         }
 
         // Middle character (01010)
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
+        $barcodeTable[] = array(0, $this->_barThinWidth, 0, $height);
+        $barcodeTable[] = array(1, $this->_barThinWidth, 0, $height);
+        $barcodeTable[] = array(0, $this->_barThinWidth, 0, $height);
+        $barcodeTable[] = array(1, $this->_barThinWidth, 0, $height);
+        $barcodeTable[] = array(0, $this->_barThinWidth, 0, $height);
 
         // Second part
         for ($i = 7; $i < 13; $i++) {
             $bars = str_split($this->_codingMap['C'][$textTable[$i]]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array($b , $this->_barThinWidth , 0 , 1);
+                $barcodeTable[] = array($b, $this->_barThinWidth, 0, 1);
             }
         }
 
         // Stop character (101)
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
+        $barcodeTable[] = array(1, $this->_barThinWidth, 0, $height);
+        $barcodeTable[] = array(0, $this->_barThinWidth, 0, $height);
+        $barcodeTable[] = array(1, $this->_barThinWidth, 0, $height);
         return $barcodeTable;
     }
 
@@ -162,12 +163,12 @@ class Zend_Barcode_Object_Ean13 extends Zend_Barcode_Object_ObjectAbstract
     public function getChecksum($text)
     {
         $this->_checkText($text);
-        $factor   = 3;
+        $factor = 3;
         $checksum = 0;
 
         for ($i = strlen($text); $i > 0; $i --) {
             $checksum += intval($text{$i - 1}) * $factor;
-            $factor    = 4 - $factor;
+            $factor = 4 - $factor;
         }
 
         $checksum = (10 - ($checksum % 10)) % 10;
@@ -196,17 +197,9 @@ class Zend_Barcode_Object_Ean13 extends Zend_Barcode_Object_ObjectAbstract
             $leftPosition = $this->getQuietZone() - $characterWidth;
             for ($i = 0; $i < $this->_barcodeLength; $i ++) {
                 $this->_addText(
-                    $text{$i},
-                    $this->_fontSize * $this->_factor,
-                    $this->_rotate(
-                        $leftPosition,
-                        (int) $this->_withBorder * 2
-                            + $this->_factor * ($this->_barHeight + $this->_fontSize) + 1
-                    ),
-                    $this->_font,
-                    $this->_foreColor,
-                    'left',
-                    - $this->_orientation
+                        $text{$i}, $this->_fontSize * $this->_factor, $this->_rotate(
+                                $leftPosition, (int) $this->_withBorder * 2 + $this->_factor * ($this->_barHeight + $this->_fontSize) + 1
+                        ), $this->_font, $this->_foreColor, 'left', - $this->_orientation
                 );
                 switch ($i) {
                     case 0:
@@ -222,4 +215,5 @@ class Zend_Barcode_Object_Ean13 extends Zend_Barcode_Object_ObjectAbstract
             }
         }
     }
+
 }

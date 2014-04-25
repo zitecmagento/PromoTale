@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Remove extends Mage_Wishlist_Block_Customer_Wishlist_Item_Column
 {
+
     /**
      * Retrieve block javascript
      *
@@ -46,4 +48,5 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Remove extends Mage_Wish
         }
         ";
     }
+
 }

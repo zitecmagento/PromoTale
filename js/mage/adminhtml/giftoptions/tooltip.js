@@ -40,11 +40,10 @@ GiftOptionsTooltip.prototype = {
     _eventMouseOut: null,
     _styleOptions: null,
     _tooltipContentLoaderFunction: null,
-
     /**
      * Initialize tooltip object
      */
-    initialize: function ()
+    initialize: function()
     {
         var options = Object.extend({
             delta_x: 30,
@@ -55,7 +54,6 @@ GiftOptionsTooltip.prototype = {
         this._eventMouseOver = this.showTooltip.bindAsEventListener(this);
         this._eventMouseOut = this.hideTooltip.bindAsEventListener(this);
     },
-
     /**
      * Set gift options tooltip window
      *
@@ -64,7 +62,7 @@ GiftOptionsTooltip.prototype = {
      *
      * @return boolean success
      */
-    setTooltipWindow: function (windowId, contentId)
+    setTooltipWindow: function(windowId, contentId)
     {
         if (!$(windowId) || !$(contentId)) {
             return false;
@@ -74,7 +72,6 @@ GiftOptionsTooltip.prototype = {
         this.hideTooltip();
         return true;
     },
-
     /**
      * Add tooltip to specified link
      *
@@ -83,7 +80,7 @@ GiftOptionsTooltip.prototype = {
      *
      * @return boolean success
      */
-    addTargetLink: function (linkId, itemId)
+    addTargetLink: function(linkId, itemId)
     {
         if ($(linkId)) {
             this._targetLinks[linkId] = [];
@@ -94,35 +91,32 @@ GiftOptionsTooltip.prototype = {
         }
         return false;
     },
-
     /**
      * Detach event listeners from target links when tooltip is destroyed
      */
-    destroy: function ()
+    destroy: function()
     {
         for (var linkId in this._targetLinks) {
             Event.stopObserving(this._targetLinks[linkId]['object'], 'mouseover', this._eventMouseOver);
             Event.stopObserving(this._targetLinks[linkId]['object'], 'mouseout', this._eventMouseOut);
         }
     },
-
     /**
      *  Register event listeners
      *
      *  @param object element
      */
-    _registerEvents: function (element)
+    _registerEvents: function(element)
     {
         Event.observe(element, 'mouseover', this._eventMouseOver);
         Event.observe(element, 'mouseout', this._eventMouseOut);
     },
-
     /**
      * Move tooltip to mouse position
      *
      * @patram object event
      */
-    _moveTooltip: function (event)
+    _moveTooltip: function(event)
     {
         Event.stop(event);
         var mouseX = Event.pointerX(event);
@@ -130,7 +124,6 @@ GiftOptionsTooltip.prototype = {
 
         this.setStyles(mouseX, mouseY);
     },
-
     /**
      * Show tooltip
      *
@@ -138,7 +131,7 @@ GiftOptionsTooltip.prototype = {
      *
      * @return boolean success
      */
-    showTooltip: function (event)
+    showTooltip: function(event)
     {
         Event.stop(event);
         if (this._tooltipWindow) {
@@ -157,52 +150,48 @@ GiftOptionsTooltip.prototype = {
         }
         return false;
     },
-
     /**
      * Set tooltip window styles
      *
      * @param int x
      * @param int y
      */
-    setStyles: function (x, y)
+    setStyles: function(x, y)
     {
         Element.setStyle(this._tooltipWindow, {
-            position:'absolute',
+            position: 'absolute',
             top: y + this._styleOptions.delta_y + 'px',
             left: x + this._styleOptions.delta_x + 'px',
             zindex: this._styleOptions.zindex
         });
     },
-
     /**
      * Hide tooltip
      *
      * @param object event
      */
-    hideTooltip: function (event)
+    hideTooltip: function(event)
     {
         if (this._tooltipWindow) {
             new Element.hide(this._tooltipWindow);
         }
     },
-
     /**
      * Set gift options tooltip content loader function
      * This function should accept at least one parameter that will serve as an item ID
      *
      * @param Function loaderFunction loader function
      */
-    setTooltipContentLoaderFunction: function (loaderFunction)
+    setTooltipContentLoaderFunction: function(loaderFunction)
     {
         this._tooltipContentLoaderFunction = loaderFunction;
     },
-
     /**
      * Update tooltip window content
      *
      * @param string content
      */
-    _updateTooltipWindowContent: function (content)
+    _updateTooltipWindowContent: function(content)
     {
         this._tooltipWindowContent.update(content);
     }

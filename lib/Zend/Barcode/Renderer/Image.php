@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Image.php 22999 2010-09-23 19:43:14Z mikaelkael $
  */
-
-/** @see Zend_Barcode_Renderer_RendererAbstract*/
+/** @see Zend_Barcode_Renderer_RendererAbstract */
 #require_once 'Zend/Barcode/Renderer/RendererAbstract.php';
 
 /**
@@ -33,6 +33,7 @@
  */
 class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
 {
+
     /**
      * List of authorized output format
      * @var array
@@ -100,7 +101,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
         if (!is_numeric($value) || intval($value) < 0) {
             #require_once 'Zend/Barcode/Renderer/Exception.php';
             throw new Zend_Barcode_Renderer_Exception(
-                'Image height must be greater than or equals 0'
+            'Image height must be greater than or equals 0'
             );
         }
         $this->_userHeight = intval($value);
@@ -128,7 +129,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
         if (!is_numeric($value) || intval($value) < 0) {
             #require_once 'Zend/Barcode/Renderer/Exception.php';
             throw new Zend_Barcode_Renderer_Exception(
-                'Image width must be greater than or equals 0'
+            'Image width must be greater than or equals 0'
             );
         }
         $this->_userWidth = intval($value);
@@ -157,7 +158,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
         if (gettype($image) != 'resource' || get_resource_type($image) != 'gd') {
             #require_once 'Zend/Barcode/Renderer/Exception.php';
             throw new Zend_Barcode_Renderer_Exception(
-                'Invalid image resource provided to setResource()'
+            'Invalid image resource provided to setResource()'
             );
         }
         $this->_resource = $image;
@@ -180,8 +181,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
         if (!in_array($value, $this->_allowedImageType)) {
             #require_once 'Zend/Barcode/Renderer/Exception.php';
             throw new Zend_Barcode_Renderer_Exception(sprintf(
-                'Invalid type "%s" provided to setImageType()',
-                $value
+                    'Invalid type "%s" provided to setImageType()', $value
             ));
         }
 
@@ -209,29 +209,23 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
         if (!extension_loaded('gd')) {
             #require_once 'Zend/Barcode/Exception.php';
             $e = new Zend_Barcode_Exception(
-                'Gd extension must be loaded to render barcode as image'
+                    'Gd extension must be loaded to render barcode as image'
             );
             $e->setIsRenderable(false);
             throw $e;
         }
 
-        $barcodeWidth  = $this->_barcode->getWidth(true);
+        $barcodeWidth = $this->_barcode->getWidth(true);
         $barcodeHeight = $this->_barcode->getHeight(true);
 
         if ($this->_resource !== null) {
-            $foreColor       = $this->_barcode->getForeColor();
+            $foreColor = $this->_barcode->getForeColor();
             $backgroundColor = $this->_barcode->getBackgroundColor();
             $this->_imageBackgroundColor = imagecolorallocate(
-                $this->_resource,
-                ($backgroundColor & 0xFF0000) >> 16,
-                ($backgroundColor & 0x00FF00) >> 8,
-                $backgroundColor & 0x0000FF
+                    $this->_resource, ($backgroundColor & 0xFF0000) >> 16, ($backgroundColor & 0x00FF00) >> 8, $backgroundColor & 0x0000FF
             );
             $this->_imageForeColor = imagecolorallocate(
-                $this->_resource,
-                ($foreColor & 0xFF0000) >> 16,
-                ($foreColor & 0x00FF00) >> 8,
-                $foreColor & 0x0000FF
+                    $this->_resource, ($foreColor & 0xFF0000) >> 16, ($foreColor & 0x00FF00) >> 8, $foreColor & 0x0000FF
             );
         } else {
             $width = $barcodeWidth;
@@ -243,33 +237,22 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
                 $height = $this->_userHeight;
             }
 
-            $foreColor       = $this->_barcode->getForeColor();
+            $foreColor = $this->_barcode->getForeColor();
             $backgroundColor = $this->_barcode->getBackgroundColor();
             $this->_resource = imagecreatetruecolor($width, $height);
 
             $this->_imageBackgroundColor = imagecolorallocate(
-                $this->_resource,
-                ($backgroundColor & 0xFF0000) >> 16,
-                ($backgroundColor & 0x00FF00) >> 8,
-                $backgroundColor & 0x0000FF
+                    $this->_resource, ($backgroundColor & 0xFF0000) >> 16, ($backgroundColor & 0x00FF00) >> 8, $backgroundColor & 0x0000FF
             );
             $this->_imageForeColor = imagecolorallocate(
-                $this->_resource,
-                ($foreColor & 0xFF0000) >> 16,
-                ($foreColor & 0x00FF00) >> 8,
-                $foreColor & 0x0000FF
+                    $this->_resource, ($foreColor & 0xFF0000) >> 16, ($foreColor & 0x00FF00) >> 8, $foreColor & 0x0000FF
             );
             $white = imagecolorallocate($this->_resource, 255, 255, 255);
             imagefilledrectangle($this->_resource, 0, 0, $width - 1, $height - 1, $white);
         }
         $this->_adjustPosition(imagesy($this->_resource), imagesx($this->_resource));
         imagefilledrectangle(
-            $this->_resource,
-            $this->_leftOffset,
-            $this->_topOffset,
-            $this->_leftOffset + $barcodeWidth - 1,
-            $this->_topOffset + $barcodeHeight - 1,
-            $this->_imageBackgroundColor
+                $this->_resource, $this->_leftOffset, $this->_topOffset, $this->_leftOffset + $barcodeWidth - 1, $this->_topOffset + $barcodeHeight - 1, $this->_imageBackgroundColor
         );
     }
 
@@ -294,7 +277,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
             if (imagesy($this->_resource) < $this->_barcode->getHeight(true)) {
                 #require_once 'Zend/Barcode/Renderer/Exception.php';
                 throw new Zend_Barcode_Renderer_Exception(
-                    'Barcode is define outside the image (height)'
+                'Barcode is define outside the image (height)'
                 );
             }
         } else {
@@ -303,9 +286,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
                 if ($this->_userHeight < $height) {
                     #require_once 'Zend/Barcode/Renderer/Exception.php';
                     throw new Zend_Barcode_Renderer_Exception(sprintf(
-                        "Barcode is define outside the image (calculated: '%d', provided: '%d')",
-                        $height,
-                        $this->_userHeight
+                            "Barcode is define outside the image (calculated: '%d', provided: '%d')", $height, $this->_userHeight
                     ));
                 }
             }
@@ -314,7 +295,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
             if (imagesx($this->_resource) < $this->_barcode->getWidth(true)) {
                 #require_once 'Zend/Barcode/Renderer/Exception.php';
                 throw new Zend_Barcode_Renderer_Exception(
-                    'Barcode is define outside the image (width)'
+                'Barcode is define outside the image (width)'
                 );
             }
         } else {
@@ -323,9 +304,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
                 if ($this->_userWidth < $width) {
                     #require_once 'Zend/Barcode/Renderer/Exception.php';
                     throw new Zend_Barcode_Renderer_Exception(sprintf(
-                        "Barcode is define outside the image (calculated: '%d', provided: '%d')",
-                        $width,
-                        $this->_userWidth
+                            "Barcode is define outside the image (calculated: '%d', provided: '%d')", $width, $this->_userWidth
                     ));
                 }
             }
@@ -367,10 +346,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
         );
 
         $allocatedColor = imagecolorallocate(
-            $this->_resource,
-            ($color & 0xFF0000) >> 16,
-            ($color & 0x00FF00) >> 8,
-            $color & 0x0000FF
+                $this->_resource, ($color & 0xFF0000) >> 16, ($color & 0x00FF00) >> 8, $color & 0x0000FF
         );
 
         if ($filled) {
@@ -394,10 +370,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
     protected function _drawText($text, $size, $position, $font, $color, $alignment = 'center', $orientation = 0)
     {
         $allocatedColor = imagecolorallocate(
-            $this->_resource,
-            ($color & 0xFF0000) >> 16,
-            ($color & 0x00FF00) >> 8,
-            $color & 0x0000FF
+                $this->_resource, ($color & 0xFF0000) >> 16, ($color & 0x00FF00) >> 8, $color & 0x0000FF
         );
 
         if ($font == null) {
@@ -417,7 +390,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
                  */
                 #require_once 'Zend/Barcode/Renderer/Exception.php';
                 throw new Zend_Barcode_Renderer_Exception(
-                    'No orientation possible with GD internal font'
+                'No orientation possible with GD internal font'
                 );
             }
             $fontWidth = imagefontwidth($font);
@@ -439,8 +412,8 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
             if (!function_exists('imagettfbbox')) {
                 #require_once 'Zend/Barcode/Renderer/Exception.php';
                 throw new Zend_Barcode_Renderer_Exception(
-                    'A font was provided, but this instance of PHP does not have TTF (FreeType) support'
-                    );
+                'A font was provided, but this instance of PHP does not have TTF (FreeType) support'
+                );
             }
 
             $box = imagettfbbox($size, 0, $font, $text);
@@ -456,15 +429,9 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
                     break;
             }
             imagettftext(
-                $this->_resource,
-                $size,
-                $orientation,
-                $position[0] - ($width * cos(pi() * $orientation / 180)),
-                $position[1] + ($width * sin(pi() * $orientation / 180)),
-                $allocatedColor,
-                $font,
-                $text
+                    $this->_resource, $size, $orientation, $position[0] - ($width * cos(pi() * $orientation / 180)), $position[1] + ($width * sin(pi() * $orientation / 180)), $allocatedColor, $font, $text
             );
         }
     }
+
 }

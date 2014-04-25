@@ -30,7 +30,7 @@
 
 <!--
 
--->
+    -->
     <adminhtml_rss_catalog_review>
         <block type="rss/catalog_review" output="toHtml" name="rss.catalog.review" />
     </adminhtml_rss_catalog_review>

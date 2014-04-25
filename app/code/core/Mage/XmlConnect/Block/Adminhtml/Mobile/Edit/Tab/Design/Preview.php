@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Preview extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Set preview template
      */
@@ -59,7 +61,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Preview extends Mag
     public function getPreviewActionUrl($page = 'home')
     {
         $params = array();
-        $model  = Mage::helper('xmlconnect')->getApplication();
+        $model = Mage::helper('xmlconnect')->getApplication();
         if ($model !== null) {
             if ($model->getId() !== null) {
                 $params = array('application_id' => $model->getId());
@@ -69,4 +71,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Preview extends Mag
         }
         return $this->getUrl('*/*/preview' . $page, $params);
     }
+
 }

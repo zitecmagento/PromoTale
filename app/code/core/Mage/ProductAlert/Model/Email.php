@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * ProductAlert Email processor
  *
@@ -34,9 +34,10 @@
  */
 class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
 {
+
     const XML_PATH_EMAIL_PRICE_TEMPLATE = 'catalog/productalert/email_price_template';
     const XML_PATH_EMAIL_STOCK_TEMPLATE = 'catalog/productalert/email_stock_template';
-    const XML_PATH_EMAIL_IDENTITY       = 'catalog/productalert/email_identity';
+    const XML_PATH_EMAIL_IDENTITY = 'catalog/productalert/email_identity';
 
     /**
      * Type
@@ -162,7 +163,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
      */
     public function clean()
     {
-        $this->_customer      = null;
+        $this->_customer = null;
         $this->_priceProducts = array();
         $this->_stockProducts = array();
 
@@ -202,7 +203,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     {
         if (is_null($this->_priceBlock)) {
             $this->_priceBlock = Mage::helper('productalert')
-                ->createBlock('productalert/email_price');
+                    ->createBlock('productalert/email_price');
         }
         return $this->_priceBlock;
     }
@@ -216,7 +217,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     {
         if (is_null($this->_stockBlock)) {
             $this->_stockBlock = Mage::helper('productalert')
-                ->createBlock('productalert/email_stock');
+                    ->createBlock('productalert/email_stock');
         }
         return $this->_stockBlock;
     }
@@ -238,8 +239,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             return false;
         }
 
-        $store      = $this->_website->getDefaultStore();
-        $storeId    = $store->getId();
+        $store = $this->_website->getDefaultStore();
+        $storeId = $store->getId();
 
         if ($this->_type == 'price' && !Mage::getStoreConfig(self::XML_PATH_EMAIL_PRICE_TEMPLATE, $storeId)) {
             return false;
@@ -256,8 +257,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
 
         if ($this->_type == 'price') {
             $this->_getPriceBlock()
-                ->setStore($store)
-                ->reset();
+                    ->setStore($store)
+                    ->reset();
             foreach ($this->_priceProducts as $product) {
                 $product->setCustomerGroupId($this->_customer->getGroupId());
                 $this->_getPriceBlock()->addProduct($product);
@@ -266,8 +267,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             $templateId = Mage::getStoreConfig(self::XML_PATH_EMAIL_PRICE_TEMPLATE, $storeId);
         } else {
             $this->_getStockBlock()
-                ->setStore($store)
-                ->reset();
+                    ->setStore($store)
+                    ->reset();
             foreach ($this->_stockProducts as $product) {
                 $product->setCustomerGroupId($this->_customer->getGroupId());
                 $this->_getStockBlock()->addProduct($product);
@@ -279,20 +280,17 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
         $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
 
         Mage::getModel('core/email_template')
-            ->setDesignConfig(array(
-                'area'  => 'frontend',
-                'store' => $storeId
-            ))->sendTransactional(
-                $templateId,
-                Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY, $storeId),
-                $this->_customer->getEmail(),
-                $this->_customer->getName(),
-                array(
-                    'customerName'  => $this->_customer->getName(),
-                    'alertGrid'     => $block
+                ->setDesignConfig(array(
+                    'area' => 'frontend',
+                    'store' => $storeId
+                ))->sendTransactional(
+                $templateId, Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY, $storeId), $this->_customer->getEmail(), $this->_customer->getName(), array(
+            'customerName' => $this->_customer->getName(),
+            'alertGrid' => $block
                 )
-            );
+        );
 
         return true;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: NotExists.php 20352 2010-01-17 17:55:38Z thomas $
  */
-
 /**
  * @see Zend_Validate_File_Exists
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Validate_File_NotExists extends Zend_Validate_File_Exists
 {
+
     /**
      * @const string Error constants
      */
@@ -81,4 +82,5 @@ class Zend_Validate_File_NotExists extends Zend_Validate_File_Exists
 
         return true;
     }
+
 }

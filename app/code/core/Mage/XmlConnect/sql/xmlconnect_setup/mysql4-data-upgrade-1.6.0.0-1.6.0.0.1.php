@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
  * Xmlconnect Config data install
  *
@@ -31,21 +31,20 @@
  * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 
-    $configTableName = $installer->getTable('xmlconnect/configData');
+$configTableName = $installer->getTable('xmlconnect/configData');
 
-    /** @var $configModel Mage_XmlConnect_Model_Application */
-    $configModel = Mage::getModel('xmlconnect/configData');
-    $select = $configModel->getResource()->getReadConnection()->select()->from(
-        $configTableName, array('application_id')
-    )->group('application_id')->where('category=?', Mage_XmlConnect_Model_Application::DEPRECATED_CONFIG_FLAG);
+/** @var $configModel Mage_XmlConnect_Model_Application */
+$configModel = Mage::getModel('xmlconnect/configData');
+$select = $configModel->getResource()->getReadConnection()->select()->from(
+                $configTableName, array('application_id')
+        )->group('application_id')->where('category=?', Mage_XmlConnect_Model_Application::DEPRECATED_CONFIG_FLAG);
 
-    $result = $configModel->getResource()->getReadConnection()->fetchCol($select);
+$result = $configModel->getResource()->getReadConnection()->fetchCol($select);
 
-    if (count($result)) {
-        Mage::getModel('xmlconnect/images')->dataUpgradeOldConfig($result);
-        Mage::getModel('xmlconnect/configData')->pagesUpgradeOldConfig($result);
-    }
+if (count($result)) {
+    Mage::getModel('xmlconnect/images')->dataUpgradeOldConfig($result);
+    Mage::getModel('xmlconnect/configData')->pagesUpgradeOldConfig($result);
+}

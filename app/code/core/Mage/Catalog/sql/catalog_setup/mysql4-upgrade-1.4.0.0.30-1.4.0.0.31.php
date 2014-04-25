@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,14 +24,13 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 $installer->addAttribute('catalog_category', 'filter_price_range', array(
-    'group'         => 'Display Settings',
-    'type'          => 'int',
-    'label'         => 'Layered Navigation Price Step',
-    'required'      => false,
-    'global'        => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    'visible'       => 1,
-    'input_renderer'=> 'adminhtml/catalog_category_helper_pricestep',
+    'group' => 'Display Settings',
+    'type' => 'int',
+    'label' => 'Layered Navigation Price Step',
+    'required' => false,
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+    'visible' => 1,
+    'input_renderer' => 'adminhtml/catalog_category_helper_pricestep',
 ));

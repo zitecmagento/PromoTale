@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,22 +24,22 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Varien_Filter_Template_Simple extends Varien_Object implements Zend_Filter_Interface
 {
-	protected $_startTag = '{{';
-	protected $_endTag = '}}';
 
-	public function setTags($start, $end)
-	{
-		$this->_startTag = $start;
-		$this->_endTag = $end;
-		return $this;
-	}
+    protected $_startTag = '{{';
+    protected $_endTag = '}}';
 
-	public function filter($value)
-	{
-		return preg_replace('#'.$this->_startTag.'(.*?)'.$this->_endTag.'#e', '$this->getData("$1")', $value);
-	}
+    public function setTags($start, $end)
+    {
+        $this->_startTag = $start;
+        $this->_endTag = $end;
+        return $this;
+    }
+
+    public function filter($value)
+    {
+        return preg_replace('#' . $this->_startTag . '(.*?)' . $this->_endTag . '#e', '$this->getData("$1")', $value);
+    }
+
 }

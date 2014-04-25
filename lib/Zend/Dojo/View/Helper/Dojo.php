@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Dojo.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Registry */
 #require_once 'Zend/Registry.php';
 
@@ -36,12 +36,14 @@
  */
 class Zend_Dojo_View_Helper_Dojo
 {
-    /**#@+
+    /*     * #@+
      * Programmatic dijit creation style constants
      */
+
     const PROGRAMMATIC_SCRIPT = 1;
     const PROGRAMMATIC_NOSCRIPT = -1;
-    /**#@-*/
+
+    /*     * #@- */
 
     /**
      * @var Zend_View_Interface
@@ -173,4 +175,5 @@ class Zend_Dojo_View_Helper_Dojo
     {
         return (self::PROGRAMMATIC_NOSCRIPT === self::$_useProgrammatic);
     }
+
 }

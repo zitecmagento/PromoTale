@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Paypal_Block_Payflow_Link_Info extends Mage_Paypal_Block_Payment_Info
 {
+
     /**
      * Don't show CC type
      *
@@ -42,4 +44,5 @@ class Mage_Paypal_Block_Payflow_Link_Info extends Mage_Paypal_Block_Payment_Info
     {
         return false;
     }
+
 }

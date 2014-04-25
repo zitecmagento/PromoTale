@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CMS Observer model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Cms_Model_Observer
 {
+
     /**
      * Modify No Route Forward object
      *
@@ -43,10 +44,10 @@ class Mage_Cms_Model_Observer
     public function noRoute(Varien_Event_Observer $observer)
     {
         $observer->getEvent()->getStatus()
-            ->setLoaded(true)
-            ->setForwardModule('cms')
-            ->setForwardController('index')
-            ->setForwardAction('noRoute');
+                ->setLoaded(true)
+                ->setForwardModule('cms')
+                ->setForwardController('index')
+                ->setForwardAction('noRoute');
         return $this;
     }
 
@@ -60,17 +61,17 @@ class Mage_Cms_Model_Observer
     {
         $redirect = $observer->getEvent()->getRedirect();
 
-        $pageId  = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE);
+        $pageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE);
         $pageUrl = Mage::helper('cms/page')->getPageUrl($pageId);
 
         if ($pageUrl) {
             $redirect->setRedirectUrl($pageUrl);
-        }
-        else {
+        } else {
             $redirect->setRedirect(true)
-                ->setPath('cms/index/noCookies')
-                ->setArguments(array());
+                    ->setPath('cms/index/noCookies')
+                    ->setArguments(array());
         }
         return $this;
     }
+
 }

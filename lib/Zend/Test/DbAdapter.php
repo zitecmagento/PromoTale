@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DbAdapter.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Db_Adapter_Abstract
  */
@@ -46,6 +46,7 @@
  */
 class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
 {
+
     /**
      * @var array
      */
@@ -73,7 +74,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
 
     /**
      * @var string
-     */ 
+     */
     protected $_quoteIdentifierSymbol = '';
 
     /**
@@ -112,7 +113,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
 
     /**
      * @var string
-     */ 
+     */
     public function setQuoteIdentifierSymbol($symbol)
     {
         $this->_quoteIdentifierSymbol = $symbol;
@@ -145,7 +146,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
      */
     public function listTables()
     {
-       return $this->_listTables;
+        return $this->_listTables;
     }
 
     /**
@@ -189,7 +190,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
      */
     public function describeTable($tableName, $schemaName = null)
     {
-        if(isset($this->_describeTables[$tableName])) {
+        if (isset($this->_describeTables[$tableName])) {
             return $this->_describeTables[$tableName];
         } else {
             return array();
@@ -236,13 +237,13 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
     {
         $queryId = $this->getProfiler()->queryStart($sql);
 
-        if(count($this->_statementStack)) {
+        if (count($this->_statementStack)) {
             $stmt = array_pop($this->_statementStack);
         } else {
             $stmt = new Zend_Test_DbStatement();
         }
 
-        if($this->getProfiler()->getEnabled() == true) {
+        if ($this->getProfiler()->getEnabled() == true) {
             $qp = $this->getProfiler()->getQueryProfile($queryId);
             $stmt->setQueryProfile($qp);
         }
@@ -266,7 +267,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
      */
     public function lastInsertId($tableName = null, $primaryKey = null)
     {
-        if(count($this->_lastInsertIdStack)) {
+        if (count($this->_lastInsertIdStack)) {
             return array_pop($this->_lastInsertIdStack);
         } else {
             return false;
@@ -294,7 +295,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
      */
     protected function _rollBack()
     {
-
+        
     }
 
     /**
@@ -342,4 +343,5 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
     {
         return "1.0.0";
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
@@ -35,6 +35,6 @@ $hlp = Mage::helper('core');
 foreach ($rows as $r) {
     if (!empty($r['value'])) {
         $r['value'] = $hlp->encrypt($r['value']);
-        $installer->_conn->update($this->getTable('core_config_data'), $r, 'config_id='.$r['config_id']);
+        $installer->_conn->update($this->getTable('core_config_data'), $r, 'config_id=' . $r['config_id']);
     }
 }

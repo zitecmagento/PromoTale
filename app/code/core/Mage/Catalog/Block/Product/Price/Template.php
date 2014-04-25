@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Price Template Block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Block_Product_Price_Template extends Mage_Core_Block_Abstract
 {
+
     /**
      * Product Price block types cache
      *
@@ -66,11 +67,12 @@ class Mage_Catalog_Block_Product_Price_Template extends Mage_Core_Block_Abstract
     {
         if ($type) {
             $this->_priceBlockTypes[$type] = array(
-                'block'     => $block,
-                'template'  => $template
+                'block' => $block,
+                'template' => $template
             );
         }
 
         return $this;
     }
+
 }

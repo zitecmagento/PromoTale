@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Element.php 22797 2010-08-06 15:02:12Z alexander $
  */
 
-
 /**
  * PDF file element implementation
  *
@@ -29,14 +29,15 @@
  */
 abstract class Zend_Pdf_Element
 {
-    const TYPE_BOOL        = 1;
-    const TYPE_NUMERIC     = 2;
-    const TYPE_STRING      = 3;
-    const TYPE_NAME        = 4;
-    const TYPE_ARRAY       = 5;
-    const TYPE_DICTIONARY  = 6;
-    const TYPE_STREAM      = 7;
-    const TYPE_NULL        = 11;
+
+    const TYPE_BOOL = 1;
+    const TYPE_NUMERIC = 2;
+    const TYPE_STRING = 3;
+    const TYPE_NAME = 4;
+    const TYPE_ARRAY = 5;
+    const TYPE_DICTIONARY = 6;
+    const TYPE_STREAM = 7;
+    const TYPE_NULL = 11;
 
     /**
      * Reference to the top level indirect object, which contains this element.
@@ -64,7 +65,7 @@ abstract class Zend_Pdf_Element
      */
     abstract public function toString($factory = null);
 
-    const CLONE_MODE_SKIP_PAGES    = 1; // Do not follow pages during deep copy process
+    const CLONE_MODE_SKIP_PAGES = 1; // Do not follow pages during deep copy process
     const CLONE_MODE_FORCE_CLONING = 2; // Force top level object cloning even it's already processed
 
     /**
@@ -78,6 +79,7 @@ abstract class Zend_Pdf_Element
      * @param integer $mode  Cloning mode (defines filter for objects cloning)
      * @returns Zend_Pdf_Element
      */
+
     public function makeClone(Zend_Pdf_ElementFactory $factory, array &$processed, $mode)
     {
         return clone $this;
@@ -93,7 +95,6 @@ abstract class Zend_Pdf_Element
         $this->_parentObject = $parent;
     }
 
-
     /**
      * Get top level parent indirect object.
      *
@@ -103,7 +104,6 @@ abstract class Zend_Pdf_Element
     {
         return $this->_parentObject;
     }
-
 
     /**
      * Mark object as modified, to include it into new PDF file segment.
@@ -170,7 +170,8 @@ abstract class Zend_Pdf_Element
             }
         } else {
             #require_once 'Zend/Pdf/Element/String.php';
-            return new Zend_Pdf_Element_String((string)$input);
+            return new Zend_Pdf_Element_String((string) $input);
         }
     }
+
 }

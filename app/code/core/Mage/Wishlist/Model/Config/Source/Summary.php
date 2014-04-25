@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,11 +26,13 @@
  */
 class Mage_Wishlist_Model_Config_Source_Summary
 {
+
     public function toOptionArray()
     {
         return array(
-            array('value'=>0, 'label'=>Mage::helper('checkout')->__('Display number of items in wishlist')),
-            array('value'=>1, 'label'=>Mage::helper('checkout')->__('Display item quantities')),
+            array('value' => 0, 'label' => Mage::helper('checkout')->__('Display number of items in wishlist')),
+            array('value' => 1, 'label' => Mage::helper('checkout')->__('Display item quantities')),
         );
     }
+
 }

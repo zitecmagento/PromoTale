@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: DocsFilter.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * A Zend_Search_Lucene_Index_DocsFilter is used to filter documents while searching.
  *
@@ -35,6 +35,7 @@
  */
 class Zend_Search_Lucene_Index_DocsFilter
 {
+
     /**
      * Set of segment filters:
      *  array( <segmentName> => array(<docId> => <undefined_value>,
@@ -55,5 +56,5 @@ class Zend_Search_Lucene_Index_DocsFilter
      * @var array
      */
     public $segmentFilters = array();
-}
 
+}

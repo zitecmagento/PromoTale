@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,13 @@
  */
 class Mage_Core_Model_Message
 {
-    const ERROR     = 'error';
-    const WARNING   = 'warning';
-    const NOTICE    = 'notice';
-    const SUCCESS   = 'success';
-    
-    protected function _factory($code, $type, $class='', $method='')
+
+    const ERROR = 'error';
+    const WARNING = 'warning';
+    const NOTICE = 'notice';
+    const SUCCESS = 'success';
+
+    protected function _factory($code, $type, $class = '', $method = '')
     {
         switch (strtolower($type)) {
             case self::ERROR :
@@ -56,27 +58,28 @@ class Mage_Core_Model_Message
         }
         $message->setClass($class);
         $message->setMethod($method);
-        
+
         return $message;
     }
-    
-    public function error($code, $class='', $method='')
+
+    public function error($code, $class = '', $method = '')
     {
         return $this->_factory($code, self::ERROR, $class, $method);
     }
 
-    public function warning($code, $class='', $method='')
+    public function warning($code, $class = '', $method = '')
     {
         return $this->_factory($code, self::WARNING, $class, $method);
     }
 
-    public function notice($code, $class='', $method='')
+    public function notice($code, $class = '', $method = '')
     {
         return $this->_factory($code, self::NOTICE, $class, $method);
     }
 
-    public function success($code, $class='', $method='')
+    public function success($code, $class = '', $method = '')
     {
         return $this->_factory($code, self::SUCCESS, $class, $method);
     }
+
 }

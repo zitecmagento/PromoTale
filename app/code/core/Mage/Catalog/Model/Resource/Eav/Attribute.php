@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -75,32 +76,33 @@
  */
 class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_Attribute
 {
-    const SCOPE_STORE                           = 0;
-    const SCOPE_GLOBAL                          = 1;
-    const SCOPE_WEBSITE                         = 2;
 
-    const MODULE_NAME                           = 'Mage_Catalog';
-    const ENTITY                                = 'catalog_eav_attribute';
+    const SCOPE_STORE = 0;
+    const SCOPE_GLOBAL = 1;
+    const SCOPE_WEBSITE = 2;
+    const MODULE_NAME = 'Mage_Catalog';
+    const ENTITY = 'catalog_eav_attribute';
 
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix                     = 'catalog_entity_attribute';
+    protected $_eventPrefix = 'catalog_entity_attribute';
+
     /**
      * Event object name
      *
      * @var string
      */
-    protected $_eventObject                     = 'attribute';
+    protected $_eventObject = 'attribute';
 
     /**
      * Array with labels
      *
      * @var array
      */
-    static protected $_labels                   = null;
+    static protected $_labels = null;
 
     protected function _construct()
     {
@@ -120,8 +122,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             if (!isset($this->_data['is_global'])) {
                 $this->_data['is_global'] = self::SCOPE_GLOBAL;
             }
-            if (($this->_data['is_global'] != $this->_origData['is_global'])
-                && $this->_getResource()->isUsedBySuperProducts($this)) {
+            if (($this->_data['is_global'] != $this->_origData['is_global']) && $this->_getResource()->isUsedBySuperProducts($this)) {
                 Mage::throwException(Mage::helper('catalog')->__('Scope must not be changed, because the attribute is used in configurable products.'));
             }
         }
@@ -151,7 +152,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
         Mage::getSingleton('eav/config')->clear();
 
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+                $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
         return parent::_afterSave();
     }
@@ -167,7 +168,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             Mage::throwException(Mage::helper('catalog')->__('This attribute is used in configurable products.'));
         }
         Mage::getSingleton('index/indexer')->logEvent(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
+                $this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
         );
         return parent::_beforeDelete();
     }
@@ -181,7 +182,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     {
         parent::_afterDeleteCommit();
         Mage::getSingleton('index/indexer')->indexEvents(
-            self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
+                self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
         );
         return $this;
     }
@@ -327,7 +328,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             }
 
             self::$_labels = Mage::app()->getTranslator()->getResource()
-                ->getTranslationArrayByStrings($attributeLabels, $storeId);
+                    ->getTranslationArrayByStrings($attributeLabels, $storeId);
         }
     }
 
@@ -357,8 +358,8 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             return false;
         }
 
-        $backendType    = $this->getBackendType();
-        $frontendInput  = $this->getFrontendInput();
+        $backendType = $this->getBackendType();
+        $frontendInput = $this->getFrontendInput();
 
         if ($backendType == 'int' && $frontendInput == 'select') {
             return true;
@@ -387,4 +388,5 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
 
         return 'source';
     }
+
 }

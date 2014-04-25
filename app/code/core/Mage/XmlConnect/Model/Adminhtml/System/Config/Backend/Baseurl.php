@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Adminhtml_System_Config_Backend_Baseurl
-    extends Mage_Adminhtml_Model_System_Config_Backend_Baseurl
+class Mage_XmlConnect_Model_Adminhtml_System_Config_Backend_Baseurl extends Mage_Adminhtml_Model_System_Config_Backend_Baseurl
 {
+
     /**
      * Update all applications "updated at" parameter with current date
      *
@@ -47,4 +48,5 @@ class Mage_XmlConnect_Model_Adminhtml_System_Config_Backend_Baseurl
         }
         return $this;
     }
+
 }

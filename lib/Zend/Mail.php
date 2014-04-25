@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Mail.php 23251 2010-10-26 12:47:55Z matthew $
  */
-
-
 /**
  * @see Zend_Mail_Transport_Abstract
  */
@@ -40,7 +39,6 @@
  */
 #require_once 'Zend/Mime/Part.php';
 
-
 /**
  * Class for sending an email.
  *
@@ -51,7 +49,7 @@
  */
 class Zend_Mail extends Zend_Mime_Message
 {
-    /**#@+
+    /*     * #@+
      * @access protected
      */
 
@@ -163,14 +161,13 @@ class Zend_Mail extends Zend_Mime_Message
      */
     protected $_type = null;
 
-    /**#@-*/
+    /*     * #@- */
 
     /**
      * Flag: whether or not email has attachments
      * @var boolean
      */
     public $hasAttachments = false;
-
 
     /**
      * Sets the default mail transport for all following uses of
@@ -357,7 +354,7 @@ class Zend_Mail extends Zend_Mime_Message
      * @param  string $charset
      * @param  string $encoding
      * @return Zend_Mail Provides fluent interface
-    */
+     */
     public function setBodyText($txt, $charset = null, $encoding = Zend_Mime::ENCODING_QUOTEDPRINTABLE)
     {
         if ($charset === null) {
@@ -460,11 +457,7 @@ class Zend_Mail extends Zend_Mime_Message
      * @return Zend_Mime_Part Newly created Zend_Mime_Part object (to allow
      * advanced settings)
      */
-    public function createAttachment($body,
-                                     $mimeType    = Zend_Mime::TYPE_OCTETSTREAM,
-                                     $disposition = Zend_Mime::DISPOSITION_ATTACHMENT,
-                                     $encoding    = Zend_Mime::ENCODING_BASE64,
-                                     $filename    = null)
+    public function createAttachment($body, $mimeType = Zend_Mime::TYPE_OCTETSTREAM, $disposition = Zend_Mime::DISPOSITION_ATTACHMENT, $encoding = Zend_Mime::ENCODING_BASE64, $filename = null)
     {
 
         $mp = new Zend_Mime_Part($body);
@@ -531,7 +524,6 @@ class Zend_Mail extends Zend_Mime_Message
         if ($append) {
             $this->_headers[$headerName]['append'] = true;
         }
-
     }
 
     /**
@@ -555,7 +547,7 @@ class Zend_Mail extends Zend_Mime_Message
     protected function _addRecipientAndHeader($headerName, $email, $name)
     {
         $email = $this->_filterEmail($email);
-        $name  = $this->_filterName($name);
+        $name = $this->_filterName($name);
         // prevent duplicates
         $this->_recipients[$email] = 1;
         $this->_storeHeader($headerName, $this->_formatAddress($email, $name), true);
@@ -568,7 +560,7 @@ class Zend_Mail extends Zend_Mime_Message
      * @param  string $name
      * @return Zend_Mail Provides fluent interface
      */
-    public function addTo($email, $name='')
+    public function addTo($email, $name = '')
     {
         if (!is_array($email)) {
             $email = array($name => $email);
@@ -589,7 +581,7 @@ class Zend_Mail extends Zend_Mime_Message
      * @param  string    $name
      * @return Zend_Mail Provides fluent interface
      */
-    public function addCc($email, $name='')
+    public function addCc($email, $name = '')
     {
         if (!is_array($email)) {
             $email = array($name => $email);
@@ -639,7 +631,7 @@ class Zend_Mail extends Zend_Mime_Message
      */
     public function clearHeader($headerName)
     {
-        if (isset($this->_headers[$headerName])){
+        if (isset($this->_headers[$headerName])) {
             unset($this->_headers[$headerName]);
         }
         return $this;
@@ -681,7 +673,7 @@ class Zend_Mail extends Zend_Mime_Message
         }
 
         $email = $this->_filterEmail($email);
-        $name  = $this->_filterName($name);
+        $name = $this->_filterName($name);
         $this->_from = $email;
         $this->_storeHeader('From', $this->_formatAddress($email, $name), true);
 
@@ -707,7 +699,7 @@ class Zend_Mail extends Zend_Mime_Message
         }
 
         $email = $this->_filterEmail($email);
-        $name  = $this->_filterName($name);
+        $name = $this->_filterName($name);
         $this->_replyTo = $email;
         $this->_storeHeader('Reply-To', $this->_formatAddress($email, $name), true);
 
@@ -747,11 +739,11 @@ class Zend_Mail extends Zend_Mime_Message
         return $this;
     }
 
-     /**
-      * Clears the current Reply-To address from the message
-      *
-      * @return Zend_Mail Provides fluent interface
-      */
+    /**
+     * Clears the current Reply-To address from the message
+     *
+     * @return Zend_Mail Provides fluent interface
+     */
     public function clearReplyTo()
     {
         $this->_replyTo = null;
@@ -797,12 +789,13 @@ class Zend_Mail extends Zend_Mime_Message
      *
      * @return Zend_Mail Provides fluent interface
      */
-    public function setFromToDefaultFrom() {
+    public function setFromToDefaultFrom()
+    {
         $from = self::getDefaultFrom();
-        if($from === null) {
+        if ($from === null) {
             #require_once 'Zend/Mail/Exception.php';
             throw new Zend_Mail_Exception(
-                'No default From Address set to use');
+            'No default From Address set to use');
         }
 
         $this->setFrom($from['email'], $from['name']);
@@ -847,12 +840,13 @@ class Zend_Mail extends Zend_Mime_Message
      *
      * @return Zend_Mail Provides fluent interface
      */
-    public function setReplyToFromDefault() {
+    public function setReplyToFromDefault()
+    {
         $replyTo = self::getDefaultReplyTo();
-        if($replyTo === null) {
+        if ($replyTo === null) {
             #require_once 'Zend/Mail/Exception.php';
             throw new Zend_Mail_Exception(
-                'No default Reply-To Address set to use');
+            'No default Reply-To Address set to use');
         }
 
         $this->setReplyTo($replyTo['email'], $replyTo['name']);
@@ -980,7 +974,7 @@ class Zend_Mail extends Zend_Mime_Message
                      */
                     #require_once 'Zend/Mail/Exception.php';
                     throw new Zend_Mail_Exception('String representations of Date Header must be ' .
-                                                  'strtotime()-compatible');
+                    'strtotime()-compatible');
                 }
                 $date = date('r', $date);
             } else if ($date instanceof Zend_Date) {
@@ -991,7 +985,7 @@ class Zend_Mail extends Zend_Mime_Message
                  */
                 #require_once 'Zend/Mail/Exception.php';
                 throw new Zend_Mail_Exception(__METHOD__ . ' only accepts UNIX timestamps, Zend_Date objects, ' .
-                                              ' and strtotime()-compatible strings');
+                ' and strtotime()-compatible strings');
             }
             $this->_date = $date;
             $this->_storeHeader('Date', $date);
@@ -1072,7 +1066,6 @@ class Zend_Mail extends Zend_Mime_Message
         return $this->_messageId;
     }
 
-
     /**
      * Clears the Message-ID from the message
      *
@@ -1091,7 +1084,8 @@ class Zend_Mail extends Zend_Mime_Message
      *
      * @return string
      */
-    public function createMessageId() {
+    public function createMessageId()
+    {
 
         $time = time();
 
@@ -1132,9 +1126,9 @@ class Zend_Mail extends Zend_Mime_Message
     public function addHeader($name, $value, $append = false)
     {
         $prohibit = array('to', 'cc', 'bcc', 'from', 'subject',
-                          'reply-to', 'return-path',
-                          'date', 'message-id',
-                         );
+            'reply-to', 'return-path',
+            'date', 'message-id',
+        );
         if (in_array(strtolower($name), $prohibit)) {
             /**
              * @see Zend_Mail_Exception
@@ -1171,7 +1165,7 @@ class Zend_Mail extends Zend_Mime_Message
     public function send($transport = null)
     {
         if ($transport === null) {
-            if (! self::$_defaultTransport instanceof Zend_Mail_Transport_Abstract) {
+            if (!self::$_defaultTransport instanceof Zend_Mail_Transport_Abstract) {
                 #require_once 'Zend/Mail/Transport/Sendmail.php';
                 $transport = new Zend_Mail_Transport_Sendmail();
             } else {
@@ -1183,11 +1177,11 @@ class Zend_Mail extends Zend_Mime_Message
             $this->setDate();
         }
 
-        if(null === $this->_from && null !== self::getDefaultFrom()) {
+        if (null === $this->_from && null !== self::getDefaultFrom()) {
             $this->setFromToDefaultFrom();
         }
 
-        if(null === $this->_replyTo && null !== self::getDefaultReplyTo()) {
+        if (null === $this->_replyTo && null !== self::getDefaultReplyTo()) {
             $this->setReplyToFromDefault();
         }
 
@@ -1205,12 +1199,12 @@ class Zend_Mail extends Zend_Mime_Message
     protected function _filterEmail($email)
     {
         $rule = array("\r" => '',
-                      "\n" => '',
-                      "\t" => '',
-                      '"'  => '',
-                      ','  => '',
-                      '<'  => '',
-                      '>'  => '',
+            "\n" => '',
+            "\t" => '',
+            '"' => '',
+            ',' => '',
+            '<' => '',
+            '>' => '',
         );
 
         return strtr($email, $rule);
@@ -1225,11 +1219,11 @@ class Zend_Mail extends Zend_Mime_Message
     protected function _filterName($name)
     {
         $rule = array("\r" => '',
-                      "\n" => '',
-                      "\t" => '',
-                      '"'  => "'",
-                      '<'  => '[',
-                      '>'  => ']',
+            "\n" => '',
+            "\t" => '',
+            '"' => "'",
+            '<' => '[',
+            '>' => ']',
         );
 
         return trim(strtr($name, $rule));
@@ -1244,8 +1238,8 @@ class Zend_Mail extends Zend_Mime_Message
     protected function _filterOther($data)
     {
         $rule = array("\r" => '',
-                      "\n" => '',
-                      "\t" => '',
+            "\n" => '',
+            "\t" => '',
         );
 
         return strtr($data, $rule);

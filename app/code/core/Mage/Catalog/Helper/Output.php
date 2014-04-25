@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Array of existing handlers
      *
@@ -45,7 +46,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
      */
     public function __construct()
     {
-        Mage::dispatchEvent('catalog_helper_output_construct', array('helper'=>$this));
+        Mage::dispatchEvent('catalog_helper_output_construct', array('helper' => $this));
     }
 
     protected function _getTemplateProcessor()
@@ -120,14 +121,13 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     public function productAttribute($product, $attributeHtml, $attributeName)
     {
         $attribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeName);
-        if ($attribute && $attribute->getId() && ($attribute->getFrontendInput() != 'media_image')
-            && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())) {
-                if ($attribute->getFrontendInput() != 'price') {
-                    $attributeHtml = $this->escapeHtml($attributeHtml);
-                }
-                if ($attribute->getFrontendInput() == 'textarea') {
-                    $attributeHtml = nl2br($attributeHtml);
-                }
+        if ($attribute && $attribute->getId() && ($attribute->getFrontendInput() != 'media_image') && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())) {
+            if ($attribute->getFrontendInput() != 'price') {
+                $attributeHtml = $this->escapeHtml($attributeHtml);
+            }
+            if ($attribute->getFrontendInput() == 'textarea') {
+                $attributeHtml = nl2br($attributeHtml);
+            }
         }
         if ($attribute->getIsHtmlAllowedOnFront() && $attribute->getIsWysiwygEnabled()) {
             if (Mage::helper('catalog')->isUrlDirectivesParsingAllowed()) {
@@ -136,7 +136,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
         }
 
         $attributeHtml = $this->process('productAttribute', $attributeHtml, array(
-            'product'   => $product,
+            'product' => $product,
             'attribute' => $attributeName
         ));
 
@@ -155,8 +155,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     {
         $attribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Category::ENTITY, $attributeName);
 
-        if ($attribute && ($attribute->getFrontendInput() != 'image')
-            && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())) {
+        if ($attribute && ($attribute->getFrontendInput() != 'image') && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())) {
             $attributeHtml = $this->escapeHtml($attributeHtml);
         }
         if ($attribute->getIsHtmlAllowedOnFront() && $attribute->getIsWysiwygEnabled()) {
@@ -165,9 +164,10 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
             }
         }
         $attributeHtml = $this->process('categoryAttribute', $attributeHtml, array(
-            'category'  => $category,
+            'category' => $category,
             'attribute' => $attributeName
         ));
         return $attributeHtml;
     }
+
 }

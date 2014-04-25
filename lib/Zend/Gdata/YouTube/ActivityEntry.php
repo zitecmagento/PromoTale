@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ActivityEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Entry
  */
@@ -54,8 +53,8 @@
  */
 class Zend_Gdata_YouTube_ActivityEntry extends Zend_Gdata_Entry
 {
-    const ACTIVITY_CATEGORY_SCHEME =
-        'http://gdata.youtube.com/schemas/2007/userevents.cat';
+
+    const ACTIVITY_CATEGORY_SCHEME = 'http://gdata.youtube.com/schemas/2007/userevents.cat';
 
     /**
      * The classname for individual user activity entry elements.
@@ -109,16 +108,16 @@ class Zend_Gdata_YouTube_ActivityEntry extends Zend_Gdata_Entry
     {
         $element = parent::getDOM($doc, $majorVersion, $minorVersion);
         if ($this->_videoId !== null) {
-          $element->appendChild($this->_videoId->getDOM(
-              $element->ownerDocument));
+            $element->appendChild($this->_videoId->getDOM(
+                            $element->ownerDocument));
         }
         if ($this->_username !== null) {
-          $element->appendChild($this->_username->getDOM(
-              $element->ownerDocument));
+            $element->appendChild($this->_username->getDOM(
+                            $element->ownerDocument));
         }
         if ($this->_rating !== null) {
-          $element->appendChild($this->_rating->getDOM(
-              $element->ownerDocument));
+            $element->appendChild($this->_rating->getDOM(
+                            $element->ownerDocument));
         }
         return $element;
     }
@@ -211,7 +210,7 @@ class Zend_Gdata_YouTube_ActivityEntry extends Zend_Gdata_Entry
     public function getActivityType()
     {
         $categories = $this->getCategory();
-        foreach($categories as $category) {
+        foreach ($categories as $category) {
             if ($category->getScheme() == self::ACTIVITY_CATEGORY_SCHEME) {
                 return $category->getTerm();
             }
@@ -229,4 +228,5 @@ class Zend_Gdata_YouTube_ActivityEntry extends Zend_Gdata_Entry
         $authors = $this->getAuthor();
         return $authors[0]->getName()->getText();
     }
+
 }

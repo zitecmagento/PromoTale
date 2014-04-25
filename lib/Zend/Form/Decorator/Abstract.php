@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -17,7 +18,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Decorator_Interface */
 #require_once 'Zend/Form/Decorator/Interface.php';
 
@@ -33,10 +33,11 @@
  */
 abstract class Zend_Form_Decorator_Abstract implements Zend_Form_Decorator_Interface
 {
+
     /**
      * Placement constants
      */
-    const APPEND  = 'APPEND';
+    const APPEND = 'APPEND';
     const PREPEND = 'PREPEND';
 
     /**
@@ -175,10 +176,7 @@ abstract class Zend_Form_Decorator_Abstract implements Zend_Form_Decorator_Inter
      */
     public function setElement($element)
     {
-        if ((!$element instanceof Zend_Form_Element)
-            && (!$element instanceof Zend_Form)
-            && (!$element instanceof Zend_Form_DisplayGroup))
-        {
+        if ((!$element instanceof Zend_Form_Element) && (!$element instanceof Zend_Form) && (!$element instanceof Zend_Form_DisplayGroup)) {
             #require_once 'Zend/Form/Decorator/Exception.php';
             throw new Zend_Form_Decorator_Exception('Invalid element type passed to decorator');
         }
@@ -251,4 +249,5 @@ abstract class Zend_Form_Decorator_Abstract implements Zend_Form_Decorator_Inter
         #require_once 'Zend/Form/Decorator/Exception.php';
         throw new Zend_Form_Decorator_Exception('render() not implemented');
     }
+
 }

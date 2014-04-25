@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Customer_Order_Totals_Giftcards
-    extends Enterprise_GiftCardAccount_Block_Sales_Order_Giftcards
+class Mage_XmlConnect_Block_Customer_Order_Totals_Giftcards extends Enterprise_GiftCardAccount_Block_Sales_Order_Giftcards
 {
+
     /**
      * Add order total rendered to XML object
      *
@@ -52,9 +53,7 @@ class Mage_XmlConnect_Block_Customer_Order_Totals_Giftcards
             foreach ($cards as $card) {
                 $label = Mage::helper('enterprise_giftcardaccount')->__('Gift Card (%s)', $card->getCode());
                 $totalsXml->addCustomChild(
-                    $this->getTotal()->getCode(),
-                    '-' . $this->_formatPrice($card->getAmount()),
-                    array('label' => $label)
+                        $this->getTotal()->getCode(), '-' . $this->_formatPrice($card->getAmount()), array('label' => $label)
                 );
             }
         } else {
@@ -104,4 +103,5 @@ class Mage_XmlConnect_Block_Customer_Order_Totals_Giftcards
     {
         return Mage::helper('xmlconnect/customer_order')->formatPrice($this, $amount);
     }
+
 }

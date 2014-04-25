@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Configuration extends Mage_Core_Model_Abstract
 {
+
     /**
      * Admin application config flag for is active param
      */
@@ -81,9 +83,9 @@ class Mage_XmlConnect_Model_Configuration extends Mage_Core_Model_Abstract
     public function isActiveAdminApp()
     {
         $isActiveSetting = $this->_getAdminApplicationSettings(
-            Mage_XmlConnect_Model_Configuration::CONFIG_PATH_AA_SETTINGS . '/is_active'
+                Mage_XmlConnect_Model_Configuration::CONFIG_PATH_AA_SETTINGS . '/is_active'
         );
-        return $isActiveSetting ? (bool)$isActiveSetting['value'] : false;
+        return $isActiveSetting ? (bool) $isActiveSetting['value'] : false;
     }
 
     /**
@@ -95,7 +97,7 @@ class Mage_XmlConnect_Model_Configuration extends Mage_Core_Model_Abstract
     public function saveIsActiveAdminApp($isActive)
     {
         $this->_getConfigDataModel()->saveConfig(
-            Mage_XmlConnect_Model_Configuration::CONFIG_PATH_AA_SETTINGS . '/is_active', (int)$isActive
+                Mage_XmlConnect_Model_Configuration::CONFIG_PATH_AA_SETTINGS . '/is_active', (int) $isActive
         );
         return $this;
     }
@@ -171,10 +173,9 @@ class Mage_XmlConnect_Model_Configuration extends Mage_Core_Model_Abstract
     public function getPreviousLocalizationHash()
     {
         $localizationHashSetting = $this->_getAdminApplicationSettings(
-            Mage_XmlConnect_Model_Configuration::CONFIG_PATH_AA_SETTINGS . '/localization_hash'
+                Mage_XmlConnect_Model_Configuration::CONFIG_PATH_AA_SETTINGS . '/localization_hash'
         );
         return $localizationHashSetting ? $localizationHashSetting['value'] : null;
-
     }
 
     /**
@@ -186,7 +187,7 @@ class Mage_XmlConnect_Model_Configuration extends Mage_Core_Model_Abstract
     public function setPreviousLocalizationHash($hash)
     {
         $this->_getConfigDataModel()->saveConfig(
-            Mage_XmlConnect_Model_Configuration::CONFIG_PATH_AA_SETTINGS . '/localization_hash', $hash
+                Mage_XmlConnect_Model_Configuration::CONFIG_PATH_AA_SETTINGS . '/localization_hash', $hash
         );
         return $this;
     }
@@ -201,9 +202,9 @@ class Mage_XmlConnect_Model_Configuration extends Mage_Core_Model_Abstract
     protected function _getConfigDataByCategory($category = null, $unSerialize = false)
     {
         $configuration = $this->_getConnectConfigDataCollection()->addArrayFilter(array(
-            'application_id' => $this->getApplicationModel()->getId(),
-            'category' => $category,
-        ))->toOptionArray();
+                    'application_id' => $this->getApplicationModel()->getId(),
+                    'category' => $category,
+                ))->toOptionArray();
         if (!empty($configuration)) {
             return $this->_formatConfigData($configuration[$category], $unSerialize, $category);
         } else {
@@ -268,4 +269,5 @@ class Mage_XmlConnect_Model_Configuration extends Mage_Core_Model_Abstract
         $this->_applicationModel = Mage::helper('xmlconnect')->getApplication();
         return $this;
     }
+
 }

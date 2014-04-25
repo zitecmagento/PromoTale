@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Report_Search extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     /**
      * Initialize Grid Container
      *
@@ -45,4 +46,5 @@ class Mage_Adminhtml_Block_Report_Search extends Mage_Adminhtml_Block_Widget_Gri
         parent::__construct();
         $this->_removeButton('add');
     }
+
 }

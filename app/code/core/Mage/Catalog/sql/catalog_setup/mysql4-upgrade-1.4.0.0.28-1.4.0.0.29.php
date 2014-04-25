@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /* @var $installer Mage_Eav_Model_Entity_Setup */
 $installer = $this;
 
@@ -37,24 +36,24 @@ $catalogCategoryEntityIntTable = $installer->getAttributeTable($entityTypeId, $d
 $eavAttributeTable = $installer->getTable('eav/attribute');
 
 $installer->addAttribute($entityTypeId, 'custom_use_parent_settings', array(
-    'type'          => 'int',
-    'input'         => 'select',
-    'label'         => 'Use Parent Category Settings',
-    'source'        => 'eav/entity_attribute_source_boolean',
-    'required'      => 0,
-    'group'         => 'Custom Design',
-    'sort_order'    => '5',
-    'global'        => 0
+    'type' => 'int',
+    'input' => 'select',
+    'label' => 'Use Parent Category Settings',
+    'source' => 'eav/entity_attribute_source_boolean',
+    'required' => 0,
+    'group' => 'Custom Design',
+    'sort_order' => '5',
+    'global' => 0
 ));
 $installer->addAttribute($entityTypeId, 'custom_apply_to_products', array(
-    'type'          => 'int',
-    'input'         => 'select',
-    'label'         => 'Apply To Products',
-    'source'        => 'eav/entity_attribute_source_boolean',
-    'required'      => 0,
-    'group'         => 'Custom Design',
-    'sort_order'    => '6',
-    'global'        => 0
+    'type' => 'int',
+    'input' => 'select',
+    'label' => 'Apply To Products',
+    'source' => 'eav/entity_attribute_source_boolean',
+    'required' => 0,
+    'group' => 'Custom Design',
+    'sort_order' => '6',
+    'global' => 0
 ));
 $useParentSettingsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_use_parent_settings');
 $applyToProductsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_apply_to_products');
@@ -62,28 +61,26 @@ $applyToProductsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_
 
 
 $attributeIdExpr = new Zend_Db_Expr(
-    'IF (e_a.attribute_id = e.attribute_id,'.
-    $useParentSettingsAttributeId.', '.
-    $applyToProductsAttributeId .')');
+        'IF (e_a.attribute_id = e.attribute_id,' .
+        $useParentSettingsAttributeId . ', ' .
+        $applyToProductsAttributeId . ')');
 $productValueExpr = new Zend_Db_Expr('IF (e.value IN (1,3), 1, 0)');
-$valueExpr = new Zend_Db_Expr('IF (e_a.attribute_id = e.attribute_id, 1, '. $productValueExpr .')');
+$valueExpr = new Zend_Db_Expr('IF (e_a.attribute_id = e.attribute_id, 1, ' . $productValueExpr . ')');
 $select = $installer->getConnection()->select()
-    ->from(
-        array('e' => $catalogCategoryEntityIntTable),
-        array(
+        ->from(
+                array('e' => $catalogCategoryEntityIntTable), array(
             'entity_type_id',
             'attribute_id' => $attributeIdExpr,
             'store_id',
             'entity_id',
             'value' => $valueExpr
+                )
         )
-    )
-    ->joinCross(
-        array('e_a' => $eavAttributeTable),
-        array())
-    ->where('e_a.attribute_id IN (?)', array($designApplyAttributeId, $designAttributeId))
-    ->where('e.attribute_id = ?', $designApplyAttributeId)
-    ->order(array('e.entity_id', 'attribute_id'));
+        ->joinCross(
+                array('e_a' => $eavAttributeTable), array())
+        ->where('e_a.attribute_id IN (?)', array($designApplyAttributeId, $designAttributeId))
+        ->where('e.attribute_id = ?', $designApplyAttributeId)
+        ->order(array('e.entity_id', 'attribute_id'));
 
 $insertArray = array(
     'entity_type_id',

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,13 @@
  */
 class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Block construction, prepare grid params
      *
      * @param array $arguments Object data
      */
-    public function __construct($arguments=array())
+    public function __construct($arguments = array())
     {
         parent::__construct($arguments);
         $this->setDefaultSort('block_identifier');
@@ -59,12 +61,12 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
         $sourceUrl = $this->getUrl('*/cms_block_widget/chooser', array('uniq_id' => $uniqId));
 
         $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
-            ->setElement($element)
-            ->setTranslationHelper($this->getTranslationHelper())
-            ->setConfig($this->getConfig())
-            ->setFieldsetId($this->getFieldsetId())
-            ->setSourceUrl($sourceUrl)
-            ->setUniqId($uniqId);
+                ->setElement($element)
+                ->setTranslationHelper($this->getTranslationHelper())
+                ->setConfig($this->getConfig())
+                ->setFieldsetId($this->getFieldsetId())
+                ->setSourceUrl($sourceUrl)
+                ->setUniqId($uniqId);
 
 
         if ($element->getValue()) {
@@ -91,9 +93,9 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
                 var trElement = Event.findElement(event, "tr");
                 var blockId = trElement.down("td").innerHTML.replace(/^\s+|\s+$/g,"");
                 var blockTitle = trElement.down("td").next().innerHTML;
-                '.$chooserJsObject.'.setElementValue(blockId);
-                '.$chooserJsObject.'.setElementLabel(blockTitle);
-                '.$chooserJsObject.'.close();
+                ' . $chooserJsObject . '.setElementValue(blockId);
+                ' . $chooserJsObject . '.setElementLabel(blockTitle);
+                ' . $chooserJsObject . '.close();
             }
         ';
         return $js;
@@ -120,30 +122,30 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
     protected function _prepareColumns()
     {
         $this->addColumn('chooser_id', array(
-            'header'    => Mage::helper('cms')->__('ID'),
-            'align'     => 'right',
-            'index'     => 'block_id',
-            'width'     => 50
+            'header' => Mage::helper('cms')->__('ID'),
+            'align' => 'right',
+            'index' => 'block_id',
+            'width' => 50
         ));
 
         $this->addColumn('chooser_title', array(
-            'header'    => Mage::helper('cms')->__('Title'),
-            'align'     => 'left',
-            'index'     => 'title',
+            'header' => Mage::helper('cms')->__('Title'),
+            'align' => 'left',
+            'index' => 'title',
         ));
 
         $this->addColumn('chooser_identifier', array(
-            'header'    => Mage::helper('cms')->__('Identifier'),
-            'align'     => 'left',
-            'index'     => 'identifier'
+            'header' => Mage::helper('cms')->__('Identifier'),
+            'align' => 'left',
+            'index' => 'identifier'
         ));
 
 
         $this->addColumn('chooser_is_active', array(
-            'header'    => Mage::helper('cms')->__('Status'),
-            'index'     => 'is_active',
-            'type'      => 'options',
-            'options'   => array(
+            'header' => Mage::helper('cms')->__('Status'),
+            'index' => 'is_active',
+            'type' => 'options',
+            'options' => array(
                 0 => Mage::helper('cms')->__('Disabled'),
                 1 => Mage::helper('cms')->__('Enabled')
             ),
@@ -156,4 +158,5 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
     {
         return $this->getUrl('*/cms_block_widget/chooser', array('_current' => true));
     }
+
 }

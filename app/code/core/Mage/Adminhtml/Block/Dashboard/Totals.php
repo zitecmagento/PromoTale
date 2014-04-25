@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml dashboard totals bar
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboard_Bar
 {
+
     protected function _construct()
     {
         parent::_construct();
@@ -50,20 +51,19 @@ class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboa
 
         /* @var $collection Mage_Reports_Model_Mysql4_Order_Collection */
         $collection = Mage::getResourceModel('reports/order_collection')
-            ->addCreateAtPeriodFilter($period)
-            ->calculateTotals($isFilter);
+                ->addCreateAtPeriodFilter($period)
+                ->calculateTotals($isFilter);
 
         if ($this->getRequest()->getParam('store')) {
             $collection->addFieldToFilter('store_id', $this->getRequest()->getParam('store'));
-        } else if ($this->getRequest()->getParam('website')){
+        } else if ($this->getRequest()->getParam('website')) {
             $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
             $collection->addFieldToFilter('store_id', array('in' => $storeIds));
-        } else if ($this->getRequest()->getParam('group')){
+        } else if ($this->getRequest()->getParam('group')) {
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
             $collection->addFieldToFilter('store_id', array('in' => $storeIds));
         } elseif (!$collection->isLive()) {
-            $collection->addFieldToFilter('store_id',
-                array('eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId())
+            $collection->addFieldToFilter('store_id', array('eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId())
             );
         }
 
@@ -74,6 +74,7 @@ class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboa
         $this->addTotal($this->__('Revenue'), $totals->getRevenue());
         $this->addTotal($this->__('Tax'), $totals->getTax());
         $this->addTotal($this->__('Shipping'), $totals->getShipping());
-        $this->addTotal($this->__('Quantity'), $totals->getQuantity()*1, true);
+        $this->addTotal($this->__('Quantity'), $totals->getQuantity() * 1, true);
     }
+
 }

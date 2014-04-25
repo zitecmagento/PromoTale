@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: DeclareVars.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_Abstract.php */
 #require_once 'Zend/View/Helper/Abstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_View_Helper_DeclareVars extends Zend_View_Helper_Abstract
 {
+
     /**
      * The view object that created this helper object.
      * @var Zend_View
@@ -66,7 +67,7 @@ class Zend_View_Helper_DeclareVars extends Zend_View_Helper_Abstract
     public function declareVars()
     {
         $args = func_get_args();
-        foreach($args as $key) {
+        foreach ($args as $key) {
             if (is_array($key)) {
                 foreach ($key as $name => $value) {
                     $this->_declareVar($name, $value);
@@ -92,4 +93,5 @@ class Zend_View_Helper_DeclareVars extends Zend_View_Helper_Abstract
             $this->view->$key = $value;
         }
     }
+
 }

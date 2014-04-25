@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Retain filter parameters in session
      *
@@ -73,53 +75,53 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
     {
         $settlement = Mage::getSingleton('paypal/report_settlement');
         $this->addColumn('report_date', array(
-            'header'    => $settlement->getFieldLabel('report_date'),
-            'index'     => 'report_date',
-            'type'     => 'date'
+            'header' => $settlement->getFieldLabel('report_date'),
+            'index' => 'report_date',
+            'type' => 'date'
         ));
         $this->addColumn('account_id', array(
-            'header'    => $settlement->getFieldLabel('account_id'),
-            'index'     => 'account_id'
+            'header' => $settlement->getFieldLabel('account_id'),
+            'index' => 'account_id'
         ));
         $this->addColumn('transaction_id', array(
-            'header'    => $settlement->getFieldLabel('transaction_id'),
-            'index'     => 'transaction_id'
+            'header' => $settlement->getFieldLabel('transaction_id'),
+            'index' => 'transaction_id'
         ));
         $this->addColumn('invoice_id', array(
-            'header'    => $settlement->getFieldLabel('invoice_id'),
-            'index'     => 'invoice_id'
+            'header' => $settlement->getFieldLabel('invoice_id'),
+            'index' => 'invoice_id'
         ));
         $this->addColumn('paypal_reference_id', array(
-            'header'    => $settlement->getFieldLabel('paypal_reference_id'),
-            'index'     => 'paypal_reference_id'
+            'header' => $settlement->getFieldLabel('paypal_reference_id'),
+            'index' => 'paypal_reference_id'
         ));
         $this->addColumn('transaction_event_code', array(
-            'header'    => $settlement->getFieldLabel('transaction_event'),
-            'index'     => 'transaction_event_code',
-            'type'      => 'options',
-            'options'   => Mage::getModel('paypal/report_settlement_row')->getTransactionEvents()
+            'header' => $settlement->getFieldLabel('transaction_event'),
+            'index' => 'transaction_event_code',
+            'type' => 'options',
+            'options' => Mage::getModel('paypal/report_settlement_row')->getTransactionEvents()
         ));
         $this->addColumn('transaction_initiation_date', array(
-            'header'    => $settlement->getFieldLabel('transaction_initiation_date'),
-            'index'     => 'transaction_initiation_date',
-            'type'      => 'datetime'
+            'header' => $settlement->getFieldLabel('transaction_initiation_date'),
+            'index' => 'transaction_initiation_date',
+            'type' => 'datetime'
         ));
         $this->addColumn('transaction_completion_date', array(
-            'header'    => $settlement->getFieldLabel('transaction_completion_date'),
-            'index'     => 'transaction_completion_date',
-            'type'      => 'datetime'
+            'header' => $settlement->getFieldLabel('transaction_completion_date'),
+            'index' => 'transaction_completion_date',
+            'type' => 'datetime'
         ));
         $this->addColumn('gross_transaction_amount', array(
-            'header'    => $settlement->getFieldLabel('gross_transaction_amount'),
-            'index'     => 'gross_transaction_amount',
-            'type'      => 'currency',
-            'currency'  => 'gross_transaction_currency',
+            'header' => $settlement->getFieldLabel('gross_transaction_amount'),
+            'index' => 'gross_transaction_amount',
+            'type' => 'currency',
+            'currency' => 'gross_transaction_currency',
         ));
         $this->addColumn('fee_amount', array(
-            'header'    => $settlement->getFieldLabel('fee_amount'),
-            'index'     => 'fee_amount',
-            'type'      => 'currency',
-            'currency'  => 'gross_transaction_currency',
+            'header' => $settlement->getFieldLabel('fee_amount'),
+            'index' => 'fee_amount',
+            'type' => 'currency',
+            'currency' => 'gross_transaction_currency',
         ));
         return parent::_prepareColumns();
     }
@@ -130,7 +132,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
      */
     public function getGridUrl()
     {
-         return $this->getUrl('*/*/grid');
+        return $this->getUrl('*/*/grid');
     }
 
     /**
@@ -141,4 +143,5 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
     {
         return $this->getUrl('*/*/details', array('id' => $item->getId()));
     }
+
 }

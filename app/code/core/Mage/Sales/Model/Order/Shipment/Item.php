@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -57,9 +58,9 @@
  */
 class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
 {
+
     protected $_eventPrefix = 'sales_shipment_item';
     protected $_eventObject = 'shipment_item';
-
     protected $_shipment = null;
     protected $_orderItem = null;
 
@@ -116,10 +117,9 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
         if (is_null($this->_orderItem)) {
             if ($this->getShipment()) {
                 $this->_orderItem = $this->getShipment()->getOrder()->getItemById($this->getOrderItemId());
-            }
-            else {
+            } else {
                 $this->_orderItem = Mage::getModel('sales/order_item')
-                    ->load($this->getOrderItemId());
+                        ->load($this->getOrderItemId());
             }
         }
         return $this->_orderItem;
@@ -135,8 +135,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     {
         if ($this->getOrderItem()->getIsQtyDecimal()) {
             $qty = (float) $qty;
-        }
-        else {
+        } else {
             $qty = (int) $qty;
         }
         $qty = $qty > 0 ? $qty : 0;
@@ -145,10 +144,9 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
          */
         if ($qty <= $this->getOrderItem()->getQtyToShip() || $this->getOrderItem()->isDummy(true)) {
             $this->setData('qty', $qty);
-        }
-        else {
+        } else {
             Mage::throwException(
-                Mage::helper('sales')->__('Invalid qty to ship for item "%s"', $this->getName())
+                    Mage::helper('sales')->__('Invalid qty to ship for item "%s"', $this->getName())
             );
         }
         return $this;
@@ -162,7 +160,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     public function register()
     {
         $this->getOrderItem()->setQtyShipped(
-            $this->getOrderItem()->getQtyShipped()+$this->getQty()
+                $this->getOrderItem()->getQtyShipped() + $this->getQty()
         );
         return $this;
     }

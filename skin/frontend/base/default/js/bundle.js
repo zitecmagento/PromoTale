@@ -22,13 +22,13 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-if(typeof Product=='undefined') {
+if (typeof Product == 'undefined') {
     var Product = {};
 }
 /**************************** BUNDLE PRODUCT **************************/
 Product.Bundle = Class.create();
 Product.Bundle.prototype = {
-    initialize: function(config){
+    initialize: function(config) {
         this.config = config;
 
         // Set preconfigured values for correct price base calculation
@@ -48,7 +48,7 @@ Product.Bundle.prototype = {
 
         this.reloadPrice();
     },
-    changeSelection: function(selection){
+    changeSelection: function(selection) {
         var parts = selection.id.split('-');
         if (this.config['options'][parts[2]].isMulti) {
             selected = new Array();
@@ -59,8 +59,8 @@ Product.Bundle.prototype = {
                     }
                 }
             } else if (selection.tagName == 'INPUT') {
-                selector = parts[0]+'-'+parts[1]+'-'+parts[2];
-                selections = $$('.'+selector);
+                selector = parts[0] + '-' + parts[1] + '-' + parts[2];
+                selections = $$('.' + selector);
                 for (var i = 0; i < selections.length; i++) {
                     if (selections[i].checked && selections[i].value != '') {
                         selected.push(selections[i].value);
@@ -76,7 +76,7 @@ Product.Bundle.prototype = {
             }
             this.populateQty(parts[2], selection.value);
             var tierPriceElement = $('bundle-option-' + parts[2] + '-tier-prices'),
-                tierPriceHtml = '';
+                    tierPriceHtml = '';
             if (selection.value != '' && this.config.options[parts[2]].selections[selection.value].customQty == 1) {
                 tierPriceHtml = this.config.options[parts[2]].selections[selection.value].tierPriceHtml;
             }
@@ -84,7 +84,6 @@ Product.Bundle.prototype = {
         }
         this.reloadPrice();
     },
-
     reloadPrice: function() {
         var calculatedPrice = 0;
         var dispositionPrice = 0;
@@ -92,7 +91,7 @@ Product.Bundle.prototype = {
 
         for (var option in this.config.selected) {
             if (this.config.options[option]) {
-                for (var i=0; i < this.config.selected[option].length; i++) {
+                for (var i = 0; i < this.config.selected[option].length; i++) {
                     var prices = this.selectionPrice(option, this.config.selected[option][i]);
                     calculatedPrice += Number(prices[0]);
                     dispositionPrice += Number(prices[1]);
@@ -116,9 +115,9 @@ Product.Bundle.prototype = {
         //price bundle product. For fixed price bundle product, the rounding
         //needs to be done after option price is added to base price
         if (this.config.priceType == '0') {
-            calculatedPrice = Math.round(calculatedPrice*100)/100;
-            dispositionPrice = Math.round(dispositionPrice*100)/100;
-            includeTaxPrice = Math.round(includeTaxPrice*100)/100;
+            calculatedPrice = Math.round(calculatedPrice * 100) / 100;
+            dispositionPrice = Math.round(dispositionPrice * 100) / 100;
+            includeTaxPrice = Math.round(includeTaxPrice * 100) / 100;
 
         }
 
@@ -138,7 +137,6 @@ Product.Bundle.prototype = {
 
         return calculatedPrice;
     },
-
     selectionPrice: function(optionId, selectionId) {
         if (selectionId == '' || selectionId == 'none') {
             return 0;
@@ -158,7 +156,7 @@ Product.Bundle.prototype = {
             price = this.config.options[optionId].selections[selectionId].price;
             tierPrice = this.config.options[optionId].selections[selectionId].tierPrice;
 
-            for (var i=0; i < tierPrice.length; i++) {
+            for (var i = 0; i < tierPrice.length; i++) {
                 if (Number(tierPrice[i].price_qty) <= qty && Number(tierPrice[i].price) <= price) {
                     price = tierPrice[i].price;
                     tierPriceInclTax = tierPrice[i].priceInclTax;
@@ -170,17 +168,17 @@ Product.Bundle.prototype = {
             if (selection.priceType == '0') {
                 price = selection.priceValue;
             } else {
-                price = (this.config.basePrice*selection.priceValue)/100;
+                price = (this.config.basePrice * selection.priceValue) / 100;
             }
         }
         //price += this.config.options[optionId].selections[selectionId].plusDisposition;
         //price -= this.config.options[optionId].selections[selectionId].minusDisposition;
         //return price*qty;
         var disposition = this.config.options[optionId].selections[selectionId].plusDisposition +
-            this.config.options[optionId].selections[selectionId].minusDisposition;
+                this.config.options[optionId].selections[selectionId].minusDisposition;
 
         if (this.config.specialPrice) {
-            newPrice = (price*this.config.specialPrice)/100;
+            newPrice = (price * this.config.specialPrice) / 100;
             price = Math.min(newPrice, price);
         }
 
@@ -196,25 +194,24 @@ Product.Bundle.prototype = {
         }
 
         if (this.config.priceType == '1' || taxCalcMethod == CACL_TOTAL_BASE) {
-            var result = new Array(price*qty, disposition*qty, priceInclTax*qty);
-            return result;                        
+            var result = new Array(price * qty, disposition * qty, priceInclTax * qty);
+            return result;
         }
         else if (taxCalcMethod == CACL_UNIT_BASE) {
-            price = (Math.round(price*100)/100).toString();
-            disposition = (Math.round(disposition*100)/100).toString();
-            priceInclTax = (Math.round(priceInclTax*100)/100).toString();
-            var result = new Array(price*qty, disposition*qty, priceInclTax*qty);
+            price = (Math.round(price * 100) / 100).toString();
+            disposition = (Math.round(disposition * 100) / 100).toString();
+            priceInclTax = (Math.round(priceInclTax * 100) / 100).toString();
+            var result = new Array(price * qty, disposition * qty, priceInclTax * qty);
             return result;
         } else { //taxCalcMethod == CACL_ROW_BASE) 
-            price = (Math.round(price*qty*100)/100).toString();
-            disposition = (Math.round(disposition*qty*100)/100).toString();
-            priceInclTax = (Math.round(priceInclTax*qty*100)/100).toString();
+            price = (Math.round(price * qty * 100) / 100).toString();
+            disposition = (Math.round(disposition * qty * 100) / 100).toString();
+            priceInclTax = (Math.round(priceInclTax * qty * 100) / 100).toString();
             var result = new Array(price, disposition, priceInclTax);
-            return result;            
+            return result;
         }
     },
-
-    populateQty: function(optionId, selectionId){
+    populateQty: function(optionId, selectionId) {
         if (selectionId == '' || selectionId == 'none') {
             this.showQtyInput(optionId, '0', false);
             return;
@@ -225,7 +222,6 @@ Product.Bundle.prototype = {
             this.showQtyInput(optionId, this.config.options[optionId].selections[selectionId].qty, false);
         }
     },
-
     showQtyInput: function(optionId, value, canEdit) {
         elem = $('bundle-option-' + optionId + '-qty-input');
         elem.value = value;
@@ -236,10 +232,9 @@ Product.Bundle.prototype = {
             elem.addClassName('qty-disabled');
         }
     },
-
-    changeOptionQty: function (element, event) {
+    changeOptionQty: function(element, event) {
         var checkQty = true;
-        if (typeof(event) != 'undefined') {
+        if (typeof (event) != 'undefined') {
             if (event.keyCode == 8 || event.keyCode == 46) {
                 checkQty = false;
             }
@@ -251,12 +246,11 @@ Product.Bundle.prototype = {
         optionId = parts[2];
         if (!this.config['options'][optionId].isMulti) {
             selectionId = this.config.selected[optionId][0];
-            this.config.options[optionId].selections[selectionId].qty = element.value*1;
+            this.config.options[optionId].selections[selectionId].qty = element.value * 1;
             this.reloadPrice();
         }
     },
-
-    validationCallback: function (elmId, result){
+    validationCallback: function(elmId, result) {
         if (elmId == undefined || $(elmId) == undefined) {
             return;
         }

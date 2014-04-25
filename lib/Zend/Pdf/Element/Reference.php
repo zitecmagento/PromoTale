@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Reference.php 22797 2010-08-06 15:02:12Z alexander $
  */
-
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element/Null.php';
 
@@ -37,6 +36,7 @@
  */
 class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
 {
+
     /**
      * Object value
      * The reference to the object
@@ -66,7 +66,6 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
      */
     private $_context;
 
-
     /**
      * Reference to the factory.
      *
@@ -90,18 +89,18 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
      */
     public function __construct($objNum, $genNum = 0, Zend_Pdf_Element_Reference_Context $context, Zend_Pdf_ElementFactory $factory)
     {
-        if ( !(is_integer($objNum) && $objNum > 0) ) {
+        if (!(is_integer($objNum) && $objNum > 0)) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Object number must be positive integer');
         }
-        if ( !(is_integer($genNum) && $genNum >= 0) ) {
+        if (!(is_integer($genNum) && $genNum >= 0)) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Generation number must be non-negative integer');
         }
 
-        $this->_objNum  = $objNum;
-        $this->_genNum  = $genNum;
-        $this->_ref     = null;
+        $this->_objNum = $objNum;
+        $this->_genNum = $genNum;
+        $this->_ref = null;
         $this->_context = $context;
         $this->_factory = $factory;
     }
@@ -116,7 +115,6 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
         return $this->_factory;
     }
 
-
     /**
      * Return type of the element.
      *
@@ -130,7 +128,6 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
 
         return $this->_ref->getType();
     }
-
 
     /**
      * Return reference to the object
@@ -149,7 +146,6 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
         return $this->_objNum + $shift . ' ' . $this->_genNum . ' R';
     }
 
-
     /**
      * Dereference.
      * Take inderect object, take $value member of this object (must be Zend_Pdf_Element),
@@ -163,12 +159,11 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
     {
         if (($obj = $this->_factory->fetchObject($this->_objNum . ' ' . $this->_genNum)) === null) {
             $obj = $this->_context->getParser()->getObject(
-                           $this->_context->getRefTable()->getOffset($this->_objNum . ' ' . $this->_genNum . ' R'),
-                           $this->_context
-                                                          );
+                    $this->_context->getRefTable()->getOffset($this->_objNum . ' ' . $this->_genNum . ' R'), $this->_context
+            );
         }
 
-        if ($obj === null ) {
+        if ($obj === null) {
             $this->_ref = new Zend_Pdf_Element_Null();
             return;
         }
@@ -300,4 +295,5 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
 
         return $this->_ref->toPhp();
     }
+
 }

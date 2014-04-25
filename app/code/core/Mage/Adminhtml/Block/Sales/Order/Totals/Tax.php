@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Tax_Block_Sales_Order_Tax
 {
+
     /**
      * Get full information about taxes applied to order
      *
@@ -69,7 +71,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Tax_Block_Sales_O
     public function displayAmount($amount, $baseAmount)
     {
         return Mage::helper('adminhtml/sales')->displayPrices(
-            $this->getSource(), $baseAmount, $amount, false, '<br />'
+                        $this->getSource(), $baseAmount, $amount, false, '<br />'
         );
     }
 
@@ -82,4 +84,5 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Tax_Block_Sales_O
     {
         return Mage::app()->getStore();
     }
+
 }

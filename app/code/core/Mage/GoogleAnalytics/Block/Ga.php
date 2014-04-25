@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * GoogleAnalitics Page Block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
 {
+
     /**
      * @deprecated after 1.4.1.1
      * @see self::_getOrdersTrackingCode()
@@ -85,7 +86,7 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
      */
     protected function _getPageTrackingCode($accountId)
     {
-        $pageName   = trim($this->getPageName());
+        $pageName = trim($this->getPageName());
         $optPageURL = '';
         if ($pageName && preg_match('/^\/.*/i', $pageName)) {
             $optPageURL = ", '{$this->jsQuoteEscape($pageName)}'";
@@ -110,7 +111,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             return;
         }
         $collection = Mage::getResourceModel('sales/order_collection')
-            ->addFieldToFilter('entity_id', array('in' => $orderIds))
+                ->addFieldToFilter('entity_id', array('in' => $orderIds))
         ;
         $result = array();
         foreach ($collection as $order) {
@@ -119,22 +120,11 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             } else {
                 $address = $order->getShippingAddress();
             }
-            $result[] = sprintf("_gaq.push(['_addTrans', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);",
-                $order->getIncrementId(),
-                $this->jsQuoteEscape(Mage::app()->getStore()->getFrontendName()),
-                $order->getBaseGrandTotal(),
-                $order->getBaseTaxAmount(),
-                $order->getBaseShippingAmount(),
-                $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getCity())),
-                $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getRegion())),
-                $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getCountry()))
+            $result[] = sprintf("_gaq.push(['_addTrans', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);", $order->getIncrementId(), $this->jsQuoteEscape(Mage::app()->getStore()->getFrontendName()), $order->getBaseGrandTotal(), $order->getBaseTaxAmount(), $order->getBaseShippingAmount(), $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getCity())), $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getRegion())), $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getCountry()))
             );
             foreach ($order->getAllVisibleItems() as $item) {
-                $result[] = sprintf("_gaq.push(['_addItem', '%s', '%s', '%s', '%s', '%s', '%s']);",
-                    $order->getIncrementId(),
-                    $this->jsQuoteEscape($item->getSku()), $this->jsQuoteEscape($item->getName()),
-                    null, // there is no "category" defined for the order item
-                    $item->getBasePrice(), $item->getQtyOrdered()
+                $result[] = sprintf("_gaq.push(['_addItem', '%s', '%s', '%s', '%s', '%s', '%s']);", $order->getIncrementId(), $this->jsQuoteEscape($item->getSku()), $this->jsQuoteEscape($item->getName()), null, // there is no "category" defined for the order item
+                        $item->getBasePrice(), $item->getQtyOrdered()
                 );
             }
             $result[] = "_gaq.push(['_trackTrans']);";
@@ -167,4 +157,5 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         }
         return "_gaq.push (['_gat._anonymizeIp']);";
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Paypal_Abstract extends Mage_Paypal_Block_Payment_Info
 {
+
     /**
      * Add CC Save Payment info to order XML object
      *
@@ -52,4 +54,5 @@ abstract class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Paypal_Abstrac
             }
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HttpTestCase.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Controller_Request_Http
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Controller_Request_HttpTestCase extends Zend_Controller_Request_Http
 {
+
     /**
      * Request headers
      * @var array
@@ -273,4 +274,5 @@ class Zend_Controller_Request_HttpTestCase extends Zend_Controller_Request_Http
         $name = str_replace('-', '_', $name);
         return $name;
     }
+
 }

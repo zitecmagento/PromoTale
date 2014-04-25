@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Calculations model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Calculator
 {
+
     /**
      * Delta collected during rounding steps
      *
@@ -75,7 +76,7 @@ class Mage_Core_Model_Calculator
             if ($negative) {
                 $this->_delta = -$this->_delta;
             }
-            $price  += $this->_delta;
+            $price += $this->_delta;
             $roundedPrice = $this->_store->roundPrice($price);
             $this->_delta = $price - $roundedPrice;
             if ($negative) {
@@ -84,4 +85,5 @@ class Mage_Core_Model_Calculator
         }
         return $roundedPrice;
     }
+
 }

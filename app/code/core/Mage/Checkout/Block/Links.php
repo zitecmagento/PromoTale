@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
 {
+
     /**
      * Add shopping cart link to parent block
      *
@@ -42,8 +44,7 @@ class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
     {
         $parentBlock = $this->getParentBlock();
         if ($parentBlock && Mage::helper('core')->isModuleOutputEnabled('Mage_Checkout')) {
-            $count = $this->getSummaryQty() ? $this->getSummaryQty()
-                : $this->helper('checkout/cart')->getSummaryCount();
+            $count = $this->getSummaryQty() ? $this->getSummaryQty() : $this->helper('checkout/cart')->getSummaryCount();
             if ($count == 1) {
                 $text = $this->__('My Cart (%s item)', $count);
             } elseif ($count > 0) {
@@ -73,11 +74,10 @@ class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
         if ($parentBlock && Mage::helper('core')->isModuleOutputEnabled('Mage_Checkout')) {
             $text = $this->__('Checkout');
             $parentBlock->addLink(
-                $text, 'checkout', $text,
-                true, array('_secure' => true), 60, null,
-                'class="top-link-checkout"'
+                    $text, 'checkout', $text, true, array('_secure' => true), 60, null, 'class="top-link-checkout"'
             );
         }
         return $this;
     }
+
 }

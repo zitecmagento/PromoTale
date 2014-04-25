@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,12 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 
 $installer->startSetup();
 
-$installer->addAttribute('order', 'can_ship_partially', array('type'=>'int'));
-$installer->addAttribute('order', 'can_ship_partially_item', array('type'=>'int'));
+$installer->addAttribute('order', 'can_ship_partially', array('type' => 'int'));
+$installer->addAttribute('order', 'can_ship_partially_item', array('type' => 'int'));
 
 $installer->endSetup();

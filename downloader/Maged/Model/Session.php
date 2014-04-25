@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,15 +26,16 @@
  */
 
 /**
-* Class session
-*
-* @category   Mage
-* @package    Mage_Connect
-* @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
-* @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*/
+ * Class session
+ *
+ * @category   Mage
+ * @package    Mage_Connect
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 class Maged_Model_Session extends Maged_Model
 {
+
     /**
      * Session
      *
@@ -102,9 +104,9 @@ class Maged_Model_Session extends Maged_Model
             return $this;
         }
 
-        try {
-            if ( (isset($_POST['username']) && empty($_POST['username']))
-                || (isset($_POST['password']) && empty($_POST['password']))) {
+        try
+        {
+            if ((isset($_POST['username']) && empty($_POST['username'])) || (isset($_POST['password']) && empty($_POST['password']))) {
                 $this->addMessage('error', 'Invalid user name or password');
             }
             if (empty($_POST['username']) || empty($_POST['password'])) {
@@ -116,14 +118,15 @@ class Maged_Model_Session extends Maged_Model
             if ($this->_checkUserAccess($user)) {
                 return $this;
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->addMessage('error', $e->getMessage());
         }
 
         $this->controller()
-            ->redirect(
-                $this->controller()->url('loggedin'),
-                true
+                ->redirect(
+                        $this->controller()->url('loggedin'), true
         );
     }
 
@@ -234,4 +237,5 @@ class Maged_Model_Session extends Maged_Model
         }
         return $this->get('_form_key');
     }
+
 }

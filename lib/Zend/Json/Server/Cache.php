@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Cache.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Server_Cache */
 #require_once 'Zend/Server/Cache.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_Json_Server_Cache extends Zend_Server_Cache
 {
+
     /**
      * Cache a service map description (SMD) to a file
      *
@@ -45,9 +46,7 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
      */
     public static function saveSmd($filename, Zend_Json_Server $server)
     {
-        if (!is_string($filename)
-            || (!file_exists($filename) && !is_writable(dirname($filename))))
-        {
+        if (!is_string($filename) || (!file_exists($filename) && !is_writable(dirname($filename)))) {
             return false;
         }
 
@@ -69,10 +68,7 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
      */
     public static function getSmd($filename)
     {
-        if (!is_string($filename)
-            || !file_exists($filename)
-            || !is_readable($filename))
-        {
+        if (!is_string($filename) || !file_exists($filename) || !is_readable($filename)) {
             return false;
         }
 
@@ -99,4 +95,5 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
 
         return false;
     }
+
 }

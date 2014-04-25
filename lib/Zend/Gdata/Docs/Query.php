@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Query.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_Gdata_Query
  */
@@ -204,7 +203,7 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
         } else {
             #require_once 'Zend/Gdata/App/Exception.php';
             throw new Zend_Gdata_App_Exception(
-                'A visibility must be provided for cell queries.');
+            'A visibility must be provided for cell queries.');
         }
 
         if ($this->_projection !== null) {
@@ -212,7 +211,7 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
         } else {
             #require_once 'Zend/Gdata/App/Exception.php';
             throw new Zend_Gdata_App_Exception(
-                'A projection must be provided for cell queries.');
+            'A projection must be provided for cell queries.');
         }
 
         $uri .= $this->getQueryString();

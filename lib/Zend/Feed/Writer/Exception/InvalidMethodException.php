@@ -19,13 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: InvalidMethodException.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Feed_Exception
  */
 #require_once 'Zend/Feed/Exception.php';
-
 
 /**
  * Feed exceptions
@@ -38,4 +35,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Writer_Exception_InvalidMethodException extends Zend_Exception
-{}
+{
+    
+}

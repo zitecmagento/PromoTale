@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Resource collection for report rows
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection
-    extends Mage_Core_Model_Resource_Db_Collection_Abstract
+class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Resource initializing
      *
@@ -53,11 +53,10 @@ class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection
     {
         parent::_initSelect();
         $this->getSelect()
-            ->join(
-                array('report' => $this->getTable('paypal/settlement_report')),
-                'report.report_id = main_table.report_id',
-                array('report.account_id', 'report.report_date')
-            );
+                ->join(
+                        array('report' => $this->getTable('paypal/settlement_report')), 'report.report_id = main_table.report_id', array(
+                    'report.account_id', 'report.report_date')
+        );
         return $this;
     }
 
@@ -72,4 +71,5 @@ class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection
         $this->getSelect()->where('report.account_id = ?', $accountId);
         return $this;
     }
+
 }

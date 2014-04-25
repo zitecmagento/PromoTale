@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Newsletter subscriber model for MySQL4
  *
@@ -34,4 +34,5 @@
  */
 class Mage_Newsletter_Model_Mysql4_Subscriber extends Mage_Newsletter_Model_Resource_Subscriber
 {
+    
 }

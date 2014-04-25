@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Permissions_Roles extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Get URL of adding new record
      *
@@ -52,4 +54,5 @@ class Mage_Adminhtml_Block_Permissions_Roles extends Mage_Adminhtml_Block_Templa
     {
         return $this->getChild('grid')->toHtml();
     }
+
 }

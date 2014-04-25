@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
 {
+
     protected $_columnGroupBy = 'period';
 
     public function __construct()
@@ -44,47 +46,45 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
 
     public function getResourceCollectionName()
     {
-        return ($this->getFilterData()->getData('report_type') == 'updated_at_order')
-            ? 'tax/report_updatedat_collection'
-            : 'tax/report_collection';
+        return ($this->getFilterData()->getData('report_type') == 'updated_at_order') ? 'tax/report_updatedat_collection' : 'tax/report_collection';
     }
 
     protected function _prepareColumns()
     {
         $this->addColumn('period', array(
-            'header'            => Mage::helper('sales')->__('Period'),
-            'index'             => 'period',
-            'width'             => '100',
-            'sortable'          => false,
-            'period_type'       => $this->getPeriodType(),
-            'renderer'          => 'adminhtml/report_sales_grid_column_renderer_date',
-            'totals_label'      => Mage::helper('sales')->__('Total'),
-            'subtotals_label'   => Mage::helper('sales')->__('Subtotal'),
+            'header' => Mage::helper('sales')->__('Period'),
+            'index' => 'period',
+            'width' => '100',
+            'sortable' => false,
+            'period_type' => $this->getPeriodType(),
+            'renderer' => 'adminhtml/report_sales_grid_column_renderer_date',
+            'totals_label' => Mage::helper('sales')->__('Total'),
+            'subtotals_label' => Mage::helper('sales')->__('Subtotal'),
             'html_decorators' => array('nobr'),
         ));
 
         $this->addColumn('code', array(
-            'header'    => Mage::helper('sales')->__('Tax'),
-            'index'     => 'code',
-            'type'      => 'string',
-            'sortable'  => false
+            'header' => Mage::helper('sales')->__('Tax'),
+            'index' => 'code',
+            'type' => 'string',
+            'sortable' => false
         ));
 
         $this->addColumn('percent', array(
-            'header'    => Mage::helper('sales')->__('Rate'),
-            'index'     => 'percent',
-            'type'      => 'number',
-            'width'     => '100',
-            'sortable'  => false
+            'header' => Mage::helper('sales')->__('Rate'),
+            'index' => 'percent',
+            'type' => 'number',
+            'width' => '100',
+            'sortable' => false
         ));
 
         $this->addColumn('orders_count', array(
-            'header'    => Mage::helper('sales')->__('Number of Orders'),
-            'index'     => 'orders_count',
-            'total'     => 'sum',
-            'type'      => 'number',
-            'width'     => '100',
-            'sortable'  => false
+            'header' => Mage::helper('sales')->__('Number of Orders'),
+            'index' => 'orders_count',
+            'total' => 'sum',
+            'type' => 'number',
+            'width' => '100',
+            'sortable' => false
         ));
 
         if ($this->getFilterData()->getStoreIds()) {
@@ -93,13 +93,13 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
         $currencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('tax_base_amount_sum', array(
-            'header'        => Mage::helper('sales')->__('Tax Amount'),
-            'type'          => 'currency',
+            'header' => Mage::helper('sales')->__('Tax Amount'),
+            'type' => 'currency',
             'currency_code' => $currencyCode,
-            'index'         => 'tax_base_amount_sum',
-            'total'         => 'sum',
-            'sortable'      => false,
-            'rate'          => $this->getRate($currencyCode),
+            'index' => 'tax_base_amount_sum',
+            'total' => 'sum',
+            'sortable' => false,
+            'rate' => $this->getRate($currencyCode),
         ));
 
         $this->addExportType('*/*/exportTaxCsv', Mage::helper('adminhtml')->__('CSV'));
@@ -112,12 +112,12 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
      * Preparing collection
      * Filter canceled statuses for orders in taxes
      *
-     *@return Mage_Adminhtml_Block_Report_Sales_Tax_Grid
+     * @return Mage_Adminhtml_Block_Report_Sales_Tax_Grid
      */
     protected function _prepareCollection()
     {
         $filterData = $this->getFilterData();
-        if(!$filterData->hasData('order_statuses')) {
+        if (!$filterData->hasData('order_statuses')) {
             $orderConfig = Mage::getModel('sales/order_config');
             $statusValues = array();
             $canceledStatuses = $orderConfig->getStateStatuses(Mage_Sales_Model_Order::STATE_CANCELED);
@@ -130,4 +130,5 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
         }
         return parent::_prepareCollection();
     }
+
 }

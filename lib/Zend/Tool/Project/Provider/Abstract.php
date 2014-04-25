@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 23202 2010-10-21 15:08:15Z ralph $
  */
-
 /**
  * @see Zend_Tool_Project_Profile
  */
@@ -44,7 +44,6 @@
  * @see Zend_Tool_Framework_Registry
  */
 #require_once 'Zend/Tool/Framework/Registry.php';
-
 #require_once 'Zend/Tool/Framework/Provider/Initializable.php';
 
 /**
@@ -53,19 +52,16 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Tool_Project_Provider_Abstract
-    extends Zend_Tool_Framework_Provider_Abstract
-    implements Zend_Tool_Framework_Provider_Initializable
+abstract class Zend_Tool_Project_Provider_Abstract extends Zend_Tool_Framework_Provider_Abstract implements Zend_Tool_Framework_Provider_Initializable
 {
 
     const NO_PROFILE_THROW_EXCEPTION = true;
-    const NO_PROFILE_RETURN_FALSE    = false;
+    const NO_PROFILE_RETURN_FALSE = false;
 
     /**
      * @var bool
      */
     protected static $_isInitialized = false;
-
     protected $_projectPath = null;
 
     /**
@@ -77,16 +73,16 @@ abstract class Zend_Tool_Project_Provider_Abstract
     {
         // initialize the ZF Contexts (only once per php request)
         if (!self::$_isInitialized) {
-            
+
             // load all base contexts ONCE
             $contextRegistry = Zend_Tool_Project_Context_Repository::getInstance();
             $contextRegistry->addContextsFromDirectory(
-                dirname(dirname(__FILE__)) . '/Context/Zf/', 'Zend_Tool_Project_Context_Zf_'
+                    dirname(dirname(__FILE__)) . '/Context/Zf/', 'Zend_Tool_Project_Context_Zf_'
             );
             $contextRegistry->addContextsFromDirectory(
-                dirname(dirname(__FILE__)) . '/Context/Filesystem/', 'Zend_Tool_Project_Context_Filesystem_'
+                    dirname(dirname(__FILE__)) . '/Context/Filesystem/', 'Zend_Tool_Project_Context_Filesystem_'
             );
-            
+
             // determine if there are project specfic providers ONCE
             $profilePath = $this->_findProfileDirectory();
             if ($this->_hasProjectProviderDirectory($profilePath . DIRECTORY_SEPARATOR . '.zfproject.xml')) {
@@ -95,7 +91,7 @@ abstract class Zend_Tool_Project_Provider_Abstract
                 $ppd = $profile->search('ProjectProvidersDirectory');
                 $ppd->loadProviders($this->_registry);
             }
-            
+
             self::$_isInitialized = true;
         }
 
@@ -103,7 +99,6 @@ abstract class Zend_Tool_Project_Provider_Abstract
         if ($contextClasses = $this->getContextClasses()) {
             $this->_loadContextClassesIntoRegistry($contextClasses);
         }
-
     }
 
     public function getContextClasses()
@@ -134,14 +129,14 @@ abstract class Zend_Tool_Project_Provider_Abstract
                 return false;
             }
         }
-        
+
         $profile = new Zend_Tool_Project_Profile();
         $profile->setAttribute('projectDirectory', $foundPath);
         $profile->loadFromFile();
         $this->_loadedProfile = $profile;
         return $profile;
     }
-    
+
     protected function _findProfileDirectory($projectDirectory = null, $searchParentDirectories = true)
     {
         // use the cwd if no directory was provided
@@ -166,7 +161,7 @@ abstract class Zend_Tool_Project_Provider_Abstract
                 unset($profile);
                 return $projectDirectoryAssembled;
             }
-            
+
             // break after first run if we are not to check upper directories
             if ($searchParentDirectories == false) {
                 break;
@@ -174,10 +169,10 @@ abstract class Zend_Tool_Project_Provider_Abstract
 
             array_pop($parentDirectoriesArray);
         }
-        
+
         return false;
     }
-    
+
     /**
      * Load the project profile from the current working directory, if not throw exception
      *
@@ -248,19 +243,19 @@ abstract class Zend_Tool_Project_Provider_Abstract
         if (!file_exists($pathToProfileFile)) {
             return false;
         }
-        
+
         $contents = file_get_contents($pathToProfileFile);
         if (strstr($contents, '<projectProvidersDirectory') === false) {
             return false;
         }
-        
+
         if (strstr($contents, '<projectProvidersDirectory enabled="false"')) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     /**
      * _loadContextClassesIntoRegistry() - This is called by the constructor
      * so that child providers can provide a list of contexts to load into the
@@ -276,4 +271,5 @@ abstract class Zend_Tool_Project_Provider_Abstract
             $registry->addContextClass($contextClass);
         }
     }
+
 }

@@ -20,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Error.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Zend_Gdata_App_Base
  */
@@ -73,8 +71,8 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
     protected $_reason = null;
     protected $_invalidInput = null;
 
-    public function __construct($errorCode = null, $reason = null,
-            $invalidInput = null) {
+    public function __construct($errorCode = null, $reason = null, $invalidInput = null)
+    {
         parent::__construct("Google Apps error received: $errorCode ($reason)");
         $this->_errorCode = $errorCode;
         $this->_reason = $reason;
@@ -88,8 +86,9 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      * @see getErrorCode
      * @param integer $value The new value for the error code.
      */
-    public function setErrorCode($value) {
-       $this->_errorCode = $value;
+    public function setErrorCode($value)
+    {
+        $this->_errorCode = $value;
     }
 
     /**
@@ -128,7 +127,8 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      * @see setErrorCode
      * @return integer The error code returned by the Google Apps server.
      */
-    public function getErrorCode() {
+    public function getErrorCode()
+    {
         return $this->_errorCode;
     }
 
@@ -138,8 +138,9 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      * @see getReason
      * @param string $value The reason this exception occurred.
      */
-    public function setReason($value) {
-       $this->_reason = $value;
+    public function setReason($value)
+    {
+        $this->_reason = $value;
     }
 
     /**
@@ -148,8 +149,9 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      * @see setReason
      * @return string The reason this exception occurred.
      */
-    public function getReason() {
-       return $this->_reason;
+    public function getReason()
+    {
+        return $this->_reason;
     }
 
     /**
@@ -158,8 +160,9 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      * @see getInvalidInput
      * @param string $value The invalid input that triggered this exception.
      */
-    public function setInvalidInput($value) {
-       $this->_invalidInput = $value;
+    public function setInvalidInput($value)
+    {
+        $this->_invalidInput = $value;
     }
 
     /**
@@ -168,8 +171,9 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      * @see setInvalidInput
      * @return string The reason this exception occurred.
      */
-    public function getInvalidInput() {
-       return $this->_invalidInput;
+    public function getInvalidInput()
+    {
+        return $this->_invalidInput;
     }
 
     /**
@@ -206,17 +210,17 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
     protected function takeAttributeFromDOM($attribute)
     {
         switch ($attribute->localName) {
-        case 'errorCode':
-            $this->_errorCode = $attribute->nodeValue;
-            break;
-        case 'reason':
-            $this->_reason = $attribute->nodeValue;
-            break;
-        case 'invalidInput':
-            $this->_invalidInput = $attribute->nodeValue;
-            break;
-        default:
-            parent::takeAttributeFromDOM($attribute);
+            case 'errorCode':
+                $this->_errorCode = $attribute->nodeValue;
+                break;
+            case 'reason':
+                $this->_reason = $attribute->nodeValue;
+                break;
+            case 'invalidInput':
+                $this->_invalidInput = $attribute->nodeValue;
+                break;
+            default:
+                parent::takeAttributeFromDOM($attribute);
         }
     }
 
@@ -225,9 +229,10 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return "Error " . $this->getErrorCode() . ": " . $this->getReason() .
-            "\n\tInvalid Input: \"" . $this->getInvalidInput() . "\"";
+                "\n\tInvalid Input: \"" . $this->getInvalidInput() . "\"";
     }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,7 +34,8 @@
  */
 class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstract
 {
-    public function __construct($attributes=array())
+
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setType('checkbox');
@@ -49,8 +51,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
     {
         if ($checked = $this->getChecked()) {
             $this->setData('checked', true);
-        }
-        else {
+        } else {
             $this->unsetData('checked');
         }
         return parent::getElementHtml();
@@ -62,7 +63,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
      * @param boolean $value
      * @return Varien_Data_Form_Element_Checkbox
      */
-    public function setIsChecked($value=false)
+    public function setIsChecked($value = false)
     {
         $this->setData('checked', $value);
         return $this;
@@ -73,7 +74,9 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
      *
      * @return boolean
      */
-    public function getIsChecked() {
+    public function getIsChecked()
+    {
         return $this->getData('checked');
     }
+
 }

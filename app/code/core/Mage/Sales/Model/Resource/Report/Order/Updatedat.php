@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Order entity resource model with aggregation by updated at
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Model_Resource_Report_Order_Updatedat extends Mage_Sales_Model_Resource_Report_Order_Createdat
 {
+
     /**
      * Model initialization
      *
@@ -54,4 +55,5 @@ class Mage_Sales_Model_Resource_Report_Order_Updatedat extends Mage_Sales_Model_
     {
         return $this->_aggregateByField('updated_at', $from, $to);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 class Zend_Queue_Message_Iterator implements Iterator, Countable
 {
+
     /**
      * The data for the queue message
      *
@@ -36,7 +38,7 @@ class Zend_Queue_Message_Iterator implements Iterator, Countable
      */
     protected $_data = array();
 
-     /**
+    /**
      * Connected is true if we have a reference to a live
      * Zend_Queue_Adapter_AdapterInterface object.
      * This is false after the Message has been deserialized.
@@ -66,7 +68,7 @@ class Zend_Queue_Message_Iterator implements Iterator, Countable
      */
     protected $_messageClass = 'Zend_Queue_Message';
 
-     /**
+    /**
      * Iterator pointer.
      *
      * @var integer
@@ -82,9 +84,9 @@ class Zend_Queue_Message_Iterator implements Iterator, Countable
     public function __construct(array $options = array())
     {
         if (isset($options['queue'])) {
-            $this->_queue      = $options['queue'];
+            $this->_queue = $options['queue'];
             $this->_queueClass = get_class($this->_queue);
-            $this->_connected  = true;
+            $this->_connected = true;
         } else {
             $this->_connected = false;
         }
@@ -178,7 +180,7 @@ class Zend_Queue_Message_Iterator implements Iterator, Countable
      */
     public function setQueue(Zend_Queue $queue)
     {
-        $this->_queue     = $queue;
+        $this->_queue = $queue;
         $this->_connected = false;
 
         // @todo This works only if we have iterated through
@@ -226,9 +228,7 @@ class Zend_Queue_Message_Iterator implements Iterator, Countable
      */
     public function current()
     {
-        return (($this->valid() === false)
-            ? null
-            : $this->_data[$this->_pointer]); // return the messages object
+        return (($this->valid() === false) ? null : $this->_data[$this->_pointer]); // return the messages object
     }
 
     /**
@@ -282,4 +282,5 @@ class Zend_Queue_Message_Iterator implements Iterator, Countable
     {
         return count($this->_data);
     }
+
 }

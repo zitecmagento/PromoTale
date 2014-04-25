@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Scalar.php 22024 2010-04-27 18:08:24Z matthew $
  */
-
-
 /**
  * Zend_XmlRpc_Value
  */
 #require_once 'Zend/XmlRpc/Value.php';
-
 
 /**
  * @category   Zend
@@ -36,6 +34,7 @@
  */
 abstract class Zend_XmlRpc_Value_Scalar extends Zend_XmlRpc_Value
 {
+
     /**
      * Generate the XML code that represent a scalar native MXL-RPC value
      *
@@ -46,8 +45,9 @@ abstract class Zend_XmlRpc_Value_Scalar extends Zend_XmlRpc_Value
         $generator = $this->getGenerator();
 
         $generator->openElement('value')
-                  ->openElement($this->_type, $this->_value)
-                  ->closeElement($this->_type)
-                  ->closeElement('value');
+                ->openElement($this->_type, $this->_value)
+                ->closeElement($this->_type)
+                ->closeElement('value');
     }
+
 }

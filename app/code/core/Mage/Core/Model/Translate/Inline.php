@@ -24,7 +24,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Inline Translations PHP part
  *
@@ -34,6 +33,7 @@
  */
 class Mage_Core_Model_Translate_Inline
 {
+
     /**
      * Regular Expression for detected and replace translate
      *
@@ -60,21 +60,21 @@ class Mage_Core_Model_Translate_Inline
      *
      * @var bool
      */
-    protected $_isScriptInserted    = false;
+    protected $_isScriptInserted = false;
 
     /**
      * Current content is JSON or Response body
      *
      * @var bool
      */
-    protected $_isJson              = false;
+    protected $_isJson = false;
 
     /**
      * Get max translate block in same tag
      *
      * @var int
      */
-    protected $_maxTranslateBlocks    = 7;
+    protected $_maxTranslateBlocks = 7;
 
     /**
      * List of global tags
@@ -82,8 +82,8 @@ class Mage_Core_Model_Translate_Inline
      * @var array
      */
     protected $_allowedTagsGlobal = array(
-        'script'    => 'String in Javascript',
-        'title'     => 'Page title',
+        'script' => 'String in Javascript',
+        'title' => 'Page title',
     );
 
     /**
@@ -92,42 +92,42 @@ class Mage_Core_Model_Translate_Inline
      * @var array
      */
     protected $_allowedTagsSimple = array(
-        'legend'        => 'Caption for the fieldset element',
-        'label'         => 'Label for an input element.',
-        'button'        => 'Push button',
-        'a'             => 'Link label',
-        'b'             => 'Bold text',
-        'strong'        => 'Strong emphasized text',
-        'i'             => 'Italic text',
-        'em'            => 'Emphasized text',
-        'u'             => 'Underlined text',
-        'sup'           => 'Superscript text',
-        'sub'           => 'Subscript text',
-        'span'          => 'Span element',
-        'small'         => 'Smaller text',
-        'big'           => 'Bigger text',
-        'address'       => 'Contact information',
-        'blockquote'    => 'Long quotation',
-        'q'             => 'Short quotation',
-        'cite'          => 'Citation',
-        'caption'       => 'Table caption',
-        'abbr'          => 'Abbreviated phrase',
-        'acronym'       => 'An acronym',
-        'var'           => 'Variable part of a text',
-        'dfn'           => 'Term',
-        'strike'        => 'Strikethrough text',
-        'del'           => 'Deleted text',
-        'ins'           => 'Inserted text',
-        'h1'            => 'Heading level 1',
-        'h2'            => 'Heading level 2',
-        'h3'            => 'Heading level 3',
-        'h4'            => 'Heading level 4',
-        'h5'            => 'Heading level 5',
-        'h6'            => 'Heading level 6',
-        'center'        => 'Centered text',
-        'select'        => 'List options',
-        'img'           => 'Image',
-        'input'         => 'Form element',
+        'legend' => 'Caption for the fieldset element',
+        'label' => 'Label for an input element.',
+        'button' => 'Push button',
+        'a' => 'Link label',
+        'b' => 'Bold text',
+        'strong' => 'Strong emphasized text',
+        'i' => 'Italic text',
+        'em' => 'Emphasized text',
+        'u' => 'Underlined text',
+        'sup' => 'Superscript text',
+        'sub' => 'Subscript text',
+        'span' => 'Span element',
+        'small' => 'Smaller text',
+        'big' => 'Bigger text',
+        'address' => 'Contact information',
+        'blockquote' => 'Long quotation',
+        'q' => 'Short quotation',
+        'cite' => 'Citation',
+        'caption' => 'Table caption',
+        'abbr' => 'Abbreviated phrase',
+        'acronym' => 'An acronym',
+        'var' => 'Variable part of a text',
+        'dfn' => 'Term',
+        'strike' => 'Strikethrough text',
+        'del' => 'Deleted text',
+        'ins' => 'Inserted text',
+        'h1' => 'Heading level 1',
+        'h2' => 'Heading level 2',
+        'h3' => 'Heading level 3',
+        'h4' => 'Heading level 4',
+        'h5' => 'Heading level 5',
+        'h6' => 'Heading level 6',
+        'center' => 'Centered text',
+        'select' => 'List options',
+        'img' => 'Image',
+        'input' => 'Form element',
     );
 
     /**
@@ -247,33 +247,31 @@ class Mage_Core_Model_Translate_Inline
      */
     protected function _insertInlineScriptsHtml()
     {
-        if ($this->_isScriptInserted || stripos($this->_content, '</body>')===false) {
+        if ($this->_isScriptInserted || stripos($this->_content, '</body>') === false) {
             return;
         }
 
         $baseJsUrl = Mage::getBaseUrl('js');
         $url_prefix = Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'core';
-        $ajaxUrl = Mage::getUrl($url_prefix . '/ajax/translate',
-            array('_secure'=>Mage::app()->getStore()->isCurrentlySecure()));
+        $ajaxUrl = Mage::getUrl($url_prefix . '/ajax/translate', array('_secure' => Mage::app()->getStore()->isCurrentlySecure()));
         $trigImg = Mage::getDesign()->getSkinUrl('images/fam_book_open.png');
 
         ob_start();
         $magentoSkinUrl = Mage::getDesign()->getSkinUrl('lib/prototype/windows/themes/magento.css');
-?>
-<!-- script type="text/javascript" src="<?php echo $baseJsUrl ?>prototype/effects.js"></script -->
-<script type="text/javascript" src="<?php echo $baseJsUrl ?>prototype/window.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo $baseJsUrl ?>prototype/windows/themes/default.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo $magentoSkinUrl; ?>"/>
+        ?>
+        <!-- script type="text/javascript" src="<?php echo $baseJsUrl ?>prototype/effects.js"></script -->
+        <script type="text/javascript" src="<?php echo $baseJsUrl ?>prototype/window.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo $baseJsUrl ?>prototype/windows/themes/default.css"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo $magentoSkinUrl; ?>"/>
 
-<script type="text/javascript" src="<?php echo $baseJsUrl ?>mage/translate_inline.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo $baseJsUrl ?>mage/translate_inline.css"/>
+        <script type="text/javascript" src="<?php echo $baseJsUrl ?>mage/translate_inline.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo $baseJsUrl ?>mage/translate_inline.css"/>
 
-<div id="translate-inline-trig"><img src="<?php echo $trigImg ?>" alt="[TR]"/></div>
-<script type="text/javascript">
-    new TranslateInline('translate-inline-trig', '<?php echo $ajaxUrl ?>', '<?php
-        echo Mage::getDesign()->getArea() ?>');
-</script>
-<?php
+        <div id="translate-inline-trig"><img src="<?php echo $trigImg ?>" alt="[TR]"/></div>
+        <script type="text/javascript">
+            new TranslateInline('translate-inline-trig', '<?php echo $ajaxUrl ?>', '<?php echo Mage::getDesign()->getArea() ?>');
+        </script>
+        <?php
         $html = ob_get_clean();
 
         $this->_content = str_ireplace('</body>', $html . '</body>', $this->_content);
@@ -349,7 +347,6 @@ class Mage_Core_Model_Translate_Inline
         return $trArr;
     }
 
-
     /**
      * Prepare tags inline translates
      *
@@ -368,30 +365,30 @@ class Mage_Core_Model_Translate_Inline
     protected function _prepareTagAttributesForContent(&$content)
     {
         if ($this->getIsJson()) {
-            $quoteHtml   = '\"';
+            $quoteHtml = '\"';
         } else {
-            $quoteHtml   = '"';
+            $quoteHtml = '"';
         }
 
-        $tagMatch   = array();
-        $nextTag    = 0;
+        $tagMatch = array();
+        $nextTag = 0;
         $tagRegExp = '#<([a-z]+)\s*?[^>]+?((' . $this->_tokenRegex . ')[^>]*?)+\\\\?/?>#iS';
         while (preg_match($tagRegExp, $content, $tagMatch, PREG_OFFSET_CAPTURE, $nextTag)) {
-            $tagHtml    = $tagMatch[0][0];
-            $m          = array();
+            $tagHtml = $tagMatch[0][0];
+            $m = array();
             $attrRegExp = '#' . $this->_tokenRegex . '#S';
             $trArr = $this->_getTranslateData($attrRegExp, $tagHtml, array($this, '_getAttributeLocation'));
             if ($trArr) {
-                $transRegExp = '# translate=' . $quoteHtml . '\[([^'.preg_quote($quoteHtml).']*)]' . $quoteHtml . '#i';
+                $transRegExp = '# translate=' . $quoteHtml . '\[([^' . preg_quote($quoteHtml) . ']*)]' . $quoteHtml . '#i';
                 if (preg_match($transRegExp, $tagHtml, $m)) {
                     $tagHtml = str_replace($m[0], '', $tagHtml); //remove tra
-                    $trAttr  = ' translate=' . $quoteHtml
-                        . htmlspecialchars('[' . $m[1] . ',' . join(',', $trArr) . ']') . $quoteHtml;
+                    $trAttr = ' translate=' . $quoteHtml
+                            . htmlspecialchars('[' . $m[1] . ',' . join(',', $trArr) . ']') . $quoteHtml;
                 } else {
-                    $trAttr  = ' translate=' . $quoteHtml
-                        . htmlspecialchars('[' . join(',', $trArr) . ']') . $quoteHtml;
+                    $trAttr = ' translate=' . $quoteHtml
+                            . htmlspecialchars('[' . join(',', $trArr) . ']') . $quoteHtml;
                 }
-                $tagHtml = substr_replace($tagHtml , $trAttr, strlen($tagMatch[1][0])+1, 1);
+                $tagHtml = substr_replace($tagHtml, $trAttr, strlen($tagMatch[1][0]) + 1, 1);
                 $content = substr_replace($content, $tagHtml, $tagMatch[0][1], strlen($tagMatch[0][0]));
             }
             $nextTag = $tagMatch[0][1] + strlen($tagHtml);
@@ -415,7 +412,8 @@ class Mage_Core_Model_Translate_Inline
     /**
      * Prepare special tags
      */
-    protected function _specialTags() {
+    protected function _specialTags()
+    {
         $this->_translateTags($this->_content, $this->_allowedTagsGlobal, '_applySpecialTagsFormat', false);
         $this->_translateTags($this->_content, $this->_allowedTagsSimple, '_applySimpleTagsFormat', true);
     }
@@ -431,11 +429,11 @@ class Mage_Core_Model_Translate_Inline
     protected function _applySpecialTagsFormat($tagHtml, $tagName, $trArr)
     {
         return $tagHtml . '<span class="translate-inline-' . $tagName
-            . '" translate='
-            . $this->_getHtmlQuote()
-            . htmlspecialchars('[' . join(',', $trArr) . ']')
-            . $this->_getHtmlQuote() . '>'
-            . strtoupper($tagName) . '</span>';
+                . '" translate='
+                . $this->_getHtmlQuote()
+                . htmlspecialchars('[' . join(',', $trArr) . ']')
+                . $this->_getHtmlQuote() . '>'
+                . strtoupper($tagName) . '</span>';
     }
 
     /**
@@ -449,10 +447,10 @@ class Mage_Core_Model_Translate_Inline
     protected function _applySimpleTagsFormat($tagHtml, $tagName, $trArr)
     {
         return substr($tagHtml, 0, strlen($tagName) + 1)
-            . ' translate='
-            . $this->_getHtmlQuote() . htmlspecialchars( '[' . join(',', $trArr) . ']')
-            . $this->_getHtmlQuote()
-            . substr($tagHtml, strlen($tagName) + 1);
+                . ' translate='
+                . $this->_getHtmlQuote() . htmlspecialchars('[' . join(',', $trArr) . ']')
+                . $this->_getHtmlQuote()
+                . substr($tagHtml, strlen($tagName) + 1);
     }
 
     /**
@@ -468,10 +466,10 @@ class Mage_Core_Model_Translate_Inline
         $nextTag = 0;
 
         $tags = implode('|', array_keys($tagsList));
-        $tagRegExp  = '#<(' . $tags . ')(/?>| \s*[^>]*+/?>)#iSU';
+        $tagRegExp = '#<(' . $tags . ')(/?>| \s*[^>]*+/?>)#iSU';
         $tagMatch = array();
         while (preg_match($tagRegExp, $content, $tagMatch, PREG_OFFSET_CAPTURE, $nextTag)) {
-            $tagName  = strtolower($tagMatch[1][0]);
+            $tagName = strtolower($tagMatch[1][0]);
             if (substr($tagMatch[0][0], -2) == '/>') {
                 $tagClosurePos = $tagMatch[0][1] + strlen($tagMatch[0][0]);
             } else {
@@ -488,17 +486,14 @@ class Mage_Core_Model_Translate_Inline
             $tagStartLength = strlen($tagMatch[0][0]);
 
             $tagHtml = $tagMatch[0][0]
-                . substr($content, $tagMatch[0][1] + $tagStartLength, $tagLength - $tagStartLength);
+                    . substr($content, $tagMatch[0][1] + $tagStartLength, $tagLength - $tagStartLength);
             $tagClosurePos = $tagMatch[0][1] + strlen($tagHtml);
 
             $trArr = $this->_getTranslateData(
-                '#' . $this->_tokenRegex . '#iS',
-                $tagHtml,
-                array($this, '_getTagLocation'),
-                array(
-                    'tagName' => $tagName,
-                    'tagList' => $tagsList
-                )
+                    '#' . $this->_tokenRegex . '#iS', $tagHtml, array($this, '_getTagLocation'), array(
+                'tagName' => $tagName,
+                'tagList' => $tagsList
+                    )
             );
 
             if (!empty($trArr)) {
@@ -522,7 +517,7 @@ class Mage_Core_Model_Translate_Inline
     private function findEndOfTag($body, $tagName, $from)
     {
         $openTag = '<' . $tagName;
-        $closeTag =  ($this->getIsJson() ? '<\\/' : '</') . $tagName;
+        $closeTag = ($this->getIsJson() ? '<\\/' : '</') . $tagName;
         $tagLength = strlen($tagName);
         $length = $tagLength + 1;
         $end = $from + 1;
@@ -531,9 +526,9 @@ class Mage_Core_Model_Translate_Inline
             if ($end === false) {
                 return false;
             }
-            $length = $end - $from  + $tagLength + 3;
+            $length = $end - $from + $tagLength + 3;
         }
-        if (preg_match('#<\\\\?\/' . $tagName .'\s*?>#i', $body, $tagMatch, null, $end)) {
+        if (preg_match('#<\\\\?\/' . $tagName . '\s*?>#i', $body, $tagMatch, null, $end)) {
             return $end + strlen($tagMatch[0]);
         } else {
             return false;
@@ -552,7 +547,7 @@ class Mage_Core_Model_Translate_Inline
         }
 
         $next = 0;
-        $m    = array();
+        $m = array();
         while (preg_match('#' . $this->_tokenRegex . '#', $this->_content, $m, PREG_OFFSET_CAPTURE, $next)) {
             $tr = json_encode(array(
                 'shown' => $m[1][0],
@@ -563,11 +558,10 @@ class Mage_Core_Model_Translate_Inline
             ));
 
             $spanHtml = '<span translate=' . $quoteHtml . htmlspecialchars('[' . $tr . ']') . $quoteHtml
-                . '>' . $m[1][0] . '</span>';
+                    . '>' . $m[1][0] . '</span>';
             $this->_content = substr_replace($this->_content, $spanHtml, $m[0][1], strlen($m[0][0]));
             $next = $m[0][1] + strlen($spanHtml) - 1;
         }
-
     }
 
     /**
@@ -578,7 +572,7 @@ class Mage_Core_Model_Translate_Inline
      */
     public function getIsAjaxRequest()
     {
-        return (bool)Mage::app()->getRequest()->getQuery('isAjax');
+        return (bool) Mage::app()->getRequest()->getQuery('isAjax');
     }
 
     /**
@@ -590,7 +584,7 @@ class Mage_Core_Model_Translate_Inline
      */
     public function setIsAjaxRequest($flag)
     {
-        Mage::app()->getRequest()->setQuery('isAjax', intval((bool)$flag));
+        Mage::app()->getRequest()->setQuery('isAjax', intval((bool) $flag));
         return $this;
     }
 
@@ -612,7 +606,8 @@ class Mage_Core_Model_Translate_Inline
      */
     public function setIsJson($flag)
     {
-        $this->_isJson = (bool)$flag;
+        $this->_isJson = (bool) $flag;
         return $this;
     }
+
 }

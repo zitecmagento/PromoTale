@@ -31,17 +31,17 @@
  * @see Mage_Customer_Block_Address_Edit
  */
 ?>
-<?php if($this->getTitle()): ?>
-<div class="page-title">
-    <h1><?php echo $this->getTitle() ?></h1>
-</div>
+<?php if ($this->getTitle()): ?>
+    <div class="page-title">
+        <h1><?php echo $this->getTitle() ?></h1>
+    </div>
 <?php endif; ?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="form-validate">
     <div class="fieldset">
-    <?php echo $this->getBlockHtml('formkey')?>
-    <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
-    <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
+        <?php echo $this->getBlockHtml('formkey') ?>
+        <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
+        <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
         <h2 class="legend"><?php echo $this->__('Contact Information') ?></h2>
         <ul class="form-list">
             <li class="fields">
@@ -72,28 +72,28 @@
     <div class="fieldset">
         <h2 class="legend"><?php echo $this->__('Address') ?></h2>
         <ul class="form-list">
-        <?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
+            <?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
             <li class="wide">
                 <label for="street_1" class="required"><em>*</em><?php echo $this->__('Street Address') ?></label>
                 <div class="input-box">
                     <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet(1)) ?>" title="<?php echo $this->__('Street Address') ?>" id="street_1" class="input-text <?php echo $_streetValidationClass ?>" />
                 </div>
             </li>
-        <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
-        <?php for ($_i = 2, $_n = $this->helper('customer/address')->getStreetLines(); $_i <= $_n; $_i++): ?>
-            <li class="wide">
-                <div class="input-box">
-                    <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet($_i)) ?>" title="<?php echo $this->__('Street Address %s', $_i) ?>" id="street_<?php echo $_i ?>" class="input-text <?php echo $_streetValidationClass ?>" />
-                </div>
-            </li>
-        <?php endfor; ?>
+            <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+            <?php for ($_i = 2, $_n = $this->helper('customer/address')->getStreetLines(); $_i <= $_n; $_i++): ?>
+                <li class="wide">
+                    <div class="input-box">
+                        <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet($_i)) ?>" title="<?php echo $this->__('Street Address %s', $_i) ?>" id="street_<?php echo $_i ?>" class="input-text <?php echo $_streetValidationClass ?>" />
+                    </div>
+                </li>
+            <?php endfor; ?>
             <?php if ($this->helper('customer/address')->isVatAttributeVisible()) : ?>
-            <li class="wide">
-                <label for="vat_id"><?php echo $this->__('VAT Number') ?></label>
-                <div class="input-box">
-                    <input type="text" name="vat_id" value="<?php echo $this->escapeHtml($this->getAddress()->getVatId()) ?>" title="<?php echo $this->__('VAT Number') ?>" id="vat_id" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('vat_id') ?>" />
-                </div>
-            </li>
+                <li class="wide">
+                    <label for="vat_id"><?php echo $this->__('VAT Number') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="vat_id" value="<?php echo $this->escapeHtml($this->getAddress()->getVatId()) ?>" title="<?php echo $this->__('VAT Number') ?>" id="vat_id" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('vat_id') ?>" />
+                    </div>
+                </li>
             <?php endif; ?>
             <li class="fields">
                 <div class="field">
@@ -106,12 +106,12 @@
                     <label for="region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
                     <div class="input-box">
                         <select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" class="validate-select" style="display:none;">
-                           <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+                            <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
                         </select>
                         <script type="text/javascript">
-                        //<![CDATA[
-                            $('region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
-                        //]]>
+                            //<![CDATA[
+                            $('region_id').setAttribute('defaultValue', "<?php echo $this->getAddress()->getRegionId() ?>");
+                            //]]>
                         </script>
                         <input type="text" id="region" name="region" value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" />
                     </div>
@@ -131,19 +131,19 @@
                     </div>
                 </div>
             </li>
-            <li<?php if($this->canSetAsDefaultBilling()) echo ' class="control"' ?>>
-                <?php if($this->isDefaultBilling()): ?>
+            <li<?php if ($this->canSetAsDefaultBilling()) echo ' class="control"' ?>>
+                <?php if ($this->isDefaultBilling()): ?>
                     <strong><?php echo $this->__('Default Billing Address') ?></strong>
-                <?php elseif($this->canSetAsDefaultBilling()): ?>
+                <?php elseif ($this->canSetAsDefaultBilling()): ?>
                     <input type="checkbox" id="primary_billing" name="default_billing" value="1" title="<?php echo $this->__('Use as My Default Billing Address') ?>" class="checkbox" /><label for="primary_billing"><?php echo $this->__('Use as my default billing address') ?></label>
                 <?php else: ?>
                     <input type="hidden" name="default_billing" value="1" />
                 <?php endif; ?>
             </li>
-            <li<?php if($this->canSetAsDefaultShipping()) echo ' class="control"' ?>>
-                <?php if($this->isDefaultShipping()): ?>
+            <li<?php if ($this->canSetAsDefaultShipping()) echo ' class="control"' ?>>
+                <?php if ($this->isDefaultShipping()): ?>
                     <strong><?php echo $this->__('Default Shipping Address') ?></strong>
-                <?php elseif($this->canSetAsDefaultShipping()): ?>
+                <?php elseif ($this->canSetAsDefaultShipping()): ?>
                     <input type="checkbox" id="primary_shipping" name="default_shipping" value="1" title="<?php echo $this->__('Use as My Default Shipping Address') ?>" class="checkbox" /><label for="primary_shipping"><?php echo $this->__('Use as my default shipping address') ?></label>
                 <?php else: ?>
                     <input type="hidden" name="default_shipping" value="1" />

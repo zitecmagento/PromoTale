@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_SalesRule_Model_System_Config_Source_Coupon_Format
 {
+
     /**
      * Options getter
      *
@@ -51,4 +53,5 @@ class Mage_SalesRule_Model_System_Config_Source_Coupon_Format
 
         return $result;
     }
+
 }

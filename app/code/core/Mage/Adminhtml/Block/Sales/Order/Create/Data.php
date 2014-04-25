@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Data extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
+
     /**
      * Retrieve avilable currency codes
      *
@@ -44,8 +46,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Data extends Mage_Adminhtml_Block_
         $codes = array();
         if (is_array($dirtyCodes) && count($dirtyCodes)) {
             $rates = Mage::getModel('directory/currency')->getCurrencyRates(
-                Mage::app()->getStore()->getBaseCurrency(),
-                $dirtyCodes
+                    Mage::app()->getStore()->getBaseCurrency(), $dirtyCodes
             );
             foreach ($dirtyCodes as $code) {
                 if (isset($rates[$code]) || $code == Mage::app()->getStore()->getBaseCurrencyCode()) {

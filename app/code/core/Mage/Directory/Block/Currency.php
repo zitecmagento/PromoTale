@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Directory_Block_Currency extends Mage_Core_Block_Template
 {
+
     /**
      * Retrieve count of currencies
      * Return 0 if only one currency
@@ -59,14 +61,13 @@ class Mage_Directory_Block_Currency extends Mage_Core_Block_Template
             $codes = Mage::app()->getStore()->getAvailableCurrencyCodes(true);
             if (is_array($codes) && count($codes) > 1) {
                 $rates = Mage::getModel('directory/currency')->getCurrencyRates(
-                    Mage::app()->getStore()->getBaseCurrency(),
-                    $codes
+                        Mage::app()->getStore()->getBaseCurrency(), $codes
                 );
 
                 foreach ($codes as $code) {
                     if (isset($rates[$code])) {
                         $currencies[$code] = Mage::app()->getLocale()
-                            ->getTranslation($code, 'nametocurrency');
+                                ->getTranslation($code, 'nametocurrency');
                     }
                 }
             }
@@ -112,4 +113,5 @@ class Mage_Directory_Block_Currency extends Mage_Core_Block_Template
 
         return $this->_getData('current_currency_code');
     }
+
 }

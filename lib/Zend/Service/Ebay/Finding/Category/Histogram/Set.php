@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Set.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Set_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Ebay_Finding_Category_Histogram_Set extends Zend_Service_Ebay_Finding_Set_Abstract
 {
+
     /**
      * Implement SeekableIterator::current()
      *
@@ -54,4 +55,5 @@ class Zend_Service_Ebay_Finding_Category_Histogram_Set extends Zend_Service_Ebay
         #require_once 'Zend/Service/Ebay/Finding/Category/Histogram.php';
         return new Zend_Service_Ebay_Finding_Category_Histogram($node);
     }
+
 }

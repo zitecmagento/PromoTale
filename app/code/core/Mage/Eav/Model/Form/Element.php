@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Form Element Model
  *
@@ -45,6 +45,7 @@
  */
 class Mage_Eav_Model_Form_Element extends Mage_Core_Model_Abstract
 {
+
     /**
      * Prefix of model events names
      *
@@ -108,9 +109,10 @@ class Mage_Eav_Model_Form_Element extends Mage_Core_Model_Abstract
     {
         if (!$this->hasData('attribute')) {
             $attribute = Mage::getSingleton('eav/config')
-                ->getAttribute($this->getEntityTypeId(), $this->getAttributeId());
+                    ->getAttribute($this->getEntityTypeId(), $this->getAttributeId());
             $this->setData('attribute', $attribute);
         }
         return $this->_getData('attribute');
     }
+
 }

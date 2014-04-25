@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Paypal_Model_Payflow_Request extends Varien_Object
 {
+
     /**
      * Set/Get attribute wrapper
      * Also add length path if key contains = or &
@@ -44,7 +45,7 @@ class Mage_Paypal_Model_Payflow_Request extends Varien_Object
      */
     public function __call($method, $args)
     {
-        $key = $this->_underscore(substr($method,3));
+        $key = $this->_underscore(substr($method, 3));
         if (isset($args[0]) && (strstr($args[0], '=') || strstr($args[0], '&'))) {
             $key .= '[' . strlen($args[0]) . ']';
         }
@@ -72,6 +73,7 @@ class Mage_Paypal_Model_Payflow_Request extends Varien_Object
                 //Varien_Profiler::stop('HAS: '.get_class($this).'::'.$method);
                 return isset($this->_data[$key]);
         }
-        throw new Varien_Exception("Invalid method ".get_class($this)."::".$method."(".print_r($args,1).")");
+        throw new Varien_Exception("Invalid method " . get_class($this) . "::" . $method . "(" . print_r($args, 1) . ")");
     }
+
 }

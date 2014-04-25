@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Products Report collection
  *
@@ -34,7 +34,8 @@
  */
 class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
-    const SELECT_COUNT_SQL_TYPE_CART           = 1;
+
+    const SELECT_COUNT_SQL_TYPE_CART = 1;
 
     /**
      * Product entity identifier
@@ -62,7 +63,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @var int
      */
-    protected $_selectCountSqlType               = 0;
+    protected $_selectCountSqlType = 0;
 
     /**
      * Init main class options
@@ -78,6 +79,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         parent::__construct();
     }
+
     /**
      * Set Type for COUNT SQL Select
      *
@@ -98,7 +100,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function setProductEntityId($entityId)
     {
-        $this->_productEntityId = (int)$entityId;
+        $this->_productEntityId = (int) $entityId;
         return $this;
     }
 
@@ -153,7 +155,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function getProductEntityTypeId()
     {
-        return  $this->_productEntityTypeId;
+        return $this->_productEntityTypeId;
     }
 
     /**
@@ -166,8 +168,8 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $this->_totals = new Varien_Object();
 
         $this->addAttributeToSelect('entity_id')
-            ->addAttributeToSelect('name')
-            ->addAttributeToSelect('price');
+                ->addAttributeToSelect('name')
+                ->addAttributeToSelect('price');
 
         return $this;
     }
@@ -182,14 +184,11 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if ($this->_selectCountSqlType == self::SELECT_COUNT_SQL_TYPE_CART) {
             $countSelect = clone $this->getSelect();
             $countSelect->reset()
-                ->from(
-                    array('quote_item_table' => $this->getTable('sales/quote_item')),
-                    array('COUNT(DISTINCT quote_item_table.product_id)'))
-                ->join(
-                    array('quote_table' => $this->getTable('sales/quote')),
-                    'quote_table.entity_id = quote_item_table.quote_id AND quote_table.is_active = 1',
-                    array()
-                );
+                    ->from(
+                            array('quote_item_table' => $this->getTable('sales/quote_item')), array('COUNT(DISTINCT quote_item_table.product_id)'))
+                    ->join(
+                            array('quote_table' => $this->getTable('sales/quote')), 'quote_table.entity_id = quote_item_table.quote_id AND quote_table.is_active = 1', array()
+            );
             return $countSelect;
         }
 
@@ -216,15 +215,13 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $countSelect->reset();
 
         $countSelect->from(array('quote_items' => $this->getTable('sales/quote_item')), 'COUNT(*)')
-            ->join(array('quotes' => $this->getTable('sales/quote')),
-                'quotes.entity_id = quote_items.quote_id AND quotes.is_active = 1',
-                array())
-            ->where("quote_items.product_id = e.entity_id");
+                ->join(array('quotes' => $this->getTable('sales/quote')), 'quotes.entity_id = quote_items.quote_id AND quotes.is_active = 1', array())
+                ->where("quote_items.product_id = e.entity_id");
 
         $this->getSelect()
-            ->columns(array("carts" => "({$countSelect})"))
-            ->group("e.{$this->getProductEntityId()}")
-            ->having('carts > ?', 0);
+                ->columns(array("carts" => "({$countSelect})"))
+                ->group("e.{$this->getProductEntityId()}")
+                ->having('carts > ?', 0);
 
         return $this;
     }
@@ -239,15 +236,13 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     public function addOrdersCount($from = '', $to = '')
     {
         $orderItemTableName = $this->getTable('sales/order_item');
-        $productFieldName   = sprintf('e.%s', $this->getProductEntityId());
+        $productFieldName = sprintf('e.%s', $this->getProductEntityId());
 
         $this->getSelect()
-            ->joinLeft(
-                array('order_items' => $orderItemTableName),
-                "order_items.product_id = {$productFieldName}",
-                array())
-            ->columns(array('orders' => 'COUNT(order_items2.item_id)'))
-            ->group($productFieldName);
+                ->joinLeft(
+                        array('order_items' => $orderItemTableName), "order_items.product_id = {$productFieldName}", array())
+                ->columns(array('orders' => 'COUNT(order_items2.item_id)'))
+                ->group($productFieldName);
 
         $dateFilter = array('order_items2.item_id = order_items.item_id');
         if ($from != '' && $to != '') {
@@ -255,11 +250,9 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
 
         $this->getSelect()
-            ->joinLeft(
-                array('order_items2' => $orderItemTableName),
-                implode(' AND ', $dateFilter),
-                array()
-            );
+                ->joinLeft(
+                        array('order_items2' => $orderItemTableName), implode(' AND ', $dateFilter), array()
+        );
 
         return $this;
     }
@@ -273,14 +266,13 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function addOrderedQty($from = '', $to = '')
     {
-        $adapter              = $this->getConnection();
-        $compositeTypeIds     = Mage::getSingleton('catalog/product_type')->getCompositeTypes();
-        $orderTableAliasName  = $adapter->quoteIdentifier('order');
+        $adapter = $this->getConnection();
+        $compositeTypeIds = Mage::getSingleton('catalog/product_type')->getCompositeTypes();
+        $orderTableAliasName = $adapter->quoteIdentifier('order');
 
-        $orderJoinCondition   = array(
+        $orderJoinCondition = array(
             $orderTableAliasName . '.entity_id = order_items.order_id',
             $adapter->quoteInto("{$orderTableAliasName}.state <> ?", Mage_Sales_Model_Order::STATE_CANCELED),
-
         );
 
         $productJoinCondition = array(
@@ -290,25 +282,20 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         );
 
         if ($from != '' && $to != '') {
-            $fieldName            = $orderTableAliasName . '.created_at';
+            $fieldName = $orderTableAliasName . '.created_at';
             $orderJoinCondition[] = $this->_prepareBetweenSql($fieldName, $from, $to);
         }
 
         $this->getSelect()->reset()
-            ->from(
-                array('order_items' => $this->getTable('sales/order_item')),
-                array(
+                ->from(
+                        array('order_items' => $this->getTable('sales/order_item')), array(
                     'ordered_qty' => 'SUM(order_items.qty_ordered)',
                     'order_items_name' => 'order_items.name'
                 ))
-            ->joinInner(
-                array('order' => $this->getTable('sales/order')),
-                implode(' AND ', $orderJoinCondition),
-                array())
-            ->joinLeft(
-                array('e' => $this->getProductEntityTableName()),
-                implode(' AND ', $productJoinCondition),
-                array(
+                ->joinInner(
+                        array('order' => $this->getTable('sales/order')), implode(' AND ', $orderJoinCondition), array())
+                ->joinLeft(
+                        array('e' => $this->getProductEntityTableName()), implode(' AND ', $productJoinCondition), array(
                     'entity_id' => 'order_items.product_id',
                     'entity_type_id' => 'e.entity_type_id',
                     'attribute_set_id' => 'e.attribute_set_id',
@@ -319,9 +306,9 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                     'created_at' => 'e.created_at',
                     'updated_at' => 'e.updated_at'
                 ))
-            ->where('parent_item_id IS NULL')
-            ->group('order_items.product_id')
-            ->having('SUM(order_items.qty_ordered) > ?', 0);
+                ->where('parent_item_id IS NULL')
+                ->group('order_items.product_id')
+                ->having('SUM(order_items.qty_ordered) > ?', 0);
         return $this;
     }
 
@@ -357,28 +344,25 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
          */
         foreach (Mage::getModel('reports/event_type')->getCollection() as $eventType) {
             if ($eventType->getEventName() == 'catalog_product_view') {
-                $productViewEvent = (int)$eventType->getId();
+                $productViewEvent = (int) $eventType->getId();
                 break;
             }
         }
 
         $this->getSelect()->reset()
-            ->from(
-                array('report_table_views' => $this->getTable('reports/event')),
-                array('views' => 'COUNT(report_table_views.event_id)'))
-            ->join(array('e' => $this->getProductEntityTableName()),
-                $this->getConnection()->quoteInto(
-                    "e.entity_id = report_table_views.object_id AND e.entity_type_id = ?",
-                    $this->getProductEntityTypeId()))
-            ->where('report_table_views.event_type_id = ?', $productViewEvent)
-            ->group('e.entity_id')
-            ->order('views ' . self::SORT_ORDER_DESC)
-            ->having('COUNT(report_table_views.event_id) > ?', 0);
+                ->from(
+                        array('report_table_views' => $this->getTable('reports/event')), array('views' => 'COUNT(report_table_views.event_id)'))
+                ->join(array('e' => $this->getProductEntityTableName()), $this->getConnection()->quoteInto(
+                                "e.entity_id = report_table_views.object_id AND e.entity_type_id = ?", $this->getProductEntityTypeId()))
+                ->where('report_table_views.event_type_id = ?', $productViewEvent)
+                ->group('e.entity_id')
+                ->order('views ' . self::SORT_ORDER_DESC)
+                ->having('COUNT(report_table_views.event_id) > ?', 0);
 
         if ($from != '' && $to != '') {
             $this->getSelect()
-                ->where('logged_at >= ?', $from)
-                ->where('logged_at <= ?', $to);
+                    ->where('logged_at >= ?', $from)
+                    ->where('logged_at <= ?', $to);
         }
 
         $this->_useAnalyticFunction = true;
@@ -395,10 +379,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     protected function _prepareBetweenSql($fieldName, $from, $to)
     {
-        return sprintf('(%s BETWEEN %s AND %s)',
-            $fieldName,
-            $this->getConnection()->quote($from),
-            $this->getConnection()->quote($to)
+        return sprintf('(%s BETWEEN %s AND %s)', $fieldName, $this->getConnection()->quote($from), $this->getConnection()->quote($to)
         );
     }
 
@@ -431,4 +412,5 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         return $this;
     }
+
 }

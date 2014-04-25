@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
 {
+
     /**
      * Retrieve filter HTML
      *
@@ -49,8 +50,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme
             ));
         }
         $html = sprintf('<select name="%s" id="%s" class="no-changes">', $this->_getHtmlName(), $this->_getHtmlId())
-            . $this->_drawOptions($options)
-            . '</select>';
+                . $this->_drawOptions($options)
+                . '</select>';
         return $html;
     }
 
@@ -65,7 +66,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme
         $options = $this->getColumn()->getOptions();
         if (empty($options) || !is_array($options)) {
             $options = Mage::getModel('core/design_source_design')
-                ->setIsFullLabel(true)->getAllOptions(false);
+                            ->setIsFullLabel(true)->getAllOptions(false);
         }
         return $options;
     }
@@ -83,19 +84,19 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme
         }
 
         $value = $this->getValue();
-        $html  = '';
+        $html = '';
 
         foreach ($options as $option) {
             if (!isset($option['value']) || !isset($option['label'])) {
                 continue;
             }
             if (is_array($option['value'])) {
-                $html .= '<optgroup label="'.$option['label'].'">'
-                    . $this->_drawOptions($option['value'])
-                    . '</optgroup>';
+                $html .= '<optgroup label="' . $option['label'] . '">'
+                        . $this->_drawOptions($option['value'])
+                        . '</optgroup>';
             } else {
                 $selected = (($option['value'] == $value && (!is_null($value))) ? ' selected="selected"' : '');
-                $html .= '<option value="'.$option['value'].'"'.$selected.'>'.$option['label'].'</option>';
+                $html .= '<option value="' . $option['value'] . '"' . $selected . '>' . $option['label'] . '</option>';
             }
         }
 
@@ -118,4 +119,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme
         }
         return array('eq' => $value);
     }
+
 }

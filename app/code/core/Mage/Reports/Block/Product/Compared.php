@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,7 +34,8 @@
  */
 class Mage_Reports_Block_Product_Compared extends Mage_Reports_Block_Product_Abstract
 {
-    const XML_PATH_RECENTLY_COMPARED_COUNT  = 'catalog/recently_products/compared_count';
+
+    const XML_PATH_RECENTLY_COMPARED_COUNT = 'catalog/recently_products/compared_count';
 
     /**
      * Compared Product Index model name
@@ -80,8 +82,8 @@ class Mage_Reports_Block_Product_Compared extends Mage_Reports_Block_Product_Abs
     public function getCacheTags()
     {
         return array_merge(
-            parent::getCacheTags(),
-            $this->getItemsTags($this->getItemsCollection())
+                parent::getCacheTags(), $this->getItemsTags($this->getItemsCollection())
         );
     }
+
 }

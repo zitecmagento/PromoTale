@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Rsa.php 23439 2010-11-23 21:10:14Z alexander $
  */
-
 /**
  * @see Zend_Crypt_Rsa_Key_Private
  */
@@ -43,22 +43,16 @@ class Zend_Crypt_Rsa
     const BASE64 = 'base64';
 
     protected $_privateKey;
-
     protected $_publicKey;
 
     /**
      * @var string
      */
     protected $_pemString;
-
     protected $_pemPath;
-
     protected $_certificateString;
-
     protected $_certificatePath;
-
     protected $_hashAlgorithm;
-
     protected $_passPhrase;
 
     /**
@@ -88,7 +82,7 @@ class Zend_Crypt_Rsa
         if (isset($options['passPhrase'])) {
             $this->_passPhrase = $options['passPhrase'];
         }
-        foreach ($options as $option=>$value) {
+        foreach ($options as $option => $value) {
             switch ($option) {
                 case 'pemString':
                     $this->setPemString($value);
@@ -134,9 +128,7 @@ class Zend_Crypt_Rsa
             $opensslKeyResource = $this->_privateKey->getOpensslKeyResource();
         }
         $result = openssl_sign(
-            $data, $signature,
-            $opensslKeyResource,
-            $this->getHashAlgorithm()
+                $data, $signature, $opensslKeyResource, $this->getHashAlgorithm()
         );
         if ($format == self::BASE64) {
             return base64_encode($signature);
@@ -155,9 +147,7 @@ class Zend_Crypt_Rsa
         if ($format == self::BASE64) {
             $signature = base64_decode($signature);
         }
-        $result = openssl_verify($data, $signature,
-            $this->getPublicKey()->getOpensslKeyResource(),
-            $this->getHashAlgorithm());
+        $result = openssl_verify($data, $signature, $this->getPublicKey()->getOpensslKeyResource(), $this->getHashAlgorithm());
         return $result;
     }
 
@@ -221,9 +211,9 @@ class Zend_Crypt_Rsa
         $details = openssl_pkey_get_details($resource);
         $publicKey = new Zend_Crypt_Rsa_Key_Public($details['key']);
         $return = new ArrayObject(array(
-           'privateKey'=>$privateKey,
-           'publicKey'=>$publicKey
-        ), ArrayObject::ARRAY_AS_PROPS);
+            'privateKey' => $privateKey,
+            'publicKey' => $publicKey
+                ), ArrayObject::ARRAY_AS_PROPS);
         return $return;
     }
 
@@ -233,10 +223,13 @@ class Zend_Crypt_Rsa
     public function setPemString($value)
     {
         $this->_pemString = $value;
-        try {
+        try
+        {
             $this->_privateKey = new Zend_Crypt_Rsa_Key_Private($this->_pemString, $this->_passPhrase);
             $this->_publicKey = $this->_privateKey->getPublicKey();
-        } catch (Zend_Crypt_Exception $e) {
+        }
+        catch (Zend_Crypt_Exception $e)
+        {
             $this->_privateKey = null;
             $this->_publicKey = new Zend_Crypt_Rsa_Key_Public($this->_pemString);
         }

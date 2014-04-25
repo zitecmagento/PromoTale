@@ -1,4 +1,5 @@
 <?php
+
 /**
  * {license_notice}
  *
@@ -13,12 +14,13 @@
  */
 class Magento_Profiler_Output_Html extends Magento_Profiler_OutputAbstract
 {
+
     /**
      * Display profiling results
      */
     public function display()
     {
-        $out  = '<table border="1" cellspacing="0" cellpadding="2">';
+        $out = '<table border="1" cellspacing="0" cellpadding="2">';
         $out .= '<caption>' . $this->_renderCaption() . '</caption>';
         $out .= '<tr>';
         foreach (array_keys($this->_getColumns()) as $columnLabel) {
@@ -48,4 +50,5 @@ class Magento_Profiler_Output_Html extends Magento_Profiler_OutputAbstract
         $nestingSep = preg_quote(Magento_Profiler::NESTING_SEPARATOR, '/');
         return preg_replace('/.+?' . $nestingSep . '/', '&middot;&nbsp;&nbsp;', $timerId);
     }
+
 }

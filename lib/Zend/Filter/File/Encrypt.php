@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Encrypt.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Encrypt
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Filter_File_Encrypt extends Zend_Filter_Encrypt
 {
+
     /**
      * New filename to set
      *
@@ -94,7 +95,7 @@ class Zend_Filter_File_Encrypt extends Zend_Filter_Encrypt
         }
 
         $encrypted = parent::filter($content);
-        $result    = file_put_contents($this->_filename, $encrypted);
+        $result = file_put_contents($this->_filename, $encrypted);
 
         if (!$result) {
             #require_once 'Zend/Filter/Exception.php';
@@ -103,4 +104,5 @@ class Zend_Filter_File_Encrypt extends Zend_Filter_Encrypt
 
         return $this->_filename;
     }
+
 }

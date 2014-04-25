@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,6 +36,7 @@
  */
 class Mage_Payment_Model_Config
 {
+
     protected static $_methods;
 
     /**
@@ -43,12 +45,12 @@ class Mage_Payment_Model_Config
      * @param   mixed $store
      * @return  array
      */
-    public function getActiveMethods($store=null)
+    public function getActiveMethods($store = null)
     {
         $methods = array();
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
-            if (Mage::getStoreConfigFlag('payment/'.$code.'/active', $store)) {
+            if (Mage::getStoreConfigFlag('payment/' . $code . '/active', $store)) {
                 if (array_key_exists('model', $methodConfig)) {
                     $methodModel = Mage::getModel($methodConfig['model']);
                     if ($methodModel && $methodModel->getConfigData('active', $store)) {
@@ -66,7 +68,7 @@ class Mage_Payment_Model_Config
      * @param mixed $store
      * @return array
      */
-    public function getAllMethods($store=null)
+    public function getAllMethods($store = null)
     {
         $methods = array();
         $config = Mage::getStoreConfig('payment', $store);
@@ -79,7 +81,7 @@ class Mage_Payment_Model_Config
         return $methods;
     }
 
-    protected function _getMethod($code, $config, $store=null)
+    protected function _getMethod($code, $config, $store = null)
     {
         if (isset(self::$_methods[$code])) {
             return self::$_methods[$code];
@@ -129,7 +131,7 @@ class Mage_Payment_Model_Config
     {
         $data = Mage::app()->getLocale()->getTranslationList('month');
         foreach ($data as $key => $value) {
-            $monthNum = ($key < 10) ? '0'.$key : $key;
+            $monthNum = ($key < 10) ? '0' . $key : $key;
             $data[$key] = $monthNum . ' - ' . $value;
         }
         return $data;
@@ -145,7 +147,7 @@ class Mage_Payment_Model_Config
         $years = array();
         $first = date("Y");
 
-        for ($index=0; $index <= 10; $index++) {
+        for ($index = 0; $index <= 10; $index++) {
             $year = $first + $index;
             $years[$year] = $year;
         }
@@ -176,6 +178,6 @@ class Mage_Payment_Model_Config
         } else {
             return -1;
         }
-
     }
+
 }

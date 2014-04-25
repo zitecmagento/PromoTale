@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Container.php 22791 2010-08-04 16:11:47Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Ebay_Finding_Aspect_Histogram_Container extends Zend_Service_Ebay_Finding_Abstract
 {
+
     /**
      * A characteristic of an item in a domain.
      *
@@ -88,7 +89,7 @@ class Zend_Service_Ebay_Finding_Aspect_Histogram_Container extends Zend_Service_
         $ns = Zend_Service_Ebay_Finding::XMLNS_FINDING;
 
         $this->domainDisplayName = $this->_query(".//$ns:domainDisplayName[1]", 'string');
-        $this->domainName        = $this->_query(".//$ns:domainName[1]", 'string');
+        $this->domainName = $this->_query(".//$ns:domainName[1]", 'string');
 
         $this->_attributes['aspect'] = array(
             'name' => $this->_query(".//$ns:aspect/@name", 'string', true)
@@ -103,4 +104,5 @@ class Zend_Service_Ebay_Finding_Aspect_Histogram_Container extends Zend_Service_
             $this->aspect = new Zend_Service_Ebay_Finding_Aspect_Set($nodes);
         }
     }
+
 }

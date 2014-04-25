@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales report refunded collection
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order
-    extends Mage_Sales_Model_Resource_Report_Collection_Abstract
+class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order extends Mage_Sales_Model_Resource_Report_Collection_Abstract
 {
+
     /**
      * Period format
      *
@@ -47,7 +47,7 @@ class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order
      *
      * @var array
      */
-    protected $_selectedColumns    = array();
+    protected $_selectedColumns = array();
 
     /**
      * Initialize custom resource model
@@ -68,7 +68,7 @@ class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order
      */
     protected function _getSelectedColumns()
     {
-        $adapter = $this->getConnection(); 
+        $adapter = $this->getConnection();
         if ('month' == $this->_period) {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m');
         } elseif ('year' == $this->_period) {
@@ -79,11 +79,11 @@ class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order
 
         if (!$this->isTotals()) {
             $this->_selectedColumns = array(
-                'period'            => $this->_periodFormat,
-                'orders_count'      => 'SUM(orders_count)',
-                'refunded'          => 'SUM(refunded)',
-                'online_refunded'   => 'SUM(online_refunded)',
-                'offline_refunded'  => 'SUM(offline_refunded)'
+                'period' => $this->_periodFormat,
+                'orders_count' => 'SUM(orders_count)',
+                'refunded' => 'SUM(refunded)',
+                'online_refunded' => 'SUM(online_refunded)',
+                'offline_refunded' => 'SUM(offline_refunded)'
             );
         }
 
@@ -102,12 +102,12 @@ class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order
     protected function _initSelect()
     {
         $this->getSelect()->from(
-            $this->getResource()->getMainTable() , 
-            $this->_getSelectedColumns()
+                $this->getResource()->getMainTable(), $this->_getSelectedColumns()
         );
         if (!$this->isTotals()) {
             $this->getSelect()->group($this->_periodFormat);
         }
         return $this;
     }
+
 }

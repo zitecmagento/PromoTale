@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 interface Zend_Currency_CurrencyInterface
 {
+
     /**
      * Returns the actual exchange rate
      *

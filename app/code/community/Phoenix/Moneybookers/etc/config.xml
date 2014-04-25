@@ -44,15 +44,17 @@
             </moneybookers_setup>
         </resources>
         <blocks>
-            <moneybookers><class>Phoenix_Moneybookers_Block</class></moneybookers>
+            <moneybookers>
+                <class>Phoenix_Moneybookers_Block</class>
+            </moneybookers>
         </blocks>
         <template>
             <email>
-               <moneybookers_activateemail>
-                   <label>Moneybookers activate email</label>
-                   <file>moneybookers_activateemail.html</file>
-                   <type>html</type>
-               </moneybookers_activateemail>
+                <moneybookers_activateemail>
+                    <label>Moneybookers activate email</label>
+                    <file>moneybookers_activateemail.html</file>
+                    <type>html</type>
+                </moneybookers_activateemail>
             </email>
         </template>
         <payment>
@@ -92,7 +94,7 @@
         </layout>
     </frontend>
     <admin>
-         <routers>
+        <routers>
             <adminhtml>
                 <args>
                     <modules>

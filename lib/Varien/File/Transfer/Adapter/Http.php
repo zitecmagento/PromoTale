@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Varien_File_Transfer_Adapter_Http
 {
+
     protected $_mimeTypes = array(
         'txt' => 'text/plain',
         'htm' => 'text/html',
@@ -42,7 +44,6 @@ class Varien_File_Transfer_Adapter_Http
         'xml' => 'application/xml',
         'swf' => 'application/x-shockwave-flash',
         'flv' => 'video/x-flv',
-
         // images
         'png' => 'image/png',
         'jpe' => 'image/jpeg',
@@ -55,19 +56,16 @@ class Varien_File_Transfer_Adapter_Http
         'tif' => 'image/tiff',
         'svg' => 'image/svg+xml',
         'svgz' => 'image/svg+xml',
-
         // archives
         'zip' => 'application/zip',
         'rar' => 'application/x-rar-compressed',
         'exe' => 'application/x-msdownload',
         'msi' => 'application/x-msdownload',
         'cab' => 'application/vnd.ms-cab-compressed',
-
         // audio/video
         'mp3' => 'audio/mpeg',
         'qt' => 'video/quicktime',
         'mov' => 'video/quicktime',
-
         // adobe
         'pdf' => 'application/pdf',
         'psd' => 'image/vnd.adobe.photoshop',

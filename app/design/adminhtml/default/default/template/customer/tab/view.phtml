@@ -33,8 +33,8 @@
 $lastLoginDateAdmin = $this->getLastLoginDate();
 $lastLoginDateStore = $this->getStoreLastLoginDate();
 
-$createDateAdmin    = $this->getCreateDate();
-$createDateStore    = $this->getStoreCreateDate();
+$createDateAdmin = $this->getCreateDate();
+$createDateStore = $this->getStoreCreateDate();
 ?>
 <div class="entry-edit">
     <div class="entry-edit-head"><h4 class="icon-head head-customer-view"><?php echo Mage::helper('customer')->__('Personal Information') ?></h4></div>
@@ -45,10 +45,10 @@ $createDateStore    = $this->getStoreCreateDate();
                 <td><?php echo $lastLoginDateAdmin ?> (<?php echo $this->getCurrentStatus() ?>)</td>
             </tr>
             <?php if ($lastLoginDateAdmin != $lastLoginDateStore): ?>
-            <tr>
-                <td><strong><?php echo $this->__('Last Logged In (%s):', $this->getStoreLastLoginDateTimezone()) ?></strong></td>
-                <td><?php echo $lastLoginDateStore ?> (<?php echo $this->getCurrentStatus() ?>)</td>
-            </tr>
+                <tr>
+                    <td><strong><?php echo $this->__('Last Logged In (%s):', $this->getStoreLastLoginDateTimezone()) ?></strong></td>
+                    <td><?php echo $lastLoginDateStore ?> (<?php echo $this->getCurrentStatus() ?>)</td>
+                </tr>
             <?php endif; ?>
             <tr>
                 <td><strong><?php echo $this->__('Confirmed email:') ?></strong></td>
@@ -59,10 +59,10 @@ $createDateStore    = $this->getStoreCreateDate();
                 <td><?php echo $createDateAdmin ?></td>
             </tr>
             <?php if ($createDateAdmin != $createDateStore): ?>
-            <tr>
-                <td><strong><?php echo $this->__('Account Created on (%s):', $this->getStoreCreateDateTimezone()) ?></strong></td>
-                <td><?php echo $createDateStore ?></td>
-            </tr>
+                <tr>
+                    <td><strong><?php echo $this->__('Account Created on (%s):', $this->getStoreCreateDateTimezone()) ?></strong></td>
+                    <td><?php echo $createDateStore ?></td>
+                </tr>
             <?php endif; ?>
             <tr>
                 <td><strong><?php echo $this->__('Account Created in:') ?></strong></td>

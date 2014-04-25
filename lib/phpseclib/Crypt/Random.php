@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -76,14 +77,14 @@ function crypt_random($min = 0, $max = 0x7FFFFFFF)
     }
 
     /* Prior to PHP 4.2.0, mt_srand() had to be called before mt_rand() could be called.
-       Prior to PHP 5.2.6, mt_rand()'s automatic seeding was subpar, as elaborated here:
+      Prior to PHP 5.2.6, mt_rand()'s automatic seeding was subpar, as elaborated here:
 
-       http://www.suspekt.org/2008/08/17/mt_srand-and-not-so-random-numbers/
+      http://www.suspekt.org/2008/08/17/mt_srand-and-not-so-random-numbers/
 
-       The seeding routine is pretty much ripped from PHP's own internal GENERATE_SEED() macro:
+      The seeding routine is pretty much ripped from PHP's own internal GENERATE_SEED() macro:
 
-       http://svn.php.net/viewvc/php/php-src/branches/PHP_5_3_2/ext/standard/php_rand.h?view=markup */
-    if (version_compare(PHP_VERSION, '5.2.5', '<=')) { 
+      http://svn.php.net/viewvc/php/php-src/branches/PHP_5_3_2/ext/standard/php_rand.h?view=markup */
+    if (version_compare(PHP_VERSION, '5.2.5', '<=')) {
         static $seeded;
         if (!isset($seeded)) {
             $seeded = true;

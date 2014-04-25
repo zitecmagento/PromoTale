@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Review_Grid_Renderer_Type extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     public function render(Varien_Object $row)
     {
 
@@ -48,4 +49,7 @@ class Mage_Adminhtml_Block_Review_Grid_Renderer_Type extends Mage_Adminhtml_Bloc
         }
 //		return ($row->getCustomerId() ? Mage::helper('review')->__('Customer') : Mage::helper('review')->__('Guest'));
     }
-}// Class Mage_Adminhtml_Block_Review_Grid_Renderer_Type END
+
+}
+
+// Class Mage_Adminhtml_Block_Review_Grid_Renderer_Type END

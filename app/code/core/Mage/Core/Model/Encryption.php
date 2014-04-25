@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,10 +34,12 @@
  */
 class Mage_Core_Model_Encryption
 {
+
     /**
      * @var Varien_Crypt_Mcrypt
      */
     protected $_crypt;
+
     /**
      * @var Mage_Core_Helper_Data
      */
@@ -115,7 +118,7 @@ class Mage_Core_Model_Encryption
     {
         if (!$this->_crypt) {
             if (null === $key) {
-                $key = (string)Mage::getConfig()->getNode('global/crypt/key');
+                $key = (string) Mage::getConfig()->getNode('global/crypt/key');
             }
             $this->_crypt = Varien_Crypt::factory()->init($key);
         }
@@ -130,7 +133,7 @@ class Mage_Core_Model_Encryption
      */
     public function encrypt($data)
     {
-        return base64_encode($this->_getCrypt()->encrypt((string)$data));
+        return base64_encode($this->_getCrypt()->encrypt((string) $data));
     }
 
     /**
@@ -141,7 +144,7 @@ class Mage_Core_Model_Encryption
      */
     public function decrypt($data)
     {
-        return str_replace("\x0", '', trim($this->_getCrypt()->decrypt(base64_decode((string)$data))));
+        return str_replace("\x0", '', trim($this->_getCrypt()->decrypt(base64_decode((string) $data))));
     }
 
     /**
@@ -154,4 +157,5 @@ class Mage_Core_Model_Encryption
     {
         return $this->_getCrypt($key);
     }
+
 }

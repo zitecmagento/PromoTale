@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Checkbox extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
+
     public function getHtml()
     {
         return '<span class="head-massaction">' . parent::getHtml() . '</span>';
@@ -60,13 +62,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Checkbox extends Mage_Admin
     {
         if ($this->getValue()) {
             return $this->getColumn()->getValue();
-        }
-        else {
+        } else {
             return array(
-                array('neq'=>$this->getColumn()->getValue()),
-                array('is'=>new Zend_Db_Expr('NULL'))
+                array('neq' => $this->getColumn()->getValue()),
+                array('is' => new Zend_Db_Expr('NULL'))
             );
         }
         //return array('like'=>'%'.$this->getValue().'%');
     }
+
 }

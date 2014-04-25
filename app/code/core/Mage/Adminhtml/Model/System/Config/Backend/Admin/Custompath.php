@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml backend model for "Custom Admin Path" option
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custompath extends Mage_Core_Model_Config_Data
 {
+
     /**
      * Check whether redirect should be set
      *
@@ -46,4 +47,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custompath extends Mage_C
         }
         return $this;
     }
+
 }

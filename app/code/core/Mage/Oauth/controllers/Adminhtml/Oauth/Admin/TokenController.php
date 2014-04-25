@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,6 +36,7 @@
  */
 class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Init titles
      *
@@ -89,7 +91,8 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
             return;
         }
 
-        try {
+        try
+        {
             /** @var $user Mage_Admin_Model_User */
             $user = Mage::getSingleton('admin/session')->getData('user');
 
@@ -112,9 +115,13 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
                 $message = $this->__('Selected entries enabled.');
             }
             $this->_getSession()->addSuccess($message);
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($this->__('An error occurred on update revoke status.'));
             Mage::logException($e);
         }
@@ -135,7 +142,8 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
             return;
         }
 
-        try {
+        try
+        {
             /** @var $user Mage_Admin_Model_User */
             $user = Mage::getSingleton('admin/session')->getData('user');
 
@@ -151,9 +159,13 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
                 $item->delete();
             }
             $this->_getSession()->addSuccess($this->__('Selected entries has been deleted.'));
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($this->__('An error occurred on delete action.'));
             Mage::logException($e);
         }
@@ -171,4 +183,5 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
         $session = Mage::getSingleton('admin/session');
         return $session->isAllowed('system/acl/admin_token');
     }
+
 }

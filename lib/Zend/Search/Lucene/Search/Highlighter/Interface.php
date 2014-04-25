@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Interface.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -30,6 +30,7 @@
  */
 interface Zend_Search_Lucene_Search_Highlighter_Interface
 {
+
     /**
      * Set document for highlighting.
      *

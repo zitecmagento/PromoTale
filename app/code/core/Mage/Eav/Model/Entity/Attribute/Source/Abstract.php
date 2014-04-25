@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Entity/Attribute/Model - attribute selection source abstract
  *
@@ -32,9 +32,9 @@
  * @package    Mage_Eav
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract
-    implements Mage_Eav_Model_Entity_Attribute_Source_Interface
+abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_Eav_Model_Entity_Attribute_Source_Interface
 {
+
     /**
      * Reference to the attribute instance
      *
@@ -47,7 +47,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract
      *
      * @var array
      */
-    protected $_options                 = null;
+    protected $_options = null;
 
     /**
      * Set attribute instance
@@ -81,11 +81,12 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract
     {
         $options = $this->getAllOptions();
         // Fixed for tax_class_id and custom_design
-        if (sizeof($options) > 0) foreach($options as $option) {
-            if (isset($option['value']) && $option['value'] == $value) {
-                return isset($option['label']) ? $option['label'] : $option['value'];
-            }
-        } // End
+        if (sizeof($options) > 0)
+            foreach ($options as $option) {
+                if (isset($option['value']) && $option['value'] == $value) {
+                    return isset($option['label']) ? $option['label'] : $option['value'];
+                }
+            } // End
         if (isset($options[$value])) {
             return $options[$value];
         }
@@ -95,7 +96,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract
     public function getOptionId($value)
     {
         foreach ($this->getAllOptions() as $option) {
-            if (strcasecmp($option['label'], $value)==0 || $option['value'] == $value) {
+            if (strcasecmp($option['label'], $value) == 0 || $option['value'] == $value) {
                 return $option['value'];
             }
         }
@@ -109,7 +110,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract
      * @param string $dir direction
      * @return Mage_Eav_Model_Entity_Attribute_Source_Abstract
      */
-    public function addValueSortToCollection($collection, $dir = Varien_Data_Collection::SORT_ORDER_DESC) {
+    public function addValueSortToCollection($collection, $dir = Varien_Data_Collection::SORT_ORDER_DESC)
+    {
         return $this;
     }
 
@@ -154,4 +156,5 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract
     {
         return $this->getOptionText($value);
     }
+
 }

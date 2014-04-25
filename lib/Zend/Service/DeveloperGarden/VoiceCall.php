@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: VoiceCall.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Client_ClientAbstract
  */
@@ -78,9 +78,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_VoiceCall
-    extends Zend_Service_DeveloperGarden_Client_ClientAbstract
+class Zend_Service_DeveloperGarden_VoiceCall extends Zend_Service_DeveloperGarden_Client_ClientAbstract
 {
+
     /**
      * wsdl file
      *
@@ -102,11 +102,11 @@ class Zend_Service_DeveloperGarden_VoiceCall
      *
      */
     protected $_classMap = array(
-        'newCallResponse'          => 'Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse',
+        'newCallResponse' => 'Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse',
         'newCallSequencedResponse' => 'Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallSequencedResponse',
-        'tearDownCallResponse'     => 'Zend_Service_DeveloperGarden_Response_VoiceButler_TearDownCallResponse',
-        'callStatusResponse'       => 'Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse',
-        'callStatus2Response'      => 'Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatus2Response'
+        'tearDownCallResponse' => 'Zend_Service_DeveloperGarden_Response_VoiceButler_TearDownCallResponse',
+        'callStatusResponse' => 'Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse',
+        'callStatus2Response' => 'Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatus2Response'
     );
 
     /**
@@ -122,9 +122,9 @@ class Zend_Service_DeveloperGarden_VoiceCall
      * @param string $greeter
      * @return Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse
      */
-    public function newCall($aNumber, $bNumber, $expiration, $maxDuration,
-        $account = null, $privacyA = null, $privacyB = null, $greeter = null
-    ) {
+    public function newCall($aNumber, $bNumber, $expiration, $maxDuration, $account = null, $privacyA = null, $privacyB = null, $greeter = null
+    )
+    {
         $request = new Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall(
                 $this->getEnvironment()
         );
@@ -143,7 +143,6 @@ class Zend_Service_DeveloperGarden_VoiceCall
         return $result->parse();
     }
 
-
     /**
      * init a new call with the given params but specially here,
      * you can define a set of numbers to be called if the first number
@@ -161,9 +160,9 @@ class Zend_Service_DeveloperGarden_VoiceCall
      * @param string $greeter
      * @return Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallSequencedResponse
      */
-    public function newCallSequenced($aNumber, $bNumber, $expiration, $maxDuration,
-        $maxWait, $account = null, $privacyA = null, $privacyB = null, $greeter = null
-    ) {
+    public function newCallSequenced($aNumber, $bNumber, $expiration, $maxDuration, $maxWait, $account = null, $privacyA = null, $privacyB = null, $greeter = null
+    )
+    {
         $request = new Zend_Service_DeveloperGarden_Request_VoiceButler_NewCallSequenced(
                 $this->getEnvironment()
         );
@@ -192,8 +191,7 @@ class Zend_Service_DeveloperGarden_VoiceCall
     public function tearDownCall($sessionId)
     {
         $request = new Zend_Service_DeveloperGarden_Request_VoiceButler_TearDownCall(
-            $this->getEnvironment(),
-            $sessionId
+                $this->getEnvironment(), $sessionId
         );
         $result = $this->getSoapClient()->tearDownCall(array(
             'request' => $request
@@ -212,9 +210,7 @@ class Zend_Service_DeveloperGarden_VoiceCall
     public function callStatus($sessionId, $keepAlive = null)
     {
         $request = new Zend_Service_DeveloperGarden_Request_VoiceButler_CallStatus(
-            $this->getEnvironment(),
-            $sessionId,
-            $keepAlive
+                $this->getEnvironment(), $sessionId, $keepAlive
         );
 
         $result = $this->getSoapClient()->callStatus2(array(
@@ -223,4 +219,5 @@ class Zend_Service_DeveloperGarden_VoiceCall
 
         return $result->parse();
     }
+
 }

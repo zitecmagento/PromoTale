@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,16 +31,14 @@
  * @method Mage_Catalog_Model_Product_Condition setTable(string $tableName)
  * @method Mage_Catalog_Model_Product_Condition setPkFieldName(string $fieldName)
  */
-class Mage_Catalog_Model_Product_Condition extends Varien_Object
-    implements Mage_Catalog_Model_Product_Condition_Interface
+class Mage_Catalog_Model_Product_Condition extends Varien_Object implements Mage_Catalog_Model_Product_Condition_Interface
 {
+
     public function applyToCollection($collection)
     {
         if ($this->getTable() && $this->getPkFieldName()) {
             $collection->joinTable(
-                $this->getTable(),
-                $this->getPkFieldName().'=entity_id',
-                array('affected_product_id'=>$this->getPkFieldName())
+                    $this->getTable(), $this->getPkFieldName() . '=entity_id', array('affected_product_id' => $this->getPkFieldName())
             );
         }
         return $this;
@@ -49,9 +48,10 @@ class Mage_Catalog_Model_Product_Condition extends Varien_Object
     {
         if ($this->getTable() && $this->getPkFieldName()) {
             $select = $dbAdapter->select()
-                ->from($this->getTable(), $this->getPkFieldName());
+                    ->from($this->getTable(), $this->getPkFieldName());
             return $select;
         }
         return '';
     }
+
 }

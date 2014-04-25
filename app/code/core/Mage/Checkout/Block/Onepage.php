@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Checkout_Block_Onepage extends Mage_Checkout_Block_Onepage_Abstract
 {
+
     /**
      * Get 'one step checkout' step data
      *
@@ -63,4 +65,5 @@ class Mage_Checkout_Block_Onepage extends Mage_Checkout_Block_Onepage_Abstract
     {
         return $this->isCustomerLoggedIn() ? 'billing' : 'login';
     }
+
 }

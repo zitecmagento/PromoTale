@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,27 +24,26 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
 $installer->startSetup();
 
 $select = $installer->getConnection()->select()
-    ->from($installer->getTable('catalog/category_product_index'), array(
-        'category_id' => 'category_id',
-        'product_id'  => 'product_id',
-        'is_parent'   => 'is_parent',
-        'store_id'    => 'store_id',
-        'rows_count'  => 'COUNT(*)'))
-    ->group(array('category_id' , 'product_id' , 'is_parent' , 'store_id'))
-    ->having('rows_count > 1');
+        ->from($installer->getTable('catalog/category_product_index'), array(
+            'category_id' => 'category_id',
+            'product_id' => 'product_id',
+            'is_parent' => 'is_parent',
+            'store_id' => 'store_id',
+            'rows_count' => 'COUNT(*)'))
+        ->group(array('category_id', 'product_id', 'is_parent', 'store_id'))
+        ->having('rows_count > 1');
 $query = $installer->getConnection()->query($select);
 
 while ($row = $query->fetch()) {
     $sql = 'DELETE FROM `' . $installer->getTable('catalog/category_product_index') . '`'
-        . ' WHERE category_id=? AND product_id=? AND is_parent=? AND store_id=?'
-        . ' LIMIT ' . ($row['rows_count'] - 1);
+            . ' WHERE category_id=? AND product_id=? AND is_parent=? AND store_id=?'
+            . ' LIMIT ' . ($row['rows_count'] - 1);
     $installer->getConnection()->query($sql, array(
         $row['category_id'],
         $row['product_id'],
@@ -53,14 +53,11 @@ while ($row = $query->fetch()) {
 }
 
 $installer->getConnection()->dropKey(
-    $installer->getTable('catalog/category_product_index'),
-    'UNQ_CATEGORY_PRODUCT'
+        $installer->getTable('catalog/category_product_index'), 'UNQ_CATEGORY_PRODUCT'
 );
 $installer->getConnection()->addKey(
-    $installer->getTable('catalog/category_product_index'),
-    'UNQ_CATEGORY_PRODUCT',
-    array('category_id', 'product_id', 'is_parent', 'store_id'),
-    'unique'
+        $installer->getTable('catalog/category_product_index'), 'UNQ_CATEGORY_PRODUCT', array('category_id', 'product_id',
+    'is_parent', 'store_id'), 'unique'
 );
 
 $installer->endSetup();

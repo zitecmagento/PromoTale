@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product qty increments block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
 {
+
     /**
      * Qty Increments cache
      *
@@ -86,4 +87,5 @@ class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
     {
         return array_merge(parent::getCacheTags(), $this->_getProduct()->getCacheIdTags());
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Recurring profile collection
  *
@@ -34,19 +34,20 @@
  */
 class Mage_Sales_Model_Resource_Recurring_Profile_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix    = 'sales_recurring_profile_collection';
+    protected $_eventPrefix = 'sales_recurring_profile_collection';
 
     /**
      * Event object
      *
      * @var string
      */
-    protected $_eventObject    = 'recurring_profile_collection';
+    protected $_eventObject = 'recurring_profile_collection';
 
     /**
      * Entity initialization
@@ -56,4 +57,5 @@ class Mage_Sales_Model_Resource_Recurring_Profile_Collection extends Mage_Core_M
     {
         $this->_init('sales/recurring_profile');
     }
+
 }

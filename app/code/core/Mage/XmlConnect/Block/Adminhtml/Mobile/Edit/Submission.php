@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Submission extends Mage_Adminhtml_Block_Widget_Tabs
 {
+
     /**
      * Constructor
      *
@@ -45,4 +47,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Submission extends Mage_Adminh
         $this->setId('mobile_app_submit');
         $this->setDestElementId('content');
     }
+
 }

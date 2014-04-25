@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Backup_Filesystem extends Mage_Backup_Abstract
 {
+
     /**
      * Paths that ignored when creating or rolling back snapshot
      *
@@ -88,8 +90,7 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
         set_time_limit(0);
         ignore_user_abort(true);
 
-        $rollbackWorker = $this->_useFtp ? new Mage_Backup_Filesystem_Rollback_Ftp($this)
-            : new Mage_Backup_Filesystem_Rollback_Fs($this);
+        $rollbackWorker = $this->_useFtp ? new Mage_Backup_Filesystem_Rollback_Ftp($this) : new Mage_Backup_Filesystem_Rollback_Fs($this);
         $rollbackWorker->run();
 
         $this->_lastOperationSucceed = true;
@@ -113,9 +114,7 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
         $fsHelper = new Mage_Backup_Filesystem_Helper();
 
         $filesInfo = $fsHelper->getInfo(
-            $this->getRootDir(),
-            Mage_Backup_Filesystem_Helper::INFO_READABLE | Mage_Backup_Filesystem_Helper::INFO_SIZE,
-            $this->getIgnorePaths()
+                $this->getRootDir(), Mage_Backup_Filesystem_Helper::INFO_READABLE | Mage_Backup_Filesystem_Helper::INFO_SIZE, $this->getIgnorePaths()
         );
 
         if (!$filesInfo['readable']) {
@@ -132,7 +131,7 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
 
         $tarPacker = new Mage_Backup_Archive_Tar();
         $tarPacker->setSkipFiles($this->getIgnorePaths())
-            ->pack($this->getRootDir(), $tarTmpPath, true);
+                ->pack($this->getRootDir(), $tarTmpPath, true);
 
         if (!is_file($tarTmpPath) || filesize($tarTmpPath) == 0) {
             throw new Mage_Exception('Failed to create backup');
@@ -194,8 +193,7 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
             if (!in_array($paths, $this->_ignorePaths)) {
                 $this->_ignorePaths[] = $paths;
             }
-        }
-        else if (is_array($paths)) {
+        } else if (is_array($paths)) {
             foreach ($paths as $path) {
                 $this->addIgnorePaths($path);
             }
@@ -278,7 +276,8 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
      */
     protected function _getTarTmpPath()
     {
-        $tmpName = '~tmp-'. microtime(true) . '.tar';
+        $tmpName = '~tmp-' . microtime(true) . '.tar';
         return $this->getBackupsDir() . DS . $tmpName;
     }
+
 }

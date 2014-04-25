@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report bestsellers collection
  *
@@ -32,22 +32,22 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
-    extends Mage_Sales_Model_Resource_Report_Collection_Abstract
+class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales_Model_Resource_Report_Collection_Abstract
 {
+
     /**
      * Rating limit
      *
      * @var int
      */
-    protected $_ratingLimit        = 5;
+    protected $_ratingLimit = 5;
 
     /**
      * Columns for select
      *
      * @var array
      */
-    protected $_selectedColumns    = array();
+    protected $_selectedColumns = array();
 
     /**
      * Initialize custom resource model
@@ -77,11 +77,11 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
                 $this->_selectedColumns = $this->getAggregatedColumns();
             } else {
                 $this->_selectedColumns = array(
-                    'period'         =>  sprintf('MAX(%s)', $adapter->getDateFormatSql('period', '%Y-%m-%d')),
-                    'qty_ordered'    => 'SUM(qty_ordered)',
-                    'product_id'     => 'product_id',
-                    'product_name'   => 'MAX(product_name)',
-                    'product_price'  => 'MAX(product_price)',
+                    'period' => sprintf('MAX(%s)', $adapter->getDateFormatSql('period', '%Y-%m-%d')),
+                    'qty_ordered' => 'SUM(qty_ordered)',
+                    'product_id' => 'product_id',
+                    'product_name' => 'MAX(product_name)',
+                    'product_price' => 'MAX(product_price)',
                 );
                 if ('year' == $this->_period) {
                     $this->_selectedColumns['period'] = $adapter->getDateFormatSql('period', '%Y');
@@ -103,15 +103,15 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
     protected function _makeBoundarySelect($from, $to)
     {
         $adapter = $this->getConnection();
-        $cols    = $this->_getSelectedColumns();
+        $cols = $this->_getSelectedColumns();
         $cols['qty_ordered'] = 'SUM(qty_ordered)';
-        $sel     = $adapter->select()
-            ->from($this->getResource()->getMainTable(), $cols)
-            ->where('period >= ?', $from)
-            ->where('period <= ?', $to)
-            ->group('product_id')
-            ->order('qty_ordered DESC')
-            ->limit($this->_ratingLimit);
+        $sel = $adapter->select()
+                ->from($this->getResource()->getMainTable(), $cols)
+                ->where('period >= ?', $from)
+                ->where('period <= ?', $to)
+                ->group('product_id')
+                ->order('qty_ordered DESC')
+                ->limit($this->_ratingLimit);
 
         $this->_applyStoresFilterToSelect($sel);
 
@@ -144,9 +144,9 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
             $subSelect->from(array('existed_products' => $this->getTable('catalog/product')), new Zend_Db_Expr('1)'));
 
             $select->exists($subSelect, $mainTable . '.product_id = existed_products.entity_id')
-                ->group('product_id')
-                ->order('qty_ordered ' . Varien_Db_Select::SQL_DESC)
-                ->limit($this->_ratingLimit);
+                    ->group('product_id')
+                    ->order('qty_ordered ' . Varien_Db_Select::SQL_DESC)
+                    ->limit($this->_ratingLimit);
 
             return $this;
         }
@@ -194,8 +194,8 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
             $storeIds = array($storeIds);
         }
         $currentStoreIds = $this->_storesIds;
-        if (isset($currentStoreIds) && $currentStoreIds != Mage_Core_Model_App::ADMIN_STORE_ID
-            && $currentStoreIds != array(Mage_Core_Model_App::ADMIN_STORE_ID)) {
+        if (isset($currentStoreIds) && $currentStoreIds != Mage_Core_Model_App::ADMIN_STORE_ID && $currentStoreIds != array(
+            Mage_Core_Model_App::ADMIN_STORE_ID)) {
             if (!is_array($currentStoreIds)) {
                 $currentStoreIds = array($currentStoreIds);
             }
@@ -224,9 +224,9 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
             $selectUnions = array();
 
             // apply date boundaries (before calling $this->_applyDateRangeFilter())
-            $dtFormat   = Varien_Date::DATE_INTERNAL_FORMAT;
+            $dtFormat = Varien_Date::DATE_INTERNAL_FORMAT;
             $periodFrom = (!is_null($this->_from) ? new Zend_Date($this->_from, $dtFormat) : null);
-            $periodTo   = (!is_null($this->_to)   ? new Zend_Date($this->_to,   $dtFormat) : null);
+            $periodTo = (!is_null($this->_to) ? new Zend_Date($this->_to, $dtFormat) : null);
             if ('year' == $this->_period) {
 
                 if ($periodFrom) {
@@ -237,16 +237,15 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
                         $dtTo = $periodFrom->getDate()->setMonth(12)->setDay(31);
                         if (!$periodTo || $dtTo->isEarlier($periodTo)) {
                             $selectUnions[] = $this->_makeBoundarySelect(
-                                $dtFrom->toString($dtFormat),
-                                $dtTo->toString($dtFormat)
+                                    $dtFrom->toString($dtFormat), $dtTo->toString($dtFormat)
                             );
 
                             // first day of the next year
                             $this->_from = $periodFrom->getDate()
-                                ->addYear(1)
-                                ->setMonth(1)
-                                ->setDay(1)
-                                ->toString($dtFormat);
+                                    ->addYear(1)
+                                    ->setMonth(1)
+                                    ->setDay(1)
+                                    ->toString($dtFormat);
                         }
                     }
                 }
@@ -258,16 +257,15 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
                         $dtTo = $periodTo->getDate();
                         if (!$periodFrom || $dtFrom->isLater($periodFrom)) {
                             $selectUnions[] = $this->_makeBoundarySelect(
-                                $dtFrom->toString($dtFormat),
-                                $dtTo->toString($dtFormat)
+                                    $dtFrom->toString($dtFormat), $dtTo->toString($dtFormat)
                             );
 
                             // last day of the previous year
                             $this->_to = $periodTo->getDate()
-                                ->subYear(1)
-                                ->setMonth(12)
-                                ->setDay(31)
-                                ->toString($dtFormat);
+                                    ->subYear(1)
+                                    ->setMonth(12)
+                                    ->setDay(31)
+                                    ->toString($dtFormat);
                         }
                     }
                 }
@@ -278,16 +276,13 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
                         $dtFrom = $periodFrom->getDate();
                         $dtTo = $periodTo->getDate();
                         $selectUnions[] = $this->_makeBoundarySelect(
-                            $dtFrom->toString($dtFormat),
-                            $dtTo->toString($dtFormat)
+                                $dtFrom->toString($dtFormat), $dtTo->toString($dtFormat)
                         );
 
                         $this->getSelect()->where('1<>1');
                     }
                 }
-
-            }
-            else if ('month' == $this->_period) {
+            } else if ('month' == $this->_period) {
                 if ($periodFrom) {
                     // not the first day of the month
                     if ($periodFrom->toValue(Zend_Date::DAY) != 1) {
@@ -296,8 +291,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
                         $dtTo = $periodFrom->getDate()->addMonth(1)->setDay(1)->subDay(1);
                         if (!$periodTo || $dtTo->isEarlier($periodTo)) {
                             $selectUnions[] = $this->_makeBoundarySelect(
-                                $dtFrom->toString($dtFormat),
-                                $dtTo->toString($dtFormat)
+                                    $dtFrom->toString($dtFormat), $dtTo->toString($dtFormat)
                             );
 
                             // first day of the next month
@@ -313,8 +307,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
                         $dtTo = $periodTo->getDate();
                         if (!$periodFrom || $dtFrom->isLater($periodFrom)) {
                             $selectUnions[] = $this->_makeBoundarySelect(
-                                $dtFrom->toString($dtFormat),
-                                $dtTo->toString($dtFormat)
+                                    $dtFrom->toString($dtFormat), $dtTo->toString($dtFormat)
                             );
 
                             // last day of the previous month
@@ -325,20 +318,17 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
 
                 if ($periodFrom && $periodTo) {
                     // the same month
-                    if ($periodFrom->toValue(Zend_Date::YEAR) == $periodTo->toValue(Zend_Date::YEAR)
-                        && $periodFrom->toValue(Zend_Date::MONTH) == $periodTo->toValue(Zend_Date::MONTH)
+                    if ($periodFrom->toValue(Zend_Date::YEAR) == $periodTo->toValue(Zend_Date::YEAR) && $periodFrom->toValue(Zend_Date::MONTH) == $periodTo->toValue(Zend_Date::MONTH)
                     ) {
                         $dtFrom = $periodFrom->getDate();
                         $dtTo = $periodTo->getDate();
                         $selectUnions[] = $this->_makeBoundarySelect(
-                            $dtFrom->toString($dtFormat),
-                            $dtTo->toString($dtFormat)
+                                $dtFrom->toString($dtFormat), $dtTo->toString($dtFormat)
                         );
 
                         $this->getSelect()->where('1<>1');
                     }
                 }
-
             }
 
             $this->_applyDateRangeFilter();
@@ -368,4 +358,5 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
 
         return $this;
     }
+
 }

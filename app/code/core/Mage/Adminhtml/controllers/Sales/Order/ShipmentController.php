@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Controller_Sales_Shipment
 {
+
     /**
      * Initialize shipment items QTY
      */
@@ -62,7 +64,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         if ($shipmentId) {
             $shipment = Mage::getModel('sales/order_shipment')->load($shipmentId);
         } elseif ($orderId) {
-            $order      = Mage::getModel('sales/order')->load($orderId);
+            $order = Mage::getModel('sales/order')->load($orderId);
 
             /**
              * Check order existing
@@ -95,7 +97,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                         Mage::throwException($this->__('Tracking number cannot be empty.'));
                     }
                     $track = Mage::getModel('sales/order_shipment_track')
-                        ->addData($data);
+                            ->addData($data);
                     $shipment->addTrack($track);
                 }
             }
@@ -115,9 +117,9 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     {
         $shipment->getOrder()->setIsInProcess(true);
         $transactionSave = Mage::getModel('core/resource_transaction')
-            ->addObject($shipment)
-            ->addObject($shipment->getOrder())
-            ->save();
+                ->addObject($shipment)
+                ->addObject($shipment->getOrder())
+                ->save();
 
         return $this;
     }
@@ -132,9 +134,9 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
             $this->loadLayout();
             $this->getLayout()->getBlock('sales_shipment_view')
-                ->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
+                    ->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
             $this->_setActiveMenu('sales/order')
-                ->renderLayout();
+                    ->renderLayout();
         } else {
             $this->_forward('noRoute');
         }
@@ -148,7 +150,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         /**
          * Clear old values for shipment qty's
          */
-        $this->_redirect('*/*/new', array('order_id'=>$this->getRequest()->getParam('order_id')));
+        $this->_redirect('*/*/new', array('order_id' => $this->getRequest()->getParam('order_id')));
     }
 
     /**
@@ -165,10 +167,10 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             }
 
             $this->loadLayout()
-                ->_setActiveMenu('sales/order')
-                ->renderLayout();
+                    ->_setActiveMenu('sales/order')
+                    ->renderLayout();
         } else {
-            $this->_redirect('*/sales_order/view', array('order_id'=>$this->getRequest()->getParam('order_id')));
+            $this->_redirect('*/sales_order/view', array('order_id' => $this->getRequest()->getParam('order_id')));
         }
     }
 
@@ -185,7 +187,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             Mage::getSingleton('adminhtml/session')->setCommentText($data['comment_text']);
         }
 
-        try {
+        try
+        {
             $shipment = $this->_initShipment();
             if (!$shipment) {
                 $this->_forward('noRoute');
@@ -196,9 +199,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             $comment = '';
             if (!empty($data['comment_text'])) {
                 $shipment->addComment(
-                    $data['comment_text'],
-                    isset($data['comment_customer_notify']),
-                    isset($data['is_visible_on_front'])
+                        $data['comment_text'], isset($data['comment_customer_notify']), isset($data['is_visible_on_front'])
                 );
                 if (isset($data['comment_customer_notify'])) {
                     $comment = $data['comment_text'];
@@ -222,12 +223,13 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             $shipment->sendEmail(!empty($data['send_email']), $comment);
 
             $shipmentCreatedMessage = $this->__('The shipment has been created.');
-            $labelCreatedMessage    = $this->__('The shipping label has been created.');
+            $labelCreatedMessage = $this->__('The shipping label has been created.');
 
-            $this->_getSession()->addSuccess($isNeedCreateLabel ? $shipmentCreatedMessage . ' ' . $labelCreatedMessage
-                : $shipmentCreatedMessage);
+            $this->_getSession()->addSuccess($isNeedCreateLabel ? $shipmentCreatedMessage . ' ' . $labelCreatedMessage : $shipmentCreatedMessage);
             Mage::getSingleton('adminhtml/session')->getCommentText(true);
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             if ($isNeedCreateLabel) {
                 $responseAjax->setError(true);
                 $responseAjax->setMessage($e->getMessage());
@@ -235,17 +237,18 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 $this->_getSession()->addError($e->getMessage());
                 $this->_redirect('*/*/new', array('order_id' => $this->getRequest()->getParam('order_id')));
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             if ($isNeedCreateLabel) {
                 $responseAjax->setError(true);
                 $responseAjax->setMessage(
-                    Mage::helper('sales')->__('An error occurred while creating shipping label.'));
+                        Mage::helper('sales')->__('An error occurred while creating shipping label.'));
             } else {
                 $this->_getSession()->addError($this->__('Cannot save shipment.'));
                 $this->_redirect('*/*/new', array('order_id' => $this->getRequest()->getParam('order_id')));
             }
-
         }
         if ($isNeedCreateLabel) {
             $this->getResponse()->setBody($responseAjax->toJson());
@@ -259,23 +262,28 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function emailAction()
     {
-        try {
+        try
+        {
             $shipment = $this->_initShipment();
             if ($shipment) {
                 $shipment->sendEmail(true)
-                    ->setEmailSent(true)
-                    ->save();
+                        ->setEmailSent(true)
+                        ->save();
                 $historyItem = Mage::getResourceModel('sales/order_status_history_collection')
-                    ->getUnnotifiedForInstance($shipment, Mage_Sales_Model_Order_Shipment::HISTORY_ENTITY_NAME);
+                        ->getUnnotifiedForInstance($shipment, Mage_Sales_Model_Order_Shipment::HISTORY_ENTITY_NAME);
                 if ($historyItem) {
                     $historyItem->setIsCustomerNotified(1);
                     $historyItem->save();
                 }
                 $this->_getSession()->addSuccess($this->__('The shipment has been sent.'));
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($this->__('Cannot send shipment information.'));
         }
         $this->_redirect('*/*/view', array(
@@ -288,10 +296,11 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function addTrackAction()
     {
-        try {
+        try
+        {
             $carrier = $this->getRequest()->getPost('carrier');
-            $number  = $this->getRequest()->getPost('number');
-            $title  = $this->getRequest()->getPost('title');
+            $number = $this->getRequest()->getPost('number');
+            $title = $this->getRequest()->getPost('title');
             if (empty($carrier)) {
                 Mage::throwException($this->__('The carrier needs to be specified.'));
             }
@@ -301,29 +310,33 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             $shipment = $this->_initShipment();
             if ($shipment) {
                 $track = Mage::getModel('sales/order_shipment_track')
-                    ->setNumber($number)
-                    ->setCarrierCode($carrier)
-                    ->setTitle($title);
+                        ->setNumber($number)
+                        ->setCarrierCode($carrier)
+                        ->setTitle($title);
                 $shipment->addTrack($track)
-                    ->save();
+                        ->save();
 
                 $this->loadLayout();
                 $response = $this->getLayout()->getBlock('shipment_tracking')->toHtml();
             } else {
                 $response = array(
-                    'error'     => true,
-                    'message'   => $this->__('Cannot initialize shipment for adding tracking number.'),
+                    'error' => true,
+                    'message' => $this->__('Cannot initialize shipment for adding tracking number.'),
                 );
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $response = array(
-                'error'     => true,
-                'message'   => $e->getMessage(),
+                'error' => true,
+                'message' => $e->getMessage(),
             );
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $response = array(
-                'error'     => true,
-                'message'   => $this->__('Cannot add tracking number.'),
+                'error' => true,
+                'message' => $this->__('Cannot add tracking number.'),
             );
         }
         if (is_array($response)) {
@@ -337,11 +350,12 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function removeTrackAction()
     {
-        $trackId    = $this->getRequest()->getParam('track_id');
+        $trackId = $this->getRequest()->getParam('track_id');
         $shipmentId = $this->getRequest()->getParam('shipment_id');
         $track = Mage::getModel('sales/order_shipment_track')->load($trackId);
         if ($track->getId()) {
-            try {
+            try
+            {
                 if ($this->_initShipment()) {
                     $track->delete();
 
@@ -349,20 +363,22 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                     $response = $this->getLayout()->getBlock('shipment_tracking')->toHtml();
                 } else {
                     $response = array(
-                        'error'     => true,
-                        'message'   => $this->__('Cannot initialize shipment for delete tracking number.'),
+                        'error' => true,
+                        'message' => $this->__('Cannot initialize shipment for delete tracking number.'),
                     );
                 }
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $response = array(
-                    'error'     => true,
-                    'message'   => $this->__('Cannot delete tracking number.'),
+                    'error' => true,
+                    'message' => $this->__('Cannot delete tracking number.'),
                 );
             }
         } else {
             $response = array(
-                'error'     => true,
-                'message'   => $this->__('Cannot load track with retrieving identifier.'),
+                'error' => true,
+                'message' => $this->__('Cannot load track with retrieving identifier.'),
             );
         }
         if (is_array($response)) {
@@ -376,31 +392,34 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function viewTrackAction()
     {
-        $trackId    = $this->getRequest()->getParam('track_id');
+        $trackId = $this->getRequest()->getParam('track_id');
         $shipmentId = $this->getRequest()->getParam('shipment_id');
         $track = Mage::getModel('sales/order_shipment_track')->load($trackId);
         if ($track->getId()) {
-            try {
+            try
+            {
                 $response = $track->getNumberDetail();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $response = array(
-                    'error'     => true,
-                    'message'   => $this->__('Cannot retrieve tracking number detail.'),
+                    'error' => true,
+                    'message' => $this->__('Cannot retrieve tracking number detail.'),
                 );
             }
         } else {
             $response = array(
-                'error'     => true,
-                'message'   => $this->__('Cannot load track with retrieving identifier.'),
+                'error' => true,
+                'message' => $this->__('Cannot load track with retrieving identifier.'),
             );
         }
 
-        if ( is_object($response)){
+        if (is_object($response)) {
             $className = Mage::getConfig()->getBlockClassName('adminhtml/template');
             $block = new $className();
             $block->setType('adminhtml/template')
-                ->setIsAnonymous(true)
-                ->setTemplate('sales/order/shipment/tracking/info.phtml');
+                    ->setIsAnonymous(true)
+                    ->setTemplate('sales/order/shipment/tracking/info.phtml');
 
             $block->setTrackingInfo($response);
 
@@ -419,10 +438,10 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function addCommentAction()
     {
-        try {
+        try
+        {
             $this->getRequest()->setParam(
-                'shipment_id',
-                $this->getRequest()->getParam('id')
+                    'shipment_id', $this->getRequest()->getParam('id')
             );
             $data = $this->getRequest()->getPost('comment');
             if (empty($data['comment'])) {
@@ -430,32 +449,32 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             }
             $shipment = $this->_initShipment();
             $shipment->addComment(
-                $data['comment'],
-                isset($data['is_customer_notified']),
-                isset($data['is_visible_on_front'])
+                    $data['comment'], isset($data['is_customer_notified']), isset($data['is_visible_on_front'])
             );
             $shipment->sendUpdateEmail(!empty($data['is_customer_notified']), $data['comment']);
             $shipment->save();
 
             $this->loadLayout(false);
             $response = $this->getLayout()->getBlock('shipment_comments')->toHtml();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $response = array(
-                'error'     => true,
-                'message'   => $e->getMessage()
+                'error' => true,
+                'message' => $e->getMessage()
             );
             $response = Mage::helper('core')->jsonEncode($response);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $response = array(
-                'error'     => true,
-                'message'   => $this->__('Cannot add new comment.')
+                'error' => true,
+                'message' => $this->__('Cannot add new comment.')
             );
             $response = Mage::helper('core')->jsonEncode($response);
         }
         $this->getResponse()->setBody($response);
     }
-
-
 
     /**
      * Decides if we need to create dummy shipment item or not
@@ -467,24 +486,23 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * @param array $qtys
      * @return bool
      */
-    protected function _needToAddDummy($item, $qtys) {
+    protected function _needToAddDummy($item, $qtys)
+    {
         if ($item->getHasChildren()) {
             foreach ($item->getChildrenItems() as $child) {
                 if ($child->getIsVirtual()) {
                     continue;
                 }
-                if ((isset($qtys[$child->getId()]) && $qtys[$child->getId()] > 0)
-                        || (!isset($qtys[$child->getId()]) && $child->getQtyToShip())) {
+                if ((isset($qtys[$child->getId()]) && $qtys[$child->getId()] > 0) || (!isset($qtys[$child->getId()]) && $child->getQtyToShip())) {
                     return true;
                 }
             }
             return false;
-        } else if($item->getParentItem()) {
+        } else if ($item->getParentItem()) {
             if ($item->getIsVirtual()) {
                 return false;
             }
-            if ((isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0)
-                || (!isset($qtys[$item->getParentItem()->getId()]) && $item->getParentItem()->getQtyToShip())) {
+            if ((isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0) || (!isset($qtys[$item->getParentItem()->getId()]) && $item->getParentItem()->getQtyToShip())) {
                 return true;
             }
             return false;
@@ -526,7 +544,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         $outputPdf = $this->_combineLabelsPdf($labelsContent);
         $shipment->setShippingLabel($outputPdf->render());
         $carrierCode = $carrier->getCarrierCode();
-        $carrierTitle = Mage::getStoreConfig('carriers/'.$carrierCode.'/title', $shipment->getStoreId());
+        $carrierTitle = Mage::getStoreConfig('carriers/' . $carrierCode . '/title', $shipment->getStoreId());
         if ($trackingNumbers) {
             foreach ($trackingNumbers as $trackingNumber) {
                 $track = Mage::getModel('sales/order_shipment_track')
@@ -546,17 +564,22 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     public function createLabelAction()
     {
         $response = new Varien_Object();
-        try {
+        try
+        {
             $shipment = $this->_initShipment();
             if ($this->_createShippingLabel($shipment)) {
                 $shipment->save();
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The shipping label has been created.'));
                 $response->setOk(true);
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $response->setError(true);
             $response->setMessage($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $response->setError(true);
             $response->setMessage(Mage::helper('sales')->__('An error occurred while creating shipping label.'));
@@ -571,7 +594,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function printLabelAction()
     {
-        try {
+        try
+        {
             $shipment = $this->_initShipment();
             $labelContent = $shipment->getShippingLabel();
             if ($labelContent) {
@@ -589,21 +613,23 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 }
 
                 return $this->_prepareDownloadResponse(
-                    'ShippingLabel(' . $shipment->getIncrementId() . ').pdf',
-                    $pdfContent,
-                    'application/pdf'
+                                'ShippingLabel(' . $shipment->getIncrementId() . ').pdf', $pdfContent, 'application/pdf'
                 );
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_getSession()
-                ->addError(Mage::helper('sales')->__('An error occurred while creating shipping label.'));
-       }
-       $this->_redirect('*/sales_order_shipment/view', array(
-           'shipment_id' => $this->getRequest()->getParam('shipment_id')
-       ));
+                    ->addError(Mage::helper('sales')->__('An error occurred while creating shipping label.'));
+        }
+        $this->_redirect('*/sales_order_shipment/view', array(
+            'shipment_id' => $this->getRequest()->getParam('shipment_id')
+        ));
     }
 
     /**
@@ -617,11 +643,9 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
         if ($shipment) {
             $pdf = Mage::getModel('sales/order_pdf_shipment_packaging')->getPdf($shipment);
-            $this->_prepareDownloadResponse('packingslip'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf',
-                $pdf->render(), 'application/pdf'
+            $this->_prepareDownloadResponse('packingslip' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf', $pdf->render(), 'application/pdf'
             );
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
     }
@@ -645,7 +669,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 array_filter($ids, 'intval');
                 if (!empty($ids)) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
-                        ->addFieldToFilter('entity_id', array('in' => $ids));
+                            ->addFieldToFilter('entity_id', array('in' => $ids));
                 }
                 break;
             case 'order_ids':
@@ -653,7 +677,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 array_filter($ids, 'intval');
                 if (!empty($ids)) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
-                        ->setOrderFilter(array('in' => $ids));
+                            ->setOrderFilter(array('in' => $ids));
                 }
                 break;
         }
@@ -675,11 +699,11 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
         if ($createdFromOrders) {
             $this->_getSession()
-                ->addError(Mage::helper('sales')->__('There are no shipping labels related to selected orders.'));
+                    ->addError(Mage::helper('sales')->__('There are no shipping labels related to selected orders.'));
             $this->_redirect('*/sales_order/index');
         } else {
             $this->_getSession()
-                ->addError(Mage::helper('sales')->__('There are no shipping labels related to selected shipments.'));
+                    ->addError(Mage::helper('sales')->__('There are no shipping labels related to selected shipments.'));
             $this->_redirect('*/sales_order_shipment/index');
         }
     }
@@ -728,7 +752,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
         imageinterlace($image, 0);
         $tmpFileName = sys_get_temp_dir() . DS . 'shipping_labels_'
-                     . uniqid(mt_rand()) . time() . '.png';
+                . uniqid(mt_rand()) . time() . '.png';
         imagepng($image, $tmpFileName);
         $pdfImage = Zend_Pdf_Image::imageWithPath($tmpFileName);
         $page->drawImage($pdfImage, 0, 0, $xSize, $ySize);
@@ -745,10 +769,11 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     {
         $this->_initShipment();
         return $this->getResponse()->setBody(
-            $this->getLayout()
-                ->createBlock('adminhtml/sales_order_shipment_packaging_grid')
-                ->setIndex($this->getRequest()->getParam('index'))
-                ->toHtml()
-           );
+                        $this->getLayout()
+                                ->createBlock('adminhtml/sales_order_shipment_packaging_grid')
+                                ->setIndex($this->getRequest()->getParam('index'))
+                                ->toHtml()
+        );
     }
+
 }

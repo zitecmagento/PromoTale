@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -27,9 +28,9 @@
 /**
  * Total model for recurring profiles
  */
-abstract class Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract
-    extends Mage_Sales_Model_Quote_Address_Total_Abstract
+abstract class Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
+
     /**
      * Don't add amounts to address
      *
@@ -66,8 +67,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract
                 $profileData = $item->getProduct()->getRecurringProfile();
                 if (!empty($profileData[$this->_profileDataKey])) {
                     $item->setData(
-                        $this->_itemRowTotalKey,
-                        $address->getQuote()->getStore()->convertPrice($profileData[$this->_profileDataKey])
+                            $this->_itemRowTotalKey, $address->getQuote()->getStore()->convertPrice($profileData[$this->_profileDataKey])
                     );
                     $this->_afterCollectSuccess($address, $item);
                 }
@@ -106,5 +106,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract
      */
     protected function _afterCollectSuccess($address, $item)
     {
+        
     }
+
 }

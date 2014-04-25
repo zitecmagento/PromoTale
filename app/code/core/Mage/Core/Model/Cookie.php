@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core cookie model
  *
@@ -34,10 +34,11 @@
  */
 class Mage_Core_Model_Cookie
 {
-    const XML_PATH_COOKIE_DOMAIN    = 'web/cookie/cookie_domain';
-    const XML_PATH_COOKIE_PATH      = 'web/cookie/cookie_path';
-    const XML_PATH_COOKIE_LIFETIME  = 'web/cookie/cookie_lifetime';
-    const XML_PATH_COOKIE_HTTPONLY  = 'web/cookie/cookie_httponly';
+
+    const XML_PATH_COOKIE_DOMAIN = 'web/cookie/cookie_domain';
+    const XML_PATH_COOKIE_PATH = 'web/cookie/cookie_path';
+    const XML_PATH_COOKIE_LIFETIME = 'web/cookie/cookie_lifetime';
+    const XML_PATH_COOKIE_HTTPONLY = 'web/cookie/cookie_httponly';
 
     protected $_lifetime;
 
@@ -114,7 +115,7 @@ class Mage_Core_Model_Cookie
      */
     public function getConfigDomain()
     {
-        return (string)Mage::getStoreConfig(self::XML_PATH_COOKIE_DOMAIN, $this->getStore());
+        return (string) Mage::getStoreConfig(self::XML_PATH_COOKIE_DOMAIN, $this->getStore());
     }
 
     /**
@@ -157,7 +158,7 @@ class Mage_Core_Model_Cookie
      */
     public function setLifetime($lifetime)
     {
-        $this->_lifetime = (int)$lifetime;
+        $this->_lifetime = (int) $lifetime;
         return $this;
     }
 
@@ -172,7 +173,7 @@ class Mage_Core_Model_Cookie
         if (is_null($httponly)) {
             return null;
         }
-        return (bool)$httponly;
+        return (bool) $httponly;
     }
 
     /**
@@ -218,8 +219,7 @@ class Mage_Core_Model_Cookie
 
         if ($period == 0) {
             $expire = 0;
-        }
-        else {
+        } else {
             $expire = time() + $period;
         }
         if (is_null($path)) {
@@ -308,4 +308,5 @@ class Mage_Core_Model_Cookie
         setcookie($name, null, null, $path, $domain, $secure, $httponly);
         return $this;
     }
+
 }

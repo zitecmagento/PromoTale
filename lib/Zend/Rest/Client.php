@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Client.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Service_Abstract */
 #require_once 'Zend/Service/Abstract.php';
 
@@ -39,13 +38,14 @@
  */
 class Zend_Rest_Client extends Zend_Service_Abstract
 {
+
     /**
      * Data for the query
      * @var array
      */
     protected $_data = array();
 
-     /**
+    /**
      * Zend_Uri of this web service
      * @var Zend_Uri_Http
      */
@@ -108,7 +108,7 @@ class Zend_Rest_Client extends Zend_Service_Abstract
 
         $uri = $this->_uri->getUri();
 
-        if ($path[0] != '/' && $uri[strlen($uri)-1] != '/') {
+        if ($path[0] != '/' && $uri[strlen($uri) - 1] != '/') {
             $path = '/' . $path;
         }
 
@@ -232,7 +232,7 @@ class Zend_Rest_Client extends Zend_Service_Abstract
             $this->_data['rest'] = 1;
             $data = array_slice($args, 1) + $this->_data;
             $response = $this->{'rest' . $method}($args[0], $data);
-            $this->_data = array();//Initializes for next Rest method.
+            $this->_data = array(); //Initializes for next Rest method.
             return new Zend_Rest_Client_Result($response->getBody());
         } else {
             // More than one arg means it's definitely a Zend_Rest_Server
@@ -240,9 +240,9 @@ class Zend_Rest_Client extends Zend_Service_Abstract
                 // Uses first called function name as method name
                 if (!isset($this->_data['method'])) {
                     $this->_data['method'] = $method;
-                    $this->_data['arg1']  = $args[0];
+                    $this->_data['arg1'] = $args[0];
                 }
-                $this->_data[$method]  = $args[0];
+                $this->_data[$method] = $args[0];
             } else {
                 $this->_data['method'] = $method;
                 if (sizeof($args) > 0) {
@@ -255,4 +255,5 @@ class Zend_Rest_Client extends Zend_Service_Abstract
             return $this;
         }
     }
+
 }

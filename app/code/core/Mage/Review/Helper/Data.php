@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,11 @@
  */
 class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     const XML_REVIEW_GUETS_ALLOW = 'catalog/review/allow_guest';
 
-    public function getDetail($origDetail){
+    public function getDetail($origDetail)
+    {
         return nl2br(Mage::helper('core/string')->truncate($origDetail, 50));
     }
 
@@ -42,7 +45,8 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $origDetail Full detail info
      * @return string
      */
-    public function getDetailHtml($origDetail){
+    public function getDetailHtml($origDetail)
+    {
         return nl2br(Mage::helper('core/string')->truncate($this->escapeHtml($origDetail), 50));
     }
 
@@ -59,8 +63,8 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
     public function getReviewStatuses()
     {
         return array(
-            Mage_Review_Model_Review::STATUS_APPROVED     => $this->__('Approved'),
-            Mage_Review_Model_Review::STATUS_PENDING      => $this->__('Pending'),
+            Mage_Review_Model_Review::STATUS_APPROVED => $this->__('Approved'),
+            Mage_Review_Model_Review::STATUS_PENDING => $this->__('Pending'),
             Mage_Review_Model_Review::STATUS_NOT_APPROVED => $this->__('Not Approved'),
         );
     }
@@ -79,4 +83,5 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
 
         return $result;
     }
+
 }

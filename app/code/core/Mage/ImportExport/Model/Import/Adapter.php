@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Model_Import_Adapter
 {
+
     /**
      * Adapter factory. Checks for availability, loads and create instance of import adapter object.
      *
@@ -53,9 +55,9 @@ class Mage_ImportExport_Model_Import_Adapter
         }
         $adapter = new $adapterClass($options);
 
-        if (! $adapter instanceof Mage_ImportExport_Model_Import_Adapter_Abstract) {
+        if (!$adapter instanceof Mage_ImportExport_Model_Import_Adapter_Abstract) {
             Mage::throwException(
-                Mage::helper('importexport')->__('Adapter must be an instance of Mage_ImportExport_Model_Import_Adapter_Abstract')
+                    Mage::helper('importexport')->__('Adapter must be an instance of Mage_ImportExport_Model_Import_Adapter_Abstract')
             );
         }
         return $adapter;
@@ -71,4 +73,5 @@ class Mage_ImportExport_Model_Import_Adapter
     {
         return self::factory(pathinfo($source, PATHINFO_EXTENSION), $source);
     }
+
 }

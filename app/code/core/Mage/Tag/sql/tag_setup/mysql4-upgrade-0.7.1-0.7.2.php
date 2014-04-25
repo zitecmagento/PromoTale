@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
@@ -65,7 +64,7 @@ foreach ($purgeFk as $tableName => $columns) {
     foreach ($foreignKeys as $fkProp) {
         if (in_array($fkProp['COLUMN_NAME'], $columns)) {
             $installer->getConnection()
-                ->dropForeignKey($tableName, $fkProp['FK_NAME']);
+                    ->dropForeignKey($tableName, $fkProp['FK_NAME']);
         }
     }
 }
@@ -80,35 +79,15 @@ foreach ($purgeIndex as $prop) {
     }
 }
 
-$installer->getConnection()->addKey($installer->getTable('tag/relation'),
-    'IDX_PRODUCT', 'product_id');
-$installer->getConnection()->addKey($installer->getTable('tag/relation'),
-    'IDX_TAG', 'tag_id');
-$installer->getConnection()->addKey($installer->getTable('tag/relation'),
-    'IDX_CUSTOMER', 'customer_id');
-$installer->getConnection()->addKey($installer->getTable('tag/relation'),
-    'IDX_STORE', 'store_id');
-$installer->getConnection()->addKey($installer->getTable('tag/summary'),
-    'IDX_TAG', 'tag_id');
+$installer->getConnection()->addKey($installer->getTable('tag/relation'), 'IDX_PRODUCT', 'product_id');
+$installer->getConnection()->addKey($installer->getTable('tag/relation'), 'IDX_TAG', 'tag_id');
+$installer->getConnection()->addKey($installer->getTable('tag/relation'), 'IDX_CUSTOMER', 'customer_id');
+$installer->getConnection()->addKey($installer->getTable('tag/relation'), 'IDX_STORE', 'store_id');
+$installer->getConnection()->addKey($installer->getTable('tag/summary'), 'IDX_TAG', 'tag_id');
 
-$installer->getConnection()->addConstraint('FK_TAG_RELATION_PRODUCT',
-    $installer->getTable('tag/relation'), 'product_id',
-    $installer->getTable('catalog/product'), 'entity_id',
-    'CASCADE', 'CASCADE', true);
-$installer->getConnection()->addConstraint('FK_TAG_RELATION_TAG',
-    $installer->getTable('tag/relation'), 'tag_id',
-    $installer->getTable('tag/tag'), 'tag_id',
-    'CASCADE', 'CASCADE', true);
-$installer->getConnection()->addConstraint('FK_TAG_RELATION_CUSTOMER',
-    $installer->getTable('tag/relation'), 'customer_id',
-    $installer->getTable('customer/entity'), 'entity_id',
-    'CASCADE', 'CASCADE', true);
-$installer->getConnection()->addConstraint('FK_TAG_RELATION_STORE',
-    $installer->getTable('tag/relation'), 'store_id',
-    $installer->getTable('core/store'), 'store_id',
-    'CASCADE', 'CASCADE', true);
-$installer->getConnection()->addConstraint('FK_TAG_SUMMARY_TAG',
-    $installer->getTable('tag/summary'), 'tag_id',
-    $installer->getTable('tag/tag'), 'tag_id',
-    'CASCADE', 'CASCADE', true);
+$installer->getConnection()->addConstraint('FK_TAG_RELATION_PRODUCT', $installer->getTable('tag/relation'), 'product_id', $installer->getTable('catalog/product'), 'entity_id', 'CASCADE', 'CASCADE', true);
+$installer->getConnection()->addConstraint('FK_TAG_RELATION_TAG', $installer->getTable('tag/relation'), 'tag_id', $installer->getTable('tag/tag'), 'tag_id', 'CASCADE', 'CASCADE', true);
+$installer->getConnection()->addConstraint('FK_TAG_RELATION_CUSTOMER', $installer->getTable('tag/relation'), 'customer_id', $installer->getTable('customer/entity'), 'entity_id', 'CASCADE', 'CASCADE', true);
+$installer->getConnection()->addConstraint('FK_TAG_RELATION_STORE', $installer->getTable('tag/relation'), 'store_id', $installer->getTable('core/store'), 'store_id', 'CASCADE', 'CASCADE', true);
+$installer->getConnection()->addConstraint('FK_TAG_SUMMARY_TAG', $installer->getTable('tag/summary'), 'tag_id', $installer->getTable('tag/tag'), 'tag_id', 'CASCADE', 'CASCADE', true);
 $installer->endSetup();

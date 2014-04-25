@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Downloadable_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Check is link shareable or not
      *
@@ -52,4 +54,5 @@ class Mage_Downloadable_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return $shareable;
     }
+
 }

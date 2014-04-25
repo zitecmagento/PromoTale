@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
+
     /**
      * Retrieve invoice order
      *
@@ -70,12 +71,11 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
     protected function _beforeToHtml()
     {
         $this->setChild(
-            'submit_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                'label'     => Mage::helper('sales')->__('Submit Shipment'),
-                'class'     => 'save submit-button',
-                'onclick'   => 'submitShipment(this);',
-            ))
+                'submit_button', $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+                    'label' => Mage::helper('sales')->__('Submit Shipment'),
+                    'class' => 'save submit-button',
+                    'onclick' => 'submitShipment(this);',
+                ))
         );
 
         return parent::_beforeToHtml();
@@ -109,7 +109,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
      */
     public function getUpdateUrl()
     {
-        return $this->getUrl('*/*/updateQty', array('order_id'=>$this->getShipment()->getOrderId()));
+        return $this->getUrl('*/*/updateQty', array('order_id' => $this->getShipment()->getOrderId()));
     }
 
     /**
@@ -132,4 +132,5 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
         $shippingCarrier = $this->getOrder()->getShippingCarrier();
         return $shippingCarrier && $shippingCarrier->isShippingLabelsAvailable();
     }
+
 }

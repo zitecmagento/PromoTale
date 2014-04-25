@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,15 +24,11 @@
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
-class Mage_Connect_Command_Config
-extends Mage_Connect_Command
-
+class Mage_Connect_Command_Config extends Mage_Connect_Command
 {
+
     const PARAM_KEY = 0;
     const PARAM_VAL = 1;
-
 
     /**
      * Show config variable
@@ -44,32 +41,34 @@ extends Mage_Connect_Command
     {
         $this->cleanupParams($params);
 
-        try {
+        try
+        {
             $values = array();
 
             $packager = $this->getPackager();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
-                list($config,  $ftpObj) = $packager->getRemoteConfig($ftp);
+            if ($ftp) {
+                list($config, $ftpObj) = $packager->getRemoteConfig($ftp);
             } else {
                 $config = $this->config();
             }
-            foreach( $config as $k=>$v ) {
+            foreach ($config as $k => $v) {
                 $values[$k] = $v;
             }
-            if($ftp) {
+            if ($ftp) {
                 @unlink($config->getFilename());
             }
-            $data = array($command  => array('data'=>$values));
+            $data = array($command => array('data' => $values));
             $this->ui()->output($data);
-        } catch (Exception $e) {
-            if($ftp) {
+        }
+        catch (Exception $e)
+        {
+            if ($ftp) {
                 @unlink($config->getFilename());
             }
             return $this->doError($command, $e->getMessage());
         }
     }
-
 
     /**
      * Set config variable
@@ -82,8 +81,9 @@ extends Mage_Connect_Command
     {
         $this->cleanupParams($params);
 
-        try {
-            if(count($params) < 2) {
+        try
+        {
+            if (count($params) < 2) {
                 throw new Exception("Parameters count should be >= 2");
             }
             $key = strtolower($params[self::PARAM_KEY]);
@@ -91,28 +91,30 @@ extends Mage_Connect_Command
             $packager = $this->getPackager();
 
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
-                list($config,  $ftpObj) = $packager->getRemoteConfig($ftp);
+            if ($ftp) {
+                list($config, $ftpObj) = $packager->getRemoteConfig($ftp);
             } else {
                 $config = $this->config();
             }
 
-            if(!$config->hasKey($key)) {
-                throw new Exception ("No such config variable: {$key}!");
+            if (!$config->hasKey($key)) {
+                throw new Exception("No such config variable: {$key}!");
             }
-            if(!$config->validate($key, $val)) {
+            if (!$config->validate($key, $val)) {
                 $possible = $this->config()->possible($key);
                 $type = $this->config()->type($key);
                 $errString = "Invalid value specified for $key!";
                 throw new Exception($errString);
             }
-            if($ftp) {
+            if ($ftp) {
                 $packager->writeToRemoteConfig($config, $ftpObj);
             }
             $this->config()->$key = $val;
             $this->ui()->output('Success');
-        } catch (Exception $e) {
-            if($ftp) {
+        }
+        catch (Exception $e)
+        {
+            if ($ftp) {
                 @unlink($config->getFilename());
             }
             return $this->doError($command, $e->getMessage());
@@ -130,27 +132,30 @@ extends Mage_Connect_Command
     {
         $this->cleanupParams($params);
 
-        try {
-            if(count($params) < 1) {
+        try
+        {
+            if (count($params) < 1) {
                 throw new Exception("Parameters count should be >= 1");
             }
             $packager = $this->getPackager();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
-                list($config,  $ftpObj) = $packager->getRemoteConfig($ftp);
+            if ($ftp) {
+                list($config, $ftpObj) = $packager->getRemoteConfig($ftp);
             } else {
                 $config = $this->config();
             }
             $key = strtolower($params[self::PARAM_KEY]);
-            if(!$config->hasKey($key)) {
+            if (!$config->hasKey($key)) {
                 throw new Exception("No such config variable '{$key}'!");
             }
-            if($ftp) {
+            if ($ftp) {
                 @unlink($config->getFilename());
             }
             $this->ui()->output($config->$key);
-        } catch (Exception $e) {
-            if($ftp) {
+        }
+        catch (Exception $e)
+        {
+            if ($ftp) {
                 @unlink($config->getFilename());
             }
             return $this->doError($command, $e->getMessage());
@@ -166,40 +171,43 @@ extends Mage_Connect_Command
      */
     public function doConfigHelp($command, $options, $params)
     {
-        try {
+        try
+        {
             $this->cleanupParams($params);
-            if(count($params) < 1) {
-                throw new Exception( "Parameters count should be >= 1");
+            if (count($params) < 1) {
+                throw new Exception("Parameters count should be >= 1");
             }
             $packager = $this->getPackager();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
-                list($config,  $ftpObj) = $packager->getRemoteConfig($ftp);
+            if ($ftp) {
+                list($config, $ftpObj) = $packager->getRemoteConfig($ftp);
             } else {
                 $config = $this->config();
             }
 
             $key = strtolower($params[self::PARAM_KEY]);
-            if(!$this->config()->hasKey($key)) {
+            if (!$this->config()->hasKey($key)) {
                 throw new Exception("No such config variable '{$key}'!");
             }
 
             $possible = $config->possible($key);
             $type = $config->type($key);
             $doc = $config->doc($key);
-            if($ftp) {
+            if ($ftp) {
                 @unlink($config->getFilename());
             }
             $data = array();
             $data[$command]['data'] = array(
-            'name' => array('Variable name', $key),
-            'type' => array('Value type', $type),
-            'possible' => array('Possible values', $possible),
-            'doc' => $doc,
+                'name' => array('Variable name', $key),
+                'type' => array('Value type', $type),
+                'possible' => array('Possible values', $possible),
+                'doc' => $doc,
             );
             $this->ui()->output($data);
-        } catch (Exception $e) {
-            if($ftp) {
+        }
+        catch (Exception $e)
+        {
+            if ($ftp) {
                 @unlink($config->getFilename());
             }
             return $this->doError($command, $e->getMessage());
@@ -207,5 +215,3 @@ extends Mage_Connect_Command
     }
 
 }
-
-

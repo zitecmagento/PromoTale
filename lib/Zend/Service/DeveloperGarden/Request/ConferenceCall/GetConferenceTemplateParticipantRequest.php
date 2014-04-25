@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: GetConferenceTemplateParticipantRequest.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Request_RequestAbstract
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceTemplateParticipantRequest
-    extends Zend_Service_DeveloperGarden_Request_RequestAbstract
+class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceTemplateParticipantRequest extends Zend_Service_DeveloperGarden_Request_RequestAbstract
 {
+
     /**
      * the template id
      *
@@ -61,7 +61,7 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceTemplateP
     {
         parent::__construct($environment);
         $this->setTemplateId($templateId)
-             ->setParticipantId($participantId);
+                ->setParticipantId($participantId);
     }
 
     /**
@@ -87,4 +87,5 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceTemplateP
         $this->participantId = $participantId;
         return $this;
     }
+
 }

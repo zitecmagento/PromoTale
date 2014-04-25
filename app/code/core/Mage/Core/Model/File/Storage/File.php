@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Abstract model class
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abstract
 {
+
     /**
      * Prefix of model events names
      *
@@ -129,7 +130,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
         }
 
         $offset = ((int) $offset >= 0) ? (int) $offset : 0;
-        $count  = ((int) $count >= 1) ? (int) $count : 1;
+        $count = ((int) $count >= 1) ? (int) $count : 1;
 
         if (is_null($this->_data)) {
             $this->_data = $this->getStorageData();
@@ -172,9 +173,12 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
 
         $result = array();
         foreach ($slice as $fileName) {
-            try {
+            try
+            {
                 $fileInfo = $this->collectFileInfo($fileName);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::logException($e);
                 continue;
             }
@@ -199,9 +203,12 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
         }
 
         foreach ($data as $part) {
-            try {
+            try
+            {
                 $this->$callback($part);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_errors[] = $e->getMessage();
                 Mage::logException($e);
             }
@@ -252,17 +259,17 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      */
     public function saveFile($file, $overwrite = true)
     {
-        if (isset($file['filename']) && !empty($file['filename'])
-            && isset($file['content'])
+        if (isset($file['filename']) && !empty($file['filename']) && isset($file['content'])
         ) {
-            try {
-                $filename = (isset($file['directory']) && !empty($file['directory']))
-                    ? $file['directory'] . DS . $file['filename']
-                    : $file['filename'];
+            try
+            {
+                $filename = (isset($file['directory']) && !empty($file['directory'])) ? $file['directory'] . DS . $file['filename'] : $file['filename'];
 
                 return $this->_getResource()
-                    ->saveFile($filename, $file['content'], $overwrite);
-            } catch (Exception $e) {
+                                ->saveFile($filename, $file['content'], $overwrite);
+            }
+            catch (Exception $e)
+            {
                 Mage::logException($e);
                 Mage::throwException(Mage::helper('core')->__('Unable to save file "%s" at "%s"', $file['filename'], $file['directory']));
             }
@@ -272,4 +279,5 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
 
         return false;
     }
+
 }

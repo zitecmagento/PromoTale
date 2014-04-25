@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
 {
+
     protected $_address;
     protected $_countryCollection;
     protected $_regionCollection;
@@ -52,10 +54,10 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
 
         if (!$this->_address->getId()) {
             $this->_address->setPrefix($this->getCustomer()->getPrefix())
-                ->setFirstname($this->getCustomer()->getFirstname())
-                ->setMiddlename($this->getCustomer()->getMiddlename())
-                ->setLastname($this->getCustomer()->getLastname())
-                ->setSuffix($this->getCustomer()->getSuffix());
+                    ->setFirstname($this->getCustomer()->getFirstname())
+                    ->setMiddlename($this->getCustomer()->getMiddlename())
+                    ->setLastname($this->getCustomer()->getLastname())
+                    ->setSuffix($this->getCustomer()->getSuffix());
         }
 
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -75,8 +77,8 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
     public function getNameBlockHtml()
     {
         $nameBlock = $this->getLayout()
-            ->createBlock('customer/widget_name')
-            ->setObject($this->getAddress());
+                ->createBlock('customer/widget_name')
+                ->setObject($this->getAddress());
 
         return $nameBlock->toHtml();
     }
@@ -88,8 +90,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         }
         if ($this->getAddress()->getId()) {
             $title = Mage::helper('customer')->__('Edit Address');
-        }
-        else {
+        } else {
             $title = Mage::helper('customer')->__('Add New Address');
         }
         return $title;
@@ -110,7 +111,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
 
     public function getSaveUrl()
     {
-        return Mage::getUrl('customer/address/formPost', array('_secure'=>true, 'id'=>$this->getAddress()->getId()));
+        return Mage::getUrl('customer/address/formPost', array('_secure' => true, 'id' => $this->getAddress()->getId()));
     }
 
     public function getAddress()
@@ -149,7 +150,8 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         if (!$this->getAddress()->getId()) {
             return $this->getCustomerAddressCount();
         }
-        return !$this->isDefaultShipping();;
+        return !$this->isDefaultShipping();
+        ;
     }
 
     public function isDefaultBilling()
@@ -177,4 +179,5 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
             return $this->getUrl('customer/account/');
         }
     }
+
 }

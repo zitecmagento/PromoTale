@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FileAttachment.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element.php';
 #require_once 'Zend/Pdf/Element/Array.php';
@@ -43,6 +43,7 @@
  */
 class Zend_Pdf_Annotation_FileAttachment extends Zend_Pdf_Annotation
 {
+
     /**
      * Annotation object constructor
      *
@@ -55,9 +56,9 @@ class Zend_Pdf_Annotation_FileAttachment extends Zend_Pdf_Annotation
             throw new Zend_Pdf_Exception('Annotation dictionary resource has to be a dictionary.');
         }
 
-        if ($annotationDictionary->Subtype === null  ||
-            $annotationDictionary->Subtype->getType() != Zend_Pdf_Element::TYPE_NAME  ||
-            $annotationDictionary->Subtype->value != 'FileAttachment') {
+        if ($annotationDictionary->Subtype === null ||
+                $annotationDictionary->Subtype->getType() != Zend_Pdf_Element::TYPE_NAME ||
+                $annotationDictionary->Subtype->value != 'FileAttachment') {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Subtype => FileAttachment entry is requires');
         }
@@ -79,7 +80,7 @@ class Zend_Pdf_Annotation_FileAttachment extends Zend_Pdf_Annotation
     {
         $annotationDictionary = new Zend_Pdf_Element_Dictionary();
 
-        $annotationDictionary->Type    = new Zend_Pdf_Element_Name('Annot');
+        $annotationDictionary->Type = new Zend_Pdf_Element_Name('Annot');
         $annotationDictionary->Subtype = new Zend_Pdf_Element_Name('FileAttachment');
 
         $rectangle = new Zend_Pdf_Element_Array();
@@ -91,11 +92,12 @@ class Zend_Pdf_Annotation_FileAttachment extends Zend_Pdf_Annotation
 
         $fsDictionary = new Zend_Pdf_Element_Dictionary();
         $fsDictionary->Type = new Zend_Pdf_Element_Name('Filespec');
-        $fsDictionary->F    = new Zend_Pdf_Element_String($fileSpecification);
+        $fsDictionary->F = new Zend_Pdf_Element_String($fileSpecification);
 
         $annotationDictionary->FS = $fsDictionary;
 
 
         return new Zend_Pdf_Annotation_FileAttachment($annotationDictionary);
     }
+
 }

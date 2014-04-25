@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales abstract collection
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Check if $attribute is Mage_Eav_Model_Entity_Attribute and convert to string field name
      *
@@ -106,7 +107,7 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
     public function setPage($pageNum, $pageSize)
     {
         $this->setCurPage($pageNum)
-            ->setPageSize($pageSize);
+                ->setPageSize($pageSize);
         return $this;
     }
 
@@ -141,8 +142,7 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
     public function getAllIds($limit = null, $offset = null)
     {
         return $this->getConnection()->fetchCol(
-            $this->_getAllIdsSelect($limit, $offset),
-            $this->_bindParams
+                        $this->_getAllIdsSelect($limit, $offset), $this->_bindParams
         );
     }
 
@@ -163,4 +163,5 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
     {
         return $this;
     }
+
 }

@@ -38,7 +38,7 @@
     text-overflow: ellipsis;
 }
 .x-combo-list .x-combo-selected{
-	background-color: #c3daf9 !important;
+    background-color: #c3daf9 !important;
     cursor:pointer;
     border:1px solid #336699;
 }

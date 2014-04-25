@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Block_Adminhtml_Attribute_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
+
     /**
      * Constructor
      */
@@ -41,7 +43,8 @@ class Mage_Api2_Block_Adminhtml_Attribute_Tabs extends Mage_Adminhtml_Block_Widg
         parent::__construct();
 
         $this->setId('api2_attribute_section_main')
-            ->setDestElementId('edit_form')
-            ->setData('title', $this->__('ACL Attributes Information'));
+                ->setDestElementId('edit_form')
+                ->setData('title', $this->__('ACL Attributes Information'));
     }
+
 }

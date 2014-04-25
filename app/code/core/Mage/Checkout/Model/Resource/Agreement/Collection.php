@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Resource Model for Agreement Collection
  *
@@ -34,8 +34,9 @@
  */
 class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     protected $_map = array('fields' => array(
-        'agreement_id' => 'main_table.agreement_id',
+            'agreement_id' => 'main_table.agreement_id',
     ));
 
     /**
@@ -43,7 +44,7 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
      *
      * @var bool
      */
-    protected $_isStoreFilterWithAdmin   = true;
+    protected $_isStoreFilterWithAdmin = true;
 
     /**
      * Initialize resource
@@ -81,12 +82,10 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
 
         // add filter
         $this->getSelect()->join(
-            array($alias => $this->getTable('checkout/agreement_store')),
-            'main_table.agreement_id = ' . $alias . '.agreement_id',
-            array()
-        )
-        ->where($alias . '.store_id IN (?)', $storeFilter)
-        ->group('main_table.agreement_id');
+                        array($alias => $this->getTable('checkout/agreement_store')), 'main_table.agreement_id = ' . $alias . '.agreement_id', array()
+                )
+                ->where($alias . '.store_id IN (?)', $storeFilter)
+                ->group('main_table.agreement_id');
 
         $this->setFlag($alias, true);
 
@@ -107,7 +106,8 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
      */
     public function setIsStoreFilterWithAdmin($value)
     {
-        $this->_isStoreFilterWithAdmin = (bool)$value;
+        $this->_isStoreFilterWithAdmin = (bool) $value;
         return $this;
     }
+
 }

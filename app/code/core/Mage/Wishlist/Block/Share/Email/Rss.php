@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist RSS URL to Email Block
  *
@@ -34,9 +34,11 @@
  */
 class Mage_Wishlist_Block_Share_Email_Rss extends Mage_Core_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('wishlist/email/rss.phtml');
     }
+
 }

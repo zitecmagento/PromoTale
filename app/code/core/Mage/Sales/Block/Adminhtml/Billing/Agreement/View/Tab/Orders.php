@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,9 +30,9 @@
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_Adminhtml_Block_Sales_Order_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_Adminhtml_Block_Sales_Order_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Initialize grid params
      *
@@ -102,7 +103,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/ordersGrid', array('_current'=>true));
+        return $this->getUrl('*/*/ordersGrid', array('_current' => true));
     }
 
     /**
@@ -124,4 +125,5 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_
     {
         return $this;
     }
+
 }

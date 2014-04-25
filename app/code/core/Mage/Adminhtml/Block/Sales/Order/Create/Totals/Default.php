@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Default Total Row Renderer
  *
@@ -32,6 +32,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default extends Mage_Adminhtml_Block_Sales_Order_Create_Totals
 {
+
     protected $_template = 'sales/order/create/totals/default.phtml';
 
     protected function _construct()
@@ -63,4 +64,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default extends Mage_Adminh
     {
         return $this->getStore()->formatPrice($value);
     }
+
 }

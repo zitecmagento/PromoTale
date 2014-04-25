@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,9 +30,10 @@
  *
  * @category   Mage
  * @package    Mage_Api
-*/
+ */
 class Mage_Api_Controller_Action extends Mage_Core_Controller_Front_Action
 {
+
     public function preDispatch()
     {
         $this->getLayout()->setArea('adminhtml');
@@ -50,4 +52,5 @@ class Mage_Api_Controller_Action extends Mage_Core_Controller_Front_Action
     {
         return Mage::getSingleton('api/server');
     }
+
 }

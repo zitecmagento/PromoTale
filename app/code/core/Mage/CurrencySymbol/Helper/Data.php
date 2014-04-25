@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,7 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
- /**
+/**
  * Currency Symbol helper
  *
  * @category   Mage
@@ -44,15 +45,16 @@ class Mage_CurrencySymbol_Helper_Data extends Mage_Core_Helper_Data
     {
         $currencyOptions = array();
         $currencySymbol = Mage::getModel('currencysymbol/system_currencysymbol');
-        if($currencySymbol) {
+        if ($currencySymbol) {
             $customCurrencySymbol = $currencySymbol->getCurrencySymbol($baseCode);
 
             if ($customCurrencySymbol) {
-                $currencyOptions['symbol']  = $customCurrencySymbol;
+                $currencyOptions['symbol'] = $customCurrencySymbol;
                 $currencyOptions['display'] = Zend_Currency::USE_SYMBOL;
             }
         }
 
         return $currencyOptions;
     }
+
 }

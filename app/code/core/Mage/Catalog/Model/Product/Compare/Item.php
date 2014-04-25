@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Compare Item Model
  *
@@ -43,6 +43,7 @@
  */
 class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
 {
+
     /**
      * Model cache tag
      *
@@ -146,8 +147,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     {
         if ($product instanceof Mage_Catalog_Model_Product) {
             $this->setProductId($product->getId());
-        }
-        else if(intval($product)) {
+        } else if (intval($product)) {
             $this->setProductId(intval($product));
         }
 
@@ -163,8 +163,8 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     {
         $data = array();
         $data['customer_id'] = $this->getCustomerId();
-        $data['visitor_id']  = $this->getVisitorId();
-        $data['product_id']  = $this->getProductId();
+        $data['visitor_id'] = $this->getVisitorId();
+        $data['product_id'] = $this->getProductId();
 
         return $data;
     }
@@ -234,4 +234,5 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
         }
         return $this->getData('visitor_id');
     }
+
 }

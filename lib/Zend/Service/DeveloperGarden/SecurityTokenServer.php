@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SecurityTokenServer.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_SecurityTokenServer_Cache
  */
@@ -48,9 +48,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_SecurityTokenServer
-    extends Zend_Service_DeveloperGarden_Client_ClientAbstract
+class Zend_Service_DeveloperGarden_SecurityTokenServer extends Zend_Service_DeveloperGarden_Client_ClientAbstract
 {
+
     /**
      * wsdl file
      *
@@ -73,7 +73,7 @@ class Zend_Service_DeveloperGarden_SecurityTokenServer
      */
     protected $_classMap = array(
         'SecurityTokenResponse' => 'Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse',
-        'getTokensResponse'     => 'Zend_Service_DeveloperGarden_Response_SecurityTokenServer_GetTokensResponse'
+        'getTokensResponse' => 'Zend_Service_DeveloperGarden_Response_SecurityTokenServer_GetTokensResponse'
     );
 
     /**
@@ -84,16 +84,14 @@ class Zend_Service_DeveloperGarden_SecurityTokenServer
     public function getLoginToken()
     {
         $token = Zend_Service_DeveloperGarden_SecurityTokenServer_Cache::getTokenFromCache(
-            'securityToken'
+                        'securityToken'
         );
 
-        if ($token === null
-            || !$token->isValid()
+        if ($token === null || !$token->isValid()
         ) {
             $token = $this->getSoapClient()->login('login');
             Zend_Service_DeveloperGarden_SecurityTokenServer_Cache::setTokenToCache(
-                'securityToken',
-                $token
+                    'securityToken', $token
             );
         }
 
@@ -108,20 +106,19 @@ class Zend_Service_DeveloperGarden_SecurityTokenServer
     public function getTokens()
     {
         $token = Zend_Service_DeveloperGarden_SecurityTokenServer_Cache::getTokenFromCache(
-            'getTokens'
+                        'getTokens'
         );
 
-        if ($token === null
-            || !$token->isValid()
+        if ($token === null || !$token->isValid()
         ) {
             $token = $this->getSoapClient()->getTokens(array(
                 'serviceId' => $this->_serviceAuthId
             ));
             Zend_Service_DeveloperGarden_SecurityTokenServer_Cache::setTokenToCache(
-                'getTokens',
-                $token
+                    'getTokens', $token
             );
         }
         return $token;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Resource_ConfigData extends Mage_Core_Model_Mysql4_Abstract
 {
+
     /**
      * Initialize configuration data
      *
@@ -56,9 +58,9 @@ class Mage_XmlConnect_Model_Resource_ConfigData extends Mage_Core_Model_Mysql4_A
     {
         $newData = array(
             'application_id' => $applicationId,
-            'category'  => $category,
-            'path'      => $path,
-            'value'     => $value
+            'category' => $category,
+            'path' => $path,
+            'value' => $value
         );
 
         $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), $newData, array('value'));
@@ -76,7 +78,8 @@ class Mage_XmlConnect_Model_Resource_ConfigData extends Mage_Core_Model_Mysql4_A
      */
     public function deleteConfig($applicationId, $category = '', $path = '', $pathLike = true)
     {
-        try {
+        try
+        {
             $this->_getWriteAdapter()->beginTransaction();
             $writeAdapter = $this->_getWriteAdapter();
             $deleteWhere[] = $writeAdapter->quoteInto('application_id=?', $applicationId);
@@ -84,19 +87,23 @@ class Mage_XmlConnect_Model_Resource_ConfigData extends Mage_Core_Model_Mysql4_A
                 $deleteWhere[] = $writeAdapter->quoteInto('category=?', $category);
             }
             if ($path) {
-                $deleteWhere[] = $pathLike ? $writeAdapter->quoteInto('path like ?', $path . '/%')
-                    : $writeAdapter->quoteInto('path=?', $path);
+                $deleteWhere[] = $pathLike ? $writeAdapter->quoteInto('path like ?', $path . '/%') : $writeAdapter->quoteInto('path=?', $path);
             }
             $writeAdapter->delete($this->getMainTable(), $deleteWhere);
             $this->_getWriteAdapter()->commit();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getWriteAdapter()->rollBack();
             throw $e;
-        } catch (Exception $e){
+        }
+        catch (Exception $e)
+        {
             $this->_getWriteAdapter()->rollBack();
             Mage::logException($e);
         }
 
         return $this;
     }
+
 }

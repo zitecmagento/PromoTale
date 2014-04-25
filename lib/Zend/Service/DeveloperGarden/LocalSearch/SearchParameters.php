@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,39 +31,40 @@
  */
 class Zend_Service_DeveloperGarden_LocalSearch_SearchParameters
 {
+
     /**
      * possible search parameters, incl. default values
      *
      * @var array
      */
     private $_parameters = array(
-        'what'             => null,
-        'dymwhat'          => null,
-        'dymrelated'       => null,
-        'hits'             => null,
-        'collapse'         => null,
-        'where'            => null,
-        'dywhere'          => null,
-        'radius'           => null,
-        'lx'               => null,
-        'ly'               => null,
-        'rx'               => null,
-        'ry'               => null,
+        'what' => null,
+        'dymwhat' => null,
+        'dymrelated' => null,
+        'hits' => null,
+        'collapse' => null,
+        'where' => null,
+        'dywhere' => null,
+        'radius' => null,
+        'lx' => null,
+        'ly' => null,
+        'rx' => null,
+        'ry' => null,
         'transformgeocode' => null,
-        'sort'             => null,
-        'spatial'          => null,
-        'sepcomm'          => null,
-        'filter'           => null, // can be ONLINER or OFFLINER
-        'openingtime'      => null, // can be now or HH::MM
-        'kategorie'        => null, // @see http://www.suchen.de/kategorie-katalog
-        'site'             => null,
-        'typ'              => null,
-        'name'             => null,
-        'page'             => null,
-        'city'             => null,
-        'plz'              => null,
-        'strasse'          => null,
-        'bundesland'       => null,
+        'sort' => null,
+        'spatial' => null,
+        'sepcomm' => null,
+        'filter' => null, // can be ONLINER or OFFLINER
+        'openingtime' => null, // can be now or HH::MM
+        'kategorie' => null, // @see http://www.suchen.de/kategorie-katalog
+        'site' => null,
+        'typ' => null,
+        'name' => null,
+        'page' => null,
+        'city' => null,
+        'plz' => null,
+        'strasse' => null,
+        'bundesland' => null,
     );
 
     /**
@@ -318,7 +320,7 @@ class Zend_Service_DeveloperGarden_LocalSearch_SearchParameters
     public function setTransformGeoCode()
     {
         $this->_parameters['transformgeocode'] = 'true';
-        $this->_parameters['radius']           = null;
+        $this->_parameters['radius'] = null;
 
         return $this;
     }
@@ -384,7 +386,6 @@ class Zend_Service_DeveloperGarden_LocalSearch_SearchParameters
         $this->_parameters['filter'] = 'OFFLINER';
         return $this;
     }
-
 
     /**
      * removes the filter value
@@ -533,4 +534,5 @@ class Zend_Service_DeveloperGarden_LocalSearch_SearchParameters
         }
         return $retVal;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalog
 {
+
     /**
      * Retrieve product attributes as xml object
      *
@@ -64,13 +66,13 @@ class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalo
             }
 
             $icon = clone Mage::helper('xmlconnect/catalog_product_image')->init($product, $propertyToResizeName)
-                ->resize($imageToResize);
+                            ->resize($imageToResize);
 
             $iconXml = $item->addChild('icon', $icon);
             $iconXml->addAttribute('modification_time', filemtime($icon->getNewFile()));
 
-            $item->addChild('in_stock', (int)$product->getStockItem()->getIsInStock());
-            $item->addChild('is_salable', (int)$product->isSalable());
+            $item->addChild('in_stock', (int) $product->getStockItem()->getIsInStock());
+            $item->addChild('is_salable', (int) $product->isSalable());
             /**
              * By default all products has gallery (because of collection not load gallery attribute)
              */
@@ -82,11 +84,10 @@ class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalo
             /**
              * If product type is grouped than it has options as its grouped items
              */
-            if ($product->getTypeId() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE
-                || $product->getTypeId() == Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
+            if ($product->getTypeId() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE || $product->getTypeId() == Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
                 $product->setHasOptions(true);
             }
-            $item->addChild('has_options', (int)$product->getHasOptions());
+            $item->addChild('has_options', (int) $product->getHasOptions());
 
             $minSaleQty = null;
             if ($product->hasPreconfiguredValues()) {
@@ -95,14 +96,14 @@ class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalo
             $minSaleQty = $minSaleQty ? $minSaleQty : $this->_getMinimalQty($product);
 
             if ($minSaleQty) {
-                $item->addChild('min_sale_qty', (int)$minSaleQty);
+                $item->addChild('min_sale_qty', (int) $minSaleQty);
             }
 
             if (!$product->getRatingSummary()) {
                 Mage::getModel('review/review')->getEntitySummary($product, Mage::app()->getStore()->getId());
             }
 
-            $item->addChild('rating_summary', round((int)$product->getRatingSummary()->getRatingSummary() / 10));
+            $item->addChild('rating_summary', round((int) $product->getRatingSummary()->getRatingSummary() / 10));
             $item->addChild('reviews_count', $product->getRatingSummary()->getReviewsCount());
 
             if ($this->getChild('product_price')) {
@@ -146,7 +147,7 @@ class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalo
             $product = $this->getProduct();
         } else {
             $product = Mage::getModel('catalog/product')->setStoreId(Mage::app()->getStore()->getId())
-                ->load($this->getRequest()->getParam('id', 0));
+                    ->load($this->getRequest()->getParam('id', 0));
             if (!$product) {
                 Mage::throwException($this->__('Selected product is unavailable.'));
             } else {
@@ -170,4 +171,5 @@ class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalo
 
         return $productXmlObj->asNiceXml();
     }
+
 }

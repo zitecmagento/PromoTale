@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Simplexml_Form_Element_Email extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
 {
+
     /**
      * Init email element
      *
@@ -43,4 +45,5 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Email extends Mage_XmlConnect
         parent::__construct($attributes);
         $this->setType('email');
     }
+
 }

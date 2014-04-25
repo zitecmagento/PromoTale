@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
+
     /**
      * Discount calculation object
      *
@@ -72,7 +72,7 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
                     continue;
                 }
                 $this->_calculator->processFreeShipping($item);
-                $isItemFree = (bool)$item->getFreeShipping();
+                $isItemFree = (bool) $item->getFreeShipping();
                 $isAllFree = $isAllFree && $isItemFree;
                 if ($item->getHasChildren() && $item->isChildrenCalculated()) {
                     foreach ($item->getChildren() as $child) {
@@ -83,7 +83,6 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
                         if ($isItemFree) {
                             $child->setFreeShipping($isItemFree);
                         }
-
                     }
                 }
             }
@@ -94,13 +93,13 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
         return $this;
     }
 
-   /**
-    * Add information about free shipping for all address items to address object
-    * By default we not present such information
-    *
-    * @param   Mage_Sales_Model_Quote_Address $address
-    * @return  Mage_SalesRule_Model_Quote_Freeshipping
-    */
+    /**
+     * Add information about free shipping for all address items to address object
+     * By default we not present such information
+     *
+     * @param   Mage_Sales_Model_Quote_Address $address
+     * @return  Mage_SalesRule_Model_Quote_Freeshipping
+     */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         return $this;

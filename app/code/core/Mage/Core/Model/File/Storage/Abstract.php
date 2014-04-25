@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Abstract file storage model class
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abstract
 {
+
     /**
      * Store media base directory path
      *
@@ -89,10 +90,11 @@ abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abs
         }
 
         return array(
-            'filename'      => basename($path),
-            'content'       => @file_get_contents($fullPath),
-            'update_time'   => Mage::getSingleton('core/date')->date(),
-            'directory'     => $directory
+            'filename' => basename($path),
+            'content' => @file_get_contents($fullPath),
+            'update_time' => Mage::getSingleton('core/date')->date(),
+            'directory' => $directory
         );
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order creditmemo comment resource
  *
@@ -34,12 +34,13 @@
  */
 class Mage_Sales_Model_Resource_Order_Creditmemo_Comment extends Mage_Sales_Model_Resource_Order_Abstract
 {
+
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix    = 'sales_order_creditmemo_comment_resource';
+    protected $_eventPrefix = 'sales_order_creditmemo_comment_resource';
 
     /**
      * Model initialization
@@ -49,4 +50,5 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Comment extends Mage_Sales_Mode
     {
         $this->_init('sales/creditmemo_comment', 'entity_id');
     }
+
 }

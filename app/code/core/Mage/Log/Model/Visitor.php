@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Enter description here ...
  *
@@ -45,9 +45,10 @@
  */
 class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 {
+
     const DEFAULT_ONLINE_MINUTES_INTERVAL = 15;
     const VISITOR_TYPE_CUSTOMER = 'c';
-    const VISITOR_TYPE_VISITOR  = 'v';
+    const VISITOR_TYPE_VISITOR = 'v';
 
     protected $_skipRequestLogging = false;
 
@@ -88,16 +89,16 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         $helper = Mage::helper('core/http');
 
         $this->addData(array(
-            'server_addr'           => $helper->getServerAddr(true),
-            'remote_addr'           => $helper->getRemoteAddr(true),
-            'http_secure'           => Mage::app()->getStore()->isCurrentlySecure(),
-            'http_host'             => $helper->getHttpHost(true),
-            'http_user_agent'       => $helper->getHttpUserAgent(true),
-            'http_accept_language'  => $helper->getHttpAcceptLanguage(true),
-            'http_accept_charset'   => $helper->getHttpAcceptCharset(true),
-            'request_uri'           => $helper->getRequestUri(true),
-            'session_id'            => $this->_getSession()->getSessionId(),
-            'http_referer'          => $helper->getHttpReferer(true),
+            'server_addr' => $helper->getServerAddr(true),
+            'remote_addr' => $helper->getRemoteAddr(true),
+            'http_secure' => Mage::app()->getStore()->isCurrentlySecure(),
+            'http_host' => $helper->getHttpHost(true),
+            'http_user_agent' => $helper->getHttpUserAgent(true),
+            'http_accept_language' => $helper->getHttpAcceptLanguage(true),
+            'http_accept_charset' => $helper->getHttpAcceptCharset(true),
+            'request_uri' => $helper->getRequestUri(true),
+            'session_id' => $this->_getSession()->getSessionId(),
+            'http_referer' => $helper->getHttpReferer(true),
         ));
 
         return $this;
@@ -111,9 +112,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public static function getOnlineMinutesInterval()
     {
         $configValue = Mage::getStoreConfig('customer/online_customers/online_minutes_interval');
-        return intval($configValue) > 0
-            ? intval($configValue)
-            : self::DEFAULT_ONLINE_MINUTES_INTERVAL;
+        return intval($configValue) > 0 ? intval($configValue) : self::DEFAULT_ONLINE_MINUTES_INTERVAL;
     }
 
     /**
@@ -124,7 +123,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getUrl()
     {
         $url = 'http' . ($this->getHttpSecure() ? 's' : '') . '://';
-        $url .= $this->getHttpHost().$this->getRequestUri();
+        $url .= $this->getHttpHost() . $this->getRequestUri();
         return $url;
     }
 
@@ -184,11 +183,14 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        try {
+        try
+        {
             $this->setLastVisitAt(now());
             $this->save();
             $this->_getSession()->setVisitorData($this->getData());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
         }
         return $this;
@@ -259,12 +261,12 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function addCustomerData($data)
     {
         $customerId = $data->getCustomerId();
-        if( intval($customerId) <= 0 ) {
+        if (intval($customerId) <= 0) {
             return $this;
         }
         $customerData = Mage::getModel('customer/customer')->load($customerId);
         $newCustomerData = array();
-        foreach( $customerData->getData() as $propName => $propValue ) {
+        foreach ($customerData->getData() as $propName => $propValue) {
             $newCustomerData['customer_' . $propName] = $propValue;
         }
 
@@ -275,7 +277,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function addQuoteData($data)
     {
         $quoteId = $data->getQuoteId();
-        if( intval($quoteId) <= 0 ) {
+        if (intval($quoteId) <= 0) {
             return $this;
         }
         $data->setQuoteData(Mage::getModel('sales/quote')->load($quoteId));
@@ -286,7 +288,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     {
         $ignores = Mage::getConfig()->getNode('global/ignoredModules/entities')->asArray();
 
-        if( is_array($ignores) && $observer) {
+        if (is_array($ignores) && $observer) {
             $curModule = $observer->getEvent()->getControllerAction()->getRequest()->getRouteName();
             if (isset($ignores[$curModule])) {
                 return true;
@@ -294,4 +296,5 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         }
         return false;
     }
+
 }

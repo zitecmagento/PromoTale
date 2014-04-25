@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,14 +33,13 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Adminhtml_Block_Catalog_Form_Renderer_Attribute_Urlkey
-    extends Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
+class Mage_Adminhtml_Block_Catalog_Form_Renderer_Attribute_Urlkey extends Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
 {
+
     public function getElementHtml()
     {
         $element = $this->getElement();
-        if(!$element->getValue()) {
+        if (!$element->getValue()) {
             return parent::getElementHtml();
         }
         $element->setOnkeyup("onUrlkeyChanged('" . $element->getHtmlId() . "')");
@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Attribute_Urlkey
             'name' => $element->getData('name') . '_create_redirect',
             'disabled' => true,
         );
-        $hidden =  new Varien_Data_Form_Element_Hidden($data);
+        $hidden = new Varien_Data_Form_Element_Hidden($data);
         $hidden->setForm($element->getForm());
 
         $storeId = $element->getForm()->getDataObject()->getStoreId();
@@ -62,4 +62,5 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Attribute_Urlkey
 
         return parent::getElementHtml() . '<br/>' . $hidden->getElementHtml() . $checkbox->getElementHtml() . $checkbox->getLabelHtml();
     }
+
 }

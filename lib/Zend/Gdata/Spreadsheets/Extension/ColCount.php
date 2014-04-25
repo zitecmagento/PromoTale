@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ColCount.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Entry
  */
@@ -29,7 +29,6 @@
  * @see Zend_Gdata_Extension
  */
 #require_once 'Zend/Gdata/Extension.php';
-
 
 /**
  * Concrete class for working with colCount elements.
@@ -56,4 +55,5 @@ class Zend_Gdata_Spreadsheets_Extension_ColCount extends Zend_Gdata_Extension
         parent::__construct();
         $this->_text = $text;
     }
+
 }

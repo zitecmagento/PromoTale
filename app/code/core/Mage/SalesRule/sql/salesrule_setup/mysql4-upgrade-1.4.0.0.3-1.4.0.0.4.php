@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,15 +24,10 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /** @var $installer Mage_Sales_Model_Mysql4_Setup */
+$installer->getConnection()->addColumn($installer->getTable('salesrule/coupon_aggregated'), 'subtotal_amount_actual', "decimal(12,4) NOT NULL default '0.0000'");
 
-$installer->getConnection()->addColumn($installer->getTable('salesrule/coupon_aggregated'),
-    'subtotal_amount_actual', "decimal(12,4) NOT NULL default '0.0000'");
+$installer->getConnection()->addColumn($installer->getTable('salesrule/coupon_aggregated'), 'discount_amount_actual', "decimal(12,4) NOT NULL default '0.0000'");
 
-$installer->getConnection()->addColumn($installer->getTable('salesrule/coupon_aggregated'),
-    'discount_amount_actual', "decimal(12,4) NOT NULL default '0.0000'");
-
-$installer->getConnection()->addColumn($installer->getTable('salesrule/coupon_aggregated'),
-    'total_amount_actual', "decimal(12,4) NOT NULL default '0.0000'");
+$installer->getConnection()->addColumn($installer->getTable('salesrule/coupon_aggregated'), 'total_amount_actual', "decimal(12,4) NOT NULL default '0.0000'");

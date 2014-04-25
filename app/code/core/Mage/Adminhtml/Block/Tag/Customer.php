@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Tag_Customer extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
 
@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Tag_Customer extends Mage_Adminhtml_Block_Widget_Grid
     {
         parent::__construct();
 
-        switch( $this->getRequest()->getParam('ret') ) {
+        switch ($this->getRequest()->getParam('ret')) {
             case 'all':
                 $url = $this->getUrl('*/*/');
                 break;
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Tag_Customer extends Mage_Adminhtml_Block_Widget_Grid
         $this->_addBackButton();
 
         $tagInfo = Mage::getModel('tag/tag')
-            ->load(Mage::registry('tagId'));
+                ->load(Mage::registry('tagId'));
 
         $this->_headerText = Mage::helper('tag')->__("Customers Tagged '%s'", $this->escapeHtml($tagInfo->getName()));
     }

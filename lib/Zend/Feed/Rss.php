@@ -19,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Rss.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Feed_Abstract
  */
@@ -30,7 +28,6 @@
  * @see Zend_Feed_Entry_Rss
  */
 #require_once 'Zend/Feed/Entry/Rss.php';
-
 
 /**
  * RSS channel class
@@ -48,6 +45,7 @@
  */
 class Zend_Feed_Rss extends Zend_Feed_Abstract
 {
+
     /**
      * The classname for individual channel elements.
      *
@@ -83,7 +81,7 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
         $rdfTags = $this->_element->getElementsByTagNameNS('http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'RDF');
         if ($rdfTags->length != 0) {
             $this->_element = $rdfTags->item(0);
-        } else  {
+        } else {
             $this->_element = $this->_element->getElementsByTagName('channel')->item(0);
         }
         if (!$this->_element) {
@@ -98,7 +96,6 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
         // simplicity.
         $this->_buildEntryCache();
     }
-
 
     /**
      * Make accessing some individual elements of the channel easier.
@@ -115,7 +112,7 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
     {
         switch ($var) {
             case 'item':
-                // fall through to the next case
+            // fall through to the next case
             case 'items':
                 return $this;
 
@@ -452,9 +449,7 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
                 $item->appendChild($comments);
             }
             if (isset($dataentry->commentRss)) {
-                $comments = $this->_element->createElementNS('http://wellformedweb.org/CommentAPI/',
-                                                             'wfw:commentRss',
-                                                             $dataentry->commentRss);
+                $comments = $this->_element->createElementNS('http://wellformedweb.org/CommentAPI/', 'wfw:commentRss', $dataentry->commentRss);
                 $item->appendChild($comments);
             }
 
@@ -485,8 +480,7 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
     public function saveXml()
     {
         // Return a complete document including XML prologue.
-        $doc = new DOMDocument($this->_element->ownerDocument->version,
-                               $this->_element->ownerDocument->actualEncoding);
+        $doc = new DOMDocument($this->_element->ownerDocument->version, $this->_element->ownerDocument->actualEncoding);
         $root = $doc->createElement('rss');
 
         // Use rss version 2.0

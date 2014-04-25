@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ListEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Entry
  */
@@ -83,14 +82,14 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
     protected function takeChildFromDOM($child)
     {
         switch ($child->namespaceURI) {
-        case $this->lookupNamespace('gsx');
-            $custom = new Zend_Gdata_Spreadsheets_Extension_Custom($child->localName);
-            $custom->transferFromDOM($child);
-            $this->addCustom($custom);
-            break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            case $this->lookupNamespace('gsx');
+                $custom = new Zend_Gdata_Spreadsheets_Extension_Custom($child->localName);
+                $custom->transferFromDOM($child);
+                $this->addCustom($custom);
+                break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 
@@ -177,7 +176,7 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
         } else {
             #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'Element does not exist.');
+            'Element does not exist.');
         }
         return $this;
     }
@@ -200,7 +199,7 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
         } else {
             #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'Element does not exist.');
+            'Element does not exist.');
         }
         return $this;
     }

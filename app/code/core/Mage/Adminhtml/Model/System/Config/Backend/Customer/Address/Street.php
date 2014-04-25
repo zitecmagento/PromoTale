@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street extends Mage_Core_Model_Config_Data
 {
+
     /**
      * Actions after save
      *
@@ -41,7 +43,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street extends
     protected function _afterSave()
     {
         $attribute = Mage::getSingleton('eav/config')->getAttribute('customer_address', 'street');
-        $value  = $this->getValue();
+        $value = $this->getValue();
         switch ($this->getScope()) {
             case 'websites':
                 $website = Mage::app()->getWebsite($this->getWebsiteCode());
@@ -80,4 +82,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street extends
 
         return $result;
     }
+
 }

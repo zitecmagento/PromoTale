@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: IsCompressed.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_File_MimeType
  */
@@ -34,10 +34,11 @@
  */
 class Zend_Validate_File_IsCompressed extends Zend_Validate_File_MimeType
 {
+
     /**
      * @const string Error constants
      */
-    const FALSE_TYPE   = 'fileIsCompressedFalseType';
+    const FALSE_TYPE = 'fileIsCompressedFalseType';
     const NOT_DETECTED = 'fileIsCompressedNotDetected';
     const NOT_READABLE = 'fileIsCompressedNotReadable';
 
@@ -45,7 +46,7 @@ class Zend_Validate_File_IsCompressed extends Zend_Validate_File_MimeType
      * @var array Error message templates
      */
     protected $_messageTemplates = array(
-        self::FALSE_TYPE   => "File '%value%' is not compressed, '%type%' detected",
+        self::FALSE_TYPE => "File '%value%' is not compressed, '%type%' detected",
         self::NOT_DETECTED => "The mimetype of file '%value%' could not be detected",
         self::NOT_READABLE => "File '%value%' is not readable or does not exist",
     );
@@ -62,9 +63,9 @@ class Zend_Validate_File_IsCompressed extends Zend_Validate_File_MimeType
             $mimetype = $mimetype->toArray();
         }
 
-        $temp    = array();
+        $temp = array();
         // http://de.wikipedia.org/wiki/Liste_von_Dateiendungen
-            $default = array(
+        $default = array(
             'application/arj',
             'application/gnutar',
             'application/lha',
@@ -131,7 +132,7 @@ class Zend_Validate_File_IsCompressed extends Zend_Validate_File_MimeType
     protected function _throw($file, $errorType)
     {
         $this->_value = $file['name'];
-        switch($errorType) {
+        switch ($errorType) {
             case Zend_Validate_File_MimeType::FALSE_TYPE :
                 $errorType = self::FALSE_TYPE;
                 break;
@@ -146,4 +147,5 @@ class Zend_Validate_File_IsCompressed extends Zend_Validate_File_MimeType
         $this->_error($errorType);
         return false;
     }
+
 }

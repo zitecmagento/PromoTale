@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,14 +34,15 @@
  */
 class Mage_Sales_Model_Order_Invoice_Total_Shipping extends Mage_Sales_Model_Order_Invoice_Total_Abstract
 {
+
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {
         $invoice->setShippingAmount(0);
         $invoice->setBaseShippingAmount(0);
-        $orderShippingAmount        = $invoice->getOrder()->getShippingAmount();
-        $baseOrderShippingAmount    = $invoice->getOrder()->getBaseShippingAmount();
-        $shippingInclTax            = $invoice->getOrder()->getShippingInclTax();
-        $baseShippingInclTax        = $invoice->getOrder()->getBaseShippingInclTax();
+        $orderShippingAmount = $invoice->getOrder()->getShippingAmount();
+        $baseOrderShippingAmount = $invoice->getOrder()->getBaseShippingAmount();
+        $shippingInclTax = $invoice->getOrder()->getShippingInclTax();
+        $baseShippingInclTax = $invoice->getOrder()->getBaseShippingInclTax();
         if ($orderShippingAmount) {
             /**
              * Check shipping amount in previus invoices
@@ -55,9 +57,10 @@ class Mage_Sales_Model_Order_Invoice_Total_Shipping extends Mage_Sales_Model_Ord
             $invoice->setShippingInclTax($shippingInclTax);
             $invoice->setBaseShippingInclTax($baseShippingInclTax);
 
-            $invoice->setGrandTotal($invoice->getGrandTotal()+$orderShippingAmount);
-            $invoice->setBaseGrandTotal($invoice->getBaseGrandTotal()+$baseOrderShippingAmount);
+            $invoice->setGrandTotal($invoice->getGrandTotal() + $orderShippingAmount);
+            $invoice->setBaseGrandTotal($invoice->getBaseGrandTotal() + $baseOrderShippingAmount);
         }
         return $this;
     }
+
 }

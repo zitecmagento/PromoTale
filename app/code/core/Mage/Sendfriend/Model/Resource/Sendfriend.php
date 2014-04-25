@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SendFriend Log Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sendfriend_Model_Resource_Sendfriend extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize connection and table
      *
@@ -56,14 +57,14 @@ class Mage_Sendfriend_Model_Resource_Sendfriend extends Mage_Core_Model_Resource
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('count' => new Zend_Db_Expr('count(*)')))
-            ->where('ip=:ip
+                ->from($this->getMainTable(), array('count' => new Zend_Db_Expr('count(*)')))
+                ->where('ip=:ip
                 AND  time>=:time
                 AND  website_id=:website_id');
         $bind = array(
-            'ip'      => $ip,
-            'time'    => $startTime,
-            'website_id' => (int)$websiteId,
+            'ip' => $ip,
+            'time' => $startTime,
+            'website_id' => (int) $websiteId,
         );
 
         $row = $adapter->fetchRow($select, $bind);
@@ -81,12 +82,11 @@ class Mage_Sendfriend_Model_Resource_Sendfriend extends Mage_Core_Model_Resource
     public function addSendItem($ip, $startTime, $websiteId)
     {
         $this->_getWriteAdapter()->insert(
-            $this->getMainTable(),
-            array(
-                'ip'         => $ip,
-                'time'       => $startTime,
-                'website_id' => $websiteId
-             )
+                $this->getMainTable(), array(
+            'ip' => $ip,
+            'time' => $startTime,
+            'website_id' => $websiteId
+                )
         );
         return $this;
     }
@@ -104,4 +104,5 @@ class Mage_Sendfriend_Model_Resource_Sendfriend extends Mage_Core_Model_Resource
 
         return $this;
     }
+
 }

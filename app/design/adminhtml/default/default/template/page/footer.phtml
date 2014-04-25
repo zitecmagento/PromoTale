@@ -37,10 +37,10 @@
 <script type="text/javascript">
     $('footer_bug_tracking').target = 'Varien_External';
     $('footer_connect').target = 'Varien_External';
-    function setInterfaceLanguage(evt){
+    function setInterfaceLanguage(evt) {
         var elem = Event.element(evt);
-        if(elem){
-            setLocation('<?php echo $this->getChangeLocaleUrl() ?>locale/'+elem.value+'/<?php echo $this->getRefererParamName() ?>/<?php echo $this->getUrlForReferer() ?>');
+        if (elem) {
+            setLocation('<?php echo $this->getChangeLocaleUrl() ?>locale/' + elem.value + '/<?php echo $this->getRefererParamName() ?>/<?php echo $this->getUrlForReferer() ?>');
         }
     }
     Event.observe('interface_locale', 'change', setInterfaceLanguage)

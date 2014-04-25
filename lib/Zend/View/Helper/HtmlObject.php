@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HtmlObject.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_View_Helper_HtmlElement
  */
@@ -34,6 +34,7 @@
  */
 class Zend_View_Helper_HtmlObject extends Zend_View_Helper_HtmlElement
 {
+
     /**
      * Output an object set
      *
@@ -48,7 +49,7 @@ class Zend_View_Helper_HtmlObject extends Zend_View_Helper_HtmlElement
     {
         // Merge data and type
         $attribs = array_merge(array('data' => $data,
-                                     'type' => $type), $attribs);
+            'type' => $type), $attribs);
 
         // Params
         $paramHtml = array();
@@ -71,10 +72,11 @@ class Zend_View_Helper_HtmlObject extends Zend_View_Helper_HtmlElement
 
         // Object header
         $xhtml = '<object' . $this->_htmlAttribs($attribs) . '>' . self::EOL
-                 . implode(self::EOL, $paramHtml) . self::EOL
-                 . ($content ? $content . self::EOL : '')
-                 . '</object>';
+                . implode(self::EOL, $paramHtml) . self::EOL
+                . ($content ? $content . self::EOL : '')
+                . '</object>';
 
         return $xhtml;
     }
+
 }

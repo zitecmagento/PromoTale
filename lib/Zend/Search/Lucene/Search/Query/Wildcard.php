@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Wildcard.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Search_Query */
 #require_once 'Zend/Search/Lucene/Search/Query.php';
-
 
 /**
  * @category   Zend
@@ -34,6 +32,7 @@
  */
 class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search_Query
 {
+
     /**
      * Search pattern.
      *
@@ -103,7 +102,7 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
     private static function _getPrefix($word)
     {
         $questionMarkPosition = strpos($word, '?');
-        $astrericPosition     = strpos($word, '*');
+        $astrericPosition = strpos($word, '*');
 
         if ($questionMarkPosition !== false) {
             if ($astrericPosition !== false) {
@@ -136,9 +135,9 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
             $fields = array($this->_pattern->field);
         }
 
-        $prefix          = self::_getPrefix($this->_pattern->text);
-        $prefixLength    = strlen($prefix);
-        $matchExpression = '/^' . str_replace(array('\\?', '\\*'), array('.', '.*') , preg_quote($this->_pattern->text, '/')) . '$/';
+        $prefix = self::_getPrefix($this->_pattern->text);
+        $prefixLength = strlen($prefix);
+        $matchExpression = '/^' . str_replace(array('\\?', '\\*'), array('.', '.*'), preg_quote($this->_pattern->text, '/')) . '$/';
 
         if ($prefixLength < self::$_minPrefixLength) {
             #require_once 'Zend/Search/Lucene/Exception.php';
@@ -160,13 +159,13 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
             if ($prefix != '') {
                 $index->skipTo(new Zend_Search_Lucene_Index_Term($prefix, $field));
 
-                while ($index->currentTerm() !== null          &&
-                       $index->currentTerm()->field == $field  &&
-                       substr($index->currentTerm()->text, 0, $prefixLength) == $prefix) {
+                while ($index->currentTerm() !== null &&
+                $index->currentTerm()->field == $field &&
+                substr($index->currentTerm()->text, 0, $prefixLength) == $prefix) {
                     if (preg_match($matchExpression, $index->currentTerm()->text) === 1) {
                         $this->_matches[] = $index->currentTerm();
 
-                        if ($maxTerms != 0  &&  count($this->_matches) > $maxTerms) {
+                        if ($maxTerms != 0 && count($this->_matches) > $maxTerms) {
                             #require_once 'Zend/Search/Lucene/Exception.php';
                             throw new Zend_Search_Lucene_Exception('Terms per query limit is reached.');
                         }
@@ -177,11 +176,11 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
             } else {
                 $index->skipTo(new Zend_Search_Lucene_Index_Term('', $field));
 
-                while ($index->currentTerm() !== null  &&  $index->currentTerm()->field == $field) {
+                while ($index->currentTerm() !== null && $index->currentTerm()->field == $field) {
                     if (preg_match($matchExpression, $index->currentTerm()->text) === 1) {
                         $this->_matches[] = $index->currentTerm();
 
-                        if ($maxTerms != 0  &&  count($this->_matches) > $maxTerms) {
+                        if ($maxTerms != 0 && count($this->_matches) > $maxTerms) {
                             #require_once 'Zend/Search/Lucene/Exception.php';
                             throw new Zend_Search_Lucene_Exception('Terms per query limit is reached.');
                         }
@@ -224,7 +223,6 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
         throw new Zend_Search_Lucene_Exception('Wildcard query should not be directly used for search. Use $query->rewrite($index)');
     }
 
-
     /**
      * Returns query pattern
      *
@@ -234,7 +232,6 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
     {
         return $this->_pattern;
     }
-
 
     /**
      * Return query terms
@@ -264,7 +261,6 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
         #require_once 'Zend/Search/Lucene/Exception.php';
         throw new Zend_Search_Lucene_Exception('Wildcard query should not be directly used for search. Use $query->rewrite($index)');
     }
-
 
     /**
      * Execute query in context of index reader
@@ -317,7 +313,7 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
     {
         $words = array();
 
-        $matchExpression = '/^' . str_replace(array('\\?', '\\*'), array('.', '.*') , preg_quote($this->_pattern->text, '/')) . '$/';
+        $matchExpression = '/^' . str_replace(array('\\?', '\\*'), array('.', '.*'), preg_quote($this->_pattern->text, '/')) . '$/';
         if (@preg_match('/\pL/u', 'a') == 1) {
             // PCRE unicode support is turned on
             // add Unicode modifier to the match expression
@@ -358,5 +354,5 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
 
         return $query;
     }
-}
 
+}

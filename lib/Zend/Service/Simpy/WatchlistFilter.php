@@ -21,7 +21,6 @@
  * @version    $Id: WatchlistFilter.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Simpy_WatchlistFilter
 {
+
     /**
      * Name of the filter
      *
@@ -54,7 +54,7 @@ class Zend_Service_Simpy_WatchlistFilter
      */
     public function __construct($node)
     {
-        $map =& $node->attributes;
+        $map = & $node->attributes;
         $this->_name = $map->getNamedItem('name')->nodeValue;
         $this->_query = $map->getNamedItem('query')->nodeValue;
     }
@@ -78,4 +78,5 @@ class Zend_Service_Simpy_WatchlistFilter
     {
         return $this->_query;
     }
+
 }

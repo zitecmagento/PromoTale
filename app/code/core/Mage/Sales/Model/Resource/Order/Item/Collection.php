@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order payment collection
  *
@@ -34,26 +34,27 @@
  */
 class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
+
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix    = 'sales_order_item_collection';
+    protected $_eventPrefix = 'sales_order_item_collection';
 
     /**
      * Event object
      *
      * @var string
      */
-    protected $_eventObject    = 'order_item_collection';
+    protected $_eventObject = 'order_item_collection';
 
     /**
      * Order field for setOrderFilter
      *
      * @var string
      */
-    protected $_orderField     = 'order_id';
+    protected $_orderField = 'order_id';
 
     /**
      * Model initialization
@@ -103,7 +104,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     public function addIdFilter($item)
     {
         if (is_array($item)) {
-            $this->addFieldToFilter('item_id', array('in'=>$item));
+            $this->addFieldToFilter('item_id', array('in' => $item));
         } elseif ($item instanceof Mage_Sales_Model_Order_Item) {
             $this->addFieldToFilter('item_id', $item->getId());
         } else {
@@ -139,4 +140,5 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
         }
         return $this;
     }
+
 }

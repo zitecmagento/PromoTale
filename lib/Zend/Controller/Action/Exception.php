@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Controller_Exception
  */
 #require_once 'Zend/Controller/Exception.php';
-
 
 /**
  * @category   Zend
@@ -35,4 +33,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Action_Exception extends Zend_Controller_Exception
-{}
+{
+    
+}

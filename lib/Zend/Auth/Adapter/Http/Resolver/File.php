@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: File.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Auth_Adapter_Http_Resolver_Interface
  */
 #require_once 'Zend/Auth/Adapter/Http/Resolver/Interface.php';
-
 
 /**
  * HTTP Authentication File Resolver
@@ -38,6 +36,7 @@
  */
 class Zend_Auth_Adapter_Http_Resolver_File implements Zend_Auth_Adapter_Http_Resolver_Interface
 {
+
     /**
      * Path to credentials file
      *
@@ -124,7 +123,7 @@ class Zend_Auth_Adapter_Http_Resolver_File implements Zend_Auth_Adapter_Http_Res
              */
             #require_once 'Zend/Auth/Adapter/Http/Resolver/Exception.php';
             throw new Zend_Auth_Adapter_Http_Resolver_Exception('Username must consist only of printable characters, '
-                                                              . 'excluding the colon');
+            . 'excluding the colon');
         }
         if (empty($realm)) {
             /**
@@ -138,7 +137,7 @@ class Zend_Auth_Adapter_Http_Resolver_File implements Zend_Auth_Adapter_Http_Res
              */
             #require_once 'Zend/Auth/Adapter/Http/Resolver/Exception.php';
             throw new Zend_Auth_Adapter_Http_Resolver_Exception('Realm must consist only of printable characters, '
-                                                              . 'excluding the colon.');
+            . 'excluding the colon.');
         }
 
         // Open file, read through looking for matching credentials
@@ -164,4 +163,5 @@ class Zend_Auth_Adapter_Http_Resolver_File implements Zend_Auth_Adapter_Http_Res
         fclose($fp);
         return false;
     }
+
 }

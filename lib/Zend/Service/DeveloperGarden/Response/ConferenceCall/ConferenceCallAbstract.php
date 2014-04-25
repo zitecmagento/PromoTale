@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ConferenceCallAbstract.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Response_BaseType
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Service_DeveloperGarden_Response_ConferenceCall_ConferenceCallAbstract
-    extends Zend_Service_DeveloperGarden_Response_BaseType
+abstract class Zend_Service_DeveloperGarden_Response_ConferenceCall_ConferenceCallAbstract extends Zend_Service_DeveloperGarden_Response_BaseType
 {
+
     /**
      * returns the response object or null
      *
@@ -63,13 +63,14 @@ abstract class Zend_Service_DeveloperGarden_Response_ConferenceCall_ConferenceCa
     {
         $retVal = $this->getResponse();
         if ($retVal === null) {
-            $this->statusCode    = 9999;
+            $this->statusCode = 9999;
             $this->statusMessage = 'Internal response property not found.';
         } else {
-            $this->statusCode    = $retVal->getStatusCode();
+            $this->statusCode = $retVal->getStatusCode();
             $this->statusMessage = $retVal->getStatusMessage();
         }
         parent::parse();
         return $retVal;
     }
+
 }

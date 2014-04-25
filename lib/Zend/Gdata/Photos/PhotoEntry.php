@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: PhotoEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_MediaEntry
  */
@@ -224,8 +223,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
         parent::__construct($element);
 
         $category = new Zend_Gdata_App_Extension_Category(
-            'http://schemas.google.com/photos/2007#photo',
-            'http://schemas.google.com/g/2005#kind');
+                'http://schemas.google.com/photos/2007#photo', 'http://schemas.google.com/g/2005#kind');
         $this->setCategory(array($category));
     }
 
@@ -362,7 +360,6 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
             default:
                 parent::takeChildFromDOM($child);
                 break;
-
         }
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Magento adminhtml module exception
  *
@@ -33,4 +33,5 @@
  */
 class Mage_Adminhtml_Exception extends Mage_Core_Exception
 {
+    
 }

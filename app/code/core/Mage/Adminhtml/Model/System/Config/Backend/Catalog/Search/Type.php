@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Search change Search Type backend model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Catalog_Search_Type extends Mage_Core_Model_Config_Data
 {
+
     /**
      * After change Catalog Search Type process
      *
@@ -43,9 +44,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Catalog_Search_Type extends Mag
     {
         $newValue = $this->getValue();
         $oldValue = Mage::getConfig()->getNode(
-            Mage_CatalogSearch_Model_Fulltext::XML_PATH_CATALOG_SEARCH_TYPE,
-            $this->getScope(),
-            $this->getScopeId()
+                Mage_CatalogSearch_Model_Fulltext::XML_PATH_CATALOG_SEARCH_TYPE, $this->getScope(), $this->getScopeId()
         );
         if ($newValue != $oldValue) {
             Mage::getSingleton('catalogsearch/fulltext')->resetSearchResults();
@@ -53,4 +52,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Catalog_Search_Type extends Mag
 
         return $this;
     }
+
 }

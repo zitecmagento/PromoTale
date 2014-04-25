@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Paypal_Block_Payflow_Link_Form extends Mage_Payment_Block_Form
 {
+
     /**
      * Internal constructor
      * Set payment method code
@@ -53,4 +55,5 @@ class Mage_Paypal_Block_Payflow_Link_Form extends Mage_Payment_Block_Form
     {
         return $this->getUrl('paypal/payflow/form', array('_secure' => true));
     }
+
 }

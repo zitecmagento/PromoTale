@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -53,4 +54,5 @@ class Mage_Downloadable_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_
     {
         return Mage::helper('downloadable/catalog_product_configuration')->getLinksTitle($this->getProduct());
     }
+
 }

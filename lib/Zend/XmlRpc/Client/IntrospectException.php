@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: IntrospectException.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Zend_XmlRpc_Client_Exception
  */
 #require_once 'Zend/XmlRpc/Client/Exception.php';
-
 
 /**
  * Thrown by Zend_XmlRpc_Client_Introspection when any error occurs.
@@ -37,4 +35,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_XmlRpc_Client_IntrospectException extends Zend_XmlRpc_Client_Exception
-{}
+{
+    
+}

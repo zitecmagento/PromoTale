@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_Catalog_Model_Resource_Setup */
 $installer = $this;
 $connection = $installer->getConnection();
@@ -45,35 +45,35 @@ $selectionPriceIndexerTables = array(
 
 foreach ($priceIndexerTables as $table) {
     $connection->addColumn($installer->getTable($table), 'group_price', array(
-        'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-        'length'    => '12,4',
-        'comment'   => 'Group price',
+        'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+        'length' => '12,4',
+        'comment' => 'Group price',
     ));
     $connection->addColumn($installer->getTable($table), 'base_group_price', array(
-        'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-        'length'    => '12,4',
-        'comment'   => 'Base Group Price',
+        'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+        'length' => '12,4',
+        'comment' => 'Base Group Price',
     ));
     $connection->addColumn($installer->getTable($table), 'group_price_percent', array(
-        'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-        'length'    => '12,4',
-        'comment'   => 'Group Price Percent',
+        'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+        'length' => '12,4',
+        'comment' => 'Group Price Percent',
     ));
 }
 
 foreach (array_merge($optionsPriceIndexerTables, $selectionPriceIndexerTables) as $table) {
     $connection->addColumn($installer->getTable($table), 'group_price', array(
-        'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-        'length'    => '12,4',
-        'comment'   => 'Group price',
+        'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+        'length' => '12,4',
+        'comment' => 'Group price',
     ));
 }
 
 foreach ($optionsPriceIndexerTables as $table) {
     $connection->addColumn($installer->getTable($table), 'alt_group_price', array(
-        'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-        'length'    => '12,4',
-        'comment'   => 'Alt Group Price',
+        'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+        'length' => '12,4',
+        'comment' => 'Alt Group Price',
     ));
 }
 

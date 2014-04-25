@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Email to a Friend Block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
 {
+
     /**
      * Retrieve username for form field
      *
@@ -157,8 +158,8 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
     public function getSendUrl()
     {
         return Mage::getUrl('*/*/sendmail', array(
-            'id'     => $this->getProductId(),
-            'cat_id' => $this->getCategoryId()
+                    'id' => $this->getProductId(),
+                    'cat_id' => $this->getCategoryId()
         ));
     }
 
@@ -181,4 +182,5 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
     {
         return !$this->_getSendfriendModel()->isExceedLimit();
     }
+
 }

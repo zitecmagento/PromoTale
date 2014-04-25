@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sendfriend Data Helper
  *
@@ -34,17 +34,16 @@
  */
 class Mage_Sendfriend_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_ENABLED          = 'sendfriend/email/enabled';
-    const XML_PATH_ALLOW_FOR_GUEST  = 'sendfriend/email/allow_guest';
-    const XML_PATH_MAX_RECIPIENTS   = 'sendfriend/email/max_recipients';
-    const XML_PATH_MAX_PER_HOUR     = 'sendfriend/email/max_per_hour';
-    const XML_PATH_LIMIT_BY         = 'sendfriend/email/check_by';
-    const XML_PATH_EMAIL_TEMPLATE   = 'sendfriend/email/template';
 
-    const COOKIE_NAME   = 'stf';
-
-    const CHECK_IP      = 1;
-    const CHECK_COOKIE  = 0;
+    const XML_PATH_ENABLED = 'sendfriend/email/enabled';
+    const XML_PATH_ALLOW_FOR_GUEST = 'sendfriend/email/allow_guest';
+    const XML_PATH_MAX_RECIPIENTS = 'sendfriend/email/max_recipients';
+    const XML_PATH_MAX_PER_HOUR = 'sendfriend/email/max_per_hour';
+    const XML_PATH_LIMIT_BY = 'sendfriend/email/check_by';
+    const XML_PATH_EMAIL_TEMPLATE = 'sendfriend/email/template';
+    const COOKIE_NAME = 'stf';
+    const CHECK_IP = 1;
+    const CHECK_COOKIE = 0;
 
     /**
      * Check is enabled Module
@@ -76,7 +75,7 @@ class Mage_Sendfriend_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getMaxRecipients($store = null)
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_MAX_RECIPIENTS, $store);
+        return (int) Mage::getStoreConfig(self::XML_PATH_MAX_RECIPIENTS, $store);
     }
 
     /**
@@ -87,7 +86,7 @@ class Mage_Sendfriend_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getMaxEmailPerPeriod($store = null)
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_MAX_PER_HOUR, $store);
+        return (int) Mage::getStoreConfig(self::XML_PATH_MAX_PER_HOUR, $store);
     }
 
     /**
@@ -108,7 +107,7 @@ class Mage_Sendfriend_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLimitBy($store = null)
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_LIMIT_BY, $store);
+        return (int) Mage::getStoreConfig(self::XML_PATH_LIMIT_BY, $store);
     }
 
     /**
@@ -132,4 +131,5 @@ class Mage_Sendfriend_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return self::COOKIE_NAME;
     }
+
 }

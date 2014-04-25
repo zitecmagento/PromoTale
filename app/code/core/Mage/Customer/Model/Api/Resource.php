@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 {
+
     /**
      * Default ignored attribute codes
      *
@@ -56,14 +58,11 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      */
     protected function _isAllowedAttribute($attribute, array $filter = null)
     {
-        if (!is_null($filter)
-            && !( in_array($attribute->getAttributeCode(), $filter)
-                  || in_array($attribute->getAttributeId(), $filter))) {
+        if (!is_null($filter) && !( in_array($attribute->getAttributeCode(), $filter) || in_array($attribute->getAttributeId(), $filter))) {
             return false;
         }
 
-        return !in_array($attribute->getFrontendInput(), $this->_ignoredAttributeTypes)
-               && !in_array($attribute->getAttributeCode(), $this->_ignoredAttributeCodes);
+        return !in_array($attribute->getFrontendInput(), $this->_ignoredAttributeTypes) && !in_array($attribute->getAttributeCode(), $this->_ignoredAttributeCodes);
     }
 
     /**
@@ -76,8 +75,8 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     public function getAllowedAttributes($entity, array $filter = null)
     {
         $attributes = $entity->getResource()
-                        ->loadAllAttributes($entity)
-                        ->getAttributesByCode();
+                ->loadAllAttributes($entity)
+                ->getAttributesByCode();
         $result = array();
         foreach ($attributes as $attribute) {
             if ($this->_isAllowedAttribute($attribute, $filter)) {
@@ -87,4 +86,7 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
         return $result;
     }
-} // Class Mage_Customer_Model_Api_Resource End
+
+}
+
+// Class Mage_Customer_Model_Api_Resource End

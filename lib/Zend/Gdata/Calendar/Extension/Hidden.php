@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Hidden.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Extension
  */
@@ -82,20 +81,18 @@ class Zend_Gdata_Calendar_Extension_Hidden extends Zend_Gdata_Extension
     protected function takeAttributeFromDOM($attribute)
     {
         switch ($attribute->localName) {
-        case 'value':
-            if ($attribute->nodeValue == "true") {
-                $this->_value = true;
-            }
-            else if ($attribute->nodeValue == "false") {
-                $this->_value = false;
-            }
-            else {
-                #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
-                throw new Zend_Gdata_App_InvalidArgumentException("Expected 'true' or 'false' for gCal:selected#value.");
-            }
-            break;
-        default:
-            parent::takeAttributeFromDOM($attribute);
+            case 'value':
+                if ($attribute->nodeValue == "true") {
+                    $this->_value = true;
+                } else if ($attribute->nodeValue == "false") {
+                    $this->_value = false;
+                } else {
+                    #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
+                    throw new Zend_Gdata_App_InvalidArgumentException("Expected 'true' or 'false' for gCal:selected#value.");
+                }
+                break;
+            default:
+                parent::takeAttributeFromDOM($attribute);
         }
     }
 
@@ -131,4 +128,3 @@ class Zend_Gdata_Calendar_Extension_Hidden extends Zend_Gdata_Extension
     }
 
 }
-

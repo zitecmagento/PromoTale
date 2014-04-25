@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml catalog product edit action attributes update tab block
  *
@@ -32,10 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
-    extends Mage_Adminhtml_Block_Catalog_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes extends Mage_Adminhtml_Block_Catalog_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     protected function _construct()
     {
         parent::_construct();
@@ -45,12 +44,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
     protected function _prepareForm()
     {
         $this->setFormExcludedFieldList(array(
-            'tier_price','gallery', 'media_gallery', 'recurring_profile', 'group_price'
+            'tier_price', 'gallery', 'media_gallery', 'recurring_profile', 'group_price'
         ));
-        Mage::dispatchEvent('adminhtml_catalog_product_form_prepare_excluded_field_list', array('object'=>$this));
+        Mage::dispatchEvent('adminhtml_catalog_product_form_prepare_excluded_field_list', array('object' => $this));
 
         $form = new Varien_Data_Form();
-        $fieldset = $form->addFieldset('fields', array('legend'=>Mage::helper('catalog')->__('Attributes')));
+        $fieldset = $form->addFieldset('fields', array('legend' => Mage::helper('catalog')->__('Attributes')));
         $attributes = $this->getAttributes();
         /**
          * Initialize product object as form property
@@ -96,13 +95,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
     protected function _getAdditionalElementHtml($element)
     {
         // Add name attribute to checkboxes that correspond to multiselect elements
-        $nameAttributeHtml = ($element->getExtType() === 'multiple') ? 'name="' . $element->getId() . '_checkbox"'
-            : '';
+        $nameAttributeHtml = ($element->getExtType() === 'multiple') ? 'name="' . $element->getId() . '_checkbox"' : '';
         return '<span class="attribute-change-checkbox"><input type="checkbox" id="' . $element->getId()
-             . '-checkbox" ' . $nameAttributeHtml . ' onclick="toogleFieldEditMode(this, \'' . $element->getId()
-             . '\')" /><label for="' . $element->getId() . '-checkbox">' . Mage::helper('catalog')->__('Change')
-             . '</label></span>
-                <script type="text/javascript">initDisableFields(\''.$element->getId().'\')</script>';
+                . '-checkbox" ' . $nameAttributeHtml . ' onclick="toogleFieldEditMode(this, \'' . $element->getId()
+                . '\')" /><label for="' . $element->getId() . '-checkbox">' . Mage::helper('catalog')->__('Change')
+                . '</label></span>
+                <script type="text/javascript">initDisableFields(\'' . $element->getId() . '\')</script>';
     }
 
     /**
@@ -127,4 +125,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
     {
         return false;
     }
+
 }

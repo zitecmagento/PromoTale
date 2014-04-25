@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product image attribute backend
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * After save
      *
@@ -48,16 +48,19 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image
         if (is_array($value) && !empty($value['delete'])) {
             $object->setData($this->getAttribute()->getName(), '');
             $this->getAttribute()->getEntity()
-                ->saveAttribute($object, $this->getAttribute()->getName());
+                    ->saveAttribute($object, $this->getAttribute()->getName());
             return;
         }
 
-        try {
+        try
+        {
             $uploader = new Mage_Core_Model_File_Uploader($this->getAttribute()->getName());
             $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
             $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(true);
-        } catch (Exception $e){
+        }
+        catch (Exception $e)
+        {
             return $this;
         }
         $uploader->save(Mage::getBaseDir('media') . '/catalog/product');
@@ -66,8 +69,9 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image
         if ($fileName) {
             $object->setData($this->getAttribute()->getName(), $fileName);
             $this->getAttribute()->getEntity()
-                 ->saveAttribute($object, $this->getAttribute()->getName());
+                    ->saveAttribute($object, $this->getAttribute()->getName());
         }
         return $this;
     }
+
 }

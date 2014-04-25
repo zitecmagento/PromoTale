@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements IteratorAggregate
 {
 
@@ -34,9 +33,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
      * @var Zend_Db_Adapter_Abstract
      */
     protected $_read;
-
     protected $_items = array();
-
     protected $_totals = array('lifetime' => 0, 'num_orders' => 0);
 
     /**
@@ -75,42 +72,44 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     public function load($printQuery = false, $logQuery = false)
     {
         $this->_select = $this->_read->select();
-        $entityTable= $this->getEntity()->getEntityTable();
-        $paidTable  = $this->getAttribute('grand_total')->getBackend()->getTable();
-        $idField    = $this->getEntity()->getIdFieldName();
+        $entityTable = $this->getEntity()->getEntityTable();
+        $paidTable = $this->getAttribute('grand_total')->getBackend()->getTable();
+        $idField = $this->getEntity()->getIdFieldName();
         $this->getSelect()
-            ->from(array('sales' => $entityTable),
-                array(
+                ->from(array('sales' => $entityTable), array(
                     'store_id',
-                    'lifetime'  => 'sum(sales.base_grand_total)',
-                    'avgsale'   => 'avg(sales.base_grand_total)',
-                    'num_orders'=> 'count(sales.base_grand_total)'
+                    'lifetime' => 'sum(sales.base_grand_total)',
+                    'avgsale' => 'avg(sales.base_grand_total)',
+                    'num_orders' => 'count(sales.base_grand_total)'
+                        )
                 )
-            )
-            ->where('sales.entity_type_id=?', $this->getEntity()->getTypeId())
-            ->group('sales.store_id')
+                ->where('sales.entity_type_id=?', $this->getEntity()->getTypeId())
+                ->group('sales.store_id')
         ;
         if ($this->_customer instanceof Mage_Customer_Model_Customer) {
             $this->getSelect()
-                ->where('sales.customer_id=?', $this->_customer->getId());
+                    ->where('sales.customer_id=?', $this->_customer->getId());
         }
 
         $this->printLogQuery($printQuery, $logQuery);
-        try {
+        try
+        {
             $values = $this->_read->fetchAll($this->getSelect()->__toString());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->printLogQuery(true, true, $this->getSelect()->__toString());
             throw $e;
         }
         $stores = Mage::getResourceModel('core/store_collection')->setWithoutDefaultFilter()->load()->toOptionHash();
-        if (! empty($values)) {
+        if (!empty($values)) {
             foreach ($values as $v) {
                 $obj = new Varien_Object($v);
                 $storeName = isset($stores[$obj->getStoreId()]) ? $stores[$obj->getStoreId()] : null;
 
-                $this->_items[ $v['store_id'] ] = $obj;
-                $this->_items[ $v['store_id'] ]->setStoreName($storeName);
-                $this->_items[ $v['store_id'] ]->setAvgNormalized($obj->getAvgsale() * $obj->getNumOrders());
+                $this->_items[$v['store_id']] = $obj;
+                $this->_items[$v['store_id']]->setStoreName($storeName);
+                $this->_items[$v['store_id']]->setAvgNormalized($obj->getAvgsale() * $obj->getNumOrders());
                 foreach ($this->_totals as $key => $value) {
                     $this->_totals[$key] += $obj->getData($key);
                 }
@@ -130,12 +129,13 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
      * @param boolean $logQuery
      * @return  Mage_Sales_Model_Entity_Order_Attribute_Collection_Paid
      */
-    public function printLogQuery($printQuery = false, $logQuery = false, $sql = null) {
+    public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
+    {
         if ($printQuery) {
             echo is_null($sql) ? $this->getSelect()->__toString() : $sql;
         }
 
-        if ($logQuery){
+        if ($logQuery) {
             Mage::log(is_null($sql) ? $this->getSelect()->__toString() : $sql);
         }
         return $this;

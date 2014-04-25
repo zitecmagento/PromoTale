@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,8 +30,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Dojo_Data implements ArrayAccess,Iterator,Countable
+class Zend_Dojo_Data implements ArrayAccess, Iterator, Countable
 {
+
     /**
      * Identifier field of item
      * @var string|int
@@ -209,7 +211,6 @@ class Zend_Dojo_Data implements ArrayAccess,Iterator,Countable
         return $this;
     }
 
-
     /**
      * Set identifier for item lookups
      *
@@ -241,7 +242,6 @@ class Zend_Dojo_Data implements ArrayAccess,Iterator,Countable
     {
         return $this->_identifier;
     }
-
 
     /**
      * Set label to use for displaying item associations
@@ -376,7 +376,7 @@ class Zend_Dojo_Data implements ArrayAccess,Iterator,Countable
 
         $array = array(
             'identifier' => $identifier,
-            'items'      => array_values($this->getItems()),
+            'items' => array_values($this->getItems()),
         );
 
         $metadata = $this->getMetadata();
@@ -556,8 +556,9 @@ class Zend_Dojo_Data implements ArrayAccess,Iterator,Countable
         }
 
         return array(
-            'id'   => $id,
+            'id' => $id,
             'data' => $item,
         );
     }
+
 }

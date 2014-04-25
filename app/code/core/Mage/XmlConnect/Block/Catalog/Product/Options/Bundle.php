@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConnect_Block_Catalog_Product_Options
 {
+
     /**
      * Generate bundle product options xml
      *
@@ -59,7 +61,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
         $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
         $optionCollection = $product->getTypeInstance(true)->getOptionsCollection($product);
         $selectionCollection = $product->getTypeInstance(true)->getSelectionsCollection(
-            $product->getTypeInstance(true)->getOptionsIds($product), $product
+                $product->getTypeInstance(true)->getOptionsIds($product), $product
         );
         $bundleOptions = $optionCollection->appendSelections($selectionCollection, false, false);
         if (!sizeof($bundleOptions)) {
@@ -114,20 +116,21 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
 
                 $price = $product->getPriceModel()->getSelectionPreFinalPrice($product, $selection);
                 $price = Mage::helper('xmlconnect')->formatPriceForXml($price);
-                if ((float)$price != 0.00) {
+                if ((float) $price != 0.00) {
                     $valueNode->addAttribute('price', Mage::helper('xmlconnect')->formatPriceForXml(
-                        Mage::helper('core')->currency($price, false, false)
+                                    Mage::helper('core')->currency($price, false, false)
                     ));
                     $valueNode->addAttribute('formated_price', $this->_formatPriceString($price, $product));
                 }
 
                 if ($product->hasPreconfiguredValues()) {
                     $this->_setCartSelectedValue($valueNode, $type, $this->_getPreconfiguredOption(
-                        $optionData, $optionId, $selection->getSelectionId()
+                                    $optionData, $optionId, $selection->getSelectionId()
                     ));
                 }
             }
         }
         return $isObject ? $xmlModel : $xmlModel->asNiceXml();
     }
+
 }

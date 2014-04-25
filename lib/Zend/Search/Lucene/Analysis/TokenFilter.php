@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TokenFilter.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Analysis_Token */
 #require_once 'Zend/Search/Lucene/Analysis/Token.php';
-
 
 /**
  * Token filter converts (normalizes) Token ore removes it from a token stream.
@@ -36,6 +34,7 @@
  */
 abstract class Zend_Search_Lucene_Analysis_TokenFilter
 {
+
     /**
      * Normalize Token or remove it (if null is returned)
      *
@@ -44,4 +43,3 @@ abstract class Zend_Search_Lucene_Analysis_TokenFilter
      */
     abstract public function normalize(Zend_Search_Lucene_Analysis_Token $srcToken);
 }
-

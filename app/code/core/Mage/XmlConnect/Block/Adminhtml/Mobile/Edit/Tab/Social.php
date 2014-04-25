@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
-    extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Prepare form before rendering HTML
      * Setting Form Fieldsets and fields
@@ -54,8 +54,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
         /**
          * Default values for social networks is DISABLED
          */
-        $twitterStatus  = $facebookStatus = $linkedinStatus = 0;
-        $noteText       = $this->__('Please <a href="%s" target="_blank">click here</a> to see how to setup and retrieve API credentials.');
+        $twitterStatus = $facebookStatus = $linkedinStatus = 0;
+        $noteText = $this->__('Please <a href="%s" target="_blank">click here</a> to see how to setup and retrieve API credentials.');
 
         /**
          * Twitter fieldset options
@@ -63,18 +63,16 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
         $fieldsetTwitter = $form->addFieldset('twitter', array('legend' => $this->__('Twitter API')));
 
         if (isset($data['conf[native][socialNetworking][twitter][isActive]'])) {
-            $twitterStatus = (int)$data['conf[native][socialNetworking][twitter][isActive]'];
+            $twitterStatus = (int) $data['conf[native][socialNetworking][twitter][isActive]'];
         }
 
         $twitterActiveField = $fieldsetTwitter->addField(
-            'conf/native/socialNetworking/twitter/isActive',
-            'select',
-            array(
-                'label'     => $this->__('Enable Twitter'),
-                'name'      => 'conf[native][socialNetworking][twitter][isActive]',
-                'values'    => $yesNoValues,
-                'value'     => $twitterStatus,
-            )
+                'conf/native/socialNetworking/twitter/isActive', 'select', array(
+            'label' => $this->__('Enable Twitter'),
+            'name' => 'conf[native][socialNetworking][twitter][isActive]',
+            'values' => $yesNoValues,
+            'value' => $twitterStatus,
+                )
         );
 
         if (isset($data['conf[native][socialNetworking][twitter][apiKey]'])) {
@@ -84,14 +82,12 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
         }
 
         $twitterApiKeyField = $fieldsetTwitter->addField(
-            'conf/native/socialNetworking/twitter/apiKey',
-            'text',
-            array(
-                'label'     => $this->__('Twitter API Key'),
-                'name'      => 'conf[native][socialNetworking][twitter][apiKey]',
-                'required'  => true,
-                'value'     => $twitterApiKey
-            )
+                'conf/native/socialNetworking/twitter/apiKey', 'text', array(
+            'label' => $this->__('Twitter API Key'),
+            'name' => 'conf[native][socialNetworking][twitter][apiKey]',
+            'required' => true,
+            'value' => $twitterApiKey
+                )
         );
 
         if (isset($data['conf[native][socialNetworking][twitter][secretKey]'])) {
@@ -101,20 +97,17 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
         }
 
         $twitterSecretKeyField = $fieldsetTwitter->addField(
-            'conf/native/socialNetworking/twitter/secretKey',
-            'text',
-            array(
-                'label'     => $this->__('Twitter Secret Key'),
-                'name'      => 'conf[native][socialNetworking][twitter][secretKey]',
-                'required'  => true,
-                'value'     => $twitterSecretKey
-            )
+                'conf/native/socialNetworking/twitter/secretKey', 'text', array(
+            'label' => $this->__('Twitter Secret Key'),
+            'name' => 'conf[native][socialNetworking][twitter][secretKey]',
+            'required' => true,
+            'value' => $twitterSecretKey
+                )
         );
 
         $fieldsetTwitter->addField('twitterNote', 'note', array(
-            'text'  => sprintf(
-                $noteText,
-                Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_HOWTO_TWITTER_URL)
+            'text' => sprintf(
+                    $noteText, Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_HOWTO_TWITTER_URL)
         )));
 
         /**
@@ -125,18 +118,16 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
         ));
 
         if (isset($data['conf[native][socialNetworking][facebook][isActive]'])) {
-            $facebookStatus = (int)$data['conf[native][socialNetworking][facebook][isActive]'];
+            $facebookStatus = (int) $data['conf[native][socialNetworking][facebook][isActive]'];
         }
 
         $facebookActiveField = $fieldsetFacebook->addField(
-            'conf/native/socialNetworking/facebook/isActive',
-            'select',
-            array(
-                'label'     => $this->__('Enable Facebook'),
-                'name'      => 'conf[native][socialNetworking][facebook][isActive]',
-                'values'    => $yesNoValues,
-                'value'     => $facebookStatus,
-            )
+                'conf/native/socialNetworking/facebook/isActive', 'select', array(
+            'label' => $this->__('Enable Facebook'),
+            'name' => 'conf[native][socialNetworking][facebook][isActive]',
+            'values' => $yesNoValues,
+            'value' => $facebookStatus,
+                )
         );
 
         if (isset($data['conf[native][socialNetworking][facebook][appID]'])) {
@@ -146,19 +137,17 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
         }
 
         $facebookAppIDField = $fieldsetFacebook->addField(
-            'conf/native/socialNetworking/facebook/appID',
-            'text',
-            array(
-                'label'     => $this->__('Facebook Application ID'),
-                'name'      => 'conf[native][socialNetworking][facebook][appID]',
-                'required'  => true,
-                'value'     => $facebookAppID
-            )
+                'conf/native/socialNetworking/facebook/appID', 'text', array(
+            'label' => $this->__('Facebook Application ID'),
+            'name' => 'conf[native][socialNetworking][facebook][appID]',
+            'required' => true,
+            'value' => $facebookAppID
+                )
         );
 
         $fieldsetFacebook->addField('facebookNote', 'note', array(
-            'text'  => sprintf(
-                $noteText, Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_HOWTO_FACEBOOK_URL)
+            'text' => sprintf(
+                    $noteText, Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_HOWTO_FACEBOOK_URL)
         )));
 
         /**
@@ -167,18 +156,16 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
         $fieldsetLinkedin = $form->addFieldset('linkedin', array('legend' => $this->__('LinkedIn API')));
 
         if (isset($data['conf[native][socialNetworking][linkedin][isActive]'])) {
-            $linkedinStatus = (int)$data['conf[native][socialNetworking][linkedin][isActive]'];
+            $linkedinStatus = (int) $data['conf[native][socialNetworking][linkedin][isActive]'];
         }
 
         $linkedinActiveField = $fieldsetLinkedin->addField(
-            'conf/native/socialNetworking/linkedin/isActive',
-            'select',
-            array(
-                'label'     => $this->__('Enable LinkedIn'),
-                'name'      => 'conf[native][socialNetworking][linkedin][isActive]',
-                'values'    => $yesNoValues,
-                'value'     => $linkedinStatus,
-            )
+                'conf/native/socialNetworking/linkedin/isActive', 'select', array(
+            'label' => $this->__('Enable LinkedIn'),
+            'name' => 'conf[native][socialNetworking][linkedin][isActive]',
+            'values' => $yesNoValues,
+            'value' => $linkedinStatus,
+                )
         );
 
         if (isset($data['conf[native][socialNetworking][linkedin][apiKey]'])) {
@@ -188,14 +175,12 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
         }
 
         $linkedinApiKeyField = $fieldsetLinkedin->addField(
-            'conf/native/socialNetworking/linkedin/apiKey',
-            'text',
-            array(
-                'label'     => $this->__('LinkedIn API Key'),
-                'name'      => 'conf[native][socialNetworking][linkedin][apiKey]',
-                'required'  => true,
-                'value'     => $linkedinApiKey
-            )
+                'conf/native/socialNetworking/linkedin/apiKey', 'text', array(
+            'label' => $this->__('LinkedIn API Key'),
+            'name' => 'conf[native][socialNetworking][linkedin][apiKey]',
+            'required' => true,
+            'value' => $linkedinApiKey
+                )
         );
 
         if (isset($data['conf[native][socialNetworking][linkedin][secretKey]'])) {
@@ -205,69 +190,54 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
         }
 
         $linkedinSecretKeyField = $fieldsetLinkedin->addField(
-            'conf/native/socialNetworking/linkedin/secretKey',
-            'text',
-            array(
-                'label'     => $this->__('LinkedIn Secret Key'),
-                'name'      => 'conf[native][socialNetworking][linkedin][secretKey]',
-                'required'  => true,
-                'value'     => $linkedinSecretKey
-            )
+                'conf/native/socialNetworking/linkedin/secretKey', 'text', array(
+            'label' => $this->__('LinkedIn Secret Key'),
+            'name' => 'conf[native][socialNetworking][linkedin][secretKey]',
+            'required' => true,
+            'value' => $linkedinSecretKey
+                )
         );
 
         $fieldsetLinkedin->addField(
-            'linkedinNote',
-            'note',
-            array(
-                'text'  => sprintf(
-                    $noteText,
-                    Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_HOWTO_LINKEDIN_URL)
-                ),
-            )
+                'linkedinNote', 'note', array(
+            'text' => sprintf(
+                    $noteText, Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_HOWTO_LINKEDIN_URL)
+            ),
+                )
         );
 
         /**
          * Set field dependencies
          */
         $this->setChild('form_after', $this->getLayout()
-            ->createBlock('adminhtml/widget_form_element_dependence')
-            /**
-             * Facebook field dependencies
-             */
-            ->addFieldMap($facebookActiveField->getHtmlId(), $facebookActiveField->getName())
-            ->addFieldMap($facebookAppIDField->getHtmlId(), $facebookAppIDField->getName())
-            ->addFieldDependence(
-                $facebookAppIDField->getName(),
-                $facebookActiveField->getName(),
-            1)
-            /**
-             * Twitter field dependencies
-             */
-            ->addFieldMap($twitterApiKeyField->getHtmlId(), $twitterApiKeyField->getName())
-            ->addFieldMap($twitterActiveField->getHtmlId(), $twitterActiveField->getName())
-            ->addFieldMap($twitterSecretKeyField->getHtmlId(), $twitterSecretKeyField->getName())
-            ->addFieldDependence(
-                $twitterApiKeyField->getName(),
-                $twitterActiveField->getName(),
-            1)
-            ->addFieldDependence(
-                $twitterSecretKeyField->getName(),
-                $twitterActiveField->getName(),
-            1)
-            /**
-             * LinkedIn field dependencies
-             */
-            ->addFieldMap($linkedinApiKeyField->getHtmlId(), $linkedinApiKeyField->getName())
-            ->addFieldMap($linkedinActiveField->getHtmlId(), $linkedinActiveField->getName())
-            ->addFieldMap($linkedinSecretKeyField->getHtmlId(), $linkedinSecretKeyField->getName())
-            ->addFieldDependence(
-                $linkedinApiKeyField->getName(),
-                $linkedinActiveField->getName(),
-            1)
-            ->addFieldDependence(
-                $linkedinSecretKeyField->getName(),
-                $linkedinActiveField->getName(),
-            1)
+                        ->createBlock('adminhtml/widget_form_element_dependence')
+                        /**
+                         * Facebook field dependencies
+                         */
+                        ->addFieldMap($facebookActiveField->getHtmlId(), $facebookActiveField->getName())
+                        ->addFieldMap($facebookAppIDField->getHtmlId(), $facebookAppIDField->getName())
+                        ->addFieldDependence(
+                                $facebookAppIDField->getName(), $facebookActiveField->getName(), 1)
+                        /**
+                         * Twitter field dependencies
+                         */
+                        ->addFieldMap($twitterApiKeyField->getHtmlId(), $twitterApiKeyField->getName())
+                        ->addFieldMap($twitterActiveField->getHtmlId(), $twitterActiveField->getName())
+                        ->addFieldMap($twitterSecretKeyField->getHtmlId(), $twitterSecretKeyField->getName())
+                        ->addFieldDependence(
+                                $twitterApiKeyField->getName(), $twitterActiveField->getName(), 1)
+                        ->addFieldDependence(
+                                $twitterSecretKeyField->getName(), $twitterActiveField->getName(), 1)
+                        /**
+                         * LinkedIn field dependencies
+                         */
+                        ->addFieldMap($linkedinApiKeyField->getHtmlId(), $linkedinApiKeyField->getName())
+                        ->addFieldMap($linkedinActiveField->getHtmlId(), $linkedinActiveField->getName())
+                        ->addFieldMap($linkedinSecretKeyField->getHtmlId(), $linkedinSecretKeyField->getName())
+                        ->addFieldDependence(
+                                $linkedinApiKeyField->getName(), $linkedinActiveField->getName(), 1)
+                        ->addFieldDependence(
+                                $linkedinSecretKeyField->getName(), $linkedinActiveField->getName(), 1)
         );
 
         return parent::_prepareForm();
@@ -312,4 +282,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
     {
         return false;
     }
+
 }

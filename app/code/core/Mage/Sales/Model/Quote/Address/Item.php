@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Enter description here ...
@@ -110,6 +110,7 @@
  */
 class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Abstract
 {
+
     /**
      * Quote address model object
      *
@@ -141,7 +142,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
     public function setAddress(Mage_Sales_Model_Quote_Address $address)
     {
         $this->_address = $address;
-        $this->_quote   = $address->getQuote();
+        $this->_quote = $address->getQuote();
         return $this;
     }
 
@@ -175,16 +176,16 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
     {
         $this->_quote = $quoteItem->getQuote();
         $this->setQuoteItem($quoteItem)
-            ->setQuoteItemId($quoteItem->getId())
-            ->setProductId($quoteItem->getProductId())
-            ->setProduct($quoteItem->getProduct())
-            ->setSku($quoteItem->getSku())
-            ->setName($quoteItem->getName())
-            ->setDescription($quoteItem->getDescription())
-            ->setWeight($quoteItem->getWeight())
-            ->setPrice($quoteItem->getPrice())
-            ->setIsQtyDecimal($quoteItem->getIsQtyDecimal())
-            ->setCost($quoteItem->getCost());
+                ->setQuoteItemId($quoteItem->getId())
+                ->setProductId($quoteItem->getProductId())
+                ->setProduct($quoteItem->getProduct())
+                ->setSku($quoteItem->getSku())
+                ->setName($quoteItem->getName())
+                ->setDescription($quoteItem->getDescription())
+                ->setWeight($quoteItem->getWeight())
+                ->setPrice($quoteItem->getPrice())
+                ->setIsQtyDecimal($quoteItem->getIsQtyDecimal())
+                ->setCost($quoteItem->getCost());
 
         if (!$this->hasQty()) {
             $this->setQty($quoteItem->getQty());
@@ -200,4 +201,5 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
         }
         return null;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,7 +28,6 @@
  */
 interface Zend_Tool_Framework_Manifest_Interface
 {
-
     /**
      * The following methods are completely optional, and any combination of them
      * can be used as part of a manifest.  The manifest repository will process
@@ -36,7 +36,6 @@ interface Zend_Tool_Framework_Manifest_Interface
      * Since these actions are
      *
      */
-
     /**
      * getMetadata()
      *
@@ -44,14 +43,11 @@ interface Zend_Tool_Framework_Manifest_Interface
      * of metadata objects
      *
      * @return array|Zend_Tool_Framework_Manifest_Metadata
-     **
+     * *
 
-    public function getMetadata();
+      public function getMetadata();
 
-     **/
-
-
-
+     * */
     /**
      * getActions()
      *
@@ -59,24 +55,20 @@ interface Zend_Tool_Framework_Manifest_Interface
      * of actions
      *
      * @return array|Zend_Tool_Framework_Action_Interface
-     **
+     * *
 
-    public function getActions();
+      public function getActions();
 
-     **/
-
-
-
+     * */
     /**
      * getProviders()
      *
      * Should either return a single provider or an array
      * of providers
      *
-     **
+     * *
 
-    public function getProviders();
+      public function getProviders();
 
-     **/
-
+     * */
 }

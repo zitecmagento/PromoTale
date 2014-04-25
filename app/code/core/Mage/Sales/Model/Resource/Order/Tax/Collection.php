@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Order Tax Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Model_Resource_Order_Tax_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Model initialization
      *
@@ -53,8 +54,9 @@ class Mage_Sales_Model_Resource_Order_Tax_Collection extends Mage_Core_Model_Res
     {
         $orderId = $order->getId();
         $this->getSelect()
-            ->where('main_table.order_id = ?', $orderId)
-            ->order('process');
+                ->where('main_table.order_id = ?', $orderId)
+                ->order('process');
         return $this->load();
     }
+
 }

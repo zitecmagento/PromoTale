@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Model_Config
 {
+
     /**
      * Get data about models from specified config key.
      *
@@ -97,4 +99,5 @@ class Mage_ImportExport_Model_Config
         }
         return $options;
     }
+
 }

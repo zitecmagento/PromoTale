@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Agreements extends Mage_Checkout_Block_Agreements
 {
+
     /**
      * Render agreements xml
      *
@@ -61,4 +63,5 @@ class Mage_XmlConnect_Block_Checkout_Agreements extends Mage_Checkout_Block_Agre
 
         return $agreementsXmlObj->asNiceXml();
     }
+
 }

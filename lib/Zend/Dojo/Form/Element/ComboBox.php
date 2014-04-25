@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Dojo_Form_Element_DijitMulti */
 #require_once 'Zend/Dojo/Form/Element/DijitMulti.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_Dojo_Form_Element_ComboBox extends Zend_Dojo_Form_Element_DijitMulti
 {
+
     /**
      * Use ComboBox dijit view helper
      * @var string
@@ -183,4 +184,5 @@ class Zend_Dojo_Form_Element_ComboBox extends Zend_Dojo_Form_Element_DijitMulti
         }
         return parent::isValid($value, $context);
     }
+
 }

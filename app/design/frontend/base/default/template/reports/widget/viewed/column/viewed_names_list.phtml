@@ -30,22 +30,22 @@
  */
 ?>
 <?php if ($_products = $this->getRecentlyViewedProducts()): ?>
-<div class="widget widget-viewed">
-    <div class="block block-list">
-        <div class="block-title">
-            <strong><span><?php echo $this->__('Recently Viewed') ?></span></strong>
-        </div>
-        <div class="block-content">
-            <?php $suffix = $this->getNameInLayout(); ?>
-            <ol id="widget-viewed-<?php echo $suffix; ?>">
-            <?php foreach ($_products as $_product): ?>
-                <li class="item">
-                   <p class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName() , 'name') ?></a></p>
-                </li>
-            <?php endforeach; ?>
-            </ol>
-            <script type="text/javascript">decorateList('widget-viewed-<?php echo $suffix; ?>', 'none-recursive')</script>
+    <div class="widget widget-viewed">
+        <div class="block block-list">
+            <div class="block-title">
+                <strong><span><?php echo $this->__('Recently Viewed') ?></span></strong>
+            </div>
+            <div class="block-content">
+                <?php $suffix = $this->getNameInLayout(); ?>
+                <ol id="widget-viewed-<?php echo $suffix; ?>">
+                    <?php foreach ($_products as $_product): ?>
+                        <li class="item">
+                            <p class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name') ?></a></p>
+                        </li>
+                    <?php endforeach; ?>
+                </ol>
+                <script type="text/javascript">decorateList('widget-viewed-<?php echo $suffix; ?>', 'none-recursive')</script>
+            </div>
         </div>
     </div>
-</div>
 <?php endif; ?>

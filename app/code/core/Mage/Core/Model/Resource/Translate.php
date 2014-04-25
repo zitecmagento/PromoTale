@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Translation resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table
      *
@@ -66,18 +67,17 @@ class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abs
         }
 
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('string', 'translate'))
-            ->where('store_id IN (0 , :store_id)')
-            ->where('locale = :locale')
-            ->order('store_id');
+                ->from($this->getMainTable(), array('string', 'translate'))
+                ->where('store_id IN (0 , :store_id)')
+                ->where('locale = :locale')
+                ->order('store_id');
 
         $bind = array(
-            ':locale'   => (string)$locale,
+            ':locale' => (string) $locale,
             ':store_id' => $storeId
         );
 
         return $adapter->fetchPairs($select, $bind);
-
     }
 
     /**
@@ -107,12 +107,12 @@ class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abs
         }
 
         $bind = array(
-            ':store_id'   => $storeId
+            ':store_id' => $storeId
         );
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('string', 'translate'))
-            ->where('string IN (?)', $strings)
-            ->where('store_id = :store_id');
+                ->from($this->getMainTable(), array('string', 'translate'))
+                ->where('string IN (?)', $strings)
+                ->where('store_id = :store_id');
 
         return $adapter->fetchPairs($select, $bind);
     }
@@ -126,4 +126,5 @@ class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abs
     {
         return $this->getChecksum($this->getMainTable());
     }
+
 }

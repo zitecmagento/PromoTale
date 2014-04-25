@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog navigation
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
 {
+
     /**
      * Category instance
      *
@@ -159,8 +160,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      */
     public function isCategoryActive($category)
     {
-        return $this->getCurrentCategory()
-            ? in_array($category->getId(), $this->getCurrentCategory()->getPathIds()) : false;
+        return $this->getCurrentCategory() ? in_array($category->getId(), $this->getCurrentCategory()->getPathIds()) : false;
     }
 
     /**
@@ -188,8 +188,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
             $url = $category->getUrl();
         } else {
             $url = $this->_getCategoryInstance()
-                ->setData($category->getData())
-                ->getUrl();
+                    ->setData($category->getData())
+                    ->getUrl();
         }
 
         return $url;
@@ -208,13 +208,13 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
             $this->_itemLevelPositions = array();
             $this->_itemLevelPositions[$level] = $zeroLevelPosition;
         } elseif (isset($this->_itemLevelPositions[$level])) {
-            $this->_itemLevelPositions[$level]++;
+            $this->_itemLevelPositions[$level] ++;
         } else {
             $this->_itemLevelPositions[$level] = 1;
         }
 
         $position = array();
-        for($i = 0; $i <= $level; $i++) {
+        for ($i = 0; $i <= $level; $i++) {
             if (isset($this->_itemLevelPositions[$i])) {
                 $position[] = $this->_itemLevelPositions[$i];
             }
@@ -235,8 +235,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * @param boolean Whether ot not to add on* attributes to list item
      * @return string
      */
-    protected function _renderCategoryMenuItemHtml($category, $level = 0, $isLast = false, $isFirst = false,
-        $isOutermost = false, $outermostItemClass = '', $childrenWrapClass = '', $noEventAttributes = false)
+    protected function _renderCategoryMenuItemHtml($category, $level = 0, $isLast = false, $isFirst = false, $isOutermost = false, $outermostItemClass = '', $childrenWrapClass = '', $noEventAttributes = false)
     {
         if (!$category->getIsActive()) {
             return '';
@@ -247,7 +246,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         // If Flat Data enabled then use it but only on frontend
         $flatHelper = Mage::helper('catalog/category_flat');
         if ($flatHelper->isAvailable() && $flatHelper->isBuilt(true) && !Mage::app()->getStore()->isAdmin()) {
-            $children = (array)$category->getChildrenNodes();
+            $children = (array) $category->getChildrenNodes();
             $childrenCount = count($children);
         } else {
             $children = $category->getChildren();
@@ -275,7 +274,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $linkClass = '';
         if ($isOutermost && $outermostItemClass) {
             $classes[] = $outermostItemClass;
-            $linkClass = ' class="'.$outermostItemClass.'"';
+            $linkClass = ' class="' . $outermostItemClass . '"';
         }
         if ($isFirst) {
             $classes[] = 'first';
@@ -293,8 +292,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
             $attributes['class'] = implode(' ', $classes);
         }
         if ($hasActiveChildren && !$noEventAttributes) {
-             $attributes['onmouseover'] = 'toggleMenu(this,1)';
-             $attributes['onmouseout'] = 'toggleMenu(this,0)';
+            $attributes['onmouseover'] = 'toggleMenu(this,1)';
+            $attributes['onmouseout'] = 'toggleMenu(this,0)';
         }
 
         // assemble list item with attributes
@@ -305,7 +304,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $htmlLi .= '>';
         $html[] = $htmlLi;
 
-        $html[] = '<a href="'.$this->getCategoryUrl($category).'"'.$linkClass.'>';
+        $html[] = '<a href="' . $this->getCategoryUrl($category) . '"' . $linkClass . '>';
         $html[] = '<span>' . $this->escapeHtml($category->getName()) . '</span>';
         $html[] = '</a>';
 
@@ -314,14 +313,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $j = 0;
         foreach ($activeChildren as $child) {
             $htmlChildren .= $this->_renderCategoryMenuItemHtml(
-                $child,
-                ($level + 1),
-                ($j == $activeChildrenCount - 1),
-                ($j == 0),
-                false,
-                $outermostItemClass,
-                $childrenWrapClass,
-                $noEventAttributes
+                    $child, ($level + 1), ($j == $activeChildrenCount - 1), ($j == 0), false, $outermostItemClass, $childrenWrapClass, $noEventAttributes
             );
             $j++;
         }
@@ -389,7 +381,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * @param Mage_Catalog_Model_Category $category
      * @return string
      */
-    public function drawOpenCategoryItem($category) {
+    public function drawOpenCategoryItem($category)
+    {
         $html = '';
         if (!$category->getIsActive()) {
             return $html;
@@ -402,8 +395,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         }
 
         $html .= '>' . "\n";
-        $html .= '<a href="'.$this->getCategoryUrl($category).'">'
-            . '<span>' . $this->escapeHtml($category->getName()) . '</span></a>' . "\n";
+        $html .= '<a href="' . $this->getCategoryUrl($category) . '">'
+                . '<span>' . $this->escapeHtml($category->getName()) . '</span></a>' . "\n";
 
         if (in_array($category->getId(), $this->getCurrentCategoryPath())) {
             $children = $category->getChildren();
@@ -420,7 +413,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
                 }
             }
         }
-        $html .= '</li>'."\n";
+        $html .= '</li>' . "\n";
 
         return $html;
     }
@@ -452,18 +445,12 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $j = 0;
         foreach ($activeCategories as $category) {
             $html .= $this->_renderCategoryMenuItemHtml(
-                $category,
-                $level,
-                ($j == $activeCategoriesCount - 1),
-                ($j == 0),
-                true,
-                $outermostItemClass,
-                $childrenWrapClass,
-                true
+                    $category, $level, ($j == $activeCategoriesCount - 1), ($j == 0), true, $outermostItemClass, $childrenWrapClass, true
             );
             $j++;
         }
 
         return $html;
     }
+
 }

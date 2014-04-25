@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Catalog_Block_Product_List_Random extends Mage_Catalog_Block_Product_List
 {
+
     protected function _getProductCollection()
     {
         if (is_null($this->_productCollection)) {
@@ -48,4 +49,5 @@ class Mage_Catalog_Block_Product_List_Random extends Mage_Catalog_Block_Product_
         }
         return $this->_productCollection;
     }
+
 }

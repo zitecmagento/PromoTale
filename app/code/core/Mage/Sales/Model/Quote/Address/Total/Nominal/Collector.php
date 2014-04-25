@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Sales_Model_Quote_Address_Total_Nominal_Collector extends Mage_Sales_Model_Quote_Address_Total_Collector
 {
+
     /**
      * Conf. node for nominal totals declaration
      *
@@ -42,4 +44,5 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Collector extends Mage_Sales_
      * @var string
      */
     protected $_collectorsCacheKey = 'sorted_quote_nominal_collectors';
+
 }

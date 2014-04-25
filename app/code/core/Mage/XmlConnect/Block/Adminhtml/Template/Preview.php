@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Template_Preview extends Mage_Adminhtml_Block_Widget
 {
+
     /**
      * Retrieve processed template
      *
@@ -40,12 +42,12 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Preview extends Mage_Adminhtml_Bl
      */
     protected function _toHtml()
     {
-        if ((int)$this->getRequest()->getParam('queue_preview')) {
+        if ((int) $this->getRequest()->getParam('queue_preview')) {
             $id = $this->getRequest()->getParam('queue_preview');
             /** @var $template Mage_XmlConnect_Model_Queue */
             $template = Mage::getModel('xmlconnect/queue');
         } else {
-            $id = (int)$this->getRequest()->getParam('id');
+            $id = (int) $this->getRequest()->getParam('id');
             /** @var $template Mage_XmlConnect_Model_Template */
             $template = Mage::getModel('xmlconnect/template');
         }
@@ -54,7 +56,7 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Preview extends Mage_Adminhtml_Bl
             $template->load($id);
         }
 
-        $storeId = (int)$this->getRequest()->getParam('store_id');
+        $storeId = (int) $this->getRequest()->getParam('store_id');
 
         if (!$storeId) {
             $storeId = Mage::app()->getDefaultStoreView()->getId();
@@ -66,4 +68,5 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Preview extends Mage_Adminhtml_Bl
 
         return $templateProcessed;
     }
+
 }

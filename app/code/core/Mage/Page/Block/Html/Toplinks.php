@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
 {
+
     /**
      * Array of toplinks
      *
@@ -65,11 +67,11 @@ class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
      * @param string $afterText
      * @return Mage_Page_Block_Html_Toplinks
      */
-    public function addLink($liParams, $aParams, $innerText, $position='', $beforeText='', $afterText='')
+    public function addLink($liParams, $aParams, $innerText, $position = '', $beforeText = '', $afterText = '')
     {
         $params = '';
         if (!empty($liParams) && is_array($liParams)) {
-            foreach ($liParams as $key=>$value) {
+            foreach ($liParams as $key => $value) {
                 $params .= ' ' . $key . '="' . addslashes($value) . '"';
             }
         } elseif (is_string($liParams)) {
@@ -78,7 +80,7 @@ class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
         $toplinkInfo['liParams'] = $params;
         $params = '';
         if (!empty($aParams) && is_array($aParams)) {
-            foreach ($aParams as $key=>$value) {
+            foreach ($aParams as $key => $value) {
                 $params .= ' ' . $key . '="' . addslashes($value) . '"';
             }
         } elseif (is_string($aParams)) {
@@ -88,7 +90,8 @@ class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
         $toplinkInfo['innerText'] = $innerText;
         $toplinkInfo['beforeText'] = $beforeText;
         $toplinkInfo['afterText'] = $afterText;
-        $this->_prepareArray($toplinkInfo, array('liParams', 'aParams', 'innerText', 'beforeText', 'afterText', 'first', 'last'));
+        $this->_prepareArray($toplinkInfo, array('liParams', 'aParams', 'innerText', 'beforeText', 'afterText', 'first',
+            'last'));
         if (is_numeric($position)) {
             array_splice($this->_toplinks, $position, 0, array($toplinkInfo));
         } else {
@@ -108,4 +111,5 @@ class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
         $this->assign('toplinks', $this->_toplinks);
         return parent::_toHtml();
     }
+
 }

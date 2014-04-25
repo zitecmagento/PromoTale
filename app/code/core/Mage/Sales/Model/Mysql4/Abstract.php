@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales mysql4 abstract resource model
  *
@@ -34,4 +34,5 @@
  */
 abstract class Mage_Sales_Model_Mysql4_Abstract extends Mage_Sales_Model_Resource_Abstract
 {
+    
 }

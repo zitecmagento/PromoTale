@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Paypal_Block_Adminhtml_Settlement_Details extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Block construction
      * Initialize titles, buttons
@@ -43,8 +45,8 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details extends Mage_Adminhtml_Bloc
         $this->_controller = '';
         $this->_headerText = Mage::helper('paypal')->__('View Transaction Details');
         $this->_removeButton('reset')
-            ->_removeButton('delete')
-            ->_removeButton('save');
+                ->_removeButton('delete')
+                ->_removeButton('save');
     }
 
     /**
@@ -57,4 +59,5 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details extends Mage_Adminhtml_Bloc
         $this->setChild('form', $this->getLayout()->createBlock('paypal/adminhtml_settlement_details_form'));
         return $this;
     }
+
 }

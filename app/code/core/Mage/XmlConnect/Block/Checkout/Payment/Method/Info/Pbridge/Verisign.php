@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Pbridge_Verisign extends Mage_Payment_Block_Info_Cc
 {
+
     /**
      * Add CC Save Payment info to order XML object
      *
@@ -52,4 +54,5 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Pbridge_Verisign extend
             }
         }
     }
+
 }

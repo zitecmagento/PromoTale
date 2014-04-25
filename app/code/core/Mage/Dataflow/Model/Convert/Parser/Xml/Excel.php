@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert excel xml parser
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_Convert_Parser_Abstract
 {
+
     /**
      * Simple Xml object
      *
@@ -50,7 +51,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
     public function parse()
     {
-        $adapterName   = $this->getVar('adapter', null);
+        $adapterName = $this->getVar('adapter', null);
         $adapterMethod = $this->getVar('method', 'saveRow');
 
         if (!$adapterName || !$adapterMethod) {
@@ -59,10 +60,12 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             return $this;
         }
 
-        try {
+        try
+        {
             $adapter = Mage::getModel($adapterName);
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $message = Mage::helper('dataflow')->__('Declared adapter %s was not found.', $adapterName);
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::FATAL);
             return $this;
@@ -78,8 +81,8 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $batchIoAdapter = $this->getBatchModel()->getIoAdapter();
 
         if (Mage::app()->getRequest()->getParam('files')) {
-            $file = Mage::app()->getConfig()->getTempVarDir().'/import/'
-                . urldecode(Mage::app()->getRequest()->getParam('files'));
+            $file = Mage::app()->getConfig()->getTempVarDir() . '/import/'
+                    . urldecode(Mage::app()->getRequest()->getParam('files'));
             $this->_copy($file);
         }
 
@@ -122,20 +125,17 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                     $xmlString = substr($xmlTmpString, $strposF);
                     $isWorksheet = true;
                     continue;
-                }
-                else {
-                    if (preg_match('/ss:Name=\"'.preg_quote($worksheet).'\"/siU', substr($xmlTmpString, 0, $strposF))) {
+                } else {
+                    if (preg_match('/ss:Name=\"' . preg_quote($worksheet) . '\"/siU', substr($xmlTmpString, 0, $strposF))) {
                         $xmlString = substr($xmlTmpString, $strposF);
                         $isWorksheet = true;
                         continue;
-                    }
-                    else {
+                    } else {
                         $xmlString = '';
                         continue;
                     }
                 }
-            }
-            else {
+            } else {
                 $xmlString = $this->_parseXmlRow($xmlString);
 
                 $strposS = strpos($xmlString, '</Worksheet>');
@@ -158,8 +158,8 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $this->addException(Mage::helper('dataflow')->__('Starting %s :: %s', $adapterName, $adapterMethod));
 
         $batchModel->setParams($this->getVars())
-            ->setAdapter($adapterName)
-            ->save();
+                ->setAdapter($adapterName)
+                ->save();
 
 //        $adapter->$adapterMethod();
 
@@ -168,8 +168,8 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $dom = new DOMDocument();
 //        $dom->loadXML($this->getData());
         if (Mage::app()->getRequest()->getParam('files')) {
-            $path = Mage::app()->getConfig()->getTempVarDir().'/import/';
-            $file = $path.urldecode(Mage::app()->getRequest()->getParam('files'));
+            $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
+            $file = $path . urldecode(Mage::app()->getRequest()->getParam('files'));
             if (file_exists($file)) {
                 $dom->load($file);
             }
@@ -197,11 +197,11 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                 foreach ($cells as $cell) {
                     $value = $cell->getElementsByTagName('Data')->item(0)->nodeValue;
                     $ind = $cell->getAttribute('ss:Index');
-                    if (!is_null($ind) && $ind>0) {
+                    if (!is_null($ind) && $ind > 0) {
                         $index = $ind;
                     }
                     if ($firstRow && !$this->getVar('fieldnames')) {
-                        $fieldNames[$index] = 'column'.$index;
+                        $fieldNames[$index] = 'column' . $index;
                     }
                     if ($firstRow && $this->getVar('fieldnames')) {
                         $fieldNames[$index] = $value;
@@ -223,7 +223,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                 }
             }
             $data[$wsName] = $wsData;
-            $this->addException('Found worksheet "'.$wsName.'" with '.sizeof($wsData).' row(s)');
+            $this->addException('Found worksheet "' . $wsName . '" with ' . sizeof($wsData) . ' row(s)');
         }
         if ($wsName = $this->getVar('single_sheet')) {
             if (isset($data[$wsName])) {
@@ -263,8 +263,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                 $this->_saveParsedRow($xmlRowString);
 
                 $xmlString = substr($xmlTmpString, $strposF + 6);
-            }
-            else {
+            } else {
                 $found = false;
                 continue;
             }
@@ -275,40 +274,42 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
     protected function _saveParsedRow($xmlString)
     {
-        $xml = '<'.'?xml version="1.0"?'.'><'.'?mso-application progid="Excel.Sheet"?'
-            .'><Workbook'
-            .' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
-            .' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
-            .' xmlns:x="urn:schemas-microsoft-com:office:excel"'
-            .' xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"'
-            .' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
-            .' xmlns:o="urn:schemas-microsoft-com:office:office"'
-            .' xmlns:html="http://www.w3.org/TR/REC-html40"'
-            .' xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">'
-            . $xmlString
-            .'</Workbook>';
+        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
+                . '><Workbook'
+                . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
+                . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
+                . ' xmlns:x="urn:schemas-microsoft-com:office:excel"'
+                . ' xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"'
+                . ' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
+                . ' xmlns:o="urn:schemas-microsoft-com:office:office"'
+                . ' xmlns:html="http://www.w3.org/TR/REC-html40"'
+                . ' xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">'
+                . $xmlString
+                . '</Workbook>';
 
-        try {
+        try
+        {
             $xmlElement = new SimpleXMLElement($xml);
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $message = 'Invalid XML row';
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::ERROR);
             return $this;
         }
 
-        $xmlData  = array();
+        $xmlData = array();
         $itemData = array();
         $cellIndex = 0;
         foreach ($xmlElement->Row->children() as $cell) {
             if (is_null($this->_parseFieldNames)) {
-                $xmlData[(string)$cell->Data] = (string)$cell->Data;
+                $xmlData[(string) $cell->Data] = (string) $cell->Data;
             } else {
                 $attributes = $cell->attributes('urn:schemas-microsoft-com:office:spreadsheet');
                 if ($attributes && isset($attributes['Index'])) {
                     $cellIndex = $attributes['Index'] - 1;
                 }
-                $xmlData[$cellIndex] = (string)$cell->Data;
+                $xmlData[$cellIndex] = (string) $cell->Data;
                 $cellIndex ++;
             }
         }
@@ -327,11 +328,11 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         }
 
         $batchImportModel = $this->getBatchImportModel()
-            ->setId(null)
-            ->setBatchId($this->getBatchModel()->getId())
-            ->setBatchData($itemData)
-            ->setStatus(1)
-            ->save();
+                ->setId(null)
+                ->setBatchId($this->getBatchModel()->getId())
+                ->setBatchData($itemData)
+                ->setStatus(1)
+                ->save();
 
         return $this;
     }
@@ -339,7 +340,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
     public function unparse()
     {
         $batchExport = $this->getBatchExportModel()
-            ->setBatchId($this->getBatchModel()->getId());
+                ->setBatchId($this->getBatchModel()->getId());
         $fieldList = $this->getBatchModel()->getFieldList();
         $batchExportIds = $batchExport->getIdCollection();
 
@@ -350,20 +351,20 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $io = $this->getBatchModel()->getIoAdapter();
         $io->open();
 
-        $xml = '<'.'?xml version="1.0"?'.'><'.'?mso-application progid="Excel.Sheet"?'
-            .'><Workbook'
-            .' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
-            .' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
-            .' xmlns:x="urn:schemas-microsoft-com:office:excel"'
-            .' xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"'
-            .' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
-            .' xmlns:o="urn:schemas-microsoft-com:office:office"'
-            .' xmlns:html="http://www.w3.org/TR/REC-html40"'
-            .' xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">'
-            .'<OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">'
-            .'</OfficeDocumentSettings>'
-            .'<ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">'
-            .'</ExcelWorkbook>';
+        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
+                . '><Workbook'
+                . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
+                . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
+                . ' xmlns:x="urn:schemas-microsoft-com:office:excel"'
+                . ' xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"'
+                . ' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
+                . ' xmlns:o="urn:schemas-microsoft-com:office:office"'
+                . ' xmlns:html="http://www.w3.org/TR/REC-html40"'
+                . ' xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">'
+                . '<OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">'
+                . '</OfficeDocumentSettings>'
+                . '<ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">'
+                . '</ExcelWorkbook>';
         $io->write($xml);
 
         $wsName = htmlspecialchars($this->getVar('single_sheet'));
@@ -490,4 +491,5 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         return join('', $xmlData);
     }
+
 }

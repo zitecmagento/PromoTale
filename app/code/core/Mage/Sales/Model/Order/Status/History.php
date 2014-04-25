@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -47,6 +48,7 @@
  */
 class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 {
+
     const CUSTOMER_NOTIFICATION_NOT_APPLICABLE = 2;
 
     /**
@@ -62,7 +64,6 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
      * @var bool
      */
     private $_shouldSetOrderBeforeSave = false;
-
     protected $_eventPrefix = 'sales_order_status_history';
     protected $_eventObject = 'status_history';
 
@@ -129,7 +130,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
      */
     public function getStatusLabel()
     {
-        if($this->getOrder()) {
+        if ($this->getOrder()) {
             return $this->getOrder()->getConfig()->getStatusLabel($this->getStatus());
         }
     }
@@ -162,4 +163,5 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Persistent Session Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
 {
+
     const KEY_LENGTH = 50;
     const COOKIE_NAME = 'persistent_shopping_cart';
 
@@ -208,15 +209,12 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         }
 
         $lifetime = Mage::getConfig()->getNode(
-            Mage_Persistent_Helper_Data::XML_PATH_LIFE_TIME,
-            'website',
-            intval($websiteId)
+                Mage_Persistent_Helper_Data::XML_PATH_LIFE_TIME, 'website', intval($websiteId)
         );
 
         if ($lifetime) {
             $this->getResource()->deleteExpired(
-                $websiteId,
-                gmdate('Y-m-d H:i:s', time() - $lifetime)
+                    $websiteId, gmdate('Y-m-d H:i:s', time() - $lifetime)
             );
         }
 
@@ -228,7 +226,8 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @return Mage_Core_Model_Abstract
      */
-    protected function _afterDeleteCommit() {
+    protected function _afterDeleteCommit()
+    {
         Mage::getSingleton('core/cookie')->delete(Mage_Persistent_Model_Session::COOKIE_NAME);
         return parent::_afterDeleteCommit();
     }
@@ -243,4 +242,5 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         $this->setUpdatedAt(gmdate('Y-m-d H:i:s'));
         return parent::save();
     }
+
 }

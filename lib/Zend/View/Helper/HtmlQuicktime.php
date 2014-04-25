@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HtmlQuicktime.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_View_Helper_HtmlObject
  */
@@ -34,6 +34,7 @@
  */
 class Zend_View_Helper_HtmlQuicktime extends Zend_View_Helper_HtmlObject
 {
+
     /**
      * Default file type for a movie applet
      *
@@ -44,7 +45,7 @@ class Zend_View_Helper_HtmlQuicktime extends Zend_View_Helper_HtmlObject
      * Object classid
      *
      */
-    const ATTRIB_CLASSID  = 'clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B';
+    const ATTRIB_CLASSID = 'clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B';
 
     /**
      * Object Codebase
@@ -57,8 +58,8 @@ class Zend_View_Helper_HtmlQuicktime extends Zend_View_Helper_HtmlObject
      *
      * @var array
      */
-    protected $_attribs = array('classid'  => self::ATTRIB_CLASSID,
-                                'codebase' => self::ATTRIB_CODEBASE);
+    protected $_attribs = array('classid' => self::ATTRIB_CLASSID,
+        'codebase' => self::ATTRIB_CODEBASE);
 
     /**
      * Output a quicktime movie object tag
@@ -79,4 +80,5 @@ class Zend_View_Helper_HtmlQuicktime extends Zend_View_Helper_HtmlObject
 
         return $this->htmlObject($data, self::TYPE, $attribs, $params, $content);
     }
+
 }

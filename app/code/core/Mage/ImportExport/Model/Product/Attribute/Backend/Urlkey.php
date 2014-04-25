@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Product_Attribute_Backend_Urlkey
-    extends Mage_Catalog_Model_Product_Attribute_Backend_Urlkey
+class Mage_ImportExport_Model_Product_Attribute_Backend_Urlkey extends Mage_Catalog_Model_Product_Attribute_Backend_Urlkey
 {
+
     /**
      * No need to validate url_key during import
      *
@@ -44,4 +45,5 @@ class Mage_ImportExport_Model_Product_Attribute_Backend_Urlkey
     {
         return $this;
     }
+
 }

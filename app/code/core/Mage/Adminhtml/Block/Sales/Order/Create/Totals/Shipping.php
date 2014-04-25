@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,10 +30,9 @@
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Shipping
-    extends Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default
+class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Shipping extends Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default
 {
+
     protected $_template = 'sales/order/create/totals/shipping.phtml';
 
     /**
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Shipping
     public function getShippingIncludeTax()
     {
         return $this->getTotal()->getAddress()->getShippingAmount() +
-            $this->getTotal()->getAddress()->getShippingTaxAmount();
+                $this->getTotal()->getAddress()->getShippingTaxAmount();
     }
 
     /**
@@ -95,4 +95,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Shipping
     {
         return $this->helper('tax')->__('Shipping Excl. Tax (%s)', $this->escapeHtml($this->getTotal()->getAddress()->getShippingDescription()));
     }
+
 }

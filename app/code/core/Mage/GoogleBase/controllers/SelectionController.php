@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 require_once 'Mage/GoogleBase/controllers/Adminhtml/Googlebase/SelectionController.php';
 
 /**
@@ -36,5 +36,5 @@ require_once 'Mage/GoogleBase/controllers/Adminhtml/Googlebase/SelectionControll
  */
 class Mage_GoogleBase_SelectionController extends Mage_GoogleBase_Adminhtml_Googlebase_SelectionController
 {
-
+    
 }

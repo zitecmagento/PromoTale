@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Preprocessing.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Search_Query */
 #require_once 'Zend/Search/Lucene/Search/Query.php';
-
 
 /**
  * It's an internal abstract class intended to finalize ase a query processing after query parsing.
@@ -38,6 +36,7 @@
  */
 abstract class Zend_Search_Lucene_Search_Query_Preprocessing extends Zend_Search_Lucene_Search_Query
 {
+
     /**
      * Matched terms.
      *
@@ -123,5 +122,5 @@ abstract class Zend_Search_Lucene_Search_Query_Preprocessing extends Zend_Search
         #require_once 'Zend/Search/Lucene/Exception.php';
         throw new Zend_Search_Lucene_Exception('Rewrite operation has to be done before retrieving query terms.');
     }
-}
 
+}

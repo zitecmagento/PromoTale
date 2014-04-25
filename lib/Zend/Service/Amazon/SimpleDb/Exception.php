@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * @see Zend_Service_Amazon_Exception
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Amazon_SimpleDb_Exception extends Zend_Service_Amazon_Exception
 {
+
     /**
      * @var string
      */
@@ -63,4 +64,5 @@ class Zend_Service_Amazon_SimpleDb_Exception extends Zend_Service_Amazon_Excepti
     {
         return $this->_awsErrorCode;
     }
+
 }

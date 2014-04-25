@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Form Type Resource Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Resource_Form_Type_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Initialize collection model
      *
@@ -66,12 +67,11 @@ class Mage_Eav_Model_Resource_Form_Type_Collection extends Mage_Core_Model_Resou
         }
 
         $this->getSelect()
-            ->join(
-                array('form_type_entity' => $this->getTable('eav/form_type_entity')),
-                'main_table.type_id = form_type_entity.type_id',
-                array())
-            ->where('form_type_entity.entity_type_id = ?', $entity);
+                ->join(
+                        array('form_type_entity' => $this->getTable('eav/form_type_entity')), 'main_table.type_id = form_type_entity.type_id', array())
+                ->where('form_type_entity.entity_type_id = ?', $entity);
 
         return $this;
     }
+
 }

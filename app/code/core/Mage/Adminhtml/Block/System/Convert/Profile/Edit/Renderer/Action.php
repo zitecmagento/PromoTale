@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * System Convert History action renderer
  *
@@ -32,17 +32,18 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Renderer_Action
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     public function render(Varien_Object $row)
     {
         $values = array(
             'create' => Mage::helper('adminhtml')->__('Create'),
-            'run'    => Mage::helper('adminhtml')->__('Run'),
+            'run' => Mage::helper('adminhtml')->__('Run'),
             'update' => Mage::helper('adminhtml')->__('Update'),
         );
         $value = $row->getData($this->getColumn()->getIndex());
         return $values[$value];
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Manifest.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 #require_once 'Zend/Tool/Framework/Manifest/ProviderManifestable.php';
 #require_once 'Zend/Tool/Framework/Manifest/ActionManifestable.php';
 #require_once 'Zend/Tool/Framework/System/Provider/Version.php';
@@ -35,8 +35,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_System_Manifest
-    implements Zend_Tool_Framework_Manifest_ProviderManifestable, Zend_Tool_Framework_Manifest_ActionManifestable
+class Zend_Tool_Framework_System_Manifest implements Zend_Tool_Framework_Manifest_ProviderManifestable, Zend_Tool_Framework_Manifest_ActionManifestable
 {
 
     public function getProviders()
@@ -46,7 +45,7 @@ class Zend_Tool_Framework_System_Manifest
             new Zend_Tool_Framework_System_Provider_Config(),
             new Zend_Tool_Framework_System_Provider_Phpinfo(),
             new Zend_Tool_Framework_System_Provider_Manifest()
-            );
+        );
 
         return $providers;
     }
@@ -56,8 +55,9 @@ class Zend_Tool_Framework_System_Manifest
         $actions = array(
             new Zend_Tool_Framework_System_Action_Create(),
             new Zend_Tool_Framework_System_Action_Delete()
-            );
+        );
 
         return $actions;
     }
+
 }

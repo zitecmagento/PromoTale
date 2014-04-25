@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Sqs.php 22984 2010-09-21 02:52:48Z matthew $
  */
-
 /**
  * @see Zend_Service_Amazon_Abstract
  */
@@ -42,6 +42,7 @@
  */
 class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
 {
+
     /**
      * Default timeout for createQueue() function
      */
@@ -96,17 +97,16 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
     {
         $params = array();
         $params['QueueName'] = $queue_name;
-        $timeout = ($timeout === null) ? self::CREATE_TIMEOUT_DEFAULT : (int)$timeout;
+        $timeout = ($timeout === null) ? self::CREATE_TIMEOUT_DEFAULT : (int) $timeout;
         $params['DefaultVisibilityTimeout'] = $timeout;
 
         $retry_count = 0;
 
         do {
-            $retry  = false;
+            $retry = false;
             $result = $this->_makeRequest(null, 'CreateQueue', $params);
 
-            if (!isset($result->CreateQueueResult->QueueUrl)
-                || empty($result->CreateQueueResult->QueueUrl)
+            if (!isset($result->CreateQueueResult->QueueUrl) || empty($result->CreateQueueResult->QueueUrl)
             ) {
                 if ($result->Error->Code == 'AWS.SimpleQueueService.QueueNameExists') {
                     return false;
@@ -122,7 +122,6 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
             } else {
                 return (string) $result->CreateQueueResult->QueueUrl;
             }
-
         } while ($retry);
 
         return false;
@@ -164,15 +163,14 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
             throw new Zend_Service_Amazon_Sqs_Exception($result->Error->Code);
         }
 
-        if (!isset($result->ListQueuesResult->QueueUrl)
-            || empty($result->ListQueuesResult->QueueUrl)
+        if (!isset($result->ListQueuesResult->QueueUrl) || empty($result->ListQueuesResult->QueueUrl)
         ) {
             return array();
         }
 
         $queues = array();
         foreach ($result->ListQueuesResult->QueueUrl as $queue_url) {
-            $queues[] = (string)$queue_url;
+            $queues[] = (string) $queue_url;
         }
 
         return $queues;
@@ -187,7 +185,7 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
      */
     public function count($queue_url)
     {
-        return (int)$this->getAttribute($queue_url, 'ApproximateNumberOfMessages');
+        return (int) $this->getAttribute($queue_url, 'ApproximateNumberOfMessages');
     }
 
     /**
@@ -207,8 +205,7 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
 
         $result = $this->_makeRequest($queue_url, 'SendMessage', $params);
 
-        if (!isset($result->SendMessageResult->MessageId)
-            || empty($result->SendMessageResult->MessageId)
+        if (!isset($result->SendMessageResult->MessageId) || empty($result->SendMessageResult->MessageId)
         ) {
             #require_once 'Zend/Service/Amazon/Sqs/Exception.php';
             throw new Zend_Service_Amazon_Sqs_Exception($result->Error->Code);
@@ -235,12 +232,12 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
 
         // If not set, the visibility timeout on the queue is used
         if ($timeout !== null) {
-            $params['VisibilityTimeout'] = (int)$timeout;
+            $params['VisibilityTimeout'] = (int) $timeout;
         }
 
         // SQS will default to only returning one message
         if ($max_messages !== null) {
-            $params['MaxNumberOfMessages'] = (int)$max_messages;
+            $params['MaxNumberOfMessages'] = (int) $max_messages;
         }
 
         $result = $this->_makeRequest($queue_url, 'ReceiveMessage', $params);
@@ -250,8 +247,7 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
             throw new Zend_Service_Amazon_Sqs_Exception($result->Error->Code);
         }
 
-        if (!isset($result->ReceiveMessageResult->Message)
-            || empty($result->ReceiveMessageResult->Message)
+        if (!isset($result->ReceiveMessageResult->Message) || empty($result->ReceiveMessageResult->Message)
         ) {
             // no messages found
             return array();
@@ -260,10 +256,10 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
         $data = array();
         foreach ($result->ReceiveMessageResult->Message as $message) {
             $data[] = array(
-                'message_id' => (string)$message->MessageId,
-                'handle'     => (string)$message->ReceiptHandle,
-                'md5'        => (string)$message->MD5OfBody,
-                'body'       => urldecode((string)$message->Body),
+                'message_id' => (string) $message->MessageId,
+                'handle' => (string) $message->ReceiptHandle,
+                'md5' => (string) $message->MD5OfBody,
+                'body' => urldecode((string) $message->Body),
             );
         }
 
@@ -284,12 +280,11 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
     public function deleteMessage($queue_url, $handle)
     {
         $params = array();
-        $params['ReceiptHandle'] = (string)$handle;
+        $params['ReceiptHandle'] = (string) $handle;
 
         $result = $this->_makeRequest($queue_url, 'DeleteMessage', $params);
 
-        if (isset($result->Error->Code) 
-            && !empty($result->Error->Code)
+        if (isset($result->Error->Code) && !empty($result->Error->Code)
         ) {
             return false;
         }
@@ -313,17 +308,16 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
 
         $result = $this->_makeRequest($queue_url, 'GetQueueAttributes', $params);
 
-        if (!isset($result->GetQueueAttributesResult->Attribute)
-            || empty($result->GetQueueAttributesResult->Attribute)
+        if (!isset($result->GetQueueAttributesResult->Attribute) || empty($result->GetQueueAttributesResult->Attribute)
         ) {
             #require_once 'Zend/Service/Amazon/Sqs/Exception.php';
             throw new Zend_Service_Amazon_Sqs_Exception($result->Error->Code);
         }
-        
-        if(count($result->GetQueueAttributesResult->Attribute) > 1) {
+
+        if (count($result->GetQueueAttributesResult->Attribute) > 1) {
             $attr_result = array();
-            foreach($result->GetQueueAttributesResult->Attribute as $attribute) {
-                $attr_result[(string)$attribute->Name] = (string)$attribute->Value;
+            foreach ($result->GetQueueAttributesResult->Attribute as $attribute) {
+                $attr_result[(string) $attribute->Name] = (string) $attribute->Value;
             }
             return $attr_result;
         } else {
@@ -353,7 +347,7 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
         switch ($action) {
             case 'ListQueues':
             case 'CreateQueue':
-                $client->setUri('http://'.$this->_sqsEndpoint);
+                $client->setUri('http://' . $this->_sqsEndpoint);
                 break;
             default:
                 $client->setUri($queue_url);
@@ -406,12 +400,12 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
      */
     protected function addRequiredParameters($queue_url, array $parameters)
     {
-        $parameters['AWSAccessKeyId']   = $this->_getAccessKey();
+        $parameters['AWSAccessKeyId'] = $this->_getAccessKey();
         $parameters['SignatureVersion'] = $this->_sqsSignatureVersion;
-        $parameters['Timestamp']        = gmdate('Y-m-d\TH:i:s\Z', time()+10);
-        $parameters['Version']          = $this->_sqsApiVersion;
-        $parameters['SignatureMethod']  = $this->_sqsSignatureMethod;
-        $parameters['Signature']        = $this->_signParameters($queue_url, $parameters);
+        $parameters['Timestamp'] = gmdate('Y-m-d\TH:i:s\Z', time() + 10);
+        $parameters['Version'] = $this->_sqsApiVersion;
+        $parameters['SignatureMethod'] = $this->_sqsSignatureMethod;
+        $parameters['Signature'] = $this->_signParameters($queue_url, $parameters);
 
         return $parameters;
     }
@@ -442,8 +436,7 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
         $data .= $this->_sqsEndpoint . "\n";
         if ($queue_url !== null) {
             $data .= parse_url($queue_url, PHP_URL_PATH);
-        }
-        else {
+        } else {
             $data .= '/';
         }
         $data .= "\n";
@@ -452,7 +445,7 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
         unset($paramaters['Signature']);
 
         $arrData = array();
-        foreach($paramaters as $key => $value) {
+        foreach ($paramaters as $key => $value) {
             $arrData[] = $key . '=' . str_replace('%7E', '~', urlencode($value));
         }
 
@@ -462,4 +455,5 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
 
         return base64_encode($hmac);
     }
+
 }

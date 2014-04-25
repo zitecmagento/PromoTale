@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Math.php 21180 2010-02-23 22:00:29Z matthew $
  */
 
-
 /**
  * Utility class for proxying math function to bcmath functions, if present,
  * otherwise to PHP builtin math operators, with limited detection of overflow conditions.
@@ -31,20 +31,19 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_Locale_Math
 {
+
     // support unit testing without using bcmath functions
     public static $_bcmathDisabled = false;
-
-    public static $add   = array('Zend_Locale_Math', 'Add');
-    public static $sub   = array('Zend_Locale_Math', 'Sub');
-    public static $pow   = array('Zend_Locale_Math', 'Pow');
-    public static $mul   = array('Zend_Locale_Math', 'Mul');
-    public static $div   = array('Zend_Locale_Math', 'Div');
-    public static $comp  = array('Zend_Locale_Math', 'Comp');
-    public static $sqrt  = array('Zend_Locale_Math', 'Sqrt');
-    public static $mod   = array('Zend_Locale_Math', 'Mod');
+    public static $add = array('Zend_Locale_Math', 'Add');
+    public static $sub = array('Zend_Locale_Math', 'Sub');
+    public static $pow = array('Zend_Locale_Math', 'Pow');
+    public static $mul = array('Zend_Locale_Math', 'Mul');
+    public static $div = array('Zend_Locale_Math', 'Div');
+    public static $comp = array('Zend_Locale_Math', 'Comp');
+    public static $sqrt = array('Zend_Locale_Math', 'Sqrt');
+    public static $mod = array('Zend_Locale_Math', 'Mod');
     public static $scale = 'bcscale';
 
     public static function isBcmathDisabled()
@@ -75,7 +74,7 @@ class Zend_Locale_Math
             $op1 = self::floatalize($op1);
         }
 
-        $op1    = trim(self::normalize($op1));
+        $op1 = trim(self::normalize($op1));
         $length = strlen($op1);
         if (($decPos = strpos($op1, '.')) === false) {
             $op1 .= '.0';
@@ -93,13 +92,13 @@ class Zend_Locale_Math
 
         if ($precision === 0) {
             $triggerPos = 1;
-            $roundPos   = -1;
+            $roundPos = -1;
         } elseif ($precision > 0) {
             $triggerPos = $precision + 1;
-            $roundPos   = $precision;
+            $roundPos = $precision;
         } else {
             $triggerPos = $precision;
-            $roundPos   = $precision -1;
+            $roundPos = $precision - 1;
         }
 
         $triggerDigit = $op1[$triggerPos + $decPos];
@@ -129,7 +128,7 @@ class Zend_Locale_Math
                 return self::Sub($op1, $roundUp, $precision);
             }
         } elseif ($precision >= 0) {
-            return substr($op1, 0, $decPos + ($precision ? $precision + 1: 0));
+            return substr($op1, 0, $decPos + ($precision ? $precision + 1 : 0));
         }
 
         return (string) $op1;
@@ -150,7 +149,7 @@ class Zend_Locale_Math
 
         $number = substr($value, 0, strpos($value, 'E'));
         if (strpos($number, '.') !== false) {
-            $post   = strlen(substr($number, strpos($number, '.') + 1));
+            $post = strlen(substr($number, strpos($number, '.') + 1));
             $mantis = substr($value, strpos($value, 'E') + 1);
             if ($mantis < 0) {
                 $post += abs((int) $mantis);
@@ -174,9 +173,9 @@ class Zend_Locale_Math
     public static function normalize($value)
     {
         $convert = localeconv();
-        $value = str_replace($convert['thousands_sep'], "",(string) $value);
+        $value = str_replace($convert['thousands_sep'], "", (string) $value);
         $value = str_replace($convert['positive_sign'], "", $value);
-        $value = str_replace($convert['decimal_point'], ".",$value);
+        $value = str_replace($convert['decimal_point'], ".", $value);
         if (!empty($convert['negative_sign']) and (strpos($value, $convert['negative_sign']))) {
             $value = str_replace($convert['negative_sign'], "", $value);
             $value = "-" . $value;
@@ -345,10 +344,10 @@ class Zend_Locale_Math
         $op2 = self::exponent($op2, $scale);
         return bccomp($op1, $op2, $scale);
     }
+
 }
 
-if (!extension_loaded('bcmath')
-    || (defined('TESTS_ZEND_LOCALE_BCMATH_ENABLED') && !TESTS_ZEND_LOCALE_BCMATH_ENABLED)
+if (!extension_loaded('bcmath') || (defined('TESTS_ZEND_LOCALE_BCMATH_ENABLED') && !TESTS_ZEND_LOCALE_BCMATH_ENABLED)
 ) {
     require_once 'Zend/Locale/Math/PhpMath.php';
     Zend_Locale_Math_PhpMath::disable();

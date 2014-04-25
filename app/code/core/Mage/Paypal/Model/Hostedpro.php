@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,45 +32,44 @@
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
 {
+
     /**
      * Button code
      *
      * @var string
      */
-    const BM_BUTTON_CODE    = 'TOKEN';
+    const BM_BUTTON_CODE = 'TOKEN';
 
     /**
      * Button type
      *
      * @var string
      */
-    const BM_BUTTON_TYPE    = 'PAYMENT';
+    const BM_BUTTON_TYPE = 'PAYMENT';
 
     /**
      * Paypal API method name for button creation
      *
      * @var string
      */
-    const BM_BUTTON_METHOD  = 'BMCreateButton';
+    const BM_BUTTON_METHOD = 'BMCreateButton';
 
     /**
      * Payment method code
      */
     protected $_code = Mage_Paypal_Model_Config::METHOD_HOSTEDPRO;
-
     protected $_formBlockType = 'paypal/hosted_pro_form';
     protected $_infoBlockType = 'paypal/hosted_pro_info';
 
     /**
      * Availability options
      */
-    protected $_canUseInternal          = false;
-    protected $_canUseForMultishipping  = false;
-    protected $_canSaveCc               = false;
-    protected $_isInitializeNeeded      = true;
+    protected $_canUseInternal = false;
+    protected $_canUseForMultishipping = false;
+    protected $_canSaveCc = false;
+    protected $_isInitializeNeeded = true;
 
     /**
      * Return available CC types for gateway based on merchant country.
@@ -156,8 +156,8 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     protected function _buildFormUrlRequest(Mage_Payment_Model_Info $payment)
     {
         $request = $this->_buildBasicRequest()
-            ->setOrder($payment->getOrder())
-            ->setPaymentMethod($this);
+                ->setOrder($payment->getOrder())
+                ->setPaymentMethod($this);
 
         return $request;
     }
@@ -188,7 +188,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     {
         $request = Mage::getModel('paypal/hostedpro_request');
         $request->setData(array(
-            'METHOD'     => self::BM_BUTTON_METHOD,
+            'METHOD' => self::BM_BUTTON_METHOD,
             'BUTTONCODE' => self::BM_BUTTON_CODE,
             'BUTTONTYPE' => self::BM_BUTTON_TYPE
         ));
@@ -240,8 +240,9 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     {
         $store = Mage::app()->getStore($storeId);
         return Mage::getUrl($path, array(
-            "_store"   => $store,
-            "_secure"  => is_null($secure) ? $store->isCurrentlySecure() : $secure
+                    "_store" => $store,
+                    "_secure" => is_null($secure) ? $store->isCurrentlySecure() : $secure
         ));
     }
+
 }

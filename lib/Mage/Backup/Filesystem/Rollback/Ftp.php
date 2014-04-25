@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollback_Abstract
 {
+
     /**
      * Ftp client
      *
@@ -75,10 +77,13 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
      */
     protected function _initFtpClient()
     {
-        try {
+        try
+        {
             $this->_ftpClient = new Mage_System_Ftp();
             $this->_ftpClient->connect($this->_snapshot->getFtpConnectString());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             throw new Mage_Backup_Exception_FtpConnectionFailed($e->getMessage());
         }
     }
@@ -149,7 +154,7 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
         $rootDir = $this->_snapshot->getRootDir();
 
         $filesystemIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($rootDir), RecursiveIteratorIterator::CHILD_FIRST
+                new RecursiveDirectoryIterator($rootDir), RecursiveIteratorIterator::CHILD_FIRST
         );
 
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $this->_snapshot->getIgnorePaths());
@@ -171,7 +176,7 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
     protected function _uploadBackupToFtp($tmpDir)
     {
         $filesystemIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($tmpDir), RecursiveIteratorIterator::SELF_FIRST
+                new RecursiveDirectoryIterator($tmpDir), RecursiveIteratorIterator::SELF_FIRST
         );
 
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $this->_snapshot->getIgnorePaths());
@@ -190,9 +195,10 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
                 $result = $this->_ftpClient->put($ftpPath, $item->__toString());
                 if (false === $result) {
                     throw new Mage_Backup_Exception_NotEnoughPermissions('Failed to upload file '
-                        . $item->__toString() . ' to ftp');
+                    . $item->__toString() . ' to ftp');
                 }
             }
         }
     }
+
 }

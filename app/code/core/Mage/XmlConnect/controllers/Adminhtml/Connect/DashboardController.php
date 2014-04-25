@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,23 +34,29 @@
  */
 class Mage_XmlConnect_Adminhtml_Connect_DashboardController extends Mage_XmlConnect_Controller_AdminAction
 {
+
     /**
      * Dashboard index action
      */
     public function indexAction()
     {
-        try {
+        try
+        {
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::logException($e);
             $this->_message(Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_USER_SPACE_DEFAULT, $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message(
-                Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT,
-                $this->__('An error occurred while loading configuration.')
+                    Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT, $this->__('An error occurred while loading configuration.')
             );
         }
     }
+
 }

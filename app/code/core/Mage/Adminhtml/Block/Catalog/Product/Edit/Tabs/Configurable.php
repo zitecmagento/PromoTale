@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,16 +34,16 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs_Configurable extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs
 {
+
     protected function _prepareLayout()
     {
 //        $product = $this->getProduct();
-
 //        if (!($superAttributes = $product->getTypeInstance()->getUsedProductAttributeIds())) {
-            $this->addTab('super_settings', array(
-                'label'     => Mage::helper('catalog')->__('Configurable Product Settings'),
-                'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_super_settings')->toHtml(),
-                'active'    => true
-            ));
+        $this->addTab('super_settings', array(
+            'label' => Mage::helper('catalog')->__('Configurable Product Settings'),
+            'content' => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_super_settings')->toHtml(),
+            'active' => true
+        ));
 
 //        } else {
 //            parent::_prepareLayout();
@@ -56,4 +57,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs_Configurable extends Mage_A
 //            $this->bindShadowTabs('configurable', 'customer_options');
 //        }
     }
+
 }

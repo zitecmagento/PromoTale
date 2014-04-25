@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Filters extends Mage_XmlConnect_Block_Catalog
 {
+
     /**
      * Render filters list xml
      *
@@ -40,10 +42,10 @@ class Mage_XmlConnect_Block_Catalog_Filters extends Mage_XmlConnect_Block_Catalo
      */
     protected function _toHtml()
     {
-        $categoryId         = $this->getRequest()->getParam('category_id', null);
+        $categoryId = $this->getRequest()->getParam('category_id', null);
         /** @var $categoryXmlObj Mage_XmlConnect_Model_Simplexml_Element */
-        $categoryXmlObj     = Mage::getModel('xmlconnect/simplexml_element', '<category></category>');
-        $filtersCollection  = Mage::getResourceModel('xmlconnect/filter_collection')->setCategoryId($categoryId);
+        $categoryXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<category></category>');
+        $filtersCollection = Mage::getResourceModel('xmlconnect/filter_collection')->setCategoryId($categoryId);
 
         $filtersXmlObj = $categoryXmlObj->addChild('filters');
         foreach ($filtersCollection->getItems() as $item) {
@@ -59,11 +61,12 @@ class Mage_XmlConnect_Block_Catalog_Filters extends Mage_XmlConnect_Block_Catalo
                 $valueXmlObj = $valuesXmlObj->addChild('value');
                 $valueXmlObj->addChild('id', $categoryXmlObj->escapeXml($value->getValueString()));
                 $valueXmlObj->addChild('label', $categoryXmlObj->escapeXml($value->getLabel()));
-                $valueXmlObj->addChild('count', (int)$value->getProductsCount());
+                $valueXmlObj->addChild('count', (int) $value->getProductsCount());
             }
         }
         $categoryXmlObj->appendChild($this->getProductSortFieldsXmlObject());
 
         return $categoryXmlObj->asNiceXml();
     }
+
 }

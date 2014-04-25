@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Auth_Exception
  */
 #require_once 'Zend/Auth/Exception.php';
-
 
 /**
  * HTTP Auth Resolver Exception
@@ -37,4 +35,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Auth_Adapter_Http_Resolver_Exception extends Zend_Auth_Exception
-{}
+{
+    
+}

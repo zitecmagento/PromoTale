@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 // very long update :)
 set_time_limit(0);
 
@@ -31,30 +31,30 @@ $installer = $this;
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 
 $installer->getConnection()->addColumn(
-    $this->getTable('sales/quote'), 'global_currency_code', 'varchar(255) NULL AFTER `store_to_quote_rate`'
+        $this->getTable('sales/quote'), 'global_currency_code', 'varchar(255) NULL AFTER `store_to_quote_rate`'
 );
 $installer->getConnection()->addColumn(
-    $this->getTable('sales/quote'), 'base_to_quote_rate', 'decimal(12,4) NULL AFTER `store_to_quote_rate`'
+        $this->getTable('sales/quote'), 'base_to_quote_rate', 'decimal(12,4) NULL AFTER `store_to_quote_rate`'
 );
 $installer->getConnection()->addColumn(
-    $this->getTable('sales/quote'), 'base_to_global_rate', 'decimal(12,4) NULL AFTER `store_to_quote_rate`'
+        $this->getTable('sales/quote'), 'base_to_global_rate', 'decimal(12,4) NULL AFTER `store_to_quote_rate`'
 );
 
-$installer->addAttribute('quote', 'global_currency_code', array('type'=>'static'));
-$installer->addAttribute('quote', 'base_to_global_rate', array('type'=>'static'));
-$installer->addAttribute('quote', 'base_to_quote_rate', array('type'=>'static'));
+$installer->addAttribute('quote', 'global_currency_code', array('type' => 'static'));
+$installer->addAttribute('quote', 'base_to_global_rate', array('type' => 'static'));
+$installer->addAttribute('quote', 'base_to_quote_rate', array('type' => 'static'));
 
-$installer->addAttribute('order', 'global_currency_code', array('type'=>'varchar'));
-$installer->addAttribute('order', 'base_to_global_rate', array('type'=>'decimal'));
-$installer->addAttribute('order', 'base_to_order_rate', array('type'=>'decimal'));
+$installer->addAttribute('order', 'global_currency_code', array('type' => 'varchar'));
+$installer->addAttribute('order', 'base_to_global_rate', array('type' => 'decimal'));
+$installer->addAttribute('order', 'base_to_order_rate', array('type' => 'decimal'));
 
-$installer->addAttribute('invoice', 'global_currency_code', array('type'=>'varchar'));
-$installer->addAttribute('invoice', 'base_to_global_rate', array('type'=>'decimal'));
-$installer->addAttribute('invoice', 'base_to_order_rate', array('type'=>'decimal'));
+$installer->addAttribute('invoice', 'global_currency_code', array('type' => 'varchar'));
+$installer->addAttribute('invoice', 'base_to_global_rate', array('type' => 'decimal'));
+$installer->addAttribute('invoice', 'base_to_order_rate', array('type' => 'decimal'));
 
-$installer->addAttribute('creditmemo', 'global_currency_code', array('type'=>'varchar'));
-$installer->addAttribute('creditmemo', 'base_to_global_rate', array('type'=>'decimal'));
-$installer->addAttribute('creditmemo', 'base_to_order_rate', array('type'=>'decimal'));
+$installer->addAttribute('creditmemo', 'global_currency_code', array('type' => 'varchar'));
+$installer->addAttribute('creditmemo', 'base_to_global_rate', array('type' => 'decimal'));
+$installer->addAttribute('creditmemo', 'base_to_order_rate', array('type' => 'decimal'));
 
 /*
  * getting all base currency codes and placing them in newly created attribute
@@ -71,7 +71,8 @@ $entityTypes = array($orderEntityType['entity_type_id'] => $orderEntityType,
     $invoiceEntityType['entity_type_id'] => $invoiceEntityType,
     $creditmemoEntityType['entity_type_id'] => $creditmemoEntityType);
 
-try {
+try
+{
     $installer->getConnection()->beginTransaction();
 
     foreach ($entityTypes as $typeId => $entity) {
@@ -81,7 +82,7 @@ try {
             $globalCurrencyCodeTable = $this->getTable($entity['entity_table']);
         } else {
             $globalCurrencyCodeTable = $this->getTable($entity['entity_table']) . '_'
-                . $globalCurrencyCode['backend_type'];
+                    . $globalCurrencyCode['backend_type'];
         }
 
         $baseCurrencyCode = $installer->getAttribute($typeId, 'base_currency_code');
@@ -89,7 +90,7 @@ try {
             $baseCurrencyCodeTable = $this->getTable($entity['entity_table']);
         } else {
             $baseCurrencyCodeTable = $this->getTable($entity['entity_table']) . '_'
-                . $baseCurrencyCode['backend_type'];
+                    . $baseCurrencyCode['backend_type'];
         }
 
         $storeCurrencyCode = $installer->getAttribute($typeId, 'store_currency_code');
@@ -97,7 +98,7 @@ try {
             $storeCurrencyCodeTable = $this->getTable($entity['entity_table']);
         } else {
             $storeCurrencyCodeTable = $this->getTable($entity['entity_table']) . '_'
-                . $storeCurrencyCode['backend_type'];
+                    . $storeCurrencyCode['backend_type'];
         }
 
         $baseToGlobalRate = $installer->getAttribute($typeId, 'base_to_global_rate');
@@ -128,53 +129,54 @@ try {
             $storeToOrderRateTable = $this->getTable($entity['entity_table']) . '_' . $storeToOrderRate['backend_type'];
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         //copy data from base_currency_code into global_currency_code
         $query = 'INSERT INTO `' . $globalCurrencyCodeTable .
-            '` (`entity_type_id`, `attribute_id`, `entity_id`, `value`) SELECT `entity_type_id`, "' .
-            $globalCurrencyCode['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
-            $baseCurrencyCodeTable . '` WHERE `attribute_id` = ' . $baseCurrencyCode['attribute_id'] . ';';
+                '` (`entity_type_id`, `attribute_id`, `entity_id`, `value`) SELECT `entity_type_id`, "' .
+                $globalCurrencyCode['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
+                $baseCurrencyCodeTable . '` WHERE `attribute_id` = ' . $baseCurrencyCode['attribute_id'] . ';';
 
         //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //delete old data in base_currency_code
         $query = 'DELETE FROM `' . $baseCurrencyCodeTable . '` WHERE `attribute_id` = '
-            . $baseCurrencyCode['attribute_id'] . ';';
+                . $baseCurrencyCode['attribute_id'] . ';';
 
         //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //copy data from store_currency_code into base_currency_code
         $query = 'INSERT INTO `' . $baseCurrencyCodeTable .
-            '` (`entity_type_id`, `attribute_id`, `entity_id`, `value`) SELECT `entity_type_id`, "' .
-            $baseCurrencyCode['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
-            $storeCurrencyCodeTable . '` WHERE `attribute_id` = ' . $storeCurrencyCode['attribute_id'] . ';';
+                '` (`entity_type_id`, `attribute_id`, `entity_id`, `value`) SELECT `entity_type_id`, "' .
+                $baseCurrencyCode['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
+                $storeCurrencyCodeTable . '` WHERE `attribute_id` = ' . $storeCurrencyCode['attribute_id'] . ';';
 
         //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //copy data from store_to_base_rate into base_to_global_rate
         $query = 'INSERT INTO `' . $baseToGlobalRateTable .
-            '` (`entity_type_id`, `attribute_id`, `entity_id`, `value`) SELECT `entity_type_id`, "' .
-            $baseToGlobalRate['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
-            $storeToBaseRateTable . '` WHERE `attribute_id` = ' . $storeToBaseRate['attribute_id'] . ';';
+                '` (`entity_type_id`, `attribute_id`, `entity_id`, `value`) SELECT `entity_type_id`, "' .
+                $baseToGlobalRate['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
+                $storeToBaseRateTable . '` WHERE `attribute_id` = ' . $storeToBaseRate['attribute_id'] . ';';
 
         //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //copy data from store_to_order_rate into base_to_order_rate
         $query = 'INSERT INTO `' . $baseToOrderRateTable .
-            '` (`entity_type_id`, `attribute_id`, `entity_id`, `value`) SELECT `entity_type_id`, "' .
-            $baseToOrderRate['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
-            $storeToOrderRateTable . '` WHERE `attribute_id` = ' . $storeToOrderRate['attribute_id'] . ';';
+                '` (`entity_type_id`, `attribute_id`, `entity_id`, `value`) SELECT `entity_type_id`, "' .
+                $baseToOrderRate['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
+                $storeToOrderRateTable . '` WHERE `attribute_id` = ' . $storeToOrderRate['attribute_id'] . ';';
 
         //echo $query . "<br />";
         $installer->getConnection()->query($query);
     }
 
     $installer->getConnection()->commit();
-} catch(Exception $e) {
+}
+catch (Exception $e)
+{
     $installer->getConnection()->rollBack();
     throw $e;
 }

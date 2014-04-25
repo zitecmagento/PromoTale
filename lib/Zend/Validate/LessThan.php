@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: LessThan.php 20182 2010-01-10 21:12:01Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Validate_LessThan extends Zend_Validate_Abstract
 {
+
     const NOT_LESS = 'notLessThan';
 
     /**

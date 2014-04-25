@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert column mapper
  *
@@ -34,27 +34,29 @@
  */
 class Varien_Convert_Mapper_Column extends Varien_Convert_Mapper_Abstract
 {
-	public function map()
+
+    public function map()
     {
         $data = $this->getData();
         $this->validateDataGrid($data);
         if ($this->getVars() && is_array($this->getVars())) {
-        	$attributesToSelect = $this->getVars();
+            $attributesToSelect = $this->getVars();
         } else {
-        	$attributesToSelect = array();
+            $attributesToSelect = array();
         }
-        $onlySpecified = (bool)$this->getVar('_only_specified')===true;
+        $onlySpecified = (bool) $this->getVar('_only_specified') === true;
         $mappedData = array();
-        foreach ($data as $i=>$row) {
+        foreach ($data as $i => $row) {
             $newRow = array();
-            foreach ($row as $field=>$value) {
-            	if(!$onlySpecified || $onlySpecified && isset($attributesToSelect[$field])) {
-            		$newRow[$this->getVar($field, $field)] = $value;
-            	}
+            foreach ($row as $field => $value) {
+                if (!$onlySpecified || $onlySpecified && isset($attributesToSelect[$field])) {
+                    $newRow[$this->getVar($field, $field)] = $value;
+                }
             }
             $mappedData[$i] = $newRow;
         }
         $this->setData($mappedData);
         return $this;
     }
+
 }

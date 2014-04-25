@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,6 +36,7 @@
  */
 class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Customer session model
      *
@@ -61,7 +63,6 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
         if (!$this->_session->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
-
     }
 
     /**
@@ -111,7 +112,8 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
             return;
         }
 
-        try {
+        try
+        {
             /** @var $collection Mage_Oauth_Model_Resource_Token_Collection */
             $collection = Mage::getModel('oauth/token')->getCollection();
             $collection->joinConsumerAsApplication()
@@ -136,9 +138,13 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
             } else {
                 $this->_session->addError($this->__('Application not found.'));
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_session->addError($this->__('An error occurred on update revoke status.'));
             Mage::logException($e);
         }
@@ -159,7 +165,8 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
             return;
         }
 
-        try {
+        try
+        {
             /** @var $collection Mage_Oauth_Model_Resource_Token_Collection */
             $collection = Mage::getModel('oauth/token')->getCollection();
             $collection->joinConsumerAsApplication()
@@ -173,16 +180,21 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
                 $name = $model->getName();
                 $model->delete();
                 $this->_session->addSuccess(
-                    $this->__('Application "%s" has been deleted.', $name));
+                        $this->__('Application "%s" has been deleted.', $name));
             } else {
                 $this->_session->addError($this->__('Application not found.'));
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_session->addError($this->__('An error occurred on delete application.'));
             Mage::logException($e);
         }
         $this->_redirectBack();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Oauth_Block_Authorize_ButtonBaseAbstract extends Mage_Oauth_Block_Authorize_Abstract
 {
+
     /**
      * Get confirm url path
      *
@@ -66,4 +68,5 @@ abstract class Mage_Oauth_Block_Authorize_ButtonBaseAbstract extends Mage_Oauth_
     {
         return $this->getUrl($this->getRejectUrlPath() . ($this->getIsSimple() ? 'Simple' : ''));
     }
+
 }

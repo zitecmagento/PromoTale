@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,14 +24,13 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_CatalogIndex_Model_Catalog_Index_Flag extends Mage_Core_Model_Flag
 {
+
     protected $_flagCode = 'catalogindex';
 
     const STATE_QUEUED = 1;
     const STATE_RUNNING = 2;
-
 
     protected function _beforeSave()
     {
@@ -49,4 +49,5 @@ class Mage_CatalogIndex_Model_Catalog_Index_Flag extends Mage_Core_Model_Flag
 
         return parent::_beforeSave();
     }
+
 }

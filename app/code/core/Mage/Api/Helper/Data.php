@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     const XML_PATH_API_WSI = 'api/config/compliance_wsi';
 
     /**
@@ -94,9 +96,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function v2AssociativeArrayUnpacker(&$obj)
     {
-        if (is_object($obj)
-            && property_exists($obj, 'key')
-            && property_exists($obj, 'value')
+        if (is_object($obj) && property_exists($obj, 'key') && property_exists($obj, 'value')
         ) {
             if (count(array_keys(get_object_vars($obj))) == 2) {
                 $obj = array($obj->key => $obj->value);
@@ -208,7 +208,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
             if ($isDigit) {
                 $mixed = $this->packArrayToObject($mixed);
             } else {
-                $mixed = (object)$mixed;
+                $mixed = (object) $mixed;
             }
         }
         if (is_object($mixed) && isset($mixed->complexObjectArray)) {
@@ -339,11 +339,11 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function formatFilterConditionValue($conditionOperator, &$conditionValue)
     {
-        if (is_string($conditionOperator) && in_array($conditionOperator, array('in', 'nin', 'finset'))
-            && is_string($conditionValue)
+        if (is_string($conditionOperator) && in_array($conditionOperator, array('in', 'nin', 'finset')) && is_string($conditionValue)
         ) {
             $delimiter = ',';
             $conditionValue = explode($delimiter, $conditionValue);
         }
     }
+
 }

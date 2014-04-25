@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Collection Advanced
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
+
     /**
      * Add not indexable fields to search
      *
@@ -52,18 +53,15 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                     $conditionData = array();
 
                     if (!is_numeric($attributeId)) {
-                        $field = 't1.'.$attributeId;
-                    }
-                    else {
+                        $field = 't1.' . $attributeId;
+                    } else {
                         $storeId = $this->getStoreId();
                         $onCondition = 't1.entity_id = t2.entity_id'
                                 . ' AND t1.attribute_id = t2.attribute_id'
                                 . ' AND t2.store_id=?';
 
                         $select->joinLeft(
-                            array('t2' => $table),
-                            $conn->quoteInto($onCondition, $storeId),
-                            array()
+                                array('t2' => $table), $conn->quoteInto($onCondition, $storeId), array()
                         );
                         $select->where('t1.store_id = ?', 0);
                         $select->where('t1.attribute_id = ?', $attributeId);
@@ -73,32 +71,28 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                         }
 
                         $field = $this->getConnection()->getCheckSql('t2.value_id>0', 't2.value', 't1.value');
-
                     }
 
                     if (is_array($conditionValue)) {
-                        if (isset($conditionValue['in'])){
+                        if (isset($conditionValue['in'])) {
                             $conditionData[] = array('in' => $conditionValue['in']);
-                        }
-                        elseif (isset($conditionValue['in_set'])) {
+                        } elseif (isset($conditionValue['in_set'])) {
                             $conditionParts = array();
                             foreach ($conditionValue['in_set'] as $value) {
                                 $conditionParts[] = array('finset' => $value);
                             }
                             $conditionData[] = $conditionParts;
-                        }
-                        elseif (isset($conditionValue['like'])) {
-                            $conditionData[] = array ('like' => $conditionValue['like']);
-                        }
-                        elseif (isset($conditionValue['from']) && isset($conditionValue['to'])) {
+                        } elseif (isset($conditionValue['like'])) {
+                            $conditionData[] = array('like' => $conditionValue['like']);
+                        } elseif (isset($conditionValue['from']) && isset($conditionValue['to'])) {
                             $invalidDateMessage = Mage::helper('catalogsearch')->__('Specified date is invalid.');
                             if ($conditionValue['from']) {
                                 if (!Zend_Date::isDate($conditionValue['from'])) {
                                     Mage::throwException($invalidDateMessage);
                                 }
-                                if (!is_numeric($conditionValue['from'])){
+                                if (!is_numeric($conditionValue['from'])) {
                                     $conditionValue['from'] = Mage::getSingleton('core/date')
-                                        ->gmtDate(null, $conditionValue['from']);
+                                            ->gmtDate(null, $conditionValue['from']);
                                     if (!$conditionValue['from']) {
                                         $conditionValue['from'] = Mage::getSingleton('core/date')->gmtDate();
                                     }
@@ -109,16 +103,15 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                 if (!Zend_Date::isDate($conditionValue['to'])) {
                                     Mage::throwException($invalidDateMessage);
                                 }
-                                if (!is_numeric($conditionValue['to'])){
+                                if (!is_numeric($conditionValue['to'])) {
                                     $conditionValue['to'] = Mage::getSingleton('core/date')
-                                        ->gmtDate(null, $conditionValue['to']);
+                                            ->gmtDate(null, $conditionValue['to']);
                                     if (!$conditionValue['to']) {
                                         $conditionValue['to'] = Mage::getSingleton('core/date')->gmtDate();
                                     }
                                 }
                                 $conditionData[] = array('lteq' => $conditionValue['to']);
                             }
-
                         }
                     } else {
                         $conditionData[] = array('eq' => $conditionValue);
@@ -140,4 +133,5 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
 
         return $this;
     }
+
 }

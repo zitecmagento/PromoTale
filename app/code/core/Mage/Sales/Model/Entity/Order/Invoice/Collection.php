@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_Model_Entity_Order_Invoice_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
+
     protected function _construct()
     {
         $this->_init('sales/order_invoice');
@@ -43,8 +44,7 @@ class Mage_Sales_Model_Entity_Order_Invoice_Collection extends Mage_Eav_Model_En
     {
         if ($order instanceof Mage_Sales_Model_Order) {
             $this->addAttributeToFilter('order_id', $order->getId());
-        }
-        else {
+        } else {
             $this->addAttributeToFilter('order_id', $order);
         }
 

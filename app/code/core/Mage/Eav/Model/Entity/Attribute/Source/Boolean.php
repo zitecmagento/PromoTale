@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,16 +24,14 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+
     /**
      * Option values
      */
     const VALUE_YES = 1;
     const VALUE_NO = 0;
-
 
     /**
      * Retrieve all options array
@@ -96,19 +95,19 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $column = array(
-            'unsigned'  => false,
-            'default'   => null,
-            'extra'     => null
+            'unsigned' => false,
+            'default' => null,
+            'extra' => null
         );
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
-            $column['type']     = 'tinyint(1)';
-            $column['is_null']  = true;
+            $column['type'] = 'tinyint(1)';
+            $column['is_null'] = true;
         } else {
-            $column['type']     = Varien_Db_Ddl_Table::TYPE_SMALLINT;
-            $column['length']   = 1;
+            $column['type'] = Varien_Db_Ddl_Table::TYPE_SMALLINT;
+            $column['length'] = 1;
             $column['nullable'] = true;
-            $column['comment']  = $attributeCode . ' column';
+            $column['comment'] = $attributeCode . ' column';
         }
 
         return array($attributeCode => $column);
@@ -125,8 +124,8 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
 
         $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode());
         $indexes[$index] = array(
-            'type'      => 'index',
-            'fields'    => array($this->getAttribute()->getAttributeCode())
+            'type' => 'index',
+            'fields' => array($this->getAttribute()->getAttributeCode())
         );
 
         return $indexes;
@@ -141,7 +140,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     public function getFlatUpdateSelect($store)
     {
         return Mage::getResourceModel('eav/entity_attribute')
-            ->getFlatUpdateSelect($this->getAttribute(), $store);
+                        ->getFlatUpdateSelect($this->getAttribute(), $store);
     }
 
     /**
@@ -161,4 +160,5 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
 
         return parent::getIndexOptionText($value);
     }
+
 }

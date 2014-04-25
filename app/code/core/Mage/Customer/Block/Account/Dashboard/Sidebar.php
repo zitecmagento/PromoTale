@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Template
 {
+
     protected $_cartItemsCount;
 
     /**
@@ -42,7 +43,6 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
      * @var Mage_Wishlist_Model_Wishlist
      */
     protected $_wishlist;
-
     protected $_compareItems;
 
     public function getShoppingCartUrl()
@@ -52,11 +52,11 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
 
     public function getCartItemsCount()
     {
-        if( !$this->_cartItemsCount ) {
+        if (!$this->_cartItemsCount) {
             $this->_cartItemsCount = Mage::getModel('sales/quote')
-                ->setId(Mage::getModel('checkout/session')->getQuote()->getId())
-                ->getItemsCollection()
-                ->getSize();
+                    ->setId(Mage::getModel('checkout/session')->getQuote()->getId())
+                    ->getItemsCollection()
+                    ->getSize();
         }
 
         return $this->_cartItemsCount;
@@ -64,18 +64,18 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
 
     public function getWishlist()
     {
-        if( !$this->_wishlist ) {
+        if (!$this->_wishlist) {
             $this->_wishlist = Mage::getModel('wishlist/wishlist')
-                ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer());
+                    ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer());
             $this->_wishlist->getItemCollection()
-                ->addAttributeToSelect('name')
-                ->addAttributeToSelect('price')
-                ->addAttributeToSelect('small_image')
-                ->addAttributeToFilter('store_id', array('in' => $this->_wishlist->getSharedStoreIds()))
-                ->addAttributeToSort('added_at', 'desc')
-                ->setCurPage(1)
-                ->setPageSize(3)
-                ->load();
+                    ->addAttributeToSelect('name')
+                    ->addAttributeToSelect('price')
+                    ->addAttributeToSelect('small_image')
+                    ->addAttributeToFilter('store_id', array('in' => $this->_wishlist->getSharedStoreIds()))
+                    ->addAttributeToSort('added_at', 'desc')
+                    ->setCurPage(1)
+                    ->setPageSize(3)
+                    ->load();
         }
 
         return $this->_wishlist->getItemCollection();
@@ -91,39 +91,39 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
         return Mage::getUrl('wishlist/index/cart', array('item' => $wishlistItem->getId()));
     }
 
-     public function getCompareItems()
-     {
-         if( !$this->_compareItems ) {
-             $this->_compareItems = Mage::getResourceModel('catalog/product_compare_item_collection')
-                 ->setStoreId(Mage::app()->getStore()->getId());
+    public function getCompareItems()
+    {
+        if (!$this->_compareItems) {
+            $this->_compareItems = Mage::getResourceModel('catalog/product_compare_item_collection')
+                    ->setStoreId(Mage::app()->getStore()->getId());
             $this->_compareItems->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
             $this->_compareItems
-                ->addAttributeToSelect('name')
-                ->useProductItem()
-                ->load();
+                    ->addAttributeToSelect('name')
+                    ->useProductItem()
+                    ->load();
+        }
 
-         }
+        return $this->_compareItems;
+    }
 
-         return $this->_compareItems;
-     }
+    public function getCompareJsObjectName()
+    {
+        return "dashboardSidebarCompareJsObject";
+    }
 
-     public function getCompareJsObjectName()
-     {
-         return "dashboardSidebarCompareJsObject";
-     }
+    public function getCompareRemoveUrlTemplate()
+    {
+        return $this->getUrl('catalog/product_compare/remove', array('product' => '#{id}'));
+    }
 
-     public function getCompareRemoveUrlTemplate()
-     {
-         return $this->getUrl('catalog/product_compare/remove',array('product'=>'#{id}'));
-     }
+    public function getCompareAddUrlTemplate()
+    {
+        return $this->getUrl('catalog/product_compare/add', array('product' => '#{id}'));
+    }
 
-     public function getCompareAddUrlTemplate()
-     {
-         return $this->getUrl('catalog/product_compare/add',array('product'=>'#{id}'));
-     }
+    public function getCompareUrl()
+    {
+        return $this->getUrl('catalog/product_compare');
+    }
 
-     public function getCompareUrl()
-     {
-         return $this->getUrl('catalog/product_compare');
-     }
 }

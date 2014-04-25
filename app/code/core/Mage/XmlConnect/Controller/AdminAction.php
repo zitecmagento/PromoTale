@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_XmlConnect_Controller_AdminAction extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Admin application device type cookie
      */
@@ -48,10 +50,10 @@ abstract class Mage_XmlConnect_Controller_AdminAction extends Mage_Adminhtml_Con
         Mage::getSingleton('adminhtml/url')->turnOffSecretKey();
         // override admin store design settings via stores section
         Mage::getDesign()->setArea($this->_currentArea)
-            ->setPackageName((string)Mage::getConfig()->getNode('stores/admin/design/package/name'))
-            ->setTheme((string)Mage::getConfig()->getNode('stores/admin/design/theme/default'));
+                ->setPackageName((string) Mage::getConfig()->getNode('stores/admin/design/package/name'))
+                ->setTheme((string) Mage::getConfig()->getNode('stores/admin/design/theme/default'));
         foreach (array('layout', 'template', 'skin', 'locale') as $type) {
-            $value = (string)Mage::getConfig()->getNode("stores/admin/design/theme/{$type}");
+            $value = (string) Mage::getConfig()->getNode("stores/admin/design/theme/{$type}");
             if ($value) {
                 Mage::getDesign()->setTheme($type, $value);
             }
@@ -62,8 +64,7 @@ abstract class Mage_XmlConnect_Controller_AdminAction extends Mage_Adminhtml_Con
         Mage::dispatchEvent('adminhtml_controller_action_predispatch_start', array());
         Mage_Core_Controller_Varien_Action::preDispatch();
 
-        if ($this->getRequest()->isDispatched() && $this->getRequest()->getActionName() !== 'denied'
-            && !$this->_isAllowed()
+        if ($this->getRequest()->isDispatched() && $this->getRequest()->getActionName() !== 'denied' && !$this->_isAllowed()
         ) {
             $this->_forward('denied');
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
@@ -89,12 +90,11 @@ abstract class Mage_XmlConnect_Controller_AdminAction extends Mage_Adminhtml_Con
      */
     public function _checkCookie()
     {
-        $AdminDeviceCookie  = self::DEVICE_TYPE_COOKIE_NAME;
-        $currentDevice      = isset($_COOKIE[$AdminDeviceCookie]) ? (string) $_COOKIE[$AdminDeviceCookie] : '';
+        $AdminDeviceCookie = self::DEVICE_TYPE_COOKIE_NAME;
+        $currentDevice = isset($_COOKIE[$AdminDeviceCookie]) ? (string) $_COOKIE[$AdminDeviceCookie] : '';
         if (!array_key_exists($currentDevice, Mage_XmlConnect_Helper_Data::getSupportedDevices())) {
             $this->_message(
-                Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_CLIENT_SP_CONFIG_RELOAD_REQUIRED,
-                $this->__('Device type doesn\'t recognized.')
+                    Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_CLIENT_SP_CONFIG_RELOAD_REQUIRED, $this->__('Device type doesn\'t recognized.')
             );
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return;
@@ -128,8 +128,7 @@ abstract class Mage_XmlConnect_Controller_AdminAction extends Mage_Adminhtml_Con
         $body = $this->getResponse()->getBody();
         if (empty($body)) {
             $this->_message(
-                Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT,
-                $this->__('An error occurred while processing your request.')
+                    Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT, $this->__('An error occurred while processing your request.')
             );
         }
     }
@@ -141,13 +140,12 @@ abstract class Mage_XmlConnect_Controller_AdminAction extends Mage_Adminhtml_Con
      */
     public function deniedAction()
     {
-        $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
+        $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
         if (Mage::getSingleton('xmlconnect/configuration')->isActiveAdminApp()) {
             $this->_message(Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_USER_SP_ACCESS_FORBIDDEN);
         } else {
             $this->_message(
-                Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_USER_SP_ACCESS_FORBIDDEN,
-                $this->__('Admin application has not been enabled')
+                    Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_USER_SP_ACCESS_FORBIDDEN, $this->__('Admin application has not been enabled')
             );
         }
         return $this;
@@ -176,8 +174,7 @@ abstract class Mage_XmlConnect_Controller_AdminAction extends Mage_Adminhtml_Con
      */
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('xmlconnect/admin_connect')
-               && Mage::getSingleton('xmlconnect/configuration')->isActiveAdminApp();
+        return Mage::getSingleton('admin/session')->isAllowed('xmlconnect/admin_connect') && Mage::getSingleton('xmlconnect/configuration')->isActiveAdminApp();
     }
 
     /**
@@ -189,4 +186,5 @@ abstract class Mage_XmlConnect_Controller_AdminAction extends Mage_Adminhtml_Con
     {
         return array('connect_user' => array('loginform', 'login', 'logout', 'denied'));
     }
+
 }

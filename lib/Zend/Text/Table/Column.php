@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Column.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Text_Table
  */
@@ -39,12 +39,13 @@
  */
 class Zend_Text_Table_Column
 {
+
     /**
      * Aligns for columns
      */
-    const ALIGN_LEFT   = 'left';
+    const ALIGN_LEFT = 'left';
     const ALIGN_CENTER = 'center';
-    const ALIGN_RIGHT  = 'right';
+    const ALIGN_RIGHT = 'right';
 
     /**
      * Content of the column
@@ -129,7 +130,6 @@ class Zend_Text_Table_Column
                 // AIX does not understand these character sets
                 $content = iconv($inputCharset, $outputCharset, $content);
             }
-
         }
 
         $this->_content = $content;
@@ -227,17 +227,18 @@ class Zend_Text_Table_Column
         }
 
         $outputCharset = Zend_Text_Table::getOutputCharset();
-        $lines         = explode("\n", Zend_Text_MultiByte::wordWrap($this->_content, $columnWidth, "\n", true, $outputCharset));
-        $paddedLines   = array();
+        $lines = explode("\n", Zend_Text_MultiByte::wordWrap($this->_content, $columnWidth, "\n", true, $outputCharset));
+        $paddedLines = array();
 
         foreach ($lines AS $line) {
             $paddedLines[] = str_repeat(' ', $padding)
-                           . Zend_Text_MultiByte::strPad($line, $columnWidth, ' ', $padMode, $outputCharset)
-                           . str_repeat(' ', $padding);
+                    . Zend_Text_MultiByte::strPad($line, $columnWidth, ' ', $padMode, $outputCharset)
+                    . str_repeat(' ', $padding);
         }
 
         $result = implode("\n", $paddedLines);
 
         return $result;
     }
+
 }

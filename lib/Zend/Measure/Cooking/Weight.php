@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Weight.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Implement needed classes
  */
@@ -36,17 +36,17 @@
  */
 class Zend_Measure_Cooking_Weight extends Zend_Measure_Abstract
 {
-    const STANDARD = 'GRAM';
 
-    const HALF_STICK    = 'HALF_STICK';
-    const STICK         = 'STICK';
-    const CUP           = 'CUP';
-    const GRAM          = 'GRAM';
-    const OUNCE         = 'OUNCE';
-    const POUND         = 'POUND';
-    const TEASPOON      = 'TEASPOON';
-    const TEASPOON_US   = 'TEASPOON_US';
-    const TABLESPOON    = 'TABLESPOON';
+    const STANDARD = 'GRAM';
+    const HALF_STICK = 'HALF_STICK';
+    const STICK = 'STICK';
+    const CUP = 'CUP';
+    const GRAM = 'GRAM';
+    const OUNCE = 'OUNCE';
+    const POUND = 'POUND';
+    const TEASPOON = 'TEASPOON';
+    const TEASPOON_US = 'TEASPOON_US';
+    const TABLESPOON = 'TABLESPOON';
     const TABLESPOON_US = 'TABLESPOON_US';
 
     /**
@@ -55,16 +55,17 @@ class Zend_Measure_Cooking_Weight extends Zend_Measure_Abstract
      * @var array
      */
     protected $_units = array(
-        'HALF_STICK'    => array(array('' => '453.59237', '/' => '8'),                    'half stk'),
-        'STICK'         => array(array('' => '453.59237', '/' => '4'),                    'stk'),
-        'CUP'           => array(array('' => '453.59237', '/' => '2'),                    'c'),
-        'GRAM'          => array('1',                                                   'g'),
-        'OUNCE'         => array(array('' => '453.59237', '/' => '16'),                   'oz'),
-        'POUND'         => array('453.59237',                                           'lb'),
-        'TEASPOON'      => array(array('' => '1.2503332', '' => '453.59237', '/' => '128'), 'tsp'),
-        'TEASPOON_US'   => array(array('' => '453.59237', '/' => '96'),                   'tsp'),
-        'TABLESPOON'    => array(array('' => '1.2503332', '' => '453.59237', '/' => '32'),  'tbsp'),
-        'TABLESPOON_US' => array(array('' => '453.59237', '/' => '32'),                   'tbsp'),
-        'STANDARD'      => 'GRAM'
+        'HALF_STICK' => array(array('' => '453.59237', '/' => '8'), 'half stk'),
+        'STICK' => array(array('' => '453.59237', '/' => '4'), 'stk'),
+        'CUP' => array(array('' => '453.59237', '/' => '2'), 'c'),
+        'GRAM' => array('1', 'g'),
+        'OUNCE' => array(array('' => '453.59237', '/' => '16'), 'oz'),
+        'POUND' => array('453.59237', 'lb'),
+        'TEASPOON' => array(array('' => '1.2503332', '' => '453.59237', '/' => '128'), 'tsp'),
+        'TEASPOON_US' => array(array('' => '453.59237', '/' => '96'), 'tsp'),
+        'TABLESPOON' => array(array('' => '1.2503332', '' => '453.59237', '/' => '32'), 'tbsp'),
+        'TABLESPOON_US' => array(array('' => '453.59237', '/' => '32'), 'tbsp'),
+        'STANDARD' => 'GRAM'
     );
+
 }

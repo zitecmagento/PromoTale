@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 include_once "Maged/Connect.php";
 
 /**
@@ -34,7 +34,6 @@ include_once "Maged/Connect.php";
  * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Maged_Model_Connect extends Maged_Model
 {
 
@@ -61,9 +60,9 @@ class Maged_Model_Connect extends Maged_Model
      *
      * @param boolean $force
      */
-    public function installAll($force=false, $chanName='')
+    public function installAll($force = false, $chanName = '')
     {
-        $options = array('install_all'=>true);
+        $options = array('install_all' => true);
         if ($force) {
             $this->connect()->cleanSconfig();
             $options['force'] = 1;
@@ -87,7 +86,7 @@ class Maged_Model_Connect extends Maged_Model
             $params[] = $uri;
             $params[] = $package;
         }
-        $this->connect()->runHtmlConsole(array('command'=>'install', 'options'=>$options, 'params'=>$params));
+        $this->connect()->runHtmlConsole(array('command' => 'install', 'options' => $options, 'params' => $params));
     }
 
     /**
@@ -100,13 +99,13 @@ class Maged_Model_Connect extends Maged_Model
     {
         $match = array();
         if (!$this->checkExtensionKey($id, $match)) {
-            echo('Invalid package identifier provided: '.$id);
+            echo('Invalid package identifier provided: ' . $id);
             exit;
         }
 
         $channel = $match[1];
         $package = $match[2];
-        $version = (!empty($match[3]) ? trim($match[3],'/\-') : '');
+        $version = (!empty($match[3]) ? trim($match[3], '/\-') : '');
 
         $connect = $this->connect();
         $sconfig = $connect->getSingleConfig();
@@ -119,21 +118,20 @@ class Maged_Model_Connect extends Maged_Model
         $output = $connect->getOutput();
         $errors = $connect->getFrontend()->getErrors();
         $package_error = array();
-        foreach ($errors as $error){
-            if (isset($error[1])){
+        foreach ($errors as $error) {
+            if (isset($error[1])) {
                 $package_error[] = $error[1];
             }
         }
 
         $packages = array();
-        if (is_array($output) && isset($output['package-prepare'])){
-            $packages = array_merge($output['package-prepare'], array('errors'=>array('error'=>$package_error)));
+        if (is_array($output) && isset($output['package-prepare'])) {
+            $packages = array_merge($output['package-prepare'], array('errors' => array('error' => $package_error)));
         } elseif (is_array($output) && !empty($package_error)) {
-            $packages = array('errors'=>array('error'=>$package_error));
+            $packages = array('errors' => array('error' => $package_error));
         }
         return $packages;
     }
-
 
     /**
      * Retrieve all installed packages
@@ -147,15 +145,15 @@ class Maged_Model_Connect extends Maged_Model
         $connect->run('list-installed');
         $output = $connect->getOutput();
         $packages = array();
-        if (is_array($output) && isset($output['list-installed']['data'])){
+        if (is_array($output) && isset($output['list-installed']['data'])) {
             $packages = $output['list-installed']['data'];
         } else {
-
+            
         }
-        foreach ($packages as $channel=>$package) {
-            foreach ($package as $name=>$data) {
+        foreach ($packages as $channel => $package) {
+            foreach ($package as $name => $data) {
                 $summary = $sconfig->getPackageObject($channel, $name)->getSummary();
-                $addition = array('summary'=>$summary, 'upgrade_versions'=>array(), 'upgrade_latest'=>'');
+                $addition = array('summary' => $summary, 'upgrade_versions' => array(), 'upgrade_latest' => '');
                 $packages[$channel][$name] = array_merge($data, $addition);
             }
         }
@@ -168,25 +166,25 @@ class Maged_Model_Connect extends Maged_Model
             if (is_array($output)) {
                 $channelData = $output;
                 if (!empty($channelData['list-upgrades']['data']) && is_array($channelData['list-upgrades']['data'])) {
-                    foreach ($channelData['list-upgrades']['data'] as $channel=>$package) {
-                        foreach ($package as $name=>$data) {
+                    foreach ($channelData['list-upgrades']['data'] as $channel => $package) {
+                        foreach ($package as $name => $data) {
                             if (!isset($packages[$channel][$name])) {
                                 continue;
                             }
-                            $packages[$channel][$name]['upgrade_latest'] = $data['to'].' ('.$data['from'].')';
+                            $packages[$channel][$name]['upgrade_latest'] = $data['to'] . ' (' . $data['from'] . ')';
                         }
                     }
                 }
             }
         }
 
-        $states = array('snapshot'=>0, 'devel'=>1, 'alpha'=>2, 'beta'=>3, 'stable'=>4);
+        $states = array('snapshot' => 0, 'devel' => 1, 'alpha' => 2, 'beta' => 3, 'stable' => 4);
         $preferredState = $states[$this->getPreferredState()];
 
-        foreach ($packages as $channel=>&$package) {
-            foreach ($package as $name=>&$data) {
+        foreach ($packages as $channel => &$package) {
+            foreach ($package as $name => &$data) {
                 $actions = array();
-                $systemPkg = $name==='Mage_Downloader';
+                $systemPkg = $name === 'Mage_Downloader';
                 if (!empty($data['upgrade_latest'])) {
                     $status = 'upgrade-available';
                     $releases = array();
@@ -201,18 +199,18 @@ class Maged_Model_Connect extends Maged_Model
                             if (version_compare($release['v'], $packages[$channel][$name]['version']) < 1) {
                                 continue;
                             }
-                            $releases[$release['v']] = $release['v'].' ('.$release['s'].')';
+                            $releases[$release['v']] = $release['v'] . ' (' . $release['s'] . ')';
                         }
                     }
 
                     if ($releases) {
                         uksort($releases, 'version_compare');
                         foreach ($releases as $version => $release) {
-                            $actions['upgrade|'.$version] = 'Upgrade to '.$release;
+                            $actions['upgrade|' . $version] = 'Upgrade to ' . $release;
                         }
                     } else {
                         $a = explode(' ', $data['upgrade_latest'], 2);
-                        $actions['upgrade|'.$a[0]] = 'Upgrade';
+                        $actions['upgrade|' . $a[0]] = 'Upgrade';
                     }
                     if (!$systemPkg) {
                         $actions['uninstall'] = 'Uninstall';
@@ -236,17 +234,17 @@ class Maged_Model_Connect extends Maged_Model
      *
      * @param mixed $packages
      */
-    public function applyPackagesActions($packages, $ignoreLocalModification='')
+    public function applyPackagesActions($packages, $ignoreLocalModification = '')
     {
         $actions = array();
-        foreach ($packages as $package=>$action) {
+        foreach ($packages as $package => $action) {
             if ($action) {
                 $a = explode('|', $package);
                 $b = explode('|', $action);
                 $package = $a[1];
                 $channel = $a[0];
                 $version = '';
-                if ($b[0]=='upgrade') {
+                if ($b[0] == 'upgrade') {
                     $version = $b[1];
                 }
                 $actions[$b[0]][] = array($channel, $package, $version, $version);
@@ -261,22 +259,22 @@ class Maged_Model_Connect extends Maged_Model
 
         $options = array();
         if (!empty($ignoreLocalModification)) {
-            $options = array('ignorelocalmodification'=>1);
+            $options = array('ignorelocalmodification' => 1);
         }
-        if(!$this->controller()->isWritable()||strlen($this->connect()->getConfig()->__get('remote_config'))>0){
+        if (!$this->controller()->isWritable() || strlen($this->connect()->getConfig()->__get('remote_config')) > 0) {
             $options['ftp'] = $this->connect()->getConfig()->__get('remote_config');
         }
 
         $this->controller()->channelConfig()->setCommandOptions($this->controller()->session(), $options);
 
-        foreach ($actions as $action=>$packages) {
+        foreach ($actions as $action => $packages) {
             foreach ($packages as $package) {
                 switch ($action) {
                     case 'install': case 'uninstall': case 'upgrade':
                         $this->connect()->runHtmlConsole(array(
-                            'command'=>$action,
-                            'options'=>$options,
-                            'params'=>$package
+                            'command' => $action,
+                            'options' => $options,
+                            'params' => $package
                         ));
                         break;
 
@@ -287,9 +285,9 @@ class Maged_Model_Connect extends Maged_Model
                             $package[3] = $package_info['version'];
                         }
                         $this->connect()->runHtmlConsole(array(
-                            'command'=>'install',
-                            'options'=>array_merge($options, array('force'=>1, 'nodeps'=>1)),
-                            'params'=>$package
+                            'command' => 'install',
+                            'options' => array_merge($options, array('force' => 1, 'nodeps' => 1)),
+                            'params' => $package
                         ));
                         break;
                 }
@@ -299,19 +297,18 @@ class Maged_Model_Connect extends Maged_Model
         $this->controller()->endInstall();
     }
 
-
     public function installUploadedPackage($file)
     {
         $this->controller()->startInstall();
 
         $options = array();
-        if(!$this->controller()->isWritable()||strlen($this->connect()->getConfig()->__get('remote_config'))>0){
+        if (!$this->controller()->isWritable() || strlen($this->connect()->getConfig()->__get('remote_config')) > 0) {
             $options['ftp'] = $this->connect()->getConfig()->__get('remote_config');
         }
         $this->connect()->runHtmlConsole(array(
-            'command'=>'install-file',
-            'options'=>$options,
-            'params'=>array($file),
+            'command' => 'install-file',
+            'options' => $options,
+            'params' => array($file),
         ));
         $this->controller()->endInstall();
     }
@@ -322,17 +319,17 @@ class Maged_Model_Connect extends Maged_Model
      * @param string $id
      * @param boolean $force
      */
-    public function installPackage($id, $force=false)
+    public function installPackage($id, $force = false)
     {
         $match = array();
         if (!$this->checkExtensionKey($id, $match)) {
-            $this->connect()->runHtmlConsole('Invalid package identifier provided: '.$id);
+            $this->connect()->runHtmlConsole('Invalid package identifier provided: ' . $id);
             exit;
         }
 
         $channel = $match[1];
-        $package = $match[2];//.(!empty($match[3]) ? $match[3] : '');
-        $version = (!empty($match[3]) ? trim($match[3],'/\-') : '');
+        $package = $match[2]; //.(!empty($match[3]) ? $match[3] : '');
+        $version = (!empty($match[3]) ? trim($match[3], '/\-') : '');
 
         $this->controller()->startInstall();
 
@@ -340,16 +337,16 @@ class Maged_Model_Connect extends Maged_Model
         if ($force) {
             $options['force'] = 1;
         }
-        if(!$this->controller()->isWritable()||strlen($this->connect()->getConfig()->__get('remote_config'))>0){
+        if (!$this->controller()->isWritable() || strlen($this->connect()->getConfig()->__get('remote_config')) > 0) {
             $options['ftp'] = $this->connect()->getConfig()->__get('remote_config');
         }
 
         $this->controller()->channelConfig()->setCommandOptions($this->controller()->session(), $options);
 
         $this->connect()->runHtmlConsole(array(
-            'command'=>'install',
-            'options'=>$options,
-            'params'=>array(0=>$channel, 1=>$package, 2=>$version),
+            'command' => 'install',
+            'options' => $options,
+            'params' => array(0 => $channel, 1 => $package, 2 => $version),
         ));
 
         $this->controller()->endInstall();
@@ -394,24 +391,25 @@ class Maged_Model_Connect extends Maged_Model
         $configTestFile = 'connect.cfgt';
         $configObj = $this->connect()->getConfig();
         if ('ftp' == $p['deployment_type'] || '1' == $p['inst_protocol']) {
-            /*check ftp*/
+            /* check ftp */
 
-            $confFile = $configObj->downloader_path.DIRECTORY_SEPARATOR.$configTestFile;
-            try {
+            $confFile = $configObj->downloader_path . DIRECTORY_SEPARATOR . $configTestFile;
+            try
+            {
                 $ftpObj = new Mage_Connect_Ftp();
                 $ftpObj->connect($p['ftp']);
-                $tempFile = tempnam(sys_get_temp_dir(),'config');
+                $tempFile = tempnam(sys_get_temp_dir(), 'config');
                 $serial = md5('config test file');
                 $f = @fopen($tempFile, "w+");
                 @fwrite($f, $serial);
                 @fclose($f);
-                $ret=$ftpObj->upload($confFile, $tempFile);
+                $ret = $ftpObj->upload($confFile, $tempFile);
 
                 //read file
                 if (!$errors && is_file($configTestFile)) {
                     $size = filesize($configTestFile);
-                    if(!$size) {
-                        $errors[]='Unable to read saved settings. Please check Installation Path of FTP Connection.';
+                    if (!$size) {
+                        $errors[] = 'Unable to read saved settings. Please check Installation Path of FTP Connection.';
                     }
 
                     if (!$errors) {
@@ -420,7 +418,7 @@ class Maged_Model_Connect extends Maged_Model
 
                         $contents = @fread($f, strlen($serial));
                         if ($serial != $contents) {
-                            $errors[]='Wrong Installation Path of FTP Connection.';
+                            $errors[] = 'Wrong Installation Path of FTP Connection.';
                         }
                         fclose($f);
                     }
@@ -429,7 +427,9 @@ class Maged_Model_Connect extends Maged_Model
                 }
                 $ftpObj->delete($confFile);
                 $ftpObj->close();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $errors[] = 'Deployment FTP Error. ' . $e->getMessage();
             }
         } else {
@@ -437,17 +437,18 @@ class Maged_Model_Connect extends Maged_Model
         }
 
         if ('1' == $p['use_custom_permissions_mode']) {
-            /*check permissions*/
+            /* check permissions */
             if (octdec(intval($p['mkdir_mode'])) < 73 || octdec(intval($p['mkdir_mode'])) > 511) {
-                $errors[]='Folders permissions not valid. ';
+                $errors[] = 'Folders permissions not valid. ';
             }
             if (octdec(intval($p['chmod_file_mode'])) < 73 || octdec(intval($p['chmod_file_mode'])) > 511) {
-                $errors[]='Files permissions not valid. ';
+                $errors[] = 'Files permissions not valid. ';
             }
         }
         //$this->controller()->session()->addMessage('success', 'Settings has been successfully saved');
         return $errors;
     }
+
     /**
      * Save settings.
      *
@@ -456,8 +457,8 @@ class Maged_Model_Connect extends Maged_Model
     public function saveConfigPost($p)
     {
         $configObj = $this->connect()->getConfig();
-        if ('ftp' == $p['deployment_type'] || '1' == $p['inst_protocol']){
-            $this->set('ftp',$p['ftp']);
+        if ('ftp' == $p['deployment_type'] || '1' == $p['inst_protocol']) {
+            $this->set('ftp', $p['ftp']);
         } else {
             $p['ftp'] = '';
         }
@@ -488,4 +489,5 @@ class Maged_Model_Connect extends Maged_Model
     {
         return preg_match('#^([^ ]+)\/([^-]+)(-.+)?$#', $id, $match);
     }
+
 }

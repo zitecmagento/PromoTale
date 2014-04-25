@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Installation event observer
  *
@@ -37,7 +37,7 @@ class Mage_Adminhtml_Model_Observer
 
     public function bindLocale($observer)
     {
-        if ($locale=$observer->getEvent()->getLocale()) {
+        if ($locale = $observer->getEvent()->getLocale()) {
             if ($choosedLocale = Mage::getSingleton('adminhtml/session')->getLocale()) {
                 $locale->setLocaleCode($choosedLocale);
             }
@@ -76,4 +76,5 @@ class Mage_Adminhtml_Model_Observer
         Mage::app()->removeCache(Mage_Adminhtml_Block_Notification_Security::VERIFICATION_RESULT_CACHE_KEY);
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Invoice view  comments form
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
 {
+
     protected $_links = array();
 
     protected function _construct()
@@ -48,8 +49,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
             $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
         }
         $this->setChild(
-            'payment_info',
-            $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
+                'payment_info', $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
         );
     }
 

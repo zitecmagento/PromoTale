@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -42,4 +43,5 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tabs extends Mage_Adminhtml_Block_Wi
         $this->setDestElementId('edit_form');
         $this->setTitle(Mage::helper('salesrule')->__('Shopping Cart Price Rule'));
     }
+
 }

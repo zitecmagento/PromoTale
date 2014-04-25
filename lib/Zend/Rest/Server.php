@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Server.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Server_Interface
  */
@@ -44,6 +44,7 @@
  */
 class Zend_Rest_Server implements Zend_Server_Interface
 {
+
     /**
      * Class Constructor Args
      * @var array
@@ -234,31 +235,31 @@ class Zend_Rest_Server implements Zend_Server_Interface
                             $result = $this->_callObjectMethod($class, $calling_args);
                         }
                     } elseif (!$result) {
-                        try {
+                        try
+                        {
                             $result = call_user_func_array($this->_functions[$this->_method]->getName(), $calling_args); //$this->_functions[$this->_method]->invokeArgs($calling_args);
-                        } catch (Exception $e) {
+                        }
+                        catch (Exception $e)
+                        {
                             $result = $this->fault($e);
                         }
                     }
                 } else {
                     #require_once "Zend/Rest/Server/Exception.php";
                     $result = $this->fault(
-                        new Zend_Rest_Server_Exception("Unknown Method '$this->_method'."),
-                        404
+                            new Zend_Rest_Server_Exception("Unknown Method '$this->_method'."), 404
                     );
                 }
             } else {
                 #require_once "Zend/Rest/Server/Exception.php";
                 $result = $this->fault(
-                    new Zend_Rest_Server_Exception("Unknown Method '$this->_method'."),
-                    404
+                        new Zend_Rest_Server_Exception("Unknown Method '$this->_method'."), 404
                 );
             }
         } else {
             #require_once "Zend/Rest/Server/Exception.php";
             $result = $this->fault(
-                new Zend_Rest_Server_Exception("No Method Specified."),
-                404
+                    new Zend_Rest_Server_Exception("No Method Specified."), 404
             );
         }
 
@@ -286,7 +287,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
         }
 
         return $response;
-     }
+    }
 
     /**
      * Implement Zend_Server_Interface::setClass()
@@ -320,13 +321,13 @@ class Zend_Rest_Server implements Zend_Server_Interface
 
         $method = $function->getName();
 
-        $dom    = new DOMDocument('1.0', $this->getEncoding());
+        $dom = new DOMDocument('1.0', $this->getEncoding());
         if ($class) {
-            $root   = $dom->createElement($class);
+            $root = $dom->createElement($class);
             $method = $dom->createElement($method);
             $root->appendChild($method);
         } else {
-            $root   = $dom->createElement($method);
+            $root = $dom->createElement($method);
             $method = $root;
         }
         $root->setAttribute('generator', 'zend');
@@ -464,11 +465,11 @@ class Zend_Rest_Server implements Zend_Server_Interface
 
         $dom = new DOMDocument('1.0', $this->getEncoding());
         if ($class) {
-            $xml       = $dom->createElement($class);
+            $xml = $dom->createElement($class);
             $xmlMethod = $dom->createElement($method);
             $xml->appendChild($xmlMethod);
         } else {
-            $xml       = $dom->createElement($method);
+            $xml = $dom->createElement($method);
             $xmlMethod = $xml;
         }
         $xml->setAttribute('generator', 'zend');
@@ -552,6 +553,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
      */
     public function loadFunctions($functions)
     {
+        
     }
 
     /**
@@ -562,6 +564,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
      */
     public function setPersistence($mode)
     {
+        
     }
 
     /**
@@ -573,9 +576,12 @@ class Zend_Rest_Server implements Zend_Server_Interface
      */
     protected function _callStaticMethod($class, array $args)
     {
-        try {
+        try
+        {
             $result = call_user_func_array(array($class, $this->_functions[$this->_method]->getName()), $args);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $result = $this->fault($e);
         }
         return $result;
@@ -591,26 +597,32 @@ class Zend_Rest_Server implements Zend_Server_Interface
      */
     protected function _callObjectMethod($class, array $args)
     {
-        try {
+        try
+        {
             if ($this->_functions[$this->_method]->getDeclaringClass()->getConstructor()) {
                 $object = $this->_functions[$this->_method]->getDeclaringClass()->newInstanceArgs($this->_args);
             } else {
                 $object = $this->_functions[$this->_method]->getDeclaringClass()->newInstance();
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             #require_once 'Zend/Rest/Server/Exception.php';
             throw new Zend_Rest_Server_Exception('Error instantiating class ' . $class .
-                                                 ' to invoke method ' . $this->_functions[$this->_method]->getName() .
-                                                 ' (' . $e->getMessage() . ') ',
-                                                 500, $e);
+            ' to invoke method ' . $this->_functions[$this->_method]->getName() .
+            ' (' . $e->getMessage() . ') ', 500, $e);
         }
 
-        try {
+        try
+        {
             $result = $this->_functions[$this->_method]->invokeArgs($object, $args);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $result = $this->fault($e);
         }
 
         return $result;
     }
+
 }

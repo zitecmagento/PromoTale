@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Quote address attribute backend child resource model
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Child
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Child extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Set store id to the attribute
      *
@@ -45,9 +45,10 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Child
     {
         if ($object->getAddress()) {
             $object->setParentId($object->getAddress()->getId())
-                ->setStoreId($object->getAddress()->getStoreId());
+                    ->setStoreId($object->getAddress()->getStoreId());
         }
         parent::beforeSave($object);
         return $this;
     }
+
 }

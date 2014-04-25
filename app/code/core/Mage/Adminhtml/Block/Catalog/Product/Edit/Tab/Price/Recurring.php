@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -27,9 +28,9 @@
 /**
  * Recurring profile attribute edit renderer
  */
-class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Recurring
-    extends Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
+class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Recurring extends Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
 {
+
     /**
      * Element output getter
      *
@@ -42,8 +43,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Recurring
         Mage::dispatchEvent('catalog_product_edit_form_render_recurring', array(
             'result' => $result,
             'product_element' => $this->_element,
-            'product'   => Mage::registry('current_product'),
+            'product' => Mage::registry('current_product'),
         ));
         return $result->output;
     }
+
 }

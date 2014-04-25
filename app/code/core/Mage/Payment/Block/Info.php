@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 class Mage_Payment_Block_Info extends Mage_Core_Block_Template
 {
+
     /**
      * Payment rendered specific information
      *
@@ -138,7 +140,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     public function getIsSecureMode()
     {
         if ($this->hasIsSecureMode()) {
-            return (bool)(int)$this->_getData('is_secure_mode');
+            return (bool) (int) $this->_getData('is_secure_mode');
         }
         if (!$payment = $this->getInfo()) {
             return true;
@@ -165,11 +167,12 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
             }
             Mage::dispatchEvent('payment_info_block_prepare_specific_information', array(
                 'transport' => $transport,
-                'payment'   => $this->getInfo(),
-                'block'     => $this,
+                'payment' => $this->getInfo(),
+                'block' => $this,
             ));
             $this->_paymentSpecificInformation = $transport;
         }
         return $this->_paymentSpecificInformation;
     }
+
 }

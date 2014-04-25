@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Centinel_Block_Adminhtml_Validation extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
+
     /**
      * construct
      */
@@ -66,14 +68,10 @@ class Mage_Centinel_Block_Adminhtml_Validation extends Mage_Adminhtml_Block_Sale
     protected function _toHtml()
     {
         $payment = $this->getQuote()->getPayment();
-        if (!$payment->getMethod()
-            || !$payment->getMethodInstance()
-            || $payment->getMethodInstance()->getIsDummy()
-            || !$payment->getMethodInstance()->getIsCentinelValidationEnabled())
-        {
+        if (!$payment->getMethod() || !$payment->getMethodInstance() || $payment->getMethodInstance()->getIsDummy() || !$payment->getMethodInstance()->getIsCentinelValidationEnabled()) {
             return '';
         }
         return parent::_toHtml();
     }
-}
 
+}

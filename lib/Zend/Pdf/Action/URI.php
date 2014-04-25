@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: URI.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element/Dictionary.php';
 #require_once 'Zend/Pdf/Element/Name.php';
@@ -29,7 +29,6 @@
 
 /** Zend_Pdf_Action */
 #require_once 'Zend/Pdf/Action.php';
-
 
 /**
  * PDF 'Resolve a uniform resource identifier' action
@@ -43,6 +42,7 @@
  */
 class Zend_Pdf_Action_URI extends Zend_Pdf_Action
 {
+
     /**
      * Object constructor
      *
@@ -69,7 +69,7 @@ class Zend_Pdf_Action_URI extends Zend_Pdf_Action
      */
     protected static function _validateUri($uri)
     {
-        $scheme = parse_url((string)$uri, PHP_URL_SCHEME);
+        $scheme = parse_url((string) $uri, PHP_URL_SCHEME);
         if ($scheme === false || $scheme === null) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Invalid URI');
@@ -89,9 +89,9 @@ class Zend_Pdf_Action_URI extends Zend_Pdf_Action
 
         $dictionary = new Zend_Pdf_Element_Dictionary();
         $dictionary->Type = new Zend_Pdf_Element_Name('Action');
-        $dictionary->S    = new Zend_Pdf_Element_Name('URI');
+        $dictionary->S = new Zend_Pdf_Element_Name('URI');
         $dictionary->Next = null;
-        $dictionary->URI  = new Zend_Pdf_Element_String($uri);
+        $dictionary->URI = new Zend_Pdf_Element_String($uri);
         if ($isMap) {
             $dictionary->IsMap = new Zend_Pdf_Element_Boolean(true);
         }
@@ -161,7 +161,8 @@ class Zend_Pdf_Action_URI extends Zend_Pdf_Action
      */
     public function getIsMap()
     {
-        return $this->_actionDictionary->IsMap !== null  &&
-               $this->_actionDictionary->IsMap->value;
+        return $this->_actionDictionary->IsMap !== null &&
+                $this->_actionDictionary->IsMap->value;
     }
+
 }

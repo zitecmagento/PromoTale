@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resource_Product
 {
+
     /**
      * Base preparation of product data
      *
@@ -74,12 +76,15 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
 
             $productRequest = $this->_getProductRequest($productItem);
-            try {
+            try
+            {
                 $result = $quote->addProduct($productByItem, $productRequest);
                 if (is_string($result)) {
                     Mage::throwException($result);
                 }
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $errors[] = $e->getMessage();
             }
         }
@@ -88,9 +93,12 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             $this->_fault("add_product_fault", implode(PHP_EOL, $errors));
         }
 
-        try {
+        try
+        {
             $quote->collectTotals()->save();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault("add_product_quote_save_fault", $e->getMessage());
         }
 
@@ -127,8 +135,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
 
             /** @var $quoteItem Mage_Sales_Model_Quote_Item */
-            $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
-                $this->_getProductRequest($productItem));
+            $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem, $this->_getProductRequest($productItem));
             if (is_null($quoteItem->getId())) {
                 $errors[] = Mage::helper('checkout')->__("One item of products is not belong any of quote item");
                 continue;
@@ -143,9 +150,12 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             $this->_fault("update_product_fault", implode(PHP_EOL, $errors));
         }
 
-        try {
+        try
+        {
             $quote->collectTotals()->save();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault("update_product_quote_save_fault", $e->getMessage());
         }
 
@@ -181,16 +191,18 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 continue;
             }
 
-            try {
+            try
+            {
                 /** @var $quoteItem Mage_Sales_Model_Quote_Item */
-                $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
-                    $this->_getProductRequest($productItem));
+                $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem, $this->_getProductRequest($productItem));
                 if (is_null($quoteItem->getId())) {
                     $errors[] = Mage::helper('checkout')->__("One item of products is not belong any of quote item");
                     continue;
                 }
                 $quote->removeItem($quoteItem->getId());
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $errors[] = $e->getMessage();
             }
         }
@@ -199,9 +211,12 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             $this->_fault("remove_product_fault", implode(PHP_EOL, $errors));
         }
 
-        try {
+        try
+        {
             $quote->collectTotals()->save();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault("remove_product_quote_save_fault", $e->getMessage());
         }
 
@@ -228,14 +243,14 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
         foreach ($quote->getAllItems() as $item) {
             /** @var $item Mage_Sales_Model_Quote_Item */
             $product = $item->getProduct();
-            $productsResult[] = array( // Basic product data
-                'product_id'   => $product->getId(),
-                'sku'          => $product->getSku(),
-                'name'         => $product->getName(),
-                'set'          => $product->getAttributeSetId(),
-                'type'         => $product->getTypeId(),
+            $productsResult[] = array(// Basic product data
+                'product_id' => $product->getId(),
+                'sku' => $product->getSku(),
+                'name' => $product->getName(),
+                'set' => $product->getAttributeSetId(),
+                'type' => $product->getTypeId(),
                 'category_ids' => $product->getCategoryIds(),
-                'website_ids'  => $product->getWebsiteIds()
+                'website_ids' => $product->getWebsiteIds()
             );
         }
 
@@ -263,8 +278,8 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
 
         /** @var $customerQuote Mage_Sales_Model_Quote */
         $customerQuote = Mage::getModel('sales/quote')
-            ->setStoreId($store)
-            ->loadByCustomer($customer);
+                ->setStoreId($store)
+                ->loadByCustomer($customer);
 
         if (is_null($customerQuote->getId())) {
             $this->_fault('customer_quote_not_exist');
@@ -290,10 +305,10 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 continue;
             }
 
-            try {
+            try
+            {
                 /** @var $quoteItem Mage_Sales_Model_Quote_Item */
-                $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
-                    $this->_getProductRequest($productItem));
+                $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem, $this->_getProductRequest($productItem));
                 if ($quoteItem && $quoteItem->getId()) {
                     $newQuoteItem = clone $quoteItem;
                     $newQuoteItem->setId(null);
@@ -301,9 +316,11 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                     $quote->removeItem($quoteItem->getId());
                     unset($productsData[$key]);
                 } else {
-                     $errors[] = Mage::helper('checkout')->__("One item of products is not belong any of quote item");
+                    $errors[] = Mage::helper('checkout')->__("One item of products is not belong any of quote item");
                 }
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $errors[] = $e->getMessage();
             }
         }
@@ -312,18 +329,22 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             $this->_fault('unable_to_move_all_products', implode(PHP_EOL, $errors));
         }
 
-        try {
+        try
+        {
             $customerQuote
-                ->collectTotals()
-                ->save();
+                    ->collectTotals()
+                    ->save();
 
             $quote
-                ->collectTotals()
-                ->save();
-        } catch (Exception $e) {
-             $this->_fault("product_move_quote_save_fault", $e->getMessage());
+                    ->collectTotals()
+                    ->save();
+        }
+        catch (Exception $e)
+        {
+            $this->_fault("product_move_quote_save_fault", $e->getMessage());
         }
 
         return true;
     }
+
 }

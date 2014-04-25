@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+
     protected $_isFullLabel = false;
 
     /**
@@ -63,7 +63,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
         if (is_null($this->_options)) {
             $design = Mage::getModel('core/design_package')->getThemeList();
             $options = array();
-            foreach ($design as $package => $themes){
+            foreach ($design as $package => $themes) {
                 $packageOption = array('label' => $package);
                 $themeOptions = array();
                 foreach ($themes as $theme) {
@@ -80,8 +80,8 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
         $options = $this->_options;
         if ($withEmpty) {
             array_unshift($options, array(
-                'value'=>'',
-                'label'=>Mage::helper('core')->__('-- Please Select --'))
+                'value' => '',
+                'label' => Mage::helper('core')->__('-- Please Select --'))
             );
         }
         return $options;
@@ -99,4 +99,5 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
 
         return $value;
     }
+
 }

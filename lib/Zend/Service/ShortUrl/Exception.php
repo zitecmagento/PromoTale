@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: $
  */
-
 #require_once 'Zend/Service/Exception.php';
 
 /**
@@ -29,4 +29,5 @@
  */
 class Zend_Service_ShortUrl_Exception extends Zend_Service_Exception
 {
+    
 }

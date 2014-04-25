@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TagResultSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Technorati_ResultSet
  */
 #require_once 'Zend/Service/Technorati/ResultSet.php';
-
 
 /**
  * Represents a Technorati Tag query result set.
@@ -38,6 +36,7 @@
  */
 class Zend_Service_Technorati_TagResultSet extends Zend_Service_Technorati_ResultSet
 {
+
     /**
      * Number of posts that match the tag.
      *
@@ -65,23 +64,25 @@ class Zend_Service_Technorati_TagResultSet extends Zend_Service_Technorati_Resul
         parent::__construct($dom, $options);
 
         $result = $this->_xpath->query('/tapi/document/result/postsmatched/text()');
-        if ($result->length == 1) $this->_postsMatched = (int) $result->item(0)->data;
+        if ($result->length == 1)
+            $this->_postsMatched = (int) $result->item(0)->data;
 
         $result = $this->_xpath->query('/tapi/document/result/blogsmatched/text()');
-        if ($result->length == 1) $this->_blogsMatched = (int) $result->item(0)->data;
+        if ($result->length == 1)
+            $this->_blogsMatched = (int) $result->item(0)->data;
 
-        $this->_totalResultsReturned  = (int) $this->_xpath->evaluate("count(/tapi/document/item)");
+        $this->_totalResultsReturned = (int) $this->_xpath->evaluate("count(/tapi/document/item)");
         /** @todo Validate the following assertion */
         $this->_totalResultsAvailable = (int) $this->getPostsMatched();
     }
-
 
     /**
      * Returns the number of posts that match the tag.
      *
      * @return  int
      */
-    public function getPostsMatched() {
+    public function getPostsMatched()
+    {
         return $this->_postsMatched;
     }
 
@@ -90,7 +91,8 @@ class Zend_Service_Technorati_TagResultSet extends Zend_Service_Technorati_Resul
      *
      * @return  int
      */
-    public function getBlogsMatched() {
+    public function getBlogsMatched()
+    {
         return $this->_blogsMatched;
     }
 
@@ -107,4 +109,5 @@ class Zend_Service_Technorati_TagResultSet extends Zend_Service_Technorati_Resul
         #require_once 'Zend/Service/Technorati/TagResult.php';
         return new Zend_Service_Technorati_TagResult($this->_results->item($this->_currentIndex));
     }
+
 }

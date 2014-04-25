@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,18 +24,17 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $this Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $this->startSetup();
 
 $this->getConnection()->addColumn($this->getTable('catalog_category_entity'), 'children_count', 'INT NOT NULL');
 
-$sql    = "SELECT * FROM `{$this->getTable('catalog_category_entity')}`";
-$data   = $this->getConnection()->fetchAll($sql);
+$sql = "SELECT * FROM `{$this->getTable('catalog_category_entity')}`";
+$data = $this->getConnection()->fetchAll($sql);
 
 foreach ($data as $row) {
-    $sql    = "SELECT COUNT(*) FROM `{$this->getTable('catalog_category_entity')}` WHERE `path` REGEXP '^{$row['path']}\/([0-9]+)$'";
-    $count  = (int) $this->getConnection()->fetchOne($sql);
+    $sql = "SELECT COUNT(*) FROM `{$this->getTable('catalog_category_entity')}` WHERE `path` REGEXP '^{$row['path']}\/([0-9]+)$'";
+    $count = (int) $this->getConnection()->fetchOne($sql);
 
     $this->run("UPDATE `{$this->getTable('catalog_category_entity')}`
         SET `children_count` = $count

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Auth session model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Rss_Model_Rss
 {
+
     protected $_feedArray = array();
 
     public function _addHeader($data = array())
@@ -61,11 +62,15 @@ class Mage_Rss_Model_Rss
 
     public function createRssXml()
     {
-        try {
+        try
+        {
             $rssFeedFromArray = Zend_Feed::importArray($this->getFeedArray(), 'rss');
             return $rssFeedFromArray->saveXML();
-        } catch (Exception $e) {
-            return Mage::helper('rss')->__('Error in processing xml. %s',$e->getMessage());
+        }
+        catch (Exception $e)
+        {
+            return Mage::helper('rss')->__('Error in processing xml. %s', $e->getMessage());
         }
     }
+
 }

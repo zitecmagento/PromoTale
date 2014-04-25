@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Declare content type header
      *
@@ -91,26 +93,25 @@ class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front
     {
         $cookieToSetArray = array(
             array(
-                'cookieName'    => Mage_XmlConnect_Model_Application::APP_CODE_COOKIE_NAME,
-                'paramName'     => Mage_XmlConnect_Model_Application::APP_CODE_COOKIE_NAME,
-                'value'         => $app->getCode()
+                'cookieName' => Mage_XmlConnect_Model_Application::APP_CODE_COOKIE_NAME,
+                'paramName' => Mage_XmlConnect_Model_Application::APP_CODE_COOKIE_NAME,
+                'value' => $app->getCode()
             ),
             array(
-                'cookieName'    => Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME,
-                'paramName'     => Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME,
-                'value'         => $app->getScreenSize()
+                'cookieName' => Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME,
+                'paramName' => Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME,
+                'value' => $app->getScreenSize()
         ));
 
         foreach ($cookieToSetArray as $item) {
-            if (!isset($_COOKIE[$item['cookieName']])
-                || $_COOKIE[$item['cookieName']] != $this->getRequest()->getParam($item['paramName'])
+            if (!isset($_COOKIE[$item['cookieName']]) || $_COOKIE[$item['cookieName']] != $this->getRequest()->getParam($item['paramName'])
             ) {
                 /**
                  * @todo add management of cookie expire to application admin panel
                  */
                 $cookieExpireOffset = 3600 * 24 * 30;
                 Mage::getSingleton('core/cookie')->set(
-                    $item['cookieName'], $item['value'], $cookieExpireOffset, '/', null, null, true
+                        $item['cookieName'], $item['value'], $cookieExpireOffset, '/', null, null, true
                 );
             }
         }
@@ -123,7 +124,8 @@ class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front
      */
     public function indexAction()
     {
-        try {
+        try
+        {
             /** @var $app Mage_XmlConnect_Model_Application */
             $app = $this->_initApp();
             $this->_initCookies($app);
@@ -145,11 +147,15 @@ class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front
             }
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), Mage_XmlConnect_Controller_Action::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message(
-                $this->__('Can\'t show configuration.'), Mage_XmlConnect_Controller_Action::MESSAGE_STATUS_ERROR
+                    $this->__('Can\'t show configuration.'), Mage_XmlConnect_Controller_Action::MESSAGE_STATUS_ERROR
             );
             Mage::logException($e);
         }
@@ -170,4 +176,5 @@ class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front
         $message->addCustomChild('text', $text);
         $this->getResponse()->setBody($message->asNiceXml());
     }
+
 }

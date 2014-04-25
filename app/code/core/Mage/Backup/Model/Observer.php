@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Backup Observer
  *
@@ -34,8 +34,9 @@
  */
 class Mage_Backup_Model_Observer
 {
-    const XML_PATH_BACKUP_ENABLED          = 'system/backup/enabled';
-    const XML_PATH_BACKUP_TYPE             = 'system/backup/type';
+
+    const XML_PATH_BACKUP_ENABLED = 'system/backup/enabled';
+    const XML_PATH_BACKUP_TYPE = 'system/backup/type';
     const XML_PATH_BACKUP_MAINTENANCE_MODE = 'system/backup/maintenance';
 
     /**
@@ -63,23 +64,25 @@ class Mage_Backup_Model_Observer
         $type = Mage::getStoreConfig(self::XML_PATH_BACKUP_TYPE);
 
         $this->_errors = array();
-        try {
+        try
+        {
             $backupManager = Mage_Backup::getBackupInstance($type)
-                ->setBackupExtension(Mage::helper('backup')->getExtensionByType($type))
-                ->setTime(time())
-                ->setBackupsDir(Mage::helper('backup')->getBackupsDir());
+                    ->setBackupExtension(Mage::helper('backup')->getExtensionByType($type))
+                    ->setTime(time())
+                    ->setBackupsDir(Mage::helper('backup')->getBackupsDir());
 
             Mage::register('backup_manager', $backupManager);
 
             if ($type != Mage_Backup_Helper_Data::TYPE_DB) {
                 $backupManager->setRootDir(Mage::getBaseDir())
-                    ->addIgnorePaths(Mage::helper('backup')->getBackupIgnorePaths());
+                        ->addIgnorePaths(Mage::helper('backup')->getBackupIgnorePaths());
             }
 
             $backupManager->create();
             Mage::log(Mage::helper('backup')->getCreateSuccessMessageByType($type));
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $this->_errors[] = $e->getMessage();
             $this->_errors[] = $e->getTrace();
             Mage::log($e->getMessage(), Zend_Log::ERR);
@@ -92,4 +95,5 @@ class Mage_Backup_Model_Observer
 
         return $this;
     }
+
 }

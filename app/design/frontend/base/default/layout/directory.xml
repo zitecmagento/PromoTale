@@ -28,9 +28,9 @@
 -->
 <layout version="0.1.0">
 
-<!--
-Category default layout
--->
+    <!--
+    Category default layout
+    -->
     <default>
         <reference name="head">
             <block type="core/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
@@ -43,9 +43,9 @@ Category default layout
         </reference>
     </catalog_category_default>
 
-<!--
-Category layered navigation layout
--->
+    <!--
+    Category layered navigation layout
+    -->
 
     <catalog_category_layered>
         <reference name="left">
@@ -53,9 +53,9 @@ Category layered navigation layout
         </reference>
     </catalog_category_layered>
 
-<!--
-Catalog Search layout
--->
+    <!--
+    Catalog Search layout
+    -->
 
     <catalogsearch_advanced_index>
         <reference name="left">

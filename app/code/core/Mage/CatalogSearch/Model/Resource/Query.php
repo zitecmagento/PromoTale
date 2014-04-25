@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog search query resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Init resource data
      *
@@ -53,11 +54,11 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     public function loadByQuery(Mage_Core_Model_Abstract $object, $value)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable())
-            ->where('synonym_for=? OR query_text=?', $value)
-            ->where('store_id=?', $object->getStoreId())
-            ->order('synonym_for ASC')
-            ->limit(1);
+                ->from($this->getMainTable())
+                ->where('synonym_for=? OR query_text=?', $value)
+                ->where('store_id=?', $object->getStoreId())
+                ->order('synonym_for ASC')
+                ->limit(1);
         if ($data = $this->_getReadAdapter()->fetchRow($select)) {
             $object->setData($data);
             $this->_afterLoad($object);
@@ -76,10 +77,10 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     public function loadByQueryText(Mage_Core_Model_Abstract $object, $value)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable())
-            ->where('query_text = ?', $value)
-            ->where('store_id = ?', $object->getStoreId())
-            ->limit(1);
+                ->from($this->getMainTable())
+                ->where('query_text = ?', $value)
+                ->where('store_id = ?', $object->getStoreId())
+                ->limit(1);
         if ($data = $this->_getReadAdapter()->fetchRow($select)) {
             $object->setData($data);
             $this->_afterLoad($object);
@@ -99,9 +100,8 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     {
         if (is_numeric($value)) {
             return parent::load($object, $value);
-        }
-        else {
-            $this->loadByQuery($object,$value);
+        } else {
+            $this->loadByQuery($object, $value);
         }
         return $this;
     }
@@ -117,4 +117,5 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
         $object->setUpdatedAt($this->formatDate(Mage::getModel('core/date')->gmtTimestamp()));
         return $this;
     }
+
 }

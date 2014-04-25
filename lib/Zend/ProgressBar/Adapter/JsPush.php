@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LICENSE
  *
@@ -16,7 +17,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: JsPush.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Json
  */
@@ -39,6 +39,7 @@
  */
 class Zend_ProgressBar_Adapter_JsPush extends Zend_ProgressBar_Adapter
 {
+
     /**
      * Name of the JavaScript method to call on update
      *
@@ -93,17 +94,17 @@ class Zend_ProgressBar_Adapter_JsPush extends Zend_ProgressBar_Adapter
     public function notify($current, $max, $percent, $timeTaken, $timeRemaining, $text)
     {
         $arguments = array(
-            'current'       => $current,
-            'max'           => $max,
-            'percent'       => ($percent * 100),
-            'timeTaken'     => $timeTaken,
+            'current' => $current,
+            'max' => $max,
+            'percent' => ($percent * 100),
+            'timeTaken' => $timeTaken,
             'timeRemaining' => $timeRemaining,
-            'text'          => $text
+            'text' => $text
         );
 
         $data = '<script type="text/javascript">'
-              . 'parent.' . $this->_updateMethodName . '(' . Zend_Json::encode($arguments) . ');'
-              . '</script>';
+                . 'parent.' . $this->_updateMethodName . '(' . Zend_Json::encode($arguments) . ');'
+                . '</script>';
 
         // Output the data
         $this->_outputData($data);
@@ -121,8 +122,8 @@ class Zend_ProgressBar_Adapter_JsPush extends Zend_ProgressBar_Adapter
         }
 
         $data = '<script type="text/javascript">'
-              . 'parent.' . $this->_finishMethodName . '();'
-              . '</script>';
+                . 'parent.' . $this->_finishMethodName . '();'
+                . '</script>';
 
         $this->_outputData($data);
     }
@@ -145,4 +146,5 @@ class Zend_ProgressBar_Adapter_JsPush extends Zend_ProgressBar_Adapter
         flush();
         ob_flush();
     }
+
 }

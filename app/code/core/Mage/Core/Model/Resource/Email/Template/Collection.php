@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Templates collection
  *
@@ -32,8 +32,9 @@
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Core_Model_Resource_Email_Template_Collection extends  Mage_Core_Model_Resource_Db_Collection_Abstract
+class Mage_Core_Model_Resource_Email_Template_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Template table name
      *
@@ -60,4 +61,5 @@ class Mage_Core_Model_Resource_Email_Template_Collection extends  Mage_Core_Mode
     {
         return $this->_toOptionArray('template_id', 'template_code');
     }
+
 }

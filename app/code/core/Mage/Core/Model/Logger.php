@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Core_Model_Logger
 {
+
     /**
      * Log wrapper
      *
@@ -55,4 +57,5 @@ class Mage_Core_Model_Logger
     {
         Mage::logException($e);
     }
+
 }

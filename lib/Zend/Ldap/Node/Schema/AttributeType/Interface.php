@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 interface Zend_Ldap_Node_Schema_AttributeType_Interface
 {
+
     /**
      * Gets the attribute name
      *

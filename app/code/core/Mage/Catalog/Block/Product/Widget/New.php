@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,29 +32,29 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_New
-    implements Mage_Widget_Block_Interface
+class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_New implements Mage_Widget_Block_Interface
 {
+
     /**
      * Display products type
      */
-    const DISPLAY_TYPE_ALL_PRODUCTS         = 'all_products';
-    const DISPLAY_TYPE_NEW_PRODUCTS         = 'new_products';
+    const DISPLAY_TYPE_ALL_PRODUCTS = 'all_products';
+    const DISPLAY_TYPE_NEW_PRODUCTS = 'new_products';
 
     /**
      * Default value whether show pager or not
      */
-    const DEFAULT_SHOW_PAGER                = false;
+    const DEFAULT_SHOW_PAGER = false;
 
     /**
      * Default value for products per page
      */
-    const DEFAULT_PRODUCTS_PER_PAGE         = 5;
+    const DEFAULT_PRODUCTS_PER_PAGE = 5;
 
     /**
      * Name of request parameter for page number value
      */
-    const PAGE_VAR_NAME                     = 'np';
+    const PAGE_VAR_NAME = 'np';
 
     /**
      * Instance of pager block
@@ -101,10 +102,10 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
         $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
 
         $collection = $this->_addProductAttributesAndPrices($collection)
-            ->addStoreFilter()
-            ->addAttributeToSort('created_at', 'desc')
-            ->setPageSize($this->getProductsCount())
-            ->setCurPage(1)
+                ->addStoreFilter()
+                ->addAttributeToSort('created_at', 'desc')
+                ->setPageSize($this->getProductsCount())
+                ->setCurPage(1)
         ;
         return $collection;
     }
@@ -172,7 +173,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
         if (!$this->hasData('show_pager')) {
             $this->setData('show_pager', self::DEFAULT_SHOW_PAGER);
         }
-        return (bool)$this->getData('show_pager');
+        return (bool) $this->getData('show_pager');
     }
 
     /**
@@ -185,15 +186,15 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
         if ($this->showPager()) {
             if (!$this->_pager) {
                 $this->_pager = $this->getLayout()
-                    ->createBlock('catalog/product_widget_html_pager', 'widget.new.product.list.pager');
+                        ->createBlock('catalog/product_widget_html_pager', 'widget.new.product.list.pager');
 
                 $this->_pager->setUseContainer(true)
-                    ->setShowAmounts(true)
-                    ->setShowPerPage(false)
-                    ->setPageVarName(self::PAGE_VAR_NAME)
-                    ->setLimit($this->getProductsPerPage())
-                    ->setTotalLimit($this->getProductsCount())
-                    ->setCollection($this->getProductCollection());
+                        ->setShowAmounts(true)
+                        ->setShowPerPage(false)
+                        ->setPageVarName(self::PAGE_VAR_NAME)
+                        ->setLimit($this->getProductsPerPage())
+                        ->setTotalLimit($this->getProductsCount())
+                        ->setCollection($this->getProductCollection());
             }
             if ($this->_pager instanceof Mage_Core_Block_Abstract) {
                 return $this->_pager->toHtml();
@@ -201,4 +202,5 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
         }
         return '';
     }
+
 }

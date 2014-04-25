@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Custom Options helper
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Helper_Product_Options extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Fetches and outputs file to user browser
      * $info is array with following indexes:
@@ -49,20 +50,24 @@ class Mage_Catalog_Helper_Product_Options extends Mage_Core_Helper_Abstract
      */
     public function downloadFileOption($response, $filePath, $info)
     {
-        try {
+        try
+        {
             $response->setHttpResponseCode(200)
-                ->setHeader('Pragma', 'public', true)
-                ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
-                ->setHeader('Content-type', $info['type'], true)
-                ->setHeader('Content-Length', $info['size'])
-                ->setHeader('Content-Disposition', 'inline' . '; filename='.$info['title'])
-                ->clearBody();
+                    ->setHeader('Pragma', 'public', true)
+                    ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
+                    ->setHeader('Content-type', $info['type'], true)
+                    ->setHeader('Content-Length', $info['size'])
+                    ->setHeader('Content-Disposition', 'inline' . '; filename=' . $info['title'])
+                    ->clearBody();
             $response->sendHeaders();
 
             readfile($filePath);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             return false;
         }
         return true;
     }
+
 }

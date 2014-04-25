@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Order_Items extends Mage_Sales_Block_Order_Items
 {
+
     /**
      * Initialize default item renderer
      */
@@ -56,7 +58,7 @@ class Mage_XmlConnect_Block_Customer_Order_Items extends Mage_Sales_Block_Order_
 
         if (is_null($this->_itemRenders[$type]['renderer'])) {
             $this->_itemRenders[$type]['renderer'] = $this->getLayout()
-                ->createBlock($this->_itemRenders[$type]['block'])->setRenderedBlock($this);
+                            ->createBlock($this->_itemRenders[$type]['block'])->setRenderedBlock($this);
         }
         return $this->_itemRenders[$type]['renderer'];
     }
@@ -89,4 +91,5 @@ class Mage_XmlConnect_Block_Customer_Order_Items extends Mage_Sales_Block_Order_
             }
         }
     }
+
 }

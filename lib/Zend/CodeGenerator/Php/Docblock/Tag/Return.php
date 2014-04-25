@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Return.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_CodeGenerator_Php_Docblock_Tag
  */
@@ -82,7 +82,6 @@ class Zend_CodeGenerator_Php_Docblock_Tag_Return extends Zend_CodeGenerator_Php_
     {
         return $this->_datatype;
     }
-
 
     /**
      * generate()

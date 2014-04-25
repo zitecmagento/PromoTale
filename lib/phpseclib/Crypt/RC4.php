@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -58,8 +59,7 @@
  * @version    $Id: RC4.php,v 1.8 2009/06/09 04:00:38 terrafrost Exp $
  * @link       http://phpseclib.sourceforge.net
  */
-
-/**#@+
+/* * #@+
  * @access private
  * @see Crypt_RC4::Crypt_RC4()
  */
@@ -71,15 +71,15 @@ define('CRYPT_RC4_MODE_INTERNAL', 1);
  * Toggles the mcrypt implementation
  */
 define('CRYPT_RC4_MODE_MCRYPT', 2);
-/**#@-*/
+/* * #@- */
 
-/**#@+
+/* * #@+
  * @access private
  * @see Crypt_RC4::_crypt()
  */
 define('CRYPT_RC4_ENCRYPT', 0);
 define('CRYPT_RC4_DECRYPT', 1);
-/**#@-*/
+/* * #@- */
 
 /**
  * Pure-PHP implementation of RC4.
@@ -89,7 +89,9 @@ define('CRYPT_RC4_DECRYPT', 1);
  * @access  public
  * @package Crypt_RC4
  */
-class Crypt_RC4 {
+class Crypt_RC4
+{
+
     /**
      * The Key
      *
@@ -170,7 +172,7 @@ class Crypt_RC4 {
      */
     function Crypt_RC4()
     {
-        if ( !defined('CRYPT_RC4_MODE') ) {
+        if (!defined('CRYPT_RC4_MODE')) {
             switch (true) {
                 case extension_loaded('mcrypt') && (defined('MCRYPT_ARCFOUR') || defined('MCRYPT_RC4')):
                     // i'd check to see if rc4 was supported, by doing in_array('arcfour', mcrypt_list_algorithms('')),
@@ -183,7 +185,7 @@ class Crypt_RC4 {
             }
         }
 
-        switch ( CRYPT_RC4_MODE ) {
+        switch (CRYPT_RC4_MODE) {
             case CRYPT_RC4_MODE_MCRYPT:
                 switch (true) {
                     case defined('MCRYPT_ARCFOUR'):
@@ -208,7 +210,7 @@ class Crypt_RC4 {
     {
         $this->key = $key;
 
-        if ( CRYPT_RC4_MODE == CRYPT_RC4_MODE_MCRYPT ) {
+        if (CRYPT_RC4_MODE == CRYPT_RC4_MODE_MCRYPT) {
             return;
         }
 
@@ -250,6 +252,7 @@ class Crypt_RC4 {
      */
     function setIV($iv)
     {
+        
     }
 
     /**
@@ -264,7 +267,7 @@ class Crypt_RC4 {
      */
     function setMCrypt($algorithm_directory = '', $mode_directory = '')
     {
-        if ( CRYPT_RC4_MODE == CRYPT_RC4_MODE_MCRYPT ) {
+        if (CRYPT_RC4_MODE == CRYPT_RC4_MODE_MCRYPT) {
             $this->mcrypt = array($algorithm_directory, $mode_directory);
             $this->_closeMCrypt();
         }
@@ -308,7 +311,7 @@ class Crypt_RC4 {
      */
     function _crypt($text, $mode)
     {
-        if ( CRYPT_RC4_MODE == CRYPT_RC4_MODE_MCRYPT ) {
+        if (CRYPT_RC4_MODE == CRYPT_RC4_MODE_MCRYPT) {
             $keyStream = $mode == CRYPT_RC4_ENCRYPT ? 'encryptStream' : 'decryptStream';
 
             if ($this->$keyStream === false) {
@@ -417,7 +420,7 @@ class Crypt_RC4 {
      */
     function disableContinuousBuffer()
     {
-        if ( CRYPT_RC4_MODE == CRYPT_RC4_MODE_INTERNAL ) {
+        if (CRYPT_RC4_MODE == CRYPT_RC4_MODE_INTERNAL) {
             $this->encryptIndex = $this->decryptIndex = array(0, 0);
             $this->setKey($this->key);
         }
@@ -436,6 +439,7 @@ class Crypt_RC4 {
      */
     function enablePadding()
     {
+        
     }
 
     /**
@@ -446,6 +450,7 @@ class Crypt_RC4 {
      */
     function disablePadding()
     {
+        
     }
 
     /**
@@ -458,7 +463,7 @@ class Crypt_RC4 {
      */
     function __destruct()
     {
-        if ( CRYPT_RC4_MODE == CRYPT_RC4_MODE_MCRYPT ) {
+        if (CRYPT_RC4_MODE == CRYPT_RC4_MODE_MCRYPT) {
             $this->_closeMCrypt();
         }
     }
@@ -470,8 +475,8 @@ class Crypt_RC4 {
      */
     function _closeMCrypt()
     {
-        if ( $this->encryptStream !== false ) {
-            if ( $this->continuousBuffer ) {
+        if ($this->encryptStream !== false) {
+            if ($this->continuousBuffer) {
                 mcrypt_generic_deinit($this->encryptStream);
             }
 
@@ -480,8 +485,8 @@ class Crypt_RC4 {
             $this->encryptStream = false;
         }
 
-        if ( $this->decryptStream !== false ) {
-            if ( $this->continuousBuffer ) {
+        if ($this->decryptStream !== false) {
+            if ($this->continuousBuffer) {
                 mcrypt_generic_deinit($this->decryptStream);
             }
 
@@ -490,4 +495,5 @@ class Crypt_RC4 {
             $this->decryptStream = false;
         }
     }
+
 }

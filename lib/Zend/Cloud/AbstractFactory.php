@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -28,6 +29,7 @@
  */
 class Zend_Cloud_AbstractFactory
 {
+
     /**
      * Constructor
      * 
@@ -37,7 +39,7 @@ class Zend_Cloud_AbstractFactory
     {
         // private ctor - should not be used
     }
-    
+
     /**
      * Get an individual adapter instance
      * 
@@ -45,7 +47,7 @@ class Zend_Cloud_AbstractFactory
      * @param  array|Zend_Config $options 
      * @return null|Zend_Cloud_DocumentService_Adapter|Zend_Cloud_QueueService_Adapter|Zend_Cloud_StorageService_Adapter
      */
-    protected static function _getAdapter($adapterOption, $options) 
+    protected static function _getAdapter($adapterOption, $options)
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -64,4 +66,5 @@ class Zend_Cloud_AbstractFactory
 
         return new $classname($options);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * HTML anchor element block
  *
@@ -44,6 +44,7 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
         $this->setTemplate('core/link.phtml');
         parent::_construct();
     }
+
     /**
      * Prepare link attributes as serialized and formated string
      *
@@ -83,9 +84,9 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
      * @param   string $quote
      * @return  string
      */
-    public function serialize($attributes = array(), $valueSeparator='=', $fieldSeparator=' ', $quote='"')
+    public function serialize($attributes = array(), $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
-        $res  = '';
+        $res = '';
         $data = array();
 
         foreach ($attributes as $key => $value) {
@@ -94,4 +95,5 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
         $res = implode($fieldSeparator, $data);
         return $res;
     }
+
 }

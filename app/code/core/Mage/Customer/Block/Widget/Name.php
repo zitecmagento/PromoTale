@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstract
 {
+
     public function _construct()
     {
         parent::_construct();
@@ -42,7 +43,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
      */
     protected function _showConfig($key)
     {
-        return (bool)$this->getConfig($key);
+        return (bool) $this->getConfig($key);
     }
 
     /**
@@ -52,7 +53,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
      */
     public function showPrefix()
     {
-        return (bool)$this->_getAttribute('prefix')->getIsVisible();
+        return (bool) $this->_getAttribute('prefix')->getIsVisible();
     }
 
     /**
@@ -62,7 +63,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
      */
     public function isPrefixRequired()
     {
-        return (bool)$this->_getAttribute('prefix')->getIsRequired();
+        return (bool) $this->_getAttribute('prefix')->getIsRequired();
     }
 
     /**
@@ -88,7 +89,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
      */
     public function showMiddlename()
     {
-        return (bool)$this->_getAttribute('middlename')->getIsVisible();
+        return (bool) $this->_getAttribute('middlename')->getIsVisible();
     }
 
     /**
@@ -98,7 +99,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
      */
     public function isMiddlenameRequired()
     {
-        return (bool)$this->_getAttribute('middlename')->getIsRequired();
+        return (bool) $this->_getAttribute('middlename')->getIsRequired();
     }
 
     /**
@@ -108,7 +109,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
      */
     public function showSuffix()
     {
-        return (bool)$this->_getAttribute('suffix')->getIsVisible();
+        return (bool) $this->_getAttribute('suffix')->getIsVisible();
     }
 
     /**
@@ -118,7 +119,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
      */
     public function isSuffixRequired()
     {
-        return (bool)$this->_getAttribute('suffix')->getIsRequired();
+        return (bool) $this->_getAttribute('suffix')->getIsRequired();
     }
 
     /**
@@ -198,4 +199,5 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
         $attribute = $this->_getAttribute($attributeCode);
         return $attribute ? $this->__($attribute->getStoreLabel()) : '';
     }
+
 }

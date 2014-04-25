@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,6 +36,7 @@
  */
 class Mage_Sales_Model_Status_List
 {
+
     /**
      * Status information entities
      *
@@ -154,4 +156,5 @@ class Mage_Sales_Model_Status_List
         $this->_items = array();
         return $this;
     }
+
 }

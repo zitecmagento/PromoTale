@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Pbridge_Paypaluk_Direct
-    extends Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Paypal_Abstract
+class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Pbridge_Paypaluk_Direct extends Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Paypal_Abstract
 {
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Dirty rules notice message
      *
@@ -43,11 +45,10 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('promo/catalog')
-            ->_addBreadcrumb(
-                Mage::helper('catalogrule')->__('Promotions'),
-                Mage::helper('catalogrule')->__('Promotions')
-            );
+                ->_setActiveMenu('promo/catalog')
+                ->_addBreadcrumb(
+                        Mage::helper('catalogrule')->__('Promotions'), Mage::helper('catalogrule')->__('Promotions')
+        );
         return $this;
     }
 
@@ -61,11 +62,10 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         }
 
         $this->_initAction()
-            ->_addBreadcrumb(
-                Mage::helper('catalogrule')->__('Catalog'),
-                Mage::helper('catalogrule')->__('Catalog')
-            )
-            ->renderLayout();
+                ->_addBreadcrumb(
+                        Mage::helper('catalogrule')->__('Catalog'), Mage::helper('catalogrule')->__('Catalog')
+                )
+                ->renderLayout();
     }
 
     public function newAction()
@@ -82,9 +82,9 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
 
         if ($id) {
             $model->load($id);
-            if (! $model->getRuleId()) {
+            if (!$model->getRuleId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('catalogrule')->__('This rule no longer exists.')
+                        Mage::helper('catalogrule')->__('This rule no longer exists.')
                 );
                 $this->_redirect('*/*');
                 return;
@@ -103,23 +103,20 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         Mage::register('current_promo_catalog_rule', $model);
 
         $this->_initAction()->getLayout()->getBlock('promo_catalog_edit')
-             ->setData('action', $this->getUrl('*/promo_catalog/save'));
+                ->setData('action', $this->getUrl('*/promo_catalog/save'));
 
-        $breadcrumb = $id
-            ? Mage::helper('catalogrule')->__('Edit Rule')
-            : Mage::helper('catalogrule')->__('New Rule');
+        $breadcrumb = $id ? Mage::helper('catalogrule')->__('Edit Rule') : Mage::helper('catalogrule')->__('New Rule');
         $this->_addBreadcrumb($breadcrumb, $breadcrumb)->renderLayout();
-
     }
 
     public function saveAction()
     {
         if ($this->getRequest()->getPost()) {
-            try {
+            try
+            {
                 $model = Mage::getModel('catalogrule/rule');
                 Mage::dispatchEvent(
-                    'adminhtml_controller_catalogrule_prepare_save',
-                    array('request' => $this->getRequest())
+                        'adminhtml_controller_catalogrule_prepare_save', array('request' => $this->getRequest())
                 );
                 $data = $this->getRequest()->getPost();
                 $data = $this->_filterDates($data, array('from_date', 'to_date'));
@@ -132,11 +129,11 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
 
                 $validateResult = $model->validateData(new Varien_Object($data));
                 if ($validateResult !== true) {
-                    foreach($validateResult as $errorMessage) {
+                    foreach ($validateResult as $errorMessage) {
                         $this->_getSession()->addError($errorMessage);
                     }
                     $this->_getSession()->setPageData($data);
-                    $this->_redirect('*/*/edit', array('id'=>$model->getId()));
+                    $this->_redirect('*/*/edit', array('id' => $model->getId()));
                     return;
                 }
 
@@ -156,7 +153,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                 $model->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('catalogrule')->__('The rule has been saved.')
+                        Mage::helper('catalogrule')->__('The rule has been saved.')
                 );
                 Mage::getSingleton('adminhtml/session')->setPageData(false);
                 if ($autoApply) {
@@ -164,8 +161,8 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                     $this->_forward('applyRules');
                 } else {
                     Mage::getModel('catalogrule/flag')->loadSelf()
-                        ->setState(1)
-                        ->save();
+                            ->setState(1)
+                            ->save();
                     if ($this->getRequest()->getParam('back')) {
                         $this->_redirect('*/*/edit', array('id' => $model->getId()));
                         return;
@@ -173,11 +170,15 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                     $this->_redirect('*/*/');
                 }
                 return;
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->addError(
-                    Mage::helper('catalogrule')->__('An error occurred while saving the rule data. Please review the log and try again.')
+                        Mage::helper('catalogrule')->__('An error occurred while saving the rule data. Please review the log and try again.')
                 );
                 Mage::logException($e);
                 Mage::getSingleton('adminhtml/session')->setPageData($data);
@@ -191,23 +192,28 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
     public function deleteAction()
     {
         if ($id = $this->getRequest()->getParam('id')) {
-            try {
+            try
+            {
                 $model = Mage::getModel('catalogrule/rule');
                 $model->load($id);
                 $model->delete();
                 Mage::getModel('catalogrule/flag')->loadSelf()
-                    ->setState(1)
-                    ->save();
+                        ->setState(1)
+                        ->save();
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('catalogrule')->__('The rule has been deleted.')
+                        Mage::helper('catalogrule')->__('The rule has been deleted.')
                 );
                 $this->_redirect('*/*/');
                 return;
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->addError(
-                    Mage::helper('catalogrule')->__('An error occurred while deleting the rule. Please review the log and try again.')
+                        Mage::helper('catalogrule')->__('An error occurred while deleting the rule. Please review the log and try again.')
                 );
                 Mage::logException($e);
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
@@ -215,7 +221,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
             }
         }
         Mage::getSingleton('adminhtml/session')->addError(
-            Mage::helper('catalogrule')->__('Unable to find a rule to delete.')
+                Mage::helper('catalogrule')->__('Unable to find a rule to delete.')
         );
         $this->_redirect('*/*/');
     }
@@ -227,10 +233,10 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         $type = $typeArr[0];
 
         $model = Mage::getModel($type)
-            ->setId($id)
-            ->setType($type)
-            ->setRule(Mage::getModel('catalogrule/rule'))
-            ->setPrefix('conditions');
+                ->setId($id)
+                ->setType($type)
+                ->setRule(Mage::getModel('catalogrule/rule'))
+                ->setPrefix('conditions');
         if (!empty($typeArr[1])) {
             $model->setAttribute($typeArr[1]);
         }
@@ -270,10 +276,10 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         $type = $typeArr[0];
 
         $model = Mage::getModel($type)
-            ->setId($id)
-            ->setType($type)
-            ->setRule(Mage::getModel('catalogrule/rule'))
-            ->setPrefix('actions');
+                ->setId($id)
+                ->setType($type)
+                ->setRule(Mage::getModel('catalogrule/rule'))
+                ->setPrefix('actions');
         if (!empty($typeArr[1])) {
             $model->setAttribute($typeArr[1]);
         }
@@ -293,15 +299,20 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
     public function applyRulesAction()
     {
         $errorMessage = Mage::helper('catalogrule')->__('Unable to apply rules.');
-        try {
+        try
+        {
             Mage::getModel('catalogrule/rule')->applyAll();
             Mage::getModel('catalogrule/flag')->loadSelf()
-                ->setState(0)
-                ->save();
+                    ->setState(0)
+                    ->save();
             $this->_getSession()->addSuccess(Mage::helper('catalogrule')->__('The rules have been applied.'));
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($errorMessage . ' ' . $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($errorMessage);
             Mage::logException($e);
         }
@@ -313,6 +324,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
      */
     public function addToAlersAction()
     {
+        
     }
 
     protected function _isAllowed()
@@ -340,4 +352,5 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         $defaultMessage = Mage::helper('catalogrule')->__('There are rules that have been changed but were not applied. Please, click Apply Rules in order to see immediate effect in the catalog.');
         return $this->_dirtyRulesNoticeMessage ? $this->_dirtyRulesNoticeMessage : $defaultMessage;
     }
+
 }

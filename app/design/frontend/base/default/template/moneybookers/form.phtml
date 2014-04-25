@@ -30,19 +30,20 @@
         <?php echo Mage::helper('moneybookers')->__('You will be redirected to our secure payment page when you place an order.') ?>
     </li>
     <?php if ($_img = $this->getPaymentImageSrc($_code)): ?>
-    <li>
-        <div style="padding:10px 15px 15px;">
-            <img src="<?php echo $_img ?>" alt="" /><br />
-            <?php if ($_code == 'moneybookers_wlt'): ?>
-                <a href="<?php echo $this->getWltInfoUrl() ?>" target="_blank"><?php echo Mage::helper('moneybookers')->__('More information about Moneybookers') ?></a>
-            <?php elseif ($_code == 'moneybookers_obt'): ?>
-                <?php $_locale = $this->getInfoLocale(); ?>
-                <a onclick="window.open(this.href, 'http://www.nextgenerationpayments.com/<?php echo $_locale ?>/customerinfo/', 'width=1000,height=760,scrollbars=auto'); return false;" href="http://www.nextgenerationpayments.com/<?php echo $_locale ?>/customerinfo/" target="_blank">
-                    <?php echo Mage::helper('moneybookers')->__('Find out more about Online Bank Transfer') ?>
-                </a>
-            <?php endif; ?>
-        </div>
-    </li>
+        <li>
+            <div style="padding:10px 15px 15px;">
+                <img src="<?php echo $_img ?>" alt="" /><br />
+                <?php if ($_code == 'moneybookers_wlt'): ?>
+                    <a href="<?php echo $this->getWltInfoUrl() ?>" target="_blank"><?php echo Mage::helper('moneybookers')->__('More information about Moneybookers') ?></a>
+                <?php elseif ($_code == 'moneybookers_obt'): ?>
+                    <?php $_locale = $this->getInfoLocale(); ?>
+                    <a onclick="window.open(this.href, 'http://www.nextgenerationpayments.com/<?php echo $_locale ?>/customerinfo/', 'width=1000,height=760,scrollbars=auto');
+                                return false;" href="http://www.nextgenerationpayments.com/<?php echo $_locale ?>/customerinfo/" target="_blank">
+                        <?php echo Mage::helper('moneybookers')->__('Find out more about Online Bank Transfer') ?>
+                    </a>
+                <?php endif; ?>
+            </div>
+        </li>
     <?php endif; ?>
 </ul>
 

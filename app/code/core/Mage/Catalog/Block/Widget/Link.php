@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,11 +32,9 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Catalog_Block_Widget_Link
-    extends Mage_Core_Block_Html_Link
-    implements Mage_Widget_Block_Interface
+class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implements Mage_Widget_Block_Interface
 {
+
     /**
      * Entity model name which must be used to retrieve entity specific data.
      * @var null|Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract
@@ -65,8 +64,8 @@ class Mage_Catalog_Block_Widget_Link
     public function getHref()
     {
         if (!$this->_href) {
-            
-            if($this->hasStoreId()) {
+
+            if ($this->hasStoreId()) {
                 $store = Mage::app()->getStore($this->getStoreId());
             } else {
                 $store = Mage::app()->getStore();
@@ -86,7 +85,7 @@ class Mage_Catalog_Block_Widget_Link
             $this->_href = $store->getUrl('', array('_direct' => $href));
         }
 
-        if(strpos($this->_href, "___store") === false){
+        if (strpos($this->_href, "___store") === false) {
             $symbol = (strpos($this->_href, "?") === false) ? "?" : "&";
             $this->_href = $this->_href . $symbol . "___store=" . $store->getCode();
         }
@@ -132,4 +131,5 @@ class Mage_Catalog_Block_Widget_Link
         }
         return '';
     }
+
 }

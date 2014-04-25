@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Simple links list block
@@ -113,7 +113,6 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
         $this->setTemplate('page/template/linksblock.phtml');
     }
 
-
     /**
      * Return link position in link list
      *
@@ -142,7 +141,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
      */
     public function setIsFirst($value)
     {
-        $this->_isFirst = (bool)$value;
+        $this->_isFirst = (bool) $value;
         return $this;
     }
 
@@ -164,7 +163,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
      */
     public function setIsLast($value)
     {
-        $this->_isLast = (bool)$value;
+        $this->_isLast = (bool) $value;
         return $this;
     }
 

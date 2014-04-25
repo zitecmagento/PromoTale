@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Class.php 21915 2010-04-16 20:40:15Z matthew $
  */
-
 /**
  * @see Zend_CodeGenerator_Php_Abstract
  */
@@ -117,7 +117,7 @@ class Zend_CodeGenerator_Php_Class extends Zend_CodeGenerator_Php_Abstract
         }
 
         $interfaceNames = array();
-        foreach($interfaces AS $interface) {
+        foreach ($interfaces AS $interface) {
             $interfaceNames[] = $interface->getName();
         }
 
@@ -470,7 +470,7 @@ class Zend_CodeGenerator_Php_Class extends Zend_CodeGenerator_Php_Abstract
 
         $output .= 'class ' . $this->getName();
 
-        if ( !empty( $this->_extendedClass) ) {
+        if (!empty($this->_extendedClass)) {
             $output .= ' extends ' . $this->_extendedClass;
         }
 

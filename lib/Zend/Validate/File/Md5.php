@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Md5.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_File_Hash
  */
@@ -34,20 +34,21 @@
  */
 class Zend_Validate_File_Md5 extends Zend_Validate_File_Hash
 {
+
     /**
      * @const string Error constants
      */
     const DOES_NOT_MATCH = 'fileMd5DoesNotMatch';
-    const NOT_DETECTED   = 'fileMd5NotDetected';
-    const NOT_FOUND      = 'fileMd5NotFound';
+    const NOT_DETECTED = 'fileMd5NotDetected';
+    const NOT_FOUND = 'fileMd5NotFound';
 
     /**
      * @var array Error message templates
      */
     protected $_messageTemplates = array(
         self::DOES_NOT_MATCH => "File '%value%' does not match the given md5 hashes",
-        self::NOT_DETECTED   => "A md5 hash could not be evaluated for the given file",
-        self::NOT_FOUND      => "File '%value%' is not readable or does not exist",
+        self::NOT_DETECTED => "A md5 hash could not be evaluated for the given file",
+        self::NOT_FOUND => "File '%value%' is not readable or does not exist",
     );
 
     /**
@@ -172,7 +173,7 @@ class Zend_Validate_File_Md5 extends Zend_Validate_File_Hash
             return $this->_throw($file, self::NOT_DETECTED);
         }
 
-        foreach($hashes as $hash) {
+        foreach ($hashes as $hash) {
             if ($filehash === $hash) {
                 return true;
             }
@@ -180,4 +181,5 @@ class Zend_Validate_File_Md5 extends Zend_Validate_File_Hash
 
         return $this->_throw($file, self::DOES_NOT_MATCH);
     }
+
 }

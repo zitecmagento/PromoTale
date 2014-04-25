@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Interface.php 20210 2010-01-12 02:06:34Z yoshida@zend.co.jp $
  */
 
-
 /**
  * Interface class for Zend_View compatible template engine implementations
  *
@@ -30,6 +30,7 @@
  */
 interface Zend_View_Interface
 {
+
     /**
      * Return the template engine object, if any
      *

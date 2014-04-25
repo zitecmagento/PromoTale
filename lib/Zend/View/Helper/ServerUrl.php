@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 class Zend_View_Helper_ServerUrl
 {
+
     /**
      * Scheme
      *
@@ -59,7 +61,7 @@ class Zend_View_Helper_ServerUrl
                 $scheme = 'https';
                 break;
             default:
-            $scheme = 'http';   
+                $scheme = 'http';
         }
         $this->setScheme($scheme);
 
@@ -70,7 +72,7 @@ class Zend_View_Helper_ServerUrl
             $port = $_SERVER['SERVER_PORT'];
 
             if (($scheme == 'http' && $port == 80) ||
-                ($scheme == 'https' && $port == 443)) {
+                    ($scheme == 'https' && $port == 443)) {
                 $this->setHost($name);
             } else {
                 $this->setHost($name . ':' . $port);
@@ -145,4 +147,5 @@ class Zend_View_Helper_ServerUrl
         $this->_scheme = $scheme;
         return $this;
     }
+
 }

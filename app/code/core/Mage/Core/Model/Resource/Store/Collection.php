@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Stores collection
  *
@@ -34,13 +34,14 @@
  */
 class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Load default flag
      *
      * @deprecated since 1.5.0.0
      * @var boolean
      */
-    protected $_loadDefault    = false;
+    protected $_loadDefault = false;
 
     /**
      *  Define resource model
@@ -60,7 +61,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      */
     public function setLoadDefault($loadDefault)
     {
-        $this->setFlag('load_default_store', (bool)$loadDefault);
+        $this->setFlag('load_default_store', (bool) $loadDefault);
         return $this;
     }
 
@@ -168,8 +169,8 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
 
         if (!$this->isLoaded()) {
             $this->addOrder('CASE WHEN main_table.store_id = 0 THEN 0 ELSE 1 END', Varien_Db_Select::SQL_ASC)
-                ->addOrder('main_table.sort_order', Varien_Db_Select::SQL_ASC)
-                ->addOrder('main_table.name', Varien_Db_Select::SQL_ASC);
+                    ->addOrder('main_table.sort_order', Varien_Db_Select::SQL_ASC)
+                    ->addOrder('main_table.name', Varien_Db_Select::SQL_ASC);
         }
         return parent::load($printQuery, $logQuery);
     }
@@ -197,13 +198,13 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     {
         if (!$this->getFlag('core_store_group_table_joined')) {
             $this->getSelect()->join(
-                array('group_table' => $this->getTable('core/store_group')),
-                'main_table.group_id = group_table.group_id',
-                array('root_category_id')
+                    array('group_table' => $this->getTable('core/store_group')), 'main_table.group_id = group_table.group_id', array(
+                'root_category_id')
             );
             $this->setFlag('core_store_group_table_joined', true);
         }
 
         return $this;
     }
+
 }

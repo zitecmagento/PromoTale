@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Apply page layout handle
      *
@@ -48,8 +50,8 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
         }
 
         $this->getLayout()
-            ->getUpdate()
-            ->addHandle($pageLayout->getLayoutHandle());
+                ->getUpdate()
+                ->addHandle($pageLayout->getLayoutHandle());
 
         return $this;
     }
@@ -74,9 +76,9 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
         }
 
         if ($this->getLayout()->getBlock('root') &&
-            !$this->getLayout()->getBlock('root')->getIsHandle()) {
-                // If not applied handle
-                $this->getLayout()
+                !$this->getLayout()->getBlock('root')->getIsHandle()) {
+            // If not applied handle
+            $this->getLayout()
                     ->getBlock('root')
                     ->setTemplate($pageLayout->getTemplate());
         }
@@ -92,7 +94,7 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
     public function getCurrentPageLayout()
     {
         if ($this->getLayout()->getBlock('root') &&
-            $this->getLayout()->getBlock('root')->getLayoutCode()) {
+                $this->getLayout()->getBlock('root')->getLayoutCode()) {
             return $this->_getConfig()->getPageLayout($this->getLayout()->getBlock('root')->getLayoutCode());
         }
 
@@ -123,4 +125,5 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
     {
         return Mage::getSingleton('page/config');
     }
+
 }

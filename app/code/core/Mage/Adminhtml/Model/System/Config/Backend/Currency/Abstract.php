@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Directory currency abstract backend model
  *
@@ -36,6 +36,7 @@
  */
 abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract extends Mage_Core_Model_Config_Data
 {
+
     /**
      * Retrieve allowed currencies for current scope
      *
@@ -68,9 +69,7 @@ abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract exte
     {
         if (!$value = $this->getData('groups/options/fields/base/value')) {
             $value = Mage::getConfig()->getNode(
-                Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE,
-                $this->getScope(),
-                $this->getScopeId()
+                    Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE, $this->getScope(), $this->getScopeId()
             );
         }
         return strval($value);
@@ -85,11 +84,10 @@ abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract exte
     {
         if (!$value = $this->getData('groups/options/fields/default/value')) {
             $value = Mage::getConfig()->getNode(
-                Mage_Directory_Model_Currency::XML_PATH_CURRENCY_DEFAULT,
-                $this->getScope(),
-                $this->getScopeId()
+                    Mage_Directory_Model_Currency::XML_PATH_CURRENCY_DEFAULT, $this->getScope(), $this->getScopeId()
             );
         }
         return strval($value);
     }
+
 }

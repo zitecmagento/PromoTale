@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,17 +32,16 @@
  * @package    Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_Block_Order_Print_Creditmemo extends Mage_Sales_Block_Items_Abstract
 {
+
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
             $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
         }
         $this->setChild(
-            'payment_info',
-            $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
+                'payment_info', $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
         );
     }
 
@@ -92,4 +92,5 @@ class Mage_Sales_Block_Order_Print_Creditmemo extends Mage_Sales_Block_Items_Abs
         }
         return $html;
     }
+
 }

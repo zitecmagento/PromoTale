@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Response.php 21968 2010-04-22 03:53:34Z matthew $
  */
-
 /** @see Zend_Amf_Constants */
 #require_once 'Zend/Amf/Constants.php';
 
@@ -37,6 +37,7 @@
  */
 class Zend_Amf_Response
 {
+
     /**
      * @var int Object encoding for response
      */
@@ -202,4 +203,5 @@ class Zend_Amf_Response
         $this->_objectEncoding = $encoding;
         return $this;
     }
+
 }

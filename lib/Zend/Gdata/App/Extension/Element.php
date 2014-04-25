@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Element.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Extension
  */
@@ -39,7 +38,8 @@
 class Zend_Gdata_App_Extension_Element extends Zend_Gdata_App_Extension
 {
 
-    public function __construct($rootElement=null, $rootNamespace=null, $rootNamespaceURI=null, $text=null){
+    public function __construct($rootElement = null, $rootNamespace = null, $rootNamespaceURI = null, $text = null)
+    {
         parent::__construct();
         $this->_rootElement = $rootElement;
         $this->_rootNamespace = $rootNamespace;

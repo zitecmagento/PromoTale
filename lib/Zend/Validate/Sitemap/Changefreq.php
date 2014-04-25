@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Changefreq.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -38,12 +38,13 @@
  */
 class Zend_Validate_Sitemap_Changefreq extends Zend_Validate_Abstract
 {
+
     /**
      * Validation key for not valid
      *
      */
     const NOT_VALID = 'sitemapChangefreqNotValid';
-    const INVALID   = 'sitemapChangefreqInvalid';
+    const INVALID = 'sitemapChangefreqInvalid';
 
     /**
      * Validation failure message template definitions
@@ -52,7 +53,7 @@ class Zend_Validate_Sitemap_Changefreq extends Zend_Validate_Abstract
      */
     protected $_messageTemplates = array(
         self::NOT_VALID => "'%value%' is no valid sitemap changefreq",
-        self::INVALID   => "Invalid type given. String expected",
+        self::INVALID => "Invalid type given. String expected",
     );
 
     /**
@@ -61,7 +62,7 @@ class Zend_Validate_Sitemap_Changefreq extends Zend_Validate_Abstract
      * @var array
      */
     protected $_changeFreqs = array(
-        'always',  'hourly', 'daily', 'weekly',
+        'always', 'hourly', 'daily', 'weekly',
         'monthly', 'yearly', 'never'
     );
 
@@ -92,4 +93,5 @@ class Zend_Validate_Sitemap_Changefreq extends Zend_Validate_Abstract
 
         return true;
     }
+
 }

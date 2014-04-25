@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Sales
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
 {
 
@@ -43,7 +43,8 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
     protected function _downloadFileAction($info)
     {
         $secretKey = $this->getRequest()->getParam('key');
-        try {
+        try
+        {
             if ($secretKey != $info['secret_key']) {
                 throw new Exception();
             }
@@ -57,10 +58,12 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                 }
             }
             $this->_prepareDownloadResponse($info['title'], array(
-               'value' => $filePath,
-               'type'  => 'filename'
+                'value' => $filePath,
+                'type' => 'filename'
             ));
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_forward('noRoute');
         }
     }
@@ -111,7 +114,8 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         }
 
         $orderItemInfo = $recurringProfile->getData('order_item_info');
-        try {
+        try
+        {
             $request = unserialize($orderItemInfo['info_buyRequest']);
 
             if ($request['product'] != $orderItemInfo['product_id']) {
@@ -137,7 +141,9 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                 return;
             }
             $this->_downloadFileAction($request['options'][$this->getRequest()->getParam('option_id')]);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_forward('noRoute');
         }
     }
@@ -159,7 +165,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         $optionId = null;
         if (strpos($option->getCode(), Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX) === 0) {
             $optionId = str_replace(Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX, '', $option->getCode());
-            if ((int)$optionId != $optionId) {
+            if ((int) $optionId != $optionId) {
                 $optionId = null;
             }
         }
@@ -168,19 +174,22 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
             /** @var $productOption Mage_Catalog_Model_Product_Option */
             $productOption = Mage::getModel('catalog/product_option')->load($optionId);
         }
-        if (!$productOption || !$productOption->getId()
-            || $productOption->getProductId() != $option->getProductId() || $productOption->getType() != 'file'
+        if (!$productOption || !$productOption->getId() || $productOption->getProductId() != $option->getProductId() || $productOption->getType() != 'file'
         ) {
             $this->_forward('noRoute');
             return;
         }
 
-        try {
+        try
+        {
             $info = unserialize($option->getValue());
             $this->_downloadFileAction($info);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_forward('noRoute');
         }
         exit(0);
     }
+
 }

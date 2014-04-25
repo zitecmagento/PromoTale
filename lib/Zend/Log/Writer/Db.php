@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Db.php 22513 2010-07-01 13:48:39Z ramon $
  */
-
 /** Zend_Log_Writer_Abstract */
 #require_once 'Zend/Log/Writer/Abstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
 {
+
     /**
      * Database adapter instance
      * @var Zend_Db_Adapter
@@ -61,7 +62,7 @@ class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
      */
     public function __construct($db, $table, $columnMap = null)
     {
-        $this->_db    = $db;
+        $this->_db = $db;
         $this->_table = $table;
         $this->_columnMap = $columnMap;
     }
@@ -77,19 +78,17 @@ class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
     {
         $config = self::_parseConfig($config);
         $config = array_merge(array(
-            'db'        => null,
-            'table'     => null,
+            'db' => null,
+            'table' => null,
             'columnMap' => null,
-        ), $config);
+                ), $config);
 
         if (isset($config['columnmap'])) {
             $config['columnMap'] = $config['columnmap'];
         }
 
         return new self(
-            $config['db'],
-            $config['table'],
-            $config['columnMap']
+                $config['db'], $config['table'], $config['columnMap']
         );
     }
 
@@ -136,4 +135,5 @@ class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
 
         $this->_db->insert($this->_table, $dataToInsert);
     }
+
 }

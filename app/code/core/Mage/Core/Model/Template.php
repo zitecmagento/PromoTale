@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Template model class
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
 {
+
     /**
      * Types of template
      */
@@ -52,7 +53,6 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      */
     protected $_designConfig;
 
-            
     /**
      * Configuration of emulated desing package.
      *
@@ -108,7 +108,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      */
     protected function getDesignConfig()
     {
-        if(is_null($this->_designConfig)) {
+        if (is_null($this->_designConfig)) {
             $store = Mage::getDesign()->getStore();
             $storeId = is_object($store) ? $store->getId() : $store;
             $this->_designConfig = new Varien_Object(array(
@@ -137,7 +137,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      *
      * @param int|string $storeId
      */
-    public function emulateDesign($storeId, $area=self::DEFAULT_DESIGN_AREA)
+    public function emulateDesign($storeId, $area = self::DEFAULT_DESIGN_AREA)
     {
         if ($storeId) {
             // save current design settings

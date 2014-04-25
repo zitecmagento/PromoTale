@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Session.php 20814 2010-02-01 20:13:08Z freak $
  */
-
 /**
  * @see Zend_Application_Resource_ResourceAbstract
  */
 #require_once 'Zend/Application/Resource/ResourceAbstract.php';
-
 
 /**
  * Resource for setting session options
@@ -38,6 +37,7 @@
  */
 class Zend_Application_Resource_Session extends Zend_Application_Resource_ResourceAbstract
 {
+
     /**
      * Save handler to use
      *
@@ -115,4 +115,5 @@ class Zend_Application_Resource_Session extends Zend_Application_Resource_Resour
             Zend_Session::setSaveHandler($this->getSaveHandler());
         }
     }
+
 }

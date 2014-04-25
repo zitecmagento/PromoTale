@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,11 +36,12 @@
  */
 class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pager
 {
-    protected $_showPerPage     = false;
-    protected $lastPageNumber   = 1;
-    protected $_totalNum        = 0;
-    protected $_firstNum        = 0;
-    protected $_lastNum         = 1;
+
+    protected $_showPerPage = false;
+    protected $lastPageNumber = 1;
+    protected $_totalNum = 0;
+    protected $_firstNum = 0;
+    protected $_lastNum = 1;
 
     public function getCurrentPage($displacement = 0)
     {
@@ -146,14 +148,14 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
         } else {
             $half = ceil($this->_displayPages / 2);
             if ($this->getCurrentPage() >= $half && $this->getCurrentPage() <= $this->getLastPageNum() - $half) {
-                $start  = ($this->getCurrentPage() - $half) + 1;
+                $start = ($this->getCurrentPage() - $half) + 1;
                 $finish = ($start + $this->_displayPages) - 1;
             } elseif ($this->getCurrentPage() < $half) {
-                $start  = 1;
+                $start = 1;
                 $finish = $this->_displayPages;
             } elseif ($this->getCurrentPage() > ($this->getLastPageNum() - $half)) {
                 $finish = $this->getLastPageNum();
-                $start  = $finish - $this->_displayPages + 1;
+                $start = $finish - $this->_displayPages + 1;
             }
             $pages = range($start, $finish);
         }
@@ -177,4 +179,3 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
     }
 
 }
-

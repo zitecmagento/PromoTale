@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 abstract class Zend_Controller_Response_Abstract
 {
+
     /**
      * Body content
      * @var array
@@ -113,7 +115,7 @@ abstract class Zend_Controller_Response_Abstract
     public function setHeader($name, $value, $replace = false)
     {
         $this->canSendHeaders(true);
-        $name  = $this->_normalizeHeader($name);
+        $name = $this->_normalizeHeader($name);
         $value = (string) $value;
 
         if ($replace) {
@@ -125,8 +127,8 @@ abstract class Zend_Controller_Response_Abstract
         }
 
         $this->_headers[] = array(
-            'name'    => $name,
-            'value'   => $value,
+            'name' => $name,
+            'value' => $value,
             'replace' => $replace
         );
 
@@ -147,7 +149,7 @@ abstract class Zend_Controller_Response_Abstract
     {
         $this->canSendHeaders(true);
         $this->setHeader('Location', $url, true)
-             ->setHttpResponseCode($code);
+                ->setHttpResponseCode($code);
 
         return $this;
     }
@@ -192,7 +194,7 @@ abstract class Zend_Controller_Response_Abstract
      */
     public function clearHeader($name)
     {
-        if (! count($this->_headers)) {
+        if (!count($this->_headers)) {
             return $this;
         }
 
@@ -252,7 +254,7 @@ abstract class Zend_Controller_Response_Abstract
      */
     public function clearRawHeader($headerRaw)
     {
-        if (! count($this->_headersRaw)) {
+        if (!count($this->_headersRaw)) {
             return $this;
         }
 
@@ -270,7 +272,7 @@ abstract class Zend_Controller_Response_Abstract
     public function clearAllHeaders()
     {
         return $this->clearHeaders()
-                    ->clearRawHeaders();
+                        ->clearRawHeaders();
     }
 
     /**
@@ -551,9 +553,9 @@ abstract class Zend_Controller_Response_Abstract
             return $this->append($name, $content);
         }
 
-        $ins  = array($name => (string) $content);
+        $ins = array($name => (string) $content);
         $keys = array_keys($this->_body);
-        $loc  = array_search($parent, $keys);
+        $loc = array_search($parent, $keys);
         if (!$before) {
             // Increment location if not inserting before
             ++$loc;
@@ -567,7 +569,7 @@ abstract class Zend_Controller_Response_Abstract
             $this->_body = $this->_body + $ins;
         } else {
             // Otherwise, insert at location specified
-            $pre  = array_slice($this->_body, 0, $loc);
+            $pre = array_slice($this->_body, 0, $loc);
             $post = array_slice($this->_body, $loc);
             $this->_body = $pre + $ins + $post;
         }
@@ -722,7 +724,7 @@ abstract class Zend_Controller_Response_Abstract
      */
     public function getExceptionByCode($code)
     {
-        $code       = (int) $code;
+        $code = (int) $code;
         $exceptions = array();
         foreach ($this->_exceptions as $e) {
             if ($code == $e->getCode()) {
@@ -791,4 +793,5 @@ abstract class Zend_Controller_Response_Abstract
         $this->sendResponse();
         return ob_get_clean();
     }
+
 }

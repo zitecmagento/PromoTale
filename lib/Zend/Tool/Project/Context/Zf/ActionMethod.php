@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ActionMethod.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Interface
  */
@@ -87,11 +87,11 @@ class Zend_Tool_Project_Context_Zf_ActionMethod implements Zend_Tool_Project_Con
         /*
          * This code block is now commented, its doing to much for init()
          *
-        if ($this->_controllerPath != '' && self::hasActionMethod($this->_controllerPath, $this->_actionName)) {
-            #require_once 'Zend/Tool/Project/Context/Exception.php';
-            throw new Zend_Tool_Project_Context_Exception('An action named ' . $this->_actionName . 'Action already exists in this controller');
-        }
-        */
+          if ($this->_controllerPath != '' && self::hasActionMethod($this->_controllerPath, $this->_actionName)) {
+          #require_once 'Zend/Tool/Project/Context/Exception.php';
+          throw new Zend_Tool_Project_Context_Exception('An action named ' . $this->_actionName . 'Action already exists in this controller');
+          }
+         */
 
         return $this;
     }
@@ -105,7 +105,7 @@ class Zend_Tool_Project_Context_Zf_ActionMethod implements Zend_Tool_Project_Con
     {
         return array(
             'actionName' => $this->getActionName()
-            );
+        );
     }
 
     /**
@@ -162,9 +162,9 @@ class Zend_Tool_Project_Context_Zf_ActionMethod implements Zend_Tool_Project_Con
         if (self::createActionMethod($this->_controllerPath, $this->_actionName) === false) {
             #require_once 'Zend/Tool/Project/Context/Exception.php';
             throw new Zend_Tool_Project_Context_Exception(
-                'Could not create action within controller ' . $this->_controllerPath
-                . ' with action name ' . $this->_actionName
-                );
+            'Could not create action within controller ' . $this->_controllerPath
+            . ' with action name ' . $this->_actionName
+            );
         }
         return $this;
     }
@@ -198,7 +198,7 @@ class Zend_Tool_Project_Context_Zf_ActionMethod implements Zend_Tool_Project_Con
         $controllerCodeGenFile->getClass()->setMethod(array(
             'name' => $actionName . 'Action',
             'body' => $body
-            ));
+        ));
 
         file_put_contents($controllerPath, $controllerCodeGenFile->generate());
         return true;

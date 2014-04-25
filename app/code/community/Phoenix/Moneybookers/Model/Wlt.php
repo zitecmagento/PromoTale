@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,10 +20,12 @@
  */
 class Phoenix_Moneybookers_Model_Wlt extends Phoenix_Moneybookers_Model_Abstract
 {
+
     /**
      * unique internal payment method identifier
      */
-    protected $_code			= 'moneybookers_wlt';
-    protected $_paymentMethod	= 'WLT';
-    protected $_hidelogin		= '0';
+    protected $_code = 'moneybookers_wlt';
+    protected $_paymentMethod = 'WLT';
+    protected $_hidelogin = '0';
+
 }

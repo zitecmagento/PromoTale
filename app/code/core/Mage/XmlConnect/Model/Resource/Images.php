@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Resource_Images extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize connection and define resource
      *
@@ -50,17 +52,17 @@ class Mage_XmlConnect_Model_Resource_Images extends Mage_Core_Model_Resource_Db_
      */
     public function repairOrder(Mage_Core_Model_Abstract $image)
     {
-        $bind = array(':application_id' => (int)$image->getApplicationId(), ':image_type' => $image->getImageType());
+        $bind = array(':application_id' => (int) $image->getApplicationId(), ':image_type' => $image->getImageType());
 
         $select = $this->_getWriteAdapter()->select()->from($this->getMainTable(), array('image_id'))
-            ->where('application_id=:application_id AND image_type=:image_type')
-            ->order('order', Varien_Data_Collection::SORT_ORDER_ASC);
+                ->where('application_id=:application_id AND image_type=:image_type')
+                ->order('order', Varien_Data_Collection::SORT_ORDER_ASC);
 
         $result = $this->_getWriteAdapter()->fetchCol($select, $bind);
         $imageModel = Mage::getModel('xmlconnect/images');
         $i = 0;
         foreach ($result as $image_id) {
-            $imageModel->load($image_id)->setOrder(++$i)->save();
+            $imageModel->load($image_id)->setOrder( ++$i)->save();
         }
         return $this;
     }
@@ -78,12 +80,13 @@ class Mage_XmlConnect_Model_Resource_Images extends Mage_Core_Model_Resource_Db_
     {
         $newData = array(
             'application_id' => $applicationId,
-            'image_file'    => $imageFile,
-            'image_type'    => $imageType,
-            'order'     => $order
+            'image_file' => $imageFile,
+            'image_type' => $imageType,
+            'order' => $order
         );
 
         $this->_getWriteAdapter()->insert($this->getMainTable(), $newData);
         return $this;
     }
+
 }

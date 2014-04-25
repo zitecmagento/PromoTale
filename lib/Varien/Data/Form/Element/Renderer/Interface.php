@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,5 +34,6 @@
  */
 interface Varien_Data_Form_Element_Renderer_Interface
 {
+
     public function render(Varien_Data_Form_Element_Abstract $element);
 }

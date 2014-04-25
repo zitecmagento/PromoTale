@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -28,19 +29,21 @@
  */
 class Zend_Log
 {
-    const EMERG   = 0;  // Emergency: system is unusable
-    const ALERT   = 1;  // Alert: action must be taken immediately
-    const CRIT    = 2;  // Critical: critical conditions
-    const ERR     = 3;  // Error: error conditions
-    const WARN    = 4;  // Warning: warning conditions
-    const NOTICE  = 5;  // Notice: normal but significant condition
-    const INFO    = 6;  // Informational: informational messages
-    const DEBUG   = 7;  // Debug: debug messages
+
+    const EMERG = 0;  // Emergency: system is unusable
+    const ALERT = 1;  // Alert: action must be taken immediately
+    const CRIT = 2;  // Critical: critical conditions
+    const ERR = 3;  // Error: error conditions
+    const WARN = 4;  // Warning: warning conditions
+    const NOTICE = 5;  // Notice: normal but significant condition
+    const INFO = 6;  // Informational: informational messages
+    const DEBUG = 7;  // Debug: debug messages
 
     /**
      * @var array of priorities where the keys are the
      * priority numbers and the values are the priority names
      */
+
     protected $_priorities = array();
 
     /**
@@ -74,7 +77,7 @@ class Zend_Log
      *
      * @var callback
      */
-    protected $_origErrorHandler       = null;
+    protected $_origErrorHandler = null;
 
     /**
      *
@@ -86,13 +89,13 @@ class Zend_Log
      *
      * @var array
      */
-    protected $_errorHandlerMap        = false;
+    protected $_errorHandlerMap = false;
 
     /**
      *
      * @var string
      */
-    protected $_timestampFormat        = 'c';
+    protected $_timestampFormat = 'c';
 
     /**
      * Class constructor.  Create a new logger
@@ -133,14 +136,13 @@ class Zend_Log
         if (!is_array(current($config))) {
             $log->addWriter(current($config));
         } else {
-            foreach($config as $writer) {
+            foreach ($config as $writer) {
                 $log->addWriter($writer);
             }
         }
 
         return $log;
     }
-
 
     /**
      * Construct a writer object based on a configuration array
@@ -153,9 +155,7 @@ class Zend_Log
         $writer = $this->_constructFromConfig('writer', $config, $this->_defaultWriterNamespace);
 
         if (!$writer instanceof Zend_Log_Writer_Abstract) {
-            $writerName = is_object($writer)
-                        ? get_class($writer)
-                        : 'The specified writer';
+            $writerName = is_object($writer) ? get_class($writer) : 'The specified writer';
             /** @see Zend_Log_Exception */
             #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception("{$writerName} does not extend Zend_Log_Writer_Abstract!");
@@ -180,9 +180,7 @@ class Zend_Log
         $filter = $this->_constructFromConfig('filter', $config, $this->_defaultFilterNamespace);
 
         if (!$filter instanceof Zend_Log_Filter_Interface) {
-             $filterName = is_object($filter)
-                         ? get_class($filter)
-                         : 'The specified filter';
+            $filterName = is_object($filter) ? get_class($filter) : 'The specified filter';
             /** @see Zend_Log_Exception */
             #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception("{$filterName} does not implement Zend_Log_Filter_Interface");
@@ -208,11 +206,11 @@ class Zend_Log
         if (!is_array($config) || empty($config)) {
             #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception(
-                'Configuration must be an array or instance of Zend_Config'
+            'Configuration must be an array or instance of Zend_Config'
             );
         }
 
-        $params    = isset($config[ $type .'Params' ]) ? $config[ $type .'Params' ] : array();
+        $params = isset($config[$type . 'Params']) ? $config[$type . 'Params'] : array();
         $className = $this->getClassName($config, $type, $namespace);
         if (!class_exists($className)) {
             #require_once 'Zend/Loader.php';
@@ -223,7 +221,7 @@ class Zend_Log
         if (!$reflection->implementsInterface('Zend_Log_FactoryInterface')) {
             #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception(
-                'Driver does not implement Zend_Log_FactoryInterface and can not be constructed from config.'
+            'Driver does not implement Zend_Log_FactoryInterface and can not be constructed from config.'
             );
         }
 
@@ -240,15 +238,15 @@ class Zend_Log
      */
     protected function getClassName($config, $type, $defaultNamespace)
     {
-        if (!isset($config[ $type . 'Name' ])) {
+        if (!isset($config[$type . 'Name'])) {
             #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception("Specify {$type}Name in the configuration array");
         }
-        $className = $config[ $type . 'Name' ];
+        $className = $config[$type . 'Name'];
 
         $namespace = $defaultNamespace;
-        if (isset($config[ $type . 'Namespace' ])) {
-            $namespace = $config[ $type . 'Namespace' ];
+        if (isset($config[$type . 'Namespace'])) {
+            $namespace = $config[$type . 'Namespace'];
         }
 
         $fullClassName = $namespace . '_' . $className;
@@ -261,16 +259,15 @@ class Zend_Log
      * @param  string   $message   Message to log
      * @param  integer  $priority  Priority of message
      * @return array Event array
-     **/
+     * */
     protected function _packEvent($message, $priority)
     {
         return array_merge(array(
-            'timestamp'    => date($this->_timestampFormat),
-            'message'      => $message,
-            'priority'     => $priority,
+            'timestamp' => date($this->_timestampFormat),
+            'message' => $message,
+            'priority' => $priority,
             'priorityName' => $this->_priorities[$priority]
-            ),
-            $this->_extras
+                ), $this->_extras
         );
     }
 
@@ -281,7 +278,7 @@ class Zend_Log
      */
     public function __destruct()
     {
-        foreach($this->_writers as $writer) {
+        foreach ($this->_writers as $writer) {
             $writer->shutdown();
         }
     }
@@ -312,7 +309,7 @@ class Zend_Log
                     break;
                 default:
                     $message = array_shift($params);
-                    $extras  = array_shift($params);
+                    $extras = array_shift($params);
                     break;
             }
             $this->log($message, $priority, $extras);
@@ -341,7 +338,7 @@ class Zend_Log
             throw new Zend_Log_Exception('No writers were added');
         }
 
-        if (! isset($this->_priorities[$priority])) {
+        if (!isset($this->_priorities[$priority])) {
             /** @see Zend_Log_Exception */
             #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception('Bad log priority');
@@ -371,7 +368,7 @@ class Zend_Log
 
         // abort if rejected by the global filters
         foreach ($this->_filters as $filter) {
-            if (! $filter->accept($event)) {
+            if (!$filter->accept($event)) {
                 return;
             }
         }
@@ -394,8 +391,7 @@ class Zend_Log
         // Priority names must be uppercase for predictability.
         $name = strtoupper($name);
 
-        if (isset($this->_priorities[$priority])
-            || false !== array_search($name, $this->_priorities)) {
+        if (isset($this->_priorities[$priority]) || false !== array_search($name, $this->_priorities)) {
             /** @see Zend_Log_Exception */
             #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception('Existing priorities cannot be overwritten');
@@ -419,11 +415,9 @@ class Zend_Log
             /** @see Zend_Log_Filter_Priority */
             #require_once 'Zend/Log/Filter/Priority.php';
             $filter = new Zend_Log_Filter_Priority($filter);
-
         } elseif ($filter instanceof Zend_Config || is_array($filter)) {
             $filter = $this->_constructFilterFromConfig($filter);
-
-        } elseif(! $filter instanceof Zend_Log_Filter_Interface) {
+        } elseif (!$filter instanceof Zend_Log_Filter_Interface) {
             /** @see Zend_Log_Exception */
             #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception('Invalid filter provided');
@@ -442,7 +436,7 @@ class Zend_Log
      */
     public function addWriter($writer)
     {
-        if (is_array($writer) || $writer instanceof  Zend_Config) {
+        if (is_array($writer) || $writer instanceof Zend_Config) {
             $writer = $this->_constructWriterFromConfig($writer);
         }
 
@@ -450,8 +444,8 @@ class Zend_Log
             /** @see Zend_Log_Exception */
             #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception(
-                'Writer must be an instance of Zend_Log_Writer_Abstract'
-                . ' or you should pass a configuration array'
+            'Writer must be an instance of Zend_Log_Writer_Abstract'
+            . ' or you should pass a configuration array'
             );
         }
 
@@ -491,7 +485,7 @@ class Zend_Log
     {
         // Only register once.  Avoids loop issues if it gets registered twice.
         if ($this->_registeredErrorHandler) {
-        	return $this;
+            return $this;
         }
 
         $this->_origErrorHandler = set_error_handler(array($this, 'errorHandler'));
@@ -499,16 +493,16 @@ class Zend_Log
         // Contruct a default map of phpErrors to Zend_Log priorities.
         // Some of the errors are uncatchable, but are included for completeness
         $this->_errorHandlerMap = array(
-            E_NOTICE            => Zend_Log::NOTICE,
-            E_USER_NOTICE       => Zend_Log::NOTICE,
-            E_WARNING           => Zend_Log::WARN,
-            E_CORE_WARNING      => Zend_Log::WARN,
-            E_USER_WARNING      => Zend_Log::WARN,
-            E_ERROR             => Zend_Log::ERR,
-            E_USER_ERROR        => Zend_Log::ERR,
-            E_CORE_ERROR        => Zend_Log::ERR,
+            E_NOTICE => Zend_Log::NOTICE,
+            E_USER_NOTICE => Zend_Log::NOTICE,
+            E_WARNING => Zend_Log::WARN,
+            E_CORE_WARNING => Zend_Log::WARN,
+            E_USER_WARNING => Zend_Log::WARN,
+            E_ERROR => Zend_Log::ERR,
+            E_USER_ERROR => Zend_Log::ERR,
+            E_CORE_ERROR => Zend_Log::ERR,
             E_RECOVERABLE_ERROR => Zend_Log::ERR,
-            E_STRICT            => Zend_Log::DEBUG,
+            E_STRICT => Zend_Log::DEBUG,
         );
         // PHP 5.3.0+
         if (defined('E_DEPRECATED')) {
@@ -543,7 +537,7 @@ class Zend_Log
             } else {
                 $priority = Zend_Log::INFO;
             }
-            $this->log($errstr, $priority, array('errno'=>$errno, 'file'=>$errfile, 'line'=>$errline, 'context'=>$errcontext));
+            $this->log($errstr, $priority, array('errno' => $errno, 'file' => $errfile, 'line' => $errline, 'context' => $errcontext));
         }
 
         if ($this->_origErrorHandler !== null) {
@@ -573,4 +567,5 @@ class Zend_Log
     {
         return $this->_timestampFormat;
     }
+
 }

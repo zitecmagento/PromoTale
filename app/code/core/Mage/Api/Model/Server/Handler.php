@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,5 +34,7 @@
  */
 class Mage_Api_Model_Server_Handler extends Mage_Api_Model_Server_Handler_Abstract
 {
+    
+}
 
-} // Class Mage_Api_Model_Server_Handler End
+// Class Mage_Api_Model_Server_Handler End

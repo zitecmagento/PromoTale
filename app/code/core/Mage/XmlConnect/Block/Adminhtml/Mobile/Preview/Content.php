@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Content extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Set path to template used for generating block's output.
      *
@@ -45,4 +47,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Content extends Mage_Adminh
         parent::setTemplate('xmlconnect/edit/tab/design/preview/' . $templateType . '_' . $deviceType . '.phtml');
         return $this;
     }
+
 }

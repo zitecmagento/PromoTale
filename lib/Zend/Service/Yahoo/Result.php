@@ -21,7 +21,6 @@
  * @version    $Id: Result.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Yahoo_Result
 {
+
     /**
      * The title of the search entry
      *
@@ -73,7 +73,6 @@ class Zend_Service_Yahoo_Result
      */
     protected $_xpath;
 
-
     /**
      * Initializes the result
      *
@@ -104,7 +103,6 @@ class Zend_Service_Yahoo_Result
         $this->_result = $result;
     }
 
-
     /**
      * Sets the Thumbnail property
      *
@@ -123,4 +121,5 @@ class Zend_Service_Yahoo_Result
             $this->Thumbnail = null;
         }
     }
+
 }

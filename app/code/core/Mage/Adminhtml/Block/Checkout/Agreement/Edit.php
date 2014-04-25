@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Checkout_Agreement_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Init class
      *
@@ -58,9 +59,9 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit extends Mage_Adminhtml_Block_
     {
         if (Mage::registry('checkout_agreement')->getId()) {
             return Mage::helper('checkout')->__('Edit Terms and Conditions');
-        }
-        else {
+        } else {
             return Mage::helper('checkout')->__('New Terms and Conditions');
         }
     }
+
 }

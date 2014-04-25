@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Mysql resource helper model
  *
@@ -34,25 +34,26 @@
  */
 class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4
 {
+
     /**
      * Mysql column - Table DDL type pairs
      *
      * @var array
      */
-    protected $_ddlColumnTypes      = array(
-        Varien_Db_Ddl_Table::TYPE_BOOLEAN       => 'bool',
-        Varien_Db_Ddl_Table::TYPE_SMALLINT      => 'smallint',
-        Varien_Db_Ddl_Table::TYPE_INTEGER       => 'int',
-        Varien_Db_Ddl_Table::TYPE_BIGINT        => 'bigint',
-        Varien_Db_Ddl_Table::TYPE_FLOAT         => 'float',
-        Varien_Db_Ddl_Table::TYPE_DECIMAL       => 'decimal',
-        Varien_Db_Ddl_Table::TYPE_NUMERIC       => 'decimal',
-        Varien_Db_Ddl_Table::TYPE_DATE          => 'date',
-        Varien_Db_Ddl_Table::TYPE_TIMESTAMP     => 'timestamp',
-        Varien_Db_Ddl_Table::TYPE_DATETIME      => 'datetime',
-        Varien_Db_Ddl_Table::TYPE_TEXT          => 'text',
-        Varien_Db_Ddl_Table::TYPE_BLOB          => 'blob',
-        Varien_Db_Ddl_Table::TYPE_VARBINARY     => 'blob'
+    protected $_ddlColumnTypes = array(
+        Varien_Db_Ddl_Table::TYPE_BOOLEAN => 'bool',
+        Varien_Db_Ddl_Table::TYPE_SMALLINT => 'smallint',
+        Varien_Db_Ddl_Table::TYPE_INTEGER => 'int',
+        Varien_Db_Ddl_Table::TYPE_BIGINT => 'bigint',
+        Varien_Db_Ddl_Table::TYPE_FLOAT => 'float',
+        Varien_Db_Ddl_Table::TYPE_DECIMAL => 'decimal',
+        Varien_Db_Ddl_Table::TYPE_NUMERIC => 'decimal',
+        Varien_Db_Ddl_Table::TYPE_DATE => 'date',
+        Varien_Db_Ddl_Table::TYPE_TIMESTAMP => 'timestamp',
+        Varien_Db_Ddl_Table::TYPE_DATETIME => 'datetime',
+        Varien_Db_Ddl_Table::TYPE_TEXT => 'text',
+        Varien_Db_Ddl_Table::TYPE_BLOB => 'blob',
+        Varien_Db_Ddl_Table::TYPE_VARBINARY => 'blob'
     );
 
     /**
@@ -108,7 +109,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
      */
     public function getLoadAttributesSelectGroups($selects)
     {
-        $mainGroup  = array();
+        $mainGroup = array();
         foreach ($selects as $eavType => $selectGroup) {
             $mainGroup = array_merge($mainGroup, $selectGroup);
         }
@@ -125,4 +126,5 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
     {
         return new Zend_Db_Expr("CAST($expression AS SIGNED)");
     }
+
 }

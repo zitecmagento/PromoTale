@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Helper_Data extends Mage_Core_Helper_Data
 {
+
     /**
      * XML path for config data
      */
@@ -67,6 +69,7 @@ class Mage_ImportExport_Helper_Data extends Mage_Core_Helper_Data
      */
     public function getBunchSize()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_BUNCH_SIZE);
+        return (int) Mage::getStoreConfig(self::XML_PATH_BUNCH_SIZE);
     }
+
 }

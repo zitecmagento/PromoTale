@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
 {
+
     /**
      * Retrieve list of tags for specified product as array of objects
      *
@@ -106,4 +108,5 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
         Mage::helper('api')->toArray($data);
         return parent::_prepareDataForUpdate($data);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 $installer->startSetup();
@@ -260,7 +260,7 @@ CREATE TABLE `{$installer->getTable('sales_flat_quote_shipping_rate')}` (
 DELETE FROM `{$installer->getTable('log_quote')}`;
 ");
 
-$installer->addAttribute('order_item', 'is_virtual', array('type'=>'int'));
+$installer->addAttribute('order_item', 'is_virtual', array('type' => 'int'));
 $installer->endSetup();
 
 /**
@@ -269,12 +269,12 @@ $installer->endSetup();
 @set_time_limit(0);
 
 $quoteFields = array_keys($installer->getConnection()->describeTable($installer->getTable('sales_flat_quote')));
-$itemFields  = array_keys($installer->getConnection()->describeTable($installer->getTable('sales_flat_quote_item')));
+$itemFields = array_keys($installer->getConnection()->describeTable($installer->getTable('sales_flat_quote_item')));
 
 $quoteRows = array();
 $query = $installer->getConnection()->query(
-    $installer->getConnection()->select()
-        ->from($installer->getTable('sales_quote'), 'entity_id')
+        $installer->getConnection()->select()
+                ->from($installer->getTable('sales_quote'), 'entity_id')
 );
 while ($row = $query->fetch()) {
     $quoteRows[] = $row['entity_id'];
@@ -282,15 +282,15 @@ while ($row = $query->fetch()) {
 
 foreach ($quoteRows as $oldQuoteId) {
     $quoteInfo = $installer->getConnection()->fetchRow(
-        $installer->getConnection()->select()
-            ->from($installer->getTable('sales_quote'))
-            ->where('entity_id=?', $oldQuoteId)
+            $installer->getConnection()->select()
+                    ->from($installer->getTable('sales_quote'))
+                    ->where('entity_id=?', $oldQuoteId)
     );
 
     $quoteItems = $installer->getConnection()->fetchAll(
-        $installer->getConnection()->select()
-            ->from($installer->getTable('sales_quote_item'))
-            ->where('parent_id=?', $oldQuoteId)
+            $installer->getConnection()->select()
+                    ->from($installer->getTable('sales_quote_item'))
+                    ->where('parent_id=?', $oldQuoteId)
     );
 
     if (!empty($quoteItems)) {

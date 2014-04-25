@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Captcha_Model_Config_Font
 {
+
     /**
      * Get options for font selection field
      *
@@ -46,4 +48,5 @@ class Mage_Captcha_Model_Config_Font
         }
         return $optionArray;
     }
+
 }

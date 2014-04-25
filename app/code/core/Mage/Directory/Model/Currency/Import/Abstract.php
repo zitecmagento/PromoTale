@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 abstract class Mage_Directory_Model_Currency_Import_Abstract
 {
+
     /**
      * Retrieve currency codes
      *
@@ -70,9 +72,9 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
     {
         foreach ($rates as $currencyCode => $currencyRates) {
             Mage::getModel('directory/currency')
-                ->setId($currencyCode)
-                ->setRates($currencyRates)
-                ->save();
+                    ->setId($currencyCode)
+                    ->setRates($currencyRates)
+                    ->save();
         }
         return $this;
     }
@@ -103,8 +105,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
             foreach ($currencies as $currencyTo) {
                 if ($currencyFrom == $currencyTo) {
                     $data[$currencyFrom][$currencyTo] = $this->_numberFormat(1);
-                }
-                else {
+                } else {
                     $data[$currencyFrom][$currencyTo] = $this->_numberFormat($this->_convert($currencyFrom, $currencyTo));
                 }
             }
@@ -123,4 +124,5 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
     {
         return $this->_messages;
     }
+
 }

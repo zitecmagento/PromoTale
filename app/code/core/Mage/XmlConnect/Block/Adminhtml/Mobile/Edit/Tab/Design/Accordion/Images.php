@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,9 +33,9 @@
  * @package      Mage_Xmlconnect
  * @author       Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Images
-    extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Images extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
 {
+
     /**
      * Getter for accordion item title
      *
@@ -70,84 +71,44 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Images
 
         $fieldset = $form->addFieldset('field_logo', array());
         $this->_addElementTypes($fieldset);
-        $this->addImage($fieldset,
-            'conf[native][navigationBar][icon]',
-            $this->__('Logo in Header'),
-            $this->__('Recommended size %spx x %spx.', 35, 35),
-            $this->_getDesignPreviewImageUrl('conf/native/navigationBar/icon'),
-            true
+        $this->addImage($fieldset, 'conf[native][navigationBar][icon]', $this->__('Logo in Header'), $this->__('Recommended size %spx x %spx.', 35, 35), $this->_getDesignPreviewImageUrl('conf/native/navigationBar/icon'), true
         );
 
         $deviceType = Mage::helper('xmlconnect')->getDeviceType();
         switch ($deviceType) {
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE:
-                $this->addImage($fieldset,
-                    'conf[native][body][bannerImage]',
-                    $this->__('Banner on Home Screen'),
-                    $this->__('Recommended size %spx x %spx.', 320, 230)
+                $this->addImage($fieldset, 'conf[native][body][bannerImage]', $this->__('Banner on Home Screen'), $this->__('Recommended size %spx x %spx.', 320, 230)
                         . $this->__(' Note: Image size affects the performance of your app.')
-                        . $this->__('Keep your image size below %s KB for optimal performance.', 50),
-                    $this->_getDesignPreviewImageUrl('conf/native/body/bannerImage'),
-                    true
+                        . $this->__('Keep your image size below %s KB for optimal performance.', 50), $this->_getDesignPreviewImageUrl('conf/native/body/bannerImage'), true
                 );
-                $this->addImage($fieldset,
-                    'conf[native][body][backgroundImage]',
-                    $this->__('App Background'),
-                    $this->__('Recommended size %spx x %spx.', 320, 367)
+                $this->addImage($fieldset, 'conf[native][body][backgroundImage]', $this->__('App Background'), $this->__('Recommended size %spx x %spx.', 320, 367)
                         . $this->__('Note: Image size affects the performance of your app.')
-                        . $this->__('Keep your image size below %s KB for optimal performance.', 75),
-                    $this->_getDesignPreviewImageUrl('conf/native/body/backgroundImage'),
-                    true
+                        . $this->__('Keep your image size below %s KB for optimal performance.', 75), $this->_getDesignPreviewImageUrl('conf/native/body/backgroundImage'), true
                 );
                 break;
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD:
-                $this->addImage($fieldset,
-                    'conf[native][body][bannerIpadLandscapeImage]',
-                    $this->__('Banner on Home Screen (landscape mode)'),
-                    $this->__('Recommended size %spx x %spx.', 1024, 344)
-                        . $this->__('Note: Image size affects the performance of your app.'),
-                    $this->_getDesignPreviewImageUrl('conf/native/body/bannerIpadLandscapeImage'),
-                    true
+                $this->addImage($fieldset, 'conf[native][body][bannerIpadLandscapeImage]', $this->__('Banner on Home Screen (landscape mode)'), $this->__('Recommended size %spx x %spx.', 1024, 344)
+                        . $this->__('Note: Image size affects the performance of your app.'), $this->_getDesignPreviewImageUrl('conf/native/body/bannerIpadLandscapeImage'), true
                 );
-                $this->addImage($fieldset,
-                    'conf[native][body][bannerIpadImage]',
-                    $this->__('Banner on Home Screen (portrait mode)'),
-                    $this->__('Recommended size %spx x %spx.', 768, 294)
-                        . $this->__('Note: Image size affects the performance of your app.'),
-                    $this->_getDesignPreviewImageUrl('conf/native/body/bannerIpadImage'),
-                    true
+                $this->addImage($fieldset, 'conf[native][body][bannerIpadImage]', $this->__('Banner on Home Screen (portrait mode)'), $this->__('Recommended size %spx x %spx.', 768, 294)
+                        . $this->__('Note: Image size affects the performance of your app.'), $this->_getDesignPreviewImageUrl('conf/native/body/bannerIpadImage'), true
                 );
-                $this->addImage($fieldset,
-                    'conf[native][body][backgroundIpadLandscapeImage]',
-                    $this->__('App Background (landscape mode)'),
-                    $this->__('Recommended size %spx x %spx.', 1024, 704)
-                        . $this->__('Note: Image size affects the performance of your app.'),
-                    $this->_getDesignPreviewImageUrl('conf/native/body/backgroundIpadLandscapeImage'),
-                    true
+                $this->addImage($fieldset, 'conf[native][body][backgroundIpadLandscapeImage]', $this->__('App Background (landscape mode)'), $this->__('Recommended size %spx x %spx.', 1024, 704)
+                        . $this->__('Note: Image size affects the performance of your app.'), $this->_getDesignPreviewImageUrl('conf/native/body/backgroundIpadLandscapeImage'), true
                 );
-                $this->addImage($fieldset,
-                    'conf[native][body][backgroundIpadPortraitImage]',
-                    $this->__('App Background (portrait mode)'),
-                    $this->__('Recommended size %spx x %spx.', 768, 960)
-                        . $this->__('Note: Image size affects the performance of your app.'),
-                    $this->_getDesignPreviewImageUrl('conf/native/body/backgroundIpadPortraitImage'),
-                    true
+                $this->addImage($fieldset, 'conf[native][body][backgroundIpadPortraitImage]', $this->__('App Background (portrait mode)'), $this->__('Recommended size %spx x %spx.', 768, 960)
+                        . $this->__('Note: Image size affects the performance of your app.'), $this->_getDesignPreviewImageUrl('conf/native/body/backgroundIpadPortraitImage'), true
                 );
                 break;
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID:
-                $this->addImage($fieldset,
-                    'conf[native][body][bannerAndroidImage]',
-                    $this->__('Banner on Home Screen'),
-                    $this->__('Recommended size %spx x %spx.', 320, 258)
+                $this->addImage($fieldset, 'conf[native][body][bannerAndroidImage]', $this->__('Banner on Home Screen'), $this->__('Recommended size %spx x %spx.', 320, 258)
                         . $this->__('Note: Image size affects the performance of your app.')
-                        . $this->__('Keep your image size below %s KB for optimal performance.', 50),
-                    $this->_getDesignPreviewImageUrl('conf/native/body/bannerAndroidImage'),
-                    true
+                        . $this->__('Keep your image size below %s KB for optimal performance.', 50), $this->_getDesignPreviewImageUrl('conf/native/body/bannerAndroidImage'), true
                 );
                 break;
             default:
                 Mage::throwException(
-                    $this->__('Device doesn\'t recognized: "%s". Unable to load a helper.', $deviceType)
+                        $this->__('Device doesn\'t recognized: "%s". Unable to load a helper.', $deviceType)
                 );
                 break;
         }
@@ -157,16 +118,17 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Images
         return parent::_prepareForm();
     }
 
-   /**
-    * Retrieve url for images in the skin folder
-    *
-    * @deprecated will delete in the next version
-    * @param string $name - path to file name relative to the skin dir
-    * @return string
-    */
+    /**
+     * Retrieve url for images in the skin folder
+     *
+     * @deprecated will delete in the next version
+     * @param string $name - path to file name relative to the skin dir
+     * @return string
+     */
     protected function _getDesignPreviewImageUrl($name)
     {
         $name = Mage::helper('xmlconnect/image')->getInterfaceImagesPaths($name);
         return Mage::helper('xmlconnect/image')->getDefaultDesignUrl($name);
     }
+
 }

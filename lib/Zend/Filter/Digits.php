@@ -19,13 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Digits.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Filter_Interface
  */
 #require_once 'Zend/Filter/Interface.php';
-
 
 /**
  * @category   Zend
@@ -35,11 +32,12 @@
  */
 class Zend_Filter_Digits implements Zend_Filter_Interface
 {
+
     /**
      * Is PCRE is compiled with UTF-8 and Unicode support
      *
      * @var mixed
-     **/
+     * */
     protected static $_unicodeEnabled;
 
     /**
@@ -79,4 +77,5 @@ class Zend_Filter_Digits implements Zend_Filter_Interface
 
         return preg_replace($pattern, '', (string) $value);
     }
+
 }

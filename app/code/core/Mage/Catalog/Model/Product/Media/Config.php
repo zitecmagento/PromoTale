@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product media config
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_Config_Interface
 {
+
     /**
      * Filesystem directory path of product images
      * relatively to media folder
@@ -102,7 +103,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForUrl($file);
 
-        if(substr($file, 0, 1) == '/') {
+        if (substr($file, 0, 1) == '/') {
             return $this->getBaseMediaUrl() . $file;
         }
 
@@ -113,7 +114,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForPath($file);
 
-        if(substr($file, 0, 1) == DS) {
+        if (substr($file, 0, 1) == DS) {
             return $this->getBaseMediaPath() . DS . substr($file, 1);
         }
 
@@ -124,7 +125,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForUrl($file);
 
-        if(substr($file, 0, 1) == '/') {
+        if (substr($file, 0, 1) == '/') {
             $file = substr($file, 1);
         }
 
@@ -141,7 +142,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForUrl($file);
 
-        if(substr($file, 0, 1) == '/') {
+        if (substr($file, 0, 1) == '/') {
             $file = substr($file, 1);
         }
 
@@ -157,7 +158,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForUrl($file);
 
-        if(substr($file, 0, 1) == '/') {
+        if (substr($file, 0, 1) == '/') {
             $file = substr($file, 1);
         }
 
@@ -168,7 +169,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForPath($file);
 
-        if(substr($file, 0, 1) == DS) {
+        if (substr($file, 0, 1) == DS) {
             return $this->getBaseTmpMediaPath() . DS . substr($file, 1);
         }
 
@@ -184,4 +185,5 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         return str_replace('/', DS, $file);
     }
+
 }

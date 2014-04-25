@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: MediaFileSource.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_MediaData
  */
@@ -37,6 +36,7 @@
  */
 class Zend_Gdata_App_MediaFileSource extends Zend_Gdata_App_BaseMediaSource
 {
+
     /**
      * The filename which is represented
      *
@@ -70,7 +70,7 @@ class Zend_Gdata_App_MediaFileSource extends Zend_Gdata_App_BaseMediaSource
     public function encode()
     {
         if ($this->getFilename() !== null &&
-            is_readable($this->getFilename())) {
+                is_readable($this->getFilename())) {
 
             // Retrieves the file, using the include path
             $fileHandle = fopen($this->getFilename(), 'r', true);
@@ -78,14 +78,14 @@ class Zend_Gdata_App_MediaFileSource extends Zend_Gdata_App_BaseMediaSource
             if ($result === false) {
                 #require_once 'Zend/Gdata/App/IOException.php';
                 throw new Zend_Gdata_App_IOException("Error reading file - " .
-                        $this->getFilename() . '. Read failed.');
+                $this->getFilename() . '. Read failed.');
             }
             fclose($fileHandle);
             return $result;
         } else {
             #require_once 'Zend/Gdata/App/IOException.php';
             throw new Zend_Gdata_App_IOException("Error reading file - " .
-                    $this->getFilename() . '. File is not readable.');
+            $this->getFilename() . '. File is not readable.');
         }
     }
 

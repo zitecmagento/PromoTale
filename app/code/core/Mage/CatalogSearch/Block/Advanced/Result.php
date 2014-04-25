@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,49 +34,54 @@
  */
 class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
 {
+
     protected function _prepareLayout()
     {
         if ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs')) {
             $breadcrumbs->addCrumb('home', array(
-                'label'=>Mage::helper('catalogsearch')->__('Home'),
-                'title'=>Mage::helper('catalogsearch')->__('Go to Home Page'),
-                'link'=>Mage::getBaseUrl()
+                'label' => Mage::helper('catalogsearch')->__('Home'),
+                'title' => Mage::helper('catalogsearch')->__('Go to Home Page'),
+                'link' => Mage::getBaseUrl()
             ))->addCrumb('search', array(
-                'label'=>Mage::helper('catalogsearch')->__('Catalog Advanced Search'),
-                'link'=>$this->getUrl('*/*/')
+                'label' => Mage::helper('catalogsearch')->__('Catalog Advanced Search'),
+                'link' => $this->getUrl('*/*/')
             ))->addCrumb('search_result', array(
-                'label'=>Mage::helper('catalogsearch')->__('Results')
+                'label' => Mage::helper('catalogsearch')->__('Results')
             ));
         }
         return parent::_prepareLayout();
     }
 
-    public function setListOrders() {
+    public function setListOrders()
+    {
         $category = Mage::getSingleton('catalog/layer')
-            ->getCurrentCategory();
+                ->getCurrentCategory();
         /* @var $category Mage_Catalog_Model_Category */
 
         $availableOrders = $category->getAvailableSortByOptions();
         unset($availableOrders['position']);
 
         $this->getChild('search_result_list')
-            ->setAvailableOrders($availableOrders);
+                ->setAvailableOrders($availableOrders);
     }
 
-    public function setListModes() {
+    public function setListModes()
+    {
         $this->getChild('search_result_list')
-            ->setModes(array(
-                'grid' => Mage::helper('catalogsearch')->__('Grid'),
-                'list' => Mage::helper('catalogsearch')->__('List'))
-            );
+                ->setModes(array(
+                    'grid' => Mage::helper('catalogsearch')->__('Grid'),
+                    'list' => Mage::helper('catalogsearch')->__('List'))
+        );
     }
 
-    public function setListCollection() {
+    public function setListCollection()
+    {
         $this->getChild('search_result_list')
-           ->setCollection($this->_getProductCollection());
+                ->setCollection($this->_getProductCollection());
     }
 
-    protected function _getProductCollection(){
+    protected function _getProductCollection()
+    {
         return $this->getSearchModel()->getProductCollection();
     }
 
@@ -101,8 +107,8 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
     public function getFormUrl()
     {
         return Mage::getModel('core/url')
-            ->setQueryParams($this->getRequest()->getQuery())
-            ->getUrl('*/*/', array('_escape' => true));
+                        ->setQueryParams($this->getRequest()->getQuery())
+                        ->getUrl('*/*/', array('_escape' => true));
     }
 
     public function getSearchCriterias()
@@ -112,6 +118,7 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
         $left = array_slice($searchCriterias, 0, $middle);
         $right = array_slice($searchCriterias, $middle);
 
-        return array('left'=>$left, 'right'=>$right);
+        return array('left' => $left, 'right' => $right);
     }
+
 }

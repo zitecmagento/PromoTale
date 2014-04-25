@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,13 +34,15 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Block_Catalog
 {
-     /**#@+
+    /*     * #@+
      * Option input type
      */
-    const OPTION_TYPE_SELECT    = 'select';
-    const OPTION_TYPE_CHECKBOX  = 'checkbox';
-    const OPTION_TYPE_TEXT      = 'text';
-    /**#@-*/
+
+    const OPTION_TYPE_SELECT = 'select';
+    const OPTION_TYPE_CHECKBOX = 'checkbox';
+    const OPTION_TYPE_TEXT = 'text';
+
+    /*     * #@- */
 
     /**
      * Store supported product options xml renderers based on product types
@@ -126,7 +129,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Bloc
                     }
                     if ($product->hasPreconfiguredValues()) {
                         $this->_setCartSelectedValue($valueNode, $type, $this->_getPreconfiguredOption(
-                            $optionData, $optionId, $code
+                                        $optionData, $optionId, $code
                         ));
                     }
                 }
@@ -148,13 +151,13 @@ class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Bloc
      */
     protected function _formatPriceString($price, $product)
     {
-        $priceTax       = Mage::helper('tax')->getPrice($product, $price);
-        $priceIncTax    = Mage::helper('tax')->getPrice($product, $price, true);
+        $priceTax = Mage::helper('tax')->getPrice($product, $price);
+        $priceIncTax = Mage::helper('tax')->getPrice($product, $price, true);
 
         if (Mage::helper('tax')->displayBothPrices() && $priceTax != $priceIncTax) {
             $formatted = Mage::helper('core')->currency($priceTax, true, false) . ' (+'
-                . Mage::helper('core')->currency($priceIncTax, true, false) . ' '
-                . Mage::helper('tax')->__('Incl. Tax') . ')';
+                    . Mage::helper('core')->currency($priceIncTax, true, false) . ' '
+                    . Mage::helper('tax')->__('Incl. Tax') . ')';
         } else {
             $formatted = $this->helper('core')->currency($priceTax, true, false);
         }
@@ -294,6 +297,5 @@ class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Bloc
 
         return null;
     }
+
 }
-
-

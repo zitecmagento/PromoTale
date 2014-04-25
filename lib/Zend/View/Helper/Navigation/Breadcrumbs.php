@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Breadcrumbs.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_View_Helper_Navigation_HelperAbstract
  */
@@ -34,9 +34,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_View_Helper_Navigation_Breadcrumbs
-    extends Zend_View_Helper_Navigation_HelperAbstract
+class Zend_View_Helper_Navigation_Breadcrumbs extends Zend_View_Helper_Navigation_HelperAbstract
 {
+
     /**
      * Breadcrumbs separator string
      *
@@ -209,8 +209,8 @@ class Zend_View_Helper_Navigation_Breadcrumbs
             if ($parent instanceof Zend_Navigation_Page) {
                 // prepend crumb to html
                 $html = $this->htmlify($parent)
-                      . $this->getSeparator()
-                      . $html;
+                        . $this->getSeparator()
+                        . $html;
             }
 
             if ($parent === $container) {
@@ -247,8 +247,7 @@ class Zend_View_Helper_Navigation_Breadcrumbs
      *                                               be found.
      * @return string                                helper output
      */
-    public function renderPartial(Zend_Navigation_Container $container = null,
-                                  $partial = null)
+    public function renderPartial(Zend_Navigation_Container $container = null, $partial = null)
     {
         if (null === $container) {
             $container = $this->getContainer();
@@ -261,7 +260,7 @@ class Zend_View_Helper_Navigation_Breadcrumbs
         if (empty($partial)) {
             #require_once 'Zend/View/Exception.php';
             $e = new Zend_View_Exception(
-                'Unable to render menu: No partial view script provided'
+                    'Unable to render menu: No partial view script provided'
             );
             $e->setView($this->view);
             throw $e;
@@ -293,9 +292,9 @@ class Zend_View_Helper_Navigation_Breadcrumbs
             if (count($partial) != 2) {
                 #require_once 'Zend/View/Exception.php';
                 $e = new Zend_View_Exception(
-                    'Unable to render menu: A view partial supplied as ' 
-                    .  'an array must contain two values: partial view ' 
-                    .  'script and module where script can be found'
+                        'Unable to render menu: A view partial supplied as '
+                        . 'an array must contain two values: partial view '
+                        . 'script and module where script can be found'
                 );
                 $e->setView($this->view);
                 throw $e;
@@ -328,4 +327,5 @@ class Zend_View_Helper_Navigation_Breadcrumbs
             return $this->renderStraight($container);
         }
     }
+
 }

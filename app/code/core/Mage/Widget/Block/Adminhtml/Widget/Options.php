@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Widget
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Element type used by default if configuration is omitted
      * @var string
@@ -87,8 +88,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         $mainFieldsetHtmlId = 'options_fieldset' . md5($this->getWidgetType());
         $this->setMainFieldsetHtmlId($mainFieldsetHtmlId);
         $fieldset = $this->getForm()->addFieldset($mainFieldsetHtmlId, array(
-            'legend'    => $this->helper('widget')->__('Widget Options'),
-            'class'     => 'fieldset-wide',
+            'legend' => $this->helper('widget')->__('Widget Options'),
+            'class' => 'fieldset-wide',
         ));
         $this->setData('main_fieldset', $fieldset);
 
@@ -133,21 +134,19 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
     {
         $form = $this->getForm();
         $fieldset = $this->getMainFieldset(); //$form->getElement('options_fieldset');
-
         // prepare element data with values (either from request of from default values)
         $fieldName = $parameter->getKey();
         $data = array(
-            'name'      => $form->addSuffixToName($fieldName, 'parameters'),
-            'label'     => $this->_translationHelper->__($parameter->getLabel()),
-            'required'  => $parameter->getRequired(),
-            'class'     => 'widget-option',
-            'note'      => $this->_translationHelper->__($parameter->getDescription()),
+            'name' => $form->addSuffixToName($fieldName, 'parameters'),
+            'label' => $this->_translationHelper->__($parameter->getLabel()),
+            'required' => $parameter->getRequired(),
+            'class' => 'widget-option',
+            'note' => $this->_translationHelper->__($parameter->getDescription()),
         );
 
         if ($values = $this->getWidgetValues()) {
             $data['value'] = (isset($values[$fieldName]) ? $values[$fieldName] : '');
-        }
-        else {
+        } else {
             $data['value'] = $parameter->getValue();
             //prepare unique id value
             if ($fieldName == 'unique_id' && $data['value'] == '') {
@@ -156,7 +155,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         }
 
         // prepare element dropdown values
-        if ($values  = $parameter->getValues()) {
+        if ($values = $parameter->getValues()) {
             // dropdown options are specified in configuration
             $data['values'] = array();
             foreach ($values as $option) {
@@ -195,9 +194,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
             $helperBlock = $this->getLayout()->createBlock($helper->getType(), '', $helper->getData());
             if ($helperBlock instanceof Varien_Object) {
                 $helperBlock->setConfig($helper->getData())
-                    ->setFieldsetId($fieldset->getId())
-                    ->setTranslationHelper($this->_translationHelper)
-                    ->prepareElementHtml($field);
+                        ->setFieldsetId($fieldset->getId())
+                        ->setTranslationHelper($this->_translationHelper)
+                        ->prepareElementHtml($field);
             }
         }
 
@@ -206,11 +205,12 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         $dependenceBlock->addFieldMap($field->getId(), $fieldName);
         if ($parameter->getDepends()) {
             foreach ($parameter->getDepends() as $from => $row) {
-                $values = isset($row['values']) ? array_values($row['values']) : (string)$row['value'];
+                $values = isset($row['values']) ? array_values($row['values']) : (string) $row['value'];
                 $dependenceBlock->addFieldDependence($fieldName, $from, $values);
             }
         }
 
         return $field;
     }
+
 }

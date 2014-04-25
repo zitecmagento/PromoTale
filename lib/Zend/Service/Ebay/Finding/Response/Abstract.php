@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 22824 2010-08-09 18:59:54Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Abstract
  */
@@ -35,6 +35,7 @@
  */
 abstract class Zend_Service_Ebay_Finding_Response_Abstract extends Zend_Service_Ebay_Finding_Abstract
 {
+
     /**
      * Indicates whether or not errors or warnings were generated during the
      * processing of the request.
@@ -118,9 +119,9 @@ abstract class Zend_Service_Ebay_Finding_Response_Abstract extends Zend_Service_
         parent::_init();
         $ns = Zend_Service_Ebay_Finding::XMLNS_FINDING;
 
-        $this->ack       = $this->_query(".//$ns:ack[1]", 'string');
+        $this->ack = $this->_query(".//$ns:ack[1]", 'string');
         $this->timestamp = $this->_query(".//$ns:timestamp[1]", 'string');
-        $this->version   = $this->_query(".//$ns:version[1]", 'string');
+        $this->version = $this->_query(".//$ns:version[1]", 'string');
 
         $node = $this->_xPath->query(".//$ns:errorMessage[1]", $this->_dom)->item(0);
         if ($node) {
@@ -182,4 +183,5 @@ abstract class Zend_Service_Ebay_Finding_Response_Abstract extends Zend_Service_
         }
         return null;
     }
+
 }

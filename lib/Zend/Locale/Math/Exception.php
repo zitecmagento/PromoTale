@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,13 +19,10 @@
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-
 /**
  * Zend_Exception
  */
 #require_once 'Zend/Locale/Exception.php';
-
 
 /**
  * @category   Zend
@@ -34,6 +32,7 @@
  */
 class Zend_Locale_Math_Exception extends Zend_Locale_Exception
 {
+
     protected $op1 = null;
     protected $op2 = null;
     protected $result = null;
@@ -50,4 +49,5 @@ class Zend_Locale_Math_Exception extends Zend_Locale_Exception
     {
         return array($this->op1, $this->op2, $this->result);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 
@@ -33,10 +33,9 @@ $installer->getConnection()->addColumn($installer->getTable('core/variable_value
 $installer->getConnection()->addColumn($installer->getTable('core/variable_value'), 'html_value', 'TEXT NOT NULL');
 
 $select = $installer->getConnection()->select()
-    ->from(array('main_table' => $installer->getTable('core/variable')), array())
-    ->join(array('value_table' => $installer->getTable('core/variable_value')),
-        'value_table.variable_id = main_table.variable_id', array())
-    ->columns(array('main_table.variable_id', 'main_table.is_html', 'value_table.value'));
+        ->from(array('main_table' => $installer->getTable('core/variable')), array())
+        ->join(array('value_table' => $installer->getTable('core/variable_value')), 'value_table.variable_id = main_table.variable_id', array())
+        ->columns(array('main_table.variable_id', 'main_table.is_html', 'value_table.value'));
 
 $data = array();
 foreach ($installer->getConnection()->fetchAll($select) as $row) {
@@ -49,8 +48,7 @@ foreach ($installer->getConnection()->fetchAll($select) as $row) {
 }
 
 foreach ($data as $variableId => $value) {
-    $installer->getConnection()->update($installer->getTable('core/variable_value'), $value,
-        array('variable_id = ?' => $variableId));
+    $installer->getConnection()->update($installer->getTable('core/variable_value'), $value, array('variable_id = ?' => $variableId));
 }
 
 $installer->getConnection()->dropColumn($installer->getTable('core/variable'), 'is_html');

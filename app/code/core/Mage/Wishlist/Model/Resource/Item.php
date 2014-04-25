@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist item model resource
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Wishlist_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize connection and define main table
      *
@@ -56,14 +57,14 @@ class Mage_Wishlist_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Abst
     {
         $adapter = $this->_getReadAdapter();
         $storeWhere = $adapter->quoteInto('store_id IN (?)', $sharedStores);
-        $select  = $adapter->select()
-            ->from($this->getMainTable())
-            ->where('wishlist_id=:wishlist_id AND '
+        $select = $adapter->select()
+                ->from($this->getMainTable())
+                ->where('wishlist_id=:wishlist_id AND '
                 . 'product_id=:product_id AND '
                 . $storeWhere);
         $bind = array(
             'wishlist_id' => $wishlistId,
-            'product_id'  => $productId
+            'product_id' => $productId
         );
         $data = $adapter->fetchRow($select, $bind);
         if ($data) {
@@ -73,4 +74,5 @@ class Mage_Wishlist_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Abst
 
         return $this;
     }
+
 }

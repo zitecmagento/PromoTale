@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CellEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Entry
  */
@@ -70,14 +69,14 @@ class Zend_Gdata_Spreadsheets_CellEntry extends Zend_Gdata_Entry
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-        case $this->lookupNamespace('gs') . ':' . 'cell';
-            $cell = new Zend_Gdata_Spreadsheets_Extension_Cell();
-            $cell->transferFromDOM($child);
-            $this->_cell = $cell;
-            break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            case $this->lookupNamespace('gs') . ':' . 'cell';
+                $cell = new Zend_Gdata_Spreadsheets_Extension_Cell();
+                $cell->transferFromDOM($child);
+                $this->_cell = $cell;
+                break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 

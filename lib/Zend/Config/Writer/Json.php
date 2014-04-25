@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Json.php 23294 2010-11-05 00:27:34Z ramon $
  */
-
 /**
  * @see Zend_Config_Writer
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Config_Writer_Json extends Zend_Config_Writer_FileAbstract
 {
+
     /**
      * If we need to pretty-print JSON data
      *
@@ -74,9 +75,9 @@ class Zend_Config_Writer_Json extends Zend_Config_Writer_FileAbstract
      */
     public function render()
     {
-        $data        = $this->_config->toArray();
+        $data = $this->_config->toArray();
         $sectionName = $this->_config->getSectionName();
-        $extends     = $this->_config->getExtends();
+        $extends = $this->_config->getExtends();
 
         if (is_string($sectionName)) {
             $data = array($sectionName => $data);
@@ -99,8 +100,9 @@ class Zend_Config_Writer_Json extends Zend_Config_Writer_FileAbstract
 
         $out = Zend_Json::encode($data);
         if ($this->prettyPrint()) {
-             $out = Zend_Json::prettyPrint($out);
+            $out = Zend_Json::prettyPrint($out);
         }
         return $out;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 class Zend_Queue implements Countable
 {
+
     /**
      * Use the TIMEOUT constant in the config of a Zend_Queue
      */
@@ -103,8 +105,7 @@ class Zend_Queue implements Countable
         }
 
         // last minute error checking
-        if ((null === $adapter)
-            && (!is_array($options) && (!$options instanceof Zend_Config))
+        if ((null === $adapter) && (!is_array($options) && (!$options instanceof Zend_Config))
         ) {
             #require_once 'Zend/Queue/Exception.php';
             throw new Zend_Queue_Exception('No valid params passed to constructor');
@@ -215,15 +216,11 @@ class Zend_Queue implements Countable
             }
 
             $adapterName = str_replace(
-                ' ',
-                '_',
-                ucwords(
-                    str_replace(
-                        '_',
-                        ' ',
-                        strtolower($adapterNamespace . '_' . $adapter)
+                    ' ', '_', ucwords(
+                            str_replace(
+                                    '_', ' ', strtolower($adapterNamespace . '_' . $adapter)
+                            )
                     )
-                )
             );
 
             if (!class_exists($adapterName)) {
@@ -351,8 +348,8 @@ class Zend_Queue implements Countable
         }
 
         $options = array(
-            self::NAME  => $name,
-            'timeout'   => $timeout
+            self::NAME => $name,
+            'timeout' => $timeout
         );
 
         return new self($this->getAdapter(), $options);
@@ -370,8 +367,7 @@ class Zend_Queue implements Countable
     {
         if ($this->isSupported('delete')) {
             $deleted = $this->getAdapter()->delete($this->getName());
-        }
-        else {
+        } else {
             $deleted = true;
         }
 
@@ -436,7 +432,7 @@ class Zend_Queue implements Countable
      * @param  integer $timeout
      * @return Zend_Queue_Message_Iterator
      */
-    public function receive($maxMessages=null, $timeout=null)
+    public function receive($maxMessages = null, $timeout = null)
     {
         if (($maxMessages !== null) && !is_integer($maxMessages)) {
             #require_once 'Zend/Queue/Exception.php';
@@ -504,7 +500,7 @@ class Zend_Queue implements Countable
     public function getQueues()
     {
         if (!$this->isSupported('getQueues')) {
-            throw new Zend_Queue_Exception( __FUNCTION__ . '() is not supported by ' . get_class($this->getAdapter()));
+            throw new Zend_Queue_Exception(__FUNCTION__ . '() is not supported by ' . get_class($this->getAdapter()));
         }
 
         return $this->getAdapter()->getQueues();
@@ -553,17 +549,18 @@ class Zend_Queue implements Countable
     public function debugInfo()
     {
         $info = array();
-        $info['self']                     = get_class($this);
-        $info['adapter']                  = get_class($this->getAdapter());
+        $info['self'] = get_class($this);
+        $info['adapter'] = get_class($this->getAdapter());
         foreach ($this->getAdapter()->getCapabilities() as $feature => $supported) {
-            $info['adapter-' . $feature]  = ($supported) ? 'yes' : 'no';
+            $info['adapter-' . $feature] = ($supported) ? 'yes' : 'no';
         }
-        $info['options']                  = $this->getOptions();
+        $info['options'] = $this->getOptions();
         $info['options']['driverOptions'] = '[hidden]';
-        $info['currentQueue']             = $this->getName();
-        $info['messageClass']             = $this->getMessageClass();
-        $info['messageSetClass']          = $this->getMessageSetClass();
+        $info['currentQueue'] = $this->getName();
+        $info['messageClass'] = $this->getMessageClass();
+        $info['messageSetClass'] = $this->getMessageSetClass();
 
         return $info;
     }
+
 }

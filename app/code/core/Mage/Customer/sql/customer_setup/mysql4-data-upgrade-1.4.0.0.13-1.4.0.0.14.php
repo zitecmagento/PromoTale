@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Customer_Model_Entity_Setup */
 $installer = $this;
 /* @var $eavConfig Mage_Eav_Model_Config */
@@ -31,23 +31,23 @@ $eavConfig = Mage::getSingleton('eav/config');
 
 // update customer system attributes used_in_forms data
 $attributes = array(
-    'confirmation'      => array(),
-    'default_billing'   => array(),
-    'default_shipping'  => array(),
-    'password_hash'     => array(),
-    'website_id'        => array('adminhtml_only' => 1),
-    'created_in'        => array('adminhtml_only' => 1),
-    'store_id'          => array(),
-    'group_id'          => array('adminhtml_only' => 1, 'admin_checkout' => 1),
-    'prefix'            => array(),
-    'firstname'         => array(),
-    'middlename'        => array(),
-    'lastname'          => array(),
-    'suffix'            => array(),
-    'email'             => array('admin_checkout' => 1),
-    'dob'               => array('admin_checkout' => 1),
-    'taxvat'            => array('admin_checkout' => 1),
-    'gender'            => array('admin_checkout' => 1),
+    'confirmation' => array(),
+    'default_billing' => array(),
+    'default_shipping' => array(),
+    'password_hash' => array(),
+    'website_id' => array('adminhtml_only' => 1),
+    'created_in' => array('adminhtml_only' => 1),
+    'store_id' => array(),
+    'group_id' => array('adminhtml_only' => 1, 'admin_checkout' => 1),
+    'prefix' => array(),
+    'firstname' => array(),
+    'middlename' => array(),
+    'lastname' => array(),
+    'suffix' => array(),
+    'email' => array('admin_checkout' => 1),
+    'dob' => array('admin_checkout' => 1),
+    'taxvat' => array('admin_checkout' => 1),
+    'gender' => array('admin_checkout' => 1),
 );
 
 $defaultUsedInForms = array(

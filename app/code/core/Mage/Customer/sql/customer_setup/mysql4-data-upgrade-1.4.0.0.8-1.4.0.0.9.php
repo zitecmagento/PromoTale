@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /* @var $installer Mage_Customer_Model_Entity_Setup */
 $installer = $this;
 
@@ -34,7 +33,7 @@ $addressHelper = Mage::helper('customer/address');
 /* @var $eavConfig Mage_Eav_Model_Config */
 $eavConfig = Mage::getSingleton('eav/config');
 
-$websites  = Mage::app()->getWebsites(false);
+$websites = Mage::app()->getWebsites(false);
 foreach ($websites as $website) {
     /* @var $website Mage_Core_Model_Website */
     $store = $website->getDefaultStore();
@@ -53,20 +52,20 @@ foreach ($websites as $website) {
     );
 
     foreach ($attributes as $attributeCode) {
-        $attribute      = $eavConfig->getAttribute('customer', $attributeCode);
-        $configValue    = $addressHelper->getConfig($attributeCode . '_show', $store);
-        $isVisible      = $attribute->getData('is_visible');
-        $isRequired     = $attribute->getData('is_required');
+        $attribute = $eavConfig->getAttribute('customer', $attributeCode);
+        $configValue = $addressHelper->getConfig($attributeCode . '_show', $store);
+        $isVisible = $attribute->getData('is_visible');
+        $isRequired = $attribute->getData('is_required');
 
         if ($configValue == 'opt' || $configValue == '1') {
-            $scopeIsVisible     = '1';
-            $scopeIsRequired    = '0';
+            $scopeIsVisible = '1';
+            $scopeIsRequired = '0';
         } else if ($configValue == 'req') {
-            $scopeIsVisible     = '1';
-            $scopeIsRequired    = '1';
+            $scopeIsVisible = '1';
+            $scopeIsRequired = '1';
         } else {
-            $scopeIsVisible     = '0';
-            $scopeIsRequired    = '0';
+            $scopeIsVisible = '0';
+            $scopeIsRequired = '0';
         }
 
         if ($isVisible != $scopeIsVisible || $isRequired != $scopeIsRequired) {
@@ -85,20 +84,20 @@ foreach ($websites as $website) {
     );
 
     foreach ($attributes as $attributeCode) {
-        $attribute      = $eavConfig->getAttribute('customer_address', $attributeCode);
-        $configValue    = $addressHelper->getConfig($attributeCode . '_show', $store);
-        $isVisible      = $attribute->getData('is_visible');
-        $isRequired     = $attribute->getData('is_required');
+        $attribute = $eavConfig->getAttribute('customer_address', $attributeCode);
+        $configValue = $addressHelper->getConfig($attributeCode . '_show', $store);
+        $isVisible = $attribute->getData('is_visible');
+        $isRequired = $attribute->getData('is_required');
 
         if ($configValue == 'opt' || $configValue == '1') {
-            $scopeIsVisible     = '1';
-            $scopeIsRequired    = '0';
+            $scopeIsVisible = '1';
+            $scopeIsRequired = '0';
         } else if ($configValue == 'req') {
-            $scopeIsVisible     = '1';
-            $scopeIsRequired    = '1';
+            $scopeIsVisible = '1';
+            $scopeIsRequired = '1';
         } else {
-            $scopeIsVisible     = '0';
-            $scopeIsRequired    = '0';
+            $scopeIsVisible = '0';
+            $scopeIsRequired = '0';
         }
 
         if ($isVisible != $scopeIsVisible || $isRequired != $scopeIsRequired) {
@@ -110,7 +109,7 @@ foreach ($websites as $website) {
     }
 
     $attribute = $eavConfig->getAttribute('customer_address', 'street');
-    $value     = $addressHelper->getConfig('street_lines', $store);
+    $value = $addressHelper->getConfig('street_lines', $store);
     if ($attribute->getData('multiline_count') != $value) {
         $attribute->setWebsite($website);
         $attribute->setScopeMultilineCount($value);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Interface.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
@@ -29,6 +29,7 @@
  */
 interface Zend_Cache_Backend_Interface
 {
+
     /**
      * Set the frontend directives
      *
@@ -95,5 +96,4 @@ interface Zend_Cache_Backend_Interface
      * @return boolean true if no problem
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array());
-
 }

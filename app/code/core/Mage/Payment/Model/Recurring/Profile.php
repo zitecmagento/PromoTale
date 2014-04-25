@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
 {
+
     /**
      * Constants for passing data through catalog
      *
@@ -109,7 +111,8 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             $this->_errors['period_unit'][] = Mage::helper('payment')->__('Billing period unit is not defined or wrong.');
         }
         if ($this->getPeriodFrequency() && !$this->_validatePeriodFrequency('period_unit', 'period_frequency')) {
-            $this->_errors['period_frequency'][] = Mage::helper('payment')->__('Period frequency is wrong.');;
+            $this->_errors['period_frequency'][] = Mage::helper('payment')->__('Period frequency is wrong.');
+            ;
         }
 
         // trial period unit, trial frequency, trial period max cycles, trial billing amount
@@ -148,9 +151,12 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             $this->_errors['method_code'][] = Mage::helper('payment')->__('Payment method code is undefined.');
         }
         if ($this->_methodInstance) {
-            try {
+            try
+            {
                 $this->_methodInstance->validateRecurringProfile($this);
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_errors['payment_method'][] = $e->getMessage();
             }
         }
@@ -173,7 +179,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             }
             if ($asMessage) {
                 return Mage::throwException(
-                    Mage::helper('payment')->__("Payment profile is invalid:\n%s", implode("\n", $result))
+                                Mage::helper('payment')->__("Payment profile is invalid:\n%s", implode("\n", $result))
                 );
             }
             return $result;
@@ -217,7 +223,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
                 Mage::throwException(Mage::helper('payment')->__('Recurring profile start date has invalid format.'));
             }
             $utcTime = $this->_locale->utcDate($this->_store, $startDate, true, $dateFormat)
-                ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+                    ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
             $this->setStartDatetime($utcTime)->setImportedStartDatetime($startDate);
         }
         return $this->_filterValues();
@@ -267,14 +273,14 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     {
         $result = array(
             new Varien_Object(array(
-                'title'    => Mage::helper('payment')->__('Billing Period'),
+                'title' => Mage::helper('payment')->__('Billing Period'),
                 'schedule' => $this->_renderSchedule('period_unit', 'period_frequency', 'period_max_cycles'),
-            ))
+                    ))
         );
         $trial = $this->_renderSchedule('trial_period_unit', 'trial_period_frequency', 'trial_period_max_cycles');
         if ($trial) {
             $result[] = new Varien_Object(array(
-                'title'    => Mage::helper('payment')->__('Trial Period'),
+                'title' => Mage::helper('payment')->__('Trial Period'),
                 'schedule' => $trial,
             ));
         }
@@ -375,11 +381,11 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     public function getPeriodUnitLabel($unit)
     {
         switch ($unit) {
-            case self::PERIOD_UNIT_DAY:  return Mage::helper('payment')->__('Day');
+            case self::PERIOD_UNIT_DAY: return Mage::helper('payment')->__('Day');
             case self::PERIOD_UNIT_WEEK: return Mage::helper('payment')->__('Week');
             case self::PERIOD_UNIT_SEMI_MONTH: return Mage::helper('payment')->__('Two Weeks');
             case self::PERIOD_UNIT_MONTH: return Mage::helper('payment')->__('Month');
-            case self::PERIOD_UNIT_YEAR:  return Mage::helper('payment')->__('Year');
+            case self::PERIOD_UNIT_YEAR: return Mage::helper('payment')->__('Year');
         }
         return $unit;
     }
@@ -506,15 +512,14 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         // determine payment method/code
         if ($this->_methodInstance) {
             $this->setMethodCode($this->_methodInstance->getCode());
-        }
-        elseif ($this->getMethodCode()) {
+        } elseif ($this->getMethodCode()) {
             $this->getMethodInstance();
         }
 
         // unset redundant values, if empty
         foreach (array('schedule_description',
-            'suspension_threshold', 'bill_failed_later', 'period_frequency', 'period_max_cycles', 'reference_id',
-            'trial_period_unit', 'trial_period_frequency', 'trial_period_max_cycles', 'init_may_fail') as $key) {
+    'suspension_threshold', 'bill_failed_later', 'period_frequency', 'period_max_cycles', 'reference_id',
+    'trial_period_unit', 'trial_period_frequency', 'trial_period_max_cycles', 'init_may_fail') as $key) {
             if ($this->hasData($key) && (!$this->getData($key) || '0' == $this->getData($key))) {
                 $this->unsetData($key);
             }
@@ -522,7 +527,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
 
         // cast amounts
         foreach (array(
-            'billing_amount', 'trial_billing_amount', 'shipping_amount', 'tax_amount', 'init_amount') as $key) {
+    'billing_amount', 'trial_billing_amount', 'shipping_amount', 'tax_amount', 'init_amount') as $key) {
             if ($this->hasData($key)) {
                 if (!$this->getData($key) || 0 == $this->getData($key)) {
                     $this->unsetData($key);
@@ -596,7 +601,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         }
         if (!$this->getInternalReferenceId()) {
             Mage::throwException(
-                Mage::helper('payment')->__('An internal reference ID is required to save the payment profile.')
+                    Mage::helper('payment')->__('An internal reference ID is required to save the payment profile.')
             );
         }
     }
@@ -627,7 +632,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         $result = array();
 
         $period = $this->_getData($periodKey);
-        $frequency = (int)$this->_getData($frequencyKey);
+        $frequency = (int) $this->_getData($frequencyKey);
         if (!$period || !$frequency) {
             return $result;
         }
@@ -636,7 +641,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         }
         $result[] = Mage::helper('payment')->__('%s %s cycle.', $frequency, $this->getPeriodUnitLabel($period));
 
-        $cycles = (int)$this->_getData($cyclesKey);
+        $cycles = (int) $this->_getData($cyclesKey);
         if ($cycles) {
             $result[] = Mage::helper('payment')->__('Repeats %s time(s).', $cycles);
         } else {
@@ -644,4 +649,5 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         }
         return $result;
     }
+
 }

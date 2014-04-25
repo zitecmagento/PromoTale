@@ -25,32 +25,33 @@
  */
 ?>
 <?php
-    $columns = $this->getColumns();
+$columns = $this->getColumns();
 ?>
 <table class="data-table" id="wishlist-table">
     <tbody>
         <?php if (count($this->getItems())): ?>
             <?php foreach ($this->getItems() as $item): ?>
-                <tr id="item_<?php echo $item->getId();?>">
+                <tr id="item_<?php echo $item->getId(); ?>">
                     <td>
                         <?php foreach ($columns as $column): ?>
-                            <?php $column->setItem($item); echo $column->toHtml($item);?>
-                        <?php endforeach; ?>
+                            <?php $column->setItem($item);
+                            echo $column->toHtml($item); ?>
+        <?php endforeach; ?>
                     </td>
                 </tr>
             <?php endforeach ?>
-        <?php else: ?>
-            <td colspan="<?php echo count($columns);?>" class="wishlist-empty"><?php echo $this->__('This Wishlist has no Items');?></td>
-        <?php endif; ?>
-    </tbody>
+    <?php else: ?>
+        <td colspan="<?php echo count($columns); ?>" class="wishlist-empty"><?php echo $this->__('This Wishlist has no Items'); ?></td>
+<?php endif; ?>
+</tbody>
 </table>
 <?php foreach ($columns as $column): ?>
-    <?php echo $column->getAdditionalHtml();?>
+    <?php echo $column->getAdditionalHtml(); ?>
 <?php endforeach; ?>
 <script type="text/javascript">
 //<![CDATA[
 <?php foreach ($columns as $column): ?>
-    <?php echo $column->getJs();?>
+    <?php echo $column->getJs(); ?>
 <?php endforeach; ?>
 //]]>
 </script>

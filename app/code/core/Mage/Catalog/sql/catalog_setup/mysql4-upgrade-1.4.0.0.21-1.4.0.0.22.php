@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,31 +24,26 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $installer = $this;
 $installer->startSetup();
 
-$entityTypeId     = $installer->getEntityTypeId('catalog_category');
-$attributeSetId   = $installer->getDefaultAttributeSetId($entityTypeId);
+$entityTypeId = $installer->getEntityTypeId('catalog_category');
+$attributeSetId = $installer->getDefaultAttributeSetId($entityTypeId);
 $attributeGroupId = $installer->getDefaultAttributeGroupId($entityTypeId, $attributeSetId);
 
-$installer->addAttribute('catalog_category', 'include_in_menu',  array(
-    'type'     => 'int',
-    'label'    => 'Include in Navigation Menu',
-    'input'    => 'select',
-    'source'   => 'eav/entity_attribute_source_boolean',
-    'global'   => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+$installer->addAttribute('catalog_category', 'include_in_menu', array(
+    'type' => 'int',
+    'label' => 'Include in Navigation Menu',
+    'input' => 'select',
+    'source' => 'eav/entity_attribute_source_boolean',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
     'required' => false,
-    'default'  => 1
+    'default' => 1
 ));
 
 $installer->addAttributeToGroup(
-    $entityTypeId,
-    $attributeSetId,
-    $attributeGroupId,
-    'include_in_menu',
-    '10'
+        $entityTypeId, $attributeSetId, $attributeGroupId, 'include_in_menu', '10'
 );
 
 $attributeId = $installer->getAttributeId($entityTypeId, 'include_in_menu');

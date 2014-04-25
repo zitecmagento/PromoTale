@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Payment_Method_Paypal_Mep extends Mage_Paypal_Model_Express
 {
+
     /**
      * Store MEP payment method code
      */
@@ -43,12 +45,11 @@ class Mage_XmlConnect_Model_Payment_Method_Paypal_Mep extends Mage_Paypal_Model_
      *
      * @var string
      */
-    protected $_code  = self::MEP_METHOD_CODE;
-
-    protected $_canUseInternal          = false;
-    protected $_canUseForMultishipping  = false;
-    protected $_isInitializeNeeded      = false;
-    protected $_canUseCheckout          = false;
+    protected $_code = self::MEP_METHOD_CODE;
+    protected $_canUseInternal = false;
+    protected $_canUseForMultishipping = false;
+    protected $_isInitializeNeeded = false;
+    protected $_canUseCheckout = false;
     protected $_canManageRecurringProfiles = false;
 
     /**
@@ -82,7 +83,7 @@ class Mage_XmlConnect_Model_Payment_Method_Paypal_Mep extends Mage_Paypal_Model_
         }
 
         return (bool) Mage::getModel('paypal/config')->setStoreId($storeId)
-            ->isMethodAvailable(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
+                        ->isMethodAvailable(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
     }
 
     /**
@@ -95,7 +96,7 @@ class Mage_XmlConnect_Model_Payment_Method_Paypal_Mep extends Mage_Paypal_Model_
     public function capture(Varien_Object $payment, $amount)
     {
         $transactionId = $payment->getAdditionalInformation(
-            Mage_XmlConnect_Model_Paypal_Mep_Checkout::PAYMENT_INFO_TRANSACTION_ID
+                Mage_XmlConnect_Model_Paypal_Mep_Checkout::PAYMENT_INFO_TRANSACTION_ID
         );
         $payment->setTransactionId($transactionId);
         return $this;
@@ -110,4 +111,5 @@ class Mage_XmlConnect_Model_Payment_Method_Paypal_Mep extends Mage_Paypal_Model_
     {
         return Mage::helper('xmlconnect')->__('PayPal MEP');
     }
+
 }

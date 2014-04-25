@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
@@ -32,26 +32,26 @@ $installer->startSetup();
 $defaultValue = 'container2';
 
 $installer->addAttribute('catalog_product', 'options_container', array(
-    'group'             => 'Design',
-    'type'              => 'varchar',
-    'backend'           => '',
-    'frontend'          => '',
-    'label'             => 'Display Product Options In',
-    'input'             => 'select',
-    'class'             => '',
-    'source'            => 'catalog/entity_product_attribute_design_options_container',
-    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    'visible'           => true,
-    'required'          => false,
-    'user_defined'      => false,
-    'default'           => $defaultValue,
-    'searchable'        => false,
-    'filterable'        => false,
-    'comparable'        => false,
-    'visible_on_front'  => false,
+    'group' => 'Design',
+    'type' => 'varchar',
+    'backend' => '',
+    'frontend' => '',
+    'label' => 'Display Product Options In',
+    'input' => 'select',
+    'class' => '',
+    'source' => 'catalog/entity_product_attribute_design_options_container',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+    'visible' => true,
+    'required' => false,
+    'user_defined' => false,
+    'default' => $defaultValue,
+    'searchable' => false,
+    'filterable' => false,
+    'comparable' => false,
+    'visible_on_front' => false,
     'visible_in_advanced_search' => false,
-    'unique'            => false,
-    )
+    'unique' => false,
+        )
 );
 
 $newAttributeId = $installer->getAttributeId('catalog_product', 'options_container');

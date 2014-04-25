@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: QueryDataSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see PHPUnit_Extensions_Database_DataSet_QueryDataSet
  */
@@ -52,6 +52,7 @@
  */
 class Zend_Test_PHPUnit_Db_DataSet_QueryDataSet extends PHPUnit_Extensions_Database_DataSet_QueryDataSet
 {
+
     /**
      * Creates a new dataset using the given database connection.
      *
@@ -59,7 +60,7 @@ class Zend_Test_PHPUnit_Db_DataSet_QueryDataSet extends PHPUnit_Extensions_Datab
      */
     public function __construct(PHPUnit_Extensions_Database_DB_IDatabaseConnection $databaseConnection)
     {
-        if( !($databaseConnection instanceof Zend_Test_PHPUnit_Db_Connection) ) {
+        if (!($databaseConnection instanceof Zend_Test_PHPUnit_Db_Connection)) {
             #require_once "Zend/Test/PHPUnit/Db/Exception.php";
             throw new Zend_Test_PHPUnit_Db_Exception("Zend_Test_PHPUnit_Db_DataSet_QueryDataSet only works with Zend_Test_PHPUnit_Db_Connection connections-");
         }
@@ -81,10 +82,11 @@ class Zend_Test_PHPUnit_Db_DataSet_QueryDataSet extends PHPUnit_Extensions_Datab
             $query->from($tableName, Zend_Db_Select::SQL_WILDCARD);
         }
 
-        if($query instanceof Zend_Db_Select) {
+        if ($query instanceof Zend_Db_Select) {
             $query = $query->__toString();
         }
 
         $this->tables[$tableName] = new Zend_Test_PHPUnit_Db_DataSet_QueryTable($tableName, $query, $this->databaseConnection);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,11 +24,10 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Payment_Model_Method_Purchaseorder extends Mage_Payment_Model_Method_Abstract
 {
-    protected $_code  = 'purchaseorder';
+
+    protected $_code = 'purchaseorder';
     protected $_formBlockType = 'payment/form_purchaseorder';
     protected $_infoBlockType = 'payment/info_purchaseorder';
 
@@ -46,4 +46,5 @@ class Mage_Payment_Model_Method_Purchaseorder extends Mage_Payment_Model_Method_
         $this->getInfoInstance()->setPoNumber($data->getPoNumber());
         return $this;
     }
+
 }

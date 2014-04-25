@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DefaultComplexType.php 22674 2010-07-25 19:35:20Z ramon $
  */
-
 /**
  * @see Zend_Soap_Wsdl_Strategy_Abstract
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Soap_Wsdl_Strategy_DefaultComplexType extends Zend_Soap_Wsdl_Strategy_Abstract
 {
+
     /**
      * Add a complex type by recursivly using all the class properties fetched via Reflection.
      *
@@ -44,11 +45,11 @@ class Zend_Soap_Wsdl_Strategy_DefaultComplexType extends Zend_Soap_Wsdl_Strategy
      */
     public function addComplexType($type)
     {
-        if(!class_exists($type)) {
+        if (!class_exists($type)) {
             #require_once "Zend/Soap/Wsdl/Exception.php";
             throw new Zend_Soap_Wsdl_Exception(sprintf(
-                "Cannot add a complex type %s that is not an object or where ".
-                "class could not be found in 'DefaultComplexType' strategy.", $type
+                    "Cannot add a complex type %s that is not an object or where " .
+                    "class could not be found in 'DefaultComplexType' strategy.", $type
             ));
         }
 
@@ -88,4 +89,5 @@ class Zend_Soap_Wsdl_Strategy_DefaultComplexType extends Zend_Soap_Wsdl_Strategy
 
         return "tns:$type";
     }
+
 }

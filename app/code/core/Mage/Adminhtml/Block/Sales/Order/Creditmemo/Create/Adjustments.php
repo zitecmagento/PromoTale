@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,7 +26,9 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mage_Adminhtml_Block_Template
 {
+
     protected $_source;
+
     /**
      * Initialize creditmemo agjustment totals
      *
@@ -34,10 +37,10 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mag
     public function initTotals()
     {
         $parent = $this->getParentBlock();
-        $this->_source  = $parent->getSource();
+        $this->_source = $parent->getSource();
         $total = new Varien_Object(array(
-            'code'      => 'agjustments',
-            'block_name'=> $this->getNameInLayout()
+            'code' => 'agjustments',
+            'block_name' => $this->getNameInLayout()
         ));
         $parent->removeTotal('shipping');
         $parent->removeTotal('adjustment_positive');
@@ -84,4 +87,5 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mag
         }
         return $label;
     }
+
 }

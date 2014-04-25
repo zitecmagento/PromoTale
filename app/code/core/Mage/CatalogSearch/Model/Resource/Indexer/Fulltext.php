@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogSearch fulltext indexer resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogSearch_Model_Resource_Indexer_Fulltext extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize connection and define catalog product table as main table
      */
@@ -52,9 +53,10 @@ class Mage_CatalogSearch_Model_Resource_Indexer_Fulltext extends Mage_Core_Model
     {
         $write = $this->_getWriteAdapter();
         $select = $write->select()
-            ->from($this->getTable('catalog/product_relation'), 'parent_id')
-            ->where('child_id IN(?)', $childIds);
+                ->from($this->getTable('catalog/product_relation'), 'parent_id')
+                ->where('child_id IN(?)', $childIds);
 
         return $write->fetchCol($select);
     }
+
 }

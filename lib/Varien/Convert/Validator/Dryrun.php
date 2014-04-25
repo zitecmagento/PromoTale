@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert dry run validator
  *
@@ -36,11 +36,13 @@
  */
 class Varien_Convert_Validator_Dryrun extends Varien_Convert_Validator_Abstract
 {
-	public function validate()
-	{
-	    if ($this->getVar('dry_run') || $this->getProfile()->getDryRun()) {
-	        $this->addException('Dry run set, stopping execution', Varien_Convert_Exceptin::FATAL);
-	    }
-	    return $this;
-	}
+
+    public function validate()
+    {
+        if ($this->getVar('dry_run') || $this->getProfile()->getDryRun()) {
+            $this->addException('Dry run set, stopping execution', Varien_Convert_Exceptin::FATAL);
+        }
+        return $this;
+    }
+
 }

@@ -13,16 +13,16 @@
 
 <?php echo $this->getCssJsHtml() ?>
 
-<?php if($this->getCanLoadExtJs()): ?>
-<script type="text/javascript">
-    Ext.BLANK_IMAGE_URL = BLANK_IMG;
-    Ext.UpdateManager.defaults.loadScripts = false;
-    Ext.UpdateManager.defaults.disableCaching = true;
-</script>
+<?php if ($this->getCanLoadExtJs()): ?>
+    <script type="text/javascript">
+        Ext.BLANK_IMAGE_URL = BLANK_IMG;
+        Ext.UpdateManager.defaults.loadScripts = false;
+        Ext.UpdateManager.defaults.disableCaching = true;
+    </script>
 <?php endif; ?>
 
-<?php if($this->getCanLoadTinyMce()): // TinyMCE is broken when loaded through index.php ?>
-<script type="text/javascript" src="<?php echo $this->getJsUrl() ?>tiny_mce/tiny_mce.js"></script>
+<?php if ($this->getCanLoadTinyMce()): // TinyMCE is broken when loaded through index.php ?>
+    <script type="text/javascript" src="<?php echo $this->getJsUrl() ?>tiny_mce/tiny_mce.js"></script>
 <?php endif; ?>
 
 <script type="text/javascript">

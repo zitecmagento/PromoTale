@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** @see Zend_Captcha_Adapter */
 #require_once 'Zend/Captcha/Adapter.php';
 
@@ -39,6 +39,7 @@
  */
 abstract class Zend_Captcha_Base extends Zend_Validate_Abstract implements Zend_Captcha_Adapter
 {
+
     /**
      * Element name
      *
@@ -114,10 +115,10 @@ abstract class Zend_Captcha_Base extends Zend_Validate_Abstract implements Zend_
             return $this;
         }
 
-        $method = 'set' . ucfirst ($key);
-        if (method_exists ($this, $method)) {
+        $method = 'set' . ucfirst($key);
+        if (method_exists($this, $method)) {
             // Setter exists; use it
-            $this->$method ($value);
+            $this->$method($value);
             $this->_options[$key] = $value;
         } elseif (property_exists($this, $key)) {
             // Assume it's metadata
@@ -173,4 +174,5 @@ abstract class Zend_Captcha_Base extends Zend_Validate_Abstract implements Zend_
     {
         return null;
     }
+
 }

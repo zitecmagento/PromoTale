@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,16 +24,15 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Order_Invoice_Total_Abstract
 {
+
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {
         $invoice->setDiscountAmount(0);
         $invoice->setBaseDiscountAmount(0);
 
-        $totalDiscountAmount     = 0;
+        $totalDiscountAmount = 0;
         $baseTotalDiscountAmount = 0;
 
         /**
@@ -48,7 +48,7 @@ class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Ord
         }
 
         if ($addShippingDicount) {
-            $totalDiscountAmount     = $totalDiscountAmount + $invoice->getOrder()->getShippingDiscountAmount();
+            $totalDiscountAmount = $totalDiscountAmount + $invoice->getOrder()->getShippingDiscountAmount();
             $baseTotalDiscountAmount = $baseTotalDiscountAmount + $invoice->getOrder()->getBaseShippingDiscountAmount();
         }
 
@@ -56,12 +56,12 @@ class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Ord
         foreach ($invoice->getAllItems() as $item) {
             $orderItem = $item->getOrderItem();
             if ($orderItem->isDummy()) {
-                 continue;
+                continue;
             }
 
-            $orderItemDiscount      = (float) $orderItem->getDiscountAmount();
-            $baseOrderItemDiscount  = (float) $orderItem->getBaseDiscountAmount();
-            $orderItemQty       = $orderItem->getQtyOrdered();
+            $orderItemDiscount = (float) $orderItem->getDiscountAmount();
+            $baseOrderItemDiscount = (float) $orderItem->getBaseDiscountAmount();
+            $orderItemQty = $orderItem->getQtyOrdered();
 
             if ($orderItemDiscount && $orderItemQty) {
 
@@ -73,11 +73,8 @@ class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Ord
                  *
                  * Also the subtotal is without weee
                  */
-
-                $discount = $orderItemDiscount - $orderItem->getDiscountInvoiced()
-                    - $orderItem->getDiscountAppliedForWeeeTax();
-                $baseDiscount = $baseOrderItemDiscount - $orderItem->getBaseDiscountInvoiced()
-                    - $orderItem->getBaseDiscountAppliedForWeeeTax();
+                $discount = $orderItemDiscount - $orderItem->getDiscountInvoiced() - $orderItem->getDiscountAppliedForWeeeTax();
+                $baseDiscount = $baseOrderItemDiscount - $orderItem->getBaseDiscountInvoiced() - $orderItem->getBaseDiscountAppliedForWeeeTax();
 
                 if (!$item->isLast()) {
                     $activeQty = $orderItemQty - $orderItem->getQtyInvoiced();
@@ -100,4 +97,5 @@ class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Ord
         $invoice->setBaseGrandTotal($invoice->getBaseGrandTotal() - $baseTotalDiscountAmount);
         return $this;
     }
+
 }

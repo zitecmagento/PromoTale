@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report Reviews collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Reports_Model_Resource_Report_Collection
 {
+
     /**
      * From value
      *
@@ -89,7 +90,7 @@ class Mage_Reports_Model_Resource_Report_Collection
      */
     protected function _construct()
     {
-
+        
     }
 
     /**
@@ -114,7 +115,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     public function setInterval($from, $to)
     {
         $this->_from = $from;
-        $this->_to   = $to;
+        $this->_to = $to;
 
         return $this;
     }
@@ -131,8 +132,8 @@ class Mage_Reports_Model_Resource_Report_Collection
             if (!$this->_from && !$this->_to) {
                 return $this->_intervals;
             }
-            $dateStart  = new Zend_Date($this->_from);
-            $dateEnd    = new Zend_Date($this->_to);
+            $dateStart = new Zend_Date($this->_from);
+            $dateEnd = new Zend_Date($this->_to);
 
 
             $t = array();
@@ -147,15 +148,13 @@ class Mage_Reports_Model_Resource_Report_Collection
                         $dateStart->addDay(1);
                         break;
                     case 'month':
-                        $t['title'] =  $dateStart->toString('MM/yyyy');
-                        $t['start'] = ($firstInterval) ? $dateStart->toString('yyyy-MM-dd 00:00:00')
-                            : $dateStart->toString('yyyy-MM-01 00:00:00');
+                        $t['title'] = $dateStart->toString('MM/yyyy');
+                        $t['start'] = ($firstInterval) ? $dateStart->toString('yyyy-MM-dd 00:00:00') : $dateStart->toString('yyyy-MM-01 00:00:00');
 
                         $lastInterval = ($dateStart->compareMonth($dateEnd->getMonth()) == 0);
 
                         $t['end'] = ($lastInterval) ? $dateStart->setDay($dateEnd->getDay())
-                            ->toString('yyyy-MM-dd 23:59:59')
-                            : $dateStart->toString('yyyy-MM-'.date('t', $dateStart->getTimestamp()).' 23:59:59');
+                                        ->toString('yyyy-MM-dd 23:59:59') : $dateStart->toString('yyyy-MM-' . date('t', $dateStart->getTimestamp()) . ' 23:59:59');
 
                         $dateStart->addMonth(1);
 
@@ -166,15 +165,13 @@ class Mage_Reports_Model_Resource_Report_Collection
                         $firstInterval = false;
                         break;
                     case 'year':
-                        $t['title'] =  $dateStart->toString('yyyy');
-                        $t['start'] = ($firstInterval) ? $dateStart->toString('yyyy-MM-dd 00:00:00')
-                            : $dateStart->toString('yyyy-01-01 00:00:00');
+                        $t['title'] = $dateStart->toString('yyyy');
+                        $t['start'] = ($firstInterval) ? $dateStart->toString('yyyy-MM-dd 00:00:00') : $dateStart->toString('yyyy-01-01 00:00:00');
 
                         $lastInterval = ($dateStart->compareYear($dateEnd->getYear()) == 0);
 
                         $t['end'] = ($lastInterval) ? $dateStart->setMonth($dateEnd->getMonth())
-                            ->setDay($dateEnd->getDay())->toString('yyyy-MM-dd 23:59:59')
-                            : $dateStart->toString('yyyy-12-31 23:59:59');
+                                        ->setDay($dateEnd->getDay())->toString('yyyy-MM-dd 23:59:59') : $dateStart->toString('yyyy-12-31 23:59:59');
                         $dateStart->addYear(1);
 
                         if ($dateStart->compareYear($dateEnd->getYear()) == 0) {
@@ -187,7 +184,7 @@ class Mage_Reports_Model_Resource_Report_Collection
                 $this->_intervals[$t['title']] = $t;
             }
         }
-        return  $this->_intervals;
+        return $this->_intervals;
     }
 
     /**
@@ -198,9 +195,9 @@ class Mage_Reports_Model_Resource_Report_Collection
     public function getPeriods()
     {
         return array(
-            'day'   => Mage::helper('reports')->__('Day'),
+            'day' => Mage::helper('reports')->__('Day'),
             'month' => Mage::helper('reports')->__('Month'),
-            'year'  => Mage::helper('reports')->__('Year')
+            'year' => Mage::helper('reports')->__('Year')
         );
     }
 
@@ -267,9 +264,9 @@ class Mage_Reports_Model_Resource_Report_Collection
     public function initReport($modelClass)
     {
         $this->_model = Mage::getModel('reports/report')
-            ->setPageSize($this->getPageSize())
-            ->setStoreIds($this->getStoreIds())
-            ->initCollection($modelClass);
+                ->setPageSize($this->getPageSize())
+                ->setStoreIds($this->getStoreIds())
+                ->initCollection($modelClass);
 
         return $this;
     }
@@ -307,7 +304,8 @@ class Mage_Reports_Model_Resource_Report_Collection
     public function timeShift($datetime)
     {
         return Mage::app()->getLocale()
-            ->utcDate(null, $datetime, true, Varien_Date::DATETIME_INTERNAL_FORMAT)
-            ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+                        ->utcDate(null, $datetime, true, Varien_Date::DATETIME_INTERNAL_FORMAT)
+                        ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
     }
+
 }

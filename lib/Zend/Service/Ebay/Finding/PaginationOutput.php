@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: PaginationOutput.php 22791 2010-08-04 16:11:47Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Ebay_Finding_PaginationOutput extends Zend_Service_Ebay_Finding_Abstract
 {
+
     /**
      * The maximum number of items that can be returned in the response.
      *
@@ -108,8 +109,9 @@ class Zend_Service_Ebay_Finding_PaginationOutput extends Zend_Service_Ebay_Findi
         $ns = Zend_Service_Ebay_Finding::XMLNS_FINDING;
 
         $this->entriesPerPage = $this->_query(".//$ns:entriesPerPage[1]", 'integer');
-        $this->pageNumber     = $this->_query(".//$ns:pageNumber[1]", 'integer');
-        $this->totalEntries   = $this->_query(".//$ns:totalEntries[1]", 'integer');
-        $this->totalPages     = $this->_query(".//$ns:totalPages[1]", 'integer');
+        $this->pageNumber = $this->_query(".//$ns:pageNumber[1]", 'integer');
+        $this->totalEntries = $this->_query(".//$ns:totalEntries[1]", 'integer');
+        $this->totalPages = $this->_query(".//$ns:totalPages[1]", 'integer');
     }
+
 }

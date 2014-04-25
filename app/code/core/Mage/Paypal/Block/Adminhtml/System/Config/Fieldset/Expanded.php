@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Expanded
-    extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
+class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Expanded extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
 {
+
     /**
      * Return collapse state
      *
@@ -49,4 +50,5 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Expanded
 
         return true;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,11 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     protected $_invalidatedTypes = array();
+
     /**
      * Class constructor
      */
@@ -35,7 +37,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
         parent::__construct();
         $this->setId('cache_grid');
         $this->_filterVisibility = false;
-        $this->_pagerVisibility  = false;
+        $this->_pagerVisibility = false;
         $this->_invalidatedTypes = Mage::app()->getCacheInstance()->getInvalidatedTypes();
     }
 
@@ -58,6 +60,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     protected function _afterLoadCollection()
     {
         foreach ($this->_collection as $item) {
+            
         }
         return $this;
     }
@@ -69,35 +72,35 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         $baseUrl = $this->getUrl();
         $this->addColumn('cache_type', array(
-            'header'    => $this->__('Cache Type'),
-            'width'     => '180',
-            'align'     => 'left',
-            'index'     => 'cache_type',
-            'sortable'  => false,
+            'header' => $this->__('Cache Type'),
+            'width' => '180',
+            'align' => 'left',
+            'index' => 'cache_type',
+            'sortable' => false,
         ));
 
         $this->addColumn('description', array(
-            'header'    => $this->__('Description'),
-            'align'     => 'left',
-            'index'     => 'description',
-            'sortable'  => false,
+            'header' => $this->__('Description'),
+            'align' => 'left',
+            'index' => 'description',
+            'sortable' => false,
         ));
 
         $this->addColumn('tags', array(
-            'header'    => $this->__('Associated Tags'),
-            'align'     => 'left',
-            'index'     => 'tags',
-            'width'     => '180',
-            'sortable'  => false,
+            'header' => $this->__('Associated Tags'),
+            'align' => 'left',
+            'index' => 'tags',
+            'width' => '180',
+            'sortable' => false,
         ));
 
         $this->addColumn('status', array(
-            'header'    => $this->__('Status'),
-            'width'     => '120',
-            'align'     => 'left',
-            'index'     => 'status',
-            'type'      => 'options',
-            'options'   => array(0 => $this->__('Disabled'), 1 => $this->__('Enabled')),
+            'header' => $this->__('Status'),
+            'width' => '120',
+            'align' => 'left',
+            'index' => 'status',
+            'type' => 'options',
+            'options' => array(0 => $this->__('Disabled'), 1 => $this->__('Enabled')),
             'frame_callback' => array($this, 'decorateStatus')
         ));
 
@@ -131,12 +134,12 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         $class = '';
         if (isset($this->_invalidatedTypes[$row->getId()])) {
-            $cell = '<span class="grid-severity-minor"><span>'.$this->__('Invalidated').'</span></span>';
+            $cell = '<span class="grid-severity-minor"><span>' . $this->__('Invalidated') . '</span></span>';
         } else {
             if ($row->getStatus()) {
-                $cell = '<span class="grid-severity-notice"><span>'.$value.'</span></span>';
+                $cell = '<span class="grid-severity-notice"><span>' . $value . '</span></span>';
             } else {
-                $cell = '<span class="grid-severity-critical"><span>'.$value.'</span></span>';
+                $cell = '<span class="grid-severity-critical"><span>' . $value . '</span></span>';
             }
         }
         return $cell;
@@ -164,19 +167,20 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $modeOptions = Mage::getModel('index/process')->getModesOptions();
 
         $this->getMassactionBlock()->addItem('enable', array(
-            'label'         => Mage::helper('index')->__('Enable'),
-            'url'           => $this->getUrl('*/*/massEnable'),
+            'label' => Mage::helper('index')->__('Enable'),
+            'url' => $this->getUrl('*/*/massEnable'),
         ));
         $this->getMassactionBlock()->addItem('disable', array(
-            'label'    => Mage::helper('index')->__('Disable'),
-            'url'      => $this->getUrl('*/*/massDisable'),
+            'label' => Mage::helper('index')->__('Disable'),
+            'url' => $this->getUrl('*/*/massDisable'),
         ));
         $this->getMassactionBlock()->addItem('refresh', array(
-            'label'    => Mage::helper('index')->__('Refresh'),
-            'url'      => $this->getUrl('*/*/massRefresh'),
+            'label' => Mage::helper('index')->__('Refresh'),
+            'url' => $this->getUrl('*/*/massRefresh'),
             'selected' => true,
         ));
 
         return $this;
     }
+
 }

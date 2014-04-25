@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Url rewrite resource collection model class
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Define resource model
      *
@@ -55,9 +56,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
 
         if (!$this->getFlag('tag_table_joined')) {
             $this->join(
-                array('curt' => $this->getTable('core/url_rewrite_tag')),
-                'main_table.url_rewrite_id = curt.url_rewrite_id',
-                array());
+                    array('curt' => $this->getTable('core/url_rewrite_tag')), 'main_table.url_rewrite_id = curt.url_rewrite_id', array());
             $this->setFlag('tag_table_joined', true);
         }
 
@@ -95,8 +94,8 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
     public function filterAllByProductId($productId)
     {
         $this->getSelect()
-            ->where('id_path = ?', "product/{$productId}")
-            ->orWhere('id_path LIKE ?', "product/{$productId}/%");
+                ->where('id_path = ?', "product/{$productId}")
+                ->orWhere('id_path LIKE ?', "product/{$productId}/%");
 
         return $this;
     }
@@ -109,7 +108,8 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
     public function filterAllByCategory()
     {
         $this->getSelect()
-            ->where('id_path LIKE ?', "category/%");
+                ->where('id_path LIKE ?', "category/%");
         return $this;
     }
+
 }

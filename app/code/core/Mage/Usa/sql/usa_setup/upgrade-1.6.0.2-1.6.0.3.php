@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $this Mage_Core_Model_Resource_Setup */
 
 $days = Mage::app()->getLocale()->getTranslationList('days');
@@ -33,18 +33,16 @@ foreach ($days as $key => $value) {
 }
 
 $select = $this->getConnection()
-    ->select()
-    ->from($this->getTable('core/config_data'), array('config_id', 'value'))
-    ->where('path = ?', 'carriers/dhl/shipment_days')
-    ->orWhere('path = ?', 'carriers/dhl/intl_shipment_days');
+        ->select()
+        ->from($this->getTable('core/config_data'), array('config_id', 'value'))
+        ->where('path = ?', 'carriers/dhl/shipment_days')
+        ->orWhere('path = ?', 'carriers/dhl/intl_shipment_days');
 
 foreach ($this->getConnection()->fetchAll($select) as $configRow) {
     $row = array('value' => implode(',', array_intersect_key($days, array_flip(explode(',', $configRow['value'])))));
     $this->getConnection()->update(
-        $this->getTable('core/config_data'),
-        $row,
-        array(
-            'config_id = ?' => $configRow['config_id']
-        )
+            $this->getTable('core/config_data'), $row, array(
+        'config_id = ?' => $configRow['config_id']
+            )
     );
 }

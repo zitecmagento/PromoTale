@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Router
 {
+
     /**
      * Routes which are stored in module config files api2.xml
      *
@@ -87,8 +89,7 @@ class Mage_Api2_Model_Router
             throw new Mage_Api2_Exception('Request does not match any route.', Mage_Api2_Model_Server::HTTP_NOT_FOUND);
         }
         if (!$request->getResourceType() || !$request->getModel()) {
-            throw new Mage_Api2_Exception('Matched resource is not properly set.',
-                Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+            throw new Mage_Api2_Exception('Matched resource is not properly set.', Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         }
         return $request;
     }
@@ -119,4 +120,5 @@ class Mage_Api2_Model_Router
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Widget
 {
+
     /**
      * Retrieve available order
      *
@@ -91,7 +93,6 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
         return array();
     }
 
-
     /**
      * Retrieve subtotal price include tax html formated content
      *
@@ -104,9 +105,10 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
         if ($shipping) {
             $baseShipping = $order->getBaseShippingInclTax();
         } else {
-            $shipping       = $order->getShippingAmount()+$order->getShippingTaxAmount();
-            $baseShipping   = $order->getBaseShippingAmount()+$order->getBaseShippingTaxAmount();
+            $shipping = $order->getShippingAmount() + $order->getShippingTaxAmount();
+            $baseShipping = $order->getBaseShippingAmount() + $order->getBaseShippingTaxAmount();
         }
         return $this->displayPrices($baseShipping, $shipping, false, ' ');
     }
+
 }

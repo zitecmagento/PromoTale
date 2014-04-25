@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product Low Stock Report Collection
  *
@@ -32,7 +32,7 @@
  * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Reports_Model_Mysql4_Product_Lowstock_Collection
-    extends Mage_Reports_Model_Resource_Product_Lowstock_Collection
+class Mage_Reports_Model_Mysql4_Product_Lowstock_Collection extends Mage_Reports_Model_Resource_Product_Lowstock_Collection
 {
+    
 }

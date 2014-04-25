@@ -43,20 +43,19 @@ Packaging.prototype = {
         this.paramsCreateLabelRequest = {};
         this.validationErrorMsg = params.validationErrorMsg;
 
-        this.defaultItemsQty            = params.shipmentItemsQty ? params.shipmentItemsQty : null;
-        this.defaultItemsPrice          = params.shipmentItemsPrice ? params.shipmentItemsPrice : null;
-        this.defaultItemsName           = params.shipmentItemsName ? params.shipmentItemsName : null;
-        this.defaultItemsWeight         = params.shipmentItemsWeight ? params.shipmentItemsWeight : null;
-        this.defaultItemsProductId      = params.shipmentItemsProductId ? params.shipmentItemsProductId : null;
-        this.defaultItemsOrderItemId    = params.shipmentItemsOrderItemId ? params.shipmentItemsOrderItemId : null;
+        this.defaultItemsQty = params.shipmentItemsQty ? params.shipmentItemsQty : null;
+        this.defaultItemsPrice = params.shipmentItemsPrice ? params.shipmentItemsPrice : null;
+        this.defaultItemsName = params.shipmentItemsName ? params.shipmentItemsName : null;
+        this.defaultItemsWeight = params.shipmentItemsWeight ? params.shipmentItemsWeight : null;
+        this.defaultItemsProductId = params.shipmentItemsProductId ? params.shipmentItemsProductId : null;
+        this.defaultItemsOrderItemId = params.shipmentItemsOrderItemId ? params.shipmentItemsOrderItemId : null;
 
-        this.shippingInformation= params.shippingInformation ? params.shippingInformation : null;
-        this.thisPage           = params.thisPage ? params.thisPage : null;
+        this.shippingInformation = params.shippingInformation ? params.shippingInformation : null;
+        this.thisPage = params.thisPage ? params.thisPage : null;
         this.customizableContainers = params.customizable ? params.customizable : [];
 
         this.eps = .000001;
     },
-
 //******************** Setters **********************************//
     setLabelCreatedCallback: function(callback) {
         this.labelCreatedCallback = callback;
@@ -83,13 +82,12 @@ Packaging.prototype = {
             this.newPackage();
         }
         this.window.show().setStyle({
-            'marginLeft': -this.window.getDimensions().width/2 + 'px'
+            'marginLeft': -this.window.getDimensions().width / 2 + 'px'
         });
         this.windowMask.setStyle({
             height: $('html-body').getHeight() + 'px'
         }).show();
     },
-
     cancelPackaging: function() {
         packaging.window.hide();
         packaging.windowMask.hide();
@@ -97,20 +95,17 @@ Packaging.prototype = {
             this.cancelCallback();
         }
     },
-
     confirmPackaging: function(params) {
         if (Object.isFunction(this.confirmPackagingCallback)) {
             this.confirmPackagingCallback();
         }
     },
-
     checkAllItems: function(headCheckbox) {
-        $(headCheckbox).up('table').select('tbody input[type="checkbox"]').each(function(checkbox){
+        $(headCheckbox).up('table').select('tbody input[type="checkbox"]').each(function(checkbox) {
             checkbox.checked = headCheckbox.checked;
             this._observeQty.call(checkbox);
         }.bind(this));
     },
-
     cleanPackages: function() {
         this.packagesContent.update();
         this.packages = [];
@@ -119,7 +114,6 @@ Packaging.prototype = {
         this._setAllItemsPackedState();
         this.messages.hide().update();
     },
-
     sendCreateLabelRequest: function() {
         var package = this;
         if (!this.validate()) {
@@ -138,14 +132,14 @@ Packaging.prototype = {
                 width = parseFloat(pack.select('input[name="container_width"]')[0].value);
                 height = parseFloat(pack.select('input[name="container_height"]')[0].value);
                 packagesParams[packageId] = {
-                    container:                  pack.select('select[name="package_container"]')[0].value,
-                    customs_value:              parseFloat(pack.select('input[name="package_customs_value"]')[0].value, 10),
-                    weight:                     isNaN(weight) ? '' : weight,
-                    length:                     isNaN(length) ? '' : length,
-                    width:                      isNaN(width) ? '' : width,
-                    height:                     isNaN(height) ? '' : height,
-                    weight_units:               pack.select('select[name="container_weight_units"]')[0].value,
-                    dimension_units:            pack.select('select[name="container_dimension_units"]')[0].value
+                    container: pack.select('select[name="package_container"]')[0].value,
+                    customs_value: parseFloat(pack.select('input[name="package_customs_value"]')[0].value, 10),
+                    weight: isNaN(weight) ? '' : weight,
+                    length: isNaN(length) ? '' : length,
+                    width: isNaN(width) ? '' : width,
+                    height: isNaN(height) ? '' : height,
+                    weight_units: pack.select('select[name="container_weight_units"]')[0].value,
+                    dimension_units: pack.select('select[name="container_dimension_units"]')[0].value
                 };
                 if (isNaN(packagesParams[packageId]['customs_value'])) {
                     packagesParams[packageId]['customs_value'] = 0;
@@ -170,46 +164,46 @@ Packaging.prototype = {
                 }
                 var deliveryConfirmation = pack.select('select[name="delivery_confirmation_types"]');
                 if (deliveryConfirmation.length) {
-                     packagesParams[packageId]['delivery_confirmation'] =  deliveryConfirmation[0].value
+                    packagesParams[packageId]['delivery_confirmation'] = deliveryConfirmation[0].value
                 }
             }.bind(this));
             for (var packageId in this.packages) {
-                 if (!isNaN(packageId)) {
-                     this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[container]']              = packagesParams[packageId]['container'];
-                     this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[weight]']                 = packagesParams[packageId]['weight'];
-                     this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[customs_value]']          = packagesParams[packageId]['customs_value'];
-                     this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[length]']                 = packagesParams[packageId]['length'];
-                     this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[width]']                  = packagesParams[packageId]['width'];
-                     this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[height]']                 = packagesParams[packageId]['height'];
-                     this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[weight_units]']           = packagesParams[packageId]['weight_units'];
-                     this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[dimension_units]']        = packagesParams[packageId]['dimension_units'];
-                     this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[content_type]']           = packagesParams[packageId]['content_type'];
-                     this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[content_type_other]']     = packagesParams[packageId]['content_type_other'];
+                if (!isNaN(packageId)) {
+                    this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[container]'] = packagesParams[packageId]['container'];
+                    this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[weight]'] = packagesParams[packageId]['weight'];
+                    this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[customs_value]'] = packagesParams[packageId]['customs_value'];
+                    this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[length]'] = packagesParams[packageId]['length'];
+                    this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[width]'] = packagesParams[packageId]['width'];
+                    this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[height]'] = packagesParams[packageId]['height'];
+                    this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[weight_units]'] = packagesParams[packageId]['weight_units'];
+                    this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[dimension_units]'] = packagesParams[packageId]['dimension_units'];
+                    this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[content_type]'] = packagesParams[packageId]['content_type'];
+                    this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[content_type_other]'] = packagesParams[packageId]['content_type_other'];
 
-                     if ('undefined' != typeof packagesParams[packageId]['size']) {
-                         this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[size]'] = packagesParams[packageId]['size'];
-                     }
+                    if ('undefined' != typeof packagesParams[packageId]['size']) {
+                        this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[size]'] = packagesParams[packageId]['size'];
+                    }
 
-                     if ('undefined' != typeof packagesParams[packageId]['girth']) {
-                         this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[girth]'] = packagesParams[packageId]['girth'];
-                         this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[girth_dimension_units]'] = packagesParams[packageId]['girth_dimension_units'];
-                     }
+                    if ('undefined' != typeof packagesParams[packageId]['girth']) {
+                        this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[girth]'] = packagesParams[packageId]['girth'];
+                        this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[girth_dimension_units]'] = packagesParams[packageId]['girth_dimension_units'];
+                    }
 
-                     if ('undefined' != typeof packagesParams[packageId]['delivery_confirmation']) {
-                         this.paramsCreateLabelRequest['packages['+packageId+']'+'[params]'+'[delivery_confirmation]']  = packagesParams[packageId]['delivery_confirmation'];
-                     }
-                     for (var packedItemId in this.packages[packageId]['items']) {
-                         if (!isNaN(packedItemId)) {
-                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][qty]']           = this.packages[packageId]['items'][packedItemId]['qty'];
-                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][customs_value]'] = this.packages[packageId]['items'][packedItemId]['customs_value'];
-                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][price]']         = package.defaultItemsPrice[packedItemId];
-                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][name]']          = package.defaultItemsName[packedItemId];
-                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][weight]']        = package.defaultItemsWeight[packedItemId];
-                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][product_id]']    = package.defaultItemsProductId[packedItemId];
-                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][order_item_id]'] = package.defaultItemsOrderItemId[packedItemId];
-                         }
-                     }
-                 }
+                    if ('undefined' != typeof packagesParams[packageId]['delivery_confirmation']) {
+                        this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[params]' + '[delivery_confirmation]'] = packagesParams[packageId]['delivery_confirmation'];
+                    }
+                    for (var packedItemId in this.packages[packageId]['items']) {
+                        if (!isNaN(packedItemId)) {
+                            this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[items]' + '[' + packedItemId + '][qty]'] = this.packages[packageId]['items'][packedItemId]['qty'];
+                            this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[items]' + '[' + packedItemId + '][customs_value]'] = this.packages[packageId]['items'][packedItemId]['customs_value'];
+                            this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[items]' + '[' + packedItemId + '][price]'] = package.defaultItemsPrice[packedItemId];
+                            this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[items]' + '[' + packedItemId + '][name]'] = package.defaultItemsName[packedItemId];
+                            this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[items]' + '[' + packedItemId + '][weight]'] = package.defaultItemsWeight[packedItemId];
+                            this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[items]' + '[' + packedItemId + '][product_id]'] = package.defaultItemsProductId[packedItemId];
+                            this.paramsCreateLabelRequest['packages[' + packageId + ']' + '[items]' + '[' + packedItemId + '][order_item_id]'] = package.defaultItemsOrderItemId[packedItemId];
+                        }
+                    }
+                }
             }
 
             new Ajax.Request(this.createLabelUrl, {
@@ -227,43 +221,47 @@ Packaging.prototype = {
                 }.bind(this)
             });
             if (this.paramsCreateLabelRequest['code']
-                && this.paramsCreateLabelRequest['carrier_title']
-                && this.paramsCreateLabelRequest['method_title']
-                && this.paramsCreateLabelRequest['price']
-            ) {
+                    && this.paramsCreateLabelRequest['carrier_title']
+                    && this.paramsCreateLabelRequest['method_title']
+                    && this.paramsCreateLabelRequest['price']
+                    ) {
                 var a = this.paramsCreateLabelRequest['code'];
                 var b = this.paramsCreateLabelRequest['carrier_title'];
                 var c = this.paramsCreateLabelRequest['method_title'];
                 var d = this.paramsCreateLabelRequest['price'];
 
                 this.paramsCreateLabelRequest = {};
-                this.paramsCreateLabelRequest['code']           = a;
-                this.paramsCreateLabelRequest['carrier_title']  = b;
-                this.paramsCreateLabelRequest['method_title']   = c;
-                this.paramsCreateLabelRequest['price']          = d;
+                this.paramsCreateLabelRequest['code'] = a;
+                this.paramsCreateLabelRequest['carrier_title'] = b;
+                this.paramsCreateLabelRequest['method_title'] = c;
+                this.paramsCreateLabelRequest['price'] = d;
             } else {
                 this.paramsCreateLabelRequest = {};
             }
         }
     },
-
     validate: function() {
         var dimensionElements = $("packaging_window").select(
-            'input[name=container_length],input[name=container_width],input[name=container_height]'
-        );
+                'input[name=container_length],input[name=container_width],input[name=container_height]'
+                );
         var callback = null;
-        if ( dimensionElements.any(function(element) { return !!element.value; })) {
-            callback = function(element) { $(element).addClassName('required-entry'); };
+        if (dimensionElements.any(function(element) {
+            return !!element.value;
+        })) {
+            callback = function(element) {
+                $(element).addClassName('required-entry');
+            };
         } else {
-            callback = function(element) { $(element).removeClassName('required-entry'); };
+            callback = function(element) {
+                $(element).removeClassName('required-entry');
+            };
         }
         dimensionElements.each(callback);
 
-        return result = $$('[id^="package_block_"] input').collect(function (element) {
+        return result = $$('[id^="package_block_"] input').collect(function(element) {
             return this.validateElement(element)
         }, this).all();
     },
-
     validateElement: function(elm) {
         var cn = $w(elm.className);
         return result = cn.all(function(value) {
@@ -277,7 +275,6 @@ Packaging.prototype = {
             }
         });
     },
-
     validateCustomsValue: function() {
         var items = [];
         var isValid = true;
@@ -309,7 +306,6 @@ Packaging.prototype = {
         }
         return isValid;
     },
-
     newPackage: function() {
         var pack = this.template.cloneNode(true);
         pack.id = 'package_block_' + ++this.packageIncrement;
@@ -319,7 +315,6 @@ Packaging.prototype = {
         pack.select('.AddSelectedBtn')[0].hide();
         pack.show();
     },
-
     deletePackage: function(obj) {
         var pack = $(obj).up('div[id^="package_block"]');
         var packItems = pack.select('.package_items')[0];
@@ -330,7 +325,6 @@ Packaging.prototype = {
         this.messages.hide().update();
         this._setAllItemsPackedState();
     },
-
     deleteItem: function(obj) {
         var item = $(obj).up('tr');
         var itemId = item.select('[type="checkbox"]')[0].value;
@@ -347,7 +341,6 @@ Packaging.prototype = {
         this._recalcContainerWeightAndCustomsValue(packItems);
         this._setAllItemsPackedState()
     },
-
     recalcContainerWeightAndCustomsValue: function(obj) {
         var pack = $(obj).up('div[id^="package_block"]');
         var packItems = pack.select('.package_items')[0];
@@ -358,7 +351,6 @@ Packaging.prototype = {
             this._recalcContainerWeightAndCustomsValue(packItems);
         }
     },
-
     getItemsForPack: function(obj) {
         if (this.itemsGridUrl) {
             var parameters = $H({'shipment_id': this.shipmentId});
@@ -384,25 +376,23 @@ Packaging.prototype = {
             });
         }
     },
-
     getPackedItemsQty: function() {
         var items = [];
         for (var packageId in this.packages) {
-             if (!isNaN(packageId)) {
-                 for (var packedItemId in this.packages[packageId]['items']) {
-                     if (!isNaN(packedItemId)) {
-                         if (items[packedItemId]) {
-                             items[packedItemId] += this.packages[packageId]['items'][packedItemId]['qty'];
-                         } else {
-                             items[packedItemId] = this.packages[packageId]['items'][packedItemId]['qty']
-                         }
-                     }
-                 }
-             }
+            if (!isNaN(packageId)) {
+                for (var packedItemId in this.packages[packageId]['items']) {
+                    if (!isNaN(packedItemId)) {
+                        if (items[packedItemId]) {
+                            items[packedItemId] += this.packages[packageId]['items'][packedItemId]['qty'];
+                        } else {
+                            items[packedItemId] = this.packages[packageId]['items'][packedItemId]['qty']
+                        }
+                    }
+                }
+            }
         }
         return items;
     },
-
     _parseQty: function(obj) {
         var qty = $(obj).hasClassName('qty-decimal') ? parseFloat(obj.value) : parseInt(obj.value);
         if (isNaN(qty) || qty <= 0) {
@@ -410,7 +400,6 @@ Packaging.prototype = {
         }
         return qty;
     },
-
     packItems: function(obj) {
         var anySelected = false;
         var packageBlock = $(obj).up('[id^="package_block"]');
@@ -424,7 +413,7 @@ Packaging.prototype = {
         packagePrepareGrid.select('.grid tbody tr').each(function(item) {
             var checkbox = item.select('[type="checkbox"]')[0];
             var itemId = checkbox.value;
-            var qtyValue  = this._parseQty(item.select('[name="qty"]')[0]);
+            var qtyValue = this._parseQty(item.select('[name="qty"]')[0]);
             item.select('[name="qty"]')[0].value = qtyValue;
             if (checkbox.checked && this._checkExceedsQty(itemId, qtyValue)) {
                 this.messages.show().update(this.errorQtyOverLimit);
@@ -443,8 +432,8 @@ Packaging.prototype = {
         packagePrepareGrid.select('.grid tbody tr').each(function(item) {
             var checkbox = item.select('[type="checkbox"]')[0];
             if (checkbox.checked) {
-                var qty  = item.select('[name="qty"]')[0];
-                var qtyValue  = this._parseQty(qty);
+                var qty = item.select('[name="qty"]')[0];
+                var qtyValue = this._parseQty(qty);
                 item.select('[name="qty"]')[0].value = qtyValue;
                 anySelected = true;
                 qty.disabled = 'disabled';
@@ -465,7 +454,7 @@ Packaging.prototype = {
                 packItems = packagePrepareGrid.removeClassName('grid_prepare').addClassName('package_items');
                 packItems.select('.grid tbody tr').each(function(item) {
                     var itemId = item.select('[type="checkbox"]')[0].value;
-                    var qtyValue  = parseFloat(item.select('[name="qty"]')[0].value);
+                    var qtyValue = parseFloat(item.select('[name="qty"]')[0].value);
                     qtyValue = (qtyValue <= 0) ? 1 : qtyValue;
 
                     if ('undefined' == typeof this.packages[packageId]) {
@@ -481,7 +470,7 @@ Packaging.prototype = {
             } else {
                 packagePrepareGrid.select('.grid tbody tr').each(function(item) {
                     var itemId = item.select('[type="checkbox"]')[0].value;
-                    var qtyValue  = parseFloat(item.select('[name="qty"]')[0].value);
+                    var qtyValue = parseFloat(item.select('[name="qty"]')[0].value);
                     qtyValue = (qtyValue <= 0) ? 1 : qtyValue;
 
                     if ('undefined' == typeof this.packages[packageId]['items'][itemId]) {
@@ -490,7 +479,7 @@ Packaging.prototype = {
                         packItems.select('.grid tbody')[0].insert(item);
                     } else {
                         this.packages[packageId]['items'][itemId]['qty'] += qtyValue;
-                        var packItem = packItems.select('[type="checkbox"][value="'+itemId+'"]')[0].up('tr').select('[name="qty"]')[0];
+                        var packItem = packItems.select('[type="checkbox"][value="' + itemId + '"]')[0].up('tr').select('[name="qty"]')[0];
                         packItem.value = this.packages[packageId]['items'][itemId]['qty'];
                     }
                 }.bind(this));
@@ -508,11 +497,9 @@ Packaging.prototype = {
         packageBlock.select('.AddItemsBtn')[0].show();
         this._setAllItemsPackedState()
     },
-
-    validateItemQty: function (itemId, qty) {
+    validateItemQty: function(itemId, qty) {
         return (this.defaultItemsQty[itemId] < qty) ? this.defaultItemsQty[itemId] : qty;
     },
-
     changeMeasures: function(obj) {
         var incr = 0;
         var incrSelected = 0;
@@ -524,10 +511,10 @@ Packaging.prototype = {
         }.bind(this));
 
         var packageBlock = $(obj).up('[id^="package_block"]');
-        packageBlock.select('.measures').each(function(item){
+        packageBlock.select('.measures').each(function(item) {
             if (item.name != obj.name) {
                 var incr = 0;
-                item.select('option').each(function(option){
+                item.select('option').each(function(option) {
                     if (incr == incrSelected) {
                         item.value = option.value;
                         //option.selected = true
@@ -538,7 +525,6 @@ Packaging.prototype = {
         }.bind(this));
 
     },
-
     checkSizeAndGirthParameter: function(obj, enabled) {
         if (enabled == 0) {
             return;
@@ -562,10 +548,10 @@ Packaging.prototype = {
         }
 
         var girthEnabled = (packageSize[0].value == 'LARGE' && (packageContainer[0].value == 'NONRECTANGULAR'
-            || packageContainer[0].value == 'VARIABLE' ));
+                || packageContainer[0].value == 'VARIABLE'));
 
         if (!girthEnabled) {
-            packageGirth[0].value='';
+            packageGirth[0].value = '';
             packageGirth[0].disable();
             packageGirth[0].addClassName('disabled');
             packageGirthDimensionUnits[0].disable();
@@ -578,7 +564,7 @@ Packaging.prototype = {
         }
 
         var sizeEnabled = (packageContainer[0].value == 'NONRECTANGULAR' || packageContainer[0].value == 'RECTANGULAR'
-            || packageContainer[0].value == 'VARIABLE');
+                || packageContainer[0].value == 'VARIABLE');
 
         if (!sizeEnabled) {
             option = document.createElement('OPTION');
@@ -589,7 +575,7 @@ Packaging.prototype = {
             packageSize[0].disable();
             packageSize[0].addClassName('disabled');
         } else {
-            for (i = 0; i < packageSize[0].length; i ++) {
+            for (i = 0; i < packageSize[0].length; i++) {
                 if (packageSize[0].options[i].value == '') {
                     packageSize[0].removeChild(packageSize[0].options[i]);
                 }
@@ -598,7 +584,6 @@ Packaging.prototype = {
             packageSize[0].removeClassName('disabled');
         }
     },
-
     changeContainerType: function(obj) {
         if (this.customizableContainers.length <= 0) {
             return;
@@ -621,8 +606,8 @@ Packaging.prototype = {
         }
 
         $(currentNode).select(
-            'input[name=container_length],input[name=container_width],input[name=container_height],select[name=container_dimension_units]'
-        ).each(function(inputElement) {
+                'input[name=container_length],input[name=container_width],input[name=container_height],select[name=container_dimension_units]'
+                ).each(function(inputElement) {
             if (disable) {
                 Form.Element.disable(inputElement);
                 inputElement.addClassName('disabled');
@@ -635,7 +620,6 @@ Packaging.prototype = {
             }
         })
     },
-
     changeContentTypes: function(obj) {
         var packageBlock = $(obj).up('[id^="package_block"]');
         var contentType = packageBlock.select('[name=content_type]')[0];
@@ -649,7 +633,6 @@ Packaging.prototype = {
         }
 
     },
-
 //******************** Private functions **********************************//
     _getItemsCount: function(items) {
         var count = 0;
@@ -660,7 +643,6 @@ Packaging.prototype = {
         }.bind(this));
         return count;
     },
-
     /**
      * Show/hide disable/enable buttons in case of all items packed state
      */
@@ -668,9 +650,9 @@ Packaging.prototype = {
         var addPackageBtn = this.window.select('.AddPackageBtn')[0];
         var savePackagesBtn = this.window.select('.SavePackagesBtn')[0];
         if (this._getItemsCount(this.itemsAll) > 0
-                && (this._checkExceedsQtyFinal(this._getItemsCount(this.getPackedItemsQty()),this._getItemsCount(this.itemsAll)))
-        ) {
-            this.packagesContent.select('.AddItemsBtn').each(function(button){
+                && (this._checkExceedsQtyFinal(this._getItemsCount(this.getPackedItemsQty()), this._getItemsCount(this.itemsAll)))
+                ) {
+            this.packagesContent.select('.AddItemsBtn').each(function(button) {
                 button.disabled = 'disabled';
                 button.addClassName('disabled');
             });
@@ -699,7 +681,7 @@ Packaging.prototype = {
             this.packages = packagesRecalc;
 
         } else {
-            this.packagesContent.select('.AddItemsBtn').each(function(button){
+            this.packagesContent.select('.AddItemsBtn').each(function(button) {
                 button.removeClassName('disabled');
                 Form.Element.enable(button);
             });
@@ -710,11 +692,10 @@ Packaging.prototype = {
             savePackagesBtn.title = this.titleDisabledSaveBtn;
         }
     },
-
     _processPackagePrapare: function(packagePrapare) {
         var itemsAll = [];
         packagePrapare.select('.grid tbody tr').each(function(item) {
-            var qty  = item.select('[name="qty"]')[0];
+            var qty = item.select('[name="qty"]')[0];
             var itemId = item.select('[type="checkbox"]')[0].value;
             var qtyValue = 0;
             if (Object.isFunction(this.itemQtyCallback)) {
@@ -756,16 +737,15 @@ Packaging.prototype = {
             this.itemsAll = itemsAll;
         }
 
-        packagePrapare.select('tbody input[type="checkbox"]').each(function(item){
+        packagePrapare.select('tbody input[type="checkbox"]').each(function(item) {
             $(item).observe('change', this._observeQty);
             this._observeQty.call(item);
         }.bind(this))
     },
-
     _observeQty: function() {
         /** this = input[type="checkbox"] */
-        var tr  = this.parentNode.parentNode,
-            qty = $(tr.cells[tr.cells.length - 1]).select('input[name="qty"]')[0];
+        var tr = this.parentNode.parentNode,
+                qty = $(tr.cells[tr.cells.length - 1]).select('input[name="qty"]')[0];
 
         if (qty.disabled = !this.checked) {
             $(qty).addClassName('disabled');
@@ -773,17 +753,14 @@ Packaging.prototype = {
             $(qty).removeClassName('disabled');
         }
     },
-
     _checkExceedsQty: function(itemId, qty) {
         var packedItemQty = this.getPackedItemsQty()[itemId] ? this.getPackedItemsQty()[itemId] : 0;
         var allItemQty = this.itemsAll[itemId];
-        return (qty * (1 - this.eps) > (allItemQty *  (1 + this.eps)  - packedItemQty * (1 - this.eps)));
+        return (qty * (1 - this.eps) > (allItemQty * (1 + this.eps) - packedItemQty * (1 - this.eps)));
     },
-
     _checkExceedsQtyFinal: function(checkOne, defQty) {
         return checkOne * (1 + this.eps) >= defQty * (1 - this.eps);
     },
-
     _recalcContainerWeightAndCustomsValue: function(container) {
         var packageBlock = container.up('[id^="package_block"]');
         var packageId = packageBlock.id.match(/\d$/)[0];
@@ -793,7 +770,7 @@ Packaging.prototype = {
         containerCustomsValue.value = 0;
         container.select('.grid tbody tr').each(function(item) {
             var itemId = item.select('[type="checkbox"]')[0].value;
-            var qtyValue  = parseFloat(item.select('[name="qty"]')[0].value);
+            var qtyValue = parseFloat(item.select('[name="qty"]')[0].value);
             if (isNaN(qtyValue) || qtyValue <= 0) {
                 qtyValue = 1;
                 item.select('[name="qty"]')[0].value = qtyValue;
@@ -810,7 +787,6 @@ Packaging.prototype = {
             containerCustomsValue.value = '';
         }
     },
-
     _getElementText: function(el) {
         if ('string' == typeof el.textContent) {
             return el.textContent;
@@ -818,7 +794,7 @@ Packaging.prototype = {
         if ('string' == typeof el.innerText) {
             return el.innerText;
         }
-        return el.innerHTML.replace(/<[^>]*>/g,'');
+        return el.innerHTML.replace(/<[^>]*>/g, '');
     }
 //******************** End Private functions ******************************//
 };

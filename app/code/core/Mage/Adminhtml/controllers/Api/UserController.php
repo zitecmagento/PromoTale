@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,10 +30,10 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('system/services/users')
-            ->_addBreadcrumb($this->__('Web Services'), $this->__('Web Services'))
-            ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
-            ->_addBreadcrumb($this->__('Users'), $this->__('Users'))
+                ->_setActiveMenu('system/services/users')
+                ->_addBreadcrumb($this->__('Web Services'), $this->__('Web Services'))
+                ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
+                ->_addBreadcrumb($this->__('Users'), $this->__('Users'))
         ;
         return $this;
     }
@@ -40,12 +41,12 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
     public function indexAction()
     {
         $this->_title($this->__('System'))
-             ->_title($this->__('Web Services'))
-             ->_title($this->__('Users'));
+                ->_title($this->__('Web Services'))
+                ->_title($this->__('Users'));
 
         $this->_initAction()
-            ->_addContent($this->getLayout()->createBlock('adminhtml/api_user'))
-            ->renderLayout();
+                ->_addContent($this->getLayout()->createBlock('adminhtml/api_user'))
+                ->renderLayout();
     }
 
     public function newAction()
@@ -56,15 +57,15 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
     public function editAction()
     {
         $this->_title($this->__('System'))
-             ->_title($this->__('Web Services'))
-             ->_title($this->__('Users'));
+                ->_title($this->__('Web Services'))
+                ->_title($this->__('Users'));
 
         $id = $this->getRequest()->getParam('user_id');
         $model = Mage::getModel('api/user');
 
         if ($id) {
             $model->load($id);
-            if (! $model->getId()) {
+            if (!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('This user no longer exists.'));
                 $this->_redirect('*/*/');
                 return;
@@ -82,9 +83,9 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
         Mage::register('api_user', $model);
 
         $this->_initAction()
-            ->_addBreadcrumb($id ? $this->__('Edit User') : $this->__('New User'), $id ? $this->__('Edit User') : $this->__('New User'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/api_user_edit')->setData('action', $this->getUrl('*/api_user/save')))
-            ->_addLeft($this->getLayout()->createBlock('adminhtml/api_user_edit_tabs'));
+                ->_addBreadcrumb($id ? $this->__('Edit User') : $this->__('New User'), $id ? $this->__('Edit User') : $this->__('New User'))
+                ->_addContent($this->getLayout()->createBlock('adminhtml/api_user_edit')->setData('action', $this->getUrl('*/api_user/save')))
+                ->_addLeft($this->getLayout()->createBlock('adminhtml/api_user_edit_tabs'));
 
         $this->_addJs($this->getLayout()->createBlock('adminhtml/template')->setTemplate('api/user_roles_grid_js.phtml'));
         $this->renderLayout();
@@ -101,28 +102,31 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 return;
             }
             $model->setData($data);
-            try {
+            try
+            {
                 $model->save();
-                if ( $uRoles = $this->getRequest()->getParam('roles', false) ) {
-                    /*parse_str($uRoles, $uRoles);
-                    $uRoles = array_keys($uRoles);*/
-                    if ( 1 == sizeof($uRoles) ) {
+                if ($uRoles = $this->getRequest()->getParam('roles', false)) {
+                    /* parse_str($uRoles, $uRoles);
+                      $uRoles = array_keys($uRoles); */
+                    if (1 == sizeof($uRoles)) {
                         $model->setRoleIds($uRoles)
-                            ->setRoleUserId($model->getUserId())
-                            ->saveRelations();
-                    } else if ( sizeof($uRoles) > 1 ) {
+                                ->setRoleUserId($model->getUserId())
+                                ->saveRelations();
+                    } else if (sizeof($uRoles) > 1) {
                         //@FIXME: stupid fix of previous multi-roles logic.
                         //@TODO:  make proper DB upgrade in the future revisions.
                         $rs = array();
                         $rs[0] = $uRoles[0];
-                        $model->setRoleIds( $rs )->setRoleUserId( $model->getUserId() )->saveRelations();
+                        $model->setRoleIds($rs)->setRoleUserId($model->getUserId())->saveRelations();
                     }
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
                 Mage::getSingleton('adminhtml/session')->setUserData(false);
                 $this->_redirect('*/*/edit', array('user_id' => $model->getUserId()));
                 return;
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setUserData($data);
                 $this->_redirect('*/*/edit', array('user_id' => $model->getUserId()));
@@ -136,14 +140,16 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
     {
         if ($id = $this->getRequest()->getParam('user_id')) {
 
-            try {
+            try
+            {
                 $model = Mage::getModel('api/user')->load($id);
                 $model->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
             }
-            catch (Exception $e) {
+            catch (Exception $e)
+            {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('user_id' => $this->getRequest()->getParam('user_id')));
                 return;
@@ -169,9 +175,9 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
     public function roleGridAction()
     {
         $this->getResponse()
-            ->setBody($this->getLayout()
-            ->createBlock('adminhtml/api_user_grid')
-            ->toHtml()
+                ->setBody($this->getLayout()
+                        ->createBlock('adminhtml/api_user_grid')
+                        ->toHtml()
         );
     }
 

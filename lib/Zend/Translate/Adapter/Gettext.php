@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @version    $Id: Gettext.php 22653 2010-07-22 18:41:39Z mabe $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Locale */
 #require_once 'Zend/Locale.php';
 
@@ -31,12 +31,14 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
+class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter
+{
+
     // Internal variables
-    private $_bigEndian   = false;
-    private $_file        = false;
+    private $_bigEndian = false;
+    private $_file = false;
     private $_adapterInfo = array();
-    private $_data        = array();
+    private $_data = array();
 
     /**
      * Read values from the MO file
@@ -64,9 +66,9 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
      */
     protected function _loadTranslationData($filename, $locale, array $options = array())
     {
-        $this->_data      = array();
+        $this->_data = array();
         $this->_bigEndian = false;
-        $this->_file      = @fopen($filename, 'rb');
+        $this->_file = @fopen($filename, 'rb');
         if (!$this->_file) {
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Error opening translation file \'' . $filename . '\'.');
@@ -107,7 +109,7 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
         fseek($this->_file, $TOffset);
         $transtemp = $this->_readMOData(2 * $total);
 
-        for($count = 0; $count < $total; ++$count) {
+        for ($count = 0; $count < $total; ++$count) {
             if ($origtemp[$count * 2 + 1] != 0) {
                 fseek($this->_file, $origtemp[$count * 2 + 2]);
                 $original = @fread($this->_file, $origtemp[$count * 2 + 1]);
@@ -162,4 +164,5 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
     {
         return "Gettext";
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,13 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Ini.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Config
  */
 #require_once 'Zend/Config.php';
-
 
 /**
  * @category   Zend
@@ -34,6 +32,7 @@
  */
 class Zend_Config_Ini extends Zend_Config
 {
+
     /**
      * String that separates nesting levels of configuration data identifiers
      *
@@ -128,7 +127,7 @@ class Zend_Config_Ini extends Zend_Config
             // Load entire file
             $dataArray = array();
             foreach ($iniArray as $sectionName => $sectionData) {
-                if(!is_array($sectionData)) {
+                if (!is_array($sectionData)) {
                     $dataArray = $this->_arrayMergeRecursive($dataArray, $this->_processKey(array(), $sectionName, $sectionData));
                 } else {
                     $dataArray[$sectionName] = $this->_processSection($iniArray, $sectionName);
@@ -150,14 +149,13 @@ class Zend_Config_Ini extends Zend_Config
                     throw new Zend_Config_Exception("Section '$sectionName' cannot be found in $filename");
                 }
                 $dataArray = $this->_arrayMergeRecursive($this->_processSection($iniArray, $sectionName), $dataArray);
-
             }
             parent::__construct($dataArray, $allowModifications);
         }
 
         $this->_loadedSection = $section;
     }
-    
+
     /**
      * Load the INI file from disk using parse_ini_file(). Use a private error
      * handler to convert any loading errors into a Zend_Config_Exception
@@ -171,7 +169,7 @@ class Zend_Config_Ini extends Zend_Config
         set_error_handler(array($this, '_loadFileErrorHandler'));
         $iniArray = parse_ini_file($filename, true); // Warnings and errors are suppressed
         restore_error_handler();
-        
+
         // Check if there was a error while loading file
         if ($this->_loadFileErrorStr !== null) {
             /**
@@ -180,7 +178,7 @@ class Zend_Config_Ini extends Zend_Config
             #require_once 'Zend/Config/Exception.php';
             throw new Zend_Config_Exception($this->_loadFileErrorStr);
         }
-        
+
         return $iniArray;
     }
 
@@ -200,8 +198,7 @@ class Zend_Config_Ini extends Zend_Config
     {
         $loaded = $this->_parseIniFile($filename);
         $iniArray = array();
-        foreach ($loaded as $key => $data)
-        {
+        foreach ($loaded as $key => $data) {
             $pieces = explode($this->_sectionSeparator, $key);
             $thisSection = trim($pieces[0]);
             switch (count($pieces)) {
@@ -211,7 +208,7 @@ class Zend_Config_Ini extends Zend_Config
 
                 case 2:
                     $extendedSection = trim($pieces[1]);
-                    $iniArray[$thisSection] = array_merge(array(';extends'=>$extendedSection), $data);
+                    $iniArray[$thisSection] = array_merge(array(';extends' => $extendedSection), $data);
                     break;
 
                 default:
@@ -305,4 +302,5 @@ class Zend_Config_Ini extends Zend_Config
         }
         return $config;
     }
+
 }

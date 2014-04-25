@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Explicit.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element.php';
 
@@ -38,6 +37,7 @@
  */
 abstract class Zend_Pdf_Destination_Explicit extends Zend_Pdf_Destination
 {
+
     /**
      * Destination description array
      *
@@ -119,4 +119,5 @@ abstract class Zend_Pdf_Destination_Explicit extends Zend_Pdf_Destination
     {
         return $this->_destinationArray;
     }
+
 }

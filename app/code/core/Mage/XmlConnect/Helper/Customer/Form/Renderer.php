@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Helper_Customer_Form_Renderer extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Attributes block name
      *
@@ -115,7 +117,7 @@ class Mage_XmlConnect_Helper_Customer_Form_Renderer extends Mage_Core_Helper_Abs
                     $block = $attrBlock->getRenderer($type);
                     if ($block) {
                         $block->setAttributeObject($attribute)->setEntity($attrBlock->getEntity())
-                            ->addFieldToXmlObj($fieldset);
+                                ->addFieldToXmlObj($fieldset);
                     }
                 }
             }
@@ -196,13 +198,13 @@ class Mage_XmlConnect_Helper_Customer_Form_Renderer extends Mage_Core_Helper_Abs
      * @param Enterprise_Eav_Block_Form_Renderer_Abstract $blockObject
      * @return array
      */
-    public function addTitleAndRequiredAttr(Mage_XmlConnect_Model_Simplexml_Form_Abstract $fieldsetXmlObj,
-        Enterprise_Eav_Block_Form_Renderer_Abstract $blockObject
-    ) {
+    public function addTitleAndRequiredAttr(Mage_XmlConnect_Model_Simplexml_Form_Abstract $fieldsetXmlObj, Enterprise_Eav_Block_Form_Renderer_Abstract $blockObject
+    )
+    {
         $attributes = array();
 
         if ($blockObject->isRequired()) {
-            $attributes += $fieldsetXmlObj->checkAttribute('required', (int)$blockObject->isRequired());
+            $attributes += $fieldsetXmlObj->checkAttribute('required', (int) $blockObject->isRequired());
         }
 
         if ($blockObject->getAdditionalDescription()) {
@@ -233,4 +235,5 @@ class Mage_XmlConnect_Helper_Customer_Form_Renderer extends Mage_Core_Helper_Abs
     {
         return $this->_blockEntityType;
     }
+
 }

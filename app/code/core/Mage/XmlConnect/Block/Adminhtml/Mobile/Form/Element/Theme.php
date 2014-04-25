@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Theme extends Varien_Data_Form_Element_Text
 {
+
     /**
      * Generate themes (colors) html
      *
@@ -47,4 +49,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Theme extends Varien_D
         $block->setValue($this->getValue());
         return $block->toHtml();
     }
+
 }

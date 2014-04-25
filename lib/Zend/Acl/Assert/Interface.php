@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Interface.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Acl
  */
@@ -37,7 +36,6 @@
  */
 #require_once 'Zend/Acl/Resource/Interface.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Acl
@@ -46,6 +44,7 @@
  */
 interface Zend_Acl_Assert_Interface
 {
+
     /**
      * Returns true if and only if the assertion conditions are met
      *
@@ -59,6 +58,5 @@ interface Zend_Acl_Assert_Interface
      * @param  string                      $privilege
      * @return boolean
      */
-    public function assert(Zend_Acl $acl, Zend_Acl_Role_Interface $role = null, Zend_Acl_Resource_Interface $resource = null,
-                           $privilege = null);
+    public function assert(Zend_Acl $acl, Zend_Acl_Role_Interface $role = null, Zend_Acl_Resource_Interface $resource = null, $privilege = null);
 }

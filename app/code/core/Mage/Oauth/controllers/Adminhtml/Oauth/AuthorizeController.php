@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Session name
      *
@@ -45,7 +47,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
      *
      * @var array
      */
-    public $_publicActions = array('index', 'simple', 'confirm', 'confirmSimple','reject', 'rejectSimple');
+    public $_publicActions = array('index', 'simple', 'confirm', 'confirmSimple', 'reject', 'rejectSimple');
 
     /**
      * Disable showing of login form
@@ -65,7 +67,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         // call after parent::preDispatch(); to get session started
         if ($loginError) {
             Mage::getSingleton('adminhtml/session')
-                ->addError(Mage::helper('adminhtml')->__('Invalid User Name or Password.'));
+                    ->addError(Mage::helper('adminhtml')->__('Invalid User Name or Password.'));
             $params = array('_query' => array('oauth_token' => $this->getRequest()->getParam('oauth_token', null)));
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
@@ -113,14 +115,21 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         $session = Mage::getSingleton($this->_sessionName);
 
         $isException = false;
-        try {
+        try
+        {
             $server->checkAuthorizeRequest();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $session->addError($e->getMessage());
-        } catch (Mage_Oauth_Exception $e) {
+        }
+        catch (Mage_Oauth_Exception $e)
+        {
             $isException = true;
             $session->addException($e, $this->__('An error occurred. Your authorization request is invalid.'));
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $isException = true;
             $session->addException($e, $this->__('An error occurred.'));
         }
@@ -141,8 +150,8 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         }
 
         $block->setIsSimple($simple)
-            ->setToken($this->getRequest()->getQuery('oauth_token'))
-            ->setHasException($isException);
+                ->setToken($this->getRequest()->getQuery('oauth_token'))
+                ->setHasException($isException);
         return $this;
     }
 
@@ -175,7 +184,8 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         $block = $this->getLayout()->getBlock('content')->getChild('oauth.authorize.confirm');
         $block->setIsSimple($simple);
 
-        try {
+        try
+        {
             /** @var $server Mage_Oauth_Model_Server */
             $server = Mage::getModel('oauth/server');
 
@@ -188,10 +198,14 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
                 $block->setVerifier($token->getVerifier());
                 $session->addSuccess($this->__('Authorization confirmed.'));
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $block->setHasException(true);
             $session->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $block->setHasException(true);
             $session->addException($e, $this->__('An error occurred on confirm authorize.'));
         }
@@ -222,7 +236,8 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         $block = $this->getLayout()->getBlock('oauth.authorize.reject');
         $block->setIsSimple($simple);
 
-        try {
+        try
+        {
             $token = $server->checkAuthorizeRequest();
             /** @var $helper Mage_Oauth_Helper_Data */
             $helper = Mage::helper('oauth');
@@ -233,9 +248,13 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
             } else {
                 $session->addNotice($this->__('The application access request is rejected.'));
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $session->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $session->addException($e, $this->__('An error occurred on reject authorize.'));
         }
 
@@ -257,9 +276,9 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         $error = false;
         $action = $this->getRequest()->getActionName();
         if (($action == 'index' || $action == 'simple') && $this->getRequest()->getPost('login')) {
-            $postLogin  = $this->getRequest()->getPost('login');
-            $username   = isset($postLogin['username']) ? $postLogin['username'] : '';
-            $password   = isset($postLogin['password']) ? $postLogin['password'] : '';
+            $postLogin = $this->getRequest()->getPost('login');
+            $username = isset($postLogin['username']) ? $postLogin['username'] : '';
+            $password = isset($postLogin['password']) ? $postLogin['password'] : '';
             if (empty($username) || empty($password)) {
                 $error = true;
             }
@@ -298,4 +317,5 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
     {
         $this->_initRejectPage();
     }
+
 }

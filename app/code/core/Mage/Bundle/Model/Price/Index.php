@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bundle Product Price Index
  *
@@ -46,6 +46,7 @@
  */
 class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
 {
+
     /**
      * Initialize resource model
      *
@@ -99,7 +100,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
     public function addPriceIndexToCollection($collection)
     {
         $productObjects = array();
-        $productIds     = array();
+        $productIds = array();
         foreach ($collection->getItems() as $product) {
             /* @var $product Mage_Catalog_Model_Product */
             if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
@@ -107,21 +108,20 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
                 $productObjects[$product->getEntityId()] = $product;
             }
         }
-        $websiteId  = Mage::app()->getStore($collection->getStoreId())
-            ->getWebsiteId();
-        $groupId    = Mage::getSingleton('customer/session')
-            ->getCustomerGroupId();
+        $websiteId = Mage::app()->getStore($collection->getStoreId())
+                ->getWebsiteId();
+        $groupId = Mage::getSingleton('customer/session')
+                ->getCustomerGroupId();
 
         $addOptionsToResult = false;
         $prices = $this->_getResource()->loadPriceIndex($productIds, $websiteId, $groupId);
         foreach ($productIds as $productId) {
             if (isset($prices[$productId])) {
                 $productObjects[$productId]
-                    ->setData('_price_index', true)
-                    ->setData('_price_index_min_price', $prices[$productId]['min_price'])
-                    ->setData('_price_index_max_price', $prices[$productId]['max_price']);
-            }
-            else {
+                        ->setData('_price_index', true)
+                        ->setData('_price_index_min_price', $prices[$productId]['min_price'])
+                        ->setData('_price_index_max_price', $prices[$productId]['max_price']);
+            } else {
                 $addOptionsToResult = true;
             }
         }
@@ -141,16 +141,17 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
      */
     public function addPriceIndexToProduct($product)
     {
-        $websiteId  = $product->getStore()->getWebsiteId();
-        $groupId    = Mage::getSingleton('customer/session')
-            ->getCustomerGroupId();
+        $websiteId = $product->getStore()->getWebsiteId();
+        $groupId = Mage::getSingleton('customer/session')
+                ->getCustomerGroupId();
         $prices = $this->_getResource()
-            ->loadPriceIndex($product->getId(), $websiteId, $groupId);
+                ->loadPriceIndex($product->getId(), $websiteId, $groupId);
         if (isset($prices[$product->getId()])) {
             $product->setData('_price_index', true)
-                ->setData('_price_index_min_price', $prices[$product->getId()]['min_price'])
-                ->setData('_price_index_max_price', $prices[$product->getId()]['max_price']);
+                    ->setData('_price_index_min_price', $prices[$product->getId()]['min_price'])
+                    ->setData('_price_index_max_price', $prices[$product->getId()]['max_price']);
         }
         return $this;
     }
+
 }

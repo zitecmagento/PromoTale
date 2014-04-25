@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Config Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * catalog_product entity type id
      *
@@ -46,7 +47,7 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
      *
      * @var int
      */
-    protected $_storeId          = null;
+    protected $_storeId = null;
 
     /**
      * Initialize connection
@@ -65,7 +66,7 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
      */
     public function setStoreId($storeId)
     {
-        $this->_storeId = (int)$storeId;
+        $this->_storeId = (int) $storeId;
         return $this;
     }
 
@@ -106,19 +107,17 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
         $adapter = $this->_getReadAdapter();
         $storeLabelExpr = $adapter->getCheckSql('al.value IS NOT NULL', 'al.value', 'main_table.frontend_label');
 
-        $select  = $adapter->select()
-            ->from(array('main_table' => $this->getTable('eav/attribute')))
-            ->join(
-                array('additional_table' => $this->getTable('catalog/eav_attribute')),
-                'main_table.attribute_id = additional_table.attribute_id'
-            )
-            ->joinLeft(
-                array('al' => $this->getTable('eav/attribute_label')),
-                'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int)$this->getStoreId(),
-                array('store_label' => $storeLabelExpr)
-            )
-            ->where('main_table.entity_type_id = ?', (int)$this->getEntityTypeId())
-            ->where('additional_table.used_in_product_listing = ?', 1);
+        $select = $adapter->select()
+                ->from(array('main_table' => $this->getTable('eav/attribute')))
+                ->join(
+                        array('additional_table' => $this->getTable('catalog/eav_attribute')), 'main_table.attribute_id = additional_table.attribute_id'
+                )
+                ->joinLeft(
+                        array('al' => $this->getTable('eav/attribute_label')), 'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int) $this->getStoreId(), array(
+                    'store_label' => $storeLabelExpr)
+                )
+                ->where('main_table.entity_type_id = ?', (int) $this->getEntityTypeId())
+                ->where('additional_table.used_in_product_listing = ?', 1);
 
         return $adapter->fetchAll($select);
     }
@@ -131,22 +130,20 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
     public function getAttributesUsedForSortBy()
     {
         $adapter = $this->_getReadAdapter();
-        $storeLabelExpr = $adapter->getCheckSql('al.value IS NULL', 'main_table.frontend_label','al.value');
+        $storeLabelExpr = $adapter->getCheckSql('al.value IS NULL', 'main_table.frontend_label', 'al.value');
         $select = $adapter->select()
-            ->from(array('main_table' => $this->getTable('eav/attribute')))
-            ->join(
-                array('additional_table' => $this->getTable('catalog/eav_attribute')),
-                'main_table.attribute_id = additional_table.attribute_id',
-                array()
-            )
-            ->joinLeft(
-                array('al' => $this->getTable('eav/attribute_label')),
-                'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int)$this->getStoreId(),
-                array('store_label' => $storeLabelExpr)
-            )
-            ->where('main_table.entity_type_id = ?', (int)$this->getEntityTypeId())
-            ->where('additional_table.used_for_sort_by = ?', 1);
+                ->from(array('main_table' => $this->getTable('eav/attribute')))
+                ->join(
+                        array('additional_table' => $this->getTable('catalog/eav_attribute')), 'main_table.attribute_id = additional_table.attribute_id', array()
+                )
+                ->joinLeft(
+                        array('al' => $this->getTable('eav/attribute_label')), 'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int) $this->getStoreId(), array(
+                    'store_label' => $storeLabelExpr)
+                )
+                ->where('main_table.entity_type_id = ?', (int) $this->getEntityTypeId())
+                ->where('additional_table.used_for_sort_by = ?', 1);
 
         return $adapter->fetchAll($select);
     }
+
 }

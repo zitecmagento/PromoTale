@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,14 +24,13 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
 $installer->startSetup();
 
-$fieldList = array('price','special_price','special_from_date','special_to_date',
-    'minimal_price','cost','tier_price');
+$fieldList = array('price', 'special_price', 'special_from_date', 'special_to_date',
+    'minimal_price', 'cost', 'tier_price');
 foreach ($fieldList as $field) {
     $applyTo = explode(',', $installer->getAttribute('catalog_product', $field, 'apply_to'));
     if (!in_array('virtual', $applyTo)) {

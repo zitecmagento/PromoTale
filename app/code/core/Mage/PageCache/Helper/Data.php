@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,13 @@
  */
 class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Pathes to external cache config options
      */
-    const XML_PATH_EXTERNAL_CACHE_ENABLED  = 'system/external_page_cache/enabled';
+    const XML_PATH_EXTERNAL_CACHE_ENABLED = 'system/external_page_cache/enabled';
     const XML_PATH_EXTERNAL_CACHE_LIFETIME = 'system/external_page_cache/cookie_lifetime';
-    const XML_PATH_EXTERNAL_CACHE_CONTROL  = 'system/external_page_cache/control';
+    const XML_PATH_EXTERNAL_CACHE_CONTROL = 'system/external_page_cache/control';
 
     /**
      * Path to external cache controls
@@ -59,7 +61,7 @@ class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isEnabled()
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_EXTERNAL_CACHE_ENABLED);
+        return (bool) Mage::getStoreConfig(self::XML_PATH_EXTERNAL_CACHE_ENABLED);
     }
 
     /**
@@ -99,9 +101,9 @@ class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function setNoCacheCookie()
     {
-        $cookie   = Mage::getSingleton('core/cookie');
+        $cookie = Mage::getSingleton('core/cookie');
         $lifetime = Mage::getStoreConfig(self::XML_PATH_EXTERNAL_CACHE_LIFETIME);
-        $noCache  = $cookie->get(self::NO_CACHE_COOKIE);
+        $noCache = $cookie->get(self::NO_CACHE_COOKIE);
 
         if ($noCache) {
             $cookie->renew(self::NO_CACHE_COOKIE, $lifetime);
@@ -119,4 +121,5 @@ class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfig(self::XML_PATH_EXTERNAL_CACHE_LIFETIME);
     }
+
 }

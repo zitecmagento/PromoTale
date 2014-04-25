@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Downloadable_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Price
 {
+
     /**
      * Retrieve product final price
      *
@@ -40,7 +42,7 @@ class Mage_Downloadable_Model_Product_Price extends Mage_Catalog_Model_Product_T
      * @param Mage_Catalog_Model_Product $product
      * @return float
      */
-    public function getFinalPrice($qty=null, $product)
+    public function getFinalPrice($qty = null, $product)
     {
         if (is_null($qty) && !is_null($product->getCalculatedFinalPrice())) {
             return $product->getCalculatedFinalPrice();
@@ -55,7 +57,7 @@ class Mage_Downloadable_Model_Product_Price extends Mage_Catalog_Model_Product_T
             if ($linksIds = $product->getCustomOption('downloadable_link_ids')) {
                 $linkPrice = 0;
                 $links = $product->getTypeInstance(true)
-                    ->getLinks($product);
+                        ->getLinks($product);
                 foreach (explode(',', $linksIds->getValue()) as $linkId) {
                     if (isset($links[$linkId])) {
                         $linkPrice += $links[$linkId]->getPrice();
@@ -68,4 +70,5 @@ class Mage_Downloadable_Model_Product_Price extends Mage_Catalog_Model_Product_T
         $product->setData('final_price', $finalPrice);
         return max(0, $product->getData('final_price'));
     }
+
 }

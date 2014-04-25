@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * AdminNotification Inbox model
@@ -51,10 +51,11 @@
  */
 class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
 {
+
     const SEVERITY_CRITICAL = 1;
-    const SEVERITY_MAJOR    = 2;
-    const SEVERITY_MINOR    = 3;
-    const SEVERITY_NOTICE   = 4;
+    const SEVERITY_MAJOR = 2;
+    const SEVERITY_MINOR = 3;
+    const SEVERITY_NOTICE = 4;
 
     protected function _construct()
     {
@@ -70,9 +71,9 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     {
         $severities = array(
             self::SEVERITY_CRITICAL => Mage::helper('adminnotification')->__('critical'),
-            self::SEVERITY_MAJOR    => Mage::helper('adminnotification')->__('major'),
-            self::SEVERITY_MINOR    => Mage::helper('adminnotification')->__('minor'),
-            self::SEVERITY_NOTICE   => Mage::helper('adminnotification')->__('notice'),
+            self::SEVERITY_MAJOR => Mage::helper('adminnotification')->__('major'),
+            self::SEVERITY_MINOR => Mage::helper('adminnotification')->__('minor'),
+            self::SEVERITY_NOTICE => Mage::helper('adminnotification')->__('notice'),
         );
 
         if (!is_null($severity)) {
@@ -138,12 +139,12 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
         }
         $date = date('Y-m-d H:i:s');
         $this->parse(array(array(
-            'severity'    => $severity,
-            'date_added'  => $date,
-            'title'       => $title,
-            'description' => $description,
-            'url'         => $url,
-            'internal'    => $isInternal
+                'severity' => $severity,
+                'date_added' => $date,
+                'title' => $title,
+                'description' => $description,
+                'url' => $url,
+                'internal' => $isInternal
         )));
         return $this;
     }
@@ -207,4 +208,5 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
         $this->add(self::SEVERITY_NOTICE, $title, $description, $url, $isInternal);
         return $this;
     }
+
 }

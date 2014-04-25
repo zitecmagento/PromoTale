@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Shipping_Model_Tracking_Result_Error extends Mage_Shipping_Model_Tracking_Result_Abstract
 {
+
     public function getAllData()
     {
         return $this->_data;
@@ -34,6 +34,7 @@ class Mage_Shipping_Model_Tracking_Result_Error extends Mage_Shipping_Model_Trac
 
     public function getErrorMessage()
     {
-        return  Mage::helper('shipping')->__('Tracking information is currently unavailable.');
+        return Mage::helper('shipping')->__('Tracking information is currently unavailable.');
     }
+
 }

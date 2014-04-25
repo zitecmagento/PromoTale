@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Action.php 20851 2010-02-02 21:45:51Z ralph $
  */
-
 /**
  * @see Zend_Tool_Project_Provider_Abstract
  */
@@ -36,9 +36,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Project_Provider_Action
-    extends Zend_Tool_Project_Provider_Abstract
-    implements Zend_Tool_Framework_Provider_Pretendable
+class Zend_Tool_Project_Provider_Action extends Zend_Tool_Project_Provider_Abstract implements Zend_Tool_Framework_Provider_Pretendable
 {
 
     /**
@@ -92,7 +90,7 @@ class Zend_Tool_Project_Provider_Action
         if ($controllerFile == null) {
             throw new Zend_Tool_Project_Provider_Exception('Controller ' . $controllerName . ' was not found.');
         }
-       
+
         return (($controllerFile->search(array('actionMethod' => array('actionName' => $actionName)))) instanceof Zend_Tool_Project_Profile_Resource);
     }
 
@@ -135,59 +133,57 @@ class Zend_Tool_Project_Provider_Action
         if (preg_match('#[_-]#', $name)) {
             throw new Zend_Tool_Project_Provider_Exception('Action names should be camel cased.');
         }
-        
+
         $originalName = $name;
         $originalControllerName = $controllerName;
-        
+
         // ensure it is camelCase (lower first letter)
         $name = strtolower(substr($name, 0, 1)) . substr($name, 1);
-        
+
         // ensure controller is MixedCase
         $controllerName = ucfirst($controllerName);
-        
+
         if (self::hasResource($this->_loadedProfile, $name, $controllerName, $module)) {
             throw new Zend_Tool_Project_Provider_Exception('This controller (' . $controllerName . ') already has an action named (' . $name . ')');
         }
-        
+
         $actionMethod = self::createResource($this->_loadedProfile, $name, $controllerName, $module);
 
         // get request/response object
         $request = $this->_registry->getRequest();
         $response = $this->_registry->getResponse();
-        
+
         // alert the user about inline converted names
         $tense = (($request->isPretend()) ? 'would be' : 'is');
-        
+
         if ($name !== $originalName) {
             $response->appendContent(
-                'Note: The canonical action name that ' . $tense
+                    'Note: The canonical action name that ' . $tense
                     . ' used with other providers is "' . $name . '";'
-                    . ' not "' . $originalName . '" as supplied',
-                array('color' => array('yellow'))
-                );
+                    . ' not "' . $originalName . '" as supplied', array('color' => array('yellow'))
+            );
         }
-        
+
         if ($controllerName !== $originalControllerName) {
             $response->appendContent(
-                'Note: The canonical controller name that ' . $tense
+                    'Note: The canonical controller name that ' . $tense
                     . ' used with other providers is "' . $controllerName . '";'
-                    . ' not "' . $originalControllerName . '" as supplied',
-                array('color' => array('yellow'))
-                );
+                    . ' not "' . $originalControllerName . '" as supplied', array('color' => array('yellow'))
+            );
         }
-        
+
         unset($tense);
-        
+
         if ($request->isPretend()) {
             $response->appendContent(
-                'Would create an action named ' . $name .
-                ' inside controller at ' . $actionMethod->getParentResource()->getContext()->getPath()
-                );
+                    'Would create an action named ' . $name .
+                    ' inside controller at ' . $actionMethod->getParentResource()->getContext()->getPath()
+            );
         } else {
             $response->appendContent(
-                'Creating an action named ' . $name .
-                ' inside controller at ' . $actionMethod->getParentResource()->getContext()->getPath()
-                );
+                    'Creating an action named ' . $name .
+                    ' inside controller at ' . $actionMethod->getParentResource()->getContext()->getPath()
+            );
             $actionMethod->create();
             $this->_storeProfile();
         }
@@ -197,18 +193,16 @@ class Zend_Tool_Project_Provider_Action
 
             if ($this->_registry->getRequest()->isPretend()) {
                 $response->appendContent(
-                    'Would create a view script for the ' . $name . ' action method at ' . $viewResource->getContext()->getPath()
-                    );
+                        'Would create a view script for the ' . $name . ' action method at ' . $viewResource->getContext()->getPath()
+                );
             } else {
                 $response->appendContent(
-                    'Creating a view script for the ' . $name . ' action method at ' . $viewResource->getContext()->getPath()
-                    );
+                        'Creating a view script for the ' . $name . ' action method at ' . $viewResource->getContext()->getPath()
+                );
                 $viewResource->create();
                 $this->_storeProfile();
             }
-
         }
-
     }
 
 }

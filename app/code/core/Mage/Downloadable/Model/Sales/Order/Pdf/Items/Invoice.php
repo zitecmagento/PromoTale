@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Order Invoice Downloadable Pdf Items renderer
  *
@@ -32,38 +32,38 @@
  * @package    Mage_Downloadable
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice
-    extends Mage_Downloadable_Model_Sales_Order_Pdf_Items_Abstract
+class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Downloadable_Model_Sales_Order_Pdf_Items_Abstract
 {
+
     /**
      * Draw item line
      *
      */
     public function draw()
     {
-        $order  = $this->getOrder();
-        $item   = $this->getItem();
-        $pdf    = $this->getPdf();
-        $page   = $this->getPage();
-        $lines  = array();
+        $order = $this->getOrder();
+        $item = $this->getItem();
+        $pdf = $this->getPdf();
+        $page = $this->getPage();
+        $lines = array();
 
         // draw Product name
         $lines[0] = array(array(
-            'text' => Mage::helper('core/string')->str_split($item->getName(), 35, true, true),
-            'feed' => 35,
+                'text' => Mage::helper('core/string')->str_split($item->getName(), 35, true, true),
+                'feed' => 35,
         ));
 
         // draw SKU
         $lines[0][] = array(
-            'text'  => Mage::helper('core/string')->str_split($this->getSku($item), 17),
-            'feed'  => 290,
+            'text' => Mage::helper('core/string')->str_split($this->getSku($item), 17),
+            'feed' => 290,
             'align' => 'right'
         );
 
         // draw QTY
         $lines[0][] = array(
-            'text'  => $item->getQty() * 1,
-            'feed'  => 435,
+            'text' => $item->getQty() * 1,
+            'feed' => 435,
             'align' => 'right'
         );
 
@@ -72,34 +72,34 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice
         $prices = $this->getItemPricesForDisplay();
         $feedPrice = 395;
         $feedSubtotal = $feedPrice + 170;
-        foreach ($prices as $priceData){
+        foreach ($prices as $priceData) {
             if (isset($priceData['label'])) {
                 // draw Price label
                 $lines[$i][] = array(
-                    'text'  => $priceData['label'],
-                    'feed'  => $feedPrice,
+                    'text' => $priceData['label'],
+                    'feed' => $feedPrice,
                     'align' => 'right'
                 );
                 // draw Subtotal label
                 $lines[$i][] = array(
-                    'text'  => $priceData['label'],
-                    'feed'  => $feedSubtotal,
+                    'text' => $priceData['label'],
+                    'feed' => $feedSubtotal,
                     'align' => 'right'
                 );
                 $i++;
             }
             // draw Price
             $lines[$i][] = array(
-                'text'  => $priceData['price'],
-                'feed'  => $feedPrice,
-                'font'  => 'bold',
+                'text' => $priceData['price'],
+                'feed' => $feedPrice,
+                'font' => 'bold',
                 'align' => 'right'
             );
             // draw Subtotal
             $lines[$i][] = array(
-                'text'  => $priceData['subtotal'],
-                'feed'  => $feedSubtotal,
-                'font'  => 'bold',
+                'text' => $priceData['subtotal'],
+                'feed' => $feedSubtotal,
+                'font' => 'bold',
                 'align' => 'right'
             );
             $i++;
@@ -107,9 +107,9 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice
 
         // draw Tax
         $lines[0][] = array(
-            'text'  => $order->formatPriceTxt($item->getTaxAmount()),
-            'feed'  => 495,
-            'font'  => 'bold',
+            'text' => $order->formatPriceTxt($item->getTaxAmount()),
+            'feed' => 495,
+            'font' => 'bold',
             'align' => 'right'
         );
 
@@ -160,11 +160,12 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice
         }
 
         $lineBlock = array(
-            'lines'  => $lines,
+            'lines' => $lines,
             'height' => 20
         );
 
         $page = $pdf->drawLineBlocks($page, array($lineBlock), array('table_header' => true));
         $this->setPage($page);
     }
+
 }

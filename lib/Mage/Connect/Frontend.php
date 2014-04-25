@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Connect_Frontend
 {
 
@@ -40,7 +40,6 @@ class Mage_Connect_Frontend
      * @var bool
      */
     protected $_capture = false;
-
 
     /**
      * push/pop variable for capture
@@ -77,7 +76,7 @@ class Mage_Connect_Frontend
      */
     public function getErrors($clear = true)
     {
-        if(!$clear) {
+        if (!$clear) {
             return $this->_errors;
         }
         $out = $this->_errors;
@@ -161,7 +160,7 @@ class Mage_Connect_Frontend
      */
     public function log($msg)
     {
-
+        
     }
 
     /**
@@ -171,7 +170,7 @@ class Mage_Connect_Frontend
      */
     public function output($data)
     {
-
+        
     }
 
     /**
@@ -182,7 +181,7 @@ class Mage_Connect_Frontend
      */
     public static function getInstance($class)
     {
-        $class = __CLASS__."_".$class;
+        $class = __CLASS__ . "_" . $class;
         return new $class();
     }
 
@@ -194,9 +193,8 @@ class Mage_Connect_Frontend
      */
     public function getOutput($clearPrevious = true)
     {
-
+        
     }
-
 
     /**
      * Save silent mode
@@ -239,13 +237,13 @@ class Mage_Connect_Frontend
     }
 
     /**
-    * Method for ask client about rewrite all files.
-    *
-    * @param $string
-    */
+     * Method for ask client about rewrite all files.
+     *
+     * @param $string
+     */
     public function confirm($string)
     {
         
     }
-}
 
+}

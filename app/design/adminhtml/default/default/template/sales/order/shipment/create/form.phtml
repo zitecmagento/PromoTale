@@ -25,8 +25,8 @@
  */
 ?>
 <form id="edit_form" method="post" action="<?php echo $this->getSaveUrl() ?>">
-    <?php echo $this->getBlockHtml('formkey')?>
-    <?php  $_order = $this->getShipment()->getOrder() ?>
+    <?php echo $this->getBlockHtml('formkey') ?>
+    <?php $_order = $this->getShipment()->getOrder() ?>
     <?php echo $this->getChildHtml('order_info') ?>
 
 
@@ -77,31 +77,32 @@
         </div>
     </div>
     <div id="ship_items_container">
-            <?php echo $this->getItemsHtml() ?>
+        <?php echo $this->getItemsHtml() ?>
     </div>
 </form>
 <?php echo $this->getChildHtml('shipment_packaging') ?>
 <script type="text/javascript">
 //<![CDATA[
     document.observe("dom:loaded", function() {
-        setTimeout(function(){
-            packaging.setConfirmPackagingCallback(function(){
+        setTimeout(function() {
+            packaging.setConfirmPackagingCallback(function() {
                 packaging.setParamsCreateLabelRequest($('edit_form').serialize(true));
                 packaging.sendCreateLabelRequest();
             });
-            packaging.setLabelCreatedCallback(function(response){
-                setLocation("<?php echo $this->getUrl(
-                    '*/sales_order/view',
-                    array('order_id' => $this->getShipment()->getOrderId())
-                ); ?>");
+            packaging.setLabelCreatedCallback(function(response) {
+                setLocation("<?php
+echo $this->getUrl(
+        '*/sales_order/view', array('order_id' => $this->getShipment()->getOrderId())
+);
+?>");
             });
             packaging.setCancelCallback(function() {
                 packaging.cleanPackages();
                 $('create_shipping_label').checked = false;
                 toggleCreateLabelCheckbox();
             });
-            packaging.setItemQtyCallback(function(itemId){
-                var item = $$('[name="shipment[items]['+itemId+']"]')[0];
+            packaging.setItemQtyCallback(function(itemId) {
+                var item = $$('[name="shipment[items][' + itemId + ']"]')[0];
                 if (item && !isNaN(item.value)) {
                     return item.value;
                 }

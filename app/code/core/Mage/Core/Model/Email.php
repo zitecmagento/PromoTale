@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Possible data fields:
  *
@@ -38,6 +38,7 @@
  */
 class Mage_Core_Model_Email extends Varien_Object
 {
+
     protected $_tplVars = array();
     protected $_block;
 
@@ -52,11 +53,10 @@ class Mage_Core_Model_Email extends Varien_Object
     public function setTemplateVar($var, $value = null)
     {
         if (is_array($var)) {
-            foreach ($var as $index=>$value) {
+            foreach ($var as $index => $value) {
                 $this->_tplVars[$index] = $value;
             }
-        }
-        else {
+        } else {
             $this->_tplVars[$var] = $value;
         }
         return $this;
@@ -72,13 +72,13 @@ class Mage_Core_Model_Email extends Varien_Object
         $body = $this->getData('body');
         if (empty($body) && $this->getTemplate()) {
             $this->_block = Mage::getModel('core/layout')->createBlock('core/template', 'email')
-                ->setArea('frontend')
-                ->setTemplate($this->getTemplate());
-            foreach ($this->getTemplateVars() as $var=>$value) {
+                    ->setArea('frontend')
+                    ->setTemplate($this->getTemplate());
+            foreach ($this->getTemplateVars() as $var => $value) {
                 $this->_block->assign($var, $value);
             }
             $this->_block->assign('_type', strtolower($this->getType()))
-                ->assign('_section', 'body');
+                    ->assign('_section', 'body');
             $body = $this->_block->toHtml();
         }
         return $body;
@@ -104,16 +104,16 @@ class Mage_Core_Model_Email extends Varien_Object
 
         if (strtolower($this->getType()) == 'html') {
             $mail->setBodyHtml($this->getBody());
-        }
-        else {
+        } else {
             $mail->setBodyText($this->getBody());
         }
 
         $mail->setFrom($this->getFromEmail(), $this->getFromName())
-            ->addTo($this->getToEmail(), $this->getToName())
-            ->setSubject($this->getSubject());
+                ->addTo($this->getToEmail(), $this->getToName())
+                ->setSubject($this->getSubject());
         $mail->send();
 
         return $this;
     }
+
 }

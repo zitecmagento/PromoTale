@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Onepage_Review extends Mage_Checkout_Block_Cart_Abstract
 {
+
     /**
      * Order review xml renderer
      *
@@ -61,4 +63,5 @@ class Mage_XmlConnect_Block_Checkout_Onepage_Review extends Mage_Checkout_Block_
         }
         return $xmlObject->asNiceXml();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
 {
+
     /**
      * Set block template
      */
@@ -43,7 +44,7 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
     public function getMethodFormBlock()
     {
         return $this->getLayout()->createBlock('payment/form_cc')
-            ->setMethod($this->getMethod());
+                        ->setMethod($this->getMethod());
     }
 
     /**
@@ -54,10 +55,10 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
     public function getCardsBlock()
     {
         return $this->getLayout()->createBlock('paygate/authorizenet_info_cc')
-            ->setMethod($this->getMethod())
-            ->setInfo($this->getMethod()->getInfoInstance())
-            ->setCheckoutProgressBlock(false)
-            ->setHideTitle(true);
+                        ->setMethod($this->getMethod())
+                        ->setInfo($this->getMethod()->getInfoInstance())
+                        ->setCheckoutProgressBlock(false)
+                        ->setHideTitle(true);
     }
 
     /**
@@ -100,8 +101,8 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
     public function showNoticeMessage($message)
     {
         return $this->getLayout()->getMessagesBlock()
-            ->addNotice($this->__($message))
-            ->getGroupedHtml();
+                        ->addNotice($this->__($message))
+                        ->getGroupedHtml();
     }
 
     /**
@@ -119,7 +120,8 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
             $this->getMethod()->unsetPartialAuthorizationLastActionState();
             return Mage::helper('paygate')->__('Your credit card has been declined. Click OK to specify another credit card to complete your purchase. Click Cancel to release the amount on hold and select another payment method.');
         }
-        return false;;
+        return false;
+        ;
     }
 
     /**
@@ -176,11 +178,12 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
     public function getCancelButtonHtml()
     {
         $cancelButton = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
-                'id'      => 'payment_cancel',
-                'label'   => Mage::helper('paygate')->__('Cancel'),
-                'onclick' => 'cancelPaymentAuthorizations()'
-            ));
+                ->setData(array(
+            'id' => 'payment_cancel',
+            'label' => Mage::helper('paygate')->__('Cancel'),
+            'onclick' => 'cancelPaymentAuthorizations()'
+        ));
         return $cancelButton->toHtml();
     }
+
 }

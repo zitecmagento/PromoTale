@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Dashboard_Grids extends Mage_Adminhtml_Block_Widget_Tabs
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -60,30 +61,31 @@ class Mage_Adminhtml_Block_Dashboard_Grids extends Mage_Adminhtml_Block_Widget_T
     {
         // load this active tab statically
         $this->addTab('ordered_products', array(
-            'label'     => $this->__('Bestsellers'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/dashboard_tab_products_ordered')->toHtml(),
-            'active'    => true
+            'label' => $this->__('Bestsellers'),
+            'content' => $this->getLayout()->createBlock('adminhtml/dashboard_tab_products_ordered')->toHtml(),
+            'active' => true
         ));
 
         // load other tabs with ajax
         $this->addTab('reviewed_products', array(
-            'label'     => $this->__('Most Viewed Products'),
-            'url'       => $this->getUrl('*/*/productsViewed', array('_current'=>true)),
-            'class'     => 'ajax'
+            'label' => $this->__('Most Viewed Products'),
+            'url' => $this->getUrl('*/*/productsViewed', array('_current' => true)),
+            'class' => 'ajax'
         ));
 
         $this->addTab('new_customers', array(
-            'label'     => $this->__('New Customers'),
-            'url'       => $this->getUrl('*/*/customersNewest', array('_current'=>true)),
-            'class'     => 'ajax'
+            'label' => $this->__('New Customers'),
+            'url' => $this->getUrl('*/*/customersNewest', array('_current' => true)),
+            'class' => 'ajax'
         ));
 
         $this->addTab('customers', array(
-            'label'     => $this->__('Customers'),
-            'url'       => $this->getUrl('*/*/customersMost', array('_current'=>true)),
-            'class'     => 'ajax'
+            'label' => $this->__('Customers'),
+            'url' => $this->getUrl('*/*/customersMost', array('_current' => true)),
+            'class' => 'ajax'
         ));
 
         return parent::_prepareLayout();
     }
+
 }

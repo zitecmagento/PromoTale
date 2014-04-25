@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,8 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 
-$installer->addAttribute('invoice', 'email_sent', array('type'=>'int'));
-$installer->addAttribute('shipment', 'email_sent', array('type'=>'int'));
+$installer->addAttribute('invoice', 'email_sent', array('type' => 'int'));
+$installer->addAttribute('shipment', 'email_sent', array('type' => 'int'));

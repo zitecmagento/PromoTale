@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LICENSE
  *
@@ -36,6 +37,7 @@
  */
 interface Zend_Cloud_DocumentService_Adapter
 {
+
     // HTTP adapter to use for connections
     const HTTP_ADAPTER = 'http_adapter';
 
@@ -57,7 +59,7 @@ interface Zend_Cloud_DocumentService_Adapter
      */
     public function deleteCollection($name, $options = null);
 
-       /**
+    /**
      * List collections.
      *
      * @param  array  $options
@@ -106,7 +108,7 @@ interface Zend_Cloud_DocumentService_Adapter
      * @return boolean
      */
     public function updateDocument($collectionName, $documentID, $fieldset = null, $options = null);
-    
+
     /**
      * Delete document
      *
@@ -128,7 +130,7 @@ interface Zend_Cloud_DocumentService_Adapter
      * @return Zend_Cloud_DocumentService_Document
      */
     public function fetchDocument($collectionName, $documentID, $options = null);
-    
+
     /**
      * Query for documents stored in the document service. If a string is passed in
      * $query, the query string will be passed directly to the service.
@@ -139,7 +141,7 @@ interface Zend_Cloud_DocumentService_Adapter
      * @return array Array of field sets
      */
     public function query($collectionName, $query, $options = null);
-    
+
     /**
      * Create query statement
      * 
@@ -147,7 +149,7 @@ interface Zend_Cloud_DocumentService_Adapter
      * @return Zend_Cloud_DocumentService_Query
      */
     public function select($fields = null);
-    
+
     /**
      * Get the concrete service client
      */

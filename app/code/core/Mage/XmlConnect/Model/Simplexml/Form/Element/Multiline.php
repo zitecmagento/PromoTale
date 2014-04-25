@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,15 +32,15 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Simplexml_Form_Element_Multiline
-    extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
+class Mage_XmlConnect_Model_Simplexml_Form_Element_Multiline extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
 {
+
     /**
      * Format for Xml elements id attribute
      *
      * @var string
      */
-    protected $_fieldIdFormat   = '%1$s';
+    protected $_fieldIdFormat = '%1$s';
 
     /**
      * Format for Xml elements name attribute
@@ -57,7 +58,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Multiline
     {
         if (!isset($attributes['line_count'])) {
             Mage::throwException(
-                Mage::helper('xmlconnect')->__('"line_count" attribute is required for "multiline" element.')
+                    Mage::helper('xmlconnect')->__('"line_count" attribute is required for "multiline" element.')
             );
         }
         parent::__construct($attributes);
@@ -121,9 +122,10 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Multiline
                 $valuesXmlObj->addCustomChild('item', null, array(
                     'id' => $this->getXmlId($i),
                     'name' => $this->getFieldName($i)
-                ) + $value);
+                        ) + $value);
             }
         }
         return $this;
     }
+
 }

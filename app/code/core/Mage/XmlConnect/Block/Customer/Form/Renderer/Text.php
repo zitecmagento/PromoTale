@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Form_Renderer_Text extends Enterprise_Customer_Block_Form_Renderer_Text
 {
+
     /**
      * Field type
      *
@@ -50,15 +52,15 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Text extends Enterprise_Custo
     {
         $attributes = array(
             'label' => $this->getLabel(),
-            'name'  => $this->getFieldName(),
+            'name' => $this->getFieldName(),
             'value' => $this->getEscapedValue()
         );
 
         $attributes += Mage::helper('xmlconnect/customer_form_renderer')
-            ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
+                ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
 
-        $fieldXmlObj    = $fieldsetXmlObj->addField($this->getHtmlId(), $this->_filedType, $attributes);
-        $validateRules  = $this->getAttributeObject()->getValidateRules();
+        $fieldXmlObj = $fieldsetXmlObj->addField($this->getHtmlId(), $this->_filedType, $attributes);
+        $validateRules = $this->getAttributeObject()->getValidateRules();
 
         if (!empty($validateRules)) {
             $validatorXmlObj = $fieldXmlObj->addValidator();
@@ -80,4 +82,5 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Text extends Enterprise_Custo
 
         return $this;
     }
+
 }

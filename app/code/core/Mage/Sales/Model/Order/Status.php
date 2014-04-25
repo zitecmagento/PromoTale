@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
 {
 
@@ -40,13 +39,16 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
      * @param boolean $isDefault make the status as default one for state
      * @return Mage_Sales_Model_Order_Status
      */
-    public function assignState($state, $isDefault=false)
+    public function assignState($state, $isDefault = false)
     {
         $this->_getResource()->beginTransaction();
-        try {
+        try
+        {
             $this->_getResource()->assignState($this->getStatus(), $state, $isDefault);
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getResource()->rollBack();
             throw $e;
         }
@@ -62,10 +64,13 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
     public function unassignState($state)
     {
         $this->_getResource()->beginTransaction();
-        try {
+        try
+        {
             $this->_getResource()->unassignState($this->getStatus(), $state);
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getResource()->rollBack();
             throw $e;
         }
@@ -93,7 +98,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
      * @param mixed $store
      * @return string
      */
-    public function getStoreLabel($store=null)
+    public function getStoreLabel($store = null)
     {
         $store = Mage::app()->getStore($store);
         $label = false;
@@ -116,4 +121,5 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
         $this->load($state, 'default_state');
         return $this;
     }
+
 }

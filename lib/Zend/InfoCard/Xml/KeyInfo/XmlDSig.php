@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: XmlDSig.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_InfoCard_Xml_KeyInfo_Abstract
  */
@@ -42,10 +42,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_InfoCard_Xml_KeyInfo_XmlDSig
-    extends Zend_InfoCard_Xml_KeyInfo_Abstract
-    implements Zend_InfoCard_Xml_KeyInfo_Interface
+class Zend_InfoCard_Xml_KeyInfo_XmlDSig extends Zend_InfoCard_Xml_KeyInfo_Abstract implements Zend_InfoCard_Xml_KeyInfo_Interface
 {
+
     /**
      * Returns an instance of the EncryptedKey Data Block
      *
@@ -57,7 +56,7 @@ class Zend_InfoCard_Xml_KeyInfo_XmlDSig
         $this->registerXPathNamespace('e', 'http://www.w3.org/2001/04/xmlenc#');
         list($encryptedkey) = $this->xpath('//e:EncryptedKey');
 
-        if(!($encryptedkey instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($encryptedkey instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception("Failed to retrieve encrypted key");
         }
 
@@ -73,4 +72,5 @@ class Zend_InfoCard_Xml_KeyInfo_XmlDSig
     {
         return $this->getEncryptedKey()->getKeyInfo();
     }
+
 }

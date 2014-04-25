@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TagEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Entry
  */
@@ -55,7 +54,6 @@ class Zend_Gdata_Photos_TagEntry extends Zend_Gdata_Entry
 {
 
     protected $_entryClassName = 'Zend_Gdata_Photos_TagEntry';
-
     protected $_gphotoWeight = null;
 
     /**
@@ -70,8 +68,7 @@ class Zend_Gdata_Photos_TagEntry extends Zend_Gdata_Entry
         parent::__construct($element);
 
         $category = new Zend_Gdata_App_Extension_Category(
-            'http://schemas.google.com/photos/2007#tag',
-            'http://schemas.google.com/g/2005#kind');
+                'http://schemas.google.com/photos/2007#tag', 'http://schemas.google.com/g/2005#kind');
         $this->setCategory(array($category));
     }
 
@@ -137,4 +134,5 @@ class Zend_Gdata_Photos_TagEntry extends Zend_Gdata_Entry
         $this->_gphotoWeight = $value;
         return $this;
     }
+
 }

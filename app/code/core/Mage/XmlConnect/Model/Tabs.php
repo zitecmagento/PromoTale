@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Tabs
 {
+
     /**
      * Store enabled application design tabs
      *
@@ -86,7 +88,7 @@ class Mage_XmlConnect_Model_Tabs
                     }
                 } else {
                     if (isset($tab->label)) {
-                       $tempTab->label = Mage::helper('xmlconnect')->getTabLabel($tab->action);
+                        $tempTab->label = Mage::helper('xmlconnect')->getTabLabel($tab->action);
                     }
                 }
             }
@@ -129,4 +131,5 @@ class Mage_XmlConnect_Model_Tabs
 
         return $result;
     }
+
 }

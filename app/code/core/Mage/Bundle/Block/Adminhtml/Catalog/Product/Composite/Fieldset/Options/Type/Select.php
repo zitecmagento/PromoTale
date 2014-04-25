@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bundle option dropdown type renderer
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Select
-    extends Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Select
+class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Select extends Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Select
 {
+
     /**
      * Set template
      *
@@ -56,4 +56,5 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Typ
             $(\'' . $elementId . '\').advaiceContainer = \'' . $containerId . '\';
             </script>';
     }
+
 }

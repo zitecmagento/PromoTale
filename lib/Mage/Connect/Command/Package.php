@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-final class Mage_Connect_Command_Package
-extends Mage_Connect_Command
+final class Mage_Connect_Command_Package extends Mage_Connect_Command
 {
+
     /**
      * Dependencies list
      * @var array
@@ -50,31 +50,33 @@ extends Mage_Connect_Command
     {
         $this->cleanupParams($params);
 
-        if(count($params) < 1) {
+        if (count($params) < 1) {
             return $this->doError($command, "Parameters count should be >= 1");
         }
 
         $file = strtolower($params[0]);
         $file = realpath($file);
 
-        if(!file_exists($file)) {
+        if (!file_exists($file)) {
             return $this->doError($command, "File {$params[0]} doesn't exist");
         }
 
-        try {
+        try
+        {
             $packager = new Mage_Connect_Package($file);
             $res = $packager->validate();
-            if(!$res) {
+            if (!$res) {
                 $this->doError($command, implode("\n", $packager->getErrors()));
                 return;
             }
             $packager->save(dirname($file));
             $this->ui()->output('Done building package');
-        } catch (Exception $e) {
-            $this->doError( $command, $e->getMessage() );
+        }
+        catch (Exception $e)
+        {
+            $this->doError($command, $e->getMessage());
         }
     }
-
 
     /**
      * Display/get dependencies
@@ -86,8 +88,9 @@ extends Mage_Connect_Command
     public function doPackageDependencies($command, $options, $params)
     {
         $this->cleanupParams($params);
-        try {
-            if(count($params) < 2) {
+        try
+        {
+            if (count($params) < 2) {
                 return $this->doError($command, "Argument count should be >= 2");
             }
 
@@ -99,16 +102,17 @@ extends Mage_Connect_Command
 
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
             $packager = $this->getPackager();
-            if($ftp) {
+            if ($ftp) {
                 list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
             } else {
                 $cache = $this->getSconfig();
                 $config = $this->config();
             }
             $data = $packager->getDependenciesList($channel, $package, $cache, $config, $argVersionMax, $argVersionMin);
-            $this->ui()->output(array($command=> array('data'=>$data['deps'], 'title'=>"Package deps for {$params[1]}: ")));
-
-        } catch (Exception $e) {
+            $this->ui()->output(array($command => array('data' => $data['deps'], 'title' => "Package deps for {$params[1]}: ")));
+        }
+        catch (Exception $e)
+        {
             $this->doError($command, $e->getMessage());
         }
     }
@@ -116,19 +120,21 @@ extends Mage_Connect_Command
     public function doConvert($command, $options, $params)
     {
         $this->cleanupParams($params);
-        try {
-            if(count($params) < 1) {
+        try
+        {
+            if (count($params) < 1) {
                 throw new Exception("Arguments should be: source.tgz [target.tgz]");
             }
             $sourceFile = $params[0];
             $converter = new Mage_Connect_Converter();
             $targetFile = isset($params[1]) ? $params[1] : false;
             $result = $converter->convertPearToMage($sourceFile, $targetFile);
-            $this->ui()->output("Saved to: ".$result);
-        } catch (Exception $e) {
+            $this->ui()->output("Saved to: " . $result);
+        }
+        catch (Exception $e)
+        {
             $this->doError($command, $e->getMessage());
         }
-
     }
 
 }

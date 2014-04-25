@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert CURL HTTP adapter
  *
@@ -34,6 +34,7 @@
  */
 class Varien_Convert_Adapter_Http_Curl extends Varien_Convert_Adapter_Abstract
 {
+
     // load method
     public function load()
     {
@@ -70,4 +71,5 @@ class Varien_Convert_Adapter_Http_Curl extends Varien_Convert_Adapter_Abstract
         // no save implemented
         return $this;
     }
+
 }

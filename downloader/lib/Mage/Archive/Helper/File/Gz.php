@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,14 +26,15 @@
  */
 
 /**
-* Helper class that simplifies gz files stream reading and writing
-*
-* @category    Mage
-* @package     Mage_Archive
-* @author      Magento Core Team <core@magentocommerce.com>
-*/
+ * Helper class that simplifies gz files stream reading and writing
+ *
+ * @category    Mage
+ * @package     Mage_Archive
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
 {
+
     /**
      * @see Mage_Archive_Helper_File::_open()
      */
@@ -80,4 +82,5 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
     {
         gzclose($this->_fileHandler);
     }
+
 }

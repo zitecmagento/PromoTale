@@ -83,8 +83,12 @@
                     <flag>
                         <table>core_flag</table>
                     </flag>
-                    <file_storage><table>core_file_storage</table></file_storage>
-                    <directory_storage><table>core_directory_storage</table></directory_storage>
+                    <file_storage>
+                        <table>core_file_storage</table>
+                    </file_storage>
+                    <directory_storage>
+                        <table>core_directory_storage</table>
+                    </directory_storage>
                 </entities>
             </core_resource>
         </models>

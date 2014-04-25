@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,19 +24,14 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Weee_Model_Mysql4_Setup */
 
 $installer->startSetup();
 
-$installer->getConnection()->changeColumn($this->getTable('sales_flat_quote_item'),
-    'weee_tax_applied', 'weee_tax_applied',
-    'text CHARACTER SET utf8'
+$installer->getConnection()->changeColumn($this->getTable('sales_flat_quote_item'), 'weee_tax_applied', 'weee_tax_applied', 'text CHARACTER SET utf8'
 );
-$installer->getConnection()->changeColumn($this->getTable('sales_flat_order_item'),
-    'weee_tax_applied', 'weee_tax_applied',
-    'text CHARACTER SET utf8'
+$installer->getConnection()->changeColumn($this->getTable('sales_flat_order_item'), 'weee_tax_applied', 'weee_tax_applied', 'text CHARACTER SET utf8'
 );
 
 $installer->endSetup();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Function.php 22648 2010-07-20 14:43:27Z mabe $
  */
-
-
 /**
  * @see Zend_Cache_Core
  */
 #require_once 'Zend/Cache/Core.php';
-
 
 /**
  * @package    Zend_Cache
@@ -35,6 +33,7 @@
  */
 class Zend_Cache_Frontend_Function extends Zend_Cache_Core
 {
+
     /**
      * This frontend specific options
      *
@@ -95,7 +94,7 @@ class Zend_Cache_Frontend_Function extends Zend_Cache_Core
         }
 
         $id = $this->_makeId($callback, $parameters);
-        if ( ($rs = $this->load($id)) && isset($rs[0], $rs[1])) {
+        if (($rs = $this->load($id)) && isset($rs[0], $rs[1])) {
             // A cache is available
             $output = $rs[0];
             $return = $rs[1];
@@ -148,9 +147,12 @@ class Zend_Cache_Frontend_Function extends Zend_Cache_Core
             $object = $callback[0];
         }
         if (isset($object)) {
-            try {
+            try
+            {
                 $tmp = @serialize($callback);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Zend_Cache::throwException($e->getMessage());
             }
             if (!$tmp) {
@@ -163,9 +165,12 @@ class Zend_Cache_Frontend_Function extends Zend_Cache_Core
         // generate a unique id for arguments
         $argsStr = '';
         if ($args) {
-            try {
+            try
+            {
                 $argsStr = @serialize(array_values($args));
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Zend_Cache::throwException($e->getMessage());
             }
             if (!$argsStr) {

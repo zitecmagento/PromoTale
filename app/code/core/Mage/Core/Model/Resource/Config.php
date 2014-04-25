@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Resource Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table
      *
@@ -59,37 +60,37 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
 
         $websites = array();
         $select = $read->select()
-            ->from($this->getTable('core/website'), array('website_id', 'code', 'name'));
+                ->from($this->getTable('core/website'), array('website_id', 'code', 'name'));
         $rowset = $read->fetchAssoc($select);
         foreach ($rowset as $w) {
-            $xmlConfig->setNode('websites/'.$w['code'].'/system/website/id', $w['website_id']);
-            $xmlConfig->setNode('websites/'.$w['code'].'/system/website/name', $w['name']);
+            $xmlConfig->setNode('websites/' . $w['code'] . '/system/website/id', $w['website_id']);
+            $xmlConfig->setNode('websites/' . $w['code'] . '/system/website/name', $w['name']);
             $websites[$w['website_id']] = array('code' => $w['code']);
         }
 
         $stores = array();
         $select = $read->select()
-            ->from($this->getTable('core/store'), array('store_id', 'code', 'name', 'website_id'))
-            ->order('sort_order ' . Varien_Db_Select::SQL_ASC);
+                ->from($this->getTable('core/store'), array('store_id', 'code', 'name', 'website_id'))
+                ->order('sort_order ' . Varien_Db_Select::SQL_ASC);
         $rowset = $read->fetchAssoc($select);
         foreach ($rowset as $s) {
             if (!isset($websites[$s['website_id']])) {
                 continue;
             }
-            $xmlConfig->setNode('stores/'.$s['code'].'/system/store/id', $s['store_id']);
-            $xmlConfig->setNode('stores/'.$s['code'].'/system/store/name', $s['name']);
-            $xmlConfig->setNode('stores/'.$s['code'].'/system/website/id', $s['website_id']);
-            $xmlConfig->setNode('websites/'.$websites[$s['website_id']]['code'].'/system/stores/'.$s['code'], $s['store_id']);
-            $stores[$s['store_id']] = array('code'=>$s['code']);
+            $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/id', $s['store_id']);
+            $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/name', $s['name']);
+            $xmlConfig->setNode('stores/' . $s['code'] . '/system/website/id', $s['website_id']);
+            $xmlConfig->setNode('websites/' . $websites[$s['website_id']]['code'] . '/system/stores/' . $s['code'], $s['store_id']);
+            $stores[$s['store_id']] = array('code' => $s['code']);
             $websites[$s['website_id']]['stores'][$s['store_id']] = $s['code'];
         }
 
         $substFrom = array();
-        $substTo   = array();
+        $substTo = array();
 
         // load all configuration records from database, which are not inherited
         $select = $read->select()
-            ->from($this->getMainTable(), array('scope', 'scope_id', 'path', 'value'));
+                ->from($this->getMainTable(), array('scope', 'scope_id', 'path', 'value'));
         if (!is_null($condition)) {
             $select->where($condition);
         }
@@ -107,7 +108,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
 
         // inherit default config values to all websites
         $extendSource = $xmlConfig->getNode('default');
-        foreach ($websites as $id=>$w) {
+        foreach ($websites as $id => $w) {
             $websiteNode = $xmlConfig->getNode('websites/' . $w['code']);
             $websiteNode->extend($extendSource);
         }
@@ -132,7 +133,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             $extendSource = $xmlConfig->getNode('websites/' . $website['code']);
             if (isset($website['stores'])) {
                 foreach ($website['stores'] as $sCode) {
-                    $storeNode = $xmlConfig->getNode('stores/'.$sCode);
+                    $storeNode = $xmlConfig->getNode('stores/' . $sCode);
                     /**
                      * $extendSource DO NOT need overwrite source
                      */
@@ -158,14 +159,14 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
 
         if ($deleteWebsites) {
             $this->_getWriteAdapter()->delete($this->getMainTable(), array(
-                'scope = ?'      => 'websites',
+                'scope = ?' => 'websites',
                 'scope_id IN(?)' => $deleteWebsites,
             ));
         }
 
         if ($deleteStores) {
             $this->_getWriteAdapter()->delete($this->getMainTable(), array(
-                'scope=?'        => 'stores',
+                'scope=?' => 'stores',
                 'scope_id IN(?)' => $deleteStores,
             ));
         }
@@ -185,17 +186,17 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
     {
         $writeAdapter = $this->_getWriteAdapter();
         $select = $writeAdapter->select()
-            ->from($this->getMainTable())
-            ->where('path = ?', $path)
-            ->where('scope = ?', $scope)
-            ->where('scope_id = ?', $scopeId);
+                ->from($this->getMainTable())
+                ->where('path = ?', $path)
+                ->where('scope = ?', $scope)
+                ->where('scope_id = ?', $scopeId);
         $row = $writeAdapter->fetchRow($select);
 
         $newData = array(
-            'scope'     => $scope,
-            'scope_id'  => $scopeId,
-            'path'      => $path,
-            'value'     => $value
+            'scope' => $scope,
+            'scope_id' => $scopeId,
+            'path' => $path,
+            'value' => $value
         );
 
         if ($row) {
@@ -225,4 +226,5 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
         ));
         return $this;
     }
+
 }

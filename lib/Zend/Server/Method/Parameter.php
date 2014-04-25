@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 class Zend_Server_Method_Parameter
 {
+
     /**
      * @var mixed Default parameter value
      */
@@ -204,11 +206,12 @@ class Zend_Server_Method_Parameter
     public function toArray()
     {
         return array(
-            'type'         => $this->getType(),
-            'name'         => $this->getName(),
-            'optional'     => $this->isOptional(),
+            'type' => $this->getType(),
+            'name' => $this->getName(),
+            'optional' => $this->isOptional(),
             'defaultValue' => $this->getDefaultValue(),
-            'description'  => $this->getDescription(),
+            'description' => $this->getDescription(),
         );
     }
+
 }

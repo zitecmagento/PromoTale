@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -52,7 +53,7 @@ class Mage_SalesRule_Model_Observer
     {
         if (!$this->_validator) {
             $this->_validator = Mage::getModel('salesrule/validator')
-                ->init($event->getWebsiteId(), $event->getCustomerGroupId(), $event->getCouponCode());
+                    ->init($event->getWebsiteId(), $event->getCustomerGroupId(), $event->getCouponCode());
         }
         return $this->_validator;
     }
@@ -66,7 +67,7 @@ class Mage_SalesRule_Model_Observer
     public function sales_quote_address_discount_item($observer)
     {
         $this->getValidator($observer->getEvent())
-            ->process($observer->getEvent()->getItem());
+                ->process($observer->getEvent()->getItem());
     }
 
     /**
@@ -107,12 +108,11 @@ class Mage_SalesRule_Model_Observer
 
                         if ($ruleCustomer->getId()) {
                             $ruleCustomer->setTimesUsed($ruleCustomer->getTimesUsed() + 1);
-                        }
-                        else {
+                        } else {
                             $ruleCustomer
-                            ->setCustomerId($customerId)
-                            ->setRuleId($ruleId)
-                            ->setTimesUsed(1);
+                                    ->setCustomerId($customerId)
+                                    ->setRuleId($ruleId)
+                                    ->setTimesUsed(1);
                         }
                         $ruleCustomer->save();
                     }
@@ -159,7 +159,7 @@ class Mage_SalesRule_Model_Observer
     {
         /* @var $collection Mage_SalesRule_Model_Mysql4_Rule_Collection */
         $collection = Mage::getResourceModel('salesrule/rule_collection')
-            ->addAttributeInConditionFilter($attributeCode);
+                ->addAttributeInConditionFilter($attributeCode);
 
         $disabledRulesCount = 0;
         foreach ($collection as $rule) {
@@ -175,7 +175,7 @@ class Mage_SalesRule_Model_Observer
 
         if ($disabledRulesCount) {
             Mage::getSingleton('adminhtml/session')->addWarning(
-                Mage::helper('salesrule')->__('%d Shopping Cart Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode));
+                    Mage::helper('salesrule')->__('%d Shopping Cart Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode));
         }
 
         return $this;
@@ -248,10 +248,9 @@ class Mage_SalesRule_Model_Observer
         $attributesTransfer = $observer->getEvent()->getAttributes();
 
         $attributes = Mage::getResourceModel('salesrule/rule')
-            ->getActiveAttributes(
-                Mage::app()->getWebsite()->getId(),
-                Mage::getSingleton('customer/session')->getCustomer()->getGroupId()
-            );
+                ->getActiveAttributes(
+                Mage::app()->getWebsite()->getId(), Mage::getSingleton('customer/session')->getCustomer()->getGroupId()
+        );
         $result = array();
         foreach ($attributes as $attribute) {
             $result[$attribute['attribute_code']] = true;
@@ -297,5 +296,5 @@ class Mage_SalesRule_Model_Observer
 
         return $this;
     }
-}
 
+}

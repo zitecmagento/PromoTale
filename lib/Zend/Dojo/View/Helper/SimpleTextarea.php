@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SimpleTextarea.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Dojo_View_Helper_Dijit */
 #require_once 'Zend/Dojo/View/Helper/Dijit.php';
 
@@ -35,10 +35,11 @@
  */
 class Zend_Dojo_View_Helper_SimpleTextarea extends Zend_Dojo_View_Helper_Dijit
 {
+
     /**
      * @var string Dijit type
      */
-    protected $_dijit  = 'dijit.form.SimpleTextarea';
+    protected $_dijit = 'dijit.form.SimpleTextarea';
 
     /**
      * @var string HTML element type
@@ -62,17 +63,18 @@ class Zend_Dojo_View_Helper_SimpleTextarea extends Zend_Dojo_View_Helper_Dijit
     public function simpleTextarea($id, $value = null, array $params = array(), array $attribs = array())
     {
         if (!array_key_exists('id', $attribs)) {
-            $attribs['id']    = $id;
+            $attribs['id'] = $id;
         }
-        $attribs['name']  = $id;
-        $attribs['type']  = $this->_elementType;
+        $attribs['name'] = $id;
+        $attribs['type'] = $this->_elementType;
 
         $attribs = $this->_prepareDijit($attribs, $params, 'textarea');
 
         $html = '<textarea' . $this->_htmlAttribs($attribs) . '>'
-              . $this->view->escape($value)
-              . "</textarea>\n";
+                . $this->view->escape($value)
+                . "</textarea>\n";
 
         return $html;
     }
+
 }

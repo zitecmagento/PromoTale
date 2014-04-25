@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Json.php 23451 2010-11-28 13:10:03Z ramon $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Json */
 #require_once 'Zend/Json.php';
 
@@ -39,6 +39,7 @@
  */
 class Zend_View_Helper_Json extends Zend_View_Helper_Abstract
 {
+
     /**
      * Encode data as JSON, disable layouts, and set response header
      *
@@ -55,12 +56,9 @@ class Zend_View_Helper_Json extends Zend_View_Helper_Abstract
     public function json($data, $keepLayouts = false)
     {
         $options = array();
-        if (is_array($keepLayouts))
-        {
-            $options     = $keepLayouts;
-            $keepLayouts = (array_key_exists('keepLayouts', $keepLayouts))
-                            ? $keepLayouts['keepLayouts']
-                            : false;
+        if (is_array($keepLayouts)) {
+            $options = $keepLayouts;
+            $keepLayouts = (array_key_exists('keepLayouts', $keepLayouts)) ? $keepLayouts['keepLayouts'] : false;
             unset($options['keepLayouts']);
         }
 
@@ -77,4 +75,5 @@ class Zend_View_Helper_Json extends Zend_View_Helper_Abstract
         $response->setHeader('Content-Type', 'application/json', true);
         return $data;
     }
+
 }

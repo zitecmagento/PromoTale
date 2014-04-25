@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 interface Zend_Feed_Writer_Renderer_RendererInterface
 {
+
     /**
      * Render feed/entry
      * 
@@ -68,14 +70,14 @@ interface Zend_Feed_Writer_Renderer_RendererInterface
      * @return mixed
      */
     public function ignoreExceptions();
-    
+
     /**
      * Get list of thrown exceptions
      * 
      * @return array
      */
     public function getExceptions();
-    
+
     /**
      * Set the current feed type being exported to "rss" or "atom". This allows
      * other objects to gracefully choose whether to execute or not, depending
@@ -84,14 +86,14 @@ interface Zend_Feed_Writer_Renderer_RendererInterface
      * @param string $type
      */
     public function setType($type);
-    
+
     /**
      * Retrieve the current or last feed type exported.
      *
      * @return string Value will be "rss" or "atom"
      */
     public function getType();
-    
+
     /**
      * Sets the absolute root element for the XML feed being generated. This
      * helps simplify the appending of namespace declarations, but also ensures
@@ -101,7 +103,7 @@ interface Zend_Feed_Writer_Renderer_RendererInterface
      * @param DOMElement $root
      */
     public function setRootElement(DOMElement $root);
-    
+
     /**
      * Retrieve the absolute root element for the XML feed being generated.
      *

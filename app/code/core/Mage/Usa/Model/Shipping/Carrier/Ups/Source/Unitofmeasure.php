@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,17 +24,17 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Unitofmeasure
 {
+
     public function toOptionArray()
     {
         $unitArr = Mage::getSingleton('usa/shipping_carrier_ups')->getCode('unit_of_measure');
         $returnArr = array();
-        foreach ($unitArr as $key => $val){
-            $returnArr[] = array('value'=>$key,'label'=>$key);
+        foreach ($unitArr as $key => $val) {
+            $returnArr[] = array('value' => $key, 'label' => $key);
         }
         return $returnArr;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Control.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Extension_Control
  */
@@ -29,7 +29,6 @@
  * @see Zend_Gdata_YouTube_Extension_State
  */
 #require_once 'Zend/Gdata/YouTube/Extension/State.php';
-
 
 /**
  * Specialized Control class for use with YouTube. Enables use of yt extension elements.
@@ -87,14 +86,14 @@ class Zend_Gdata_YouTube_Extension_Control extends Zend_Gdata_App_Extension_Cont
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-        case $this->lookupNamespace('yt') . ':' . 'state':
-            $state = new Zend_Gdata_YouTube_Extension_State();
-            $state->transferFromDOM($child);
-            $this->_state = $state;
-            break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            case $this->lookupNamespace('yt') . ':' . 'state':
+                $state = new Zend_Gdata_YouTube_Extension_State();
+                $state->transferFromDOM($child);
+                $this->_state = $state;
+                break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 
@@ -121,13 +120,13 @@ class Zend_Gdata_YouTube_Extension_Control extends Zend_Gdata_App_Extension_Cont
     }
 
     /**
-    * Get the value of this element's state attribute.
-    *
-    * @return string The state's text value
-    */
+     * Get the value of this element's state attribute.
+     *
+     * @return string The state's text value
+     */
     public function getStateValue()
     {
-      return $this->getState()->getText();
+        return $this->getState()->getText();
     }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Decorator_Abstract */
 #require_once 'Zend/Form/Decorator/Abstract.php';
 
@@ -41,6 +41,7 @@
  */
 class Zend_Form_Decorator_Image extends Zend_Form_Decorator_Abstract
 {
+
     /**
      * Attributes that should not be passed to helper
      * @var array
@@ -122,16 +123,16 @@ class Zend_Form_Decorator_Image extends Zend_Form_Decorator_Abstract
     public function render($content)
     {
         $element = $this->getElement();
-        $view    = $element->getView();
+        $view = $element->getView();
         if (null === $view) {
             return $content;
         }
 
-        $tag           = $this->getTag();
-        $placement     = $this->getPlacement();
-        $separator     = $this->getSeparator();
-        $name          = $element->getFullyQualifiedName();
-        $attribs       = $this->getAttribs();
+        $tag = $this->getTag();
+        $placement = $this->getPlacement();
+        $separator = $this->getSeparator();
+        $name = $element->getFullyQualifiedName();
+        $attribs = $this->getAttribs();
         $attribs['id'] = $element->getId();
 
         $image = $view->formImage($name, $element->getImageValue(), $attribs);
@@ -151,4 +152,5 @@ class Zend_Form_Decorator_Image extends Zend_Form_Decorator_Abstract
                 return $content . $separator . $image;
         }
     }
+
 }

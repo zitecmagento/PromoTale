@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Downloadable Product  Samples resource model
  *
@@ -34,4 +34,5 @@
  */
 class Mage_Downloadable_Model_Mysql4_Link extends Mage_Downloadable_Model_Resource_Link
 {
+    
 }

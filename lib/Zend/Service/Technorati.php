@@ -21,7 +21,6 @@
  * @version    $Id: Technorati.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Zend_Service_Technorati provides an easy, intuitive and object-oriented interface
  * for using the Technorati API.
@@ -37,27 +36,27 @@
  */
 class Zend_Service_Technorati
 {
+
     /** Base Technorati API URI */
     const API_URI_BASE = 'http://api.technorati.com';
 
     /** Query paths */
-    const API_PATH_COSMOS           = '/cosmos';
-    const API_PATH_SEARCH           = '/search';
-    const API_PATH_TAG              = '/tag';
-    const API_PATH_DAILYCOUNTS      = '/dailycounts';
-    const API_PATH_TOPTAGS          = '/toptags';
-    const API_PATH_BLOGINFO         = '/bloginfo';
-    const API_PATH_BLOGPOSTTAGS     = '/blogposttags';
-    const API_PATH_GETINFO          = '/getinfo';
-    const API_PATH_KEYINFO          = '/keyinfo';
+    const API_PATH_COSMOS = '/cosmos';
+    const API_PATH_SEARCH = '/search';
+    const API_PATH_TAG = '/tag';
+    const API_PATH_DAILYCOUNTS = '/dailycounts';
+    const API_PATH_TOPTAGS = '/toptags';
+    const API_PATH_BLOGINFO = '/bloginfo';
+    const API_PATH_BLOGPOSTTAGS = '/blogposttags';
+    const API_PATH_GETINFO = '/getinfo';
+    const API_PATH_KEYINFO = '/keyinfo';
 
     /** Prevent magic numbers */
     const PARAM_LIMIT_MIN_VALUE = 1;
     const PARAM_LIMIT_MAX_VALUE = 100;
-    const PARAM_DAYS_MIN_VALUE  = 1;
-    const PARAM_DAYS_MAX_VALUE  = 180;
+    const PARAM_DAYS_MIN_VALUE = 1;
+    const PARAM_DAYS_MAX_VALUE = 180;
     const PARAM_START_MIN_VALUE = 1;
-
 
     /**
      * Technorati API key
@@ -75,7 +74,6 @@ class Zend_Service_Technorati
      */
     protected $_restClient;
 
-
     /**
      * Constructs a new Zend_Service_Technorati instance
      * and setup character encoding.
@@ -90,7 +88,6 @@ class Zend_Service_Technorati
 
         $this->_apiKey = $apiKey;
     }
-
 
     /**
      * Cosmos query lets you see what blogs are linking to a given URL.
@@ -140,14 +137,14 @@ class Zend_Service_Technorati
      */
     public function cosmos($url, $options = null)
     {
-        static $defaultOptions = array( 'type'      => 'link',
-                                        'start'     => 1,
-                                        'limit'     => 20,
-                                        'current'   => 'yes',
-                                        'format'    => 'xml',
-                                        'claim'     => 0,
-                                        'highlight' => 1,
-                                        );
+        static $defaultOptions = array('type' => 'link',
+            'start' => 1,
+            'limit' => 20,
+            'current' => 'yes',
+            'format' => 'xml',
+            'claim' => 0,
+            'highlight' => 1,
+        );
 
         $options['url'] = $url;
 
@@ -206,10 +203,10 @@ class Zend_Service_Technorati
      */
     public function search($query, $options = null)
     {
-        static $defaultOptions = array( 'start'     => 1,
-                                        'limit'     => 20,
-                                        'format'    => 'xml',
-                                        'claim'     => 0);
+        static $defaultOptions = array('start' => 1,
+            'limit' => 20,
+            'format' => 'xml',
+            'claim' => 0);
 
         $options['query'] = $query;
 
@@ -253,11 +250,11 @@ class Zend_Service_Technorati
      */
     public function tag($tag, $options = null)
     {
-        static $defaultOptions = array( 'start'          => 1,
-                                        'limit'          => 20,
-                                        'format'         => 'xml',
-                                        'excerptsize'    => 100,
-                                        'topexcerptsize' => 150);
+        static $defaultOptions = array('start' => 1,
+            'limit' => 20,
+            'format' => 'xml',
+            'excerptsize' => 100,
+            'topexcerptsize' => 150);
 
         $options['tag'] = $tag;
 
@@ -291,9 +288,9 @@ class Zend_Service_Technorati
      */
     public function dailyCounts($query, $options = null)
     {
-        static $defaultOptions = array( 'days'      => 180,
-                                        'format'    => 'xml'
-                                        );
+        static $defaultOptions = array('days' => 180,
+            'format' => 'xml'
+        );
 
         $options['q'] = $query;
 
@@ -330,10 +327,10 @@ class Zend_Service_Technorati
      */
     public function topTags($options = null)
     {
-        static $defaultOptions = array( 'start'     => 1,
-                                        'limit'     => 20,
-                                        'format'    => 'xml'
-                                        );
+        static $defaultOptions = array('start' => 1,
+            'limit' => 20,
+            'format' => 'xml'
+        );
 
         $options = $this->_prepareOptions($options, $defaultOptions);
         $this->_validateTopTags($options);
@@ -359,8 +356,8 @@ class Zend_Service_Technorati
      */
     public function blogInfo($url, $options = null)
     {
-        static $defaultOptions = array( 'format'    => 'xml'
-                                        );
+        static $defaultOptions = array('format' => 'xml'
+        );
 
         $options['url'] = $url;
 
@@ -400,10 +397,10 @@ class Zend_Service_Technorati
      */
     public function blogPostTags($url, $options = null)
     {
-        static $defaultOptions = array( 'start'     => 1,
-                                        'limit'     => 20,
-                                        'format'    => 'xml'
-                                        );
+        static $defaultOptions = array('start' => 1,
+            'limit' => 20,
+            'format' => 'xml'
+        );
 
         $options['url'] = $url;
 
@@ -481,7 +478,6 @@ class Zend_Service_Technorati
         return new Zend_Service_Technorati_KeyInfoResult($dom, $this->_apiKey);
     }
 
-
     /**
      * Returns Technorati API key.
      *
@@ -531,7 +527,6 @@ class Zend_Service_Technorati
         return $this;
     }
 
-
     /**
      * Validates Cosmos query options.
      *
@@ -566,7 +561,6 @@ class Zend_Service_Technorati
             $tmp = (int) $options['current'];
             $options['current'] = $tmp ? 'yes' : 'no';
         }
-
     }
 
     /**
@@ -627,7 +621,6 @@ class Zend_Service_Technorati
         $this->_validateOptionFormat($options);
     }
 
-
     /**
      * Validates DailyCounts query options.
      *
@@ -651,13 +644,13 @@ class Zend_Service_Technorati
         if (isset($options['days'])) {
             $options['days'] = (int) $options['days'];
             if ($options['days'] < self::PARAM_DAYS_MIN_VALUE ||
-                $options['days'] > self::PARAM_DAYS_MAX_VALUE) {
+                    $options['days'] > self::PARAM_DAYS_MAX_VALUE) {
                 /**
                  * @see Zend_Service_Technorati_Exception
                  */
                 #require_once 'Zend/Service/Technorati/Exception.php';
                 throw new Zend_Service_Technorati_Exception(
-                            "Invalid value '" . $options['days'] . "' for 'days' option");
+                "Invalid value '" . $options['days'] . "' for 'days' option");
             }
         }
     }
@@ -770,7 +763,7 @@ class Zend_Service_Technorati
              */
             #require_once 'Zend/Service/Technorati/Exception.php';
             throw new Zend_Service_Technorati_Exception(
-                        "Invalid value '{$options[$name]}' for '$name' option");
+            "Invalid value '{$options[$name]}' for '$name' option");
         }
     }
 
@@ -790,7 +783,7 @@ class Zend_Service_Technorati
              */
             #require_once 'Zend/Service/Technorati/Exception.php';
             throw new Zend_Service_Technorati_Exception(
-                        "Empty value for '$name' option");
+            "Empty value for '$name' option");
         }
     }
 
@@ -856,8 +849,8 @@ class Zend_Service_Technorati
              */
             #require_once 'Zend/Service/Technorati/Exception.php';
             throw new Zend_Service_Technorati_Exception(
-                        "Invalid value '" . $options['format'] . "' for 'format' option. " .
-                        "Zend_Service_Technorati supports only 'xml'");
+            "Invalid value '" . $options['format'] . "' for 'format' option. " .
+            "Zend_Service_Technorati supports only 'xml'");
         }
     }
 
@@ -873,17 +866,18 @@ class Zend_Service_Technorati
      */
     protected function _validateOptionLimit(array $options)
     {
-        if (!isset($options['limit'])) return;
+        if (!isset($options['limit']))
+            return;
 
         $options['limit'] = (int) $options['limit'];
         if ($options['limit'] < self::PARAM_LIMIT_MIN_VALUE ||
-            $options['limit'] > self::PARAM_LIMIT_MAX_VALUE) {
+                $options['limit'] > self::PARAM_LIMIT_MAX_VALUE) {
             /**
              * @see Zend_Service_Technorati_Exception
              */
             #require_once 'Zend/Service/Technorati/Exception.php';
             throw new Zend_Service_Technorati_Exception(
-                        "Invalid value '" . $options['limit'] . "' for 'limit' option");
+            "Invalid value '" . $options['limit'] . "' for 'limit' option");
         }
     }
 
@@ -898,7 +892,8 @@ class Zend_Service_Technorati
      */
     protected function _validateOptionStart(array $options)
     {
-        if (!isset($options['start'])) return;
+        if (!isset($options['start']))
+            return;
 
         $options['start'] = (int) $options['start'];
         if ($options['start'] < self::PARAM_START_MIN_VALUE) {
@@ -907,7 +902,7 @@ class Zend_Service_Technorati
              */
             #require_once 'Zend/Service/Technorati/Exception.php';
             throw new Zend_Service_Technorati_Exception(
-                        "Invalid value '" . $options['start'] . "' for 'start' option");
+            "Invalid value '" . $options['start'] . "' for 'start' option");
         }
     }
 
@@ -982,8 +977,7 @@ class Zend_Service_Technorati
              */
             #require_once 'Zend/Service/Technorati/Exception.php';
             throw new Zend_Service_Technorati_Exception(sprintf(
-                        'Invalid response status code (HTTP/%s %s %s)',
-                        $response->getVersion(), $response->getStatus(), $response->getMessage()));
+                    'Invalid response status code (HTTP/%s %s %s)', $response->getVersion(), $response->getStatus(), $response->getMessage()));
         }
     }
 
@@ -1005,8 +999,8 @@ class Zend_Service_Technorati
              */
             #require_once 'Zend/Service/Technorati/Exception.php';
             throw new Zend_Service_Technorati_Exception(
-                        "The following parameters are invalid: '" .
-                        implode("', '", $difference) . "'");
+            "The following parameters are invalid: '" .
+            implode("', '", $difference) . "'");
         }
     }
 
@@ -1025,4 +1019,5 @@ class Zend_Service_Technorati
         $options = array_merge($defaultOptions, $options);
         return $options;
     }
+
 }

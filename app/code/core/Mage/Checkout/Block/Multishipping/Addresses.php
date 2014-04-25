@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items_Abstract
 {
+
     /**
      * Retrieve multishipping checkout model
      *
@@ -68,10 +70,10 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     public function getAddressesHtmlSelect($item, $index)
     {
         $select = $this->getLayout()->createBlock('core/html_select')
-            ->setName('ship['.$index.']['.$item->getQuoteItemId().'][address]')
-            ->setId('ship_'.$index.'_'.$item->getQuoteItemId().'_address')
-            ->setValue($item->getCustomerAddressId())
-            ->setOptions($this->getAddressOptions());
+                ->setName('ship[' . $index . '][' . $item->getQuoteItemId() . '][address]')
+                ->setId('ship_' . $index . '_' . $item->getQuoteItemId() . '_address')
+                ->setValue($item->getCustomerAddressId())
+                ->setOptions($this->getAddressOptions());
 
         return $select->getHtml();
     }
@@ -105,12 +107,12 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
 
     public function getItemUrl($item)
     {
-        return $this->getUrl('catalog/product/view/id/'.$item->getProductId());
+        return $this->getUrl('catalog/product/view/id/' . $item->getProductId());
     }
 
     public function getItemDeleteUrl($item)
     {
-        return $this->getUrl('*/*/removeItem', array('address'=>$item->getQuoteAddressId(), 'id'=>$item->getId()));
+        return $this->getUrl('*/*/removeItem', array('address' => $item->getQuoteAddressId(), 'id' => $item->getId()));
     }
 
     public function getPostActionUrl()
@@ -132,4 +134,5 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     {
         return !$this->getCheckout()->validateMinimumAmount();
     }
+
 }

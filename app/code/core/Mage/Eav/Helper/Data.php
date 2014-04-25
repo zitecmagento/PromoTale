@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,13 +30,13 @@
  */
 class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * XML path to input types validator data in config
      */
     const XML_PATH_VALIDATOR_DATA_INPUT_TYPES = 'general/validator_data/input_types';
 
     protected $_attributesLockedFields = array();
-
     protected $_entityTypeFrontendClasses = array();
 
     /**
@@ -88,22 +89,20 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
         $_defaultClasses = $this->_getDefaultFrontendClasses();
         if (isset($this->_entityTypeFrontendClasses[$entityTypeCode])) {
             return array_merge(
-                $_defaultClasses,
-                $this->_entityTypeFrontendClasses[$entityTypeCode]
+                    $_defaultClasses, $this->_entityTypeFrontendClasses[$entityTypeCode]
             );
         }
         $_entityTypeClasses = Mage::app()->getConfig()
-            ->getNode('global/eav_frontendclasses/' . $entityTypeCode);
+                ->getNode('global/eav_frontendclasses/' . $entityTypeCode);
         if ($_entityTypeClasses) {
             foreach ($_entityTypeClasses->children() as $item) {
                 $this->_entityTypeFrontendClasses[$entityTypeCode][] = array(
-                    'value' => (string)$item->value,
-                    'label' => (string)$item->label
+                    'value' => (string) $item->value,
+                    'label' => (string) $item->label
                 );
             }
             return array_merge(
-                $_defaultClasses,
-                $this->_entityTypeFrontendClasses[$entityTypeCode]
+                    $_defaultClasses, $this->_entityTypeFrontendClasses[$entityTypeCode]
             );
         }
         return $_defaultClasses;
@@ -126,8 +125,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
         $_data = Mage::app()->getConfig()->getNode('global/eav_attributes/' . $entityTypeCode);
         if ($_data) {
             foreach ($_data->children() as $attribute) {
-                $this->_attributesLockedFields[$entityTypeCode][(string)$attribute->code] =
-                    array_keys($attribute->locked_fields->asArray());
+                $this->_attributesLockedFields[$entityTypeCode][(string) $attribute->code] = array_keys($attribute->locked_fields->asArray());
             }
             return $this->_attributesLockedFields[$entityTypeCode];
         }
@@ -143,4 +141,5 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfig(self::XML_PATH_VALIDATOR_DATA_INPUT_TYPES);
     }
+
 }

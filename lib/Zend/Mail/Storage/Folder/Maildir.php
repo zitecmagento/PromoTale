@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Maildir.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Mail_Storage_Folder
  */
@@ -36,7 +35,6 @@
  */
 #require_once 'Zend/Mail/Storage/Maildir.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -46,6 +44,7 @@
  */
 class Zend_Mail_Storage_Folder_Maildir extends Zend_Mail_Storage_Maildir implements Zend_Mail_Storage_Folder_Interface
 {
+
     /**
      * Zend_Mail_Storage_Folder root folder for folder structure
      * @var Zend_Mail_Storage_Folder
@@ -83,7 +82,7 @@ class Zend_Mail_Storage_Folder_Maildir extends Zend_Mail_Storage_Maildir impleme
     public function __construct($params)
     {
         if (is_array($params)) {
-            $params = (object)$params;
+            $params = (object) $params;
         }
 
         if (!isset($params->dirname) || !is_dir($params->dirname)) {
@@ -225,14 +224,17 @@ class Zend_Mail_Storage_Folder_Maildir extends Zend_Mail_Storage_Maildir impleme
      */
     public function selectFolder($globalName)
     {
-        $this->_currentFolder = (string)$globalName;
+        $this->_currentFolder = (string) $globalName;
 
         // getting folder from folder tree for validation
         $folder = $this->getFolders($this->_currentFolder);
 
-        try {
+        try
+        {
             $this->_openMaildir($this->_rootdir . '.' . $folder->getGlobalName());
-        } catch(Zend_Mail_Storage_Exception $e) {
+        }
+        catch (Zend_Mail_Storage_Exception $e)
+        {
             // check what went wrong
             if (!$folder->isSelectable()) {
                 /**
@@ -248,7 +250,7 @@ class Zend_Mail_Storage_Folder_Maildir extends Zend_Mail_Storage_Maildir impleme
              */
             #require_once 'Zend/Mail/Storage/Exception.php';
             throw new Zend_Mail_Storage_Exception('seems like the maildir has vanished, I\'ve rebuild the ' .
-                                                         'folder tree, search for an other folder and try again', 0, $e);
+            'folder tree, search for an other folder and try again', 0, $e);
         }
     }
 
@@ -262,4 +264,5 @@ class Zend_Mail_Storage_Folder_Maildir extends Zend_Mail_Storage_Maildir impleme
     {
         return $this->_currentFolder;
     }
+
 }

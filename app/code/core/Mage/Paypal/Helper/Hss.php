@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Paypal_Helper_Hss extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Hosted Sole Solution methods
      *
@@ -73,4 +75,5 @@ class Mage_Paypal_Helper_Hss extends Mage_Core_Helper_Abstract
     {
         return $this->_hssMethods;
     }
+
 }

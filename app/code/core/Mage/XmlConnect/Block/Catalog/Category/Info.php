@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Category_Info extends Mage_XmlConnect_Block_Catalog
 {
+
     /**
      * Produce category info xml object
      *
@@ -41,7 +43,7 @@ class Mage_XmlConnect_Block_Catalog_Category_Info extends Mage_XmlConnect_Block_
     public function getCategoryInfoXmlObject()
     {
         $infoXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<category_info></category_info>');
-        $category   = $this->getCategory();
+        $category = $this->getCategory();
         if (is_object($category) && $category->getId()) {
             /**
              * @var string $title
@@ -73,4 +75,5 @@ class Mage_XmlConnect_Block_Catalog_Category_Info extends Mage_XmlConnect_Block_
     {
         return $this->getCategoryInfoXmlObject()->asNiceXml();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Report Products Reviews renderer
  *
@@ -32,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Product
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Product extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     /**
      * Renders grid column
      *
@@ -43,11 +43,10 @@ class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Product
      */
     public function render(Varien_Object $row)
     {
-        $id   = $row->getId();
+        $id = $row->getId();
 
-        return sprintf('<a href="%s">%s</a>',
-            $this->getUrl('*/catalog_product_review/', array('productId' => $id)),
-            Mage::helper('adminhtml')->__('Show Reviews')
+        return sprintf('<a href="%s">%s</a>', $this->getUrl('*/catalog_product_review/', array('productId' => $id)), Mage::helper('adminhtml')->__('Show Reviews')
         );
     }
+
 }

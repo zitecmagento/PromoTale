@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Form Fieldset Resource Model
  *
@@ -34,4 +34,5 @@
  */
 class Mage_Eav_Model_Mysql4_Form_Fieldset extends Mage_Eav_Model_Resource_Form_Fieldset
 {
+    
 }

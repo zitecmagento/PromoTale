@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Options_Downloadable extends Mage_XmlConnect_Block_Catalog_Product_Options
 {
+
     /**
      * Generate downloadable product options xml
      *
@@ -110,4 +112,5 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Downloadable extends Mage_Xm
 
         return $isObject ? $xmlModel : $xmlModel->asNiceXml();
     }
+
 }

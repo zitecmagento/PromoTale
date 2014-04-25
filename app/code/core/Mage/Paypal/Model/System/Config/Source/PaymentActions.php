@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Paypal_Model_System_Config_Source_PaymentActions
 {
+
     /**
      * Options getter
      *
@@ -39,4 +41,5 @@ class Mage_Paypal_Model_System_Config_Source_PaymentActions
         $configModel = Mage::getModel('paypal/config');
         return $configModel->getPaymentActions();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Null.php 21150 2010-02-23 16:27:36Z matthew $
  */
-
 /**
  * @see Zend_Paginator_Adapter_Interface
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Paginator_Adapter_Null implements Zend_Paginator_Adapter_Interface
 {
+
     /**
      * Item count
      *
@@ -62,7 +63,7 @@ class Zend_Paginator_Adapter_Null implements Zend_Paginator_Adapter_Interface
             return array();
         }
 
-        $remainItemCount  = $this->count() - $offset;
+        $remainItemCount = $this->count() - $offset;
         $currentItemCount = $remainItemCount > $itemCountPerPage ? $itemCountPerPage : $remainItemCount;
 
         return array_fill(0, $currentItemCount, null);
@@ -77,4 +78,5 @@ class Zend_Paginator_Adapter_Null implements Zend_Paginator_Adapter_Interface
     {
         return $this->_count;
     }
+
 }

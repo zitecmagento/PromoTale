@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price
-    extends Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type
+class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price extends Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type
 {
+
     /**
      * Get value from the store configuration settings
      */
@@ -66,16 +67,16 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price
         $attributeType = $this->getAttribute()->getBackendType();
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $column = array(
-            'unsigned'  => false,
-            'default'   => null,
-            'extra'     => null
+            'unsigned' => false,
+            'default' => null,
+            'extra' => null
         );
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
-            $column['type']     = $attributeType;
-            $column['is_null']  = true;
+            $column['type'] = $attributeType;
+            $column['is_null'] = true;
         } else {
-            $column['type']     = Mage::getResourceHelper('eav')->getDdlTypeByColumnType($attributeType);
+            $column['type'] = Mage::getResourceHelper('eav')->getDdlTypeByColumnType($attributeType);
             $column['nullable'] = true;
         }
 
@@ -91,6 +92,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price
     public function getFlatUpdateSelect($store)
     {
         return Mage::getResourceModel('eav/entity_attribute')
-            ->getFlatUpdateSelect($this->getAttribute(), $store);
+                        ->getFlatUpdateSelect($this->getAttribute(), $store);
     }
+
 }

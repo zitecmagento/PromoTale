@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Private.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /**
  * @see Zend_Crypt_Rsa_Key
  */

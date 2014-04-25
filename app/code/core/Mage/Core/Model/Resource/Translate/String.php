@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * String translate resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table
      *
@@ -55,9 +56,9 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     {
         if (is_string($value)) {
             $select = $this->_getReadAdapter()->select()
-                ->from($this->getMainTable())
-                ->where($this->getMainTable().'.string=:tr_string');
-            $result = $this->_getReadAdapter()->fetchRow($select, array('tr_string'=>$value));
+                    ->from($this->getMainTable())
+                    ->where($this->getMainTable() . '.string=:tr_string');
+            $result = $this->_getReadAdapter()->fetchRow($select, array('tr_string' => $value));
             $object->setData($result);
             $this->_afterLoad($object);
             return $result;
@@ -91,8 +92,8 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('store_id', 'translate'))
-            ->where('string = :translate_string');
+                ->from($this->getMainTable(), array('store_id', 'translate'))
+                ->where('string = :translate_string');
         $translations = $adapter->fetchPairs($select, array('translate_string' => $object->getString()));
         $object->setStoreTranslations($translations);
         return parent::_afterLoad($object);
@@ -108,12 +109,12 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     {
         $adapter = $this->_getWriteAdapter();
         $select = $adapter->select()
-            ->from($this->getMainTable(), 'key_id')
-            ->where('string = :string')
-            ->where('store_id = :store_id');
+                ->from($this->getMainTable(), 'key_id')
+                ->where('string = :string')
+                ->where('store_id = :store_id');
 
         $bind = array(
-            'string'   => $object->getString(),
+            'string' => $object->getString(),
             'store_id' => Mage_Core_Model_App::ADMIN_STORE_ID
         );
 
@@ -131,32 +132,30 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     {
         $adapter = $this->_getWriteAdapter();
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('store_id', 'key_id'))
-            ->where('string = :string');
+                ->from($this->getMainTable(), array('store_id', 'key_id'))
+                ->where('string = :string');
         $stores = $adapter->fetchPairs($select, array('string' => $object->getString()));
 
         $translations = $object->getStoreTranslations();
 
         if (is_array($translations)) {
             foreach ($translations as $storeId => $translate) {
-                if (is_null($translate) || $translate=='') {
-                     $where = array(
-                        'store_id = ?'    => $storeId,
-                        'string = ?'      => $object->getString()
+                if (is_null($translate) || $translate == '') {
+                    $where = array(
+                        'store_id = ?' => $storeId,
+                        'string = ?' => $object->getString()
                     );
                     $adapter->delete($this->getMainTable(), $where);
                 } else {
                     $data = array(
-                       'store_id'  => $storeId,
-                       'string'    => $object->getString(),
-                       'translate' => $translate,
+                        'store_id' => $storeId,
+                        'string' => $object->getString(),
+                        'translate' => $translate,
                     );
 
                     if (isset($stores[$storeId])) {
                         $adapter->update(
-                           $this->getMainTable(),
-                           $data,
-                           array('key_id = ?' => $stores[$storeId]));
+                                $this->getMainTable(), $data, array('key_id = ?' => $stores[$storeId]));
                     } else {
                         $adapter->insert($this->getMainTable(), $data);
                     }
@@ -219,15 +218,15 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
         }
 
         $select = $write->select()
-            ->from($table, array('key_id', 'translate'))
-            ->where('store_id = :store_id')
-            ->where('locale = :locale')
-            ->where('string = :string')
-            ->where('crc_string = :crc_string');
+                ->from($table, array('key_id', 'translate'))
+                ->where('store_id = :store_id')
+                ->where('locale = :locale')
+                ->where('string = :string')
+                ->where('crc_string = :crc_string');
         $bind = array(
-            'store_id'   => $storeId,
-            'locale'     => $locale,
-            'string'     => $string,
+            'store_id' => $storeId,
+            'locale' => $locale,
+            'string' => $string,
             'crc_string' => crc32($string),
         );
 
@@ -243,14 +242,15 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
             }
         } else {
             $write->insert($table, array(
-                'store_id'   => $storeId,
-                'locale'     => $locale,
-                'string'     => $string,
-                'translate'  => $translate,
+                'store_id' => $storeId,
+                'locale' => $locale,
+                'string' => $string,
+                'translate' => $translate,
                 'crc_string' => crc32($string),
             ));
         }
 
         return $this;
     }
+
 }

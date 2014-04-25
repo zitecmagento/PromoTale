@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,6 +26,7 @@
  */
 class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_Abstract
 {
+
     /**
      * Data key for matching result to be saved in
      */
@@ -125,20 +127,12 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
         $entity = $event->getEntity();
         if ($entity == Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY) {
             /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
-            $attribute      = $event->getDataObject();
-            $addFilterable  = $productFlatHelper->isAddFilterableAttributes();
+            $attribute = $event->getDataObject();
+            $addFilterable = $productFlatHelper->isAddFilterableAttributes();
 
-            $enableBefore   = $attribute && (($attribute->getOrigData('backend_type') == 'static')
-                || ($addFilterable && $attribute->getOrigData('is_filterable') > 0)
-                || ($attribute->getOrigData('used_in_product_listing') == 1)
-                || ($attribute->getOrigData('is_used_for_promo_rules') == 1)
-                || ($attribute->getOrigData('used_for_sort_by') == 1));
+            $enableBefore = $attribute && (($attribute->getOrigData('backend_type') == 'static') || ($addFilterable && $attribute->getOrigData('is_filterable') > 0) || ($attribute->getOrigData('used_in_product_listing') == 1) || ($attribute->getOrigData('is_used_for_promo_rules') == 1) || ($attribute->getOrigData('used_for_sort_by') == 1));
 
-            $enableAfter    = $attribute && (($attribute->getData('backend_type') == 'static')
-                || ($addFilterable && $attribute->getData('is_filterable') > 0)
-                || ($attribute->getData('used_in_product_listing') == 1)
-                || ($attribute->getData('is_used_for_promo_rules') == 1)
-                || ($attribute->getData('used_for_sort_by') == 1));
+            $enableAfter = $attribute && (($attribute->getData('backend_type') == 'static') || ($addFilterable && $attribute->getData('is_filterable') > 0) || ($attribute->getData('used_in_product_listing') == 1) || ($attribute->getData('is_used_for_promo_rules') == 1) || ($attribute->getData('used_for_sort_by') == 1));
 
             if ($attribute && $event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
                 $result = $enableBefore;
@@ -234,8 +228,8 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                 /* @var $actionObject Varien_Object */
                 $actionObject = $event->getDataObject();
 
-                $reindexData  = array();
-                $reindexFlat  = false;
+                $reindexData = array();
+                $reindexFlat = false;
 
                 // check if status changed
                 $attrData = $actionObject->getAttributesData();
@@ -359,4 +353,5 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
     {
         return Mage::getModel('catalog/product_flat_indexer')->getAttributeCodes();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $installer = $this;
 
@@ -31,7 +31,7 @@ $installer->startSetup();
 
 if (!$installer->tableExists($installer->getTable('catalog_category_entity'))) {
 
-$installer->run("
+    $installer->run("
 
 -- DROP TABLE IF EXISTS {$installer->getTable('catalog_category_entity')};
 CREATE TABLE {$installer->getTable('catalog_category_entity')} (
@@ -546,14 +546,14 @@ CREATE TABLE `{$installer->getTable('catalog_product_entity_media_gallery_value'
 
 ");
 
-$installer->getConnection()->dropColumn($installer->getTable('eav_attribute'), 'use_in_super_product');
+    $installer->getConnection()->dropColumn($installer->getTable('eav_attribute'), 'use_in_super_product');
 
-$installer->getConnection()->addColumn($installer->getTable('core_url_rewrite'), 'category_id', 'int unsigned NULL AFTER `store_id`');
-$installer->getConnection()->addColumn($installer->getTable('core_url_rewrite'), 'product_id', 'int unsigned NULL AFTER `category_id`');
-$installer->getConnection()->addConstraint('FK_CORE_URL_REWRITE_CATEGORY', $installer->getTable('core_url_rewrite'), 'category_id', $installer->getTable('catalog_category_entity'), 'entity_id');
-$installer->getConnection()->addConstraint('FK_CORE_URL_REWRITE_PRODUCT', $installer->getTable('core_url_rewrite'), 'product_id', $installer->getTable('catalog_product_entity'), 'entity_id');
+    $installer->getConnection()->addColumn($installer->getTable('core_url_rewrite'), 'category_id', 'int unsigned NULL AFTER `store_id`');
+    $installer->getConnection()->addColumn($installer->getTable('core_url_rewrite'), 'product_id', 'int unsigned NULL AFTER `category_id`');
+    $installer->getConnection()->addConstraint('FK_CORE_URL_REWRITE_CATEGORY', $installer->getTable('core_url_rewrite'), 'category_id', $installer->getTable('catalog_category_entity'), 'entity_id');
+    $installer->getConnection()->addConstraint('FK_CORE_URL_REWRITE_PRODUCT', $installer->getTable('core_url_rewrite'), 'product_id', $installer->getTable('catalog_product_entity'), 'entity_id');
 
-$installer->run("
+    $installer->run("
 UPDATE `{$installer->getTable('eav_attribute')}` SET `position` = 1 WHERE `position` = 0 AND `attribute_code` != 'price';
 
 -- DROP TABLE IF EXISTS `{$installer->getTable('catalog/product_option')}`;
@@ -647,7 +647,7 @@ ALTER TABLE `{$installer->getTable('core_url_rewrite')}` ADD INDEX `IDX_CATEGORY
 ");
 
 
-$installer->run("
+    $installer->run("
 CREATE TABLE `{$installer->getTable('catalog/eav_attribute')}` (
   `attribute_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `frontend_input_renderer` varchar(255) DEFAULT NULL,
@@ -672,7 +672,6 @@ CREATE TABLE `{$installer->getTable('catalog/eav_attribute')}` (
   CONSTRAINT `FK_CATALOG_EAV_ATTRIBUTE_ID` FOREIGN KEY (`attribute_id`) REFERENCES `{$installer->getTable('eav/attribute')}` (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
-
 }
 
 $installer->endSetup();
@@ -684,31 +683,31 @@ $installer->installEntities();
 
 // Create Root Catalog Node
 Mage::getModel('catalog/category')
-    ->setStoreId(0)
-    ->setId(1)
-    ->setPath(1)
-    ->setName('Root Catalog')
-    ->setInitialSetupFlag(true)
-    ->save();
+        ->setStoreId(0)
+        ->setId(1)
+        ->setPath(1)
+        ->setName('Root Catalog')
+        ->setInitialSetupFlag(true)
+        ->save();
 
 /* @var $category Mage_Catalog_Model_Category */
 $category = Mage::getModel('catalog/category');
 
 $category->setStoreId(0)
-    ->setName('Default Category')
-    ->setDisplayMode('PRODUCTS')
-    ->setAttributeSetId($category->getDefaultAttributeSetId())
-    ->setIsActive(1)
-    ->setPath('1')
-    ->setInitialSetupFlag(true)
-    ->save();
+        ->setName('Default Category')
+        ->setDisplayMode('PRODUCTS')
+        ->setAttributeSetId($category->getDefaultAttributeSetId())
+        ->setIsActive(1)
+        ->setPath('1')
+        ->setInitialSetupFlag(true)
+        ->save();
 
 $installer->setConfigData('catalog/category/root_id', $category->getId());
 
 $installer->addAttributeGroup('catalog_product', 'Default', 'Design', 6);
 
-$entityTypeId     = $installer->getEntityTypeId('catalog_category');
-$attributeSetId   = $installer->getDefaultAttributeSetId($entityTypeId);
+$entityTypeId = $installer->getEntityTypeId('catalog_category');
+$attributeSetId = $installer->getDefaultAttributeSetId($entityTypeId);
 $attributeGroupId = $installer->getDefaultAttributeGroupId($entityTypeId, $attributeSetId);
 
 // update General Group
@@ -716,15 +715,15 @@ $installer->updateAttributeGroup($entityTypeId, $attributeSetId, $attributeGroup
 $installer->updateAttributeGroup($entityTypeId, $attributeSetId, $attributeGroupId, 'sort_order', '10');
 
 $groups = array(
-    'display'   => array(
-        'name'  => 'Display Settings',
-        'sort'  => 20,
-        'id'    => null
+    'display' => array(
+        'name' => 'Display Settings',
+        'sort' => 20,
+        'id' => null
     ),
-    'design'    => array(
-        'name'  => 'Custom Design',
-        'sort'  => 30,
-        'id'    => null
+    'design' => array(
+        'name' => 'Custom Design',
+        'sort' => 30,
+        'id' => null
     )
 );
 
@@ -735,59 +734,55 @@ foreach ($groups as $k => $groupProp) {
 
 // update attributes group and sort
 $attributes = array(
-    'custom_design'         => array(
+    'custom_design' => array(
         'group' => 'design',
-        'sort'  => 10
+        'sort' => 10
     ),
-    'custom_design_apply'   => array(
+    'custom_design_apply' => array(
         'group' => 'design',
-        'sort'  => 20
+        'sort' => 20
     ),
-    'custom_design_from'    => array(
+    'custom_design_from' => array(
         'group' => 'design',
-        'sort'  => 30
+        'sort' => 30
     ),
-    'custom_design_to'      => array(
+    'custom_design_to' => array(
         'group' => 'design',
-        'sort'  => 40
+        'sort' => 40
     ),
-    'page_layout'           => array(
+    'page_layout' => array(
         'group' => 'design',
-        'sort'  => 50
+        'sort' => 50
     ),
-    'custom_layout_update'  => array(
+    'custom_layout_update' => array(
         'group' => 'design',
-        'sort'  => 60
+        'sort' => 60
     ),
-    'display_mode'          => array(
+    'display_mode' => array(
         'group' => 'display',
-        'sort'  => 10
+        'sort' => 10
     ),
-    'landing_page'          => array(
+    'landing_page' => array(
         'group' => 'display',
-        'sort'  => 20
+        'sort' => 20
     ),
-    'is_anchor'             => array(
+    'is_anchor' => array(
         'group' => 'display',
-        'sort'  => 30
+        'sort' => 30
     ),
-    'available_sort_by'     => array(
+    'available_sort_by' => array(
         'group' => 'display',
-        'sort'  => 40
+        'sort' => 40
     ),
-    'default_sort_by'       => array(
+    'default_sort_by' => array(
         'group' => 'display',
-        'sort'  => 50
+        'sort' => 50
     ),
 );
 
 foreach ($attributes as $attributeCode => $attributeProp) {
     $installer->addAttributeToGroup(
-        $entityTypeId,
-        $attributeSetId,
-        $groups[$attributeProp['group']]['id'],
-        $attributeCode,
-        $attributeProp['sort']
+            $entityTypeId, $attributeSetId, $groups[$attributeProp['group']]['id'], $attributeCode, $attributeProp['sort']
     );
 }
 

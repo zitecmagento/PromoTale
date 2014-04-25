@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Message.php 22802 2010-08-07 19:27:37Z ramon $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Ebay_Finding_Error_Message extends Zend_Service_Ebay_Finding_Abstract
 {
+
     /**
      * A container for error details.
      *
@@ -57,4 +58,5 @@ class Zend_Service_Ebay_Finding_Error_Message extends Zend_Service_Ebay_Finding_
             $this->error = new Zend_Service_Ebay_Finding_Error_Data_Set($nodes);
         }
     }
+
 }

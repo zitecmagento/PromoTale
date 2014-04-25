@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Address_Form extends Mage_Core_Block_Abstract
 {
+
     /**
      * Render customer address form xml
      *
@@ -46,8 +48,8 @@ class Mage_XmlConnect_Block_Checkout_Address_Form extends Mage_Core_Block_Abstra
 
         /** @var Mage_XmlConnect_Model_Simplexml_Form $fromXmlObj */
         $fromXmlObj = Mage::getModel('xmlconnect/simplexml_form', array(
-            'xml_id' => 'address_form', 'action' => $action, 'use_container' => true
-        ))->setFieldNameSuffix($addressType);
+                    'xml_id' => 'address_form', 'action' => $action, 'use_container' => true
+                ))->setFieldNameSuffix($addressType);
 
         $isAllowedGuestCheckout = Mage::getSingleton('checkout/session')->getQuote()->isAllowedGuestCheckout();
 
@@ -61,8 +63,7 @@ class Mage_XmlConnect_Block_Checkout_Address_Form extends Mage_Core_Block_Abstra
 
         $fromXmlObj->addField('company', 'text', array('name' => 'company', 'label' => $this->__('Company')));
 
-        if ($isAllowedGuestCheckout && !Mage::getSingleton('customer/session')->isLoggedIn()
-            && $addressType == 'billing'
+        if ($isAllowedGuestCheckout && !Mage::getSingleton('customer/session')->isLoggedIn() && $addressType == 'billing'
         ) {
             $fromXmlObj->addField('email', 'text', array(
                 'name' => 'email', 'label' => $this->__('Email Address'), 'required' => 'true'
@@ -100,14 +101,14 @@ class Mage_XmlConnect_Block_Checkout_Address_Form extends Mage_Core_Block_Abstra
         $fromXmlObj->addField('fax', 'text', array('name' => 'fax', 'label' => $this->__('Fax')));
 
         $fromXmlObj->addField('save_in_address_book', 'checkbox', array(
-            'name' => 'save_in_address_book','label' => $this->__('Save in address book')
+            'name' => 'save_in_address_book', 'label' => $this->__('Save in address book')
         ));
 
         // Add custom address attributes
         Mage::helper('xmlconnect/customer_form_renderer')
-            ->setAttributesBlockName('customer_form_billing_address_user_defined_attributes')
-            ->setFormCode('customer_register_address')->setBlockEntity(Mage::getModel('customer/address'))
-            ->addCustomAttributes($fromXmlObj, $this->getLayout(), $addressType);
+                ->setAttributesBlockName('customer_form_billing_address_user_defined_attributes')
+                ->setFormCode('customer_register_address')->setBlockEntity(Mage::getModel('customer/address'))
+                ->addCustomAttributes($fromXmlObj, $this->getLayout(), $addressType);
 
         return $fromXmlObj->getXml();
     }
@@ -127,7 +128,7 @@ class Mage_XmlConnect_Block_Checkout_Address_Form extends Mage_Core_Block_Abstra
             $options = unserialize($cache);
         } else {
             $collection = Mage::getModel('directory/region')->getResourceCollection()->addCountryFilter($countryId)
-                ->load();
+                    ->load();
             $options = $collection->toOptionArray();
             if (Mage::app()->useCache('config')) {
                 Mage::app()->saveCache(serialize($options), $cacheKey, array('config'));
@@ -158,4 +159,5 @@ class Mage_XmlConnect_Block_Checkout_Address_Form extends Mage_Core_Block_Abstra
         }
         return $options;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     protected function _construct()
     {
         parent::_construct();
@@ -68,7 +68,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings
      */
     public function canShowTab()
     {
-        return !(bool)$this->getWidgetInstance()->isCompleteToCreate();
+        return !(bool) $this->getWidgetInstance()->isCompleteToCreate();
     }
 
     /**
@@ -105,34 +105,33 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings
             'method' => 'post'
         ));
 
-        $fieldset = $form->addFieldset('base_fieldset',
-            array('legend'=>Mage::helper('widget')->__('Settings'))
+        $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('widget')->__('Settings'))
         );
 
         $this->_addElementTypes($fieldset);
 
         $fieldset->addField('type', 'select', array(
-            'name'     => 'type',
-            'label'    => Mage::helper('widget')->__('Type'),
-            'title'    => Mage::helper('widget')->__('Type'),
+            'name' => 'type',
+            'label' => Mage::helper('widget')->__('Type'),
+            'title' => Mage::helper('widget')->__('Type'),
             'required' => true,
-            'values'   => $this->getTypesOptionsArray()
+            'values' => $this->getTypesOptionsArray()
         ));
 
         $fieldset->addField('package_theme', 'select', array(
-            'name'     => 'package_theme',
-            'label'    => Mage::helper('widget')->__('Design Package/Theme'),
-            'title'    => Mage::helper('widget')->__('Design Package/Theme'),
+            'name' => 'package_theme',
+            'label' => Mage::helper('widget')->__('Design Package/Theme'),
+            'title' => Mage::helper('widget')->__('Design Package/Theme'),
             'required' => true,
-            'values'   => $this->getPackegeThemeOptionsArray()
+            'values' => $this->getPackegeThemeOptionsArray()
         ));
         $continueButton = $this->getLayout()
-            ->createBlock('adminhtml/widget_button')
-            ->setData(array(
-                'label'     => Mage::helper('widget')->__('Continue'),
-                'onclick'   => "setSettings('".$this->getContinueUrl()."', 'type', 'package_theme')",
-                'class'     => 'save'
-            ));
+                ->createBlock('adminhtml/widget_button')
+                ->setData(array(
+            'label' => Mage::helper('widget')->__('Continue'),
+            'onclick' => "setSettings('" . $this->getContinueUrl() . "', 'type', 'package_theme')",
+            'class' => 'save'
+        ));
         $fieldset->addField('continue_button', 'note', array(
             'text' => $continueButton->toHtml(),
         ));
@@ -150,10 +149,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings
     public function getContinueUrl()
     {
         return $this->getUrl('*/*/*', array(
-            '_current'  => true,
-            'type'      => '{{type}}',
-            'package'   => '{{package}}',
-            'theme'     => '{{theme}}'
+                    '_current' => true,
+                    'type' => '{{type}}',
+                    'package' => '{{package}}',
+                    'theme' => '{{theme}}'
         ));
     }
 
@@ -192,6 +191,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings
     public function getPackegeThemeOptionsArray()
     {
         return Mage::getModel('core/design_source_design')
-            ->setIsFullLabel(true)->getAllOptions(true);
+                        ->setIsFullLabel(true)->getAllOptions(true);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FilteringSelect.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Dojo_View_Helper_ComboBox */
 #require_once 'Zend/Dojo/View/Helper/ComboBox.php';
 
@@ -31,14 +31,15 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
-  */
+ */
 class Zend_Dojo_View_Helper_FilteringSelect extends Zend_Dojo_View_Helper_ComboBox
 {
+
     /**
      * Dijit being used
      * @var string
      */
-    protected $_dijit  = 'dijit.form.FilteringSelect';
+    protected $_dijit = 'dijit.form.FilteringSelect';
 
     /**
      * Dojo module to use
@@ -60,4 +61,5 @@ class Zend_Dojo_View_Helper_FilteringSelect extends Zend_Dojo_View_Helper_ComboB
     {
         return $this->comboBox($id, $value, $params, $attribs, $options);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,4 +30,5 @@
  */
 interface Zend_InfoCard_Cipher_Symmetric_Interface
 {
+    
 }

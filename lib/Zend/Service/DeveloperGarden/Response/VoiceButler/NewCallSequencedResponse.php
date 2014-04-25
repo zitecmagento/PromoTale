@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: NewCallSequencedResponse.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse
  */
@@ -33,7 +33,7 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallSequencedResponse
-    extends Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse
+class Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallSequencedResponse extends Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse
 {
+    
 }

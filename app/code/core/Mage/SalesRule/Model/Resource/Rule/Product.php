@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SalesRule Model Resource Rule_Product
  *
@@ -34,6 +34,7 @@
  */
 class Mage_SalesRule_Model_Resource_Rule_Product extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Constructor
      *
@@ -42,4 +43,5 @@ class Mage_SalesRule_Model_Resource_Rule_Product extends Mage_Core_Model_Resourc
     {
         $this->_init('salesrule/rule_product', 'product_rule_id');
     }
+
 }

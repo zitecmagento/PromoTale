@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist item option collection
  *
@@ -34,12 +34,13 @@
  */
 class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Array of option ids grouped by item id
      *
      * @var array
      */
-    protected $_optionsByItem    = array();
+    protected $_optionsByItem = array();
 
     /**
      * Array of option ids grouped by product id
@@ -68,9 +69,9 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
         parent::_afterLoad();
 
         foreach ($this as $option) {
-            $optionId   = $option->getId();
-            $itemId     = $option->getWishlistItemId();
-            $productId  = $option->getProductId();
+            $optionId = $option->getId();
+            $itemId = $option->getWishlistItemId();
+            $productId = $option->getProductId();
             if (isset($this->_optionsByItem[$itemId])) {
                 $this->_optionsByItem[$itemId][] = $optionId;
             } else {
@@ -171,4 +172,5 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
 
         return $options;
     }
+
 }

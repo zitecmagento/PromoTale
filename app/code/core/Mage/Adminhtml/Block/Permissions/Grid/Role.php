@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -45,7 +47,7 @@ class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Wi
 
     protected function _prepareCollection()
     {
-        $collection =  Mage::getModel("admin/roles")->getCollection();
+        $collection = Mage::getModel("admin/roles")->getCollection();
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
@@ -55,15 +57,15 @@ class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Wi
     {
 
         $this->addColumn('role_id', array(
-            'header'    =>Mage::helper('adminhtml')->__('ID'),
-            'index'     =>'role_id',
-            'align'     => 'right',
-            'width'    => '50px'
+            'header' => Mage::helper('adminhtml')->__('ID'),
+            'index' => 'role_id',
+            'align' => 'right',
+            'width' => '50px'
         ));
 
         $this->addColumn('role_name', array(
-            'header'    =>Mage::helper('adminhtml')->__('Role Name'),
-            'index'     =>'role_name'
+            'header' => Mage::helper('adminhtml')->__('Role Name'),
+            'index' => 'role_name'
         ));
 
         return parent::_prepareColumns();
@@ -71,11 +73,12 @@ class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Wi
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/roleGrid', array('_current'=>true));
+        return $this->getUrl('*/*/roleGrid', array('_current' => true));
     }
 
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/editrole', array('rid' => $row->getRoleId()));
     }
+
 }

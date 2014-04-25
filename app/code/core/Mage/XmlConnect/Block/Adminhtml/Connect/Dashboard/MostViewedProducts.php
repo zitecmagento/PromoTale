@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_MostViewedProducts
-    extends Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed
+class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_MostViewedProducts extends Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed
 {
+
     /**
      * Products count to display
      */
@@ -58,7 +59,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_MostViewedProducts
     protected function _initCollection($storeId)
     {
         $collection = Mage::getResourceModel('reports/product_collection')->addAttributeToSelect('*')->addViewsCount()
-            ->setStoreId($storeId)->addStoreFilter($storeId)->setPageSize(self::PRODUCTS_COUNT_LIMIT);
+                        ->setStoreId($storeId)->addStoreFilter($storeId)->setPageSize(self::PRODUCTS_COUNT_LIMIT);
         $this->setCollection($collection);
         return $this;
     }
@@ -88,7 +89,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_MostViewedProducts
                 'store_id' => $storeId ? $storeId : Mage_XmlConnect_Helper_AdminApplication::ALL_STORE_VIEWS
             ));
 
-            if(!count($this->getCollection()->getItems()) > 0) {
+            if (!count($this->getCollection()->getItems()) > 0) {
                 continue;
             }
 
@@ -101,17 +102,14 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_MostViewedProducts
                     'label' => Mage::helper('reports')->__('Product Name')
                 ));
                 $itemListXml->addCustomChild(
-                    'price',
-                    $orderHelper->preparePrice($item->getPrice(), $storeId),
-                    array('label' => Mage::helper('reports')->__('Price'))
+                        'price', $orderHelper->preparePrice($item->getPrice(), $storeId), array('label' => Mage::helper('reports')->__('Price'))
                 );
                 $itemListXml->addCustomChild(
-                    'views',
-                    $item->getViews(),
-                    array('label' => Mage::helper('reports')->__('Number of Views'))
+                        'views', $item->getViews(), array('label' => Mage::helper('reports')->__('Number of Views'))
                 );
             }
         }
         return $this;
     }
+
 }

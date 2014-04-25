@@ -34,35 +34,35 @@
 <div>
     <?php echo $this->getChildHtml('grid') ?>
 </div>
-<?php if(count($this->getQueueAsOptions())>0 && $this->getShowQueueAdd()): ?>
-<div class="form-buttons">
-    <select id="queueList" name="queue">
-    <?php foreach ($this->getQueueAsOptions() as $_queue): ?>
-        <option value="<?php echo $_queue['value'] ?>"><?php echo $_queue['label'] ?> #<?php echo $_queue['value'] ?></option>
-    <?php endforeach; ?>
-    </select>
-    <button class="scalable" onclick="subscriberController.addToQueue();"><span><span><span><?php echo Mage::helper('newsletter')->__('Add to Queue'); ?></span></span></span></button>
-</div>
+<?php if (count($this->getQueueAsOptions()) > 0 && $this->getShowQueueAdd()): ?>
+    <div class="form-buttons">
+        <select id="queueList" name="queue">
+            <?php foreach ($this->getQueueAsOptions() as $_queue): ?>
+                <option value="<?php echo $_queue['value'] ?>"><?php echo $_queue['label'] ?> #<?php echo $_queue['value'] ?></option>
+            <?php endforeach; ?>
+        </select>
+        <button class="scalable" onclick="subscriberController.addToQueue();"><span><span><span><?php echo Mage::helper('newsletter')->__('Add to Queue'); ?></span></span></span></button>
+    </div>
 <?php endif ?>
 <script type="text/javascript">
 <!--
     var subscriberController = {
         checkCheckboxes: function(controlCheckbox) {
             var elements = $('subscriberGrid').getElementsByClassName('subscriberCheckbox');
-            elements.each(function(obj){
+            elements.each(function(obj) {
                 obj.checked = controlCheckbox.checked;
             });
         },
-        rowClick: function (e) {
-            if(!Event.element(e).hasClassName('subscriberCheckbox')) {
+        rowClick: function(e) {
+            if (!Event.element(e).hasClassName('subscriberCheckbox')) {
                 var elements = Event.findElement(e, 'tr').getElementsByClassName('subscriberCheckbox');
-                if(elements.length != 1) {
+                if (elements.length != 1) {
                     return;
                 }
                 elements[0].checked = !elements[0].checked;
             }
         },
-        addToQueue: function () {
+        addToQueue: function() {
             var elements = $('subscriberGrid').getElementsByClassName('subscriberCheckbox');
             elements.push($('queueList'));
             var serializedElements = Form.serializeElements(elements, true);
@@ -71,9 +71,9 @@
             var url = subscriberGridJsObject.url;
 
             new Ajax.Updater('subscriberGrid', url + '?ajax=1',
-                             {parameters:  serializedElements,
-                              evalScripts: true,
-                              onComplete:subscriberGridJsObject.initGrid.bind(subscriberGridJsObject)});
+                    {parameters: serializedElements,
+                        evalScripts: true,
+                        onComplete: subscriberGridJsObject.initGrid.bind(subscriberGridJsObject)});
         }
     }
 

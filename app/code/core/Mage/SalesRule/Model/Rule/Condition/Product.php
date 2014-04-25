@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product rule condition data model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_SalesRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Condition_Product_Abstract
 {
+
     /**
      * Add special attributes
      *
@@ -63,9 +64,9 @@ class Mage_SalesRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Condit
         }
 
         $product
-            ->setQuoteItemQty($object->getQty())
-            ->setQuoteItemPrice($object->getPrice()) // possible bug: need to use $object->getBasePrice()
-            ->setQuoteItemRowTotal($object->getBaseRowTotal());
+                ->setQuoteItemQty($object->getQty())
+                ->setQuoteItemPrice($object->getPrice()) // possible bug: need to use $object->getBasePrice()
+                ->setQuoteItemRowTotal($object->getBaseRowTotal());
 
         $valid = parent::validate($product);
         if (!$valid && $product->getTypeId() == Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
@@ -75,4 +76,5 @@ class Mage_SalesRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Condit
 
         return $valid;
     }
+
 }

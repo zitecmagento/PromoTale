@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: XmlEnc.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_InfoCard_Xml_EncryptedData/Abstract.php
  */
@@ -47,18 +47,19 @@ class Zend_InfoCard_Xml_EncryptedData_XmlEnc extends Zend_InfoCard_Xml_Encrypted
     {
         $this->registerXPathNamespace('enc', 'http://www.w3.org/2001/04/xmlenc#');
 
-        list(,$cipherdata) = $this->xpath("//enc:CipherData");
+        list(, $cipherdata) = $this->xpath("//enc:CipherData");
 
-        if(!($cipherdata instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($cipherdata instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception("Unable to find the enc:CipherData block");
         }
 
-        list(,$ciphervalue) = $cipherdata->xpath("//enc:CipherValue");
+        list(, $ciphervalue) = $cipherdata->xpath("//enc:CipherValue");
 
-        if(!($ciphervalue instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($ciphervalue instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception("Unable to fidn the enc:CipherValue block");
         }
 
-        return (string)$ciphervalue;
+        return (string) $ciphervalue;
     }
+
 }

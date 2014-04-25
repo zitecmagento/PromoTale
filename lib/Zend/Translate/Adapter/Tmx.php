@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,14 +19,11 @@
  * @version    $Id: Tmx.php 21049 2010-02-13 22:52:52Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-
 /** Zend_Locale */
 #require_once 'Zend/Locale.php';
 
 /** Zend_Translate_Adapter */
 #require_once 'Zend/Translate/Adapter.php';
-
 
 /**
  * @category   Zend
@@ -33,16 +31,18 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
+class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter
+{
+
     // Internal variables
-    private $_file    = false;
-    private $_useId   = true;
+    private $_file = false;
+    private $_useId = true;
     private $_srclang = null;
-    private $_tu      = null;
-    private $_tuv     = null;
-    private $_seg     = null;
+    private $_tu = null;
+    private $_tuv = null;
+    private $_seg = null;
     private $_content = null;
-    private $_data    = array();
+    private $_data = array();
 
     /**
      * Load translation data (TMX file reader)
@@ -74,9 +74,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
         xml_set_character_data_handler($this->_file, "_contentElement");
 
         if (!xml_parse($this->_file, file_get_contents($filename))) {
-            $ex = sprintf('XML error: %s at line %d',
-                          xml_error_string(xml_get_error_code($this->_file)),
-                          xml_get_current_line_number($this->_file));
+            $ex = sprintf('XML error: %s at line %d', xml_error_string(xml_get_error_code($this->_file)), xml_get_current_line_number($this->_file));
             xml_parser_free($this->_file);
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception($ex);
@@ -95,13 +93,13 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
     protected function _startElement($file, $name, $attrib)
     {
         if ($this->_seg !== null) {
-            $this->_content .= "<".$name;
-            foreach($attrib as $key => $value) {
+            $this->_content .= "<" . $name;
+            foreach ($attrib as $key => $value) {
                 $this->_content .= " $key=\"$value\"";
             }
             $this->_content .= ">";
         } else {
-            switch(strtolower($name)) {
+            switch (strtolower($name)) {
                 case 'header':
                     if (empty($this->_useId) && isset($attrib['srclang'])) {
                         if (Zend_Locale::isLocale($attrib['srclang'])) {
@@ -146,7 +144,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
                     }
                     break;
                 case 'seg':
-                    $this->_seg     = true;
+                    $this->_seg = true;
                     $this->_content = null;
                     break;
                 default:
@@ -154,7 +152,6 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
             }
         }
     }
-
 
     /**
      * Internal method, called by xml element handler at end
@@ -165,7 +162,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
     protected function _endElement($file, $name)
     {
         if (($this->_seg !== null) and ($name !== 'seg')) {
-            $this->_content .= "</".$name.">";
+            $this->_content .= "</" . $name . ">";
         } else {
             switch (strtolower($name)) {
                 case 'tu':
@@ -203,7 +200,6 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
         }
     }
 
-
     /**
      * Internal method, detects the encoding of the xml file
      *
@@ -230,4 +226,5 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
     {
         return "Tmx";
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Auth.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Auth
@@ -28,6 +28,7 @@
  */
 class Zend_Auth
 {
+
     /**
      * Singleton instance
      *
@@ -48,7 +49,9 @@ class Zend_Auth
      * @return void
      */
     protected function __construct()
-    {}
+    {
+        
+    }
 
     /**
      * Singleton pattern implementation makes "clone" unavailable
@@ -56,7 +59,9 @@ class Zend_Auth
      * @return void
      */
     protected function __clone()
-    {}
+    {
+        
+    }
 
     /**
      * Returns an instance of Zend_Auth
@@ -166,4 +171,5 @@ class Zend_Auth
     {
         $this->getStorage()->clear();
     }
+
 }

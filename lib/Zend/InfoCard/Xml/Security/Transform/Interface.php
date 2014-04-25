@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 interface Zend_InfoCard_Xml_Security_Transform_Interface
 {
+
     /**
      * Transform the given XML string according to the transform rules
      * implemented by the object using this interface

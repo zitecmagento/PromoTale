@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $installer = $this;
 
@@ -65,9 +64,9 @@ foreach ($describe as $columnData) {
     $fields[] = $columnData['COLUMN_NAME'];
 }
 $stmt = $installer->getConnection()->select()
-    ->from($installer->getTable('eav/attribute'), $fields)
-    ->where('entity_type_id = ?', $installer->getEntityTypeId('catalog_category'))
-    ->orWhere('entity_type_id = ?', $installer->getEntityTypeId('catalog_product'));
+        ->from($installer->getTable('eav/attribute'), $fields)
+        ->where('entity_type_id = ?', $installer->getEntityTypeId('catalog_category'))
+        ->orWhere('entity_type_id = ?', $installer->getEntityTypeId('catalog_product'));
 $result = $installer->getConnection()->fetchAll($stmt);
 $table = $installer->getTable('catalog/eav_attribute');
 foreach ($result as $data) {
@@ -83,7 +82,7 @@ foreach ($describe as $columnData) {
     $installer->getConnection()->dropColumn($installer->getTable('eav/attribute'), $columnData['COLUMN_NAME']);
 }
 
-$prefix = Mage_Catalog_Model_Entity_Attribute::MODULE_NAME.Mage_Core_Model_Translate::SCOPE_SEPARATOR;
+$prefix = Mage_Catalog_Model_Entity_Attribute::MODULE_NAME . Mage_Core_Model_Translate::SCOPE_SEPARATOR;
 $sql = "
     INSERT
         INTO `{$installer->getTable('eav/attribute_label')}` (`attribute_id`, `store_id`, `value`)

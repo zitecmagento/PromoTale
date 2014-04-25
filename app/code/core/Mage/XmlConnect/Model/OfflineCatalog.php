@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_OfflineCatalog
 {
+
     /**
      * Category type
      */
@@ -82,7 +84,7 @@ class Mage_XmlConnect_Model_OfflineCatalog
     {
         Mage::helper('xmlconnect/offlineCatalog')->prepareResultDirectory();
         $this->_runExport(self::CATEGORY_TYPE)->_runExport(self::PRODUCT_TYPE)->_runExport(self::HOMEBANNERS_TYPE)
-            ->_runExport(self::HOME_TYPE)->_runExport(self::CONFIG_TYPE);
+                ->_runExport(self::HOME_TYPE)->_runExport(self::CONFIG_TYPE);
         return $this;
     }
 
@@ -114,4 +116,5 @@ class Mage_XmlConnect_Model_OfflineCatalog
                 return null;
         }
     }
+
 }

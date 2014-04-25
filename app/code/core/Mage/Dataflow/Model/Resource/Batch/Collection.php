@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Dataflow batch collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Dataflow_Model_Resource_Batch_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Init model
      *
@@ -52,8 +53,9 @@ class Mage_Dataflow_Model_Resource_Batch_Collection extends Mage_Core_Model_Reso
         $date = Mage::getSingleton('core/date');
         /* @var $date Mage_Core_Model_Date */
         $lifetime = Mage_Dataflow_Model_Batch::LIFETIME;
-        $expire   = $date->gmtDate(null, $date->timestamp() - $lifetime);
+        $expire = $date->gmtDate(null, $date->timestamp() - $lifetime);
 
         $this->getSelect()->where('created_at < ?', $expire);
     }
+
 }

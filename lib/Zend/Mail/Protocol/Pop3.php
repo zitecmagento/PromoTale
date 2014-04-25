@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Pop3.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -30,6 +30,7 @@
  */
 class Zend_Mail_Protocol_Pop3
 {
+
     /**
      * Default timeout in seconds for initiating session
      */
@@ -53,7 +54,6 @@ class Zend_Mail_Protocol_Pop3
      */
     protected $_timestamp;
 
-
     /**
      * Public constructor
      *
@@ -69,7 +69,6 @@ class Zend_Mail_Protocol_Pop3
         }
     }
 
-
     /**
      * Public destructor
      */
@@ -77,7 +76,6 @@ class Zend_Mail_Protocol_Pop3
     {
         $this->logout();
     }
-
 
     /**
      * Open connection to POP3 server
@@ -98,7 +96,7 @@ class Zend_Mail_Protocol_Pop3
             $port = $ssl == 'SSL' ? 995 : 110;
         }
 
-        $errno  =  0;
+        $errno = 0;
         $errstr = '';
         $this->_socket = @fsockopen($host, $port, $errno, $errstr, self::TIMEOUT_CONNECTION);
         if (!$this->_socket) {
@@ -107,7 +105,7 @@ class Zend_Mail_Protocol_Pop3
              */
             #require_once 'Zend/Mail/Protocol/Exception.php';
             throw new Zend_Mail_Protocol_Exception('cannot connect to host; error = ' . $errstr .
-                                                   ' (errno = ' . $errno . ' )');
+            ' (errno = ' . $errno . ' )');
         }
 
         $welcome = $this->readResponse();
@@ -135,7 +133,6 @@ class Zend_Mail_Protocol_Pop3
         return $welcome;
     }
 
-
     /**
      * Send a request
      *
@@ -154,7 +151,6 @@ class Zend_Mail_Protocol_Pop3
             throw new Zend_Mail_Protocol_Exception('send failed - connection closed?');
         }
     }
-
 
     /**
      * read a response
@@ -205,7 +201,6 @@ class Zend_Mail_Protocol_Pop3
         return $message;
     }
 
-
     /**
      * Send request and get resposne
      *
@@ -222,7 +217,6 @@ class Zend_Mail_Protocol_Pop3
         return $this->readResponse($multiline);
     }
 
-
     /**
      * End communication with POP3 server (also closes socket)
      *
@@ -234,16 +228,18 @@ class Zend_Mail_Protocol_Pop3
             return;
         }
 
-        try {
+        try
+        {
             $this->request('QUIT');
-        } catch (Zend_Mail_Protocol_Exception $e) {
+        }
+        catch (Zend_Mail_Protocol_Exception $e)
+        {
             // ignore error - we're closing the socket anyway
         }
 
         fclose($this->_socket);
         $this->_socket = null;
     }
-
 
     /**
      * Get capabilities from POP3 server
@@ -257,7 +253,6 @@ class Zend_Mail_Protocol_Pop3
         return explode("\n", $result);
     }
 
-
     /**
      * Login to POP3 server. Can use APOP
      *
@@ -270,10 +265,13 @@ class Zend_Mail_Protocol_Pop3
     public function login($user, $password, $tryApop = true)
     {
         if ($tryApop && $this->_timestamp) {
-            try {
+            try
+            {
                 $this->request("APOP $user " . md5($this->_timestamp . $password));
                 return;
-            } catch (Zend_Mail_Protocol_Exception $e) {
+            }
+            catch (Zend_Mail_Protocol_Exception $e)
+            {
                 // ignore
             }
         }
@@ -281,7 +279,6 @@ class Zend_Mail_Protocol_Pop3
         $result = $this->request("USER $user");
         $result = $this->request("PASS $password");
     }
-
 
     /**
      * Make STAT call for message count and size sum
@@ -300,7 +297,6 @@ class Zend_Mail_Protocol_Pop3
         list($messages, $octets) = explode(' ', $result);
     }
 
-
     /**
      * Make LIST call for size of message(s)
      *
@@ -314,7 +310,7 @@ class Zend_Mail_Protocol_Pop3
             $result = $this->request("LIST $msgno");
 
             list(, $result) = explode(' ', $result);
-            return (int)$result;
+            return (int) $result;
         }
 
         $result = $this->request('LIST', true);
@@ -322,13 +318,12 @@ class Zend_Mail_Protocol_Pop3
         $line = strtok($result, "\n");
         while ($line) {
             list($no, $size) = explode(' ', trim($line));
-            $messages[(int)$no] = (int)$size;
+            $messages[(int) $no] = (int) $size;
             $line = strtok("\n");
         }
 
         return $messages;
     }
-
 
     /**
      * Make UIDL call for getting a uniqueid
@@ -355,13 +350,11 @@ class Zend_Mail_Protocol_Pop3
                 continue;
             }
             list($no, $id) = explode(' ', trim($line), 2);
-            $messages[(int)$no] = $id;
+            $messages[(int) $no] = $id;
         }
 
         return $messages;
-
     }
-
 
     /**
      * Make TOP call for getting headers and maybe some body lines
@@ -391,11 +384,14 @@ class Zend_Mail_Protocol_Pop3
         }
         $this->hasTop = true;
 
-        $lines = (!$lines || $lines < 1) ? 0 : (int)$lines;
+        $lines = (!$lines || $lines < 1) ? 0 : (int) $lines;
 
-        try {
+        try
+        {
             $result = $this->request("TOP $msgno $lines", true);
-        } catch (Zend_Mail_Protocol_Exception $e) {
+        }
+        catch (Zend_Mail_Protocol_Exception $e)
+        {
             $this->hasTop = false;
             if ($fallback) {
                 $result = $this->retrieve($msgno);
@@ -406,7 +402,6 @@ class Zend_Mail_Protocol_Pop3
 
         return $result;
     }
-
 
     /**
      * Make a RETR call for retrieving a full message with headers and body
@@ -420,7 +415,6 @@ class Zend_Mail_Protocol_Pop3
     {
         return $this->retrieve($msgno);
     }
-
 
     /**
      * Make a RETR call for retrieving a full message with headers and body
@@ -446,7 +440,6 @@ class Zend_Mail_Protocol_Pop3
         $this->request('NOOP');
     }
 
-
     /**
      * Make a DELE count to remove a message
      *
@@ -458,7 +451,6 @@ class Zend_Mail_Protocol_Pop3
         $this->request("DELE $msgno");
     }
 
-
     /**
      * Make RSET call, which rollbacks delete requests
      *
@@ -469,4 +461,5 @@ class Zend_Mail_Protocol_Pop3
     {
         $this->request('RSET');
     }
+
 }

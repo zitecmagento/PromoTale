@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
 {
+
     protected $_locale;
 
     /**
@@ -37,42 +38,35 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
     {
         parent::__construct();
         $this->setTemplate('dashboard/index.phtml');
-
     }
 
     protected function _prepareLayout()
     {
-        $this->setChild('lastOrders',
-                $this->getLayout()->createBlock('adminhtml/dashboard_orders_grid')
+        $this->setChild('lastOrders', $this->getLayout()->createBlock('adminhtml/dashboard_orders_grid')
         );
 
-        $this->setChild('totals',
-                $this->getLayout()->createBlock('adminhtml/dashboard_totals')
+        $this->setChild('totals', $this->getLayout()->createBlock('adminhtml/dashboard_totals')
         );
 
-        $this->setChild('sales',
-                $this->getLayout()->createBlock('adminhtml/dashboard_sales')
+        $this->setChild('sales', $this->getLayout()->createBlock('adminhtml/dashboard_sales')
         );
 
-        $this->setChild('lastSearches',
-                $this->getLayout()->createBlock('adminhtml/dashboard_searches_last')
+        $this->setChild('lastSearches', $this->getLayout()->createBlock('adminhtml/dashboard_searches_last')
         );
 
-        $this->setChild('topSearches',
-                $this->getLayout()->createBlock('adminhtml/dashboard_searches_top')
+        $this->setChild('topSearches', $this->getLayout()->createBlock('adminhtml/dashboard_searches_top')
         );
 
         if (Mage::getStoreConfig(self::XML_PATH_ENABLE_CHARTS)) {
             $block = $this->getLayout()->createBlock('adminhtml/dashboard_diagrams');
         } else {
             $block = $this->getLayout()->createBlock('adminhtml/template')
-                ->setTemplate('dashboard/graph/disabled.phtml')
-                ->setConfigUrl($this->getUrl('adminhtml/system_config/edit', array('section'=>'admin')));
+                    ->setTemplate('dashboard/graph/disabled.phtml')
+                    ->setConfigUrl($this->getUrl('adminhtml/system_config/edit', array('section' => 'admin')));
         }
         $this->setChild('diagrams', $block);
 
-        $this->setChild('grids',
-                $this->getLayout()->createBlock('adminhtml/dashboard_grids')
+        $this->setChild('grids', $this->getLayout()->createBlock('adminhtml/dashboard_grids')
         );
 
         parent::_prepareLayout();
@@ -83,6 +77,7 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
         if ($url = $this->getData('switch_url')) {
             return $url;
         }
-        return $this->getUrl('*/*/*', array('_current'=>true, 'period'=>null));
+        return $this->getUrl('*/*/*', array('_current' => true, 'period' => null));
     }
+
 }

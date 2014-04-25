@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_Resource
 {
+
     /**
      * Default ignored attribute codes
      *
@@ -46,9 +48,7 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
      */
     protected function _getProduct($productId, $store = null, $identifierType = null)
     {
-        $product = Mage::helper('catalog/product')->getProduct($productId,
-                        $this->_getStoreId($store),
-                        $identifierType
+        $product = Mage::helper('catalog/product')->getProduct($productId, $this->_getStoreId($store), $identifierType
         );
         return $product;
     }
@@ -85,14 +85,10 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
      * @return Mage_Sales_Model_Quote_Item
      * @throw Mage_Core_Exception
      */
-    protected function _getQuoteItemByProduct(Mage_Sales_Model_Quote $quote,
-                            Mage_Catalog_Model_Product $product,
-                            Varien_Object $requestInfo)
+    protected function _getQuoteItemByProduct(Mage_Sales_Model_Quote $quote, Mage_Catalog_Model_Product $product, Varien_Object $requestInfo)
     {
         $cartCandidates = $product->getTypeInstance(true)
-                        ->prepareForCartAdvanced($requestInfo,
-                                $product,
-                                Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL
+                ->prepareForCartAdvanced($requestInfo, $product, Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL
         );
 
         /**
@@ -125,4 +121,5 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
 
         return $item;
     }
+
 }

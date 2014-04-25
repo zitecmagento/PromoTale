@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Country collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Locale region name table name
      *
@@ -56,7 +57,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     {
         $this->_init('directory/region');
 
-        $this->_countryTable    = $this->getTable('directory/country');
+        $this->_countryTable = $this->getTable('directory/country');
         $this->_regionNameTable = $this->getTable('directory/country_region_name');
 
         $this->addOrder('name', Varien_Data_Collection::SORT_ORDER_ASC);
@@ -75,9 +76,8 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
 
         $this->addBindParam(':region_locale', $locale);
         $this->getSelect()->joinLeft(
-            array('rname' => $this->_regionNameTable),
-            'main_table.region_id = rname.region_id AND rname.locale = :region_locale',
-            array('name'));
+                array('rname' => $this->_regionNameTable), 'main_table.region_id = rname.region_id AND rname.locale = :region_locale', array(
+            'name'));
 
         return $this;
     }
@@ -109,11 +109,10 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     public function addCountryCodeFilter($countryCode)
     {
         $this->getSelect()
-            ->joinLeft(
-                array('country' => $this->_countryTable),
-                'main_table.country_id = country.country_id'
+                ->joinLeft(
+                        array('country' => $this->_countryTable), 'main_table.country_id = country.country_id'
                 )
-            ->where('country.iso3_code = ?', $countryCode);
+                ->where('country.iso3_code = ?', $countryCode);
 
         return $this;
     }
@@ -179,11 +178,12 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
         $options = $this->_toOptionArray('region_id', 'default_name', array('title' => 'default_name'));
         if (count($options) > 0) {
             array_unshift($options, array(
-                'title '=> null,
+                'title ' => null,
                 'value' => "",
                 'label' => Mage::helper('directory')->__('-- Please select --')
             ));
         }
         return $options;
     }
+
 }

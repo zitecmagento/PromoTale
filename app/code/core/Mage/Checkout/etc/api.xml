@@ -461,7 +461,7 @@
                     <customer translate="title" module="checkout">
                         <title>Customer's information</title>
                         <set translate="title" module="checkout">
-                           <title>Set customer for shopping cart</title>
+                            <title>Set customer for shopping cart</title>
                         </set>
                         <addresses translate="title" module="checkout">
                             <title>Set customer's addresses in shopping cart</title>
@@ -491,7 +491,7 @@
                             <title>Add coupon code for shopping cart</title>
                         </add>
                         <remove>
-                             <title>Remove coupon code from shopping cart</title>
+                            <title>Remove coupon code from shopping cart</title>
                         </remove>
                     </coupon>
                 </cart>

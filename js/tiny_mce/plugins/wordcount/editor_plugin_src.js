@@ -9,106 +9,104 @@
  */
 
 (function() {
-	tinymce.create('tinymce.plugins.WordCount', {
-		block : 0,
-		id : null,
-		countre : null,
-		cleanre : null,
+    tinymce.create('tinymce.plugins.WordCount', {
+        block: 0,
+        id: null,
+        countre: null,
+        cleanre: null,
+        init: function(ed, url) {
+            var t = this, last = 0;
 
-		init : function(ed, url) {
-			var t = this, last = 0;
+            t.countre = ed.getParam('wordcount_countregex', /[\w\u2019\'-]+/g); // u2019 == &rsquo;
+            t.cleanre = ed.getParam('wordcount_cleanregex', /[0-9.(),;:!?%#$?\'\"_+=\\\/-]*/g);
+            t.id = ed.id + '-word-count';
 
-			t.countre = ed.getParam('wordcount_countregex', /[\w\u2019\'-]+/g); // u2019 == &rsquo;
-			t.cleanre = ed.getParam('wordcount_cleanregex', /[0-9.(),;:!?%#$?\'\"_+=\\\/-]*/g);
-			t.id = ed.id + '-word-count';
+            ed.onPostRender.add(function(ed, cm) {
+                var row, id;
 
-			ed.onPostRender.add(function(ed, cm) {
-				var row, id;
+                // Add it to the specified id or the theme advanced path
+                id = ed.getParam('wordcount_target_id');
+                if (!id) {
+                    row = tinymce.DOM.get(ed.id + '_path_row');
 
-				// Add it to the specified id or the theme advanced path
-				id = ed.getParam('wordcount_target_id');
-				if (!id) {
-					row = tinymce.DOM.get(ed.id + '_path_row');
+                    if (row)
+                        tinymce.DOM.add(row.parentNode, 'div', {'style': 'float: right'}, ed.getLang('wordcount.words', 'Words: ') + '<span id="' + t.id + '">0</span>');
+                } else {
+                    tinymce.DOM.add(id, 'span', {}, '<span id="' + t.id + '">0</span>');
+                }
+            });
 
-					if (row)
-						tinymce.DOM.add(row.parentNode, 'div', {'style': 'float: right'}, ed.getLang('wordcount.words', 'Words: ') + '<span id="' + t.id + '">0</span>');
-				} else {
-					tinymce.DOM.add(id, 'span', {}, '<span id="' + t.id + '">0</span>');
-				}
-			});
+            ed.onInit.add(function(ed) {
+                ed.selection.onSetContent.add(function() {
+                    t._count(ed);
+                });
 
-			ed.onInit.add(function(ed) {
-				ed.selection.onSetContent.add(function() {
-					t._count(ed);
-				});
+                t._count(ed);
+            });
 
-				t._count(ed);
-			});
+            ed.onSetContent.add(function(ed) {
+                t._count(ed);
+            });
 
-			ed.onSetContent.add(function(ed) {
-				t._count(ed);
-			});
+            ed.onKeyUp.add(function(ed, e) {
+                if (e.keyCode == last)
+                    return;
 
-			ed.onKeyUp.add(function(ed, e) {
-				if (e.keyCode == last)
-					return;
+                if (13 == e.keyCode || 8 == last || 46 == last)
+                    t._count(ed);
 
-				if (13 == e.keyCode || 8 == last || 46 == last)
-					t._count(ed);
+                last = e.keyCode;
+            });
+        },
+        _getCount: function(ed) {
+            var tc = 0;
+            var tx = ed.getContent({format: 'raw'});
 
-				last = e.keyCode;
-			});
-		},
+            if (tx) {
+                tx = tx.replace(/\.\.\./g, ' '); // convert ellipses to spaces
+                tx = tx.replace(/<.[^<>]*?>/g, ' ').replace(/&nbsp;|&#160;/gi, ' '); // remove html tags and space chars
 
-		_getCount : function(ed) {
-			var tc = 0;
-			var tx = ed.getContent({ format: 'raw' });
+                // deal with html entities
+                tx = tx.replace(/(\w+)(&.+?;)+(\w+)/, "$1$3").replace(/&.+?;/g, ' ');
+                tx = tx.replace(this.cleanre, ''); // remove numbers and punctuation
 
-			if (tx) {
-					tx = tx.replace(/\.\.\./g, ' '); // convert ellipses to spaces
-					tx = tx.replace(/<.[^<>]*?>/g, ' ').replace(/&nbsp;|&#160;/gi, ' '); // remove html tags and space chars
+                var wordArray = tx.match(this.countre);
+                if (wordArray) {
+                    tc = wordArray.length;
+                }
+            }
 
-					// deal with html entities
-					tx = tx.replace(/(\w+)(&.+?;)+(\w+)/, "$1$3").replace(/&.+?;/g, ' ');
-					tx = tx.replace(this.cleanre, ''); // remove numbers and punctuation
+            return tc;
+        },
+        _count: function(ed) {
+            var t = this;
 
-					var wordArray = tx.match(this.countre);
-					if (wordArray) {
-							tc = wordArray.length;
-					}
-			}
+            // Keep multiple calls from happening at the same time
+            if (t.block)
+                return;
 
-			return tc;
-		},
+            t.block = 1;
 
-		_count : function(ed) {
-			var t = this;
+            setTimeout(function() {
+                if (!ed.destroyed) {
+                    var tc = t._getCount(ed);
+                    tinymce.DOM.setHTML(t.id, tc.toString());
+                    setTimeout(function() {
+                        t.block = 0;
+                    }, 2000);
+                }
+            }, 1);
+        },
+        getInfo: function() {
+            return {
+                longname: 'Word Count plugin',
+                author: 'Moxiecode Systems AB',
+                authorurl: 'http://tinymce.moxiecode.com',
+                infourl: 'http://wiki.moxiecode.com/index.php/TinyMCE:Plugins/wordcount',
+                version: tinymce.majorVersion + "." + tinymce.minorVersion
+            };
+        }
+    });
 
-			// Keep multiple calls from happening at the same time
-			if (t.block)
-				return;
-
-			t.block = 1;
-
-			setTimeout(function() {
-				if (!ed.destroyed) {
-					var tc = t._getCount(ed);
-					tinymce.DOM.setHTML(t.id, tc.toString());
-					setTimeout(function() {t.block = 0;}, 2000);
-				}
-			}, 1);
-		},
-
-		getInfo: function() {
-			return {
-				longname : 'Word Count plugin',
-				author : 'Moxiecode Systems AB',
-				authorurl : 'http://tinymce.moxiecode.com',
-				infourl : 'http://wiki.moxiecode.com/index.php/TinyMCE:Plugins/wordcount',
-				version : tinymce.majorVersion + "." + tinymce.minorVersion
-			};
-		}
-	});
-
-	tinymce.PluginManager.add('wordcount', tinymce.plugins.WordCount);
+    tinymce.PluginManager.add('wordcount', tinymce.plugins.WordCount);
 })();

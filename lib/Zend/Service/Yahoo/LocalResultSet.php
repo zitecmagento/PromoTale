@@ -20,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: LocalResultSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Yahoo_ResultSet
  */
@@ -33,7 +31,6 @@
  */
 #require_once 'Zend/Service/Yahoo/LocalResult.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -43,6 +40,7 @@
  */
 class Zend_Service_Yahoo_LocalResultSet extends Zend_Service_Yahoo_ResultSet
 {
+
     /**
      * The URL of a webpage containing a map graphic with all returned results plotted on it.
      *
@@ -57,7 +55,6 @@ class Zend_Service_Yahoo_LocalResultSet extends Zend_Service_Yahoo_ResultSet
      */
     protected $_namespace = 'urn:yahoo:lcl';
 
-
     /**
      * Initializes the local result set
      *
@@ -71,7 +68,6 @@ class Zend_Service_Yahoo_LocalResultSet extends Zend_Service_Yahoo_ResultSet
         $this->resultSetMapURL = $this->_xpath->query('//yh:ResultSetMapUrl/text()')->item(0)->data;
     }
 
-
     /**
      * Overrides Zend_Service_Yahoo_ResultSet::current()
      *
@@ -81,4 +77,5 @@ class Zend_Service_Yahoo_LocalResultSet extends Zend_Service_Yahoo_ResultSet
     {
         return new Zend_Service_Yahoo_LocalResult($this->_results->item($this->_currentIndex));
     }
+
 }

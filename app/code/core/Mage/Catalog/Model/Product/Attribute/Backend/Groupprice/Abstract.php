@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product abstract group price backend attribute model
  *
@@ -32,9 +32,9 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
-    extends Mage_Catalog_Model_Product_Attribute_Backend_Price
+abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract extends Mage_Catalog_Model_Product_Attribute_Backend_Price
 {
+
     /**
      * Website currency codes and rates
      *
@@ -64,8 +64,8 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
                 /* @var $website Mage_Core_Model_Website */
                 if ($website->getBaseCurrencyCode() != $baseCurrency) {
                     $rate = Mage::getModel('directory/currency')
-                        ->load($baseCurrency)
-                        ->getRate($website->getBaseCurrencyCode());
+                            ->load($baseCurrency)
+                            ->getRate($website->getBaseCurrencyCode());
                     if (!$rate) {
                         $rate = 1;
                     }
@@ -128,8 +128,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
                 continue;
             }
             $compare = join('-', array_merge(
-                array($priceRow['website_id'], $priceRow['cust_group']),
-                $this->_getAdditionalUniqueFields($priceRow)
+                            array($priceRow['website_id'], $priceRow['cust_group']), $this->_getAdditionalUniqueFields($priceRow)
             ));
             if (isset($duplicates[$compare])) {
                 Mage::throwException($this->_getDuplicateErrorMessage());
@@ -144,8 +143,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
             foreach ($origGroupPrices as $price) {
                 if ($price['website_id'] == 0) {
                     $compare = join('-', array_merge(
-                        array($price['website_id'], $price['cust_group']),
-                        $this->_getAdditionalUniqueFields($price)
+                                    array($price['website_id'], $price['cust_group']), $this->_getAdditionalUniqueFields($price)
                     ));
                     $duplicates[$compare] = true;
                 }
@@ -164,8 +162,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
             }
 
             $globalCompare = join('-', array_merge(
-                array(0, $priceRow['cust_group']),
-                $this->_getAdditionalUniqueFields($priceRow)
+                            array(0, $priceRow['cust_group']), $this->_getAdditionalUniqueFields($priceRow)
             ));
             $websiteCurrency = $rates[$priceRow['website_id']]['code'];
 
@@ -187,9 +184,9 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
      */
     public function preparePriceData(array $priceData, $productTypeId, $websiteId)
     {
-        $rates  = $this->_getWebsiteCurrencyRates();
-        $data   = array();
-        $price  = Mage::getSingleton('catalog/product_type')->priceFactory($productTypeId);
+        $rates = $this->_getWebsiteCurrencyRates();
+        $data = array();
+        $price = Mage::getSingleton('catalog/product_type')->priceFactory($productTypeId);
         foreach ($priceData as $v) {
             $key = join('-', array_merge(array($v['cust_group']), $this->_getAdditionalUniqueFields($v)));
             if ($v['website_id'] == $websiteId) {
@@ -216,7 +213,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
      */
     public function afterLoad($object)
     {
-        $storeId   = $object->getStoreId();
+        $storeId = $object->getStoreId();
         $websiteId = null;
         if ($this->getAttribute()->isScopeGlobal()) {
             $websiteId = 0;
@@ -254,8 +251,8 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
      */
     public function afterSave($object)
     {
-        $websiteId  = Mage::app()->getStore($object->getStoreId())->getWebsiteId();
-        $isGlobal   = $this->getAttribute()->isScopeGlobal() || $websiteId == 0;
+        $websiteId = Mage::app()->getStore($object->getStoreId())->getWebsiteId();
+        $isGlobal = $this->getAttribute()->isScopeGlobal() || $websiteId == 0;
 
         $priceRows = $object->getData($this->getAttribute()->getName());
         if (empty($priceRows)) {
@@ -278,8 +275,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
         foreach ($origGroupPrices as $data) {
             if ($data['website_id'] > 0 || ($data['website_id'] == '0' && $isGlobal)) {
                 $key = join('-', array_merge(
-                    array($data['website_id'], $data['cust_group']),
-                    $this->_getAdditionalUniqueFields($data)
+                                array($data['website_id'], $data['cust_group']), $this->_getAdditionalUniqueFields($data)
                 ));
                 $old[$key] = $data;
             }
@@ -301,32 +297,31 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
             if ($this->getAttribute()->isScopeGlobal() && $data['website_id'] > 0) {
                 continue;
             }
-            if (!$isGlobal && (int)$data['website_id'] == 0) {
+            if (!$isGlobal && (int) $data['website_id'] == 0) {
                 continue;
             }
 
             $key = join('-', array_merge(
-                array($data['website_id'], $data['cust_group']),
-                $this->_getAdditionalUniqueFields($data)
+                            array($data['website_id'], $data['cust_group']), $this->_getAdditionalUniqueFields($data)
             ));
 
             $useForAllGroups = $data['cust_group'] == Mage_Customer_Model_Group::CUST_GROUP_ALL;
             $customerGroupId = !$useForAllGroups ? $data['cust_group'] : 0;
 
             $new[$key] = array_merge(array(
-                'website_id'        => $data['website_id'],
-                'all_groups'        => $useForAllGroups ? 1 : 0,
+                'website_id' => $data['website_id'],
+                'all_groups' => $useForAllGroups ? 1 : 0,
                 'customer_group_id' => $customerGroupId,
-                'value'             => $data['price'],
-            ), $this->_getAdditionalUniqueFields($data));
+                'value' => $data['price'],
+                    ), $this->_getAdditionalUniqueFields($data));
         }
 
         $delete = array_diff_key($old, $new);
         $insert = array_diff_key($new, $old);
         $update = array_intersect_key($new, $old);
 
-        $isChanged  = false;
-        $productId  = $object->getId();
+        $isChanged = false;
+        $productId = $object->getId();
 
         if (!empty($delete)) {
             foreach ($delete as $data) {
@@ -349,8 +344,8 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
             foreach ($update as $k => $v) {
                 if ($old[$k]['price'] != $v['value']) {
                     $price = new Varien_Object(array(
-                        'value_id'  => $old[$k]['price_id'],
-                        'value'     => $v['value']
+                        'value_id' => $old[$k]['price_id'],
+                        'value' => $v['value']
                     ));
                     $this->_getResource()->savePriceData($price);
 
@@ -366,4 +361,5 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
 
         return $this;
     }
+
 }

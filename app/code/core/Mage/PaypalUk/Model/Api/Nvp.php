@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,54 +30,57 @@
  */
 class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
 {
-    /**#@+
+    /*     * #@+
      * Transaction types declaration
      *
      * @var mixed
      */
-    const TRXTYPE_AUTH_ONLY         = 'A';
-    const TRXTYPE_SALE              = 'S';
-    const TRXTYPE_CREDIT            = 'C';
-    const TRXTYPE_DELAYED_CAPTURE   = 'D';
-    const TRXTYPE_DELAYED_VOID      = 'V';
-    /**#@-*/
 
-    /**#@+
+    const TRXTYPE_AUTH_ONLY = 'A';
+    const TRXTYPE_SALE = 'S';
+    const TRXTYPE_CREDIT = 'C';
+    const TRXTYPE_DELAYED_CAPTURE = 'D';
+    const TRXTYPE_DELAYED_VOID = 'V';
+    /*     * #@- */
+
+    /*     * #@+
      * Tender definition
      *
      * @var mixed
      */
-    const TENDER_CC                 = 'C';
-    const TENDER_PAYPAL             = 'P';
-    /**#@-*/
+    const TENDER_CC = 'C';
+    const TENDER_PAYPAL = 'P';
+    /*     * #@- */
 
-    /**#@+
+    /*     * #@+
      * Express Checkout Actions
      *
      * @var string
      */
-    const EXPRESS_SET               = 'S';
-    const EXPRESS_GET               = 'G';
-    const EXPRESS_DO_PAYMENT        = 'D';
-    /**#@-*/
+    const EXPRESS_SET = 'S';
+    const EXPRESS_GET = 'G';
+    const EXPRESS_DO_PAYMENT = 'D';
+    /*     * #@- */
 
-    /**#@+
+    /*     * #@+
      * Response codes definition
      *
      * @var mixed
      */
     const RESPONSE_CODE_APPROVED = 0;
     const RESPONSE_CODE_FRAUD = 126;
-    /**#@-*/
 
-    /**#@+
+    /*     * #@- */
+
+    /*     * #@+
      * Capture types (make authorization close or remain open)
      *
      * @var string
      */
+
     protected $_captureTypeComplete = 'Y';
     protected $_captureTypeNotcomplete = 'N';
-    /**#@-*/
+    /*     * #@- */
 
     /**
      * Global public interface map
@@ -107,20 +111,17 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'HDRBACKCOLOR' => 'hdrbackcolor',
         'PAYFLOWCOLOR' => 'payflowcolor',
         'LOCALECODE' => 'locale_code',
-
         // transaction info
         'PPREF' => 'paypal_transaction_id', //We need to store paypal trx id for correct IPN working
         'PAYMENTINFO_0_TRANSACTIONID' => 'paypal_transaction_id',
         'TRANSACTIONID' => 'paypal_transaction_id',
         'REFUNDTRANSACTIONID' => 'paypal_transaction_id',
-
         'PNREF' => 'transaction_id',
         'ORIGID' => 'authorization_id',
         'CAPTURECOMPLETE' => 'complete_type',
         'AMT' => 'amount',
         'AVSADDR' => 'address_verification',
         'AVSZIP' => 'postcode_verification',
-
         // payment/billing info
         'CURRENCY' => 'currency_code',
         'PAYMENTSTATUS' => 'payment_status',
@@ -158,7 +159,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'PARTNER', 'USER', 'VENDOR', 'PWD',
     );
 
-    /**#@+
+    /*     * #@+
      * DoDirectPayment request/response map
      *
      * @var array
@@ -167,22 +168,22 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'ACCT', 'EXPDATE', 'CVV2', 'CURRENCY', 'EMAIL', 'TENDER', 'NOTIFYURL',
         'AMT', 'CUSTIP', 'INVNUM',
         'CARDISSUE', 'CARDSTART',
-        'AUTHSTATUS3DS', 'MPIVENDOR3DS', 'CAVV', 'ECI', 'XID',//cardinal centinel params
+        'AUTHSTATUS3DS', 'MPIVENDOR3DS', 'CAVV', 'ECI', 'XID', //cardinal centinel params
         'TAXAMT', 'FREIGHTAMT'
     );
     protected $_doDirectPaymentResponse = array(
         'PNREF', 'PPREF', 'CORRELATIONID', 'CVV2MATCH', 'AVSADDR', 'AVSZIP', 'PENDINGREASON'
     );
-    /**#@-*/
+    /*     * #@- */
 
-    /**#@+
+    /*     * #@+
      * DoCapture request/response map
      *
      * @var array
      */
     protected $_doCaptureRequest = array('ORIGID', 'CAPTURECOMPLETE', 'AMT', 'TENDER', 'NOTE', 'INVNUM');
     protected $_doCaptureResponse = array('PNREF', 'PPREF');
-    /**#@-*/
+    /*     * #@- */
 
     /**
      * DoVoid request map
@@ -198,16 +199,16 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      */
     protected $_eachCallRequest = array('PARTNER', 'USER', 'VENDOR', 'PWD', 'BUTTONSOURCE');
 
-    /**#@+
+    /*     * #@+
      * RefundTransaction request/response map
      *
      * @var array
      */
     protected $_refundTransactionRequest = array('ORIGID', 'TENDER');
     protected $_refundTransactionResponse = array('PNREF', 'PPREF');
-    /**#@-*/
+    /*     * #@- */
 
-    /**#@+
+    /*     * #@+
      * SetExpressCheckout request/response map
      *
      * @var array
@@ -217,7 +218,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'PAGESTYLE', 'HDRIMG', 'HDRBORDERCOLOR', 'HDRBACKCOLOR', 'PAYFLOWCOLOR', 'LOCALECODE',
     );
     protected $_setExpressCheckoutResponse = array('REPMSG', 'TOKEN');
-    /**#@-*/
+    /*     * #@- */
 
     /**
      * GetExpressCheckoutDetails request/response map
@@ -226,7 +227,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      */
     protected $_getExpressCheckoutDetailsRequest = array('TENDER', 'TOKEN');
 
-    /**#@+
+    /*     * #@+
      * DoExpressCheckoutPayment request/response map
      *
      * @var array
@@ -238,9 +239,9 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'PNREF', 'PPREF', 'REPMSG', 'AMT', 'PENDINGREASON',
         'CVV2MATCH', 'AVSADDR', 'AVSZIP', 'CORRELATIONID'
     );
-    /**#@-*/
+    /*     * #@- */
 
-    /**#@+
+    /*     * #@+
      * GetTransactionDetailsRequest
      *
      * @var array
@@ -250,7 +251,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'PAYERID', 'FIRSTNAME', 'LASTNAME', 'TRANSACTIONID',
         'PARENTTRANSACTIONID', 'CURRENCYCODE', 'AMT', 'PAYMENTSTATUS'
     );
-    /**#@-*/
+    /*     * #@- */
 
     /**
      * Map for shipping address import/export (extends billing address mapper)
@@ -260,8 +261,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     protected $_shippingAddressMap = array(
         'SHIPTOCOUNTRY' => 'country_id',
         'SHIPTOSTATE' => 'region',
-        'SHIPTOCITY'    => 'city',
-        'SHIPTOSTREET'  => 'street',
+        'SHIPTOCITY' => 'city',
+        'SHIPTOSTREET' => 'street',
         'SHIPTOSTREET2' => 'street2',
         'SHIPTOZIP' => 'postcode',
         'SHIPTOPHONENUM' => 'telephone', // does not supported by PaypalUk
@@ -281,13 +282,12 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'MIDDLENAME' => 'middlename',
         'SALUTATION' => 'prefix',
         'SUFFIX' => 'suffix',
-
         'COUNTRYCODE' => 'country_id', // iso-3166 two-character code
-        'STATE'    => 'region',
-        'CITY'     => 'city',
-        'STREET'   => 'street',
-        'STREET2'  => 'street2',
-        'ZIP'      => 'postcode',
+        'STATE' => 'region',
+        'CITY' => 'city',
+        'STREET' => 'street',
+        'STREET2' => 'street2',
+        'ZIP' => 'postcode',
         'PHONENUM' => 'telephone',
     );
 
@@ -300,22 +300,21 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'country_id' => 'COUNTRY',
     );
 
-    /**#@+
+    /*     * #@+
      * Line items export mapping settings
      *
      * @var array
      */
     protected $_lineItemTotalExportMap = array(
-        Mage_Paypal_Model_Cart::TOTAL_TAX      => 'TAXAMT',
+        Mage_Paypal_Model_Cart::TOTAL_TAX => 'TAXAMT',
         Mage_Paypal_Model_Cart::TOTAL_SHIPPING => 'FREIGHTAMT',
     );
-
     protected $_lineItemExportItemsFormat = array(
-        'name'   => 'L_NAME%d',
-        'qty'    => 'L_QTY%d',
+        'name' => 'L_NAME%d',
+        'qty' => 'L_QTY%d',
         'amount' => 'L_COST%d',
     );
-    /**#@-*/
+    /*     * #@- */
 
     /**
      * Payment information response specifically to be collected after some requests
@@ -436,7 +435,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      */
     protected function _getPaypalUkActionName($methodName)
     {
-        switch($methodName) {
+        switch ($methodName) {
             case Mage_Paypal_Model_Api_Nvp::SET_EXPRESS_CHECKOUT:
                 return self::EXPRESS_SET;
             case Mage_Paypal_Model_Api_Nvp::GET_EXPRESS_CHECKOUT_DETAILS:
@@ -455,14 +454,12 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      */
     protected function _mapPaypalMethodName($methodName)
     {
-        switch($methodName) {
+        switch ($methodName) {
             case Mage_Paypal_Model_Api_Nvp::DO_EXPRESS_CHECKOUT_PAYMENT:
             case Mage_Paypal_Model_Api_Nvp::GET_EXPRESS_CHECKOUT_DETAILS:
             case Mage_Paypal_Model_Api_Nvp::SET_EXPRESS_CHECKOUT:
             case Mage_Paypal_Model_Api_Nvp::DO_DIRECT_PAYMENT:
-                return ($this->_config->payment_action == Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH)
-                    ? self::TRXTYPE_AUTH_ONLY
-                    : self::TRXTYPE_SALE;
+                return ($this->_config->payment_action == Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH) ? self::TRXTYPE_AUTH_ONLY : self::TRXTYPE_SALE;
             case Mage_Paypal_Model_Api_Nvp::DO_CAPTURE:
                 return self::TRXTYPE_DELAYED_CAPTURE;
             case Mage_Paypal_Model_Api_Nvp::DO_VOID:
@@ -503,7 +500,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
             $e = new Exception(sprintf('PayPal gateway errors: %s.', $message));
             Mage::logException($e);
             Mage::throwException(
-                Mage::helper('paypal')->__('PayPal gateway rejected the request. %s', $message)
+                    Mage::helper('paypal')->__('PayPal gateway rejected the request. %s', $message)
             );
         }
     }
@@ -517,8 +514,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     protected function _buildQuery($request)
     {
         $result = '';
-        foreach ($request as $k=>$v) {
-            $result .= '&'.$k.'='.$v;
+        foreach ($request as $k => $v) {
+            $result .= '&' . $k . '=' . $v;
         }
         return trim($result, '&');
     }
@@ -538,6 +535,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      */
     function callGetTransactionDetails()
     {
+        
     }
 
     /**
@@ -588,7 +586,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     {
         if (isset($request['SHIPTOCOUNTRY']) && $request['SHIPTOCOUNTRY'] == 'PR') {
             $request['SHIPTOCOUNTRY'] = 'US';
-            $request['SHIPTOSTATE']   = 'PR';
+            $request['SHIPTOSTATE'] = 'PR';
         }
     }
 
@@ -605,13 +603,13 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         $result = parent::_exportLineItems($request, $i);
         if ($this->getIsLineItemsEnabled() && $this->_cart->hasNegativeItemAmount()) {
             $this->_lineItemTotalExportMap = array(
-                Mage_Paypal_Model_Cart::TOTAL_TAX       => 'TAXAMT',
-                Mage_Paypal_Model_Cart::TOTAL_SHIPPING  => 'FREIGHTAMT',
-                'amount'                                => 'PAYMENTREQUEST_0_ITEMAMT',
+                Mage_Paypal_Model_Cart::TOTAL_TAX => 'TAXAMT',
+                Mage_Paypal_Model_Cart::TOTAL_SHIPPING => 'FREIGHTAMT',
+                'amount' => 'PAYMENTREQUEST_0_ITEMAMT',
             );
             $this->_lineItemExportItemsFormat = array(
-                'name'   => 'L_PAYMENTREQUEST_0_NAME%d',
-                'qty'    => 'L_PAYMENTREQUEST_0_QTY%d',
+                'name' => 'L_PAYMENTREQUEST_0_NAME%d',
+                'qty' => 'L_PAYMENTREQUEST_0_QTY%d',
                 'amount' => 'L_PAYMENTREQUEST_0_AMT%d',
             );
             $request = $requestBefore;
@@ -638,4 +636,5 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         }
         $this->_doDirectPaymentResponse[] = 'TRANSACTIONID';
     }
+
 }

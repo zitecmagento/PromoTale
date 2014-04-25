@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_PageCache_Block_Adminhtml_Cache_Additional extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Get clean cache url
      *
@@ -52,4 +54,5 @@ class Mage_PageCache_Block_Adminhtml_Cache_Additional extends Mage_Adminhtml_Blo
     {
         return Mage::helper('pagecache')->isEnabled() && Mage::getSingleton('admin/session')->isAllowed('page_cache');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,10 +34,11 @@
  */
 class Mage_Adminhtml_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_ADMINHTML_ROUTER_FRONTNAME   = 'admin/routers/adminhtml/args/frontName';
-    const XML_PATH_USE_CUSTOM_ADMIN_URL         = 'default/admin/url/use_custom';
-    const XML_PATH_USE_CUSTOM_ADMIN_PATH        = 'default/admin/url/use_custom_path';
-    const XML_PATH_CUSTOM_ADMIN_PATH            = 'default/admin/url/custom_path';
+
+    const XML_PATH_ADMINHTML_ROUTER_FRONTNAME = 'admin/routers/adminhtml/args/frontName';
+    const XML_PATH_USE_CUSTOM_ADMIN_URL = 'default/admin/url/use_custom';
+    const XML_PATH_USE_CUSTOM_ADMIN_PATH = 'default/admin/url/use_custom_path';
+    const XML_PATH_CUSTOM_ADMIN_PATH = 'default/admin/url/custom_path';
 
     protected $_pageHelpUrl;
 
@@ -48,7 +50,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_pageHelpUrl;
     }
 
-    public function setPageHelpUrl($url=null)
+    public function setPageHelpUrl($url = null)
     {
         if (is_null($url)) {
             $request = Mage::app()->getRequest();
@@ -63,10 +65,10 @@ class Mage_Adminhtml_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
             $url = 'http://www.magentocommerce.com/gethelp/';
-            $url.= Mage::app()->getLocale()->getLocaleCode().'/';
-            $url.= $frontModule.'/';
-            $url.= $request->getControllerName().'/';
-            $url.= $request->getActionName().'/';
+            $url.= Mage::app()->getLocale()->getLocaleCode() . '/';
+            $url.= $frontModule . '/';
+            $url.= $request->getControllerName() . '/';
+            $url.= $request->getActionName() . '/';
 
             $this->_pageHelpUrl = $url;
         }
@@ -77,11 +79,11 @@ class Mage_Adminhtml_Helper_Data extends Mage_Core_Helper_Abstract
 
     public function addPageHelpUrl($suffix)
     {
-        $this->_pageHelpUrl = $this->getPageHelpUrl().$suffix;
+        $this->_pageHelpUrl = $this->getPageHelpUrl() . $suffix;
         return $this;
     }
 
-    public static function getUrl($route='', $params=array())
+    public static function getUrl($route = '', $params = array())
     {
         return Mage::getModel('adminhtml/url')->getUrl($route, $params);
     }
@@ -122,4 +124,5 @@ class Mage_Adminhtml_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $value = trim(rawurldecode($value));
     }
+
 }

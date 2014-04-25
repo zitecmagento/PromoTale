@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,23 +24,22 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Customer_Model_Entity_Setup */
 $installer = $this;
 
 $disableAGCAttributeCode = 'disable_auto_group_change';
 
 $installer->addAttribute('customer', $disableAGCAttributeCode, array(
-    'type'      => 'static',
-    'label'     => 'Disable Automatic Group Change Based on VAT ID',
-    'input'     => 'boolean',
-    'backend'   => 'customer/attribute_backend_data_boolean',
-    'position'  => 28,
-    'required'  => false
+    'type' => 'static',
+    'label' => 'Disable Automatic Group Change Based on VAT ID',
+    'input' => 'boolean',
+    'backend' => 'customer/attribute_backend_data_boolean',
+    'position' => 28,
+    'required' => false
 ));
 
 $disableAGCAttribute = Mage::getSingleton('eav/config')
-    ->getAttribute('customer', $disableAGCAttributeCode);
+        ->getAttribute('customer', $disableAGCAttributeCode);
 $disableAGCAttribute->setData('used_in_forms', array(
     'adminhtml_customer'
 ));
@@ -48,36 +48,36 @@ $disableAGCAttribute->save();
 
 $attributesInfo = array(
     'vat_id' => array(
-        'label'     => 'VAT number',
-        'type'      => 'varchar',
-        'input'     => 'text',
-        'position'  => 140,
-        'visible'   => true,
-        'required'  => false
+        'label' => 'VAT number',
+        'type' => 'varchar',
+        'input' => 'text',
+        'position' => 140,
+        'visible' => true,
+        'required' => false
     ),
     'vat_is_valid' => array(
-        'label'     => 'VAT number validity',
-        'visible'   => false,
-        'required'  => false,
-        'type'      => 'int'
+        'label' => 'VAT number validity',
+        'visible' => false,
+        'required' => false,
+        'type' => 'int'
     ),
     'vat_request_id' => array(
-        'label'     => 'VAT number validation request ID',
-        'type'      => 'varchar',
-        'visible'   => false,
-        'required'  => false
+        'label' => 'VAT number validation request ID',
+        'type' => 'varchar',
+        'visible' => false,
+        'required' => false
     ),
     'vat_request_date' => array(
-        'label'     => 'VAT number validation request date',
-        'type'      => 'varchar',
-        'visible'   => false,
-        'required'  => false
+        'label' => 'VAT number validation request date',
+        'type' => 'varchar',
+        'visible' => false,
+        'required' => false
     ),
     'vat_request_success' => array(
-        'label'     => 'VAT number validation request success',
-        'visible'   => false,
-        'required'  => false,
-        'type'      => 'int'
+        'label' => 'VAT number validation request success',
+        'visible' => false,
+        'required' => false,
+        'type' => 'int'
     )
 );
 
@@ -87,8 +87,8 @@ foreach ($attributesInfo as $attributeCode => $attributeParams) {
 
 $vatAttribute = Mage::getSingleton('eav/config')->getAttribute('customer_address', 'vat_id');
 $vatAttribute->setData('used_in_forms', array(
-     'adminhtml_customer_address',
-     'customer_address_edit',
-     'customer_register_address'
+    'adminhtml_customer_address',
+    'customer_address_edit',
+    'customer_register_address'
 ));
 $vatAttribute->save();

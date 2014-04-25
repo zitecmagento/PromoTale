@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_Product_Abstract
 {
+
     /**
      * Enter description here...
      *
@@ -51,7 +53,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     public function getLinkSelectionRequired()
     {
         return $this->getProduct()->getTypeInstance(true)
-            ->getLinkSelectionRequired($this->getProduct());
+                        ->getLinkSelectionRequired($this->getProduct());
     }
 
     /**
@@ -62,7 +64,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     public function hasLinks()
     {
         return $this->getProduct()->getTypeInstance(true)
-            ->hasLinks($this->getProduct());
+                        ->hasLinks($this->getProduct());
     }
 
     /**
@@ -73,7 +75,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     public function getLinks()
     {
         return $this->getProduct()->getTypeInstance(true)
-            ->getLinks($this->getProduct());
+                        ->getLinks($this->getProduct());
     }
 
     /**
@@ -109,8 +111,8 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
         } elseif ($taxHelper->displayBothPrices()) {
             $priceStr .= $coreHelper->currencyByStore($_priceExclTax, $store);
             if ($_priceInclTax != $_priceExclTax) {
-                $priceStr .= ' (+'.$coreHelper
-                    ->currencyByStore($_priceInclTax, $store).' '.$this->__('Incl. Tax').')';
+                $priceStr .= ' (+' . $coreHelper
+                                ->currencyByStore($_priceInclTax, $store) . ' ' . $this->__('Incl. Tax') . ')';
             }
         }
         $priceStr .= '</span>';
@@ -201,4 +203,5 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     {
         return $this->getIsLinkChecked($link) ? 'checked' : '';
     }
+
 }

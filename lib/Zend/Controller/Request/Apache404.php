@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Apache404.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Controller_Request_Http */
 #require_once 'Zend/Controller/Request/Http.php';
 
@@ -42,6 +42,7 @@
  */
 class Zend_Controller_Request_Apache404 extends Zend_Controller_Request_Http
 {
+
     public function setRequestUri($requestUri = null)
     {
         $parseUriGetVars = false;
@@ -79,4 +80,5 @@ class Zend_Controller_Request_Apache404 extends Zend_Controller_Request_Http
         $this->_requestUri = $requestUri;
         return $this;
     }
+
 }

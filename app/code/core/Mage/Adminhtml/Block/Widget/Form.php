@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -63,13 +64,13 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     protected function _prepareLayout()
     {
         Varien_Data_Form::setElementRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element')
+                $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element')
         );
         Varien_Data_Form::setFieldsetRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset')
+                $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset')
         );
         Varien_Data_Form::setFieldsetElementRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element')
+                $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element')
         );
 
         return parent::_prepareLayout();
@@ -164,7 +165,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      * @param Varien_Data_Form_Element_Fieldset $fieldset
      * @param array $exclude attributes that should be skipped
      */
-    protected function _setFieldset($attributes, $fieldset, $exclude=array())
+    protected function _setFieldset($attributes, $fieldset, $exclude = array())
     {
         $this->_addElementTypes($fieldset);
         foreach ($attributes as $attribute) {
@@ -172,28 +173,25 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
             if (!$attribute || ($attribute->hasIsVisible() && !$attribute->getIsVisible())) {
                 continue;
             }
-            if ( ($inputType = $attribute->getFrontend()->getInputType())
-                 && !in_array($attribute->getAttributeCode(), $exclude)
-                 && ('media_image' != $inputType)
-                 ) {
+            if (($inputType = $attribute->getFrontend()->getInputType()) && !in_array($attribute->getAttributeCode(), $exclude) && ('media_image' != $inputType)
+            ) {
 
-                $fieldType      = $inputType;
-                $rendererClass  = $attribute->getFrontend()->getInputRendererClass();
+                $fieldType = $inputType;
+                $rendererClass = $attribute->getFrontend()->getInputRendererClass();
                 if (!empty($rendererClass)) {
-                    $fieldType  = $inputType . '_' . $attribute->getAttributeCode();
+                    $fieldType = $inputType . '_' . $attribute->getAttributeCode();
                     $fieldset->addType($fieldType, $rendererClass);
                 }
 
-                $element = $fieldset->addField($attribute->getAttributeCode(), $fieldType,
-                    array(
-                        'name'      => $attribute->getAttributeCode(),
-                        'label'     => $attribute->getFrontend()->getLabel(),
-                        'class'     => $attribute->getFrontend()->getClass(),
-                        'required'  => $attribute->getIsRequired(),
-                        'note'      => $attribute->getNote(),
-                    )
-                )
-                ->setEntityAttribute($attribute);
+                $element = $fieldset->addField($attribute->getAttributeCode(), $fieldType, array(
+                            'name' => $attribute->getAttributeCode(),
+                            'label' => $attribute->getFrontend()->getLabel(),
+                            'class' => $attribute->getFrontend()->getClass(),
+                            'required' => $attribute->getIsRequired(),
+                            'note' => $attribute->getNote(),
+                                )
+                        )
+                        ->setEntityAttribute($attribute);
 
                 $element->setAfterElementHtml($this->_getAdditionalElementHtml($element));
 
@@ -210,7 +208,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
                     $element->setTime(true);
                     $element->setStyle('width:50%;');
                     $element->setFormat(
-                        Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
+                            Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
                     );
                 } else if ($inputType == 'multiline') {
                     $element->setLineCount($attribute->getMultilineCount());

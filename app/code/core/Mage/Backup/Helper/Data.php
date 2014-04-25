@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Backup type constant for database backup
      */
@@ -62,9 +64,9 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
     public function getBackupTypes()
     {
         return array(
-            self::TYPE_DB                     => $this->__('Database'),
-            self::TYPE_MEDIA                  => $this->__('Database and Media'),
-            self::TYPE_SYSTEM_SNAPSHOT        => $this->__('System'),
+            self::TYPE_DB => $this->__('Database'),
+            self::TYPE_MEDIA => $this->__('Database and Media'),
+            self::TYPE_SYSTEM_SNAPSHOT => $this->__('System'),
             self::TYPE_SNAPSHOT_WITHOUT_MEDIA => $this->__('System (excluding Media)')
         );
     }
@@ -141,7 +143,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $additionalExtension = $backup->getType() == self::TYPE_DB ? '.sql' : '';
         return $backup->getType() . '-' . date('YmdHis', $backup->getTime()) . $additionalExtension . '.'
-            . $this->getExtensionByType($backup->getType());
+                . $this->getExtensionByType($backup->getType());
     }
 
     /**
@@ -149,8 +151,9 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return boolean
      */
-    public function isRollbackAllowed(){
-        return Mage::getSingleton('admin/session')->isAllowed('system/tools/backup/rollback' );
+    public function isRollbackAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('system/tools/backup/rollback');
     }
 
     /**
@@ -266,7 +269,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function invalidateIndexer()
     {
-        foreach (Mage::getResourceModel('index/process_collection') as $process){
+        foreach (Mage::getResourceModel('index/process_collection') as $process) {
             $process->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
         }
         return $this;
@@ -296,8 +299,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
         $filenameWithoutExtension = $filename;
 
         foreach ($extensions as $extension) {
-            $filenameWithoutExtension = preg_replace('/' . preg_quote($extension, '/') . '$/', '',
-                $filenameWithoutExtension
+            $filenameWithoutExtension = preg_replace('/' . preg_quote($extension, '/') . '$/', '', $filenameWithoutExtension
             );
         }
 
@@ -320,4 +322,5 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
 
         return $result;
     }
+
 }

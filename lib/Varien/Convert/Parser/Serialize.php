@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert php serialize parser
  *
@@ -34,7 +34,8 @@
  */
 class Varien_Convert_Parser_Serialize extends Varien_Convert_Parser_Abstract
 {
-	public function parse()
+
+    public function parse()
     {
         $this->setData(unserialize($this->getData()));
         return $this;
@@ -45,4 +46,5 @@ class Varien_Convert_Parser_Serialize extends Varien_Convert_Parser_Abstract
         $this->setData(serialize($this->getData()));
         return $this;
     }
+
 }

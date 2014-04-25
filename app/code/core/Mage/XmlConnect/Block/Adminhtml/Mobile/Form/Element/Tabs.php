@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Tabs extends Varien_Data_Form_Element_Text
 {
+
     /**
      * Generate application tabs html
      *
@@ -40,7 +42,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Tabs extends Varien_Da
      */
     public function getHtml()
     {
-        if ((bool)Mage::getSingleton('adminhtml/session')->getNewApplication()) {
+        if ((bool) Mage::getSingleton('adminhtml/session')->getNewApplication()) {
             return '';
         }
 
@@ -59,4 +61,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Tabs extends Varien_Da
         $block->setName($this->getName());
         return $block->toHtml();
     }
+
 }

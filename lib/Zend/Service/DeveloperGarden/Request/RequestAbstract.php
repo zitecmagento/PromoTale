@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 abstract class Zend_Service_DeveloperGarden_Request_RequestAbstract
 {
+
     /**
      * environment value
      *
@@ -69,4 +71,5 @@ abstract class Zend_Service_DeveloperGarden_Request_RequestAbstract
     {
         return $this->environment;
     }
+
 }

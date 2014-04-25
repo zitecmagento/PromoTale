@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
+
     /**
      * Constructor
      * Setting view parameters, destination element DomId and title
@@ -45,4 +47,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tabs extends Mage_Adminh
         $this->setDestElementId('edit_form');
         $this->setTitle($this->__('Manage Mobile App'));
     }
+
 }

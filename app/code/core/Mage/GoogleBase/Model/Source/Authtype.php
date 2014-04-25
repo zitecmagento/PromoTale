@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_GoogleBase_Model_Source_Authtype
 {
+
     public function toOptionArray()
     {
         return array(
@@ -41,4 +43,5 @@ class Mage_GoogleBase_Model_Source_Authtype
             array('value' => 'clientlogin', 'label' => Mage::helper('googlebase')->__('ClientLogin'))
         );
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Enter description here ...
  *
@@ -32,7 +32,7 @@
  * @package     Mage_CatalogRule
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_CatalogRule_Model_Mysql4_Rule_Product_Price_Collection
-    extends Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection
+class Mage_CatalogRule_Model_Mysql4_Rule_Product_Price_Collection extends Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection
 {
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Check whether status notification is allowed
      *
@@ -52,8 +54,7 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
      */
     public function getStatusHistoryRssUrl($order)
     {
-        return $this->_getUrl('rss/order/status',
-            array('_secure' => true, '_query' => array('data' => $this->getStatusUrlKey($order)))
+        return $this->_getUrl('rss/order/status', array('_secure' => true, '_query' => array('data' => $this->getStatusUrlKey($order)))
         );
     }
 
@@ -71,7 +72,6 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
             'customer_id' => $order->getCustomerId()
         );
         return base64_encode(json_encode($data));
-
     }
 
     /**
@@ -83,21 +83,19 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
     public function getOrderByStatusUrlKey($key)
     {
         $data = json_decode(base64_decode($key), true);
-        if (!is_array($data) || !isset($data['order_id']) || !isset($data['increment_id'])
-            || !isset($data['customer_id'])
+        if (!is_array($data) || !isset($data['order_id']) || !isset($data['increment_id']) || !isset($data['customer_id'])
         ) {
             return null;
         }
 
         /** @var $order Mage_Sales_Model_Order */
         $order = Mage::getModel('sales/order')->load($data['order_id']);
-        if ($order->getId()
-            && $order->getIncrementId() == $data['increment_id']
-            && $order->getCustomerId() == $data['customer_id']
+        if ($order->getId() && $order->getIncrementId() == $data['increment_id'] && $order->getCustomerId() == $data['customer_id']
         ) {
             return $order;
         }
 
         return null;
     }
+
 }

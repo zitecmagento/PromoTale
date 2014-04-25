@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Profile.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Project_Provider_Abstract
  */
@@ -46,9 +46,9 @@ class Zend_Tool_Project_Provider_Profile extends Zend_Tool_Project_Provider_Abst
 
         foreach ($profileIterator as $profileItem) {
             $this->_registry->getResponse()->appendContent(
-                str_repeat('    ', $profileIterator->getDepth()) . $profileItem
+                    str_repeat('    ', $profileIterator->getDepth()) . $profileItem
             );
         }
-
     }
+
 }

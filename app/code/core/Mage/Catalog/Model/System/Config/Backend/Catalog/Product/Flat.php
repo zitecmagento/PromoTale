@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Catalog_Model_System_Config_Backend_Catalog_Product_Flat extends Mage_Core_Model_Config_Data
 {
+
     /**
      * After enable flat products required reindex
      *
@@ -38,9 +40,10 @@ class Mage_Catalog_Model_System_Config_Backend_Catalog_Product_Flat extends Mage
     {
         if ($this->isValueChanged() && $this->getValue()) {
             Mage::getSingleton('index/indexer')->getProcessByCode('catalog_product_flat')
-                ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
+                    ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
         }
 
         return $this;
     }
+
 }

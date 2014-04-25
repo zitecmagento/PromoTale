@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers
-    extends Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered
+class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers extends Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered
 {
+
     /**
      * Best sellers count to display
      */
@@ -59,7 +60,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers
     {
         /** @var $collection Mage_Sales_Model_Resource_Report_Bestsellers_Collection */
         $collection = Mage::getResourceModel('sales/report_bestsellers_collection')->setModel('catalog/product')
-            ->addStoreFilter($storeId)->setPageSize(self::BESTSELLERS_COUNT_LIMIT);
+                        ->addStoreFilter($storeId)->setPageSize(self::BESTSELLERS_COUNT_LIMIT);
         $this->setCollection($collection);
         return $this;
     }
@@ -89,7 +90,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers
                 'store_id' => $storeId ? $storeId : Mage_XmlConnect_Helper_AdminApplication::ALL_STORE_VIEWS
             ));
 
-            if(!count($this->getCollection()->getItems()) > 0) {
+            if (!count($this->getCollection()->getItems()) > 0) {
                 continue;
             }
 
@@ -101,8 +102,8 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers
                 $itemListXml->addCustomChild('name', $item->getName(), array(
                     'label' => Mage::helper('sales')->__('Product Name')
                 ));
-                $itemListXml->addCustomChild('price', $orderHelper->preparePrice($item->getProductPrice(), $storeId),
-                    array('label' => Mage::helper('sales')->__('Price')));
+                $itemListXml->addCustomChild('price', $orderHelper->preparePrice($item->getProductPrice(), $storeId), array(
+                    'label' => Mage::helper('sales')->__('Price')));
                 $itemListXml->addCustomChild('qty_ordered', $item->getQtyOrdered(), array(
                     'label' => Mage::helper('sales')->__('Quantity Ordered')
                 ));
@@ -110,4 +111,5 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers
         }
         return $this;
     }
+
 }

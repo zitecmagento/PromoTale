@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,16 +34,17 @@
  */
 class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
 {
+
     public function _prepareLayout()
     {
         // add Home breadcrumb
         if ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs')) {
             $breadcrumbs->addCrumb('home', array(
-                'label'=>Mage::helper('catalogsearch')->__('Home'),
-                'title'=>Mage::helper('catalogsearch')->__('Go to Home Page'),
-                'link'=>Mage::getBaseUrl()
+                'label' => Mage::helper('catalogsearch')->__('Home'),
+                'title' => Mage::helper('catalogsearch')->__('Go to Home Page'),
+                'link' => Mage::getBaseUrl()
             ))->addCrumb('search', array(
-                'label'=>Mage::helper('catalogsearch')->__('Catalog Advanced Search')
+                'label' => Mage::helper('catalogsearch')->__('Catalog Advanced Search')
             ));
         }
         return parent::_prepareLayout();
@@ -115,8 +117,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
             $codes = Mage::app()->getStore()->getAvailableCurrencyCodes(true);
             if (is_array($codes) && count($codes)) {
                 $rates = Mage::getModel('directory/currency')->getCurrencyRates(
-                    Mage::app()->getStore()->getBaseCurrency(),
-                    $codes
+                        Mage::app()->getStore()->getBaseCurrency(), $codes
                 );
 
                 foreach ($codes as $code) {
@@ -153,7 +154,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
 
         $baseCurrency = Mage::app()->getStore()->getBaseCurrency()->getCurrencyCode();
         return $this->getAttributeValue($attribute, 'currency') ?
-            $this->getAttributeValue($attribute, 'currency') : $baseCurrency;
+                $this->getAttributeValue($attribute, 'currency') : $baseCurrency;
     }
 
     /**
@@ -164,8 +165,8 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
      */
     public function getAttributeInputType($attribute)
     {
-        $dataType   = $attribute->getBackend()->getType();
-        $imputType  = $attribute->getFrontend()->getInputType();
+        $dataType = $attribute->getBackend()->getType();
+        $imputType = $attribute->getFrontend()->getInputType();
         if ($imputType == 'select' || $imputType == 'multiselect') {
             return 'select';
         }
@@ -203,23 +204,22 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
         $name = $attribute->getAttributeCode();
 
         // 2 - avoid yes/no selects to be multiselects
-        if (is_array($options) && count($options)>2) {
+        if (is_array($options) && count($options) > 2) {
             $extra = 'multiple="multiple" size="4"';
             $name.= '[]';
-        }
-        else {
-            array_unshift($options, array('value'=>'', 'label'=>Mage::helper('catalogsearch')->__('All')));
+        } else {
+            array_unshift($options, array('value' => '', 'label' => Mage::helper('catalogsearch')->__('All')));
         }
 
         return $this->_getSelectBlock()
-            ->setName($name)
-            ->setId($attribute->getAttributeCode())
-            ->setTitle($this->getAttributeLabel($attribute))
-            ->setExtraParams($extra)
-            ->setValue($this->getAttributeValue($attribute))
-            ->setOptions($options)
-            ->setClass('multiselect')
-            ->getHtml();
+                        ->setName($name)
+                        ->setId($attribute->getAttributeCode())
+                        ->setTitle($this->getAttributeLabel($attribute))
+                        ->setExtraParams($extra)
+                        ->setValue($this->getAttributeValue($attribute))
+                        ->setOptions($options)
+                        ->setClass('multiselect')
+                        ->getHtml();
     }
 
     /**
@@ -231,20 +231,20 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
     public function getAttributeYesNoElement($attribute)
     {
         $options = array(
-            array('value' => '',  'label' => Mage::helper('catalogsearch')->__('All')),
+            array('value' => '', 'label' => Mage::helper('catalogsearch')->__('All')),
             array('value' => '1', 'label' => Mage::helper('catalogsearch')->__('Yes')),
             array('value' => '0', 'label' => Mage::helper('catalogsearch')->__('No'))
         );
 
         $name = $attribute->getAttributeCode();
         return $this->_getSelectBlock()
-            ->setName($name)
-            ->setId($attribute->getAttributeCode())
-            ->setTitle($this->getAttributeLabel($attribute))
-            ->setExtraParams("")
-            ->setValue($this->getAttributeValue($attribute))
-            ->setOptions($options)
-            ->getHtml();
+                        ->setName($name)
+                        ->setId($attribute->getAttributeCode())
+                        ->setTitle($this->getAttributeLabel($attribute))
+                        ->setExtraParams("")
+                        ->setValue($this->getAttributeValue($attribute))
+                        ->setOptions($options)
+                        ->getHtml();
     }
 
     protected function _getSelectBlock()
@@ -300,13 +300,14 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
         $value = $this->getAttributeValue($attribute, $part);
 
         return $this->_getDateBlock()
-            ->setName($name)
-            ->setId($attribute->getAttributeCode() . ($part == 'from' ? '' : '_' . $part))
-            ->setTitle($this->getAttributeLabel($attribute))
-            ->setValue($value)
-            ->setImage($this->getSkinUrl('images/calendar.gif'))
-            ->setFormat('%m/%d/%y')
-            ->setClass('input-text')
-            ->getHtml();
+                        ->setName($name)
+                        ->setId($attribute->getAttributeCode() . ($part == 'from' ? '' : '_' . $part))
+                        ->setTitle($this->getAttributeLabel($attribute))
+                        ->setValue($value)
+                        ->setImage($this->getSkinUrl('images/calendar.gif'))
+                        ->setFormat('%m/%d/%y')
+                        ->setClass('input-text')
+                        ->getHtml();
     }
+
 }

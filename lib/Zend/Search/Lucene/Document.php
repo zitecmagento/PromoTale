@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Document.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Field */
 #require_once 'Zend/Search/Lucene/Field.php';
-
 
 /**
  * A Document is a set of fields. Each field has a name and a textual value.
@@ -65,7 +63,6 @@ class Zend_Search_Lucene_Document
         return $this->getFieldValue($offset);
     }
 
-
     /**
      * Add a field object to this document.
      *
@@ -79,7 +76,6 @@ class Zend_Search_Lucene_Document
         return $this;
     }
 
-
     /**
      * Return an array with the names of the fields in this document.
      *
@@ -89,7 +85,6 @@ class Zend_Search_Lucene_Document
     {
         return array_keys($this->_fields);
     }
-
 
     /**
      * Returns Zend_Search_Lucene_Field object for a named field in this document.
@@ -105,7 +100,6 @@ class Zend_Search_Lucene_Document
         }
         return $this->_fields[$fieldName];
     }
-
 
     /**
      * Returns the string value of a named field in this document.
@@ -128,4 +122,5 @@ class Zend_Search_Lucene_Document
     {
         return $this->getField($fieldName)->getUtf8Value();
     }
+
 }

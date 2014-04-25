@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Param.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Reflection_Docblock_Tag */
 #require_once 'Zend/Reflection/Docblock/Tag.php';
 
@@ -30,6 +30,7 @@
  */
 class Zend_Reflection_Docblock_Tag_Param extends Zend_Reflection_Docblock_Tag
 {
+
     /**
      * @var string
      */
@@ -90,4 +91,5 @@ class Zend_Reflection_Docblock_Tag_Param extends Zend_Reflection_Docblock_Tag
     {
         return $this->_variableName;
     }
+
 }

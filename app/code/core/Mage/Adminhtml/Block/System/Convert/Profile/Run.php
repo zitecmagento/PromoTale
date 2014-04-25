@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,16 +34,19 @@
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Block_Abstract
 {
+
     /**
      * Flag for batch model
      * @var boolean
      */
     protected $_batchModelPrepared = false;
+
     /**
      * Batch model instance
      * @var Mage_Dataflow_Model_Batch
      */
     protected $_batchModel = null;
+
     /**
      * Preparing batch model (initialization)
      * @return Mage_Adminhtml_Block_System_Convert_Profile_Run
@@ -69,32 +73,32 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                 $importIds = $batchImportModel->getIdCollection();
                 $this->setBatchItemsCount(count($importIds));
                 $this->setBatchConfig(
-                    array(
-                        'styles' => array(
-                            'error' => array(
-                                'icon' => Mage::getDesign()->getSkinUrl('images/error_msg_icon.gif'),
-                                'bg'   => '#FDD'
+                        array(
+                            'styles' => array(
+                                'error' => array(
+                                    'icon' => Mage::getDesign()->getSkinUrl('images/error_msg_icon.gif'),
+                                    'bg' => '#FDD'
+                                ),
+                                'message' => array(
+                                    'icon' => Mage::getDesign()->getSkinUrl('images/fam_bullet_success.gif'),
+                                    'bg' => '#DDF'
+                                ),
+                                'loader' => Mage::getDesign()->getSkinUrl('images/ajax-loader.gif')
                             ),
-                            'message' => array(
-                                'icon' => Mage::getDesign()->getSkinUrl('images/fam_bullet_success.gif'),
-                                'bg'   => '#DDF'
-                            ),
-                            'loader'  => Mage::getDesign()->getSkinUrl('images/ajax-loader.gif')
-                        ),
-                        'template' => '<li style="#{style}" id="#{id}">'
-                                    . '<img id="#{id}_img" src="#{image}" class="v-middle" style="margin-right:5px"/>'
-                                    . '<span id="#{id}_status" class="text">#{text}</span>'
-                                    . '</li>',
-                        'text'     => $this->__('Processed <strong>%s%% %s/%d</strong> records', '#{percent}', '#{updated}', $this->getBatchItemsCount()),
-                        'successText'  => $this->__('Imported <strong>%s</strong> records', '#{updated}')
-                    )
+                            'template' => '<li style="#{style}" id="#{id}">'
+                            . '<img id="#{id}_img" src="#{image}" class="v-middle" style="margin-right:5px"/>'
+                            . '<span id="#{id}_status" class="text">#{text}</span>'
+                            . '</li>',
+                            'text' => $this->__('Processed <strong>%s%% %s/%d</strong> records', '#{percent}', '#{updated}', $this->getBatchItemsCount()),
+                            'successText' => $this->__('Imported <strong>%s</strong> records', '#{updated}')
+                        )
                 );
                 $jsonIds = array_chunk($importIds, $numberOfRecords);
                 $importData = array();
                 foreach ($jsonIds as $part => $ids) {
                     $importData[] = array(
-                        'batch_id'   => $batchModel->getId(),
-                        'rows[]'     => $ids
+                        'batch_id' => $batchModel->getId(),
+                        'rows[]' => $ids
                     );
                 }
                 $this->setImportData($importData);
@@ -106,6 +110,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
         $this->_batchModelPrepared = true;
         return $this;
     }
+
     /**
      * Return a batch model instance
      * @return Mage_Dataflow_Model_Batch
@@ -114,6 +119,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     {
         return $this->_batchModel;
     }
+
     /**
      * Return a batch model config JSON
      * @return string
@@ -121,9 +127,10 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     public function getBatchConfigJson()
     {
         return Mage::helper('core')->jsonEncode(
-            $this->getBatchConfig()
+                        $this->getBatchConfig()
         );
     }
+
     /**
      * Encoding to JSON
      * @param string $source
@@ -133,6 +140,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     {
         return Mage::helper('core')->jsonEncode($source);
     }
+
     /**
      * Get a profile
      * @return object
@@ -141,6 +149,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     {
         return Mage::registry('current_convert_profile');
     }
+
     /**
      * Generating form key
      * @return string
@@ -149,6 +158,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     {
         return Mage::getSingleton('core/session')->getFormKey();
     }
+
     /**
      * Return batch model and initialize it if need
      * @return Mage_Dataflow_Model_Batch
@@ -156,8 +166,9 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     public function getBatchModel()
     {
         return $this->_prepareBatchModel()
-            ->_getBatchModel();
+                        ->_getBatchModel();
     }
+
     /**
      * Generating exceptions data
      * @return array
@@ -169,32 +180,33 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
         $exceptions = array();
         $this->getProfile()->run();
         foreach ($this->getProfile()->getExceptions() as $e) {
-                switch ($e->getLevel()) {
-                    case Varien_Convert_Exception::FATAL:
-                        $img = 'error_msg_icon.gif';
-                        $liStyle = 'background-color:#FBB; ';
-                        break;
-                    case Varien_Convert_Exception::ERROR:
-                        $img = 'error_msg_icon.gif';
-                        $liStyle = 'background-color:#FDD; ';
-                        break;
-                    case Varien_Convert_Exception::WARNING:
-                        $img = 'fam_bullet_error.gif';
-                        $liStyle = 'background-color:#FFD; ';
-                        break;
-                    case Varien_Convert_Exception::NOTICE:
-                        $img = 'fam_bullet_success.gif';
-                        $liStyle = 'background-color:#DDF; ';
-                        break;
-                }
-                $exceptions[] = array(
-                    "style"     => $liStyle,
-                    "src"       => Mage::getDesign()->getSkinUrl('images/'.$img),
-                    "message"   => $e->getMessage(),
-                    "position" => $e->getPosition()
-                );
+            switch ($e->getLevel()) {
+                case Varien_Convert_Exception::FATAL:
+                    $img = 'error_msg_icon.gif';
+                    $liStyle = 'background-color:#FBB; ';
+                    break;
+                case Varien_Convert_Exception::ERROR:
+                    $img = 'error_msg_icon.gif';
+                    $liStyle = 'background-color:#FDD; ';
+                    break;
+                case Varien_Convert_Exception::WARNING:
+                    $img = 'fam_bullet_error.gif';
+                    $liStyle = 'background-color:#FFD; ';
+                    break;
+                case Varien_Convert_Exception::NOTICE:
+                    $img = 'fam_bullet_success.gif';
+                    $liStyle = 'background-color:#DDF; ';
+                    break;
+            }
+            $exceptions[] = array(
+                "style" => $liStyle,
+                "src" => Mage::getDesign()->getSkinUrl('images/' . $img),
+                "message" => $e->getMessage(),
+                "position" => $e->getPosition()
+            );
         }
         parent::setExceptions($exceptions);
         return $exceptions;
     }
+
 }

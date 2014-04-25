@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphDataAbstract
-    extends Mage_Adminhtml_Block_Dashboard_Graph
+abstract class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphDataAbstract extends Mage_Adminhtml_Block_Dashboard_Graph
 {
+
     /**
      * X axis param
      */
@@ -170,7 +171,7 @@ abstract class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphDataAbstra
         $timezoneLocal = Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
 
         list ($dateStart, $dateEnd) = Mage::getResourceModel('reports/order_collection')
-            ->getDateRange($this->getDataHelper()->getParam('period'), '', '', true);
+                ->getDateRange($this->getDataHelper()->getParam('period'), '', '', true);
 
         $dateStart->setTimezone($timezoneLocal);
         $dateEnd->setTimezone($timezoneLocal);
@@ -196,7 +197,7 @@ abstract class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphDataAbstra
             }
             foreach ($this->getAllSeries() as $index => $series) {
                 if (in_array($date, $this->_axisLabels[self::AXIS_X])) {
-                    $dataSeries[$index][] = (float)array_shift($this->_allSeries[$index]);
+                    $dataSeries[$index][] = (float) array_shift($this->_allSeries[$index]);
                 } else {
                     $dataSeries[$index][] = 0;
                 }
@@ -257,13 +258,13 @@ abstract class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphDataAbstra
                 switch ($this->getDataHelper()->getParam('period')) {
                     case self::DATE_RANGE_24H:
                         $this->_axisLabels[self::AXIS_X][$index] = $this->formatTime(
-                            new Zend_Date($label, 'yyyy-MM-dd HH:00'), 'short', false
+                                new Zend_Date($label, 'yyyy-MM-dd HH:00'), 'short', false
                         );
                         break;
                     case self::DATE_RANGE_7D:
                     case self::DATE_RANGE_1M:
                         $this->_axisLabels[self::AXIS_X][$index] = $this->formatDate(
-                            new Zend_Date($label, 'yyyy-MM-dd')
+                                new Zend_Date($label, 'yyyy-MM-dd')
                         );
                         break;
                     case self::DATE_RANGE_1Y:
@@ -347,4 +348,5 @@ abstract class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphDataAbstra
         $this->_xmlObj = $xmlObj;
         return $this;
     }
+
 }

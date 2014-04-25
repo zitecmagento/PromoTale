@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
 {
+
     /**
      * Return Header CSS Class
      *
@@ -62,13 +64,13 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
         $customerModel = Mage::getModel('customer/customer');
 
         /* @var $customerForm Mage_Customer_Model_Form */
-        $customerForm   = Mage::getModel('customer/form');
+        $customerForm = Mage::getModel('customer/form');
         $customerForm->setFormCode('adminhtml_checkout')
-            ->setStore($this->getStore())
-            ->setEntity($customerModel);
+                ->setStore($this->getStore())
+                ->setEntity($customerModel);
 
         // prepare customer attributes to show
-        $attributes     = array();
+        $attributes = array();
 
         // add system required attributes
         foreach ($customerForm->getSystemAttributes() as $attribute) {
@@ -141,9 +143,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
         }
 
         if ($this->getQuote()->getCustomerEmail()) {
-            $data['email']  = $this->getQuote()->getCustomerEmail();
+            $data['email'] = $this->getQuote()->getCustomerEmail();
         }
 
         return $data;
     }
+
 }

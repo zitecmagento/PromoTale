@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Device_Android extends Mage_XmlConnect_Model_Device_Abstract
 {
+
     /**
      * Banner image type
      */
@@ -41,7 +43,7 @@ class Mage_XmlConnect_Model_Device_Android extends Mage_XmlConnect_Model_Device_
     /**
      * Android default screen size
      */
-    const SCREEN_SIZE_DEFAULT   = '480x800';
+    const SCREEN_SIZE_DEFAULT = '480x800';
 
     /**
      * Android default scale used for calculation rate
@@ -108,4 +110,5 @@ class Mage_XmlConnect_Model_Device_Android extends Mage_XmlConnect_Model_Device_
     {
         return $this->_imageSizeConfiguration;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Generic.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Db_Adapter_Abstract
  */
@@ -42,6 +42,7 @@
  */
 class Zend_Test_PHPUnit_Db_Metadata_Generic implements PHPUnit_Extensions_Database_DB_IMetaData
 {
+
     /**
      * Zend_Db Connection
      *
@@ -73,7 +74,7 @@ class Zend_Test_PHPUnit_Db_Metadata_Generic implements PHPUnit_Extensions_Databa
     public final function __construct(Zend_Db_Adapter_Abstract $db, $schema)
     {
         $this->_connection = $db;
-        $this->_schema     = $schema;
+        $this->_schema = $schema;
     }
 
     /**
@@ -94,7 +95,7 @@ class Zend_Test_PHPUnit_Db_Metadata_Generic implements PHPUnit_Extensions_Databa
      */
     protected function getTableDescription($tableName)
     {
-        if(!isset($this->_tableMetadata[$tableName])) {
+        if (!isset($this->_tableMetadata[$tableName])) {
             $this->_tableMetadata[$tableName] = $this->_connection->describeTable($tableName);
         }
         return $this->_tableMetadata[$tableName];
@@ -126,8 +127,8 @@ class Zend_Test_PHPUnit_Db_Metadata_Generic implements PHPUnit_Extensions_Databa
         $tableMeta = $this->getTableDescription($tableName);
 
         $primaryColumnNames = array();
-        foreach($tableMeta AS $column) {
-            if($column['PRIMARY'] == true) {
+        foreach ($tableMeta AS $column) {
+            if ($column['PRIMARY'] == true) {
                 $primaryColumnNames[] = $column['COLUMN_NAME'];
             }
         }
@@ -164,4 +165,5 @@ class Zend_Test_PHPUnit_Db_Metadata_Generic implements PHPUnit_Extensions_Databa
     {
         return false;
     }
+
 }

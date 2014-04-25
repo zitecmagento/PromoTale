@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Media library file image resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -58,7 +59,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
         return false;
     }
 
-    public function load(Mage_Media_Model_Image $object, $file, $field=null)
+    public function load(Mage_Media_Model_Image $object, $file, $field = null)
     {
         // Do some implementation
         return $this;
@@ -84,7 +85,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     public function getImage(Mage_Media_Model_Image $object)
     {
         $resource = false;
-        switch(strtolower($object->getExtension())) {
+        switch (strtolower($object->getExtension())) {
             case 'jpg':
             case 'jpeg':
                 $resource = imagecreatefromjpeg($object->getFilePath());
@@ -99,7 +100,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
                 break;
         }
 
-        if(!$resource) {
+        if (!$resource) {
             Mage::throwException(Mage::helper('media')->__('The image does not exist or is invalid.'));
         }
 
@@ -131,13 +132,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
         $sourceImage = $object->getImage();
 
         imagecopyresampled(
-            $tmpImage,
-            $sourceImage,
-            0, 0, 0, 0,
-            $object->getDestanationDimensions()->getWidth(),
-            $object->getDestanationDimensions()->getHeight(),
-            $object->getDimensions()->getWidth(),
-            $object->getDimensions()->getHeight()
+                $tmpImage, $sourceImage, 0, 0, 0, 0, $object->getDestanationDimensions()->getWidth(), $object->getDestanationDimensions()->getHeight(), $object->getDimensions()->getWidth(), $object->getDimensions()->getHeight()
         );
 
         return $this;
@@ -161,9 +156,9 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      * @param string|null $extension
      * @return Mage_Media_Model_File_Image
      */
-    public function saveAs(Mage_Media_Model_Image $object, $extension=null)
+    public function saveAs(Mage_Media_Model_Image $object, $extension = null)
     {
-        if(is_null($extension)) {
+        if (is_null($extension)) {
             $extension = $object->getExtension();
         }
 
@@ -181,7 +176,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
                 break;
         }
 
-        if(!$result) {
+        if (!$result) {
             Mage::throwException(Mage::helper('media')->__('An error occurred while creating the image.'));
         }
 
@@ -197,11 +192,11 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     public function getDimensions(Mage_Media_Model_Image $object)
     {
         $info = @getimagesize($object->getFilePath());
-        if(!$info) {
+        if (!$info) {
             Mage::throwException(Mage::helper('media')->__('The image does not exist or is invalid.'));
         }
 
-        $info = array('width'=>$info[0], 'height'=>$info[1], 'type'=>$info[2]);
+        $info = array('width' => $info[0], 'height' => $info[1], 'type' => $info[2]);
         return new Varien_Object($info);
     }
 
@@ -223,12 +218,11 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      */
     public function hasSpecialImage(Mage_Media_Model_Image $object)
     {
-        if(file_exists($object->getFilePath(true))) {
+        if (file_exists($object->getFilePath(true))) {
             return true;
         }
 
         return false;
     }
-
 
 }

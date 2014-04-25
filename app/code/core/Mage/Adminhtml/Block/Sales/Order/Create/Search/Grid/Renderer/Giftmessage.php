@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,6 +36,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
 {
+
     /**
      * Renders grid column
      *
@@ -43,8 +45,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage e
      */
     public function render(Varien_Object $row)
     {
-        if(!$this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $row,
-                $this->getColumn()->getGrid()->getStore())) {
+        if (!$this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $row, $this->getColumn()->getGrid()->getStore())) {
             return '&nbsp;';
         }
 
@@ -52,4 +53,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage e
     }
 
 }
- // Class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage End
+
+// Class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage End

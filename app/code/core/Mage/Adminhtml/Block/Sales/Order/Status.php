@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Status extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     /**
      * Class constructor
      */
@@ -42,9 +44,9 @@ class Mage_Adminhtml_Block_Sales_Order_Status extends Mage_Adminhtml_Block_Widge
         $this->_headerText = Mage::helper('sales')->__('Order Statuses');
         $this->_addButtonLabel = Mage::helper('sales')->__('Create New Status');
         $this->_addButton('assign', array(
-            'label'     => Mage::helper('sales')->__('Assign Status to State'),
-            'onclick'   => 'setLocation(\'' . $this->getAssignUrl() .'\')',
-            'class'     => 'add',
+            'label' => Mage::helper('sales')->__('Assign Status to State'),
+            'onclick' => 'setLocation(\'' . $this->getAssignUrl() . '\')',
+            'class' => 'add',
         ));
         parent::__construct();
     }
@@ -68,4 +70,5 @@ class Mage_Adminhtml_Block_Sales_Order_Status extends Mage_Adminhtml_Block_Widge
     {
         return $this->getUrl('*/sales_order_status/assign');
     }
+
 }

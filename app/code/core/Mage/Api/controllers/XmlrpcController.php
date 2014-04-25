@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,9 +34,13 @@
  */
 class Mage_Api_XmlrpcController extends Mage_Api_Controller_Action
 {
+
     public function indexAction()
     {
         $this->_getServer()->init($this, 'xmlrpc')
-            ->run();
+                ->run();
     }
-} // Class Mage_Api_XmlrpcController End
+
+}
+
+// Class Mage_Api_XmlrpcController End

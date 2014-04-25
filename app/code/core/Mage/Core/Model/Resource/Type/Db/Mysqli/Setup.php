@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Core_Model_Resource_Type_Db_Mysqli_Setup extends Mage_Core_Model_Resource_Type_Db
 {
+
     /**
      * Get connection
      * 
@@ -35,8 +35,9 @@ class Mage_Core_Model_Resource_Type_Db_Mysqli_Setup extends Mage_Core_Model_Reso
      */
     public function getConnection($config)
     {
-        $conn = new Varien_Db_Adapter_Mysqli((array)$config);
+        $conn = new Varien_Db_Adapter_Mysqli((array) $config);
 
         return $conn;
     }
+
 }

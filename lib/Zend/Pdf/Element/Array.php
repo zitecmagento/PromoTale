@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,11 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Array.php 22797 2010-08-06 15:02:12Z alexander $
  */
-
-
 /** Zend_Pdf_Element */
 #require_once 'Zend/Pdf/Element.php';
-
 
 /**
  * PDF file 'array' element implementation
@@ -34,6 +32,7 @@
  */
 class Zend_Pdf_Element_Array extends Zend_Pdf_Element
 {
+
     /**
      * Array element items
      *
@@ -42,7 +41,6 @@ class Zend_Pdf_Element_Array extends Zend_Pdf_Element
      * @var array
      */
     public $items;
-
 
     /**
      * Object constructor
@@ -54,7 +52,7 @@ class Zend_Pdf_Element_Array extends Zend_Pdf_Element
     {
         $this->items = new ArrayObject();
 
-        if ($val !== null  &&  is_array($val)) {
+        if ($val !== null && is_array($val)) {
             foreach ($val as $element) {
                 if (!$element instanceof Zend_Pdf_Element) {
                     #require_once 'Zend/Pdf/Exception.php';
@@ -62,12 +60,11 @@ class Zend_Pdf_Element_Array extends Zend_Pdf_Element
                 }
                 $this->items[] = $element;
             }
-        } else if ($val !== null){
+        } else if ($val !== null) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Argument must be an array');
         }
     }
-
 
     /**
      * Getter
@@ -75,11 +72,11 @@ class Zend_Pdf_Element_Array extends Zend_Pdf_Element
      * @param string $property
      * @throws Zend_Pdf_Exception
      */
-    public function __get($property) {
+    public function __get($property)
+    {
         #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('Undefined property: Zend_Pdf_Element_Array::$' . $property);
     }
-
 
     /**
      * Setter
@@ -88,7 +85,8 @@ class Zend_Pdf_Element_Array extends Zend_Pdf_Element
      * @param mixed $value
      * @throws Zend_Pdf_Exception
      */
-    public function __set($property, $value) {
+    public function __set($property, $value)
+    {
         #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('Undefined property: Zend_Pdf_Element_Array::$' . $property);
     }
@@ -103,7 +101,6 @@ class Zend_Pdf_Element_Array extends Zend_Pdf_Element
         return Zend_Pdf_Element::TYPE_ARRAY;
     }
 
-
     /**
      * Return object as string
      *
@@ -116,7 +113,7 @@ class Zend_Pdf_Element_Array extends Zend_Pdf_Element
         $lastNL = 0;
 
         foreach ($this->items as $element) {
-            if (strlen($outStr) - $lastNL > 128)  {
+            if (strlen($outStr) - $lastNL > 128) {
                 $outStr .= "\n";
                 $lastNL = strlen($outStr);
             }
@@ -178,4 +175,5 @@ class Zend_Pdf_Element_Array extends Zend_Pdf_Element
 
         return $phpArray;
     }
+
 }

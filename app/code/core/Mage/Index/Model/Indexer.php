@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Index_Model_Indexer
 {
+
     /**
      * Collection of available processes
      *
@@ -129,7 +131,7 @@ class Mage_Index_Model_Indexer
     {
         $processes = array();
         $this->_errors = array();
-        foreach($codes as $code) {
+        foreach ($codes as $code) {
             $process = $this->getProcessByCode($code);
             if (!$process) {
                 $this->_errors[] = sprintf('Warning: Unknown indexer with code %s', trim($code));
@@ -147,7 +149,7 @@ class Mage_Index_Model_Indexer
      */
     public function hasErrors()
     {
-        return (bool)count($this->_errors);
+        return (bool) count($this->_errors);
     }
 
     /**
@@ -204,7 +206,7 @@ class Mage_Index_Model_Indexer
      * @throws Exception
      * @return  Mage_Index_Model_Indexer
      */
-    public function indexEvents($entity=null, $type=null)
+    public function indexEvents($entity = null, $type = null)
     {
         Mage::dispatchEvent('start_index_events' . $this->_getEventTypeName($entity, $type));
 
@@ -219,10 +221,13 @@ class Mage_Index_Model_Indexer
 
         $resourceModel->beginTransaction();
         $this->_allowTableChanges = false;
-        try {
+        try
+        {
             $this->_runAll('indexEvents', array($entity, $type));
             $resourceModel->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $resourceModel->rollBack();
             throw $e;
         }
@@ -268,13 +273,13 @@ class Mage_Index_Model_Indexer
      * @param   bool $doSave
      * @return  Mage_Index_Model_Event
      */
-    public function logEvent(Varien_Object $entity, $entityType, $eventType, $doSave=true)
+    public function logEvent(Varien_Object $entity, $entityType, $eventType, $doSave = true)
     {
         $event = Mage::getModel('index/event')
-            ->setEntity($entityType)
-            ->setType($eventType)
-            ->setDataObject($entity)
-            ->setEntityPk($entity->getId());
+                ->setEntity($entityType)
+                ->setType($eventType)
+                ->setDataObject($entity)
+                ->setEntityPk($entity->getId());
 
         $this->registerEvent($event);
         if ($doSave) {
@@ -313,10 +318,13 @@ class Mage_Index_Model_Indexer
 
             $resourceModel->beginTransaction();
             $this->_allowTableChanges = false;
-            try {
+            try
+            {
                 $this->indexEvent($event);
                 $resourceModel->commit();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $resourceModel->rollBack();
                 if ($allowTableChanges) {
                     $this->_allowTableChanges = true;
@@ -425,13 +433,8 @@ class Mage_Index_Model_Indexer
     protected function _changeProcessKeyStatus($process, $enable = true)
     {
         $event = $this->_currentEvent;
-        if ($process instanceof Mage_Index_Model_Process
-            && $process->getMode() !== Mage_Index_Model_Process::MODE_MANUAL
-            && !$process->isLocked()
-            && (is_null($event)
-                || ($event instanceof Mage_Index_Model_Event && $process->matchEvent($event))
-                || (is_array($event) && $process->matchEntityAndType($event[0], $event[1]))
-        )) {
+        if ($process instanceof Mage_Index_Model_Process && $process->getMode() !== Mage_Index_Model_Process::MODE_MANUAL && !$process->isLocked() && (is_null($event) || ($event instanceof Mage_Index_Model_Event && $process->matchEvent($event)) || (is_array($event) && $process->matchEntityAndType($event[0], $event[1]))
+                )) {
             if ($enable) {
                 $process->enableIndexerKeys();
             } else {
@@ -480,4 +483,5 @@ class Mage_Index_Model_Indexer
         }
         return $eventName;
     }
+
 }

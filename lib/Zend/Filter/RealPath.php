@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: RealPath.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Interface
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Filter_RealPath implements Zend_Filter_Interface
 {
+
     /**
      * @var boolean $_pathExists
      */
@@ -107,7 +108,7 @@ class Zend_Filter_RealPath implements Zend_Filter_Interface
             if (preg_match('/([a-zA-Z]\:)(.*)/', $path, $matches)) {
                 list($fullMatch, $drive, $path) = $matches;
             } else {
-                $cwd   = getcwd();
+                $cwd = getcwd();
                 $drive = substr($cwd, 0, 2);
                 if (substr($path, 0, 1) != DIRECTORY_SEPARATOR) {
                     $path = substr($cwd, 3) . DIRECTORY_SEPARATOR . $path;
@@ -131,4 +132,5 @@ class Zend_Filter_RealPath implements Zend_Filter_Interface
 
         return $drive . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $stack);
     }
+
 }

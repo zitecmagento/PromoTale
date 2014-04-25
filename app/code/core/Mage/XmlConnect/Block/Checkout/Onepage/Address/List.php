@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Onepage_Address_List extends Mage_Checkout_Block_Onepage_Abstract
 {
+
     /**
      * Render customer address list xml
      *
@@ -69,8 +71,9 @@ class Mage_XmlConnect_Block_Checkout_Onepage_Address_List extends Mage_Checkout_
      * @return Mage_XmlConnect_Block_Checkout_Onepage_Address_List
      */
     protected function _prepareAddressData(
-        Mage_Customer_Model_Address $address, Mage_XmlConnect_Model_Simplexml_Element $item
-    ) {
+    Mage_Customer_Model_Address $address, Mage_XmlConnect_Model_Simplexml_Element $item
+    )
+    {
         $attributes = Mage::helper('customer/address')->getAttributes();
         $data = array('entity_id' => $address->getId());
 
@@ -86,8 +89,8 @@ class Mage_XmlConnect_Block_Checkout_Onepage_Address_List extends Mage_Checkout_
                 $data['region'] = $address->getRegion();
             } else {
                 $dataModel = Mage_Customer_Model_Attribute_Data::factory($attribute, $address);
-                $attributeValue     = $dataModel->outputValue(
-                    Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ONELINE
+                $attributeValue = $dataModel->outputValue(
+                        Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ONELINE
                 );
                 if ($attribute->getFrontendInput() == 'multiline') {
                     $values = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY);
@@ -109,4 +112,5 @@ class Mage_XmlConnect_Block_Checkout_Onepage_Address_List extends Mage_Checkout_
         }
         return $this;
     }
+
 }

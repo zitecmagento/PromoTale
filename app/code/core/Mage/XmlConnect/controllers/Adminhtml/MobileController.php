@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Initialize application
      *
@@ -74,7 +76,7 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
                 $data = array();
             }
             foreach ($filesData as $filePath => $fileName) {
-                $target =& $data;
+                $target = & $data;
                 Mage::helper('xmlconnect')->_injectFieldToArray($target, $filePath, $fileName);
             }
         }
@@ -113,7 +115,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
      */
     public function submissionAction()
     {
-        try {
+        try
+        {
             $app = $this->_initApp();
             if (!$app->getId()) {
                 $this->_getSession()->addError($this->__('App does not exist.'));
@@ -123,7 +126,7 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             $app->loadSubmit();
             if ((bool) Mage::getSingleton('adminhtml/session')->getLoadSessionFlag(true)) {
                 $data = $this->_restoreSessionFilesFormData(
-                    Mage::getSingleton('adminhtml/session')->getFormSubmissionData(true)
+                        Mage::getSingleton('adminhtml/session')->getFormSubmissionData(true)
                 );
                 if (!empty($data)) {
                     $app->setData(Mage::helper('xmlconnect')->arrayMergeRecursive($app->getData(), $data));
@@ -133,14 +136,18 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             $this->loadLayout();
             $this->_setActiveMenu('xmlconnect/mobile');
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
             if (isset($app)) {
                 $this->_redirect('*/*/edit', array('application_id' => $app->getId()));
             } else {
                 $this->_redirect('*/*/');
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addException($e, $this->__('Can\'t open submission form.'));
             if (isset($app)) {
                 $this->_redirect('*/*/edit', array('application_id' => $app->getId()));
@@ -158,7 +165,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
     public function editAction()
     {
         $redirectBack = false;
-        try {
+        try
+        {
             $id = (int) $this->getRequest()->getParam('application_id');
             $type = $this->getRequest()->getParam('type');
             $app = $this->_initApp('application_id', $type);
@@ -170,7 +178,7 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             }
 
             $newAppData = $this->_restoreSessionFilesFormData(
-                Mage::getSingleton('adminhtml/session')->getFormData(true)
+                    Mage::getSingleton('adminhtml/session')->getFormData(true)
             );
 
             if (!empty($newAppData)) {
@@ -193,11 +201,15 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             $this->loadLayout();
             $this->_setActiveMenu('xmlconnect/mobile');
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
             $redirectBack = true;
             Mage::logException($e);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($this->__('Unable to load application form.'));
             $redirectBack = true;
             Mage::logException($e);
@@ -216,7 +228,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
     public function submissionPostAction()
     {
         $data = $this->getRequest()->getPost();
-        try {
+        try
+        {
             $isError = false;
             if (!empty($data)) {
                 Mage::getSingleton('adminhtml/session')->setFormSubmissionData($this->_filterFormDataForSession($data));
@@ -249,12 +262,11 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
                     'title' => isset($params['title']) ? $params['title'] : '',
                     'name' => $app->getName(),
                     'code' => $app->getCode(),
-                    'activation_key' => isset($params['resubmission_activation_key'])
-                        ? $params['resubmission_activation_key'] : $params['key'],
+                    'activation_key' => isset($params['resubmission_activation_key']) ? $params['resubmission_activation_key'] : $params['key'],
                 ));
                 $history->save();
                 $app->getResource()->updateApplicationStatus(
-                    $app->getId(), Mage_XmlConnect_Model_Application::APP_STATUS_SUCCESS
+                        $app->getId(), Mage_XmlConnect_Model_Application::APP_STATUS_SUCCESS
                 );
                 $this->_getSession()->addSuccess($this->__('App has been submitted.'));
                 $this->_clearSessionData();
@@ -263,7 +275,9 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
                 Mage::getSingleton('adminhtml/session')->setLoadSessionFlag(true);
                 $this->_redirect('*/*/submission', array('application_id' => $app->getId()));
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
             if (isset($app)) {
                 Mage::getSingleton('adminhtml/session')->setLoadSessionFlag(true);
@@ -271,7 +285,9 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             } else {
                 $this->_redirect('*/*/');
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addException($e, $this->__('Can\'t submit application.'));
             Mage::logException($e);
             if (isset($app)) {
@@ -324,7 +340,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
      */
     protected function _processPostRequest()
     {
-        try {
+        try
+        {
             /** @var $app Mage_XmlConnect_Model_Application */
             $app = Mage::helper('xmlconnect')->getApplication();
             $params = $app->getSubmitParams();
@@ -359,7 +376,7 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
 
             $app->setSuccess($success);
             if (!$app->getSuccess()) {
-                $message = isset($resultArray['message']) ? $resultArray['message']: '';
+                $message = isset($resultArray['message']) ? $resultArray['message'] : '';
                 if (is_array($message)) {
                     $message = implode(' ,', $message);
                 }
@@ -372,7 +389,9 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
 
                 Mage::throwException($message);
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             throw $e;
         }
     }
@@ -390,7 +409,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
         $isError = false;
         if ($data) {
             Mage::getSingleton('adminhtml/session')->setFormData($data);
-            try {
+            try
+            {
                 $id = (int) $this->getRequest()->getParam('application_id');
 
                 if (!$id && isset($data['devtype'])) {
@@ -424,10 +444,14 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
                     $this->_getSession()->addSuccess($this->__('App has been saved.'));
                     $this->_clearSessionData();
                 }
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_getSession()->addException($e, $e->getMessage());
                 $isError = true;
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->addException($e, $this->__('Unable to save app.'));
                 $isError = true;
                 Mage::logException($e);
@@ -460,7 +484,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
         if ($themeName) {
             /** @var $themesHelper Mage_XmlConnect_Helper_Theme */
             $themesHelper = Mage::helper('xmlconnect/theme');
-            try {
+            try
+            {
                 if (array_key_exists($themeName, $themesHelper->getAllThemes())) {
                     /** @var $theme Mage_XmlConnect_Model_Theme */
                     $theme = $themesHelper->getThemeByName($themeName);
@@ -480,8 +505,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
                         if (!isset($response)) {
                             $theme->importAndSaveData($convertedConf);
                             $response = array(
-                                'message'   => $this->__('Changes have been saved to theme.'),
-                                'themes'    => $themesHelper->getAllThemesArray(true),
+                                'message' => $this->__('Changes have been saved to theme.'),
+                                'themes' => $themesHelper->getAllThemesArray(true),
                                 'themeSelector' => $themesHelper->getThemesSelector($themeName),
                                 'selectedTheme' => $themeName
                             );
@@ -493,15 +518,19 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
                     $convertedConf = $this->_convertPost($data);
                     $newTheme = $themesHelper->createNewTheme($themeName, $convertedConf);
                     $response = array(
-                        'message'       => $this->__('Theme has been created.'),
-                        'themes'        => $themesHelper->getAllThemesArray(true),
+                        'message' => $this->__('Theme has been created.'),
+                        'themes' => $themesHelper->getAllThemesArray(true),
                         'themeSelector' => $themesHelper->getThemesSelector($newTheme->getName()),
                         'selectedTheme' => $newTheme->getName()
                     );
                 }
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $response = array('error' => true, 'message' => $e->getMessage());
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $response = array('error' => true, 'message' => $this->__('Can\'t save theme.'));
             }
         } else {
@@ -561,29 +590,34 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
     {
         $themeId = $this->getRequest()->getParam('theme_id', false);
         if ($themeId) {
-            try {
+            try
+            {
                 /** @var $themesHelper Mage_XmlConnect_Helper_Theme */
                 $themesHelper = Mage::helper('xmlconnect/theme');
                 $result = $themesHelper->deleteTheme($themeId);
                 if ($result) {
                     $response = array(
-                        'message'   => $this->__('Theme has been delete.'),
-                        'themes'    => $themesHelper->getAllThemesArray(true),
+                        'message' => $this->__('Theme has been delete.'),
+                        'themes' => $themesHelper->getAllThemesArray(true),
                         'themeSelector' => $themesHelper->getThemesSelector(),
                         'selectedTheme' => $themesHelper->getDefaultThemeName()
                     );
                 } else {
                     $response = array(
-                        'error'     => true,
-                        'message'   => $this->__('Can\'t delete "%s" theme.', $themeId)
+                        'error' => true,
+                        'message' => $this->__('Can\'t delete "%s" theme.', $themeId)
                     );
                 }
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $response = array('error' => true, 'message' => $e->getMessage());
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $response = array(
-                    'error'     => true,
-                    'message'   => $this->__('Can\'t delete "%s" theme.', $themeId)
+                    'error' => true,
+                    'message' => $this->__('Can\'t delete "%s" theme.', $themeId)
                 );
             }
         } else {
@@ -602,13 +636,18 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
      */
     public function resetThemeAction()
     {
-        try {
+        try
+        {
             $theme = $this->getRequest()->getPost('theme', null);
             Mage::helper('xmlconnect/theme')->resetTheme($theme);
             $response = Mage::helper('xmlconnect/theme')->getAllThemesArray(true);
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $response = array('error' => true, 'message' => $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $response = array('error' => true, 'message' => $this->__('Can\'t reset theme.'));
         }
         if (is_array($response)) {
@@ -690,7 +729,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
     protected function _previewAction($block)
     {
         $redirectBack = false;
-        try {
+        try
+        {
             $deviceType = $this->getRequest()->getParam('devtype');
             $app = $this->_initApp('application_id', $deviceType);
             if (!$this->getRequest()->getParam('submission_action')) {
@@ -698,13 +738,16 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             }
             /** render base configuration of application */
             $appConf = $app->getRenderConf();
-            try {
+            try
+            {
                 /** try to upload files */
                 $dataUploaded = $this->_processUploadedFiles($app->getData());
                 $app->addData($dataUploaded);
                 /** render configuration with just uploaded images */
                 $appConf = $app->getRenderConf();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 /** when cannot upload - just tell user what is happen */
                 $jsErrorMessage = addslashes($e->getMessage());
             }
@@ -719,10 +762,14 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             Mage::helper('xmlconnect')->getPreviewModel()->setConf($appConf);
             $this->renderLayout();
             return;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addException($e, $e->getMessage());
             $redirectBack = true;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addException($e, $this->__('Unable to process preview.'));
             $redirectBack = true;
         }
@@ -740,7 +787,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
      */
     public function deleteAction()
     {
-        try {
+        try
+        {
             $app = $this->_initApp();
             if (!$app->getIsSubmitted()) {
                 $app->delete();
@@ -748,9 +796,13 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             } else {
                 Mage::throwException($this->__('It\'s not allowed to delete submitted application.'));
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addException($e, $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addException($e, $this->__('Unable to find an app to delete.'));
         }
         $this->_redirect('*/*/');
@@ -763,7 +815,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
     {
         // check if we know what should be deleted
         if ($id = $this->getRequest()->getParam('id')) {
-            try {
+            try
+            {
                 // init template and delete
                 Mage::getModel('xmlconnect/template')->load($id)->delete();
 
@@ -773,8 +826,9 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
                 // go to grid
                 $this->_redirect('*/*/template');
                 return;
-
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 // go back to edit form
@@ -873,8 +927,7 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
         $pageId = 0;
         if (!empty($arr['config_data'])) {
             foreach ($arr['config_data'] as $path => $data) {
-                if (!preg_match('/^pages:staticpage\/(\d+)$/', $path, $pageData)
-                    || empty($data['label']) || empty($data['id'])
+                if (!preg_match('/^pages:staticpage\/(\d+)$/', $path, $pageData) || empty($data['label']) || empty($data['id'])
                 ) {
                     continue;
                 }
@@ -898,7 +951,7 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
          * Check cache settings
          */
         $lifetime = &$arr['conf']['native']['cacheLifetime'];
-        $lifetime = $lifetime <= 0 ? '' : (int)$lifetime;
+        $lifetime = $lifetime <= 0 ? '' : (int) $lifetime;
 
         /**
          * Restoring current_theme over selected but not applied theme
@@ -1008,7 +1061,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
      */
     public function cancelQueueAction()
     {
-        try {
+        try
+        {
             $id = $this->getRequest()->getParam('id');
             $message = $this->_initMessage();
             if (!$message->getId() && $id) {
@@ -1018,9 +1072,13 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             }
             $message->setStatus(Mage_XmlConnect_Model_Queue::STATUS_CANCELED);
             $message->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addException($e, $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addException($e, $this->__('Unable to cancel queue.'));
             Mage::logException($e);
         }
@@ -1035,7 +1093,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
      */
     public function deleteQueueAction()
     {
-        try {
+        try
+        {
             $id = $this->getRequest()->getParam('id');
             $message = $this->_initMessage();
             if (!$message->getId() && $id) {
@@ -1045,9 +1104,13 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             }
             $message->setStatus(Mage_XmlConnect_Model_Queue::STATUS_DELETED);
             $message->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addException($e, $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addException($e, $this->__('Unable to delete queue.'));
             Mage::logException($e);
         }
@@ -1063,19 +1126,22 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
     public function massCancelQueueAction()
     {
         $queueIds = $this->getRequest()->getParam('queue');
-        if(!is_array($queueIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select message(s).'));
+        if (!is_array($queueIds)) {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select message(s).'));
         } else {
-            try {
+            try
+            {
                 $queue = Mage::getModel('xmlconnect/queue');
                 foreach ($queueIds as $queueId) {
-                    $queue->reset()->load((int)$queueId)->setStatus(Mage_XmlConnect_Model_Queue::STATUS_CANCELED)
-                        ->save();
+                    $queue->reset()->load((int) $queueId)->setStatus(Mage_XmlConnect_Model_Queue::STATUS_CANCELED)
+                            ->save();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('Total of %d record(s) were canceled.', count($queueIds))
+                        Mage::helper('adminhtml')->__('Total of %d record(s) were canceled.', count($queueIds))
                 );
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
@@ -1091,18 +1157,21 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
     public function massDeleteQueueAction()
     {
         $queueIds = $this->getRequest()->getParam('queue');
-        if(!is_array($queueIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select message(s).'));
+        if (!is_array($queueIds)) {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select message(s).'));
         } else {
-            try {
+            try
+            {
                 $queue = Mage::getModel('xmlconnect/queue');
                 foreach ($queueIds as $queueId) {
                     $queue->reset()->load($queueId)->setStatus(Mage_XmlConnect_Model_Queue::STATUS_DELETED)->save();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('Total of %d record(s) were deleted.', count($queueIds))
+                        Mage::helper('adminhtml')->__('Total of %d record(s) were deleted.', count($queueIds))
                 );
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
@@ -1117,12 +1186,13 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
      */
     public function saveMessageAction()
     {
-        $data         = $this->_filterPostData($this->getRequest()->getPost());
-        $isError      = false;
-        $message      = false;
+        $data = $this->_filterPostData($this->getRequest()->getPost());
+        $isError = false;
+        $message = false;
 
         if ($data) {
-            try {
+            try
+            {
                 $data = Mage::getModel('core/input_filter_maliciousCode')->filter($data);
                 $template = $this->_initTemplate('template_id');
                 $message = $this->_initMessage();
@@ -1137,8 +1207,7 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
                 $app = Mage::getModel('xmlconnect/application')->loadByCode($template->getAppCode());
                 $deviceType = Mage::helper('xmlconnect')->getDeviceType($app);
 
-                if ($deviceType == Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID
-                    && $data['type'] == Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL
+                if ($deviceType == Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID && $data['type'] == Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL
                 ) {
                     $this->_getSession()->addError($this->__('Android doesn\'t support AirMail message type.'));
                     $redirectParams = $this->_getQueueMessageParams($message);
@@ -1161,7 +1230,7 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
                     $message->setStatus(Mage_XmlConnect_Model_Queue::STATUS_IN_QUEUE);
                 } elseif ($message->getStatus() != Mage_XmlConnect_Model_Queue::STATUS_IN_QUEUE) {
                     $this->_getSession()->addError(
-                        $this->__('Message can be edited when status of the message is "In Queue" only.')
+                            $this->__('Message can be edited when status of the message is "In Queue" only.')
                     );
                     $this->_redirect('*/*/queue');
                     return;
@@ -1190,10 +1259,14 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
                 $message->setMessageTitle($temporaryObject->getMessageTitle());
                 $message->setContent($temporaryObject->getContent());
                 $message->save();
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_getSession()->addException($e, $e->getMessage());
                 $isError = true;
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->addException($e, $this->__('Unable to save message.'));
                 $isError = true;
                 Mage::logException($e);
@@ -1284,7 +1357,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
         if ($data) {
             $data = Mage::getModel('core/input_filter_maliciousCode')->filter($data);
             Mage::getSingleton('adminhtml/session')->setTemplateFormData($data);
-            try {
+            try
+            {
                 $id = $this->getRequest()->getParam('id');
                 $template = $this->_initTemplate();
                 if (!$template->getId() && $id) {
@@ -1294,10 +1368,14 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
                 }
                 $template->addData($data);
                 $template->save();
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_getSession()->addException($e, $e->getMessage());
                 $isError = true;
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->addException($e, $this->__('Unable to save template.'));
                 $isError = true;
                 Mage::logException($e);
@@ -1337,9 +1415,9 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
         /** @var $app Mage_XmlConnect_Model_Application */
         $app = Mage::getModel('xmlconnect/application')->load($appId);
 
-        if(!$app->isNotificationsActive()) {
+        if (!$app->isNotificationsActive()) {
             $this->_getSession()->addError(
-                $this->__('Queue is allowed only for applications with enabled Push Notification.')
+                    $this->__('Queue is allowed only for applications with enabled Push Notification.')
             );
             $action = $message->getId() ? 'queue' : 'template';
             $this->_redirect('*/*/' . $action);
@@ -1353,7 +1431,7 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             $title = $this->__('New AirMail Message');
         }
         $this->_addBreadcrumb(
-            $this->__('AirMail Message Queue'), $this->__('AirMail Message Queue'), $this->getUrl('*/*/queue')
+                $this->__('AirMail Message Queue'), $this->__('AirMail Message Queue'), $this->getUrl('*/*/queue')
         );
         $this->_addBreadcrumb($title, $title);
 
@@ -1381,7 +1459,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             // Add random string to uploaded file new
             $newFileName = Mage::helper('core')->getRandomString(5) . '_' . $data['Filename'];
         }
-        try {
+        try
+        {
             $this->_initApp();
             /** @var $imageModel Mage_XmlConnect_Model_Images */
             $imageModel = Mage::getModel('xmlconnect/images');
@@ -1395,30 +1474,29 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             $uploader->setAllowRenameFiles(true)->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
             $result = $uploader->save(Mage_XmlConnect_Model_Images::getBasePath(), $newFileName);
             $result['thumbnail'] = Mage::getModel('xmlconnect/images')->getCustomSizeImageUrl(
-                $result['file'],
-                Mage_XmlConnect_Helper_Data::THUMBNAIL_IMAGE_WIDTH,
-                Mage_XmlConnect_Helper_Data::THUMBNAIL_IMAGE_HEIGHT
+                    $result['file'], Mage_XmlConnect_Helper_Data::THUMBNAIL_IMAGE_WIDTH, Mage_XmlConnect_Helper_Data::THUMBNAIL_IMAGE_HEIGHT
             );
 
             $imageModel->setImageFile($result['file']);
             $imageModel->save();
 
             $result['cookie'] = array(
-                'name'     => session_name(),
-                'value'    => $this->_getSession()->getSessionId(),
+                'name' => session_name(),
+                'value' => $this->_getSession()->getSessionId(),
                 'lifetime' => $this->_getSession()->getCookieLifetime(),
-                'path'     => $this->_getSession()->getCookiePath(),
-                'domain'   => $this->_getSession()->getCookieDomain(),
-                'order'    => $imageModel->getOrder(),
+                'path' => $this->_getSession()->getCookiePath(),
+                'domain' => $this->_getSession()->getCookieDomain(),
+                'order' => $imageModel->getOrder(),
                 'image_id' => $imageModel->getId(),
                 'file_field' => $imageModel->getImageType()
             );
 
             $result['image_list'] = $this->getLayout()
-                ->addBlock('xmlconnect/adminhtml_mobile_edit_tab_design_images', 'design_images')
-                ->getImageList($imageModel->getImageType(), $imageModel->getImageCount());
-
-        } catch (Exception $e) {
+                    ->addBlock('xmlconnect/adminhtml_mobile_edit_tab_design_images', 'design_images')
+                    ->getImageList($imageModel->getImageType(), $imageModel->getImageCount());
+        }
+        catch (Exception $e)
+        {
             $result = array('error' => $e->getMessage(), 'errorcode' => $e->getCode());
         }
 
@@ -1432,16 +1510,19 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
     {
         $data = $this->getRequest()->getParams();
         $result = array();
-        try {
+        try
+        {
             $this->_initApp();
             /** @var $imageModel Mage_XmlConnect_Model_Images */
             $imageModel = Mage::getModel('xmlconnect/images');
             if (!empty($data['image_type'])) {
                 $result['image_list'] = $this->getLayout()
-                    ->addBlock('xmlconnect/adminhtml_mobile_edit_tab_design_images', 'design_images')
-                    ->getImageList($data['image_type'], $imageModel->getImageCount($data['image_type']));
+                        ->addBlock('xmlconnect/adminhtml_mobile_edit_tab_design_images', 'design_images')
+                        ->getImageList($data['image_type'], $imageModel->getImageCount($data['image_type']));
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $result = array('error' => $e->getMessage(), 'errorcode' => $e->getCode());
         }
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
@@ -1455,19 +1536,22 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
         $imageId = $this->getRequest()->getParam('image_id', false);
         /** @var $imageModel Mage_XmlConnect_Model_Images */
         $imageModel = Mage::getModel('xmlconnect/images');
-        try {
+        try
+        {
             $imageModel->load($imageId);
             if ($imageModel->getId()) {
                 $this->_initApp();
                 $imageModel->deleteAndRepairOrder();
                 $result = array('success' => $this->__('Image has been deleted.'));
                 $result['image_list'] = $this->getLayout()
-                    ->addBlock('xmlconnect/adminhtml_mobile_edit_tab_design_images', 'design_images')
-                    ->getImageList($imageModel->getImageType(), $imageModel->getImageCount());
+                        ->addBlock('xmlconnect/adminhtml_mobile_edit_tab_design_images', 'design_images')
+                        ->getImageList($imageModel->getImageType(), $imageModel->getImageCount());
             } else {
                 $result = array('error' => $this->__('Image does not exist. Please reload this page.'));
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $result = array('error' => $e->getMessage(), 'errorcode' => $e->getCode());
         }
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
@@ -1479,18 +1563,21 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
     public function deleteImageDataAction()
     {
         $imageId = $this->getRequest()->getParam('image_id', false);
-        try {
+        try
+        {
             $this->_initApp();
             if ($imageId) {
                 $image = Mage::getModel('xmlconnect/images')->load($imageId)->deleteImageAction();
                 $result = array('success' => $this->__('Image has been deleted.'));
                 $result['image_list'] = $this->getLayout()
-                    ->addBlock('xmlconnect/adminhtml_mobile_edit_tab_design_images', 'design_images')
-                    ->getImageList($image->getImageType(), $image->getImageCount());
+                        ->addBlock('xmlconnect/adminhtml_mobile_edit_tab_design_images', 'design_images')
+                        ->getImageList($image->getImageType(), $image->getImageCount());
             } else {
                 $result = array('error' => $this->__('Image id is required.'));
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $result = array('error' => $e->getMessage(), 'errorcode' => $e->getCode());
         }
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
@@ -1502,16 +1589,19 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
     public function saveImageDataAction()
     {
         $result = array();
-        try {
+        try
+        {
             $imageId = $this->getRequest()->getParam('image_id', false);
             if (!$imageId) {
                 Mage::throwException($this->__('image_id is required'));
             }
             $imageConfig = $this->_initApp()->getImageActionModel()->saveImageAction($this->getRequest()->getParams())
-                ->getCurrentImageActionData();
+                    ->getCurrentImageActionData();
             $result['success'] = $this->__('Image action has been saved.');
             $result['image_action_data'] = $imageConfig;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $result = array('error' => $e->getMessage(), 'errorcode' => $e->getCode());
         }
@@ -1536,12 +1626,12 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
         $results = $searchModel->setStart($start)->setLimit($limit)->setQuery($query)->load()->getResults();
 
         $block = $this->getLayout()->createBlock('adminhtml/template')
-            ->setTemplate('xmlconnect/edit/tab/design/autocomplete.phtml')->assign('items', $results);
+                        ->setTemplate('xmlconnect/edit/tab/design/autocomplete.phtml')->assign('items', $results);
 
         $this->getResponse()->setBody($block->toHtml());
     }
 
-     /**
+    /**
      * Save image order
      */
     public function saveImageOrderAction()
@@ -1550,7 +1640,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
         $imagesModel = Mage::getModel('xmlconnect/images');
         $imageData = $this->getRequest()->getParam('data', false);
         $imageType = $this->getRequest()->getParam('type', false);
-        try {
+        try
+        {
 
             if (!$imageType || !$imageData) {
                 Mage::throwException($this->__('Type and data is required'));
@@ -1560,12 +1651,15 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             $actionModel->saveImageOrder($imageData, $imageType);
             $result = array('success' => $this->__('Images order has been updated.'));
             $result['image_list'] = $this->getLayout()
-                ->addBlock('xmlconnect/adminhtml_mobile_edit_tab_design_images', 'design_images')
-                ->getImageList($imageType, $imagesModel->getImageCount($imageType));
-        } catch (Exception $e) {
+                    ->addBlock('xmlconnect/adminhtml_mobile_edit_tab_design_images', 'design_images')
+                    ->getImageList($imageType, $imagesModel->getImageCount($imageType));
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $result = array('error' => $e->getMessage(), 'errorcode' => $e->getCode());
         }
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
+
 }

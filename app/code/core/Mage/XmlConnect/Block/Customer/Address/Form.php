@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Address_Edit
 {
+
     /**
      * Customer name widget block
      *
@@ -47,11 +49,11 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      */
     protected function _toHtml()
     {
-        $address  = $this->getAddress();
+        $address = $this->getAddress();
         /**
          * Init address object and save its data to variables
          */
-        $addressId = (int)$this->getRequest()->getParam('id');
+        $addressId = (int) $this->getRequest()->getParam('id');
         $billingChecked = $shippingChecked = false;
 
         if ($addressId && $address && $address->getId()) {
@@ -60,31 +62,31 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
             $defaultBillingAddressId = $customerSession->getCustomer()->getDefaultBilling();
             $defaultShippingAddressId = $customerSession->getCustomer()->getDefaultShipping();
 
-            $billingChecked = (int)$addressId == $defaultBillingAddressId;
-            $shippingChecked = (int)$addressId == $defaultShippingAddressId;
+            $billingChecked = (int) $addressId == $defaultBillingAddressId;
+            $shippingChecked = (int) $addressId == $defaultShippingAddressId;
 
-            $company    = $address->getCompany();
-            $street1    = $address->getStreet(1);
-            $street2    = $address->getStreet(2);
-            $city       = $address->getCity();
-            $regionId   = $address->getRegionId();
-            $region     = $address->getRegion();
-            $postcode   = $address->getPostcode();
-            $countryId  = $address->getCountryId();
-            $telephone  = $address->getTelephone();
-            $fax        = $address->getFax();
+            $company = $address->getCompany();
+            $street1 = $address->getStreet(1);
+            $street2 = $address->getStreet(2);
+            $city = $address->getCity();
+            $regionId = $address->getRegionId();
+            $region = $address->getRegion();
+            $postcode = $address->getPostcode();
+            $countryId = $address->getCountryId();
+            $telephone = $address->getTelephone();
+            $fax = $address->getFax();
         }
 
         $action = Mage::helper('xmlconnect')->getActionUrl('xmlconnect/customer/saveaddress');
 
         /** @var Mage_XmlConnect_Model_Simplexml_Form $fromXmlObj */
         $fromXmlObj = Mage::getModel('xmlconnect/simplexml_form', array(
-            'xml_id' => 'address_form', 'action' => $action, 'use_container' => true
+                    'xml_id' => 'address_form', 'action' => $action, 'use_container' => true
         ));
 
         $contactInfoFieldset = $fromXmlObj->addFieldset('contact_info', array(
-            'legend' => $this->__('Contact Information')
-        ))->setCustomAttributes(array('legend'));
+                    'legend' => $this->__('Contact Information')
+                ))->setCustomAttributes(array('legend'));
 
         $this->_addCustomerContactInfo($contactInfoFieldset);
 
@@ -103,8 +105,8 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
         ));
 
         $addressFieldset = $fromXmlObj->addFieldset('address_info', array(
-            'legend' => $this->__('Address')
-        ))->setCustomAttributes(array('legend'));
+                    'legend' => $this->__('Address')
+                ))->setCustomAttributes(array('legend'));
 
         $addressFieldset->addField('street', 'text', array(
             'name' => 'street[]',
@@ -123,17 +125,17 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
             'value' => isset($city) ? $city : ''
         ));
 
-        $countryId  = isset($countryId) ? $countryId    : null;
-        $regionId   = isset($regionId)  ? $regionId     : null;
-        $region     = isset($region)    ? $region       : null;
+        $countryId = isset($countryId) ? $countryId : null;
+        $regionId = isset($regionId) ? $regionId : null;
+        $region = isset($region) ? $region : null;
 
         $addressFieldset->addField('country_id', 'countryListSelect', array(
             'label' => $this->__('Country'),
             'required' => $this->getNewCountryList() ? '1' : 'true',
             'value' => array(
-                'country_id'    => $countryId,
-                'region_id'     => $regionId,
-                'region'        => $region
+                'country_id' => $countryId,
+                'region_id' => $regionId,
+                'region' => $region
             ),
             'old_format' => !$this->getNewCountryList()
         ));
@@ -164,8 +166,8 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
 
         /** Get custom attributes */
         Mage::helper('xmlconnect/customer_form_renderer')->setAttributesBlockName('customer_address_attr')
-            ->setFormCode('customer_address_edit')->setBlockEntity($this->getAddress())
-            ->addCustomAttributes($addressFieldset, $this->getLayout());
+                ->setFormCode('customer_address_edit')->setBlockEntity($this->getAddress())
+                ->addCustomAttributes($addressFieldset, $this->getLayout());
 
         return $fromXmlObj->getXml();
     }
@@ -177,11 +179,12 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      * @return Mage_XmlConnect_Block_Customer_Address_Form
      */
     protected function _addCustomerContactInfo(
-        Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset
-    ) {
+    Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset
+    )
+    {
         if (is_object(Mage::getConfig()->getNode('modules/Enterprise_Customer'))) {
             $this->setNameWidgetBlock($this->getLayout()->createBlock('customer/widget_name')
-                ->setObject($this->getAddress()->getFirstname() ? $this->getAddress() : $this->getCustomer()));
+                            ->setObject($this->getAddress()->getFirstname() ? $this->getAddress() : $this->getCustomer()));
 
             if ($this->getNameWidgetBlock()->showPrefix()) {
                 $this->_addPrefix($contactInfoFieldset);
@@ -215,24 +218,24 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
     {
         $attributes = array();
         $attributes += $contactInfoFieldset->checkAttribute(
-            'value', $this->getNameWidgetBlock()->getObject()->getPrefix()
+                'value', $this->getNameWidgetBlock()->getObject()->getPrefix()
         );
 
         $attributes += $contactInfoFieldset->checkAttribute(
-            'required', (int)$this->getNameWidgetBlock()->isPrefixRequired()
+                'required', (int) $this->getNameWidgetBlock()->isPrefixRequired()
         );
 
         if ($this->getNameWidgetBlock()->getPrefixOptions() === false) {
             $contactInfoFieldset->addField($this->getNameWidgetBlock()->getFieldId('prefix'), 'text', array(
                 'label' => $this->getNameWidgetBlock()->__('Prefix'),
                 'name' => $this->getNameWidgetBlock()->getFieldName('prefix')
-            ) + $attributes);
+                    ) + $attributes);
         } else {
             $contactInfoFieldset->addField($this->getNameWidgetBlock()->getFieldId('prefix'), 'select', array(
                 'label' => $this->getNameWidgetBlock()->__('Prefix'),
                 'name' => $this->getNameWidgetBlock()->getFieldName('prefix'),
                 'options' => $this->getNameWidgetBlock()->getPrefixOptions()
-            ) + $attributes);
+                    ) + $attributes);
         }
         return $this;
     }
@@ -247,24 +250,24 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
     {
         $attributes = array();
         $attributes += $contactInfoFieldset->checkAttribute(
-            'value', $this->getNameWidgetBlock()->getObject()->getSuffix()
+                'value', $this->getNameWidgetBlock()->getObject()->getSuffix()
         );
 
         $attributes += $contactInfoFieldset->checkAttribute(
-            'required', (int)$this->getNameWidgetBlock()->isSuffixRequired()
+                'required', (int) $this->getNameWidgetBlock()->isSuffixRequired()
         );
 
         if ($this->getNameWidgetBlock()->getSuffixOptions() === false) {
             $contactInfoFieldset->addField($this->getNameWidgetBlock()->getFieldId('suffix'), 'text', array(
                 'label' => $this->getNameWidgetBlock()->__('Suffix'),
                 'name' => $this->getNameWidgetBlock()->getFieldName('suffix')
-            ) + $attributes);
+                    ) + $attributes);
         } else {
             $contactInfoFieldset->addField($this->getNameWidgetBlock()->getFieldId('suffix'), 'select', array(
                 'label' => $this->getNameWidgetBlock()->__('Suffix'),
                 'name' => $this->getNameWidgetBlock()->getFieldName('suffix'),
                 'options' => $this->getNameWidgetBlock()->getSuffixOptions()
-            ) + $attributes);
+                    ) + $attributes);
         }
         return $this;
     }
@@ -279,13 +282,13 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
     {
         $attributes = array();
         $attributes += $contactInfoFieldset->checkAttribute(
-            'value', $this->getNameWidgetBlock()->getObject()->getMiddlename()
+                'value', $this->getNameWidgetBlock()->getObject()->getMiddlename()
         );
 
         $contactInfoFieldset->addField($this->getNameWidgetBlock()->getFieldId('middlename'), 'text', array(
             'label' => $this->getNameWidgetBlock()->__('M.I.'),
             'name' => $this->getNameWidgetBlock()->getFieldName('middlename')
-        ) + $attributes);
+                ) + $attributes);
         return $this;
     }
 
@@ -297,7 +300,7 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      */
     protected function _addFirstName(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset)
     {
-        $firstName  = $this->getAddress()->getFirstname();
+        $firstName = $this->getAddress()->getFirstname();
         $contactInfoFieldset->addField('firstname', 'text', array(
             'label' => $this->__('First Name'),
             'required' => 'true',
@@ -314,7 +317,7 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      */
     protected function _addLastName(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset)
     {
-        $lastName   = $this->getAddress()->getLastname();
+        $lastName = $this->getAddress()->getLastname();
         $contactInfoFieldset->addField('lastname', 'text', array(
             'label' => $this->__('Last Name'),
             'required' => 'true',
@@ -331,12 +334,13 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      * @return Mage_XmlConnect_Block_Customer_Address_Form
      */
     protected function _addCustomAddressAttributes(
-        Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $addressFieldset
-    ) {
+    Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $addressFieldset
+    )
+    {
         if (is_object(Mage::getConfig()->getNode('modules/Enterprise_Customer'))) {
             /** @var $addressAttrBlock Enterprise_Customer_Block_Form */
             $addressAttrBlock = $this->getLayout()
-                ->addBlock('enterprise_customer/form', 'customer_address_attr');
+                    ->addBlock('enterprise_customer/form', 'customer_address_attr');
             $addressAttrBlock->setFormCode('customer_address_edit');
             $addressAttrBlock->setEntity($this->getAddress());
 
@@ -346,11 +350,11 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
 
             if ($addressAttrBlock->hasUserDefinedAttributes()) {
                 foreach ($addressAttrBlock->getUserDefinedAttributes() as $attribute) {
-                    $type   = $attribute->getFrontendInput();
-                    $block  = $addressAttrBlock->getRenderer($type);
+                    $type = $attribute->getFrontendInput();
+                    $block = $addressAttrBlock->getRenderer($type);
                     if ($block) {
                         $block->setAttributeObject($attribute)->setEntity($addressAttrBlock->getEntity())
-                            ->addFieldToXmlObj($addressFieldset);
+                                ->addFieldToXmlObj($addressFieldset);
                     }
                 }
             }
@@ -401,4 +405,5 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
         $this->_customerFiledRenderer = $customerFiledRenderer;
         return $this;
     }
+
 }

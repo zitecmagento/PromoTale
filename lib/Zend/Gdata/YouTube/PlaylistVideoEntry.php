@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: PlaylistVideoEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_YouTube_VideoEntry
  */
@@ -94,17 +93,16 @@ class Zend_Gdata_YouTube_PlaylistVideoEntry extends Zend_Gdata_YouTube_VideoEntr
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-        case $this->lookupNamespace('yt') . ':' . 'position':
-            $position = new Zend_Gdata_YouTube_Extension_Position();
-            $position->transferFromDOM($child);
-            $this->_position = $position;
-            break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            case $this->lookupNamespace('yt') . ':' . 'position':
+                $position = new Zend_Gdata_YouTube_Extension_Position();
+                $position->transferFromDOM($child);
+                $this->_position = $position;
+                break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
-
 
     /**
      * Sets the array of embedded feeds related to the video

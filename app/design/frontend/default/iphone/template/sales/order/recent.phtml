@@ -25,33 +25,33 @@
  */
 ?>
 <div class="info-box recent-orders">
-<?php $_orders = $this->getOrders(); ?>
-    <h3 class="box-title"><?php echo $this->__('Recent Orders') ?><?php if( sizeof($_orders->getItems()) > 0 ): ?> <span class="separator">|</span> <a href="<?php echo $this->getUrl('sales/order/history') ?>"><?php echo $this->__('View All') ?></a><?php endif; ?></h3>
+    <?php $_orders = $this->getOrders(); ?>
+    <h3 class="box-title"><?php echo $this->__('Recent Orders') ?><?php if (sizeof($_orders->getItems()) > 0): ?> <span class="separator">|</span> <a href="<?php echo $this->getUrl('sales/order/history') ?>"><?php echo $this->__('View All') ?></a><?php endif; ?></h3>
     <div class="box-content">
-    <?php echo $this->getChildHtml()?>
-<?php if( sizeof($_orders->getItems()) > 0 ): ?>
-    <table class="data-table" id="my-orders-table">
-        <thead>
-            <tr>
-                <th><?php echo $this->__('Order #') ?></th>
-                <th><?php echo $this->__('Date') ?></th>
-                <th><span class="nobr"><?php echo $this->__('Total') ?></span></th>
-                <th><?php echo $this->__('Status') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($_orders as $_order): ?>
-                <tr>
-                    <td><a href="<?php echo $this->getViewUrl($_order) ?>" class="nobr"><?php echo $_order->getRealOrderId() ?></a></td>
-                    <td><span class="nobr"><?php echo $this->formatDate($_order->getCreatedAtStoreDate()) ?></span></td>
-                    <td><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
-                    <td><em><?php echo $_order->getStatusLabel() ?></em></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-<?php else: ?>
-    <p><?php echo $this->__('You have placed no orders.'); ?></p>
-<?php endif; ?>
+        <?php echo $this->getChildHtml() ?>
+        <?php if (sizeof($_orders->getItems()) > 0): ?>
+            <table class="data-table" id="my-orders-table">
+                <thead>
+                    <tr>
+                        <th><?php echo $this->__('Order #') ?></th>
+                        <th><?php echo $this->__('Date') ?></th>
+                        <th><span class="nobr"><?php echo $this->__('Total') ?></span></th>
+                        <th><?php echo $this->__('Status') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($_orders as $_order): ?>
+                        <tr>
+                            <td><a href="<?php echo $this->getViewUrl($_order) ?>" class="nobr"><?php echo $_order->getRealOrderId() ?></a></td>
+                            <td><span class="nobr"><?php echo $this->formatDate($_order->getCreatedAtStoreDate()) ?></span></td>
+                            <td><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+                            <td><em><?php echo $_order->getStatusLabel() ?></em></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p><?php echo $this->__('You have placed no orders.'); ?></p>
+        <?php endif; ?>
     </div>
 </div>

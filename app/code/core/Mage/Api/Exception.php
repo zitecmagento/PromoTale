@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,9 +34,10 @@
  */
 class Mage_Api_Exception extends Mage_Core_Exception
 {
+
     protected $_customMessage = null;
 
-    public function __construct($faultCode, $customMessage=null)
+    public function __construct($faultCode, $customMessage = null)
     {
         parent::__construct($faultCode);
         $this->_customMessage = $customMessage;
@@ -50,4 +52,7 @@ class Mage_Api_Exception extends Mage_Core_Exception
     {
         return $this->_customMessage;
     }
-} // Class Mage_Api_Model_Resource_Exception End
+
+}
+
+// Class Mage_Api_Model_Resource_Exception End

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ProjectProvidersDirectory.php 23202 2010-10-21 15:08:15Z ralph $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Filesystem_Directory
  */
@@ -46,10 +46,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Project_Context_System_ProjectProvidersDirectory
-    extends Zend_Tool_Project_Context_Filesystem_Directory
-    implements Zend_Tool_Project_Context_System_Interface,
-               Zend_Tool_Project_Context_System_NotOverwritable
+class Zend_Tool_Project_Context_System_ProjectProvidersDirectory extends Zend_Tool_Project_Context_Filesystem_Directory implements Zend_Tool_Project_Context_System_Interface, Zend_Tool_Project_Context_System_NotOverwritable
 {
 
     /**
@@ -66,16 +63,16 @@ class Zend_Tool_Project_Context_System_ProjectProvidersDirectory
     {
         return 'ProjectProvidersDirectory';
     }
-    
+
     public function loadProviders(Zend_Tool_Framework_Registry_Interface $registry)
     {
         if (file_exists($this->getPath())) {
 
             $providerRepository = $registry->getProviderRepository();
-            
+
             foreach (new DirectoryIterator($this->getPath()) as $item) {
                 if ($item->isFile() && (($suffixStart = strpos($item->getFilename(), 'Provider.php')) !== false)) {
-                    $className = substr($item->getFilename(), 0, $suffixStart+8);
+                    $className = substr($item->getFilename(), 0, $suffixStart + 8);
                     // $loadableFiles[$className] = $item->getPathname();
                     include_once $item->getPathname();
                     $providerRepository->addProvider(new $className());

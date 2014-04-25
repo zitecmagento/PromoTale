@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Db.php 22544 2010-07-10 15:01:37Z freak $
  */
-
 /**
  * @see Zend_Application_Resource_ResourceAbstract
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Application_Resource_Db extends Zend_Application_Resource_ResourceAbstract
 {
+
     /**
      * Adapter to use
      *
@@ -136,8 +137,7 @@ class Zend_Application_Resource_Db extends Zend_Application_Resource_ResourceAbs
      */
     public function getDbAdapter()
     {
-        if ((null === $this->_db)
-            && (null !== ($adapter = $this->getAdapter()))
+        if ((null === $this->_db) && (null !== ($adapter = $this->getAdapter()))
         ) {
             $this->_db = Zend_Db::factory($adapter, $this->getParams());
         }
@@ -171,11 +171,10 @@ class Zend_Application_Resource_Db extends Zend_Application_Resource_ResourceAbs
 
         if (is_string($cache)) {
             $bootstrap = $this->getBootstrap();
-            if ($bootstrap instanceof Zend_Application_Bootstrap_ResourceBootstrapper
-                && $bootstrap->hasPluginResource('CacheManager')
+            if ($bootstrap instanceof Zend_Application_Bootstrap_ResourceBootstrapper && $bootstrap->hasPluginResource('CacheManager')
             ) {
                 $cacheManager = $bootstrap->bootstrap('CacheManager')
-                    ->getResource('CacheManager');
+                        ->getResource('CacheManager');
                 if (null !== $cacheManager && $cacheManager->hasCache($cache)) {
                     $metadataCache = $cacheManager->getCache($cache);
                 }
@@ -190,4 +189,5 @@ class Zend_Application_Resource_Db extends Zend_Application_Resource_ResourceAbs
 
         return $this;
     }
+
 }

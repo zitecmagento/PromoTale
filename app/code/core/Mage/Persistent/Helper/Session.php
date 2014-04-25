@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Persistent Shopping Cart Data Helper
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
 {
+
     /**
      * Instance of Session Model
      *
@@ -112,7 +113,7 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
             return $helper->isEnabled() && $helper->isRememberMeEnabled() && $helper->isRememberMeCheckedDefault();
         }
 
-        return (bool)$this->_isRememberMeChecked;
+        return (bool) $this->_isRememberMeChecked;
     }
 
     /**
@@ -138,4 +139,5 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
         }
         return $this->_customer;
     }
+
 }

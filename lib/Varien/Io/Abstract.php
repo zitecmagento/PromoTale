@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Install and upgrade client abstract class
  *
@@ -34,6 +34,7 @@
  */
 abstract class Varien_Io_Abstract implements Varien_Io_Interface
 {
+
     /**
      * If this variable is set to true, our library will be able to automaticaly
      * create non-existant directories
@@ -50,7 +51,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
      */
     public function setAllowCreateFolders($flag)
     {
-        $this->_allowCreateFolders = (bool)$flag;
+        $this->_allowCreateFolders = (bool) $flag;
         return $this;
     }
 
@@ -76,7 +77,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
             return './';
         }
 
-        $path = trim(preg_replace("/\\\\/", "/", (string)$path));
+        $path = trim(preg_replace("/\\\\/", "/", (string) $path));
 
         if (!preg_match("/(\.\w{1,4})$/", $path) && !preg_match("/\?[^\\/]+$/", $path) && !preg_match("/\\/$/", $path)) {
             $path .= '/';
@@ -97,9 +98,8 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
         for ($i = 0, $realPathParts = array(); $i < count($pathParts); $i++) {
             if ($pathParts[$i] == '.') {
                 continue;
-            }
-            elseif ($pathParts[$i] == '..') {
-                if ((isset($realPathParts[0])  &&  $realPathParts[0] != '..') || ($pathTokR != "")) {
+            } elseif ($pathParts[$i] == '..') {
+                if ((isset($realPathParts[0]) && $realPathParts[0] != '..') || ($pathTokR != "")) {
                     array_pop($realPathParts);
                     continue;
                 }
@@ -115,4 +115,5 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
     {
         return strpos($this->getCleanPath($haystackPath), $this->getCleanPath($needlePath)) === 0;
     }
+
 }

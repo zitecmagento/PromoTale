@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Configurable extends Mage_Catalog_Block_Product_View_Type_Configurable
 {
+
     /**
      * Retrieve product
      *
@@ -73,4 +75,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Configurable exten
         $result['stablePrices'] = true; // We don't want to recalc prices displayed in OPTIONs of SELECT
         return $result;
     }
+
 }

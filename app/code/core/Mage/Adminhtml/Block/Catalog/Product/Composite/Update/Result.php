@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,6 +36,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Composite_Update_Result extends Mage_Core_Block_Template
 {
+
     /**
      * Forms script response
      *
@@ -47,4 +49,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Update_Result extends Mage_
         $jsVarname = $updateResult->getJsVarName();
         return Mage::helper('adminhtml/js')->getScript(sprintf('var %s = %s', $jsVarname, $resultJson));
     }
+
 }

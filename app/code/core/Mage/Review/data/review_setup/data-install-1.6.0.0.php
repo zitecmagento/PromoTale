@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
  * Review data install
  *
@@ -31,7 +31,6 @@
  * @package     Mage_Review
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 
@@ -48,14 +47,14 @@ foreach ($reviewEntityCodes as $entityCode) {
 
 //Fill table review/review_entity
 $reviewStatuses = array(
-    Mage_Review_Model_Review::STATUS_APPROVED       => 'Approved',
-    Mage_Review_Model_Review::STATUS_PENDING        => 'Pending',
-    Mage_Review_Model_Review::STATUS_NOT_APPROVED   => 'Not Approved'
+    Mage_Review_Model_Review::STATUS_APPROVED => 'Approved',
+    Mage_Review_Model_Review::STATUS_PENDING => 'Pending',
+    Mage_Review_Model_Review::STATUS_NOT_APPROVED => 'Not Approved'
 );
 foreach ($reviewStatuses as $k => $v) {
     $bind = array(
-        'status_id'     => $k,
-        'status_code'   => $v
+        'status_id' => $k,
+        'status_code' => $v
     );
     $installer->getConnection()->insertForce($installer->getTable('review/review_status'), $bind);
 }

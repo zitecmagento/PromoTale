@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,28 +24,19 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 $installer = $this;
 $installer->startSetup();
 
 /* Include code from mysql4-upgrade-0.9.38-0.9.39.php */
-$installer->getConnection()->addColumn($installer->getTable('sales_flat_quote_item'),
-    'store_id', 'smallint(5) unsigned default null AFTER `product_id`');
-$installer->getConnection()->addConstraint('FK_SALES_QUOTE_ITEM_STORE',
-    $installer->getTable('sales_flat_quote_item'), 'store_id',
-    $installer->getTable('core/store'), 'store_id',
-    'set null', 'cascade'
+$installer->getConnection()->addColumn($installer->getTable('sales_flat_quote_item'), 'store_id', 'smallint(5) unsigned default null AFTER `product_id`');
+$installer->getConnection()->addConstraint('FK_SALES_QUOTE_ITEM_STORE', $installer->getTable('sales_flat_quote_item'), 'store_id', $installer->getTable('core/store'), 'store_id', 'set null', 'cascade'
 );
-$installer->getConnection()->addColumn($installer->getTable('sales_flat_order_item'),
-    'store_id', 'smallint(5) unsigned default null AFTER `quote_item_id`');
-$installer->getConnection()->addConstraint('FK_SALES_ORDER_ITEM_STORE',
-    $installer->getTable('sales_flat_order_item'), 'store_id',
-    $installer->getTable('core/store'), 'store_id',
-    'set null', 'cascade'
+$installer->getConnection()->addColumn($installer->getTable('sales_flat_order_item'), 'store_id', 'smallint(5) unsigned default null AFTER `quote_item_id`');
+$installer->getConnection()->addConstraint('FK_SALES_ORDER_ITEM_STORE', $installer->getTable('sales_flat_order_item'), 'store_id', $installer->getTable('core/store'), 'store_id', 'set null', 'cascade'
 );
 $installer->addAttribute('quote_item', 'redirect_url', array(
-    'type'  => 'varchar',
+    'type' => 'varchar',
 ));
 /* including end */
 
@@ -693,89 +685,82 @@ CREATE TABLE `{$installer->getTable('sales_flat_creditmemo_comment')}` (
 ");
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('sales_flat_order_item'),
-    'FK_SALES_ORDER_ITEM_STORE'
+        $installer->getTable('sales_flat_order_item'), 'FK_SALES_ORDER_ITEM_STORE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('sales_payment_transaction'),
-    'FK_SALES_PAYMENT_TXN_PARENT'
+        $installer->getTable('sales_payment_transaction'), 'FK_SALES_PAYMENT_TXN_PARENT'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('sales_payment_transaction'),
-    'FK_SALES_TXN_ORDER'
+        $installer->getTable('sales_payment_transaction'), 'FK_SALES_TXN_ORDER'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('sales_payment_transaction'),
-    'FK_SALES_TXN_PAYMENT'
+        $installer->getTable('sales_payment_transaction'), 'FK_SALES_TXN_PAYMENT'
 );
 
 $installer->getConnection()->dropKey(
-    $installer->getTable('sales_flat_order_item'),
-    'FK_SALES_ORDER_ITEM_STORE'
+        $installer->getTable('sales_flat_order_item'), 'FK_SALES_ORDER_ITEM_STORE'
 );
 
 $installer->getConnection()->addKey(
-    $installer->getTable('sales_flat_order_item'),
-    'IDX_STORE_ID',
-    'store_id'
+        $installer->getTable('sales_flat_order_item'), 'IDX_STORE_ID', 'store_id'
 );
 
 $installer->getConnection()->dropColumn($installer->getTable('sales_flat_order_item'), 'is_active');
 
 $excludeAttributes = array(
-    'all'                   => array('entity_type_id', 'attribute_set_id', 'is_active'),
-    'order_payment'         => array('increment_id','created_at', 'updated_at', 'store_id'),
-    'order_status_history'  => array('updated_at', 'store_id', 'increment_id'),
-    'invoice_comment'       => array('updated_at', 'store_id', 'increment_id'),
-    'shipment_comment'      => array('updated_at', 'store_id', 'increment_id'),
-    'creditmemo_comment'    => array('updated_at', 'store_id', 'increment_id'),
-    'invoice_item'          => array('increment_id','created_at', 'updated_at', 'store_id'),
-    'shipment_item'         => array('increment_id','created_at', 'updated_at', 'store_id'),
-    'creditmemo_item'       => array('increment_id','created_at', 'updated_at', 'store_id'),
-    'order_address'         => array('increment_id','created_at', 'updated_at', 'store_id'),
-    'order'                 => array('payment_authorization_amount', 'parent_id'),
-    'creditmemo'            => array('parent_id'),
-    'invoice'               => array('parent_id'),
-    'shipment'              => array('parent_id'),
-    'shipment_track'        => array('increment_id', 'store_id'),
+    'all' => array('entity_type_id', 'attribute_set_id', 'is_active'),
+    'order_payment' => array('increment_id', 'created_at', 'updated_at', 'store_id'),
+    'order_status_history' => array('updated_at', 'store_id', 'increment_id'),
+    'invoice_comment' => array('updated_at', 'store_id', 'increment_id'),
+    'shipment_comment' => array('updated_at', 'store_id', 'increment_id'),
+    'creditmemo_comment' => array('updated_at', 'store_id', 'increment_id'),
+    'invoice_item' => array('increment_id', 'created_at', 'updated_at', 'store_id'),
+    'shipment_item' => array('increment_id', 'created_at', 'updated_at', 'store_id'),
+    'creditmemo_item' => array('increment_id', 'created_at', 'updated_at', 'store_id'),
+    'order_address' => array('increment_id', 'created_at', 'updated_at', 'store_id'),
+    'order' => array('payment_authorization_amount', 'parent_id'),
+    'creditmemo' => array('parent_id'),
+    'invoice' => array('parent_id'),
+    'shipment' => array('parent_id'),
+    'shipment_track' => array('increment_id', 'store_id'),
 );
 
 $entityToFlat = array(
-    'order'                 => array('grid'=>true),
-    'order_item'            => array('flat'=> true),
-    'order_address'         => array(),
-    'order_payment'         => array(),
-    'order_status_history'  => array(),
-    'invoice'               => array('grid' => true),
-    'invoice_item'          => array(),
-    'invoice_comment'       => array(),
-    'creditmemo'            => array('grid' => true),
-    'creditmemo_item'       => array(),
-    'creditmemo_comment'    => array(),
-    'shipment'              => array('grid' => true),
-    'shipment_item'         => array(),
-    'shipment_comment'      => array(),
-    'shipment_track'        => array()
+    'order' => array('grid' => true),
+    'order_item' => array('flat' => true),
+    'order_address' => array(),
+    'order_payment' => array(),
+    'order_status_history' => array(),
+    'invoice' => array('grid' => true),
+    'invoice_item' => array(),
+    'invoice_comment' => array(),
+    'creditmemo' => array('grid' => true),
+    'creditmemo_item' => array(),
+    'creditmemo_comment' => array(),
+    'shipment' => array('grid' => true),
+    'shipment_item' => array(),
+    'shipment_comment' => array(),
+    'shipment_track' => array()
 );
 
 /* @var $select Varien_Db_Select */
 $select = $installer->getConnection()->select();
 
 $select
-    ->from(array('attribute' => $installer->getTable('eav/attribute')), array(
-        'id'   => 'attribute_id',
-        'code' => 'attribute_code',
-        'type' => 'backend_type',
-        'table' => 'backend_table'))
-    ->join(array('entity' => $installer->getTable('eav/entity_type')), 'attribute.entity_type_id = entity.entity_type_id', array(
-        'entity' => 'entity_type_code',
-        'type_id' => 'entity_type_id'
-    ))
-    ->where('entity.entity_type_code IN (?)', array_keys($entityToFlat))
-    ->where('attribute.attribute_code NOT IN(?)', $excludeAttributes['all']);
+        ->from(array('attribute' => $installer->getTable('eav/attribute')), array(
+            'id' => 'attribute_id',
+            'code' => 'attribute_code',
+            'type' => 'backend_type',
+            'table' => 'backend_table'))
+        ->join(array('entity' => $installer->getTable('eav/entity_type')), 'attribute.entity_type_id = entity.entity_type_id', array(
+            'entity' => 'entity_type_code',
+            'type_id' => 'entity_type_id'
+        ))
+        ->where('entity.entity_type_code IN (?)', array_keys($entityToFlat))
+        ->where('attribute.attribute_code NOT IN(?)', $excludeAttributes['all']);
 ;
 
 
@@ -788,16 +773,16 @@ foreach ($installer->getConnection()->fetchAll($select) as $attribute) {
 
 $definitions = array(
     'datetime' => 'datetime default null',
-    'int'      => 'int(11) default null',
-    'varchar'  => 'varchar(255) default null',
-    'text'  => 'text default null',
-    'decimal'  => 'decimal(12,4) default null'
+    'int' => 'int(11) default null',
+    'varchar' => 'varchar(255) default null',
+    'text' => 'text default null',
+    'decimal' => 'decimal(12,4) default null'
 );
 
 foreach ($entityToFlat as $entityCode => $flags) {
     $flatTablePrefix = 'sales_flat_' . $entityCode;
     $flatFields = $installer->getConnection()->fetchPairs(
-        'DESCRIBE ' . $installer->getTable($flatTablePrefix)
+            'DESCRIBE ' . $installer->getTable($flatTablePrefix)
     );
 
     if (!empty($flags['flat'])) {
@@ -809,7 +794,7 @@ foreach ($entityToFlat as $entityCode => $flags) {
     }
 
     $entityFields = $installer->getConnection()->fetchPairs(
-        'DESCRIBE ' . $entityTable
+            'DESCRIBE ' . $entityTable
     );
 
     $entityIndex = $installer->getConnection()->getIndexList($entityTable);
@@ -825,13 +810,12 @@ foreach ($entityToFlat as $entityCode => $flags) {
 
     foreach ($entityFields as $code => $definition) {
         if (!isset($flatFields[$code]) &&
-            !in_array($code, $excludeAttributes['all']) &&
-            (!isset($excludeAttributes[$entityCode]) ||
+                !in_array($code, $excludeAttributes['all']) &&
+                (!isset($excludeAttributes[$entityCode]) ||
                 !in_array($code, $excludeAttributes[$entityCode]))) {
 
             $installer->getConnection()->addColumn(
-                $installer->getTable($flatTablePrefix),
-                $code, $definition
+                    $installer->getTable($flatTablePrefix), $code, $definition
             );
 
             if (isset($entityFieldInIndex[$code])) { // Add entity table indexes with custom fields
@@ -845,10 +829,7 @@ foreach ($entityToFlat as $entityCode => $flags) {
     foreach ($addIndex as $indexName) { // Adding indexes to not loose them in customizations
         $fields = array_intersect($entityIndex[$indexName]['fields'], array_keys($flatFields));
         $installer->getConnection()->addKey(
-            $installer->getTable($flatTablePrefix),
-            $indexName,
-            $fields,
-            $entityIndex[$indexName]['type']
+                $installer->getTable($flatTablePrefix), $indexName, $fields, $entityIndex[$indexName]['type']
         );
     }
 
@@ -862,14 +843,13 @@ foreach ($entityToFlat as $entityCode => $flags) {
             }
 
             if (!isset($flatFields[$attributeCode]) &&
-                isset($definitions[$attribute['type']]) &&
-                !in_array($attributeCode, $excludeAttributes['all']) &&
-                (!isset($excludeAttributes[$entityCode]) ||
-                !in_array($attributeCode, $excludeAttributes[$entityCode]))) {
+                    isset($definitions[$attribute['type']]) &&
+                    !in_array($attributeCode, $excludeAttributes['all']) &&
+                    (!isset($excludeAttributes[$entityCode]) ||
+                    !in_array($attributeCode, $excludeAttributes[$entityCode]))) {
 
                 $installer->getConnection()->addColumn(
-                    $installer->getTable($flatTablePrefix),
-                    $attributeCode, $definitions[$attribute['type']]
+                        $installer->getTable($flatTablePrefix), $attributeCode, $definitions[$attribute['type']]
                 );
 
 
@@ -888,7 +868,7 @@ foreach ($entityToFlat as $entityCode => $flags) {
 
     if ($entityTable !== $installer->getTable($flatTablePrefix)) {
         $select->reset()
-            ->from(array('e' => $entityTable), $fields);
+                ->from(array('e' => $entityTable), $fields);
 
         $select->where('e.entity_type_id = ?', $entityTypeId);
 
@@ -906,36 +886,33 @@ foreach ($entityToFlat as $entityCode => $flags) {
 
                 $alias = '_table_' . $attribute['code'];
                 $select->joinLeft(
-                    array($alias=>$table),
-                    $alias . '.entity_id = e.entity_id AND ' . $alias . '.attribute_id = ' . $attribute['id'],
-                    array($attribute['code'] => 'value')
+                        array($alias => $table), $alias . '.entity_id = e.entity_id AND ' . $alias . '.attribute_id = ' . $attribute['id'], array(
+                    $attribute['code'] => 'value')
                 );
                 $joinCount ++;
 
                 if ($joinCount > 60) { // If we have too much joins for mysql
                     $joinCount = 0;
-                    $sql .= $select->crossUpdateFromSelect(array('e'=>$installer->getTable($flatTablePrefix)))  . "; \n";
+                    $sql .= $select->crossUpdateFromSelect(array('e' => $installer->getTable($flatTablePrefix))) . "; \n";
                     $select->reset();
                 }
             }
 
             if ($joinCount > 0) {
-                $sql .= $select->crossUpdateFromSelect(array('e'=>$installer->getTable($flatTablePrefix)))  . "; \n";
+                $sql .= $select->crossUpdateFromSelect(array('e' => $installer->getTable($flatTablePrefix))) . "; \n";
             }
         }
-
-    } else  {
+    } else {
         $sql = '';
     }
 
     if (!empty($flags['grid'])) { // Filling grid table with default base record
         $gridFields = array_keys(
-            array_intersect_key(
-                $installer->getConnection()->describeTable(
-                    $installer->getTable($flatTablePrefix . '_grid')
-                ),
-                $flatFields
-            )
+                array_intersect_key(
+                        $installer->getConnection()->describeTable(
+                                $installer->getTable($flatTablePrefix . '_grid')
+                        ), $flatFields
+                )
         );
 
         $select->reset();
@@ -947,61 +924,52 @@ foreach ($entityToFlat as $entityCode => $flags) {
 }
 
 // Insert virtual grid fields (shipping_name, billing_name, etc)
-
 // Order Grid
 $select->reset();
 $select->join(
-    array('order' => $installer->getTable('sales_flat_order')),
-    'order.entity_id = e.entity_id',
-    array()
+        array('order' => $installer->getTable('sales_flat_order')), 'order.entity_id = e.entity_id', array()
 );
 
 $select->joinLeft(
-    array('shipping_address' => $installer->getTable('sales_flat_order_address')),
-    'order.shipping_address_id = shipping_address.entity_id',
-    array('shipping_name' => 'IF(shipping_address.entity_id IS NOT NULL, CONCAT(shipping_address.firstname, \' \', shipping_address.lastname), NULL)')
+        array('shipping_address' => $installer->getTable('sales_flat_order_address')), 'order.shipping_address_id = shipping_address.entity_id', array(
+    'shipping_name' => 'IF(shipping_address.entity_id IS NOT NULL, CONCAT(shipping_address.firstname, \' \', shipping_address.lastname), NULL)')
 );
 
 $select->joinLeft(
-    array('billing_address' => $installer->getTable('sales_flat_order_address')),
-    'order.billing_address_id = billing_address.entity_id',
-    array('billing_name' => 'IF(billing_address.entity_id IS NOT NULL, CONCAT(billing_address.firstname, \' \', billing_address.lastname), NULL)')
+        array('billing_address' => $installer->getTable('sales_flat_order_address')), 'order.billing_address_id = billing_address.entity_id', array(
+    'billing_name' => 'IF(billing_address.entity_id IS NOT NULL, CONCAT(billing_address.firstname, \' \', billing_address.lastname), NULL)')
 );
 
-$installer->run($select->crossUpdateFromSelect(array('e'=>$installer->getTable('sales_flat_order_grid'))));
+$installer->run($select->crossUpdateFromSelect(array('e' => $installer->getTable('sales_flat_order_grid'))));
 
 // Invoice and Creditmemo grid
 $select->reset();
 $select->join(
-    array('order' => $installer->getTable('sales_flat_order')),
-    'order.entity_id = e.order_id',
-    array('order_increment_id' => 'increment_id', 'order_created_at' => 'created_at')
+        array('order' => $installer->getTable('sales_flat_order')), 'order.entity_id = e.order_id', array('order_increment_id' => 'increment_id',
+    'order_created_at' => 'created_at')
 );
 
 $select->joinLeft(
-    array('billing_address' => $installer->getTable('sales_flat_order_address')),
-    'order.billing_address_id = billing_address.entity_id',
-    array('billing_name' => 'IF(billing_address.entity_id IS NOT NULL, CONCAT(billing_address.firstname, \' \', billing_address.lastname), NULL)')
+        array('billing_address' => $installer->getTable('sales_flat_order_address')), 'order.billing_address_id = billing_address.entity_id', array(
+    'billing_name' => 'IF(billing_address.entity_id IS NOT NULL, CONCAT(billing_address.firstname, \' \', billing_address.lastname), NULL)')
 );
 
-$installer->run($select->crossUpdateFromSelect(array('e'=>$installer->getTable('sales_flat_creditmemo_grid'))));
-$installer->run($select->crossUpdateFromSelect(array('e'=>$installer->getTable('sales_flat_invoice_grid'))));
+$installer->run($select->crossUpdateFromSelect(array('e' => $installer->getTable('sales_flat_creditmemo_grid'))));
+$installer->run($select->crossUpdateFromSelect(array('e' => $installer->getTable('sales_flat_invoice_grid'))));
 
 // Shipment grid
 $select->reset();
 $select->join(
-    array('order' => $installer->getTable('sales_flat_order')),
-    'order.entity_id = e.order_id',
-    array('order_increment_id' => 'increment_id', 'order_created_at' => 'created_at')
+        array('order' => $installer->getTable('sales_flat_order')), 'order.entity_id = e.order_id', array('order_increment_id' => 'increment_id',
+    'order_created_at' => 'created_at')
 );
 
 $select->joinLeft(
-    array('shipping_address' => $installer->getTable('sales_flat_order_address')),
-    'order.shipping_address_id = shipping_address.entity_id',
-    array('shipping_name' => 'IF(shipping_address.entity_id IS NOT NULL, CONCAT(shipping_address.firstname, \' \', shipping_address.lastname), NULL)')
+        array('shipping_address' => $installer->getTable('sales_flat_order_address')), 'order.shipping_address_id = shipping_address.entity_id', array(
+    'shipping_name' => 'IF(shipping_address.entity_id IS NOT NULL, CONCAT(shipping_address.firstname, \' \', shipping_address.lastname), NULL)')
 );
 
-$installer->run($select->crossUpdateFromSelect(array('e'=>$installer->getTable('sales_flat_shipment_grid'))));
+$installer->run($select->crossUpdateFromSelect(array('e' => $installer->getTable('sales_flat_shipment_grid'))));
 
 $constraints = array(
     'sales_flat_order' => array(
@@ -1113,29 +1081,29 @@ $installer->getConnection()->addColumn($table, 'base_shipping_tax_amount', 'deci
 $installer->getConnection()->addColumn($table, 'base_shipping_tax_refunded_amount', 'decimal(12,4) NOT NULL DEFAULT \'0.0000\'');
 
 $flag = Mage::getModel('reports/flag')
-    ->setReportFlagCode(Mage_Reports_Model_Flag::REPORT_ORDER_FLAG_CODE)
-    ->loadSelf();
+        ->setReportFlagCode(Mage_Reports_Model_Flag::REPORT_ORDER_FLAG_CODE)
+        ->loadSelf();
 
-if($flag->getId()) {
+if ($flag->getId()) {
     $flag->delete();
 }
 
 
 $select = $installer->getConnection()->select();
 $select->from($installer->getTable('sales/order_item'), array(
-        'total_item_count'   => 'COUNT(item_id)',
-        'entity_id'           => 'order_id'))
-    ->where('parent_item_id IS NULL')
-    ->group(array('order_id'));
+            'total_item_count' => 'COUNT(item_id)',
+            'entity_id' => 'order_id'))
+        ->where('parent_item_id IS NULL')
+        ->group(array('order_id'));
 
-$temporaryTable =  'tmp_sales_order_item_count_' . md5(uniqid('order_item_count'));
+$temporaryTable = 'tmp_sales_order_item_count_' . md5(uniqid('order_item_count'));
 
 $installer->getConnection()->query('CREATE TEMPORARY TABLE ' . $installer->getConnection()->quoteIdentifier($temporaryTable) . ' ' . $select->assemble());
 
 $select->reset()
-    ->join(array('items_count_table'=>$temporaryTable), 'items_count_table.entity_id = order_table.entity_id', array(
-        'total_item_count'=>'total_item_count'
-    ));
+        ->join(array('items_count_table' => $temporaryTable), 'items_count_table.entity_id = order_table.entity_id', array(
+            'total_item_count' => 'total_item_count'
+        ));
 
 $installer->getConnection()->query($select->crossUpdateFromSelect(array('order_table' => $installer->getTable('sales/order'))));
 $installer->getConnection()->query('DROP TEMPORARY TABLE ' . $temporaryTable);
@@ -1158,7 +1126,8 @@ $orderEntityTypeId = $orderEntityType['entity_type_id'];
 $attribute = $installer->getAttribute($orderEntityTypeId, 'coupon_code');
 
 if ($attribute && is_array($attribute) && isset($attribute['backend_type']) && $attribute['backend_type'] !== 'static') {
-    try {
+    try
+    {
         $installer->getConnection()->beginTransaction();
         $installer->run("
             UPDATE {$installer->getTable('sales_flat_order')} AS o, {$installer->getTable('sales_order_entity_varchar')} AS od
@@ -1169,7 +1138,9 @@ if ($attribute && is_array($attribute) && isset($attribute['backend_type']) && $
         ");
         $installer->updateAttribute($orderEntityTypeId, $attribute['attribute_code'], array('backend_type' => 'static'));
         $installer->getConnection()->commit();
-    } catch (Exception $e) {
+    }
+    catch (Exception $e)
+    {
         $installer->getConnection()->rollback();
         throw $e;
     }
@@ -1197,7 +1168,7 @@ foreach ($tablesToDrop as $table) {
         continue;
     }
     $installer->getConnection()->query(
-        'DROP TABLE ' . $installer->getConnection()->quoteIdentifier($table)
+            'DROP TABLE ' . $installer->getConnection()->quoteIdentifier($table)
     );
 }
 
@@ -1255,7 +1226,7 @@ $tableData = array(
 foreach ($tableData as $table => $columns) {
     foreach ($columns as $columnName => $columnType) {
         $installer->getConnection()->addColumn(
-            $installer->getTable($table), $columnName, $definitions[$columnType]
+                $installer->getTable($table), $columnName, $definitions[$columnType]
         );
     }
 }

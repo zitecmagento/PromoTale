@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Config extends Varien_Simplexml_Config
 {
+
     /**
      * Node name of resource groups
      */
@@ -41,7 +43,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     /**
      * Id for config cache
      */
-    const CACHE_ID  = 'config_api2';
+    const CACHE_ID = 'config_api2';
 
     /**
      * Tag name for config cache
@@ -69,9 +71,9 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
         $canUserCache = Mage::app()->useCache('config');
         if ($canUserCache) {
             $this->setCacheId(self::CACHE_ID)
-                ->setCacheTags(array(self::CACHE_TAG))
-                ->setCacheChecksum(null)
-                ->setCache(Mage::app()->getCache());
+                    ->setCacheTags(array(self::CACHE_TAG))
+                    ->setCacheChecksum(null)
+                    ->setCache(Mage::app()->getCache());
 
             if ($this->loadCache()) {
                 return;
@@ -99,8 +101,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
         /** @var $helper Mage_Api2_Helper_Data */
         $helper = Mage::helper('api2');
         if (!$helper->isApiTypeSupported($apiType)) {
-            throw new Mage_Api2_Exception(sprintf('API type "%s" is not supported', $apiType),
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+            throw new Mage_Api2_Exception(sprintf('API type "%s" is not supported', $apiType), Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
 
         $routes = array();
@@ -112,11 +113,11 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
             /** @var $routes Varien_Simplexml_Element */
             foreach ($resource->routes->children() as $route) {
                 $arguments = array(
-                    Mage_Api2_Model_Route_Abstract::PARAM_ROUTE    => (string)$route->route,
+                    Mage_Api2_Model_Route_Abstract::PARAM_ROUTE => (string) $route->route,
                     Mage_Api2_Model_Route_Abstract::PARAM_DEFAULTS => array(
-                        'model'       => (string)$resource->model,
-                        'type'        => (string)$resourceKey,
-                        'action_type' => (string)$route->action_type
+                        'model' => (string) $resource->model,
+                        'type' => (string) $resourceKey,
+                        'action_type' => (string) $route->action_type
                     )
                 );
 
@@ -314,7 +315,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     public function getResourceEntityOnlyAttributes($resource, $userType, $operationType)
     {
         $node = $this->getNode('resources/' . $resource . '/entity_only_attributes/' . $userType . '/' .
-            $operationType);
+                $operationType);
         $entityOnlyAttributes = array();
 
         if ($node) {
@@ -335,7 +336,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      */
     public function getResourceWorkingModel($node)
     {
-        return (string)$this->getNode('resources/' . $node . '/working_model');
+        return (string) $this->getNode('resources/' . $node . '/working_model');
     }
 
     /**
@@ -350,11 +351,11 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
         $element = $this->getNode('resources/' . $node . '/versions');
         if (!$element) {
             throw new Exception(
-                sprintf('Resource "%s" does not have node <versions> in config.', htmlspecialchars($node))
+            sprintf('Resource "%s" does not have node <versions> in config.', htmlspecialchars($node))
             );
         }
 
-        $versions = explode(',', (string)$element);
+        $versions = explode(',', (string) $element);
         if (count(array_filter($versions, 'is_numeric')) != count($versions)) {
             throw new Exception(sprintf('Invalid resource "%s" versions in config.', htmlspecialchars($node)));
         }
@@ -372,7 +373,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      */
     public function getResourceModel($node)
     {
-        return (string)$this->getNode('resources/' . $node . '/model');
+        return (string) $this->getNode('resources/' . $node . '/model');
     }
 
     /**
@@ -423,7 +424,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     public function getResourceLastVersion($resourceType, $lowerOrEqualsTo = null)
     {
         $availVersions = $this->getVersions($resourceType); // already ordered in reverse order
-        $useVersion    = reset($availVersions);
+        $useVersion = reset($availVersions);
 
         if (null !== $lowerOrEqualsTo) {
             foreach ($availVersions as $availVersion) {
@@ -433,7 +434,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
-        return (int)$useVersion;
+        return (int) $useVersion;
     }
 
     /**
@@ -444,6 +445,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      */
     public function getRouteWithEntityTypeAction($node)
     {
-        return (string)$this->getNode('resources/' . $node . '/routes/route_entity/route');
+        return (string) $this->getNode('resources/' . $node . '/routes/route_entity/route');
     }
+
 }

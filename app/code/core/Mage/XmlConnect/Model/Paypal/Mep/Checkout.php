@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,13 +34,15 @@
  */
 class Mage_XmlConnect_Model_Paypal_Mep_Checkout
 {
-    /**#@+
+    /*     * #@+
      * Keys for passthrough variables in sales/quote_payment and sales/order_payment
      * Uses additional_information as storage
      */
+
     const PAYMENT_INFO_PAYER_EMAIL = 'paypal_payer_email';
     const PAYMENT_INFO_TRANSACTION_ID = 'paypal_mep_checkout_transaction_id';
-    /**#@-*/
+
+    /*     * #@- */
 
     /**
      * Payment method type
@@ -82,7 +85,7 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
             $this->_quote = $params['quote'];
         } else {
             Mage::throwException(
-                Mage::helper('xmlconnect')->__('Quote instance is required.')
+                    Mage::helper('xmlconnect')->__('Quote instance is required.')
             );
         }
     }
@@ -106,15 +109,14 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
         }
 
         /*
-        * want to load the correct customer information by assigning to address
-        * instead of just loading from sales/quote_address
-        */
+         * want to load the correct customer information by assigning to address
+         * instead of just loading from sales/quote_address
+         */
         $customer = Mage::getSingleton('customer/session')->getCustomer();
         if ($customer) {
             $this->_quote->assignCustomer($customer);
         }
-        if (!Mage::getSingleton('customer/session')->isLoggedIn()
-            && Mage::getSingleton('checkout/session')->getQuote()->isAllowedGuestCheckout()
+        if (!Mage::getSingleton('customer/session')->isLoggedIn() && Mage::getSingleton('checkout/session')->getQuote()->isAllowedGuestCheckout()
         ) {
             $this->_prepareGuestQuote();
         }
@@ -141,7 +143,7 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
 
         $paypalMepAllowSpecific = $model->getData('config_data[payment:paypalmep/allowspecific]');
         if ($paypalMepAllowSpecific !== null) {
-            if ((int)$paypalMepAllowSpecific > 0) {
+            if ((int) $paypalMepAllowSpecific > 0) {
                 $allowedCountries = explode(',', $model->getData('config_data[payment][paypalmep/applicable]'));
                 $allowedCountries = array_map('trim', $allowedCountries);
                 if (!in_array(trim($data['country_id']), $allowedCountries)) {
@@ -176,7 +178,7 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
             $shipping = $this->_quote->getShippingAddress();
             $shippingMethod = $shipping->getShippingMethod();
             $shipping->addData($billing->getData())->setSameAsBilling(1)->setShippingMethod($shippingMethod)
-                ->setCollectShippingRates(true);
+                    ->setCollectShippingRates(true);
         }
 
         $this->_quote->collectTotals()->save();
@@ -233,7 +235,7 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
         $email = isset($data['payer']) ? $data['payer'] : null;
         $payment->setAdditionalInformation(self::PAYMENT_INFO_PAYER_EMAIL, $email);
         $payment->setAdditionalInformation(
-            self::PAYMENT_INFO_TRANSACTION_ID, isset($data['transaction_id']) ? $data['transaction_id'] : null
+                self::PAYMENT_INFO_TRANSACTION_ID, isset($data['transaction_id']) ? $data['transaction_id'] : null
         );
         $this->_quote->setCustomerEmail($email);
 
@@ -262,14 +264,16 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
          */
         $quoteId = $this->_quote->getId();
         $this->_getCheckoutSession()->setLastQuoteId($quoteId)->setLastSuccessQuoteId($quoteId)
-            ->setLastOrderId($order->getId())->setLastRealOrderId($order->getIncrementId());
+                ->setLastOrderId($order->getId())->setLastRealOrderId($order->getIncrementId());
 
-        if ($order->getState() == Mage_Sales_Model_Order::STATE_PROCESSING
-            && Mage::getSingleton('customer/session')->isLoggedIn()
+        if ($order->getState() == Mage_Sales_Model_Order::STATE_PROCESSING && Mage::getSingleton('customer/session')->isLoggedIn()
         ) {
-            try {
+            try
+            {
                 $order->sendNewOrderEmail();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::logException($e);
             }
         }
@@ -284,7 +288,7 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
      */
     public function getLastOrderId()
     {
-        $lastId  = $this->_getCheckoutSession()->getLastOrderId();
+        $lastId = $this->_getCheckoutSession()->getLastOrderId();
         $orderId = false;
         if ($lastId) {
             $order = Mage::getModel('sales/order');
@@ -326,7 +330,7 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
     {
         $quote = $this->_quote;
         $quote->setCustomerId(null)->setCustomerIsGuest(true)
-            ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+                ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
         return $this;
     }
 
@@ -345,4 +349,5 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
             $request['country_id'] = strtoupper($request['country_id']);
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Message.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * A message envelope that can be passed to Zend_Wildfire_Plugin_FirePhp to be
  * logged to Firebug instead of a variable.
@@ -33,6 +33,7 @@
  */
 class Zend_Wildfire_Plugin_FirePhp_Message
 {
+
     /**
      * The style of the message
      * @var string
@@ -89,7 +90,7 @@ class Zend_Wildfire_Plugin_FirePhp_Message
     {
         $this->_style = $style;
         $this->_message = $message;
-        $this->_ruid = md5(microtime().mt_rand());
+        $this->_ruid = md5(microtime() . mt_rand());
     }
 
     /**
@@ -211,12 +212,12 @@ class Zend_Wildfire_Plugin_FirePhp_Message
      */
     public function setOption($key, $value)
     {
-      if(!array_key_exists($key,$this->_options)) {
-        throw new Zend_Wildfire_Exception('Option with name "'.$key.'" does not exist!');
-      }
-      $previous = $this->_options[$key];
-      $this->_options[$key] = $value;
-      return $previous;
+        if (!array_key_exists($key, $this->_options)) {
+            throw new Zend_Wildfire_Exception('Option with name "' . $key . '" does not exist!');
+        }
+        $previous = $this->_options[$key];
+        $this->_options[$key] = $value;
+        return $previous;
     }
 
     /**
@@ -227,10 +228,10 @@ class Zend_Wildfire_Plugin_FirePhp_Message
      */
     public function getOption($key)
     {
-      if(!array_key_exists($key,$this->_options)) {
-        throw new Zend_Wildfire_Exception('Option with name "'.$key.'" does not exist!');
-      }
-      return $this->_options[$key];
+        if (!array_key_exists($key, $this->_options)) {
+            throw new Zend_Wildfire_Exception('Option with name "' . $key . '" does not exist!');
+        }
+        return $this->_options[$key];
     }
 
     /**
@@ -240,7 +241,7 @@ class Zend_Wildfire_Plugin_FirePhp_Message
      */
     public function getOptions()
     {
-      return $this->_options;
+        return $this->_options;
     }
-}
 
+}

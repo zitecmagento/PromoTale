@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Controller_Dispatcher_Interface */
 #require_once 'Zend/Controller/Dispatcher/Interface.php';
 
@@ -32,6 +32,7 @@
  */
 abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Dispatcher_Interface
 {
+
     /**
      * Default action
      * @var string
@@ -237,8 +238,8 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
         }
 
         foreach ($segments as $key => $segment) {
-            $segment        = str_replace($this->getWordDelimiter(), ' ', strtolower($segment));
-            $segment        = preg_replace('/[^a-z0-9 ]/', '', $segment);
+            $segment = str_replace($this->getWordDelimiter(), ' ', strtolower($segment));
+            $segment = preg_replace('/[^a-z0-9 ]/', '', $segment);
             $segments[$key] = str_replace(' ', '', ucwords($segment));
         }
 
@@ -306,7 +307,7 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
      */
     public function getParam($name)
     {
-        if(isset($this->_invokeParams[$name])) {
+        if (isset($this->_invokeParams[$name])) {
             return $this->_invokeParams[$name];
         }
 
@@ -437,4 +438,5 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
     {
         return $this->_defaultModule;
     }
+
 }

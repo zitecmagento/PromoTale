@@ -32,29 +32,29 @@
 ?>
 <script type="text/javascript">
 //<![CDATA[
-    i=0;
-    var recipCount  = 1;
-    var maxRecip    = <?php echo $this->getMaxRecipients() ?>;
-    function remove_recipient(i){
-        $('recipients_name'+i).up(2).remove();
+    i = 0;
+    var recipCount = 1;
+    var maxRecip = <?php echo $this->getMaxRecipients() ?>;
+    function remove_recipient(i) {
+        $('recipients_name' + i).up(2).remove();
         recipCount--;
-        if(recipCount<maxRecip && maxRecip != 0) {
+        if (recipCount < maxRecip && maxRecip != 0) {
             $('add_recipient_button').show();
             $('max_recipient_message').hide();
         }
         return false;
     }
 
-    function add_recipient(){
+    function add_recipient() {
         ul = $('recipients_options');
         var li_mail = Element.extend(document.createElement("LI"));
         li_mail.addClassName('fields additional-row');
-        li_mail.innerHTML = '<p><a href="delete_email" title="<?php echo $this->jsQuoteEscape($this->__('Remove Email')) ?>" onclick="remove_recipient('+i+'); return false" class="btn-remove"><?php echo $this->jsQuoteEscape($this->__('Remove Email')) ?>"<\/a><\/p>'
-        li_mail.innerHTML += '<div class="field"><label for="recipients_name'+i+'" class="required"><em>*<\/em><?php echo $this->jsQuoteEscape($this->__('Name:')) ?><\/label><div class="input-box"><input name="recipients[name][]" type="text" class="input-text required-entry" id="recipients_name'+i+'" /><\/div>';
-        li_mail.innerHTML += '<div class="field"><label for="recipients_email'+i+'" class="required"><em>*<\/em><?php echo $this->jsQuoteEscape($this->__('Email Address:')) ?><\/label><div class="input-box"><input name="recipients[email][]" value="" title="<?php echo $this->jsQuoteEscape($this->__('Email Address')) ?>" id="recipients_email'+i+'" type="text" class="input-text required-entry validate-email" /><\/div><\/div>';
+        li_mail.innerHTML = '<p><a href="delete_email" title="<?php echo $this->jsQuoteEscape($this->__('Remove Email')) ?>" onclick="remove_recipient(' + i + '); return false" class="btn-remove"><?php echo $this->jsQuoteEscape($this->__('Remove Email')) ?>"<\/a><\/p>'
+        li_mail.innerHTML += '<div class="field"><label for="recipients_name' + i + '" class="required"><em>*<\/em><?php echo $this->jsQuoteEscape($this->__('Name:')) ?><\/label><div class="input-box"><input name="recipients[name][]" type="text" class="input-text required-entry" id="recipients_name' + i + '" /><\/div>';
+        li_mail.innerHTML += '<div class="field"><label for="recipients_email' + i + '" class="required"><em>*<\/em><?php echo $this->jsQuoteEscape($this->__('Email Address:')) ?><\/label><div class="input-box"><input name="recipients[email][]" value="" title="<?php echo $this->jsQuoteEscape($this->__('Email Address')) ?>" id="recipients_email' + i + '" type="text" class="input-text required-entry validate-email" /><\/div><\/div>';
         i++;
         recipCount++;
-        if(recipCount>=maxRecip && maxRecip != 0) {
+        if (recipCount >= maxRecip && maxRecip != 0) {
             $('add_recipient_button').hide();
             $('max_recipient_message').show();
         }
@@ -71,7 +71,7 @@
     </div>
     <form action="<?php echo $this->getSendUrl() ?>" method="post" id="product_sendtofriend_form">
         <div class="fieldset">
-            <?php echo $this->getBlockHtml('formkey')?>
+            <?php echo $this->getBlockHtml('formkey') ?>
             <h2 class="legend"><?php echo $this->__('Sender:') ?></h2>
             <ul class="form-list" id="sender_options">
                 <li class="fields">
@@ -82,16 +82,16 @@
                         </div>
                     </div>
                     <div class="field">
-                       <label for="sender_email" class="required"><em>*</em><?php echo $this->__('Email:') ?></label>
-                       <div class="input-box">
-                           <input name="sender[email]" value="<?php echo $this->escapeHtml($this->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" id="sender_email" type="text" class="input-text required-entry validate-email" />
-                       </div>
+                        <label for="sender_email" class="required"><em>*</em><?php echo $this->__('Email:') ?></label>
+                        <div class="input-box">
+                            <input name="sender[email]" value="<?php echo $this->escapeHtml($this->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" id="sender_email" type="text" class="input-text required-entry validate-email" />
+                        </div>
                     </div>
                 </li>
                 <li class="wide">
                     <label for="sender_message" class="required"><em>*</em><?php echo $this->__('Message:') ?></label>
                     <div class="input-box">
-                        <textarea name="sender[message]" class="input-text required-entry" id="sender_message" cols="3" rows="3"><?php echo $this->escapeHtml($this->getMessage())?></textarea>
+                        <textarea name="sender[message]" class="input-text required-entry" id="sender_message" cols="3" rows="3"><?php echo $this->escapeHtml($this->getMessage()) ?></textarea>
                     </div>
                 </li>
             </ul>
@@ -116,11 +116,12 @@
             </ul>
         </div>
         <div class="buttons-set">
-            <p class="back-link"><a href="#" onclick="history.back(); return false;"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
-            <button type="submit" class="button<?php if (!$this->canSend()):?> disabled<?php endif ?>"<?php if (!$this->canSend()):?> disabled="disabled"<?php endif ?>><span><span><?php echo $this->__('Send Email') ?></span></span></button>
+            <p class="back-link"><a href="#" onclick="history.back();
+                    return false;"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+            <button type="submit" class="button<?php if (!$this->canSend()): ?> disabled<?php endif ?>"<?php if (!$this->canSend()): ?> disabled="disabled"<?php endif ?>><span><span><?php echo $this->__('Send Email') ?></span></span></button>
             <div id="max_recipient_message" style="display:none;">
                 <?php if ($this->getMaxRecipients()): ?>
-                  <p class="limit"><?php echo $this->__('Maximum %d email addresses allowed.', $this->getMaxRecipients()) ?></p>
+                    <p class="limit"><?php echo $this->__('Maximum %d email addresses allowed.', $this->getMaxRecipients()) ?></p>
                 <?php endif; ?>
             </div>
             <?php if (1 < $this->getMaxRecipients()): ?>
@@ -131,13 +132,13 @@
         </div>
     </form>
     <script type="text/javascript">
-    //<![CDATA[
+        //<![CDATA[
         var productSendtofriendForm = new VarienForm('product_sendtofriend_form');
         productSendtofriendForm.submit = function() {
-            if(this.validator.validate()) {
+            if (this.validator.validate()) {
                 this.form.submit();
             }
         }.bind(productSendtofriendForm);
-    //]]>
+        //]]>
     </script>
 </div>

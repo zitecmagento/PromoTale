@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,12 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Sales_Model_Order_Creditmemo_Total_Grand extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
 {
+
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
-        $grandTotal     = $creditmemo->getGrandTotal();
+        $grandTotal = $creditmemo->getGrandTotal();
         $baseGrandTotal = $creditmemo->getBaseGrandTotal();
 
         $grandTotal+= $creditmemo->getAdjustmentPositive();
@@ -41,9 +41,10 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Grand extends Mage_Sales_Model_Ord
         $creditmemo->setGrandTotal($grandTotal);
         $creditmemo->setBaseGrandTotal($baseGrandTotal);
 
-        $creditmemo->setAdjustment($creditmemo->getAdjustmentPositive()-$creditmemo->getAdjustmentNegative());
-        $creditmemo->setBaseAdjustment($creditmemo->getBaseAdjustmentPositive()-$creditmemo->getBaseAdjustmentNegative());
+        $creditmemo->setAdjustment($creditmemo->getAdjustmentPositive() - $creditmemo->getAdjustmentNegative());
+        $creditmemo->setBaseAdjustment($creditmemo->getBaseAdjustmentPositive() - $creditmemo->getBaseAdjustmentNegative());
 
         return $this;
     }
+
 }

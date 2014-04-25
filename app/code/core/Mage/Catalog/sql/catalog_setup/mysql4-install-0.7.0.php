@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
@@ -31,7 +31,7 @@ $installer->startSetup();
 
 if (!$installer->tableExists($installer->getTable('catalog_category_entity'))) {
 
-$installer->run("
+    $installer->run("
 
 -- DROP TABLE IF EXISTS {$this->getTable('catalog_category_entity')};
 CREATE TABLE {$this->getTable('catalog_category_entity')} (
@@ -530,7 +530,6 @@ CREATE TABLE `{$installer->getTable('catalog_product_enabled_index')}` (
 ALTER TABLE `{$this->getTable('catalog_category_entity')}` ADD `children_count` INT NOT NULL;
 
 ");
-
 }
 
 $installer->endSetup();
@@ -539,25 +538,25 @@ $installer->installEntities();
 
 // Create Root Catalog Node
 Mage::getModel('catalog/category')
-    ->setId(1)
-    ->setPath(1)
-    ->setName('Root Catalog')
-    ->setInitialSetupFlag(true)
-    ->save();
+        ->setId(1)
+        ->setPath(1)
+        ->setName('Root Catalog')
+        ->setInitialSetupFlag(true)
+        ->save();
 
 $category = Mage::getModel('catalog/category');
 /* @var $category Mage_Catalog_Model_Category */
 
 $category->setStoreId(0)
-    ->setName('Default Category')
-    ->setDisplayMode('PRODUCTS')
-    ->setAttributeSetId($category->getDefaultAttributeSetId())
-    ->setIsActive(1)
-    ->setPath('1/')
-    ->setInitialSetupFlag(true)
-    ->save();
+        ->setName('Default Category')
+        ->setDisplayMode('PRODUCTS')
+        ->setAttributeSetId($category->getDefaultAttributeSetId())
+        ->setIsActive(1)
+        ->setPath('1/')
+        ->setInitialSetupFlag(true)
+        ->save();
 
 $category->setStoreId(1)
-    ->save();
+        ->save();
 
 $installer->setConfigData('catalog/category/root_id', $category->getId());

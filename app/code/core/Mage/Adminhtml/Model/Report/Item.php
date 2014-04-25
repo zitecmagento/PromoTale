@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,7 +26,8 @@
  */
 class Mage_Adminhtml_Model_Report_Item extends Varien_Object
 {
-    protected $_isEmpty  = false;
+
+    protected $_isEmpty = false;
     protected $_children = array();
 
     public function setIsEmpty($flag = true)
@@ -40,7 +42,9 @@ class Mage_Adminhtml_Model_Report_Item extends Varien_Object
     }
 
     public function hasIsEmpty()
-    {}
+    {
+        
+    }
 
     public function getChildren()
     {
@@ -63,4 +67,5 @@ class Mage_Adminhtml_Model_Report_Item extends Varien_Object
         $this->_children[] = $child;
         return $this;
     }
+
 }

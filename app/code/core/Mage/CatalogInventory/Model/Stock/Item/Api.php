@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_Resource
 {
+
     public function __construct()
     {
         $this->_storeIdSessionField = 'product_store_id';
@@ -53,19 +55,19 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
         }
 
         $collection = Mage::getModel('catalog/product')
-            ->getCollection()
-            ->setFlag('require_stock_items', true)
-            ->addFieldToFilter('entity_id', array('in'=>$productIds));
+                ->getCollection()
+                ->setFlag('require_stock_items', true)
+                ->addFieldToFilter('entity_id', array('in' => $productIds));
 
         $result = array();
 
         foreach ($collection as $product) {
             if ($product->getStockItem()) {
                 $result[] = array(
-                    'product_id'    => $product->getId(),
-                    'sku'           => $product->getSku(),
-                    'qty'           => $product->getStockItem()->getQty(),
-                    'is_in_stock'   => $product->getStockItem()->getIsInStock()
+                    'product_id' => $product->getId(),
+                    'sku' => $product->getSku(),
+                    'qty' => $product->getStockItem()->getQty(),
+                    'is_in_stock' => $product->getStockItem()->getIsInStock()
                 );
             }
         }
@@ -82,7 +84,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
         }
 
         $product->setStoreId($this->_getStoreId())
-            ->load($productId);
+                ->load($productId);
 
         if (!$product->getId()) {
             $this->_fault('not_exists');
@@ -118,12 +120,18 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
 
         $product->setStockData($stockData);
 
-        try {
+        try
+        {
             $product->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('not_updated', $e->getMessage());
         }
 
         return true;
     }
-} // Class Mage_CatalogInventory_Model_Stock_Item_Api End
+
+}
+
+// Class Mage_CatalogInventory_Model_Stock_Item_Api End

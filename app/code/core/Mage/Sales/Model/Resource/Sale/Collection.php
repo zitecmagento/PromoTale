@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales Collection
  *
@@ -42,7 +42,6 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
      */
     protected $_totals = array(
         'lifetime' => 0, 'base_lifetime' => 0, 'base_avgsale' => 0, 'num_orders' => 0);
-
 
     /**
      * Customer model
@@ -108,11 +107,10 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     public function setOrderStateFilter($state, $exclude = false)
     {
         $this->_orderStateCondition = ($exclude) ? 'NOT IN' : 'IN';
-        $this->_orderStateValue     = (!is_array($state)) ? array($state) : $state;
+        $this->_orderStateValue = (!is_array($state)) ? array($state) : $state;
         return $this;
     }
-    
-    
+
     /**
      * Before load action
      *
@@ -121,18 +119,17 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     protected function _beforeLoad()
     {
         $this->getSelect()
-            ->from(
-                array('sales' => Mage::getResourceSingleton('sales/order')->getMainTable()),
-                array(
+                ->from(
+                        array('sales' => Mage::getResourceSingleton('sales/order')->getMainTable()), array(
                     'store_id',
-                    'lifetime'      => new Zend_Db_Expr('SUM(sales.base_grand_total)'),
+                    'lifetime' => new Zend_Db_Expr('SUM(sales.base_grand_total)'),
                     'base_lifetime' => new Zend_Db_Expr('SUM(sales.base_grand_total * sales.base_to_global_rate)'),
-                    'avgsale'       => new Zend_Db_Expr('AVG(sales.base_grand_total)'),
-                    'base_avgsale'  => new Zend_Db_Expr('AVG(sales.base_grand_total * sales.base_to_global_rate)'),
-                    'num_orders'    => new Zend_Db_Expr('COUNT(sales.base_grand_total)')
+                    'avgsale' => new Zend_Db_Expr('AVG(sales.base_grand_total)'),
+                    'base_avgsale' => new Zend_Db_Expr('AVG(sales.base_grand_total * sales.base_to_global_rate)'),
+                    'num_orders' => new Zend_Db_Expr('COUNT(sales.base_grand_total)')
+                        )
                 )
-            )
-            ->group('sales.store_id');
+                ->group('sales.store_id');
 
         if ($this->_customer instanceof Mage_Customer_Model_Customer) {
             $this->addFieldToFilter('sales.customer_id', $this->_customer->getId());
@@ -141,10 +138,10 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
         if (!is_null($this->_orderStateValue)) {
             $condition = '';
             switch ($this->_orderStateCondition) {
-                case 'IN' : 
+                case 'IN' :
                     $condition = 'in';
                     break;
-                case 'NOT IN' : 
+                case 'NOT IN' :
                     $condition = 'nin';
                     break;
             }
@@ -169,8 +166,8 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
         $this->_beforeLoad();
 
         $this->_renderFilters()
-             ->_renderOrders()
-             ->_renderLimit();
+                ->_renderOrders()
+                ->_renderLimit();
 
         $this->printLogQuery($printQuery, $logQuery);
 
@@ -178,23 +175,23 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
         $this->resetData();
 
         $stores = Mage::getResourceModel('core/store_collection')
-            ->setWithoutDefaultFilter()
-            ->load()
-            ->toOptionHash();
+                ->setWithoutDefaultFilter()
+                ->load()
+                ->toOptionHash();
         $this->_items = array();
         foreach ($data as $v) {
             $storeObject = new Varien_Object($v);
-            $storeId     = $v['store_id'];
-            $storeName   = isset($stores[$storeId]) ? $stores[$storeId] : null;
+            $storeId = $v['store_id'];
+            $storeName = isset($stores[$storeId]) ? $stores[$storeId] : null;
             $storeObject->setStoreName($storeName)
-                ->setWebsiteId(Mage::app()->getStore($storeId)->getWebsiteId())
-                ->setAvgNormalized($v['avgsale'] * $v['num_orders']);
+                    ->setWebsiteId(Mage::app()->getStore($storeId)->getWebsiteId())
+                    ->setAvgNormalized($v['avgsale'] * $v['num_orders']);
             $this->_items[$storeId] = $storeObject;
             foreach ($this->_totals as $key => $value) {
                 $this->_totals[$key] += $storeObject->getData($key);
             }
         }
-        
+
         if ($this->_totals['num_orders']) {
             $this->_totals['avgsale'] = $this->_totals['base_lifetime'] / $this->_totals['num_orders'];
         }
@@ -213,4 +210,5 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     {
         return new Varien_Object($this->_totals);
     }
+
 }

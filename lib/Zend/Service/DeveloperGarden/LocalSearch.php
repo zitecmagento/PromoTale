@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: LocalSearch.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Client_ClientAbstract
  */
@@ -53,9 +53,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_LocalSearch
-    extends Zend_Service_DeveloperGarden_Client_ClientAbstract
+class Zend_Service_DeveloperGarden_LocalSearch extends Zend_Service_DeveloperGarden_Client_ClientAbstract
 {
+
     /**
      * wsdl file
      *
@@ -88,13 +88,11 @@ class Zend_Service_DeveloperGarden_LocalSearch
      * @return Zend_Service_DeveloperGarden_Response_LocalSearch_LocalSearchResponseType
      */
     public function localSearch(
-        Zend_Service_DeveloperGarden_LocalSearch_SearchParameters $searchParameters,
-        $account = null
-    ) {
+    Zend_Service_DeveloperGarden_LocalSearch_SearchParameters $searchParameters, $account = null
+    )
+    {
         $request = new Zend_Service_DeveloperGarden_Request_LocalSearch_LocalSearchRequest(
-            $this->getEnvironment(),
-            $searchParameters,
-            $account
+                $this->getEnvironment(), $searchParameters, $account
         );
 
         $result = $this->getSoapClient()->localSearch($request);
@@ -102,4 +100,5 @@ class Zend_Service_DeveloperGarden_LocalSearch
         $response = new Zend_Service_DeveloperGarden_Response_LocalSearch_LocalSearchResponse($result);
         return $response->parse();
     }
+
 }

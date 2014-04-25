@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Connect_Adminhtml_Extension_LocalController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Redirect to Magento Connect
      *
@@ -42,4 +44,5 @@ class Mage_Connect_Adminhtml_Extension_LocalController extends Mage_Adminhtml_Co
         $url = Mage::getBaseUrl('web') . 'downloader/?return=' . urlencode(Mage::getUrl('adminhtml'));
         $this->getResponse()->setRedirect($url);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,11 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 abstract class Mage_Core_Model_Resource_Entity_Abstract
 {
+
     protected $_name = null;
+
     /**
      * Configuration object
      *
@@ -52,7 +54,7 @@ abstract class Mage_Core_Model_Resource_Entity_Abstract
      */
     public function getConfig($key = '')
     {
-        if (''===$key) {
+        if ('' === $key) {
             return $this->_config;
         } elseif (isset($this->_config->$key)) {
             return $this->_config->$key;
@@ -60,4 +62,5 @@ abstract class Mage_Core_Model_Resource_Entity_Abstract
             return false;
         }
     }
+
 }

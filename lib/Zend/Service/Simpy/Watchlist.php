@@ -20,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Watchlist.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Simpy_WatchlistFilterSet
  */
 #require_once 'Zend/Service/Simpy/WatchlistFilterSet.php';
-
 
 /**
  * @category   Zend
@@ -37,6 +34,7 @@
  */
 class Zend_Service_Simpy_Watchlist
 {
+
     /**
      * Identifier for the watchlist
      *
@@ -96,7 +94,7 @@ class Zend_Service_Simpy_Watchlist
      */
     public function __construct($node)
     {
-        $map =& $node->attributes;
+        $map = & $node->attributes;
 
         $this->_id = $map->getNamedItem('id')->nodeValue;
         $this->_name = $map->getNamedItem('name')->nodeValue;
@@ -188,4 +186,5 @@ class Zend_Service_Simpy_Watchlist
     {
         return $this->_filters;
     }
+
 }

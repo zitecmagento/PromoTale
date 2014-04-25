@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Index resource model abstraction
  *
@@ -34,9 +34,9 @@
  */
 class Mage_CatalogIndex_Model_Resource_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected $_storeId    = 0;
 
-    protected $_websiteId  = null;
+    protected $_storeId = 0;
+    protected $_websiteId = null;
 
     /**
      * Initialize model
@@ -81,4 +81,5 @@ class Mage_CatalogIndex_Model_Resource_Abstract extends Mage_Core_Model_Resource
         }
         return $this->_websiteId;
     }
+
 }

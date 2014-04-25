@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Catalog Inventory Manage Stock Config Backend Model
  *
@@ -32,10 +32,10 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Model_System_Config_Backend_Catalog_Inventory_Managestock
-    extends Mage_Core_Model_Config_Data
+class Mage_Adminhtml_Model_System_Config_Backend_Catalog_Inventory_Managestock extends Mage_Core_Model_Config_Data
 {
-/**
+
+    /**
      * After change Catalog Inventory Manage value process
      *
      * @return Mage_Adminhtml_Model_System_Config_Backend_Catalog_Inventory_Managestock
@@ -44,9 +44,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Catalog_Inventory_Managestock
     {
         $newValue = $this->getValue();
         $oldValue = Mage::getConfig()->getNode(
-            Mage_CatalogSearch_Model_Fulltext::XML_PATH_CATALOG_SEARCH_TYPE,
-            $this->getScope(),
-            $this->getScopeId()
+                Mage_CatalogSearch_Model_Fulltext::XML_PATH_CATALOG_SEARCH_TYPE, $this->getScope(), $this->getScopeId()
         );
         if ($newValue != $oldValue) {
             Mage::getSingleton('cataloginventory/stock_status')->rebuild();
@@ -54,4 +52,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Catalog_Inventory_Managestock
 
         return $this;
     }
+
 }

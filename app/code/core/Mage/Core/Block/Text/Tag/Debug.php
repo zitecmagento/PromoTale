@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Base html block
  *
@@ -37,7 +37,7 @@ class Mage_Core_Block_Text_Tag_Debug extends Mage_Core_Block_Text_Tag
     {
         parent::_construct();
         $this->setAttribute(array(
-          'tagName'=>'xmp',
+            'tagName' => 'xmp',
         ));
     }
 

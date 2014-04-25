@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_Core_Block_Template_Facade extends Mage_Core_Block_Template
 {
+
     /**
      * Just set data, like Varien_Object
      *
@@ -86,11 +88,12 @@ class Mage_Core_Block_Template_Facade extends Mage_Core_Block_Template
             }
             $lastValue = $this->_data[$key];
             foreach ($conditionKeys as $key) {
-                if ($this->_data[$key] !== $lastValue)  {
+                if ($this->_data[$key] !== $lastValue) {
                     return false;
                 }
             }
         }
         return true;
     }
+
 }

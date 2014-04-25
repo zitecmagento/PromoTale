@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,46 +24,41 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_Sales_Model_Entity_Setup */
 $installer = $this;
 
 /**
  * Install order statuses from config
  */
-$data     = array();
+$data = array();
 $statuses = Mage::getConfig()->getNode('global/sales/order/statuses')->asArray();
 foreach ($statuses as $code => $info) {
     $data[] = array(
         'status' => $code,
-        'label'  => $info['label']
+        'label' => $info['label']
     );
 }
 $installer->getConnection()->insertArray(
-    $installer->getTable('sales/order_status'),
-    array('status', 'label'),
-    $data
+        $installer->getTable('sales/order_status'), array('status', 'label'), $data
 );
 
 /**
  * Install order states from config
  */
-$data   = array();
+$data = array();
 $states = Mage::getConfig()->getNode('global/sales/order/states')->asArray();
 
 foreach ($states as $code => $info) {
     if (isset($info['statuses'])) {
         foreach ($info['statuses'] as $status => $statusInfo) {
             $data[] = array(
-                'status'     => $status,
-                'state'      => $code,
+                'status' => $status,
+                'state' => $code,
                 'is_default' => is_array($statusInfo) && isset($statusInfo['@']['default']) ? 1 : 0
             );
         }
     }
 }
 $installer->getConnection()->insertArray(
-    $installer->getTable('sales/order_status_state'),
-    array('status', 'state', 'is_default'),
-    $data
+        $installer->getTable('sales/order_status_state'), array('status', 'state', 'is_default'), $data
 );

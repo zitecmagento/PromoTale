@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Price indexer resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogIndex_Model_Resource_Indexer_Price extends Mage_CatalogIndex_Model_Resource_Indexer_Abstract
 {
+
     /**
      * Enter description here ...
      *
@@ -42,8 +43,9 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Price extends Mage_CatalogIndex_M
     {
         $this->_init('catalogindex/price', 'index_id');
 
-        $this->_entityIdFieldName       = 'entity_id';
-        $this->_attributeIdFieldName    = 'attribute_id';
-        $this->_storeIdFieldName        = 'store_id';
+        $this->_entityIdFieldName = 'entity_id';
+        $this->_attributeIdFieldName = 'attribute_id';
+        $this->_storeIdFieldName = 'store_id';
     }
+
 }

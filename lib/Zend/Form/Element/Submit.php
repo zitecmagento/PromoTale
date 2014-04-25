@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Element_Xhtml */
 #require_once 'Zend/Form/Element/Xhtml.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
 {
+
     /**
      * Default view helper to use
      * @var string
@@ -52,7 +53,7 @@ class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
         if (is_string($spec) && ((null !== $options) && is_string($options))) {
             $options = array('label' => $options);
         }
-        
+
         if (!isset($options['ignore'])) {
             $options['ignore'] = true;
         }
@@ -119,9 +120,10 @@ class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('Tooltip')
-                 ->addDecorator('ViewHelper')
-                 ->addDecorator('DtDdWrapper');
+                    ->addDecorator('ViewHelper')
+                    ->addDecorator('DtDdWrapper');
         }
         return $this;
     }
+
 }

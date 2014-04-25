@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CellFeed.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Feed
  */
@@ -48,31 +47,31 @@ class Zend_Gdata_Spreadsheets_CellFeed extends Zend_Gdata_Feed
 {
 
     /**
-    * The classname for individual feed elements.
-    *
-    * @var string
-    */
+     * The classname for individual feed elements.
+     *
+     * @var string
+     */
     protected $_entryClassName = 'Zend_Gdata_Spreadsheets_CellEntry';
 
     /**
-    * The classname for the feed.
-    *
-    * @var string
-    */
+     * The classname for the feed.
+     *
+     * @var string
+     */
     protected $_feedClassName = 'Zend_Gdata_Spreadsheets_CellFeed';
 
     /**
-    * The row count for the feed.
-    *
-    * @var Zend_Gdata_Spreadsheets_Extension_RowCount
-    */
+     * The row count for the feed.
+     *
+     * @var Zend_Gdata_Spreadsheets_Extension_RowCount
+     */
     protected $_rowCount = null;
 
     /**
-    * The column count for the feed.
-    *
-    * @var Zend_Gdata_Spreadsheets_Extension_ColCount
-    */
+     * The column count for the feed.
+     *
+     * @var Zend_Gdata_Spreadsheets_Extension_ColCount
+     */
     protected $_colCount = null;
 
     /**

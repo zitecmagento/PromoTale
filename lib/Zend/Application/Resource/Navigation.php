@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Navigation.php 22882 2010-08-22 14:00:16Z freak $
  */
-
 /**
  * @see Zend_Application_Resource_ResourceAbstract
  */
 #require_once 'Zend/Application/Resource/ResourceAbstract.php';
-
 
 /**
  * Resource for setting navigation structure
@@ -37,9 +36,9 @@
  * @author     Dolf Schimmel
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Application_Resource_Navigation
-    extends Zend_Application_Resource_ResourceAbstract
+class Zend_Application_Resource_Navigation extends Zend_Application_Resource_ResourceAbstract
 {
+
     const DEFAULT_REGISTRY_KEY = 'Zend_Navigation';
 
     /**
@@ -58,8 +57,8 @@ class Zend_Application_Resource_Navigation
             $options = $this->getOptions();
             $pages = isset($options['pages']) ? $options['pages'] : array();
             $this->_container = new Zend_Navigation($pages);
-            
-            if(isset($options['defaultPageType'])) {
+
+            if (isset($options['defaultPageType'])) {
                 Zend_Navigation_Page::setDefaultPageType($options['defaultPageType']);
             }
         }
@@ -77,7 +76,7 @@ class Zend_Application_Resource_Navigation
     {
         $options = $this->getOptions();
         if (isset($options['storage']['registry']) &&
-            $options['storage']['registry'] == true) {
+                $options['storage']['registry'] == true) {
             $this->_storeRegistry();
         } else {
             $this->_storeHelper();
@@ -92,15 +91,14 @@ class Zend_Application_Resource_Navigation
     protected function _storeRegistry()
     {
         $options = $this->getOptions();
-        if(isset($options['storage']['registry']['key']) &&
-           !is_numeric($options['storage']['registry']['key'])) // see ZF-7461
-        {
-           $key = $options['storage']['registry']['key'];
+        if (isset($options['storage']['registry']['key']) &&
+                !is_numeric($options['storage']['registry']['key'])) { // see ZF-7461
+            $key = $options['storage']['registry']['key'];
         } else {
             $key = self::DEFAULT_REGISTRY_KEY;
         }
 
-        Zend_Registry::set($key,$this->getContainer());
+        Zend_Registry::set($key, $this->getContainer());
     }
 
     /**
@@ -124,4 +122,5 @@ class Zend_Application_Resource_Navigation
     {
         return $this->_container;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Adminhtml_Block_Catalog_Category_Tree
 {
+
     protected $_categoryIds;
     protected $_selectedNodes = null;
 
@@ -118,14 +120,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
             if ($storeId) {
                 $store = Mage::app()->getStore($storeId);
                 $rootId = $store->getRootCategoryId();
-            }
-            else {
+            } else {
                 $rootId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
             }
 
             $ids = $this->getSelectedCategoriesPathIds($rootId);
             $tree = Mage::getResourceSingleton('catalog/category_tree')
-                ->loadByIds($ids, false, false);
+                    ->loadByIds($ids, false, false);
 
             if ($this->getCategory()) {
                 $tree->loadEnsuredNodes($this->getCategory(), $tree->getNodeById($rootId));
@@ -140,8 +141,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
                 if ($this->isReadonly()) {
                     $root->setDisabled(true);
                 }
-            }
-            elseif($root && $root->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
+            } elseif ($root && $root->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
                 $root->setName(Mage::helper('catalog')->__('Root'));
             }
 
@@ -275,7 +275,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
         if ($rootId) {
             $collection->addFieldToFilter('parent_id', $rootId);
         } else {
-            $collection->addFieldToFilter('entity_id', array('in'=>$categoryIds));
+            $collection->addFieldToFilter('entity_id', array('in' => $categoryIds));
         }
 
         foreach ($collection as $item) {
@@ -290,4 +290,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
         }
         return $ids;
     }
+
 }

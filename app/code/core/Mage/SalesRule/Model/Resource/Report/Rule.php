@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Rule report resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resource_Report_Abstract
 {
+
     /**
      * Resource Report Rule constructor
      *
@@ -69,13 +70,12 @@ class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resou
         $adapter = $this->_getReadAdapter();
         $tableName = $this->getTable('salesrule/coupon_aggregated');
         $select = $adapter->select()
-            ->from(
-                $tableName,
-                new Zend_Db_Expr('DISTINCT rule_name')
-            )
-            ->where('rule_name IS NOT NULL')
-            ->where('rule_name <> ""')
-            ->order('rule_name ASC');
+                ->from(
+                        $tableName, new Zend_Db_Expr('DISTINCT rule_name')
+                )
+                ->where('rule_name IS NOT NULL')
+                ->where('rule_name <> ""')
+                ->order('rule_name ASC');
 
         $rulesNames = $adapter->fetchAll($select);
 
@@ -102,4 +102,5 @@ class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resou
         Mage::getResourceModel('salesrule/report_rule_createdat')->aggregate($from, $to);
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Extracted.php 20866 2010-02-03 05:30:07Z yoshida@zend.co.jp $
  */
-
-
 /** @see Zend_Pdf_Resource_Font */
 #require_once 'Zend/Pdf/Resource/Font.php';
 
@@ -37,11 +36,12 @@
  */
 class Zend_Pdf_Resource_Font_Extracted extends Zend_Pdf_Resource_Font
 {
+
     /**
      * Messages
      */
     const TYPE_NOT_SUPPORTED = 'Unsupported font type.';
-    const ENCODING_NOT_SUPPORTED  = 'Font encoding is not supported';
+    const ENCODING_NOT_SUPPORTED = 'Font encoding is not supported';
     const OPERATION_NOT_SUPPORTED = 'Operation is not supported for extracted fonts';
 
     /**
@@ -65,7 +65,7 @@ class Zend_Pdf_Resource_Font_Extracted extends Zend_Pdf_Resource_Font
     {
         // Extract object factory and resource object from font dirctionary object
         $this->_objectFactory = $fontDictionary->getFactory();
-        $this->_resource      = $fontDictionary;
+        $this->_resource = $fontDictionary;
 
         if ($fontDictionary->Encoding !== null) {
             $this->_encoding = $fontDictionary->Encoding->value;
@@ -91,18 +91,18 @@ class Zend_Pdf_Resource_Font_Extracted extends Zend_Pdf_Resource_Font
                     // That's one of the standard fonts
                     $standardFont = Zend_Pdf_Font::fontWithName($fontDictionary->BaseFont->value);
 
-                    $this->_fontNames          = $standardFont->getFontNames();
-                    $this->_isBold             = $standardFont->isBold();
-                    $this->_isItalic           = $standardFont->isItalic();
-                    $this->_isMonospace        = $standardFont->isMonospace();
-                    $this->_underlinePosition  = $standardFont->getUnderlinePosition();
+                    $this->_fontNames = $standardFont->getFontNames();
+                    $this->_isBold = $standardFont->isBold();
+                    $this->_isItalic = $standardFont->isItalic();
+                    $this->_isMonospace = $standardFont->isMonospace();
+                    $this->_underlinePosition = $standardFont->getUnderlinePosition();
                     $this->_underlineThickness = $standardFont->getUnderlineThickness();
-                    $this->_strikePosition     = $standardFont->getStrikePosition();
-                    $this->_strikeThickness    = $standardFont->getStrikeThickness();
-                    $this->_unitsPerEm         = $standardFont->getUnitsPerEm();
-                    $this->_ascent             = $standardFont->getAscent();
-                    $this->_descent            = $standardFont->getDescent();
-                    $this->_lineGap            = $standardFont->getLineGap();
+                    $this->_strikePosition = $standardFont->getStrikePosition();
+                    $this->_strikeThickness = $standardFont->getStrikeThickness();
+                    $this->_unitsPerEm = $standardFont->getUnitsPerEm();
+                    $this->_ascent = $standardFont->getAscent();
+                    $this->_descent = $standardFont->getDescent();
+                    $this->_lineGap = $standardFont->getLineGap();
 
                     return;
                 }
@@ -121,17 +121,17 @@ class Zend_Pdf_Resource_Font_Extracted extends Zend_Pdf_Resource_Font
 
         $this->_fontNames[Zend_Pdf_Font::NAME_POSTSCRIPT]['en'] = iconv('UTF-8', 'UTF-16BE', $fontDictionary->BaseFont->value);
 
-        $this->_isBold             = false; // this property is actually not used anywhere
-        $this->_isItalic           = ( ($fontDescriptor->Flags->value & (1 << 6)) != 0 ); // Bit-7 is set
-        $this->_isMonospace        = ( ($fontDescriptor->Flags->value & (1 << 0)) != 0 ); // Bit-1 is set
-        $this->_underlinePosition  = null; // Can't be extracted
+        $this->_isBold = false; // this property is actually not used anywhere
+        $this->_isItalic = ( ($fontDescriptor->Flags->value & (1 << 6)) != 0 ); // Bit-7 is set
+        $this->_isMonospace = ( ($fontDescriptor->Flags->value & (1 << 0)) != 0 ); // Bit-1 is set
+        $this->_underlinePosition = null; // Can't be extracted
         $this->_underlineThickness = null; // Can't be extracted
-        $this->_strikePosition     = null; // Can't be extracted
-        $this->_strikeThickness    = null; // Can't be extracted
-        $this->_unitsPerEm         = null; // Can't be extracted
-        $this->_ascent             = $fontDescriptor->Ascent->value;
-        $this->_descent            = $fontDescriptor->Descent->value;
-        $this->_lineGap            = null; // Can't be extracted
+        $this->_strikePosition = null; // Can't be extracted
+        $this->_strikeThickness = null; // Can't be extracted
+        $this->_unitsPerEm = null; // Can't be extracted
+        $this->_ascent = $fontDescriptor->Ascent->value;
+        $this->_descent = $fontDescriptor->Descent->value;
+        $this->_lineGap = null; // Can't be extracted
     }
 
     /**
@@ -271,4 +271,5 @@ class Zend_Pdf_Resource_Font_Extracted extends Zend_Pdf_Resource_Font
         #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception(self::ENCODING_NOT_SUPPORTED);
     }
+
 }

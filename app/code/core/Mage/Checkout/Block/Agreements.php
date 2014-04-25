@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,6 +26,7 @@
  */
 class Mage_Checkout_Block_Agreements extends Mage_Core_Block_Template
 {
+
     public function getAgreements()
     {
         if (!$this->hasAgreements()) {
@@ -32,11 +34,12 @@ class Mage_Checkout_Block_Agreements extends Mage_Core_Block_Template
                 $agreements = array();
             } else {
                 $agreements = Mage::getModel('checkout/agreement')->getCollection()
-                    ->addStoreFilter(Mage::app()->getStore()->getId())
-                    ->addFieldToFilter('is_active', 1);
+                        ->addStoreFilter(Mage::app()->getStore()->getId())
+                        ->addFieldToFilter('is_active', 1);
             }
             $this->setAgreements($agreements);
         }
         return $this->getData('agreements');
     }
+
 }

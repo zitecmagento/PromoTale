@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Price indexer resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice extends Mage_CatalogIndex_Model_Resource_Indexer_Abstract
 {
+
     /**
      * Enter description here ...
      *
@@ -42,8 +43,8 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice extends Mage_Catalog
     {
         $this->_init('catalogindex/minimal_price', 'index_id');
 
-        $this->_entityIdFieldName   = 'entity_id';
-        $this->_storeIdFieldName    = 'store_id';
+        $this->_entityIdFieldName = 'entity_id';
+        $this->_storeIdFieldName = 'store_id';
     }
 
     /**
@@ -56,7 +57,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice extends Mage_Catalog
     {
         $select = $this->_getReadAdapter()->select();
         $select->from($this->getTable('catalogindex/price'), 'MIN(value)');
-        foreach ($conditions as $field=>$value) {
+        foreach ($conditions as $field => $value) {
             $condition = "{$field} = ?";
             if (is_array($value))
                 $condition = "{$field} in (?)";
@@ -81,7 +82,8 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice extends Mage_Catalog
         if (!is_null($storeId))
             $conditions[] = $this->_getWriteAdapter()->quoteInto("{$this->_storeIdFieldName} = ?", $storeId);
 
-        $conditions = implode (' AND ', $conditions);
+        $conditions = implode(' AND ', $conditions);
         $this->_getWriteAdapter()->delete($this->getMainTable(), $conditions);
     }
+
 }

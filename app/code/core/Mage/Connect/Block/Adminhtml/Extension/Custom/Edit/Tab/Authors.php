@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Connect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Authors
-    extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
+class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Authors extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
 {
+
     /**
      * Get Tab Label
      *
@@ -62,11 +63,11 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Authors
     public function getAddAuthorButtonHtml()
     {
         return $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setType('button')
-            ->setClass('add')
-            ->setLabel($this->__('Add Author'))
-            ->setOnClick('addAuthor()')
-            ->toHtml();
+                        ->setType('button')
+                        ->setClass('add')
+                        ->setLabel($this->__('Add Author'))
+                        ->setOnClick('addAuthor()')
+                        ->toHtml();
     }
 
     /**
@@ -82,7 +83,7 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Authors
             foreach ($this->getData('authors') as $param => $values) {
                 if (is_array($values)) {
                     foreach ($values as $key => $value) {
-                        $temp[$key][$param] =$value;
+                        $temp[$key][$param] = $value;
                     }
                 }
             }
@@ -92,4 +93,5 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Authors
         }
         return $authors;
     }
+
 }

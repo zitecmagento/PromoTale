@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Zip.php 20126 2010-01-07 18:10:58Z ralph $
  */
-
 /**
  * @see Zend_Filter_Compress_CompressAbstract
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Filter_Compress_Zip extends Zend_Filter_Compress_CompressAbstract
 {
+
     /**
      * Compression Options
      * array(
@@ -46,7 +47,7 @@ class Zend_Filter_Compress_Zip extends Zend_Filter_Compress_CompressAbstract
      */
     protected $_options = array(
         'archive' => null,
-        'target'  => null,
+        'target' => null,
     );
 
     /**
@@ -132,15 +133,15 @@ class Zend_Filter_Compress_Zip extends Zend_Filter_Compress_CompressAbstract
         }
 
         if (file_exists($content)) {
-            $content  = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, realpath($content));
+            $content = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, realpath($content));
             $basename = substr($content, strrpos($content, DIRECTORY_SEPARATOR) + 1);
             if (is_dir($content)) {
-                $index    = strrpos($content, DIRECTORY_SEPARATOR) + 1;
+                $index = strrpos($content, DIRECTORY_SEPARATOR) + 1;
                 $content .= DIRECTORY_SEPARATOR;
-                $stack    = array($content);
+                $stack = array($content);
                 while (!empty($stack)) {
                     $current = array_pop($stack);
-                    $files   = array();
+                    $files = array();
 
                     $dir = dir($current);
                     while (false !== ($node = $dir->read())) {
@@ -218,7 +219,7 @@ class Zend_Filter_Compress_Zip extends Zend_Filter_Compress_CompressAbstract
         if (!empty($target) && !is_dir($target)) {
             $target = dirname($target);
         }
-        
+
         if (!empty($target)) {
             $target = rtrim($target, '/\\') . DIRECTORY_SEPARATOR;
         }
@@ -238,19 +239,18 @@ class Zend_Filter_Compress_Zip extends Zend_Filter_Compress_CompressAbstract
                 $statIndex = $zip->statIndex($i);
                 $currName = $statIndex['name'];
                 if (($currName{0} == '/') ||
-                    (substr($currName, 0, 2) == '..') ||
-                    (substr($currName, 0, 4) == './..')
-                    )
-                {
+                        (substr($currName, 0, 2) == '..') ||
+                        (substr($currName, 0, 4) == './..')
+                ) {
                     #require_once 'Zend/Filter/Exception.php';
                     throw new Zend_Filter_Exception('Upward directory traversal was detected inside ' . $archive
-                        . ' please use PHP 5.2.8 or greater to take advantage of path resolution features of '
-                        . 'the zip extension in this decompress() method.'
-                        );
+                    . ' please use PHP 5.2.8 or greater to take advantage of path resolution features of '
+                    . 'the zip extension in this decompress() method.'
+                    );
                 }
             }
-        }    
-        
+        }
+
         $res = @$zip->extractTo($target);
         if ($res !== true) {
             #require_once 'Zend/Filter/Exception.php';
@@ -268,7 +268,7 @@ class Zend_Filter_Compress_Zip extends Zend_Filter_Compress_CompressAbstract
      */
     protected function _errorString($error)
     {
-        switch($error) {
+        switch ($error) {
             case ZipArchive::ER_MULTIDISK :
                 return 'Multidisk ZIP Archives not supported';
 
@@ -352,4 +352,5 @@ class Zend_Filter_Compress_Zip extends Zend_Filter_Compress_CompressAbstract
     {
         return 'Zip';
     }
+
 }

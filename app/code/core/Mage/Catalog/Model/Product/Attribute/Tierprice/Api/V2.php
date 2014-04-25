@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog_Model_Product_Attribute_Tierprice_Api
 {
+
     /**
      *  Prepare tier prices for save
      *
@@ -49,18 +51,19 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
         $updateValue = array();
 
         foreach ($tierPrices as $tierPrice) {
-            if (!is_object($tierPrice)
-                || !isset($tierPrice->qty)
-                || !isset($tierPrice->price)) {
+            if (!is_object($tierPrice) || !isset($tierPrice->qty) || !isset($tierPrice->price)) {
                 $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid Tier Prices'));
             }
 
             if (!isset($tierPrice->website) || $tierPrice->website == 'all') {
                 $tierPrice->website = 0;
             } else {
-                try {
+                try
+                {
                     $tierPrice->website = Mage::app()->getWebsite($tierPrice->website)->getId();
-                } catch (Mage_Core_Exception $e) {
+                }
+                catch (Mage_Core_Exception $e)
+                {
                     $tierPrice->website = 0;
                 }
             }
@@ -80,12 +83,12 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
             $updateValue[] = array(
                 'website_id' => $tierPrice->website,
                 'cust_group' => $tierPrice->customer_group_id,
-                'price_qty'  => $tierPrice->qty,
-                'price'      => $tierPrice->price
+                'price_qty' => $tierPrice->qty,
+                'price' => $tierPrice->price
             );
-
         }
 
         return $updateValue;
     }
+
 }

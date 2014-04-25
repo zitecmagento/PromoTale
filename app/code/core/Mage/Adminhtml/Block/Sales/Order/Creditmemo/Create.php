@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     public function __construct()
     {
         $this->_objectId = 'order_id';
@@ -45,13 +46,12 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create extends Mage_Adminhtml_
         $this->_removeButton('delete');
         $this->_removeButton('save');
 
-        /*$this->_addButton('submit_creditmemo', array(
-            'label'     => Mage::helper('sales')->__('Submit Credit Memo'),
-            'class'     => 'save submit-button',
-            'onclick'   => '$(\'edit_form\').submit()',
-            )
-        );*/
-
+        /* $this->_addButton('submit_creditmemo', array(
+          'label'     => Mage::helper('sales')->__('Submit Credit Memo'),
+          'class'     => 'save submit-button',
+          'onclick'   => '$(\'edit_form\').submit()',
+          )
+          ); */
     }
 
     /**
@@ -68,8 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create extends Mage_Adminhtml_
     {
         if ($this->getCreditmemo()->getInvoice()) {
             $header = Mage::helper('sales')->__('New Credit Memo for Invoice #%s', $this->getCreditmemo()->getInvoice()->getIncrementId());
-        }
-        else {
+        } else {
             $header = Mage::helper('sales')->__('New Credit Memo for Order #%s', $this->getCreditmemo()->getOrder()->getRealOrderId());
         }
 
@@ -78,6 +77,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create extends Mage_Adminhtml_
 
     public function getBackUrl()
     {
-        return $this->getUrl('*/sales_order/view', array('order_id'=>$this->getCreditmemo()->getOrderId()));
+        return $this->getUrl('*/sales_order/view', array('order_id' => $this->getCreditmemo()->getOrderId()));
     }
+
 }

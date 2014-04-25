@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resource
 {
+
     /**
      * @param  $quoteId
      * @param  $couponCode
@@ -87,12 +88,15 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
             return false;
         }
 
-        try {
+        try
+        {
             $quote->getShippingAddress()->setCollectShippingRates(true);
             $quote->setCouponCode(strlen($couponCode) ? $couponCode : '')
-                ->collectTotals()
-                ->save();
-        } catch (Exception $e) {
+                    ->collectTotals()
+                    ->save();
+        }
+        catch (Exception $e)
+        {
             $this->_fault("cannot_apply_coupon_code", $e->getMessage());
         }
 
@@ -104,6 +108,5 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
 
         return true;
     }
-
 
 }

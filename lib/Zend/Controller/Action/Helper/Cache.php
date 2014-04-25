@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Cache.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /**
  * @see Zend_Controller_Action_Helper_Abstract
  */
@@ -40,8 +40,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Controller_Action_Helper_Cache
-    extends Zend_Controller_Action_Helper_Abstract
+class Zend_Controller_Action_Helper_Cache extends Zend_Controller_Action_Helper_Abstract
 {
 
     /**
@@ -64,7 +63,7 @@ class Zend_Controller_Action_Helper_Cache
      * @var array
      */
     protected $_tags = array();
-    
+
     /**
      * Indexed map of Extensions by Controller and Action
      *
@@ -132,8 +131,7 @@ class Zend_Controller_Action_Helper_Cache
         $cache = $this->getCache(Zend_Cache_Manager::PAGECACHE);
         if ($recursive) {
             $backend = $cache->getBackend();
-            if (($backend instanceof Zend_Cache_Backend)
-                && method_exists($backend, 'removeRecursively')
+            if (($backend instanceof Zend_Cache_Backend) && method_exists($backend, 'removeRecursively')
             ) {
                 return $backend->removeRecursively($relativeUrl);
             }
@@ -154,7 +152,7 @@ class Zend_Controller_Action_Helper_Cache
     public function removePagesTagged(array $tags)
     {
         return $this->getCache(Zend_Cache_Manager::PAGECACHE)
-            ->clean(Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG, $tags);
+                        ->clean(Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG, $tags);
     }
 
     /**
@@ -168,17 +166,15 @@ class Zend_Controller_Action_Helper_Cache
         $action = $this->getRequest()->getActionName();
         $stats = ob_get_status(true);
         foreach ($stats as $status) {
-            if ($status['name'] == 'Zend_Cache_Frontend_Page::_flush'
-            || $status['name'] == 'Zend_Cache_Frontend_Capture::_flush') {
+            if ($status['name'] == 'Zend_Cache_Frontend_Page::_flush' || $status['name'] == 'Zend_Cache_Frontend_Capture::_flush') {
                 $obStarted = true;
             }
         }
         if (!isset($obStarted) && isset($this->_caching[$controller]) &&
-        in_array($action, $this->_caching[$controller])) {
+                in_array($action, $this->_caching[$controller])) {
             $reqUri = $this->getRequest()->getRequestUri();
             $tags = array();
-            if (isset($this->_tags[$controller][$action])
-            && !empty($this->_tags[$controller][$action])) {
+            if (isset($this->_tags[$controller][$action]) && !empty($this->_tags[$controller][$action])) {
                 $tags = array_unique($this->_tags[$controller][$action]);
             }
             $extension = null;
@@ -186,10 +182,10 @@ class Zend_Controller_Action_Helper_Cache
                 $extension = $this->_extensions[$controller][$action];
             }
             $this->getCache(Zend_Cache_Manager::PAGECACHE)
-                ->start($this->_encodeCacheId($reqUri), $tags, $extension);
+                    ->start($this->_encodeCacheId($reqUri), $tags, $extension);
         }
     }
-    
+
     /**
      * Encode a Cache ID as hexadecimal. This is a workaround because Backend ID validation
      * is trapped in the Frontend classes. Will try to get this reversed for ZF 2.0
@@ -227,10 +223,9 @@ class Zend_Controller_Action_Helper_Cache
             return $this->_manager;
         }
         $front = Zend_Controller_Front::getInstance();
-        if ($front->getParam('bootstrap')
-        && $front->getParam('bootstrap')->getResource('CacheManager')) {
+        if ($front->getParam('bootstrap') && $front->getParam('bootstrap')->getResource('CacheManager')) {
             return $front->getParam('bootstrap')
-                ->getResource('CacheManager');
+                            ->getResource('CacheManager');
         }
         $this->_manager = new Zend_Cache_Manager;
         return $this->_manager;
@@ -269,11 +264,11 @@ class Zend_Controller_Action_Helper_Cache
     {
         if (method_exists($this->getManager(), $method)) {
             return call_user_func_array(
-                array($this->getManager(), $method), $args
+                    array($this->getManager(), $method), $args
             );
         }
         throw new Zend_Controller_Action_Exception('Method does not exist:'
-            . $method);
+        . $method);
     }
 
 }

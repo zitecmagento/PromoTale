@@ -1,4 +1,5 @@
 <?php
+
 /**
  * {license_notice}
  *
@@ -13,6 +14,7 @@
  */
 class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
 {
+
     /**
      * @var Zend_Controller_Request_Abstract
      */
@@ -97,4 +99,5 @@ class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
         $nestingSep = preg_quote(Magento_Profiler::NESTING_SEPARATOR, '/');
         return preg_replace('/.+?' . $nestingSep . '/', '. ', $timerId);
     }
+
 }

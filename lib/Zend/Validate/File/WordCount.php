@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: WordCount.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_File_Count
  */
@@ -34,13 +34,15 @@
  */
 class Zend_Validate_File_WordCount extends Zend_Validate_File_Count
 {
-    /**#@+
+    /*     * #@+
      * @const string Error constants
      */
-    const TOO_MUCH  = 'fileWordCountTooMuch';
-    const TOO_LESS  = 'fileWordCountTooLess';
+
+    const TOO_MUCH = 'fileWordCountTooMuch';
+    const TOO_LESS = 'fileWordCountTooLess';
     const NOT_FOUND = 'fileWordCountNotFound';
-    /**#@-*/
+
+    /*     * #@- */
 
     /**
      * @var array Error message templates
@@ -98,4 +100,5 @@ class Zend_Validate_File_WordCount extends Zend_Validate_File_Count
         $this->_error($errorType);
         return false;
     }
+
 }

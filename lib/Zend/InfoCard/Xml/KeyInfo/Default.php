@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Default.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_InfoCard_Xml_KeyInfo_Abstract
  */
@@ -43,6 +43,7 @@
  */
 class Zend_InfoCard_Xml_KeyInfo_Default extends Zend_InfoCard_Xml_KeyInfo_Abstract
 {
+
     /**
      * Returns the object representation of the SecurityTokenReference block
      *
@@ -55,10 +56,11 @@ class Zend_InfoCard_Xml_KeyInfo_Default extends Zend_InfoCard_Xml_KeyInfo_Abstra
 
         list($sectokenref) = $this->xpath('//o:SecurityTokenReference');
 
-        if(!($sectokenref instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($sectokenref instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception('Could not locate the Security Token Reference');
         }
 
         return Zend_InfoCard_Xml_SecurityTokenReference::getInstance($sectokenref);
     }
+
 }

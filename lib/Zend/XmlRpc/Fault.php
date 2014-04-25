@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Fault.php 20208 2010-01-11 22:37:37Z lars $
  */
-
 /**
  * Zend_XmlRpc_Value
  */
@@ -41,6 +41,7 @@
  */
 class Zend_XmlRpc_Fault
 {
+
     /**
      * Fault code
      * @var int
@@ -65,19 +66,16 @@ class Zend_XmlRpc_Fault
      */
     protected $_internal = array(
         404 => 'Unknown Error',
-
         // 610 - 619 reflection errors
         610 => 'Invalid method class',
         611 => 'Unable to attach function or callback; not callable',
         612 => 'Unable to load array; not an array',
         613 => 'One or more method records are corrupt or otherwise unusable',
-
         // 620 - 629 dispatch errors
         620 => 'Method does not exist',
         621 => 'Error instantiating class to invoke method',
         622 => 'Method missing implementation',
         623 => 'Calling parameters do not match signature',
-
         // 630 - 639 request errors
         630 => 'Unable to read request',
         631 => 'Failed to parse request',
@@ -86,10 +84,8 @@ class Zend_XmlRpc_Fault
         634 => 'Invalid method name',
         635 => 'Invalid XML provided to request',
         636 => 'Error creating xmlrpc value',
-
         // 640 - 649 system.* errors
         640 => 'Method does not exist',
-
         // 650 - 659 response errors
         650 => 'Invalid XML provided for response',
         651 => 'Failed to parse response',
@@ -198,12 +194,15 @@ class Zend_XmlRpc_Fault
             throw new Zend_XmlRpc_Exception('Invalid XML provided to fault');
         }
 
-        try {
+        try
+        {
             $xml = @new SimpleXMLElement($fault);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             // Not valid XML
             #require_once 'Zend/XmlRpc/Exception.php';
-            throw new Zend_XmlRpc_Exception('Failed to parse XML fault: ' .  $e->getMessage(), 500, $e);
+            throw new Zend_XmlRpc_Exception('Failed to parse XML fault: ' . $e->getMessage(), 500, $e);
         }
 
         // Check for fault
@@ -219,8 +218,8 @@ class Zend_XmlRpc_Fault
         }
 
         $structXml = $xml->fault->value->asXML();
-        $struct    = Zend_XmlRpc_Value::getXmlRpcValue($structXml, Zend_XmlRpc_Value::XML_STRING);
-        $struct    = $struct->getValue();
+        $struct = Zend_XmlRpc_Value::getXmlRpcValue($structXml, Zend_XmlRpc_Value::XML_STRING);
+        $struct = $struct->getValue();
 
         if (isset($struct['faultCode'])) {
             $code = $struct['faultCode'];
@@ -262,9 +261,12 @@ class Zend_XmlRpc_Fault
     {
         $fault = new self();
         #require_once 'Zend/XmlRpc/Exception.php';
-        try {
+        try
+        {
             $isFault = $fault->loadXml($xml);
-        } catch (Zend_XmlRpc_Exception $e) {
+        }
+        catch (Zend_XmlRpc_Exception $e)
+        {
             $isFault = false;
         }
 
@@ -280,17 +282,17 @@ class Zend_XmlRpc_Fault
     {
         // Create fault value
         $faultStruct = array(
-            'faultCode'   => $this->getCode(),
+            'faultCode' => $this->getCode(),
             'faultString' => $this->getMessage()
         );
         $value = Zend_XmlRpc_Value::getXmlRpcValue($faultStruct);
 
         $generator = Zend_XmlRpc_Value::getGenerator();
         $generator->openElement('methodResponse')
-                  ->openElement('fault');
+                ->openElement('fault');
         $value->generateXml();
         $generator->closeElement('fault')
-                  ->closeElement('methodResponse');
+                ->closeElement('methodResponse');
 
         return $generator->flush();
     }
@@ -304,4 +306,5 @@ class Zend_XmlRpc_Fault
     {
         return $this->saveXML();
     }
+
 }

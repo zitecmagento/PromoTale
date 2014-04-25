@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
 /**
  * @see Zend_Service_WindowsAzure_Diagnostics_Exception
  */
@@ -46,45 +46,46 @@
  * @property	int		ScheduledTransferPeriodInMinutes	Scheduled transfer period in minutes
  * @property	array	Subscriptions						Subscriptions
  */
-class Zend_Service_WindowsAzure_Diagnostics_ConfigurationDirectories
-	extends Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
+class Zend_Service_WindowsAzure_Diagnostics_ConfigurationDirectories extends Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
 {
+
     /**
      * Constructor
      * 
-	 * @param	int		$bufferQuotaInMB					Buffer quota in MB
-	 * @param	int		$scheduledTransferPeriodInMinutes	Scheduled transfer period in minutes
-	 */
-    public function __construct($bufferQuotaInMB = 0, $scheduledTransferPeriodInMinutes = 0) 
-    {	        
+     * @param	int		$bufferQuotaInMB					Buffer quota in MB
+     * @param	int		$scheduledTransferPeriodInMinutes	Scheduled transfer period in minutes
+     */
+    public function __construct($bufferQuotaInMB = 0, $scheduledTransferPeriodInMinutes = 0)
+    {
         $this->_data = array(
-            'bufferquotainmb'        			=> $bufferQuotaInMB,
-            'scheduledtransferperiodinminutes' 	=> $scheduledTransferPeriodInMinutes,
-        	'subscriptions'						=> array()
+            'bufferquotainmb' => $bufferQuotaInMB,
+            'scheduledtransferperiodinminutes' => $scheduledTransferPeriodInMinutes,
+            'subscriptions' => array()
         );
     }
-    
-	/**
-	 * Add subscription
-	 * 
-	 * @param	string	$path					Path
-	 * @param	string	$container				Container
-	 * @param	int		$directoryQuotaInMB		Directory quota in MB
-	 */
+
+    /**
+     * Add subscription
+     * 
+     * @param	string	$path					Path
+     * @param	string	$container				Container
+     * @param	int		$directoryQuotaInMB		Directory quota in MB
+     */
     public function addSubscription($path, $container, $directoryQuotaInMB = 1024)
     {
-    	$this->_data['subscriptions'][$path] = new Zend_Service_WindowsAzure_Diagnostics_DirectoryConfigurationSubscription($path, $container, $directoryQuotaInMB);
+        $this->_data['subscriptions'][$path] = new Zend_Service_WindowsAzure_Diagnostics_DirectoryConfigurationSubscription($path, $container, $directoryQuotaInMB);
     }
-    
-	/**
-	 * Remove subscription
-	 * 
-	 * @param	string	$path					Path
-	 */
+
+    /**
+     * Remove subscription
+     * 
+     * @param	string	$path					Path
+     */
     public function removeSubscription($path)
     {
-    	if (isset($this->_data['subscriptions'][$path])) {
-    		unset($this->_data['subscriptions'][$path]);
-    	}
+        if (isset($this->_data['subscriptions'][$path])) {
+            unset($this->_data['subscriptions'][$path]);
+        }
     }
+
 }

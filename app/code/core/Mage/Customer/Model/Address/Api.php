@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 {
+
     protected $_mapAttributes = array(
         'customer_address_id' => 'entity_id'
     );
@@ -51,7 +53,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     public function items($customerId)
     {
         $customer = Mage::getModel('customer/customer')
-            ->load($customerId);
+                ->load($customerId);
         /* @var $customer Mage_Customer_Model_Customer */
 
         if (!$customer->getId()) {
@@ -61,7 +63,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
         $result = array();
         foreach ($customer->getAddresses() as $address) {
             $data = $address->toArray();
-            $row  = array();
+            $row = array();
 
             foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
                 $row[$attributeAlias] = isset($data[$attributeCode]) ? $data[$attributeCode] : null;
@@ -77,7 +79,6 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
             $row['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();
 
             $result[] = $row;
-
         }
 
         return $result;
@@ -93,7 +94,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     public function create($customerId, $addressData)
     {
         $customer = Mage::getModel('customer/customer')
-            ->load($customerId);
+                ->load($customerId);
         /* @var $customer Mage_Customer_Model_Customer */
 
         if (!$customer->getId()) {
@@ -102,7 +103,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 
         $address = Mage::getModel('customer/address');
 
-        foreach ($this->getAllowedAttributes($address) as $attributeCode=>$attribute) {
+        foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {
             if (isset($addressData[$attributeCode])) {
                 $address->setData($attributeCode, $addressData[$attributeCode]);
             }
@@ -124,9 +125,12 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
             $this->_fault('data_invalid', implode("\n", $valid));
         }
 
-        try {
+        try
+        {
             $address->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -142,7 +146,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     public function info($addressId)
     {
         $address = Mage::getModel('customer/address')
-            ->load($addressId);
+                ->load($addressId);
 
         if (!$address->getId()) {
             $this->_fault('not_exists');
@@ -160,7 +164,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 
 
         if ($customer = $address->getCustomer()) {
-            $result['is_default_billing']  = $customer->getDefaultBilling() == $address->getId();
+            $result['is_default_billing'] = $customer->getDefaultBilling() == $address->getId();
             $result['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();
         }
 
@@ -177,13 +181,13 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     public function update($addressId, $addressData)
     {
         $address = Mage::getModel('customer/address')
-            ->load($addressId);
+                ->load($addressId);
 
         if (!$address->getId()) {
             $this->_fault('not_exists');
         }
 
-        foreach ($this->getAllowedAttributes($address) as $attributeCode=>$attribute) {
+        foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {
             if (isset($addressData[$attributeCode])) {
                 $address->setData($attributeCode, $addressData[$attributeCode]);
             }
@@ -202,9 +206,12 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
             $this->_fault('data_invalid', implode("\n", $valid));
         }
 
-        try {
+        try
+        {
             $address->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -220,18 +227,24 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     public function delete($addressId)
     {
         $address = Mage::getModel('customer/address')
-            ->load($addressId);
+                ->load($addressId);
 
         if (!$address->getId()) {
             $this->_fault('not_exists');
         }
 
-        try {
+        try
+        {
             $address->delete();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('not_deleted', $e->getMessage());
         }
 
         return true;
     }
-} // Class Mage_Customer_Model_Address_Api End
+
+}
+
+// Class Mage_Customer_Model_Address_Api End

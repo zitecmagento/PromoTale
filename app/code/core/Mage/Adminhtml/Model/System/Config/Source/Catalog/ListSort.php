@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Catalog Product List Sortable allowed sortable attributes source
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Catalog_ListSort
 {
+
     /**
      * Retrieve option values array
      *
@@ -60,7 +61,9 @@ class Mage_Adminhtml_Model_System_Config_Source_Catalog_ListSort
      *
      * @return Mage_Catalog_Model_Config
      */
-    protected function _getCatalogConfig() {
+    protected function _getCatalogConfig()
+    {
         return Mage::getSingleton('catalog/config');
     }
+
 }

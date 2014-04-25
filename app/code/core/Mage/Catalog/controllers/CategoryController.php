@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Initialize requested category object
      *
@@ -47,8 +49,8 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
         }
 
         $category = Mage::getModel('catalog/category')
-            ->setStoreId(Mage::app()->getStore()->getId())
-            ->load($categoryId);
+                ->setStoreId(Mage::app()->getStore()->getId())
+                ->load($categoryId);
 
         if (!Mage::helper('catalog/category')->canShow($category)) {
             return false;
@@ -57,15 +59,17 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
         Mage::register('current_category', $category);
         Mage::register('current_entity_key', $category->getPath());
 
-        try {
+        try
+        {
             Mage::dispatchEvent(
-                'catalog_controller_category_init_after',
-                array(
-                    'category' => $category,
-                    'controller_action' => $this
-                )
+                    'catalog_controller_category_init_after', array(
+                'category' => $category,
+                'controller_action' => $this
+                    )
             );
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::logException($e);
             return false;
         }
@@ -95,12 +99,12 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
         $validityDate = $category->getCustomDesignDate();
 
         if (array_key_exists('from', $validityDate) &&
-            array_key_exists('to', $validityDate) &&
-            Mage::app()->getLocale()->isStoreDateInInterval(null, $validityDate['from'], $validityDate['to'])
+                array_key_exists('to', $validityDate) &&
+                Mage::app()->getLocale()->isStoreDateInInterval(null, $validityDate['from'], $validityDate['to'])
         ) {
             if ($category->getPageLayout()) {
                 $this->getLayout()->helper('page/layout')
-                    ->applyHandle($category->getPageLayout());
+                        ->applyHandle($category->getPageLayout());
             }
             $update->addUpdate($category->getCustomLayoutUpdate());
         }
@@ -139,7 +143,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
             // apply custom layout update once layout is loaded
             if ($layoutUpdates = $settings->getLayoutUpdates()) {
                 if (is_array($layoutUpdates)) {
-                    foreach($layoutUpdates as $layoutUpdate) {
+                    foreach ($layoutUpdates as $layoutUpdate) {
                         $update->addUpdate($layoutUpdate);
                     }
                 }
@@ -153,15 +157,15 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
             if ($root = $this->getLayout()->getBlock('root')) {
                 $root->addBodyClass('categorypath-' . $category->getUrlPath())
-                    ->addBodyClass('category-' . $category->getUrlKey());
+                        ->addBodyClass('category-' . $category->getUrlKey());
             }
 
             $this->_initLayoutMessages('catalog/session');
             $this->_initLayoutMessages('checkout/session');
             $this->renderLayout();
-        }
-        elseif (!$this->getResponse()->isRedirect()) {
+        } elseif (!$this->getResponse()->isRedirect()) {
             $this->_forward('noRoute');
         }
     }
+
 }

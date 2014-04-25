@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Device_Ipad extends Mage_XmlConnect_Model_Device_Abstract
 {
+
     /**
      * Portrait banner image type
      */
@@ -111,7 +113,7 @@ class Mage_XmlConnect_Model_Device_Ipad extends Mage_XmlConnect_Model_Device_Abs
     /**
      * Ipad default screen size
      */
-    const SCREEN_SIZE_DEFAULT   = '768x1024';
+    const SCREEN_SIZE_DEFAULT = '768x1024';
 
     /**
      * Device specific image size configuration
@@ -171,4 +173,5 @@ class Mage_XmlConnect_Model_Device_Ipad extends Mage_XmlConnect_Model_Device_Abs
     {
         return $this->_imageSizeConfiguration;
     }
+
 }

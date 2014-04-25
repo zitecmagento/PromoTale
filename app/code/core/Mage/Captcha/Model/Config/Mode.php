@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Captcha_Model_Config_Mode
 {
+
     /**
      * Get options for captcha mode selection field
      *
@@ -51,4 +53,5 @@ class Mage_Captcha_Model_Config_Mode
             ),
         );
     }
+
 }

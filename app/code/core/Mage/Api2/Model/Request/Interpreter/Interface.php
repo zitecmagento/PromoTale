@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 interface Mage_Api2_Model_Request_Interpreter_Interface
 {
+
     /**
      * Parse request body into array of params
      *

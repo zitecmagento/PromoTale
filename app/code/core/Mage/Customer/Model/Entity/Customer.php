@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer entity resource model
  *
@@ -34,4 +34,5 @@
  */
 class Mage_Customer_Model_Entity_Customer extends Mage_Customer_Model_Resource_Customer
 {
+    
 }

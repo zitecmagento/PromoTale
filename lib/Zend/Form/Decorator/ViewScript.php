@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Decorator_Abstract */
 #require_once 'Zend/Form/Decorator/Abstract.php';
 
@@ -52,6 +52,7 @@
  */
 class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
 {
+
     /**
      * Default placement: append
      * @var string
@@ -99,7 +100,7 @@ class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
 
             if (null !== ($viewScript = $this->getOption('viewScript'))) {
                 $this->setViewScript($viewScript)
-                     ->removeOption('viewScript');
+                        ->removeOption('viewScript');
             }
         }
 
@@ -135,7 +136,7 @@ class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
 
             if (null !== ($viewModule = $this->getOption('viewModule'))) {
                 $this->setViewModule($viewModule)
-                     ->removeOption('viewModule');
+                        ->removeOption('viewModule');
             }
         }
 
@@ -151,7 +152,7 @@ class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
     public function render($content)
     {
         $element = $this->getElement();
-        $view    = $element->getView();
+        $view = $element->getView();
         if (null === $view) {
             return $content;
         }
@@ -165,9 +166,9 @@ class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
         $separator = $this->getSeparator();
         $placement = $this->getPlacement();
 
-        $vars              = $this->getOptions();
-        $vars['element']   = $element;
-        $vars['content']   = $content;
+        $vars = $this->getOptions();
+        $vars['element'] = $element;
+        $vars['content'] = $content;
         $vars['decorator'] = $this;
 
         $viewModule = $this->getViewModule();
@@ -189,4 +190,5 @@ class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
                 return $renderedContent;
         }
     }
+
 }

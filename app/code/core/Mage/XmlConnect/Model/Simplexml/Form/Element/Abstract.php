@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
-    extends Mage_XmlConnect_Model_Simplexml_Form_Abstract
+abstract class Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract extends Mage_XmlConnect_Model_Simplexml_Form_Abstract
 {
+
     /**
      * Element type
      *
@@ -328,4 +329,5 @@ abstract class Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
         }
         return '';
     }
+
 }

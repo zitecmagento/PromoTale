@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Customer_ReviewController extends Mage_Core_Controller_Front_Action
 {
+
     public function indexAction()
     {
         $this->loadLayout();
@@ -45,4 +46,5 @@ class Mage_Customer_ReviewController extends Mage_Core_Controller_Front_Action
         $this->loadLayout();
         $this->renderLayout();
     }
+
 }

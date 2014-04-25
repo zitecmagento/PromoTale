@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  *
  * @deprecated after 1.3.2.4
@@ -36,9 +36,8 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
 {
 
     protected $_entity = null;
-    protected $_type   = null;
+    protected $_type = null;
     protected $_giftMessage = null;
-
     static protected $_scriptIncluded = false;
 
     public function __construct()
@@ -98,14 +97,14 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
     protected function _initMessage()
     {
         $this->_giftMessage = $this->helper('giftmessage/message')->getGiftMessage(
-                                            $this->getEntity()->getGiftMessageId()
-                              );
+                $this->getEntity()->getGiftMessageId()
+        );
         return $this;
     }
 
     public function getMessage()
     {
-        if(is_null($this->_giftMessage)) {
+        if (is_null($this->_giftMessage)) {
             $this->_initMessage();
         }
 

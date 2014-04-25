@@ -24,43 +24,43 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if(isset($poll)) : ?>
-<script type="text/javascript">
-//<![CDATA[
-    function validatePollAnswerIsSelected()
-    {
-        var options = $$('input.poll_vote');
-        for( i in options ) {
-            if( options[i].checked == true ) {
-                return true;
+<?php if (isset($poll)) : ?>
+    <script type="text/javascript">
+    //<![CDATA[
+        function validatePollAnswerIsSelected()
+        {
+            var options = $$('input.poll_vote');
+            for (i in options) {
+                if (options[i].checked == true) {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
-    }
-//]]>
-</script>
-<div class="block block-poll">
-    <div class="block-title">
-        <strong><span><?php echo $this->__('Community Poll') ?></span></strong>
-    </div>
-    <form id="pollForm" action="<?php echo $action ?>" method="post" onsubmit="return validatePollAnswerIsSelected();">
-        <div class="block-content">
-            <p class="block-subtitle"><?php echo $this->escapeHtml($poll->getPollTitle()); ?></p>
-            <?php if( $poll_answers ): ?>
-            <ul id="poll-answers">
-                <?php foreach( $poll_answers as $answer ): ?>
-                <li>
-                    <input type="radio" name="vote" class="radio poll_vote" id="vote_<?php echo $answer->getId() ?>" value="<?php echo $answer->getAnswerId() ?>" />
-                    <span class="label"><label for="vote_<?php echo $answer->getId() ?>"><?php echo $this->escapeHtml($answer->getAnswerTitle()) ?></label></span>
-                </li>
-                <?php endforeach; ?>
-            </ul>
-            <script type="text/javascript">decorateList('poll-answers');</script>
-            <?php endif; ?>
-            <div class="actions">
-                <button type="submit" title="<?php echo $this->__('Vote') ?>" class="button"><span><span><?php echo $this->__('Vote') ?></span></span></button>
-            </div>
+    //]]>
+    </script>
+    <div class="block block-poll">
+        <div class="block-title">
+            <strong><span><?php echo $this->__('Community Poll') ?></span></strong>
         </div>
-    </form>
-</div>
+        <form id="pollForm" action="<?php echo $action ?>" method="post" onsubmit="return validatePollAnswerIsSelected();">
+            <div class="block-content">
+                <p class="block-subtitle"><?php echo $this->escapeHtml($poll->getPollTitle()); ?></p>
+                <?php if ($poll_answers): ?>
+                    <ul id="poll-answers">
+                        <?php foreach ($poll_answers as $answer): ?>
+                            <li>
+                                <input type="radio" name="vote" class="radio poll_vote" id="vote_<?php echo $answer->getId() ?>" value="<?php echo $answer->getAnswerId() ?>" />
+                                <span class="label"><label for="vote_<?php echo $answer->getId() ?>"><?php echo $this->escapeHtml($answer->getAnswerTitle()) ?></label></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <script type="text/javascript">decorateList('poll-answers');</script>
+                <?php endif; ?>
+                <div class="actions">
+                    <button type="submit" title="<?php echo $this->__('Vote') ?>" class="button"><span><span><?php echo $this->__('Vote') ?></span></span></button>
+                </div>
+            </div>
+        </form>
+    </div>
 <?php endif; ?>

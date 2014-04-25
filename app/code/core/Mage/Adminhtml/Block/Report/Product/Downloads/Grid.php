@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -49,18 +51,18 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
             $storeId = array_pop($storeIds);
         } else if ($this->getRequest()->getParam('store')) {
-            $storeId = (int)$this->getRequest()->getParam('store');
+            $storeId = (int) $this->getRequest()->getParam('store');
         } else {
             $storeId = '';
         }
 
         $collection = Mage::getResourceModel('reports/product_downloads_collection')
-            ->addAttributeToSelect('*')
-            ->setStoreId($storeId)
-            ->addAttributeToFilter('type_id', array(Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE))
-            ->addSummary();
+                ->addAttributeToSelect('*')
+                ->setStoreId($storeId)
+                ->addAttributeToFilter('type_id', array(Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE))
+                ->addSummary();
 
-        if( $storeId ) {
+        if ($storeId) {
             $collection->addStoreFilter($storeId);
         }
 
@@ -71,37 +73,37 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
     protected function _prepareColumns()
     {
         $this->addColumn('name', array(
-            'header'    => Mage::helper('reports')->__('Product Name'),
-            'index'     => 'name'
+            'header' => Mage::helper('reports')->__('Product Name'),
+            'index' => 'name'
         ));
 
         $this->addColumn('link_title', array(
-            'header'    => Mage::helper('reports')->__('Link'),
-            'index'     => 'link_title'
+            'header' => Mage::helper('reports')->__('Link'),
+            'index' => 'link_title'
         ));
 
         $this->addColumn('sku', array(
-            'header'    =>Mage::helper('reports')->__('Product SKU'),
-            'index'     =>'sku'
+            'header' => Mage::helper('reports')->__('Product SKU'),
+            'index' => 'sku'
         ));
 
         $this->addColumn('purchases', array(
-            'header'    => Mage::helper('reports')->__('Purchases'),
-            'width'     => '215px',
-            'align'     => 'right',
-            'filter'    => false,
-            'index'     => 'purchases',
-            'type'      => 'number',
-            'renderer'  => 'adminhtml/report_product_downloads_renderer_purchases',
+            'header' => Mage::helper('reports')->__('Purchases'),
+            'width' => '215px',
+            'align' => 'right',
+            'filter' => false,
+            'index' => 'purchases',
+            'type' => 'number',
+            'renderer' => 'adminhtml/report_product_downloads_renderer_purchases',
         ));
 
         $this->addColumn('downloads', array(
-            'header'    => Mage::helper('reports')->__('Downloads'),
-            'width'     => '215px',
-            'align'     => 'right',
-            'filter'    => false,
-            'index'     => 'downloads',
-            'type'      => 'number'
+            'header' => Mage::helper('reports')->__('Downloads'),
+            'width' => '215px',
+            'align' => 'right',
+            'filter' => false,
+            'index' => 'downloads',
+            'type' => 'number'
         ));
 
         $this->addExportType('*/*/exportDownloadsCsv', Mage::helper('reports')->__('CSV'));
@@ -109,4 +111,5 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
 
         return parent::_prepareColumns();
     }
+
 }

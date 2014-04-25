@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SalesRule Rule Customer Model
  *
@@ -41,17 +41,19 @@
  * @package     Mage_SalesRule
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_SalesRule_Model_Rule_Customer extends Mage_Core_Model_Abstract 
+class Mage_SalesRule_Model_Rule_Customer extends Mage_Core_Model_Abstract
 {
+
     protected function _construct()
     {
         parent::_construct();
         $this->_init('salesrule/rule_customer');
     }
-    
+
     public function loadByCustomerRule($customerId, $ruleId)
     {
         $this->_getResource()->loadByCustomerRule($this, $customerId, $ruleId);
         return $this;
     }
+
 }

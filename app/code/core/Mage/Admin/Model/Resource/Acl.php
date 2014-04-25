@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Resource model for admin ACL
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     const ACL_ALL_RULES = 'all';
 
     /**
@@ -56,27 +57,25 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 
         Mage::getSingleton('admin/config')->loadAclResources($acl);
 
-        $roleTable   = $this->getTable('admin/role');
-        $ruleTable   = $this->getTable('admin/rule');
+        $roleTable = $this->getTable('admin/role');
+        $ruleTable = $this->getTable('admin/rule');
         $assertTable = $this->getTable('admin/assert');
 
         $adapter = $this->_getReadAdapter();
 
         $select = $adapter->select()
-            ->from($roleTable)
-            ->order('tree_level');
+                ->from($roleTable)
+                ->order('tree_level');
 
         $rolesArr = $adapter->fetchAll($select);
 
         $this->loadRoles($acl, $rolesArr);
 
         $select = $adapter->select()
-            ->from(array('r' => $ruleTable))
-            ->joinLeft(
-                array('a' => $assertTable),
-                'a.assert_id = r.assert_id',
-                array('assert_type', 'assert_data')
-            );
+                ->from(array('r' => $ruleTable))
+                ->joinLeft(
+                array('a' => $assertTable), 'a.assert_id = r.assert_id', array('assert_type', 'assert_data')
+        );
 
         $rulesArr = $adapter->fetchAll($select);
 
@@ -135,37 +134,41 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 $assertClass = Mage::getSingleton('admin/config')->getAclAssert($rule['assert_type'])->getClassName();
                 $assert = new $assertClass(unserialize($rule['assert_data']));
             }
-            try {
-                if ( $rule['permission'] == 'allow' ) {
+            try
+            {
+                if ($rule['permission'] == 'allow') {
                     if ($resource === self::ACL_ALL_RULES) {
                         $acl->allow($role, null, $privileges, $assert);
                     }
                     $acl->allow($role, $resource, $privileges, $assert);
-                } else if ( $rule['permission'] == 'deny' ) {
+                } else if ($rule['permission'] == 'deny') {
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 //$m = $e->getMessage();
                 //if ( eregi("^Resource '(.*)' not found", $m) ) {
-                    // Deleting non existent resource rule from rules table
-                    //$cond = $this->_write->quoteInto('resource_id = ?', $resource);
-                    //$this->_write->delete(Mage::getSingleton('core/resource')->getTableName('admin/rule'), $cond);
+                // Deleting non existent resource rule from rules table
+                //$cond = $this->_write->quoteInto('resource_id = ?', $resource);
+                //$this->_write->delete(Mage::getSingleton('core/resource')->getTableName('admin/rule'), $cond);
                 //} else {
-                    //TODO: We need to log such exceptions to somewhere like a system/errors.log
+                //TODO: We need to log such exceptions to somewhere like a system/errors.log
                 //}
             }
             /*
-            switch ($rule['permission']) {
-                case Mage_Admin_Model_Acl::RULE_PERM_ALLOW:
-                    $acl->allow($role, $resource, $privileges, $assert);
-                    break;
+              switch ($rule['permission']) {
+              case Mage_Admin_Model_Acl::RULE_PERM_ALLOW:
+              $acl->allow($role, $resource, $privileges, $assert);
+              break;
 
-                case Mage_Admin_Model_Acl::RULE_PERM_DENY:
-                    $acl->deny($role, $resource, $privileges, $assert);
-                    break;
-            }
-            */
+              case Mage_Admin_Model_Acl::RULE_PERM_DENY:
+              $acl->deny($role, $resource, $privileges, $assert);
+              break;
+              }
+             */
         }
         return $this;
     }
+
 }

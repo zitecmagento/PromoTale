@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FormReset.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Abstract class for extension
  */
 #require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to generate a "reset" button
@@ -38,6 +36,7 @@
  */
 class Zend_View_Helper_FormReset extends Zend_View_Helper_FormElement
 {
+
     /**
      * Generates a 'reset' button.
      *
@@ -57,7 +56,6 @@ class Zend_View_Helper_FormReset extends Zend_View_Helper_FormElement
     {
         $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, value, attribs, options, listsep, disable
-
         // check if disabled
         $disabled = '';
         if ($disable) {
@@ -72,12 +70,12 @@ class Zend_View_Helper_FormReset extends Zend_View_Helper_FormElement
 
         // Render button
         $xhtml = '<input type="reset"'
-               . ' name="' . $this->view->escape($name) . '"'
-               . ' id="' . $this->view->escape($id) . '"'
-               . $disabled;
+                . ' name="' . $this->view->escape($name) . '"'
+                . ' id="' . $this->view->escape($id) . '"'
+                . $disabled;
 
         // add a value if one is given
-        if (! empty($value)) {
+        if (!empty($value)) {
             $xhtml .= ' value="' . $this->view->escape($value) . '"';
         }
 
@@ -85,4 +83,5 @@ class Zend_View_Helper_FormReset extends Zend_View_Helper_FormElement
         $xhtml .= $this->_htmlAttribs($attribs) . $endTag;
         return $xhtml;
     }
+
 }

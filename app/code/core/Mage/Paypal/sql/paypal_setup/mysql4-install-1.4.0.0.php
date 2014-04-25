@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 $installer = $this;
 /* @var $installer Mage_Paypal_Model_Mysql4_Setup */
 
@@ -43,6 +42,6 @@ CREATE TABLE `{$this->getTable('paypal_api_debug')}` (
 $installer->addAttribute('quote_payment', 'paypal_payer_id', array());
 $installer->addAttribute('quote_payment', 'paypal_payer_status', array());
 $installer->addAttribute('quote_payment', 'paypal_correlation_id', array());
-$installer->addAttribute('order', 'paypal_ipn_customer_notified', array('type'=>'int', 'visible' => false, 'default' => 0));
+$installer->addAttribute('order', 'paypal_ipn_customer_notified', array('type' => 'int', 'visible' => false, 'default' => 0));
 
 $installer->endSetup();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
@@ -36,7 +35,9 @@ $installer->getConnection()->dropColumn($installer->getTable('catalogindex_minim
 $installer->getConnection()->addConstraint('FK_CI_PRICE_WEBSITE_ID', $installer->getTable('catalogindex_price'), 'website_id', $installer->getTable('core_website'), 'website_id');
 $installer->getConnection()->addConstraint('FK_CI_MINIMAL_PRICE_WEBSITE_ID', $installer->getTable('catalogindex_minimal_price'), 'website_id', $installer->getTable('core_website'), 'website_id');
 
-$installer->getConnection()->addKey($installer->getTable('catalogindex_price'), 'IDX_FULL', array('entity_id', 'attribute_id', 'customer_group_id', 'value', 'website_id'));
-$installer->getConnection()->addKey($installer->getTable('catalogindex_minimal_price'), 'IDX_FULL', array('entity_id', 'qty', 'customer_group_id', 'value', 'website_id'));
+$installer->getConnection()->addKey($installer->getTable('catalogindex_price'), 'IDX_FULL', array('entity_id', 'attribute_id',
+    'customer_group_id', 'value', 'website_id'));
+$installer->getConnection()->addKey($installer->getTable('catalogindex_minimal_price'), 'IDX_FULL', array('entity_id', 'qty',
+    'customer_group_id', 'value', 'website_id'));
 
 $installer->endSetup();

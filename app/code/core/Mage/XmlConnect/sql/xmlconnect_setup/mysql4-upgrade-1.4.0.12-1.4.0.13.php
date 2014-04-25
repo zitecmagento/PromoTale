@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,15 +24,14 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 $installer->startSetup();
 
-$appTable      = $installer->getTable('xmlconnect/application');
-$historyTable  = $installer->getTable('xmlconnect/history');
+$appTable = $installer->getTable('xmlconnect/application');
+$historyTable = $installer->getTable('xmlconnect/history');
 $templateTable = $installer->getTable('xmlconnect/template');
-$queueTable    = $installer->getTable('xmlconnect/queue');
+$queueTable = $installer->getTable('xmlconnect/queue');
 
 foreach (array($appTable, $historyTable, $templateTable, $queueTable) as $table) {
     $installer->run(sprintf('ALTER TABLE `%s` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci', $table));

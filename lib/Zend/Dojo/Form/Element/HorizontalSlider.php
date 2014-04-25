@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Dojo_Form_Element_Slider */
 #require_once 'Zend/Dojo/Form/Element/Slider.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_Dojo_Form_Element_HorizontalSlider extends Zend_Dojo_Form_Element_Slider
 {
+
     /**
      * Use HorizontalSlider dijit view helper
      * @var string
@@ -205,4 +206,5 @@ class Zend_Dojo_Form_Element_HorizontalSlider extends Zend_Dojo_Form_Element_Sli
         $this->setDijitParam('bottomDecoration', $decoration);
         return $this;
     }
+
 }

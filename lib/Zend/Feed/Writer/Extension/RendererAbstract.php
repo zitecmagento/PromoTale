@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,51 +19,50 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: RendererAbstract.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
- 
 /**
  * @see Zend_Feed_Writer_Extension_RendererInterface
  */
 #require_once 'Zend/Feed/Writer/Extension/RendererInterface.php';
- 
- /**
+
+/**
  * @category   Zend
  * @package    Zend_Feed_Writer_Entry_Rss
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Feed_Writer_Extension_RendererAbstract
-    implements Zend_Feed_Writer_Extension_RendererInterface
+abstract class Zend_Feed_Writer_Extension_RendererAbstract implements Zend_Feed_Writer_Extension_RendererInterface
 {
+
     /**
      * @var DOMDocument
      */
     protected $_dom = null;
-    
+
     /**
      * @var mixed
      */
     protected $_entry = null;
-    
+
     /**
      * @var DOMElement
      */
     protected $_base = null;
-    
+
     /**
      * @var mixed
      */
     protected $_container = null;
-    
+
     /**
      * @var string
      */
     protected $_type = null;
-    
+
     /**
      * @var DOMElement
      */
     protected $_rootElement = null;
-    
+
     /**
      * Encoding of all text values
      *
@@ -80,7 +80,7 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
     {
         $this->_container = $container;
     }
-    
+
     /**
      * Set feed encoding
      * 
@@ -92,7 +92,7 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
         $this->_encoding = $enc;
         return $this;
     }
-    
+
     /**
      * Get feed encoding
      * 
@@ -102,7 +102,7 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
     {
         return $this->_encoding;
     }
-    
+
     /**
      * Set DOMDocument and DOMElement on which to operate
      * 
@@ -112,11 +112,11 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
      */
     public function setDomDocument(DOMDocument $dom, DOMElement $base)
     {
-        $this->_dom  = $dom;
+        $this->_dom = $dom;
         $this->_base = $base;
         return $this;
     }
-    
+
     /**
      * Get data container being rendered
      * 
@@ -126,7 +126,7 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
     {
         return $this->_container;
     }
-    
+
     /**
      * Set feed type
      * 
@@ -138,7 +138,7 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
         $this->_type = $type;
         return $this;
     }
-    
+
     /**
      * Get feedtype
      * 
@@ -148,7 +148,7 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
     {
         return $this->_type;
     }
-    
+
     /**
      * Set root element of document 
      * 
@@ -160,7 +160,7 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
         $this->_rootElement = $root;
         return $this;
     }
-    
+
     /**
      * Get root element
      * 
@@ -170,7 +170,7 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
     {
         return $this->_rootElement;
     }
-    
+
     /**
      * Append namespaces to feed
      * 

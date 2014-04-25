@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Bundle
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_Abstract
-    implements Mage_Catalog_Helper_Product_Configuration_Interface
+class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_Abstract implements Mage_Catalog_Helper_Product_Configuration_Interface
 {
+
     /**
      * Get selection quantity
      *
@@ -59,17 +60,11 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
      *
      * @return decimal
      */
-    public function getSelectionFinalPrice(Mage_Catalog_Model_Product_Configuration_Item_Interface $item,
-        $selectionProduct)
+    public function getSelectionFinalPrice(Mage_Catalog_Model_Product_Configuration_Item_Interface $item, $selectionProduct)
     {
         $selectionProduct->unsetData('final_price');
         return $item->getProduct()->getPriceModel()->getSelectionFinalTotalPrice(
-            $item->getProduct(),
-            $selectionProduct,
-            $item->getQty() * 1,
-            $this->getSelectionQty($item->getProduct(), $selectionProduct->getSelectionId()),
-            false,
-            true
+                        $item->getProduct(), $selectionProduct, $item->getQty() * 1, $this->getSelectionQty($item->getProduct(), $selectionProduct->getSelectionId()), false, true
         );
     }
 
@@ -96,8 +91,8 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
         $bundleOptionsIds = $optionsQuoteItemOption ? unserialize($optionsQuoteItemOption->getValue()) : array();
         if ($bundleOptionsIds) {
             /**
-            * @var Mage_Bundle_Model_Mysql4_Option_Collection
-            */
+             * @var Mage_Bundle_Model_Mysql4_Option_Collection
+             */
             $optionsCollection = $typeInstance->getOptionsByIds($bundleOptionsIds, $product);
 
             // get and add bundle selections collection
@@ -107,8 +102,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
 
             if (!empty($bundleSelectionIds)) {
                 $selectionsCollection = $typeInstance->getSelectionsByIds(
-                    unserialize($selectionsQuoteItemOption->getValue()),
-                    $product
+                        unserialize($selectionsQuoteItemOption->getValue()), $product
                 );
 
                 $bundleOptions = $optionsCollection->appendSelections($selectionsCollection, true);
@@ -125,9 +119,9 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
                             $qty = $this->getSelectionQty($product, $bundleSelection->getSelectionId()) * 1;
                             if ($qty) {
                                 $option['value'][] = $qty . ' x ' . $this->escapeHtml($bundleSelection->getName())
-                                    . ' ' . Mage::helper('core')->currency(
-                                        $this->getSelectionFinalPrice($item, $bundleSelection)
-                                    );
+                                        . ' ' . Mage::helper('core')->currency(
+                                                $this->getSelectionFinalPrice($item, $bundleSelection)
+                                );
                             }
                         }
 
@@ -151,8 +145,8 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
     public function getOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
     {
         return array_merge(
-            $this->getBundleOptions($item),
-            Mage::helper('catalog/product_configuration')->getCustomOptions($item)
+                $this->getBundleOptions($item), Mage::helper('catalog/product_configuration')->getCustomOptions($item)
         );
     }
+
 }

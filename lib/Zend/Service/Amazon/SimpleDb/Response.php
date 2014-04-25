@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * @see Zend_Http_Response
  */
@@ -31,8 +31,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_Amazon_SimpleDb_Response 
+class Zend_Service_Amazon_SimpleDb_Response
 {
+
     /**
      * XML namespace used for SimpleDB responses.
      */
@@ -99,8 +100,7 @@ class Zend_Service_Amazon_SimpleDb_Response
                 $this->_xpath = false;
             } else {
                 $this->_xpath = new DOMXPath($document);
-                $this->_xpath->registerNamespace('sdb',
-                    $this->getNamespace());
+                $this->_xpath->registerNamespace('sdb', $this->getNamespace());
             }
         }
 
@@ -114,26 +114,29 @@ class Zend_Service_Amazon_SimpleDb_Response
      */
     public function getSimpleXMLDocument()
     {
-        try {
+        try
+        {
             $body = $this->_httpResponse->getBody();
-        } catch (Zend_Http_Exception $e) {
+        }
+        catch (Zend_Http_Exception $e)
+        {
             $body = false;
         }
 
-       
+
         return simplexml_load_string($body);
     }
-    
+
     /**
      * Get HTTP response object
      * 
      * @return Zend_Http_Response
      */
-    public function getHttpResponse() 
+    public function getHttpResponse()
     {
         return $this->_httpResponse;
     }
-    
+
     /**
      * Gets the document object for this response
      *
@@ -141,9 +144,12 @@ class Zend_Service_Amazon_SimpleDb_Response
      */
     public function getDocument()
     {
-        try {
+        try
+        {
             $body = $this->_httpResponse->getBody();
-        } catch (Zend_Http_Exception $e) {
+        }
+        catch (Zend_Http_Exception $e)
+        {
             $body = false;
         }
 
@@ -156,7 +162,7 @@ class Zend_Service_Amazon_SimpleDb_Response
                 if (!$this->_document->loadXML($body)) {
                     $this->_document = false;
                 }
-                
+
                 // reset libxml error handling
                 libxml_clear_errors();
                 libxml_use_internal_errors($errors);
@@ -187,4 +193,5 @@ class Zend_Service_Amazon_SimpleDb_Response
     {
         $this->_xmlNamespace = $namespace;
     }
+
 }

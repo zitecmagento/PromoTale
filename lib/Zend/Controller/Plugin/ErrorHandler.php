@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Controller_Plugin_Abstract */
 #require_once 'Zend/Controller/Plugin/Abstract.php';
 
@@ -36,6 +36,7 @@
  */
 class Zend_Controller_Plugin_ErrorHandler extends Zend_Controller_Plugin_Abstract
 {
+
     /**
      * Const - No controller exception; controller does not exist
      */
@@ -244,10 +245,10 @@ class Zend_Controller_Plugin_ErrorHandler extends Zend_Controller_Plugin_Abstrac
             $this->_isInsideErrorHandlerLoop = true;
 
             // Get exception information
-            $error            = new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS);
-            $exceptions       = $response->getException();
-            $exception        = $exceptions[0];
-            $exceptionType    = get_class($exception);
+            $error = new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS);
+            $exceptions = $response->getException();
+            $exception = $exceptions[0];
+            $exceptionType = get_class($exception);
             $error->exception = $exception;
             switch ($exceptionType) {
                 case 'Zend_Controller_Router_Exception':
@@ -286,4 +287,5 @@ class Zend_Controller_Plugin_ErrorHandler extends Zend_Controller_Plugin_Abstrac
                     ->setDispatched(false);
         }
     }
+
 }

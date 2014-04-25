@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LICENSE
  *
@@ -28,6 +29,7 @@
  */
 class Zend_Cloud_DocumentService_DocumentSet implements Countable, IteratorAggregate
 {
+
     /** @var int */
     protected $_documentCount;
 
@@ -43,7 +45,7 @@ class Zend_Cloud_DocumentService_DocumentSet implements Countable, IteratorAggre
     public function __construct(array $documents)
     {
         $this->_documentCount = count($documents);
-        $this->_documents     = new ArrayIterator($documents);
+        $this->_documents = new ArrayIterator($documents);
     }
 
     /**
@@ -65,4 +67,5 @@ class Zend_Cloud_DocumentService_DocumentSet implements Countable, IteratorAggre
     {
         return $this->_documents;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Model_Import_Proxy_Product_Resource extends Mage_Catalog_Model_Resource_Eav_Mysql4_Product
 {
+
     /**
      * Product to category table.
      *
@@ -52,4 +54,5 @@ class Mage_ImportExport_Model_Import_Proxy_Product_Resource extends Mage_Catalog
     {
         return $this->_productWebsiteTable;
     }
+
 }

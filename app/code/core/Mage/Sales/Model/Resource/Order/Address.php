@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order address resource
  *
@@ -34,12 +34,13 @@
  */
 class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_Order_Abstract
 {
+
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix    = 'sales_order_address_resource';
+    protected $_eventPrefix = 'sales_order_address_resource';
 
     /**
      * Resource initialization
@@ -58,16 +59,16 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
     public function getAllAttributes()
     {
         $attributes = array(
-            'city'       => Mage::helper('sales')->__('City'),
-            'company'    => Mage::helper('sales')->__('Company'),
+            'city' => Mage::helper('sales')->__('City'),
+            'company' => Mage::helper('sales')->__('Company'),
             'country_id' => Mage::helper('sales')->__('Country'),
-            'email'      => Mage::helper('sales')->__('Email'),
-            'firstname'  => Mage::helper('sales')->__('First Name'),
-            'lastname'   => Mage::helper('sales')->__('Last Name'),
-            'region_id'  => Mage::helper('sales')->__('State/Province'),
-            'street'     => Mage::helper('sales')->__('Street Address'),
-            'telephone'  => Mage::helper('sales')->__('Telephone'),
-            'postcode'   => Mage::helper('sales')->__('Zip/Postal Code')
+            'email' => Mage::helper('sales')->__('Email'),
+            'firstname' => Mage::helper('sales')->__('First Name'),
+            'lastname' => Mage::helper('sales')->__('Last Name'),
+            'region_id' => Mage::helper('sales')->__('State/Province'),
+            'street' => Mage::helper('sales')->__('Street Address'),
+            'telephone' => Mage::helper('sales')->__('Telephone'),
+            'postcode' => Mage::helper('sales')->__('Zip/Postal Code')
         );
         asort($attributes);
         return $attributes;
@@ -93,12 +94,12 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
             // update grid table after grid update
             foreach ($gridList as $gridResource => $field) {
                 Mage::getResourceModel($gridResource)->updateOnRelatedRecordChanged(
-                    $field,
-                    $object->getParentId()
+                        $field, $object->getParentId()
                 );
             }
         }
 
         return $resource;
     }
+
 }

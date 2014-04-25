@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Config element model
  *
@@ -46,7 +46,7 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
         $flag = $this->$var;
 
         if ($value === true) {
-            $flag = strtolower((string)$flag);
+            $flag = strtolower((string) $flag);
             if (!empty($flag) && 'false' !== $flag && 'off' !== $flag) {
                 return true;
             } else {
@@ -54,7 +54,7 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
             }
         }
 
-        return !empty($flag) && (0 === strcasecmp($value, (string)$flag));
+        return !empty($flag) && (0 === strcasecmp($value, (string) $flag));
     }
 
     /**
@@ -65,9 +65,9 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
     public function getClassName()
     {
         if ($this->class) {
-            $model = (string)$this->class;
+            $model = (string) $this->class;
         } elseif ($this->model) {
-            $model = (string)$this->model;
+            $model = (string) $this->model;
         } else {
             return false;
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Service_Abstract
  */
@@ -37,6 +37,7 @@
  */
 abstract class Zend_Service_Amazon_Abstract extends Zend_Service_Abstract
 {
+
     /**
      * @var string Amazon Access Key
      */
@@ -56,7 +57,6 @@ abstract class Zend_Service_Amazon_Abstract extends Zend_Service_Abstract
      * @var string Amazon Access Key
      */
     protected $_accessKey;
-
 
     /**
      * Set the keys to use when accessing SQS.
@@ -78,24 +78,22 @@ abstract class Zend_Service_Amazon_Abstract extends Zend_Service_Abstract
      * @param  string $secret_key       Override the default Secret Key
      * @return void
      */
-    public function __construct($accessKey=null, $secretKey=null)
+    public function __construct($accessKey = null, $secretKey = null)
     {
-        if(!$accessKey) {
+        if (!$accessKey) {
             $accessKey = self::$_defaultAccessKey;
         }
-        if(!$secretKey) {
+        if (!$secretKey) {
             $secretKey = self::$_defaultSecretKey;
         }
 
-        if(!$accessKey || !$secretKey) {
+        if (!$accessKey || !$secretKey) {
             #require_once 'Zend/Service/Amazon/Exception.php';
             throw new Zend_Service_Amazon_Exception("AWS keys were not supplied");
         }
         $this->_accessKey = $accessKey;
         $this->_secretKey = $secretKey;
     }
-
-
 
     /**
      * Method to fetch the Access Key
@@ -116,4 +114,5 @@ abstract class Zend_Service_Amazon_Abstract extends Zend_Service_Abstract
     {
         return $this->_secretKey;
     }
+
 }

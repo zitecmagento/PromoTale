@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_HomebannersController extends Mage_XmlConnect_Controller_Action
 {
+
     /**
      * Default action
      *
@@ -40,14 +42,20 @@ class Mage_XmlConnect_HomebannersController extends Mage_XmlConnect_Controller_A
      */
     public function indexAction()
     {
-        try {
+        try
+        {
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to load banners.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
     }
+
 }

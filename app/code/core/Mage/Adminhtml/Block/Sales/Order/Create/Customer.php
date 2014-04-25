@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Create_Customer extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
 
@@ -49,9 +49,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer extends Mage_Adminhtml_Bl
     public function getButtonsHtml()
     {
         $addButtonData = array(
-            'label'     => Mage::helper('sales')->__('Create New Customer'),
-            'onclick'   => 'order.setCustomerId(false)',
-            'class'     => 'add',
+            'label' => Mage::helper('sales')->__('Create New Customer'),
+            'onclick' => 'order.setCustomerId(false)',
+            'class' => 'add',
         );
         return $this->getLayout()->createBlock('adminhtml/widget_button')->setData($addButtonData)->toHtml();
     }

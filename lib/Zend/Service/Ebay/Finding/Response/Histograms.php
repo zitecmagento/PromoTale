@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Histograms.php 22804 2010-08-08 05:08:05Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Response_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Ebay_Finding_Response_Histograms extends Zend_Service_Ebay_Finding_Response_Abstract
 {
+
     /**
      * Response container for aspect histograms.
      *
@@ -83,4 +84,5 @@ class Zend_Service_Ebay_Finding_Response_Histograms extends Zend_Service_Ebay_Fi
             $this->categoryHistogramContainer = new Zend_Service_Ebay_Finding_Category_Histogram_Container($node);
         }
     }
+
 }

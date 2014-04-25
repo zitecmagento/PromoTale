@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Report Sold Product Content Block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Report_Product_Sold extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     /**
      * Initialize container block settings
      *
@@ -45,4 +46,5 @@ class Mage_Adminhtml_Block_Report_Product_Sold extends Mage_Adminhtml_Block_Widg
         parent::__construct();
         $this->_removeButton('add');
     }
+
 }

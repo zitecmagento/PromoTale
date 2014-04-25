@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,9 +30,9 @@
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Grandtotal extends Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default
 {
+
     protected $_template = 'sales/order/create/totals/grandtotal.phtml';
 
     public function includeTax()
@@ -41,8 +42,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Grandtotal extends Mage_Adm
 
     public function getTotalExclTax()
     {
-        $excl = $this->getTotal()->getAddress()->getGrandTotal()-$this->getTotal()->getAddress()->getTaxAmount();
+        $excl = $this->getTotal()->getAddress()->getGrandTotal() - $this->getTotal()->getAddress()->getTaxAmount();
         $excl = max($excl, 0);
         return $excl;
     }
+
 }

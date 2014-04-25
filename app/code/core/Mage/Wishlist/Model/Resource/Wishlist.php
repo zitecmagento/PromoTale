@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Store wishlist items count
      *
@@ -69,7 +70,7 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
         $select = parent::_getLoadSelect($field, $value, $object);
         if ($field == $this->_customerIdFieldName) {
             $select->order('wishlist_id ' . Zend_Db_Select::SQL_ASC)
-                ->limit(1);
+                    ->limit(1);
         }
         return $select;
     }

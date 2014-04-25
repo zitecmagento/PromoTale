@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Name.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Extension
  */
@@ -45,4 +44,5 @@ class Zend_Gdata_App_Extension_Name extends Zend_Gdata_App_Extension
         parent::__construct();
         $this->_text = $text;
     }
+
 }

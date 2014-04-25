@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CosmosResult.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Technorati_Result
  */
 #require_once 'Zend/Service/Technorati/Result.php';
-
 
 /**
  * Represents a single Technorati Cosmos query result object.
@@ -40,6 +38,7 @@
  */
 class Zend_Service_Technorati_CosmosResult extends Zend_Service_Technorati_Result
 {
+
     /**
      * Technorati weblog object that links queried URL.
      *
@@ -80,7 +79,6 @@ class Zend_Service_Technorati_CosmosResult extends Zend_Service_Technorati_Resul
      */
     protected $_linkUrl;
 
-
     /**
      * Constructs a new object object from DOM Element.
      *
@@ -88,10 +86,10 @@ class Zend_Service_Technorati_CosmosResult extends Zend_Service_Technorati_Resul
      */
     public function __construct(DomElement $dom)
     {
-        $this->_fields = array( '_nearestPermalink' => 'nearestpermalink',
-                                '_excerpt'          => 'excerpt',
-                                '_linkCreated'      => 'linkcreated',
-                                '_linkUrl'          => 'linkurl');
+        $this->_fields = array('_nearestPermalink' => 'nearestpermalink',
+            '_excerpt' => 'excerpt',
+            '_linkCreated' => 'linkcreated',
+            '_linkUrl' => 'linkurl');
         parent::__construct($dom);
 
         // weblog object field
@@ -108,7 +106,8 @@ class Zend_Service_Technorati_CosmosResult extends Zend_Service_Technorati_Resul
      *
      * @return  Zend_Service_Technorati_Weblog
      */
-    public function getWeblog() {
+    public function getWeblog()
+    {
         return $this->_weblog;
     }
 
@@ -117,7 +116,8 @@ class Zend_Service_Technorati_CosmosResult extends Zend_Service_Technorati_Resul
      *
      * @return  Zend_Uri_Http
      */
-    public function getNearestPermalink() {
+    public function getNearestPermalink()
+    {
         return $this->_nearestPermalink;
     }
 
@@ -126,7 +126,8 @@ class Zend_Service_Technorati_CosmosResult extends Zend_Service_Technorati_Resul
      *
      * @return  string
      */
-    public function getExcerpt() {
+    public function getExcerpt()
+    {
         return $this->_excerpt;
     }
 
@@ -135,7 +136,8 @@ class Zend_Service_Technorati_CosmosResult extends Zend_Service_Technorati_Resul
      *
      * @return  Zend_Date
      */
-    public function getLinkCreated() {
+    public function getLinkCreated()
+    {
         return $this->_linkCreated;
     }
 
@@ -145,7 +147,8 @@ class Zend_Service_Technorati_CosmosResult extends Zend_Service_Technorati_Resul
      *
      * @return  Zend_Uri_Http
      */
-    public function getLinkUrl() {
+    public function getLinkUrl()
+    {
         return $this->_linkUrl;
     }
 

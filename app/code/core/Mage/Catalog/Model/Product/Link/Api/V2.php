@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_Link_Api
 {
+
     /**
      * Add product link association
      *
@@ -49,7 +51,7 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
         $product = $this->_initProduct($productId, $identifierType);
 
         $link = $product->getLinkInstance()
-            ->setLinkTypeId($typeId);
+                ->setLinkTypeId($typeId);
 
         $collection = $this->_initCollection($link, $product);
         $idBySku = $product->getIdBySku($linkedProductId);
@@ -59,14 +61,15 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
 
         $links = $this->_collectionToEditableArray($collection);
 
-        $links[(int)$linkedProductId] = array();
+        $links[(int) $linkedProductId] = array();
         foreach ($collection->getLinkModel()->getAttributes() as $attribute) {
             if (isset($data->$attribute['code'])) {
-                $links[(int)$linkedProductId][$attribute['code']] = $data->$attribute['code'];
+                $links[(int) $linkedProductId][$attribute['code']] = $data->$attribute['code'];
             }
         }
 
-        try {
+        try
+        {
             if ($type == 'grouped') {
                 $link->getResource()->saveGroupedLinks($product, $links, $typeId);
             } else {
@@ -81,8 +84,9 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
 
             $indexerPrice = Mage::getResourceModel('catalog/product_indexer_price');
             $indexerPrice->reindexProductIds($productId);
-
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
             //$this->_fault('data_invalid', Mage::helper('catalog')->__('Link product does not exist.'));
         }
@@ -106,7 +110,7 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
         $product = $this->_initProduct($productId, $identifierType);
 
         $link = $product->getLinkInstance()
-            ->setLinkTypeId($typeId);
+                ->setLinkTypeId($typeId);
 
         $collection = $this->_initCollection($link, $product);
 
@@ -119,11 +123,12 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
 
         foreach ($collection->getLinkModel()->getAttributes() as $attribute) {
             if (isset($data->$attribute['code'])) {
-                $links[(int)$linkedProductId][$attribute['code']] = $data->$attribute['code'];
+                $links[(int) $linkedProductId][$attribute['code']] = $data->$attribute['code'];
             }
         }
 
-        try {
+        try
+        {
             if ($type == 'grouped') {
                 $link->getResource()->saveGroupedLinks($product, $links, $typeId);
             } else {
@@ -138,11 +143,13 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
 
             $indexerPrice = Mage::getResourceModel('catalog/product_indexer_price');
             $indexerPrice->reindexProductIds($productId);
-
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('data_invalid', Mage::helper('catalog')->__('Link product does not exist.'));
         }
 
         return true;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog super product link collection
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection
-    extends Mage_Catalog_Model_Resource_Product_Collection
+class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
+
     /**
      * Link table name
      *
@@ -58,9 +58,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection
     protected function _initSelect()
     {
         parent::_initSelect();
-        $this->getSelect()->join(array('link_table' => $this->_linkTable),
-            'link_table.product_id = e.entity_id',
-            array('parent_id')
+        $this->getSelect()->join(array('link_table' => $this->_linkTable), 'link_table.product_id = e.entity_id', array(
+            'parent_id')
         );
 
         return $this;
@@ -88,4 +87,5 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection
     {
         return false;
     }
+
 }

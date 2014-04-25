@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,17 +24,15 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 
 // encrypt google base passwords
 $select = $installer->getConnection()->select()
-    ->from($installer->getTable('core/config_data'))
-    ->where('path LIKE ?', 'google/googlebase/password');
+        ->from($installer->getTable('core/config_data'))
+        ->where('path LIKE ?', 'google/googlebase/password');
 foreach ($installer->getConnection()->fetchAll($select) as $row) {
-    $bind  = array(
+    $bind = array(
         'value' => Mage::helper('core')->encrypt($row['value'])
     );
     $where = array(

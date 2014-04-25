@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Validate.php 21339 2010-03-05 15:32:25Z thomas $
  */
-
 /**
  * @see Zend_Validate_Interface
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Validate implements Zend_Validate_Interface
 {
+
     /**
      * Validator chain
      *
@@ -76,7 +77,7 @@ class Zend_Validate implements Zend_Validate_Interface
         $this->_validators[] = array(
             'instance' => $validator,
             'breakChainOnFailure' => (boolean) $breakChainOnFailure
-            );
+        );
         return $this;
     }
 
@@ -91,7 +92,7 @@ class Zend_Validate implements Zend_Validate_Interface
     public function isValid($value)
     {
         $this->_messages = array();
-        $this->_errors   = array();
+        $this->_errors = array();
         $result = true;
         foreach ($this->_validators as $element) {
             $validator = $element['instance'];
@@ -101,7 +102,7 @@ class Zend_Validate implements Zend_Validate_Interface
             $result = false;
             $messages = $validator->getMessages();
             $this->_messages = array_merge($this->_messages, $messages);
-            $this->_errors   = array_merge($this->_errors,   array_keys($messages));
+            $this->_errors = array_merge($this->_errors, array_keys($messages));
             if ($element['breakChainOnFailure']) {
                 break;
             }
@@ -195,13 +196,14 @@ class Zend_Validate implements Zend_Validate_Interface
     public static function is($value, $classBaseName, array $args = array(), $namespaces = array())
     {
         $namespaces = array_merge((array) $namespaces, self::$_defaultNamespaces, array('Zend_Validate'));
-        $className  = ucfirst($classBaseName);
-        try {
+        $className = ucfirst($classBaseName);
+        try
+        {
             if (!class_exists($className, false)) {
                 #require_once 'Zend/Loader.php';
-                foreach($namespaces as $namespace) {
+                foreach ($namespaces as $namespace) {
                     $class = $namespace . '_' . $className;
-                    $file  = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+                    $file = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
                     if (Zend_Loader::isReadable($file)) {
                         Zend_Loader::loadClass($class);
                         $className = $class;
@@ -213,9 +215,9 @@ class Zend_Validate implements Zend_Validate_Interface
             $class = new ReflectionClass($className);
             if ($class->implementsInterface('Zend_Validate_Interface')) {
                 if ($class->hasMethod('__construct')) {
-                    $keys    = array_keys($args);
+                    $keys = array_keys($args);
                     $numeric = false;
-                    foreach($keys as $key) {
+                    foreach ($keys as $key) {
                         if (is_numeric($key)) {
                             $numeric = true;
                             break;
@@ -233,10 +235,14 @@ class Zend_Validate implements Zend_Validate_Interface
 
                 return $object->isValid($value);
             }
-        } catch (Zend_Validate_Exception $ze) {
+        }
+        catch (Zend_Validate_Exception $ze)
+        {
             // if there is an exception while validating throw it
             throw $ze;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             // fallthrough and continue for missing validation classes
         }
 
@@ -287,4 +293,5 @@ class Zend_Validate implements Zend_Validate_Interface
         #require_once 'Zend/Validate/Abstract.php';
         Zend_Validate_Abstract::setDefaultTranslator($translator);
     }
+
 }

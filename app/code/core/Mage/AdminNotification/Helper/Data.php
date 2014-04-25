@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * AdminNotification Data helper
  *
@@ -34,7 +34,8 @@
  */
 class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_POPUP_URL    = 'system/adminnotification/popup_url';
+
+    const XML_PATH_POPUP_URL = 'system/adminnotification/popup_url';
 
     /**
      * Widget Popup Notification Object URL
@@ -100,9 +101,7 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
     public function getPopupObjectUrl($withExt = false)
     {
         if (is_null($this->_popupUrl)) {
-            $sheme = Mage::app()->getFrontController()->getRequest()->isSecure()
-                ? 'https://'
-                : 'http://';
+            $sheme = Mage::app()->getFrontController()->getRequest()->isSecure() ? 'https://' : 'http://';
 
             $this->_popupUrl = $sheme . Mage::getStoreConfig(self::XML_PATH_POPUP_URL);
         }
@@ -121,7 +120,7 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
             $this->_popupReadable = false;
             $curl = new Varien_Http_Adapter_Curl();
             $curl->setConfig(array(
-                'timeout'   => 2
+                'timeout' => 2
             ));
             $curl->write(Zend_Http_Client::GET, $this->getPopupObjectUrl(true));
             if ($curl->read()) {
@@ -134,4 +133,5 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return $this->_popupReadable;
     }
+
 }

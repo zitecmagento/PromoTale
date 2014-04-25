@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Filter.php 21096 2010-02-19 20:10:54Z thomas $
  */
-
 /**
  * @see Zend_Filter_Interface
  */
@@ -33,7 +33,7 @@
 class Zend_Filter implements Zend_Filter_Interface
 {
 
-    const CHAIN_APPEND  = 'append';
+    const CHAIN_APPEND = 'append';
     const CHAIN_PREPEND = 'prepend';
 
     /**
@@ -180,8 +180,7 @@ class Zend_Filter implements Zend_Filter_Interface
     public static function get($value, $classBaseName, array $args = array(), $namespaces = array())
     {
         trigger_error(
-            'Zend_Filter::get() is deprecated as of 1.9.0; please update your code to utilize Zend_Filter::filterStatic()',
-            E_USER_NOTICE
+                'Zend_Filter::get() is deprecated as of 1.9.0; please update your code to utilize Zend_Filter::filterStatic()', E_USER_NOTICE
         );
 
         return self::filterStatic($value, $classBaseName, $args, $namespaces);
@@ -211,14 +210,17 @@ class Zend_Filter implements Zend_Filter_Interface
         foreach ($namespaces as $namespace) {
             $className = $namespace . '_' . ucfirst($classBaseName);
             if (!class_exists($className, false)) {
-                try {
+                try
+                {
                     $file = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
                     if (Zend_Loader::isReadable($file)) {
                         Zend_Loader::loadClass($className);
                     } else {
                         continue;
                     }
-                } catch (Zend_Exception $ze) {
+                }
+                catch (Zend_Exception $ze)
+                {
                     continue;
                 }
             }
@@ -236,4 +238,5 @@ class Zend_Filter implements Zend_Filter_Interface
         #require_once 'Zend/Filter/Exception.php';
         throw new Zend_Filter_Exception("Filter class not found from basename '$classBaseName'");
     }
+
 }

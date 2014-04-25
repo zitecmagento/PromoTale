@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Page_Block_Html_CookieNotice extends Mage_Core_Block_Template
 {
+
     /**
      * Get content for cookie restriction block
      *
@@ -53,4 +55,5 @@ class Mage_Page_Block_Html_CookieNotice extends Mage_Core_Block_Template
 
         return $html;
     }
+
 }

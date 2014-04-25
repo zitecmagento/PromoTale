@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,19 +24,19 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Varien_Filter_Money implements Zend_Filter_Interface
 {
+
     protected $_format = null;
-    
+
     public function __construct($format)
     {
         $this->_format = $format;
     }
-    
+
     public function filter($value)
     {
         return money_format($this->_format, $value);
     }
+
 }

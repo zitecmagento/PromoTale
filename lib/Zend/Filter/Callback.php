@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Callback.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Interface
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Filter_Callback implements Zend_Filter_Interface
 {
+
     /**
      * Callback in a call_user_func format
      *
@@ -57,7 +58,7 @@ class Zend_Filter_Callback implements Zend_Filter_Interface
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } else if (!is_array($options) || !array_key_exists('callback', $options)) {
-            $options          = func_get_args();
+            $options = func_get_args();
             $temp['callback'] = array_shift($options);
             if (!empty($options)) {
                 $temp['options'] = array_shift($options);
@@ -149,4 +150,5 @@ class Zend_Filter_Callback implements Zend_Filter_Interface
 
         return call_user_func_array($this->_callback, $options);
     }
+
 }

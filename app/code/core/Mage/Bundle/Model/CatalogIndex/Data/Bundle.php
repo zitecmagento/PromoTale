@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -38,11 +39,10 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
      * @var boolean
      */
     protected $_haveChildren = array(
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS=>false,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES=>false,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES=>true,
-                        );
-
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => false,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES => false,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES => true,
+    );
     protected $_haveParents = false;
 
     /**
@@ -63,13 +63,13 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
     protected function _getLinkSettings()
     {
         return array(
-            'table'=>'bundle/selection',
-            'parent_field'=>'parent_product_id',
-            'child_field'=>'product_id'
-            );
+            'table' => 'bundle/selection',
+            'parent_field' => 'parent_product_id',
+            'child_field' => 'product_id'
+        );
     }
 
-/**
+    /**
      * Prepare select statement before 'fetchLinkInformation' function result fetch
      *
      * @param int $store
@@ -83,4 +83,5 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
     {
         $this->_addAttributeFilter($this->_getLinkSelect(), 'required_options', 'l', $idField, $store, 0);
     }
+
 }

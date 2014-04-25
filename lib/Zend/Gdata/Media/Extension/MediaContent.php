@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: MediaContent.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Extension
  */
@@ -40,6 +39,7 @@
  */
 class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
 {
+
     protected $_rootElement = 'content';
     protected $_rootNamespace = 'media';
 
@@ -116,11 +116,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
     /**
      * Creates an individual MediaContent object.
      */
-    public function __construct($url = null, $fileSize = null, $type = null,
-            $medium = null, $isDefault = null, $expression = null,
-            $bitrate = null, $framerate = null, $samplingrate = null,
-            $channels = null, $duration = null, $height = null, $width = null,
-            $lang = null)
+    public function __construct($url = null, $fileSize = null, $type = null, $medium = null, $isDefault = null, $expression = null, $bitrate = null, $framerate = null, $samplingrate = null, $channels = null, $duration = null, $height = null, $width = null, $lang = null)
     {
         $this->registerAllNamespaces(Zend_Gdata_Media::$namespaces);
         parent::__construct();
@@ -139,7 +135,6 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
         $this->_width = $width;
         $this->_lang = $lang;
     }
-
 
     /**
      * Retrieves a DOMElement which corresponds to this element and all

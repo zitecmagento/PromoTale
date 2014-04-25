@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Acl_Global
 {
+
     /**
      * Check if the operation is allowed on resources of given type type for given user type/role
      *
@@ -50,8 +52,7 @@ class Mage_Api2_Model_Acl_Global
         }
         /** @var $aclInstance Mage_Api2_Model_Acl */
         $aclInstance = Mage::getSingleton(
-            'api2/acl',
-            array('resource_type' => $resourceType, 'operation' => $operation)
+                        'api2/acl', array('resource_type' => $resourceType, 'operation' => $operation)
         );
 
         if (!$aclInstance->hasRole($apiUser->getRole())) {
@@ -62,4 +63,5 @@ class Mage_Api2_Model_Acl_Global
         }
         return $aclInstance->isAllowed($apiUser->getRole(), $resourceType, $operation);
     }
+
 }

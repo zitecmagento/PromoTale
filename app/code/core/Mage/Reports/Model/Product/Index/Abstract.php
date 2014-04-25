@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reports Product Index Abstract Model
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model_Abstract
 {
+
     /**
      * Cache key name for Count of product index
      *
@@ -161,11 +162,11 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     public function calculate()
     {
         $collection = $this->getCollection()
-            ->setCustomerId($this->getCustomerId())
-            ->addIndexFilter();
+                ->setCustomerId($this->getCustomerId())
+                ->addIndexFilter();
 
         Mage::getSingleton('catalog/product_visibility')
-            ->addVisibleInSiteFilterToCollection($collection);
+                ->addVisibleInSiteFilterToCollection($collection);
 
         $count = $collection->getSize();
         $this->_getSession()->setData($this->_countCacheKey, $count);
@@ -222,4 +223,5 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
         $this->_getSession()->unsData($this->_countCacheKey);
         return $this;
     }
+
 }

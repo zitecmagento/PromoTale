@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -68,7 +69,6 @@
  * @version    $Id: SSH1.php,v 1.15 2010/03/22 22:01:38 terrafrost Exp $
  * @link       http://phpseclib.sourceforge.net
  */
-
 /**
  * Include Math_BigInteger
  *
@@ -101,29 +101,29 @@ require_once('phpseclib/Crypt/RC4.php');
  */
 require_once('phpseclib/Crypt/Random.php');
 
-/**#@+
+/* * #@+
  * Protocol Flags
  *
  * @access private
  */
-define('NET_SSH1_MSG_DISCONNECT',          1);
-define('NET_SSH1_SMSG_PUBLIC_KEY',         2);
-define('NET_SSH1_CMSG_SESSION_KEY',        3);
-define('NET_SSH1_CMSG_USER',               4);
-define('NET_SSH1_CMSG_AUTH_PASSWORD',      9);
-define('NET_SSH1_CMSG_REQUEST_PTY',       10);
-define('NET_SSH1_CMSG_EXEC_SHELL',        12);
-define('NET_SSH1_CMSG_EXEC_CMD',          13);
-define('NET_SSH1_SMSG_SUCCESS',           14);
-define('NET_SSH1_SMSG_FAILURE',           15);
-define('NET_SSH1_CMSG_STDIN_DATA',        16);
-define('NET_SSH1_SMSG_STDOUT_DATA',       17);
-define('NET_SSH1_SMSG_STDERR_DATA',       18);
-define('NET_SSH1_SMSG_EXITSTATUS',        20);
+define('NET_SSH1_MSG_DISCONNECT', 1);
+define('NET_SSH1_SMSG_PUBLIC_KEY', 2);
+define('NET_SSH1_CMSG_SESSION_KEY', 3);
+define('NET_SSH1_CMSG_USER', 4);
+define('NET_SSH1_CMSG_AUTH_PASSWORD', 9);
+define('NET_SSH1_CMSG_REQUEST_PTY', 10);
+define('NET_SSH1_CMSG_EXEC_SHELL', 12);
+define('NET_SSH1_CMSG_EXEC_CMD', 13);
+define('NET_SSH1_SMSG_SUCCESS', 14);
+define('NET_SSH1_SMSG_FAILURE', 15);
+define('NET_SSH1_CMSG_STDIN_DATA', 16);
+define('NET_SSH1_SMSG_STDOUT_DATA', 17);
+define('NET_SSH1_SMSG_STDERR_DATA', 18);
+define('NET_SSH1_SMSG_EXITSTATUS', 20);
 define('NET_SSH1_CMSG_EXIT_CONFIRMATION', 33);
-/**#@-*/
+/* * #@- */
 
-/**#@+
+/* * #@+
  * Encryption Methods
  *
  * @see Net_SSH1::getSupportedCiphers()
@@ -134,23 +134,23 @@ define('NET_SSH1_CMSG_EXIT_CONFIRMATION', 33);
  *
  * Not supported.
  */
-define('NET_SSH1_CIPHER_NONE',       0);
+define('NET_SSH1_CIPHER_NONE', 0);
 /**
  * IDEA in CFB mode
  *
  * Not supported.
  */
-define('NET_SSH1_CIPHER_IDEA',       1);
+define('NET_SSH1_CIPHER_IDEA', 1);
 /**
  * DES in CBC mode
  */
-define('NET_SSH1_CIPHER_DES',        2);
+define('NET_SSH1_CIPHER_DES', 2);
 /**
  * Triple-DES in CBC mode
  *
  * All implementations are required to support this
  */
-define('NET_SSH1_CIPHER_3DES',       3);
+define('NET_SSH1_CIPHER_3DES', 3);
 /**
  * TRI's Simple Stream encryption CBC
  *
@@ -173,17 +173,17 @@ define('NET_SSH1_CIPHER_BROKEN_TSS', 4);
  *     This library currently only supports encryption when the same key is being used for both directions.  This is
  *     because there's only one $crypto object.  Two could be added ($encrypt and $decrypt, perhaps).
  */
-define('NET_SSH1_CIPHER_RC4',        5);
+define('NET_SSH1_CIPHER_RC4', 5);
 /**
  * Blowfish
  *
  * Not supported nor is it defined in the official SSH1 specs.  OpenSSH, however, defines it (see cipher.h) and
  * uses it (see cipher.c)
  */
-define('NET_SSH1_CIPHER_BLOWFISH',   6);
-/**#@-*/
+define('NET_SSH1_CIPHER_BLOWFISH', 6);
+/* * #@- */
 
-/**#@+
+/* * #@+
  * Authentication Methods
  *
  * @see Net_SSH1::getSupportedAuthentications()
@@ -192,31 +192,31 @@ define('NET_SSH1_CIPHER_BLOWFISH',   6);
 /**
  * .rhosts or /etc/hosts.equiv
  */
-define('NET_SSH1_AUTH_RHOSTS',     1);
+define('NET_SSH1_AUTH_RHOSTS', 1);
 /**
  * pure RSA authentication
  */
-define('NET_SSH1_AUTH_RSA',        2);
+define('NET_SSH1_AUTH_RSA', 2);
 /**
  * password authentication
  *
  * This is the only method that is supported by this library.
  */
-define('NET_SSH1_AUTH_PASSWORD',   3);
+define('NET_SSH1_AUTH_PASSWORD', 3);
 /**
  * .rhosts with RSA host authentication
  */
 define('NET_SSH1_AUTH_RHOSTS_RSA', 4);
-/**#@-*/
+/* * #@- */
 
-/**#@+
+/* * #@+
  * Terminal Modes
  *
  * @link http://3sp.com/content/developer/maverick-net/docs/Maverick.SSH.PseudoTerminalModesMembers.html
  * @access private
  */
-define('NET_SSH1_TTY_OP_END',  0);
-/**#@-*/
+define('NET_SSH1_TTY_OP_END', 0);
+/* * #@- */
 
 /**
  * The Response Type
@@ -234,16 +234,16 @@ define('NET_SSH1_RESPONSE_TYPE', 1);
  */
 define('NET_SSH1_RESPONSE_DATA', 2);
 
-/**#@+
+/* * #@+
  * Execution Bitmap Masks
  *
  * @see Net_SSH1::bitmap
  * @access private
  */
 define('NET_SSH1_MASK_CONSTRUCTOR', 0x00000001);
-define('NET_SSH1_MASK_LOGIN',       0x00000002);
-define('NET_SSH1_MASK_SHELL',       0x00000004);
-/**#@-*/
+define('NET_SSH1_MASK_LOGIN', 0x00000002);
+define('NET_SSH1_MASK_SHELL', 0x00000004);
+/* * #@- */
 
 /**
  * Pure-PHP implementation of SSHv1.
@@ -253,7 +253,9 @@ define('NET_SSH1_MASK_SHELL',       0x00000004);
  * @access  public
  * @package Net_SSH1
  */
-class Net_SSH1 {
+class Net_SSH1
+{
+
     /**
      * The SSH identifier
      *
@@ -343,13 +345,13 @@ class Net_SSH1 {
      * @access private
      */
     var $supported_ciphers = array(
-        NET_SSH1_CIPHER_NONE       => 'No encryption',
-        NET_SSH1_CIPHER_IDEA       => 'IDEA in CFB mode',
-        NET_SSH1_CIPHER_DES        => 'DES in CBC mode',
-        NET_SSH1_CIPHER_3DES       => 'Triple-DES in CBC mode',
+        NET_SSH1_CIPHER_NONE => 'No encryption',
+        NET_SSH1_CIPHER_IDEA => 'IDEA in CFB mode',
+        NET_SSH1_CIPHER_DES => 'DES in CBC mode',
+        NET_SSH1_CIPHER_3DES => 'Triple-DES in CBC mode',
         NET_SSH1_CIPHER_BROKEN_TSS => 'TRI\'s Simple Stream encryption CBC',
-        NET_SSH1_CIPHER_RC4        => 'RC4',
-        NET_SSH1_CIPHER_BLOWFISH   => 'Blowfish'
+        NET_SSH1_CIPHER_RC4 => 'RC4',
+        NET_SSH1_CIPHER_BLOWFISH => 'Blowfish'
     );
 
     /**
@@ -362,9 +364,9 @@ class Net_SSH1 {
      * @access private
      */
     var $supported_authentications = array(
-        NET_SSH1_AUTH_RHOSTS     => '.rhosts or /etc/hosts.equiv',
-        NET_SSH1_AUTH_RSA        => 'pure RSA authentication',
-        NET_SSH1_AUTH_PASSWORD   => 'password authentication',
+        NET_SSH1_AUTH_RHOSTS => '.rhosts or /etc/hosts.equiv',
+        NET_SSH1_AUTH_RSA => 'pure RSA authentication',
+        NET_SSH1_AUTH_PASSWORD => 'password authentication',
         NET_SSH1_AUTH_RHOSTS_RSA => '.rhosts with RSA host authentication'
     );
 
@@ -407,7 +409,7 @@ class Net_SSH1 {
             return;
         }
 
-        fputs($this->fsock, $this->identifier."\r\n");
+        fputs($this->fsock, $this->identifier . "\r\n");
 
         $response = $this->_get_binary_packet();
         if ($response[NET_SSH1_RESPONSE_TYPE] != NET_SSH1_SMSG_PUBLIC_KEY) {
@@ -441,7 +443,7 @@ class Net_SSH1 {
 
         // get a list of the supported ciphers
         extract(unpack('Nsupported_ciphers_mask', $this->_string_shift($response[NET_SSH1_RESPONSE_DATA], 4)));
-        foreach ($this->supported_ciphers as $mask=>$name) {
+        foreach ($this->supported_ciphers as $mask => $name) {
             if (($supported_ciphers_mask & (1 << $mask)) == 0) {
                 unset($this->supported_ciphers[$mask]);
             }
@@ -449,7 +451,7 @@ class Net_SSH1 {
 
         // get a list of the supported authentications
         extract(unpack('Nsupported_authentications_mask', $this->_string_shift($response[NET_SSH1_RESPONSE_DATA], 4)));
-        foreach ($this->supported_authentications as $mask=>$name) {
+        foreach ($this->supported_authentications as $mask => $name) {
             if (($supported_authentications_mask & (1 << $mask)) == 0) {
                 unset($this->supported_authentications[$mask]);
             }
@@ -465,33 +467,29 @@ class Net_SSH1 {
 
         if ($server_key_public_modulus->compare($host_key_public_modulus) < 0) {
             $double_encrypted_session_key = $this->_rsa_crypt(
-                $double_encrypted_session_key,
-                array(
-                    $server_key_public_exponent,
-                    $server_key_public_modulus
-                )
+                    $double_encrypted_session_key, array(
+                $server_key_public_exponent,
+                $server_key_public_modulus
+                    )
             );
             $double_encrypted_session_key = $this->_rsa_crypt(
-                $double_encrypted_session_key,
-                array(
-                    $host_key_public_exponent,
-                    $host_key_public_modulus
-                )
+                    $double_encrypted_session_key, array(
+                $host_key_public_exponent,
+                $host_key_public_modulus
+                    )
             );
         } else {
             $double_encrypted_session_key = $this->_rsa_crypt(
-                $double_encrypted_session_key,
-                array(
-                    $host_key_public_exponent,
-                    $host_key_public_modulus
-                )
+                    $double_encrypted_session_key, array(
+                $host_key_public_exponent,
+                $host_key_public_modulus
+                    )
             );
             $double_encrypted_session_key = $this->_rsa_crypt(
-                $double_encrypted_session_key,
-                array(
-                    $server_key_public_exponent,
-                    $server_key_public_modulus
-                )
+                    $double_encrypted_session_key, array(
+                $server_key_public_exponent,
+                $server_key_public_modulus
+                    )
             );
         }
 
@@ -511,7 +509,7 @@ class Net_SSH1 {
                 $this->crypto = new Crypt_DES();
                 $this->crypto->disablePadding();
                 $this->crypto->enableContinuousBuffer();
-                $this->crypto->setKey(substr($session_key, 0,  8));
+                $this->crypto->setKey(substr($session_key, 0, 8));
                 break;
             case NET_SSH1_CIPHER_3DES:
                 $this->crypto = new Crypt_TripleDES(CRYPT_DES_MODE_3CBC);
@@ -858,7 +856,8 @@ class Net_SSH1 {
      * @return Boolean
      * @access private
      */
-    function _send_binary_packet($data) {
+    function _send_binary_packet($data)
+    {
         if (feof($this->fsock)) {
             //user_error('connection closed prematurely', E_USER_NOTICE);
             return false;
@@ -971,7 +970,7 @@ class Net_SSH1 {
         $crc = 0x00000000;
         $length = strlen($data);
 
-        for ($i=0;$i<$length;$i++) {
+        for ($i = 0; $i < $length; $i++) {
             // We AND $crc >> 8 with 0x00FFFFFF because we want the eight newly added bits to all
             // be zero.  PHP, unfortunately, doesn't always do this.  0x80000000 >> 8, as an example,
             // yields 0xFF800000 - not 0x00800000.  The following link elaborates:
@@ -1017,15 +1016,15 @@ class Net_SSH1 {
     function _rsa_crypt($m, $key)
     {
         /*
-        if (!class_exists('Crypt_RSA')) {
-            require_once('Crypt/RSA.php');
-        }
+          if (!class_exists('Crypt_RSA')) {
+          require_once('Crypt/RSA.php');
+          }
 
-        $rsa = new Crypt_RSA();
-        $rsa->loadKey($key, CRYPT_RSA_PUBLIC_FORMAT_RAW);
-        $rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
-        return $rsa->encrypt($m);
-        */
+          $rsa = new Crypt_RSA();
+          $rsa->loadKey($key, CRYPT_RSA_PUBLIC_FORMAT_RAW);
+          $rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
+          return $rsa->encrypt($m);
+         */
 
         // To quote from protocol-1.5.txt:
         // The most significant byte (which is only partial as the value must be
@@ -1036,7 +1035,6 @@ class Net_SSH1 {
         // zero random bytes to fill any unused space, a zero byte, and the data
         // to be encrypted in the least significant bytes, the last byte of the
         // data in the least significant byte.
-
         // Presumably the part of PKCS#1 they're refering to is "Section 7.2.1 Encryption Operation",
         // under "7.2 RSAES-PKCS1-v1.5" and "7 Encryption schemes" of the following URL:
         // ftp://ftp.rsasecurity.com/pub/pkcs/pkcs-1/pkcs-1v2-1.pdf
@@ -1156,4 +1154,5 @@ class Net_SSH1 {
     {
         return rtrim($this->server_identification);
     }
+
 }

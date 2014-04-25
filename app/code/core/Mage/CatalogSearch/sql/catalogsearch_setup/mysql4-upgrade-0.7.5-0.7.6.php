@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,7 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
-$installer  = $this;
+$installer = $this;
 $connection = $installer->getConnection();
 /* @var $installer Mage_Core_Model_Resource_Setup */
 /* @var $connection Varien_Db_Adapter_Pdo_Mysql */
@@ -57,9 +56,7 @@ CREATE TABLE `{$installer->getTable('catalogsearch_result')}` (
 
 $connection->dropForeignKey($installer->getTable('catalogsearch_query'), 'FK_catalogsearch_query');
 $connection->dropKey($installer->getTable('catalogsearch_query'), 'FK_catalogsearch_query');
-$connection->addConstraint('FK_CATALOGSEARCH_QUERY_STORE',
-    $installer->getTable('catalogsearch_query'), 'store_id',
-    $installer->getTable('core_store'), 'store_id'
+$connection->addConstraint('FK_CATALOGSEARCH_QUERY_STORE', $installer->getTable('catalogsearch_query'), 'store_id', $installer->getTable('core_store'), 'store_id'
 );
 $connection->addColumn($installer->getTable('catalogsearch_query'), 'is_active', 'tinyint(1) DEFAULT 1 AFTER `display_in_terms`');
 $connection->addColumn($installer->getTable('catalogsearch_query'), 'is_processed', 'tinyint(1) DEFAULT 0 AFTER `is_active`');

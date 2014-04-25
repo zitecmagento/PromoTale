@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -57,24 +58,24 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $baseUrl = $this->getUrl();
 
         $this->addColumn('title', array(
-            'header'    => Mage::helper('cms')->__('Title'),
-            'align'     => 'left',
-            'index'     => 'title',
+            'header' => Mage::helper('cms')->__('Title'),
+            'align' => 'left',
+            'index' => 'title',
         ));
 
         $this->addColumn('identifier', array(
-            'header'    => Mage::helper('cms')->__('URL Key'),
-            'align'     => 'left',
-            'index'     => 'identifier'
+            'header' => Mage::helper('cms')->__('URL Key'),
+            'align' => 'left',
+            'index' => 'identifier'
         ));
 
 
 
         $this->addColumn('root_template', array(
-            'header'    => Mage::helper('cms')->__('Layout'),
-            'index'     => 'root_template',
-            'type'      => 'options',
-            'options'   => Mage::getSingleton('page/source_layout')->getOptions(),
+            'header' => Mage::helper('cms')->__('Layout'),
+            'index' => 'root_template',
+            'type' => 'options',
+            'options' => Mage::getSingleton('page/source_layout')->getOptions(),
         ));
 
         /**
@@ -82,42 +83,42 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
          */
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', array(
-                'header'        => Mage::helper('cms')->__('Store View'),
-                'index'         => 'store_id',
-                'type'          => 'store',
-                'store_all'     => true,
-                'store_view'    => true,
-                'sortable'      => false,
+                'header' => Mage::helper('cms')->__('Store View'),
+                'index' => 'store_id',
+                'type' => 'store',
+                'store_all' => true,
+                'store_view' => true,
+                'sortable' => false,
                 'filter_condition_callback'
-                                => array($this, '_filterStoreCondition'),
+                => array($this, '_filterStoreCondition'),
             ));
         }
 
         $this->addColumn('is_active', array(
-            'header'    => Mage::helper('cms')->__('Status'),
-            'index'     => 'is_active',
-            'type'      => 'options',
-            'options'   => Mage::getSingleton('cms/page')->getAvailableStatuses()
+            'header' => Mage::helper('cms')->__('Status'),
+            'index' => 'is_active',
+            'type' => 'options',
+            'options' => Mage::getSingleton('cms/page')->getAvailableStatuses()
         ));
 
         $this->addColumn('creation_time', array(
-            'header'    => Mage::helper('cms')->__('Date Created'),
-            'index'     => 'creation_time',
-            'type'      => 'datetime',
+            'header' => Mage::helper('cms')->__('Date Created'),
+            'index' => 'creation_time',
+            'type' => 'datetime',
         ));
 
         $this->addColumn('update_time', array(
-            'header'    => Mage::helper('cms')->__('Last Modified'),
-            'index'     => 'update_time',
-            'type'      => 'datetime',
+            'header' => Mage::helper('cms')->__('Last Modified'),
+            'index' => 'update_time',
+            'type' => 'datetime',
         ));
 
         $this->addColumn('page_actions', array(
-            'header'    => Mage::helper('cms')->__('Action'),
-            'width'     => 10,
-            'sortable'  => false,
-            'filter'    => false,
-            'renderer'  => 'adminhtml/cms_page_grid_renderer_action',
+            'header' => Mage::helper('cms')->__('Action'),
+            'width' => 10,
+            'sortable' => false,
+            'filter' => false,
+            'renderer' => 'adminhtml/cms_page_grid_renderer_action',
         ));
 
         return parent::_prepareColumns();
@@ -147,4 +148,5 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
     {
         return $this->getUrl('*/*/edit', array('page_id' => $row->getId()));
     }
+
 }

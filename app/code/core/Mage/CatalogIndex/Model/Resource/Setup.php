@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Enter description here ...
  *
@@ -34,12 +34,13 @@
  */
 class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
 {
+
     /**
      * Enter description here ...
      *
      * @var unknown
      */
-    protected $_storeToWebsite   = null;
+    protected $_storeToWebsite = null;
 
     /**
      * Enter description here ...
@@ -50,7 +51,7 @@ class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Se
     public function convertStoreToWebsite($table)
     {
         $assignment = $this->_getStoreToWebsiteAssignments();
-        foreach ($assignment as $website=>$stores) {
+        foreach ($assignment as $website => $stores) {
             $this->_setWebsiteInfo($table, $website, $stores);
         }
         return $this;
@@ -85,11 +86,10 @@ class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Se
     protected function _setWebsiteInfo($table, $websiteId, $storeIds)
     {
         $this->getConnection()->update(
-            $table,
-            array('website_id'=>$websiteId),
-            $this->getConnection()->quoteInto('store_id IN (?)', $storeIds)
+                $table, array('website_id' => $websiteId), $this->getConnection()->quoteInto('store_id IN (?)', $storeIds)
         );
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FitBoundingBoxHorizontally.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element/Array.php';
 #require_once 'Zend/Pdf/Element/Name.php';
@@ -47,6 +46,7 @@
  */
 class Zend_Pdf_Destination_FitBoundingBoxHorizontally extends Zend_Pdf_Destination_Explicit
 {
+
     /**
      * Create destination object
      *
@@ -95,4 +95,5 @@ class Zend_Pdf_Destination_FitBoundingBoxHorizontally extends Zend_Pdf_Destinati
         $this->_destinationArray->items[2] = new Zend_Pdf_Element_Numeric($top);
         return $this;
     }
+
 }

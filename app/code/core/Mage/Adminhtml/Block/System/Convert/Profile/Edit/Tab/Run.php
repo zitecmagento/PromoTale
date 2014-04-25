@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Adminhtml_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -42,25 +44,25 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
     public function getRunButtonHtml()
     {
         $html = '';
-/*
-        if (Mage::registry('current_convert_profile')->getDirection()=='import') {
-            $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setType('button')
-                ->setLabel($this->__('Upload import file'))
-                ->setOnClick('showUpload()')
-                ->toHtml();
-        }
-*/
         /*
-        $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setType('button')
-            ->setClass('save')->setLabel($this->__('Run Profile Inside This Window'))
-            ->setOnClick('runProfile()')
-            ->toHtml();
-        */
+          if (Mage::registry('current_convert_profile')->getDirection()=='import') {
+          $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setType('button')
+          ->setLabel($this->__('Upload import file'))
+          ->setOnClick('showUpload()')
+          ->toHtml();
+          }
+         */
+        /*
+          $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setType('button')
+          ->setClass('save')->setLabel($this->__('Run Profile Inside This Window'))
+          ->setOnClick('runProfile()')
+          ->toHtml();
+         */
 
         $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setType('button')
-            ->setClass('save')->setLabel($this->__('Run Profile in Popup'))
-            ->setOnClick('runProfile(true)')
-            ->toHtml();
+                ->setClass('save')->setLabel($this->__('Run Profile in Popup'))
+                ->setOnClick('runProfile(true)')
+                ->toHtml();
 
         return $html;
     }
@@ -73,16 +75,14 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
     public function getImportedFiles()
     {
         $files = array();
-        $path = Mage::app()->getConfig()->getTempVarDir().'/import';
+        $path = Mage::app()->getConfig()->getTempVarDir() . '/import';
         if (!is_readable($path)) {
             return $files;
         }
         $dir = dir($path);
         while (false !== ($entry = $dir->read())) {
-            if($entry != '.'
-               && $entry != '..'
-               && in_array(strtolower(substr($entry, strrpos($entry, '.')+1)), array($this->getParseType())))
-            {
+            if ($entry != '.' && $entry != '..' && in_array(strtolower(substr($entry, strrpos($entry, '.') + 1)), array(
+                        $this->getParseType()))) {
                 $files[] = $entry;
             }
         }
@@ -95,6 +95,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
     {
         $data = Mage::registry('current_convert_profile')->getGuiData();
         if ($data)
-            return ($data['parse']['type'] == 'excel_xml') ? 'xml': $data['parse']['type'];
+            return ($data['parse']['type'] == 'excel_xml') ? 'xml' : $data['parse']['type'];
     }
+
 }

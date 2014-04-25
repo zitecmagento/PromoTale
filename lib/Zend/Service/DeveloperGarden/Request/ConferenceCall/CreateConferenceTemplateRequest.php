@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CreateConferenceTemplateRequest.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Request_RequestAbstract
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceTemplateRequest
-    extends Zend_Service_DeveloperGarden_Request_RequestAbstract
+class Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceTemplateRequest extends Zend_Service_DeveloperGarden_Request_RequestAbstract
 {
+
     /**
      * unique owner id
      *
@@ -65,14 +65,13 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceTempla
      * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails
      * @param array $conferenceParticipants
      */
-    public function __construct($environment, $ownerId,
-        Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails,
-        array $conferenceParticipants = null
-    ) {
+    public function __construct($environment, $ownerId, Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails, array $conferenceParticipants = null
+    )
+    {
         parent::__construct($environment);
         $this->setOwnerId($ownerId)
-             ->setDetail($conferenceDetails)
-             ->setParticipants($conferenceParticipants);
+                ->setDetail($conferenceDetails)
+                ->setParticipants($conferenceParticipants);
     }
 
     /**
@@ -110,4 +109,5 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceTempla
         $this->ownerId = $ownerId;
         return $this;
     }
+
 }

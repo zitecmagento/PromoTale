@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogSearch Fulltext Index Engine resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Init resource model
      *
@@ -55,9 +56,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     public function saveEntityIndex($entityId, $storeId, $index, $entity = 'product')
     {
         $this->_getWriteAdapter()->insert($this->getMainTable(), array(
-            'product_id'    => $entityId,
-            'store_id'      => $storeId,
-            'data_index'    => $index
+            'product_id' => $entityId,
+            'store_id' => $storeId,
+            'data_index' => $index
         ));
         return $this;
     }
@@ -72,19 +73,19 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
      */
     public function saveEntityIndexes($storeId, $entityIndexes, $entity = 'product')
     {
-        $data    = array();
-        $storeId = (int)$storeId;
+        $data = array();
+        $storeId = (int) $storeId;
         foreach ($entityIndexes as $entityId => $index) {
             $data[] = array(
-                'product_id'    => (int)$entityId,
-                'store_id'      => $storeId,
-                'data_index'    => $index
+                'product_id' => (int) $entityId,
+                'store_id' => $storeId,
+                'data_index' => $index
             );
         }
 
         if ($data) {
             Mage::getResourceHelper('catalogsearch')
-                ->insertOnDuplicate($this->getMainTable(), $data, array('data_index'));
+                    ->insertOnDuplicate($this->getMainTable(), $data, array('data_index'));
         }
 
         return $this;
@@ -195,4 +196,5 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     {
         return true;
     }
+
 }

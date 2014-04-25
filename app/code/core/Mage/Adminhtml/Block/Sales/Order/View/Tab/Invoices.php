@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
-    extends Mage_Adminhtml_Block_Widget_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -55,18 +55,18 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass())
-            ->addFieldToSelect('entity_id')
-            ->addFieldToSelect('created_at')
-            ->addFieldToSelect('order_id')
-            ->addFieldToSelect('increment_id')
-            ->addFieldToSelect('state')
-            ->addFieldToSelect('grand_total')
-            ->addFieldToSelect('base_grand_total')
-            ->addFieldToSelect('store_currency_code')
-            ->addFieldToSelect('base_currency_code')
-            ->addFieldToSelect('order_currency_code')
-            ->addFieldToSelect('billing_name')
-            ->setOrderFilter($this->getOrder())
+                ->addFieldToSelect('entity_id')
+                ->addFieldToSelect('created_at')
+                ->addFieldToSelect('order_id')
+                ->addFieldToSelect('increment_id')
+                ->addFieldToSelect('state')
+                ->addFieldToSelect('grand_total')
+                ->addFieldToSelect('base_grand_total')
+                ->addFieldToSelect('store_currency_code')
+                ->addFieldToSelect('base_currency_code')
+                ->addFieldToSelect('order_currency_code')
+                ->addFieldToSelect('billing_name')
+                ->setOrderFilter($this->getOrder())
         ;
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -75,9 +75,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
     protected function _prepareColumns()
     {
         $this->addColumn('increment_id', array(
-            'header'    => Mage::helper('sales')->__('Invoice #'),
-            'index'     => 'increment_id',
-            'width'     => '120px',
+            'header' => Mage::helper('sales')->__('Invoice #'),
+            'index' => 'increment_id',
+            'width' => '120px',
         ));
 
         $this->addColumn('billing_name', array(
@@ -86,23 +86,23 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
         ));
 
         $this->addColumn('created_at', array(
-            'header'    => Mage::helper('sales')->__('Invoice Date'),
-            'index'     => 'created_at',
-            'type'      => 'datetime',
+            'header' => Mage::helper('sales')->__('Invoice Date'),
+            'index' => 'created_at',
+            'type' => 'datetime',
         ));
 
         $this->addColumn('state', array(
-            'header'    => Mage::helper('sales')->__('Status'),
-            'index'     => 'state',
-            'type'      => 'options',
-            'options'   => Mage::getModel('sales/order_invoice')->getStates(),
+            'header' => Mage::helper('sales')->__('Status'),
+            'index' => 'state',
+            'type' => 'options',
+            'options' => Mage::getModel('sales/order_invoice')->getStates(),
         ));
 
         $this->addColumn('base_grand_total', array(
-            'header'    => Mage::helper('customer')->__('Amount'),
-            'index'     => 'base_grand_total',
-            'type'      => 'currency',
-            'currency'  => 'base_currency_code',
+            'header' => Mage::helper('customer')->__('Amount'),
+            'index' => 'base_grand_total',
+            'type' => 'currency',
+            'currency' => 'base_currency_code',
         ));
 
         return parent::_prepareColumns();
@@ -120,11 +120,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/sales_order_invoice/view',
-            array(
-                'invoice_id'=> $row->getId(),
-                'order_id'  => $row->getOrderId()
-            )
+        return $this->getUrl('*/sales_order_invoice/view', array(
+                    'invoice_id' => $row->getId(),
+                    'order_id' => $row->getOrderId()
+                        )
         );
     }
 
@@ -132,7 +131,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
     {
         return $this->getUrl('*/*/invoices', array('_current' => true));
     }
-
 
     /**
      * ######################## TAB settings #################################
@@ -156,4 +154,5 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
     {
         return false;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Dictionary.php 22797 2010-08-06 15:02:12Z alexander $
  */
-
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element/Name.php';
 
@@ -37,6 +36,7 @@
  */
 class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
 {
+
     /**
      * Dictionary elements
      * Array of Zend_Pdf_Element objects ('name' => Zend_Pdf_Element)
@@ -44,7 +44,6 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
      * @var array
      */
     private $_items = array();
-
 
     /**
      * Object constructor
@@ -74,7 +73,6 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
         }
     }
 
-
     /**
      * Add element to an array
      *
@@ -97,7 +95,6 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
         return array_keys($this->_items);
     }
 
-
     /**
      * Get handler
      *
@@ -106,8 +103,7 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
      */
     public function __get($item)
     {
-        $element = isset($this->_items[$item]) ? $this->_items[$item]
-                                               : null;
+        $element = isset($this->_items[$item]) ? $this->_items[$item] : null;
 
         return $element;
     }
@@ -137,7 +133,6 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
         return Zend_Pdf_Element::TYPE_DICTIONARY;
     }
 
-
     /**
      * Return object as string
      *
@@ -155,7 +150,7 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
                 throw new Zend_Pdf_Exception('Wrong data');
             }
 
-            if (strlen($outStr) - $lastNL > 128)  {
+            if (strlen($outStr) - $lastNL > 128) {
                 $outStr .= "\n";
                 $lastNL = strlen($outStr);
             }
@@ -186,8 +181,8 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
                 return new Zend_Pdf_Element_Null();
             }
 
-            if ($this->_items['Type']->value == 'Page'  &&
-                $mode == Zend_Pdf_Element::CLONE_MODE_SKIP_PAGES
+            if ($this->_items['Type']->value == 'Page' &&
+                    $mode == Zend_Pdf_Element::CLONE_MODE_SKIP_PAGES
             ) {
                 // It's a page node, skip it
                 return new Zend_Pdf_Element_Null();
@@ -233,4 +228,5 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
 
         return $phpArray;
     }
+
 }

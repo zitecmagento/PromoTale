@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,8 +32,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Adminhtml_Block_Abstract
-    implements Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Interface
+class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Adminhtml_Block_Abstract implements Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Interface
 {
 
     /**
@@ -82,8 +82,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     protected function _getHtmlId()
     {
         return $this->getColumn()->getGrid()->getId() . '_'
-            . $this->getColumn()->getGrid()->getVarNameFilter() . '_'
-            . $this->getColumn()->getId();
+                . $this->getColumn()->getGrid()->getVarNameFilter() . '_'
+                . $this->getColumn()->getId();
     }
 
     /**

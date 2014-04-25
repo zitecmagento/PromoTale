@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * @see Zend_Service_WindowsAzure_Exception
  */
@@ -44,6 +44,7 @@
  */
 abstract class Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract
 {
+
     /**
      * Execute function under retry policy
      * 
@@ -52,7 +53,7 @@ abstract class Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract
      * @return mixed
      */
     public abstract function execute($function, $parameters = array());
-    
+
     /**
      * Create a Zend_Service_WindowsAzure_RetryPolicy_NoRetry instance
      * 
@@ -62,7 +63,7 @@ abstract class Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract
     {
         return new Zend_Service_WindowsAzure_RetryPolicy_NoRetry();
     }
-    
+
     /**
      * Create a Zend_Service_WindowsAzure_RetryPolicy_RetryN instance
      * 
@@ -74,4 +75,5 @@ abstract class Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract
     {
         return new Zend_Service_WindowsAzure_RetryPolicy_RetryN($count, $intervalBetweenRetries);
     }
+
 }

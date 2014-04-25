@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SalesUseTaxBasic.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Service_StrikeIron_Base */
 #require_once 'Zend/Service/StrikeIron/Base.php';
 
@@ -32,14 +32,16 @@
  */
 class Zend_Service_StrikeIron_SalesUseTaxBasic extends Zend_Service_StrikeIron_Base
 {
+
     /**
      * Configuration options
      * @param array
      */
     protected $_options = array('username' => null,
-                                'password' => null,
-                                'client'   => null,
-                                'options'  => null,
-                                'headers'  => null,
-                                'wsdl'     => 'http://ws.strikeiron.com/zf1.StrikeIron/taxdatabasic4?WSDL');
+        'password' => null,
+        'client' => null,
+        'options' => null,
+        'headers' => null,
+        'wsdl' => 'http://ws.strikeiron.com/zf1.StrikeIron/taxdatabasic4?WSDL');
+
 }

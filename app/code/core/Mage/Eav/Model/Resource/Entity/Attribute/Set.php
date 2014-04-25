@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav attribute set resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize connection
      *
@@ -91,12 +92,12 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
         $adapter = $this->_getReadAdapter();
         $bind = array(
             'attribute_set_name' => trim($attributeSetName),
-            'entity_type_id'     => $object->getEntityTypeId()
+            'entity_type_id' => $object->getEntityTypeId()
         );
         $select = $adapter->select()
-            ->from($this->getMainTable())
-            ->where('attribute_set_name = :attribute_set_name')
-            ->where('entity_type_id = :entity_type_id');
+                ->from($this->getMainTable())
+                ->where('attribute_set_name = :attribute_set_name')
+                ->where('entity_type_id = :entity_type_id');
 
         if ($object->getId()) {
             $bind['attribute_set_id'] = $object->getId();
@@ -121,14 +122,13 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
 
         if (count($attributeIds) > 0) {
             $select = $adapter->select()
-                ->from(
-                    array('entity' => $this->getTable('eav/entity_attribute')),
-                    array('attribute_id', 'attribute_set_id', 'attribute_group_id', 'sort_order'))
-                ->joinLeft(
-                    array('attribute_group' => $this->getTable('eav/attribute_group')),
-                    'entity.attribute_group_id = attribute_group.attribute_group_id',
-                    array('group_sort_order' => 'sort_order'))
-                ->where('entity.attribute_id IN (?)', $attributeIds);
+                    ->from(
+                            array('entity' => $this->getTable('eav/entity_attribute')), array('attribute_id', 'attribute_set_id',
+                        'attribute_group_id', 'sort_order'))
+                    ->joinLeft(
+                            array('attribute_group' => $this->getTable('eav/attribute_group')), 'entity.attribute_group_id = attribute_group.attribute_group_id', array(
+                        'group_sort_order' => 'sort_order'))
+                    ->where('entity.attribute_id IN (?)', $attributeIds);
             $bind = array();
             if (is_numeric($setId)) {
                 $bind[':attribute_set_id'] = $setId;
@@ -138,18 +138,16 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
 
             foreach ($result as $row) {
                 $data = array(
-                    'group_id'      => $row['attribute_group_id'],
-                    'group_sort'    => $row['group_sort_order'],
-                    'sort'          => $row['sort_order']
+                    'group_id' => $row['attribute_group_id'],
+                    'group_sort' => $row['group_sort_order'],
+                    'sort' => $row['sort_order']
                 );
                 $attributeToSetInfo[$row['attribute_id']][$row['attribute_set_id']] = $data;
             }
         }
 
         foreach ($attributeIds as $atttibuteId) {
-            $setInfo[$atttibuteId] = isset($attributeToSetInfo[$atttibuteId])
-                ? $attributeToSetInfo[$atttibuteId]
-                : array();
+            $setInfo[$atttibuteId] = isset($attributeToSetInfo[$atttibuteId]) ? $attributeToSetInfo[$atttibuteId] : array();
         }
 
         return $setInfo;
@@ -164,14 +162,15 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
     public function getDefaultGroupId($setId)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = array(
-            'attribute_set_id' => (int)$setId
+        $bind = array(
+            'attribute_set_id' => (int) $setId
         );
         $select = $adapter->select()
-            ->from($this->getTable('eav/attribute_group'), 'attribute_group_id')
-            ->where('attribute_set_id = :attribute_set_id')
-            ->where('default_id = 1')
-            ->limit(1);
+                ->from($this->getTable('eav/attribute_group'), 'attribute_group_id')
+                ->where('attribute_set_id = :attribute_set_id')
+                ->where('default_id = 1')
+                ->limit(1);
         return $adapter->fetchOne($select, $bind);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,5 +34,6 @@
  */
 interface Mage_XmlConnect_Model_Simplexml_Form_Element_Renderer_Interface
 {
+
     public function render(Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract $element);
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: HeadStyle.php 20104 2010-01-06 21:26:01Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_Placeholder_Container_Standalone */
 #require_once 'Zend/View/Helper/Placeholder/Container/Standalone.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_Standalone
 {
+
     /**
      * Registry key for placeholder
      * @var string
@@ -134,8 +135,8 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
     public function __call($method, $args)
     {
         if (preg_match('/^(?P<action>set|(ap|pre)pend|offsetSet)(Style)$/', $method, $matches)) {
-            $index  = null;
-            $argc   = count($args);
+            $index = null;
+            $argc = count($args);
             $action = $matches['action'];
 
             if ('offsetSet' == $action) {
@@ -153,7 +154,7 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
             }
 
             $content = $args[0];
-            $attrs   = array();
+            $attrs = array();
             if (isset($args[1])) {
                 $attrs = (array) $args[1];
             }
@@ -181,10 +182,7 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
      */
     protected function _isValid($value)
     {
-        if ((!$value instanceof stdClass)
-            || !isset($value->content)
-            || !isset($value->attributes))
-        {
+        if ((!$value instanceof stdClass) || !isset($value->content) || !isset($value->attributes)) {
             return false;
         }
 
@@ -280,9 +278,9 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
             throw $e;
         }
 
-        $this->_captureLock        = true;
-        $this->_captureAttrs       = $attrs;
-        $this->_captureType        = $type;
+        $this->_captureLock = true;
+        $this->_captureAttrs = $attrs;
+        $this->_captureType = $type;
         ob_start();
     }
 
@@ -293,10 +291,10 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
      */
     public function captureEnd()
     {
-        $content             = ob_get_clean();
-        $attrs               = $this->_captureAttrs;
+        $content = ob_get_clean();
+        $attrs = $this->_captureAttrs;
         $this->_captureAttrs = null;
-        $this->_captureLock  = false;
+        $this->_captureLock = false;
 
         switch ($this->_captureType) {
             case Zend_View_Helper_Placeholder_Container_Abstract::SET:
@@ -324,8 +322,7 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
         $attrString = '';
         if (!empty($item->attributes)) {
             $enc = 'UTF-8';
-            if ($this->view instanceof Zend_View_Interface
-                && method_exists($this->view, 'getEncoding')
+            if ($this->view instanceof Zend_View_Interface && method_exists($this->view, 'getEncoding')
             ) {
                 $enc = $this->view->getEncoding();
             }
@@ -334,19 +331,19 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
                     continue;
                 }
                 if ('media' == $key) {
-                    if(false === strpos($value, ',')) {
+                    if (false === strpos($value, ',')) {
                         if (!in_array($value, $this->_mediaTypes)) {
                             continue;
                         }
                     } else {
                         $media_types = explode(',', $value);
                         $value = '';
-                        foreach($media_types as $type) {
+                        foreach ($media_types as $type) {
                             $type = trim($type);
                             if (!in_array($type, $this->_mediaTypes)) {
                                 continue;
                             }
-                            $value .= $type .',';
+                            $value .= $type . ',';
                         }
                         $value = substr($value, 0, -1);
                     }
@@ -356,13 +353,10 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
         }
 
         $html = '<style type="text/css"' . $attrString . '>' . PHP_EOL
-              . $indent . '<!--' . PHP_EOL . $indent . $item->content . PHP_EOL . $indent . '-->' . PHP_EOL
-              . '</style>';
+                . $indent . '<!--' . PHP_EOL . $indent . $item->content . PHP_EOL . $indent . '-->' . PHP_EOL
+                . '</style>';
 
-        if (isset($item->attributes['conditional'])
-            && !empty($item->attributes['conditional'])
-            && is_string($item->attributes['conditional']))
-        {
+        if (isset($item->attributes['conditional']) && !empty($item->attributes['conditional']) && is_string($item->attributes['conditional'])) {
             $html = '<!--[if ' . $item->attributes['conditional'] . ']> ' . $html . '<![endif]-->';
         }
 
@@ -377,9 +371,7 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
      */
     public function toString($indent = null)
     {
-        $indent = (null !== $indent)
-                ? $this->getWhitespace($indent)
-                : $this->getIndent();
+        $indent = (null !== $indent) ? $this->getWhitespace($indent) : $this->getIndent();
 
         $items = array();
         $this->getContainer()->ksort();
@@ -406,14 +398,15 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
     {
         if (!isset($attributes['media'])) {
             $attributes['media'] = 'screen';
-        } else if(is_array($attributes['media'])) {
+        } else if (is_array($attributes['media'])) {
             $attributes['media'] = implode(',', $attributes['media']);
         }
 
         $data = new stdClass();
-        $data->content    = $content;
+        $data->content = $content;
         $data->attributes = $attributes;
 
         return $data;
     }
+
 }

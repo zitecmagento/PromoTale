@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Tar.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Compress_CompressAbstract
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Filter_Compress_Tar extends Zend_Filter_Compress_CompressAbstract
 {
+
     /**
      * Compression Options
      * array(
@@ -44,9 +45,9 @@ class Zend_Filter_Compress_Tar extends Zend_Filter_Compress_CompressAbstract
      * @var array
      */
     protected $_options = array(
-        'archive'  => null,
-        'target'   => '.',
-        'mode'     => null,
+        'archive' => null,
+        'target' => '.',
+        'mode' => null,
     );
 
     /**
@@ -58,9 +59,12 @@ class Zend_Filter_Compress_Tar extends Zend_Filter_Compress_CompressAbstract
     {
         if (!class_exists('Archive_Tar')) {
             #require_once 'Zend/Loader.php';
-            try {
+            try
+            {
                 Zend_Loader::loadClass('Archive_Tar');
-            } catch (Zend_Exception $e) {
+            }
+            catch (Zend_Exception $e)
+            {
                 #require_once 'Zend/Filter/Exception.php';
                 throw new Zend_Filter_Exception('This filter needs PEARs Archive_Tar', 0, $e);
             }
@@ -181,9 +185,8 @@ class Zend_Filter_Compress_Tar extends Zend_Filter_Compress_CompressAbstract
         if (is_dir($content)) {
             // collect all file infos
             foreach (new RecursiveIteratorIterator(
-                        new RecursiveDirectoryIterator($content, RecursiveDirectoryIterator::KEY_AS_PATHNAME),
-                        RecursiveIteratorIterator::SELF_FIRST
-                    ) as $directory => $info
+            new RecursiveDirectoryIterator($content, RecursiveDirectoryIterator::KEY_AS_PATHNAME), RecursiveIteratorIterator::SELF_FIRST
+            ) as $directory => $info
             ) {
                 if ($info->isFile()) {
                     $file[] = $directory;
@@ -193,7 +196,7 @@ class Zend_Filter_Compress_Tar extends Zend_Filter_Compress_CompressAbstract
             $content = $file;
         }
 
-        $result  = $archive->create($content);
+        $result = $archive->create($content);
         if ($result === false) {
             #require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception('Error creating the Tar archive');
@@ -219,7 +222,7 @@ class Zend_Filter_Compress_Tar extends Zend_Filter_Compress_CompressAbstract
         }
 
         $archive = new Archive_Tar($archive, $this->getMode());
-        $target  = $this->getTarget();
+        $target = $this->getTarget();
         if (!is_dir($target)) {
             $target = dirname($target);
         }
@@ -242,4 +245,5 @@ class Zend_Filter_Compress_Tar extends Zend_Filter_Compress_CompressAbstract
     {
         return 'Tar';
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Review collection resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Review table
      *
@@ -73,7 +74,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
      * Add store data flag
      * @var bool
      */
-    protected $_addStoreDataFlag   = false;
+    protected $_addStoreDataFlag = false;
 
     /**
      * Define module
@@ -82,12 +83,11 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     protected function _construct()
     {
         $this->_init('review/review');
-        $this->_reviewTable         = $this->getTable('review/review');
-        $this->_reviewDetailTable   = $this->getTable('review/review_detail');
-        $this->_reviewStatusTable   = $this->getTable('review/review_status');
-        $this->_reviewEntityTable   = $this->getTable('review/review_entity');
-        $this->_reviewStoreTable    = $this->getTable('review/review_store');
-
+        $this->_reviewTable = $this->getTable('review/review');
+        $this->_reviewDetailTable = $this->getTable('review/review_detail');
+        $this->_reviewStatusTable = $this->getTable('review/review_status');
+        $this->_reviewEntityTable = $this->getTable('review/review_entity');
+        $this->_reviewStoreTable = $this->getTable('review/review_store');
     }
 
     /**
@@ -99,9 +99,8 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     {
         parent::_initSelect();
         $this->getSelect()
-            ->join(array('detail' => $this->_reviewDetailTable),
-                'main_table.review_id = detail.review_id',
-                array('detail_id', 'title', 'detail', 'nickname', 'customer_id'));
+                ->join(array('detail' => $this->_reviewDetailTable), 'main_table.review_id = detail.review_id', array('detail_id',
+                    'title', 'detail', 'nickname', 'customer_id'));
         return $this;
     }
 
@@ -113,9 +112,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
      */
     public function addCustomerFilter($customerId)
     {
-        $this->addFilter('customer',
-            $this->getConnection()->quoteInto('detail.customer_id=?', $customerId),
-            'string');
+        $this->addFilter('customer', $this->getConnection()->quoteInto('detail.customer_id=?', $customerId), 'string');
         return $this;
     }
 
@@ -128,9 +125,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     public function addStoreFilter($storeId)
     {
         $inCond = $this->getConnection()->prepareSqlCondition('store.store_id', array('in' => $storeId));
-        $this->getSelect()->join(array('store'=>$this->_reviewStoreTable),
-            'main_table.review_id=store.review_id',
-            array());
+        $this->getSelect()->join(array('store' => $this->_reviewStoreTable), 'main_table.review_id=store.review_id', array());
         $this->getSelect()->where($inCond);
         return $this;
     }
@@ -156,22 +151,15 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     public function addEntityFilter($entity, $pkValue)
     {
         if (is_numeric($entity)) {
-            $this->addFilter('entity',
-                $this->getConnection()->quoteInto('main_table.entity_id=?', $entity),
-                'string');
+            $this->addFilter('entity', $this->getConnection()->quoteInto('main_table.entity_id=?', $entity), 'string');
         } elseif (is_string($entity)) {
-            $this->_select->join($this->_reviewEntityTable,
-                'main_table.entity_id='.$this->_reviewEntityTable.'.entity_id',
-                array('entity_code'));
+            $this->_select->join($this->_reviewEntityTable, 'main_table.entity_id=' . $this->_reviewEntityTable . '.entity_id', array(
+                'entity_code'));
 
-            $this->addFilter('entity',
-                $this->getConnection()->quoteInto($this->_reviewEntityTable.'.entity_code=?', $entity),
-                'string');
+            $this->addFilter('entity', $this->getConnection()->quoteInto($this->_reviewEntityTable . '.entity_code=?', $entity), 'string');
         }
 
-        $this->addFilter('entity_pk_value',
-            $this->getConnection()->quoteInto('main_table.entity_pk_value=?', $pkValue),
-            'string');
+        $this->addFilter('entity_pk_value', $this->getConnection()->quoteInto('main_table.entity_pk_value=?', $pkValue), 'string');
 
         return $this;
     }
@@ -189,9 +177,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
             $status = isset($statuses[$status]) ? $statuses[$status] : 0;
         }
         if (is_numeric($status)) {
-            $this->addFilter('status',
-                $this->getConnection()->quoteInto('main_table.status_id=?', $status),
-                'string');
+            $this->addFilter('status', $this->getConnection()->quoteInto('main_table.status_id=?', $status), 'string');
         }
         return $this;
     }
@@ -217,11 +203,11 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     {
         foreach ($this->getItems() as $item) {
             $votesCollection = Mage::getModel('rating/rating_option_vote')
-                ->getResourceCollection()
-                ->setReviewFilter($item->getId())
-                ->setStoreFilter(Mage::app()->getStore()->getId())
-                ->addRatingInfo(Mage::app()->getStore()->getId())
-                ->load();
+                    ->getResourceCollection()
+                    ->setReviewFilter($item->getId())
+                    ->setStoreFilter(Mage::app()->getStore()->getId())
+                    ->addRatingInfo(Mage::app()->getStore()->getId())
+                    ->load();
             $item->setRatingVotes($votesCollection);
         }
 
@@ -236,11 +222,9 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     public function addReviewsTotalCount()
     {
         $this->_select->joinLeft(
-            array('r' => $this->_reviewTable),
-            'main_table.entity_pk_value = r.entity_pk_value',
-            array('total_reviews' => new Zend_Db_Expr('COUNT(r.review_id)'))
-        )
-        ->group('main_table.review_id');
+                        array('r' => $this->_reviewTable), 'main_table.entity_pk_value = r.entity_pk_value', array('total_reviews' => new Zend_Db_Expr('COUNT(r.review_id)'))
+                )
+                ->group('main_table.review_id');
 
         /*
          * Allow analytic functions usage
@@ -280,11 +264,11 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
 
         $reviewsIds = $this->getColumnValues('review_id');
         $storesToReviews = array();
-        if (count($reviewsIds)>0) {
+        if (count($reviewsIds) > 0) {
             $inCond = $adapter->prepareSqlCondition('review_id', array('in' => $reviewsIds));
             $select = $adapter->select()
-                ->from($this->_reviewStoreTable)
-                ->where($inCond);
+                    ->from($this->_reviewStoreTable)
+                    ->where($inCond);
             $result = $adapter->fetchAll($select);
             foreach ($result as $row) {
                 if (!isset($storesToReviews[$row['review_id']])) {
@@ -302,4 +286,5 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
             }
         }
     }
+
 }

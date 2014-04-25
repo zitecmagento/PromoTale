@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -39,9 +40,9 @@ class Mage_Connect_Loader
      * @param string/false $protocol  'curl'/'socket' or false for auto-detect
      * @return Mage_HTTP_Client/Mage_Connect_Loader_Ftp
      */
-    public static function getInstance($protocol='')
+    public static function getInstance($protocol = '')
     {
-        if ($protocol  == 'ftp') {
+        if ($protocol == 'ftp') {
             return new Mage_Connect_Loader_Ftp();
         } else {
             return Mage_HTTP_Client::getInstance();

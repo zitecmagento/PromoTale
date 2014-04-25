@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -50,6 +51,7 @@
  */
 class Mage_XmlConnect_Model_History extends Mage_Core_Model_Abstract
 {
+
     /**
      * Initialize application
      *
@@ -70,4 +72,5 @@ class Mage_XmlConnect_Model_History extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()->getLastParams($id);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_Abstract
 {
+
     public function getBilling()
     {
         return $this->getQuote()->getBillingAddress();
@@ -55,9 +57,9 @@ class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_A
 
     public function getShippingAmount()
     {
-        /*$amount = $this->getQuote()->getShippingAddress()->getShippingAmount();
-        $filter = Mage::app()->getStore()->getPriceFilter();
-        return $filter->filter($amount);*/
+        /* $amount = $this->getQuote()->getShippingAddress()->getShippingAmount();
+          $filter = Mage::app()->getStore()->getPriceFilter();
+          return $filter->filter($amount); */
         //return $this->helper('checkout')->formatPrice(
         //    $this->getQuote()->getShippingAddress()->getShippingAmount()
         //);
@@ -112,4 +114,5 @@ class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_A
     {
         return $this->getQuote()->getStore()->formatPrice($price);
     }
+
 }

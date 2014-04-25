@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
 {
+
     /**
      * Xml path to email template nodes
      *
@@ -88,7 +89,7 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
 
         // look for node entries in all system.xml that use source_model=adminhtml/system_config_source_email_template
         // they are will be templates, what we try find
-        $sysCfgNodes    = $configSections->xpath(self::XML_PATH_TEMPLATE_EMAIL);
+        $sysCfgNodes = $configSections->xpath(self::XML_PATH_TEMPLATE_EMAIL);
         if (!is_array($sysCfgNodes)) {
             return array();
         }
@@ -119,18 +120,20 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
      *
      * @return Mage_Adminhtml_Model_Email_Template
      */
-    protected function _afterDelete() {
+    protected function _afterDelete()
+    {
         $paths = $this->getSystemConfigPathsWhereUsedCurrently();
         foreach ($paths as $path) {
             $configDataCollection = Mage::getModel('core/config_data')
-                ->getCollection()
-                ->addFieldToFilter('scope', $path['scope'])
-                ->addFieldToFilter('scope_id', $path['scope_id'])
-                ->addFieldToFilter('path', $path['path']);
+                    ->getCollection()
+                    ->addFieldToFilter('scope', $path['scope'])
+                    ->addFieldToFilter('scope_id', $path['scope_id'])
+                    ->addFieldToFilter('path', $path['path']);
             foreach ($configDataCollection as $configItem) {
                 $configItem->delete();
             }
         }
         return parent::_afterDelete();
     }
+
 }

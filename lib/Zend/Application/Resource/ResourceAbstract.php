@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ResourceAbstract.php 23384 2010-11-19 00:00:29Z ramon $
  */
-
 /**
  * @see Zend_Application_Resource_Resource
  */
@@ -37,6 +37,7 @@
  */
 abstract class Zend_Application_Resource_ResourceAbstract implements Zend_Application_Resource_Resource
 {
+
     /**
      * Parent bootstrap
      *
@@ -126,9 +127,7 @@ abstract class Zend_Application_Resource_ResourceAbstract implements Zend_Applic
         if (is_array($array2)) {
             foreach ($array2 as $key => $val) {
                 if (is_array($array2[$key])) {
-                    $array1[$key] = (array_key_exists($key, $array1) && is_array($array1[$key]))
-                                  ? $this->mergeOptions($array1[$key], $array2[$key])
-                                  : $array2[$key];
+                    $array1[$key] = (array_key_exists($key, $array1) && is_array($array1[$key])) ? $this->mergeOptions($array1[$key], $array2[$key]) : $array2[$key];
                 } else {
                     $array1[$key] = $val;
                 }
@@ -158,4 +157,5 @@ abstract class Zend_Application_Resource_ResourceAbstract implements Zend_Applic
     {
         return $this->_bootstrap;
     }
+
 }

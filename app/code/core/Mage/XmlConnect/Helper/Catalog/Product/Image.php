@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_XmlConnect_Helper_Catalog_Product_Image extends Mage_Catalog_Helper_Image
 {
+
     /**
      * Get new file path
      *
@@ -43,4 +45,5 @@ class Mage_XmlConnect_Helper_Catalog_Product_Image extends Mage_Catalog_Helper_I
     {
         return $this->_getModel()->getNewFile();
     }
+
 }

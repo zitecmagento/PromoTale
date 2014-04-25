@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 interface Mage_PageCache_Model_Control_Interface
 {
+
     /**
      * Clean external cache
      *

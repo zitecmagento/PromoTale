@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Core_Model_Variable_Observer
 {
+
     /**
      * Add variable wysiwyg plugin config
      *
@@ -49,4 +51,5 @@ class Mage_Core_Model_Variable_Observer
         }
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales report resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Model_Resource_Report extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      *
@@ -55,4 +56,5 @@ class Mage_Sales_Model_Resource_Report extends Mage_Core_Model_Resource_Db_Abstr
         $this->_init($table, $field);
         return $this;
     }
+
 }

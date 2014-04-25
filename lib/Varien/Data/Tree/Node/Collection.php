@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,63 +34,64 @@
  */
 class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
 {
+
     private $_nodes;
     private $_container;
-    
-    public function __construct($container) 
+
+    public function __construct($container)
     {
         $this->_nodes = array();
         $this->_container = $container;
     }
-    
+
     public function getNodes()
     {
         return $this->_nodes;
     }
-    
+
     /**
-    * Implementation of IteratorAggregate::getIterator()
-    */
+     * Implementation of IteratorAggregate::getIterator()
+     */
     public function getIterator()
     {
         return new ArrayIterator($this->_nodes);
     }
 
     /**
-    * Implementation of ArrayAccess:offsetSet()
-    */
+     * Implementation of ArrayAccess:offsetSet()
+     */
     public function offsetSet($key, $value)
     {
         $this->_nodes[$key] = $value;
     }
-    
+
     /**
-    * Implementation of ArrayAccess:offsetGet()
-    */
+     * Implementation of ArrayAccess:offsetGet()
+     */
     public function offsetGet($key)
     {
         return $this->_nodes[$key];
     }
-    
+
     /**
-    * Implementation of ArrayAccess:offsetUnset()
-    */
+     * Implementation of ArrayAccess:offsetUnset()
+     */
     public function offsetUnset($key)
     {
         unset($this->_nodes[$key]);
     }
-    
+
     /**
-    * Implementation of ArrayAccess:offsetExists()
-    */
+     * Implementation of ArrayAccess:offsetExists()
+     */
     public function offsetExists($key)
     {
         return isset($this->_nodes[$key]);
     }
-    
+
     /**
-    * Adds a node to this node
-    */
+     * Adds a node to this node
+     */
     public function add(Varien_Data_Tree_Node $node)
     {
         $node->setParent($this->_container);
@@ -103,7 +105,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
 
         return $node;
     }
-    
+
     public function delete($node)
     {
         if (isset($this->_nodes[$node->getId()])) {
@@ -111,7 +113,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
         }
         return $this;
     }
-    
+
     public function count()
     {
         return count($this->_nodes);
@@ -129,4 +131,5 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
         }
         return null;
     }
+
 }

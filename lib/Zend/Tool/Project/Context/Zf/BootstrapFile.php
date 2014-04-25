@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -43,17 +44,16 @@ class Zend_Tool_Project_Context_Zf_BootstrapFile extends Zend_Tool_Project_Conte
      * @var Zend_Tool_Project_Profile_Resource
      */
     protected $_applicationConfigFile = null;
-    
+
     /**
      * @var Zend_Tool_Project_Profile_Resource
      */
     protected $_applicationDirectory = null;
-    
+
     /**
      * @var Zend_Application
      */
     protected $_applicationInstance = null;
-
 
     /**
      * getName()
@@ -75,8 +75,6 @@ class Zend_Tool_Project_Context_Zf_BootstrapFile extends Zend_Tool_Project_Conte
         if (($this->_applicationConfigFile === false) || ($this->_applicationDirectory === false)) {
             throw new Exception('To use the BootstrapFile context, your project requires the use of both the "ApplicationConfigFile" and "ApplicationDirectory" contexts.');
         }
-
-
     }
 
     /**
@@ -92,13 +90,13 @@ class Zend_Tool_Project_Context_Zf_BootstrapFile extends Zend_Tool_Project_Conte
                 new Zend_CodeGenerator_Php_Class(array(
                     'name' => 'Bootstrap',
                     'extendedClass' => 'Zend_Application_Bootstrap_Bootstrap',
-                    )),
-                )
-            ));
+                        )),
+            )
+        ));
 
         return $codeGenFile->generate();
     }
-    
+
     public function getApplicationInstance()
     {
         if ($this->_applicationInstance == null) {
@@ -106,14 +104,14 @@ class Zend_Tool_Project_Context_Zf_BootstrapFile extends Zend_Tool_Project_Conte
                 define('APPLICATION_PATH', $this->_applicationDirectory->getPath());
                 $applicationOptions = array();
                 $applicationOptions['config'] = $this->_applicationConfigFile->getPath();
-    
+
                 $this->_applicationInstance = new Zend_Application(
-                    'development',
-                    $applicationOptions
-                    );
+                        'development', $applicationOptions
+                );
             }
         }
-        
+
         return $this->_applicationInstance;
     }
+
 }

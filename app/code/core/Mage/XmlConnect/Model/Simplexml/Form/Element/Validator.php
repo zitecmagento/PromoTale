@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator
-    extends Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset
+class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator extends Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset
 {
+
     /**
      * Main element node
      *
@@ -190,4 +191,5 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator
         $this->_ruleTypeBlock = $ruleTypeBlock;
         return $this;
     }
+
 }

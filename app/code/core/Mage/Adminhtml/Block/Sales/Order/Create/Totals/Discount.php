@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,13 +30,14 @@
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Discount extends Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default
 {
+
     //protected $_template = 'tax/checkout/subtotal.phtml';
 
     public function displayBoth()
     {
         return Mage::getSingleton('tax/config')->displayCartSubtotalBoth();
     }
+
 }

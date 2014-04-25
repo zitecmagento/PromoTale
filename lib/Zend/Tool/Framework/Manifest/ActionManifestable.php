@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ActionManifestable.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Framework_Manifest_Interface
  */
@@ -43,5 +43,4 @@ interface Zend_Tool_Framework_Manifest_ActionManifestable extends Zend_Tool_Fram
      * @return array|Zend_Tool_Framework_Action_Interface
      */
     public function getActions();
-
 }

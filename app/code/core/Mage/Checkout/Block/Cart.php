@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 {
+
     /**
      * Prepare Quote Item Product URLs
      *
@@ -52,26 +54,23 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
         $products = array();
         /* @var $item Mage_Sales_Model_Quote_Item */
         foreach ($this->getItems() as $item) {
-            $product    = $item->getProduct();
-            $option     = $item->getOptionByCode('product_type');
+            $product = $item->getProduct();
+            $option = $item->getOptionByCode('product_type');
             if ($option) {
                 $product = $option->getProduct();
             }
 
-            if ($item->getStoreId() != Mage::app()->getStore()->getId()
-                && !$item->getRedirectUrl()
-                && !$product->isVisibleInSiteVisibility())
-            {
+            if ($item->getStoreId() != Mage::app()->getStore()->getId() && !$item->getRedirectUrl() && !$product->isVisibleInSiteVisibility()) {
                 $products[$product->getId()] = $item->getStoreId();
             }
         }
 
         if ($products) {
             $products = Mage::getResourceSingleton('catalog/url')
-                ->getRewriteByProductStore($products);
+                    ->getRewriteByProductStore($products);
             foreach ($this->getItems() as $item) {
-                $product    = $item->getProduct();
-                $option     = $item->getOptionByCode('product_type');
+                $product = $item->getProduct();
+                $option = $item->getOptionByCode('product_type');
                 if ($option) {
                     $product = $option->getProduct();
                 }
@@ -108,8 +107,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
     {
         $isActive = $this->_getData('is_wishlist_active');
         if ($isActive === null) {
-            $isActive = Mage::getStoreConfig('wishlist/general/active')
-                && Mage::getSingleton('customer/session')->isLoggedIn();
+            $isActive = Mage::getStoreConfig('wishlist/general/active') && Mage::getSingleton('customer/session')->isLoggedIn();
             $this->setIsWishlistActive($isActive);
         }
         return $isActive;
@@ -117,7 +115,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 
     public function getCheckoutUrl()
     {
-        return $this->getUrl('checkout/onepage', array('_secure'=>true));
+        return $this->getUrl('checkout/onepage', array('_secure' => true));
     }
 
     public function getContinueShoppingUrl()
@@ -180,4 +178,5 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 
         return parent::getItems();
     }
+
 }

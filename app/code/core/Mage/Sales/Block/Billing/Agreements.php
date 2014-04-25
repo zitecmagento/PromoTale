@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
 {
+
     /**
      * Payment methods array
      *
@@ -54,9 +56,9 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     {
         parent::_prepareLayout();
         $pager = $this->getLayout()->createBlock('page/html_pager')
-            ->setCollection($this->getBillingAgreements())->setIsOutputRequired(false);
+                        ->setCollection($this->getBillingAgreements())->setIsOutputRequired(false);
         $this->setChild('pager', $pager)
-            ->setBackUrl($this->getUrl('customer/account/'));
+                ->setBackUrl($this->getUrl('customer/account/'));
         $this->getBillingAgreements()->load();
         return $this;
     }
@@ -70,8 +72,8 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     {
         if (is_null($this->_billingAgreements)) {
             $this->_billingAgreements = Mage::getResourceModel('sales/billing_agreement_collection')
-                ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomerId())
-                ->setOrder('agreement_id', 'desc');
+                    ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomerId())
+                    ->setOrder('agreement_id', 'desc');
         }
         return $this->_billingAgreements;
     }
@@ -88,8 +90,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
         switch ($key) {
             case 'created_at':
             case 'updated_at':
-                $value = ($item->getData($key))
-                    ? $this->helper('core')->formatDate($item->getData($key), 'short', true) : $this->__('N/A');
+                $value = ($item->getData($key)) ? $this->helper('core')->formatDate($item->getData($key), 'short', true) : $this->__('N/A');
                 break;
             case 'edit_url':
                 $value = $this->getUrl('*/billing_agreement/view', array('agreement' => $item->getAgreementId()));
@@ -148,4 +149,5 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
         $this->setCreateUrl($this->getUrl('*/billing_agreement/startWizard'));
         return parent::_toHtml();
     }
+
 }

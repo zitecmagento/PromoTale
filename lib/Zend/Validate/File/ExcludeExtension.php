@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: ExcludeExtension.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -34,18 +34,19 @@
  */
 class Zend_Validate_File_ExcludeExtension extends Zend_Validate_File_Extension
 {
+
     /**
      * @const string Error constants
      */
     const FALSE_EXTENSION = 'fileExcludeExtensionFalse';
-    const NOT_FOUND       = 'fileExcludeExtensionNotFound';
+    const NOT_FOUND = 'fileExcludeExtensionNotFound';
 
     /**
      * @var array Error message templates
      */
     protected $_messageTemplates = array(
         self::FALSE_EXTENSION => "File '%value%' has a false extension",
-        self::NOT_FOUND       => "File '%value%' is not readable or does not exist",
+        self::NOT_FOUND => "File '%value%' is not readable or does not exist",
     );
 
     /**
@@ -91,4 +92,5 @@ class Zend_Validate_File_ExcludeExtension extends Zend_Validate_File_Extension
 
         return $this->_throw($file, self::FALSE_EXTENSION);
     }
+
 }

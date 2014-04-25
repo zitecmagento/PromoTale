@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,6 +33,7 @@
  */
 class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Current applied design settings
      *
@@ -48,7 +50,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
     protected function _initProduct()
     {
         $categoryId = (int) $this->getRequest()->getParam('category', false);
-        $productId  = (int) $this->getRequest()->getParam('id');
+        $productId = (int) $this->getRequest()->getParam('id');
 
         $params = new Varien_Object();
         $params->setCategoryId($categoryId);
@@ -100,8 +102,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         $date = $object->getCustomDesignDate();
-        if (array_key_exists('from', $date) && array_key_exists('to', $date)
-            && Mage::app()->getLocale()->isStoreDateInInterval(null, $date['from'], $date['to'])
+        if (array_key_exists('from', $date) && array_key_exists('to', $date) && Mage::app()->getLocale()->isStoreDateInInterval(null, $date['from'], $date['to'])
         ) {
             if ($object->getPageLayout()) {
                 $this->_designProductSettingsApplied['layout'] = $object->getPageLayout();
@@ -117,7 +118,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
     {
         // Get initial data from request
         $categoryId = (int) $this->getRequest()->getParam('category', false);
-        $productId  = (int) $this->getRequest()->getParam('id');
+        $productId = (int) $this->getRequest()->getParam('id');
         $specifyOptions = $this->getRequest()->getParam('options');
 
         // Prepare helper and params
@@ -128,11 +129,14 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
         $params->setSpecifyOptions($specifyOptions);
 
         // Render page
-        try {
+        try
+        {
             $viewHelper->prepareAndRender($productId, $this, $params);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             if ($e->getCode() == $viewHelper->ERR_NO_PRODUCT_LOADED) {
-                if (isset($_GET['store'])  && !$this->getResponse()->isRedirect()) {
+                if (isset($_GET['store']) && !$this->getResponse()->isRedirect()) {
                     $this->_redirect('');
                 } elseif (!$this->getResponse()->isRedirect()) {
                     $this->_forward('noRoute');
@@ -173,4 +177,5 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
          */
         $this->_forward('noRoute');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,7 +35,7 @@
 class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data_Form_Element_Text
 {
 
-    public function __construct($attributes=array())
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->addClass('validate-zero-or-greater');
@@ -52,11 +53,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
                 $storeId = $this->getForm()->getDataObject()->getStoreId();
             }
             $store = Mage::app()->getStore($storeId);
-            $html.= '<strong>['.(string)$store->getBaseCurrencyCode().']</strong>';
+            $html.= '<strong>[' . (string) $store->getBaseCurrencyCode() . ']</strong>';
             if (Mage::helper('tax')->priceIncludesTax($store)) {
-                if ($attribute->getAttributeCode()!=='cost') {
+                if ($attribute->getAttributeCode() !== 'cost') {
                     $addJsObserver = true;
-                    $html.= ' <strong>['.Mage::helper('tax')->__('Inc. Tax').'<span id="dynamic-tax-'.$attribute->getAttributeCode().'"></span>]</strong>';
+                    $html.= ' <strong>[' . Mage::helper('tax')->__('Inc. Tax') . '<span id="dynamic-tax-' . $attribute->getAttributeCode() . '"></span>]</strong>';
                 }
             }
         }
@@ -75,7 +76,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
         return $html;
     }
 
-    public function getEscapedValue($index=null)
+    public function getEscapedValue($index = null)
     {
         $value = $this->getValue();
 
@@ -87,4 +88,3 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
     }
 
 }
-

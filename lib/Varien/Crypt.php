@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Crypt factory
  *
@@ -34,16 +34,18 @@
  */
 class Varien_Crypt
 {
+
     /**
      * Factory method to return requested cipher logic
      *
      * @param string $method
      * @return Varien_Crypt_Abstract
      */
-    static public function factory($method='mcrypt')
+    static public function factory($method = 'mcrypt')
     {
-        $uc = str_replace(' ','_',ucwords(str_replace('_',' ',$method)));
-        $className = 'Varien_Crypt_'.$uc;
+        $uc = str_replace(' ', '_', ucwords(str_replace('_', ' ', $method)));
+        $className = 'Varien_Crypt_' . $uc;
         return new $className;
     }
+
 }

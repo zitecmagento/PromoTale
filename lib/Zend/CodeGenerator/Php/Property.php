@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Property.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_CodeGenerator_Php_Member_Abstract
  */
@@ -117,9 +117,7 @@ class Zend_CodeGenerator_Php_Property extends Zend_CodeGenerator_Php_Member_Abst
     public function setDefaultValue($defaultValue)
     {
         // if it looks like
-        if (is_array($defaultValue)
-            && array_key_exists('value', $defaultValue)
-            && array_key_exists('type', $defaultValue)) {
+        if (is_array($defaultValue) && array_key_exists('value', $defaultValue) && array_key_exists('type', $defaultValue)) {
             $defaultValue = new Zend_CodeGenerator_Php_Property_DefaultValue($defaultValue);
         }
 
@@ -148,7 +146,7 @@ class Zend_CodeGenerator_Php_Property extends Zend_CodeGenerator_Php_Member_Abst
      */
     public function generate()
     {
-        $name         = $this->getName();
+        $name = $this->getName();
         $defaultValue = $this->getDefaultValue();
 
         $output = '';
@@ -162,16 +160,16 @@ class Zend_CodeGenerator_Php_Property extends Zend_CodeGenerator_Php_Member_Abst
             if ($defaultValue != null && !$defaultValue->isValidConstantType()) {
                 #require_once 'Zend/CodeGenerator/Php/Exception.php';
                 throw new Zend_CodeGenerator_Php_Exception('The property ' . $this->_name . ' is said to be '
-                    . 'constant but does not have a valid constant value.');
+                . 'constant but does not have a valid constant value.');
             }
             $output .= $this->_indentation . 'const ' . $name . ' = '
-                . (($defaultValue !== null) ? $defaultValue->generate() : 'null;');
+                    . (($defaultValue !== null) ? $defaultValue->generate() : 'null;');
         } else {
             $output .= $this->_indentation
-                . $this->getVisibility()
-                . (($this->isStatic()) ? ' static' : '')
-                . ' $' . $name . ' = '
-                . (($defaultValue !== null) ? $defaultValue->generate() : 'null;');
+                    . $this->getVisibility()
+                    . (($this->isStatic()) ? ' static' : '')
+                    . ' $' . $name . ' = '
+                    . (($defaultValue !== null) ? $defaultValue->generate() : 'null;');
         }
         return $output;
     }

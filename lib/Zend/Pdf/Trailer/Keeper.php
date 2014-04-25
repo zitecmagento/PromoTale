@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Keeper.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Pdf_Trailer */
 #require_once 'Zend/Pdf/Trailer.php';
 
@@ -33,6 +32,7 @@
  */
 class Zend_Pdf_Trailer_Keeper extends Zend_Pdf_Trailer
 {
+
     /**
      * Reference context
      *
@@ -47,7 +47,6 @@ class Zend_Pdf_Trailer_Keeper extends Zend_Pdf_Trailer
      */
     private $_prev;
 
-
     /**
      * Object constructor
      *
@@ -55,14 +54,12 @@ class Zend_Pdf_Trailer_Keeper extends Zend_Pdf_Trailer
      * @param Zend_Pdf_Element_Reference_Context $context
      * @param Zend_Pdf_Trailer $prev
      */
-    public function __construct(Zend_Pdf_Element_Dictionary $dict,
-                                Zend_Pdf_Element_Reference_Context $context,
-                                Zend_Pdf_Trailer $prev = null)
+    public function __construct(Zend_Pdf_Element_Dictionary $dict, Zend_Pdf_Element_Reference_Context $context, Zend_Pdf_Trailer $prev = null)
     {
         parent::__construct($dict);
 
         $this->_context = $context;
-        $this->_prev    = $prev;
+        $this->_prev = $prev;
     }
 
     /**
@@ -125,9 +122,12 @@ class Zend_Pdf_Trailer_Keeper extends Zend_Pdf_Trailer
      */
     public function getLastFreeObject()
     {
-        try {
+        try
+        {
             $this->_context->getRefTable()->getNextFree('0 65535 R');
-        } catch (Zend_Pdf_Exception $e) {
+        }
+        catch (Zend_Pdf_Exception $e)
+        {
             if ($e->getMessage() == 'Object not found.') {
                 /**
                  * Here is work around for some wrong generated PDFs.
@@ -140,4 +140,5 @@ class Zend_Pdf_Trailer_Keeper extends Zend_Pdf_Trailer
             throw new Zend_Pdf_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
+
 }

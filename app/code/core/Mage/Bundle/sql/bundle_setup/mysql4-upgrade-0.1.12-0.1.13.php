@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $installer = $this;
 $installer->run("
@@ -38,17 +37,9 @@ CREATE TABLE {$this->getTable('bundle/selection_price')} (
 ");
 
 $installer->getConnection()->addConstraint(
-    'FK_BUNDLE_PRICE_SELECTION_ID',
-    $this->getTable('bundle/selection_price'),
-    'selection_id',
-    $this->getTable('bundle/selection'),
-    'selection_id'
+        'FK_BUNDLE_PRICE_SELECTION_ID', $this->getTable('bundle/selection_price'), 'selection_id', $this->getTable('bundle/selection'), 'selection_id'
 );
 
 $installer->getConnection()->addConstraint(
-    'FK_BUNDLE_PRICE_SELECTION_WEBSITE',
-    $this->getTable('bundle/selection_price'),
-    'website_id',
-    $this->getTable('core_website'),
-    'website_id'
+        'FK_BUNDLE_PRICE_SELECTION_WEBSITE', $this->getTable('bundle/selection_price'), 'website_id', $this->getTable('core_website'), 'website_id'
 );

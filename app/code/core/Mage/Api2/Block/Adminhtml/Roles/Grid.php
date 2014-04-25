@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Construct grid block
      */
@@ -43,7 +45,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
         $this->setUseAjax(true);
         $this->setSaveParametersInSession(true);
         $this->setDefaultSort('entity_id')
-            ->setDefaultDir(Varien_Db_Select::SQL_DESC);
+                ->setDefaultDir(Varien_Db_Select::SQL_DESC);
     }
 
     /**
@@ -69,26 +71,26 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
     {
         $this->addColumn('entity_id', array(
             'header' => Mage::helper('oauth')->__('ID'),
-            'index'  => 'entity_id',
-            'align'  => 'right',
-            'width'  => '50px',
+            'index' => 'entity_id',
+            'align' => 'right',
+            'width' => '50px',
         ));
 
         $this->addColumn('role_name', array(
             'header' => Mage::helper('oauth')->__('Role Name'),
-            'index'  => 'role_name',
+            'index' => 'role_name',
             'escape' => true,
         ));
 
         $this->addColumn('tole_user_type', array(
-            'header'         => Mage::helper('oauth')->__('User Type'),
-            'sortable'       => false,
+            'header' => Mage::helper('oauth')->__('User Type'),
+            'sortable' => false,
             'frame_callback' => array($this, 'decorateUserType')
         ));
 
         $this->addColumn('created_at', array(
             'header' => Mage::helper('oauth')->__('Created At'),
-            'index'  => 'created_at'
+            'index' => 'created_at'
         ));
 
         parent::_prepareColumns();
@@ -146,4 +148,5 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
         }
         return $userType;
     }
+
 }

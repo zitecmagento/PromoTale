@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 23252 2010-10-26 12:48:32Z matthew $
  */
-
-
 /**
  * @see Zend_Db
  */
@@ -120,9 +119,9 @@ abstract class Zend_Db_Adapter_Abstract
      * @var array Associative array of datatypes to values 0, 1, or 2.
      */
     protected $_numericDataTypes = array(
-        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
+        Zend_Db::INT_TYPE => Zend_Db::INT_TYPE,
         Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
-        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE
+        Zend_Db::FLOAT_TYPE => Zend_Db::FLOAT_TYPE
     );
 
     /** Weither or not that object can get serialized
@@ -183,9 +182,9 @@ abstract class Zend_Db_Adapter_Abstract
         $this->_checkRequiredOptions($config);
 
         $options = array(
-            Zend_Db::CASE_FOLDING           => $this->_caseFolding,
+            Zend_Db::CASE_FOLDING => $this->_caseFolding,
             Zend_Db::AUTO_QUOTE_IDENTIFIERS => $this->_autoQuoteIdentifiers,
-            Zend_Db::FETCH_MODE             => $this->_fetchMode,
+            Zend_Db::FETCH_MODE => $this->_fetchMode,
         );
         $driverOptions = array();
 
@@ -233,14 +232,14 @@ abstract class Zend_Db_Adapter_Abstract
                     /** @see Zend_Db_Adapter_Exception */
                     #require_once 'Zend/Db/Adapter/Exception.php';
                     throw new Zend_Db_Adapter_Exception('Case must be one of the following constants: '
-                        . 'Zend_Db::CASE_NATURAL, Zend_Db::CASE_LOWER, Zend_Db::CASE_UPPER');
+                    . 'Zend_Db::CASE_NATURAL, Zend_Db::CASE_LOWER, Zend_Db::CASE_UPPER');
             }
         }
 
         if (array_key_exists(Zend_Db::FETCH_MODE, $options)) {
             if (is_string($options[Zend_Db::FETCH_MODE])) {
                 $constant = 'Zend_Db::FETCH_' . strtoupper($options[Zend_Db::FETCH_MODE]);
-                if(defined($constant)) {
+                if (defined($constant)) {
                     $options[Zend_Db::FETCH_MODE] = constant($constant);
                 }
             }
@@ -281,13 +280,13 @@ abstract class Zend_Db_Adapter_Abstract
     protected function _checkRequiredOptions(array $config)
     {
         // we need at least a dbname
-        if (! array_key_exists('dbname', $config)) {
+        if (!array_key_exists('dbname', $config)) {
             /** @see Zend_Db_Adapter_Exception */
             #require_once 'Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("Configuration array must have a key for 'dbname' that names the database instance");
         }
 
-        if (! array_key_exists('password', $config)) {
+        if (!array_key_exists('password', $config)) {
             /**
              * @see Zend_Db_Adapter_Exception
              */
@@ -295,7 +294,7 @@ abstract class Zend_Db_Adapter_Abstract
             throw new Zend_Db_Adapter_Exception("Configuration array must have a key for 'password' for login credentials");
         }
 
-        if (! array_key_exists('username', $config)) {
+        if (!array_key_exists('username', $config)) {
             /**
              * @see Zend_Db_Adapter_Exception
              */
@@ -356,8 +355,8 @@ abstract class Zend_Db_Adapter_Abstract
      */
     public function setProfiler($profiler)
     {
-        $enabled          = null;
-        $profilerClass    = $this->_defaultProfilerClass;
+        $enabled = null;
+        $profilerClass = $this->_defaultProfilerClass;
         $profilerInstance = null;
 
         if ($profilerIsObject = is_object($profiler)) {
@@ -371,7 +370,7 @@ abstract class Zend_Db_Adapter_Abstract
                  */
                 #require_once 'Zend/Db/Profiler/Exception.php';
                 throw new Zend_Db_Profiler_Exception('Profiler argument must be an instance of either Zend_Db_Profiler'
-                    . ' or Zend_Config when provided as an object');
+                . ' or Zend_Config when provided as an object');
             }
         }
 
@@ -401,7 +400,7 @@ abstract class Zend_Db_Adapter_Abstract
             /** @see Zend_Db_Profiler_Exception */
             #require_once 'Zend/Db/Profiler/Exception.php';
             throw new Zend_Db_Profiler_Exception('Class ' . get_class($profilerInstance) . ' does not extend '
-                . 'Zend_Db_Profiler');
+            . 'Zend_Db_Profiler');
         }
 
         if (null !== $enabled) {
@@ -412,7 +411,6 @@ abstract class Zend_Db_Adapter_Abstract
 
         return $this;
     }
-
 
     /**
      * Returns the profiler for this adapter.
@@ -549,13 +547,13 @@ abstract class Zend_Db_Adapter_Abstract
                 } else {
                     if ($this->supportsParameters('named')) {
                         unset($bind[$col]);
-                        $bind[':col'.$i] = $val;
-                        $vals[] = ':col'.$i;
+                        $bind[':col' . $i] = $val;
+                        $vals[] = ':col' . $i;
                         $i++;
                     } else {
                         /** @see Zend_Db_Adapter_Exception */
                         #require_once 'Zend/Db/Adapter/Exception.php';
-                        throw new Zend_Db_Adapter_Exception(get_class($this) ." doesn't support positional or named binding");
+                        throw new Zend_Db_Adapter_Exception(get_class($this) . " doesn't support positional or named binding");
                     }
                 }
             }
@@ -563,9 +561,9 @@ abstract class Zend_Db_Adapter_Abstract
 
         // build the statement
         $sql = "INSERT INTO "
-             . $this->quoteIdentifier($table, true)
-             . ' (' . implode(', ', $cols) . ') '
-             . 'VALUES (' . implode(', ', $vals) . ')';
+                . $this->quoteIdentifier($table, true)
+                . ' (' . implode(', ', $cols) . ') '
+                . 'VALUES (' . implode(', ', $vals) . ')';
 
         // execute the statement and return the number of affected rows
         if ($this->supportsParameters('positional')) {
@@ -602,13 +600,13 @@ abstract class Zend_Db_Adapter_Abstract
                 } else {
                     if ($this->supportsParameters('named')) {
                         unset($bind[$col]);
-                        $bind[':col'.$i] = $val;
-                        $val = ':col'.$i;
+                        $bind[':col' . $i] = $val;
+                        $val = ':col' . $i;
                         $i++;
                     } else {
                         /** @see Zend_Db_Adapter_Exception */
                         #require_once 'Zend/Db/Adapter/Exception.php';
-                        throw new Zend_Db_Adapter_Exception(get_class($this) ." doesn't support positional or named binding");
+                        throw new Zend_Db_Adapter_Exception(get_class($this) . " doesn't support positional or named binding");
                     }
                 }
             }
@@ -621,9 +619,9 @@ abstract class Zend_Db_Adapter_Abstract
          * Build the UPDATE statement
          */
         $sql = "UPDATE "
-             . $this->quoteIdentifier($table, true)
-             . ' SET ' . implode(', ', $set)
-             . (($where) ? " WHERE $where" : '');
+                . $this->quoteIdentifier($table, true)
+                . ' SET ' . implode(', ', $set)
+                . (($where) ? " WHERE $where" : '');
 
         /**
          * Execute the statement and return the number of affected rows
@@ -652,8 +650,8 @@ abstract class Zend_Db_Adapter_Abstract
          * Build the DELETE statement
          */
         $sql = "DELETE FROM "
-             . $this->quoteIdentifier($table, true)
-             . (($where) ? " WHERE $where" : '');
+                . $this->quoteIdentifier($table, true)
+                . (($where) ? " WHERE $where" : '');
 
         /**
          * Execute the statement and return the number of affected rows
@@ -889,8 +887,7 @@ abstract class Zend_Db_Adapter_Abstract
                             |\d+                 # decimal or octal, or MySQL ZEROFILL decimal
                             (?:[eE][+-]?\d+)?    # optional exponent on decimals or octals
                           )
-                        )/x',
-                        (string) $value, $matches)) {
+                        )/x', (string) $value, $matches)) {
                         $quotedValue = $matches[1];
                     }
                     break;
@@ -959,7 +956,7 @@ abstract class Zend_Db_Adapter_Abstract
      * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier.
      */
-    public function quoteIdentifier($ident, $auto=false)
+    public function quoteIdentifier($ident, $auto = false)
     {
         return $this->_quoteIdentifierAs($ident, null, $auto);
     }
@@ -972,7 +969,7 @@ abstract class Zend_Db_Adapter_Abstract
      * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier and alias.
      */
-    public function quoteColumnAs($ident, $alias, $auto=false)
+    public function quoteColumnAs($ident, $alias, $auto = false)
     {
         return $this->_quoteIdentifierAs($ident, $alias, $auto);
     }
@@ -1039,7 +1036,7 @@ abstract class Zend_Db_Adapter_Abstract
      * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string        The quoted identifier and alias.
      */
-    protected function _quoteIdentifier($value, $auto=false)
+    protected function _quoteIdentifier($value, $auto = false)
     {
         if ($auto === false || $this->_autoQuoteIdentifiers === true) {
             $q = $this->getQuoteIdentifierSymbol();
@@ -1124,10 +1121,10 @@ abstract class Zend_Db_Adapter_Abstract
         if ($this->_allowSerialization == false) {
             /** @see Zend_Db_Adapter_Exception */
             #require_once 'Zend/Db/Adapter/Exception.php';
-            throw new Zend_Db_Adapter_Exception(get_class($this) ." is not allowed to be serialized");
+            throw new Zend_Db_Adapter_Exception(get_class($this) . " is not allowed to be serialized");
         }
         $this->_connection = false;
-        return array_keys(array_diff_key(get_object_vars($this), array('_connection'=>false)));
+        return array_keys(array_diff_key(get_object_vars($this), array('_connection' => false)));
     }
 
     /**

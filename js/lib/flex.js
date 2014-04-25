@@ -31,7 +31,7 @@
 Flex = {};
 Flex.currentID = 0;
 Flex.uniqId = function() {
-    return 'flexMovieUID'+( ++Flex.currentID );
+    return 'flexMovieUID' + (++Flex.currentID);
 };
 
 /**
@@ -61,15 +61,15 @@ Flex.checkFlashPlayerVersion = function(major, minor, revision) {
  *
  * @return String|Boolean
  */
-Flex._getFlashPlayerVersionAsActiveX = function () {
+Flex._getFlashPlayerVersionAsActiveX = function() {
     var versions = [
-        {'default': '7.0.0', 'code':'ShockwaveFlash.ShockwaveFlash.7', 'variable':true},
-        {'default': '6.0.0', 'code':'ShockwaveFlash.ShockwaveFlash.6', 'variable':true, 'acceess':true},
-        {'default': '3.0.0', 'code':'ShockwaveFlash.ShockwaveFlash.3', 'variable':false},
-        {'default': '2.0.0', 'code':'ShockwaveFlash.ShockwaveFlash', 'variable':false},
+        {'default': '7.0.0', 'code': 'ShockwaveFlash.ShockwaveFlash.7', 'variable': true},
+        {'default': '6.0.0', 'code': 'ShockwaveFlash.ShockwaveFlash.6', 'variable': true, 'acceess': true},
+        {'default': '3.0.0', 'code': 'ShockwaveFlash.ShockwaveFlash.3', 'variable': false},
+        {'default': '2.0.0', 'code': 'ShockwaveFlash.ShockwaveFlash', 'variable': false},
     ];
 
-    var detector = function (options) {
+    var detector = function(options) {
         var activeXObject = new ActiveXObject(options.code);
         if (options.access && options.variable) {
             activeXObject.AllowScriptAccess = 'always';
@@ -88,7 +88,8 @@ Flex._getFlashPlayerVersionAsActiveX = function () {
         try {
             version = detector(versions[i]);
             return version;
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 
     return false;
@@ -100,7 +101,7 @@ Flex._getFlashPlayerVersionAsActiveX = function () {
  * @param String|Array version
  * @return Array|Boolean
  */
-Flex.transformVersionToArray = function (version) {
+Flex.transformVersionToArray = function(version) {
     if (!Object.isString(version)) {
         return false;
     }
@@ -108,7 +109,7 @@ Flex.transformVersionToArray = function (version) {
     var versions = version.match(/[\d]+/g);
 
     if (versions.length > 3) {
-        return versions.slice(0,3);
+        return versions.slice(0, 3);
     } else if (versions.length) {
         return versions;
     }
@@ -125,15 +126,15 @@ Flex.transformVersionToArray = function (version) {
  * @param Number range - percition range between version digits
  * @return Array
  */
-Flex.transformVersionToFloat = function (version, range) {
+Flex.transformVersionToFloat = function(version, range) {
     if (Object.isString(version)) {
         version = Flex.transformVersionToArray(version)
     }
 
     if (Object.isArray(version)) {
         var result = 0;
-        for (var i =0, l=version.length; i < l; i++) {
-            result += parseFloat(version[i]) / Math.pow(10, range*i);
+        for (var i = 0, l = version.length; i < l; i++) {
+            result += parseFloat(version[i]) / Math.pow(10, range * i);
         }
 
         return result;
@@ -147,23 +148,23 @@ Flex.transformVersionToFloat = function (version, range) {
  *
  * @return Array|Boolean
  */
-Flex.getFlashPlayerVersion = function () {
+Flex.getFlashPlayerVersion = function() {
     if (Flex.flashPlayerVersion) {
         return Flex.flashPlayerVersion;
     }
 
     var version = false;
     if (navigator.plugins != null && navigator.plugins.length > 0) {
-       if (navigator.mimeTypes && navigator.mimeTypes.length > 0) {
-          if (navigator.mimeTypes['application/x-shockwave-flash'] &&
-              !navigator.mimeTypes['application/x-shockwave-flash'].enabledPlugin) {
-             return false;
-          }
-       }
-       var flashPlugin = navigator.plugins['Shockwave Flash'] || navigator.plugins['Shockwave Flash 2.0'];
-       version = Flex.transformVersionToArray(flashPlugin.description);
+        if (navigator.mimeTypes && navigator.mimeTypes.length > 0) {
+            if (navigator.mimeTypes['application/x-shockwave-flash'] &&
+                    !navigator.mimeTypes['application/x-shockwave-flash'].enabledPlugin) {
+                return false;
+            }
+        }
+        var flashPlugin = navigator.plugins['Shockwave Flash'] || navigator.plugins['Shockwave Flash 2.0'];
+        version = Flex.transformVersionToArray(flashPlugin.description);
     } else {
-       version = Flex.transformVersionToArray(Flex._getFlashPlayerVersionAsActiveX());
+        version = Flex.transformVersionToArray(Flex._getFlashPlayerVersionAsActiveX());
     }
 
     Flex.flashPlayerVersion = version;
@@ -181,35 +182,35 @@ Flex.Object = Class.create({
      * @param Object config
      * @return void
      */
-    initialize: function (config) {
-        this.isIE  = Prototype.Browser.IE;
+    initialize: function(config) {
+        this.isIE = Prototype.Browser.IE;
         this.isWin = (navigator.appVersion.toLowerCase().indexOf("win") != -1) ? true : false;
         this.attributes = {
-             quality:"high",
-             pluginspage: "http://www.adobe.com/go/getflashplayer",
-             type: "application/x-shockwave-flash",
-             allowScriptAccess: "always",
-             classid: "clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+            quality: "high",
+            pluginspage: "http://www.adobe.com/go/getflashplayer",
+            type: "application/x-shockwave-flash",
+            allowScriptAccess: "always",
+            classid: "clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
         };
         this.bridgeName = '';
         this.bridge = false;
-        this.setAttributes( config );
+        this.setAttributes(config);
         this.applied = false;
 
         var myTemplatesPattern = /(^|.|\r|\n)(\{(.*?)\})/;
-        if(this.detectFlashVersion(9, 0, 28)) {
-            if(this.isIE) {
-                this.template = new Template( '<object {objectAttributes}><param name="allowFullScreen" value="true"/>{objectParameters}</object>', myTemplatesPattern )
+        if (this.detectFlashVersion(9, 0, 28)) {
+            if (this.isIE) {
+                this.template = new Template('<object {objectAttributes}><param name="allowFullScreen" value="true"/>{objectParameters}</object>', myTemplatesPattern)
             } else {
-                this.template = new Template( '<embed {embedAttributes} allowfullscreen="true" />', myTemplatesPattern );
+                this.template = new Template('<embed {embedAttributes} allowfullscreen="true" />', myTemplatesPattern);
             }
         } else {
-            this.template = new Template(  'This content requires the Adobe Flash Player. '
-                                               +' <a href=http://www.adobe.com/go/getflash/>Get Flash</a>', myTemplatesPattern );
+            this.template = new Template('This content requires the Adobe Flash Player. '
+                    + ' <a href=http://www.adobe.com/go/getflash/>Get Flash</a>', myTemplatesPattern);
         }
 
-        this.parametersTemplate = new Template( '<param name="{name}" value="{value}" />', myTemplatesPattern );
-        this.attributesTemplate = new Template( ' {name}="{value}" ', myTemplatesPattern );
+        this.parametersTemplate = new Template('<param name="{name}" value="{value}" />', myTemplatesPattern);
+        this.attributesTemplate = new Template(' {name}="{value}" ', myTemplatesPattern);
     },
     /**
      * Set object attribute for generation of html tags
@@ -218,8 +219,8 @@ Flex.Object = Class.create({
      * @param Object value
      * @return void
      */
-    setAttribute : function( name, value ) {
-        if(!this.applied) {
+    setAttribute: function(name, value) {
+        if (!this.applied) {
             this.attributes[name] = value;
         }
     },
@@ -229,7 +230,7 @@ Flex.Object = Class.create({
      * @param Sting name
      * @return Object
      */
-    getAttribute : function( name ) {
+    getAttribute: function(name) {
         return this.attributes[name];
     },
     /**
@@ -238,8 +239,8 @@ Flex.Object = Class.create({
      * @param Object attributesList
      * @return void
      */
-    setAttributes : function( attributesList ) {
-        $H(attributesList).each(function(pair){
+    setAttributes: function(attributesList) {
+        $H(attributesList).each(function(pair) {
             this.setAttribute(pair.key, pair.value);
         }.bind(this));
     },
@@ -248,7 +249,7 @@ Flex.Object = Class.create({
      *
      * @return Object
      */
-    getAttributes : function( ) {
+    getAttributes: function( ) {
         return this.attributes;
     },
     /**
@@ -257,8 +258,8 @@ Flex.Object = Class.create({
      * @param String|DOMELement container
      * @return void
      */
-    apply : function(container) {
-        if (!this.applied)    {
+    apply: function(container) {
+        if (!this.applied) {
             this.setAttribute("id", Flex.uniqId());
             this.preInitBridge();
             var readyHTML = this.template.evaluate(this.generateTemplateValues());
@@ -271,12 +272,12 @@ Flex.Object = Class.create({
      *
      * @return void
      */
-    applyWrite : function( ) {
-        if (!this.applied)    {
-            this.setAttribute( "id", Flex.uniqId());
+    applyWrite: function( ) {
+        if (!this.applied) {
+            this.setAttribute("id", Flex.uniqId());
             this.preInitBridge();
-            var readyHTML = this.template.evaluate( this.generateTemplateValues() );
-            document.write( readyHTML );
+            var readyHTML = this.template.evaluate(this.generateTemplateValues());
+            document.write(readyHTML);
         }
         this.applied = true;
     },
@@ -285,7 +286,7 @@ Flex.Object = Class.create({
      *
      * @return void
      */
-    preInitBridge: function () {
+    preInitBridge: function() {
         this.bridgeName = this.getAttribute('id') + 'bridge';
         var flashVars = this.getAttribute('flashVars') || this.getAttribute('flashvars') || '';
         if (flashVars != '') {
@@ -295,11 +296,11 @@ Flex.Object = Class.create({
         this.setAttribute('flashVars', flashVars);
         var scopeObj = this;
         FABridge.addInitializationCallback(
-             this.bridgeName,
-             function () {
-                 scopeObj.bridge = this.root();
-                 scopeObj.initBridge();
-             }
+                this.bridgeName,
+                function() {
+                    scopeObj.bridge = this.root();
+                    scopeObj.initBridge();
+                }
         );
     },
     /**
@@ -309,7 +310,7 @@ Flex.Object = Class.create({
      * @return void
      */
     initBridge: function() {
-        if(this.onBridgeInit) {
+        if (this.onBridgeInit) {
             this.onBridgeInit(this.getBridge());
         }
     },
@@ -318,7 +319,7 @@ Flex.Object = Class.create({
      *
      * @return Object
      */
-    getBridge : function() {
+    getBridge: function() {
         return this.bridge;
     },
     /**
@@ -326,20 +327,20 @@ Flex.Object = Class.create({
      *
      * @return Object
      */
-    generateTemplateValues : function() {
+    generateTemplateValues: function() {
         var attributesMap = {
             embed: {
-                'movie':'src',
-                'id':'name',
+                'movie': 'src',
+                'id': 'name',
                 'flashvars': 'flashVars',
-                'classid':false,
-                'codebase':false
+                'classid': false,
+                'codebase': false
             },
             object: {
-                'pluginspage':false,
-                'src':'movie',
+                'pluginspage': false,
+                'src': 'movie',
                 'flashvars': 'flashVars',
-                'type':false,
+                'type': false,
                 'inline': [
                     'type', 'classid', 'codebase', 'id', 'width', 'height',
                     'align', 'vspace', 'hspace', 'class', 'title', 'accesskey', 'name',
@@ -374,29 +375,29 @@ Flex.Object = Class.create({
         var result = {
             objectAttributes: '',
             objectParameters: '',
-            embedAttributes : ''
+            embedAttributes: ''
         };
 
 
-        $H(objectAttributes).each(function(pair){
-             result.objectAttributes += this.attributesTemplate.evaluate({
-                 name:pair.key,
-                 value:pair.value
-             });
+        $H(objectAttributes).each(function(pair) {
+            result.objectAttributes += this.attributesTemplate.evaluate({
+                name: pair.key,
+                value: pair.value
+            });
         }.bind(this));
 
-        $H(embedAttributes).each(function(pair){
-             result.embedAttributes += this.attributesTemplate.evaluate({
-                 name:pair.key,
-                 value:pair.value
-             });
+        $H(embedAttributes).each(function(pair) {
+            result.embedAttributes += this.attributesTemplate.evaluate({
+                name: pair.key,
+                value: pair.value
+            });
         }.bind(this));
 
-        $H(parameters).each(function(pair){
-             result.objectParameters += this.parametersTemplate.evaluate({
-                 name:pair.key,
-                 value:pair.value
-             });
+        $H(parameters).each(function(pair) {
+            result.objectParameters += this.parametersTemplate.evaluate({
+                name: pair.key,
+                value: pair.value
+            });
         }.bind(this));
 
         return result;
@@ -406,8 +407,8 @@ Flex.Object = Class.create({
      *
      * @return String
      */
-    escapeAttributes: function (value) {
-        if(typeof value == 'string') {
+    escapeAttributes: function(value) {
+        if (typeof value == 'string') {
             return value.escapeHTML();
         } else {
             return value;
@@ -421,7 +422,7 @@ Flex.Object = Class.create({
      * @param Number revision
      * @return Boolean
      */
-    detectFlashVersion: function (major, minor, revision) {
+    detectFlashVersion: function(major, minor, revision) {
         return Flex.checkFlashPlayerVersion(major, minor, revision);
     }
 });

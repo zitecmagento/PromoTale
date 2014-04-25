@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Container.php 22791 2010-08-04 16:11:47Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Ebay_Finding_Category_Histogram_Container extends Zend_Service_Ebay_Finding_Abstract
 {
+
     /**
      * Response container for category histograms.
      *
@@ -63,4 +64,5 @@ class Zend_Service_Ebay_Finding_Category_Histogram_Container extends Zend_Servic
             $this->categoryHistogram = new Zend_Service_Ebay_Finding_Category_Histogram_Set($nodes);
         }
     }
+
 }

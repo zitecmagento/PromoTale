@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Database backup model
@@ -66,7 +66,7 @@ class Mage_Backup_Model_Db
         return $this->getResource()->getTables();
     }
 
-    public function getTableCreateScript($tableName, $addDropIfExists=false)
+    public function getTableCreateScript($tableName, $addDropIfExists = false)
     {
         return $this->getResource()->getTableCreateScript($tableName, $addDropIfExists);
     }
@@ -121,7 +121,7 @@ class Mage_Backup_Model_Db
 
         foreach ($tables as $table) {
             $backup->write($this->getResource()->getTableHeader($table)
-                . $this->getResource()->getTableDropSql($table) . "\n");
+                    . $this->getResource()->getTableDropSql($table) . "\n");
             $backup->write($this->getResource()->getTableCreateSql($table, false) . "\n");
 
             $tableStatus = $this->getResource()->getTableStatus($table);
@@ -133,19 +133,17 @@ class Mage_Backup_Model_Db
                     if ($tableStatus->getAvgRowLength() < self::BUFFER_LENGTH) {
                         $limit = floor(self::BUFFER_LENGTH / $tableStatus->getAvgRowLength());
                         $multiRowsLength = ceil($tableStatus->getRows() / $limit);
-                    }
-                    else {
+                    } else {
                         $limit = 1;
                         $multiRowsLength = $tableStatus->getRows();
                     }
-                }
-                else {
+                } else {
                     $limit = $tableStatus->getRows();
                     $multiRowsLength = 1;
                 }
 
                 for ($i = 0; $i < $multiRowsLength; $i ++) {
-                    $backup->write($this->getResource()->getTableDataSql($table, $limit, $i*$limit));
+                    $backup->write($this->getResource()->getTableDataSql($table, $limit, $i * $limit));
                 }
 
                 $backup->write($this->getResource()->getTableDataAfterSql($table));
@@ -161,11 +159,12 @@ class Mage_Backup_Model_Db
         return $this;
     }
 
-    /**.
+    /*     * .
      * Returns the list of tables which data should not be backed up
      *
      * @return array
      */
+
     public function getIgnoreDataTablesList()
     {
         $result = array();
@@ -177,4 +176,5 @@ class Mage_Backup_Model_Db
 
         return $result;
     }
+
 }

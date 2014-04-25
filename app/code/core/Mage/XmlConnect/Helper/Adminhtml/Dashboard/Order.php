@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Helper_Adminhtml_Dashboard_Order extends Mage_Adminhtml_Helper_Dashboard_Order
 {
+
     /**
      * Re-init product collection
      *
@@ -41,7 +43,7 @@ class Mage_XmlConnect_Helper_Adminhtml_Dashboard_Order extends Mage_Adminhtml_He
     public function initCollection()
     {
         $this->_collection = Mage::getResourceModel('reports/order_collection')
-            ->prepareSummary($this->getParam('period'), 0, 0, (bool)$this->getParam('store'));
+                ->prepareSummary($this->getParam('period'), 0, 0, (bool) $this->getParam('store'));
 
         if ($this->getParam('store')) {
             $this->_collection->addFieldToFilter('store_id', $this->getParam('store'));
@@ -62,7 +64,8 @@ class Mage_XmlConnect_Helper_Adminhtml_Dashboard_Order extends Mage_Adminhtml_He
      */
     public function preparePrice($price, $storeId)
     {
-        $baseCurrencyCode = (string)Mage::app()->getStore($storeId)->getBaseCurrencyCode();
+        $baseCurrencyCode = (string) Mage::app()->getStore($storeId)->getBaseCurrencyCode();
         return Mage::app()->getLocale()->currency($baseCurrencyCode)->toCurrency($price);
     }
+
 }

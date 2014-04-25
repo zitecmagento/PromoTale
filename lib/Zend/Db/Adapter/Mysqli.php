@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Mysqli.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Db_Adapter_Abstract
  */
@@ -40,7 +39,6 @@
  * @see Zend_Db_Statement_Mysqli
  */
 #require_once 'Zend/Db/Statement/Mysqli.php';
-
 
 /**
  * @category   Zend
@@ -64,22 +62,22 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
      * @var array Associative array of datatypes to values 0, 1, or 2.
      */
     protected $_numericDataTypes = array(
-        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
+        Zend_Db::INT_TYPE => Zend_Db::INT_TYPE,
         Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
-        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
-        'INT'                => Zend_Db::INT_TYPE,
-        'INTEGER'            => Zend_Db::INT_TYPE,
-        'MEDIUMINT'          => Zend_Db::INT_TYPE,
-        'SMALLINT'           => Zend_Db::INT_TYPE,
-        'TINYINT'            => Zend_Db::INT_TYPE,
-        'BIGINT'             => Zend_Db::BIGINT_TYPE,
-        'SERIAL'             => Zend_Db::BIGINT_TYPE,
-        'DEC'                => Zend_Db::FLOAT_TYPE,
-        'DECIMAL'            => Zend_Db::FLOAT_TYPE,
-        'DOUBLE'             => Zend_Db::FLOAT_TYPE,
-        'DOUBLE PRECISION'   => Zend_Db::FLOAT_TYPE,
-        'FIXED'              => Zend_Db::FLOAT_TYPE,
-        'FLOAT'              => Zend_Db::FLOAT_TYPE
+        Zend_Db::FLOAT_TYPE => Zend_Db::FLOAT_TYPE,
+        'INT' => Zend_Db::INT_TYPE,
+        'INTEGER' => Zend_Db::INT_TYPE,
+        'MEDIUMINT' => Zend_Db::INT_TYPE,
+        'SMALLINT' => Zend_Db::INT_TYPE,
+        'TINYINT' => Zend_Db::INT_TYPE,
+        'BIGINT' => Zend_Db::BIGINT_TYPE,
+        'SERIAL' => Zend_Db::BIGINT_TYPE,
+        'DEC' => Zend_Db::FLOAT_TYPE,
+        'DECIMAL' => Zend_Db::FLOAT_TYPE,
+        'DOUBLE' => Zend_Db::FLOAT_TYPE,
+        'DOUBLE PRECISION' => Zend_Db::FLOAT_TYPE,
+        'FIXED' => Zend_Db::FLOAT_TYPE,
+        'FLOAT' => Zend_Db::FLOAT_TYPE
     );
 
     /**
@@ -180,7 +178,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
          * @todo  use INFORMATION_SCHEMA someday when
          * MySQL's implementation isn't too slow.
          */
-
         if ($schemaName) {
             $sql = 'DESCRIBE ' . $this->quoteIdentifier("$schemaName.$tableName", true);
         } else {
@@ -207,13 +204,13 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         $desc = array();
 
         $row_defaults = array(
-            'Length'          => null,
-            'Scale'           => null,
-            'Precision'       => null,
-            'Unsigned'        => null,
-            'Primary'         => false,
+            'Length' => null,
+            'Scale' => null,
+            'Precision' => null,
+            'Unsigned' => null,
+            'Primary' => false,
             'PrimaryPosition' => null,
-            'Identity'        => false
+            'Identity' => false
         );
         $i = 1;
         $p = 1;
@@ -251,20 +248,20 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
                 ++$p;
             }
             $desc[$this->foldCase($row['Field'])] = array(
-                'SCHEMA_NAME'      => null, // @todo
-                'TABLE_NAME'       => $this->foldCase($tableName),
-                'COLUMN_NAME'      => $this->foldCase($row['Field']),
-                'COLUMN_POSITION'  => $i,
-                'DATA_TYPE'        => $row['Type'],
-                'DEFAULT'          => $row['Default'],
-                'NULLABLE'         => (bool) ($row['Null'] == 'YES'),
-                'LENGTH'           => $row['Length'],
-                'SCALE'            => $row['Scale'],
-                'PRECISION'        => $row['Precision'],
-                'UNSIGNED'         => $row['Unsigned'],
-                'PRIMARY'          => $row['Primary'],
+                'SCHEMA_NAME' => null, // @todo
+                'TABLE_NAME' => $this->foldCase($tableName),
+                'COLUMN_NAME' => $this->foldCase($row['Field']),
+                'COLUMN_POSITION' => $i,
+                'DATA_TYPE' => $row['Type'],
+                'DEFAULT' => $row['Default'],
+                'NULLABLE' => (bool) ($row['Null'] == 'YES'),
+                'LENGTH' => $row['Length'],
+                'SCALE' => $row['Scale'],
+                'PRECISION' => $row['Precision'],
+                'UNSIGNED' => $row['Unsigned'],
+                'PRIMARY' => $row['Primary'],
                 'PRIMARY_POSITION' => $row['PrimaryPosition'],
-                'IDENTITY'         => $row['Identity']
+                'IDENTITY' => $row['Identity']
             );
             ++$i;
         }
@@ -299,13 +296,13 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
 
         $this->_connection = mysqli_init();
 
-        if(!empty($this->_config['driver_options'])) {
-            foreach($this->_config['driver_options'] as $option=>$value) {
-                if(is_string($option)) {
+        if (!empty($this->_config['driver_options'])) {
+            foreach ($this->_config['driver_options'] as $option => $value) {
+                if (is_string($option)) {
                     // Suppress warnings here
                     // Ignore it if it's not a valid constant
                     $option = @constant(strtoupper($option));
-                    if($option === null)
+                    if ($option === null)
                         continue;
                 }
                 mysqli_options($this->_connection, $option, $value);
@@ -315,12 +312,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         // Suppress connection warnings here.
         // Throw an exception instead.
         $_isConnected = @mysqli_real_connect(
-            $this->_connection,
-            $this->_config['host'],
-            $this->_config['username'],
-            $this->_config['password'],
-            $this->_config['dbname'],
-            $port
+                        $this->_connection, $this->_config['host'], $this->_config['username'], $this->_config['password'], $this->_config['dbname'], $port
         );
 
         if ($_isConnected === false || mysqli_connect_errno()) {
@@ -535,7 +527,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
     /**
      * Retrieve server version in PHP style
      *
-     *@return string
+     * @return string
      */
     public function getServerVersion()
     {
@@ -546,4 +538,5 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         $revision = (int) ($version % 100);
         return $major . '.' . $minor . '.' . $revision;
     }
+
 }

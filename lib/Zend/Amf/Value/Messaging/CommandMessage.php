@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CommandMessage.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Amf_Value_Messaging_AsyncMessage
  */
@@ -41,6 +41,7 @@
  */
 class Zend_Amf_Value_Messaging_CommandMessage extends Zend_Amf_Value_Messaging_AsyncMessage
 {
+
     /**
      *  This operation is used to subscribe to a remote destination.
      */
@@ -116,4 +117,5 @@ class Zend_Amf_Value_Messaging_CommandMessage extends Zend_Amf_Value_Messaging_A
      * @var int
      */
     public $operation = self::UNKNOWN_OPERATION;
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_XmlConnect_Helper_Payment extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Return paymentMethod => methodCode array
      *
@@ -39,4 +41,5 @@ class Mage_XmlConnect_Helper_Payment extends Mage_Core_Helper_Abstract
     {
         return array();
     }
+
 }

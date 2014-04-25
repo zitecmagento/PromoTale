@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 class Zend_Translate_Plural
 {
+
     /**
      * Manual rule to use
      *
@@ -64,7 +66,7 @@ class Zend_Translate_Plural
             return $return;
         }
 
-        switch($locale) {
+        switch ($locale) {
             case 'bo':
             case 'dz':
             case 'id':
@@ -221,4 +223,5 @@ class Zend_Translate_Plural
 
         self::$_plural[$locale] = $rule;
     }
+
 }

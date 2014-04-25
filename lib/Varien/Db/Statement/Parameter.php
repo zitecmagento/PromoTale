@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Varien DB Statement Parameter
  *
@@ -39,6 +39,7 @@
  */
 class Varien_Db_Statement_Parameter
 {
+
     /**
      * Actual parameter value
      */
@@ -245,4 +246,5 @@ class Varien_Db_Statement_Parameter
     {
         return $this->__toString();
     }
+
 }

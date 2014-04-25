@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     protected $_selectedProducts = array();
 
     /**
@@ -40,7 +42,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
      *
      * @param array $arguments Object data
      */
-    public function __construct($arguments=array())
+    public function __construct($arguments = array())
     {
         parent::__construct($arguments);
         $this->setDefaultSort('name');
@@ -62,12 +64,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
         ));
 
         $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
-            ->setElement($element)
-            ->setTranslationHelper($this->getTranslationHelper())
-            ->setConfig($this->getConfig())
-            ->setFieldsetId($this->getFieldsetId())
-            ->setSourceUrl($sourceUrl)
-            ->setUniqId($uniqId);
+                ->setElement($element)
+                ->setTranslationHelper($this->getTranslationHelper())
+                ->setConfig($this->getConfig())
+                ->setFieldsetId($this->getFieldsetId())
+                ->setSourceUrl($sourceUrl)
+                ->setUniqId($uniqId);
 
         if ($element->getValue()) {
             $value = explode('/', $element->getValue());
@@ -79,11 +81,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
             $label = '';
             if ($categoryId) {
                 $label = Mage::getResourceSingleton('catalog/category')
-                    ->getAttributeRawValue($categoryId, 'name', Mage::app()->getStore()) . '/';
+                                ->getAttributeRawValue($categoryId, 'name', Mage::app()->getStore()) . '/';
             }
             if ($productId) {
                 $label .= Mage::getResourceSingleton('catalog/product')
-                    ->getAttributeRawValue($productId, 'name', Mage::app()->getStore());
+                        ->getAttributeRawValue($productId, 'name', Mage::app()->getStore());
             }
             $chooser->setLabel($label);
         }
@@ -128,9 +130,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                     if (grid.categoryName) {
                         optionLabel = grid.categoryName + " / " + optionLabel;
                     }
-                    '.$chooserJsObject.'.setElementValue(optionValue);
-                    '.$chooserJsObject.'.setElementLabel(optionLabel);
-                    '.$chooserJsObject.'.close();
+                    ' . $chooserJsObject . '.setElementValue(optionValue);
+                    ' . $chooserJsObject . '.setElementLabel(optionLabel);
+                    ' . $chooserJsObject . '.close();
                 }
             ';
         }
@@ -166,9 +168,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
         if ($column->getId() == 'in_products') {
             $selected = $this->getSelectedProducts();
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', array('in'=>$selected));
+                $this->getCollection()->addFieldToFilter('entity_id', array('in' => $selected));
             } else {
-                $this->getCollection()->addFieldToFilter('entity_id', array('nin'=>$selected));
+                $this->getCollection()->addFieldToFilter('entity_id', array('nin' => $selected));
             }
         } else {
             parent::_addColumnFilterToCollection($column);
@@ -185,8 +187,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
     {
         /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
         $collection = Mage::getResourceModel('catalog/product_collection')
-            ->setStoreId(0)
-            ->addAttributeToSelect('name');
+                ->setStoreId(0)
+                ->addAttributeToSelect('name');
 
         if ($categoryId = $this->getCategoryId()) {
             $category = Mage::getModel('catalog/category')->load($categoryId);
@@ -219,33 +221,33 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
         if ($this->getUseMassaction()) {
             $this->addColumn('in_products', array(
                 'header_css_class' => 'a-center',
-                'type'      => 'checkbox',
-                'name'      => 'in_products',
+                'type' => 'checkbox',
+                'name' => 'in_products',
                 'inline_css' => 'checkbox entities',
                 'field_name' => 'in_products',
-                'values'    => $this->getSelectedProducts(),
-                'align'     => 'center',
-                'index'     => 'entity_id',
+                'values' => $this->getSelectedProducts(),
+                'align' => 'center',
+                'index' => 'entity_id',
                 'use_index' => true,
             ));
         }
 
         $this->addColumn('entity_id', array(
-            'header'    => Mage::helper('catalog')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60px',
-            'index'     => 'entity_id'
+            'header' => Mage::helper('catalog')->__('ID'),
+            'sortable' => true,
+            'width' => '60px',
+            'index' => 'entity_id'
         ));
         $this->addColumn('chooser_sku', array(
-            'header'    => Mage::helper('catalog')->__('SKU'),
-            'name'      => 'chooser_sku',
-            'width'     => '80px',
-            'index'     => 'sku'
+            'header' => Mage::helper('catalog')->__('SKU'),
+            'name' => 'chooser_sku',
+            'width' => '80px',
+            'index' => 'sku'
         ));
         $this->addColumn('chooser_name', array(
-            'header'    => Mage::helper('catalog')->__('Product Name'),
-            'name'      => 'chooser_name',
-            'index'     => 'name'
+            'header' => Mage::helper('catalog')->__('Product Name'),
+            'name' => 'chooser_name',
+            'index' => 'name'
         ));
 
         return parent::_prepareColumns();
@@ -259,11 +261,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
     public function getGridUrl()
     {
         return $this->getUrl('*/catalog_product_widget/chooser', array(
-            'products_grid' => true,
-            '_current' => true,
-            'uniq_id' => $this->getId(),
-            'use_massaction' => $this->getUseMassaction(),
-            'product_type_id' => $this->getProductTypeId()
+                    'products_grid' => true,
+                    '_current' => true,
+                    'uniq_id' => $this->getId(),
+                    'use_massaction' => $this->getUseMassaction(),
+                    'product_type_id' => $this->getProductTypeId()
         ));
     }
 
@@ -291,4 +293,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
         }
         return $this->_selectedProducts;
     }
+
 }

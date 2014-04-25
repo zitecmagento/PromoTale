@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
 /**
  * @see Zend_Service_WindowsAzure_Exception
  */
@@ -32,7 +32,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_WindowsAzure_Diagnostics_Exception
-	extends Zend_Service_WindowsAzure_Exception
+class Zend_Service_WindowsAzure_Diagnostics_Exception extends Zend_Service_WindowsAzure_Exception
 {
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,12 +24,10 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
  * #5043 fix: Customer email - can't be changed in admin interface
  * @see mysql4-upgrade-0.7.2-0.7.3.php
  */
-
 $installer = $this;
 /* @var $installer Mage_Customer_Model_Entity_Setup */
 $installer->startSetup();

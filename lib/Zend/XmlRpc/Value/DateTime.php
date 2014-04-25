@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DateTime.php 20278 2010-01-14 14:48:59Z ralph $
  */
-
-
 /**
  * Zend_XmlRpc_Value_Scalar
  */
 #require_once 'Zend/XmlRpc/Value/Scalar.php';
-
 
 /**
  * @category   Zend
@@ -36,6 +34,7 @@
  */
 class Zend_XmlRpc_Value_DateTime extends Zend_XmlRpc_Value_Scalar
 {
+
     /**
      * PHP compatible format string for XML/RPC datetime values
      *
@@ -67,12 +66,12 @@ class Zend_XmlRpc_Value_DateTime extends Zend_XmlRpc_Value_Scalar
         } elseif ($value instanceof DateTime) {
             $this->_value = $value->format($this->_phpFormatString);
         } elseif (is_numeric($value)) { // The value is numeric, we make sure it is an integer
-            $this->_value = date($this->_phpFormatString, (int)$value);
+            $this->_value = date($this->_phpFormatString, (int) $value);
         } else {
             $timestamp = strtotime($value);
             if ($timestamp === false || $timestamp == -1) { // cannot convert the value to a timestamp
                 #require_once 'Zend/XmlRpc/Value/Exception.php';
-                throw new Zend_XmlRpc_Value_Exception('Cannot convert given value \''. $value .'\' to a timestamp');
+                throw new Zend_XmlRpc_Value_Exception('Cannot convert given value \'' . $value . '\' to a timestamp');
             }
 
             $this->_value = date($this->_phpFormatString, $timestamp); // Convert the timestamp to iso8601 format
@@ -88,4 +87,5 @@ class Zend_XmlRpc_Value_DateTime extends Zend_XmlRpc_Value_Scalar
     {
         return $this->_value;
     }
+
 }

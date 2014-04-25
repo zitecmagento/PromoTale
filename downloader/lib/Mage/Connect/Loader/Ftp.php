@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,16 +36,14 @@ class Mage_Connect_Loader_Ftp
 {
 
     const TEMPORARY_DIR = '../var/package/tmp';
-
     const FTP_USER = 'anonymous';
-
     const FTP_PASS = 'test@gmail.com';
 
     /**
-    * Object of Ftp
-    *
-    * @var Mage_Connect_Ftp
-    */
+     * Object of Ftp
+     *
+     * @var Mage_Connect_Ftp
+     */
     protected $_ftp = null;
 
     /**
@@ -72,8 +71,8 @@ class Mage_Connect_Loader_Ftp
     protected $_responseStatus = 0;
 
     /**
-    * Constructor
-    */
+     * Constructor
+     */
     public function __construct()
     {
         $this->_ftp = new Mage_Connect_Ftp();
@@ -87,11 +86,11 @@ class Mage_Connect_Loader_Ftp
     }
 
     /**
-    * Retrieve file from URI
-    *
-    * @param mixed $uri
-    * @return bool
-    */
+     * Retrieve file from URI
+     *
+     * @param mixed $uri
+     * @return bool
+     */
     public function get($uri)
     {
         $remoteFile = basename($uri);
@@ -99,8 +98,8 @@ class Mage_Connect_Loader_Ftp
         $uri = str_replace('http://', '', $uri);
         $uri = str_replace('https://', '', $uri);
         $uri = str_replace('ftp://', '', $uri);
-        $uri = $this->_ftpUser.":".$this->_ftpPassword."@".$uri;
-        $this->getFtp()->connect("ftp://".$uri);
+        $uri = $this->_ftpUser . ":" . $this->_ftpPassword . "@" . $uri;
+        $this->getFtp()->connect("ftp://" . $uri);
         $this->getFtp()->pasv(true);
         $tmpDir = self::TEMPORARY_DIR . DS;
         if (!is_dir($tmpDir)) {
@@ -131,21 +130,21 @@ class Mage_Connect_Loader_Ftp
     }
 
     /**
-    * put your comment there...
-    *
-    * @return string
-    */
+     * put your comment there...
+     *
+     * @return string
+     */
     public function getBody()
     {
         return $this->_responseBody;
     }
 
     /**
-    * Set login credentials for ftp auth.
-    * @param string $ftpLogin Ftp User account name
-    * @param string $ftpPassword User password
-    * @return string
-    */
+     * Set login credentials for ftp auth.
+     * @param string $ftpLogin Ftp User account name
+     * @param string $ftpPassword User password
+     * @return string
+     */
     public function setCredentials($ftpLogin, $ftpPassword)
     {
         $this->_ftpUser = $ftpLogin;

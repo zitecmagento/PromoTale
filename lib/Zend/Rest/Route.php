@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Route.php 23421 2010-11-21 10:03:53Z wilmoore $
  */
-
 /**
  * @see Zend_Controller_Router_Route_Interface
  */
@@ -51,6 +51,7 @@
  */
 class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
 {
+
     /**
      * Specific Modules to receive RESTful routes
      * @var array
@@ -75,17 +76,16 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
      * @param array $defaults Defaults for map variables with keys as variable names
      * @param array $responders Modules or controllers to receive RESTful routes
      */
-    public function __construct(Zend_Controller_Front $front,
-        array $defaults = array(),
-        array $responders = array()
-    ) {
+    public function __construct(Zend_Controller_Front $front, array $defaults = array(), array $responders = array()
+    )
+    {
         $this->_defaults = $defaults;
 
         if ($responders) {
             $this->_parseResponders($responders);
         }
 
-        $this->_front      = $front;
+        $this->_front = $front;
         $this->_dispatcher = $front->getDispatcher();
     }
 
@@ -98,13 +98,13 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
         $defaultsArray = array();
         $restfulConfigArray = array();
         foreach ($config as $key => $values) {
-        	if ($key == 'type') {
-        		// do nothing
-        	} elseif ($key == 'defaults') {
-        		$defaultsArray = $values->toArray();
-        	} else {
-        		$restfulConfigArray[$key] = explode(',', $values);
-        	}
+            if ($key == 'type') {
+                // do nothing
+            } elseif ($key == 'defaults') {
+                $defaultsArray = $values->toArray();
+            } else {
+                $restfulConfigArray[$key] = explode(',', $values);
+            }
         }
         $instance = new self($frontController, $defaultsArray, $restfulConfigArray);
         return $instance;
@@ -129,10 +129,10 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
         $this->_request = $request;
         $this->_setRequestKeys();
 
-        $path   = $request->getPathInfo();
+        $path = $request->getPathInfo();
         $params = $request->getParams();
         $values = array();
-        $path   = trim($path, self::URI_DELIMITER);
+        $path = trim($path, self::URI_DELIMITER);
 
         if ($path != '') {
 
@@ -161,10 +161,10 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
                     return false;
                 }
             } elseif ($this->_checkRestfulController($moduleName, $controllerName)) {
-            	$values[$this->_controllerKey] = $controllerName;
-            	$values[$this->_actionKey] = 'get';
+                $values[$this->_controllerKey] = $controllerName;
+                $values[$this->_actionKey] = 'get';
             } else {
-            	return false;
+                return false;
             }
 
             //Store path count for method mapping
@@ -174,9 +174,9 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
             $specialGetTarget = false;
             if ($pathElementCount && array_search($path[0], array('index', 'new')) > -1) {
                 $specialGetTarget = array_shift($path);
-            } elseif ($pathElementCount && $path[$pathElementCount-1] == 'edit') {
+            } elseif ($pathElementCount && $path[$pathElementCount - 1] == 'edit') {
                 $specialGetTarget = 'edit';
-                $params['id'] = $path[$pathElementCount-2];
+                $params['id'] = $path[$pathElementCount - 2];
             } elseif ($pathElementCount == 1) {
                 $params['id'] = urldecode(array_shift($path));
             } elseif ($pathElementCount == 0 && !isset($params['id'])) {
@@ -197,7 +197,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
             if ($requestMethod != 'get') {
                 if ($request->getParam('_method')) {
                     $values[$this->_actionKey] = strtolower($request->getParam('_method'));
-                } elseif ( $request->getHeader('X-HTTP-Method-Override') ) {
+                } elseif ($request->getHeader('X-HTTP-Method-Override')) {
                     $values[$this->_actionKey] = strtolower($request->getHeader('X-HTTP-Method-Override'));
                 } else {
                     $values[$this->_actionKey] = $requestMethod;
@@ -205,7 +205,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
 
                 // Map PUT and POST to actual create/update actions
                 // based on parameter count (posting to resource or collection)
-                switch( $values[$this->_actionKey] ){
+                switch ($values[$this->_actionKey]) {
                     case 'post':
                         if ($pathElementCount > 0) {
                             $values[$this->_actionKey] = 'put';
@@ -217,11 +217,9 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
                         $values[$this->_actionKey] = 'put';
                         break;
                 }
-
             } elseif ($specialGetTarget) {
                 $values[$this->_actionKey] = $specialGetTarget;
             }
-
         }
         $this->_values = $values + $params;
 
@@ -284,16 +282,17 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
             unset($params['index']);
             $url .= '/index';
             if (isset($params['id'])) {
-                $url .= '/'.$params['id'];
+                $url .= '/' . $params['id'];
                 unset($params['id']);
             }
             foreach ($params as $key => $value) {
-                if ($encode) $value = urlencode($value);
+                if ($encode)
+                    $value = urlencode($value);
                 $url .= '/' . $key . '/' . $value;
             }
-        } elseif (! empty($action) && isset($params['id'])) {
+        } elseif (!empty($action) && isset($params['id'])) {
             $url .= sprintf('/%s/%s', $params['id'], $action);
-        } elseif (! empty($action)) {
+        } elseif (!empty($action)) {
             $url .= sprintf('/%s', $action);
         } elseif (isset($params['id'])) {
             $url .= '/' . $params['id'];
@@ -330,7 +329,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
     {
         $modulesOnly = true;
         foreach ($responders as $responder) {
-            if(is_array($responder)) {
+            if (is_array($responder)) {
                 $modulesOnly = false;
                 break;
             }
@@ -378,9 +377,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
         if ($this->_fullRestfulModule($moduleName)) {
             return true;
         }
-        if ($this->_checkRestfulModule($moduleName)
-            && $this->_restfulControllers
-            && (false !== array_search($controllerName, $this->_restfulControllers[$moduleName]))
+        if ($this->_checkRestfulModule($moduleName) && $this->_restfulControllers && (false !== array_search($controllerName, $this->_restfulControllers[$moduleName]))
         ) {
             return true;
         }
@@ -406,8 +403,8 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
     protected function _fullRestfulModule($moduleName)
     {
         return (
-            $this->_restfulModules
-            && (false !==array_search($moduleName, $this->_restfulModules))
-        );
+                $this->_restfulModules && (false !== array_search($moduleName, $this->_restfulModules))
+                );
     }
+
 }

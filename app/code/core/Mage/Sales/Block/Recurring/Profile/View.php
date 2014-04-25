@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
 {
+
     /**
      * @var Mage_Sales_Model_Recurring_Profile
      */
@@ -62,15 +64,15 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     {
         $this->addData(array(
             'reference_id' => $this->_profile->getReferenceId(),
-            'can_cancel'   => $this->_profile->canCancel(),
-            'cancel_url'   => $this->getUrl('*/*/updateState', array('profile' => $this->_profile->getId(), 'action' => 'cancel')),
-            'can_suspend'  => $this->_profile->canSuspend(),
-            'suspend_url'  => $this->getUrl('*/*/updateState', array('profile' => $this->_profile->getId(), 'action' => 'suspend')),
+            'can_cancel' => $this->_profile->canCancel(),
+            'cancel_url' => $this->getUrl('*/*/updateState', array('profile' => $this->_profile->getId(), 'action' => 'cancel')),
+            'can_suspend' => $this->_profile->canSuspend(),
+            'suspend_url' => $this->getUrl('*/*/updateState', array('profile' => $this->_profile->getId(), 'action' => 'suspend')),
             'can_activate' => $this->_profile->canActivate(),
             'activate_url' => $this->getUrl('*/*/updateState', array('profile' => $this->_profile->getId(), 'action' => 'activate')),
-            'can_update'   => $this->_profile->canFetchUpdate(),
-            'update_url'   => $this->getUrl('*/*/updateProfile', array('profile' => $this->_profile->getId())),
-            'back_url'     => $this->getUrl('*/*/'),
+            'can_update' => $this->_profile->canFetchUpdate(),
+            'update_url' => $this->getUrl('*/*/updateProfile', array('profile' => $this->_profile->getId())),
+            'back_url' => $this->getUrl('*/*/'),
             'confirmation_message' => Mage::helper('sales')->__('Are you sure you want to do this?'),
         ));
     }
@@ -116,9 +118,9 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         $key = 'order_item_info';
 
         foreach (array('name' => Mage::helper('catalog')->__('Product Name'),
-            'sku'  => Mage::helper('catalog')->__('SKU'),
-            'qty'  => Mage::helper('catalog')->__('Quantity'),
-            ) as $itemKey => $label
+    'sku' => Mage::helper('catalog')->__('SKU'),
+    'qty' => Mage::helper('catalog')->__('Quantity'),
+        ) as $itemKey => $label
         ) {
             $value = $this->_profile->getInfoValue($key, $itemKey);
             if ($value) {
@@ -137,9 +139,9 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         }
 
         $options = Mage::getModel('catalog/product_option')->getCollection()
-            ->addIdsToFilter(array_keys($request['options']))
-            ->addTitleToResult($this->_profile->getInfoValue($key, 'store_id'))
-            ->addValuesToResult();
+                ->addIdsToFilter(array_keys($request['options']))
+                ->addTitleToResult($this->_profile->getInfoValue($key, 'store_id'))
+                ->addValuesToResult();
 
         $productMock = Mage::getModel('catalog/product');
         $quoteItemOptionMock = Mage::getModel('sales/quote_item_option');
@@ -147,24 +149,24 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
             $quoteItemOptionMock->setId($option->getId());
 
             $group = $option->groupFactory($option->getType())
-                ->setOption($option)
-                ->setRequest(new Varien_Object($request))
-                ->setProduct($productMock)
-                ->setUseQuotePath(true)
-                ->setQuoteItemOption($quoteItemOptionMock)
-                ->validateUserValue($request['options']);
+                    ->setOption($option)
+                    ->setRequest(new Varien_Object($request))
+                    ->setProduct($productMock)
+                    ->setUseQuotePath(true)
+                    ->setQuoteItemOption($quoteItemOptionMock)
+                    ->validateUserValue($request['options']);
 
             $skipHtmlEscaping = false;
             if ('file' == $option->getType()) {
                 $skipHtmlEscaping = true;
 
                 $downloadParams = array(
-                    'id'  => $this->_profile->getId(),
+                    'id' => $this->_profile->getId(),
                     'option_id' => $option->getId(),
                     'key' => $request['options'][$option->getId()]['secret_key']
                 );
                 $group->setCustomOptionDownloadUrl('sales/download/downloadProfileCustomOption')
-                    ->setCustomOptionUrlParams($downloadParams);
+                        ->setCustomOptionUrlParams($downloadParams);
             }
 
             $optionValue = $group->prepareForCart();
@@ -258,7 +260,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         ));
 
         $pager = $this->getLayout()->createBlock('page/html_pager')
-            ->setCollection($this->_relatedOrders)->setIsOutputRequired(false);
+                        ->setCollection($this->_relatedOrders)->setIsOutputRequired(false);
         $this->setChild('pager', $pager);
 
         $this->setGridColumns(array(
@@ -267,30 +269,30 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
                 'title' => $this->__('Order #'),
                 'is_nobr' => true,
                 'width' => 1,
-            )),
+                    )),
             new Varien_Object(array(
                 'index' => 'created_at',
                 'title' => $this->__('Date'),
                 'is_nobr' => true,
                 'width' => 1,
-            )),
+                    )),
             new Varien_Object(array(
                 'index' => 'customer_name',
                 'title' => $this->__('Customer Name'),
-            )),
+                    )),
             new Varien_Object(array(
                 'index' => 'base_grand_total',
                 'title' => $this->__('Order Total'),
                 'is_nobr' => true,
                 'width' => 1,
                 'is_amount' => true,
-            )),
+                    )),
             new Varien_Object(array(
                 'index' => 'status',
                 'title' => $this->__('Order Status'),
                 'is_nobr' => true,
                 'width' => 1,
-            )),
+                    )),
         ));
 
         $orders = array();
@@ -336,10 +338,10 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     {
         if (null === $this->_relatedOrders) {
             $this->_relatedOrders = Mage::getResourceModel('sales/order_collection')
-                ->addFieldToSelect($fieldsToSelect)
-                ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId())
-                ->addRecurringProfilesFilter($this->_profile->getId())
-                ->setOrder('entity_id', 'desc');
+                    ->addFieldToSelect($fieldsToSelect)
+                    ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId())
+                    ->addRecurringProfilesFilter($this->_profile->getId())
+                    ->setOrder('entity_id', 'desc');
         }
     }
 
@@ -365,8 +367,8 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     protected function _prepareLayout()
     {
         $this->_profile = Mage::registry('current_recurring_profile')
-            ->setStore(Mage::app()->getStore())
-            ->setLocale(Mage::app()->getLocale())
+                ->setStore(Mage::app()->getStore())
+                ->setLocale(Mage::app()->getLocale())
         ;
         return parent::_prepareLayout();
     }
@@ -385,11 +387,12 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         if ($this->hasShouldPrepareInfoTabs()) {
             foreach ($this->getChildGroup('info_tabs') as $block) {
                 $block->setViewUrl(
-                    $this->getUrl("*/*/{$block->getViewAction()}", array('profile' => $this->_profile->getId()))
+                        $this->getUrl("*/*/{$block->getViewAction()}", array('profile' => $this->_profile->getId()))
                 );
             }
         }
 
         return parent::_toHtml();
     }
+
 }

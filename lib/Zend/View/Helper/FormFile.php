@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FormFile.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Abstract class for extension
  */
 #require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to generate a "file" element
@@ -38,6 +36,7 @@
  */
 class Zend_View_Helper_FormFile extends Zend_View_Helper_FormElement
 {
+
     /**
      * Generates a 'file' element.
      *
@@ -55,7 +54,6 @@ class Zend_View_Helper_FormFile extends Zend_View_Helper_FormElement
     {
         $info = $this->_getInfo($name, null, $attribs);
         extract($info); // name, id, value, attribs, options, listsep, disable
-
         // is it disabled?
         $disabled = '';
         if ($disable) {
@@ -65,7 +63,7 @@ class Zend_View_Helper_FormFile extends Zend_View_Helper_FormElement
         // XHTML or HTML end tag?
         $endTag = ' />';
         if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {
-            $endTag= '>';
+            $endTag = '>';
         }
 
         // build the element
@@ -78,4 +76,5 @@ class Zend_View_Helper_FormFile extends Zend_View_Helper_FormElement
 
         return $xhtml;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,11 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
+
     protected $_canReturnToStock;
+
     /**
      * Prepare child blocks
      *
@@ -42,45 +44,39 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
      */
     protected function _prepareLayout()
     {
-        $onclick = "submitAndReloadArea($('creditmemo_item_container'),'".$this->getUpdateUrl()."')";
+        $onclick = "submitAndReloadArea($('creditmemo_item_container'),'" . $this->getUpdateUrl() . "')";
         $this->setChild(
-            'update_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                'label'     => Mage::helper('sales')->__('Update Qty\'s'),
-                'class'     => 'update-button',
-                'onclick'   => $onclick,
-            ))
+                'update_button', $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+                    'label' => Mage::helper('sales')->__('Update Qty\'s'),
+                    'class' => 'update-button',
+                    'onclick' => $onclick,
+                ))
         );
 
         if ($this->getCreditmemo()->canRefund()) {
             if ($this->getCreditmemo()->getInvoice() && $this->getCreditmemo()->getInvoice()->getTransactionId()) {
                 $this->setChild(
-                    'submit_button',
-                    $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                        'label'     => Mage::helper('sales')->__('Refund'),
-                        'class'     => 'save submit-button',
-                        'onclick'   => 'disableElements(\'submit-button\');submitCreditMemo()',
-                    ))
+                        'submit_button', $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+                            'label' => Mage::helper('sales')->__('Refund'),
+                            'class' => 'save submit-button',
+                            'onclick' => 'disableElements(\'submit-button\');submitCreditMemo()',
+                        ))
                 );
             }
             $this->setChild(
-                'submit_offline',
-                $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                    'label'     => Mage::helper('sales')->__('Refund Offline'),
-                    'class'     => 'save submit-button',
-                    'onclick'   => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
-                ))
+                    'submit_offline', $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+                        'label' => Mage::helper('sales')->__('Refund Offline'),
+                        'class' => 'save submit-button',
+                        'onclick' => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
+                    ))
             );
-
-        }
-        else {
+        } else {
             $this->setChild(
-                'submit_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                    'label'     => Mage::helper('sales')->__('Refund Offline'),
-                    'class'     => 'save submit-button',
-                    'onclick'   => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
-                ))
+                    'submit_button', $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+                        'label' => Mage::helper('sales')->__('Refund Offline'),
+                        'class' => 'save submit-button',
+                        'onclick' => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
+                    ))
             );
         }
 
@@ -126,11 +122,16 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
     {
         $totalbarData = array();
         $this->setPriceDataObject($this->getOrder());
-        $totalbarData[] = array(Mage::helper('sales')->__('Paid Amount'), $this->displayPriceAttribute('total_invoiced'), false);
-        $totalbarData[] = array(Mage::helper('sales')->__('Refund Amount'), $this->displayPriceAttribute('total_refunded'), false);
-        $totalbarData[] = array(Mage::helper('sales')->__('Shipping Amount'), $this->displayPriceAttribute('shipping_invoiced'), false);
-        $totalbarData[] = array(Mage::helper('sales')->__('Shipping Refund'), $this->displayPriceAttribute('shipping_refunded'), false);
-        $totalbarData[] = array(Mage::helper('sales')->__('Order Grand Total'), $this->displayPriceAttribute('grand_total'), true);
+        $totalbarData[] = array(Mage::helper('sales')->__('Paid Amount'), $this->displayPriceAttribute('total_invoiced'),
+            false);
+        $totalbarData[] = array(Mage::helper('sales')->__('Refund Amount'), $this->displayPriceAttribute('total_refunded'),
+            false);
+        $totalbarData[] = array(Mage::helper('sales')->__('Shipping Amount'), $this->displayPriceAttribute('shipping_invoiced'),
+            false);
+        $totalbarData[] = array(Mage::helper('sales')->__('Shipping Refund'), $this->displayPriceAttribute('shipping_refunded'),
+            false);
+        $totalbarData[] = array(Mage::helper('sales')->__('Order Grand Total'), $this->displayPriceAttribute('grand_total'),
+            true);
 
         return $totalbarData;
     }
@@ -161,8 +162,8 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
     public function getUpdateUrl()
     {
         return $this->getUrl('*/*/updateQty', array(
-                'order_id'=>$this->getCreditmemo()->getOrderId(),
-                'invoice_id'=>$this->getRequest()->getParam('invoice_id', null),
+                    'order_id' => $this->getCreditmemo()->getOrderId(),
+                    'invoice_id' => $this->getRequest()->getParam('invoice_id', null),
         ));
     }
 
@@ -187,7 +188,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                 $canReturnToStock = false;
                 foreach ($this->getCreditmemo()->getAllItems() as $item) {
                     $product = Mage::getModel('catalog/product')->load($item->getOrderItem()->getProductId());
-                    if ( $product->getId() && $product->getStockItem()->getManageStock() ) {
+                    if ($product->getId() && $product->getStockItem()->getManageStock()) {
                         $item->setCanReturnToStock($canReturnToStock = true);
                     } else {
                         $item->setCanReturnToStock(false);
@@ -203,4 +204,5 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
     {
         return Mage::helper('sales')->canSendNewCreditmemoEmail($this->getOrder()->getStore()->getId());
     }
+
 }

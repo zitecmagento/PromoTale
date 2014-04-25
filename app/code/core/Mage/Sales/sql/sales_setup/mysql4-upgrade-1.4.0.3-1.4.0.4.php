@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 $installer = $this;
 
@@ -50,20 +50,10 @@ foreach (array('daily', 'monthly', 'yearly') as $frequency) {
     ");
 
     $installer->getConnection()->addConstraint(
-        'PRODUCT_ORDERED_AGGREGATED_' . strtoupper($frequency) . '_STORE_ID',
-        $tableName,
-        'store_id',
-        $installer->getTable('core/store'),
-        'store_id',
-        'SET NULL'
+            'PRODUCT_ORDERED_AGGREGATED_' . strtoupper($frequency) . '_STORE_ID', $tableName, 'store_id', $installer->getTable('core/store'), 'store_id', 'SET NULL'
     );
 
     $installer->getConnection()->addConstraint(
-        'PRODUCT_ORDERED_AGGREGATED_' . strtoupper($frequency) . '_PRODUCT_ID',
-        $tableName,
-        'product_id',
-        $installer->getTable('catalog/product'),
-        'entity_id',
-        'SET NULL'
+            'PRODUCT_ORDERED_AGGREGATED_' . strtoupper($frequency) . '_PRODUCT_ID', $tableName, 'product_id', $installer->getTable('catalog/product'), 'entity_id', 'SET NULL'
     );
 }

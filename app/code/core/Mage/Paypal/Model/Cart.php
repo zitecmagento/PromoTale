@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 class Mage_Paypal_Model_Cart
 {
+
     /**
      * Totals that PayPal suppports when passing shopping cart
      *
@@ -37,7 +39,7 @@ class Mage_Paypal_Model_Cart
      */
     const TOTAL_SUBTOTAL = 'subtotal';
     const TOTAL_DISCOUNT = 'discount';
-    const TOTAL_TAX      = 'tax';
+    const TOTAL_TAX = 'tax';
     const TOTAL_SHIPPING = 'shipping';
 
     /**
@@ -117,8 +119,7 @@ class Mage_Paypal_Model_Cart
     public function __construct($params = array())
     {
         $salesEntity = array_shift($params);
-        if (is_object($salesEntity)
-            && (($salesEntity instanceof Mage_Sales_Model_Order) || ($salesEntity instanceof Mage_Sales_Model_Quote))) {
+        if (is_object($salesEntity) && (($salesEntity instanceof Mage_Sales_Model_Order) || ($salesEntity instanceof Mage_Sales_Model_Quote))) {
             $this->_salesEntity = $salesEntity;
         } else {
             throw new Exception('Invalid sales entity provided.');
@@ -200,9 +201,9 @@ class Mage_Paypal_Model_Cart
     {
         $this->_shouldRender = true;
         $item = new Varien_Object(array(
-            'name'   => $name,
-            'qty'    => $qty,
-            'amount' => (float)$amount,
+            'name' => $name,
+            'qty' => $qty,
+            'amount' => (float) $amount,
         ));
         if ($identifier) {
             $item->setData('id', $identifier);
@@ -295,18 +296,18 @@ class Mage_Paypal_Model_Cart
             $shippingDescription = $this->_salesEntity->getShippingDescription();
             $this->_totals = array(
                 self::TOTAL_SUBTOTAL => $this->_salesEntity->getBaseSubtotal(),
-                self::TOTAL_TAX      => $this->_salesEntity->getBaseTaxAmount(),
+                self::TOTAL_TAX => $this->_salesEntity->getBaseTaxAmount(),
                 self::TOTAL_SHIPPING => $this->_salesEntity->getBaseShippingAmount(),
                 self::TOTAL_DISCOUNT => abs($this->_salesEntity->getBaseDiscountAmount()),
             );
             $this->_applyHiddenTaxWorkaround($this->_salesEntity);
         } else {
             $address = $this->_salesEntity->getIsVirtual() ?
-                $this->_salesEntity->getBillingAddress() : $this->_salesEntity->getShippingAddress();
+                    $this->_salesEntity->getBillingAddress() : $this->_salesEntity->getShippingAddress();
             $shippingDescription = $address->getShippingDescription();
-            $this->_totals = array (
+            $this->_totals = array(
                 self::TOTAL_SUBTOTAL => $this->_salesEntity->getBaseSubtotal(),
-                self::TOTAL_TAX      => $address->getBaseTaxAmount(),
+                self::TOTAL_TAX => $address->getBaseTaxAmount(),
                 self::TOTAL_SHIPPING => $address->getBaseShippingAmount(),
                 self::TOTAL_DISCOUNT => abs($address->getBaseDiscountAmount()),
             );
@@ -324,14 +325,12 @@ class Mage_Paypal_Model_Cart
 
         // discount, shipping as items
         if ($this->_isDiscountAsItem && $this->_totals[self::TOTAL_DISCOUNT]) {
-            $this->addItem(Mage::helper('paypal')->__('Discount'), 1, -1.00 * $this->_totals[self::TOTAL_DISCOUNT],
-                $this->_renderTotalLineItemDescriptions(self::TOTAL_DISCOUNT)
+            $this->addItem(Mage::helper('paypal')->__('Discount'), 1, -1.00 * $this->_totals[self::TOTAL_DISCOUNT], $this->_renderTotalLineItemDescriptions(self::TOTAL_DISCOUNT)
             );
         }
         $shippingItemId = $this->_renderTotalLineItemDescriptions(self::TOTAL_SHIPPING, $shippingDescription);
-        if ($this->_isShippingAsItem && (float)$this->_totals[self::TOTAL_SHIPPING]) {
-            $this->addItem(Mage::helper('paypal')->__('Shipping'), 1, (float)$this->_totals[self::TOTAL_SHIPPING],
-                $shippingItemId
+        if ($this->_isShippingAsItem && (float) $this->_totals[self::TOTAL_SHIPPING]) {
+            $this->addItem(Mage::helper('paypal')->__('Shipping'), 1, (float) $this->_totals[self::TOTAL_SHIPPING], $shippingItemId
             );
         }
 
@@ -502,8 +501,8 @@ class Mage_Paypal_Model_Cart
      */
     private function _applyHiddenTaxWorkaround($salesEntity)
     {
-        $this->_totals[self::TOTAL_TAX] += (float)$salesEntity->getBaseHiddenTaxAmount();
-        $this->_totals[self::TOTAL_TAX] += (float)$salesEntity->getBaseShippingHiddenTaxAmount();
+        $this->_totals[self::TOTAL_TAX] += (float) $salesEntity->getBaseHiddenTaxAmount();
+        $this->_totals[self::TOTAL_TAX] += (float) $salesEntity->getBaseShippingHiddenTaxAmount();
     }
 
     /**
@@ -520,4 +519,5 @@ class Mage_Paypal_Model_Cart
         }
         return false;
     }
+
 }

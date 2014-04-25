@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Imap.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Mail_Storage_Abstract
  */
@@ -63,8 +62,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
-                             implements Zend_Mail_Storage_Folder_Interface, Zend_Mail_Storage_Writable_Interface
+class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract implements Zend_Mail_Storage_Folder_Interface, Zend_Mail_Storage_Writable_Interface
 {
     // TODO: with an internal cache we could optimize this class, or create an extra class with
     // such optimizations. Especially the various fetch calls could be combined to one cache call
@@ -85,23 +83,23 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
      * imap flags to constants translation
      * @var array
      */
-    protected static $_knownFlags = array('\Passed'   => Zend_Mail_Storage::FLAG_PASSED,
-                                          '\Answered' => Zend_Mail_Storage::FLAG_ANSWERED,
-                                          '\Seen'     => Zend_Mail_Storage::FLAG_SEEN,
-                                          '\Deleted'  => Zend_Mail_Storage::FLAG_DELETED,
-                                          '\Draft'    => Zend_Mail_Storage::FLAG_DRAFT,
-                                          '\Flagged'  => Zend_Mail_Storage::FLAG_FLAGGED);
+    protected static $_knownFlags = array('\Passed' => Zend_Mail_Storage::FLAG_PASSED,
+        '\Answered' => Zend_Mail_Storage::FLAG_ANSWERED,
+        '\Seen' => Zend_Mail_Storage::FLAG_SEEN,
+        '\Deleted' => Zend_Mail_Storage::FLAG_DELETED,
+        '\Draft' => Zend_Mail_Storage::FLAG_DRAFT,
+        '\Flagged' => Zend_Mail_Storage::FLAG_FLAGGED);
 
     /**
      * map flags to search criterias
      * @var array
      */
-    protected static $_searchFlags = array('\Recent'   => 'RECENT',
-                                           '\Answered' => 'ANSWERED',
-                                           '\Seen'     => 'SEEN',
-                                           '\Deleted'  => 'DELETED',
-                                           '\Draft'    => 'DRAFT',
-                                           '\Flagged'  => 'FLAGGED');
+    protected static $_searchFlags = array('\Recent' => 'RECENT',
+        '\Answered' => 'ANSWERED',
+        '\Seen' => 'SEEN',
+        '\Deleted' => 'DELETED',
+        '\Draft' => 'DRAFT',
+        '\Flagged' => 'FLAGGED');
 
     /**
      * Count messages all messages in current box
@@ -125,7 +123,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
         }
 
         $params = array();
-        foreach ((array)$flags as $flag) {
+        foreach ((array) $flags as $flag) {
             if (isset(self::$_searchFlags[$flag])) {
                 $params[] = self::$_searchFlags[$flag];
             } else {
@@ -182,6 +180,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
      * @throws Zend_Mail_Protocol_Exception
      * @throws Zend_Mail_Storage_Exception
      */
+
     public function getRawHeader($id, $part = null, $topLines = 0)
     {
         if ($part !== null) {
@@ -206,6 +205,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
      * @throws Zend_Mail_Protocol_Exception
      * @throws Zend_Mail_Storage_Exception
      */
+
     public function getRawContent($id, $part = null)
     {
         if ($part !== null) {
@@ -237,16 +237,19 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
     public function __construct($params)
     {
         if (is_array($params)) {
-            $params = (object)$params;
+            $params = (object) $params;
         }
 
         $this->_has['flags'] = true;
 
         if ($params instanceof Zend_Mail_Protocol_Imap) {
             $this->_protocol = $params;
-            try {
+            try
+            {
                 $this->selectFolder('INBOX');
-            } catch(Zend_Mail_Storage_Exception $e) {
+            }
+            catch (Zend_Mail_Storage_Exception $e)
+            {
                 /**
                  * @see Zend_Mail_Storage_Exception
                  */
@@ -264,10 +267,10 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
             throw new Zend_Mail_Storage_Exception('need at least user in params');
         }
 
-        $host     = isset($params->host)     ? $params->host     : 'localhost';
+        $host = isset($params->host) ? $params->host : 'localhost';
         $password = isset($params->password) ? $params->password : '';
-        $port     = isset($params->port)     ? $params->port     : null;
-        $ssl      = isset($params->ssl)      ? $params->ssl      : false;
+        $port = isset($params->port) ? $params->port : null;
+        $ssl = isset($params->ssl) ? $params->ssl : false;
 
         $this->_protocol = new Zend_Mail_Protocol_Imap();
         $this->_protocol->connect($host, $port, $ssl);
@@ -383,7 +386,6 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
         throw new Zend_Mail_Storage_Exception('unique id not found');
     }
 
-
     /**
      * get root folder or given folder
      *
@@ -394,7 +396,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
      */
     public function getFolders($rootFolder = null)
     {
-        $folders = $this->_protocol->listMailbox((string)$rootFolder);
+        $folders = $this->_protocol->listMailbox((string) $rootFolder);
         if (!$folders) {
             /**
              * @see Zend_Mail_Storage_Exception
@@ -467,7 +469,6 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
             throw new Zend_Mail_Storage_Exception('cannot change folder, maybe it does not exist');
         }
     }
-
 
     /**
      * get Zend_Mail_Storage_Folder instance for current folder
@@ -566,7 +567,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
      * @param  null|array                                 $flags   set flags for new message, else a default set is used
      * @throws Zend_Mail_Storage_Exception
      */
-     // not yet * @param string|Zend_Mail_Message|Zend_Mime_Message $message message as string or instance of message class
+    // not yet * @param string|Zend_Mail_Message|Zend_Mime_Message $message message as string or instance of message class
     public function appendMessage($message, $folder = null, $flags = null)
     {
         if ($folder === null) {
@@ -616,7 +617,8 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
      * @return null
      * @throws Zend_Mail_Storage_Exception
      */
-    public function moveMessage($id, $folder) {
+    public function moveMessage($id, $folder)
+    {
         $this->copyMessage($id, $folder);
         $this->removeMessage($id);
     }
@@ -640,5 +642,5 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
             throw new Zend_Mail_Storage_Exception('cannot set flags, have you tried to set the recent flag or special chars?');
         }
     }
-}
 
+}

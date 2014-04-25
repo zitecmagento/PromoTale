@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ConferenceCall.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Client_ClientAbstract
  */
@@ -323,9 +323,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_ConferenceCall
-    extends Zend_Service_DeveloperGarden_Client_ClientAbstract
+class Zend_Service_DeveloperGarden_ConferenceCall extends Zend_Service_DeveloperGarden_Client_ClientAbstract
 {
+
     /**
      * wsdl file
      *
@@ -348,52 +348,48 @@ class Zend_Service_DeveloperGarden_ConferenceCall
      */
     protected $_classMap = array(
         //Struct
-        'ConferenceDetailStruct'  => 'Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail',
-        'ConferenceAccStruct'     => 'Zend_Service_DeveloperGarden_ConferenceCall_ConferenceAccount',
-        'ScheduleStruct'          => 'Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule',
-        'ParticipantStruct'       => 'Zend_Service_DeveloperGarden_ConferenceCall_Participant',
+        'ConferenceDetailStruct' => 'Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail',
+        'ConferenceAccStruct' => 'Zend_Service_DeveloperGarden_ConferenceCall_ConferenceAccount',
+        'ScheduleStruct' => 'Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule',
+        'ParticipantStruct' => 'Zend_Service_DeveloperGarden_ConferenceCall_Participant',
         'ParticipantDetailStruct' => 'Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail',
         'ParticipantStatusStruct' => 'Zend_Service_DeveloperGarden_ConferenceCall_ParticipantStatus',
-
         //Responses
         'CCSResponseType' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_CCSResponseType',
-
         //Conference
-        'createConferenceResponse'         => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_CreateConferenceResponse',
-        'createConferenceResponseType'     => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_CreateConferenceResponseType',
-        'removeConferenceResponse'         => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_RemoveConferenceResponse',
-        'commitConferenceResponse'         => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_CommitConferenceResponse',
-        'updateConferenceResponse'         => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_UpdateConferenceResponse',
-        'getConferenceStatusResponse'      => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceStatusResponse',
-        'getConferenceStatusResponseType'  => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceStatusResponseType',
-        'getRunningConferenceResponse'     => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetRunningConferenceResponse',
+        'createConferenceResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_CreateConferenceResponse',
+        'createConferenceResponseType' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_CreateConferenceResponseType',
+        'removeConferenceResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_RemoveConferenceResponse',
+        'commitConferenceResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_CommitConferenceResponse',
+        'updateConferenceResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_UpdateConferenceResponse',
+        'getConferenceStatusResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceStatusResponse',
+        'getConferenceStatusResponseType' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceStatusResponseType',
+        'getRunningConferenceResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetRunningConferenceResponse',
         'getRunningConferenceResponseType' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetRunningConferenceResponseType',
-        'getConferenceListResponse'        => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceListResponse',
-        'getConferenceListResponseType'    => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceListResponseType',
-
+        'getConferenceListResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceListResponse',
+        'getConferenceListResponseType' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceListResponseType',
         //Participant
-        'newParticipantResponse'           => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_NewParticipantResponse',
-        'newParticipantResponseType'       => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_NewParticipantResponseType',
-        'removeParticipantResponse'        => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_RemoveParticipantResponse',
-        'updateParticipantResponse'        => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_UpdateParticipantResponse',
-        'getParticipantStatusResponse'     => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetParticipantStatusResponse',
+        'newParticipantResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_NewParticipantResponse',
+        'newParticipantResponseType' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_NewParticipantResponseType',
+        'removeParticipantResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_RemoveParticipantResponse',
+        'updateParticipantResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_UpdateParticipantResponse',
+        'getParticipantStatusResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetParticipantStatusResponse',
         'getParticipantStatusResponseType' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetParticipantStatusResponseType',
-
         //Templates
-        'createConferenceTemplateResponse'             => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_CreateConferenceTemplateResponse',
-        'createConferenceTemplateResponseType'         => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_CreateConferenceTemplateResponseType',
-        'getConferenceTemplateResponse'                => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateResponse',
-        'getConferenceTemplateResponseType'            => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateResponseType',
-        'updateConferenceTemplateResponse'             => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_UpdateConferenceTemplateResponse',
-        'removeConferenceTemplateResponse'             => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_RemoveConferenceTemplateResponse',
-        'getConferenceTemplateListResponse'            => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateListResponse',
-        'getConferenceTemplateListResponseType'        => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateListResponseType',
-        'addConferenceTemplateParticipantResponse'     => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_AddConferenceTemplateParticipantResponse',
+        'createConferenceTemplateResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_CreateConferenceTemplateResponse',
+        'createConferenceTemplateResponseType' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_CreateConferenceTemplateResponseType',
+        'getConferenceTemplateResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateResponse',
+        'getConferenceTemplateResponseType' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateResponseType',
+        'updateConferenceTemplateResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_UpdateConferenceTemplateResponse',
+        'removeConferenceTemplateResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_RemoveConferenceTemplateResponse',
+        'getConferenceTemplateListResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateListResponse',
+        'getConferenceTemplateListResponseType' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateListResponseType',
+        'addConferenceTemplateParticipantResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_AddConferenceTemplateParticipantResponse',
         'addConferenceTemplateParticipantResponseType' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_AddConferenceTemplateParticipantResponseType',
-        'getConferenceTemplateParticipantResponse'     => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateParticipantResponse',
+        'getConferenceTemplateParticipantResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateParticipantResponse',
         'getConferenceTemplateParticipantResponseType' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateParticipantResponseType',
-        'updateConferenceTemplateParticipantResponse'  => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_UpdateConferenceTemplateParticipantResponse',
-        'removeConferenceTemplateParticipantResponse'  => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_RemoveConferenceTemplateParticipantResponse',
+        'updateConferenceTemplateParticipantResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_UpdateConferenceTemplateParticipantResponse',
+        'removeConferenceTemplateParticipantResponse' => 'Zend_Service_DeveloperGarden_Response_ConferenceCall_RemoveConferenceTemplateParticipantResponse',
     );
 
     /**
@@ -406,17 +402,11 @@ class Zend_Service_DeveloperGarden_ConferenceCall
      * @param integer $account
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CreateConferenceResponseType
      */
-    public function createConference($ownerId,
-        Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails,
-        Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $conferenceSchedule = null,
-        $account = null
-    ) {
+    public function createConference($ownerId, Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails, Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $conferenceSchedule = null, $account = null
+    )
+    {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceRequest(
-            $this->getEnvironment(),
-            $ownerId,
-            $conferenceDetails,
-            $conferenceSchedule,
-            $account
+                $this->getEnvironment(), $ownerId, $conferenceDetails, $conferenceSchedule, $account
         );
 
         $result = $this->getSoapClient()->createConference(array(
@@ -435,8 +425,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     public function commitConference($conferenceId)
     {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_CommitConferenceRequest(
-            $this->getEnvironment(),
-            $conferenceId
+                $this->getEnvironment(), $conferenceId
         );
 
         $result = $this->getSoapClient()->commitConference(array(
@@ -457,19 +446,11 @@ class Zend_Service_DeveloperGarden_ConferenceCall
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CCSResponseType
      */
     public function updateConference(
-        $conferenceId,
-        $ownerId = null,
-        Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails = null,
-        Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $conferenceSchedule = null,
-        $account = null
-    ) {
+    $conferenceId, $ownerId = null, Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails = null, Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $conferenceSchedule = null, $account = null
+    )
+    {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceRequest(
-            $this->getEnvironment(),
-            $conferenceId,
-            $ownerId,
-            $conferenceDetails,
-            $conferenceSchedule,
-            $account
+                $this->getEnvironment(), $conferenceId, $ownerId, $conferenceDetails, $conferenceSchedule, $account
         );
 
         $result = $this->getSoapClient()->updateConference(array(
@@ -489,9 +470,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     public function getConferenceStatus($conferenceId, $what = 0)
     {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceStatusRequest(
-            $this->getEnvironment(),
-            $conferenceId,
-            $what
+                $this->getEnvironment(), $conferenceId, $what
         );
 
         $result = $this->getSoapClient()->getConferenceStatus(array(
@@ -510,8 +489,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     public function getRunningConference($conferenceId)
     {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_GetRunningConferenceRequest(
-            $this->getEnvironment(),
-            $conferenceId
+                $this->getEnvironment(), $conferenceId
         );
 
         $result = $this->getSoapClient()->getRunningConference(array(
@@ -530,8 +508,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     public function removeConference($conferenceId)
     {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_RemoveConferenceRequest(
-            $this->getEnvironment(),
-            $conferenceId
+                $this->getEnvironment(), $conferenceId
         );
 
         $result = $this->getSoapClient()->removeConference(array(
@@ -551,9 +528,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     public function getConferenceList($what = 0, $ownerId = null)
     {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceListRequest(
-            $this->getEnvironment(),
-            $what,
-            $ownerId
+                $this->getEnvironment(), $what, $ownerId
         );
 
         $result = $this->getSoapClient()->getConferenceList(array(
@@ -571,13 +546,11 @@ class Zend_Service_DeveloperGarden_ConferenceCall
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_NewParticipantResponseType
      */
     public function newParticipant(
-        $conferenceId,
-        Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
-    ) {
+    $conferenceId, Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
+    )
+    {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_NewParticipantRequest(
-            $this->getEnvironment(),
-            $conferenceId,
-            $participant
+                $this->getEnvironment(), $conferenceId, $participant
         );
 
         $result = $this->getSoapClient()->newParticipant(array(
@@ -597,9 +570,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     public function getParticipantStatus($conferenceId, $participantId)
     {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_GetParticipantStatusRequest(
-            $this->getEnvironment(),
-            $conferenceId,
-            $participantId
+                $this->getEnvironment(), $conferenceId, $participantId
         );
 
         $result = $this->getSoapClient()->getParticipantStatus(array(
@@ -619,9 +590,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     public function removeParticipant($conferenceId, $participantId)
     {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_RemoveParticipantRequest(
-            $this->getEnvironment(),
-            $conferenceId,
-            $participantId
+                $this->getEnvironment(), $conferenceId, $participantId
         );
 
         $result = $this->getSoapClient()->removeParticipant(array(
@@ -641,17 +610,11 @@ class Zend_Service_DeveloperGarden_ConferenceCall
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CCSResponseType
      */
     public function updateParticipant(
-        $conferenceId,
-        $participantId,
-        $action = null,
-        Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant = null
-    ) {
+    $conferenceId, $participantId, $action = null, Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant = null
+    )
+    {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateParticipantRequest(
-            $this->getEnvironment(),
-            $conferenceId,
-            $participantId,
-            $action,
-            $participant
+                $this->getEnvironment(), $conferenceId, $participantId, $action, $participant
         );
 
         $result = $this->getSoapClient()->updateParticipant(array(
@@ -670,15 +633,11 @@ class Zend_Service_DeveloperGarden_ConferenceCall
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CreateConferenceTemplateResponseType
      */
     public function createConferenceTemplate(
-        $ownerId,
-        Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails,
-        array $participants = null
-    ) {
+    $ownerId, Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails, array $participants = null
+    )
+    {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceTemplateRequest(
-            $this->getEnvironment(),
-            $ownerId,
-            $conferenceDetails,
-            $participants
+                $this->getEnvironment(), $ownerId, $conferenceDetails, $participants
         );
 
         $result = $this->getSoapClient()->createConferenceTemplate(array(
@@ -697,8 +656,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     public function getConferenceTemplate($templateId)
     {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceTemplateRequest(
-            $this->getEnvironment(),
-            $templateId
+                $this->getEnvironment(), $templateId
         );
 
         $result = $this->getSoapClient()->getConferenceTemplate(array(
@@ -717,15 +675,11 @@ class Zend_Service_DeveloperGarden_ConferenceCall
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CCSResponseType
      */
     public function updateConferenceTemplate(
-        $templateId,
-        $initiatorId = null,
-        Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails = null
-    ) {
+    $templateId, $initiatorId = null, Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails = null
+    )
+    {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTemplateRequest(
-            $this->getEnvironment(),
-            $templateId,
-            $initiatorId,
-            $conferenceDetails
+                $this->getEnvironment(), $templateId, $initiatorId, $conferenceDetails
         );
 
         $result = $this->getSoapClient()->updateConferenceTemplate(array(
@@ -744,8 +698,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     public function removeConferenceTemplate($templateId)
     {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_RemoveConferenceTemplateRequest(
-            $this->getEnvironment(),
-            $templateId
+                $this->getEnvironment(), $templateId
         );
 
         $result = $this->getSoapClient()->removeConferenceTemplate(array(
@@ -764,8 +717,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     public function getConferenceTemplateList($ownerId)
     {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceTemplateListRequest(
-            $this->getEnvironment(),
-            $ownerId
+                $this->getEnvironment(), $ownerId
         );
 
         $result = $this->getSoapClient()->getConferenceTemplateList(array(
@@ -783,13 +735,11 @@ class Zend_Service_DeveloperGarden_ConferenceCall
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_AddConferenceTemplateParticipantResponseType
      */
     public function addConferenceTemplateParticipant(
-        $templateId,
-        Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
-    ) {
+    $templateId, Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
+    )
+    {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_AddConferenceTemplateParticipantRequest(
-            $this->getEnvironment(),
-            $templateId,
-            $participant
+                $this->getEnvironment(), $templateId, $participant
         );
 
         $result = $this->getSoapClient()->addConferenceTemplateParticipant(array(
@@ -809,9 +759,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     public function getConferenceTemplateParticipant($templateId, $participantId)
     {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceTemplateParticipantRequest(
-            $this->getEnvironment(),
-            $templateId,
-            $participantId
+                $this->getEnvironment(), $templateId, $participantId
         );
 
         $result = $this->getSoapClient()->getConferenceTemplateParticipant(array(
@@ -830,15 +778,11 @@ class Zend_Service_DeveloperGarden_ConferenceCall
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CCSResponseType
      */
     public function updateConferenceTemplateParticipant(
-        $templateId,
-        $participantId,
-        Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
-    ) {
+    $templateId, $participantId, Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
+    )
+    {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTemplateParticipantRequest(
-            $this->getEnvironment(),
-            $templateId,
-            $participantId,
-            $participant
+                $this->getEnvironment(), $templateId, $participantId, $participant
         );
 
         $result = $this->getSoapClient()->updateConferenceTemplateParticipant(array(
@@ -858,9 +802,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     public function removeConferenceTemplateParticipant($templateId, $participantId)
     {
         $request = new Zend_Service_DeveloperGarden_Request_ConferenceCall_RemoveConferenceTemplateParticipantRequest(
-            $this->getEnvironment(),
-            $templateId,
-            $participantId
+                $this->getEnvironment(), $templateId, $participantId
         );
 
         $result = $this->getSoapClient()->removeConferenceTemplateParticipant(array(
@@ -869,4 +811,5 @@ class Zend_Service_DeveloperGarden_ConferenceCall
 
         return $result->parse();
     }
+
 }

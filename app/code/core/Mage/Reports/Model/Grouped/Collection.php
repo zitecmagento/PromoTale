@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,22 +24,22 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_Reports_Model_Grouped_Collection
-    extends Varien_Data_Collection //Mage_Core_Model_Resource_Db_Collection_Abstract
+class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Column name for group by clause 
      *
      * @var string
      */
-    protected $_columnGroupBy       = null;
+    protected $_columnGroupBy = null;
 
     /**
      * Collection resource
      *
      * @var Mage_Core_Model_Resource_Db_Collection_Abstract
      */
-    protected $_resourceCollection  = null;
+    protected $_resourceCollection = null;
 
     /**
      * Set column to group by
@@ -48,7 +49,7 @@ class Mage_Reports_Model_Grouped_Collection
      */
     public function setColumnGroupBy($column)
     {
-        $this->_columnGroupBy = (string)$column;
+        $this->_columnGroupBy = (string) $column;
         return $this;
     }
 
@@ -133,4 +134,5 @@ class Mage_Reports_Model_Grouped_Collection
 
         return $this;
     }
+
 }

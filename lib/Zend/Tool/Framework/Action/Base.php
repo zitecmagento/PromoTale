@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Base.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Framework_Action_Interface
  */
@@ -88,7 +88,7 @@ class Zend_Tool_Framework_Action_Base implements Zend_Tool_Framework_Action_Inte
     protected function _parseName()
     {
         $className = get_class($this);
-        $actionName = substr($className, strrpos($className, '_')+1);
+        $actionName = substr($className, strrpos($className, '_') + 1);
         return $actionName;
     }
 

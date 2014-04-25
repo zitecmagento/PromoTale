@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_SalesController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Additional initialization
      *
@@ -59,4 +61,5 @@ class Mage_Adminhtml_SalesController extends Mage_Adminhtml_Controller_Action
     {
         return Mage::getSingleton('admin/session')->isAllowed('sales');
     }
+
 }

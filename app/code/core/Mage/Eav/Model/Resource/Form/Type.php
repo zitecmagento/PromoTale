@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Form Type Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize connection and define main table
      *
@@ -76,10 +77,10 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
             return array();
         }
         $adapter = $this->_getReadAdapter();
-        $bind    = array(':type_id' => $objectId);
-        $select  = $adapter->select()
-            ->from($this->getTable('eav/form_type_entity'), 'entity_type_id')
-            ->where('type_id = :type_id');
+        $bind = array(':type_id' => $objectId);
+        $select = $adapter->select()
+                ->from($this->getTable('eav/form_type_entity'), 'entity_type_id')
+                ->where('type_id = :type_id');
 
         return $adapter->fetchCol($select, $bind);
     }
@@ -101,7 +102,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
             $insert = array_diff($new, $old);
             $delete = array_diff($old, $new);
 
-            $adapter  = $this->_getWriteAdapter();
+            $adapter = $this->_getWriteAdapter();
 
             if (!empty($insert)) {
                 $data = array();
@@ -110,8 +111,8 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
                         continue;
                     }
                     $data[] = array(
-                        'entity_type_id' => (int)$entityId,
-                        'type_id'        => $object->getId()
+                        'entity_type_id' => (int) $entityId,
+                        'type_id' => $object->getId()
                     );
                 }
                 if ($data) {
@@ -122,7 +123,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
             if (!empty($delete)) {
                 $where = array(
                     'entity_type_id IN (?)' => $delete,
-                    'type_id = ?'           => $object->getId()
+                    'type_id = ?' => $object->getId()
                 );
                 $adapter->delete($this->getTable('eav/form_type_entity'), $where);
             }
@@ -145,11 +146,12 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
         if (!$attribute) {
             return array();
         }
-        $bind   = array(':attribute_id' => $attribute);
+        $bind = array(':attribute_id' => $attribute);
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('eav/form_element'))
-            ->where('attribute_id = :attribute_id');
+                ->from($this->getTable('eav/form_element'))
+                ->where('attribute_id = :attribute_id');
 
         return $this->_getReadAdapter()->fetchAll($select, $bind);
     }
+
 }

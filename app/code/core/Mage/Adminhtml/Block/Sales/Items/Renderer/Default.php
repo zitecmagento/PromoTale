@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml sales order item renderer
  *
@@ -34,8 +34,10 @@
  */
 class Mage_Adminhtml_Block_Sales_Items_Renderer_Default extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
+
     public function getItem()
     {
-        return $this->_getData('item');//->getOrderItem();
+        return $this->_getData('item'); //->getOrderItem();
     }
+
 }

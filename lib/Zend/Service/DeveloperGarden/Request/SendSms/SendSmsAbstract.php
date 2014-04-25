@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SendSmsAbstract.php 20418 2010-01-19 11:43:30Z bate $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Request_RequestAbstract
  */
@@ -34,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
-    extends Zend_Service_DeveloperGarden_Request_RequestAbstract
+abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract extends Zend_Service_DeveloperGarden_Request_RequestAbstract
 {
+
     /**
      * the number or numbers to receive this sms
      *
@@ -72,16 +71,16 @@ abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
      * @var array
      */
     private $_specialChars = array(
-        '|', 
-        '^', 
-        '{', 
-        '}', 
-        '[', 
-        ']', 
-        '~', 
-        '\\', 
+        '|',
+        '^',
+        '{',
+        '}',
+        '[',
+        ']',
+        '~',
+        '\\',
         "\n",
-        // '€', removed because its counted in utf8 correctly
+            // '€', removed because its counted in utf8 correctly
     );
 
     /**
@@ -224,7 +223,7 @@ abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
     public function getMessageLength()
     {
         $message = $this->getMessage();
-        $length  = strlen($message);
+        $length = strlen($message);
 
         foreach ($this->_specialChars as $char) {
             $c = (substr_count($message, $char) * 2) - 1;
@@ -258,7 +257,7 @@ abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
      */
     public function getNumberCount()
     {
-        $number   = $this->getNumber();
+        $number = $this->getNumber();
         $retValue = 0;
         if (!empty($number)) {
             $retValue = count(explode(',', $number));
@@ -278,4 +277,5 @@ abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
     {
         return $this->_smsType;
     }
+
 }

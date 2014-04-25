@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Internal constructor
      */
@@ -69,9 +71,8 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
         if (!$this->getFlag('states_joined')) {
             $this->_idFieldName = 'status_state';
             $this->getSelect()->joinLeft(
-                array('state_table' => $this->getTable('sales/order_status_state')),
-                'main_table.status=state_table.status',
-                array('state', 'is_default')
+                    array('state_table' => $this->getTable('sales/order_status_state')), 'main_table.status=state_table.status', array(
+                'state', 'is_default')
             );
             $this->setFlag('states_joined', true);
         }
@@ -112,7 +113,8 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
      */
     public function orderByLabel($dir = 'ASC')
     {
-        $this->getSelect()->order('main_table.label '.$dir);
+        $this->getSelect()->order('main_table.label ' . $dir);
         return $this;
     }
+
 }

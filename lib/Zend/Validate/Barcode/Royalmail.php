@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Royalmail.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
 /**
  * @see Zend_Validate_Barcode_AdapterAbstract
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Validate_Barcode_Royalmail extends Zend_Validate_Barcode_AdapterAbstract
 {
+
     /**
      * Allowed barcode lengths
      * @var integer
@@ -43,7 +44,6 @@ class Zend_Validate_Barcode_Royalmail extends Zend_Validate_Barcode_AdapterAbstr
      * @var string
      */
     protected $_characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
     protected $_rows = array(
         '0' => 1, '1' => 1, '2' => 1, '3' => 1, '4' => 1, '5' => 1,
         '6' => 2, '7' => 2, '8' => 2, '9' => 2, 'A' => 2, 'B' => 2,
@@ -51,8 +51,7 @@ class Zend_Validate_Barcode_Royalmail extends Zend_Validate_Barcode_AdapterAbstr
         'I' => 4, 'J' => 4, 'K' => 4, 'L' => 4, 'M' => 4, 'N' => 4,
         'O' => 5, 'P' => 5, 'Q' => 5, 'R' => 5, 'S' => 5, 'T' => 5,
         'U' => 0, 'V' => 0, 'W' => 0, 'X' => 0, 'Y' => 0, 'Z' => 0,
-     );
-
+    );
     protected $_columns = array(
         '0' => 1, '1' => 2, '2' => 3, '3' => 4, '4' => 5, '5' => 0,
         '6' => 1, '7' => 2, '8' => 3, '9' => 4, 'A' => 5, 'B' => 0,
@@ -77,10 +76,10 @@ class Zend_Validate_Barcode_Royalmail extends Zend_Validate_Barcode_AdapterAbstr
     protected function _royalmail($value)
     {
         $checksum = substr($value, -1, 1);
-        $values   = str_split(substr($value, 0, -1));
+        $values = str_split(substr($value, 0, -1));
         $rowvalue = 0;
         $colvalue = 0;
-        foreach($values as $row) {
+        foreach ($values as $row) {
             $rowvalue += $this->_rows[$row];
             $colvalue += $this->_columns[$row];
         }
@@ -90,7 +89,7 @@ class Zend_Validate_Barcode_Royalmail extends Zend_Validate_Barcode_AdapterAbstr
 
         $rowchkvalue = array_keys($this->_rows, $rowvalue);
         $colchkvalue = array_keys($this->_columns, $colvalue);
-        $chkvalue    = current(array_intersect($rowchkvalue, $colchkvalue));
+        $chkvalue = current(array_intersect($rowchkvalue, $colchkvalue));
         if ($chkvalue == $checksum) {
             return true;
         }
@@ -118,4 +117,5 @@ class Zend_Validate_Barcode_Royalmail extends Zend_Validate_Barcode_AdapterAbstr
 
         return parent::checkChars($value);
     }
+
 }

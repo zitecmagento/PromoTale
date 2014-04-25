@@ -39,22 +39,20 @@ var Variables = {
             this.insertFunction = insertFunction;
         }
     },
-
     resetData: function() {
         this.variablesContent = null;
         this.dialogWindow = null;
     },
-
     openVariableChooser: function(variables) {
         if (this.variablesContent == null && variables) {
             this.variablesContent = '<ul>';
             variables.each(function(variableGroup) {
                 if (variableGroup.label && variableGroup.value) {
                     this.variablesContent += '<li><b>' + variableGroup.label + '</b></li>';
-                    (variableGroup.value).each(function(variable){
+                    (variableGroup.value).each(function(variable) {
                         if (variable.value && variable.label) {
                             this.variablesContent += '<li style="padding-left: 20px;">' +
-                                this.prepareVariableRow(variable.value, variable.label) + '</li>';
+                                    this.prepareVariableRow(variable.value, variable.label) + '</li>';
                         }
                     }.bind(this));
                 }
@@ -66,30 +64,30 @@ var Variables = {
         }
     },
     openDialogWindow: function(variablesContent) {
-        if ($(this.dialogWindowId) && typeof(Windows) != 'undefined') {
+        if ($(this.dialogWindowId) && typeof (Windows) != 'undefined') {
             Windows.focus(this.dialogWindowId);
             return;
         }
 
         this.overlayShowEffectOptions = Windows.overlayShowEffectOptions;
         this.overlayHideEffectOptions = Windows.overlayHideEffectOptions;
-        Windows.overlayShowEffectOptions = {duration:0};
-        Windows.overlayHideEffectOptions = {duration:0};
+        Windows.overlayShowEffectOptions = {duration: 0};
+        Windows.overlayHideEffectOptions = {duration: 0};
 
         this.dialogWindow = Dialog.info(variablesContent, {
-            draggable:true,
-            resizable:true,
-            closable:true,
-            className:"magento",
-            windowClassName:"popup-window",
-            title:'Insert Variable...',
-            width:700,
+            draggable: true,
+            resizable: true,
+            closable: true,
+            className: "magento",
+            windowClassName: "popup-window",
+            title: 'Insert Variable...',
+            width: 700,
             //height:270,
-            zIndex:1000,
-            recenterAuto:false,
-            hideEffect:Element.hide,
-            showEffect:Element.show,
-            id:this.dialogWindowId,
+            zIndex: 1000,
+            recenterAuto: false,
+            hideEffect: Element.hide,
+            showEffect: Element.show,
+            id: this.dialogWindowId,
             onClose: this.closeDialogWindow.bind(this)
         });
         variablesContent.evalScripts.bind(variablesContent).defer();
@@ -106,7 +104,7 @@ var Variables = {
     },
     prepareVariableRow: function(varValue, varLabel) {
         var value = (varValue).replace(/"/g, '&quot;').replace(/'/g, '\\&#39;');
-        var content = '<a href="#" onclick="'+this.insertFunction+'(\''+ value +'\');return false;">' + varLabel + '</a>';
+        var content = '<a href="#" onclick="' + this.insertFunction + '(\'' + value + '\');return false;">' + varLabel + '</a>';
         return content;
     },
     insertVariable: function(value) {
@@ -135,14 +133,14 @@ MagentovariablePlugin = {
         if (this.variables == null) {
             new Ajax.Request(url, {
                 parameters: {},
-                onComplete: function (transport) {
+                onComplete: function(transport) {
                     if (transport.responseText.isJSON()) {
                         Variables.init(null, 'MagentovariablePlugin.insertVariable');
                         this.variables = transport.responseText.evalJSON();
                         this.openChooser(this.variables);
                     }
                 }.bind(this)
-             });
+            });
         } else {
             this.openChooser(this.variables);
         }
@@ -151,7 +149,7 @@ MagentovariablePlugin = {
     openChooser: function(variables) {
         Variables.openVariableChooser(variables);
     },
-    insertVariable : function (value) {
+    insertVariable: function(value) {
         if (this.textareaId) {
             Variables.init(this.textareaId);
             Variables.insertVariable(value);

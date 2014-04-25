@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: UserFeed.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Photos
  */
@@ -92,10 +91,8 @@ class Zend_Gdata_Photos_UserFeed extends Zend_Gdata_Feed
      * @var Zend_Gdata_Photos_Extension_Nickname
      */
     protected $_gphotoNickname = null;
-
     protected $_entryClassName = 'Zend_Gdata_Photos_UserEntry';
     protected $_feedClassName = 'Zend_Gdata_Photos_UserFeed';
-
     protected $_entryKindClassMapping = array(
         'http://schemas.google.com/photos/2007#album' => 'Zend_Gdata_Photos_AlbumEntry',
         'http://schemas.google.com/photos/2007#photo' => 'Zend_Gdata_Photos_PhotoEntry',
@@ -140,9 +137,9 @@ class Zend_Gdata_Photos_UserFeed extends Zend_Gdata_Feed
                 $categories = $tmpEntry->getCategory();
                 foreach ($categories as $category) {
                     if ($category->scheme == Zend_Gdata_Photos::KIND_PATH &&
-                        $this->_entryKindClassMapping[$category->term] != "") {
-                            $entryClassName = $this->_entryKindClassMapping[$category->term];
-                            break;
+                            $this->_entryKindClassMapping[$category->term] != "") {
+                        $entryClassName = $this->_entryKindClassMapping[$category->term];
+                        break;
                     } else {
                         #require_once 'Zend/Gdata/App/Exception.php';
                         throw new Zend_Gdata_App_Exception('Entry is missing kind declaration.');

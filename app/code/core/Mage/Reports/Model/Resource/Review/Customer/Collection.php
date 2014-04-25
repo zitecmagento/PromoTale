@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report Customers Review collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review_Model_Resource_Review_Collection
 {
+
     /**
      * Join customers
      *
@@ -47,13 +48,13 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
         $this->_useAnalyticFunction = true;
 
         /** @var $adapter Varien_Db_Adapter_Interface */
-        $adapter            = $this->getConnection();
+        $adapter = $this->getConnection();
         /** @var $customer Mage_Customer_Model_Resource_Customer */
-        $customer           = Mage::getResourceSingleton('customer/customer');
+        $customer = Mage::getResourceSingleton('customer/customer');
         /** @var $firstnameAttr Mage_Eav_Model_Entity_Attribute */
-        $firstnameAttr      = $customer->getAttribute('firstname');
+        $firstnameAttr = $customer->getAttribute('firstname');
         /** @var $lastnameAttr Mage_Eav_Model_Entity_Attribute */
-        $lastnameAttr       = $customer->getAttribute('lastname');
+        $lastnameAttr = $customer->getAttribute('lastname');
 
         $firstnameCondition = array('table_customer_firstname.entity_id = detail.customer_id');
 
@@ -61,40 +62,34 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
             $firstnameField = 'firstname';
         } else {
             $firstnameField = 'value';
-            $firstnameCondition[] = $adapter->quoteInto('table_customer_firstname.attribute_id = ?',
-                (int)$firstnameAttr->getAttributeId());
+            $firstnameCondition[] = $adapter->quoteInto('table_customer_firstname.attribute_id = ?', (int) $firstnameAttr->getAttributeId());
         }
 
         $this->getSelect()->joinInner(
-            array('table_customer_firstname' => $firstnameAttr->getBackend()->getTable()),
-            implode(' AND ', $firstnameCondition),
-            array());
+                array('table_customer_firstname' => $firstnameAttr->getBackend()->getTable()), implode(' AND ', $firstnameCondition), array());
 
 
-        $lastnameCondition  = array('table_customer_lastname.entity_id = detail.customer_id');
+        $lastnameCondition = array('table_customer_lastname.entity_id = detail.customer_id');
         if ($lastnameAttr->getBackend()->isStatic()) {
             $lastnameField = 'lastname';
         } else {
             $lastnameField = 'value';
-            $lastnameCondition[] = $adapter->quoteInto('table_customer_lastname.attribute_id = ?',
-                (int)$lastnameAttr->getAttributeId());
+            $lastnameCondition[] = $adapter->quoteInto('table_customer_lastname.attribute_id = ?', (int) $lastnameAttr->getAttributeId());
         }
 
         //Prepare fullname field result
         $customerFullname = $adapter->getConcatSql(array(
             "table_customer_firstname.{$firstnameField}",
             "table_customer_lastname.{$lastnameField}"
-        ), ' ');
+                ), ' ');
         $this->getSelect()->reset(Zend_Db_Select::COLUMNS)
-            ->joinInner(
-                array('table_customer_lastname' => $lastnameAttr->getBackend()->getTable()),
-                implode(' AND ', $lastnameCondition),
-                array())
-            ->columns(array(
-                'customer_id' => 'detail.customer_id',
-                'customer_name' => $customerFullname,
-                'review_cnt'    => 'COUNT(main_table.review_id)'))
-            ->group('detail.customer_id');
+                ->joinInner(
+                        array('table_customer_lastname' => $lastnameAttr->getBackend()->getTable()), implode(' AND ', $lastnameCondition), array())
+                ->columns(array(
+                    'customer_id' => 'detail.customer_id',
+                    'customer_name' => $customerFullname,
+                    'review_cnt' => 'COUNT(main_table.review_id)'))
+                ->group('detail.customer_id');
 
         return $this;
     }
@@ -116,6 +111,7 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
 
         $countSelect->columns(new Zend_Db_Expr('COUNT(DISTINCT detail.customer_id)'));
 
-        return  $countSelect;
+        return $countSelect;
     }
+
 }

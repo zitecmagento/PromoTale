@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Rating Observer Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Rating_Model_Observer
 {
+
     /**
      * Cleanup product ratings after product delete
      *
@@ -48,4 +49,5 @@ class Mage_Rating_Model_Observer
         }
         return $this;
     }
+
 }

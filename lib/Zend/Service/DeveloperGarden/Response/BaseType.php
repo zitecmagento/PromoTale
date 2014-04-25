@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: BaseType.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Response_ResponseAbstract
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Response_BaseType
-    extends Zend_Service_DeveloperGarden_Response_ResponseAbstract
+class Zend_Service_DeveloperGarden_Response_BaseType extends Zend_Service_DeveloperGarden_Response_ResponseAbstract
 {
+
     /**
      * the status code
      *
@@ -60,8 +60,7 @@ class Zend_Service_DeveloperGarden_Response_BaseType
     {
         if ($this->hasError()) {
             throw new Zend_Service_DeveloperGarden_Response_Exception(
-                $this->getStatusMessage(),
-                $this->getStatusCode()
+            $this->getStatusMessage(), $this->getStatusCode()
             );
         }
 
@@ -95,8 +94,7 @@ class Zend_Service_DeveloperGarden_Response_BaseType
      */
     public function isValid()
     {
-        return ($this->statusCode === null
-             || $this->statusCode == '0000');
+        return ($this->statusCode === null || $this->statusCode == '0000');
     }
 
     /**
@@ -106,8 +104,7 @@ class Zend_Service_DeveloperGarden_Response_BaseType
      */
     public function hasError()
     {
-        return ($this->statusCode !== null
-             && $this->statusCode != '0000');
+        return ($this->statusCode !== null && $this->statusCode != '0000');
     }
 
     /**
@@ -137,4 +134,5 @@ class Zend_Service_DeveloperGarden_Response_BaseType
             return $this->errorMessage;
         }
     }
+
 }

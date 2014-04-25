@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
 {
+
     /**
      * Statuses per state array
      *
@@ -57,12 +59,12 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
 
     protected function _getStatus($status)
     {
-        return $this->getNode('statuses/'.$status);
+        return $this->getNode('statuses/' . $status);
     }
 
     protected function _getState($state)
     {
-        return $this->getNode('states/'.$state);
+        return $this->getNode('states/' . $state);
     }
 
     /**
@@ -77,7 +79,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         $stateNode = $this->_getState($state);
         if ($stateNode) {
             $status = Mage::getModel('sales/order_status')
-                ->loadDefaultByState($state);
+                    ->loadDefaultByState($state);
             $status = $status->getStatus();
         }
         return $status;
@@ -92,7 +94,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     public function getStatusLabel($code)
     {
         $status = Mage::getModel('sales/order_status')
-            ->load($code);
+                ->load($code);
         return $status->getStoreLabel();
     }
 
@@ -112,7 +114,6 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         return $state;
     }
 
-
     /**
      * Retrieve all statuses
      *
@@ -121,7 +122,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     public function getStatuses()
     {
         $statuses = Mage::getResourceModel('sales/order_status_collection')
-            ->toOptionHash();
+                ->toOptionHash();
         return $statuses;
     }
 
@@ -139,7 +140,6 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         }
         return $states;
     }
-
 
     /**
      * Retrieve statuses available for state
@@ -168,8 +168,8 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
             $stateNode = $this->_getState($_state);
             if ($stateNode) {
                 $collection = Mage::getResourceModel('sales/order_status_collection')
-                    ->addStateFilter($_state)
-                    ->orderByLabel();
+                        ->addStateFilter($_state)
+                        ->orderByLabel();
                 foreach ($collection as $status) {
                     $code = $status->getStatus();
                     if ($addLabels) {
@@ -230,19 +230,18 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     {
         if (null === $this->_states) {
             $this->_states = array(
-                'all'       => array(),
-                'visible'   => array(),
+                'all' => array(),
+                'visible' => array(),
                 'invisible' => array(),
-                'statuses'  => array(),
+                'statuses' => array(),
             );
             foreach ($this->getNode('states')->children() as $state) {
                 $name = $state->getName();
                 $this->_states['all'][] = $name;
-                $isVisibleOnFront = (string)$state->visible_on_front;
-                if ((bool)$isVisibleOnFront || ($state->visible_on_front && $isVisibleOnFront == '')) {
+                $isVisibleOnFront = (string) $state->visible_on_front;
+                if ((bool) $isVisibleOnFront || ($state->visible_on_front && $isVisibleOnFront == '')) {
                     $this->_states['visible'][] = $name;
-                }
-                else {
+                } else {
                     $this->_states['invisible'][] = $name;
                 }
                 foreach ($state->statuses->children() as $status) {
@@ -251,4 +250,5 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
             }
         }
     }
+
 }

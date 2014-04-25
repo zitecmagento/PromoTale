@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,41 +24,40 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $installer = $this;
 
 // Create Root Catalog Node
 Mage::getModel('catalog/category')
-    ->load(1)
-    ->setId(1)
-    ->setStoreId(0)
-    ->setPath(1)
-    ->setLevel(0)
-    ->setPosition(0)
-    ->setChildrenCount(0)
-    ->setName('Root Catalog')
-    ->setInitialSetupFlag(true)
-    ->save();
+        ->load(1)
+        ->setId(1)
+        ->setStoreId(0)
+        ->setPath(1)
+        ->setLevel(0)
+        ->setPosition(0)
+        ->setChildrenCount(0)
+        ->setName('Root Catalog')
+        ->setInitialSetupFlag(true)
+        ->save();
 
 /* @var $category Mage_Catalog_Model_Category */
 $category = Mage::getModel('catalog/category');
 
 $category->setStoreId(0)
-    ->setName('Default Category')
-    ->setDisplayMode('PRODUCTS')
-    ->setAttributeSetId($category->getDefaultAttributeSetId())
-    ->setIsActive(1)
-    ->setPath('1')
-    ->setInitialSetupFlag(true)
-    ->save();
+        ->setName('Default Category')
+        ->setDisplayMode('PRODUCTS')
+        ->setAttributeSetId($category->getDefaultAttributeSetId())
+        ->setIsActive(1)
+        ->setPath('1')
+        ->setInitialSetupFlag(true)
+        ->save();
 
 $installer->setConfigData(Mage_Catalog_Helper_Category::XML_PATH_CATEGORY_ROOT_ID, $category->getId());
 
 $installer->addAttributeGroup(Mage_Catalog_Model_Product::ENTITY, 'Default', 'Design', 6);
 
-$entityTypeId     = $installer->getEntityTypeId(Mage_Catalog_Model_Category::ENTITY);
-$attributeSetId   = $installer->getDefaultAttributeSetId($entityTypeId);
+$entityTypeId = $installer->getEntityTypeId(Mage_Catalog_Model_Category::ENTITY);
+$attributeSetId = $installer->getDefaultAttributeSetId($entityTypeId);
 $attributeGroupId = $installer->getDefaultAttributeGroupId($entityTypeId, $attributeSetId);
 
 // update General Group
@@ -65,15 +65,15 @@ $attributeGroupId = $installer->getDefaultAttributeGroupId($entityTypeId, $attri
 $installer->updateAttributeGroup($entityTypeId, $attributeSetId, $attributeGroupId, 'sort_order', '10');
 
 $groups = array(
-    'display'   => array(
-        'name'  => 'Display Settings',
-        'sort'  => 20,
-        'id'    => null
+    'display' => array(
+        'name' => 'Display Settings',
+        'sort' => 20,
+        'id' => null
     ),
-    'design'    => array(
-        'name'  => 'Custom Design',
-        'sort'  => 30,
-        'id'    => null
+    'design' => array(
+        'name' => 'Custom Design',
+        'sort' => 30,
+        'id' => null
     )
 );
 
@@ -84,59 +84,55 @@ foreach ($groups as $k => $groupProp) {
 
 // update attributes group and sort
 $attributes = array(
-    'custom_design'         => array(
+    'custom_design' => array(
         'group' => 'design',
-        'sort'  => 10
+        'sort' => 10
     ),
 //    'custom_design_apply'   => array(
 //        'group' => 'design',
 //        'sort'  => 20
 //    ),
-    'custom_design_from'    => array(
+    'custom_design_from' => array(
         'group' => 'design',
-        'sort'  => 30
+        'sort' => 30
     ),
-    'custom_design_to'      => array(
+    'custom_design_to' => array(
         'group' => 'design',
-        'sort'  => 40
+        'sort' => 40
     ),
-    'page_layout'           => array(
+    'page_layout' => array(
         'group' => 'design',
-        'sort'  => 50
+        'sort' => 50
     ),
-    'custom_layout_update'  => array(
+    'custom_layout_update' => array(
         'group' => 'design',
-        'sort'  => 60
+        'sort' => 60
     ),
-    'display_mode'          => array(
+    'display_mode' => array(
         'group' => 'display',
-        'sort'  => 10
+        'sort' => 10
     ),
-    'landing_page'          => array(
+    'landing_page' => array(
         'group' => 'display',
-        'sort'  => 20
+        'sort' => 20
     ),
-    'is_anchor'             => array(
+    'is_anchor' => array(
         'group' => 'display',
-        'sort'  => 30
+        'sort' => 30
     ),
-    'available_sort_by'     => array(
+    'available_sort_by' => array(
         'group' => 'display',
-        'sort'  => 40
+        'sort' => 40
     ),
-    'default_sort_by'       => array(
+    'default_sort_by' => array(
         'group' => 'display',
-        'sort'  => 50
+        'sort' => 50
     ),
 );
 
 foreach ($attributes as $attributeCode => $attributeProp) {
     $installer->addAttributeToGroup(
-        $entityTypeId,
-        $attributeSetId,
-        $groups[$attributeProp['group']]['id'],
-        $attributeCode,
-        $attributeProp['sort']
+            $entityTypeId, $attributeSetId, $groups[$attributeProp['group']]['id'], $attributeCode, $attributeProp['sort']
     );
 }
 
@@ -145,20 +141,20 @@ foreach ($attributes as $attributeCode => $attributeProp) {
  */
 $data = array(
     array(
-        'link_type_id'  => Mage_Catalog_Model_Product_Link::LINK_TYPE_RELATED,
-        'code'          => 'relation'
+        'link_type_id' => Mage_Catalog_Model_Product_Link::LINK_TYPE_RELATED,
+        'code' => 'relation'
     ),
     array(
-        'link_type_id'  => Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
-        'code'  => 'super'
+        'link_type_id' => Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
+        'code' => 'super'
     ),
     array(
-        'link_type_id'  => Mage_Catalog_Model_Product_Link::LINK_TYPE_UPSELL,
-        'code'  => 'up_sell'
+        'link_type_id' => Mage_Catalog_Model_Product_Link::LINK_TYPE_UPSELL,
+        'code' => 'up_sell'
     ),
     array(
-        'link_type_id'  => Mage_Catalog_Model_Product_Link::LINK_TYPE_CROSSSELL,
-        'code'  => 'cross_sell'
+        'link_type_id' => Mage_Catalog_Model_Product_Link::LINK_TYPE_CROSSSELL,
+        'code' => 'cross_sell'
     ),
 );
 
@@ -171,29 +167,29 @@ foreach ($data as $bind) {
  */
 $data = array(
     array(
-        'link_type_id'                  => Mage_Catalog_Model_Product_Link::LINK_TYPE_RELATED,
-        'product_link_attribute_code'   => 'position',
-        'data_type'                     => 'int'
+        'link_type_id' => Mage_Catalog_Model_Product_Link::LINK_TYPE_RELATED,
+        'product_link_attribute_code' => 'position',
+        'data_type' => 'int'
     ),
     array(
-        'link_type_id'                  => Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
-        'product_link_attribute_code'   => 'position',
-        'data_type'                     => 'int'
+        'link_type_id' => Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
+        'product_link_attribute_code' => 'position',
+        'data_type' => 'int'
     ),
     array(
-        'link_type_id'                  => Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
-        'product_link_attribute_code'   => 'qty',
-        'data_type'                     => 'decimal'
+        'link_type_id' => Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
+        'product_link_attribute_code' => 'qty',
+        'data_type' => 'decimal'
     ),
     array(
-        'link_type_id'                  => Mage_Catalog_Model_Product_Link::LINK_TYPE_UPSELL,
-        'product_link_attribute_code'   => 'position',
-        'data_type'                     => 'int'
+        'link_type_id' => Mage_Catalog_Model_Product_Link::LINK_TYPE_UPSELL,
+        'product_link_attribute_code' => 'position',
+        'data_type' => 'int'
     ),
     array(
-        'link_type_id'                  => Mage_Catalog_Model_Product_Link::LINK_TYPE_CROSSSELL,
-        'product_link_attribute_code'   => 'position',
-        'data_type'                     => 'int'
+        'link_type_id' => Mage_Catalog_Model_Product_Link::LINK_TYPE_CROSSSELL,
+        'product_link_attribute_code' => 'position',
+        'data_type' => 'int'
     ),
 );
 

@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: GmlPoint.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Extension
  */
@@ -35,7 +34,6 @@
  * @see Zend_Gdata_Geo_Extension_GmlPos
  */
 #require_once 'Zend/Gdata/Geo/Extension/GmlPos.php';
-
 
 /**
  * Represents the gml:point element used by the Gdata Geo extensions.
@@ -131,6 +129,5 @@ class Zend_Gdata_Geo_Extension_GmlPoint extends Zend_Gdata_Extension
         $this->_pos = $value;
         return $this;
     }
-
 
 }

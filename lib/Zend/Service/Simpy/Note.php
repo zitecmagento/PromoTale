@@ -21,7 +21,6 @@
  * @version    $Id: Note.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Simpy_Note
 {
+
     /**
      * Private access type
      *
@@ -43,7 +43,7 @@ class Zend_Service_Simpy_Note
      *
      * @var string
      */
-    const ACCESSTYPE_PUBLIC  = 'public';
+    const ACCESSTYPE_PUBLIC = 'public';
 
     /**
      * Access type assigned to the note
@@ -212,4 +212,5 @@ class Zend_Service_Simpy_Note
     {
         return $this->_description;
     }
+
 }

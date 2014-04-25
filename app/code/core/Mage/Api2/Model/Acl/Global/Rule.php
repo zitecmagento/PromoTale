@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -48,6 +49,7 @@
  */
 class Mage_Api2_Model_Acl_Global_Rule extends Mage_Core_Model_Abstract
 {
+
     /**
      * Root resource ID "all"
      */
@@ -62,4 +64,5 @@ class Mage_Api2_Model_Acl_Global_Rule extends Mage_Core_Model_Abstract
     {
         $this->_init('api2/acl_global_rule');
     }
+
 }

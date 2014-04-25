@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize resource model
      *
@@ -55,8 +57,8 @@ class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstra
             Mage::throwException('Invalid token to except');
         }
         $adapter = $this->_getWriteAdapter();
-        $where   = $adapter->quoteInto(
-            'authorized = 1 AND consumer_id = ?', $exceptToken->getConsumerId(), Zend_Db::INT_TYPE
+        $where = $adapter->quoteInto(
+                'authorized = 1 AND consumer_id = ?', $exceptToken->getConsumerId(), Zend_Db::INT_TYPE
         );
         $where .= $adapter->quoteInto(' AND entity_id <> ?', $exceptToken->getId(), Zend_Db::INT_TYPE);
 
@@ -82,14 +84,13 @@ class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstra
             $adapter = $this->_getWriteAdapter();
 
             return $adapter->delete(
-                $this->getMainTable(),
-                $adapter->quoteInto(
-                    'type = "' . Mage_Oauth_Model_Token::TYPE_REQUEST . '" AND created_at <= ?',
-                    Varien_Date::formatDate(time() - $minutes * 60)
-                )
+                            $this->getMainTable(), $adapter->quoteInto(
+                                    'type = "' . Mage_Oauth_Model_Token::TYPE_REQUEST . '" AND created_at <= ?', Varien_Date::formatDate(time() - $minutes * 60)
+                            )
             );
         } else {
             return 0;
         }
     }
+
 }

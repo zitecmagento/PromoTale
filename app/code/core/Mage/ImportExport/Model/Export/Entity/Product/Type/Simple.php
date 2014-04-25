@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,19 +32,19 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Export_Entity_Product_Type_Simple
-    extends Mage_ImportExport_Model_Export_Entity_Product_Type_Abstract
+class Mage_ImportExport_Model_Export_Entity_Product_Type_Simple extends Mage_ImportExport_Model_Export_Entity_Product_Type_Abstract
 {
+
     /**
      * Overriden attributes parameters.
      *
      * @var array
      */
     protected $_attributeOverrides = array(
-        'has_options'      => array('source_model' => 'eav/entity_attribute_source_boolean'),
+        'has_options' => array('source_model' => 'eav/entity_attribute_source_boolean'),
         'required_options' => array('source_model' => 'eav/entity_attribute_source_boolean'),
-        'created_at'       => array('backend_type' => 'datetime'),
-        'updated_at'       => array('backend_type' => 'datetime')
+        'created_at' => array('backend_type' => 'datetime'),
+        'updated_at' => array('backend_type' => 'datetime')
     );
 
     /**
@@ -59,4 +60,5 @@ class Mage_ImportExport_Model_Export_Entity_Product_Type_Simple
         'group_price',
         'category_ids'
     );
+
 }

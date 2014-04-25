@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
@@ -65,11 +65,9 @@ DELETE FROM `{$installer->getTable('core_url_rewrite')}` WHERE `url_rewrite_id` 
 DROP TABLE IF EXISTS `{$installer->getTable('core_url_rewrite_temporary')}`;
 ");
 $conn->addConstraint(
-    'FK_CORE_URL_REWRITE_CATEGORY', $installer->getTable('core_url_rewrite'), 'category_id',
-    $installer->getTable('catalog_category_entity'), 'entity_id'
+        'FK_CORE_URL_REWRITE_CATEGORY', $installer->getTable('core_url_rewrite'), 'category_id', $installer->getTable('catalog_category_entity'), 'entity_id'
 );
 $conn->addConstraint(
-    'FK_CORE_URL_REWRITE_PRODUCT', $installer->getTable('core_url_rewrite'), 'product_id',
-    $installer->getTable('catalog_product_entity'), 'entity_id'
+        'FK_CORE_URL_REWRITE_PRODUCT', $installer->getTable('core_url_rewrite'), 'product_id', $installer->getTable('catalog_product_entity'), 'entity_id'
 );
 $installer->endSetup();

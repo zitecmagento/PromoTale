@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Element.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_InfoCard_Xml_Element_Interface
  */
@@ -34,10 +34,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_InfoCard_Xml_Element
-    extends SimpleXMLElement
-    implements Zend_InfoCard_Xml_Element_Interface
+abstract class Zend_InfoCard_Xml_Element extends SimpleXMLElement implements Zend_InfoCard_Xml_Element_Interface
 {
+
     /**
      * Convert the object to a string by displaying its XML content
      *
@@ -59,7 +58,7 @@ abstract class Zend_InfoCard_Xml_Element
     {
         $dom = dom_import_simplexml($e);
 
-        if(!($dom instanceof DOMElement)) {
+        if (!($dom instanceof DOMElement)) {
             // Zend_InfoCard_Xml_Element exntes SimpleXMLElement, so this should *never* fail
             // @codeCoverageIgnoreStart
             #require_once 'Zend/InfoCard/Xml/Exception.php';
@@ -87,14 +86,14 @@ abstract class Zend_InfoCard_Xml_Element
 
         $reflection = new ReflectionClass($classname);
 
-        if(!$reflection->isSubclassOf('Zend_InfoCard_Xml_Element')) {
+        if (!$reflection->isSubclassOf('Zend_InfoCard_Xml_Element')) {
             #require_once 'Zend/InfoCard/Xml/Exception.php';
             throw new Zend_InfoCard_Xml_Exception("DOM element must be converted to an instance of Zend_InfoCard_Xml_Element");
         }
 
         $sxe = simplexml_import_dom($e, $classname);
 
-        if(!($sxe instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($sxe instanceof Zend_InfoCard_Xml_Element)) {
             // Since we just checked to see if this was a subclass of Zend_infoCard_Xml_Element this shoudl never fail
             // @codeCoverageIgnoreStart
             #require_once 'Zend/InfoCard/Xml/Exception.php';
@@ -104,4 +103,5 @@ abstract class Zend_InfoCard_Xml_Element
 
         return $sxe;
     }
+
 }

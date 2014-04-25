@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: ImageFactory.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Zend_Pdf_ImageFactory
  *
@@ -32,8 +32,10 @@
  */
 class Zend_Pdf_Resource_ImageFactory
 {
-    public static function factory($filename) {
-        if(!is_file($filename)) {
+
+    public static function factory($filename)
+    {
+        if (!is_file($filename)) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception("Cannot create image resource. File not found.");
         }
@@ -44,7 +46,7 @@ class Zend_Pdf_Resource_ImageFactory
          */
         switch (strtolower($extension)) {
             case 'tif':
-                //Fall through to next case;
+            //Fall through to next case;
             case 'tiff':
                 #require_once 'Zend/Pdf/Resource/Image/Tiff.php';
                 return new Zend_Pdf_Resource_Image_Tiff($filename);
@@ -54,9 +56,9 @@ class Zend_Pdf_Resource_ImageFactory
                 return new Zend_Pdf_Resource_Image_Png($filename);
                 break;
             case 'jpg':
-                //Fall through to next case;
+            //Fall through to next case;
             case 'jpe':
-                //Fall through to next case;
+            //Fall through to next case;
             case 'jpeg':
                 #require_once 'Zend/Pdf/Resource/Image/Jpeg.php';
                 return new Zend_Pdf_Resource_Image_Jpeg($filename);
@@ -67,5 +69,5 @@ class Zend_Pdf_Resource_ImageFactory
                 break;
         }
     }
-}
 
+}

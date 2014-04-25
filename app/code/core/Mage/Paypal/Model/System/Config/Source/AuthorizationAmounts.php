@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_Paypal_Model_System_Config_Source_AuthorizationAmounts
 {
+
     /**
      * Options getter
      *
@@ -43,4 +45,5 @@ class Mage_Paypal_Model_System_Config_Source_AuthorizationAmounts
     {
         return array();
     }
+
 }

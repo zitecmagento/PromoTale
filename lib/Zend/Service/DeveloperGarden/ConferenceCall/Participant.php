@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Participant.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Validate_Ip
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_DeveloperGarden_ConferenceCall_Participant
 {
+
     /**
      * @var Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
      */
@@ -81,4 +82,5 @@ class Zend_Service_DeveloperGarden_ConferenceCall_Participant
     {
         return $this->status;
     }
+
 }

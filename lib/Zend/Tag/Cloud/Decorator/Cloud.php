@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 abstract class Zend_Tag_Cloud_Decorator_Cloud
 {
+
     /**
      * Option keys to skip when calling setOptions()
      *

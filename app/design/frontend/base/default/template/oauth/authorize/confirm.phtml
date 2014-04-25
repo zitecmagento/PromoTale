@@ -23,7 +23,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * Authorize confirm simple template
  *
@@ -31,9 +30,9 @@
  */
 ?>
 <div class="account-login login-only">
-        <div class="page-title">
-            <h1><?php echo $this->__('Confirmation Of Authorization') ?></h1>
-        </div>
+    <div class="page-title">
+        <h1><?php echo $this->__('Confirmation Of Authorization') ?></h1>
+    </div>
     <?php echo $this->getMessagesBlock()->toHtml() ?>
     <?php if ($this->getVerifier()): ?>
         <p><?php echo $this->__('Give the verifier code to application administrator') ?></p>

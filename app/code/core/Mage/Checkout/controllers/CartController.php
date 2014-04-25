@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Action list where need check enabled cookie
      *
@@ -83,9 +85,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             $this->_getSession()->getMessages(true);
             $this->getResponse()->setRedirect($returnUrl);
-        } elseif (!Mage::getStoreConfig('checkout/cart/redirect_to_cart')
-            && !$this->getRequest()->getParam('in_cart')
-            && $backUrl = $this->_getRefererUrl()
+        } elseif (!Mage::getStoreConfig('checkout/cart/redirect_to_cart') && !$this->getRequest()->getParam('in_cart') && $backUrl = $this->_getRefererUrl()
         ) {
             $this->getResponse()->setRedirect($backUrl);
         } else {
@@ -107,8 +107,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         $productId = (int) $this->getRequest()->getParam('product');
         if ($productId) {
             $product = Mage::getModel('catalog/product')
-                ->setStoreId(Mage::app()->getStore()->getId())
-                ->load($productId);
+                    ->setStoreId(Mage::app()->getStore()->getId())
+                    ->load($productId);
             if ($product->getId()) {
                 return $product;
             }
@@ -128,11 +128,9 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             if (!$this->_getQuote()->validateMinimumAmount()) {
                 $minimumAmount = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())
-                    ->toCurrency(Mage::getStoreConfig('sales/minimum_order/amount'));
+                        ->toCurrency(Mage::getStoreConfig('sales/minimum_order/amount'));
 
-                $warning = Mage::getStoreConfig('sales/minimum_order/description')
-                    ? Mage::getStoreConfig('sales/minimum_order/description')
-                    : Mage::helper('checkout')->__('Minimum order amount is %s', $minimumAmount);
+                $warning = Mage::getStoreConfig('sales/minimum_order/description') ? Mage::getStoreConfig('sales/minimum_order/description') : Mage::helper('checkout')->__('Minimum order amount is %s', $minimumAmount);
 
                 $cart->getCheckoutSession()->addNotice($warning);
             }
@@ -157,10 +155,10 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
         Varien_Profiler::start(__METHOD__ . 'cart_display');
         $this
-            ->loadLayout()
-            ->_initLayoutMessages('checkout/session')
-            ->_initLayoutMessages('catalog/session')
-            ->getLayout()->getBlock('head')->setTitle($this->__('Shopping Cart'));
+                ->loadLayout()
+                ->_initLayoutMessages('checkout/session')
+                ->_initLayoutMessages('catalog/session')
+                ->getLayout()->getBlock('head')->setTitle($this->__('Shopping Cart'));
         $this->renderLayout();
         Varien_Profiler::stop(__METHOD__ . 'cart_display');
     }
@@ -177,12 +175,13 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $this->_goBack();
             return;
         }
-        $cart   = $this->_getCart();
+        $cart = $this->_getCart();
         $params = $this->getRequest()->getParams();
-        try {
+        try
+        {
             if (isset($params['qty'])) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                        array('locale' => Mage::app()->getLocale()->getLocaleCode())
                 );
                 $params['qty'] = $filter->filter($params['qty']);
             }
@@ -210,8 +209,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             /**
              * @todo remove wishlist observer processAddToCart
              */
-            Mage::dispatchEvent('checkout_cart_add_product_complete',
-                array('product' => $product, 'request' => $this->getRequest(), 'response' => $this->getResponse())
+            Mage::dispatchEvent('checkout_cart_add_product_complete', array('product' => $product, 'request' => $this->getRequest(),
+                'response' => $this->getResponse())
             );
 
             if (!$this->_getSession()->getNoCartRedirect(true)) {
@@ -221,7 +220,9 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 }
                 $this->_goBack();
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             if ($this->_getSession()->getUseNotice(true)) {
                 $this->_getSession()->addNotice(Mage::helper('core')->escapeHtml($e->getMessage()));
             } else {
@@ -237,7 +238,9 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             } else {
                 $this->_redirectReferer(Mage::helper('checkout/cart')->getCartUrl());
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
             Mage::logException($e);
             $this->_goBack();
@@ -257,21 +260,26 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         }
 
         $itemsCollection = Mage::getModel('sales/order_item')
-            ->getCollection()
-            ->addIdFilter($orderItemIds)
-            ->load();
+                ->getCollection()
+                ->addIdFilter($orderItemIds)
+                ->load();
         /* @var $itemsCollection Mage_Sales_Model_Mysql4_Order_Item_Collection */
         $cart = $this->_getCart();
         foreach ($itemsCollection as $item) {
-            try {
+            try
+            {
                 $cart->addOrderItem($item, 1);
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 if ($this->_getSession()->getUseNotice(true)) {
                     $this->_getSession()->addNotice($e->getMessage());
                 } else {
                     $this->_getSession()->addError($e->getMessage());
                 }
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
                 Mage::logException($e);
                 $this->_goBack();
@@ -301,14 +309,17 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             return;
         }
 
-        try {
+        try
+        {
             $params = new Varien_Object();
             $params->setCategoryId(false);
             $params->setConfigureMode(true);
             $params->setBuyRequest($quoteItem->getBuyRequest());
 
             Mage::helper('catalog/product_view')->prepareAndRender($quoteItem->getProduct()->getId(), $this, $params);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($this->__('Cannot configure product.'));
             Mage::logException($e);
             $this->_goBack();
@@ -321,17 +332,18 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      */
     public function updateItemOptionsAction()
     {
-        $cart   = $this->_getCart();
+        $cart = $this->_getCart();
         $id = (int) $this->getRequest()->getParam('id');
         $params = $this->getRequest()->getParams();
 
         if (!isset($params['options'])) {
             $params['options'] = array();
         }
-        try {
+        try
+        {
             if (isset($params['qty'])) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                        array('locale' => Mage::app()->getLocale()->getLocaleCode())
                 );
                 $params['qty'] = $filter->filter($params['qty']);
             }
@@ -358,8 +370,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             $this->_getSession()->setCartWasUpdated(true);
 
-            Mage::dispatchEvent('checkout_cart_update_item_complete',
-                array('item' => $item, 'request' => $this->getRequest(), 'response' => $this->getResponse())
+            Mage::dispatchEvent('checkout_cart_update_item_complete', array('item' => $item, 'request' => $this->getRequest(),
+                'response' => $this->getResponse())
             );
             if (!$this->_getSession()->getNoCartRedirect(true)) {
                 if (!$cart->getQuote()->getHasError()) {
@@ -368,7 +380,9 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 }
                 $this->_goBack();
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             if ($this->_getSession()->getUseNotice(true)) {
                 $this->_getSession()->addNotice($e->getMessage());
             } else {
@@ -384,7 +398,9 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             } else {
                 $this->_redirectReferer(Mage::helper('checkout/cart')->getCartUrl());
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addException($e, $this->__('Cannot update the item.'));
             Mage::logException($e);
             $this->_goBack();
@@ -402,7 +418,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             return;
         }
 
-        $updateAction = (string)$this->getRequest()->getParam('update_cart_action');
+        $updateAction = (string) $this->getRequest()->getParam('update_cart_action');
 
         switch ($updateAction) {
             case 'empty_cart':
@@ -423,11 +439,12 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      */
     protected function _updateShoppingCart()
     {
-        try {
+        try
+        {
             $cartData = $this->getRequest()->getParam('cart');
             if (is_array($cartData)) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                        array('locale' => Mage::app()->getLocale()->getLocaleCode())
                 );
                 foreach ($cartData as $index => $data) {
                     if (isset($data['qty'])) {
@@ -435,18 +452,22 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                     }
                 }
                 $cart = $this->_getCart();
-                if (! $cart->getCustomerSession()->getCustomer()->getId() && $cart->getQuote()->getCustomerId()) {
+                if (!$cart->getCustomerSession()->getCustomer()->getId() && $cart->getQuote()->getCustomerId()) {
                     $cart->getQuote()->setCustomerId(null);
                 }
 
                 $cartData = $cart->suggestItemsQty($cartData);
                 $cart->updateItems($cartData)
-                    ->save();
+                        ->save();
             }
             $this->_getSession()->setCartWasUpdated(true);
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError(Mage::helper('core')->escapeHtml($e->getMessage()));
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addException($e, $this->__('Cannot update shopping cart.'));
             Mage::logException($e);
         }
@@ -457,12 +478,17 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      */
     protected function _emptyShoppingCart()
     {
-        try {
+        try
+        {
             $this->_getCart()->truncate()->save();
             $this->_getSession()->setCartWasUpdated(true);
-        } catch (Mage_Core_Exception $exception) {
+        }
+        catch (Mage_Core_Exception $exception)
+        {
             $this->_getSession()->addError($exception->getMessage());
-        } catch (Exception $exception) {
+        }
+        catch (Exception $exception)
+        {
             $this->_getSession()->addException($exception, $this->__('Cannot update shopping cart.'));
         }
     }
@@ -474,10 +500,13 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     {
         $id = (int) $this->getRequest()->getParam('id');
         if ($id) {
-            try {
+            try
+            {
                 $this->_getCart()->removeItem($id)
-                  ->save();
-            } catch (Exception $e) {
+                        ->save();
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->addError($this->__('Cannot remove the item.'));
                 Mage::logException($e);
             }
@@ -490,19 +519,19 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      */
     public function estimatePostAction()
     {
-        $country    = (string) $this->getRequest()->getParam('country_id');
-        $postcode   = (string) $this->getRequest()->getParam('estimate_postcode');
-        $city       = (string) $this->getRequest()->getParam('estimate_city');
-        $regionId   = (string) $this->getRequest()->getParam('region_id');
-        $region     = (string) $this->getRequest()->getParam('region');
+        $country = (string) $this->getRequest()->getParam('country_id');
+        $postcode = (string) $this->getRequest()->getParam('estimate_postcode');
+        $city = (string) $this->getRequest()->getParam('estimate_city');
+        $regionId = (string) $this->getRequest()->getParam('region_id');
+        $region = (string) $this->getRequest()->getParam('region');
 
         $this->_getQuote()->getShippingAddress()
-            ->setCountryId($country)
-            ->setCity($city)
-            ->setPostcode($postcode)
-            ->setRegionId($regionId)
-            ->setRegion($region)
-            ->setCollectShippingRates(true);
+                ->setCountryId($country)
+                ->setCity($city)
+                ->setPostcode($postcode)
+                ->setRegionId($regionId)
+                ->setRegion($region)
+                ->setCollectShippingRates(true);
         $this->_getQuote()->save();
         $this->_goBack();
     }
@@ -516,7 +545,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     {
         $code = (string) $this->getRequest()->getParam('estimate_method');
         if (!empty($code)) {
-            $this->_getQuote()->getShippingAddress()->setShippingMethod($code)/*->collectTotals()*/->save();
+            $this->_getQuote()->getShippingAddress()->setShippingMethod($code)/* ->collectTotals() */->save();
         }
         $this->_goBack();
     }
@@ -545,36 +574,41 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             return;
         }
 
-        try {
+        try
+        {
             $codeLength = strlen($couponCode);
             $isCodeLengthValid = $codeLength && $codeLength <= Mage_Checkout_Helper_Cart::COUPON_CODE_MAX_LENGTH;
 
             $this->_getQuote()->getShippingAddress()->setCollectShippingRates(true);
             $this->_getQuote()->setCouponCode($isCodeLengthValid ? $couponCode : '')
-                ->collectTotals()
-                ->save();
+                    ->collectTotals()
+                    ->save();
 
             if ($codeLength) {
                 if ($isCodeLengthValid && $couponCode == $this->_getQuote()->getCouponCode()) {
                     $this->_getSession()->addSuccess(
-                        $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode))
+                            $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode))
                     );
                 } else {
                     $this->_getSession()->addError(
-                        $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
+                            $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
                     );
                 }
             } else {
                 $this->_getSession()->addSuccess($this->__('Coupon code was canceled.'));
             }
-
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($this->__('Cannot apply the coupon code.'));
             Mage::logException($e);
         }
 
         $this->_goBack();
     }
+
 }

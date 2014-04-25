@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales observer
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Model_Observer
 {
+
     /**
      * Expire quotes additional fields to filter
      *
@@ -52,14 +53,14 @@ class Mage_Sales_Model_Observer
         Mage::dispatchEvent('clear_expired_quotes_before', array('sales_observer' => $this));
 
         $lifetimes = Mage::getConfig()->getStoresConfigByPath('checkout/cart/delete_quote_after');
-        foreach ($lifetimes as $storeId=>$lifetime) {
+        foreach ($lifetimes as $storeId => $lifetime) {
             $lifetime *= 86400;
 
             /** @var $quotes Mage_Sales_Model_Mysql4_Quote_Collection */
             $quotes = Mage::getModel('sales/quote')->getCollection();
 
             $quotes->addFieldToFilter('store_id', $storeId);
-            $quotes->addFieldToFilter('updated_at', array('to'=>date("Y-m-d", time()-$lifetime)));
+            $quotes->addFieldToFilter('updated_at', array('to' => date("Y-m-d", time() - $lifetime)));
             $quotes->addFieldToFilter('is_active', 0);
 
             foreach ($this->getExpireQuotesAdditionalFilterFields() as $field => $condition) {
@@ -145,11 +146,11 @@ class Mage_Sales_Model_Observer
      */
     public function catalogProductStatusUpdate(Varien_Event_Observer $observer)
     {
-        $status     = $observer->getEvent()->getStatus();
+        $status = $observer->getEvent()->getStatus();
         if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
             return $this;
         }
-        $productId  = $observer->getEvent()->getProductId();
+        $productId = $observer->getEvent()->getProductId();
         Mage::getResourceSingleton('sales/quote')->markQuotesRecollect($productId);
 
         return $this;
@@ -244,17 +245,15 @@ class Mage_Sales_Model_Observer
     {
         // replace the element of recurring payment profile field with a form
         $profileElement = $observer->getEvent()->getProductElement();
-        $block = Mage::app()->getLayout()->createBlock('sales/adminhtml_recurring_profile_edit_form',
-            'adminhtml_recurring_profile_edit_form')->setParentElement($profileElement)
-            ->setProductEntity($observer->getEvent()->getProduct());
+        $block = Mage::app()->getLayout()->createBlock('sales/adminhtml_recurring_profile_edit_form', 'adminhtml_recurring_profile_edit_form')->setParentElement($profileElement)
+                ->setProductEntity($observer->getEvent()->getProduct());
         $observer->getEvent()->getResult()->output = $block->toHtml();
 
         // make the profile element dependent on is_recurring
-        $dependencies = Mage::app()->getLayout()->createBlock('adminhtml/widget_form_element_dependence',
-            'adminhtml_recurring_profile_edit_form_dependence')->addFieldMap('is_recurring', 'product[is_recurring]')
-            ->addFieldMap($profileElement->getHtmlId(), $profileElement->getName())
-            ->addFieldDependence($profileElement->getName(), 'product[is_recurring]', '1')
-            ->addConfigOptions(array('levels_up' => 2));
+        $dependencies = Mage::app()->getLayout()->createBlock('adminhtml/widget_form_element_dependence', 'adminhtml_recurring_profile_edit_form_dependence')->addFieldMap('is_recurring', 'product[is_recurring]')
+                ->addFieldMap($profileElement->getHtmlId(), $profileElement->getName())
+                ->addFieldDependence($profileElement->getName(), 'product[is_recurring]', '1')
+                ->addConfigOptions(array('levels_up' => 2));
         $observer->getEvent()->getResult()->output .= $dependencies->toHtml();
     }
 
@@ -290,9 +289,7 @@ class Mage_Sales_Model_Observer
              * It is needed to process customer's quotes for all websites
              * if customer accounts are shared between all of them
              */
-            $websites = (Mage::getSingleton('customer/config_share')->isWebsiteScope())
-                ? array(Mage::app()->getWebsite($customer->getWebsiteId()))
-                : Mage::app()->getWebsites();
+            $websites = (Mage::getSingleton('customer/config_share')->isWebsiteScope()) ? array(Mage::app()->getWebsite($customer->getWebsiteId())) : Mage::app()->getWebsites();
 
             /** @var $quote Mage_Sales_Model_Quote */
             $quote = Mage::getSingleton('sales/quote');
@@ -353,12 +350,11 @@ class Mage_Sales_Model_Observer
 
         $vatRequestId = $orderAddress->getVatRequestId();
         $vatRequestDate = $orderAddress->getVatRequestDate();
-        if (is_string($vatRequestId) && !empty($vatRequestId) && is_string($vatRequestDate)
-            && !empty($vatRequestDate)
+        if (is_string($vatRequestId) && !empty($vatRequestId) && is_string($vatRequestDate) && !empty($vatRequestDate)
         ) {
             $orderHistoryComment = Mage::helper('customer')->__('VAT Request Identifier')
-                . ': ' . $vatRequestId . '<br />' . Mage::helper('customer')->__('VAT Request Date')
-                . ': ' . $vatRequestDate;
+                    . ': ' . $vatRequestId . '<br />' . Mage::helper('customer')->__('VAT Request Date')
+                    . ': ' . $vatRequestDate;
             $orderInstance->addStatusHistoryComment($orderHistoryComment, false);
         }
     }
@@ -425,8 +421,7 @@ class Mage_Sales_Model_Observer
         $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType($storeId);
 
         // When VAT is based on billing address then Magento have to handle only billing addresses
-        $additionalBillingAddressCondition = ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_BILLING)
-            ? $configAddressType != $quoteAddress->getAddressType() : false;
+        $additionalBillingAddressCondition = ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_BILLING) ? $configAddressType != $quoteAddress->getAddressType() : false;
         // Handle only addresses that corresponds to VAT configuration
         if (!$addressHelper->isVatValidationEnabled($storeId) || $additionalBillingAddressCondition) {
             return;
@@ -438,11 +433,9 @@ class Mage_Sales_Model_Observer
         $customerCountryCode = $quoteAddress->getCountryId();
         $customerVatNumber = $quoteAddress->getVatId();
 
-        if ((empty($customerVatNumber) || !Mage::helper('core')->isCountryInEU($customerCountryCode))
-            && !$isDisableAutoGroupChange
+        if ((empty($customerVatNumber) || !Mage::helper('core')->isCountryInEU($customerCountryCode)) && !$isDisableAutoGroupChange
         ) {
-            $groupId = ($customerInstance->getId()) ? $customerHelper->getDefaultCustomerGroupId($storeId)
-                : Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
+            $groupId = ($customerInstance->getId()) ? $customerHelper->getDefaultCustomerGroupId($storeId) : Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
 
             $quoteAddress->setPrevQuoteCustomerGroupId($quoteInstance->getCustomerGroupId());
             $customerInstance->setGroupId($groupId);
@@ -457,40 +450,35 @@ class Mage_Sales_Model_Observer
         $merchantVatNumber = $coreHelper->getMerchantVatNumber();
 
         $gatewayResponse = null;
-        if ($addressHelper->getValidateOnEachTransaction($storeId)
-            || $customerCountryCode != $quoteAddress->getValidatedCountryCode()
-            || $customerVatNumber != $quoteAddress->getValidatedVatNumber()
+        if ($addressHelper->getValidateOnEachTransaction($storeId) || $customerCountryCode != $quoteAddress->getValidatedCountryCode() || $customerVatNumber != $quoteAddress->getValidatedVatNumber()
         ) {
             // Send request to gateway
             $gatewayResponse = $customerHelper->checkVatNumber(
-                $customerCountryCode,
-                $customerVatNumber,
-                ($merchantVatNumber !== '') ? $merchantCountryCode : '',
-                $merchantVatNumber
+                    $customerCountryCode, $customerVatNumber, ($merchantVatNumber !== '') ? $merchantCountryCode : '', $merchantVatNumber
             );
 
             // Store validation results in corresponding quote address
-            $quoteAddress->setVatIsValid((int)$gatewayResponse->getIsValid())
-                ->setVatRequestId($gatewayResponse->getRequestIdentifier())
-                ->setVatRequestDate($gatewayResponse->getRequestDate())
-                ->setVatRequestSuccess($gatewayResponse->getRequestSuccess())
-                ->setValidatedVatNumber($customerVatNumber)
-                ->setValidatedCountryCode($customerCountryCode)
-                ->save();
+            $quoteAddress->setVatIsValid((int) $gatewayResponse->getIsValid())
+                    ->setVatRequestId($gatewayResponse->getRequestIdentifier())
+                    ->setVatRequestDate($gatewayResponse->getRequestDate())
+                    ->setVatRequestSuccess($gatewayResponse->getRequestSuccess())
+                    ->setValidatedVatNumber($customerVatNumber)
+                    ->setValidatedCountryCode($customerCountryCode)
+                    ->save();
         } else {
             // Restore validation results from corresponding quote address
             $gatewayResponse = new Varien_Object(array(
-                'is_valid' => (int)$quoteAddress->getVatIsValid(),
-                'request_identifier' => (string)$quoteAddress->getVatRequestId(),
-                'request_date' => (string)$quoteAddress->getVatRequestDate(),
-                'request_success' => (boolean)$quoteAddress->getVatRequestSuccess()
+                'is_valid' => (int) $quoteAddress->getVatIsValid(),
+                'request_identifier' => (string) $quoteAddress->getVatRequestId(),
+                'request_date' => (string) $quoteAddress->getVatRequestDate(),
+                'request_success' => (boolean) $quoteAddress->getVatRequestSuccess()
             ));
         }
 
         // Magento always has to emulate group even if customer uses default billing/shipping address
         if (!$isDisableAutoGroupChange) {
             $groupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
-                $customerCountryCode, $gatewayResponse, $customerInstance->getStore()
+                    $customerCountryCode, $gatewayResponse, $customerInstance->getStore()
             );
         } else {
             $groupId = $quoteInstance->getCustomerGroupId();
@@ -513,11 +501,11 @@ class Mage_Sales_Model_Observer
         $quoteAddress = $observer->getQuoteAddress();
         $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType();
         // Restore initial customer group ID in quote only if VAT is calculated based on shipping address
-        if ($quoteAddress->hasPrevQuoteCustomerGroupId()
-            && $configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING
+        if ($quoteAddress->hasPrevQuoteCustomerGroupId() && $configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING
         ) {
             $quoteAddress->getQuote()->setCustomerGroupId($quoteAddress->getPrevQuoteCustomerGroupId());
             $quoteAddress->unsPrevQuoteCustomerGroupId();
         }
     }
+
 }

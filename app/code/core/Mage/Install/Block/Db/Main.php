@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,12 +32,13 @@
  */
 class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
 {
+
     /**
      * Array of Database blocks keyed by name
      *
      * @var array
      */
-    protected $_databases       = array();
+    protected $_databases = array();
 
     /**
      * Adding customized database block template for database model type
@@ -49,9 +51,9 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
     public function addDatabaseBlock($type, $block, $template)
     {
         $this->_databases[$type] = array(
-            'block'     => $block,
-            'template'  => $template,
-            'instance'  => null
+            'block' => $block,
+            'template' => $template,
+            'instance' => null
         );
 
         return $this;
@@ -71,8 +73,8 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
                 $block = $this->_databases[$type]['instance'];
             } else {
                 $block = $this->getLayout()->createBlock($this->_databases[$type]['block'])
-                    ->setTemplate($this->_databases[$type]['template'])
-                    ->setIdPrefix($type);
+                        ->setTemplate($this->_databases[$type]['template'])
+                        ->setIdPrefix($type);
                 $this->_databases[$type]['instance'] = $block;
             }
         }
@@ -105,8 +107,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
             $data = Mage::getSingleton('install/session')->getConfigData(true);
             if (empty($data)) {
                 $data = Mage::getModel('install/installer_config')->getFormData();
-            }
-            else {
+            } else {
                 $data = new Varien_Object($data);
             }
             $this->setFormData($data);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Clone model for media images related config fields
  *
@@ -45,7 +45,6 @@ class Mage_Adminhtml_Model_System_Config_Clone_Media_Image extends Mage_Core_Mod
         //$entityType = Mage::getModel('eav/entity_type');
         /* @var $entityType Mage_Eav_Model_Entity_Type */
         //$entityTypeId = $entityType->loadByCode('catalog_product')->getEntityTypeId();
-
         // use cached eav config
         $entityTypeId = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY)->getId();
 

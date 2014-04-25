@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -42,9 +43,9 @@
  * @package     Mage_Poll
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
 {
+
     protected function _construct()
     {
         $this->_init('poll/poll_answer');
@@ -53,7 +54,7 @@ class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
     public function countPercent($poll)
     {
         $this->setPercent(
-            round(($poll->getVotesCount() > 0 ) ? ($this->getVotesCount() * 100 / $poll->getVotesCount()) : 0, 2)
+                round(($poll->getVotesCount() > 0 ) ? ($this->getVotesCount() * 100 / $poll->getVotesCount()) : 0, 2)
         );
         return $this;
     }
@@ -61,8 +62,8 @@ class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
     protected function _afterSave()
     {
         Mage::getModel('poll/poll')
-            ->setId($this->getPollId())
-            ->resetVotesCount();
+                ->setId($this->getPollId())
+                ->resetVotesCount();
     }
 
     protected function _beforeDelete()
@@ -73,7 +74,8 @@ class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
     protected function _afterDelete()
     {
         Mage::getModel('poll/poll')
-            ->setId($this->getPollId())
-            ->resetVotesCount();
+                ->setId($this->getPollId())
+                ->resetVotesCount();
     }
+
 }

@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Extension.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Base
  */
@@ -37,4 +36,5 @@
  */
 abstract class Zend_Gdata_App_Extension extends Zend_Gdata_App_Base
 {
+    
 }

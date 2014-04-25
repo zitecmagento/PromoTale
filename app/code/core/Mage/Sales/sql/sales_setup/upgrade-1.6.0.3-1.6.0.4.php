@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,15 +24,12 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
  * Create aggregation tables for updated_at fields
  */
-
 /** @var $installer Mage_Sales_Model_Entity_Setup */
 $installer = $this;
 $connection = $installer->getConnection();
 $connection->createTable($connection->createTableByDdl(
-    $installer->getTable('sales/order_aggregated_created'),
-    $installer->getTable('sales/order_aggregated_updated')
+                $installer->getTable('sales/order_aggregated_created'), $installer->getTable('sales/order_aggregated_updated')
 ));

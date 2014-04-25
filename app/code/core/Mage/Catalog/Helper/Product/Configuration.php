@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstract
-    implements Mage_Catalog_Helper_Product_Configuration_Interface
+class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstract implements Mage_Catalog_Helper_Product_Configuration_Interface
 {
+
     const XML_PATH_CONFIGURABLE_ALLOWED_TYPES = 'global/catalog/product/type/configurable/allow_product_types';
 
     /**
@@ -54,9 +55,9 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                 if ($option) {
                     $itemOption = $item->getOptionByCode('option_' . $option->getId());
                     $group = $option->groupFactory($option->getType())
-                        ->setOption($option)
-                        ->setConfigurationItem($item)
-                        ->setConfigurationItemOption($itemOption);
+                            ->setOption($option)
+                            ->setConfigurationItem($item)
+                            ->setConfigurationItemOption($itemOption);
 
                     if ('file' == $option->getType()) {
                         $downloadParams = $item->getFileDownloadParams();
@@ -103,10 +104,10 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         $product = $item->getProduct();
         $typeId = $product->getTypeId();
         if ($typeId != Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
-             Mage::throwException($this->__('Wrong product type to extract configurable options.'));
+            Mage::throwException($this->__('Wrong product type to extract configurable options.'));
         }
         $attributes = $product->getTypeInstance(true)
-            ->getSelectedAttributesInfo($product);
+                ->getSelectedAttributesInfo($product);
         return array_merge($attributes, $this->getCustomOptions($item));
     }
 
@@ -121,7 +122,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         $product = $item->getProduct();
         $typeId = $product->getTypeId();
         if ($typeId != Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
-             Mage::throwException($this->__('Wrong product type to extract configurable options.'));
+            Mage::throwException($this->__('Wrong product type to extract configurable options.'));
         }
 
         $options = array();
@@ -226,10 +227,13 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         if (isset($optionInfo['custom_view']) && $optionInfo['custom_view']) {
             $_default = array('value' => $optionValue);
             if (isset($optionInfo['option_type'])) {
-                try {
+                try
+                {
                     $group = Mage::getModel('catalog/product_option')->groupFactory($optionInfo['option_type']);
                     return array('value' => $group->getCustomizedView($optionInfo));
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     return $_default;
                 }
             }
@@ -270,7 +274,8 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
     public function getConfigurableAllowedTypes()
     {
         return Mage::getConfig()
-                ->getNode(self::XML_PATH_CONFIGURABLE_ALLOWED_TYPES)
-                ->children();
+                        ->getNode(self::XML_PATH_CONFIGURABLE_ALLOWED_TYPES)
+                        ->children();
     }
+
 }

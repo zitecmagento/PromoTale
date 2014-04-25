@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -49,44 +50,44 @@ class Mage_Adminhtml_Block_Report_Customer_Orders_Grid extends Mage_Adminhtml_Bl
     protected function _prepareColumns()
     {
         $this->addColumn('name', array(
-            'header'    => $this->__('Customer Name'),
-            'sortable'  => false,
-            'index'     => 'name'
+            'header' => $this->__('Customer Name'),
+            'sortable' => false,
+            'index' => 'name'
         ));
 
         $this->addColumn('orders_count', array(
-            'header'    => $this->__('Number of Orders'),
-            'width'     => '100px',
-            'sortable'  => false,
-            'index'     => 'orders_count',
-            'total'     => 'sum',
-            'type'      => 'number'
+            'header' => $this->__('Number of Orders'),
+            'width' => '100px',
+            'sortable' => false,
+            'index' => 'orders_count',
+            'total' => 'sum',
+            'type' => 'number'
         ));
 
         $baseCurrencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('orders_avg_amount', array(
-            'header'    => $this->__('Average Order Amount'),
-            'width'     => '200px',
-            'align'     => 'right',
-            'sortable'  => false,
-            'type'      => 'currency',
-            'currency_code'  => $baseCurrencyCode,
-            'index'     => 'orders_avg_amount',
-            'total'     => 'orders_sum_amount/orders_count',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+            'header' => $this->__('Average Order Amount'),
+            'width' => '200px',
+            'align' => 'right',
+            'sortable' => false,
+            'type' => 'currency',
+            'currency_code' => $baseCurrencyCode,
+            'index' => 'orders_avg_amount',
+            'total' => 'orders_sum_amount/orders_count',
+            'renderer' => 'adminhtml/report_grid_column_renderer_currency'
         ));
 
         $this->addColumn('orders_sum_amount', array(
-            'header'    => $this->__('Total Order Amount'),
-            'width'     => '200px',
-            'align'     => 'right',
-            'sortable'  => false,
-            'type'      => 'currency',
-            'currency_code'  => $baseCurrencyCode,
-            'index'     => 'orders_sum_amount',
-            'total'     => 'sum',
-            'renderer'  => 'adminhtml/report_grid_column_renderer_currency',
+            'header' => $this->__('Total Order Amount'),
+            'width' => '200px',
+            'align' => 'right',
+            'sortable' => false,
+            'type' => 'currency',
+            'currency_code' => $baseCurrencyCode,
+            'index' => 'orders_sum_amount',
+            'total' => 'sum',
+            'renderer' => 'adminhtml/report_grid_column_renderer_currency',
         ));
 
         $this->addExportType('*/*/exportOrdersCsv', Mage::helper('reports')->__('CSV'));

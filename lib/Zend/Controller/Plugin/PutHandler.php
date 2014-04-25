@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: PutHandler.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Controller_Plugin_Abstract
  */
@@ -40,6 +40,7 @@
  */
 class Zend_Controller_Plugin_PutHandler extends Zend_Controller_Plugin_Abstract
 {
+
     /**
      * Before dispatching, digest PUT request body and set params
      *
@@ -57,4 +58,5 @@ class Zend_Controller_Plugin_PutHandler extends Zend_Controller_Plugin_Abstract
             $request->setParams($putParams);
         }
     }
+
 }

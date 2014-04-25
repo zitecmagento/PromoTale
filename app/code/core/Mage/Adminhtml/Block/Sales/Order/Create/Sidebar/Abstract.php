@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
+
     /**
      * Default Storage action on selected item
      *
@@ -143,7 +145,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
             /*
              * Filtering items by allowed product type
              */
-            foreach($items as $key => $item) {
+            foreach ($items as $key => $item) {
                 if ($item instanceof Mage_Catalog_Model_Product) {
                     $type = $item->getTypeId();
                 } else if ($item instanceof Mage_Sales_Model_Order_Item) {

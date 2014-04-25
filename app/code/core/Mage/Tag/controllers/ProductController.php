@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,15 +32,15 @@
  * @package    Mage_Tag
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Tag_ProductController extends Mage_Core_Controller_Front_Action
 {
+
     public function listAction()
     {
         $tagId = $this->getRequest()->getParam('tagId');
         $tag = Mage::getModel('tag/tag')->load($tagId);
 
-        if(!$tag->getId() || !$tag->isAvailableInStore()) {
+        if (!$tag->getId() || !$tag->isAvailableInStore()) {
             $this->_forward('404');
             return;
         }
@@ -50,4 +51,5 @@ class Mage_Tag_ProductController extends Mage_Core_Controller_Front_Action
         $this->_initLayoutMessages('tag/session');
         $this->renderLayout();
     }
+
 }

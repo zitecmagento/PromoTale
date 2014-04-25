@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
 {
+
     /**
      * Address instance with data
      *
@@ -84,7 +86,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
                 $data->setCustomerData(1);
             }
             if (isset($data['region_id'])) {
-                $data['region_id'] = (int)$data['region_id'];
+                $data['region_id'] = (int) $data['region_id'];
             }
             $this->setData('form_data', $data);
         }
@@ -155,10 +157,11 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     {
         if ($this->getFormData()->getCustomerData()) {
             $request = $form->prepareRequest($this->getFormData()->getData());
-            $data    = $form->extractData($request, $scope, false);
+            $data = $form->extractData($request, $scope, false);
             $form->restoreData($data);
         }
 
         return $this;
     }
+
 }

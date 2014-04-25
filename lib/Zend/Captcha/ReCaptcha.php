@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** @see Zend_Captcha_Base */
 #require_once 'Zend/Captcha/Base.php';
 
@@ -41,13 +41,14 @@
  */
 class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
 {
-    /**@+
+    /*     * @+
      * ReCaptcha Field names
      * @var string
      */
+
     protected $_CHALLENGE = 'recaptcha_challenge_field';
-    protected $_RESPONSE  = 'recaptcha_response_field';
-    /**@-*/
+    protected $_RESPONSE = 'recaptcha_response_field';
+    /*     * @- */
 
     /**
      * Recaptcha service object
@@ -70,13 +71,15 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
      */
     protected $_serviceOptions = array();
 
-    /**#@+
+    /*     * #@+
      * Error codes
      */
+
     const MISSING_VALUE = 'missingValue';
-    const ERR_CAPTCHA   = 'errCaptcha';
-    const BAD_CAPTCHA   = 'badCaptcha';
-    /**#@-*/
+    const ERR_CAPTCHA = 'errCaptcha';
+    const BAD_CAPTCHA = 'badCaptcha';
+
+    /*     * #@- */
 
     /**
      * Error messages
@@ -84,8 +87,8 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
      */
     protected $_messageTemplates = array(
         self::MISSING_VALUE => 'Missing captcha fields',
-        self::ERR_CAPTCHA   => 'Failed to validate captcha',
-        self::BAD_CAPTCHA   => 'Captcha value is wrong: %value%',
+        self::ERR_CAPTCHA => 'Failed to validate captcha',
+        self::BAD_CAPTCHA => 'Captcha value is wrong: %value%',
     );
 
     /**
@@ -263,4 +266,5 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
     {
         return $this->getService()->getHTML();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 abstract class Zend_Controller_Request_Abstract
 {
+
     /**
      * Has the action been dispatched?
      * @var boolean
@@ -295,10 +297,10 @@ abstract class Zend_Controller_Request_Abstract
      *
      * @return array
      */
-     public function getParams()
-     {
-         return $this->_params;
-     }
+    public function getParams()
+    {
+        return $this->_params;
+    }
 
     /**
      * Set action parameters en masse; does not overwrite
@@ -353,4 +355,5 @@ abstract class Zend_Controller_Request_Abstract
     {
         return $this->_dispatched;
     }
+
 }

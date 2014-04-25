@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reports Product Index Abstract Resource Model
  *
@@ -34,12 +34,13 @@
  */
 abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Fields List for update in forsedSave
      *
      * @var array
      */
-    protected $_fieldsForUpdate    = array('store_id', 'added_at');
+    protected $_fieldsForUpdate = array('store_id', 'added_at');
 
     /**
      * Update Customer from visitor (Customer logged in)
@@ -56,46 +57,45 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
             return $this;
         }
         $adapter = $this->_getWriteAdapter();
-        $select  = $adapter->select()
-            ->from($this->getMainTable())
-            ->where('visitor_id = ?', $object->getVisitorId());
+        $select = $adapter->select()
+                ->from($this->getMainTable())
+                ->where('visitor_id = ?', $object->getVisitorId());
 
         $rowSet = $select->query()->fetchAll();
         foreach ($rowSet as $row) {
 
             /* We need to determine if there are rows with known
-               customer for current product.
+              customer for current product.
              */
 
             $select = $adapter->select()
-                ->from($this->getMainTable())
-                ->where('customer_id = ?', $object->getCustomerId())
-                ->where('product_id = ?', $row['product_id']);
+                    ->from($this->getMainTable())
+                    ->where('customer_id = ?', $object->getCustomerId())
+                    ->where('product_id = ?', $row['product_id']);
             $idx = $adapter->fetchRow($select);
 
             if ($idx) {
-            /* If we are here it means that we have two rows: one with known customer, but second just visitor is set
-             * One row should be updated with customer_id, second should be deleted
-             *
-             */
+                /* If we are here it means that we have two rows: one with known customer, but second just visitor is set
+                 * One row should be updated with customer_id, second should be deleted
+                 *
+                 */
                 $adapter->delete($this->getMainTable(), array('index_id = ?' => $row['index_id']));
                 $where = array('index_id = ?' => $idx['index_id']);
-                $data  = array(
-                    'visitor_id'    => $object->getVisitorId(),
-                    'store_id'      => $object->getStoreId(),
-                    'added_at'      => Varien_Date::now(),
+                $data = array(
+                    'visitor_id' => $object->getVisitorId(),
+                    'store_id' => $object->getStoreId(),
+                    'added_at' => Varien_Date::now(),
                 );
             } else {
                 $where = array('index_id = ?' => $row['index_id']);
-                $data  = array(
-                    'customer_id'   => $object->getCustomerId(),
-                    'store_id'      => $object->getStoreId(),
-                    'added_at'      => Varien_Date::now()
+                $data = array(
+                    'customer_id' => $object->getCustomerId(),
+                    'store_id' => $object->getStoreId(),
+                    'added_at' => Varien_Date::now()
                 );
             }
 
             $adapter->update($this->getMainTable(), $data, $where);
-
         }
         return $this;
     }
@@ -115,8 +115,8 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
             return $this;
         }
 
-        $bind   = array('visitor_id'      => null);
-        $where  = array('customer_id = ?' => (int)$object->getCustomerId());
+        $bind = array('visitor_id' => null);
+        $where = array('customer_id = ?' => (int) $object->getCustomerId());
         $this->_getWriteAdapter()->update($this->getMainTable(), $bind, $where);
 
         return $this;
@@ -128,7 +128,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
      * @param Mage_Reports_Model_Product_Index_Abstract $object
      * @return Mage_Reports_Model_Resource_Product_Index_Abstract
      */
-    public function save(Mage_Core_Model_Abstract  $object)
+    public function save(Mage_Core_Model_Abstract $object)
     {
         if ($object->isDeleted()) {
             return $this->delete($object);
@@ -144,9 +144,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
         $matchFields = array('product_id', 'store_id');
 
         Mage::getResourceHelper('reports')->mergeVisitorProductIndex(
-            $this->getMainTable(),
-            $data,
-            $matchFields
+                $this->getMainTable(), $data, $matchFields
         );
 
 
@@ -155,7 +153,6 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
 
         return $this;
     }
-
 
     /**
      * Clean index (visitor)
@@ -166,14 +163,12 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
     {
         while (true) {
             $select = $this->_getReadAdapter()->select()
-                ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName()))
-                ->joinLeft(
-                    array('visitor_table' => $this->getTable('log/visitor')),
-                    'main_table.visitor_id = visitor_table.visitor_id',
-                    array())
-                ->where('main_table.visitor_id > ?', 0)
-                ->where('visitor_table.visitor_id IS NULL')
-                ->limit(100);
+                    ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName()))
+                    ->joinLeft(
+                            array('visitor_table' => $this->getTable('log/visitor')), 'main_table.visitor_id = visitor_table.visitor_id', array())
+                    ->where('main_table.visitor_id > ?', 0)
+                    ->where('visitor_table.visitor_id IS NULL')
+                    ->limit(100);
             $indexIds = $this->_getReadAdapter()->fetchCol($select);
 
             if (!$indexIds) {
@@ -181,8 +176,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
             }
 
             $this->_getWriteAdapter()->delete(
-                $this->getMainTable(),
-                $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $indexIds)
+                    $this->getMainTable(), $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $indexIds)
             );
         }
         return $this;
@@ -199,17 +193,17 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
     public function registerIds(Varien_Object $object, $productIds)
     {
         $row = array(
-            'visitor_id'    => $object->getVisitorId(),
-            'customer_id'   => $object->getCustomerId(),
-            'store_id'      => $object->getStoreId(),
+            'visitor_id' => $object->getVisitorId(),
+            'customer_id' => $object->getCustomerId(),
+            'store_id' => $object->getStoreId(),
         );
-        $addedAt    = Varien_Date::toTimestamp(true);
+        $addedAt = Varien_Date::toTimestamp(true);
         $data = array();
         foreach ($productIds as $productId) {
             $productId = (int) $productId;
             if ($productId) {
                 $row['product_id'] = $productId;
-                $row['added_at']   = Varien_Date::formatDate($addedAt);
+                $row['added_at'] = Varien_Date::formatDate($addedAt);
                 $data[] = $row;
             }
             $addedAt -= ($addedAt > 0) ? 1 : 0;
@@ -218,11 +212,10 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
         $matchFields = array('product_id', 'store_id');
         foreach ($data as $row) {
             Mage::getResourceHelper('reports')->mergeVisitorProductIndex(
-                $this->getMainTable(),
-                $row,
-                $matchFields
+                    $this->getMainTable(), $row, $matchFields
             );
         }
         return $this;
     }
+
 }

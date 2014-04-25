@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Installer model
  *
@@ -39,7 +39,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Installer host response used to check urls
      *
      */
-    const INSTALLER_HOST_RESPONSE   = 'MAGENTO';
+    const INSTALLER_HOST_RESPONSE = 'MAGENTO';
 
     /**
      * Installer data model used to store data between installation steps
@@ -90,10 +90,13 @@ class Mage_Install_Model_Installer extends Varien_Object
      */
     public function checkDownloads()
     {
-        try {
+        try
+        {
             $result = Mage::getModel('install/installer_pear')->checkDownloads();
             $result = true;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $result = false;
         }
         $this->setDownloadCheckStatus($result);
@@ -107,12 +110,15 @@ class Mage_Install_Model_Installer extends Varien_Object
      */
     public function checkServer()
     {
-        try {
+        try
+        {
             Mage::getModel('install/installer_filesystem')->install();
 
             Mage::getModel('install/installer_env')->install();
             $result = true;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $result = false;
         }
         $this->setData('server_check_status', $result);
@@ -146,8 +152,8 @@ class Mage_Install_Model_Installer extends Varien_Object
         $data = Mage::getSingleton('install/installer_db')->checkDbConnectionData($data);
 
         Mage::getSingleton('install/installer_config')
-            ->setConfigData($data)
-            ->install();
+                ->setConfigData($data)
+                ->install();
         return $this;
     }
 
@@ -189,8 +195,7 @@ class Mage_Install_Model_Installer extends Varien_Object
             if (!empty($data['use_secure_admin'])) {
                 $setupModel->setConfigData(Mage_Core_Model_Store::XML_PATH_SECURE_IN_ADMINHTML, 1);
             }
-        }
-        elseif (!empty($data['unsecure_base_url'])) {
+        } elseif (!empty($data['unsecure_base_url'])) {
             $setupModel->setConfigData(Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL, $unsecureBaseUrl);
         }
 
@@ -223,7 +228,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     public function validateAndPrepareAdministrator($data)
     {
         $user = Mage::getModel('admin/user')
-            ->load($data['username'], 'username');
+                ->load($data['username'], 'username');
         $user->addData($data);
 
         $result = $user->validate();
@@ -247,7 +252,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     public function createAdministrator($data)
     {
         $user = Mage::getModel('admin/user')
-            ->load('admin', 'username');
+                ->load('admin', 'username');
         if ($user && $user->getPassword() == '4297f44b13955235245b2497399d7a93') {
             $user->delete();
         }
@@ -266,10 +271,10 @@ class Mage_Install_Model_Installer extends Varien_Object
         $data->save();
         $data->setRoleIds(array(1))->saveRelations();
 
-        /*Mage::getModel("permissions/user")->setRoleId(1)
-            ->setUserId($user->getId())
-            ->setFirstname($user->getFirstname())
-            ->add();*/
+        /* Mage::getModel("permissions/user")->setRoleId(1)
+          ->setUserId($user->getId())
+          ->setFirstname($user->getFirstname())
+          ->add(); */
 
         return true;
     }
@@ -285,11 +290,14 @@ class Mage_Install_Model_Installer extends Varien_Object
     {
         $errors = array();
 
-        try {
+        try
+        {
             if ($key) {
                 Mage::helper('core')->validateKey($key);
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $errors[] = $e->getMessage();
             $this->getDataModel()->addError($e->getMessage());
         }

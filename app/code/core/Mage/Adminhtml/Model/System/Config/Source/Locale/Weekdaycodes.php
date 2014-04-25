@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,8 +32,10 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Locale_Weekdaycodes
 {
+
     public function toOptionArray()
     {
         return Mage::app()->getLocale()->getOptionWeekdays(true, true);
     }
+
 }

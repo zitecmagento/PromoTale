@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -50,8 +51,8 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
         /* @var $collection Mage_Reports_Model_Resource_Tag_Customer_Collection */
         $collection = Mage::getResourceModel('reports/tag_customer_collection');
         $collection->addStatusFilter(Mage::getModel('tag/tag')->getApprovedStatus())
-            ->addTagFilter($this->getRequest()->getParam('id'))
-            ->addProductToSelect();
+                ->addTagFilter($this->getRequest()->getParam('id'))
+                ->addProductToSelect();
 
         $this->setCollection($collection);
 
@@ -67,26 +68,26 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
     {
 
         $this->addColumn('firstname', array(
-            'header'    =>Mage::helper('reports')->__('First Name'),
-            'index'     =>'firstname'
+            'header' => Mage::helper('reports')->__('First Name'),
+            'index' => 'firstname'
         ));
 
         $this->addColumn('lastname', array(
-            'header'    =>Mage::helper('reports')->__('Last Name'),
-            'index'     =>'lastname'
+            'header' => Mage::helper('reports')->__('Last Name'),
+            'index' => 'lastname'
         ));
 
         $this->addColumn('product', array(
-            'header'    =>Mage::helper('reports')->__('Product Name'),
-            'index'     =>'product_name'
+            'header' => Mage::helper('reports')->__('Product Name'),
+            'index' => 'product_name'
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('added_in', array(
-                'header'    => Mage::helper('reports')->__('Submitted In'),
-                'index'     => 'added_in',
-                'type'      => 'store',
-                'store_view'=> true
+                'header' => Mage::helper('reports')->__('Submitted In'),
+                'index' => 'added_in',
+                'type' => 'store',
+                'store_view' => true
             ));
         }
 

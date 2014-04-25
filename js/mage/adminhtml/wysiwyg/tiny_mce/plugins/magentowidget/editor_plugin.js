@@ -22,16 +22,16 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-tinyMCE.addI18n({en:{
-    magentowidget:
-    {
-        insert_widget : "Insert Widget"
-    }
-}});
+tinyMCE.addI18n({en: {
+        magentowidget:
+                {
+                    insert_widget: "Insert Widget"
+                }
+    }});
 
 /*
-    TODO: Apply JStrim to reduce file size
-*/
+ TODO: Apply JStrim to reduce file size
+ */
 
 (function() {
     tinymce.create('tinymce.plugins.MagentowidgetPlugin', {
@@ -39,16 +39,16 @@ tinyMCE.addI18n({en:{
          * @param {tinymce.Editor} ed Editor instance that the plugin is initialized in.
          * @param {string} url Absolute URL to where the plugin is located.
          */
-        init : function(ed, url) {
+        init: function(ed, url) {
             ed.addCommand('mceMagentowidget', function() {
                 widgetTools.openDialog(ed.settings.magentowidget_url + 'widget_target_id/' + ed.getElement().id + '/');
             });
 
             // Register Widget plugin button
             ed.addButton('magentowidget', {
-                title : 'magentowidget.insert_widget',
-                cmd : 'mceMagentowidget',
-                image : url + '/img/icon.gif'
+                title: 'magentowidget.insert_widget',
+                cmd: 'mceMagentowidget',
+                image: url + '/img/icon.gif'
             });
 
             // Add a node change handler, selects the button in the UI when a image is selected
@@ -73,14 +73,13 @@ tinyMCE.addI18n({en:{
                 }
             });
         },
-
-        getInfo : function() {
+        getInfo: function() {
             return {
-                longname : 'Magento Widget Manager Plugin for TinyMCE 3.x',
-                author : 'Magento Core Team',
-                authorurl : 'http://magentocommerce.com',
-                infourl : 'http://magentocommerce.com',
-                version : "1.0"
+                longname: 'Magento Widget Manager Plugin for TinyMCE 3.x',
+                author: 'Magento Core Team',
+                authorurl: 'http://magentocommerce.com',
+                infourl: 'http://magentocommerce.com',
+                version: "1.0"
             };
         }
     });

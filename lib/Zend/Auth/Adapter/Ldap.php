@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Ldap.php 21319 2010-03-04 16:02:16Z sgehrig $
  */
-
 /**
  * @see Zend_Auth_Adapter_Interface
  */
@@ -291,7 +291,8 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
             $adapterOptions = $this->_prepareOptions($ldap, $options);
             $dname = '';
 
-            try {
+            try
+            {
                 if ($messages[1])
                     $messages[] = $messages[1];
                 $messages[1] = '';
@@ -335,8 +336,8 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
                     $messages[1] = '';
                     $messages[] = "$canonicalName authentication successful";
                     if ($requireRebind === true) {
-	                    // rebinding with authenticated user
-	                    $ldap->bind($dn, $password);
+                        // rebinding with authenticated user
+                        $ldap->bind($dn, $password);
                     }
                     return new Zend_Auth_Result(Zend_Auth_Result::SUCCESS, $canonicalName, $messages);
                 } else {
@@ -344,7 +345,9 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
                     $messages[1] = $groupResult;
                     $failedAuthorities[$dname] = $groupResult;
                 }
-            } catch (Zend_Ldap_Exception $zle) {
+            }
+            catch (Zend_Ldap_Exception $zle)
+            {
 
                 /* LDAP based authentication is notoriously difficult to diagnose. Therefore
                  * we bend over backwards to capture and record every possible bit of
@@ -394,13 +397,13 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
     protected function _prepareOptions(Zend_Ldap $ldap, array $options)
     {
         $adapterOptions = array(
-            'group'       => null,
-            'groupDn'     => $ldap->getBaseDn(),
-            'groupScope'  => Zend_Ldap::SEARCH_SCOPE_SUB,
-            'groupAttr'   => 'cn',
+            'group' => null,
+            'groupDn' => $ldap->getBaseDn(),
+            'groupScope' => Zend_Ldap::SEARCH_SCOPE_SUB,
+            'groupAttr' => 'cn',
             'groupFilter' => 'objectClass=groupOfUniqueNames',
-            'memberAttr'  => 'uniqueMember',
-            'memberIsDn'  => true
+            'memberAttr' => 'uniqueMember',
+            'memberIsDn' => true
         );
         foreach ($adapterOptions as $key => $value) {
             if (array_key_exists($key, $options)) {
@@ -408,10 +411,10 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
                 unset($options[$key]);
                 switch ($key) {
                     case 'groupScope':
-                        $value = (int)$value;
+                        $value = (int) $value;
                         if (in_array($value, array(Zend_Ldap::SEARCH_SCOPE_BASE,
-                                Zend_Ldap::SEARCH_SCOPE_ONE, Zend_Ldap::SEARCH_SCOPE_SUB), true)) {
-                           $adapterOptions[$key] = $value;
+                                    Zend_Ldap::SEARCH_SCOPE_ONE, Zend_Ldap::SEARCH_SCOPE_SUB), true)) {
+                            $adapterOptions[$key] = $value;
                         }
                         break;
                     case 'memberIsDn':
@@ -523,4 +526,5 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
         }
         return $str;
     }
+
 }

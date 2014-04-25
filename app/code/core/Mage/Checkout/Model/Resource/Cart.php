@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Resource model for Checkout Cart
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Model initialization
      *
@@ -53,11 +54,11 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
     {
         $read = $this->_getReadAdapter();
         $select = $read->select()
-            ->from(array('q'=>$this->getTable('sales/quote')), array('items_qty', 'items_count'))
-            ->where('q.entity_id = :quote_id');
+                ->from(array('q' => $this->getTable('sales/quote')), array('items_qty', 'items_count'))
+                ->where('q.entity_id = :quote_id');
 
         $result = $read->fetchRow($select, array(':quote_id' => $quoteId));
-        return $result ? $result : array('items_qty'=>0, 'items_count'=>0);
+        return $result ? $result : array('items_qty' => 0, 'items_count' => 0);
     }
 
     /**
@@ -70,9 +71,9 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
     {
         $read = $this->_getReadAdapter();
         $select = $read->select()
-            ->from(array('qi'=>$this->getTable('sales/quote_item')),
-                array('id'=>'item_id', 'product_id', 'super_product_id', 'qty', 'created_at'))
-            ->where('qi.quote_id = :quote_id');
+                ->from(array('qi' => $this->getTable('sales/quote_item')), array('id' => 'item_id', 'product_id', 'super_product_id',
+                    'qty', 'created_at'))
+                ->where('qi.quote_id = :quote_id');
 
         return $read->fetchAll($select, array(':quote_id' => $quoteId));
     }
@@ -88,10 +89,11 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
     {
         $adapter = $this->_getReadAdapter();
         $exclusionSelect = $adapter->select()
-            ->from($this->getTable('sales/quote_item'), array('product_id'))
-            ->where('quote_id = ?', $quoteId);
+                ->from($this->getTable('sales/quote_item'), array('product_id'))
+                ->where('quote_id = ?', $quoteId);
         $condition = $adapter->prepareSqlCondition('e.entity_id', array('nin' => $exclusionSelect));
         $collection->getSelect()->where($condition);
         return $this;
     }
+
 }

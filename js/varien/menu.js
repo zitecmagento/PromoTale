@@ -31,53 +31,48 @@
 var mainNav = function() {
 
     var main = {
-        obj_nav :   $(arguments[0]) || $("nav"),
-
-        settings :  {
-            show_delay      :   0,
-            hide_delay      :   0,
-            _ie6            :   /MSIE 6.+Win/.test(navigator.userAgent),
-            _ie7            :   /MSIE 7.+Win/.test(navigator.userAgent)
+        obj_nav: $(arguments[0]) || $("nav"),
+        settings: {
+            show_delay: 0,
+            hide_delay: 0,
+            _ie6: /MSIE 6.+Win/.test(navigator.userAgent),
+            _ie7: /MSIE 7.+Win/.test(navigator.userAgent)
         },
-
-        init :  function(obj, level) {
+        init: function(obj, level) {
             obj.lists = obj.childElements();
-            obj.lists.each(function(el,ind){
+            obj.lists.each(function(el, ind) {
                 main.handlNavElement(el);
-                if((main.settings._ie6 || main.settings._ie7) && level){
+                if ((main.settings._ie6 || main.settings._ie7) && level) {
                     main.ieFixZIndex(el, ind, obj.lists.size());
                 }
             });
-            if(main.settings._ie6 && !level){
+            if (main.settings._ie6 && !level) {
                 document.execCommand("BackgroundImageCache", false, true);
             }
         },
-
-        handlNavElement :   function(list) {
-            if(list !== undefined){
-                list.onmouseover = function(){
-                    main.fireNavEvent(this,true);
+        handlNavElement: function(list) {
+            if (list !== undefined) {
+                list.onmouseover = function() {
+                    main.fireNavEvent(this, true);
                 };
-                list.onmouseout = function(){
-                    main.fireNavEvent(this,false);
+                list.onmouseout = function() {
+                    main.fireNavEvent(this, false);
                 };
-                if(list.down("ul")){
+                if (list.down("ul")) {
                     main.init(list.down("ul"), true);
                 }
             }
         },
-
-        ieFixZIndex : function(el, i, l) {
-            if(el.tagName.toString().toLowerCase().indexOf("iframe") == -1){
+        ieFixZIndex: function(el, i, l) {
+            if (el.tagName.toString().toLowerCase().indexOf("iframe") == -1) {
                 el.style.zIndex = l - i;
             } else {
                 el.onmouseover = "null";
                 el.onmouseout = "null";
             }
         },
-
-        fireNavEvent :  function(elm,ev) {
-            if(ev){
+        fireNavEvent: function(elm, ev) {
+            if (ev) {
                 elm.addClassName("over");
                 elm.down("a").addClassName("over");
                 if (elm.childElements()[1]) {
@@ -91,8 +86,7 @@ var mainNav = function() {
                 }
             }
         },
-
-        show : function (sub_elm) {
+        show: function(sub_elm) {
             if (sub_elm.hide_time_id) {
                 clearTimeout(sub_elm.hide_time_id);
             }
@@ -102,12 +96,11 @@ var mainNav = function() {
                 }
             }, main.settings.show_delay);
         },
-
-        hide : function (sub_elm) {
+        hide: function(sub_elm) {
             if (sub_elm.show_time_id) {
                 clearTimeout(sub_elm.show_time_id);
             }
-            sub_elm.hide_time_id = setTimeout(function(){
+            sub_elm.hide_time_id = setTimeout(function() {
                 if (sub_elm.hasClassName("shown-sub")) {
                     sub_elm.removeClassName("shown-sub");
                 }
@@ -128,5 +121,5 @@ document.observe("dom:loaded", function() {
     //mainNav();
 
     //run navigation with delays
-    mainNav("nav", {"show_delay":"100","hide_delay":"100"});
+    mainNav("nav", {"show_delay": "100", "hide_delay": "100"});
 });

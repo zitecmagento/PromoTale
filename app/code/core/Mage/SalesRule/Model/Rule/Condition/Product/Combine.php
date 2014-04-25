@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Model_Condition_Combine
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -39,19 +39,19 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
         $productAttributes = $productCondition->loadAttributeOptions()->getAttributeOption();
         $pAttributes = array();
         $iAttributes = array();
-        foreach ($productAttributes as $code=>$label) {
-            if (strpos($code, 'quote_item_')===0) {
-                $iAttributes[] = array('value'=>'salesrule/rule_condition_product|'.$code, 'label'=>$label);
+        foreach ($productAttributes as $code => $label) {
+            if (strpos($code, 'quote_item_') === 0) {
+                $iAttributes[] = array('value' => 'salesrule/rule_condition_product|' . $code, 'label' => $label);
             } else {
-                $pAttributes[] = array('value'=>'salesrule/rule_condition_product|'.$code, 'label'=>$label);
+                $pAttributes[] = array('value' => 'salesrule/rule_condition_product|' . $code, 'label' => $label);
             }
         }
 
         $conditions = parent::getNewChildSelectOptions();
         $conditions = array_merge_recursive($conditions, array(
-            array('value'=>'salesrule/rule_condition_product_combine', 'label'=>Mage::helper('catalog')->__('Conditions Combination')),
-            array('label'=>Mage::helper('catalog')->__('Cart Item Attribute'), 'value'=>$iAttributes),
-            array('label'=>Mage::helper('catalog')->__('Product Attribute'), 'value'=>$pAttributes),
+            array('value' => 'salesrule/rule_condition_product_combine', 'label' => Mage::helper('catalog')->__('Conditions Combination')),
+            array('label' => Mage::helper('catalog')->__('Cart Item Attribute'), 'value' => $iAttributes),
+            array('label' => Mage::helper('catalog')->__('Product Attribute'), 'value' => $pAttributes),
         ));
         return $conditions;
     }
@@ -63,4 +63,5 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
         }
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -85,7 +86,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         return Mage::app()->getStore($storeId);
     }
 
-    public function getRoot($parentNodeCategory=null, $recursionLevel=3)
+    public function getRoot($parentNodeCategory = null, $recursionLevel = 3)
     {
         if (!is_null($parentNodeCategory) && $parentNodeCategory->getId()) {
             return $this->getNode($parentNodeCategory, $recursionLevel);
@@ -97,13 +98,12 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
             if ($storeId) {
                 $store = Mage::app()->getStore($storeId);
                 $rootId = $store->getRootCategoryId();
-            }
-            else {
+            } else {
                 $rootId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
             }
 
             $tree = Mage::getResourceSingleton('catalog/category_tree')
-                ->load(null, $recursionLevel);
+                    ->load(null, $recursionLevel);
 
             if ($this->getCategory()) {
                 $tree->loadEnsuredNodes($this->getCategory(), $tree->getNodeById($rootId));
@@ -115,8 +115,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
 
             if ($root && $rootId != Mage_Catalog_Model_Category::TREE_ROOT_ID) {
                 $root->setIsVisible(true);
-            }
-            elseif($root && $root->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
+            } elseif ($root && $root->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
                 $root->setName(Mage::helper('catalog')->__('Root'));
             }
 
@@ -140,13 +139,13 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         $root = Mage::registry('root');
         if (null === $root) {
             $categoryTreeResource = Mage::getResourceSingleton('catalog/category_tree');
-            $ids    = $categoryTreeResource->getExistingCategoryIdsBySpecifiedIds($ids);
-            $tree   = $categoryTreeResource->loadByIds($ids);
+            $ids = $categoryTreeResource->getExistingCategoryIdsBySpecifiedIds($ids);
+            $tree = $categoryTreeResource->loadByIds($ids);
             $rootId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
-            $root   = $tree->getNodeById($rootId);
+            $root = $tree->getNodeById($rootId);
             if ($root && $rootId != Mage_Catalog_Model_Category::TREE_ROOT_ID) {
                 $root->setIsVisible(true);
-            } else if($root && $root->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
+            } else if ($root && $root->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
                 $root->setName(Mage::helper('catalog')->__('Root'));
             }
 
@@ -156,19 +155,19 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         return $root;
     }
 
-    public function getNode($parentNodeCategory, $recursionLevel=2)
+    public function getNode($parentNodeCategory, $recursionLevel = 2)
     {
         $tree = Mage::getResourceModel('catalog/category_tree');
 
-        $nodeId     = $parentNodeCategory->getId();
-        $parentId   = $parentNodeCategory->getParentId();
+        $nodeId = $parentNodeCategory->getId();
+        $parentId = $parentNodeCategory->getParentId();
 
         $node = $tree->loadNode($nodeId);
         $node->loadChildren($recursionLevel);
 
         if ($node && $nodeId != Mage_Catalog_Model_Category::TREE_ROOT_ID) {
             $node->setIsVisible(true);
-        } elseif($node && $node->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
+        } elseif ($node && $node->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
             $node->setName(Mage::helper('catalog')->__('Root'));
         }
 
@@ -179,14 +178,15 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
 
     public function getSaveUrl(array $args = array())
     {
-        $params = array('_current'=>true);
+        $params = array('_current' => true);
         $params = array_merge($params, $args);
         return $this->getUrl('*/*/save', $params);
     }
 
     public function getEditUrl()
     {
-        return $this->getUrl("*/catalog_category/edit", array('_current'=>true, 'store'=>null, '_query'=>false, 'id'=>null, 'parent'=>null));
+        return $this->getUrl("*/catalog_category/edit", array('_current' => true, 'store' => null, '_query' => false, 'id' => null,
+                    'parent' => null));
     }
 
     /**
@@ -206,4 +206,5 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         }
         return $ids;
     }
+
 }

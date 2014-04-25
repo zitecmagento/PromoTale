@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -28,6 +29,7 @@
  */
 class Zend_Crypt_Rsa_Key implements Countable
 {
+
     /**
      * @var string
      */
@@ -92,4 +94,5 @@ class Zend_Crypt_Rsa_Key implements Countable
     {
         return $this->_details['type'];
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Init Grid default properties
      *
@@ -55,7 +57,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('catalogsearch/query')
-            ->getResourceCollection();
+                ->getResourceCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -67,57 +69,57 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
      */
     protected function _prepareColumns()
     {
-        /*$this->addColumn('query_id', array(
-            'header'    => Mage::helper('catalog')->__('ID'),
-            'width'     => '50px',
-            'index'     => 'query_id',
-        ));*/
+        /* $this->addColumn('query_id', array(
+          'header'    => Mage::helper('catalog')->__('ID'),
+          'width'     => '50px',
+          'index'     => 'query_id',
+          )); */
 
         $this->addColumn('search_query', array(
-            'header'    => Mage::helper('catalog')->__('Search Query'),
-            'index'     => 'query_text',
+            'header' => Mage::helper('catalog')->__('Search Query'),
+            'index' => 'query_text',
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', array(
-                'header'        => Mage::helper('catalog')->__('Store'),
-                'index'         => 'store_id',
-                'type'          => 'store',
-                'store_view'    => true,
-                'sortable'      => false
+                'header' => Mage::helper('catalog')->__('Store'),
+                'index' => 'store_id',
+                'type' => 'store',
+                'store_view' => true,
+                'sortable' => false
             ));
         }
 
         $this->addColumn('num_results', array(
-            'header'    => Mage::helper('catalog')->__('Results'),
-            'index'     => 'num_results',
-            'type'      => 'number'
+            'header' => Mage::helper('catalog')->__('Results'),
+            'index' => 'num_results',
+            'type' => 'number'
         ));
 
         $this->addColumn('popularity', array(
-            'header'    => Mage::helper('catalog')->__('Number of Uses'),
-            'index'     => 'popularity',
-            'type'      => 'number'
+            'header' => Mage::helper('catalog')->__('Number of Uses'),
+            'index' => 'popularity',
+            'type' => 'number'
         ));
 
         $this->addColumn('synonym_for', array(
-            'header'    => Mage::helper('catalog')->__('Synonym For'),
-            'align'     => 'left',
-            'index'     => 'synonym_for',
-            'width'     => '160px'
+            'header' => Mage::helper('catalog')->__('Synonym For'),
+            'align' => 'left',
+            'index' => 'synonym_for',
+            'width' => '160px'
         ));
 
         $this->addColumn('redirect', array(
-            'header'    => Mage::helper('catalog')->__('Redirect'),
-            'align'     => 'left',
-            'index'     => 'redirect',
-            'width'     => '200px'
+            'header' => Mage::helper('catalog')->__('Redirect'),
+            'align' => 'left',
+            'index' => 'redirect',
+            'width' => '200px'
         ));
 
         $this->addColumn('display_in_terms', array(
-            'header'=>Mage::helper('catalog')->__('Display in Suggested Terms'),
-            'sortable'=>true,
-            'index'=>'display_in_terms',
+            'header' => Mage::helper('catalog')->__('Display in Suggested Terms'),
+            'sortable' => true,
+            'index' => 'display_in_terms',
             'type' => 'options',
             'width' => '100px',
             'options' => array(
@@ -126,22 +128,21 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
             ),
             'align' => 'left',
         ));
-        $this->addColumn('action',
-            array(
-                'header'    => Mage::helper('catalog')->__('Action'),
-                'width'     => '100px',
-                'type'      => 'action',
-                'getter'    => 'getId',
-                'actions'   => array(array(
-                    'caption'   => Mage::helper('catalog')->__('Edit'),
-                    'url'       => array(
-                        'base'=>'*/*/edit'
+        $this->addColumn('action', array(
+            'header' => Mage::helper('catalog')->__('Action'),
+            'width' => '100px',
+            'type' => 'action',
+            'getter' => 'getId',
+            'actions' => array(array(
+                    'caption' => Mage::helper('catalog')->__('Edit'),
+                    'url' => array(
+                        'base' => '*/*/edit'
                     ),
-                    'field'   => 'id'
+                    'field' => 'id'
                 )),
-                'filter'    => false,
-                'sortable'  => false,
-                'index'     => 'catalog',
+            'filter' => false,
+            'sortable' => false,
+            'index' => 'catalog',
         ));
         return parent::_prepareColumns();
     }
@@ -157,9 +158,9 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
         $this->getMassactionBlock()->setFormFieldName('search');
 
         $this->getMassactionBlock()->addItem('delete', array(
-             'label'    => Mage::helper('catalog')->__('Delete'),
-             'url'      => $this->getUrl('*/*/massDelete'),
-             'confirm'  => Mage::helper('catalog')->__('Are you sure?')
+            'label' => Mage::helper('catalog')->__('Delete'),
+            'url' => $this->getUrl('*/*/massDelete'),
+            'confirm' => Mage::helper('catalog')->__('Are you sure?')
         ));
 
         return parent::_prepareMassaction();

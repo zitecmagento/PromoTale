@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tags customer collection
  *
@@ -34,26 +34,27 @@
  */
 class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Resource_Customer_Collection
 {
+
     /**
      * Allows disabling grouping
      *
      * @var bool
      */
-    protected $_allowDisableGrouping     = true;
+    protected $_allowDisableGrouping = true;
 
     /**
      * Count attribute for count sql
      *
      * @var string
      */
-    protected $_countAttribute           = 'tr.tag_id';
+    protected $_countAttribute = 'tr.tag_id';
 
     /**
      * Array with joined tables
      *
      * @var array
      */
-    protected $_joinFlags                = array();
+    protected $_joinFlags = array();
 
     /**
      * Prepare select
@@ -121,7 +122,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     public function addTagFilter($tagId)
     {
         $this->getSelect()
-            ->where('tr.tag_id = ?', $tagId);
+                ->where('tr.tag_id = ?', $tagId);
         return $this;
     }
 
@@ -134,7 +135,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     public function addProductFilter($productId)
     {
         $this->getSelect()
-            ->where('tr.product_id = ?', $productId);
+                ->where('tr.product_id = ?', $productId);
         return $this;
     }
 
@@ -159,7 +160,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     public function addStatusFilter($status)
     {
         $this->getSelect()
-            ->where('t.status = ?', $status);
+                ->where('t.status = ?', $status);
         return $this;
     }
 
@@ -171,7 +172,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     public function addDescOrder()
     {
         $this->getSelect()
-            ->order('tr.tag_relation_id desc');
+                ->order('tr.tag_relation_id desc');
         return $this;
     }
 
@@ -183,7 +184,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     public function addGroupByTag()
     {
         $this->getSelect()
-            ->group('tr.tag_id');
+                ->group('tr.tag_id');
 
         /*
          * Allow analytic functions usage
@@ -202,7 +203,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     public function addGroupByCustomer()
     {
         $this->getSelect()
-            ->group('tr.customer_id');
+                ->group('tr.customer_id');
 
         $this->_allowDisableGrouping = false;
         return $this;
@@ -243,16 +244,15 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
 
         //TODO: add full name logic
         $this->addAttributeToSelect('firstname')
-            ->addAttributeToSelect('lastname')
-            ->addAttributeToSelect('email');
+                ->addAttributeToSelect('lastname')
+                ->addAttributeToSelect('email');
 
         $this->getSelect()
-        ->join(
-            array('tr' => $tagRelationTable),
-            'tr.customer_id = e.entity_id',
-            array('tag_relation_id', 'product_id', 'active', 'added_in' => 'store_id')
-        )
-        ->join(array('t' => $tagTable), 't.tag_id = tr.tag_id', array('*'));
+                ->join(
+                        array('tr' => $tagRelationTable), 'tr.customer_id = e.entity_id', array('tag_relation_id', 'product_id',
+                    'active', 'added_in' => 'store_id')
+                )
+                ->join(array('t' => $tagTable), 't.tag_id = tr.tag_id', array('*'));
     }
 
     /**
@@ -279,7 +279,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      */
     public function addProductName()
     {
-        $productsId   = array();
+        $productsId = array();
         $productsData = array();
 
         foreach ($this->getItems() as $item) {
@@ -289,14 +289,14 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         $productsId = array_unique($productsId);
 
         /* small fix */
-        if ( sizeof($productsId) == 0 ) {
+        if (sizeof($productsId) == 0) {
             return;
         }
 
         $collection = Mage::getModel('catalog/product')->getCollection()
-            ->addAttributeToSelect('name')
-            ->addAttributeToSelect('sku')
-            ->addIdFilter($productsId);
+                ->addAttributeToSelect('name')
+                ->addAttributeToSelect('sku')
+                ->addIdFilter($productsId);
 
         $collection->load();
 
@@ -325,17 +325,14 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         foreach (array('name' => 'value') as $field => $fieldName) {
             $attr = $resource->getAttribute($field);
             $this->_select->joinLeft(
-                array($field => $attr->getBackend()->getTable()),
-                'tr.product_id = ' . $field . '.entity_id AND ' . $field . '.attribute_id = ' . $attr->getId(),
-                array('product_' . $field => $fieldName)
+                    array($field => $attr->getBackend()->getTable()), 'tr.product_id = ' . $field . '.entity_id AND ' . $field . '.attribute_id = ' . $attr->getId(), array(
+                'product_' . $field => $fieldName)
             );
         }
 
         // add product fields
         $this->_select->joinLeft(
-            array('p' => $this->getTable('catalog/product')),
-            'tr.product_id = p.entity_id',
-            array('product_sku' => 'sku')
+                array('p' => $this->getTable('catalog/product')), 'tr.product_id = p.entity_id', array('product_sku' => 'sku')
         );
 
         return $this;
@@ -392,7 +389,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
             parent::_renderOrders();
 
             $orders = $this->getSelect()
-                ->getPart(Zend_Db_Select::ORDER);
+                    ->getPart(Zend_Db_Select::ORDER);
 
             $appliedOrders = array();
             foreach ($orders as $order) {
@@ -407,4 +404,5 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         }
         return $this;
     }
+
 }

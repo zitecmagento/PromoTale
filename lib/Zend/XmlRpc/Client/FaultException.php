@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FaultException.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_XmlRpc_Client_Exception */
 #require_once 'Zend/XmlRpc/Client/Exception.php';
-
 
 /**
  * Thrown by Zend_XmlRpc_Client when an XML-RPC fault response is returned.
@@ -35,4 +33,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_XmlRpc_Client_FaultException extends Zend_XmlRpc_Client_Exception
-{}
+{
+    
+}

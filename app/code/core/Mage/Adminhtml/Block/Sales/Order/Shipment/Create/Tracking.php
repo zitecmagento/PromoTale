@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Prepares layout of block
      *
@@ -40,16 +42,13 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking extends Mage_Adm
      */
     protected function _prepareLayout()
     {
-        $this->setChild('add_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'   => Mage::helper('sales')->__('Add Tracking Number'),
-                    'class'   => '',
-                    'onclick' => 'trackingControl.add()'
-                ))
-
+        $this->setChild('add_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('sales')->__('Add Tracking Number'),
+                            'class' => '',
+                            'onclick' => 'trackingControl.add()'
+                        ))
         );
-
     }
 
     /**
@@ -71,7 +70,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking extends Mage_Adm
     {
         $carriers = array();
         $carrierInstances = Mage::getSingleton('shipping/config')->getAllCarriers(
-            $this->getShipment()->getStoreId()
+                $this->getShipment()->getStoreId()
         );
         $carriers['custom'] = Mage::helper('sales')->__('Custom Value');
         foreach ($carrierInstances as $code => $carrier) {
@@ -81,4 +80,5 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking extends Mage_Adm
         }
         return $carriers;
     }
+
 }

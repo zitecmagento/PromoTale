@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogSearch fulltext indexer model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer_Abstract
 {
+
     /**
      * Data key for matching result to be saved in
      */
@@ -138,7 +139,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
-        $data       = $event->getNewData();
+        $data = $event->getNewData();
         if (isset($data[self::EVENT_MATCH_RESULT_KEY])) {
             return $data[self::EVENT_MATCH_RESULT_KEY];
         }
@@ -146,7 +147,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
         $entity = $event->getEntity();
         if ($entity == Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY) {
             /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
-            $attribute      = $event->getDataObject();
+            $attribute = $event->getDataObject();
 
             if (!$attribute) {
                 $result = false;
@@ -235,7 +236,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
         switch ($event->getType()) {
             case Mage_Index_Model_Event::TYPE_SAVE:
                 /* @var $category Mage_Catalog_Model_Category */
-                $category   = $event->getDataObject();
+                $category = $event->getDataObject();
                 $productIds = $category->getAffectedProductIds();
                 if ($productIds) {
                     $event->addNewData('catalogsearch_category_update_product_ids', $productIds);
@@ -278,7 +279,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                 /* @var $actionObject Varien_Object */
                 $actionObject = $event->getDataObject();
 
-                $reindexData  = array();
+                $reindexData = array();
                 $rebuildIndex = false;
 
                 // check if status changed
@@ -372,7 +373,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
             }
 
             $this->_getIndexer()->cleanIndex(null, $productId)
-                ->resetSearchResults();
+                    ->resetSearchResults();
         } else if (!empty($data['catalogsearch_update_product_id'])) {
             $productId = $data['catalogsearch_update_product_id'];
             $productIds = array($productId);
@@ -385,7 +386,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
             }
 
             $this->_getIndexer()->rebuildIndex(null, $productIds)
-                ->resetSearchResults();
+                    ->resetSearchResults();
         } else if (!empty($data['catalogsearch_product_ids'])) {
             // mass action
             $productIds = $data['catalogsearch_product_ids'];
@@ -398,12 +399,12 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                     foreach (Mage::app()->getWebsite($websiteId)->getStoreIds() as $storeId) {
                         if ($actionType == 'remove') {
                             $this->_getIndexer()
-                                ->cleanIndex($storeId, $productIds)
-                                ->resetSearchResults();
+                                    ->cleanIndex($storeId, $productIds)
+                                    ->resetSearchResults();
                         } else if ($actionType == 'add') {
                             $this->_getIndexer()
-                                ->rebuildIndex($storeId, $productIds)
-                                ->resetSearchResults();
+                                    ->rebuildIndex($storeId, $productIds)
+                                    ->resetSearchResults();
                         }
                     }
                 }
@@ -412,25 +413,25 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                 $status = $data['catalogsearch_status'];
                 if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
                     $this->_getIndexer()
-                        ->rebuildIndex(null, $productIds)
-                        ->resetSearchResults();
+                            ->rebuildIndex(null, $productIds)
+                            ->resetSearchResults();
                 } else {
                     $this->_getIndexer()
-                        ->cleanIndex(null, $productIds)
-                        ->resetSearchResults();
+                            ->cleanIndex(null, $productIds)
+                            ->resetSearchResults();
                 }
             }
             if (isset($data['catalogsearch_force_reindex'])) {
                 $this->_getIndexer()
-                    ->rebuildIndex(null, $productIds)
-                    ->resetSearchResults();
+                        ->rebuildIndex(null, $productIds)
+                        ->resetSearchResults();
             }
         } else if (isset($data['catalogsearch_category_update_product_ids'])) {
             $productIds = $data['catalogsearch_category_update_product_ids'];
             $categoryIds = $data['catalogsearch_category_update_category_ids'];
 
             $this->_getIndexer()
-                ->updateCategoryIndex($productIds, $categoryIds);
+                    ->updateCategoryIndex($productIds, $categoryIds);
         }
     }
 
@@ -442,12 +443,16 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
     {
         $resourceModel = $this->_getIndexer()->getResource();
         $resourceModel->beginTransaction();
-        try {
+        try
+        {
             $this->_getIndexer()->rebuildIndex();
             $resourceModel->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $resourceModel->rollBack();
             throw $e;
         }
     }
+
 }

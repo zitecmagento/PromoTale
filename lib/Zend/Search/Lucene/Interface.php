@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,14 +19,11 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Interface.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Index_TermsStream_Interface */
 #require_once 'Zend/Search/Lucene/Index/TermsStream/Interface.php';
 
 
 /** Classes used within Zend_Search_Lucene_Interface API */
-
 /** Zend_Search_Lucene_Document */
 #require_once 'Zend/Search/Lucene/Document.php';
 
@@ -35,7 +33,6 @@
 /** Zend_Search_Lucene_Index_DocsFilter */
 #require_once 'Zend/Search/Lucene/Index/DocsFilter.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -44,6 +41,7 @@
  */
 interface Zend_Search_Lucene_Interface extends Zend_Search_Lucene_Index_TermsStream_Interface
 {
+
     /**
      * Get current generation number
      *
@@ -397,7 +395,6 @@ interface Zend_Search_Lucene_Interface extends Zend_Search_Lucene_Index_TermsStr
      * Undeletes all documents currently marked as deleted in this index.
      */
     public function undeleteAll();
-
 
     /**
      * Add reference to the index object

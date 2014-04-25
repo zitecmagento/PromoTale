@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,17 +24,19 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 {
+
     /**
      * @deprecated after 1.3.2.3
      */
     protected $_track_id;
+
     /**
      * @deprecated after 1.3.2.3
      */
     protected $_order_id;
+
     /**
      * @deprecated after 1.3.2.3
      */
@@ -74,7 +77,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     /**
      * @deprecated after 1.3.2.3
      */
-    public function setTrackId($tid='')
+    public function setTrackId($tid = '')
     {
         return $this->setData('track_id', $tid);
     }
@@ -87,12 +90,12 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return $this->_getData('track_id');
     }
 
-     /**
-      * @deprecated after 1.4.0.0-alpha3
-      * Initialize order model instance
-      *
-      * @return Mage_Sales_Model_Order || false
-      */
+    /**
+     * @deprecated after 1.4.0.0-alpha3
+     * Initialize order model instance
+     *
+     * @return Mage_Sales_Model_Order || false
+     */
     protected function _initOrder()
     {
         $order = Mage::getModel('sales/order')->load($this->getOrderId());
@@ -121,7 +124,6 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return $ship;
     }
 
-
     /**
      * Retrieve array of tracking info
      *
@@ -146,12 +148,12 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         $shipTrack = array();
         if ($order = $this->_initOrder()) {
             $shipments = $order->getShipmentsCollection();
-            foreach ($shipments as $shipment){
+            foreach ($shipments as $shipment) {
                 $increment_id = $shipment->getIncrementId();
                 $tracks = $shipment->getTracksCollection();
 
-                $trackingInfos=array();
-                foreach ($tracks as $track){
+                $trackingInfos = array();
+                foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
                 $shipTrack[$increment_id] = $trackingInfos;
@@ -173,12 +175,11 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
             $increment_id = $shipment->getIncrementId();
             $tracks = $shipment->getTracksCollection();
 
-            $trackingInfos=array();
-            foreach ($tracks as $track){
+            $trackingInfos = array();
+            foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }
             $shipTrack[$increment_id] = $trackingInfos;
-
         }
         return $shipTrack;
     }
@@ -222,7 +223,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         $locale = Mage::app()->getLocale();
         $format = $locale->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
         return $locale->date(strtotime($date), Zend_Date::TIMESTAMP, null, false)
-            ->toString($format);
+                        ->toString($format);
     }
 
     /**
@@ -237,13 +238,13 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         if (!empty($date)) {
             $time = $date . ' ' . $time;
         }
-        
+
         /* @var $locale Mage_Core_Model_Locale */
         $locale = Mage::app()->getLocale();
-        
+
         $format = $locale->getTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
         return $locale->date(strtotime($time), Zend_Date::TIMESTAMP, null, false)
-            ->toString($format);
+                        ->toString($format);
     }
 
     /**

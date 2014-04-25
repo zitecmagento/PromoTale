@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Sales_Model_Order_Total_Abstract extends Varien_Object
 {
+
     /**
      * Process model configuration array.
      * This method can be used for changing models apply sort order
@@ -44,4 +46,5 @@ abstract class Mage_Sales_Model_Order_Total_Abstract extends Varien_Object
     {
         return $config;
     }
+
 }

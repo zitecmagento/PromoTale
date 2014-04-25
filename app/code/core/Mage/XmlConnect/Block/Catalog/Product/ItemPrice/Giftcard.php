@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Giftcard extends Mage_Bundle_Block_Catalog_Product_Price
 {
+
     /**
      * Return minimal amount for Gift card product using price model
      *
@@ -68,8 +70,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Giftcard extends Mage_Bund
      * @param Mage_XmlConnect_Model_Simplexml_Element $item
      * @return null
      */
-    public function collectProductPrices(Mage_Catalog_Model_Product $product,
-        Mage_XmlConnect_Model_Simplexml_Element $item)
+    public function collectProductPrices(Mage_Catalog_Model_Product $product, Mage_XmlConnect_Model_Simplexml_Element $item)
     {
         $this->setProduct($product);
 
@@ -95,4 +96,5 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Giftcard extends Mage_Bund
             }
         }
     }
+
 }

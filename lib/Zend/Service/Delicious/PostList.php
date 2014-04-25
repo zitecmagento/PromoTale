@@ -21,7 +21,6 @@
  * @version    $Id: PostList.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * List of posts retrived from the del.icio.us web service
  *
@@ -33,6 +32,7 @@
  */
 class Zend_Service_Delicious_PostList implements Countable, Iterator, ArrayAccess
 {
+
     /**
      * @var array Array of Zend_Service_Delicious_Post
      */
@@ -73,7 +73,7 @@ class Zend_Service_Delicious_PostList implements Countable, Iterator, ArrayAcces
     {
         for ($i = 0; $i < $nodeList->length; $i++) {
             $curentNode = $nodeList->item($i);
-            if($curentNode->nodeName == 'post') {
+            if ($curentNode->nodeName == 'post') {
                 $this->_addPost(new Zend_Service_Delicious_Post($this->_service, $curentNode));
             }
         }
@@ -297,4 +297,5 @@ class Zend_Service_Delicious_PostList implements Countable, Iterator, ArrayAcces
         #require_once 'Zend/Service/Delicious/Exception.php';
         throw new Zend_Service_Delicious_Exception('You are trying to unset read-only property');
     }
+
 }

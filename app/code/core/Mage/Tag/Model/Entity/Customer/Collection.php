@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Tag
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Entity_Customer_Collection
 {
+
     protected $_tagTable;
     protected $_tagRelTable;
 
@@ -52,7 +53,6 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
 //            ->join(array('tr' => $this->_tagRelTable), 'tr.entity_val_id=p.product_id and tr.entity_id=1', array('total_used' => 'count(tr.tag_relations_id)'))
 //            ->group('p.product_id', 'tr.tag_id')
 //        ;
-
     }
 
     public function addTagFilter($tagId)
@@ -86,20 +86,20 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
             $customerIds[] = $item->getId();
         }
         $this->getSelect()->reset()
-            ->from(array('tr' => $this->_tagRelTable), array('*','total_used' => 'count(tr.tag_relation_id)'))
-            ->joinLeft(array('t' => $this->_tagTable),'t.tag_id=tr.tag_id')
-            ->group(array('tr.customer_id', 't.tag_id'))
-            ->where('tr.customer_id in (?)',$customerIds)
+                ->from(array('tr' => $this->_tagRelTable), array('*', 'total_used' => 'count(tr.tag_relation_id)'))
+                ->joinLeft(array('t' => $this->_tagTable), 't.tag_id=tr.tag_id')
+                ->group(array('tr.customer_id', 't.tag_id'))
+                ->where('tr.customer_id in (?)', $customerIds)
         ;
         $this->printLogQuery($printQuery, $logQuery);
 
         $tags = array();
         $data = $this->_read->fetchAll($this->getSelect());
         foreach ($data as $row) {
-            if (!isset($tags[ $row['customer_id'] ])) {
-                $tags[ $row['customer_id'] ] = array();
+            if (!isset($tags[$row['customer_id']])) {
+                $tags[$row['customer_id']] = array();
             }
-            $tags[ $row['customer_id'] ][] = $row;
+            $tags[$row['customer_id']][] = $row;
         }
         foreach ($this->getItems() as $item) {
             if (isset($tags[$item->getId()])) {

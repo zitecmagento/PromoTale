@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer region attribute source
  *
@@ -32,7 +32,7 @@
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Model_Entity_Address_Attribute_Source_Region
-    extends Mage_Customer_Model_Resource_Address_Attribute_Source_Region
+class Mage_Customer_Model_Entity_Address_Attribute_Source_Region extends Mage_Customer_Model_Resource_Address_Attribute_Source_Region
 {
+    
 }

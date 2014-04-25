@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Price index resource model
  *
@@ -34,12 +34,13 @@
  */
 class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Resource_Abstract
 {
+
     /**
      * Enter description here ...
      *
      * @var unknown
      */
-    protected $_rate               = 1;
+    protected $_rate = 1;
 
     /**
      * Enter description here ...
@@ -53,7 +54,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
      *
      * @var unknown
      */
-    protected $_taxRates           = null;
+    protected $_taxRates = null;
 
     /**
      * Enter description here ...
@@ -125,25 +126,25 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         $response = new Varien_Object();
         $response->setAdditionalCalculations(array());
 
-        $select->join(array('price_table'=>$this->getMainTable()), 'price_table.entity_id=e.entity_id', array());
+        $select->join(array('price_table' => $this->getMainTable()), 'price_table.entity_id=e.entity_id', array());
 
         if ($attribute->getAttributeCode() == 'price') {
             $select->where('price_table.customer_group_id = ?', $this->getCustomerGroupId());
             $args = array(
-                'select'=>$select,
-                'table'=>'price_table',
-                'store_id'=>$this->getStoreId(),
-                'response_object'=>$response,
+                'select' => $select,
+                'table' => 'price_table',
+                'store_id' => $this->getStoreId(),
+                'response_object' => $response,
             );
             Mage::dispatchEvent('catalogindex_prepare_price_select', $args);
         }
 
         $select
-            ->columns("MAX(price_table.value".implode('', $response->getAdditionalCalculations()).")")
-            ->where('price_table.website_id = ?', $this->getWebsiteId())
-            ->where('price_table.attribute_id = ?', $attribute->getId());
+                ->columns("MAX(price_table.value" . implode('', $response->getAdditionalCalculations()) . ")")
+                ->where('price_table.website_id = ?', $this->getWebsiteId())
+                ->where('price_table.attribute_id = ?', $attribute->getId());
 
-        return $this->_getReadAdapter()->fetchOne($select)*$this->getRate();
+        return $this->_getReadAdapter()->fetchOne($select) * $this->getRate();
     }
 
     /**
@@ -162,28 +163,28 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
-        $select->join(array('price_table'=>$this->getMainTable()), 'price_table.entity_id=e.entity_id', array());
+        $select->join(array('price_table' => $this->getMainTable()), 'price_table.entity_id=e.entity_id', array());
         $response = new Varien_Object();
         $response->setAdditionalCalculations(array());
 
         if ($attribute->getAttributeCode() == 'price') {
             $select->where('price_table.customer_group_id = ?', $this->getCustomerGroupId());
             $args = array(
-                'select'=>$select,
-                'table'=>'price_table',
-                'store_id'=>$this->getStoreId(),
-                'response_object'=>$response,
+                'select' => $select,
+                'table' => 'price_table',
+                'store_id' => $this->getStoreId(),
+                'response_object' => $response,
             );
             Mage::dispatchEvent('catalogindex_prepare_price_select', $args);
         }
 
 
-        $fields = array('count'=>'COUNT(DISTINCT price_table.entity_id)', 'range'=>"FLOOR(((price_table.value".implode('', $response->getAdditionalCalculations()).")*{$this->getRate()})/{$range})+1");
+        $fields = array('count' => 'COUNT(DISTINCT price_table.entity_id)', 'range' => "FLOOR(((price_table.value" . implode('', $response->getAdditionalCalculations()) . ")*{$this->getRate()})/{$range})+1");
 
         $select->columns($fields)
-            ->group('range')
-            ->where('price_table.website_id = ?', $this->getWebsiteId())
-            ->where('price_table.attribute_id = ?', $attribute->getId());
+                ->group('range')
+                ->where('price_table.website_id = ?', $this->getWebsiteId())
+                ->where('price_table.attribute_id = ?', $attribute->getId());
 
 
         $result = $this->_getReadAdapter()->fetchAll($select);
@@ -209,30 +210,30 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     public function getFilteredEntities($range, $index, $attribute, $entityIdsFilter, $tableName = 'price_table')
     {
         $select = $this->_getReadAdapter()->select();
-        $select->from(array($tableName=>$this->getMainTable()), $tableName . '.entity_id');
+        $select->from(array($tableName => $this->getMainTable()), $tableName . '.entity_id');
 
         $response = new Varien_Object();
         $response->setAdditionalCalculations(array());
 
         $select
-            ->distinct(true)
-            ->where($tableName . '.entity_id in (?)', $entityIdsFilter)
-            ->where($tableName . '.website_id = ?', $this->getWebsiteId())
-            ->where($tableName . '.attribute_id = ?', $attribute->getId());
+                ->distinct(true)
+                ->where($tableName . '.entity_id in (?)', $entityIdsFilter)
+                ->where($tableName . '.website_id = ?', $this->getWebsiteId())
+                ->where($tableName . '.attribute_id = ?', $attribute->getId());
 
         if ($attribute->getAttributeCode() == 'price') {
             $select->where($tableName . '.customer_group_id = ?', $this->getCustomerGroupId());
             $args = array(
-                'select'=>$select,
-                'table'=>$tableName,
-                'store_id'=>$this->getStoreId(),
-                'response_object'=>$response,
+                'select' => $select,
+                'table' => $tableName,
+                'store_id' => $this->getStoreId(),
+                'response_object' => $response,
             );
             Mage::dispatchEvent('catalogindex_prepare_price_select', $args);
         }
 
-        $select->where("(({$tableName}.value".implode('', $response->getAdditionalCalculations()).")*{$this->getRate()}) >= ?", ($index-1)*$range);
-        $select->where("(({$tableName}.value".implode('', $response->getAdditionalCalculations()).")*{$this->getRate()}) < ?", $index*$range);
+        $select->where("(({$tableName}.value" . implode('', $response->getAdditionalCalculations()) . ")*{$this->getRate()}) >= ?", ($index - 1) * $range);
+        $select->where("(({$tableName}.value" . implode('', $response->getAdditionalCalculations()) . ")*{$this->getRate()}) < ?", $index * $range);
 
 
         return $this->_getReadAdapter()->fetchCol($select);
@@ -255,34 +256,32 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
          * which contain multiple rows for one product id
          */
         $collection->getSelect()->distinct(true);
-        $tableName = $tableName.'_'.$attribute->getAttributeCode();
+        $tableName = $tableName . '_' . $attribute->getAttributeCode();
         $collection->getSelect()->joinLeft(
-            array($tableName => $this->getMainTable()),
-            $tableName .'.entity_id=e.entity_id',
-            array()
+                array($tableName => $this->getMainTable()), $tableName . '.entity_id=e.entity_id', array()
         );
 
         $response = new Varien_Object();
         $response->setAdditionalCalculations(array());
 
         $collection->getSelect()
-            ->where($tableName . '.website_id = ?', $this->getWebsiteId())
-            ->where($tableName . '.attribute_id = ?', $attribute->getId());
+                ->where($tableName . '.website_id = ?', $this->getWebsiteId())
+                ->where($tableName . '.attribute_id = ?', $attribute->getId());
 
         if ($attribute->getAttributeCode() == 'price') {
             $collection->getSelect()->where($tableName . '.customer_group_id = ?', $this->getCustomerGroupId());
             $args = array(
-                'select'=>$collection->getSelect(),
-                'table'=>$tableName,
-                'store_id'=>$this->getStoreId(),
-                'response_object'=>$response,
+                'select' => $collection->getSelect(),
+                'table' => $tableName,
+                'store_id' => $this->getStoreId(),
+                'response_object' => $response,
             );
 
             Mage::dispatchEvent('catalogindex_prepare_price_select', $args);
         }
 
-        $collection->getSelect()->where("(({$tableName}.value".implode('', $response->getAdditionalCalculations()).")*{$this->getRate()}) >= ?", ($index-1)*$range);
-        $collection->getSelect()->where("(({$tableName}.value".implode('', $response->getAdditionalCalculations()).")*{$this->getRate()}) < ?", $index*$range);
+        $collection->getSelect()->where("(({$tableName}.value" . implode('', $response->getAdditionalCalculations()) . ")*{$this->getRate()}) >= ?", ($index - 1) * $range);
+        $collection->getSelect()->where("(({$tableName}.value" . implode('', $response->getAdditionalCalculations()) . ")*{$this->getRate()}) < ?", $index * $range);
 
         return $this;
     }
@@ -299,11 +298,12 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
             return array();
         }
         $select = $this->_getReadAdapter()->select();
-        $select->from(array('price_table'=>$this->getTable('catalogindex/minimal_price')),
-            array('price_table.entity_id', 'value'=>"(price_table.value)", 'tax_class_id'=>'(price_table.tax_class_id)'))
-            ->where('price_table.entity_id in (?)', $ids)
-            ->where('price_table.website_id = ?', $this->getWebsiteId())
-            ->where('price_table.customer_group_id = ?', $this->getCustomerGroupId());
+        $select->from(array('price_table' => $this->getTable('catalogindex/minimal_price')), array('price_table.entity_id',
+                    'value' => "(price_table.value)", 'tax_class_id' => '(price_table.tax_class_id)'))
+                ->where('price_table.entity_id in (?)', $ids)
+                ->where('price_table.website_id = ?', $this->getWebsiteId())
+                ->where('price_table.customer_group_id = ?', $this->getCustomerGroupId());
         return $this->_getReadAdapter()->fetchAll($select);
     }
+
 }

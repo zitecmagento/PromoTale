@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FormMultiCheckbox.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_View_Helper_FormRadio */
 #require_once 'Zend/View/Helper/FormRadio.php';
-
 
 /**
  * Helper to generate a set of checkbox button elements
@@ -36,6 +34,7 @@
  */
 class Zend_View_Helper_FormMultiCheckbox extends Zend_View_Helper_FormRadio
 {
+
     /**
      * Input type to use
      * @var string
@@ -66,9 +65,9 @@ class Zend_View_Helper_FormMultiCheckbox extends Zend_View_Helper_FormRadio
      *
      * @return string The radio buttons XHTML.
      */
-    public function formMultiCheckbox($name, $value = null, $attribs = null,
-        $options = null, $listsep = "<br />\n")
+    public function formMultiCheckbox($name, $value = null, $attribs = null, $options = null, $listsep = "<br />\n")
     {
         return $this->formRadio($name, $value, $attribs, $options, $listsep);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Auth_User
 {
+
     /**
      * Get options in "key-value" format
      *
@@ -58,4 +60,5 @@ class Mage_Api2_Model_Auth_User
         }
         return $userTypes;
     }
+
 }

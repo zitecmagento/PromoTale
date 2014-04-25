@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Db2.php 23199 2010-10-21 14:27:06Z ralph $
  *
  */
-
 /**
  * @see Zend_Db
  */
@@ -36,15 +36,14 @@
  */
 #require_once 'Zend/Db/Statement/Db2.php';
 
-
 /**
  * @package    Zend_Db
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
 {
+
     /**
      * User-provided configuration.
      *
@@ -63,15 +62,15 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      * @var array
      */
     protected $_config = array(
-        'dbname'       => null,
-        'username'     => null,
-        'password'     => null,
-        'host'         => 'localhost',
-        'port'         => '50000',
-        'protocol'     => 'TCPIP',
-        'persistent'   => false,
-        'os'           => null,
-        'schema'       => null
+        'dbname' => null,
+        'username' => null,
+        'password' => null,
+        'host' => 'localhost',
+        'port' => '50000',
+        'protocol' => 'TCPIP',
+        'persistent' => false,
+        'os' => null,
+        'schema' => null
     );
 
     /**
@@ -101,14 +100,14 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      * @var array Associative array of datatypes to values 0, 1, or 2.
      */
     protected $_numericDataTypes = array(
-        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
+        Zend_Db::INT_TYPE => Zend_Db::INT_TYPE,
         Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
-        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
-        'INTEGER'            => Zend_Db::INT_TYPE,
-        'SMALLINT'           => Zend_Db::INT_TYPE,
-        'BIGINT'             => Zend_Db::BIGINT_TYPE,
-        'DECIMAL'            => Zend_Db::FLOAT_TYPE,
-        'NUMERIC'            => Zend_Db::FLOAT_TYPE
+        Zend_Db::FLOAT_TYPE => Zend_Db::FLOAT_TYPE,
+        'INTEGER' => Zend_Db::INT_TYPE,
+        'SMALLINT' => Zend_Db::INT_TYPE,
+        'BIGINT' => Zend_Db::BIGINT_TYPE,
+        'DECIMAL' => Zend_Db::FLOAT_TYPE,
+        'NUMERIC' => Zend_Db::FLOAT_TYPE
     );
 
     /**
@@ -148,8 +147,8 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         if (isset($this->_config['options'][Zend_Db::CASE_FOLDING])) {
             $caseAttrMap = array(
                 Zend_Db::CASE_NATURAL => DB2_CASE_NATURAL,
-                Zend_Db::CASE_UPPER   => DB2_CASE_UPPER,
-                Zend_Db::CASE_LOWER   => DB2_CASE_LOWER
+                Zend_Db::CASE_UPPER => DB2_CASE_UPPER,
+                Zend_Db::CASE_LOWER => DB2_CASE_LOWER
             );
             $this->_config['driver_options']['DB2_ATTR_CASE'] = $caseAttrMap[$this->_config['options'][Zend_Db::CASE_FOLDING]];
         }
@@ -161,29 +160,23 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 $this->_config['driver_options']['i5_naming'] = DB2_I5_NAMING_OFF;
             }
         }
-        
+
         if ($this->_config['host'] !== 'localhost' && !$this->_isI5) {
             // if the host isn't localhost, use extended connection params
             $dbname = 'DRIVER={IBM DB2 ODBC DRIVER}' .
-                     ';DATABASE=' . $this->_config['dbname'] .
-                     ';HOSTNAME=' . $this->_config['host'] .
-                     ';PORT='     . $this->_config['port'] .
-                     ';PROTOCOL=' . $this->_config['protocol'] .
-                     ';UID='      . $this->_config['username'] .
-                     ';PWD='      . $this->_config['password'] .';';
+                    ';DATABASE=' . $this->_config['dbname'] .
+                    ';HOSTNAME=' . $this->_config['host'] .
+                    ';PORT=' . $this->_config['port'] .
+                    ';PROTOCOL=' . $this->_config['protocol'] .
+                    ';UID=' . $this->_config['username'] .
+                    ';PWD=' . $this->_config['password'] . ';';
             $this->_connection = $conn_func_name(
-                $dbname,
-                null,
-                null,
-                $this->_config['driver_options']
+                    $dbname, null, null, $this->_config['driver_options']
             );
         } else {
             // host is localhost, so use standard connection params
             $this->_connection = $conn_func_name(
-                $this->_config['dbname'],
-                $this->_config['username'],
-                $this->_config['password'],
-                $this->_config['driver_options']
+                    $this->_config['dbname'], $this->_config['username'], $this->_config['password'], $this->_config['driver_options']
             );
         }
 
@@ -204,8 +197,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      */
     public function isConnected()
     {
-        return ((bool) (is_resource($this->_connection)
-                     && get_resource_type($this->_connection) == 'DB2 Connection'));
+        return ((bool) (is_resource($this->_connection) && get_resource_type($this->_connection) == 'DB2 Connection'));
     }
 
     /**
@@ -306,7 +298,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         } else {
             // db2_server_info() does not return result on some i5 OS version
             if ($this->_isI5) {
-                $identQuote ="'";
+                $identQuote = "'";
             }
         }
         return $identQuote;
@@ -342,7 +334,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
 
         return $tables;
     }
-
 
     /**
      * Returns the column descriptions for a table.
@@ -396,14 +387,13 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                     AND c.tabname = k.tabname
                     AND c.colname = k.colname)
                 WHERE "
-                . $this->quoteInto('UPPER(c.tabname) = UPPER(?)', $tableName);
+                    . $this->quoteInto('UPPER(c.tabname) = UPPER(?)', $tableName);
 
             if ($schemaName) {
-               $sql .= $this->quoteInto(' AND UPPER(c.tabschema) = UPPER(?)', $schemaName);
+                $sql .= $this->quoteInto(' AND UPPER(c.tabschema) = UPPER(?)', $schemaName);
             }
 
             $sql .= " ORDER BY c.colno";
-
         } else {
 
             // DB2 On I5 specific query
@@ -419,7 +409,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                        AND C.TABLE_NAME = k.TABLE_NAME
                        AND C.COLUMN_NAME = k.COLUMN_NAME)
                 WHERE "
-                . $this->quoteInto('UPPER(C.TABLE_NAME) = UPPER(?)', $tableName);
+                    . $this->quoteInto('UPPER(C.TABLE_NAME) = UPPER(?)', $tableName);
 
             if ($schemaName) {
                 $sql .= $this->quoteInto(' AND UPPER(C.TABLE_SCHEMA) = UPPER(?)', $schemaName);
@@ -440,18 +430,18 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
          * The ordering of columns is defined by the query so we can map
          * to variables to improve readability
          */
-        $tabschema      = 0;
-        $tabname        = 1;
-        $colname        = 2;
-        $colno          = 3;
-        $typename       = 4;
-        $default        = 5;
-        $nulls          = 6;
-        $length         = 7;
-        $scale          = 8;
-        $identityCol    = 9;
-        $tabconstType   = 10;
-        $colseq         = 11;
+        $tabschema = 0;
+        $tabname = 1;
+        $colname = 2;
+        $colno = 3;
+        $typename = 4;
+        $default = 5;
+        $nulls = 6;
+        $length = 7;
+        $scale = 8;
+        $identityCol = 9;
+        $tabconstType = 10;
+        $colseq = 11;
 
         foreach ($result as $key => $row) {
             list ($primary, $primaryPosition, $identity) = array(false, null, false);
@@ -469,20 +459,20 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
 
             // only colname needs to be case adjusted
             $desc[$this->foldCase($row[$colname])] = array(
-                'SCHEMA_NAME'      => $this->foldCase($row[$tabschema]),
-                'TABLE_NAME'       => $this->foldCase($row[$tabname]),
-                'COLUMN_NAME'      => $this->foldCase($row[$colname]),
-                'COLUMN_POSITION'  => (!$this->_isI5) ? $row[$colno]+1 : $row[$colno],
-                'DATA_TYPE'        => $row[$typename],
-                'DEFAULT'          => $row[$default],
-                'NULLABLE'         => (bool) ($row[$nulls] == 'Y'),
-                'LENGTH'           => $row[$length],
-                'SCALE'            => $row[$scale],
-                'PRECISION'        => ($row[$typename] == 'DECIMAL' ? $row[$length] : 0),
-                'UNSIGNED'         => false,
-                'PRIMARY'          => $primary,
+                'SCHEMA_NAME' => $this->foldCase($row[$tabschema]),
+                'TABLE_NAME' => $this->foldCase($row[$tabname]),
+                'COLUMN_NAME' => $this->foldCase($row[$colname]),
+                'COLUMN_POSITION' => (!$this->_isI5) ? $row[$colno] + 1 : $row[$colno],
+                'DATA_TYPE' => $row[$typename],
+                'DEFAULT' => $row[$default],
+                'NULLABLE' => (bool) ($row[$nulls] == 'Y'),
+                'LENGTH' => $row[$length],
+                'SCALE' => $row[$scale],
+                'PRECISION' => ($row[$typename] == 'DECIMAL' ? $row[$length] : 0),
+                'UNSIGNED' => false,
+                'PRIMARY' => $primary,
                 'PRIMARY_POSITION' => $primaryPosition,
-                'IDENTITY'         => $identity
+                'IDENTITY' => $identity
             );
         }
 
@@ -524,7 +514,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
     public function nextSequenceId($sequenceName)
     {
         $this->_connect();
-        $sql = 'SELECT NEXTVAL FOR '.$this->quoteIdentifier($sequenceName, true).' AS VAL FROM SYSIBM.SYSDUMMY1';
+        $sql = 'SELECT NEXTVAL FOR ' . $this->quoteIdentifier($sequenceName, true) . ' AS VAL FROM SYSIBM.SYSDUMMY1';
         $value = $this->fetchOne($sql);
         return (string) $value;
     }
@@ -547,7 +537,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      * @param string $idType OPTIONAL used for i5 platform to define sequence/idenity unique value
      * @return string
      */
-
     public function lastInsertId($tableName = null, $primaryKey = null, $idType = null)
     {
         $this->_connect();
@@ -593,8 +582,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
              */
             #require_once 'Zend/Db/Adapter/Db2/Exception.php';
             throw new Zend_Db_Adapter_Db2_Exception(
-                db2_conn_errormsg($this->_connection),
-                db2_conn_error($this->_connection));
+            db2_conn_errormsg($this->_connection), db2_conn_error($this->_connection));
         }
 
         $this->_setExecuteMode(DB2_AUTOCOMMIT_ON);
@@ -613,8 +601,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
              */
             #require_once 'Zend/Db/Adapter/Db2/Exception.php';
             throw new Zend_Db_Adapter_Db2_Exception(
-                db2_conn_errormsg($this->_connection),
-                db2_conn_error($this->_connection));
+            db2_conn_errormsg($this->_connection), db2_conn_error($this->_connection));
         }
         $this->_setExecuteMode(DB2_AUTOCOMMIT_ON);
     }
@@ -698,7 +685,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                     " . $sql . "
                 ) z1
             ) z2
-            WHERE z2.zend_db_rownum BETWEEN " . ($offset+1) . " AND " . ($offset+$count);
+            WHERE z2.zend_db_rownum BETWEEN " . ($offset + 1) . " AND " . ($offset + $count);
         return $limit_sql;
     }
 
@@ -764,7 +751,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         $this->_isI5 = (php_uname('s') == 'OS400') ? true : false;
 
         // if this is set, then us it
-        if (isset($this->_config['os'])){
+        if (isset($this->_config['os'])) {
             if (strtolower($this->_config['os']) === 'i5') {
                 $this->_isI5 = true;
             } else {
@@ -772,7 +759,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 $this->_isI5 = false;
             }
         }
-
     }
 
     /**
@@ -789,7 +775,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         $tables = array();
         if ($schema) {
             $tablesStatement = db2_tables($this->_connection, null, $schema);
-            while ($rowTables = db2_fetch_assoc($tablesStatement) ) {
+            while ($rowTables = db2_fetch_assoc($tablesStatement)) {
                 if ($rowTables['TABLE_NAME'] !== null) {
                     $tables[] = $rowTables['TABLE_NAME'];
                 }
@@ -801,7 +787,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                     // list of the tables which belongs to the selected library
                     $tablesStatement = db2_tables($this->_connection, NULL, $schema['TABLE_SCHEM']);
                     if (is_resource($tablesStatement)) {
-                        while ($rowTables = db2_fetch_assoc($tablesStatement) ) {
+                        while ($rowTables = db2_fetch_assoc($tablesStatement)) {
                             if ($rowTables['TABLE_NAME'] !== null) {
                                 $tables[] = $rowTables['TABLE_NAME'];
                             }
@@ -823,18 +809,16 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             return $value;
         }
 
-        if (strtoupper($idType) === 'S'){
+        if (strtoupper($idType) === 'S') {
             //check i5_lib option
             $sequenceName = $objectName;
             return $this->lastSequenceId($sequenceName);
         }
 
-            //returns last identity value for the specified table
+        //returns last identity value for the specified table
         //if (strtoupper($idType) === 'I') {
         $tableName = $objectName;
         return $this->fetchOne('SELECT IDENTITY_VAL_LOCAL() from ' . $this->quoteIdentifier($tableName));
     }
 
 }
-
-

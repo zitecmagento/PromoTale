@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Store grid column filter
  *
@@ -32,8 +32,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
 {
 
     /**
@@ -51,12 +50,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store
 
         $allShow = $this->getColumn()->getStoreAll();
 
-        $html  = '<select name="' . $this->escapeHtml($this->_getHtmlName()) . '" '
-               . $this->getColumn()->getValidateClass() . '>';
+        $html = '<select name="' . $this->escapeHtml($this->_getHtmlName()) . '" '
+                . $this->getColumn()->getValidateClass() . '>';
         $value = $this->getColumn()->getValue();
         if ($allShow) {
             $html .= '<option value="0"' . ($value == 0 ? ' selected="selected"' : '') . '>'
-                  . Mage::helper('adminhtml')->__('All Store Views') . '</option>';
+                    . Mage::helper('adminhtml')->__('All Store Views') . '</option>';
         } else {
             $html .= '<option value=""' . (!$value ? ' selected="selected"' : '') . '></option>';
         }
@@ -78,12 +77,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store
                     if (!$groupShow) {
                         $groupShow = true;
                         $html .= '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;'
-                              . $this->escapeHtml($group->getName()) . '">';
+                                . $this->escapeHtml($group->getName()) . '">';
                     }
                     $value = $this->getValue();
                     $selected = $value == $store->getId() ? ' selected="selected"' : '';
                     $html .= '<option value="' . $store->getId() . '"' . $selected . '>&nbsp;&nbsp;&nbsp;&nbsp;'
-                          . $this->escapeHtml($store->getName()) . '</option>';
+                            . $this->escapeHtml($store->getName()) . '</option>';
                 }
                 if ($groupShow) {
                     $html .= '</optgroup>';
@@ -92,7 +91,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store
         }
         if ($this->getColumn()->getDisplayDeleted()) {
             $selected = ($this->getValue() == '_deleted_') ? ' selected' : '';
-            $html.= '<option value="_deleted_"'.$selected.'>'.$this->__('[ deleted ]').'</option>';
+            $html.= '<option value="_deleted_"' . $selected . '>' . $this->__('[ deleted ]') . '</option>';
         }
         $html .= '</select>';
         return $html;

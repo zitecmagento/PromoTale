@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,16 +34,16 @@
  */
 class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
 {
+
     protected $_handler = '';
 
     /**
      * @var Varien_Object
      */
     protected $_wsdlVariables = null;
-
     protected $_loadedFiles = array();
 
-    public function __construct($sourceData=null)
+    public function __construct($sourceData = null)
     {
         $this->_elementClass = 'Mage_Api_Model_Wsdl_Config_Element';
 
@@ -52,10 +53,10 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
 
         // set up default WSDL template variables
         $this->_wsdlVariables = new Varien_Object(
-            array(
-                'name' => 'Magento',
-                'url'  => htmlspecialchars(Mage::getUrl('*/*/*', array('_query' => $queryParams)))
-            )
+                array(
+            'name' => 'Magento',
+            'url' => htmlspecialchars(Mage::getUrl('*/*/*', array('_query' => $queryParams)))
+                )
         );
         parent::__construct($sourceData);
     }
@@ -95,7 +96,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
 
         $this->_wsdlVariables->setHandler($this->getHandler());
 
-        $template->setVariables(array('wsdl'=>$this->_wsdlVariables));
+        $template->setVariables(array('wsdl' => $this->_wsdlVariables));
 
         return $template->filter($text);
     }
@@ -133,4 +134,5 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
 
         return $this;
     }
+
 }

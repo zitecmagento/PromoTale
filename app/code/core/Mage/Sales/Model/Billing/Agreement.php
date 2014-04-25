@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -52,8 +53,9 @@
  */
 class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_AgreementAbstract
 {
-    const STATUS_ACTIVE     = 'active';
-    const STATUS_CANCELED   = 'canceled';
+
+    const STATUS_ACTIVE = 'active';
+    const STATUS_CANCELED = 'canceled';
 
     /**
      * Related agreement orders
@@ -123,7 +125,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     public function initToken()
     {
         $this->getPaymentMethodInstance()
-            ->initBillingAgreementToken($this);
+                ->initBillingAgreementToken($this);
         return $this->getRedirectUrl();
     }
 
@@ -136,7 +138,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     public function verifyToken()
     {
         $this->getPaymentMethodInstance()
-            ->getBillingAgreementTokenInfo($this);
+                ->getBillingAgreementTokenInfo($this);
         return $this;
     }
 
@@ -149,7 +151,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     public function canPerformAction($customerIdSession)
     {
         // Get the customer id from billing agreement and compare to logged in customer id
-        return ((int)$this->getCustomerId() === (int)$customerIdSession) ? true : false;
+        return ((int) $this->getCustomerId() === (int) $customerIdSession) ? true : false;
     }
 
     /**
@@ -162,14 +164,14 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
         $this->verifyToken();
 
         $paymentMethodInstance = $this->getPaymentMethodInstance()
-            ->placeBillingAgreement($this);
+                ->placeBillingAgreement($this);
 
         $this->setCustomerId($this->getCustomer()->getId())
-            ->setMethodCode($this->getMethodCode())
-            ->setReferenceId($this->getBillingAgreementId())
-            ->setStatus(self::STATUS_ACTIVE)
-            ->setAgreementLabel($paymentMethodInstance->getTitle())
-            ->save();
+                ->setMethodCode($this->getMethodCode())
+                ->setReferenceId($this->getBillingAgreementId())
+                ->setStatus(self::STATUS_ACTIVE)
+                ->setAgreementLabel($paymentMethodInstance->getTitle())
+                ->save();
         return $this;
     }
 
@@ -203,8 +205,8 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     public function getStatusesArray()
     {
         return array(
-            self::STATUS_ACTIVE     => Mage::helper('sales')->__('Active'),
-            self::STATUS_CANCELED   => Mage::helper('sales')->__('Canceled')
+            self::STATUS_ACTIVE => Mage::helper('sales')->__('Active'),
+            self::STATUS_CANCELED => Mage::helper('sales')->__('Canceled')
         );
     }
 
@@ -239,15 +241,13 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     {
         $baData = $payment->getBillingAgreementData();
 
-        $this->_paymentMethodInstance = (isset($baData['method_code']))
-            ? Mage::helper('payment')->getMethodInstance($baData['method_code'])
-            : $payment->getMethodInstance();
+        $this->_paymentMethodInstance = (isset($baData['method_code'])) ? Mage::helper('payment')->getMethodInstance($baData['method_code']) : $payment->getMethodInstance();
         if ($this->_paymentMethodInstance) {
             $this->_paymentMethodInstance->setStore($payment->getMethodInstance()->getStore());
             $this->setCustomerId($payment->getOrder()->getCustomerId())
-                ->setMethodCode($this->_paymentMethodInstance->getCode())
-                ->setReferenceId($baData['billing_agreement_id'])
-                ->setStatus(self::STATUS_ACTIVE);
+                    ->setMethodCode($this->_paymentMethodInstance->getCode())
+                    ->setReferenceId($baData['billing_agreement_id'])
+                    ->setStatus(self::STATUS_ACTIVE);
         }
         return $this;
     }
@@ -262,8 +262,8 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     {
         $collection = Mage::getResourceModel('sales/billing_agreement_collection');
         $collection->addFieldToFilter('customer_id', $customerId)
-            ->addFieldToFilter('status', self::STATUS_ACTIVE)
-            ->setOrder('agreement_id');
+                ->addFieldToFilter('status', self::STATUS_ACTIVE)
+                ->setOrder('agreement_id');
         return $collection;
     }
 

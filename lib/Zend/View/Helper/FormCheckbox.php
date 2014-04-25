@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FormCheckbox.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Abstract class for extension
  */
 #require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to generate a "checkbox" element
@@ -38,12 +36,13 @@
  */
 class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
 {
+
     /**
      * Default checked/unchecked options
      * @var array
      */
     protected static $_defaultCheckedOptions = array(
-        'checkedValue'   => '1',
+        'checkedValue' => '1',
         'uncheckedValue' => '0'
     );
 
@@ -84,7 +83,7 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
         // XHTML or HTML end tag?
         $endTag = ' />';
         if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {
-            $endTag= '>';
+            $endTag = '>';
         }
 
         // build the element
@@ -115,7 +114,7 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
     public static function determineCheckboxInfo($value, $checked, array $checkedOptions = null)
     {
         // Checked/unchecked values
-        $checkedValue   = null;
+        $checkedValue = null;
         $uncheckedValue = null;
         if (is_array($checkedOptions)) {
             if (array_key_exists('checkedValue', $checkedOptions)) {
@@ -135,7 +134,7 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
         } elseif ($value !== null) {
             $uncheckedValue = self::$_defaultCheckedOptions['uncheckedValue'];
         } else {
-            $checkedValue   = self::$_defaultCheckedOptions['checkedValue'];
+            $checkedValue = self::$_defaultCheckedOptions['checkedValue'];
             $uncheckedValue = self::$_defaultCheckedOptions['uncheckedValue'];
         }
 
@@ -154,10 +153,11 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
         }
 
         return array(
-            'checked'        => $checked,
-            'checkedString'  => $checkedString,
-            'checkedValue'   => $checkedValue,
+            'checked' => $checked,
+            'checkedString' => $checkedString,
+            'checkedValue' => $checkedValue,
             'uncheckedValue' => $uncheckedValue,
         );
     }
+
 }

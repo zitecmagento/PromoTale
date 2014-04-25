@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
 {
+
     /**
      * Option Instance
      *
@@ -46,8 +48,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * @var Mage_Catalog_Model_Product
      */
     protected $_product;
-
-
 
     /**
      * description
@@ -226,7 +226,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     public function getSkipCheckRequiredOption()
     {
         return $this->getProduct()->getSkipCheckRequiredOption() ||
-            $this->getProcessMode() == Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
+                $this->getProcessMode() == Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
     }
 
     /**
@@ -333,9 +333,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         $option = $this->getOption();
 
         return $this->_getChargableOptionPrice(
-            $option->getPrice(),
-            $option->getPriceType() == 'percent',
-            $basePrice
+                        $option->getPrice(), $option->getPriceType() == 'percent', $basePrice
         );
     }
 
@@ -390,7 +388,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      */
     protected function _getChargableOptionPrice($price, $isPercent, $basePrice)
     {
-        if($isPercent) {
+        if ($isPercent) {
             return ($basePrice * $price / 100);
         } else {
             return $price;

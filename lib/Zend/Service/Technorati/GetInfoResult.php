@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: GetInfoResult.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Represents a single Technorati GetInfo query result object.
  *
@@ -32,6 +32,7 @@
  */
 class Zend_Service_Technorati_GetInfoResult
 {
+
     /**
      * Technorati author
      *
@@ -47,7 +48,6 @@ class Zend_Service_Technorati_GetInfoResult
      * @access  protected
      */
     protected $_weblogs = array();
-
 
     /**
      * Constructs a new object object from DOM Document.
@@ -81,13 +81,13 @@ class Zend_Service_Technorati_GetInfoResult
         }
     }
 
-
     /**
      * Returns the author associated with queried username.
      *
      * @return  Zend_Service_Technorati_Author
      */
-    public function getAuthor() {
+    public function getAuthor()
+    {
         return $this->_author;
     }
 
@@ -96,7 +96,8 @@ class Zend_Service_Technorati_GetInfoResult
      *
      * @return  array of Zend_Service_Technorati_Weblog
      */
-    public function getWeblogs() {
+    public function getWeblogs()
+    {
         return $this->_weblogs;
     }
 

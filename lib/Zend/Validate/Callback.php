@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Callback.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Validate_Callback extends Zend_Validate_Abstract
 {
+
     /**
      * Invalid callback
      */
@@ -48,7 +49,7 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID_VALUE    => "'%value%' is not valid",
+        self::INVALID_VALUE => "'%value%' is not valid",
         self::INVALID_CALLBACK => "An exception has been raised within the callback",
     );
 
@@ -154,21 +155,25 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
     {
         $this->_setValue($value);
 
-        $options  = $this->getOptions();
+        $options = $this->getOptions();
         $callback = $this->getCallback();
-        $args     = func_get_args();
-        $options  = array_merge($args, $options);
+        $args = func_get_args();
+        $options = array_merge($args, $options);
 
-        try {
+        try
+        {
             if (!call_user_func_array($callback, $options)) {
                 $this->_error(self::INVALID_VALUE);
                 return false;
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_error(self::INVALID_CALLBACK);
             return false;
         }
 
         return true;
     }
+
 }

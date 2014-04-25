@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Core_Model_Message_Abstract
 {
+
     protected $_type;
     protected $_code;
     protected $_class;
@@ -40,7 +42,7 @@ abstract class Mage_Core_Model_Message_Abstract
     protected $_identifier;
     protected $_isSticky = false;
 
-    public function __construct($type, $code='')
+    public function __construct($type, $code = '')
     {
         $this->_type = $type;
         $this->_code = $code;
@@ -73,7 +75,7 @@ abstract class Mage_Core_Model_Message_Abstract
 
     public function toString()
     {
-        $out = $this->getType().': '.$this->getText();
+        $out = $this->getType() . ': ' . $this->getText();
         return $out;
     }
 
@@ -132,4 +134,5 @@ abstract class Mage_Core_Model_Message_Abstract
         $this->_code = $code;
         return $this;
     }
+
 }

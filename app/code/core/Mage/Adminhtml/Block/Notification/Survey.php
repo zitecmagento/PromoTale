@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Notification_Survey extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Check whether survey question can show
      *
@@ -42,10 +44,7 @@ class Mage_Adminhtml_Block_Notification_Survey extends Mage_Adminhtml_Block_Temp
     {
         $adminSession = Mage::getSingleton('admin/session');
         $seconds = intval(date('s', time()));
-        if ($adminSession->getHideSurveyQuestion() || !$adminSession->isAllowed('all')
-            || Mage_AdminNotification_Model_Survey::isSurveyViewed()
-            || !Mage_AdminNotification_Model_Survey::isSurveyUrlValid())
-        {
+        if ($adminSession->getHideSurveyQuestion() || !$adminSession->isAllowed('all') || Mage_AdminNotification_Model_Survey::isSurveyViewed() || !Mage_AdminNotification_Model_Survey::isSurveyUrlValid()) {
             return false;
         }
         return true;
@@ -60,4 +59,5 @@ class Mage_Adminhtml_Block_Notification_Survey extends Mage_Adminhtml_Block_Temp
     {
         return Mage_AdminNotification_Model_Survey::getSurveyUrl();
     }
+
 }

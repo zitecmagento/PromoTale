@@ -21,7 +21,6 @@
  * @version    $Id: Image.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Amazon_Image
 {
+
     /**
      * Image URL
      *
@@ -66,4 +66,5 @@ class Zend_Service_Amazon_Image
         $this->Height = (int) $xpath->query('./az:Height/text()', $dom)->item(0)->data;
         $this->Width = (int) $xpath->query('./az:Width/text()', $dom)->item(0)->data;
     }
+
 }

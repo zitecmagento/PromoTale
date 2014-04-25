@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_AjaxController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Ajax action for inline translation
      *
@@ -52,4 +54,5 @@ class Mage_Adminhtml_AjaxController extends Mage_Adminhtml_Controller_Action
         echo Mage::helper('core/translate')->apply($translation, $area);
         exit();
     }
+
 }

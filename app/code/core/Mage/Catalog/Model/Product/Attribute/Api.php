@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Resource
 {
+
     /**
      * Product entity type id
      *
@@ -67,8 +69,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
 
         foreach ($attributes as $attribute) {
             /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
-            if ((!$attribute->getId() || $attribute->isInSet($setId))
-                    && $this->_isAllowedAttribute($attribute)) {
+            if ((!$attribute->getId() || $attribute->isInSet($setId)) && $this->_isAllowedAttribute($attribute)) {
 
                 if (!$attribute->getId() || $attribute->isScopeGlobal()) {
                     $scope = 'global';
@@ -180,11 +181,14 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         $model->setEntityTypeId($this->_entityTypeId);
         $model->setIsUserDefined(1);
 
-        try {
+        try
+        {
             $model->save();
             // clear translation cache because attribute labels are stored in translation
             Mage::app()->cleanCache(array(Mage_Core_Model_Translate::CACHE_TAG));
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('unable_to_save', $e->getMessage());
         }
 
@@ -213,12 +217,15 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         $this->_prepareDataForSave($data);
 
         $model->addData($data);
-        try {
+        try
+        {
             $model->save();
             // clear translation cache because attribute labels are stored in translation
             Mage::app()->cleanCache(array(Mage_Core_Model_Translate::CACHE_TAG));
             return true;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('unable_to_save', $e->getMessage());
         }
     }
@@ -237,10 +244,13 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             $this->_fault('can_not_delete');
         }
 
-        try {
+        try
+        {
             $model->delete();
             return true;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('can_not_delete', $e->getMessage());
         }
     }
@@ -300,43 +310,43 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         // set additional fields to different types
         switch ($model->getFrontendInput()) {
             case 'text':
-                    $result['additional_fields'] = array(
-                        'frontend_class' => $model->getFrontendClass(),
-                        'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
-                        'used_for_sort_by' => $model->getUsedForSortBy()
-                    );
-                    break;
+                $result['additional_fields'] = array(
+                    'frontend_class' => $model->getFrontendClass(),
+                    'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
+                    'used_for_sort_by' => $model->getUsedForSortBy()
+                );
+                break;
             case 'textarea':
-                    $result['additional_fields'] = array(
-                        'is_wysiwyg_enabled' => $model->getIsWysiwygEnabled(),
-                        'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
-                    );
-                    break;
+                $result['additional_fields'] = array(
+                    'is_wysiwyg_enabled' => $model->getIsWysiwygEnabled(),
+                    'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
+                );
+                break;
             case 'date':
             case 'boolean':
-                    $result['additional_fields'] = array(
-                        'used_for_sort_by' => $model->getUsedForSortBy()
-                    );
-                    break;
+                $result['additional_fields'] = array(
+                    'used_for_sort_by' => $model->getUsedForSortBy()
+                );
+                break;
             case 'multiselect':
-                    $result['additional_fields'] = array(
-                        'is_filterable' => $model->getIsFilterable(),
-                        'is_filterable_in_search' => $model->getIsFilterableInSearch(),
-                        'position' => $model->getPosition()
-                    );
-                    break;
+                $result['additional_fields'] = array(
+                    'is_filterable' => $model->getIsFilterable(),
+                    'is_filterable_in_search' => $model->getIsFilterableInSearch(),
+                    'position' => $model->getPosition()
+                );
+                break;
             case 'select':
             case 'price':
-                    $result['additional_fields'] = array(
-                        'is_filterable' => $model->getIsFilterable(),
-                        'is_filterable_in_search' => $model->getIsFilterableInSearch(),
-                        'position' => $model->getPosition(),
-                        'used_for_sort_by' => $model->getUsedForSortBy()
-                    );
-                    break;
+                $result['additional_fields'] = array(
+                    'is_filterable' => $model->getIsFilterable(),
+                    'is_filterable_in_search' => $model->getIsFilterableInSearch(),
+                    'position' => $model->getPosition(),
+                    'used_for_sort_by' => $model->getUsedForSortBy()
+                );
+                break;
             default:
-                    $result['additional_fields'] = array();
-                    break;
+                $result['additional_fields'] = array();
+                break;
         }
 
         // set options
@@ -401,9 +411,12 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         }
 
         $model->addData($modelData);
-        try {
+        try
+        {
             $model->save();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('unable_to_add_option', $e->getMessage());
         }
 
@@ -439,9 +452,12 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             )
         );
         $model->addData($modelData);
-        try {
+        try
+        {
             $model->save();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('unable_to_remove_option', $e->getMessage());
         }
 
@@ -508,7 +524,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     protected function _getAttribute($attribute)
     {
         $model = Mage::getResourceModel('catalog/eav_attribute')
-            ->setEntityTypeId($this->_entityTypeId);
+                ->setEntityTypeId($this->_entityTypeId);
 
         if (is_numeric($attribute)) {
             $model->load(intval($attribute));
@@ -523,4 +539,6 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         return $model;
     }
 
-} // Class Mage_Catalog_Model_Product_Attribute_Api End
+}
+
+// Class Mage_Catalog_Model_Product_Attribute_Api End

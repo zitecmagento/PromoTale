@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Widget Tab Interface
  *
@@ -34,6 +34,7 @@
  */
 interface Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Return Tab label
      *

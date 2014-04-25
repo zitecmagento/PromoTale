@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * @see Zend_Controller_Router_Route_Interface
  */
@@ -37,6 +37,7 @@
  */
 abstract class Zend_Controller_Router_Route_Abstract implements Zend_Controller_Router_Route_Interface
 {
+
     /**
      * Wether this route is abstract or not
      *

@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: MediaGroup.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Extension
  */
@@ -95,7 +94,6 @@
  * @see Zend_Gdata_Media_Extension_MediaTitle
  */
 #require_once 'Zend/Gdata/Media/Extension/MediaTitle.php';
-
 
 /**
  * This class represents the media:group element of Media RSS.
@@ -323,9 +321,9 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
                 $title->transferFromDOM($child);
                 $this->_title = $title;
                 break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 

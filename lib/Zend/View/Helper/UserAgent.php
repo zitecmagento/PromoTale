@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_Abstract */
 #require_once 'Zend/View/Helper/Abstract.php';
 
@@ -32,6 +32,7 @@
  */
 class Zend_View_Helper_UserAgent extends Zend_View_Helper_Abstract
 {
+
     /**
      * Helper method: retrieve or set UserAgent instance
      * 
@@ -73,4 +74,5 @@ class Zend_View_Helper_UserAgent extends Zend_View_Helper_Abstract
         }
         return $this->_userAgent;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SignatureAbstract.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /** Zend_Oauth_Http_Utility */
 #require_once 'Zend/Oauth/Http/Utility.php';
 
@@ -33,6 +33,7 @@
  */
 abstract class Zend_Oauth_Signature_SignatureAbstract
 {
+
     /**
      * Hash algorithm to use when generating signature
      * @var string
@@ -136,8 +137,7 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
     {
         $encodedParams = array();
         foreach ($params as $key => $value) {
-            $encodedParams[Zend_Oauth_Http_Utility::urlEncode($key)] = 
-                Zend_Oauth_Http_Utility::urlEncode($value);
+            $encodedParams[Zend_Oauth_Http_Utility::urlEncode($key)] = Zend_Oauth_Http_Utility::urlEncode($value);
         }
         $baseStrings = array();
         if (isset($method)) {
@@ -146,14 +146,14 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
         if (isset($url)) {
             // should normalise later
             $baseStrings[] = Zend_Oauth_Http_Utility::urlEncode(
-                $this->normaliseBaseSignatureUrl($url)
+                            $this->normaliseBaseSignatureUrl($url)
             );
         }
         if (isset($encodedParams['oauth_signature'])) {
             unset($encodedParams['oauth_signature']);
         }
         $baseStrings[] = Zend_Oauth_Http_Utility::urlEncode(
-            $this->_toByteValueOrderedQueryString($encodedParams)
+                        $this->_toByteValueOrderedQueryString($encodedParams)
         );
         return implode('&', $baseStrings);
     }
@@ -180,4 +180,5 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
         }
         return implode('&', $return);
     }
+
 }

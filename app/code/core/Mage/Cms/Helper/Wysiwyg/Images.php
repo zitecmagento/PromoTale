@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -49,7 +50,6 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      */
     protected $_storeId = null;
 
-
     /**
      * Set a specified store ID value
      *
@@ -69,7 +69,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     public function getStorageRoot()
     {
         return Mage::getConfig()->getOptions()->getMediaDir() . DS . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY
-            . DS;
+                . DS;
     }
 
     /**
@@ -156,7 +156,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         $checkResult = new StdClass;
         $checkResult->isAllowed = false;
         Mage::dispatchEvent('cms_wysiwyg_images_static_urls_allowed', array(
-            'result'   => $checkResult,
+            'result' => $checkResult,
             'store_id' => $this->_storeId
         ));
         return $checkResult->isAllowed;
@@ -207,7 +207,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             }
             $io = new Varien_Io_File();
             if (!$io->isWriteable($currentPath) && !$io->mkdir($currentPath)) {
-                $message = Mage::helper('cms')->__('The directory %s is not writable by server.',$currentPath);
+                $message = Mage::helper('cms')->__('The directory %s is not writable by server.', $currentPath);
                 Mage::throwException($message);
             }
             $this->_currentPath = $currentPath;
@@ -226,7 +226,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             $path = str_replace(Mage::getConfig()->getOptions()->getMediaDir(), '', $this->getCurrentPath());
             $path = trim($path, DS);
             $this->_currentUrl = Mage::app()->getStore($this->_storeId)->getBaseUrl('media') .
-                                 $this->convertPathToUrl($path) . '/';
+                    $this->convertPathToUrl($path) . '/';
         }
         return $this->_currentUrl;
     }
@@ -278,4 +278,5 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         }
         return substr($filename, 0, $maxLength) . '...';
     }
+
 }

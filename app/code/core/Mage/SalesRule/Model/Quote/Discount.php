@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
+
     /**
      * Discount calculation object
      *
@@ -68,9 +70,9 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
         }
 
         $eventArgs = array(
-            'website_id'        => $store->getWebsiteId(),
+            'website_id' => $store->getWebsiteId(),
             'customer_group_id' => $quote->getCustomerGroupId(),
-            'coupon_code'       => $quote->getCouponCode(),
+            'coupon_code' => $quote->getCouponCode(),
         );
 
         $this->_calculator->init($store->getWebsiteId(), $quote->getCustomerGroupId(), $quote->getCouponCode());
@@ -82,8 +84,7 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
             if ($item->getNoDiscount()) {
                 $item->setDiscountAmount(0);
                 $item->setBaseDiscountAmount(0);
-            }
-            else {
+            } else {
                 /**
                  * Child item discount we calculate for parent
                  */
@@ -162,11 +163,12 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
                 $title = Mage::helper('sales')->__('Discount');
             }
             $address->addTotal(array(
-                'code'  => $this->getCode(),
+                'code' => $this->getCode(),
                 'title' => $title,
                 'value' => $amount
             ));
         }
         return $this;
     }
+
 }

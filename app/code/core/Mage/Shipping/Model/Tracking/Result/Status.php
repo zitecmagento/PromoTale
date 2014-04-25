@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Fields:
  * - carrier: fedex
@@ -48,7 +48,10 @@
  */
 class Mage_Shipping_Model_Tracking_Result_Status extends Mage_Shipping_Model_Tracking_Result_Abstract
 {
-    public function getAllData(){
+
+    public function getAllData()
+    {
         return $this->_data;
     }
+
 }

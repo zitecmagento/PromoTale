@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_ShoppingCart extends Mage_Checkout_Block_Cart_Abstract
 {
+
     /**
      * Render shopping cart xml
      *
@@ -94,10 +96,10 @@ class Mage_XmlConnect_Block_ShoppingCart extends Mage_Checkout_Block_Cart_Abstra
         $cartSummary = $xmlObject->addCustomChild('summary');
 
         $cartSummary->addCustomChild(
-            'item', (int)$this->helper('checkout/cart')->getIsVirtualQuote(), array('label' => 'virtual')
+                'item', (int) $this->helper('checkout/cart')->getIsVirtualQuote(), array('label' => 'virtual')
         );
         $cartSummary->addCustomChild(
-            'item', (int)$this->helper('checkout/cart')->getSummaryCount(), array('label' => 'total_qty')
+                'item', (int) $this->helper('checkout/cart')->getSummaryCount(), array('label' => 'total_qty')
         );
 
         if (strlen($quote->getCouponCode())) {
@@ -105,4 +107,5 @@ class Mage_XmlConnect_Block_ShoppingCart extends Mage_Checkout_Block_Cart_Abstra
         }
         return $this;
     }
+
 }

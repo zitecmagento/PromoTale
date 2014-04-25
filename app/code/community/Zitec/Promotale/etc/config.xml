@@ -72,6 +72,35 @@
                 </connection>
             </zitec_promotale_read>
         </resources>
-
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <promo_catalog_edit_tab_main>Zitec_Promotale_Block_Promo_Catalog_Edit_Tab_Main</promo_catalog_edit_tab_main>
+                </rewrite>
+            </adminhtml>
+            <zitec_promotale>
+                <class>Zitec_Promotale_Block</class>
+            </zitec_promotale>
+        </blocks>
     </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <zitec_promotale before="Mage_Adminhtml">Zitec_Promotale_Adminhtml</zitec_promotale>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <zitec_branding>
+                    <file>z_promotale.xml</file>
+                </zitec_branding>
+            </updates>
+        </layout>
+    </adminhtml>
 </config>

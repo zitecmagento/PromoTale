@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,4 +34,5 @@
  */
 class Mage_Catalog_Model_Api2_Product_Image_Rest_Guest_V1 extends Mage_Catalog_Model_Api2_Product_Image_Rest
 {
+    
 }

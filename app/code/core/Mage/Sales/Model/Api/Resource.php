@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,13 +34,14 @@
  */
 class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 {
+
     /**
      * Default ignored attribute codes per entity type
      *
      * @var array
      */
     protected $_ignoredAttributeCodes = array(
-        'global'    =>  array('entity_id', 'attribute_set_id', 'entity_type_id')
+        'global' => array('entity_id', 'attribute_set_id', 'entity_type_id')
     );
 
     /**
@@ -48,7 +50,7 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @var google
      */
     protected $_attributesMap = array(
-        'global'    => array()
+        'global' => array()
     );
 
     /**
@@ -59,10 +61,10 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param array $attributes
      * @return Mage_Sales_Model_Api_Resource
      */
-    protected function _updateAttributes($data, $object, $type,  array $attributes = null)
+    protected function _updateAttributes($data, $object, $type, array $attributes = null)
     {
 
-        foreach ($data as $attribute=>$value) {
+        foreach ($data as $attribute => $value) {
             if ($this->_isAllowedAttribute($attribute, $type, $attributes)) {
                 $object->setData($attribute, $value);
             }
@@ -86,20 +88,20 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
             return $result;
         }
 
-        foreach ($object->getData() as $attribute=>$value) {
+        foreach ($object->getData() as $attribute => $value) {
             if ($this->_isAllowedAttribute($attribute, $type, $attributes)) {
                 $result[$attribute] = $value;
             }
         }
 
         if (isset($this->_attributesMap['global'])) {
-            foreach ($this->_attributesMap['global'] as $alias=>$attributeCode) {
+            foreach ($this->_attributesMap['global'] as $alias => $attributeCode) {
                 $result[$alias] = $object->getData($attributeCode);
             }
         }
 
         if (isset($this->_attributesMap[$type])) {
-            foreach ($this->_attributesMap[$type] as $alias=>$attributeCode) {
+            foreach ($this->_attributesMap[$type] as $alias => $attributeCode) {
                 $result[$alias] = $object->getData($attributeCode);
             }
         }
@@ -117,8 +119,7 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      */
     protected function _isAllowedAttribute($attributeCode, $type, array $attributes = null)
     {
-        if (!empty($attributes)
-            && !(in_array($attributeCode, $attributes))) {
+        if (!empty($attributes) && !(in_array($attributeCode, $attributes))) {
             return false;
         }
 
@@ -126,11 +127,13 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
             return false;
         }
 
-        if (isset($this->_ignoredAttributeCodes[$type])
-            && in_array($attributeCode, $this->_ignoredAttributeCodes[$type])) {
+        if (isset($this->_ignoredAttributeCodes[$type]) && in_array($attributeCode, $this->_ignoredAttributeCodes[$type])) {
             return false;
         }
 
         return true;
     }
-} // Class Mage_Sales_Model_Api_Resource End
+
+}
+
+// Class Mage_Sales_Model_Api_Resource End

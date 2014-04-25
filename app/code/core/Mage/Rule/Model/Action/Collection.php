@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -78,7 +78,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
 
         $actions[] = $action;
         if (!$action->getId()) {
-            $action->setId($this->getId().'.'.sizeof($actions));
+            $action->setId($this->getId() . '.' . sizeof($actions));
         }
 
         $this->setActions($actions);
@@ -87,42 +87,43 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
 
     public function asHtml()
     {
-        $html = $this->getTypeElement()->toHtml().'Perform following actions: ';
-        if ($this->getId()!='1') {
+        $html = $this->getTypeElement()->toHtml() . 'Perform following actions: ';
+        if ($this->getId() != '1') {
             $html.= $this->getRemoveLinkHtml();
         }
         return $html;
     }
-   public function getNewChildElement()
-   {
-       return $this->getForm()->addField('action:'.$this->getId().':new_child', 'select', array(
-           'name'=>'rule[actions]['.$this->getId().'][new_child]',
-           'values'=>$this->getNewChildSelectOptions(),
-           'value_name'=>$this->getNewChildName(),
-       ))->setRenderer(Mage::getBlockSingleton('rule/newchild'));
+
+    public function getNewChildElement()
+    {
+        return $this->getForm()->addField('action:' . $this->getId() . ':new_child', 'select', array(
+                    'name' => 'rule[actions][' . $this->getId() . '][new_child]',
+                    'values' => $this->getNewChildSelectOptions(),
+                    'value_name' => $this->getNewChildName(),
+                ))->setRenderer(Mage::getBlockSingleton('rule/newchild'));
     }
 
     public function asHtmlRecursive()
     {
-        $html = $this->asHtml().'<ul id="action:'.$this->getId().':children">';
+        $html = $this->asHtml() . '<ul id="action:' . $this->getId() . ':children">';
         foreach ($this->getActions() as $cond) {
-            $html .= '<li>'.$cond->asHtmlRecursive().'</li>';
+            $html .= '<li>' . $cond->asHtmlRecursive() . '</li>';
         }
-        $html .= '<li>'.$this->getNewChildElement()->getHtml().'</li></ul>';
+        $html .= '<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>';
         return $html;
     }
 
-    public function asString($format='')
+    public function asString($format = '')
     {
         $str = Mage::helper('rule')->__("Perform following actions");
         return $str;
     }
 
-    public function asStringRecursive($level=0)
+    public function asStringRecursive($level = 0)
     {
         $str = $this->asString();
         foreach ($this->getActions() as $action) {
-            $str .= "\n".$action->asStringRecursive($level+1);
+            $str .= "\n" . $action->asStringRecursive($level + 1);
         }
         return $str;
     }
@@ -134,4 +135,5 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
         }
         return $this;
     }
+
 }

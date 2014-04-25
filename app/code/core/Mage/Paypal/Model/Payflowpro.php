@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,19 +32,19 @@
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
+class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
 {
+
     /**
      * Transaction action codes
      */
-    const TRXTYPE_AUTH_ONLY         = 'A';
-    const TRXTYPE_SALE              = 'S';
-    const TRXTYPE_CREDIT            = 'C';
-    const TRXTYPE_DELAYED_CAPTURE   = 'D';
-    const TRXTYPE_DELAYED_VOID      = 'V';
-    const TRXTYPE_DELAYED_VOICE     = 'F';
-    const TRXTYPE_DELAYED_INQUIRY   = 'I';
+    const TRXTYPE_AUTH_ONLY = 'A';
+    const TRXTYPE_SALE = 'S';
+    const TRXTYPE_CREDIT = 'C';
+    const TRXTYPE_DELAYED_CAPTURE = 'D';
+    const TRXTYPE_DELAYED_VOID = 'V';
+    const TRXTYPE_DELAYED_VOICE = 'F';
+    const TRXTYPE_DELAYED_INQUIRY = 'I';
 
     /**
      * Tender type codes
@@ -53,20 +54,20 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
     /**
      * Gateway request URLs
      */
-    const TRANSACTION_URL           = 'https://payflowpro.paypal.com/transaction';
+    const TRANSACTION_URL = 'https://payflowpro.paypal.com/transaction';
     const TRANSACTION_URL_TEST_MODE = 'https://pilot-payflowpro.paypal.com/transaction';
 
     /**
      * Response codes
      */
-    const RESPONSE_CODE_APPROVED                = 0;
-    const RESPONSE_CODE_INVALID_AMOUNT          = 4;
-    const RESPONSE_CODE_FRAUDSERVICE_FILTER     = 126;
-    const RESPONSE_CODE_DECLINED                = 12;
-    const RESPONSE_CODE_DECLINED_BY_FILTER      = 125;
-    const RESPONSE_CODE_DECLINED_BY_MERCHANT    = 128;
-    const RESPONSE_CODE_CAPTURE_ERROR           = 111;
-    const RESPONSE_CODE_VOID_ERROR              = 108;
+    const RESPONSE_CODE_APPROVED = 0;
+    const RESPONSE_CODE_INVALID_AMOUNT = 4;
+    const RESPONSE_CODE_FRAUDSERVICE_FILTER = 126;
+    const RESPONSE_CODE_DECLINED = 12;
+    const RESPONSE_CODE_DECLINED_BY_FILTER = 125;
+    const RESPONSE_CODE_DECLINED_BY_MERCHANT = 128;
+    const RESPONSE_CODE_CAPTURE_ERROR = 111;
+    const RESPONSE_CODE_VOID_ERROR = 108;
 
     /**
      * Payment method code
@@ -76,16 +77,16 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
     /**
      * Availability options
      */
-    protected $_isGateway               = true;
-    protected $_canAuthorize            = true;
-    protected $_canCapture              = true;
-    protected $_canCapturePartial       = true;
-    protected $_canRefund               = true;
+    protected $_isGateway = true;
+    protected $_canAuthorize = true;
+    protected $_canCapture = true;
+    protected $_canCapturePartial = true;
+    protected $_canRefund = true;
     protected $_canRefundInvoicePartial = true;
-    protected $_canVoid                 = true;
-    protected $_canUseInternal          = true;
-    protected $_canUseCheckout          = true;
-    protected $_canUseForMultishipping  = true;
+    protected $_canVoid = true;
+    protected $_canUseInternal = true;
+    protected $_canUseCheckout = true;
+    protected $_canUseForMultishipping = true;
     protected $_canSaveCc = false;
     protected $_isProxy = false;
     protected $_canFetchTransactionInfo = true;
@@ -108,11 +109,11 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      * @var string
      */
     protected $_centinelFieldMap = array(
-        'centinel_mpivendor'    => 'MPIVENDOR3DS',
-        'centinel_authstatus'   => 'AUTHSTATUS3DS',
-        'centinel_cavv'         => 'CAVV',
-        'centinel_eci'          => 'ECI',
-        'centinel_xid'          => 'XID',
+        'centinel_mpivendor' => 'MPIVENDOR3DS',
+        'centinel_authstatus' => 'AUTHSTATUS3DS',
+        'centinel_cavv' => 'CAVV',
+        'centinel_eci' => 'ECI',
+        'centinel_xid' => 'XID',
     );
 
     /**
@@ -161,7 +162,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
         $response = $this->_postRequest($request);
         $this->_processErrors($response);
 
-        switch ($response->getResultCode()){
+        switch ($response->getResultCode()) {
             case self::RESPONSE_CODE_APPROVED:
                 $payment->setTransactionId($response->getPnref())->setIsTransactionClosed(0);
                 break;
@@ -217,7 +218,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
         $response = $this->_postRequest($request);
         $this->_processErrors($response);
 
-        switch ($response->getResultCode()){
+        switch ($response->getResultCode()) {
             case self::RESPONSE_CODE_APPROVED:
                 $payment->setTransactionId($response->getPnref())->setIsTransactionClosed(0);
                 break;
@@ -244,10 +245,10 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
         $response = $this->_postRequest($request);
         $this->_processErrors($response);
 
-        if ($response->getResultCode() == self::RESPONSE_CODE_APPROVED){
+        if ($response->getResultCode() == self::RESPONSE_CODE_APPROVED) {
             $payment->setTransactionId($response->getPnref())
-                ->setIsTransactionClosed(1)
-                ->setShouldCloseParentTransaction(1);
+                    ->setIsTransactionClosed(1)
+                    ->setShouldCloseParentTransaction(1);
         }
 
         return $this;
@@ -261,8 +262,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      */
     public function canVoid(Varien_Object $payment)
     {
-        if ($payment instanceof Mage_Sales_Model_Order_Invoice
-            || $payment instanceof Mage_Sales_Model_Order_Creditmemo
+        if ($payment instanceof Mage_Sales_Model_Order_Invoice || $payment instanceof Mage_Sales_Model_Order_Creditmemo
         ) {
             return false;
         }
@@ -299,13 +299,13 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
         $request = $this->_buildBasicRequest($payment);
         $request->setTrxtype(self::TRXTYPE_CREDIT);
         $request->setOrigid($payment->getParentTransactionId());
-        $request->setAmt(round($amount,2));
+        $request->setAmt(round($amount, 2));
         $response = $this->_postRequest($request);
         $this->_processErrors($response);
 
-        if ($response->getResultCode() == self::RESPONSE_CODE_APPROVED){
+        if ($response->getResultCode() == self::RESPONSE_CODE_APPROVED) {
             $payment->setTransactionId($response->getPnref())
-                ->setIsTransactionClosed(1);
+                    ->setIsTransactionClosed(1);
             $payment->setShouldCloseParentTransaction(!$payment->getCreditmemo()->getInvoice()->canRefund());
         }
         return $this;
@@ -329,7 +329,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
 
         if (!$this->_isTransactionUnderReview($response->getOrigresult())) {
             $payment->setTransactionId($response->getOrigpnref())
-                ->setIsTransactionClosed(0);
+                    ->setIsTransactionClosed(0);
             if ($response->getOrigresult() == self::RESPONSE_CODE_APPROVED) {
                 $payment->setIsTransactionApproved(true);
             } else if ($response->getOrigresult() == self::RESPONSE_CODE_DECLINED_BY_MERCHANT) {
@@ -363,7 +363,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      */
     protected function _getTransactionUrl($testMode = null)
     {
-        $testMode = is_null($testMode) ? $this->getConfigData('sandbox_flag') : (bool)$testMode;
+        $testMode = is_null($testMode) ? $this->getConfigData('sandbox_flag') : (bool) $testMode;
         if ($testMode) {
             return self::TRANSACTION_URL_TEST_MODE;
         }
@@ -385,38 +385,40 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
 
         $_config = array(
             'maxredirects' => 5,
-            'timeout'    => 30,
+            'timeout' => 30,
             'verifypeer' => $this->getConfigData('verify_peer')
         );
 
         $_isProxy = $this->getConfigData('use_proxy', false);
         if ($_isProxy) {
             $_config['proxy'] = $this->getConfigData('proxy_host')
-                . ':'
-                . $this->getConfigData('proxy_port');//http://proxy.shr.secureserver.net:3128',
+                    . ':'
+                    . $this->getConfigData('proxy_port'); //http://proxy.shr.secureserver.net:3128',
             $_config['httpproxytunnel'] = true;
             $_config['proxytype'] = CURLPROXY_HTTP;
         }
 
         $client->setUri($this->_getTransactionUrl())
-            ->setConfig($_config)
-            ->setMethod(Zend_Http_Client::POST)
-            ->setParameterPost($request->getData())
-            ->setHeaders('X-VPS-VIT-CLIENT-CERTIFICATION-ID: 33baf5893fc2123d8b191d2d011b7fdc')
-            ->setHeaders('X-VPS-Request-ID: ' . $request->getRequestId())
-            ->setHeaders('X-VPS-CLIENT-TIMEOUT: ' . $this->_clientTimeout);
+                ->setConfig($_config)
+                ->setMethod(Zend_Http_Client::POST)
+                ->setParameterPost($request->getData())
+                ->setHeaders('X-VPS-VIT-CLIENT-CERTIFICATION-ID: 33baf5893fc2123d8b191d2d011b7fdc')
+                ->setHeaders('X-VPS-Request-ID: ' . $request->getRequestId())
+                ->setHeaders('X-VPS-CLIENT-TIMEOUT: ' . $this->_clientTimeout);
 
-        try {
-           /**
-            * we are sending request to payflow pro without url encoding
-            * so we set up _urlEncodeBody flag to false
-            */
+        try
+        {
+            /**
+             * we are sending request to payflow pro without url encoding
+             * so we set up _urlEncodeBody flag to false
+             */
             $response = $client->setUrlEncodeBody(false)->request();
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $result->setResponseCode(-1)
-                ->setResponseReasonCode($e->getCode())
-                ->setResponseReasonText($e->getMessage());
+                    ->setResponseReasonCode($e->getCode())
+                    ->setResponseReasonText($e->getMessage());
 
             $debugData['result'] = $result->getData();
             $this->_debug($debugData);
@@ -428,9 +430,9 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
         $response = strstr($response->getBody(), 'RESULT');
         $valArray = explode('&', $response);
 
-        foreach($valArray as $val) {
-                $valArray2 = explode('=', $val);
-                $result->setData(strtolower($valArray2[0]), $valArray2[1]);
+        foreach ($valArray as $val) {
+            $valArray2 = explode('=', $val);
+            $result->setData(strtolower($valArray2[0]), $valArray2[1]);
         }
 
         $result->setResultCode($result->getResult())
@@ -442,22 +444,22 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
         return $result;
     }
 
-     /**
-      * Return request object with information for 'authorization' or 'sale' action
-      *
-      * @param Mage_Sales_Model_Order_Payment $payment
-      * @param float $amount
-      * @return Varien_Object
-      */
+    /**
+     * Return request object with information for 'authorization' or 'sale' action
+     *
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param float $amount
+     * @return Varien_Object
+     */
     protected function _buildPlaceRequest(Varien_Object $payment, $amount)
     {
         $request = $this->_buildBasicRequest($payment);
-        $request->setAmt(round($amount,2));
+        $request->setAmt(round($amount, 2));
         $request->setAcct($payment->getCcNumber());
-        $request->setExpdate(sprintf('%02d',$payment->getCcExpMonth()) . substr($payment->getCcExpYear(),-2,2));
+        $request->setExpdate(sprintf('%02d', $payment->getCcExpMonth()) . substr($payment->getCcExpYear(), -2, 2));
         $request->setCvv2($payment->getCcCid());
 
-        if ($this->getIsCentinelValidationEnabled()){
+        if ($this->getIsCentinelValidationEnabled()) {
             $params = array();
             $params = $this->getCentinelValidator()->exportCmpiData($params);
             $request = Varien_Object_Mapper::accumulateByMap($params, $request, $this->_centinelFieldMap);
@@ -468,9 +470,9 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
             $orderIncrementId = $order->getIncrementId();
 
             $request->setCurrency($order->getBaseCurrencyCode())
-                ->setInvnum($orderIncrementId)
-                ->setPonum($order->getId())
-                ->setComment1($orderIncrementId);
+                    ->setInvnum($orderIncrementId)
+                    ->setPonum($order->getId())
+                    ->setComment1($orderIncrementId);
 
             $customerId = $order->getCustomerId();
             if ($customerId) {
@@ -480,70 +482,69 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
             $billing = $order->getBillingAddress();
             if (!empty($billing)) {
                 $request->setFirstname($billing->getFirstname())
-                    ->setLastname($billing->getLastname())
-                    ->setStreet(implode(' ', $billing->getStreet()))
-                    ->setCity($billing->getCity())
-                    ->setState($billing->getRegionCode())
-                    ->setZip($billing->getPostcode())
-                    ->setCountry($billing->getCountry())
-                    ->setEmail($payment->getOrder()->getCustomerEmail());
+                        ->setLastname($billing->getLastname())
+                        ->setStreet(implode(' ', $billing->getStreet()))
+                        ->setCity($billing->getCity())
+                        ->setState($billing->getRegionCode())
+                        ->setZip($billing->getPostcode())
+                        ->setCountry($billing->getCountry())
+                        ->setEmail($payment->getOrder()->getCustomerEmail());
             }
             $shipping = $order->getShippingAddress();
             if (!empty($shipping)) {
                 $this->_applyCountryWorkarounds($shipping);
                 $request->setShiptofirstname($shipping->getFirstname())
-                    ->setShiptolastname($shipping->getLastname())
-                    ->setShiptostreet(implode(' ', $shipping->getStreet()))
-                    ->setShiptocity($shipping->getCity())
-                    ->setShiptostate($shipping->getRegionCode())
-                    ->setShiptozip($shipping->getPostcode())
-                    ->setShiptocountry($shipping->getCountry());
+                        ->setShiptolastname($shipping->getLastname())
+                        ->setShiptostreet(implode(' ', $shipping->getStreet()))
+                        ->setShiptocity($shipping->getCity())
+                        ->setShiptostate($shipping->getRegionCode())
+                        ->setShiptozip($shipping->getPostcode())
+                        ->setShiptocountry($shipping->getCountry());
             }
         }
         return $request;
     }
 
-     /**
-      * Return request object with basic information for gateway request
-      *
-      * @param Mage_Sales_Model_Order_Payment $payment
-      * @return Varien_Object
-      */
+    /**
+     * Return request object with basic information for gateway request
+     *
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @return Varien_Object
+     */
     protected function _buildBasicRequest(Varien_Object $payment)
     {
         $request = new Varien_Object();
         $request
-            ->setUser($this->getConfigData('user'))
-            ->setVendor($this->getConfigData('vendor'))
-            ->setPartner($this->getConfigData('partner'))
-            ->setPwd($this->getConfigData('pwd'))
-            ->setVerbosity($this->getConfigData('verbosity'))
-            ->setTender(self::TENDER_CC)
-            ->setRequestId($this->_generateRequestId());
+                ->setUser($this->getConfigData('user'))
+                ->setVendor($this->getConfigData('vendor'))
+                ->setPartner($this->getConfigData('partner'))
+                ->setPwd($this->getConfigData('pwd'))
+                ->setVerbosity($this->getConfigData('verbosity'))
+                ->setTender(self::TENDER_CC)
+                ->setRequestId($this->_generateRequestId());
         return $request;
     }
 
-     /**
-      * Return unique value for request
-      *
-      * @return string
-      */
+    /**
+     * Return unique value for request
+     *
+     * @return string
+     */
     protected function _generateRequestId()
     {
         return Mage::helper('core')->uniqHash();
     }
 
-     /**
-      * If response is failed throw exception
-      *
-      * @throws Mage_Core_Exception
-      */
+    /**
+     * If response is failed throw exception
+     *
+     * @throws Mage_Core_Exception
+     */
     protected function _processErrors(Varien_Object $response)
     {
         if ($response->getResultCode() == self::RESPONSE_CODE_VOID_ERROR) {
             throw new Mage_Paypal_Exception(Mage::helper('paypal')->__('You cannot void a verification transaction'));
-        } elseif ($response->getResultCode() != self::RESPONSE_CODE_APPROVED
-            && $response->getResultCode() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER) {
+        } elseif ($response->getResultCode() != self::RESPONSE_CODE_APPROVED && $response->getResultCode() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER) {
             Mage::throwException($response->getRespmsg());
         }
     }
@@ -573,4 +574,5 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
     {
         return $this;
     }
+
 }

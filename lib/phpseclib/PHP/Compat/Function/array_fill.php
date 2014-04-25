@@ -1,6 +1,6 @@
 <?php
-// $Id: array_fill.php,v 1.1 2007/07/02 04:19:55 terrafrost Exp $
 
+// $Id: array_fill.php,v 1.1 2007/07/02 04:19:55 terrafrost Exp $
 
 /**
  * Replace array_fill()
@@ -34,8 +34,10 @@ function php_compat_array_fill($start_index, $num, $value)
 
 // Define
 if (!function_exists('array_fill')) {
+
     function array_fill($start_index, $num, $value)
     {
         return php_compat_array_fill($start_index, $num, $value);
     }
+
 }

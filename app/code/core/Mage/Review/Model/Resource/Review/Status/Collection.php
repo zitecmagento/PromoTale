@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Review_Model_Resource_Review_Status_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Review status table
      *
@@ -58,4 +60,5 @@ class Mage_Review_Model_Resource_Review_Status_Collection extends Mage_Core_Mode
     {
         return parent::_toOptionArray('status_id', 'status_code');
     }
+
 }

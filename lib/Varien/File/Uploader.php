@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,9 +35,9 @@
  * @package    Varien_File
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Varien_File_Uploader
 {
+
     /**
      * Uploaded file handle (copy of $_FILES[] element)
      *
@@ -119,9 +120,7 @@ class Varien_File_Uploader
      * @access protected
      */
     protected $_dispretionPath = null;
-
     protected $_fileExists = false;
-
     protected $_allowedExtensions = null;
 
     /**
@@ -147,7 +146,7 @@ class Varien_File_Uploader
     function __construct($fileId)
     {
         $this->_setUploadFileId($fileId);
-        if(!file_exists($this->_file['tmp_name'])) {
+        if (!file_exists($this->_file['tmp_name'])) {
             $code = empty($this->_file['tmp_name']) ? self::TMP_NAME_EMPTY : 0;
             throw new Exception('File was not uploaded.', $code);
         } else {
@@ -211,8 +210,7 @@ class Varien_File_Uploader
         if ($this->_result) {
             chmod($destinationFile, 0777);
             if ($this->_enableFilesDispersion) {
-                $fileName = str_replace(DIRECTORY_SEPARATOR, '/',
-                    self::_addDirSeparator($this->_dispretionPath)) . $fileName;
+                $fileName = str_replace(DIRECTORY_SEPARATOR, '/', self::_addDirSeparator($this->_dispretionPath)) . $fileName;
             }
             $this->_uploadedFileName = $fileName;
             $this->_uploadedFileDir = $destinationFolder;
@@ -283,8 +281,8 @@ class Varien_File_Uploader
     public function addValidateCallback($callbackName, $callbackObject, $callbackMethod)
     {
         $this->_validateCallbacks[$callbackName] = array(
-           'object' => $callbackObject,
-           'method' => $callbackMethod
+            'object' => $callbackObject,
+            'method' => $callbackMethod
         );
         return $this;
     }
@@ -337,7 +335,7 @@ class Varien_File_Uploader
 
     static protected function _addDirSeparator($dir)
     {
-        if (substr($dir,-1) != DIRECTORY_SEPARATOR) {
+        if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
             $dir.= DIRECTORY_SEPARATOR;
         }
         return $dir;
@@ -350,7 +348,7 @@ class Varien_File_Uploader
      * @access public
      * @return bool
      */
-    public function checkMimeType($validTypes=Array())
+    public function checkMimeType($validTypes = Array())
     {
         if (count($validTypes) > 0) {
             if (!in_array($this->_getMimeType(), $validTypes)) {
@@ -424,7 +422,7 @@ class Varien_File_Uploader
 
     public function setAllowedExtensions($extensions = array())
     {
-        foreach ((array)$extensions as $extension) {
+        foreach ((array) $extensions as $extension) {
             $this->_allowedExtensions[] = strtolower($extension);
         }
         return $this;
@@ -486,10 +484,10 @@ class Varien_File_Uploader
 
                 $fileAttributes = $tmp_var;
                 $this->_file = $fileAttributes;
-            } elseif( count($fileId) > 0 && isset($_FILES[$fileId])) {
+            } elseif (count($fileId) > 0 && isset($_FILES[$fileId])) {
                 $this->_uploadType = self::SINGLE_STYLE;
                 $this->_file = $_FILES[$fileId];
-            } elseif( $fileId == '' ) {
+            } elseif ($fileId == '') {
                 throw new Exception('Invalid parameter given. A valid $_FILES[] identifier is expected.');
             }
         }
@@ -517,8 +515,8 @@ class Varien_File_Uploader
         if (file_exists($destFile)) {
             $index = 1;
             $baseName = $fileInfo['filename'] . '.' . $fileInfo['extension'];
-            while( file_exists($fileInfo['dirname'] . DIRECTORY_SEPARATOR . $baseName) ) {
-                $baseName = $fileInfo['filename']. '_' . $index . '.' . $fileInfo['extension'];
+            while (file_exists($fileInfo['dirname'] . DIRECTORY_SEPARATOR . $baseName)) {
+                $baseName = $fileInfo['filename'] . '_' . $index . '.' . $fileInfo['extension'];
                 $index ++;
             }
             $destFileName = $baseName;
@@ -536,13 +534,14 @@ class Varien_File_Uploader
         while (($char < 2) && ($char < strlen($fileName))) {
             if (empty($dispretionPath)) {
                 $dispretionPath = DIRECTORY_SEPARATOR
-                    . ('.' == $fileName[$char] ? '_' : $fileName[$char]);
+                        . ('.' == $fileName[$char] ? '_' : $fileName[$char]);
             } else {
                 $dispretionPath = self::_addDirSeparator($dispretionPath)
-                      . ('.' == $fileName[$char] ? '_' : $fileName[$char]);
+                        . ('.' == $fileName[$char] ? '_' : $fileName[$char]);
             }
             $char ++;
         }
         return $dispretionPath;
     }
+
 }

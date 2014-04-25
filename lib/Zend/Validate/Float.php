@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Float.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -37,17 +37,17 @@
  */
 class Zend_Validate_Float extends Zend_Validate_Abstract
 {
-    const INVALID   = 'floatInvalid';
+
+    const INVALID = 'floatInvalid';
     const NOT_FLOAT = 'notFloat';
 
     /**
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID   => "Invalid type given. String, integer or float expected",
+        self::INVALID => "Invalid type given. String, integer or float expected",
         self::NOT_FLOAT => "'%value%' does not appear to be a float",
     );
-
     protected $_locale;
 
     /**
@@ -119,16 +119,20 @@ class Zend_Validate_Float extends Zend_Validate_Abstract
         }
 
         $this->_setValue($value);
-        try {
+        try
+        {
             if (!Zend_Locale_Format::isFloat($value, array('locale' => $this->_locale))) {
                 $this->_error(self::NOT_FLOAT);
                 return false;
             }
-        } catch (Zend_Locale_Exception $e) {
+        }
+        catch (Zend_Locale_Exception $e)
+        {
             $this->_error(self::NOT_FLOAT);
             return false;
         }
 
         return true;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Items.php 22804 2010-08-08 05:08:05Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Response_Histograms
  */
@@ -35,10 +35,11 @@
  */
 class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding_Response_Histograms
 {
+
     /**
      * @link http://developer.ebay.com/DevZone/finding/CallRef/types/PaginationInput.html
      */
-    const PAGE_MAX_DEFAULT  = 100;
+    const PAGE_MAX_DEFAULT = 100;
     const PAGE_MAX_INFINITY = 0;
 
     /**
@@ -114,7 +115,7 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
              */
             #require_once 'Zend/Service/Ebay/Finding/Exception.php';
             throw new Zend_Service_Ebay_Finding_Exception(
-                "Page number '{$number}' is out of range.");
+            "Page number '{$number}' is out of range.");
         }
 
         // prepare arguments
@@ -139,12 +140,8 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
                 if (!is_array($productId)) {
                     $productId = array('' => $productId);
                 }
-                $arguments[] = array_key_exists('', $productId)
-                             ? $productId['']
-                             : null;
-                $arguments[] = array_key_exists('type', $productId)
-                             ? $productId['type']
-                             : null;
+                $arguments[] = array_key_exists('', $productId) ? $productId[''] : null;
+                $arguments[] = array_key_exists('type', $productId) ? $productId['type'] : null;
                 break;
 
             case 'findItemsIneBayStores':
@@ -157,7 +154,7 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
                  */
                 #require_once 'Zend/Service/Ebay/Finding/Exception.php';
                 throw new Zend_Service_Ebay_Finding_Exception(
-                    "Invalid operation '{$this->_operation}'.");
+                "Invalid operation '{$this->_operation}'.");
         }
 
         // prepare options
@@ -171,9 +168,9 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
 
         // set new pagination values
         // see more at http://developer.ebay.com/DevZone/finding/CallRef/types/PaginationInput.html
-        $entriesPerPage             = $this->paginationOutput->entriesPerPage;
+        $entriesPerPage = $this->paginationOutput->entriesPerPage;
         $options['paginationInput'] = array('entriesPerPage' => $entriesPerPage,
-                                            'pageNumber'     => $number);
+            'pageNumber' => $number);
 
         // add current options as last argument
         ksort($options);
@@ -188,7 +185,7 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
             } else {
                 // request new page
                 $callback = array($proxy, $this->_operation);
-                $new      = call_user_func_array($callback, $arguments);
+                $new = call_user_func_array($callback, $arguments);
             }
             self::$_pageCache[$id] = $new;
         }
@@ -246,4 +243,5 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
         }
         return $this->page($proxy, $previous);
     }
+
 }

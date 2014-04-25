@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Location
-    extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
+class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Location extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
 {
+
     /**
      * Add conflicts resolution js code to the fieldset
      *
@@ -204,7 +205,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Location
 
                             if (conflict && !confirmationShowed && anotherEnabler.value == 1) {
                                 if (isEvent) {
-                                    confirmationApproved = confirm(\'' .  $this->helper('core')->jsQuoteEscape($this->__('There is already another PayPal solution enabled. Enable this solution instead?')) . '\');
+                                    confirmationApproved = confirm(\'' . $this->helper('core')->jsQuoteEscape($this->__('There is already another PayPal solution enabled. Enable this solution instead?')) . '\');
                                 } else {
                                     paypalConflictsObject.isConflict = true;
                                 }
@@ -301,14 +302,14 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Location
                     paypalConflictsObject.checkPaymentConflicts(enablerElement, "initial");
                 });
                 if (paypalConflictsObject.isConflict || paypalConflictsObject.ecMissed) {
-                    var notification = \'' .  $this->helper('core')->jsQuoteEscape($this->__('The following error(s) occured:')) . '\';
+                    var notification = \'' . $this->helper('core')->jsQuoteEscape($this->__('The following error(s) occured:')) . '\';
                     if (paypalConflictsObject.isConflict) {
-                        notification += "\\n  " + \'' .  $this->helper('core')->jsQuoteEscape($this->__('Some PayPal solutions conflict.')) . '\';
+                        notification += "\\n  " + \'' . $this->helper('core')->jsQuoteEscape($this->__('Some PayPal solutions conflict.')) . '\';
                     }
                     if (paypalConflictsObject.ecMissed) {
-                        notification += "\\n  " + \'' .  $this->helper('core')->jsQuoteEscape($this->__('PayPal Express Checkout is not enabled.')) . '\';
+                        notification += "\\n  " + \'' . $this->helper('core')->jsQuoteEscape($this->__('PayPal Express Checkout is not enabled.')) . '\';
                     }
-                    notification += "\\n" + \'' .  $this->helper('core')->jsQuoteEscape($this->__('Please re-enable the previously enabled payment solutions.')) . '\';
+                    notification += "\\n" + \'' . $this->helper('core')->jsQuoteEscape($this->__('Please re-enable the previously enabled payment solutions.')) . '\';
                     setTimeout(function() {
                         alert(notification);
                     }, 1);
@@ -350,4 +351,5 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Location
         ';
         return parent::_getExtraJs($element, $tooltipsExist) . $this->helper('adminhtml/js')->getScript($js);
     }
+
 }

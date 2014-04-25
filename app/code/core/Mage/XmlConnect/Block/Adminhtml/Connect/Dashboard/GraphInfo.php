@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo extends Mage_Core_Block_Abstract
 {
+
     /**
      * Time range filter options
      *
@@ -69,9 +71,9 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo extends Mage_C
 
         /** @var $rangeXmlObj Mage_XmlConnect_Model_Simplexml_Form_Element_Select */
         $rangeXmlObj = Mage::getModel('xmlconnect/simplexml_form_element_select', array(
-            'label' => $this->__('Select Range'),
-            'options' => $options,
-            'value' => $options[0]['value']
+                    'label' => $this->__('Select Range'),
+                    'options' => $options,
+                    'value' => $options[0]['value']
         ));
         $rangeXmlObj->setId('range_id');
         $xmlObj->appendChild($rangeXmlObj->toXmlObject());
@@ -108,11 +110,11 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo extends Mage_C
     {
         /** @var $rangeXmlObj Mage_XmlConnect_Model_Simplexml_Form_Element_Select */
         $rangeXmlObj = Mage::getModel('xmlconnect/simplexml_form_element_select', array(
-            'label' => $this->__('Select Chart'),
-            'value' => 'orders',
-            'options' => array(
-                array('label' => $this->__('Orders'), 'value' => 'orders'),
-                array('label' => $this->__('Amounts'), 'value' => 'amounts')
+                    'label' => $this->__('Select Chart'),
+                    'value' => 'orders',
+                    'options' => array(
+                        array('label' => $this->__('Orders'), 'value' => 'orders'),
+                        array('label' => $this->__('Amounts'), 'value' => 'amounts')
         )));
         $rangeXmlObj->setId('data_details_id');
         $xmlObj->appendChild($rangeXmlObj->toXmlObject());
@@ -128,7 +130,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo extends Mage_C
     protected function _addChartDataOrders(Mage_XmlConnect_Model_Simplexml_Element $graphInfoXmlObj)
     {
         $this->getChild('graph_order_data')->setRangeOptions($this->_getRangeOptions())
-            ->addOrderChartDataToXmlObj($graphInfoXmlObj);
+                ->addOrderChartDataToXmlObj($graphInfoXmlObj);
         return $this;
     }
 
@@ -141,7 +143,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo extends Mage_C
     protected function _addChartDataAmounts(Mage_XmlConnect_Model_Simplexml_Element $graphInfoXmlObj)
     {
         $this->getChild('graph_amounts_data')->setRangeOptions($this->_getRangeOptions())
-            ->addAmountsChartDataToXmlObj($graphInfoXmlObj);
+                ->addAmountsChartDataToXmlObj($graphInfoXmlObj);
         return $this;
     }
 
@@ -154,7 +156,8 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo extends Mage_C
     protected function _addTotalsBar(Mage_XmlConnect_Model_Simplexml_Element $graphInfoXmlObj)
     {
         $this->getChild('graph_totals_data')->setRangeOptions($this->_getRangeOptions())
-            ->addTotalsDataToXmlObj($graphInfoXmlObj);
+                ->addTotalsDataToXmlObj($graphInfoXmlObj);
         return $this;
     }
+
 }

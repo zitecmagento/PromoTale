@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
 {
+
     /**
      * Default value for products count that will be shown
      */
@@ -53,10 +55,10 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
         parent::_construct();
 
         $this->addColumnCountLayoutDepend('empty', 6)
-            ->addColumnCountLayoutDepend('one_column', 5)
-            ->addColumnCountLayoutDepend('two_columns_left', 4)
-            ->addColumnCountLayoutDepend('two_columns_right', 4)
-            ->addColumnCountLayoutDepend('three_columns', 3);
+                ->addColumnCountLayoutDepend('one_column', 5)
+                ->addColumnCountLayoutDepend('two_columns_left', 4)
+                ->addColumnCountLayoutDepend('two_columns_right', 4)
+                ->addColumnCountLayoutDepend('three_columns', 3);
 
         $this->addData(array('cache_lifetime' => 86400));
         $this->addCacheTag(Mage_Catalog_Model_Product::CACHE_TAG);
@@ -70,13 +72,13 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     public function getCacheKeyInfo()
     {
         return array(
-           'CATALOG_PRODUCT_NEW',
-           Mage::app()->getStore()->getId(),
-           Mage::getDesign()->getPackageName(),
-           Mage::getDesign()->getTheme('template'),
-           Mage::getSingleton('customer/session')->getCustomerGroupId(),
-           'template' => $this->getTemplate(),
-           $this->getProductsCount()
+            'CATALOG_PRODUCT_NEW',
+            Mage::app()->getStore()->getId(),
+            Mage::getDesign()->getPackageName(),
+            Mage::getDesign()->getTheme('template'),
+            Mage::getSingleton('customer/session')->getCustomerGroupId(),
+            'template' => $this->getTemplate(),
+            $this->getProductsCount()
         );
     }
 
@@ -87,13 +89,13 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
      */
     protected function _getProductCollection()
     {
-        $todayStartOfDayDate  = Mage::app()->getLocale()->date()
-            ->setTime('00:00:00')
-            ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+        $todayStartOfDayDate = Mage::app()->getLocale()->date()
+                ->setTime('00:00:00')
+                ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
 
-        $todayEndOfDayDate  = Mage::app()->getLocale()->date()
-            ->setTime('23:59:59')
-            ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+        $todayEndOfDayDate = Mage::app()->getLocale()->date()
+                ->setTime('23:59:59')
+                ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
 
         /** @var $collection Mage_Catalog_Model_Resource_Product_Collection */
         $collection = Mage::getResourceModel('catalog/product_collection');
@@ -101,24 +103,24 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
 
 
         $collection = $this->_addProductAttributesAndPrices($collection)
-            ->addStoreFilter()
-            ->addAttributeToFilter('news_from_date', array('or'=> array(
-                0 => array('date' => true, 'to' => $todayEndOfDayDate),
-                1 => array('is' => new Zend_Db_Expr('null')))
-            ), 'left')
-            ->addAttributeToFilter('news_to_date', array('or'=> array(
-                0 => array('date' => true, 'from' => $todayStartOfDayDate),
-                1 => array('is' => new Zend_Db_Expr('null')))
-            ), 'left')
-            ->addAttributeToFilter(
-                array(
-                    array('attribute' => 'news_from_date', 'is'=>new Zend_Db_Expr('not null')),
-                    array('attribute' => 'news_to_date', 'is'=>new Zend_Db_Expr('not null'))
-                    )
-              )
-            ->addAttributeToSort('news_from_date', 'desc')
-            ->setPageSize($this->getProductsCount())
-            ->setCurPage(1)
+                ->addStoreFilter()
+                ->addAttributeToFilter('news_from_date', array('or' => array(
+                        0 => array('date' => true, 'to' => $todayEndOfDayDate),
+                        1 => array('is' => new Zend_Db_Expr('null')))
+                        ), 'left')
+                ->addAttributeToFilter('news_to_date', array('or' => array(
+                        0 => array('date' => true, 'from' => $todayStartOfDayDate),
+                        1 => array('is' => new Zend_Db_Expr('null')))
+                        ), 'left')
+                ->addAttributeToFilter(
+                        array(
+                            array('attribute' => 'news_from_date', 'is' => new Zend_Db_Expr('not null')),
+                            array('attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null'))
+                        )
+                )
+                ->addAttributeToSort('news_from_date', 'desc')
+                ->setPageSize($this->getProductsCount())
+                ->setCurPage(1)
         ;
 
         return $collection;
@@ -159,4 +161,5 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
         }
         return $this->_productsCount;
     }
+
 }

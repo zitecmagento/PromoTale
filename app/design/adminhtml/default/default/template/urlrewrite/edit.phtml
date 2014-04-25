@@ -23,7 +23,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * Urlrewrites edit container
  *
@@ -38,7 +37,7 @@
 <?php echo $this->getChildHtml() ?>
 
 <?php if ($this->getChild('form')): ?>
-<script type="text/javascript">
-    var editForm = new varienForm('edit_form', '<?php echo $this->getValidationUrl() ?>');
-</script>
+    <script type="text/javascript">
+        var editForm = new varienForm('edit_form', '<?php echo $this->getValidationUrl() ?>');
+    </script>
 <?php endif; ?>

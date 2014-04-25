@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog products per page on Grid mode source
  *
@@ -33,11 +33,13 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Product_Thumbnail
 {
+
     public function toOptionArray()
     {
         return array(
-            array('value'=>'itself', 'label'=>Mage::helper('adminhtml')->__('Product Thumbnail Itself')),
-            array('value'=>'parent', 'label'=>Mage::helper('adminhtml')->__('Parent Product Thumbnail')),
+            array('value' => 'itself', 'label' => Mage::helper('adminhtml')->__('Product Thumbnail Itself')),
+            array('value' => 'parent', 'label' => Mage::helper('adminhtml')->__('Parent Product Thumbnail')),
         );
     }
+
 }

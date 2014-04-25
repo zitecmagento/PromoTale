@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -45,9 +46,8 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
         }
 
         $newForm = $formsDirectory->createResource(
-            'formFile', 
-            array('formName' => $formName, 'moduleName' => $moduleName)
-            );
+                'formFile', array('formName' => $formName, 'moduleName' => $moduleName)
+        );
 
         return $newForm;
     }
@@ -69,7 +69,7 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
         $formsDirectory = self::_getFormsDirectoryResource($profile, $moduleName);
         return (($formsDirectory->search(array('formFile' => array('formName' => $formName)))) instanceof Zend_Tool_Project_Profile_Resource);
     }
-    
+
     /**
      * _getFormsDirectoryResource()
      *
@@ -89,7 +89,7 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
 
         return $profile->search($profileSearchParams);
     }
-    
+
     public function enable($module = null)
     {
         $this->_loadProfile(self::NO_PROFILE_THROW_EXCEPTION);
@@ -98,7 +98,7 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
         $testingEnabled = Zend_Tool_Project_Provider_Test::isTestingEnabled($this->_loadedProfile);
 
         $formDirectoryResource = self::_getFormsDirectoryResource($this->_loadedProfile, $module);
-        
+
         if ($formDirectoryResource->isEnabled()) {
             throw new Zend_Tool_Project_Provider_Exception('This project already has forms enabled.');
         } else {
@@ -108,12 +108,11 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
                 $this->_registry->getResponse()->appendContent('Enabling forms directory at ' . $formDirectoryResource->getContext()->getPath());
                 $formDirectoryResource->setEnabled(true);
                 $formDirectoryResource->create();
-                $this->_storeProfile();                
+                $this->_storeProfile();
             }
-
         }
     }
-    
+
     /**
      * Create a new form
      *
@@ -135,18 +134,20 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
         if (preg_match('#[_-]#', $name)) {
             throw new Zend_Tool_Project_Provider_Exception('Form names should be camel cased.');
         }
-        
+
         $name = ucwords($name);
-        
-        try {
+
+        try
+        {
             $formResource = self::createResource($this->_loadedProfile, $name, $module);
 
             if ($testingEnabled) {
                 $testFormResource = null;
                 // $testFormResource = Zend_Tool_Project_Provider_Test::createApplicationResource($this->_loadedProfile, $name, 'index', $module);
             }
-
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $response = $this->_registry->getResponse();
             $response->setException($e);
             return;
@@ -155,12 +156,11 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
         // do the creation
         if ($this->_registry->getRequest()->isPretend()) {
 
-            $this->_registry->getResponse()->appendContent('Would create a form at '  . $formResource->getContext()->getPath());
+            $this->_registry->getResponse()->appendContent('Would create a form at ' . $formResource->getContext()->getPath());
 
             if ($testFormResource) {
                 $this->_registry->getResponse()->appendContent('Would create a form test file at ' . $testFormResource->getContext()->getPath());
             }
-
         } else {
 
             $this->_registry->getResponse()->appendContent('Creating a form at ' . $formResource->getContext()->getPath());
@@ -173,8 +173,6 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
 
             $this->_storeProfile();
         }
-
     }
-
 
 }

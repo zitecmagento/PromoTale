@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ModelAbstract.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
-
 /** @see Zend_Db_Table */
 #require_once 'Zend/Db/Table.php';
 
-/** 
+/**
  * @see Zend_Registry
  * Seems to fix the file not being included by Zend_Db_Table...
  */
@@ -37,13 +36,14 @@
  */
 class Zend_Feed_Pubsubhubbub_Model_ModelAbstract
 {
+
     /**
      * Zend_Db_Table instance to host database methods
      *
      * @var Zend_Db_Table
      */
     protected $_db = null;
- 
+
     /**
      * Constructor
      * 

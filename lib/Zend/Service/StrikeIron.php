@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: StrikeIron.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * This class allows StrikeIron authentication credentials to be specified
  * in one place and provides a factory for returning instances of different
@@ -34,6 +34,7 @@
  */
 class Zend_Service_StrikeIron
 {
+
     /**
      * Options to pass to Zend_Service_StrikeIron_Base constructor
      * @param array
@@ -67,7 +68,8 @@ class Zend_Service_StrikeIron
             $class = "Zend_Service_StrikeIron_{$class}";
         }
 
-        try {
+        try
+        {
             if (!class_exists($class)) {
                 #require_once 'Zend/Loader.php';
                 @Zend_Loader::loadClass($class);
@@ -75,7 +77,9 @@ class Zend_Service_StrikeIron
             if (!class_exists($class, false)) {
                 throw new Exception('Class file not found');
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $msg = "Service '$class' could not be loaded: " . $e->getMessage();
             /**
              * @see Zend_Service_StrikeIron_Exception

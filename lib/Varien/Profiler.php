@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Varien_Profiler
 {
 
@@ -51,11 +50,11 @@ class Varien_Profiler
     public static function reset($timerName)
     {
         self::$_timers[$timerName] = array(
-        	'start'=>false,
-        	'count'=>0,
-        	'sum'=>0,
-        	'realmem'=>0,
-        	'emalloc'=>0,
+            'start' => false,
+            'count' => 0,
+            'sum' => 0,
+            'realmem' => 0,
+            'emalloc' => 0,
         );
     }
 
@@ -69,8 +68,8 @@ class Varien_Profiler
             self::reset($timerName);
         }
         if (self::$_memory_get_usage) {
-        	self::$_timers[$timerName]['realmem_start'] = memory_get_usage(true);
-        	self::$_timers[$timerName]['emalloc_start'] = memory_get_usage();
+            self::$_timers[$timerName]['realmem_start'] = memory_get_usage(true);
+            self::$_timers[$timerName]['emalloc_start'] = memory_get_usage();
         }
         self::$_timers[$timerName]['start'] = microtime(true);
         self::$_timers[$timerName]['count'] ++;
@@ -86,18 +85,18 @@ class Varien_Profiler
         if (!self::$_enabled) {
             return;
         }
-		
+
         $time = microtime(true); // Get current time as quick as possible to make more accurate calculations
 
         if (empty(self::$_timers[$timerName])) {
             self::reset($timerName);
         }
-        if (false!==self::$_timers[$timerName]['start']) {
-            self::$_timers[$timerName]['sum'] += $time-self::$_timers[$timerName]['start'];
+        if (false !== self::$_timers[$timerName]['start']) {
+            self::$_timers[$timerName]['sum'] += $time - self::$_timers[$timerName]['start'];
             self::$_timers[$timerName]['start'] = false;
             if (self::$_memory_get_usage) {
-	            self::$_timers[$timerName]['realmem'] += memory_get_usage(true)-self::$_timers[$timerName]['realmem_start'];
-    	        self::$_timers[$timerName]['emalloc'] += memory_get_usage()-self::$_timers[$timerName]['emalloc_start'];
+                self::$_timers[$timerName]['realmem'] += memory_get_usage(true) - self::$_timers[$timerName]['realmem_start'];
+                self::$_timers[$timerName]['emalloc'] += memory_get_usage() - self::$_timers[$timerName]['emalloc_start'];
             }
         }
     }
@@ -107,7 +106,7 @@ class Varien_Profiler
         self::pause($timerName);
     }
 
-    public static function fetch($timerName, $key='sum')
+    public static function fetch($timerName, $key = 'sum')
     {
         if (empty(self::$_timers[$timerName])) {
             return false;
@@ -117,8 +116,8 @@ class Varien_Profiler
         switch ($key) {
             case 'sum':
                 $sum = self::$_timers[$timerName]['sum'];
-                if (self::$_timers[$timerName]['start']!==false) {
-                    $sum += microtime(true)-self::$_timers[$timerName]['start'];
+                if (self::$_timers[$timerName]['start'] !== false) {
+                    $sum += microtime(true) - self::$_timers[$timerName]['start'];
                 }
                 return $sum;
 
@@ -127,16 +126,16 @@ class Varien_Profiler
                 return $count;
 
             case 'realmem':
-            	if (!isset(self::$_timers[$timerName]['realmem'])) {
-            		self::$_timers[$timerName]['realmem'] = -1;
-            	}
-            	return self::$_timers[$timerName]['realmem'];
+                if (!isset(self::$_timers[$timerName]['realmem'])) {
+                    self::$_timers[$timerName]['realmem'] = -1;
+                }
+                return self::$_timers[$timerName]['realmem'];
 
             case 'emalloc':
-            	if (!isset(self::$_timers[$timerName]['emalloc'])) {
-            		self::$_timers[$timerName]['emalloc'] = -1;
-            	}
-            	return self::$_timers[$timerName]['emalloc'];
+                if (!isset(self::$_timers[$timerName]['emalloc'])) {
+                    self::$_timers[$timerName]['emalloc'] = -1;
+                }
+                return self::$_timers[$timerName]['emalloc'];
 
             default:
                 if (!empty(self::$_timers[$timerName][$key])) {
@@ -155,21 +154,22 @@ class Varien_Profiler
      * Output SQl Zend_Db_Profiler
      *
      */
-    public static function getSqlProfiler($res) {
-        if(!$res){
+    public static function getSqlProfiler($res)
+    {
+        if (!$res) {
             return '';
         }
         $out = '';
         $profiler = $res->getProfiler();
-        if($profiler->getEnabled()) {
-            $totalTime    = $profiler->getTotalElapsedSecs();
-            $queryCount   = $profiler->getTotalNumQueries();
-            $longestTime  = 0;
+        if ($profiler->getEnabled()) {
+            $totalTime = $profiler->getTotalElapsedSecs();
+            $queryCount = $profiler->getTotalNumQueries();
+            $longestTime = 0;
             $longestQuery = null;
 
             foreach ($profiler->getQueryProfiles() as $query) {
                 if ($query->getElapsedSecs() > $longestTime) {
-                    $longestTime  = $query->getElapsedSecs();
+                    $longestTime = $query->getElapsedSecs();
                     $longestQuery = $query->getQuery();
                 }
             }
@@ -182,4 +182,5 @@ class Varien_Profiler
         }
         return $out;
     }
+
 }

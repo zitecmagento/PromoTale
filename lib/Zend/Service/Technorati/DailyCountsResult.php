@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DailyCountsResult.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Technorati_Result
  */
 #require_once 'Zend/Service/Technorati/Result.php';
-
 
 /**
  * Represents a single Technorati DailyCounts query result object.
@@ -40,6 +38,7 @@
  */
 class Zend_Service_Technorati_DailyCountsResult extends Zend_Service_Technorati_Result
 {
+
     /**
      * Date of count.
      *
@@ -56,7 +55,6 @@ class Zend_Service_Technorati_DailyCountsResult extends Zend_Service_Technorati_
      */
     protected $_count;
 
-
     /**
      * Constructs a new object object from DOM Document.
      *
@@ -64,12 +62,12 @@ class Zend_Service_Technorati_DailyCountsResult extends Zend_Service_Technorati_
      */
     public function __construct(DomElement $dom)
     {
-        $this->_fields = array( '_date'   => 'date',
-                                '_count'  => 'count');
+        $this->_fields = array('_date' => 'date',
+            '_count' => 'count');
         parent::__construct($dom);
 
         // filter fields
-        $this->_date  = new Zend_Date(strtotime($this->_date));
+        $this->_date = new Zend_Date(strtotime($this->_date));
         $this->_count = (int) $this->_count;
     }
 
@@ -78,7 +76,8 @@ class Zend_Service_Technorati_DailyCountsResult extends Zend_Service_Technorati_
      *
      * @return  Zend_Date
      */
-    public function getDate() {
+    public function getDate()
+    {
         return $this->_date;
     }
 
@@ -87,7 +86,9 @@ class Zend_Service_Technorati_DailyCountsResult extends Zend_Service_Technorati_
      *
      * @return  int
      */
-    public function getCount() {
+    public function getCount()
+    {
         return $this->_count;
     }
+
 }

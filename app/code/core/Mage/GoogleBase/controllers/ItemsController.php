@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 require_once 'Mage/GoogleBase/controllers/Adminhtml/Googlebase/ItemsController.php';
 
 /**
@@ -34,8 +34,8 @@ require_once 'Mage/GoogleBase/controllers/Adminhtml/Googlebase/ItemsController.p
  * @name       Mage_GoogleBase_ItemsController
  * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated  after 1.4.2.0 Mage_GoogleBase_Adminhtml_Googlebase_ItemsController is used
-*/
+ */
 class Mage_GoogleBase_ItemsController extends Mage_GoogleBase_Adminhtml_Googlebase_ItemsController
 {
-
+    
 }

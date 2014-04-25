@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Action
 {
+
     /**
      * Store MEP checkout model instance
      *
@@ -55,12 +57,11 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
     public function preDispatch()
     {
         parent::preDispatch();
-        if (!Mage::getSingleton('customer/session')->isLoggedIn()
-            && !Mage::getSingleton('checkout/session')->getQuote()->isAllowedGuestCheckout()
+        if (!Mage::getSingleton('customer/session')->isLoggedIn() && !Mage::getSingleton('checkout/session')->getQuote()->isAllowedGuestCheckout()
         ) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->_message(
-                $this->__('Customer not logged in.'), self::MESSAGE_STATUS_ERROR, array('logged_in' => '0')
+                    $this->__('Customer not logged in.'), self::MESSAGE_STATUS_ERROR, array('logged_in' => '0')
             );
             return;
         }
@@ -73,16 +74,16 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
      */
     public function indexAction()
     {
-        try {
+        try
+        {
             if (is_object(Mage::getConfig()->getNode('modules/Enterprise_GiftCardAccount'))) {
                 $giftcardInfoBlock = $this->getLayout()->addBlock(
-                    'enterprise_giftcardaccount/checkout_onepage_payment_additional', 'giftcard_info'
+                        'enterprise_giftcardaccount/checkout_onepage_payment_additional', 'giftcard_info'
                 );
 
                 if (intval($giftcardInfoBlock->getAppliedGiftCardAmount())) {
                     $this->_message(
-                        $this->__('Paypal MEP doesn\'t support checkout with any discount.'),
-                        self::MESSAGE_STATUS_ERROR
+                            $this->__('Paypal MEP doesn\'t support checkout with any discount.'), self::MESSAGE_STATUS_ERROR
                     );
                     return;
                 }
@@ -92,9 +93,13 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
             $this->_checkout->initCheckout();
             $this->_message($this->__('Checkout has been initialized.'), self::MESSAGE_STATUS_SUCCESS);
             return;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to start MEP Checkout.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -112,7 +117,8 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
             return;
         }
 
-        try {
+        try
+        {
             $this->_initCheckout();
             $data = $this->getRequest()->getPost('shipping', array());
 
@@ -134,10 +140,14 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
                 }
                 $this->_message(implode('. ', $result['message']), self::MESSAGE_STATUS_ERROR);
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to save shipping address.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -150,13 +160,18 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
      */
     public function shippingMethodsAction()
     {
-        try {
+        try
+        {
             $this->_initCheckout();
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to get shipping methods list.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -174,7 +189,8 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
             return;
         }
 
-        try {
+        try
+        {
             $this->_initCheckout();
             $data = $this->getRequest()->getPost('shipping_method', '');
             $this->_getQuote()->getShippingAddress()->setShippingMethod($data)->setCollectShippingRates(true)->save();
@@ -201,9 +217,13 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
                 }
                 $this->_message(implode('. ', $result['message']), self::MESSAGE_STATUS_ERROR);
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to save shipping method.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -216,14 +236,19 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
      */
     public function cartTotalsAction()
     {
-        try {
+        try
+        {
             $this->_initCheckout();
             $this->loadLayout(false);
             $this->renderLayout();
             return;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to collect cart totals.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -241,7 +266,8 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
             return;
         }
 
-        try {
+        try
+        {
             /**
              * Init checkout
              */
@@ -280,9 +306,13 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
             $message->addChild('order_id', $orderId);
             $this->getResponse()->setBody($message->asNiceXml());
             return;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to place the order.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
@@ -307,7 +337,7 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
         }
         $this->_getCheckoutSession()->setCartWasUpdated(false);
 
-        $this->_checkout = Mage::getSingleton('xmlconnect/paypal_mep_checkout', array('quote'  => $quote));
+        $this->_checkout = Mage::getSingleton('xmlconnect/paypal_mep_checkout', array('quote' => $quote));
     }
 
     /**
@@ -332,4 +362,5 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
         }
         return $this->_quote;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     /**
      * Instructions to create child grid
      *
@@ -46,4 +48,5 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile extends Mage_Adminhtml_Block_
         parent::__construct();
         $this->_removeButton('add');
     }
+
 }

@@ -23,28 +23,28 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-if(!window.Flex) {
+if (!window.Flex) {
     alert('Flex library not loaded');
 } else {
     Flex.Uploader = Class.create();
     Flex.Uploader.prototype = {
         flex: null,
-        uploader:null,
-        filters:null,
-        containerId:null,
-        flexContainerId:null,
-        container:null,
-        files:null,
-        fileRowTemplate:null,
-        fileProgressTemplate:null,
+        uploader: null,
+        filters: null,
+        containerId: null,
+        flexContainerId: null,
+        container: null,
+        files: null,
+        fileRowTemplate: null,
+        fileProgressTemplate: null,
         templatesPattern: /(^|.|\r|\n)(\{\{(.*?)\}\})/,
         onFilesComplete: false,
         onFileProgress: true,
         onFileRemove: false,
-        onContainerHideBefore:null,
+        onContainerHideBefore: null,
         initialize: function(containerId, uploaderSrc, config) {
             this.containerId = containerId;
-            this.container   = $(containerId);
+            this.container = $(containerId);
 
             this.container.controller = this;
 
@@ -52,9 +52,9 @@ if(!window.Flex) {
 
             this.flexContainerId = this.containerId + '-flash';
             Element.insert(
-                // window.document.body,
-                this.containerId,
-                {'before':'<div id="'+this.flexContainerId+'" class="flex" style="position:relative;float:right;"></div>'}
+                    // window.document.body,
+                    this.containerId,
+                    {'before': '<div id="' + this.flexContainerId + '" class="flex" style="position:relative;float:right;"></div>'}
             );
             flexWidth = 230;
             if (this.config.width) {
@@ -63,22 +63,22 @@ if(!window.Flex) {
             this.flex = new Flex.Object({
                 left: 100,
                 top: 300,
-                width:  flexWidth,
+                width: flexWidth,
                 height: 20,
-                src:    uploaderSrc,
+                src: uploaderSrc,
                 wmode: 'transparent'
             });
             // this.getInnerElement('browse').disabled = true;
             // this.getInnerElement('upload').disabled = true;
             this.fileRowTemplate = new Template(
-                this.getInnerElement('template').innerHTML,
-                this.templatesPattern
-            );
+                    this.getInnerElement('template').innerHTML,
+                    this.templatesPattern
+                    );
 
             this.fileProgressTemplate = new Template(
-                this.getInnerElement('template-progress').innerHTML,
-                this.templatesPattern
-            );
+                    this.getInnerElement('template-progress').innerHTML,
+                    this.templatesPattern
+                    );
 
             this.flex.onBridgeInit = this.handleBridgeInit.bind(this);
             if (this.flex.detectFlashVersion(9, 0, 28)) {
@@ -95,7 +95,7 @@ if(!window.Flex) {
         },
         getFileId: function(file) {
             var id;
-            if(typeof file == 'object') {
+            if (typeof file == 'object') {
                 id = file.id;
             } else {
                 id = file;
@@ -116,10 +116,10 @@ if(!window.Flex) {
             }
 
             this.uploader.setConfig(this.config);
-            this.uploader.addEventListener('select',    this.handleSelect.bind(this));
-            this.uploader.addEventListener('complete',  this.handleComplete.bind(this));
-            this.uploader.addEventListener('progress',  this.handleProgress.bind(this));
-            this.uploader.addEventListener('error',     this.handleError.bind(this));
+            this.uploader.addEventListener('select', this.handleSelect.bind(this));
+            this.uploader.addEventListener('complete', this.handleComplete.bind(this));
+            this.uploader.addEventListener('progress', this.handleProgress.bind(this));
+            this.uploader.addEventListener('error', this.handleError.bind(this));
             this.uploader.addEventListener('removeall', this.handleRemoveAll.bind(this));
             // this.getInnerElement('browse').disabled = false;
             // this.getInnerElement('upload').disabled = false;
@@ -148,7 +148,7 @@ if(!window.Flex) {
             this.files = this.uploader.getFilesInfo();
             this.updateFiles();
         },
-        handleSelect: function (event) {
+        handleSelect: function(event) {
             this.files = event.getData().files;
             this.checkFileSize();
             this.updateFiles();
@@ -157,24 +157,24 @@ if(!window.Flex) {
                 this.onFileSelect();
             }
         },
-        handleProgress: function (event) {
+        handleProgress: function(event) {
             var file = event.getData().file;
             this.updateFile(file);
             if (this.onFileProgress) {
                 this.onFileProgress(file);
             }
         },
-        handleError: function (event) {
+        handleError: function(event) {
             this.updateFile(event.getData().file);
         },
-        handleComplete: function (event) {
+        handleComplete: function(event) {
             this.files = event.getData().files;
             this.updateFiles();
             if (this.onFilesComplete) {
                 this.onFilesComplete(this.files);
             }
         },
-        handleRemoveAll: function (event) {
+        handleRemoveAll: function(event) {
             this.files.each(function(file) {
                 $(this.getFileId(file.id)).remove();
             }.bind(this));
@@ -184,21 +184,21 @@ if(!window.Flex) {
             this.files = this.uploader.getFilesInfo();
             this.updateFiles();
         },
-        handleRemove: function (event) {
+        handleRemove: function(event) {
             this.files = this.uploader.getFilesInfo();
             this.updateFiles();
         },
-        updateFiles: function () {
+        updateFiles: function() {
             this.files.each(function(file) {
                 this.updateFile(file);
             }.bind(this));
         },
-        updateFile:  function (file) {
+        updateFile: function(file) {
             if (!$(this.getFileId(file))) {
                 if (this.config.replace_browse_with_remove) {
-                    $(this.containerId+'-new').show();
-                    $(this.containerId+'-new').innerHTML = this.fileRowTemplate.evaluate(this.getFileVars(file));
-                    $(this.containerId+'-old').hide();
+                    $(this.containerId + '-new').show();
+                    $(this.containerId + '-new').innerHTML = this.fileRowTemplate.evaluate(this.getFileVars(file));
+                    $(this.containerId + '-old').hide();
                     this.flex.getBridge().hideBrowseButton();
                 } else {
                     Element.insert(this.container, {bottom: this.fileRowTemplate.evaluate(this.getFileVars(file))});
@@ -209,13 +209,13 @@ if(!window.Flex) {
                 if (typeof response == 'object') {
                     if (typeof response.cookie == 'object') {
                         var date = new Date();
-                        date.setTime(date.getTime()+(parseInt(response.cookie.lifetime)*1000));
+                        date.setTime(date.getTime() + (parseInt(response.cookie.lifetime) * 1000));
 
                         document.cookie = escape(response.cookie.name) + "="
-                            + escape(response.cookie.value)
-                            + "; expires=" + date.toGMTString()
-                            + (response.cookie.path.blank() ? "" : "; path=" + response.cookie.path)
-                            + (response.cookie.domain.blank() ? "" : "; domain=" + response.cookie.domain);
+                                + escape(response.cookie.value)
+                                + "; expires=" + date.toGMTString()
+                                + (response.cookie.path.blank() ? "" : "; path=" + response.cookie.path)
+                                + (response.cookie.domain.blank() ? "" : "; domain=" + response.cookie.domain);
                     }
                     if (typeof response.error != 'undefined' && response.error != 0) {
                         file.status = 'error';
@@ -229,7 +229,7 @@ if(!window.Flex) {
             }
 
             var progress = $(this.getFileId(file)).getElementsByClassName('progress-text')[0];
-            if ((file.status=='progress') || (file.status=='complete')) {
+            if ((file.status == 'progress') || (file.status == 'complete')) {
                 $(this.getFileId(file)).addClassName('progress');
                 $(this.getFileId(file)).removeClassName('new');
                 $(this.getFileId(file)).removeClassName('error');
@@ -238,10 +238,10 @@ if(!window.Flex) {
                 } else {
                     progress.update('');
                 }
-                if (! this.config.replace_browse_with_remove) {
+                if (!this.config.replace_browse_with_remove) {
                     this.getDeleteButton(file).hide();
                 }
-            } else if (file.status=='error') {
+            } else if (file.status == 'error') {
                 $(this.getFileId(file)).addClassName('error');
                 $(this.getFileId(file)).removeClassName('progress');
                 $(this.getFileId(file)).removeClassName('new');
@@ -254,7 +254,7 @@ if(!window.Flex) {
 
                 progress.update(errorText);
 
-            } else if (file.status=='full_complete') {
+            } else if (file.status == 'full_complete') {
                 $(this.getFileId(file)).addClassName('complete');
                 $(this.getFileId(file)).removeClassName('progress');
                 $(this.getFileId(file)).removeClassName('error');
@@ -265,21 +265,21 @@ if(!window.Flex) {
             }
         },
         getDebugStr: function(obj) {
-             return Object.toJSON(obj).replace('&', '&amp;').replace('>', '&gt;').replace('<', '&lt;');
+            return Object.toJSON(obj).replace('&', '&amp;').replace('>', '&gt;').replace('<', '&lt;');
         },
         getFileVars: function(file) {
             return {
-                id      : this.getFileId(file),
-                fileId  : file.id,
-                name    : file.name,
-                size    : this.formatSize(file.size)
+                id: this.getFileId(file),
+                fileId: file.id,
+                name: file.name,
+                size: this.formatSize(file.size)
             };
         },
         getFileProgressVars: function(file) {
             return {
-                total    : this.formatSize(file.progress.total),
-                uploaded : this.formatSize(file.progress.loaded),
-                percent  : this.round((file.progress.loaded/file.progress.total)*100)
+                total: this.formatSize(file.progress.total),
+                uploaded: this.formatSize(file.progress.loaded),
+                percent: this.round((file.progress.loaded / file.progress.total) * 100)
             };
         },
         formatSize: function(size) {
@@ -295,12 +295,12 @@ if(!window.Flex) {
             return size + ' ' + this.translate('B');
         },
         round: function(number) {
-            return Math.round(number*100)/100;
+            return Math.round(number * 100) / 100;
         },
         checkFileSize: function() {
             newFiles = [];
             hasTooBigFiles = false;
-            this.files.each(function(file){
+            this.files.each(function(file) {
                 if (file.size > maxUploadFileSizeInBytes) {
                     hasTooBigFiles = true;
                     this.uploader.removeFile(file.id)
@@ -311,23 +311,24 @@ if(!window.Flex) {
             this.files = newFiles;
             if (hasTooBigFiles) {
                 alert(
-                    this.translate('Maximum allowed file size for upload is')+' '+maxUploadFileSize+".\n"+this.translate('Please check your server PHP settings.')
-                );
+                        this.translate('Maximum allowed file size for upload is') + ' ' + maxUploadFileSize + ".\n" + this.translate('Please check your server PHP settings.')
+                        );
             }
         },
         translate: function(text) {
             try {
-                if(Translator){
-                   return Translator.translate(text);
+                if (Translator) {
+                    return Translator.translate(text);
                 }
             }
-            catch(e){}
+            catch (e) {
+            }
             return text;
         },
         errorText: function(file) {
             var error = '';
 
-            switch(file.errorCode) {
+            switch (file.errorCode) {
                 case 1: // Size 0
                     error = 'File size should be more than 0 bytes';
                     break;
@@ -345,7 +346,7 @@ if(!window.Flex) {
                     break;
             }
 
-            if(error) {
+            if (error) {
                 return this.translate(error);
             }
 
@@ -353,7 +354,7 @@ if(!window.Flex) {
         },
         handleContainerHideBefore: function(container) {
             if (container && Element.descendantOf(this.container, container) && !this.checkAllComplete()) {
-                if (! confirm('There are files that were selected but not uploaded yet. After switching to another tab your selections will be lost. Do you wish to continue ?')) {
+                if (!confirm('There are files that were selected but not uploaded yet. After switching to another tab your selections will be lost. Do you wish to continue ?')) {
                     return 'cannotchange';
                 } else {
                     this.removeAllFiles();

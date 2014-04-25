@@ -29,17 +29,17 @@
 <?php $options = Mage::helper('core')->decorateArray($this->getOptions()); ?>
 <?php if (count($options)): ?>
 
-<?php echo $this->getChildHtml('options_js') ?>
+    <?php echo $this->getChildHtml('options_js') ?>
 
-<div id="product_composite_configure_fields_options" class="<?php echo $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
-    <h4><?php echo Mage::helper('catalog')->__('Custom Options') ?></h4>
-    <div class="product-options">
-        <dl>
-            <?php foreach($options as $option): ?>
-                <?php echo $this->getOptionHtml($option); ?>
-            <?php endforeach;?>
-        </dl>
+    <div id="product_composite_configure_fields_options" class="<?php echo $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
+        <h4><?php echo Mage::helper('catalog')->__('Custom Options') ?></h4>
+        <div class="product-options">
+            <dl>
+                <?php foreach ($options as $option): ?>
+                    <?php echo $this->getOptionHtml($option); ?>
+                <?php endforeach; ?>
+            </dl>
+        </div>
     </div>
-</div>
 
 <?php endif; ?>

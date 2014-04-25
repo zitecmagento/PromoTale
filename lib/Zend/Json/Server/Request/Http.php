@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Http.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Json_Server_Request
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Json_Server_Request_Http extends Zend_Json_Server_Request
 {
+
     /**
      * Raw JSON pulled from POST body
      * @var string
@@ -63,4 +64,5 @@ class Zend_Json_Server_Request_Http extends Zend_Json_Server_Request
     {
         return $this->_rawJson;
     }
+
 }

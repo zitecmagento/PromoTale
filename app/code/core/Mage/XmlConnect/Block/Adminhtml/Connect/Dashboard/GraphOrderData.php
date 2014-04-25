@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphOrderData
-    extends Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphDataAbstract
+class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphOrderData extends Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphDataAbstract
 {
+
     /**
      * Initialize object
      */
@@ -68,4 +69,5 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphOrderData
         $this->_addAllStoreData();
         return $this;
     }
+
 }

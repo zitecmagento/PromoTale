@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,13 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Notification_Toolbar
 {
+
     /**
      * XML path of Severity icons url
      */
-    const XML_SEVERITY_ICONS_URL_PATH  = 'system/adminnotification/severity_icons_url';
+    const XML_SEVERITY_ICONS_URL_PATH = 'system/adminnotification/severity_icons_url';
 
     /**
      * Severity icons url
@@ -116,7 +117,6 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
         return $this->_available;
     }
 
-
     /**
      * Return swf object url
      *
@@ -145,10 +145,8 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
     public function getSeverityIconsUrl()
     {
         if (is_null($this->_severityIconsUrl)) {
-            $this->_severityIconsUrl =
-                (Mage::app()->getFrontController()->getRequest()->isSecure() ? 'https://' : 'http://')
-                . sprintf(Mage::getStoreConfig(self::XML_SEVERITY_ICONS_URL_PATH), Mage::getVersion(),
-                    $this->getNoticeSeverity())
+            $this->_severityIconsUrl = (Mage::app()->getFrontController()->getRequest()->isSecure() ? 'https://' : 'http://')
+                    . sprintf(Mage::getStoreConfig(self::XML_SEVERITY_ICONS_URL_PATH), Mage::getVersion(), $this->getNoticeSeverity())
             ;
         }
         return $this->_severityIconsUrl;
@@ -174,10 +172,10 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
     {
         if (!is_null($this->_aclResourcePath)) {
             return Mage::getSingleton('admin/session')
-                ->isAllowed('admin/system/adminnotification/show_toolbar');
-        }
-        else {
+                            ->isAllowed('admin/system/adminnotification/show_toolbar');
+        } else {
             return true;
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 class Zend_XmlRpc_Server_System
 {
+
     /**
      * @var Zend_XmlRpc_Server
      */
@@ -132,26 +134,28 @@ class Zend_XmlRpc_Server_System
             }
 
             if (!$fault) {
-                try {
+                try
+                {
                     $request = new Zend_XmlRpc_Request();
                     $request->setMethod($method['methodName']);
                     $request->setParams($method['params']);
                     $response = $this->_server->handle($request);
-                    if ($response instanceof Zend_XmlRpc_Fault
-                        || $response->isFault()
+                    if ($response instanceof Zend_XmlRpc_Fault || $response->isFault()
                     ) {
                         $fault = $response;
                     } else {
                         $responses[] = $response->getReturnValue();
                     }
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     $fault = $this->_server->fault($e);
                 }
             }
 
             if ($fault) {
                 $responses[] = array(
-                    'faultCode'   => $fault->getCode(),
+                    'faultCode' => $fault->getCode(),
                     'faultString' => $fault->getMessage()
                 );
             }
@@ -159,4 +163,5 @@ class Zend_XmlRpc_Server_System
 
         return $responses;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Api2_Model_Auth_Adapter_Abstract
 {
+
     /**
      * Process request and figure out an API user type and its identifier
      *

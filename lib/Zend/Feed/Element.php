@@ -20,7 +20,6 @@
  * @version    $Id: Element.php 20104 2010-01-06 21:26:01Z matthew $
  */
 
-
 /**
  * Wraps a DOMElement allowing for SimpleXML-like access to attributes.
  *
@@ -52,7 +51,6 @@ class Zend_Feed_Element implements ArrayAccess
      */
     protected $_appended = true;
 
-
     /**
      * Zend_Feed_Element constructor.
      *
@@ -63,7 +61,6 @@ class Zend_Feed_Element implements ArrayAccess
     {
         $this->_element = $element;
     }
-
 
     /**
      * Get a DOM representation of the element
@@ -77,7 +74,6 @@ class Zend_Feed_Element implements ArrayAccess
     {
         return $this->_element;
     }
-
 
     /**
      * Update the object from a DOM element
@@ -107,7 +103,6 @@ class Zend_Feed_Element implements ArrayAccess
         $this->_appended = false;
     }
 
-
     /**
      * Appends this element to its parent if necessary.
      *
@@ -122,7 +117,6 @@ class Zend_Feed_Element implements ArrayAccess
         }
     }
 
-
     /**
      * Get an XML string representation of this element
      *
@@ -134,12 +128,10 @@ class Zend_Feed_Element implements ArrayAccess
     public function saveXml()
     {
         // Return a complete document including XML prologue.
-        $doc = new DOMDocument($this->_element->ownerDocument->version,
-                               $this->_element->ownerDocument->actualEncoding);
+        $doc = new DOMDocument($this->_element->ownerDocument->version, $this->_element->ownerDocument->actualEncoding);
         $doc->appendChild($doc->importNode($this->_element, true));
         return $doc->saveXML();
     }
-
 
     /**
      * Get the XML for only this element
@@ -213,7 +205,6 @@ class Zend_Feed_Element implements ArrayAccess
         }
     }
 
-
     /**
      * Map variable sets onto the underlying entry representation.
      *
@@ -230,12 +221,10 @@ class Zend_Feed_Element implements ArrayAccess
         if (!$nodes) {
             if (strpos($var, ':') !== false) {
                 list($ns, $elt) = explode(':', $var, 2);
-                $node = $this->_element->ownerDocument->createElementNS(Zend_Feed::lookupNamespace($ns),
-                    $var, htmlspecialchars($val, ENT_NOQUOTES, $this->getEncoding()));
+                $node = $this->_element->ownerDocument->createElementNS(Zend_Feed::lookupNamespace($ns), $var, htmlspecialchars($val, ENT_NOQUOTES, $this->getEncoding()));
                 $this->_element->appendChild($node);
             } else {
-                $node = $this->_element->ownerDocument->createElement($var,
-                    htmlspecialchars($val, ENT_NOQUOTES, $this->getEncoding()));
+                $node = $this->_element->ownerDocument->createElement($var, htmlspecialchars($val, ENT_NOQUOTES, $this->getEncoding()));
                 $this->_element->appendChild($node);
             }
         } elseif (count($nodes) > 1) {
@@ -248,7 +237,6 @@ class Zend_Feed_Element implements ArrayAccess
             $nodes[0]->nodeValue = $val;
         }
     }
-
 
     /**
      * Map isset calls onto the underlying entry representation.
@@ -277,7 +265,6 @@ class Zend_Feed_Element implements ArrayAccess
         }
     }
 
-
     /**
      * Get the value of an element with method syntax.
      *
@@ -302,7 +289,6 @@ class Zend_Feed_Element implements ArrayAccess
         }
     }
 
-
     /**
      * Remove all children matching $var.
      *
@@ -318,7 +304,6 @@ class Zend_Feed_Element implements ArrayAccess
         }
     }
 
-
     /**
      * Returns the nodeValue of this element when this object is used
      * in a string context.
@@ -329,7 +314,6 @@ class Zend_Feed_Element implements ArrayAccess
     {
         return $this->_element->nodeValue;
     }
-
 
     /**
      * Finds children with tagnames matching $var
@@ -362,7 +346,6 @@ class Zend_Feed_Element implements ArrayAccess
         return $found;
     }
 
-
     /**
      * Required by the ArrayAccess interface.
      *
@@ -379,7 +362,6 @@ class Zend_Feed_Element implements ArrayAccess
         }
     }
 
-
     /**
      * Required by the ArrayAccess interface.
      *
@@ -395,7 +377,6 @@ class Zend_Feed_Element implements ArrayAccess
             return $this->_element->getAttribute($offset);
         }
     }
-
 
     /**
      * Required by the ArrayAccess interface.
@@ -416,7 +397,6 @@ class Zend_Feed_Element implements ArrayAccess
             return $this->_element->setAttribute($offset, $value);
         }
     }
-
 
     /**
      * Required by the ArrayAccess interface.

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Eav Sendfriend Resource Collection
  *
@@ -32,7 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Sendfriend_Collection
-    extends Mage_Sendfriend_Model_Resource_Sendfriend_Collection
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Sendfriend_Collection extends Mage_Sendfriend_Model_Resource_Sendfriend_Collection
 {
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,10 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TermStreamsPriorityQueue.php 22987 2010-09-21 10:39:53Z alexander $
  */
-
 /** Zend_Search_Lucene_Index_TermsStream_Interface */
 #require_once 'Zend/Search/Lucene/Index/TermsStream/Interface.php';
-
 
 /**
  * @category   Zend
@@ -33,6 +32,7 @@
  */
 class Zend_Search_Lucene_TermStreamsPriorityQueue implements Zend_Search_Lucene_Index_TermsStream_Interface
 {
+
     /**
      * Array of term streams (Zend_Search_Lucene_Index_TermsStream_Interface objects)
      *
@@ -53,7 +53,6 @@ class Zend_Search_Lucene_TermStreamsPriorityQueue implements Zend_Search_Lucene_
      * @var Zend_Search_Lucene_Index_Term
      */
     protected $_lastTerm = null;
-
 
     /**
      * Object constructor
@@ -120,8 +119,8 @@ class Zend_Search_Lucene_TermStreamsPriorityQueue implements Zend_Search_Lucene_
     {
         while (($termStream = $this->_termsStreamQueue->pop()) !== null) {
             if ($this->_termsStreamQueue->top() === null ||
-                $this->_termsStreamQueue->top()->currentTerm()->key() !=
-                            $termStream->currentTerm()->key()) {
+                    $this->_termsStreamQueue->top()->currentTerm()->key() !=
+                    $termStream->currentTerm()->key()) {
                 // We got new term
                 $this->_lastTerm = $termStream->currentTerm();
 
@@ -167,6 +166,7 @@ class Zend_Search_Lucene_TermStreamsPriorityQueue implements Zend_Search_Lucene_
         }
 
         $this->_termsStreamQueue = null;
-        $this->_lastTerm         = null;
+        $this->_lastTerm = null;
     }
+
 }

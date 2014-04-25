@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_Search_Customer extends Varien_Object
 {
+
     /**
      * Load search results
      *
@@ -47,23 +49,23 @@ class Mage_Adminhtml_Model_Search_Customer extends Varien_Object
             return $this;
         }
         $collection = Mage::getResourceModel('customer/customer_collection')
-            ->addNameToSelect()
-            ->joinAttribute('company', 'customer_address/company', 'default_billing', null, 'left')
-            ->addAttributeToFilter(array(
-                array('attribute'=>'firstname', 'like' => $this->getQuery().'%'),
-                array('attribute'=>'lastname', 'like'  => $this->getQuery().'%'),
-                array('attribute'=>'company', 'like'   => $this->getQuery().'%'),
-            ))
-            ->setPage(1, 10)
-            ->load();
+                ->addNameToSelect()
+                ->joinAttribute('company', 'customer_address/company', 'default_billing', null, 'left')
+                ->addAttributeToFilter(array(
+                    array('attribute' => 'firstname', 'like' => $this->getQuery() . '%'),
+                    array('attribute' => 'lastname', 'like' => $this->getQuery() . '%'),
+                    array('attribute' => 'company', 'like' => $this->getQuery() . '%'),
+                ))
+                ->setPage(1, 10)
+                ->load();
 
         foreach ($collection->getItems() as $customer) {
             $arr[] = array(
-                'id'            => 'customer/1/'.$customer->getId(),
-                'type'          => Mage::helper('adminhtml')->__('Customer'),
-                'name'          => $customer->getName(),
-                'description'   => $customer->getCompany(),
-                'url' => Mage::helper('adminhtml')->getUrl('*/customer/edit', array('id'=>$customer->getId())),
+                'id' => 'customer/1/' . $customer->getId(),
+                'type' => Mage::helper('adminhtml')->__('Customer'),
+                'name' => $customer->getName(),
+                'description' => $customer->getCompany(),
+                'url' => Mage::helper('adminhtml')->getUrl('*/customer/edit', array('id' => $customer->getId())),
             );
         }
 
@@ -71,4 +73,5 @@ class Mage_Adminhtml_Model_Search_Customer extends Varien_Object
 
         return $this;
     }
+
 }

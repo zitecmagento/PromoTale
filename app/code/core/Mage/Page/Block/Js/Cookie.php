@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Page_Block_Js_Cookie extends Mage_Core_Block_Template
 {
+
     /**
      * Get cookie model instance
      *
@@ -35,6 +36,7 @@ class Mage_Page_Block_Js_Cookie extends Mage_Core_Block_Template
     {
         return Mage::getSingleton('core/cookie');
     }
+
     /**
      * Get configured cookie domain
      *
@@ -44,7 +46,7 @@ class Mage_Page_Block_Js_Cookie extends Mage_Core_Block_Template
     {
         $domain = $this->getCookie()->getDomain();
         if (!empty($domain[0]) && ($domain[0] !== '.')) {
-            $domain = '.'.$domain;
+            $domain = '.' . $domain;
         }
         return $domain;
     }
@@ -58,4 +60,5 @@ class Mage_Page_Block_Js_Cookie extends Mage_Core_Block_Template
     {
         return $this->getCookie()->getPath();
     }
+
 }

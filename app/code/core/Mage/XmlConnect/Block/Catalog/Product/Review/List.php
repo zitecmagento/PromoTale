@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Review_List extends Mage_XmlConnect_Block_Catalog_Product_Review
 {
+
     /**
      * Store reviews collection
      *
@@ -48,7 +50,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Review_List extends Mage_XmlConnect_
     public function getReviewsXmlObject()
     {
         $reviewsXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<reviews></reviews>');
-        $collection    = $this->_getReviewCollection();
+        $collection = $this->_getReviewCollection();
 
         if (!$collection) {
             return $reviewsXmlObj;
@@ -78,15 +80,15 @@ class Mage_XmlConnect_Block_Catalog_Product_Review_List extends Mage_XmlConnect_
             }
             /** @var $collection Mage_Review_Model_Mysql4_Review_Collection */
             $collection = Mage::getResourceModel('review/review_collection')
-                ->addEntityFilter('product', $product->getId())->addStoreFilter(Mage::app()->getStore()->getId())
-                ->addStatusFilter('approved')->setDateOrder();
+                            ->addEntityFilter('product', $product->getId())->addStoreFilter(Mage::app()->getStore()->getId())
+                            ->addStatusFilter('approved')->setDateOrder();
 
             /**
              * Apply offset and count
              */
-            $offset = (int)$request->getParam('offset', 0);
-            $count  = (int)$request->getParam('count', 0);
-            $count  = $count <= 0 ? 1 : $count;
+            $offset = (int) $request->getParam('offset', 0);
+            $count = (int) $request->getParam('count', 0);
+            $count = $count <= 0 ? 1 : $count;
             $collection->getSelect()->limit($count, $offset);
 
             $this->_reviewCollection = $collection;
@@ -101,11 +103,12 @@ class Mage_XmlConnect_Block_Catalog_Product_Review_List extends Mage_XmlConnect_
      */
     protected function _toHtml()
     {
-        $product = Mage::getModel('catalog/product')->load((int)$this->getRequest()->getParam('id', 0));
+        $product = Mage::getModel('catalog/product')->load((int) $this->getRequest()->getParam('id', 0));
         if ($product->getId()) {
             $this->setProduct($product);
         }
 
         return $this->getReviewsXmlObject()->asNiceXml();
     }
+
 }

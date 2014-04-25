@@ -1,6 +1,8 @@
 <?php
+
 class Zitec_Promotale_Model_Rule_Condition_Product extends Mage_CatalogRule_Model_Rule_Condition_Product
 {
+
     /**
      * Load attribute options
      *
@@ -8,6 +10,9 @@ class Zitec_Promotale_Model_Rule_Condition_Product extends Mage_CatalogRule_Mode
      */
     public function loadAttributeOptions()
     {
+        /**
+         * @method Mage_Catalog_Model_Resource_Eav_Attribute isAllowedForRuleCondition()
+         */
         $allowedInputs = array(
             'text',
             'multiselect',
@@ -19,11 +24,11 @@ class Zitec_Promotale_Model_Rule_Condition_Product extends Mage_CatalogRule_Mode
             'price'
         );
         $productAttributes = Mage::getResourceSingleton('catalog/product_attribute_collection')
-            ->addVisibleFilter()
-            ->addFieldToFilter('additional_table.' . $this->_isUsedForRuleProperty, 1)
-            ->addFieldToFilter('main_table.frontend_input', $allowedInputs)
-            ->addFieldToSelect('attribute_code')
-            ->addFieldToSelect('frontend_label');
+                ->addVisibleFilter()
+                ->addFieldToFilter('additional_table.' . $this->_isUsedForRuleProperty, 1)
+                ->addFieldToFilter('main_table.frontend_input', $allowedInputs)
+                ->addFieldToSelect('attribute_code')
+                ->addFieldToSelect('frontend_label');
         $attributes = array();
         foreach ($productAttributes as $attribute) {
             $attributes[$attribute->getAttributeCode()] = $attribute->getFrontendLabel();
@@ -36,4 +41,5 @@ class Zitec_Promotale_Model_Rule_Condition_Product extends Mage_CatalogRule_Mode
 
         return $this;
     }
+
 }

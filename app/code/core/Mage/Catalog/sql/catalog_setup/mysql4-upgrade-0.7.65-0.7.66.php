@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,19 +24,17 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
 Mage::getModel('catalog/product_flat_flag')
-    ->loadSelf()
-    ->setIsBuilt(false)
-    ->save();
+        ->loadSelf()
+        ->setIsBuilt(false)
+        ->save();
 
 $installer->startSetup();
 $installer->run("
     UPDATE `{$installer->getTable('core/config_data')}` SET `value`=0
-        WHERE `path` LIKE '".Mage_Catalog_Helper_Product_Flat::XML_PATH_USE_PRODUCT_FLAT."';
+        WHERE `path` LIKE '" . Mage_Catalog_Helper_Product_Flat::XML_PATH_USE_PRODUCT_FLAT . "';
 ");
 $installer->endSetup();

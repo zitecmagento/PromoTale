@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,11 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
-class Mage_Catalog_Model_Convert_Adapter_Catalog
-    extends Mage_Dataflow_Model_Convert_Adapter_Abstract
+class Mage_Catalog_Model_Convert_Adapter_Catalog extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
+
     public function getResource()
     {
         if (!$this->_resource) {
@@ -58,15 +57,16 @@ class Mage_Catalog_Model_Convert_Adapter_Catalog
     public function save()
     {
         /*
-        $res = $this->getResource();
+          $res = $this->getResource();
 
-        foreach (array('Attributes', 'Attribute Sets', 'Attribute Options', 'Products', 'Categories', ''))
+          foreach (array('Attributes', 'Attribute Sets', 'Attribute Options', 'Products', 'Categories', ''))
 
-        $this->setData
+          $this->setData
 
-        echo "<pre>".print_r($this->getData(),1)."</pre>";
+          echo "<pre>".print_r($this->getData(),1)."</pre>";
 
-        */
+         */
         return $this;
     }
+
 }

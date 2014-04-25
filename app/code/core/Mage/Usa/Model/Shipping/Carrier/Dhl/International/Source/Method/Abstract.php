@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_Abstract
 {
+
     /**
      * Carrier Product Type Indicator
      *
@@ -55,8 +57,8 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_A
     public function toOptionArray()
     {
         /* @var $carrierModel Mage_Usa_Model_Shipping_Carrier_Dhl_International */
-        $carrierModel   = Mage::getSingleton('usa/shipping_carrier_dhl_international');
-        $dhlProducts    = $carrierModel->getDhlProducts($this->_contentType);
+        $carrierModel = Mage::getSingleton('usa/shipping_carrier_dhl_international');
+        $dhlProducts = $carrierModel->getDhlProducts($this->_contentType);
 
         $options = array();
         foreach ($dhlProducts as $code => $title) {
@@ -69,4 +71,5 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_A
 
         return $options;
     }
+
 }

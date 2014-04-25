@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,10 +34,10 @@
  */
 abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Template
 {
+
     protected $_customer = null;
     protected $_checkout = null;
-    protected $_quote    = null;
-
+    protected $_quote = null;
     protected $_totals;
     protected $_itemRenders = array();
 
@@ -89,7 +90,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
             return $this->_itemRenders[$type];
         }
         return $this->_itemRenders['default'];
-     }
+    }
 
     /**
      * Get renderer block instance by product type code
@@ -103,15 +104,14 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
             $type = 'default';
         }
         if (is_null($this->_itemRenders[$type]['blockInstance'])) {
-             $this->_itemRenders[$type]['blockInstance'] = $this->getLayout()
-                ->createBlock($this->_itemRenders[$type]['block'])
+            $this->_itemRenders[$type]['blockInstance'] = $this->getLayout()
+                    ->createBlock($this->_itemRenders[$type]['block'])
                     ->setTemplate($this->_itemRenders[$type]['template'])
                     ->setRenderedBlock($this);
         }
 
         return $this->_itemRenders[$type]['blockInstance'];
     }
-
 
     /**
      * Get logged in customer
@@ -199,4 +199,5 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
         }
         return $this->getQuote()->getCanApplyMsrp();
     }
+
 }

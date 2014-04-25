@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Plaintext.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /** Zend_Oauth_Signature_SignatureAbstract */
 #require_once 'Zend/Oauth/Signature/SignatureAbstract.php';
 
@@ -30,6 +30,7 @@
  */
 class Zend_Oauth_Signature_Plaintext extends Zend_Oauth_Signature_SignatureAbstract
 {
+
     /**
      * Sign a request
      * 
@@ -46,4 +47,5 @@ class Zend_Oauth_Signature_Plaintext extends Zend_Oauth_Signature_SignatureAbstr
         $return = implode('&', array($this->_consumerSecret, $this->_tokenSecret));
         return $return;
     }
+
 }

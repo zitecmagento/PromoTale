@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Element_Xhtml */
 #require_once 'Zend/Form/Element/Xhtml.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_Form_Element_Checkbox extends Zend_Form_Element_Xhtml
 {
+
     /**
      * Is the checkbox checked?
      * @var bool
@@ -51,7 +52,7 @@ class Zend_Form_Element_Checkbox extends Zend_Form_Element_Xhtml
      * @var array
      */
     public $options = array(
-        'checkedValue'   => '1',
+        'checkedValue' => '1',
         'uncheckedValue' => '0',
     );
 
@@ -95,7 +96,7 @@ class Zend_Form_Element_Checkbox extends Zend_Form_Element_Xhtml
         parent::setOptions($options);
 
         $curValue = $this->getValue();
-        $test     = array($this->getCheckedValue(), $this->getUncheckedValue());
+        $test = array($this->getCheckedValue(), $this->getUncheckedValue());
         if (!in_array($curValue, $test)) {
             $this->setValue($curValue);
         }
@@ -200,4 +201,5 @@ class Zend_Form_Element_Checkbox extends Zend_Form_Element_Xhtml
     {
         return $this->checked;
     }
+
 }

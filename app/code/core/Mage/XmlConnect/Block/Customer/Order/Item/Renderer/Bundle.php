@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Bundle extends Mage_Bundle_Block_Sales_Order_Items_Renderer
 {
+
     /**
      * Add item to XML object
      * (get from template: bundle/sales/order/items/renderer.phtml)
@@ -47,36 +49,32 @@ class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Bundle extends Mage_Bun
             return;
         }
         /** @var $parentItem Mage_Sales_Model_Order_Item */
-        $parentItem     = $this->getItem();
-        $items          = array_merge(array($parentItem), $parentItem->getChildrenItems());
-        $prevOptionId   = '';
+        $parentItem = $this->getItem();
+        $items = array_merge(array($parentItem), $parentItem->getChildrenItems());
+        $prevOptionId = '';
 
         /** @var $weeeHelper Mage_Weee_Helper_Data */
         $weeeHelper = $this->helper('weee');
         /** @var $taxHelper Mage_Tax_Helper_Data */
-        $taxHelper  = $this->helper('tax');
+        $taxHelper = $this->helper('tax');
 
         /** @var $itemXml Mage_XmlConnect_Model_Simplexml_Element */
-        $itemXml    = $orderItemXmlObj->addChild('item');
+        $itemXml = $orderItemXmlObj->addChild('item');
         /** @var $optionsXml Mage_XmlConnect_Model_Simplexml_Element */
         $optionsXml = $itemXml->addChild('related_products');
 
         $this->setWeeeTaxAppliedAmount($parentItem->getWeeeTaxAppliedAmount());
         $this->setWeeeTaxDisposition($parentItem->getWeeeTaxDisposition());
 
-        $typeOfDisplay1 = $weeeHelper->typeOfDisplay($parentItem, 1, 'sales')
-            && $this->getWeeeTaxAppliedAmount();
-        $typeOfDisplay2 = $weeeHelper->typeOfDisplay($parentItem, 2, 'sales')
-            && $this->getWeeeTaxAppliedAmount();
-        $typeOfDisplay4 = $weeeHelper->typeOfDisplay($parentItem, 4, 'sales')
-            && $this->getWeeeTaxAppliedAmount();
-        $typeOfDisplay014 = $weeeHelper->typeOfDisplay($parentItem, array(0, 1, 4), 'sales')
-            && $this->getWeeeTaxAppliedAmount();
+        $typeOfDisplay1 = $weeeHelper->typeOfDisplay($parentItem, 1, 'sales') && $this->getWeeeTaxAppliedAmount();
+        $typeOfDisplay2 = $weeeHelper->typeOfDisplay($parentItem, 2, 'sales') && $this->getWeeeTaxAppliedAmount();
+        $typeOfDisplay4 = $weeeHelper->typeOfDisplay($parentItem, 4, 'sales') && $this->getWeeeTaxAppliedAmount();
+        $typeOfDisplay014 = $weeeHelper->typeOfDisplay($parentItem, array(0, 1, 4), 'sales') && $this->getWeeeTaxAppliedAmount();
 
         $this->setTypesOfDisplay(array(
-            Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_1  => $typeOfDisplay1,
-            Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_2  => $typeOfDisplay2,
-            Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_4  => $typeOfDisplay4,
+            Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_1 => $typeOfDisplay1,
+            Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_2 => $typeOfDisplay2,
+            Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_4 => $typeOfDisplay4,
             Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_14 => $typeOfDisplay014
         ));
         $this->setWeeeTaxes($weeeHelper->getApplied($parentItem));
@@ -121,14 +119,14 @@ class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Bundle extends Mage_Bun
                 // Price excluding tax
                 if ($taxHelper->displaySalesBothPrices() || $taxHelper->displaySalesPriceExclTax()) {
                     Mage::helper('xmlconnect/customer_order')->addPriceAndSubtotalToXml(
-                        $this, $parentItem, $priceXml, $subtotalXml
+                            $this, $parentItem, $priceXml, $subtotalXml
                     );
                 }
 
                 // Price including tax
                 if ($taxHelper->displaySalesBothPrices() || $taxHelper->displaySalesPriceInclTax()) {
                     Mage::helper('xmlconnect/customer_order')->addPriceAndSubtotalToXml(
-                        $this, $parentItem, $priceXml, $subtotalXml, true
+                            $this, $parentItem, $priceXml, $subtotalXml, true
                     );
                 }
             }
@@ -181,36 +179,32 @@ class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Bundle extends Mage_Bun
     public function addItemToXmlObjectApi23(Mage_XmlConnect_Model_Simplexml_Element $orderItemXmlObj)
     {
         /** @var $parentItem Mage_Sales_Model_Order_Item */
-        $parentItem     = $this->getItem();
-        $items          = array_merge(array($parentItem), $parentItem->getChildrenItems());
-        $prevOptionId   = '';
+        $parentItem = $this->getItem();
+        $items = array_merge(array($parentItem), $parentItem->getChildrenItems());
+        $prevOptionId = '';
 
         /** @var $weeeHelper Mage_Weee_Helper_Data */
         $weeeHelper = $this->helper('weee');
         /** @var $taxHelper Mage_Tax_Helper_Data */
-        $taxHelper  = $this->helper('tax');
+        $taxHelper = $this->helper('tax');
 
         /** @var $itemXml Mage_XmlConnect_Model_Simplexml_Element */
-        $itemXml    = $orderItemXmlObj->addChild('item');
+        $itemXml = $orderItemXmlObj->addChild('item');
         /** @var $optionsXml Mage_XmlConnect_Model_Simplexml_Element */
         $optionsXml = $itemXml->addChild('related_products');
 
         $this->setWeeeTaxAppliedAmount($parentItem->getWeeeTaxAppliedAmount());
         $this->setWeeeTaxDisposition($parentItem->getWeeeTaxDisposition());
 
-        $typeOfDisplay1 = $weeeHelper->typeOfDisplay($parentItem, 1, 'sales')
-            && $this->getWeeeTaxAppliedAmount();
-        $typeOfDisplay2 = $weeeHelper->typeOfDisplay($parentItem, 2, 'sales')
-            && $this->getWeeeTaxAppliedAmount();
-        $typeOfDisplay4 = $weeeHelper->typeOfDisplay($parentItem, 4, 'sales')
-            && $this->getWeeeTaxAppliedAmount();
-        $typeOfDisplay014 = $weeeHelper->typeOfDisplay($parentItem, array(0, 1, 4), 'sales')
-            && $this->getWeeeTaxAppliedAmount();
+        $typeOfDisplay1 = $weeeHelper->typeOfDisplay($parentItem, 1, 'sales') && $this->getWeeeTaxAppliedAmount();
+        $typeOfDisplay2 = $weeeHelper->typeOfDisplay($parentItem, 2, 'sales') && $this->getWeeeTaxAppliedAmount();
+        $typeOfDisplay4 = $weeeHelper->typeOfDisplay($parentItem, 4, 'sales') && $this->getWeeeTaxAppliedAmount();
+        $typeOfDisplay014 = $weeeHelper->typeOfDisplay($parentItem, array(0, 1, 4), 'sales') && $this->getWeeeTaxAppliedAmount();
 
         $this->setTypesOfDisplay(array(
-            Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_1  => $typeOfDisplay1,
-            Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_2  => $typeOfDisplay2,
-            Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_4  => $typeOfDisplay4,
+            Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_1 => $typeOfDisplay1,
+            Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_2 => $typeOfDisplay2,
+            Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_4 => $typeOfDisplay4,
             Mage_XmlConnect_Helper_Customer_Order::PRICE_DISPLAY_TYPE_14 => $typeOfDisplay014
         ));
         $this->setWeeeTaxes($weeeHelper->getApplied($parentItem));
@@ -253,14 +247,14 @@ class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Bundle extends Mage_Bun
                 // Price excluding tax
                 if ($taxHelper->displaySalesBothPrices() || $taxHelper->displaySalesPriceExclTax()) {
                     Mage::helper('xmlconnect/customer_order')->addPriceAndSubtotalToXmlApi23(
-                        $this, $parentItem, $priceInfoXml, $subtotalInfoXml
+                            $this, $parentItem, $priceInfoXml, $subtotalInfoXml
                     );
                 }
 
                 // Price including tax
                 if ($taxHelper->displaySalesBothPrices() || $taxHelper->displaySalesPriceInclTax()) {
                     Mage::helper('xmlconnect/customer_order')->addPriceAndSubtotalToXmlApi23(
-                        $this, $parentItem, $priceInfoXml, $subtotalInfoXml, true
+                            $this, $parentItem, $priceInfoXml, $subtotalInfoXml, true
                     );
                 }
             }
@@ -315,7 +309,7 @@ class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Bundle extends Mage_Bun
         $attributes = $this->getSelectionAttributes($item);
         if ($attributes) {
             return sprintf('%d', $attributes['qty']) . ' x ' . $item->getName() . ' - '
-                . $this->_formatPrice($attributes['price']);
+                    . $this->_formatPrice($attributes['price']);
         } else {
             return $item->getName();
         }
@@ -331,4 +325,5 @@ class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Bundle extends Mage_Bun
     {
         return Mage::helper('xmlconnect/customer_order')->formatPrice($this, $price);
     }
+
 }

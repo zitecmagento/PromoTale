@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_CatalogRule_Model_Action_Index_Refresh_Row extends Mage_CatalogRule_Model_Action_Index_Refresh
 {
+
     /**
      * Product Id
      *
@@ -54,9 +56,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh_Row extends Mage_CatalogRule_M
     public function __construct(array $args)
     {
         parent::__construct($args);
-        $this->_productId = $args['value'] instanceof Mage_Catalog_Model_Product
-            ? $args['value']->getId()
-            : $args['value'];
+        $this->_productId = $args['value'] instanceof Mage_Catalog_Model_Product ? $args['value']->getId() : $args['value'];
     }
 
     /**
@@ -79,13 +79,12 @@ class Mage_CatalogRule_Model_Action_Index_Refresh_Row extends Mage_CatalogRule_M
     protected function _removeOldIndexData(Mage_Core_Model_Website $website)
     {
         $this->_connection->query(
-            $this->_connection->deleteFromSelect(
-                $this->_connection->select()
-                    ->from($this->_resource->getTable('catalogrule/rule_product_price'))
-                    ->where('product_id IN (?)', $this->_productId)
-                    ->where('website_id = ?', $website->getId()),
-                $this->_resource->getTable('catalogrule/rule_product_price')
-            )
+                $this->_connection->deleteFromSelect(
+                        $this->_connection->select()
+                                ->from($this->_resource->getTable('catalogrule/rule_product_price'))
+                                ->where('product_id IN (?)', $this->_productId)
+                                ->where('website_id = ?', $website->getId()), $this->_resource->getTable('catalogrule/rule_product_price')
+                )
         );
     }
 
@@ -98,4 +97,5 @@ class Mage_CatalogRule_Model_Action_Index_Refresh_Row extends Mage_CatalogRule_M
     {
         return $this->_productId;
     }
+
 }

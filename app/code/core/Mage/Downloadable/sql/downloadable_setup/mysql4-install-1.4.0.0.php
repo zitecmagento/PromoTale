@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $installer = $this;
 
@@ -171,92 +171,92 @@ foreach ($fieldList as $field) {
 }
 
 $installer->addAttribute('catalog_product', 'links_purchased_separately', array(
-    'type'              => 'int',
-    'backend'           => '',
-    'frontend'          => '',
-    'label'             => 'Links can be purchased separately',
-    'input'             => '',
-    'class'             => '',
-    'source'            => '',
-    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-    'visible'           => false,
-    'required'          => true,
-    'user_defined'      => false,
-    'default'           => '',
-    'searchable'        => false,
-    'filterable'        => false,
-    'comparable'        => false,
-    'visible_on_front'  => false,
-    'unique'            => false,
-    'apply_to'          => 'downloadable',
-    'is_configurable'   => false
+    'type' => 'int',
+    'backend' => '',
+    'frontend' => '',
+    'label' => 'Links can be purchased separately',
+    'input' => '',
+    'class' => '',
+    'source' => '',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+    'visible' => false,
+    'required' => true,
+    'user_defined' => false,
+    'default' => '',
+    'searchable' => false,
+    'filterable' => false,
+    'comparable' => false,
+    'visible_on_front' => false,
+    'unique' => false,
+    'apply_to' => 'downloadable',
+    'is_configurable' => false
 ));
 
 $installer->addAttribute('catalog_product', 'samples_title', array(
-    'type'              => 'varchar',
-    'backend'           => '',
-    'frontend'          => '',
-    'label'             => 'Samples title',
-    'input'             => '',
-    'class'             => '',
-    'source'            => '',
-    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    'visible'           => false,
-    'required'          => true,
-    'user_defined'      => false,
-    'default'           => '',
-    'searchable'        => false,
-    'filterable'        => false,
-    'comparable'        => false,
-    'visible_on_front'  => false,
-    'unique'            => false,
-    'apply_to'          => 'downloadable',
-    'is_configurable'   => false
+    'type' => 'varchar',
+    'backend' => '',
+    'frontend' => '',
+    'label' => 'Samples title',
+    'input' => '',
+    'class' => '',
+    'source' => '',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+    'visible' => false,
+    'required' => true,
+    'user_defined' => false,
+    'default' => '',
+    'searchable' => false,
+    'filterable' => false,
+    'comparable' => false,
+    'visible_on_front' => false,
+    'unique' => false,
+    'apply_to' => 'downloadable',
+    'is_configurable' => false
 ));
 
 $installer->addAttribute('catalog_product', 'links_title', array(
-    'type'              => 'varchar',
-    'backend'           => '',
-    'frontend'          => '',
-    'label'             => 'Links title',
-    'input'             => '',
-    'class'             => '',
-    'source'            => '',
-    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    'visible'           => false,
-    'required'          => true,
-    'user_defined'      => false,
-    'default'           => '',
-    'searchable'        => false,
-    'filterable'        => false,
-    'comparable'        => false,
-    'visible_on_front'  => false,
-    'unique'            => false,
-    'apply_to'          => 'downloadable',
-    'is_configurable'   => false
+    'type' => 'varchar',
+    'backend' => '',
+    'frontend' => '',
+    'label' => 'Links title',
+    'input' => '',
+    'class' => '',
+    'source' => '',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+    'visible' => false,
+    'required' => true,
+    'user_defined' => false,
+    'default' => '',
+    'searchable' => false,
+    'filterable' => false,
+    'comparable' => false,
+    'visible_on_front' => false,
+    'unique' => false,
+    'apply_to' => 'downloadable',
+    'is_configurable' => false
 ));
 
 $installer->addAttribute('catalog_product', 'links_exist', array(
-    'type'                      => 'int',
-    'backend'                   => '',
-    'frontend'                  => '',
-    'label'                     => '',
-    'input'                     => '',
-    'class'                     => '',
-    'source'                    => '',
-    'global'                    => true,
-    'visible'                   => false,
-    'required'                  => false,
-    'user_defined'              => false,
-    'default'                   => '0',
-    'searchable'                => false,
-    'filterable'                => false,
-    'comparable'                => false,
-    'visible_on_front'          => false,
-    'unique'                    => false,
-    'apply_to'                  => 'downloadable',
-    'is_configurable'           => false,
-    'used_in_product_listing'   => 1
+    'type' => 'int',
+    'backend' => '',
+    'frontend' => '',
+    'label' => '',
+    'input' => '',
+    'class' => '',
+    'source' => '',
+    'global' => true,
+    'visible' => false,
+    'required' => false,
+    'user_defined' => false,
+    'default' => '0',
+    'searchable' => false,
+    'filterable' => false,
+    'comparable' => false,
+    'visible_on_front' => false,
+    'unique' => false,
+    'apply_to' => 'downloadable',
+    'is_configurable' => false,
+    'used_in_product_listing' => 1
 ));
 
 $installer->endSetup();

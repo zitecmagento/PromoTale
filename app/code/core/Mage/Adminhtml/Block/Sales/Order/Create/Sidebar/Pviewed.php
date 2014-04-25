@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pviewed extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
+
     protected function _construct()
     {
         parent::_construct();
@@ -62,9 +63,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pviewed extends Mage_Admin
             }
 
             $collection = Mage::getModel('reports/event')
-                ->getCollection()
-                ->addStoreFilter($stores)
-                ->addRecentlyFiler(Mage_Reports_Model_Event::EVENT_PRODUCT_VIEW, $this->getCustomerId(), 0);
+                    ->getCollection()
+                    ->addStoreFilter($stores)
+                    ->addRecentlyFiler(Mage_Reports_Model_Event::EVENT_PRODUCT_VIEW, $this->getCustomerId(), 0);
             $productIds = array();
             foreach ($collection as $event) {
                 $productIds[] = $event->getObjectId();
@@ -73,14 +74,14 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pviewed extends Mage_Admin
             $productCollection = null;
             if ($productIds) {
                 $productCollection = Mage::getModel('catalog/product')
-                    ->getCollection()
-                    ->setStoreId($this->getQuote()->getStoreId())
-                    ->addStoreFilter($this->getQuote()->getStoreId())
-                    ->addAttributeToSelect('name')
-                    ->addAttributeToSelect('price')
-                    ->addAttributeToSelect('small_image')
-                    ->addIdFilter($productIds)
-                    ->load();
+                        ->getCollection()
+                        ->setStoreId($this->getQuote()->getStoreId())
+                        ->addStoreFilter($this->getQuote()->getStoreId())
+                        ->addAttributeToSelect('name')
+                        ->addAttributeToSelect('price')
+                        ->addAttributeToSelect('small_image')
+                        ->addIdFilter($productIds)
+                        ->load();
             }
             $this->setData('item_collection', $productCollection);
         }
@@ -107,4 +108,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pviewed extends Mage_Admin
     {
         return $item->getId();
     }
+
 }

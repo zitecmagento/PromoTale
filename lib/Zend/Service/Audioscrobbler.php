@@ -20,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Audioscrobbler.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Http_Client
  */
 #require_once 'Zend/Http/Client.php';
-
 
 /**
  * @category   Zend
@@ -37,6 +34,7 @@
  */
 class Zend_Service_Audioscrobbler
 {
+
     /**
      * Zend_Http_Client Object
      *
@@ -60,7 +58,6 @@ class Zend_Service_Audioscrobbler
      * @access  protected
      */
     protected $_error = null;
-
 
     /**
      * Sets up character encoding, instantiates the HTTP client, and assigns the web service version.
@@ -91,7 +88,7 @@ class Zend_Service_Audioscrobbler
      */
     public function getHttpClient()
     {
-        if($this->_client == null) {
+        if ($this->_client == null) {
             $this->lazyLoadHttpClient();
         }
         return $this->_client;
@@ -149,7 +146,7 @@ class Zend_Service_Audioscrobbler
     protected function _getInfo($service, $params = null)
     {
         $service = (string) $service;
-        $params  = (string) $params;
+        $params = (string) $params;
 
         if ($params === '') {
             $this->getHttpClient()->setUri("http://ws.audioscrobbler.com{$service}");
@@ -157,7 +154,7 @@ class Zend_Service_Audioscrobbler
             $this->getHttpClient()->setUri("http://ws.audioscrobbler.com{$service}?{$params}");
         }
 
-        $response     = $this->getHttpClient()->request();
+        $response = $this->getHttpClient()->request();
         $responseBody = $response->getBody();
 
         if (preg_match('/No such path/', $responseBody)) {
@@ -189,7 +186,7 @@ class Zend_Service_Audioscrobbler
              */
             #require_once 'Zend/Service/Exception.php';
             $exception = new Zend_Service_Exception('Response failed to load with SimpleXML');
-            $exception->error    = $this->_error;
+            $exception->error = $this->_error;
             $exception->response = $responseBody;
             throw $exception;
         }
@@ -200,10 +197,10 @@ class Zend_Service_Audioscrobbler
     }
 
     /**
-    * Utility function to get Audioscrobbler profile information (eg: Name, Gender)
+     * Utility function to get Audioscrobbler profile information (eg: Name, Gender)
      *
-    * @return array containing information
-    */
+     * @return array containing information
+     */
     public function userGetProfileInformation()
     {
         $service = "/{$this->get('version')}/user/{$this->get('user')}/profile.xml";
@@ -214,7 +211,7 @@ class Zend_Service_Audioscrobbler
      * Utility function get this user's 50 most played artists
      *
      * @return array containing info
-    */
+     */
     public function userGetTopArtists()
     {
         $service = "/{$this->get('version')}/user/{$this->get('user')}/topartists.xml";
@@ -225,7 +222,7 @@ class Zend_Service_Audioscrobbler
      * Utility function to get this user's 50 most played albums
      *
      * @return SimpleXMLElement object containing result set
-    */
+     */
     public function userGetTopAlbums()
     {
         $service = "/{$this->get('version')}/user/{$this->get('user')}/topalbums.xml";
@@ -235,7 +232,7 @@ class Zend_Service_Audioscrobbler
     /**
      * Utility function to get this user's 50 most played tracks
      * @return SimpleXML object containing resut set
-    */
+     */
     public function userGetTopTracks()
     {
         $service = "/{$this->get('version')}/user/{$this->get('user')}/toptracks.xml";
@@ -356,7 +353,6 @@ class Zend_Service_Audioscrobbler
         return $this->_getInfo($service);
     }
 
-
     /**
      * Utility function that returns weekly album chart data for this user
      *
@@ -369,8 +365,8 @@ class Zend_Service_Audioscrobbler
         $params = "";
 
         if ($from != NULL && $to != NULL) {
-            $from = (int)$from;
-            $to = (int)$to;
+            $from = (int) $from;
+            $to = (int) $to;
             $params = "from={$from}&to={$to}";
         }
 
@@ -390,8 +386,8 @@ class Zend_Service_Audioscrobbler
         $params = "";
 
         if ($from != NULL && $to != NULL) {
-            $from = (int)$from;
-            $to = (int)$to;
+            $from = (int) $from;
+            $to = (int) $to;
             $params = "from={$from}&to={$to}";
         }
 
@@ -411,15 +407,14 @@ class Zend_Service_Audioscrobbler
         $params = "";
 
         if ($from != NULL && $to != NULL) {
-            $from = (int)$from;
-            $to = (int)$to;
+            $from = (int) $from;
+            $to = (int) $to;
             $params = "from={$from}&to={$to}";
         }
 
         $service = "/{$this->get('version')}/user/{$this->get('user')}/weeklytrackchart.xml";
         return $this->_getInfo($service, $params);
     }
-
 
     /**
      * Utility function that returns a list of artists similiar to this artist
@@ -475,7 +470,6 @@ class Zend_Service_Audioscrobbler
         $service = "/{$this->get('version')}/artist/{$this->get('artist')}/toptags.xml";
         return $this->_getInfo($service);
     }
-
 
     /**
      * Get information about an album
@@ -577,8 +571,8 @@ class Zend_Service_Audioscrobbler
     {
 
         if ($from != NULL && $to != NULL) {
-            $from = (int)$from;
-            $to = (int)$to;
+            $from = (int) $from;
+            $to = (int) $to;
             $params = "from={$from}&$to={$to}";
         } else {
             $params = "";
@@ -598,8 +592,8 @@ class Zend_Service_Audioscrobbler
     public function groupGetWeeklyTrackChartList($from = NULL, $to = NULL)
     {
         if ($from != NULL && $to != NULL) {
-            $from = (int)$from;
-            $to = (int)$to;
+            $from = (int) $from;
+            $to = (int) $to;
             $params = "from={$from}&to={$to}";
         } else {
             $params = "";
@@ -619,8 +613,8 @@ class Zend_Service_Audioscrobbler
     public function groupGetWeeklyAlbumChartList($from = NULL, $to = NULL)
     {
         if ($from != NULL && $to != NULL) {
-            $from = (int)$from;
-            $to = (int)$to;
+            $from = (int) $from;
+            $to = (int) $to;
             $params = "from={$from}&to={$to}";
         } else {
             $params = "";
@@ -643,12 +637,12 @@ class Zend_Service_Audioscrobbler
     protected function _errorHandler($errno, $errstr, $errfile, $errline, array $errcontext)
     {
         $this->_error = array(
-            'errno'      => $errno,
-            'errstr'     => $errstr,
-            'errfile'    => $errfile,
-            'errline'    => $errline,
+            'errno' => $errno,
+            'errstr' => $errstr,
+            'errfile' => $errfile,
+            'errline' => $errline,
             'errcontext' => $errcontext
-            );
+        );
     }
 
     /**
@@ -660,22 +654,23 @@ class Zend_Service_Audioscrobbler
      */
     public function __call($method, $args)
     {
-        if(substr($method, 0, 3) !== "set") {
+        if (substr($method, 0, 3) !== "set") {
             #require_once "Zend/Service/Exception.php";
             throw new Zend_Service_Exception(
-                "Method ".$method." does not exist in class Zend_Service_Audioscrobbler."
+            "Method " . $method . " does not exist in class Zend_Service_Audioscrobbler."
             );
         }
         $field = strtolower(substr($method, 3));
 
-        if(!is_array($args) || count($args) != 1) {
+        if (!is_array($args) || count($args) != 1) {
             #require_once "Zend/Service/Exception.php";
             throw new Zend_Service_Exception(
-                "A value is required for setting a parameter field."
+            "A value is required for setting a parameter field."
             );
         }
         $this->set($field, $args[0]);
 
         return $this;
     }
+
 }

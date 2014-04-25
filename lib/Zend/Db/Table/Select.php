@@ -20,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Select.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Db_Select
  */
@@ -32,7 +30,6 @@
  * @see Zend_Db_Table_Abstract
  */
 #require_once 'Zend/Db/Table/Abstract.php';
-
 
 /**
  * Class for SQL SELECT query manipulation for the Zend_Db_Table component.
@@ -45,6 +42,7 @@
  */
 class Zend_Db_Table_Select extends Zend_Db_Select
 {
+
     /**
      * Table schema for parent Zend_Db_Table.
      *
@@ -97,8 +95,8 @@ class Zend_Db_Table_Select extends Zend_Db_Select
     public function setTable(Zend_Db_Table_Abstract $table)
     {
         $this->_adapter = $table->getAdapter();
-        $this->_info    = $table->info();
-        $this->_table   = $table;
+        $this->_info = $table->info();
+        $this->_table = $table;
 
         return $this;
     }
@@ -126,8 +124,8 @@ class Zend_Db_Table_Select extends Zend_Db_Select
     public function isReadOnly()
     {
         $readOnly = false;
-        $fields   = $this->getPart(Zend_Db_Table_Select::COLUMNS);
-        $cols     = $this->_info[Zend_Db_Table_Abstract::COLS];
+        $fields = $this->getPart(Zend_Db_Table_Select::COLUMNS);
+        $cols = $this->_info[Zend_Db_Table_Abstract::COLS];
 
         if (!count($fields)) {
             return $readOnly;
@@ -161,9 +159,9 @@ class Zend_Db_Table_Select extends Zend_Db_Select
      * The table name can be expressed
      *
      * @param  array|string|Zend_Db_Expr|Zend_Db_Table_Abstract $name The table name or an
-                                                                      associative array relating
-                                                                      table name to correlation
-                                                                      name.
+      associative array relating
+      table name to correlation
+      name.
      * @param  array|string|Zend_Db_Expr $cols The columns to select from this table.
      * @param  string $schema The schema name to specify, if any.
      * @return Zend_Db_Table_Select This Zend_Db_Table_Select object.
@@ -189,9 +187,9 @@ class Zend_Db_Table_Select extends Zend_Db_Select
      */
     public function assemble()
     {
-        $fields  = $this->getPart(Zend_Db_Table_Select::COLUMNS);
+        $fields = $this->getPart(Zend_Db_Table_Select::COLUMNS);
         $primary = $this->_info[Zend_Db_Table_Abstract::NAME];
-        $schema  = $this->_info[Zend_Db_Table_Abstract::SCHEMA];
+        $schema = $this->_info[Zend_Db_Table_Abstract::SCHEMA];
 
 
         if (count($this->_parts[self::UNION]) == 0) {
@@ -221,4 +219,5 @@ class Zend_Db_Table_Select extends Zend_Db_Select
 
         return parent::assemble();
     }
+
 }

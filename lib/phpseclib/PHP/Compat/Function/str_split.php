@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Replace str_split()
  *
@@ -16,7 +17,7 @@ function php_compat_str_split($string, $split_length = 1)
 {
     if (!is_scalar($split_length)) {
         user_error('str_split() expects parameter 2 to be long, ' .
-            gettype($split_length) . ' given', E_USER_WARNING);
+                gettype($split_length) . ' given', E_USER_WARNING);
         return false;
     }
 
@@ -25,7 +26,7 @@ function php_compat_str_split($string, $split_length = 1)
         user_error('str_split() The length of each segment must be greater than zero', E_USER_WARNING);
         return false;
     }
-    
+
     // Select split method
     if ($split_length < 65536) {
         // Faster, but only works for less than 2^16
@@ -49,11 +50,12 @@ function php_compat_str_split($string, $split_length = 1)
     }
 }
 
-
 // Define
 if (!function_exists('str_split')) {
+
     function str_split($string, $split_length = 1)
     {
         return php_compat_str_split($string, $split_length);
     }
+
 }

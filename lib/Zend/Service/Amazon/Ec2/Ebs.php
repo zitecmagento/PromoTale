@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Ebs.php 22047 2010-04-28 22:14:51Z shahar $
  */
-
 /**
  * @see Zend_Service_Amazon_Ec2_Abstract
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
 {
+
     /**
      * Creates a new Amazon EBS volume that you can mount from any Amazon EC2 instance.
      *
@@ -58,11 +59,11 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
         $xpath = $response->getXPath();
 
         $return = array();
-        $return['volumeId']             = $xpath->evaluate('string(//ec2:volumeId/text())');
-        $return['size']                 = $xpath->evaluate('string(//ec2:size/text())');
-        $return['status']               = $xpath->evaluate('string(//ec2:status/text())');
-        $return['createTime']           = $xpath->evaluate('string(//ec2:createTime/text())');
-        $return['availabilityZone']     = $xpath->evaluate('string(//ec2:availabilityZone/text())');
+        $return['volumeId'] = $xpath->evaluate('string(//ec2:volumeId/text())');
+        $return['size'] = $xpath->evaluate('string(//ec2:size/text())');
+        $return['status'] = $xpath->evaluate('string(//ec2:status/text())');
+        $return['createTime'] = $xpath->evaluate('string(//ec2:createTime/text())');
+        $return['availabilityZone'] = $xpath->evaluate('string(//ec2:availabilityZone/text())');
 
         return $return;
     }
@@ -88,12 +89,12 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
         $xpath = $response->getXPath();
 
         $return = array();
-        $return['volumeId']             = $xpath->evaluate('string(//ec2:volumeId/text())');
-        $return['size']                 = $xpath->evaluate('string(//ec2:size/text())');
-        $return['status']               = $xpath->evaluate('string(//ec2:status/text())');
-        $return['createTime']           = $xpath->evaluate('string(//ec2:createTime/text())');
-        $return['availabilityZone']     = $xpath->evaluate('string(//ec2:availabilityZone/text())');
-        $return['snapshotId']           = $xpath->evaluate('string(//ec2:snapshotId/text())');
+        $return['volumeId'] = $xpath->evaluate('string(//ec2:volumeId/text())');
+        $return['size'] = $xpath->evaluate('string(//ec2:size/text())');
+        $return['status'] = $xpath->evaluate('string(//ec2:status/text())');
+        $return['createTime'] = $xpath->evaluate('string(//ec2:createTime/text())');
+        $return['availabilityZone'] = $xpath->evaluate('string(//ec2:availabilityZone/text())');
+        $return['snapshotId'] = $xpath->evaluate('string(//ec2:snapshotId/text())');
 
         return $return;
     }
@@ -110,30 +111,30 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
         $params = array();
         $params['Action'] = 'DescribeVolumes';
 
-        if(is_array($volumeId) && !empty($volumeId)) {
-            foreach($volumeId as $k=>$name) {
-                $params['VolumeId.' . ($k+1)] = $name;
+        if (is_array($volumeId) && !empty($volumeId)) {
+            foreach ($volumeId as $k => $name) {
+                $params['VolumeId.' . ($k + 1)] = $name;
             }
-        } elseif($volumeId) {
+        } elseif ($volumeId) {
             $params['VolumeId.1'] = $volumeId;
         }
 
         $response = $this->sendRequest($params);
 
-        $xpath  = $response->getXPath();
+        $xpath = $response->getXPath();
         $nodes = $xpath->query('//ec2:volumeSet/ec2:item', $response->getDocument());
 
         $return = array();
         foreach ($nodes as $node) {
             $item = array();
 
-            $item['volumeId']   = $xpath->evaluate('string(ec2:volumeId/text())', $node);
-            $item['size']       = $xpath->evaluate('string(ec2:size/text())', $node);
-            $item['status']     = $xpath->evaluate('string(ec2:status/text())', $node);
+            $item['volumeId'] = $xpath->evaluate('string(ec2:volumeId/text())', $node);
+            $item['size'] = $xpath->evaluate('string(ec2:size/text())', $node);
+            $item['status'] = $xpath->evaluate('string(ec2:status/text())', $node);
             $item['createTime'] = $xpath->evaluate('string(ec2:createTime/text())', $node);
 
             $attachmentSet = $xpath->query('ec2:attachmentSet/ec2:item', $node);
-            if($attachmentSet->length == 1) {
+            if ($attachmentSet->length == 1) {
                 $_as = $attachmentSet->item(0);
                 $as = array();
                 $as['volumeId'] = $xpath->evaluate('string(ec2:volumeId/text())', $_as);
@@ -156,8 +157,8 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
         $volumes = $this->describeVolume();
 
         $return = array();
-        foreach($volumes as $vol) {
-            if(isset($vol['attachmentSet']) && $vol['attachmentSet']['instanceId'] == $instanceId) {
+        foreach ($volumes as $vol) {
+            if (isset($vol['attachmentSet']) && $vol['attachmentSet']['instanceId'] == $instanceId) {
                 $return[] = $vol;
             }
         }
@@ -176,21 +177,21 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
     public function attachVolume($volumeId, $instanceId, $device)
     {
         $params = array();
-        $params['Action']       = 'AttachVolume';
-        $params['VolumeId']     = $volumeId;
-        $params['InstanceId']   = $instanceId;
-        $params['Device']       = $device;
+        $params['Action'] = 'AttachVolume';
+        $params['VolumeId'] = $volumeId;
+        $params['InstanceId'] = $instanceId;
+        $params['Device'] = $device;
 
         $response = $this->sendRequest($params);
 
         $xpath = $response->getXPath();
 
         $return = array();
-        $return['volumeId']     = $xpath->evaluate('string(//ec2:volumeId/text())');
-        $return['instanceId']   = $xpath->evaluate('string(//ec2:instanceId/text())');
-        $return['device']       = $xpath->evaluate('string(//ec2:device/text())');
-        $return['status']       = $xpath->evaluate('string(//ec2:status/text())');
-        $return['attachTime']   = $xpath->evaluate('string(//ec2:attachTime/text())');
+        $return['volumeId'] = $xpath->evaluate('string(//ec2:volumeId/text())');
+        $return['instanceId'] = $xpath->evaluate('string(//ec2:instanceId/text())');
+        $return['device'] = $xpath->evaluate('string(//ec2:device/text())');
+        $return['status'] = $xpath->evaluate('string(//ec2:status/text())');
+        $return['attachTime'] = $xpath->evaluate('string(//ec2:attachTime/text())');
 
         return $return;
     }
@@ -212,22 +213,22 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
     public function detachVolume($volumeId, $instanceId = null, $device = null, $force = false)
     {
         $params = array();
-        $params['Action']       = 'DetachVolume';
-        $params['VolumeId']     = $volumeId;
-        $params['InstanceId']   = strval($instanceId);
-        $params['Device']       = strval($device);
-        $params['Force']        = strval($force);
+        $params['Action'] = 'DetachVolume';
+        $params['VolumeId'] = $volumeId;
+        $params['InstanceId'] = strval($instanceId);
+        $params['Device'] = strval($device);
+        $params['Force'] = strval($force);
 
         $response = $this->sendRequest($params);
 
         $xpath = $response->getXPath();
 
         $return = array();
-        $return['volumeId']     = $xpath->evaluate('string(//ec2:volumeId/text())');
-        $return['instanceId']   = $xpath->evaluate('string(//ec2:instanceId/text())');
-        $return['device']       = $xpath->evaluate('string(//ec2:device/text())');
-        $return['status']       = $xpath->evaluate('string(//ec2:status/text())');
-        $return['attachTime']   = $xpath->evaluate('string(//ec2:attachTime/text())');
+        $return['volumeId'] = $xpath->evaluate('string(//ec2:volumeId/text())');
+        $return['instanceId'] = $xpath->evaluate('string(//ec2:instanceId/text())');
+        $return['device'] = $xpath->evaluate('string(//ec2:device/text())');
+        $return['status'] = $xpath->evaluate('string(//ec2:status/text())');
+        $return['attachTime'] = $xpath->evaluate('string(//ec2:attachTime/text())');
 
         return $return;
     }
@@ -241,8 +242,8 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
     public function deleteVolume($volumeId)
     {
         $params = array();
-        $params['Action']       = 'DeleteVolume';
-        $params['VolumeId']     = $volumeId;
+        $params['Action'] = 'DeleteVolume';
+        $params['VolumeId'] = $volumeId;
 
         $response = $this->sendRequest($params);
         $xpath = $response->getXPath();
@@ -262,19 +263,19 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
     public function createSnapshot($volumeId)
     {
         $params = array();
-        $params['Action']       = 'CreateSnapshot';
-        $params['VolumeId']     = $volumeId;
+        $params['Action'] = 'CreateSnapshot';
+        $params['VolumeId'] = $volumeId;
 
         $response = $this->sendRequest($params);
 
         $xpath = $response->getXPath();
 
         $return = array();
-        $return['snapshotId']   = $xpath->evaluate('string(//ec2:snapshotId/text())');
-        $return['volumeId']     = $xpath->evaluate('string(//ec2:volumeId/text())');
-        $return['status']       = $xpath->evaluate('string(//ec2:status/text())');
-        $return['startTime']    = $xpath->evaluate('string(//ec2:startTime/text())');
-        $return['progress']     = $xpath->evaluate('string(//ec2:progress/text())');
+        $return['snapshotId'] = $xpath->evaluate('string(//ec2:snapshotId/text())');
+        $return['volumeId'] = $xpath->evaluate('string(//ec2:volumeId/text())');
+        $return['status'] = $xpath->evaluate('string(//ec2:status/text())');
+        $return['startTime'] = $xpath->evaluate('string(//ec2:startTime/text())');
+        $return['progress'] = $xpath->evaluate('string(//ec2:progress/text())');
 
         return $return;
     }
@@ -290,17 +291,17 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
         $params = array();
         $params['Action'] = 'DescribeSnapshots';
 
-        if(is_array($snapshotId) && !empty($snapshotId)) {
-            foreach($snapshotId as $k=>$name) {
-                $params['SnapshotId.' . ($k+1)] = $name;
+        if (is_array($snapshotId) && !empty($snapshotId)) {
+            foreach ($snapshotId as $k => $name) {
+                $params['SnapshotId.' . ($k + 1)] = $name;
             }
-        } elseif($snapshotId) {
+        } elseif ($snapshotId) {
             $params['SnapshotId.1'] = $snapshotId;
         }
 
         $response = $this->sendRequest($params);
 
-        $xpath  = $response->getXPath();
+        $xpath = $response->getXPath();
         $nodes = $xpath->query('//ec2:snapshotSet/ec2:item', $response->getDocument());
 
         $return = array();
@@ -308,10 +309,10 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
             $item = array();
 
             $item['snapshotId'] = $xpath->evaluate('string(ec2:snapshotId/text())', $node);
-            $item['volumeId']   = $xpath->evaluate('string(ec2:volumeId/text())', $node);
-            $item['status']     = $xpath->evaluate('string(ec2:status/text())', $node);
-            $item['startTime']  = $xpath->evaluate('string(ec2:startTime/text())', $node);
-            $item['progress']   = $xpath->evaluate('string(ec2:progress/text())', $node);
+            $item['volumeId'] = $xpath->evaluate('string(ec2:volumeId/text())', $node);
+            $item['status'] = $xpath->evaluate('string(ec2:status/text())', $node);
+            $item['startTime'] = $xpath->evaluate('string(ec2:startTime/text())', $node);
+            $item['progress'] = $xpath->evaluate('string(ec2:progress/text())', $node);
 
             $return[] = $item;
             unset($item, $node);
@@ -329,8 +330,8 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
     public function deleteSnapshot($snapshotId)
     {
         $params = array();
-        $params['Action']       = 'DeleteSnapshot';
-        $params['SnapshotId']   = $snapshotId;
+        $params['Action'] = 'DeleteSnapshot';
+        $params['SnapshotId'] = $snapshotId;
 
         $response = $this->sendRequest($params);
 
@@ -339,4 +340,5 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
 
         return ($return === "true");
     }
+
 }

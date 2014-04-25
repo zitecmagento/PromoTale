@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,6 +20,7 @@
  */
 class Phoenix_Moneybookers_Block_Info extends Mage_Payment_Block_Info
 {
+
     /**
      * Constructor. Set template.
      */
@@ -48,4 +50,5 @@ class Phoenix_Moneybookers_Block_Info extends Mage_Payment_Block_Info
         $this->setTemplate('moneybookers/pdf/info.phtml');
         return $this->toHtml();
     }
+
 }

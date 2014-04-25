@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -32,6 +33,7 @@
  */
 abstract class Zend_Ldap_Node_Schema_Item implements ArrayAccess, Countable
 {
+
     /**
      * The underlying data
      *
@@ -160,4 +162,5 @@ abstract class Zend_Ldap_Node_Schema_Item implements ArrayAccess, Countable
     {
         return count($this->_data);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
 {
+
     /**
      * Render a grid cell as options
      *
@@ -43,7 +44,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options
     public function render(Varien_Object $row)
     {
         $options = $this->getColumn()->getOptions();
-        $showMissingOptionValues = (bool)$this->getColumn()->getShowMissingOptionValues();
+        $showMissingOptionValues = (bool) $this->getColumn()->getShowMissingOptionValues();
         if (!empty($options) && is_array($options)) {
             $value = $row->getData($this->getColumn()->getIndex());
             if (is_array($value)) {
@@ -51,8 +52,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options
                 foreach ($value as $item) {
                     if (isset($options[$item])) {
                         $res[] = $this->escapeHtml($options[$item]);
-                    }
-                    elseif ($showMissingOptionValues) {
+                    } elseif ($showMissingOptionValues) {
                         $res[] = $this->escapeHtml($item);
                     }
                 }
@@ -64,4 +64,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options
             }
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Loc.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -43,12 +43,13 @@
  */
 class Zend_Validate_Sitemap_Loc extends Zend_Validate_Abstract
 {
+
     /**
      * Validation key for not valid
      *
      */
     const NOT_VALID = 'sitemapLocNotValid';
-    const INVALID   = 'sitemapLocInvalid';
+    const INVALID = 'sitemapLocInvalid';
 
     /**
      * Validation failure message template definitions
@@ -57,7 +58,7 @@ class Zend_Validate_Sitemap_Loc extends Zend_Validate_Abstract
      */
     protected $_messageTemplates = array(
         self::NOT_VALID => "'%value%' is no valid sitemap location",
-        self::INVALID   => "Invalid type given. String expected",
+        self::INVALID => "Invalid type given. String expected",
     );
 
     /**
@@ -84,4 +85,5 @@ class Zend_Validate_Sitemap_Loc extends Zend_Validate_Abstract
 
         return true;
     }
+
 }

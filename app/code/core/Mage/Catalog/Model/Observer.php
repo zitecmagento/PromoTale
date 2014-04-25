@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Observer
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Observer
 {
+
     /**
      * Process catalog ata related with store data changes
      *
@@ -187,7 +188,7 @@ class Mage_Catalog_Model_Observer
     public function catalogCheckIsUsingStaticUrlsAllowed(Varien_Event_Observer $observer)
     {
         $storeId = $observer->getEvent()->getData('store_id');
-        $result  = $observer->getEvent()->getData('result');
+        $result = $observer->getEvent()->getData('result');
         $result->isAllowed = Mage::helper('catalog')->setStoreId($storeId)->isUsingStaticUrlsAllowed();
     }
 
@@ -214,7 +215,7 @@ class Mage_Catalog_Model_Observer
         $block = $observer->getEvent()->getBlock();
         $block->addCacheTag(Mage_Catalog_Model_Category::CACHE_TAG);
         $this->_addCategoriesToMenu(
-            Mage::helper('catalog/category')->getStoreCategories(), $observer->getMenu(), $block, true
+                Mage::helper('catalog/category')->getStoreCategories(), $observer->getMenu(), $block, true
         );
     }
 
@@ -253,7 +254,7 @@ class Mage_Catalog_Model_Observer
 
             $flatHelper = Mage::helper('catalog/category_flat');
             if ($flatHelper->isEnabled() && $flatHelper->isBuilt(true)) {
-                $subcategories = (array)$category->getChildrenNodes();
+                $subcategories = (array) $category->getChildrenNodes();
             } else {
                 $subcategories = $category->getChildren();
             }
@@ -301,8 +302,9 @@ class Mage_Catalog_Model_Observer
         $product = Mage::getModel('catalog/product');
         if ($product->isReservedAttribute($attribute)) {
             throw new Mage_Core_Exception(
-                Mage::helper('catalog')->__('The attribute code \'%s\' is reserved by system. Please try another attribute code', $attribute->getAttributeCode())
+            Mage::helper('catalog')->__('The attribute code \'%s\' is reserved by system. Please try another attribute code', $attribute->getAttributeCode())
             );
         }
     }
+
 }

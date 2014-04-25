@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
@@ -32,7 +32,7 @@ $installer->startSetup();
 $applyTo = explode(',', $installer->getAttribute('catalog_product', 'weight', 'apply_to'));
 if (in_array('downloadable', $applyTo)) {
     $newApplyTo = array();
-    foreach ($applyTo as $key=>$value) {
+    foreach ($applyTo as $key => $value) {
         if ($value != 'downloadable') {
             $newApplyTo[] = $value;
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist model
  *
@@ -43,12 +43,14 @@
  */
 class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 {
+
     /**
      * Prefix of model events names
      *
      * @var string
      */
     protected $_eventPrefix = 'wishlist';
+
     /**
      * Wishlist item collection
      *
@@ -144,7 +146,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     public function loadByCode($code)
     {
         $this->_getResource()->load($this, $code, 'sharing_code');
-        if(!$this->getShared()) {
+        if (!$this->getShared()) {
             $this->setId(null);
         }
 
@@ -211,13 +213,13 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             $storeId = $product->hasWishlistStoreId() ? $product->getWishlistStoreId() : $this->getStore()->getId();
             $item = Mage::getModel('wishlist/item');
             $item->setProductId($product->getId())
-                ->setWishlistId($this->getId())
-                ->setAddedAt(now())
-                ->setStoreId($storeId)
-                ->setOptions($product->getCustomOptions())
-                ->setProduct($product)
-                ->setQty($qty)
-                ->save();
+                    ->setWishlistId($this->getId())
+                    ->setAddedAt(now())
+                    ->setStoreId($storeId)
+                    ->setOptions($product->getCustomOptions())
+                    ->setProduct($product)
+                    ->setQty($qty)
+                    ->save();
 
             Mage::dispatchEvent('wishlist_item_add_after', array('wishlist' => $this));
 
@@ -227,7 +229,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         } else {
             $qty = $forciblySetQty ? $qty : $item->getQty() + $qty;
             $item->setQty($qty)
-                ->save();
+                    ->save();
         }
 
         $this->addItem($item);
@@ -245,10 +247,10 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         if (is_null($this->_itemCollection)) {
             /** @var $currentWebsiteOnly boolean */
             $currentWebsiteOnly = !Mage::app()->getStore()->isAdmin();
-            $this->_itemCollection =  Mage::getResourceModel('wishlist/item_collection')
-                ->addWishlistFilter($this)
-                ->addStoreFilter($this->getSharedStoreIds($currentWebsiteOnly))
-                ->setVisibilityFilter();
+            $this->_itemCollection = Mage::getResourceModel('wishlist/item_collection')
+                    ->addWishlistFilter($this)
+                    ->addStoreFilter($this->getSharedStoreIds($currentWebsiteOnly))
+                    ->setVisibilityFilter();
 
             if (Mage::app()->getStore()->isAdmin()) {
                 $customer = Mage::getModel('customer/customer')->load($this->getCustomerId());
@@ -339,8 +341,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 
         /* @var $product Mage_Catalog_Model_Product */
         $product = Mage::getModel('catalog/product')
-            ->setStoreId($storeId)
-            ->load($productId);
+                ->setStoreId($storeId)
+                ->load($productId);
 
         if ($buyRequest instanceof Varien_Object) {
             $_buyRequest = $buyRequest;
@@ -353,7 +355,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         }
 
         $cartCandidates = $product->getTypeInstance(true)
-            ->processConfiguration($_buyRequest, $product);
+                ->processConfiguration($_buyRequest, $product);
 
         /**
          * Error message
@@ -423,8 +425,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     {
         $data = array();
         $data[$this->_getResource()->getCustomerIdFieldName()] = $this->getCustomerId();
-        $data['shared']      = (int) $this->getShared();
-        $data['sharing_code']= $this->getSharingCode();
+        $data['shared'] = (int) $this->getShared();
+        $data['sharing_code'] = $this->getSharingCode();
         return $data;
     }
 
@@ -524,7 +526,6 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         return $customerId == $this->getCustomerId();
     }
 
-
     /**
      * Update wishlist Item and set data from request
      *
@@ -552,7 +553,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         if ($itemId instanceof Mage_Wishlist_Model_Item) {
             $item = $itemId;
         } else {
-            $item = $this->getItem((int)$itemId);
+            $item = $this->getItem((int) $itemId);
         }
         if (!$item) {
             Mage::throwException(Mage::helper('wishlist')->__('Cannot specify wishlist item.'));
@@ -574,9 +575,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             $isForceSetQuantity = true;
             foreach ($items as $_item) {
                 /* @var $_item Mage_Wishlist_Model_Item */
-                if ($_item->getProductId() == $product->getId()
-                    && $_item->representProduct($product)
-                    && $_item->getId() != $item->getId()) {
+                if ($_item->getProductId() == $product->getId() && $_item->representProduct($product) && $_item->getId() != $item->getId()) {
                     // We do not add new wishlist item, but updating the existing one
                     $isForceSetQuantity = false;
                 }
@@ -615,4 +614,5 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         $this->_hasDataChanges = true;
         return parent::save();
     }
+
 }

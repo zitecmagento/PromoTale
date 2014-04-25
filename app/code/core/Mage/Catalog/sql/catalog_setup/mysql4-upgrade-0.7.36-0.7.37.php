@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,12 +24,12 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
 $installer->startSetup();
-try {
+try
+{
     $installer->run("
         ALTER TABLE `{$installer->getTable('catalog_product_website')}` ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
 
@@ -42,6 +43,9 @@ try {
              REFERENCES `{$installer->getTable('core_website')}` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE,
             ROW_FORMAT = FIXED;
     ");
-} catch (Exception $e) {
+}
+catch (Exception $e)
+{
+    
 }
 $installer->endSetup();

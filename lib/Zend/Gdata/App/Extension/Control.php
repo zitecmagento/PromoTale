@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Control.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Extension
  */
@@ -66,14 +65,14 @@ class Zend_Gdata_App_Extension_Control extends Zend_Gdata_App_Extension
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-        case $this->lookupNamespace('app') . ':' . 'draft':
-            $draft = new Zend_Gdata_App_Extension_Draft();
-            $draft->transferFromDOM($child);
-            $this->_draft = $draft;
-            break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            case $this->lookupNamespace('app') . ':' . 'draft':
+                $draft = new Zend_Gdata_App_Extension_Draft();
+                $draft->transferFromDOM($child);
+                $this->_draft = $draft;
+                break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 

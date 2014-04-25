@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
 {
+
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -40,6 +42,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
         }
         return parent::_prepareLayout();
     }
+
     public function getProduct()
     {
         return Mage::registry('product');
@@ -135,7 +138,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     public function getPreviusImageUrl()
     {
         if ($image = $this->getPreviusImage()) {
-            return $this->getUrl('*/*/*', array('_current'=>true, 'image'=>$image->getValueId()));
+            return $this->getUrl('*/*/*', array('_current' => true, 'image' => $image->getValueId()));
         }
         return false;
     }
@@ -143,8 +146,9 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     public function getNextImageUrl()
     {
         if ($image = $this->getNextImage()) {
-            return $this->getUrl('*/*/*', array('_current'=>true, 'image'=>$image->getValueId()));
+            return $this->getUrl('*/*/*', array('_current' => true, 'image' => $image->getValueId()));
         }
         return false;
     }
+
 }

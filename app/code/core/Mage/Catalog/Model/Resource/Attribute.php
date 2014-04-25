@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog attribute resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Entity_Attribute
 {
+
     /**
      * Perform actions before object save
      *
@@ -71,16 +72,14 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
     {
         $origData = $object->getOrigData();
 
-        if ($object->isScopeGlobal()
-            && isset($origData['is_global'])
-            && Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL != $origData['is_global']
+        if ($object->isScopeGlobal() && isset($origData['is_global']) && Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL != $origData['is_global']
         ) {
             $attributeStoreIds = array_keys(Mage::app()->getStores());
             if (!empty($attributeStoreIds)) {
                 $delCondition = array(
                     'entity_type_id=?' => $object->getEntityTypeId(),
                     'attribute_id = ?' => $object->getId(),
-                    'store_id IN(?)'   => $attributeStoreIds
+                    'store_id IN(?)' => $attributeStoreIds
                 );
                 $this->_getWriteAdapter()->delete($object->getBackendTable(), $delCondition);
             }
@@ -102,13 +101,13 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
         }
 
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('eav/entity_attribute'))
-            ->where('entity_attribute_id = ?', (int)$object->getEntityAttributeId());
+                ->from($this->getTable('eav/entity_attribute'))
+                ->where('entity_attribute_id = ?', (int) $object->getEntityAttributeId());
         $result = $this->_getReadAdapter()->fetchRow($select);
 
         if ($result) {
             $attribute = Mage::getSingleton('eav/config')
-                ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $result['attribute_id']);
+                    ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $result['attribute_id']);
 
             if ($this->isUsedBySuperProducts($attribute, $result['attribute_set_id'])) {
                 Mage::throwException(Mage::helper('eav')->__("Attribute '%s' used in configurable products", $attribute->getAttributeCode()));
@@ -116,13 +115,13 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
             $backendTable = $attribute->getBackend()->getTable();
             if ($backendTable) {
                 $select = $this->_getWriteAdapter()->select()
-                    ->from($attribute->getEntity()->getEntityTable(), 'entity_id')
-                    ->where('attribute_set_id = ?', $result['attribute_set_id']);
+                        ->from($attribute->getEntity()->getEntityTable(), 'entity_id')
+                        ->where('attribute_set_id = ?', $result['attribute_set_id']);
 
                 $clearCondition = array(
                     'entity_type_id =?' => $attribute->getEntityTypeId(),
-                    'attribute_id =?'   => $attribute->getId(),
-                    'entity_id IN (?)'  => $select
+                    'attribute_id =?' => $attribute->getId(),
+                    'entity_id IN (?)' => $select
                 );
                 $this->_getWriteAdapter()->delete($backendTable, $clearCondition);
             }
@@ -143,18 +142,18 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      */
     public function isUsedBySuperProducts(Mage_Core_Model_Abstract $object, $attributeSet = null)
     {
-        $adapter      = $this->_getReadAdapter();
-        $attrTable    = $this->getTable('catalog/product_super_attribute');
+        $adapter = $this->_getReadAdapter();
+        $attrTable = $this->getTable('catalog/product_super_attribute');
         $productTable = $this->getTable('catalog/product');
 
         $bind = array('attribute_id' => $object->getAttributeId());
         $select = clone $adapter->select();
         $select->reset()
-            ->from(array('main_table' => $attrTable), array('psa_count' => 'COUNT(product_super_attribute_id)'))
-            ->join(array('entity' => $productTable), 'main_table.product_id = entity.entity_id')
-            ->where('main_table.attribute_id = :attribute_id')
-            ->group('main_table.attribute_id')
-            ->limit(1);
+                ->from(array('main_table' => $attrTable), array('psa_count' => 'COUNT(product_super_attribute_id)'))
+                ->join(array('entity' => $productTable), 'main_table.product_id = entity.entity_id')
+                ->where('main_table.attribute_id = :attribute_id')
+                ->group('main_table.attribute_id')
+                ->limit(1);
 
         if ($attributeSet !== null) {
             $bind['attribute_set_id'] = $attributeSet;
@@ -162,7 +161,8 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
         }
 
         $helper = Mage::getResourceHelper('core');
-        $query  = $helper->getQueryUsingAnalyticFunction($select);
+        $query = $helper->getQueryUsingAnalyticFunction($select);
         return $adapter->fetchOne($query, $bind);
     }
+
 }

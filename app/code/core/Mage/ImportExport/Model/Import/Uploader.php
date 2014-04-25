@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,7 +34,8 @@
  */
 class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploader
 {
-    protected $_tmpDir  = '';
+
+    protected $_tmpDir = '';
     protected $_destDir = '';
     protected $_allowedMimeTypes = array(
         'jpg' => 'image/jpeg',
@@ -41,6 +43,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         'gif' => 'image/gif',
         'png' => 'image/png'
     );
+
     const DEFAULT_FILE_TYPE = 'application/octet-stream';
 
     function __construct($filePath = null)
@@ -59,8 +62,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         $this->setAllowCreateFolders(true);
         $this->setFilesDispersion(true);
         $this->setAllowedExtensions(array_keys($this->_allowedMimeTypes));
-        $this->addValidateCallback('catalog_product_image',
-                Mage::helper('catalog/image'), 'validateUploadFile');
+        $this->addValidateCallback('catalog_product_image', Mage::helper('catalog/image'), 'validateUploadFile');
         $this->_uploadType = self::SINGLE_STYLE;
     }
 

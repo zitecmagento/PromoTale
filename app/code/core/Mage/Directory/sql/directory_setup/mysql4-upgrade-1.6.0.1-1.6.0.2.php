@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,12 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 $installer->startSetup();
 
 /* @var $connection Varien_Db_Adapter_Pdo_Mysql */
-$connection  = $installer->getConnection();
+$connection = $installer->getConnection();
 
 $regionTable = $installer->getTable('directory/country_region');
 

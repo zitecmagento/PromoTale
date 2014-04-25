@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bundle option renderer
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bundle_Block_Catalog_Product_Price
 {
+
     /**
      * Store preconfigured options
      *
@@ -56,8 +57,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     protected function _showSingle()
     {
         if (is_null($this->_showSingle)) {
-            $_option        = $this->getOption();
-            $_selections    = $_option->getSelections();
+            $_option = $this->getOption();
+            $_selections = $_option->getSelections();
 
             $this->_showSingle = (count($_selections) == 1 && $_option->getRequired());
         }
@@ -72,13 +73,12 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      */
     protected function _getDefaultValues()
     {
-        $_option            = $this->getOption();
-        $_default           = $_option->getDefaultSelection();
-        $_selections        = $_option->getSelections();
-        $selectedOptions    = $this->_getSelectedOptions();
-        $inPreConfigured    = $this->getProduct()->hasPreconfiguredValues()
-            && $this->getProduct()->getPreconfiguredValues()
-                    ->getData('bundle_option_qty/' . $_option->getId());
+        $_option = $this->getOption();
+        $_default = $_option->getDefaultSelection();
+        $_selections = $_option->getSelections();
+        $selectedOptions = $this->_getSelectedOptions();
+        $inPreConfigured = $this->getProduct()->hasPreconfiguredValues() && $this->getProduct()->getPreconfiguredValues()
+                        ->getData('bundle_option_qty/' . $_option->getId());
 
         if (empty($selectedOptions) && $_default) {
             $_defaultQty = $_default->getSelectionQty() * 1;
@@ -89,7 +89,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
             $_canChangeQty = $selectedSelection->getSelectionCanChangeQty();
         } elseif (!$this->_showSingle() || $inPreConfigured) {
             $_defaultQty = $this->_getSelectedQty();
-            $_canChangeQty = (bool)$_defaultQty;
+            $_canChangeQty = (bool) $_defaultQty;
         } else {
             $_defaultQty = $_selections[0]->getSelectionQty() * 1;
             $_canChangeQty = $_selections[0]->getSelectionCanChangeQty();
@@ -111,7 +111,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
 
             if ($this->getProduct()->hasPreconfiguredValues()) {
                 $configValue = $this->getProduct()->getPreconfiguredValues()
-                    ->getData('bundle_option/' . $option->getId());
+                        ->getData('bundle_option/' . $option->getId());
                 if ($configValue) {
                     $this->_selectedOptions = $configValue;
                 } elseif (!$option->getRequired()) {
@@ -151,8 +151,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     protected function _getSelectedQty()
     {
         if ($this->getProduct()->hasPreconfiguredValues()) {
-            $selectedQty = (float)$this->getProduct()->getPreconfiguredValues()
-                ->getData('bundle_option_qty/' . $this->getOption()->getId());
+            $selectedQty = (float) $this->getProduct()->getPreconfiguredValues()
+                            ->getData('bundle_option_qty/' . $this->getOption()->getId());
             if ($selectedQty < 0) {
                 $selectedQty = 0;
             }
@@ -190,8 +190,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
         $priceTitle = $_selection->getSelectionQty() * 1 . ' x ' . $this->escapeHtml($_selection->getName());
 
         $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '')
-            . '+' . $this->formatPriceString($price, $includeContainer)
-            . ($includeContainer ? '</span>' : '');
+                . '+' . $this->formatPriceString($price, $includeContainer)
+                . ($includeContainer ? '</span>' : '');
 
         return $priceTitle;
     }
@@ -228,8 +228,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
         $this->setFormatProduct($_selection);
         $priceTitle = $this->escapeHtml($_selection->getName());
         $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '')
-            . '+' . $this->formatPriceString($price, $includeContainer)
-            . ($includeContainer ? '</span>' : '');
+                . '+' . $this->formatPriceString($price, $includeContainer)
+                . ($includeContainer ? '</span>' : '');
         return $priceTitle;
     }
 
@@ -257,18 +257,17 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      */
     public function formatPriceString($price, $includeContainer = true)
     {
-        $taxHelper  = Mage::helper('tax');
+        $taxHelper = Mage::helper('tax');
         $coreHelper = $this->helper('core');
         $currentProduct = $this->getProduct();
-        if ($currentProduct->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC
-                && $this->getFormatProduct()
+        if ($currentProduct->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC && $this->getFormatProduct()
         ) {
             $product = $this->getFormatProduct();
         } else {
             $product = $currentProduct;
         }
 
-        $priceTax    = $taxHelper->getPrice($product, $price);
+        $priceTax = $taxHelper->getPrice($product, $price);
         $priceIncTax = $taxHelper->getPrice($product, $price, true);
 
         $formated = $coreHelper->currencyByStore($priceTax, $product->getStore(), true, $includeContainer);
@@ -281,4 +280,5 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
 
         return $formated;
     }
+
 }

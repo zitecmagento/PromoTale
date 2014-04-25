@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Outline.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Abstract PDF outline representation class
  *
@@ -33,6 +33,7 @@
  */
 abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
 {
+
     /**
      * True if outline is open.
      *
@@ -46,7 +47,6 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
      * @var array
      */
     public $childOutlines = array();
-
 
     /**
      * Get outline title.
@@ -115,7 +115,6 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
      */
     abstract public function setIsBold($isBold);
 
-
     /**
      * Get outline text color.
      *
@@ -155,12 +154,12 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
      */
     public function getOptions()
     {
-        return array('title'  => $this->_title,
-                     'open'   => $this->_open,
-                     'color'  => $this->_color,
-                     'italic' => $this->_italic,
-                     'bold'   => $this->_bold,
-                     'target' => $this->_target);
+        return array('title' => $this->_title,
+            'open' => $this->_open,
+            'color' => $this->_color,
+            'italic' => $this->_italic,
+            'bold' => $this->_bold,
+            'target' => $this->_target);
     }
 
     /**
@@ -231,15 +230,15 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     {
         #require_once 'Zend/Pdf/Outline/Created.php';
         if (is_string($param1)) {
-            if ($param2 !== null  &&  !($param2 instanceof Zend_Pdf_Target  ||  is_string($param2))) {
+            if ($param2 !== null && !($param2 instanceof Zend_Pdf_Target || is_string($param2))) {
                 #require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception('Outline create method takes $title (string) and $target (Zend_Pdf_Target or string) or an array as an input');
             }
 
-            return new Zend_Pdf_Outline_Created(array('title'  => $param1,
-                                                      'target' => $param2));
+            return new Zend_Pdf_Outline_Created(array('title' => $param1,
+                'target' => $param2));
         } else {
-            if (!is_array($param1)  ||  $param2 !== null) {
+            if (!is_array($param1) || $param2 !== null) {
                 #require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception('Outline create method takes $title (string) and $destination (Zend_Pdf_Destination) or an array as an input');
             }
@@ -279,11 +278,7 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
      * @param SplObjectStorage $processedOutlines  List of already processed outlines
      * @return Zend_Pdf_Element
      */
-    abstract public function dumpOutline(Zend_Pdf_ElementFactory_Interface $factory,
-                                                                           $updateNavigation,
-                                                          Zend_Pdf_Element $parent,
-                                                          Zend_Pdf_Element $prev = null,
-                                                          SplObjectStorage $processedOutlines = null);
+    abstract public function dumpOutline(Zend_Pdf_ElementFactory_Interface $factory, $updateNavigation, Zend_Pdf_Element $parent, Zend_Pdf_Element $prev = null, SplObjectStorage $processedOutlines = null);
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -356,7 +351,6 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
         return count($this->childOutlines) > 0;
     }
 
-
     ////////////////////////////////////////////////////////////////////////
     //  Countable interface methods
     //////////////
@@ -370,4 +364,5 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     {
         return count($this->childOutlines);
     }
+
 }

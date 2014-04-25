@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,31 +26,31 @@
  */
 
 /**
-* Class frontend
-*
-* @category   Mage
-* @package    Mage_Connect
-* @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
-* @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*/
+ * Class frontend
+ *
+ * @category   Mage
+ * @package    Mage_Connect
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 class Maged_Connect_Frontend extends Mage_Connect_Frontend
 {
 
     /**
-    * Log stream or not
-    *
-    * @var string
-    */
+     * Log stream or not
+     *
+     * @var string
+     */
     protected $_logStream = null;
 
     /**
-    * Output cache
-    *
-    * @var array
-    */
+     * Output cache
+     *
+     * @var array
+     */
     protected $_out = array();
 
-     /**
+    /**
      * Set log stream
      *
      * @param string|resource $stream 'stdout' or open php stream
@@ -61,46 +62,46 @@ class Maged_Connect_Frontend extends Mage_Connect_Frontend
     }
 
     /**
-    * Retrieve log stream
-    *
-    * @return string
-    */
+     * Retrieve log stream
+     *
+     * @return string
+     */
     public function getLogStream()
     {
         return $this->_logStream;
     }
 
     /**
-    * Echo data from executed command
-    */
+     * Echo data from executed command
+     */
     public function output($data)
     {
 
         $this->_out = $data;
 
-        if ('stdout'===$this->_logStream) {
+        if ('stdout' === $this->_logStream) {
             if (is_string($data)) {
-                echo $data."<br/>".str_repeat(" ", 256);
+                echo $data . "<br/>" . str_repeat(" ", 256);
             } elseif (is_array($data)) {
                 $data = array_pop($data);
                 if (!empty($data['message']) && is_string($data['message'])) {
-                    echo $data['message']."<br/>".str_repeat(" ", 256);
+                    echo $data['message'] . "<br/>" . str_repeat(" ", 256);
                 } elseif (!empty($data['data'])) {
                     if (is_string($data['data'])) {
-                        echo $data['data']."<br/>".str_repeat(" ", 256);
+                        echo $data['data'] . "<br/>" . str_repeat(" ", 256);
                     } else {
                         if (isset($data['title'])) {
-                            echo $data['title']."<br/>".str_repeat(" ", 256);
+                            echo $data['title'] . "<br/>" . str_repeat(" ", 256);
                         }
                         if (is_array($data['data'])) {
                             foreach ($data['data'] as $row) {
                                 foreach ($row as $msg) {
-                                    echo "&nbsp;".$msg;
+                                    echo "&nbsp;" . $msg;
                                 }
-                                echo "<br/>".str_repeat(" ", 256);
+                                echo "<br/>" . str_repeat(" ", 256);
                             }
                         } else {
-                            echo "&nbsp;".$data['data'];
+                            echo "&nbsp;" . $data['data'];
                         }
                     }
                 }
@@ -111,10 +112,10 @@ class Maged_Connect_Frontend extends Mage_Connect_Frontend
     }
 
     /**
-    * Method for ask client about rewrite all files.
-    *
-    * @param $string
-    */
+     * Method for ask client about rewrite all files.
+     *
+     * @param $string
+     */
     public function confirm($string)
     {
         $formId = $_POST['form_id'];
@@ -136,14 +137,13 @@ SCRIPT;
     }
 
     /**
-    * Retrieve output cache
-    *
-    * @return array
-    */
+     * Retrieve output cache
+     *
+     * @return array
+     */
     public function getOutput()
     {
         return $this->_out;
     }
 
 }
-

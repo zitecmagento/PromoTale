@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Status labels table
      *
@@ -55,7 +57,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
         $this->_init('sales/order_status', 'status');
         $this->_isPkAutoIncrement = false;
         $this->_labelsTable = $this->getTable('sales/order_status_label');
-        $this->_stateTable  = $this->getTable('sales/order_status_state');
+        $this->_stateTable = $this->getTable('sales/order_status_state');
     }
 
     /**
@@ -69,15 +71,13 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     {
         if ($field == 'default_state') {
             $select = $this->_getReadAdapter()->select()
-                ->from($this->getMainTable(), array('label'))
-                ->join(
-                    array('state_table' => $this->_stateTable),
-                    $this->getMainTable() . '.status = state_table.status',
-                    'status'
-                )
-                ->where('state_table.state = ?', $value)
-                ->order('state_table.is_default DESC')
-                ->limit(1);
+                    ->from($this->getMainTable(), array('label'))
+                    ->join(
+                            array('state_table' => $this->_stateTable), $this->getMainTable() . '.status = state_table.status', 'status'
+                    )
+                    ->where('state_table.state = ?', $value)
+                    ->order('state_table.is_default DESC')
+                    ->limit(1);
         } else {
             $select = parent::_getLoadSelect($field, $value, $object);
         }
@@ -93,8 +93,8 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     public function getStoreLabels(Mage_Core_Model_Abstract $status)
     {
         $select = $this->_getWriteAdapter()->select()
-            ->from($this->_labelsTable, array('store_id', 'label'))
-            ->where('status = ?', $status->getStatus());
+                ->from($this->_labelsTable, array('store_id', 'label'))
+                ->where('status = ?', $status->getStatus());
         return $this->_getReadAdapter()->fetchPairs($select);
     }
 
@@ -109,8 +109,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
         if ($object->hasStoreLabels()) {
             $labels = $object->getStoreLabels();
             $this->_getWriteAdapter()->delete(
-                $this->_labelsTable,
-                array('status = ?' => $object->getStatus())
+                    $this->_labelsTable, array('status = ?' => $object->getStatus())
             );
             $data = array();
             foreach ($labels as $storeId => $label) {
@@ -118,9 +117,9 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                     continue;
                 }
                 $data[] = array(
-                    'status'    => $object->getStatus(),
-                    'store_id'  => $storeId,
-                    'label'     => $label
+                    'status' => $object->getStatus(),
+                    'store_id' => $storeId,
+                    'label' => $label
                 );
             }
             if (!empty($data)) {
@@ -142,18 +141,15 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     {
         if ($isDefault) {
             $this->_getWriteAdapter()->update(
-                $this->_stateTable,
-                array('is_default' => 0),
-                array('state = ?' => $state)
+                    $this->_stateTable, array('is_default' => 0), array('state = ?' => $state)
             );
         }
         $this->_getWriteAdapter()->insertOnDuplicate(
-            $this->_stateTable,
-            array(
-                'status'     => $status,
-                'state'      => $state,
-                'is_default' => (int) $isDefault
-            )
+                $this->_stateTable, array(
+            'status' => $status,
+            'state' => $state,
+            'is_default' => (int) $isDefault
+                )
         );
         return $this;
     }
@@ -168,45 +164,43 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     public function unassignState($status, $state)
     {
         $select = $this->_getWriteAdapter()->select()
-            ->from($this->_stateTable, array('qty' => new Zend_Db_Expr('COUNT(*)')))
-            ->where('state = ?', $state);
+                ->from($this->_stateTable, array('qty' => new Zend_Db_Expr('COUNT(*)')))
+                ->where('state = ?', $state);
 
         if ($this->_getWriteAdapter()->fetchOne($select) == 1) {
             throw new Mage_Core_Exception(
-                Mage::helper('sales')->__('Last status can\'t be unassigned from state.')
+            Mage::helper('sales')->__('Last status can\'t be unassigned from state.')
             );
         }
         $select = $this->_getWriteAdapter()->select()
-            ->from($this->_stateTable, 'is_default')
-            ->where('state = ?', $state)
-            ->where('status = ?', $status)
-            ->limit(1);
+                ->from($this->_stateTable, 'is_default')
+                ->where('state = ?', $state)
+                ->where('status = ?', $status)
+                ->limit(1);
         $isDefault = $this->_getWriteAdapter()->fetchOne($select);
         $this->_getWriteAdapter()->delete(
-            $this->_stateTable,
-            array(
-                'state = ?' => $state,
-                'status = ?' => $status
-            )
+                $this->_stateTable, array(
+            'state = ?' => $state,
+            'status = ?' => $status
+                )
         );
 
         if ($isDefault) {
             $select = $this->_getWriteAdapter()->select()
-                ->from($this->_stateTable, 'status')
-                ->where('state = ?', $state)
-                ->limit(1);
+                    ->from($this->_stateTable, 'status')
+                    ->where('state = ?', $state)
+                    ->limit(1);
             $defaultStatus = $this->_getWriteAdapter()->fetchOne($select);
             if ($defaultStatus) {
                 $this->_getWriteAdapter()->update(
-                    $this->_stateTable,
-                    array('is_default' => 1),
-                    array(
-                        'state = ?' => $state,
-                        'status = ?' => $defaultStatus
-                    )
+                        $this->_stateTable, array('is_default' => 1), array(
+                    'state = ?' => $state,
+                    'status = ?' => $defaultStatus
+                        )
                 );
             }
         }
         return $this;
     }
+
 }

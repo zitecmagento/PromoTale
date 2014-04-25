@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,14 +19,11 @@
  * @version    $Id: Csv.php 21661 2010-03-27 20:20:27Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-
 /** Zend_Locale */
 #require_once 'Zend/Locale.php';
 
 /** Zend_Translate_Adapter */
 #require_once 'Zend/Translate/Adapter.php';
-
 
 /**
  * @category   Zend
@@ -35,7 +33,8 @@
  */
 class Zend_Translate_Adapter_Csv extends Zend_Translate_Adapter
 {
-    private $_data    = array();
+
+    private $_data = array();
 
     /**
      * Generates the adapter
@@ -45,14 +44,14 @@ class Zend_Translate_Adapter_Csv extends Zend_Translate_Adapter
     public function __construct($options = array())
     {
         $this->_options['delimiter'] = ";";
-        $this->_options['length']    = 0;
+        $this->_options['length'] = 0;
         $this->_options['enclosure'] = '"';
 
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } else if (func_num_args() > 1) {
-            $args               = func_get_args();
-            $options            = array();
+            $args = func_get_args();
+            $options = array();
             $options['content'] = array_shift($args);
 
             if (!empty($args)) {
@@ -60,7 +59,7 @@ class Zend_Translate_Adapter_Csv extends Zend_Translate_Adapter
             }
 
             if (!empty($args)) {
-                $opt     = array_shift($args);
+                $opt = array_shift($args);
                 $options = array_merge($opt, $options);
             }
         } else if (!is_array($options)) {
@@ -82,14 +81,14 @@ class Zend_Translate_Adapter_Csv extends Zend_Translate_Adapter
     protected function _loadTranslationData($filename, $locale, array $options = array())
     {
         $this->_data = array();
-        $options     = $options + $this->_options;
+        $options = $options + $this->_options;
         $this->_file = @fopen($filename, 'rb');
         if (!$this->_file) {
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Error opening translation file \'' . $filename . '\'.');
         }
 
-        while(($data = fgetcsv($this->_file, $options['length'], $options['delimiter'], $options['enclosure'])) !== false) {
+        while (($data = fgetcsv($this->_file, $options['length'], $options['delimiter'], $options['enclosure'])) !== false) {
             if (substr($data[0], 0, 1) === '#') {
                 continue;
             }
@@ -118,4 +117,5 @@ class Zend_Translate_Adapter_Csv extends Zend_Translate_Adapter
     {
         return "Csv";
     }
+
 }

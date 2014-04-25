@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -39,7 +40,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
     /**
      * @var array
      */
-    protected $_denyTypes   = array();
+    protected $_denyTypes = array();
 
     /**
      * @var array
@@ -49,7 +50,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
     /**
      * @var array
      */
-    protected $_denyNames   = array();
+    protected $_denyNames = array();
 
     /**
      * @var array
@@ -135,7 +136,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
         foreach ($acceptNames as $n => $v) {
             $acceptNames[$n] = strtolower($v);
         }
-        
+
         $this->_acceptNames = $acceptNames;
         return $this;
     }
@@ -155,7 +156,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
         foreach ($denyNames as $n => $v) {
             $denyNames[$n] = strtolower($v);
         }
-        
+
         $this->_denyNames = $denyNames;
         return $this;
     }

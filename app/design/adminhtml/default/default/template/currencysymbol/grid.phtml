@@ -35,14 +35,14 @@
             <td style="width:50%;"><h3 class="icon-head head-system-currency"><?php echo $this->getHeader() ?></h3></td>
             <td class="form-buttons">
                 <?php
-                    echo $this->getSaveButtonHtml();
+                echo $this->getSaveButtonHtml();
                 ?>
             </td>
         </tr>
     </table>
 </div>
 
-<?php $this->getCurrencySymbolsData();?>
+<?php $this->getCurrencySymbolsData(); ?>
 
 <form id="currency_symbols_form" action="<?php echo $this->getFormActionUrl() ?>" method="post">
     <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
@@ -63,17 +63,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($this->getCurrencySymbolsData() as $code => $data): ?>
-                            <tr>
-                                <td class="label">
-                                <label for="custom_currency_symbol<?php echo $code; ?>"><?php echo $code; ?> (<?php echo $data['displayName']; ?>)</label>
-                                </td>
-                                <td class="value">
-                                    <input id="custom_currency_symbol<?php echo $code; ?>" class=" required-entry input-text" type="text" value="<?php echo Mage::helper('core')->quoteEscape($data['displaySymbol']); ?>"<?php echo $data['inherited'] ? ' disabled="disabled"' : '';?> name="custom_currency_symbol[<?php echo $code; ?>]">
-                                    &nbsp; <input id="custom_currency_symbol_inherit<?php echo $code; ?>" class="checkbox config-inherit" type="checkbox" onclick="toggleUseDefault(<?php echo '\'' . $code . '\',\'' . Mage::helper('core')->quoteEscape($data['parentSymbol'], true) . '\''; ?>)"<?php echo $data['inherited'] ? ' checked="checked"' : ''; ?> value="1" name="inherit_custom_currency_symbol[<?php echo $code; ?>]">
-                                    <label class="inherit" title="" for="custom_currency_symbol_inherit<?php echo $code; ?>"><?php echo $this->getInheritText(); ?></label>
-                                </td>
-                            </tr>
+                            <?php foreach ($this->getCurrencySymbolsData() as $code => $data): ?>
+                                <tr>
+                                    <td class="label">
+                                        <label for="custom_currency_symbol<?php echo $code; ?>"><?php echo $code; ?> (<?php echo $data['displayName']; ?>)</label>
+                                    </td>
+                                    <td class="value">
+                                        <input id="custom_currency_symbol<?php echo $code; ?>" class=" required-entry input-text" type="text" value="<?php echo Mage::helper('core')->quoteEscape($data['displaySymbol']); ?>"<?php echo $data['inherited'] ? ' disabled="disabled"' : ''; ?> name="custom_currency_symbol[<?php echo $code; ?>]">
+                                        &nbsp; <input id="custom_currency_symbol_inherit<?php echo $code; ?>" class="checkbox config-inherit" type="checkbox" onclick="toggleUseDefault(<?php echo '\'' . $code . '\',\'' . Mage::helper('core')->quoteEscape($data['parentSymbol'], true) . '\''; ?>)"<?php echo $data['inherited'] ? ' checked="checked"' : ''; ?> value="1" name="inherit_custom_currency_symbol[<?php echo $code; ?>]">
+                                        <label class="inherit" title="" for="custom_currency_symbol_inherit<?php echo $code; ?>"><?php echo $this->getInheritText(); ?></label>
+                                    </td>
+                                </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -87,8 +87,8 @@
 
     function toggleUseDefault(code, value)
     {
-        checkbox = $('custom_currency_symbol_inherit'+code);
-        input = $('custom_currency_symbol'+code);
+        checkbox = $('custom_currency_symbol_inherit' + code);
+        input = $('custom_currency_symbol' + code);
         if (checkbox.checked) {
             input.value = value;
             input.disabled = true;

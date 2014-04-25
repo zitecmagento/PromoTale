@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Feed.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Feed_Reader_Extension_FeedAbstract
  */
 #require_once 'Zend/Feed/Reader/Extension/FeedAbstract.php';
-
 #require_once 'Zend/Date.php';
 
 /**
@@ -32,9 +31,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Reader_Extension_Syndication_Feed
-    extends Zend_Feed_Reader_Extension_FeedAbstract
+class Zend_Feed_Reader_Extension_Syndication_Feed extends Zend_Feed_Reader_Extension_FeedAbstract
 {
+
     /**
      * Get update period
      * @return string
@@ -49,8 +48,7 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
             return 'daily'; //Default specified by spec
         }
 
-        switch ($period)
-        {
+        switch ($period) {
             case 'hourly':
             case 'daily':
             case 'weekly':
@@ -58,7 +56,7 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
                 return $period;
             default:
                 throw new Zend_Feed_Exception("Feed specified invalid update period: '$period'."
-                    .  " Must be one of hourly, daily, weekly or yearly"
+                . " Must be one of hourly, daily, weekly or yearly"
                 );
         }
     }
@@ -97,8 +95,7 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
         $period = $this->getUpdatePeriod();
         $ticks = 1;
 
-        switch ($period)
-        {
+        switch ($period) {
             //intentional fall through
             case 'yearly':
                 $ticks *= 52; //TODO: fix generalisation, how?
@@ -165,4 +162,5 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
     {
         $this->_xpath->registerNamespace('syn10', 'http://purl.org/rss/1.0/modules/syndication/');
     }
+
 }

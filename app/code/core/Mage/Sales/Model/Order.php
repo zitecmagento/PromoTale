@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -309,54 +310,55 @@
  */
 class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 {
-    const ENTITY                                = 'order';
+
+    const ENTITY = 'order';
+
     /**
      * XML configuration paths
      */
-    const XML_PATH_EMAIL_TEMPLATE               = 'sales_email/order/template';
-    const XML_PATH_EMAIL_GUEST_TEMPLATE         = 'sales_email/order/guest_template';
-    const XML_PATH_EMAIL_IDENTITY               = 'sales_email/order/identity';
-    const XML_PATH_EMAIL_COPY_TO                = 'sales_email/order/copy_to';
-    const XML_PATH_EMAIL_COPY_METHOD            = 'sales_email/order/copy_method';
-    const XML_PATH_EMAIL_ENABLED                = 'sales_email/order/enabled';
-
-    const XML_PATH_UPDATE_EMAIL_TEMPLATE        = 'sales_email/order_comment/template';
-    const XML_PATH_UPDATE_EMAIL_GUEST_TEMPLATE  = 'sales_email/order_comment/guest_template';
-    const XML_PATH_UPDATE_EMAIL_IDENTITY        = 'sales_email/order_comment/identity';
-    const XML_PATH_UPDATE_EMAIL_COPY_TO         = 'sales_email/order_comment/copy_to';
-    const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/order_comment/copy_method';
-    const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/order_comment/enabled';
+    const XML_PATH_EMAIL_TEMPLATE = 'sales_email/order/template';
+    const XML_PATH_EMAIL_GUEST_TEMPLATE = 'sales_email/order/guest_template';
+    const XML_PATH_EMAIL_IDENTITY = 'sales_email/order/identity';
+    const XML_PATH_EMAIL_COPY_TO = 'sales_email/order/copy_to';
+    const XML_PATH_EMAIL_COPY_METHOD = 'sales_email/order/copy_method';
+    const XML_PATH_EMAIL_ENABLED = 'sales_email/order/enabled';
+    const XML_PATH_UPDATE_EMAIL_TEMPLATE = 'sales_email/order_comment/template';
+    const XML_PATH_UPDATE_EMAIL_GUEST_TEMPLATE = 'sales_email/order_comment/guest_template';
+    const XML_PATH_UPDATE_EMAIL_IDENTITY = 'sales_email/order_comment/identity';
+    const XML_PATH_UPDATE_EMAIL_COPY_TO = 'sales_email/order_comment/copy_to';
+    const XML_PATH_UPDATE_EMAIL_COPY_METHOD = 'sales_email/order_comment/copy_method';
+    const XML_PATH_UPDATE_EMAIL_ENABLED = 'sales_email/order_comment/enabled';
 
     /**
      * Order states
      */
-    const STATE_NEW             = 'new';
+    const STATE_NEW = 'new';
     const STATE_PENDING_PAYMENT = 'pending_payment';
-    const STATE_PROCESSING      = 'processing';
-    const STATE_COMPLETE        = 'complete';
-    const STATE_CLOSED          = 'closed';
-    const STATE_CANCELED        = 'canceled';
-    const STATE_HOLDED          = 'holded';
-    const STATE_PAYMENT_REVIEW  = 'payment_review';
+    const STATE_PROCESSING = 'processing';
+    const STATE_COMPLETE = 'complete';
+    const STATE_CLOSED = 'closed';
+    const STATE_CANCELED = 'canceled';
+    const STATE_HOLDED = 'holded';
+    const STATE_PAYMENT_REVIEW = 'payment_review';
 
     /**
      * Order statuses
      */
-    const STATUS_FRAUD  = 'fraud';
+    const STATUS_FRAUD = 'fraud';
 
     /**
      * Order flags
      */
-    const ACTION_FLAG_CANCEL                    = 'cancel';
-    const ACTION_FLAG_HOLD                      = 'hold';
-    const ACTION_FLAG_UNHOLD                    = 'unhold';
-    const ACTION_FLAG_EDIT                      = 'edit';
-    const ACTION_FLAG_CREDITMEMO                = 'creditmemo';
-    const ACTION_FLAG_INVOICE                   = 'invoice';
-    const ACTION_FLAG_REORDER                   = 'reorder';
-    const ACTION_FLAG_SHIP                      = 'ship';
-    const ACTION_FLAG_COMMENT                   = 'comment';
-    const ACTION_FLAG_PRODUCTS_PERMISSION_DENIED= 'product_permission_denied';
+    const ACTION_FLAG_CANCEL = 'cancel';
+    const ACTION_FLAG_HOLD = 'hold';
+    const ACTION_FLAG_UNHOLD = 'unhold';
+    const ACTION_FLAG_EDIT = 'edit';
+    const ACTION_FLAG_CREDITMEMO = 'creditmemo';
+    const ACTION_FLAG_INVOICE = 'invoice';
+    const ACTION_FLAG_REORDER = 'reorder';
+    const ACTION_FLAG_SHIP = 'ship';
+    const ACTION_FLAG_COMMENT = 'comment';
+    const ACTION_FLAG_PRODUCTS_PERMISSION_DENIED = 'product_permission_denied';
 
     /**
      * Report date types
@@ -370,19 +372,17 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     protected $_eventPrefix = 'sales_order';
     protected $_eventObject = 'order';
-
-    protected $_addresses       = null;
-    protected $_items           = null;
-    protected $_payments        = null;
-    protected $_statusHistory   = null;
+    protected $_addresses = null;
+    protected $_items = null;
+    protected $_payments = null;
+    protected $_statusHistory = null;
     protected $_invoices;
     protected $_tracks;
     protected $_shipments;
     protected $_creditmemos;
-
-    protected $_relatedObjects  = array();
-    protected $_orderCurrency   = null;
-    protected $_baseCurrency    = null;
+    protected $_relatedObjects = array();
+    protected $_orderCurrency = null;
+    protected $_baseCurrency = null;
 
     /**
      * Array of action flags for canUnhold, canEdit, etc.
@@ -413,7 +413,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $this->_init('sales/order');
     }
 
-     /**
+    /**
      * Init mapping array of short fields to
      * its full names
      *
@@ -431,7 +431,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param string $key data key
      * @return Mage_Sales_Model_Order
      */
-    public function unsetData($key=null)
+    public function unsetData($key = null)
     {
         parent::unsetData($key);
         if (is_null($key)) {
@@ -563,12 +563,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         /**
          * Use only state for availability detect
          */
-        /*foreach ($this->getAllItems() as $item) {
-            if ($item->getQtyToCancel()>0) {
-                return true;
-            }
-        }
-        return false;*/
+        /* foreach ($this->getAllItems() as $item) {
+          if ($item->getQtyToCancel()>0) {
+          return true;
+          }
+          }
+          return false; */
         return true;
     }
 
@@ -615,7 +615,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
 
         foreach ($this->getAllItems() as $item) {
-            if ($item->getQtyToInvoice()>0 && !$item->getLockedDoInvoice()) {
+            if ($item->getQtyToInvoice() > 0 && !$item->getLockedDoInvoice()) {
                 return true;
             }
         }
@@ -664,8 +664,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function canHold()
     {
         $state = $this->getState();
-        if ($this->isCanceled() || $this->isPaymentReview()
-            || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED || $state === self::STATE_HOLDED) {
+        if ($this->isCanceled() || $this->isPaymentReview() || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED || $state === self::STATE_HOLDED) {
             return false;
         }
 
@@ -721,9 +720,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
 
         foreach ($this->getAllItems() as $item) {
-            if ($item->getQtyToShip()>0 && !$item->getIsVirtual()
-                && !$item->getLockedDoShip())
-            {
+            if ($item->getQtyToShip() > 0 && !$item->getIsVirtual() && !$item->getLockedDoShip()) {
                 return true;
             }
         }
@@ -742,8 +739,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
 
         $state = $this->getState();
-        if ($this->isCanceled() || $this->isPaymentReview()
-            || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED) {
+        if ($this->isCanceled() || $this->isPaymentReview() || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED) {
             return false;
         }
 
@@ -807,28 +803,28 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
              *
              */
             /*
-            $productsCollection = Mage::getModel('catalog/product')->getCollection()
-                ->setStoreId($this->getStoreId())
-                ->addIdFilter($products)
-                ->addAttributeToSelect('status')
-                ->load();
+              $productsCollection = Mage::getModel('catalog/product')->getCollection()
+              ->setStoreId($this->getStoreId())
+              ->addIdFilter($products)
+              ->addAttributeToSelect('status')
+              ->load();
 
-            foreach ($productsCollection as $product) {
-                if (!$product->isSalable()) {
-                    return false;
-                }
-            }
-            */
+              foreach ($productsCollection as $product) {
+              if (!$product->isSalable()) {
+              return false;
+              }
+              }
+             */
 
             foreach ($products as $productId) {
-                    $product = Mage::getModel('catalog/product')
+                $product = Mage::getModel('catalog/product')
                         ->setStoreId($this->getStoreId())
                         ->load($productId);
-                }
-                if (!$product->getId() || (!$ignoreSalable && !$product->isSalable())) {
-                    return false;
-                }
             }
+            if (!$product->getId() || (!$ignoreSalable && !$product->isSalable())) {
+                return false;
+            }
+        }
 
         return true;
     }
@@ -942,7 +938,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function getBillingAddress()
     {
         foreach ($this->getAddressesCollection() as $address) {
-            if ($address->getAddressType()=='billing' && !$address->isDeleted()) {
+            if ($address->getAddressType() == 'billing' && !$address->isDeleted()) {
                 return $address;
             }
         }
@@ -957,7 +953,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function getShippingAddress()
     {
         foreach ($this->getAddressesCollection() as $address) {
-            if ($address->getAddressType()=='shipping' && !$address->isDeleted()) {
+            if ($address->getAddressType() == 'shipping' && !$address->isDeleted()) {
                 return $address;
             }
         }
@@ -992,14 +988,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param $shouldProtectState
      * @return Mage_Sales_Model_Order
      */
-    protected function _setState($state, $status = false, $comment = '',
-        $isCustomerNotified = null, $shouldProtectState = false)
+    protected function _setState($state, $status = false, $comment = '', $isCustomerNotified = null, $shouldProtectState = false)
     {
         // attempt to set the specified state
         if ($shouldProtectState) {
             if ($this->isStateProtected($state)) {
                 Mage::throwException(
-                    Mage::helper('sales')->__('The Order State "%s" must not be set manually.', $state)
+                        Mage::helper('sales')->__('The Order State "%s" must not be set manually.', $state)
                 );
             }
         }
@@ -1052,7 +1047,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function addStatusToHistory($status, $comment = '', $isCustomerNotified = false)
     {
         $history = $this->addStatusHistoryComment($comment, $status)
-            ->setIsCustomerNotified($isCustomerNotified);
+                ->setIsCustomerNotified($isCustomerNotified);
         return $this;
     }
 
@@ -1064,6 +1059,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param string $status
      * @return Mage_Sales_Model_Order_Status_History
      */
+
     public function addStatusHistoryComment($comment, $status = false)
     {
         if (false === $status) {
@@ -1074,9 +1070,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $this->setStatus($status);
         }
         $history = Mage::getModel('sales/order_status_history')
-            ->setStatus($status)
-            ->setComment($comment)
-            ->setEntityName($this->_historyEntityName);
+                ->setStatus($status)
+                ->setComment($comment)
+                ->setEntityName($this->_historyEntityName);
         $this->addStatusHistory($history);
         return $history;
     }
@@ -1087,7 +1083,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param string $status
      * @return Mage_Sales_Model_Order
      */
-    public function setHistoryEntityName( $entityName )
+    public function setHistoryEntityName($entityName)
     {
         $this->_historyEntityName = $entityName;
         return $this;
@@ -1100,9 +1096,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function place()
     {
-        Mage::dispatchEvent('sales_order_place_before', array('order'=>$this));
+        Mage::dispatchEvent('sales_order_place_before', array('order' => $this));
         $this->_placePayment();
-        Mage::dispatchEvent('sales_order_place_after', array('order'=>$this));
+        Mage::dispatchEvent('sales_order_place_after', array('order' => $this));
         return $this;
     }
 
@@ -1248,7 +1244,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             list($carrierCode, $method) = explode('_', $shippingMethod, 2);
             return new Varien_Object(array(
                 'carrier_code' => $carrierCode,
-                'method'       => $method
+                'method' => $method
             ));
         }
     }
@@ -1268,7 +1264,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
 
         $emailSentAttributeValue = $this->load($this->getId())->getData('email_sent');
-        $this->setEmailSent((bool)$emailSentAttributeValue);
+        $this->setEmailSent((bool) $emailSentAttributeValue);
         if ($this->getEmailSent()) {
             return $this;
         }
@@ -1281,13 +1277,16 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $appEmulation = Mage::getSingleton('core/app_emulation');
         $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
 
-        try {
+        try
+        {
             // Retrieve specified view block from appropriate design package (depends on emulated store)
             $paymentBlock = Mage::helper('payment')->getInfoBlock($this->getPayment())
-                ->setIsSecureMode(true);
+                    ->setIsSecureMode(true);
             $paymentBlock->getMethod()->setStore($storeId);
             $paymentBlockHtml = $paymentBlock->toHtml();
-        } catch (Exception $exception) {
+        }
+        catch (Exception $exception)
+        {
             // Stop store emulation process
             $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
             throw $exception;
@@ -1330,10 +1329,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
         $mailer->setTemplateParams(array(
-                'order'        => $this,
-                'billing'      => $this->getBillingAddress(),
-                'payment_html' => $paymentBlockHtml
-            )
+            'order' => $this,
+            'billing' => $this->getBillingAddress(),
+            'payment_html' => $paymentBlockHtml
+                )
         );
         $mailer->send();
 
@@ -1402,10 +1401,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
         $mailer->setTemplateParams(array(
-                'order'   => $this,
-                'comment' => $comment,
-                'billing' => $this->getBillingAddress()
-            )
+            'order' => $this,
+            'comment' => $comment,
+            'billing' => $this->getBillingAddress()
+                )
         );
         $mailer->send();
 
@@ -1421,13 +1420,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return false;
     }
 
-/*********************** ADDRESSES ***************************/
+    /*     * ********************* ADDRESSES ************************** */
 
     public function getAddressesCollection()
     {
         if (is_null($this->_addresses)) {
             $this->_addresses = Mage::getResourceModel('sales/order_address_collection')
-                ->setOrderFilter($this);
+                    ->setOrderFilter($this);
 
             if ($this->getId()) {
                 foreach ($this->_addresses as $address) {
@@ -1442,7 +1441,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function getAddressById($addressId)
     {
         foreach ($this->getAddressesCollection() as $address) {
-            if ($address->getId()==$addressId) {
+            if ($address->getId() == $addressId) {
                 return $address;
             }
         }
@@ -1462,7 +1461,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     {
         if (is_null($this->_items)) {
             $this->_items = Mage::getResourceModel('sales/order_item_collection')
-                ->setOrderFilter($this);
+                    ->setOrderFilter($this);
 
             if ($filterByTypes) {
                 $this->_items->filterByTypes($filterByTypes);
@@ -1512,8 +1511,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     protected function _getItemsRandomCollection($limit, $nonChildrenOnly = false)
     {
         $collection = Mage::getModel('sales/order_item')->getCollection()
-            ->setOrderFilter($this)
-            ->setRandomOrder();
+                ->setOrderFilter($this)
+                ->setRandomOrder();
 
         if ($nonChildrenOnly) {
             $collection->filterByParent();
@@ -1524,13 +1523,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
 
         $productsCollection = Mage::getModel('catalog/product')
-            ->getCollection()
-            ->addIdFilter($products)
-            ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds())
-            /* Price data is added to consider item stock status using price index */
-            ->addPriceData()
-            ->setPageSize($limit)
-            ->load();
+                ->getCollection()
+                ->addIdFilter($products)
+                ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds())
+                /* Price data is added to consider item stock status using price index */
+                ->addPriceData()
+                ->setPageSize($limit)
+                ->load();
 
         foreach ($collection as $item) {
             $product = $productsCollection->getItemById($item->getProductId());
@@ -1547,7 +1546,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $items = array();
         foreach ($this->getItemsCollection() as $item) {
             if (!$item->isDeleted()) {
-                $items[] =  $item;
+                $items[] = $item;
             }
         }
         return $items;
@@ -1558,7 +1557,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $items = array();
         foreach ($this->getItemsCollection() as $item) {
             if (!$item->isDeleted() && !$item->getParentItemId()) {
-                $items[] =  $item;
+                $items[] = $item;
             }
         }
         return $items;
@@ -1572,7 +1571,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function getItemByQuoteItemId($quoteItemId)
     {
         foreach ($this->getItemsCollection() as $item) {
-            if ($item->getQuoteItemId()==$quoteItemId) {
+            if ($item->getQuoteItemId() == $quoteItemId) {
                 return $item;
             }
         }
@@ -1603,13 +1602,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return true;
     }
 
-/*********************** PAYMENTS ***************************/
+    /*     * ********************* PAYMENTS ************************** */
 
     public function getPaymentsCollection()
     {
         if (is_null($this->_payments)) {
             $this->_payments = Mage::getResourceModel('sales/order_payment_collection')
-                ->setOrderFilter($this);
+                    ->setOrderFilter($this);
 
             if ($this->getId()) {
                 foreach ($this->_payments as $payment) {
@@ -1625,17 +1624,16 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $payments = array();
         foreach ($this->getPaymentsCollection() as $payment) {
             if (!$payment->isDeleted()) {
-                $payments[] =  $payment;
+                $payments[] = $payment;
             }
         }
         return $payments;
     }
 
-
     public function getPaymentById($paymentId)
     {
         foreach ($this->getPaymentsCollection() as $payment) {
-            if ($payment->getId()==$paymentId) {
+            if ($payment->getId() == $paymentId) {
                 return $payment;
             }
         }
@@ -1645,7 +1643,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function addPayment(Mage_Sales_Model_Order_Payment $payment)
     {
         $payment->setOrder($this)
-            ->setParentId($this->getId());
+                ->setParentId($this->getId());
         if (!$payment->getId()) {
             $this->getPaymentsCollection()->addItem($payment);
         }
@@ -1661,20 +1659,20 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $payment;
     }
 
-/*********************** STATUSES ***************************/
+    /*     * ********************* STATUSES ************************** */
 
     /**
      * Enter description here...
      *
      * @return Mage_Sales_Model_Entity_Order_Status_History_Collection
      */
-    public function getStatusHistoryCollection($reload=false)
+    public function getStatusHistoryCollection($reload = false)
     {
         if (is_null($this->_statusHistory) || $reload) {
             $this->_statusHistory = Mage::getResourceModel('sales/order_status_history_collection')
-                ->setOrderFilter($this)
-                ->setOrder('created_at', 'desc')
-                ->setOrder('entity_id', 'desc');
+                    ->setOrderFilter($this)
+                    ->setOrder('created_at', 'desc')
+                    ->setOrder('entity_id', 'desc');
 
             if ($this->getId()) {
                 foreach ($this->_statusHistory as $status) {
@@ -1695,7 +1693,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $history = array();
         foreach ($this->getStatusHistoryCollection() as $status) {
             if (!$status->isDeleted()) {
-                $history[] =  $status;
+                $history[] = $status;
             }
         }
         return $history;
@@ -1711,7 +1709,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $history = array();
         foreach ($this->getStatusHistoryCollection() as $status) {
             if (!$status->isDeleted() && $status->getComment() && $status->getIsVisibleOnFront()) {
-                $history[] =  $status;
+                $history[] = $status;
             }
         }
         return $history;
@@ -1720,7 +1718,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function getStatusHistoryById($statusId)
     {
         foreach ($this->getStatusHistoryCollection() as $status) {
-            if ($status->getId()==$statusId) {
+            if ($status->getId() == $statusId) {
                 return $status;
             }
         }
@@ -1745,7 +1743,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
         return $this;
     }
-
 
     /**
      * Enter description here...
@@ -1848,7 +1845,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getTotalDue()
     {
-        $total = $this->getGrandTotal()-$this->getTotalPaid();
+        $total = $this->getGrandTotal() - $this->getTotalPaid();
         $total = Mage::app()->getStore($this->getStoreId())->roundPrice($total);
         return max($total, 0);
     }
@@ -1860,12 +1857,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getBaseTotalDue()
     {
-        $total = $this->getBaseGrandTotal()-$this->getBaseTotalPaid();
+        $total = $this->getBaseGrandTotal() - $this->getBaseTotalPaid();
         $total = Mage::app()->getStore($this->getStoreId())->roundPrice($total);
         return max($total, 0);
     }
 
-    public function getData($key='', $index=null)
+    public function getData($key = '', $index = null)
     {
         if ($key == 'total_due') {
             return $this->getTotalDue();
@@ -1885,7 +1882,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     {
         if (is_null($this->_invoices)) {
             $this->_invoices = Mage::getResourceModel('sales/order_invoice_collection')
-                ->setOrderFilter($this);
+                    ->setOrderFilter($this);
 
             if ($this->getId()) {
                 foreach ($this->_invoices as $invoice) {
@@ -1896,7 +1893,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $this->_invoices;
     }
 
-     /**
+    /**
      * Retrieve order shipments collection
      *
      * @return unknown
@@ -1906,8 +1903,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (empty($this->_shipments)) {
             if ($this->getId()) {
                 $this->_shipments = Mage::getResourceModel('sales/order_shipment_collection')
-                    ->setOrderFilter($this)
-                    ->load();
+                        ->setOrderFilter($this)
+                        ->load();
             } else {
                 return false;
             }
@@ -1925,8 +1922,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (empty($this->_creditmemos)) {
             if ($this->getId()) {
                 $this->_creditmemos = Mage::getResourceModel('sales/order_creditmemo_collection')
-                    ->setOrderFilter($this)
-                    ->load();
+                        ->setOrderFilter($this)
+                        ->load();
             } else {
                 return false;
             }
@@ -1943,7 +1940,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     {
         if (empty($this->_tracks)) {
             $this->_tracks = Mage::getResourceModel('sales/order_shipment_track_collection')
-                ->setOrderFilter($this);
+                    ->setOrderFilter($this);
 
             if ($this->getId()) {
                 $this->_tracks->load();
@@ -1982,7 +1979,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $this->getCreditmemosCollection()->count();
     }
 
-
     /**
      * Retrieve array of related objects
      *
@@ -1999,8 +1995,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     {
         if ($this->getCustomerFirstname()) {
             $customerName = $this->getCustomerFirstname() . ' ' . $this->getCustomerLastname();
-        }
-        else {
+        } else {
             $customerName = Mage::helper('sales')->__('Guest');
         }
         return $customerName;
@@ -2048,14 +2043,14 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $this->_checkState();
         if (!$this->getId()) {
             $store = $this->getStore();
-            $name = array($store->getWebsite()->getName(),$store->getGroup()->getName(),$store->getName());
+            $name = array($store->getWebsite()->getName(), $store->getGroup()->getName(), $store->getName());
             $this->setStoreName(implode("\n", $name));
         }
 
         if (!$this->getIncrementId()) {
             $incrementId = Mage::getSingleton('eav/config')
-                ->getEntityType('order')
-                ->fetchNewIncrementId($this->getStoreId());
+                    ->getEntityType('order')
+                    ->fetchNewIncrementId($this->getStoreId());
             $this->setIncrementId($incrementId);
         }
 
@@ -2102,10 +2097,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
         $userNotification = $this->hasCustomerNoteNotify() ? $this->getCustomerNoteNotify() : null;
 
-        if (!$this->isCanceled()
-            && !$this->canUnhold()
-            && !$this->canInvoice()
-            && !$this->canShip()) {
+        if (!$this->isCanceled() && !$this->canUnhold() && !$this->canInvoice() && !$this->canShip()) {
             if (0 == $this->getBaseGrandTotal() || $this->canCreditmemo()) {
                 if ($this->getState() !== self::STATE_COMPLETE) {
                     $this->_setState(self::STATE_COMPLETE, true, '', $userNotification);
@@ -2114,9 +2106,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             /**
              * Order can be closed just in case when we have refunded amount.
              * In case of "0" grand total order checking ForcedCanCreditmemo flag
-             */
-            elseif (floatval($this->getTotalRefunded()) || (!$this->getTotalRefunded()
-                && $this->hasForcedCanCreditmemo())
+             */ elseif (floatval($this->getTotalRefunded()) || (!$this->getTotalRefunded() && $this->hasForcedCanCreditmemo())
             ) {
                 if ($this->getState() !== self::STATE_CLOSED) {
                     $this->_setState(self::STATE_CLOSED, true, '', $userNotification);
@@ -2155,7 +2145,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             if (!empty($attributesForSave)) {
                 $this->_getResource()->saveAttribute($this, $attributesForSave);
             }
-
         }
         if (null !== $this->_items) {
             $this->_items->save();
@@ -2258,4 +2247,5 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $this->_protectFromNonAdmin();
         return parent::_beforeDelete();
     }
+
 }

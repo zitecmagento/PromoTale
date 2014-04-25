@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Paypal_Block_Hosted_Pro_Iframe extends Mage_Paypal_Block_Iframe
 {
+
     /**
      * Internal constructor
      * Set payment method code
@@ -52,7 +54,8 @@ class Mage_Paypal_Block_Hosted_Pro_Iframe extends Mage_Paypal_Block_Iframe
     public function getFrameActionUrl()
     {
         return $this->_getOrder()
-            ->getPayment()
-            ->getAdditionalInformation('secure_form_url');
+                        ->getPayment()
+                        ->getAdditionalInformation('secure_form_url');
     }
+
 }

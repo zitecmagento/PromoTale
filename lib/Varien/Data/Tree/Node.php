@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Varien_Data_Tree_Node extends Varien_Object
 {
+
     /**
      * Parent node
      *
@@ -178,7 +180,7 @@ class Varien_Data_Tree_Node extends Varien_Object
 
     public function isChildOf($node)
     {
-
+        
     }
 
     /**
@@ -187,7 +189,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * @param   int  $recursionLevel
      * @return  Varien_Data_Tree_Node
      */
-    public function loadChildren($recursionLevel=0)
+    public function loadChildren($recursionLevel = 0)
     {
         $this->_tree->load($this, $recursionLevel);
         return $this;
@@ -206,8 +208,8 @@ class Varien_Data_Tree_Node extends Varien_Object
     public function getAllChildNodes(&$nodes = array())
     {
         foreach ($this->_childNodes as $node) {
-        	$nodes[$node->getId()] = $node;
-        	$node->getAllChildNodes($nodes);
+            $nodes[$node->getId()] = $node;
+            $node->getAllChildNodes($nodes);
         }
         return $nodes;
     }
@@ -229,19 +231,19 @@ class Varien_Data_Tree_Node extends Varien_Object
         return $this;
     }
 
-    public function appendChild($prevNode=null)
+    public function appendChild($prevNode = null)
     {
         $this->_tree->appendChild($this, $prevNode);
         return $this;
     }
 
-    public function moveTo($parentNode, $prevNode=null)
+    public function moveTo($parentNode, $prevNode = null)
     {
         $this->_tree->moveNodeTo($this, $parentNode, $prevNode);
         return $this;
     }
 
-    public function copyTo($parentNode, $prevNode=null)
+    public function copyTo($parentNode, $prevNode = null)
     {
         $this->_tree->copyNodeTo($this, $parentNode, $prevNode);
         return $this;

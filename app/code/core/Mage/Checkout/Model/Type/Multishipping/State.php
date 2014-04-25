@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,11 +34,12 @@
  */
 class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
 {
+
     const STEP_SELECT_ADDRESSES = 'multishipping_addresses';
-    const STEP_SHIPPING         = 'multishipping_shipping';
-    const STEP_BILLING          = 'multishipping_billing';
-    const STEP_OVERVIEW         = 'multishipping_overview';
-    const STEP_SUCCESS          = 'multishipping_success';
+    const STEP_SHIPPING = 'multishipping_shipping';
+    const STEP_BILLING = 'multishipping_billing';
+    const STEP_OVERVIEW = 'multishipping_overview';
+    const STEP_SUCCESS = 'multishipping_success';
 
     /**
      * Allow steps array
@@ -63,19 +65,19 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
         $this->_steps = array(
             self::STEP_SELECT_ADDRESSES => new Varien_Object(array(
                 'label' => Mage::helper('checkout')->__('Select Addresses')
-            )),
+                    )),
             self::STEP_SHIPPING => new Varien_Object(array(
                 'label' => Mage::helper('checkout')->__('Shipping Information')
-            )),
+                    )),
             self::STEP_BILLING => new Varien_Object(array(
                 'label' => Mage::helper('checkout')->__('Billing Information')
-            )),
+                    )),
             self::STEP_OVERVIEW => new Varien_Object(array(
                 'label' => Mage::helper('checkout')->__('Place Order')
-            )),
+                    )),
             self::STEP_SUCCESS => new Varien_Object(array(
                 'label' => Mage::helper('checkout')->__('Order Success')
-            )),
+                    )),
         );
 
         foreach ($this->_steps as $step) {
@@ -124,14 +126,13 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
     {
         if (isset($this->_steps[$step])) {
             $this->getCheckoutSession()->setCheckoutState($step);
-        }
-        else {
+        } else {
             $this->getCheckoutSession()->setCheckoutState(self::STEP_SELECT_ADDRESSES);
         }
 
         // Fix active step changing
-        if(!$this->_steps[$step]->getIsActive()) {
-            foreach($this->getSteps() as $stepObject) {
+        if (!$this->_steps[$step]->getIsActive()) {
+            foreach ($this->getSteps() as $stepObject) {
                 $stepObject->unsIsActive();
             }
             $this->_steps[$step]->setIsActive(true);
@@ -183,22 +184,22 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
 
     public function canSelectAddresses()
     {
-
+        
     }
 
     public function canInputShipping()
     {
-
+        
     }
 
     public function canSeeOverview()
     {
-
+        
     }
 
     public function canSuccess()
     {
-
+        
     }
 
     /**
@@ -210,4 +211,5 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
     {
         return Mage::getSingleton('checkout/session');
     }
+
 }

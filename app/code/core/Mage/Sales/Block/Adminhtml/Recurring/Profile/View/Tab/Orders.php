@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -27,10 +28,9 @@
 /**
  * Recurring profile orders grid
  */
-class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
-    extends Mage_Adminhtml_Block_Widget_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Initialize basic parameters
      */
@@ -38,8 +38,8 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
     {
         parent::__construct();
         $this->setId('recurring_profile_orders')
-            ->setUseAjax(true)
-            ->setSkipGenerateContent(true)
+                ->setUseAjax(true)
+                ->setSkipGenerateContent(true)
         ;
     }
 
@@ -51,7 +51,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_grid_collection')
-            ->addRecurringProfilesFilter(Mage::registry('current_recurring_profile')->getId())
+                ->addRecurringProfilesFilter(Mage::registry('current_recurring_profile')->getId())
         ;
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -67,18 +67,18 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
     protected function _prepareColumns()
     {
         $this->addColumn('real_order_id', array(
-            'header'=> Mage::helper('sales')->__('Order #'),
+            'header' => Mage::helper('sales')->__('Order #'),
             'width' => '80px',
-            'type'  => 'text',
+            'type' => 'text',
             'index' => 'increment_id',
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', array(
-                'header'    => Mage::helper('sales')->__('Purchased From (Store)'),
-                'index'     => 'store_id',
-                'type'      => 'store',
-                'store_view'=> true,
+                'header' => Mage::helper('sales')->__('Purchased From (Store)'),
+                'index' => 'store_id',
+                'type' => 'store',
+                'store_view' => true,
                 'display_deleted' => true,
             ));
         }
@@ -103,43 +103,42 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
         $this->addColumn('base_grand_total', array(
             'header' => Mage::helper('sales')->__('G.T. (Base)'),
             'index' => 'base_grand_total',
-            'type'  => 'currency',
+            'type' => 'currency',
             'currency' => 'base_currency_code',
         ));
 
         $this->addColumn('grand_total', array(
             'header' => Mage::helper('sales')->__('G.T. (Purchased)'),
             'index' => 'grand_total',
-            'type'  => 'currency',
+            'type' => 'currency',
             'currency' => 'order_currency_code',
         ));
 
         $this->addColumn('status', array(
             'header' => Mage::helper('sales')->__('Status'),
             'index' => 'status',
-            'type'  => 'options',
+            'type' => 'options',
             'width' => '70px',
             'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
         ));
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
-            $this->addColumn('action',
-                array(
-                    'header'    => Mage::helper('sales')->__('Action'),
-                    'width'     => '50px',
-                    'type'      => 'action',
-                    'getter'     => 'getId',
-                    'actions'   => array(
-                        array(
-                            'caption' => Mage::helper('sales')->__('View'),
-                            'url'     => array('base'=>'*/sales_order/view'),
-                            'field'   => 'order_id'
-                        )
-                    ),
-                    'filter'    => false,
-                    'sortable'  => false,
-                    'index'     => 'stores',
-                    'is_system' => true,
+            $this->addColumn('action', array(
+                'header' => Mage::helper('sales')->__('Action'),
+                'width' => '50px',
+                'type' => 'action',
+                'getter' => 'getId',
+                'actions' => array(
+                    array(
+                        'caption' => Mage::helper('sales')->__('View'),
+                        'url' => array('base' => '*/sales_order/view'),
+                        'field' => 'order_id'
+                    )
+                ),
+                'filter' => false,
+                'sortable' => false,
+                'index' => 'stores',
+                'is_system' => true,
             ));
         }
 
@@ -222,4 +221,5 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
     {
         return false;
     }
+
 }

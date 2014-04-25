@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Model_Api2_Customer
 {
+
     /**
      * Create customer
      *
@@ -56,11 +58,16 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
         $customer = Mage::getModel('customer/customer');
         $customer->setData($data);
 
-        try {
+        try
+        {
             $customer->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
 
@@ -117,11 +124,16 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
 
         $customer->addData($data);
 
-        try {
+        try
+        {
             $customer->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -153,10 +165,11 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
         /** @var $collection Mage_Customer_Model_Resource_Customer_Collection */
         $collection = Mage::getResourceModel('customer/customer_collection');
         $collection->addAttributeToSelect(array_keys(
-            $this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)
+                        $this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)
         ));
 
         $this->_applyCollectionModifiers($collection);
         return $collection;
     }
+
 }

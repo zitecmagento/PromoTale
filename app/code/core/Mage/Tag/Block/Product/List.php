@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
 {
+
     protected $_collection;
 
     /**
@@ -55,17 +56,17 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
 
     protected function _getCollection()
     {
-        if( !$this->_collection && $this->getProductId() ) {
+        if (!$this->_collection && $this->getProductId()) {
 
             $model = Mage::getModel('tag/tag');
             $this->_collection = $model->getResourceCollection()
-                ->addPopularity()
-                ->addStatusFilter($model->getApprovedStatus())
-                ->addProductFilter($this->getProductId())
-                ->setFlag('relation', true)
-                ->addStoreFilter(Mage::app()->getStore()->getId())
-                ->setActiveFilter()
-                ->load();
+                    ->addPopularity()
+                    ->addStatusFilter($model->getApprovedStatus())
+                    ->addProductFilter($this->getProductId())
+                    ->setFlag('relation', true)
+                    ->addStoreFilter(Mage::app()->getStore()->getId())
+                    ->setActiveFilter()
+                    ->load();
         }
         return $this->_collection;
     }
@@ -82,8 +83,8 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     public function getFormAction()
     {
         return Mage::getUrl('tag/index/save', array(
-            'product' => $this->getProductId(),
-            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => Mage::helper('core/url')->getEncodedUrl()
+                    'product' => $this->getProductId(),
+                    Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => Mage::helper('core/url')->getEncodedUrl()
         ));
     }
 
@@ -98,8 +99,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     {
         $out = array();
         foreach ($this->getTags() as $tag) {
-            $out[] = sprintf($pattern,
-                $tag->getTaggedProductsUrl(), $this->escapeHtml($tag->getName()), $tag->getProducts()
+            $out[] = sprintf($pattern, $tag->getTaggedProductsUrl(), $this->escapeHtml($tag->getName()), $tag->getProducts()
             );
         }
         return implode($out, $glue);
@@ -118,4 +118,5 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         }
         return $this->_uniqueHtmlId;
     }
+
 }

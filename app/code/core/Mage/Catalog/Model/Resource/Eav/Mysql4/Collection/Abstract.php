@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog EAV collection resource abstract model
  * Implement using diferent stores for retrieve attribute values
@@ -35,4 +35,5 @@
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract extends Mage_Catalog_Model_Resource_Collection_Abstract
 {
+    
 }

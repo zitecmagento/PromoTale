@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: String.php 21542 2010-03-18 08:56:40Z bate $
  */
-
-
 /** Zend_Pdf_Element */
 #require_once 'Zend/Pdf/Element.php';
 
@@ -33,6 +32,7 @@
  */
 class Zend_Pdf_Element_String extends Zend_Pdf_Element
 {
+
     /**
      * Object value
      *
@@ -47,9 +47,8 @@ class Zend_Pdf_Element_String extends Zend_Pdf_Element
      */
     public function __construct($val)
     {
-        $this->value   = (string)$val;
+        $this->value = (string) $val;
     }
-
 
     /**
      * Return type of the element.
@@ -61,7 +60,6 @@ class Zend_Pdf_Element_String extends Zend_Pdf_Element
         return Zend_Pdf_Element::TYPE_STRING;
     }
 
-
     /**
      * Return object as string
      *
@@ -70,9 +68,8 @@ class Zend_Pdf_Element_String extends Zend_Pdf_Element
      */
     public function toString($factory = null)
     {
-        return '(' . self::escape((string)$this->value) . ')';
+        return '(' . self::escape((string) $this->value) . ')';
     }
-
 
     /**
      * Escape string according to the PDF rules
@@ -158,7 +155,6 @@ class Zend_Pdf_Element_String extends Zend_Pdf_Element
         return implode("\\\n", $outEntries);
     }
 
-
     /**
      * Unescape string according to the PDF rules
      *
@@ -173,7 +169,7 @@ class Zend_Pdf_Element_String extends Zend_Pdf_Element
         while ($offset < strlen($str)) {
             // Searche for the next escaped character/sequence
             $escapeCharOffset = strpos($str, '\\', $offset);
-            if ($escapeCharOffset === false  ||  $escapeCharOffset == strlen($str) - 1) {
+            if ($escapeCharOffset === false || $escapeCharOffset == strlen($str) - 1) {
                 // There are no escaped characters or '\' char has came at the end of string
                 $outEntries[] = substr($str, $offset);
                 break;

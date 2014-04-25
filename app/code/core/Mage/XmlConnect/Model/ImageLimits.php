@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
 {
+
     /**
      * Screen size update type glue
      */
@@ -184,8 +186,7 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
     protected function _checkMaximumAllowedSize()
     {
         $screenSizeArray = explode(self::SCREEN_SIZE_GLUE, $this->_screenSize);
-        if (count($screenSizeArray) != 2 || $screenSizeArray[0] > self::MAX_ALLOWED_SCREEN_SIZES
-            || $screenSizeArray[1] > self::MAX_ALLOWED_SCREEN_SIZES
+        if (count($screenSizeArray) != 2 || $screenSizeArray[0] > self::MAX_ALLOWED_SCREEN_SIZES || $screenSizeArray[1] > self::MAX_ALLOWED_SCREEN_SIZES
         ) {
             Mage::throwException(Mage::helper('xmlconnect')->__('Screen resolution is not supported'));
         }
@@ -234,7 +235,7 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
      *
      * @return Mage_XmlConnect_Model_ImageLimits
      */
-    protected  function _afterCalculate()
+    protected function _afterCalculate()
     {
         if (isset($this->_imageLimits[$this->_screenSize])) {
             return $this;
@@ -248,13 +249,13 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
      *
      * @return Mage_XmlConnect_Model_ImageLimits
      */
-    protected  function _calculateImageLimits()
+    protected function _calculateImageLimits()
     {
         $defaultSizeModel = $this->_getApplicationModel()->getDeviceModel();
         $sizeModel = $this->getSizeModel();
 
         $updatedConfiguration = $this->_calculateImageRate()->_updateConfigByRate(
-            $defaultSizeModel->getImageSizeConfig()
+                $defaultSizeModel->getImageSizeConfig()
         );
 
         if (!$sizeModel) {
@@ -363,4 +364,5 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
 
         return $result;
     }
+
 }

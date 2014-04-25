@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,23 +24,22 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Varien_Filter_Sprintf implements Zend_Filter_Interface
 {
+
     protected $_format = null;
     protected $_decimals = null;
     protected $_decPoint = null;
     protected $_thousandsSep = null;
-    
-    public function __construct($format, $decimals=null, $decPoint='.', $thousandsSep=',')
+
+    public function __construct($format, $decimals = null, $decPoint = '.', $thousandsSep = ',')
     {
         $this->_format = $format;
         $this->_decimals = $decimals;
         $this->_decPoint = $decPoint;
         $this->_thousandsSep = $thousandsSep;
     }
-    
+
     public function filter($value)
     {
         if (!is_null($this->_decimals)) {
@@ -48,4 +48,5 @@ class Varien_Filter_Sprintf implements Zend_Filter_Interface
         $value = sprintf($this->_format, $value);
         return $value;
     }
+
 }

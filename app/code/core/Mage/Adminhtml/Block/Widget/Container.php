@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -48,9 +49,9 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @var array
      */
     protected $_buttons = array(
-        -1  => array(),
-        0   => array(),
-        1   => array(),
+        -1 => array(),
+        0 => array(),
+        1 => array(),
     );
 
     /**
@@ -135,7 +136,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @param mixed $data
      * @return Mage_Adminhtml_Block_Widget_Container
      */
-    protected function _updateButton($id, $key=null, $data)
+    protected function _updateButton($id, $key = null, $data)
     {
         foreach ($this->_buttons as $level => $buttons) {
             if (isset($buttons[$id])) {
@@ -166,7 +167,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @param mixed $data
      * @return Mage_Adminhtml_Block_Widget_Container
      */
-    public function updateButton($id, $key=null, $data)
+    public function updateButton($id, $key = null, $data)
     {
         return $this->_updateButton($id, $key, $data);
     }
@@ -307,4 +308,5 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         Mage::dispatchEvent('adminhtml_widget_container_html_before', array('block' => $this));
         return parent::_toHtml();
     }
+
 }

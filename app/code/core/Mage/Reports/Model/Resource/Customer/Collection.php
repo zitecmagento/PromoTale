@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customers Report collection
  *
@@ -34,19 +34,20 @@
  */
 class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Model_Resource_Customer_Collection
 {
+
     /**
      * Add order statistics flag
      *
      * @var boolean
      */
-    protected $_addOrderStatistics           = false;
+    protected $_addOrderStatistics = false;
 
     /**
      * Add order statistics is filter flag
      *
      * @var boolean
      */
-    protected $_addOrderStatisticsIsFilter   = false;
+    protected $_addOrderStatisticsIsFilter = false;
 
     /**
      * Customer id table name
@@ -95,7 +96,6 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
             } else {
                 $item->remove();
             }
-
         }
         return $this;
     }
@@ -127,9 +127,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
         }
 
         $this->getSelect()
-            ->joinLeft(array('orders' => $this->getTable('sales/order')),
-                "orders.customer_id = e.entity_id".$dateFilter,
-            array());
+                ->joinLeft(array('orders' => $this->getTable('sales/order')), "orders.customer_id = e.entity_id" . $dateFilter, array());
 
         return $this;
     }
@@ -142,9 +140,9 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     public function addOrdersCount()
     {
         $this->getSelect()
-            ->columns(array("orders_count" => "COUNT(orders.entity_id)"))
-            ->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
-            ->group("e.entity_id");
+                ->columns(array("orders_count" => "COUNT(orders.entity_id)"))
+                ->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
+                ->group("e.entity_id");
 
         return $this;
     }
@@ -159,19 +157,17 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     public function addSumAvgTotals($storeId = 0)
     {
         $adapter = $this->getConnection();
-        $baseSubtotalRefunded   = $adapter->getIfNullSql('orders.base_subtotal_refunded', 0);
-        $baseSubtotalCanceled   = $adapter->getIfNullSql('orders.base_subtotal_canceled', 0);
+        $baseSubtotalRefunded = $adapter->getIfNullSql('orders.base_subtotal_refunded', 0);
+        $baseSubtotalCanceled = $adapter->getIfNullSql('orders.base_subtotal_canceled', 0);
 
         /**
          * calculate average and total amount
          */
-        $expr = ($storeId == 0)
-            ? "(orders.base_subtotal - {$baseSubtotalCanceled} - {$baseSubtotalRefunded}) * orders.base_to_global_rate"
-            : "orders.base_subtotal - {$baseSubtotalCanceled} - {$baseSubtotalRefunded}";
+        $expr = ($storeId == 0) ? "(orders.base_subtotal - {$baseSubtotalCanceled} - {$baseSubtotalRefunded}) * orders.base_to_global_rate" : "orders.base_subtotal - {$baseSubtotalCanceled} - {$baseSubtotalRefunded}";
 
         $this->getSelect()
-            ->columns(array("orders_avg_amount" => "AVG({$expr})"))
-            ->columns(array("orders_sum_amount" => "SUM({$expr})"));
+                ->columns(array("orders_avg_amount" => "AVG({$expr})"))
+                ->columns(array("orders_sum_amount" => "SUM({$expr})"));
 
         return $this;
     }
@@ -185,7 +181,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     public function orderByTotalAmount($dir = self::SORT_ORDER_DESC)
     {
         $this->getSelect()
-            ->order("orders_sum_amount {$dir}");
+                ->order("orders_sum_amount {$dir}");
         return $this;
     }
 
@@ -197,8 +193,8 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
      */
     public function addOrdersStatistics($isFilter = false)
     {
-        $this->_addOrderStatistics          = true;
-        $this->_addOrderStatisticsIsFilter  = (bool)$isFilter;
+        $this->_addOrderStatistics = true;
+        $this->_addOrderStatisticsIsFilter = (bool) $isFilter;
         return $this;
     }
 
@@ -213,22 +209,20 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
 
         if ($this->_addOrderStatistics && !empty($customerIds)) {
             $adapter = $this->getConnection();
-            $baseSubtotalRefunded   = $adapter->getIfNullSql('orders.base_subtotal_refunded', 0);
-            $baseSubtotalCanceled   = $adapter->getIfNullSql('orders.base_subtotal_canceled', 0);
+            $baseSubtotalRefunded = $adapter->getIfNullSql('orders.base_subtotal_refunded', 0);
+            $baseSubtotalCanceled = $adapter->getIfNullSql('orders.base_subtotal_canceled', 0);
 
-            $totalExpr = ($this->_addOrderStatisticsIsFilter)
-                ? "(orders.base_subtotal-{$baseSubtotalCanceled}-{$baseSubtotalRefunded})*orders.base_to_global_rate"
-                : "orders.base_subtotal-{$baseSubtotalCanceled}-{$baseSubtotalRefunded}";
+            $totalExpr = ($this->_addOrderStatisticsIsFilter) ? "(orders.base_subtotal-{$baseSubtotalCanceled}-{$baseSubtotalRefunded})*orders.base_to_global_rate" : "orders.base_subtotal-{$baseSubtotalCanceled}-{$baseSubtotalRefunded}";
 
             $select = $this->getConnection()->select();
-            $select->from(array('orders'=>$this->getTable('sales/order')), array(
-                'orders_avg_amount' => "AVG({$totalExpr})",
-                'orders_sum_amount' => "SUM({$totalExpr})",
-                'orders_count' => 'COUNT(orders.entity_id)',
-                'customer_id'
-            ))->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
-              ->where('orders.customer_id IN(?)', $customerIds)
-              ->group('orders.customer_id');
+            $select->from(array('orders' => $this->getTable('sales/order')), array(
+                        'orders_avg_amount' => "AVG({$totalExpr})",
+                        'orders_sum_amount' => "SUM({$totalExpr})",
+                        'orders_count' => 'COUNT(orders.entity_id)',
+                        'customer_id'
+                    ))->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
+                    ->where('orders.customer_id IN(?)', $customerIds)
+                    ->group('orders.customer_id');
 
             /*
              * Analytic functions usage
@@ -284,4 +278,5 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
 
         return $countSelect;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,15 +32,16 @@
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Customer_Block_Account_Dashboard_Newsletter extends Mage_Core_Block_Template
 {
+
     public function getSubscriptionObject()
     {
-        if(is_null($this->_subscription)) {
+        if (is_null($this->_subscription)) {
             $this->_subscription = Mage::getModel('newsletter/subscriber')
-                ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer());
+                    ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer());
         }
         return $this->_subscription;
     }
+
 }

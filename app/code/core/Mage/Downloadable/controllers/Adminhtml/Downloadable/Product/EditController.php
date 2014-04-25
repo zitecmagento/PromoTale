@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 require_once 'Mage/Adminhtml/controllers/Catalog/ProductController.php';
 
 /**
@@ -53,8 +53,8 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
     {
         $this->_initProduct();
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('downloadable/adminhtml_catalog_product_edit_tab_downloadable', 'admin.product.downloadable.information')
-                ->toHtml()
+                $this->getLayout()->createBlock('downloadable/adminhtml_catalog_product_edit_tab_downloadable', 'admin.product.downloadable.information')
+                        ->toHtml()
         );
     }
 
@@ -71,29 +71,29 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
 
         $helper->setResource($resource, $resourceType);
 
-        $fileName       = $helper->getFilename();
-        $contentType    = $helper->getContentType();
+        $fileName = $helper->getFilename();
+        $contentType = $helper->getContentType();
 
         $this->getResponse()
-            ->setHttpResponseCode(200)
-            ->setHeader('Pragma', 'public', true)
-            ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
-            ->setHeader('Content-type', $contentType, true);
+                ->setHttpResponseCode(200)
+                ->setHeader('Pragma', 'public', true)
+                ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
+                ->setHeader('Content-type', $contentType, true);
 
         if ($fileSize = $helper->getFilesize()) {
             $this->getResponse()
-                ->setHeader('Content-Length', $fileSize);
+                    ->setHeader('Content-Length', $fileSize);
         }
 
         if ($contentDisposition = $helper->getContentDisposition()) {
             $this->getResponse()
-                ->setHeader('Content-Disposition', $contentDisposition . '; filename='.$fileName);
+                    ->setHeader('Content-Disposition', $contentDisposition . '; filename=' . $fileName);
         }
 
         $this->getResponse()
-            ->clearBody();
+                ->clearBody();
         $this->getResponse()
-            ->sendHeaders();
+                ->sendHeaders();
 
         $helper->output();
     }
@@ -114,13 +114,16 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
                 $resourceType = Mage_Downloadable_Helper_Download::LINK_TYPE_URL;
             } elseif ($link->getLinkType() == Mage_Downloadable_Helper_Download::LINK_TYPE_FILE) {
                 $resource = Mage::helper('downloadable/file')->getFilePath(
-                    Mage_Downloadable_Model_Link::getBasePath(), $link->getLinkFile()
+                        Mage_Downloadable_Model_Link::getBasePath(), $link->getLinkFile()
                 );
                 $resourceType = Mage_Downloadable_Helper_Download::LINK_TYPE_FILE;
             }
-            try {
+            try
+            {
                 $this->_processDownload($resource, $resourceType);
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_getCustomerSession()->addError(Mage::helper('downloadable')->__('An error occurred while getting the requested content.'));
             }
         }

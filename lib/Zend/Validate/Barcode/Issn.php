@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Issn.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
 /**
  * @see Zend_Validate_Barcode_AdapterAbstract
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
 {
+
     /**
      * Allowed barcode lengths
      * @var integer
@@ -94,10 +95,10 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
     protected function _issn($value)
     {
         $checksum = substr($value, -1, 1);
-        $values   = str_split(substr($value, 0, -1));
-        $check    = 0;
-        $multi    = 8;
-        foreach($values as $token) {
+        $values = str_split(substr($value, 0, -1));
+        $check = 0;
+        $multi = 8;
+        foreach ($values as $token) {
             if ($token == 'X') {
                 $token = 10;
             }
@@ -107,7 +108,7 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
         }
 
         $check %= 11;
-        $check  = 11 - $check;
+        $check = 11 - $check;
         if ($check == $checksum) {
             return true;
         } else if (($check == 10) && ($checksum == 'X')) {
@@ -116,4 +117,5 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
 
         return false;
     }
+
 }

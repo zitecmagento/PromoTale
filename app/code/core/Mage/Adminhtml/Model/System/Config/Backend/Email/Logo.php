@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,7 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
- /**
+/**
  * Backend model for uploading transactional emails custom logo image
  *
  * @category   Mage
@@ -33,22 +34,23 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Email_Logo extends Mage_Adminhtml_Model_System_Config_Backend_Image
 {
+
     /**
      * The tail part of directory path for uploading
      */
-    const UPLOAD_DIR                = 'email/logo';
+    const UPLOAD_DIR = 'email/logo';
 
     /**
      * Token for the root part of directory path for uploading
      */
-    const UPLOAD_ROOT_TOKEN         = 'system/filesystem/media';
+    const UPLOAD_ROOT_TOKEN = 'system/filesystem/media';
 
     /**
      * Upload max file size in kilobytes
      *
      * @var int
      */
-    protected $_maxFileSize         = 2048;
+    protected $_maxFileSize = 2048;
 
     /**
      * Return path to directory for upload file
@@ -57,9 +59,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Logo extends Mage_Adminht
      */
     protected function _getUploadDir()
     {
-        $uploadDir  = $this->_appendScopeInfo(self::UPLOAD_DIR);
+        $uploadDir = $this->_appendScopeInfo(self::UPLOAD_DIR);
         $uploadRoot = $this->_getUploadRoot(self::UPLOAD_ROOT_TOKEN);
-        $uploadDir  = $uploadRoot . DS . $uploadDir;
+        $uploadDir = $uploadRoot . DS . $uploadDir;
         return $uploadDir;
     }
 
@@ -82,8 +84,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Logo extends Mage_Adminht
      */
     protected function _beforeSave()
     {
-        $value       = $this->getValue();
-        $deleteFlag  = (is_array($value) && !empty($value['delete']));
+        $value = $this->getValue();
+        $deleteFlag = (is_array($value) && !empty($value['delete']));
         $fileTmpName = $_FILES['groups']['tmp_name'][$this->getGroupId()]['fields'][$this->getField()]['value'];
 
         if ($this->getOldValue() && ($fileTmpName || $deleteFlag)) {
@@ -92,4 +94,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Logo extends Mage_Adminht
         }
         return parent::_beforeSave();
     }
+
 }

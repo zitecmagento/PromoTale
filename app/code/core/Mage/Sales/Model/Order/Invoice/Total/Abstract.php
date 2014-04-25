@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Sales_Model_Order_Invoice_Total_Abstract extends Mage_Sales_Model_Order_Total_Abstract
 {
+
     /**
      * Collect invoice subtotal
      *
@@ -43,4 +45,5 @@ abstract class Mage_Sales_Model_Order_Invoice_Total_Abstract extends Mage_Sales_
     {
         return $this;
     }
+
 }

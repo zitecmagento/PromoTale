@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -44,70 +45,69 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(
-                'header'    => Mage::helper('review')->__('ID'),
-                'width'     => '50px',
-                'index'     => 'entity_id',
+            'header' => Mage::helper('review')->__('ID'),
+            'width' => '50px',
+            'index' => 'entity_id',
         ));
 
         $this->addColumn('name', array(
-                'header'    => Mage::helper('review')->__('Name'),
-                'index'     => 'name',
+            'header' => Mage::helper('review')->__('Name'),
+            'index' => 'name',
         ));
 
-        if ((int)$this->getRequest()->getParam('store', 0)) {
+        if ((int) $this->getRequest()->getParam('store', 0)) {
             $this->addColumn('custom_name', array(
-                    'header'    => Mage::helper('review')->__('Name in Store'),
-                    'index'     => 'custom_name'
+                'header' => Mage::helper('review')->__('Name in Store'),
+                'index' => 'custom_name'
             ));
         }
 
         $this->addColumn('sku', array(
-                'header'    => Mage::helper('review')->__('SKU'),
-                'width'     => '80px',
-                'index'     => 'sku'
+            'header' => Mage::helper('review')->__('SKU'),
+            'width' => '80px',
+            'index' => 'sku'
         ));
 
         $this->addColumn('price', array(
-                'header'    => Mage::helper('review')->__('Price'),
-                'type'      => 'currency',
-                'index'     => 'price'
+            'header' => Mage::helper('review')->__('Price'),
+            'type' => 'currency',
+            'index' => 'price'
         ));
 
         $this->addColumn('qty', array(
-                'header'    => Mage::helper('review')->__('Qty'),
-                'width'     => '130px',
-                'type'      => 'number',
-                'index'     => 'qty'
+            'header' => Mage::helper('review')->__('Qty'),
+            'width' => '130px',
+            'type' => 'number',
+            'index' => 'qty'
         ));
 
         $this->addColumn('status', array(
-                'header'    => Mage::helper('review')->__('Status'),
-                'width'     => '90px',
-                'index'     => 'status',
-                'type'      => 'options',
-                'source'    => 'catalog/product_status',
-                'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+            'header' => Mage::helper('review')->__('Status'),
+            'width' => '90px',
+            'index' => 'status',
+            'type' => 'options',
+            'source' => 'catalog/product_status',
+            'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
         ));
 
         /**
          * Check is single store mode
          */
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('websites',
-                array(
-                    'header'=> Mage::helper('review')->__('Websites'),
-                    'width' => '100px',
-                    'sortable'  => false,
-                    'index'     => 'websites',
-                    'type'      => 'options',
-                    'options'   => Mage::getModel('core/website')->getCollection()->toOptionHash(),
+            $this->addColumn('websites', array(
+                'header' => Mage::helper('review')->__('Websites'),
+                'width' => '100px',
+                'sortable' => false,
+                'index' => 'websites',
+                'type' => 'options',
+                'options' => Mage::getModel('core/website')->getCollection()->toOptionHash(),
             ));
         }
     }
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/productGrid', array('_current'=>true));
+        return $this->getUrl('*/*/productGrid', array('_current' => true));
     }
 
     public function getRowUrl($row)
@@ -119,4 +119,5 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
     {
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -39,17 +40,15 @@
  */
 class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
 {
+
     /**
      * Xml config path for create account default group
      */
-    const XML_PATH_DEFAULT_ID       = 'customer/create_account/default_group';
-
-    const NOT_LOGGED_IN_ID          = 0;
-    const CUST_GROUP_ALL            = 32000;
-
-    const ENTITY                    = 'customer_group';
-
-    const GROUP_CODE_MAX_LENGTH     = 32;
+    const XML_PATH_DEFAULT_ID = 'customer/create_account/default_group';
+    const NOT_LOGGED_IN_ID = 0;
+    const CUST_GROUP_ALL = 32000;
+    const ENTITY = 'customer_group';
+    const GROUP_CODE_MAX_LENGTH = 32;
 
     /**
      * Prefix of model events names
@@ -66,7 +65,6 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
      * @var string
      */
     protected $_eventObject = 'object';
-
     protected static $_taxClassIds = array();
 
     protected function _construct()
@@ -106,7 +104,6 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         return $this->getData('tax_class_id');
     }
 
-
     public function usesAsDefault()
     {
         $data = Mage::getConfig()->getStoresConfigByPath(self::XML_PATH_DEFAULT_ID);
@@ -125,7 +122,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     {
         parent::afterCommitCallback();
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+                $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
         return $this;
     }
@@ -149,7 +146,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     protected function _prepareData()
     {
         $this->setCode(
-            substr($this->getCode(), 0, self::GROUP_CODE_MAX_LENGTH)
+                substr($this->getCode(), 0, self::GROUP_CODE_MAX_LENGTH)
         );
         return $this;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -43,6 +44,7 @@
  */
 class Mage_GoogleBase_Model_Type extends Mage_Core_Model_Abstract
 {
+
     protected function _construct()
     {
         $this->_init('googlebase/type');
@@ -60,4 +62,5 @@ class Mage_GoogleBase_Model_Type extends Mage_Core_Model_Abstract
         $typeId = $this->getResource()->getTypeIdByAttributeSetId($attributeSetId, $targetCountry);
         return $this->load($typeId);
     }
+
 }

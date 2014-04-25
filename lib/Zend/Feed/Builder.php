@@ -19,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Builder.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Feed_Builder_Interface
  */
@@ -36,7 +34,6 @@
  */
 #require_once 'Zend/Feed/Builder/Entry.php';
 
-
 /**
  * A simple implementation of Zend_Feed_Builder_Interface.
  *
@@ -49,6 +46,7 @@
  */
 class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
 {
+
     /**
      * The data of the feed
      *
@@ -286,10 +284,7 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
                     throw new Zend_Feed_Builder_Exception("you have to define $mandatory property of your textInput");
                 }
             }
-            $this->_header->setTextInput($data['textInput']['title'],
-                                         $data['textInput']['description'],
-                                         $data['textInput']['name'],
-                                         $data['textInput']['link']);
+            $this->_header->setTextInput($data['textInput']['title'], $data['textInput']['description'], $data['textInput']['name'], $data['textInput']['link']);
         }
         if (isset($data['skipHours'])) {
             $this->_header->setSkipHours($data['skipHours']);
@@ -395,4 +390,5 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
             $this->_entries[] = $entry;
         }
     }
+
 }

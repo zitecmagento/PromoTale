@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -36,6 +37,7 @@
  */
 class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
 {
+
     /** @var Mage_Checkout_Model_Session */
     protected $_checkoutSession;
     protected $_item;
@@ -128,7 +130,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         }
 
         $product = $this->getProduct();
-        $option  = $this->getItem()->getOptionByCode('product_type');
+        $option = $this->getItem()->getOptionByCode('product_type');
         if ($option) {
             $product = $option->getProduct();
         }
@@ -153,7 +155,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         }
 
         $product = $this->getProduct();
-        $option  = $this->getItem()->getOptionByCode('product_type');
+        $option = $this->getItem()->getOptionByCode('product_type');
         if ($option) {
             $product = $option->getProduct();
         }
@@ -204,8 +206,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     public function getConfigureUrl()
     {
         return $this->getUrl(
-            'checkout/cart/configure',
-            array('id' => $this->getItem()->getId())
+                        'checkout/cart/configure', array('id' => $this->getItem()->getId())
         );
     }
 
@@ -221,11 +222,10 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         }
 
         return $this->getUrl(
-            'checkout/cart/delete',
-            array(
-                'id'=>$this->getItem()->getId(),
-                Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl()
-            )
+                        'checkout/cart/delete', array(
+                    'id' => $this->getItem()->getId(),
+                    Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl()
+                        )
         );
     }
 
@@ -236,7 +236,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getQty()
     {
-        if (!$this->_strictQtyMode && (string)$this->getItem()->getQty() == '') {
+        if (!$this->_strictQtyMode && (string) $this->getItem()->getQty() == '') {
             return '';
         }
         return $this->getItem()->getQty() * 1;
@@ -376,9 +376,9 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     public function getMsrpHtml($item)
     {
         return $this->getLayout()->createBlock('catalog/product_price')
-            ->setTemplate('catalog/product/price_msrp_item.phtml')
-            ->setProduct($item->getProduct())
-            ->toHtml();
+                        ->setTemplate('catalog/product/price_msrp_item.phtml')
+                        ->setProduct($item->getProduct())
+                        ->toHtml();
     }
 
     /**
@@ -415,10 +415,10 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     protected function _preparePriceBlock($product)
     {
         return $this->getLayout()
-            ->createBlock('catalog/product_price')
-            ->setTemplate('catalog/product/price.phtml')
-            ->setIdSuffix($this->getIdSuffix())
-            ->setProduct($product);
+                        ->createBlock('catalog/product_price')
+                        ->setTemplate('catalog/product/price.phtml')
+                        ->setIdSuffix($this->getIdSuffix())
+                        ->setProduct($product);
     }
 
     /**
@@ -430,9 +430,9 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     protected function _getPriceContent($product)
     {
         return $this->getLayout()->createBlock('catalog/product_price')
-            ->setTemplate('catalog/product/price_msrp.phtml')
-            ->setProduct($product)
-            ->toHtml();
+                        ->setTemplate('catalog/product/price_msrp.phtml')
+                        ->setProduct($product)
+                        ->toHtml();
     }
 
     /**
@@ -447,4 +447,5 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
 
         return array_merge(parent::getCacheTags(), $tags);
     }
+
 }

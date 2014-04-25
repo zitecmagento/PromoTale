@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,13 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Resource.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Acl_Resource_Interface
  */
 #require_once 'Zend/Acl/Resource/Interface.php';
-
 
 /**
  * @category   Zend
@@ -34,6 +32,7 @@
  */
 class Zend_Acl_Resource implements Zend_Acl_Resource_Interface
 {
+
     /**
      * Unique id of Resource
      *
@@ -72,4 +71,5 @@ class Zend_Acl_Resource implements Zend_Acl_Resource_Interface
     {
         return $this->getResourceId();
     }
+
 }

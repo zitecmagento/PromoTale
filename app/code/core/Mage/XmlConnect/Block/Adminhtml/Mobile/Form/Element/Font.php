@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,13 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Font extends Varien_Data_Form_Element_Abstract
 {
+
     /**
      * Init font element
      *
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setType('font');
@@ -66,7 +68,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Font extends Varien_Da
         )));
 
         $this->addElement(new Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Color(array(
-            'name'  => $name . '[color]',
+            'name' => $name . '[color]',
             'style' => 'width: 60px; margin: 0'
         )));
     }
@@ -97,6 +99,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Font extends Varien_Da
             $elementsArray[] .= $element->toHtml();
         }
         return $elementsArray[0] . $elementsArray[1] . '</td><td class="label" style="width: 2em !important">'
-            . $elementsArray[2];
+                . $elementsArray[2];
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 
@@ -50,14 +50,14 @@ $attributesIds = array(
     'additional_information' => false
 );
 
-/* get order_payment entity type code*/
+/* get order_payment entity type code */
 $entityTypeId = $connection->fetchOne("
     SELECT entity_type_id
     FROM {$this->getTable('eav_entity_type')}
     WHERE entity_type_code = '{$entityTypeCode}';
 ");
 
-/* get order_payment attribute codes*/
+/* get order_payment attribute codes */
 foreach ($attributesIds as $attributeCode => $attributeId) {
     $attributesIds[$attributeCode] = $connection->fetchOne("
         SELECT attribute_id
@@ -66,7 +66,7 @@ foreach ($attributesIds as $attributeCode => $attributeId) {
     ");
 }
 
-/* get count of paypal order payments*/
+/* get count of paypal order payments */
 $methodIds = "'" . implode("','", $paymentMethods) . "'";
 $paymentsCount = $connection->fetchOne("
     SELECT count(entity_id) as count
@@ -75,12 +75,13 @@ $paymentsCount = $connection->fetchOne("
 ");
 
 $connection->beginTransaction();
-try {
+try
+{
 
-    /* process payment attributes*/
-    for ($i=0; $i<=$paymentsCount; $i+=$processingItemsCountForOneIteration) {
+    /* process payment attributes */
+    for ($i = 0; $i <= $paymentsCount; $i+=$processingItemsCountForOneIteration) {
 
-        /* get payment ids for current iteration*/
+        /* get payment ids for current iteration */
         $currentPaymentIds = $installer->getConnection()->fetchCol("
             SELECT entity_id
             FROM {$this->getTable('sales_order_entity_varchar')}
@@ -94,7 +95,7 @@ try {
 
         $currentPaymentIdsCondition = implode(',', $currentPaymentIds);
 
-        /* get data for current payment ids*/
+        /* get data for current payment ids */
         $data = $installer->getConnection()->fetchAll("
             SELECT
                 e.entity_id,
@@ -126,13 +127,12 @@ try {
         }
 
         $connection->insertArray(
-            $this->getTable('sales_order_entity_text'),
-            array('entity_type_id', 'attribute_id', 'entity_id', 'value'),
-            $insertQueryItems
+                $this->getTable('sales_order_entity_text'), array('entity_type_id', 'attribute_id', 'entity_id', 'value'), $insertQueryItems
         );
     }
-
-} catch (Exception $e) {
+}
+catch (Exception $e)
+{
     $connection->rollBack();
     throw $e;
 }

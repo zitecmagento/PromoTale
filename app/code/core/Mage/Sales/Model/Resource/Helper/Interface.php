@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales resource helper interface
  *
@@ -34,6 +34,7 @@
  */
 interface Mage_Sales_Model_Resource_Helper_Interface
 {
+
     /**
      * Update rating position
      *
@@ -43,7 +44,6 @@ interface Mage_Sales_Model_Resource_Helper_Interface
      * @param string $aggregationTable
      * @return Mage_Sales_Model_Resource_Helper_Abstract
      */
-    public function getBestsellersReportUpdateRatingPos($aggregation, $aggregationAliases,
-        $mainTable, $aggregationTable
+    public function getBestsellersReportUpdateRatingPos($aggregation, $aggregationAliases, $mainTable, $aggregationTable
     );
 }

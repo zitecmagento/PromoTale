@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,32 +24,31 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
 $installer->startSetup();
 
 $installer->addAttribute('catalog_product', 'shipment_type', array(
-        'type'              => 'int',
-        'backend'           => '',
-        'frontend'          => '',
-        'label'             => 'Shipment',
-        'input'             => '',
-        'class'             => '',
-        'source'            => '',
-        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-        'visible'           => false,
-        'required'          => true,
-        'user_defined'      => false,
-        'default'           => '',
-        'searchable'        => false,
-        'filterable'        => false,
-        'comparable'        => false,
-        'visible_on_front'  => false,
-        'unique'            => false,
-        'apply_to'          => 'bundle',
-        'is_configurable'   => false
-    ));
+    'type' => 'int',
+    'backend' => '',
+    'frontend' => '',
+    'label' => 'Shipment',
+    'input' => '',
+    'class' => '',
+    'source' => '',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+    'visible' => false,
+    'required' => true,
+    'user_defined' => false,
+    'default' => '',
+    'searchable' => false,
+    'filterable' => false,
+    'comparable' => false,
+    'visible_on_front' => false,
+    'unique' => false,
+    'apply_to' => 'bundle',
+    'is_configurable' => false
+));
 
 $installer->endSetup();

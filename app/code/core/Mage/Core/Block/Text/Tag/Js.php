@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Base html block
  *
@@ -37,16 +37,16 @@ class Mage_Core_Block_Text_Tag_Js extends Mage_Core_Block_Text_Tag
     {
         parent::_construct();
         $this->setTagName('script');
-        $this->setTagParams(array('language'=>'javascript', 'type'=>'text/javascript'));
+        $this->setTagParams(array('language' => 'javascript', 'type' => 'text/javascript'));
     }
 
-    function setSrc($src, $type=null)
+    function setSrc($src, $type = null)
     {
-        $type = (string)$type;
+        $type = (string) $type;
         if (empty($type)) {
             $type = 'js';
         }
-        $url = Mage::getBaseUrl($type).$src;
+        $url = Mage::getBaseUrl($type) . $src;
 
         return $this->setTagParam('src', $url);
     }

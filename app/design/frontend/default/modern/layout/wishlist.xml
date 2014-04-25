@@ -28,14 +28,16 @@
 -->
 <layout version="0.1.0">
 
-<!--
-Default layout, loads most of the pages
--->
+    <!--
+    Default layout, loads most of the pages
+    -->
 
     <default>
         <reference name="top.links">
             <block type="wishlist/links" name="wishlist_link" />
-            <action method="addLinkBlock"><blockName>wishlist_link</blockName></action>
+            <action method="addLinkBlock">
+                <blockName>wishlist_link</blockName>
+            </action>
         </reference>
 
         <!-- Mage_Wishlist -->
@@ -44,30 +46,36 @@ Default layout, loads most of the pages
         </reference>
     </default>
 
-<!--
-Customer account pages, rendered for all tabs in dashboard
--->
+    <!--
+    Customer account pages, rendered for all tabs in dashboard
+    -->
 
     <customer_account>
         <!-- Mage_Wishlist -->
         <reference name="customer_account_navigation">
-            <action method="addLink" translate="label" module="wishlist" ifconfig="wishlist/general/active"><name>wishlist</name><path>wishlist/</path><label>My Wishlist</label></action>
+            <action method="addLink" translate="label" module="wishlist" ifconfig="wishlist/general/active">
+                <name>wishlist</name>
+                <path>wishlist/</path>
+                <label>My Wishlist</label>
+            </action>
         </reference>
     </customer_account>
 
-<!--
-Customer account home dashboard layout
--->
+    <!--
+    Customer account home dashboard layout
+    -->
 
     <customer_account_index>
         <reference name="right">
-            <action method="unsetChild"><name>wishlist</name></action>
+            <action method="unsetChild">
+                <name>wishlist</name>
+            </action>
         </reference>
     </customer_account_index>
 
-<!--
-Wishlist pages
--->
+    <!--
+    Wishlist pages
+    -->
 
     <wishlist_index_index translate="label">
         <label>Customer My Account My Wishlist</label>
@@ -101,7 +109,9 @@ Wishlist pages
             </block>
         </reference>
         <reference name="right">
-            <action method="unsetChild"><name>wishlist_customer_sidebar</name></action>
+            <action method="unsetChild">
+                <name>wishlist_customer_sidebar</name>
+            </action>
         </reference>
     </wishlist_index_index>
 
@@ -113,7 +123,9 @@ Wishlist pages
             <block type="wishlist/customer_sharing" name="wishlist.sharing" template="wishlist/sharing.phtml" />
         </reference>
         <reference name="right">
-            <action method="unsetChild"><name>wishlist_customer_sidebar</name></action>
+            <action method="unsetChild">
+                <name>wishlist_customer_sidebar</name>
+            </action>
         </reference>
     </wishlist_index_share>
 
@@ -124,8 +136,12 @@ Wishlist pages
             <block type="wishlist/item_configure" name="product.info.addto" as="addto" template="wishlist/item/configure/addto.phtml" />
         </reference>
         <reference name="product.info.options.wrapper.bottom">
-            <action method="unsetChild"><name>product.info.addto</name></action>
-            <action method="append"><block>product.info.addto</block></action>
+            <action method="unsetChild">
+                <name>product.info.addto</name>
+            </action>
+            <action method="append">
+                <block>product.info.addto</block>
+            </action>
         </reference>
     </wishlist_index_configure>
 

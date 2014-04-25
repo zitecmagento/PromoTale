@@ -23,17 +23,15 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * Customer login form template
  *
  * @var $this Mage_Oauth_Block_Authorize
  */
-
 $rejectJs = "document.location.href='{$this->getRejectUrl()}';";
 ?>
 <div class="account-login">
-    <?php echo $this->getMessagesBlock()->toHtml() ?>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
     <?php if (!$this->getHasException()): ?>
         <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form">
             <div class="col1-set">
@@ -68,9 +66,9 @@ $rejectJs = "document.location.href='{$this->getRejectUrl()}';";
             <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>"/>
         </form>
         <script type="text/javascript">
-        //<![CDATA[
+            //<![CDATA[
             var dataForm = new VarienForm('login-form', true);
-        //]]>
+            //]]>
         </script>
-    <?php endif; ?>
+<?php endif; ?>
 </div>

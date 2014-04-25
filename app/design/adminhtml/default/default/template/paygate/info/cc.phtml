@@ -27,28 +27,28 @@
 
 <div class="cards-list">
 
-<?php if (!$this->getHideTitle()): ?>
-    <div class="bold"><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?></div>
-<?php endif;?>
+    <?php if (!$this->getHideTitle()): ?>
+        <div class="bold"><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?></div>
+    <?php endif; ?>
 
-<?php
+    <?php
     $cards = $this->getCards();
     $showCount = count($cards) > 1;
-?>
+    ?>
 
     <?php foreach ($cards as $key => $card): ?>
         <?php if ($showCount): ?>
             <span><?php echo sprintf($this->__('Credit Card %s'), $key + 1); ?></span>
-        <?php endif;?>
+        <?php endif; ?>
 
-        <table class="info-table<?php if ($showCount):?> offset<?php endif;?>">
+        <table class="info-table<?php if ($showCount): ?> offset<?php endif; ?>">
             <tbody>
-            <?php foreach ($card as $_label => $_value):?>
-            <tr>
-                <td><?php echo $this->escapeHtml($_label)?>:</td>
-                <td><?php echo nl2br(implode($this->getValueAsArray($_value, true), "\n"))?></td>
-            </tr>
-            <?php endforeach; ?>
+                <?php foreach ($card as $_label => $_value): ?>
+                    <tr>
+                        <td><?php echo $this->escapeHtml($_label) ?>:</td>
+                        <td><?php echo nl2br(implode($this->getValueAsArray($_value, true), "\n")) ?></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     <?php endforeach; ?>

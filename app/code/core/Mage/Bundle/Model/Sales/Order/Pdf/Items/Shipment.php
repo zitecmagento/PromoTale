@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,15 +34,16 @@
  */
 class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract
 {
+
     /**
      * Draw item line
      *
      */
     public function draw()
     {
-        $item   = $this->getItem();
-        $pdf    = $this->getPdf();
-        $page   = $this->getPage();
+        $item = $this->getItem();
+        $pdf = $this->getPdf();
+        $page = $this->getPage();
 
         $this->_setFontRegular();
 
@@ -52,19 +54,18 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
         $drawItems = array();
 
         foreach ($items as $_item) {
-            $line   = array();
+            $line = array();
 
             $attributes = $this->getSelectionAttributes($_item);
             if (is_array($attributes)) {
-                $optionId   = $attributes['option_id'];
-            }
-            else {
+                $optionId = $attributes['option_id'];
+            } else {
                 $optionId = 0;
             }
 
             if (!isset($drawItems[$optionId])) {
                 $drawItems[$optionId] = array(
-                    'lines'  => array(),
+                    'lines' => array(),
                     'height' => 15
                 );
             }
@@ -72,13 +73,13 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
             if ($_item->getParentItem()) {
                 if ($_prevOptionId != $attributes['option_id']) {
                     $line[0] = array(
-                        'font'  => 'italic',
-                        'text'  => Mage::helper('core/string')->str_split($attributes['option_label'], 60, true, true),
-                        'feed'  => 60
+                        'font' => 'italic',
+                        'text' => Mage::helper('core/string')->str_split($attributes['option_label'], 60, true, true),
+                        'feed' => 60
                     );
 
                     $drawItems[$optionId] = array(
-                        'lines'  => array($line),
+                        'lines' => array($line),
                         'height' => 15
                     );
 
@@ -88,11 +89,10 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                 }
             }
 
-            if (($this->isShipmentSeparately() && $_item->getParentItem())
-                || (!$this->isShipmentSeparately() && !$_item->getParentItem())
+            if (($this->isShipmentSeparately() && $_item->getParentItem()) || (!$this->isShipmentSeparately() && !$_item->getParentItem())
             ) {
                 if (isset($shipItems[$_item->getId()])) {
-                    $qty = $shipItems[$_item->getId()]->getQty()*1;
+                    $qty = $shipItems[$_item->getId()]->getQty() * 1;
                 } else if ($_item->getIsVirtual()) {
                     $qty = Mage::helper('bundle')->__('N/A');
                 } else {
@@ -103,8 +103,8 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
             }
 
             $line[] = array(
-                'text'  => $qty,
-                'feed'  => 35
+                'text' => $qty,
+                'feed' => 35
             );
 
             // draw Name
@@ -120,8 +120,8 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                 $text[] = $part;
             }
             $line[] = array(
-                'text'  => $text,
-                'feed'  => $feed
+                'text' => $text,
+                'feed' => $feed
             );
 
             // draw SKUs
@@ -130,8 +130,8 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                 $text[] = $part;
             }
             $line[] = array(
-                'text'  => $text,
-                'feed'  => 440
+                'text' => $text,
+                'feed' => 440
             );
 
             $drawItems[$optionId]['lines'][] = $line;
@@ -144,16 +144,14 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                 foreach ($options['options'] as $option) {
                     $lines = array();
                     $lines[][] = array(
-                        'text'  => Mage::helper('core/string')->str_split(strip_tags($option['label']), 70, true, true),
-                        'font'  => 'italic',
-                        'feed'  => 60
+                        'text' => Mage::helper('core/string')->str_split(strip_tags($option['label']), 70, true, true),
+                        'font' => 'italic',
+                        'feed' => 60
                     );
 
                     if ($option['value']) {
                         $text = array();
-                        $_printValue = isset($option['print_value'])
-                            ? $option['print_value']
-                            : strip_tags($option['value']);
+                        $_printValue = isset($option['print_value']) ? $option['print_value'] : strip_tags($option['value']);
                         $values = explode(', ', $_printValue);
                         foreach ($values as $value) {
                             foreach (Mage::helper('core/string')->str_split($value, 50, true, true) as $_value) {
@@ -162,13 +160,13 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                         }
 
                         $lines[][] = array(
-                            'text'  => $text,
-                            'feed'  => 65
+                            'text' => $text,
+                            'feed' => 65
                         );
                     }
 
                     $drawItems[] = array(
-                        'lines'  => $lines,
+                        'lines' => $lines,
                         'height' => 15
                     );
                 }
@@ -178,4 +176,5 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
         $page = $pdf->drawLineBlocks($page, $drawItems, array('table_header' => true));
         $this->setPage($page);
     }
+
 }

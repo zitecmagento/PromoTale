@@ -20,7 +20,6 @@
  * @version    $Id: Interface.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Input feed data interface
  *
@@ -34,6 +33,7 @@
  */
 interface Zend_Feed_Builder_Interface
 {
+
     /**
      * Returns an instance of Zend_Feed_Builder_Header
      * describing the header of the feed

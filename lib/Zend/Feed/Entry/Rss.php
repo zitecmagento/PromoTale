@@ -19,13 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Rss.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Feed_Entry_Abstract
  */
 #require_once 'Zend/Feed/Entry/Abstract.php';
-
 
 /**
  * Concrete class for working with RSS items.
@@ -37,6 +34,7 @@
  */
 class Zend_Feed_Entry_Rss extends Zend_Feed_Entry_Abstract
 {
+
     /**
      * Root XML element for RSS items.
      *
@@ -119,4 +117,5 @@ class Zend_Feed_Entry_Rss extends Zend_Feed_Entry_Abstract
                 return parent::__call($var, $unused);
         }
     }
+
 }

@@ -20,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: NewsResult.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Yahoo_Result
  */
 #require_once 'Zend/Service/Yahoo/Result.php';
-
 
 /**
  * @category   Zend
@@ -37,6 +34,7 @@
  */
 class Zend_Service_Yahoo_NewsResult extends Zend_Service_Yahoo_Result
 {
+
     /**
      * Sumamry text associated with the result article
      *
@@ -93,7 +91,6 @@ class Zend_Service_Yahoo_NewsResult extends Zend_Service_Yahoo_Result
      */
     protected $_namespace = 'urn:yahoo:yn';
 
-
     /**
      * Initializes the news result
      *
@@ -103,10 +100,11 @@ class Zend_Service_Yahoo_NewsResult extends Zend_Service_Yahoo_Result
     public function __construct(DOMElement $result)
     {
         $this->_fields = array('Summary', 'NewsSource', 'NewsSourceUrl', 'Language', 'PublishDate',
-                               'ModificationDate', 'Thumbnail');
+            'ModificationDate', 'Thumbnail');
 
         parent::__construct($result);
 
         $this->_setThumbnail();
     }
+
 }

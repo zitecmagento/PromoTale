@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FormLabel.php 22290 2010-05-25 14:27:12Z matthew $
  */
-
-/** Zend_View_Helper_FormElement **/
+/** Zend_View_Helper_FormElement * */
 #require_once 'Zend/View/Helper/FormElement.php';
 
 /**
@@ -34,6 +34,7 @@
  */
 class Zend_View_Helper_FormLabel extends Zend_View_Helper_FormElement
 {
+
     /**
      * Generates a 'label' element.
      *
@@ -46,17 +47,14 @@ class Zend_View_Helper_FormLabel extends Zend_View_Helper_FormElement
     {
         $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, value, attribs, options, listsep, disable, escape
-
         // build the element
         if ($disable) {
             // disabled; display nothing
-            return  '';
+            return '';
         }
 
         $value = ($escape) ? $this->view->escape($value) : $value;
-        $for   = (empty($attribs['disableFor']) || !$attribs['disableFor'])
-               ? ' for="' . $this->view->escape($id) . '"'
-               : '';
+        $for = (empty($attribs['disableFor']) || !$attribs['disableFor']) ? ' for="' . $this->view->escape($id) . '"' : '';
         if (array_key_exists('disableFor', $attribs)) {
             unset($attribs['disableFor']);
         }
@@ -69,4 +67,5 @@ class Zend_View_Helper_FormLabel extends Zend_View_Helper_FormElement
 
         return $xhtml;
     }
+
 }

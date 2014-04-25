@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -42,54 +43,55 @@
  */
 class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
 {
-    /**
-     * No references found in the project. Variable kept for backward compatibility
-     *
-     * @var null
-     */
-    protected $_ctcs                = null;
 
     /**
      * No references found in the project. Variable kept for backward compatibility
      *
      * @var null
      */
-    protected $_ptcs                = null;
+    protected $_ctcs = null;
 
     /**
      * No references found in the project. Variable kept for backward compatibility
      *
      * @var null
      */
-    protected $_rates               = null;
+    protected $_ptcs = null;
 
     /**
      * No references found in the project. Variable kept for backward compatibility
      *
      * @var null
      */
-    protected $_ctcModel            = null;
+    protected $_rates = null;
 
     /**
      * No references found in the project. Variable kept for backward compatibility
      *
      * @var null
      */
-    protected $_ptcModel            = null;
+    protected $_ctcModel = null;
+
+    /**
+     * No references found in the project. Variable kept for backward compatibility
+     *
+     * @var null
+     */
+    protected $_ptcModel = null;
 
     /**
      * No references found in the project. Variable kept for backward compatibility
      *
      * @var Mage_Tax_Model_Calculation_Rate
      */
-    protected $_rateModel           = null;
+    protected $_rateModel = null;
 
     /**
      * Holds the tax Calculation model
      *
      * @var Mage_Tax_Model_Calculation
      */
-    protected $_calculationModel    = null;
+    protected $_calculationModel = null;
 
     /**
      * Varien model constructor
@@ -139,10 +141,10 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
             foreach ($ptc as $p) {
                 foreach ($rates as $r) {
                     $dataArray = array(
-                        'tax_calculation_rule_id'   =>$this->getId(),
-                        'tax_calculation_rate_id'   =>$r,
-                        'customer_tax_class_id'     =>$c,
-                        'product_tax_class_id'      =>$p,
+                        'tax_calculation_rule_id' => $this->getId(),
+                        'tax_calculation_rate_id' => $r,
+                        'customer_tax_class_id' => $c,
+                        'product_tax_class_id' => $p,
                     );
                     Mage::getSingleton('tax/calculation')->setData($dataArray)->save();
                 }
@@ -185,7 +187,6 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
         return $this->getCalculationModel()->getProductTaxClasses($this->getId());
     }
 
-
     /**
      * Fetches rules by rate, customer tax class and product tax class
      * and product tax class combination
@@ -199,5 +200,5 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     {
         return $this->getResource()->fetchRuleCodes($rateId, $customerTaxClassId, $productTaxClassId);
     }
-}
 
+}

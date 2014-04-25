@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer My Applications list block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_Dashboard
 {
+
     /**
      * Collection model
      *
@@ -110,8 +111,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     public function getUpdateRevokeLink(Mage_Oauth_Model_Token $model)
     {
-        return Mage::getUrl('oauth/customer_token/revoke/',
-            array('id' => $model->getId(), 'status' => (int) !$model->getRevoked()));
+        return Mage::getUrl('oauth/customer_token/revoke/', array('id' => $model->getId(), 'status' => (int) !$model->getRevoked()));
     }
 
     /**
@@ -169,4 +169,5 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
         );
         return $messages[$revokedStatus];
     }
+
 }

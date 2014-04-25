@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Shippingmethods extends Mage_Paypal_Block_Express_Review
 {
+
     /**
      * Add price details to xml object
      *
@@ -64,7 +66,7 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Shippingmethods extends Mage_Paypal
     {
         /** @var $listXmlObj Mage_XmlConnect_Model_Simplexml_Element */
         $methodListXmlObj = Mage::getModel(
-            'xmlconnect/simplexml_element', '<shipping_method_list></shipping_method_list>'
+                        'xmlconnect/simplexml_element', '<shipping_method_list></shipping_method_list>'
         );
         $methodListXmlObj->addAttribute('label', $this->__('Shipping Method'));
 
@@ -83,7 +85,7 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Shippingmethods extends Mage_Paypal
                             $rateXmlObj = $rateListXmlObj->addCustomChild('rate', null, $rateAttributes);
                             if ($rate->getErrorMessage()) {
                                 $rateXmlObj->addChild('error_message', $rateXmlObj->escapeXml(
-                                    $rate->getErrorMessage()
+                                                $rate->getErrorMessage()
                                 ));
                             } else {
                                 $this->_addPriceToXmlObj($rateXmlObj, $rate);
@@ -152,8 +154,7 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Shippingmethods extends Mage_Paypal
      */
     protected function _addNoShippingMessage($methodListXmlObj)
     {
-        $message = $this->_quote->isVirtual() ? $this->__('No shipping method required.')
-            : $this->__('Sorry, no quotes are available for this order at this time.');
+        $message = $this->_quote->isVirtual() ? $this->__('No shipping method required.') : $this->__('Sorry, no quotes are available for this order at this time.');
         $methodListXmlObj->addCustomChild('method', null, array('label' => $message));
         return $this;
     }
@@ -170,4 +171,5 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Shippingmethods extends Mage_Paypal
         $attributes = $code ? array('label' => $this->getCarrierName($code)) : array();
         return $methodListXmlObj->addCustomChild('method', null, $attributes)->addCustomChild('rates');
     }
+
 }

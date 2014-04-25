@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Keywords.php 22824 2010-08-09 18:59:54Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Response_Abstract
  */
@@ -40,6 +40,7 @@
  */
 class Zend_Service_Ebay_Finding_Response_Keywords extends Zend_Service_Ebay_Finding_Response_Abstract
 {
+
     /**
      * Contains a spell-checked version of the submitted keywords. If no
      * recommended spelling can be identified for the submitted keywords, the
@@ -75,4 +76,5 @@ class Zend_Service_Ebay_Finding_Response_Keywords extends Zend_Service_Ebay_Find
         // find items
         return $proxy->findItemsByKeywords($this->keywords, $options);
     }
+
 }

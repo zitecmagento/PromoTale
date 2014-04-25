@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert zend cache adapter
  *
@@ -34,6 +34,7 @@
  */
 class Varien_Convert_Adapter_Zend_Cache extends Varien_Convert_Adapter_Abstract
 {
+
     public function getResource()
     {
         if (!$this->_resource) {
@@ -53,4 +54,5 @@ class Varien_Convert_Adapter_Zend_Cache extends Varien_Convert_Adapter_Abstract
         $this->getResource()->save($this->getData(), $this->getVar('id'));
         return $this;
     }
+
 }

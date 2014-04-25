@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Position.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Extension
  */
@@ -87,4 +86,3 @@ class Zend_Gdata_YouTube_Extension_Position extends Zend_Gdata_Extension
     }
 
 }
-

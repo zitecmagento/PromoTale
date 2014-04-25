@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,7 +34,9 @@
  */
 class Mage_Admin_Model_Observer
 {
+
     const FLAG_NO_LOGIN = 'no-login';
+
     /**
      * Handler for controller_action_predispatch event
      *
@@ -58,34 +61,34 @@ class Mage_Admin_Model_Observer
         if (in_array($requestedActionName, $openActions)) {
             $request->setDispatched(true);
         } else {
-            if($user) {
+            if ($user) {
                 $user->reload();
             }
             if (!$user || !$user->getId()) {
                 if ($request->getPost('login')) {
-                    $postLogin  = $request->getPost('login');
-                    $username   = isset($postLogin['username']) ? $postLogin['username'] : '';
-                    $password   = isset($postLogin['password']) ? $postLogin['password'] : '';
+                    $postLogin = $request->getPost('login');
+                    $username = isset($postLogin['username']) ? $postLogin['username'] : '';
+                    $password = isset($postLogin['password']) ? $postLogin['password'] : '';
                     $session->login($username, $password, $request);
                     $request->setPost('login', null);
                 }
                 if (!$request->getParam('forwarded')) {
                     if ($request->getParam('isIframe')) {
                         $request->setParam('forwarded', true)
-                            ->setControllerName('index')
-                            ->setActionName('deniedIframe')
-                            ->setDispatched(false);
-                    } elseif($request->getParam('isAjax')) {
+                                ->setControllerName('index')
+                                ->setActionName('deniedIframe')
+                                ->setDispatched(false);
+                    } elseif ($request->getParam('isAjax')) {
                         $request->setParam('forwarded', true)
-                            ->setControllerName('index')
-                            ->setActionName('deniedJson')
-                            ->setDispatched(false);
+                                ->setControllerName('index')
+                                ->setActionName('deniedJson')
+                                ->setDispatched(false);
                     } else {
                         $request->setParam('forwarded', true)
-                            ->setRouteName('adminhtml')
-                            ->setControllerName('index')
-                            ->setActionName('login')
-                            ->setDispatched(false);
+                                ->setRouteName('adminhtml')
+                                ->setControllerName('index')
+                                ->setActionName('login')
+                                ->setDispatched(false);
                     }
                     return false;
                 }
@@ -103,5 +106,7 @@ class Mage_Admin_Model_Observer
      */
     public function actionPostDispatchAdmin($event)
     {
+        
     }
+
 }

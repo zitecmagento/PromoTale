@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Quote address attribute backend resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Collect totals
      *
@@ -44,4 +45,5 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend extends Mage_Eav
     {
         return $this;
     }
+
 }

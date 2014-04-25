@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
 {
+
     protected $_terms;
     protected $_minPopularity;
     protected $_maxPopularity;
@@ -52,12 +54,12 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
         if (empty($this->_terms)) {
             $this->_terms = array();
             $terms = Mage::getResourceModel('catalogsearch/query_collection')
-                ->setPopularQueryFilter(Mage::app()->getStore()->getId())
-                ->setPageSize(100)
-                ->load()
-                ->getItems();
+                    ->setPopularQueryFilter(Mage::app()->getStore()->getId())
+                    ->setPageSize(100)
+                    ->load()
+                    ->getItems();
 
-            if( count($terms) == 0 ) {
+            if (count($terms) == 0) {
                 return $this;
             }
 
@@ -67,10 +69,10 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
             $range = $this->_maxPopularity - $this->_minPopularity;
             $range = ( $range == 0 ) ? 1 : $range;
             foreach ($terms as $term) {
-                if( !$term->getPopularity() ) {
+                if (!$term->getPopularity()) {
                     continue;
                 }
-                $term->setRatio(($term->getPopularity()-$this->_minPopularity)/$range);
+                $term->setRatio(($term->getPopularity() - $this->_minPopularity) / $range);
                 $temp[$term->getName()] = $term;
                 $termKeys[] = $term->getName();
             }
@@ -93,9 +95,9 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
     {
         $url = Mage::getModel('core/url');
         /*
-        * url encoding will be done in Url.php http_build_query
-        * so no need to explicitly called urlencode for the text
-        */
+         * url encoding will be done in Url.php http_build_query
+         * so no need to explicitly called urlencode for the text
+         */
         $url->setQueryParam('q', $obj->getName());
         return $url->getUrl('catalogsearch/result');
     }
@@ -109,4 +111,5 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
     {
         return $this->_minPopularity;
     }
+
 }

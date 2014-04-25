@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Index Setup Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
 {
+
     /**
      * Apply Index module DB updates and sync indexes declaration
      *
@@ -83,4 +84,5 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
             }
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_LastSearchTerms
-    extends Mage_Adminhtml_Block_Dashboard_Searches_Last
+class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_LastSearchTerms extends Mage_Adminhtml_Block_Dashboard_Searches_Last
 {
+
     /**
      * Search terms count to display
      */
@@ -96,7 +97,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_LastSearchTerms
                 'store_id' => $storeId ? $storeId : Mage_XmlConnect_Helper_AdminApplication::ALL_STORE_VIEWS
             ));
 
-            if(!count($this->getCollection()->getItems()) > 0) {
+            if (!count($this->getCollection()->getItems()) > 0) {
                 continue;
             }
 
@@ -115,4 +116,5 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_LastSearchTerms
         }
         return $this;
     }
+
 }

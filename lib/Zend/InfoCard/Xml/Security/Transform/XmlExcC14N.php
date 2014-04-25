@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: XmlExcC14N.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_InfoCard_Xml_Security_Transform_Interface
  */
@@ -34,9 +34,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_InfoCard_Xml_Security_Transform_XmlExcC14N
-    implements Zend_InfoCard_Xml_Security_Transform_Interface
+class Zend_InfoCard_Xml_Security_Transform_XmlExcC14N implements Zend_InfoCard_Xml_Security_Transform_Interface
 {
+
     /**
      * Transform the input XML based on C14n XML Exclusive Canonicalization rules
      *
@@ -49,11 +49,12 @@ class Zend_InfoCard_Xml_Security_Transform_XmlExcC14N
         $dom = new DOMDocument();
         $dom->loadXML($strXMLData);
 
-        if(method_exists($dom, 'C14N')) {
+        if (method_exists($dom, 'C14N')) {
             return $dom->C14N(true, false);
         }
 
         #require_once 'Zend/InfoCard/Xml/Security/Transform/Exception.php';
         throw new Zend_InfoCard_Xml_Security_Transform_Exception("This transform requires the C14N() method to exist in the DOM extension");
     }
+
 }

@@ -41,7 +41,9 @@
         <reference name="content">
             <block type="adminhtml/report_product_viewed" template="report/grid/container.phtml" name="product.report.grid.container">
                 <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
-                    <action method="setStoreVarName"><var_name>store_ids</var_name></action>
+                    <action method="setStoreVarName">
+                        <var_name>store_ids</var_name>
+                    </action>
                 </block>
                 <block type="adminhtml/report_filter_form" name="grid.filter.form">
                     <action method="setFieldVisibility">

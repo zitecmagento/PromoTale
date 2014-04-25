@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,20 +24,15 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /** @var $installer Mage_Sales_Model_Mysql4_Setup */
-
 $tableSalesrule = $installer->getTable('salesrule/rule');
 $tableSalesruleCoupon = $installer->getTable('salesrule/coupon');
 
 $connection = $installer->getConnection();
 /** @var $connection Varien_Db_Adapter_Pdo_Mysql */
-
 $connection->addColumn(
-    $tableSalesrule,
-    'coupon_type',
-    'smallint unsigned NOT NULL DEFAULT "' . Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON . '"'
+        $tableSalesrule, 'coupon_type', 'smallint unsigned NOT NULL DEFAULT "' . Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON . '"'
 );
 
 /**

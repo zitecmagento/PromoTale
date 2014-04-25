@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_CatalogInventory_Helper_Minsaleqty
 {
+
     /**
      * Retrieve fixed qty value
      *
@@ -37,7 +39,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
      */
     protected function _fixQty($qty)
     {
-        return (!empty($qty) ? (float)$qty : null);
+        return (!empty($qty) ? (float) $qty : null);
     }
 
     /**
@@ -49,8 +51,8 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     protected function _serializeValue($value)
     {
         if (is_numeric($value)) {
-            $data = (float)$value;
-            return (string)$data;
+            $data = (float) $value;
+            return (string) $data;
         } else if (is_array($value)) {
             $data = array();
             foreach ($value as $groupId => $qty) {
@@ -59,7 +61,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
                 }
             }
             if (count($data) == 1 && array_key_exists(Mage_Customer_Model_Group::CUST_GROUP_ALL, $data)) {
-                return (string)$data[Mage_Customer_Model_Group::CUST_GROUP_ALL];
+                return (string) $data[Mage_Customer_Model_Group::CUST_GROUP_ALL];
             }
             return serialize($data);
         } else {
@@ -201,4 +203,5 @@ class Mage_CatalogInventory_Helper_Minsaleqty
         $value = $this->_serializeValue($value);
         return $value;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DailyCountsResultSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Date
  */
@@ -36,7 +35,6 @@
  */
 #require_once 'Zend/Service/Technorati/Utils.php';
 
-
 /**
  * Represents a Technorati Tag query result set.
  *
@@ -48,6 +46,7 @@
  */
 class Zend_Service_Technorati_DailyCountsResultSet extends Zend_Service_Technorati_ResultSet
 {
+
     /**
      * Technorati search URL for given query.
      *
@@ -79,24 +78,25 @@ class Zend_Service_Technorati_DailyCountsResultSet extends Zend_Service_Technora
         // Zend_Locale::setDefault('en');
 
         $result = $this->_xpath->query('/tapi/document/result/days/text()');
-        if ($result->length == 1) $this->_days = (int) $result->item(0)->data;
+        if ($result->length == 1)
+            $this->_days = (int) $result->item(0)->data;
 
         $result = $this->_xpath->query('/tapi/document/result/searchurl/text()');
         if ($result->length == 1) {
             $this->_searchUrl = Zend_Service_Technorati_Utils::normalizeUriHttp($result->item(0)->data);
         }
 
-        $this->_totalResultsReturned  = (int) $this->_xpath->evaluate("count(/tapi/document/items/item)");
+        $this->_totalResultsReturned = (int) $this->_xpath->evaluate("count(/tapi/document/items/item)");
         $this->_totalResultsAvailable = (int) $this->getDays();
     }
-
 
     /**
      * Returns the search URL for given query.
      *
      * @return  Zend_Uri_Http
      */
-    public function getSearchUrl() {
+    public function getSearchUrl()
+    {
         return $this->_searchUrl;
     }
 
@@ -105,7 +105,8 @@ class Zend_Service_Technorati_DailyCountsResultSet extends Zend_Service_Technora
      *
      * @return  int
      */
-    public function getDays() {
+    public function getDays()
+    {
         return $this->_days;
     }
 
@@ -122,4 +123,5 @@ class Zend_Service_Technorati_DailyCountsResultSet extends Zend_Service_Technora
         #require_once 'Zend/Service/Technorati/DailyCountsResult.php';
         return new Zend_Service_Technorati_DailyCountsResult($this->_results->item($this->_currentIndex));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Admin_Application_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
+
     /**
      * Setting tab id, DOM destination element id, title
      */
@@ -52,11 +54,12 @@ class Mage_XmlConnect_Block_Adminhtml_Admin_Application_Edit_Tabs extends Mage_A
     protected function _prepareLayout()
     {
         $this->addTab('set', array(
-            'label'     => $this->__('Settings'),
-            'content'   => $this->getLayout()->createBlock('xmlconnect/adminhtml_admin_application_edit_tab_settings')
-                ->toHtml(),
-            'active'    => true
+            'label' => $this->__('Settings'),
+            'content' => $this->getLayout()->createBlock('xmlconnect/adminhtml_admin_application_edit_tab_settings')
+                    ->toHtml(),
+            'active' => true
         ));
         return parent::_prepareLayout();
     }
+
 }

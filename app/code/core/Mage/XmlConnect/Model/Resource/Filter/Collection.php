@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Resource_Filter_Collection extends Varien_Data_Collection
 {
+
     /**
      * Set CategoryId filter
      *
@@ -41,7 +43,7 @@ class Mage_XmlConnect_Model_Resource_Filter_Collection extends Varien_Data_Colle
      */
     public function setCategoryId($categoryId)
     {
-        if ((int)$categoryId > 0) {
+        if ((int) $categoryId > 0) {
             $this->addFilter('category_id', $categoryId);
         }
         return $this;
@@ -60,7 +62,7 @@ class Mage_XmlConnect_Model_Resource_Filter_Collection extends Varien_Data_Colle
             $layer = Mage::getSingleton('catalog/layer');
             foreach ($this->_filters as $filter) {
                 if ('category_id' == $filter['field']) {
-                    $layer->setCurrentCategory((int)$filter['value']);
+                    $layer->setCurrentCategory((int) $filter['value']);
                 }
             }
             if ($layer->getCurrentCategory()->getIsAnchor()) {
@@ -97,4 +99,5 @@ class Mage_XmlConnect_Model_Resource_Filter_Collection extends Varien_Data_Colle
         }
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: AjaxContext.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Controller_Action_Helper_ContextSwitch
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Controller_Action_Helper_AjaxContext extends Zend_Controller_Action_Helper_ContextSwitch
 {
+
     /**
      * Controller property to utilize for context switching
      * @var string
@@ -74,4 +75,5 @@ class Zend_Controller_Action_Helper_AjaxContext extends Zend_Controller_Action_H
 
         return parent::initContext($format);
     }
+
 }

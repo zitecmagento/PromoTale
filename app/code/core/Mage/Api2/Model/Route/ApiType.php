@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Route_ApiType extends Mage_Api2_Model_Route_Abstract implements Mage_Api2_Model_Route_Interface
 {
+
     /**
      * API url template with API type variable
      */
@@ -49,9 +51,10 @@ class Mage_Api2_Model_Route_ApiType extends Mage_Api2_Model_Route_Abstract imple
      * @param Zend_Translate $translator Translator to use for this instance
      * @param mixed $locale
      */
-    public function __construct($route, $defaults = array(), $reqs = array(), Zend_Translate $translator = null,
-        $locale = null
-    ) {
+    public function __construct($route, $defaults = array(), $reqs = array(), Zend_Translate $translator = null, $locale = null
+    )
+    {
         parent::__construct(array(Mage_Api2_Model_Route_Abstract::PARAM_ROUTE => self::API_ROUTE));
     }
+
 }

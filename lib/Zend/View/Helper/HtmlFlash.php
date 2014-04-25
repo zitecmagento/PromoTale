@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HtmlFlash.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_View_Helper_HtmlObject
  */
@@ -34,6 +34,7 @@
  */
 class Zend_View_Helper_HtmlFlash extends Zend_View_Helper_HtmlObject
 {
+
     /**
      * Default file type for a flash applet
      *
@@ -52,9 +53,10 @@ class Zend_View_Helper_HtmlFlash extends Zend_View_Helper_HtmlObject
     public function htmlFlash($data, array $attribs = array(), array $params = array(), $content = null)
     {
         // Params
-        $params = array_merge(array('movie'   => $data,
-                                    'quality' => 'high'), $params);
+        $params = array_merge(array('movie' => $data,
+            'quality' => 'high'), $params);
 
         return $this->htmlObject($data, self::TYPE, $attribs, $params, $content);
     }
+
 }

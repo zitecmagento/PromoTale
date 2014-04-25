@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,13 @@
  */
 class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
 {
-    /**#@+
+    /*     * #@+
      * Validation error constants
      */
+
     const VERR_MANYSLASHES = 1; // Too many slashes in a row of request path, e.g. '///foo//'
     const VERR_ANCHOR = 2;      // Anchor is not supported in request path, e.g. 'foo#bar'
-    /**#@-*/
+    /*     * #@- */
 
     /**
      * Allowed request path length
@@ -58,19 +60,17 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
     {
         if (strlen($requestPath) > self::TARGET_PATH_ALLOWED_LENGTH) {
             throw new Mage_Core_Exception(
-                $this->__('Request path length exceeds allowed %s symbols.', self::TARGET_PATH_ALLOWED_LENGTH)
+            $this->__('Request path length exceeds allowed %s symbols.', self::TARGET_PATH_ALLOWED_LENGTH)
             );
         }
         if (strpos($requestPath, '//') !== false) {
             throw new Mage_Core_Exception(
-                $this->__('Two and more slashes together are not permitted in request path'),
-                self::VERR_MANYSLASHES
+            $this->__('Two and more slashes together are not permitted in request path'), self::VERR_MANYSLASHES
             );
         }
         if (strpos($requestPath, '#') !== false) {
             throw new Mage_Core_Exception(
-                $this->__('Anchor symbol (#) is not supported in request path'),
-                self::VERR_ANCHOR
+            $this->__('Anchor symbol (#) is not supported in request path'), self::VERR_ANCHOR
             );
         }
         return true;
@@ -99,9 +99,12 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
      */
     public function validateSuffix($suffix)
     {
-        try {
+        try
+        {
             $this->_validateRequestPath($suffix); // Suffix itself must be a valid request path
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             // Make message saying about suffix, not request path
             switch ($e->getCode()) {
                 case self::VERR_MANYSLASHES:
@@ -113,4 +116,5 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
         }
         return true;
     }
+
 }

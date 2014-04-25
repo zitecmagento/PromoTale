@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Query.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Query
  */
@@ -39,17 +38,16 @@
  */
 class Zend_Gdata_Health_Query extends Zend_Gdata_Query
 {
+
     /**
      * URI of a user's profile feed.
      */
-    const HEALTH_PROFILE_FEED_URI =
-        'https://www.google.com/health/feeds/profile/default';
+    const HEALTH_PROFILE_FEED_URI = 'https://www.google.com/health/feeds/profile/default';
 
     /**
      * URI of register (notices) feed.
      */
-    const HEALTH_REGISTER_FEED_URI =
-        'https://www.google.com/health/feeds/register/default';
+    const HEALTH_REGISTER_FEED_URI = 'https://www.google.com/health/feeds/register/default';
 
     /**
      * Namespace for an item category
@@ -102,7 +100,7 @@ class Zend_Gdata_Health_Query extends Zend_Gdata_Query
     public function setCategory($item, $name = null)
     {
         $this->_category = $item .
-            ($name ? '/' . urlencode('{' . self::ITEM_CATEGORY_NS . '}' . $name) : null);
+                ($name ? '/' . urlencode('{' . self::ITEM_CATEGORY_NS . '}' . $name) : null);
         return $this;
     }
 
@@ -158,10 +156,10 @@ class Zend_Gdata_Health_Query extends Zend_Gdata_Query
             if ($value <= 0 || $this->getGrouped() !== 'true') {
                 #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
                 throw new Zend_Gdata_App_InvalidArgumentException(
-                    'The max-results-group parameter must be set to a value
+                'The max-results-group parameter must be set to a value
                     greater than 0 and can only be used if grouped=true');
             } else {
-              $this->_params['max-results-group'] = $value;
+                $this->_params['max-results-group'] = $value;
             }
         }
         return $this;
@@ -194,11 +192,11 @@ class Zend_Gdata_Health_Query extends Zend_Gdata_Query
     {
         if ($value !== null) {
             if ($value <= 0 || $this->getGrouped() !== 'true') {
-              throw new Zend_Gdata_App_InvalidArgumentException(
-                  'The max-results-in-group parameter must be set to a value
+                throw new Zend_Gdata_App_InvalidArgumentException(
+                'The max-results-in-group parameter must be set to a value
                   greater than 0 and can only be used if grouped=true');
             } else {
-              $this->_params['max-results-in-group'] = $value;
+                $this->_params['max-results-in-group'] = $value;
             }
         }
         return $this;
@@ -231,9 +229,9 @@ class Zend_Gdata_Health_Query extends Zend_Gdata_Query
     {
         if ($value !== null && $this->getGrouped() !== 'true') {
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'The start-index-group can only be used if grouped=true');
+            'The start-index-group can only be used if grouped=true');
         } else {
-          $this->_params['start-index-group'] = $value;
+            $this->_params['start-index-group'] = $value;
         }
         return $this;
     }
@@ -264,7 +262,7 @@ class Zend_Gdata_Health_Query extends Zend_Gdata_Query
         if ($value !== null && $this->getGrouped() !== 'true') {
             throw new Zend_Gdata_App_InvalidArgumentException('start-index-in-group');
         } else {
-          $this->_params['start-index-in-group'] = $value;
+            $this->_params['start-index-in-group'] = $value;
         }
         return $this;
     }
@@ -282,4 +280,5 @@ class Zend_Gdata_Health_Query extends Zend_Gdata_Query
             return null;
         }
     }
+
 }

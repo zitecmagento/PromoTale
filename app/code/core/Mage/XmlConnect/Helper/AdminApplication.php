@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Helper_AdminApplication extends Mage_Core_Helper_Abstract
 {
+
     /**
      * All store views param for a store switcher
      */
@@ -131,4 +133,5 @@ class Mage_XmlConnect_Helper_AdminApplication extends Mage_Core_Helper_Abstract
         }
         return $this->_viewIdList;
     }
+
 }

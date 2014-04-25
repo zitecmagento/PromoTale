@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -42,8 +43,8 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
         parent::__construct();
         $session = Mage::getSingleton('customer/session');
         $purchased = Mage::getResourceModel('downloadable/link_purchased_collection')
-            ->addFieldToFilter('customer_id', $session->getCustomerId())
-            ->addOrder('created_at', 'desc');
+                ->addFieldToFilter('customer_id', $session->getCustomerId())
+                ->addOrder('created_at', 'desc');
         $this->setPurchased($purchased);
         $purchasedIds = array();
         foreach ($purchased as $_item) {
@@ -53,16 +54,15 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
             $purchasedIds = array(null);
         }
         $purchasedItems = Mage::getResourceModel('downloadable/link_purchased_item_collection')
-            ->addFieldToFilter('purchased_id', array('in' => $purchasedIds))
-            ->addFieldToFilter('status',
-                array(
+                ->addFieldToFilter('purchased_id', array('in' => $purchasedIds))
+                ->addFieldToFilter('status', array(
                     'nin' => array(
                         Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING_PAYMENT,
                         Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PAYMENT_REVIEW
                     )
+                        )
                 )
-            )
-            ->setOrder('item_id', 'desc');
+                ->setOrder('item_id', 'desc');
         $this->setItems($purchasedItems);
     }
 
@@ -76,7 +76,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
         parent::_prepareLayout();
 
         $pager = $this->getLayout()->createBlock('page/html_pager', 'downloadable.customer.products.pager')
-            ->setCollection($this->getItems());
+                ->setCollection($this->getItems());
         $this->setChild('pager', $pager);
         $this->getItems()->load();
         foreach ($this->getItems() as $item) {

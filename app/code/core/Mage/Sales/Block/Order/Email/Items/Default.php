@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales Order Email items default renderer
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Block_Order_Email_Items_Default extends Mage_Core_Block_Template
 {
+
     /**
      * Retrieve current order model instance
      *
@@ -66,7 +67,7 @@ class Mage_Sales_Block_Order_Email_Items_Default extends Mage_Core_Block_Templat
     {
         if (is_array($value)) {
             return sprintf('%d', $value['qty']) . ' x ' . $this->escapeHtml($value['title']) . " "
-                . $this->getItem()->getOrder()->formatPrice($value['price']);
+                    . $this->getItem()->getOrder()->formatPrice($value['price']);
         } else {
             return $this->escapeHtml($value);
         }
@@ -89,4 +90,5 @@ class Mage_Sales_Block_Order_Email_Items_Default extends Mage_Core_Block_Templat
     {
         return $this->getLayout()->getBlock('additional.product.info');
     }
+
 }

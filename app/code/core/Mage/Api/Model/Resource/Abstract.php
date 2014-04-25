@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -98,8 +99,11 @@ class Mage_Api_Model_Resource_Abstract
      *
      * @param string $code
      */
-    protected function _fault($code, $customMessage=null)
+    protected function _fault($code, $customMessage = null)
     {
         throw new Mage_Api_Exception($code, $customMessage);
     }
-} // Class Mage_Api_Model_Resource_Abstract End
+
+}
+
+// Class Mage_Api_Model_Resource_Abstract End

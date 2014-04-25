@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,17 +32,17 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
 {
+
     public function render(Varien_Object $row)
     {
         $actions = array();
 
         $actions[] = array(
-            'url'		=>  $this->getUrl('*/*/preview', array('id'=>$row->getId())),
-            'popup'     =>  true,
-            'caption'	=>	$this->__('Preview')
+            'url' => $this->getUrl('*/*/preview', array('id' => $row->getId())),
+            'popup' => true,
+            'caption' => $this->__('Preview')
         );
 
         $this->getColumn()->setActions($actions);
@@ -51,7 +52,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Action extends Ma
 
     protected function _getEscapedValue($value)
     {
-        return addcslashes(htmlspecialchars($value),'\\\'');
+        return addcslashes(htmlspecialchars($value), '\\\'');
     }
 
     protected function _actionsToHtml(array $actions)
@@ -64,4 +65,5 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Action extends Ma
         }
         return implode(' <span class="separator">&nbsp;|&nbsp;</span> ', $html);
     }
+
 }

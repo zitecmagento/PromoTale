@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Schema.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Ldap_Node_Abstract
  */
@@ -36,10 +36,11 @@
  */
 class Zend_Ldap_Node_Schema extends Zend_Ldap_Node_Abstract
 {
-    const OBJECTCLASS_TYPE_UNKNOWN    = 0;
+
+    const OBJECTCLASS_TYPE_UNKNOWN = 0;
     const OBJECTCLASS_TYPE_STRUCTURAL = 1;
-    const OBJECTCLASS_TYPE_ABSTRACT   = 3;
-    const OBJECTCLASS_TYPE_AUXILIARY  = 4;
+    const OBJECTCLASS_TYPE_ABSTRACT = 3;
+    const OBJECTCLASS_TYPE_AUXILIARY = 4;
 
     /**
      * Factory method to create the Schema node.
@@ -117,4 +118,5 @@ class Zend_Ldap_Node_Schema extends Zend_Ldap_Node_Abstract
     {
         return array();
     }
+
 }

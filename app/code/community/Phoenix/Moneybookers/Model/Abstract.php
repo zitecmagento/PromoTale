@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,32 +20,31 @@
  */
 abstract class Phoenix_Moneybookers_Model_Abstract extends Mage_Payment_Model_Method_Abstract
 {
+
     /**
      * unique internal payment method identifier
      */
     protected $_code = 'moneybookers_abstract';
-
     protected $_formBlockType = 'moneybookers/form';
     protected $_infoBlockType = 'moneybookers/info';
 
     /**
      * Availability options
      */
-    protected $_isGateway              = true;
-    protected $_canAuthorize           = true;
-    protected $_canCapture             = true;
-    protected $_canCapturePartial      = false;
-    protected $_canRefund              = false;
-    protected $_canVoid                = false;
-    protected $_canUseInternal         = false;
-    protected $_canUseCheckout         = true;
+    protected $_isGateway = true;
+    protected $_canAuthorize = true;
+    protected $_canCapture = true;
+    protected $_canCapturePartial = false;
+    protected $_canRefund = false;
+    protected $_canVoid = false;
+    protected $_canUseInternal = false;
+    protected $_canUseCheckout = true;
     protected $_canUseForMultishipping = false;
-
-    protected $_paymentMethod    = 'abstract';
-    protected $_defaultLocale    = 'en';
-    protected $_supportedLocales = array('cn', 'cz', 'da', 'en', 'es', 'fi', 'de', 'fr', 'gr', 'it', 'nl', 'ro', 'ru', 'pl', 'sv', 'tr');
-    protected $_hidelogin        = '1';
-
+    protected $_paymentMethod = 'abstract';
+    protected $_defaultLocale = 'en';
+    protected $_supportedLocales = array('cn', 'cz', 'da', 'en', 'es', 'fi', 'de', 'fr', 'gr', 'it', 'nl', 'ro', 'ru', 'pl',
+        'sv', 'tr');
+    protected $_hidelogin = '1';
     protected $_order;
 
     /**
@@ -79,8 +79,8 @@ abstract class Phoenix_Moneybookers_Model_Abstract extends Mage_Payment_Model_Me
     public function capture(Varien_Object $payment, $amount)
     {
         $payment->setStatus(self::STATUS_APPROVED)
-            ->setTransactionId($this->getTransactionId())
-            ->setIsTransactionClosed(0);
+                ->setTransactionId($this->getTransactionId())
+                ->setIsTransactionClosed(0);
 
         return $this;
     }
@@ -94,8 +94,8 @@ abstract class Phoenix_Moneybookers_Model_Abstract extends Mage_Payment_Model_Me
     public function cancel(Varien_Object $payment)
     {
         $payment->setStatus(self::STATUS_DECLINED)
-            ->setTransactionId($this->getTransactionId())
-            ->setIsTransactionClosed(1);
+                ->setTransactionId($this->getTransactionId())
+                ->setIsTransactionClosed(1);
 
         return $this;
     }
@@ -107,7 +107,7 @@ abstract class Phoenix_Moneybookers_Model_Abstract extends Mage_Payment_Model_Me
      */
     public function getUrl()
     {
-         return 'https://www.moneybookers.com/app/payment.pl';
+        return 'https://www.moneybookers.com/app/payment.pl';
     }
 
     /**
@@ -132,7 +132,7 @@ abstract class Phoenix_Moneybookers_Model_Abstract extends Mage_Payment_Model_Me
     public function getFormFields()
     {
         $order_id = $this->getOrder()->getRealOrderId();
-        $billing  = $this->getOrder()->getBillingAddress();
+        $billing = $this->getOrder()->getBillingAddress();
         if ($this->getOrder()->getBillingAddress()->getEmail()) {
             $email = $this->getOrder()->getBillingAddress()->getEmail();
         } else {
@@ -140,39 +140,40 @@ abstract class Phoenix_Moneybookers_Model_Abstract extends Mage_Payment_Model_Me
         }
 
         $params = array(
-            'merchant_fields'       => 'partner',
-            'partner'               => 'magento',
-            'pay_to_email'          => Mage::getStoreConfig(Phoenix_Moneybookers_Helper_Data::XML_PATH_EMAIL),
-            'transaction_id'        => $order_id,
-            'return_url'            => Mage::getUrl('moneybookers/processing/success', array('transaction_id' => $order_id)),
-            'cancel_url'            => Mage::getUrl('moneybookers/processing/cancel', array('transaction_id' => $order_id)),
-            'status_url'            => Mage::getUrl('moneybookers/processing/status'),
-            'language'              => $this->getLocale(),
-            'amount'                => round($this->getOrder()->getGrandTotal(), 2),
-            'currency'              => $this->getOrder()->getOrderCurrencyCode(),
+            'merchant_fields' => 'partner',
+            'partner' => 'magento',
+            'pay_to_email' => Mage::getStoreConfig(Phoenix_Moneybookers_Helper_Data::XML_PATH_EMAIL),
+            'transaction_id' => $order_id,
+            'return_url' => Mage::getUrl('moneybookers/processing/success', array('transaction_id' => $order_id)),
+            'cancel_url' => Mage::getUrl('moneybookers/processing/cancel', array('transaction_id' => $order_id)),
+            'status_url' => Mage::getUrl('moneybookers/processing/status'),
+            'language' => $this->getLocale(),
+            'amount' => round($this->getOrder()->getGrandTotal(), 2),
+            'currency' => $this->getOrder()->getOrderCurrencyCode(),
             'recipient_description' => $this->getOrder()->getStore()->getWebsite()->getName(),
-            'firstname'             => $billing->getFirstname(),
-            'lastname'              => $billing->getLastname(),
-            'address'               => $billing->getStreet(-1),
-            'postal_code'           => $billing->getPostcode(),
-            'city'                  => $billing->getCity(),
-            'country'               => $billing->getCountryModel()->getIso3Code(),
-            'pay_from_email'        => $email,
-            'phone_number'          => $billing->getTelephone(),
-            'detail1_description'   => Mage::helper('moneybookers')->__('Order ID'),
-            'detail1_text'          => $order_id,
-            'payment_methods'       => $this->_paymentMethod,
-            'hide_login'            => $this->_hidelogin,
-            'new_window_redirect'   => '1'
+            'firstname' => $billing->getFirstname(),
+            'lastname' => $billing->getLastname(),
+            'address' => $billing->getStreet(-1),
+            'postal_code' => $billing->getPostcode(),
+            'city' => $billing->getCity(),
+            'country' => $billing->getCountryModel()->getIso3Code(),
+            'pay_from_email' => $email,
+            'phone_number' => $billing->getTelephone(),
+            'detail1_description' => Mage::helper('moneybookers')->__('Order ID'),
+            'detail1_text' => $order_id,
+            'payment_methods' => $this->_paymentMethod,
+            'hide_login' => $this->_hidelogin,
+            'new_window_redirect' => '1'
         );
 
-            // add optional day of birth
+        // add optional day of birth
         if ($billing->getDob()) {
             $params['date_of_birth'] = Mage::app()->getLocale()->date($billing->getDob(), null, null, false)->toString('dmY');
         }
 
         return $params;
     }
+
     /**
      * Get initialized flag status
      * @return true
@@ -205,4 +206,5 @@ abstract class Phoenix_Moneybookers_Model_Abstract extends Mage_Payment_Model_Me
         $paymentAction = $this->getConfigData('payment_action');
         return empty($paymentAction) ? true : $paymentAction;
     }
+
 }

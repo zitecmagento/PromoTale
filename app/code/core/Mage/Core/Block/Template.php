@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Base html block
  *
@@ -34,9 +34,10 @@
  */
 class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 {
-    const XML_PATH_DEBUG_TEMPLATE_HINTS         = 'dev/debug/template_hints';
-    const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS  = 'dev/debug/template_hints_blocks';
-    const XML_PATH_TEMPLATE_ALLOW_SYMLINK       = 'dev/template/allow_symlink';
+
+    const XML_PATH_DEBUG_TEMPLATE_HINTS = 'dev/debug/template_hints';
+    const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS = 'dev/debug/template_hints_blocks';
+    const XML_PATH_TEMPLATE_ALLOW_SYMLINK = 'dev/template/allow_symlink';
 
     /**
      * View scripts directory
@@ -51,9 +52,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      * @var array
      */
     protected $_viewVars = array();
-
     protected $_baseUrl;
-
     protected $_jsUrl;
 
     /**
@@ -62,7 +61,6 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      * @var bool
      */
     protected $_allowSymlinks = null;
-
     protected static $_showTemplateHints;
     protected static $_showTemplateHintsBlocks;
 
@@ -121,7 +119,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function getTemplateFile()
     {
-        $params = array('_relative'=>true);
+        $params = array('_relative' => true);
         $area = $this->getArea();
         if ($area) {
             $params['_area'] = $area;
@@ -146,14 +144,13 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      * @param   mixed $value
      * @return  Mage_Core_Block_Template
      */
-    public function assign($key, $value=null)
+    public function assign($key, $value = null)
     {
         if (is_array($key)) {
-            foreach ($key as $k=>$v) {
+            foreach ($key as $k => $v) {
                 $this->assign($k, $v);
             }
-        }
-        else {
+        } else {
             $this->_viewVars[$key] = $value;
         }
         return $this;
@@ -192,10 +189,8 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     public function getShowTemplateHints()
     {
         if (is_null(self::$_showTemplateHints)) {
-            self::$_showTemplateHints = Mage::getStoreConfig(self::XML_PATH_DEBUG_TEMPLATE_HINTS)
-                && Mage::helper('core')->isDevAllowed();
-            self::$_showTemplateHintsBlocks = Mage::getStoreConfig(self::XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS)
-                && Mage::helper('core')->isDevAllowed();
+            self::$_showTemplateHints = Mage::getStoreConfig(self::XML_PATH_DEBUG_TEMPLATE_HINTS) && Mage::helper('core')->isDevAllowed();
+            self::$_showTemplateHintsBlocks = Mage::getStoreConfig(self::XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS) && Mage::helper('core')->isDevAllowed();
         }
         return self::$_showTemplateHints;
     }
@@ -212,7 +207,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 
         // EXTR_SKIP protects from overriding
         // already defined variables
-        extract ($this->_viewVars, EXTR_SKIP);
+        extract($this->_viewVars, EXTR_SKIP);
         $do = $this->getDirectOutput();
 
         if (!$do) {
@@ -235,15 +230,17 @@ HTML;
             }
         }
 
-        try {
+        try
+        {
             $includeFilePath = realpath($this->_viewDir . DS . $fileName);
             if (strpos($includeFilePath, realpath($this->_viewDir)) === 0 || $this->_getAllowSymlinks()) {
                 include $includeFilePath;
             } else {
-                Mage::log('Not valid template file:'.$fileName, Zend_Log::CRIT, null, null, true);
+                Mage::log('Not valid template file:' . $fileName, Zend_Log::CRIT, null, null, true);
             }
-
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             ob_get_clean();
             throw $e;
         }
@@ -308,12 +305,12 @@ HTML;
      * @param string $fileName
      * @return string
      */
-    public function getJsUrl($fileName='')
+    public function getJsUrl($fileName = '')
     {
         if (!$this->_jsUrl) {
             $this->_jsUrl = Mage::getBaseUrl('js');
         }
-        return $this->_jsUrl.$fileName;
+        return $this->_jsUrl . $fileName;
     }
 
     /**
@@ -325,7 +322,7 @@ HTML;
      */
     public function getObjectData(Varien_Object $object, $key)
     {
-        return $object->getDataUsingMethod((string)$key);
+        return $object->getDataUsingMethod((string) $key);
     }
 
     /**
@@ -355,4 +352,5 @@ HTML;
         }
         return $this->_allowSymlinks;
     }
+
 }

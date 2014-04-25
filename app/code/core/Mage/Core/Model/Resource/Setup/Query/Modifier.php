@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_Core_Model_Resource_Setup_Query_Modifier
 {
+
     /**
      * MySQL adapter instance
      *
@@ -346,4 +348,5 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
 
         return $this;
     }
+
 }

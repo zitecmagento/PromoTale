@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,22 +34,23 @@
  */
 class Magento_Db_Sql_Trigger
 {
-    const NAME      = 'name';
-    const TARGET    = 'target';
-    const TIME      = 'time';
-    const EVENT     = 'event';
-    const SCOPE     = 'scope';
-    const BODY      = 'body';
+
+    const NAME = 'name';
+    const TARGET = 'target';
+    const TIME = 'time';
+    const EVENT = 'event';
+    const SCOPE = 'scope';
+    const BODY = 'body';
 
     /**
      * SQL constants
      */
-    const SQL_TIME_BEFORE   = 'BEFORE';
-    const SQL_TIME_AFTER    = 'AFTER';
-    const SQL_EVENT_INSERT  = 'INSERT';
-    const SQL_EVENT_UPDATE  = 'UPDATE';
-    const SQL_EVENT_DELETE  = 'DELETE';
-    const SQL_FOR_EACH_ROW  = 'FOR EACH ROW';
+    const SQL_TIME_BEFORE = 'BEFORE';
+    const SQL_TIME_AFTER = 'AFTER';
+    const SQL_EVENT_INSERT = 'INSERT';
+    const SQL_EVENT_UPDATE = 'UPDATE';
+    const SQL_EVENT_DELETE = 'DELETE';
+    const SQL_FOR_EACH_ROW = 'FOR EACH ROW';
 
     /**
      * Trigger parts
@@ -85,11 +87,11 @@ class Magento_Db_Sql_Trigger
      * @var array
      */
     protected static $_partsInit = array(
-        self::TARGET    => null,
-        self::TIME      => self::SQL_TIME_AFTER,
-        self::EVENT     => null,
-        self::SCOPE     => self::SQL_FOR_EACH_ROW,
-        self::BODY      => array()
+        self::TARGET => null,
+        self::TIME => self::SQL_TIME_AFTER,
+        self::EVENT => null,
+        self::SCOPE => self::SQL_FOR_EACH_ROW,
+        self::BODY => array()
     );
 
     /**
@@ -168,7 +170,6 @@ class Magento_Db_Sql_Trigger
         return $this;
     }
 
-
     /**
      * Set body part to trigger
      *
@@ -193,8 +194,8 @@ class Magento_Db_Sql_Trigger
     protected function _generateTriggerName()
     {
         return strtolower('trg_' . $this->_parts[self::TARGET]
-            . '_' . $this->_parts[self::TIME]
-            . '_' . $this->_parts[self::EVENT]);
+                . '_' . $this->_parts[self::TIME]
+                . '_' . $this->_parts[self::EVENT]);
     }
 
     /**
@@ -302,12 +303,12 @@ class Magento_Db_Sql_Trigger
     {
         $this->_validateIsComplete();
         return "CREATE TRIGGER "
-            . $this->getName() . "\n"
-            . $this->_parts[self::TIME] . " " . $this->_parts[self::EVENT] . "\n"
-            . "ON " . $this->_parts[self::TARGET] . " " . $this->_parts[self::SCOPE] . "\n"
-            . "BEGIN\n"
-            . implode("\n", $this->_parts[self::BODY]) . "\n"
-            . "END;\n";
+                . $this->getName() . "\n"
+                . $this->_parts[self::TIME] . " " . $this->_parts[self::EVENT] . "\n"
+                . "ON " . $this->_parts[self::TARGET] . " " . $this->_parts[self::SCOPE] . "\n"
+                . "BEGIN\n"
+                . implode("\n", $this->_parts[self::BODY]) . "\n"
+                . "END;\n";
     }
 
     /**
@@ -350,4 +351,5 @@ class Magento_Db_Sql_Trigger
         $this->_parts = self::$_partsInit;
         return $this;
     }
+
 }

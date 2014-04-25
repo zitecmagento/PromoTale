@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tag resourse model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table and primary index
      *
@@ -51,8 +52,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = array(array(
-            'field' => 'name',
-            'title' => Mage::helper('tag')->__('Tag')
+                'field' => 'name',
+                'title' => Mage::helper('tag')->__('Tag')
         ));
         return $this;
     }
@@ -66,7 +67,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function loadByName($model, $name)
     {
-        if ( $name ) {
+        if ($name) {
             $read = $this->_getReadAdapter();
             $select = $read->select();
             if (Mage::helper('core/string')->strlen($name) > 255) {
@@ -74,7 +75,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
             }
 
             $select->from($this->getMainTable())
-                ->where('name = :name');
+                    ->where('name = :name');
             $data = $read->fetchRow($select, array('name' => $name));
 
             $model->setData(( is_array($data) ) ? $data : array());
@@ -94,8 +95,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
         if (!$object->getId() && $object->getStatus() == $object->getApprovedStatus()) {
             $searchTag = new Varien_Object();
             $this->loadByName($searchTag, $object->getName());
-            if ($searchTag->getData($this->getIdFieldName())
-                    && $searchTag->getStatus() == $object->getPendingStatus()) {
+            if ($searchTag->getData($this->getIdFieldName()) && $searchTag->getStatus() == $object->getPendingStatus()) {
                 $object->setId($searchTag->getData($this->getIdFieldName()));
             }
         }
@@ -123,9 +123,9 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
 
         $writeAdapter = $this->_getWriteAdapter();
         $writeAdapter->insertOnDuplicate($this->getTable('tag/properties'), array(
-            'tag_id'            => $tagId,
-            'store_id'          => $object->getStore(),
-            'base_popularity'   => (!$object->getBasePopularity()) ? 0 : $object->getBasePopularity()
+            'tag_id' => $tagId,
+            'store_id' => $object->getStore(),
+            'base_popularity' => (!$object->getBasePopularity()) ? 0 : $object->getBasePopularity()
         ));
 
         return parent::_afterSave($object);
@@ -143,12 +143,11 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     {
         $read = $this->_getReadAdapter();
         $selectSummary = $read->select()
-            ->from(
-                array('main' => $this->getTable('tag/summary')),
-                array('store_id', 'base_popularity')
-            )
-            ->where('main.tag_id = :tag_id')
-            ->where('main.store_id != 0');
+                ->from(
+                        array('main' => $this->getTable('tag/summary')), array('store_id', 'base_popularity')
+                )
+                ->where('main.tag_id = :tag_id')
+                ->where('main.store_id != 0');
 
         return $read->fetchAssoc($selectSummary, array('tag_id' => $tagId));
     }
@@ -165,46 +164,36 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     {
         $readAdapter = $this->_getReadAdapter();
         $selectLocal = $readAdapter->select()
-            ->from(
-                array('main'  => $this->getTable('tag/relation')),
-                array(
+                ->from(
+                        array('main' => $this->getTable('tag/relation')), array(
                     'customers' => 'COUNT(DISTINCT main.customer_id)',
-                    'products'  => 'COUNT(DISTINCT main.product_id)',
+                    'products' => 'COUNT(DISTINCT main.product_id)',
                     'store_id',
-                    'uses'      => 'COUNT(main.tag_relation_id)'
+                    'uses' => 'COUNT(main.tag_relation_id)'
+                        )
                 )
-            )
-            ->join(array('store' => $this->getTable('core/store')),
-                'store.store_id = main.store_id AND store.store_id > 0',
-                array()
-            )
-            ->join(array('product_website' => $this->getTable('catalog/product_website')),
-                'product_website.website_id = store.website_id AND product_website.product_id = main.product_id',
-                array()
-            )
-            ->where('main.tag_id = :tag_id')
-            ->where('main.active = 1')
-            ->group('main.store_id');
+                ->join(array('store' => $this->getTable('core/store')), 'store.store_id = main.store_id AND store.store_id > 0', array()
+                )
+                ->join(array('product_website' => $this->getTable('catalog/product_website')), 'product_website.website_id = store.website_id AND product_website.product_id = main.product_id', array()
+                )
+                ->where('main.tag_id = :tag_id')
+                ->where('main.active = 1')
+                ->group('main.store_id');
 
         $selectLocalResult = $readAdapter->fetchAll($selectLocal, array('tag_id' => $tagId));
 
         $selectHistorical = $readAdapter->select()
-            ->from(
-                array('main' => $this->getTable('tag/relation')),
-                array('historical_uses' => 'COUNT(main.tag_relation_id)',
-                'store_id')
-            )
-            ->join(array('store' => $this->getTable('core/store')),
-                'store.store_id = main.store_id AND store.store_id > 0',
-                array()
-            )
-            ->join(array('product_website' => $this->getTable('catalog/product_website')),
-                'product_website.website_id = store.website_id AND product_website.product_id = main.product_id',
-                array()
-            )
-            ->group('main.store_id')
-            ->where('main.tag_id = :tag_id')
-            ->where('main.active = 1');
+                ->from(
+                        array('main' => $this->getTable('tag/relation')), array('historical_uses' => 'COUNT(main.tag_relation_id)',
+                    'store_id')
+                )
+                ->join(array('store' => $this->getTable('core/store')), 'store.store_id = main.store_id AND store.store_id > 0', array()
+                )
+                ->join(array('product_website' => $this->getTable('catalog/product_website')), 'product_website.website_id = store.website_id AND product_website.product_id = main.product_id', array()
+                )
+                ->group('main.store_id')
+                ->where('main.tag_id = :tag_id')
+                ->where('main.active = 1');
 
         $selectHistoricalResult = $readAdapter->fetchAll($selectHistorical, array('tag_id' => $tagId));
 
@@ -233,25 +222,20 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
         $readAdapter = $this->_getReadAdapter();
         // customers and products stats
         $selectGlobal = $readAdapter->select()
-            ->from(
-                array('main' => $this->getTable('tag/relation')),
-                array(
+                ->from(
+                        array('main' => $this->getTable('tag/relation')), array(
                     'customers' => 'COUNT(DISTINCT main.customer_id)',
-                    'products'  => 'COUNT(DISTINCT main.product_id)',
-                    'store_id'  => new Zend_Db_Expr(0),
-                    'uses'      => 'COUNT(main.tag_relation_id)'
+                    'products' => 'COUNT(DISTINCT main.product_id)',
+                    'store_id' => new Zend_Db_Expr(0),
+                    'uses' => 'COUNT(main.tag_relation_id)'
+                        )
                 )
-            )
-            ->join(array('store' => $this->getTable('core/store')),
-                'store.store_id=main.store_id AND store.store_id>0',
-                array()
-            )
-            ->join(array('product_website' => $this->getTable('catalog/product_website')),
-                'product_website.website_id = store.website_id AND product_website.product_id = main.product_id',
-                array()
-            )
-            ->where('main.tag_id = :tag_id')
-            ->where('main.active = 1');
+                ->join(array('store' => $this->getTable('core/store')), 'store.store_id=main.store_id AND store.store_id>0', array()
+                )
+                ->join(array('product_website' => $this->getTable('catalog/product_website')), 'product_website.website_id = store.website_id AND product_website.product_id = main.product_id', array()
+                )
+                ->where('main.tag_id = :tag_id')
+                ->where('main.active = 1');
         $result = $readAdapter->fetchRow($selectGlobal, array('tag_id' => $tagId));
         if (!$result) {
             return array();
@@ -259,20 +243,15 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
 
         // historical uses stats
         $selectHistoricalGlobal = $readAdapter->select()
-            ->from(
-                array('main' => $this->getTable('tag/relation')),
-                array('historical_uses' => 'COUNT(main.tag_relation_id)')
-            )
-            ->join(array('store' => $this->getTable('core/store')),
-                'store.store_id = main.store_id AND store.store_id > 0',
-                array()
-            )
-            ->join(array('product_website' => $this->getTable('catalog/product_website')),
-                'product_website.website_id = store.website_id AND product_website.product_id = main.product_id',
-                array()
-            )
-            ->where('main.tag_id = :tag_id')
-            ->where('main.active = 1');
+                ->from(
+                        array('main' => $this->getTable('tag/relation')), array('historical_uses' => 'COUNT(main.tag_relation_id)')
+                )
+                ->join(array('store' => $this->getTable('core/store')), 'store.store_id = main.store_id AND store.store_id > 0', array()
+                )
+                ->join(array('product_website' => $this->getTable('catalog/product_website')), 'product_website.website_id = store.website_id AND product_website.product_id = main.product_id', array()
+                )
+                ->where('main.tag_id = :tag_id')
+                ->where('main.active = 1');
         $result['historical_uses'] = (int) $readAdapter->fetchOne($selectHistoricalGlobal, array('tag_id' => $tagId));
 
         return $result;
@@ -289,8 +268,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function aggregate($object)
     {
-        $tagId   = (int)$object->getId();
-        $storeId = (int)$object->getStore();
+        $tagId = (int) $object->getId();
+        $storeId = (int) $object->getStore();
 
         // create final summary from existing data and add specified base popularity
         $finalSummary = $this->_getExistingBasePopularity($tagId);
@@ -308,7 +287,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
 
         // override final summary with aggregated data
         foreach ($summaries as $row) {
-            $storeId = (int)$row['store_id'];
+            $storeId = (int) $row['store_id'];
             foreach ($row as $key => $value) {
                 $finalSummary[$storeId][$key] = $value;
             }
@@ -328,7 +307,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
         // remove old and insert new data
         $write = $this->_getWriteAdapter();
         $write->delete(
-            $this->getTable('tag/summary'), array('tag_id = ?' => $tagId)
+                $this->getTable('tag/summary'), array('tag_id = ?' => $tagId)
         );
         $write->insertMultiple($this->getTable('tag/summary'), $finalSummary);
 
@@ -349,9 +328,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
         }
 
         return $writeAdapter->update(
-            $this->getTable('tag/summary'),
-            array('products' => new Zend_Db_Expr('products - 1')),
-            array('tag_id IN (?)' => $tagsId)
+                        $this->getTable('tag/summary'), array('products' => new Zend_Db_Expr('products - 1')), array('tag_id IN (?)' => $tagsId)
         );
     }
 
@@ -367,22 +344,20 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     {
         $read = $this->_getReadAdapter();
         $select = $read->select()
-            ->from(array('relation' => $this->getTable('tag/relation')), array())
-            ->joinLeft(
-                array('summary' => $this->getTable('tag/summary')),
-                'relation.tag_id = summary.tag_id AND relation.store_id = summary.store_id',
-                array(
+                ->from(array('relation' => $this->getTable('tag/relation')), array())
+                ->joinLeft(
+                        array('summary' => $this->getTable('tag/summary')), 'relation.tag_id = summary.tag_id AND relation.store_id = summary.store_id', array(
                     'customers',
                     'products',
                     'popularity'
+                        )
                 )
-            )
-            ->where('relation.tag_id = :tag_id')
-            ->where('relation.store_id = :store_id')
-            ->limit(1);
+                ->where('relation.tag_id = :tag_id')
+                ->where('relation.store_id = :store_id')
+                ->limit(1);
         $bind = array(
-            'tag_id' => (int)$object->getId(),
-            'store_id' => (int)$object->getStoreId()
+            'tag_id' => (int) $object->getId(),
+            'store_id' => (int) $object->getStoreId()
         );
         $row = $read->fetchRow($select, $bind);
         if ($row) {
@@ -405,9 +380,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
         $select = parent::_getLoadSelect($field, $value, $object);
         if ($object->getAddBasePopularity() && $object->hasStoreId()) {
             $select->joinLeft(
-                array('properties' => $this->getTable('tag/properties')),
-                "properties.tag_id = {$this->getMainTable()}.tag_id AND properties.store_id = {$object->getStoreId()}",
-                'base_popularity'
+                    array('properties' => $this->getTable('tag/properties')), "properties.tag_id = {$this->getMainTable()}.tag_id AND properties.store_id = {$object->getStoreId()}", 'base_popularity'
             );
         }
         return $select;
@@ -423,12 +396,13 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     {
         $read = $this->_getReadAdapter();
         $select = $read->select()
-            ->from($this->getTable('tag/summary'), array('store_id'))
-            ->where('tag_id = :tag_id');
+                ->from($this->getTable('tag/summary'), array('store_id'))
+                ->where('tag_id = :tag_id');
         $storeIds = $read->fetchCol($select, array('tag_id' => $object->getId()));
 
         $object->setVisibleInStoreIds($storeIds);
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Abstract class for form, coumn and fieldset
@@ -135,13 +135,12 @@ class Varien_Data_Form_Abstract extends Varien_Object
      * @param   mixed  $after
      * @return Varien_Data_Form_Element_Abstract
      */
-    public function addField($elementId, $type, $config, $after=false)
+    public function addField($elementId, $type, $config, $after = false)
     {
         if (isset($this->_types[$type])) {
             $className = $this->_types[$type];
-        }
-        else {
-            $className = 'Varien_Data_Form_Element_'.ucfirst(strtolower($type));
+        } else {
+            $className = 'Varien_Data_Form_Element_' . ucfirst(strtolower($type));
         }
         $element = new $className($config);
         $element->setId($elementId);
@@ -189,7 +188,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
     {
         $element = new Varien_Data_Form_Element_Column($config);
         $element->setForm($this)
-            ->setId($elementId);
+                ->setId($elementId);
         $this->addElement($element);
         return $element;
     }
@@ -203,8 +202,8 @@ class Varien_Data_Form_Abstract extends Varien_Object
     public function __toArray(array $arrAttributes = array())
     {
         $res = array();
-        $res['config']  = $this->getData();
-        $res['formElements']= array();
+        $res['config'] = $this->getData();
+        $res['formElements'] = array();
         foreach ($this->getElements() as $element) {
             $res['formElements'][] = $element->toArray();
         }

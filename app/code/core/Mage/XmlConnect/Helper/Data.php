@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Thumbnail image width
      */
@@ -142,7 +144,7 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
                 break;
             default:
                 Mage::throwException(
-                    Mage::helper('xmlconnect')->__('Device doesn\'t recognized: "%s". Unable to load preview model.', $deviceType)
+                        Mage::helper('xmlconnect')->__('Device doesn\'t recognized: "%s". Unable to load preview model.', $deviceType)
                 );
                 break;
         }
@@ -164,11 +166,11 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
             case self::DEVICE_TYPE_IPHONE:
             case self::DEVICE_TYPE_IPAD:
             case self::DEVICE_TYPE_ANDROID:
-                $helper =  Mage::helper('xmlconnect/' . $deviceType);
+                $helper = Mage::helper('xmlconnect/' . $deviceType);
                 break;
             default:
                 Mage::throwException(
-                    Mage::helper('xmlconnect')->__('Device doesn\'t recognized: "%s". Unable to load a helper.', $deviceType)
+                        Mage::helper('xmlconnect')->__('Device doesn\'t recognized: "%s". Unable to load a helper.', $deviceType)
                 );
                 break;
         }
@@ -284,7 +286,7 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
                 break;
             default:
                 Mage::throwException(
-                    Mage::helper('xmlconnect')->__('Country options don\'t recognized for "%s".', $deviceType)
+                        Mage::helper('xmlconnect')->__('Country options don\'t recognized for "%s".', $deviceType)
                 );
                 break;
         }
@@ -294,8 +296,8 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
         } else {
             if (isset($deviceCountries)) {
                 $options = Mage::getModel('directory/country')->getResourceCollection()
-                    ->addFieldToFilter('country_id', array('in' => $deviceCountries))->loadByStore()
-                    ->toOptionArray(false);
+                        ->addFieldToFilter('country_id', array('in' => $deviceCountries))->loadByStore()
+                        ->toOptionArray(false);
             }
             if (Mage::app()->useCache('config')) {
                 Mage::app()->saveCache(serialize($options), $cacheKey, array('config'));
@@ -317,10 +319,10 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
      */
     static public function getSupportedDevices()
     {
-        $devices = array (
-            self::DEVICE_TYPE_IPAD      => Mage::helper('xmlconnect')->__('iPad'),
-            self::DEVICE_TYPE_IPHONE    => Mage::helper('xmlconnect')->__('iPhone'),
-            self::DEVICE_TYPE_ANDROID   => Mage::helper('xmlconnect')->__('Android')
+        $devices = array(
+            self::DEVICE_TYPE_IPAD => Mage::helper('xmlconnect')->__('iPad'),
+            self::DEVICE_TYPE_IPHONE => Mage::helper('xmlconnect')->__('iPhone'),
+            self::DEVICE_TYPE_ANDROID => Mage::helper('xmlconnect')->__('Android')
         );
 
         return $devices;
@@ -333,7 +335,7 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getStatusOptions()
     {
-        $options = array (
+        $options = array(
             Mage_XmlConnect_Model_Application::APP_STATUS_SUCCESS => Mage::helper('xmlconnect')->__('Submitted'),
             Mage_XmlConnect_Model_Application::APP_STATUS_INACTIVE => Mage::helper('xmlconnect')->__('Not Submitted'),
         );
@@ -373,8 +375,8 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getDefaultCacheLifetime()
     {
-        return (int)Mage::getStoreConfig(
-            Mage_XmlConnect_Model_Application::XML_PATH_DEFAULT_CACHE_LIFETIME
+        return (int) Mage::getStoreConfig(
+                        Mage_XmlConnect_Model_Application::XML_PATH_DEFAULT_CACHE_LIFETIME
         );
     }
 
@@ -543,9 +545,9 @@ EOT;
      */
     static public function getSupportedMessageTypes()
     {
-        $messages = array (
-            Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_PUSH      => Mage::helper('xmlconnect')->__('Push message'),
-            Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL   => Mage::helper('xmlconnect')->__('AirMail message'),
+        $messages = array(
+            Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_PUSH => Mage::helper('xmlconnect')->__('Push message'),
+            Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL => Mage::helper('xmlconnect')->__('AirMail message'),
         );
 
         return $messages;
@@ -648,18 +650,19 @@ EOT;
             return;
         }
 
-        try {
+        try
+        {
             /** @var $app Mage_XmlConnect_Model_Application */
             $templateModel = Mage::getModel('xmlconnect/template')->load($queue->getTemplateId());
             if (!$templateModel->getId()) {
                 Mage::throwException(
-                    Mage::helper('xmlconnect')->__('Can\'t load template with id "%s"', $templateModel->getId())
+                        Mage::helper('xmlconnect')->__('Can\'t load template with id "%s"', $templateModel->getId())
                 );
             }
             $app = Mage::getModel('xmlconnect/application')->load($templateModel->getApplicationId());
             if (!$app->getId()) {
                 Mage::throwException(
-                    Mage::helper('xmlconnect')->__('Can\'t load application with id "%s"', $templateModel->getApplicationId())
+                        Mage::helper('xmlconnect')->__('Can\'t load application with id "%s"', $templateModel->getApplicationId())
                 );
             }
 
@@ -696,7 +699,7 @@ EOT;
 
             // Execute the request.
             $result = curl_exec($curlHandler);
-            $succeeded  = curl_errno($curlHandler) == 0;
+            $succeeded = curl_errno($curlHandler) == 0;
             $responseCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
             // close cURL resource, and free up system resources
             curl_close($curlHandler);
@@ -710,7 +713,9 @@ EOT;
             $queue->setIsSent(true);
             $queue->save();
             return;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             throw $e;
         }
@@ -832,7 +837,7 @@ EOT;
             if (!isset($target[$next])) {
                 $target[$next] = array();
             }
-            $target =& $target[$next];
+            $target = & $target[$next];
         }
         $target = $fieldValue;
         return null;
@@ -851,7 +856,6 @@ EOT;
         $path = str_replace($baseUrl, '', $icon);
         $filePath = Mage::getBaseDir('media') . DS . str_replace('/', DS, $path);
         return $filePath;
-
     }
 
     /**
@@ -863,8 +867,7 @@ EOT;
      */
     public function validateConfFieldNotEmpty($field, $native)
     {
-        if (($native === false) || (!isset($native['body']) || !is_array($native['body'])
-            || !isset($native['body'][$field]) || !Zend_Validate::is($native['body'][$field], 'NotEmpty'))
+        if (($native === false) || (!isset($native['body']) || !is_array($native['body']) || !isset($native['body'][$field]) || !Zend_Validate::is($native['body'][$field], 'NotEmpty'))
         ) {
             return false;
         }
@@ -976,4 +979,5 @@ EOT;
         }
         return false;
     }
+
 }

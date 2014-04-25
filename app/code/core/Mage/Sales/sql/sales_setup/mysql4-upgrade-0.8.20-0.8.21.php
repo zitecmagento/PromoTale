@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 
 /* @var $installer Mage_Sales_Model_Entity_Setup */
@@ -34,9 +34,9 @@ $installer->getConnection()->addColumn($this->getTable('sales_order'), 'base_sub
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'base_tax_invoiced', 'decimal(12,4) NULL');
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'base_shipping_invoiced', 'decimal(12,4) NULL');
 
-$installer->addAttribute('order', 'subtotal_invoiced', array('type'=>'static'));
-$installer->addAttribute('order', 'tax_invoiced', array('type'=>'static'));
-$installer->addAttribute('order', 'shipping_invoiced', array('type'=>'static'));
-$installer->addAttribute('order', 'base_subtotal_invoiced', array('type'=>'static'));
-$installer->addAttribute('order', 'base_tax_invoiced', array('type'=>'static'));
-$installer->addAttribute('order', 'base_shipping_invoiced', array('type'=>'static'));
+$installer->addAttribute('order', 'subtotal_invoiced', array('type' => 'static'));
+$installer->addAttribute('order', 'tax_invoiced', array('type' => 'static'));
+$installer->addAttribute('order', 'shipping_invoiced', array('type' => 'static'));
+$installer->addAttribute('order', 'base_subtotal_invoiced', array('type' => 'static'));
+$installer->addAttribute('order', 'base_tax_invoiced', array('type' => 'static'));
+$installer->addAttribute('order', 'base_shipping_invoiced', array('type' => 'static'));

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Identcode.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Barcode_Object_Code25interleaved
  */
@@ -57,9 +57,7 @@ class Zend_Barcode_Object_Identcode extends Zend_Barcode_Object_Code25interleave
      */
     public function getTextToDisplay()
     {
-        return preg_replace('/([0-9]{2})([0-9]{3})([0-9]{3})([0-9]{3})([0-9])/',
-                            '$1.$2 $3.$4 $5',
-                            $this->getText());
+        return preg_replace('/([0-9]{2})([0-9]{3})([0-9]{3})([0-9]{3})([0-9])/', '$1.$2 $3.$4 $5', $this->getText());
     }
 
     /**
@@ -92,4 +90,5 @@ class Zend_Barcode_Object_Identcode extends Zend_Barcode_Object_Code25interleave
 
         return $checksum;
     }
+
 }

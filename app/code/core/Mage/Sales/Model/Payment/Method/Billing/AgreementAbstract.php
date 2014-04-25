@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,12 +32,13 @@
  */
 abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends Mage_Payment_Model_Method_Abstract
 {
+
     /**
      * Transport billing agreement id
      *
      */
     const TRANSPORT_BILLING_AGREEMENT_ID = 'ba_agreement_id';
-    const PAYMENT_INFO_REFERENCE_ID      = 'ba_reference_id';
+    const PAYMENT_INFO_REFERENCE_ID = 'ba_reference_id';
 
     protected $_infoBlockType = 'sales/payment_info_billing_agreement';
     protected $_formBlockType = 'sales/payment_form_billing_agreement';
@@ -59,7 +61,7 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
         if (is_null($this->_isAvailable)) {
             if (is_object($quote) && $quote->getCustomer()) {
                 $availableBA = Mage::getModel('sales/billing_agreement')->getAvailableCustomerBillingAgreements(
-                    $quote->getCustomer()->getId()
+                        $quote->getCustomer()->getId()
                 );
                 $isAvailableBA = count($availableBA) > 0;
                 $this->_canUseCheckout = $this->_canUseInternal = $isAvailableBA;
@@ -93,7 +95,7 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
             $ba = Mage::getModel('sales/billing_agreement')->load($id);
             if ($ba->getId() && $ba->getCustomerId() == $info->getQuote()->getCustomer()->getId()) {
                 $info->setAdditionalInformation($key, $id)
-                    ->setAdditionalInformation(self::PAYMENT_INFO_REFERENCE_ID, $ba->getReferenceId());
+                        ->setAdditionalInformation(self::PAYMENT_INFO_REFERENCE_ID, $ba->getReferenceId());
             }
         }
         return $result;

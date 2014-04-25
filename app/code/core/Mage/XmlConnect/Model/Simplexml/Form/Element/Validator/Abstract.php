@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Abstract
-    extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
+class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Abstract extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
 {
+
     /**
      * Array of the messages for default validator types
      *
@@ -98,7 +99,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Abstract
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
      * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
      */
-    protected  function _addRequiredAttributes(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
+    protected function _addRequiredAttributes(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
         $this->_addId($xmlObj);
 
@@ -107,7 +108,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Abstract
 
             if ($data) {
                 $xmlObj->addAttribute($attribute, $xmlObj->xmlAttribute($data));
-            } elseif(null !== $defValue){
+            } elseif (null !== $defValue) {
                 $xmlObj->addAttribute($attribute, $xmlObj->xmlAttribute($defValue));
             } else {
                 Mage::throwException(Mage::helper('xmlconnect')->__('%s attribute is required.', $attribute));
@@ -132,7 +133,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Abstract
             $message = $this->_validatorTypeMessages[$this->getType()];
         } else {
             Mage::throwException(
-                Mage::helper('xmlconnect')->__('"message" attribute is required for "%s" validator rule.', $this->getType())
+                    Mage::helper('xmlconnect')->__('"message" attribute is required for "%s" validator rule.', $this->getType())
             );
         }
         $xmlObj->addAttribute('message', $xmlObj->xmlAttribute($message));
@@ -180,4 +181,5 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Abstract
         $this->_validatorTypeMessages = array_merge($this->_validatorTypeMessages, $validatorTypeMessages);
         return $this;
     }
+
 }

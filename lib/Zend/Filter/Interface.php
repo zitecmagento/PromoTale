@@ -20,7 +20,6 @@
  * @version    $Id: Interface.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Filter
@@ -29,6 +28,7 @@
  */
 interface Zend_Filter_Interface
 {
+
     /**
      * Returns the result of filtering $value
      *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Downloadable links purchased resource collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Downloadable_Model_Resource_Link_Purchased_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Init resource model
      *
@@ -51,8 +52,8 @@ class Mage_Downloadable_Model_Resource_Link_Purchased_Collection extends Mage_Co
     public function addPurchasedItemsToResult()
     {
         $this->getSelect()
-            ->join(array('pi'=>$this->getTable('downloadable/link_purchased_item')),
-                'pi.purchased_id=main_table.purchased_id');
+                ->join(array('pi' => $this->getTable('downloadable/link_purchased_item')), 'pi.purchased_id=main_table.purchased_id');
         return $this;
     }
+
 }

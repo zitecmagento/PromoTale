@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,8 +32,7 @@
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Checkout_Model_Cart_Coupon_Api_V2 extends Mage_Checkout_Model_Cart_Coupon_Api
 {
-
+    
 }

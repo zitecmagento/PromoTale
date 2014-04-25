@@ -899,7 +899,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><set_return_path>2</set_return_path></depends>
+                            <depends>
+                                <set_return_path>2</set_return_path>
+                            </depends>
                         </return_path_email>
                     </fields>
                 </smtp>
@@ -929,7 +931,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><media_storage>1</media_storage></depends>
+                            <depends>
+                                <media_storage>1</media_storage>
+                            </depends>
                         </media_database>
                         <synchronize translate="label comment">
                             <frontend_type>button</frontend_type>
@@ -1043,7 +1047,9 @@
                             <label>Custom Admin URL</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_admin_custom</backend_model>
-                            <depends><use_custom>1</use_custom></depends>
+                            <depends>
+                                <use_custom>1</use_custom>
+                            </depends>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -1065,7 +1071,9 @@
                             <frontend_type>text</frontend_type>
                             <validate>required-entry validate-alphanum</validate>
                             <backend_model>adminhtml/system_config_backend_admin_custompath</backend_model>
-                            <depends><use_custom_path>1</use_custom_path></depends>
+                            <depends>
+                                <use_custom_path>1</use_custom_path>
+                            </depends>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>

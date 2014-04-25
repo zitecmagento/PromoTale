@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Qty extends Mage_Core_Block_Template
 {
+
     /**
      * Constructor for our block with options
      *
@@ -72,4 +74,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Qty extends Mage_C
         }
         return $qty;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Mysqli.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Db_Statement
  */
 #require_once 'Zend/Db/Statement.php';
-
 
 /**
  * Extends for Mysqli
@@ -199,9 +197,8 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
                 $stmtParams[$k] = &$value;
             }
             call_user_func_array(
-                array($this->_stmt, 'bind_param'),
-                $stmtParams
-                );
+                    array($this->_stmt, 'bind_param'), $stmtParams
+            );
         }
 
         // execute the statement
@@ -250,13 +247,11 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
             $this->_stmt->store_result();
             // bind to the result variables
             call_user_func_array(
-                array($this->_stmt, 'bind_result'),
-                $this->_values
+                    array($this->_stmt, 'bind_result'), $this->_values
             );
         }
         return $retval;
     }
-
 
     /**
      * Fetches a row from the result set.
@@ -280,7 +275,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
                 $this->_stmt->reset();
                 return false;
             default:
-                // fallthrough
+            // fallthrough
         }
 
         // make sure we have a fetch mode
@@ -340,7 +335,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
          * @see Zend_Db_Statement_Mysqli_Exception
          */
         #require_once 'Zend/Db/Statement/Mysqli/Exception.php';
-        throw new Zend_Db_Statement_Mysqli_Exception(__FUNCTION__.'() is not implemented');
+        throw new Zend_Db_Statement_Mysqli_Exception(__FUNCTION__ . '() is not implemented');
     }
 
     /**

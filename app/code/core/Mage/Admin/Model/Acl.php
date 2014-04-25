@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Acl model
  * 
@@ -34,36 +34,37 @@
  */
 class Mage_Admin_Model_Acl extends Zend_Acl
 {
+
     /**
      * All the group roles are prepended by G
      *
      */
     const ROLE_TYPE_GROUP = 'G';
-    
+
     /**
      * All the user roles are prepended by U
      *
      */
     const ROLE_TYPE_USER = 'U';
-    
+
     /**
      * Permission level to deny access
      *
      */
     const RULE_PERM_DENY = 0;
-    
+
     /**
      * Permission level to inheric access from parent role
      *
      */
     const RULE_PERM_INHERIT = 1;
-    
+
     /**
      * Permission level to allow access
      *
      */
     const RULE_PERM_ALLOW = 2;
-    
+
     /**
      * Get role registry object or create one
      *
@@ -76,7 +77,7 @@ class Mage_Admin_Model_Acl extends Zend_Acl
         }
         return $this->_roleRegistry;
     }
-    
+
     /**
      * Add parent to role object
      *
@@ -89,4 +90,5 @@ class Mage_Admin_Model_Acl extends Zend_Acl
         $this->_getRoleRegistry()->addParent($role, $parent);
         return $this;
     }
+
 }

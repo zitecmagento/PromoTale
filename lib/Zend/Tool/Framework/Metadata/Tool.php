@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Tool.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Framework_Metadata_Basic
  */
@@ -39,22 +39,23 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
      */
     protected $_type = 'Tool';
 
-    /**#@+
+    /*     * #@+
      * @var string
      */
-    protected $_clientName    = null;
-    protected $_actionName    = null;
-    protected $_providerName  = null;
+    protected $_clientName = null;
+    protected $_actionName = null;
+    protected $_providerName = null;
     protected $_specialtyName = null;
-    /**#@-*/
+    /*     * #@- */
 
-    /**#@+
+    /*     * #@+
      * @var string
      */
     protected $_clientReference = null;
     protected $_actionReference = null;
     protected $_providerReference = null;
-    /**#@-*/
+
+    /*     * #@- */
 
     public function setClientName($clientName)
     {
@@ -208,9 +209,9 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
     {
         $string = parent::__toString();
         $string .= ' (ProviderName: ' . $this->_providerName
-             . ', ActionName: '     . $this->_actionName
-             . ', SpecialtyName: '  . $this->_specialtyName
-             . ')';
+                . ', ActionName: ' . $this->_actionName
+                . ', SpecialtyName: ' . $this->_specialtyName
+                . ')';
 
         return $string;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Number
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Number extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     protected $_defaultWidth = 100;
 
     /**
@@ -47,7 +48,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Number
         $data = parent::_getValue($row);
         if (!is_null($data)) {
             $value = $data * 1;
-            $sign = (bool)(int)$this->getColumn()->getShowNumberSign() && ($value > 0) ? '+' : '';
+            $sign = (bool) (int) $this->getColumn()->getShowNumberSign() && ($value > 0) ? '+' : '';
             if ($sign) {
                 $value = $sign . $value;
             }

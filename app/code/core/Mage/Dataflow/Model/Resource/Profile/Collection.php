@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert profile collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Dataflow_Model_Resource_Profile_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Define resource model and model
      *
@@ -52,7 +53,8 @@ class Mage_Dataflow_Model_Resource_Profile_Collection extends Mage_Core_Model_Re
     public function addStoreFilter($storeIds)
     {
         $this->getSelect()
-            ->where('main_table.store_id IN (?)', array(0, $storeIds));
+                ->where('main_table.store_id IN (?)', array(0, $storeIds));
         return $this;
     }
+
 }

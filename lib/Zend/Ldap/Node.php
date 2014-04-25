@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Node.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /**
  * @see Zend_Ldap
  */
@@ -40,30 +40,35 @@
  */
 class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, RecursiveIterator
 {
+
     /**
      * Holds the node's new DN if node is renamed.
      *
      * @var Zend_Ldap_Dn
      */
     protected $_newDn;
+
     /**
      * Holds the node's orginal attributes (as loaded).
      *
      * @var array
      */
     protected $_originalData;
+
     /**
      * This node will be added
      *
      * @var boolean
      */
     protected $_new;
+
     /**
      * This node will be deleted
      *
      * @var boolean
      */
     protected $_delete;
+
     /**
      * Holds the connection to the LDAP server if in connected mode.
      *
@@ -99,8 +104,10 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
     protected function __construct(Zend_Ldap_Dn $dn, array $data, $fromDataSource, Zend_Ldap $ldap = null)
     {
         parent::__construct($dn, $data, $fromDataSource);
-        if ($ldap !== null) $this->attachLdap($ldap);
-        else $this->detachLdap();
+        if ($ldap !== null)
+            $this->attachLdap($ldap);
+        else
+            $this->detachLdap();
     }
 
     /**
@@ -142,8 +149,8 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
              */
             #require_once 'Zend/Ldap/Exception.php';
             throw new Zend_Ldap_Exception(null, 'No LDAP connection specified.', Zend_Ldap_Exception::LDAP_OTHER);
-        }
-        else return $this->_ldap;
+        } else
+            return $this->_ldap;
     }
 
     /**
@@ -163,8 +170,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
              * @see Zend_Ldap_Exception
              */
             #require_once 'Zend/Ldap/Exception.php';
-            throw new Zend_Ldap_Exception(null, 'LDAP connection is not responsible for given node.',
-                Zend_Ldap_Exception::LDAP_OTHER);
+            throw new Zend_Ldap_Exception(null, 'LDAP connection is not responsible for given node.', Zend_Ldap_Exception::LDAP_OTHER);
         }
 
         if ($ldap !== $this->_ldap) {
@@ -365,12 +371,11 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
         $this->_delete = ($delete === true) ? true : false;
     }
 
-
     /**
-    * Is this node going to be deleted once update() is called?
-    *
-    * @return boolean
-    */
+     * Is this node going to be deleted once update() is called?
+     *
+     * @return boolean
+     */
     public function willBeDeleted()
     {
         return $this->_delete;
@@ -390,10 +395,10 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
     }
 
     /**
-    * Is this node going to be moved once update() is called?
-    *
-    * @return boolean
-    */
+     * Is this node going to be moved once update() is called?
+     *
+     * @return boolean
+     */
     public function willBeMoved()
     {
         if ($this->isNew() || $this->willBeDeleted()) {
@@ -612,8 +617,8 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
     public function getChanges()
     {
         $changes = array(
-            'add'     => array(),
-            'delete'  => array(),
+            'add' => array(),
+            'delete' => array(),
             'replace' => array());
         foreach ($this->_currentData as $key => $value) {
             if (!array_key_exists($key, $this->_originalData) && !empty($value)) {
@@ -735,8 +740,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
      * @return Zend_Ldap_Node Provides a fluid interface
      * @throws Zend_Ldap_Exception
      */
-    public function setPasswordAttribute($password, $hashType = Zend_Ldap_Attribute::PASSWORD_HASH_MD5,
-        $attribName = 'userPassword')
+    public function setPasswordAttribute($password, $hashType = Zend_Ldap_Attribute::PASSWORD_HASH_MD5, $attribName = 'userPassword')
     {
         $this->_assertChangeableAttribute($attribName);
         Zend_Ldap_Attribute::setPassword($this->_currentData, $password, $hashType, $attribName);
@@ -800,8 +804,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
              */
             #require_once 'Zend/Ldap/Exception.php';
             throw new Zend_Ldap_Exception(null, 'DN cannot be changed.');
-        }
-        else if (array_key_exists($name, $rdn)) {
+        } else if (array_key_exists($name, $rdn)) {
             /**
              * @see Zend_Ldap_Exception
              */
@@ -813,8 +816,8 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
              */
             #require_once 'Zend/Ldap/Exception.php';
             throw new Zend_Ldap_Exception(null, 'Cannot change attribute because it\'s read-only');
-        }
-        else return true;
+        } else
+            return true;
     }
 
     /**
@@ -935,8 +938,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
          * @see Zend_Ldap_Node_Collection
          */
         #require_once 'Zend/Ldap/Node/Collection.php';
-        return $this->getLdap()->search($filter, $this->_getDn(), $scope, array('*', '+'), $sort,
-            'Zend_Ldap_Node_Collection');
+        return $this->getLdap()->search($filter, $this->_getDn(), $scope, array('*', '+'), $sort, 'Zend_Ldap_Node_Collection');
     }
 
     /**
@@ -1098,4 +1100,5 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
     {
         return $this->_iteratorRewind;
     }
+
 }

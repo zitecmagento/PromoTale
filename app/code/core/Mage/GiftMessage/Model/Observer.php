@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Gift Message Observer Model
  *
@@ -47,13 +47,11 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         $quoteItem = $observer->getEvent()->getItem();
 
         $isAvailable = Mage::helper('giftmessage/message')->getIsMessagesAvailable(
-            'item',
-            $quoteItem,
-            $quoteItem->getStoreId()
+                'item', $quoteItem, $quoteItem->getStoreId()
         );
 
         $orderItem->setGiftMessageId($quoteItem->getGiftMessageId())
-            ->setGiftMessageAvailable($isAvailable);
+                ->setGiftMessageAvailable($isAvailable);
         return $this;
     }
 
@@ -65,9 +63,9 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
      */
     public function salesEventConvertQuoteAddressToOrder($observer)
     {
-        if($observer->getEvent()->getAddress()->getGiftMessageId()) {
+        if ($observer->getEvent()->getAddress()->getGiftMessageId()) {
             $observer->getEvent()->getOrder()
-                ->setGiftMessageId($observer->getEvent()->getAddress()->getGiftMessageId());
+                    ->setGiftMessageId($observer->getEvent()->getAddress()->getGiftMessageId());
         }
         return $this;
     }
@@ -81,7 +79,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     public function salesEventConvertQuoteToOrder($observer)
     {
         $observer->getEvent()->getOrder()
-            ->setGiftMessageId($observer->getEvent()->getQuote()->getGiftMessageId());
+                ->setGiftMessageId($observer->getEvent()->getQuote()->getGiftMessageId());
         return $this;
     }
 
@@ -94,7 +92,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
      */
     protected function _getAvailable($product)
     {
-        if(is_object($product)) {
+        if (is_object($product)) {
             return $product->getGiftMessageAvailable();
         }
         return Mage::getModel('catalog/product')->load($product)->getGiftMessageAvailable();
@@ -111,8 +109,8 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         $giftMessages = $observer->getEvent()->getRequest()->getParam('giftmessage');
         $quote = $observer->getEvent()->getQuote();
         /* @var $quote Mage_Sales_Model_Quote */
-        if(is_array($giftMessages)) {
-            foreach ($giftMessages as $entityId=>$message) {
+        if (is_array($giftMessages)) {
+            foreach ($giftMessages as $entityId => $message) {
 
                 $giftMessage = Mage::getModel('giftmessage/message');
 
@@ -134,33 +132,40 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
                         break;
                 }
 
-                if($entity->getGiftMessageId()) {
+                if ($entity->getGiftMessageId()) {
                     $giftMessage->load($entity->getGiftMessageId());
                 }
 
-                if(trim($message['message'])=='') {
-                    if($giftMessage->getId()) {
-                        try{
+                if (trim($message['message']) == '') {
+                    if ($giftMessage->getId()) {
+                        try
+                        {
                             $giftMessage->delete();
                             $entity->setGiftMessageId(0)
-                                ->save();
+                                    ->save();
                         }
-                        catch (Exception $e) { }
+                        catch (Exception $e)
+                        {
+                            
+                        }
                     }
                     continue;
                 }
 
-                try {
+                try
+                {
                     $giftMessage->setSender($message['from'])
-                        ->setRecipient($message['to'])
-                        ->setMessage($message['message'])
-                        ->save();
+                            ->setRecipient($message['to'])
+                            ->setMessage($message['message'])
+                            ->save();
 
                     $entity->setGiftMessageId($giftMessage->getId())
-                        ->save();
-
+                            ->save();
                 }
-                catch (Exception $e) { }
+                catch (Exception $e)
+                {
+                    
+                }
             }
         }
         return $this;
@@ -193,14 +198,14 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
             return $this;
         }
 
-        if (!Mage::helper('giftmessage/message')->isMessagesAvailable('order', $order, $order->getStore())){
+        if (!Mage::helper('giftmessage/message')->isMessagesAvailable('order', $order, $order->getStore())) {
             return $this;
         }
         $giftMessageId = $order->getGiftMessageId();
-        if($giftMessageId) {
+        if ($giftMessageId) {
             $giftMessage = Mage::getModel('giftmessage/message')->load($giftMessageId)
-                ->setId(null)
-                ->save();
+                    ->setId(null)
+                    ->save();
             $observer->getEvent()->getQuote()->setGiftMessageId($giftMessage->getId());
         }
 
@@ -224,9 +229,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         }
 
         $isAvailable = Mage::helper('giftmessage/message')->isMessagesAvailable(
-            'order_item',
-            $orderItem,
-            $orderItem->getStoreId()
+                'order_item', $orderItem, $orderItem->getStoreId()
         );
         if (!$isAvailable) {
             return $this;
@@ -236,10 +239,11 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         $quoteItem = $observer->getEvent()->getQuoteItem();
         if ($giftMessageId = $orderItem->getGiftMessageId()) {
             $giftMessage = Mage::getModel('giftmessage/message')->load($giftMessageId)
-                ->setId(null)
-                ->save();
+                    ->setId(null)
+                    ->save();
             $quoteItem->setGiftMessageId($giftMessage->getId());
         }
         return $this;
     }
+
 }

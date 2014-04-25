@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -28,8 +29,9 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Result.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-class Zend_Dom_Query_Result implements Iterator,Countable
+class Zend_Dom_Query_Result implements Iterator, Countable
 {
+
     /**
      * Number of results
      * @var int
@@ -78,12 +80,12 @@ class Zend_Dom_Query_Result implements Iterator,Countable
      * @param  DOMNodeList $nodeList
      * @return void
      */
-    public function  __construct($cssQuery, $xpathQuery, DOMDocument $document, DOMNodeList $nodeList)
+    public function __construct($cssQuery, $xpathQuery, DOMDocument $document, DOMNodeList $nodeList)
     {
-        $this->_cssQuery   = $cssQuery;
+        $this->_cssQuery = $cssQuery;
         $this->_xpathQuery = $xpathQuery;
-        $this->_document   = $document;
-        $this->_nodeList   = $nodeList;
+        $this->_document = $document;
+        $this->_nodeList = $nodeList;
     }
 
     /**
@@ -180,4 +182,5 @@ class Zend_Dom_Query_Result implements Iterator,Countable
     {
         return $this->_nodeList->length;
     }
+
 }

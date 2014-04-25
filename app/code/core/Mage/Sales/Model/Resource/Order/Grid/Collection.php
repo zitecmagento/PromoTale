@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order grid collection
  *
@@ -34,19 +34,20 @@
  */
 class Mage_Sales_Model_Resource_Order_Grid_Collection extends Mage_Sales_Model_Resource_Order_Collection
 {
+
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix    = 'sales_order_grid_collection';
+    protected $_eventPrefix = 'sales_order_grid_collection';
 
     /**
      * Event object
      *
      * @var string
      */
-    protected $_eventObject    = 'order_grid_collection';
+    protected $_eventObject = 'order_grid_collection';
 
     /**
      * Customer mode flag
@@ -99,7 +100,7 @@ class Mage_Sales_Model_Resource_Order_Grid_Collection extends Mage_Sales_Model_R
      */
     public function setIsCustomerMode($value)
     {
-        $this->_customerModeFlag = (bool)$value;
+        $this->_customerModeFlag = (bool) $value;
         return $this;
     }
 
@@ -112,4 +113,5 @@ class Mage_Sales_Model_Resource_Order_Grid_Collection extends Mage_Sales_Model_R
     {
         return $this->_customerModeFlag;
     }
+
 }

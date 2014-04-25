@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,32 +25,24 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  *
  * @category   Mage
  * @package    Mage_Dataflow
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Dataflow_Model_Convert_Profile_Abstract
-    implements Mage_Dataflow_Model_Convert_Profile_Interface
+abstract class Mage_Dataflow_Model_Convert_Profile_Abstract implements Mage_Dataflow_Model_Convert_Profile_Interface
 {
 
     protected $_actions;
-
     protected $_containers;
-
     protected $_exceptions = array();
-
     protected $_dryRun;
-
     protected $_actionDefaultClass = 'Mage_Dataflow_Model_Convert_Action';
-
     protected $_containerCollectionDefaultClass = 'Mage_Dataflow_Model_Convert_Container_Collection';
-
     protected $_dataflow_profile = null;
 
-    public function addAction(Mage_Dataflow_Model_Convert_Action_Interface $action=null)
+    public function addAction(Mage_Dataflow_Model_Convert_Action_Interface $action = null)
     {
         if (is_null($action)) {
             $action = new $this->_actionDefaultClass();
@@ -73,7 +66,7 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract
         return $this->_containers;
     }
 
-    public function getContainer($name=null)
+    public function getContainer($name = null)
     {
         if (is_null($name)) {
             $name = '_default';
@@ -135,20 +128,23 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract
 
         foreach ($this->_actions as $action) {
             /* @var $action Mage_Dataflow_Model_Convert_Action */
-            try {
+            try
+            {
                 $action->run();
             }
-            catch (Exception $e) {
+            catch (Exception $e)
+            {
                 $dfe = new Mage_Dataflow_Model_Convert_Exception($e->getMessage());
                 $dfe->setLevel(Mage_Dataflow_Model_Convert_Exception::FATAL);
                 $this->addException($dfe);
-                return ;
+                return;
             }
         }
         return $this;
     }
 
-    function setDataflowProfile($profile) {
+    function setDataflowProfile($profile)
+    {
         if (is_array($profile)) {
             $this->_dataflow_profile = $profile;
         }
@@ -159,4 +155,5 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract
     {
         return $this->_dataflow_profile;
     }
+
 }

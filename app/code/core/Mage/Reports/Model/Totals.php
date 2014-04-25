@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Reports_Model_Totals
 {
+
     /**
      * Retrieve count totals
      *
@@ -56,7 +58,7 @@ class Mage_Reports_Model_Totals
             }
             $data = $item->getData();
 
-            foreach ($columns as $field=>$a) {
+            foreach ($columns as $field => $a) {
                 if ($field !== '') {
                     $columns[$field]['value'] = $columns[$field]['value'] + (isset($data[$field]) ? $data[$field] : 0);
                 }
@@ -68,7 +70,7 @@ class Mage_Reports_Model_Totals
             if ($a['total'] == 'avg') {
                 if ($field !== '') {
                     if ($count != 0) {
-                        $data[$field] = $a['value']/$count;
+                        $data[$field] = $a['value'] / $count;
                     } else {
                         $data[$field] = 0;
                     }
@@ -89,4 +91,5 @@ class Mage_Reports_Model_Totals
 
         return $totals;
     }
+
 }

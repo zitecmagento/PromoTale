@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -72,8 +73,10 @@
  */
 class Mage_Catalog_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute
 {
+
     protected $_eventPrefix = 'catalog_entity_attribute';
     protected $_eventObject = 'attribute';
+
     const MODULE_NAME = 'Mage_Catalog';
 
     /**
@@ -103,4 +106,5 @@ class Mage_Catalog_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribut
         Mage::getSingleton('eav/config')->clear();
         return parent::_afterSave();
     }
+
 }

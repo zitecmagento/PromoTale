@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Interface.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_Controller_Request_Abstract
  */
@@ -38,6 +38,7 @@
  */
 interface Zend_Controller_Dispatcher_Interface
 {
+
     /**
      * Formats a string into a controller name.  This is used to take a raw
      * controller name, such as one that would be packaged inside a request

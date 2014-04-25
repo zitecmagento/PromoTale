@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,11 +34,13 @@
  */
 abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Api2_Order_Item
 {
-    /**#@+
+    /*     * #@+
      * Parameters in request used in model (usually specified in route)
      */
+
     const PARAM_ORDER_ID = 'id';
-    /**#@-*/
+
+    /*     * #@- */
 
     /**
      * Get order items list
@@ -55,6 +58,7 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
         }
         return $data;
     }
+
     /**
      * Retrieve order items collection
      *
@@ -64,7 +68,7 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
     {
         /* @var $order Mage_Sales_Model_Order */
         $order = $this->_loadOrderById(
-            $this->getRequest()->getParam(self::PARAM_ORDER_ID)
+                $this->getRequest()->getParam(self::PARAM_ORDER_ID)
         );
 
         /* @var $collection Mage_Sales_Model_Resource_Order_Item_Collection */
@@ -90,4 +94,5 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
         }
         return $order;
     }
+
 }

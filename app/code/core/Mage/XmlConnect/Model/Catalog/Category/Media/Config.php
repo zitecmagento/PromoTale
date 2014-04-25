@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Catalog_Category_Media_Config extends Mage_Catalog_Model_Product_Media_Config
 {
+
     /**
      * Getter, return Catalog baseMediaPath
      *
@@ -72,4 +74,5 @@ class Mage_XmlConnect_Model_Catalog_Category_Media_Config extends Mage_Catalog_M
     {
         return Mage::getBaseUrl('media') . 'tmp/catalog/category';
     }
+
 }

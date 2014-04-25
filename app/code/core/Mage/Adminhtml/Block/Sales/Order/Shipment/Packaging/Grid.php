@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging_Grid extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Constructor
      */
@@ -52,7 +54,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging_Grid extends Mage_Admi
         if ($this->getShipment()->getId()) {
             $collection = Mage::getModel('sales/order_shipment_item')->getCollection()
                     ->setShipmentFilter($this->getShipment()->getId());
-        } else{
+        } else {
             $collection = $this->getShipment()->getAllItems();
         }
         return $collection;
@@ -79,8 +81,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging_Grid extends Mage_Admi
         $order = $this->getShipment()->getOrder();
         $address = $order->getShippingAddress();
         $shipperAddressCountryCode = Mage::getStoreConfig(
-            Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID,
-            $storeId
+                        Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID, $storeId
         );
         $recipientAddressCountryCode = $address->getCountryId();
         if ($shipperAddressCountryCode != $recipientAddressCountryCode) {
@@ -99,4 +100,5 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging_Grid extends Mage_Admi
     {
         return sprintf('%.2F', $value);
     }
+
 }

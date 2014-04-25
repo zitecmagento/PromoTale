@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,10 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SegmentToDelta.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Pdf_Cmap */
 #require_once 'Zend/Pdf/Cmap.php';
-
 
 /**
  * Implements the "segment mapping to delta values" character map (type 4).
@@ -38,8 +37,7 @@
  */
 class Zend_Pdf_Cmap_SegmentToDelta extends Zend_Pdf_Cmap
 {
-  /**** Instance Variables ****/
-
+    /*     * ** Instance Variables *** */
 
     /**
      * The number of segments in the table.
@@ -97,12 +95,10 @@ class Zend_Pdf_Cmap_SegmentToDelta extends Zend_Pdf_Cmap
      */
     protected $_glyphIndexArray = array();
 
+    /*     * ** Public Interface *** */
 
 
-  /**** Public Interface ****/
-
-
-  /* Concrete Class Implementation */
+    /* Concrete Class Implementation */
 
     /**
      * Returns an array of glyph numbers corresponding to the Unicode characters.
@@ -171,7 +167,6 @@ class Zend_Pdf_Cmap_SegmentToDelta extends Zend_Pdf_Cmap
                  * glyph number.
                  */
                 $glyphNumbers[$key] = ($characterCode + $this->_segmentTableIdDeltas[$subtableIndex]) % 65536;
-
             } else {
                 /* This segment relies on the glyph index array to determine the
                  * glyph number. The calculation below determines the correct
@@ -182,12 +177,10 @@ class Zend_Pdf_Cmap_SegmentToDelta extends Zend_Pdf_Cmap
                  * must process it a bit differently.
                  */
                 $glyphIndex = ($characterCode - $this->_segmentTableStartCodes[$subtableIndex] +
-                               $this->_segmentTableIdRangeOffsets[$subtableIndex] - $this->_segmentCount +
-                               $subtableIndex - 1);
+                        $this->_segmentTableIdRangeOffsets[$subtableIndex] - $this->_segmentCount +
+                        $subtableIndex - 1);
                 $glyphNumbers[$key] = $this->_glyphIndexArray[$glyphIndex];
-
             }
-
         }
         return $glyphNumbers;
     }
@@ -237,8 +230,8 @@ class Zend_Pdf_Cmap_SegmentToDelta extends Zend_Pdf_Cmap
             $glyphNumber = ($characterCode + $this->_segmentTableIdDeltas[$subtableIndex]) % 65536;
         } else {
             $glyphIndex = ($characterCode - $this->_segmentTableStartCodes[$subtableIndex] +
-                           $this->_segmentTableIdRangeOffsets[$subtableIndex] - $this->_segmentCount +
-                           $subtableIndex - 1);
+                    $this->_segmentTableIdRangeOffsets[$subtableIndex] - $this->_segmentCount +
+                    $subtableIndex - 1);
             $glyphNumber = $this->_glyphIndexArray[$glyphIndex];
         }
         return $glyphNumber;
@@ -261,7 +254,6 @@ class Zend_Pdf_Cmap_SegmentToDelta extends Zend_Pdf_Cmap
         return $characterCodes;
     }
 
-
     /**
      * Returns an array containing the glyphs numbers that have entries in this character map.
      * Keys are Unicode character codes (integers)
@@ -281,13 +273,11 @@ class Zend_Pdf_Cmap_SegmentToDelta extends Zend_Pdf_Cmap
             if ($this->_segmentTableIdRangeOffsets[$segmentNum] == 0) {
                 $delta = $this->_segmentTableIdDeltas[$segmentNum];
 
-                for ($code =  $this->_segmentTableStartCodes[$segmentNum];
-                     $code <= $this->_segmentTableEndCodes[$segmentNum];
-                     $code++) {
+                for ($code = $this->_segmentTableStartCodes[$segmentNum]; $code <= $this->_segmentTableEndCodes[$segmentNum]; $code++) {
                     $glyphNumbers[$code] = ($code + $delta) % 65536;
                 }
             } else {
-                $code       = $this->_segmentTableStartCodes[$segmentNum];
+                $code = $this->_segmentTableStartCodes[$segmentNum];
                 $glyphIndex = $this->_segmentTableIdRangeOffsets[$segmentNum] - ($this->_segmentCount - $segmentNum) - 1;
 
                 while ($code <= $this->_segmentTableEndCodes[$segmentNum]) {
@@ -302,9 +292,7 @@ class Zend_Pdf_Cmap_SegmentToDelta extends Zend_Pdf_Cmap
         return $glyphNumbers;
     }
 
-
-
-  /* Object Lifecycle */
+    /* Object Lifecycle */
 
     /**
      * Object constructor
@@ -322,8 +310,7 @@ class Zend_Pdf_Cmap_SegmentToDelta extends Zend_Pdf_Cmap
         $actualLength = strlen($cmapData);
         if ($actualLength < 23) {
             #require_once 'Zend/Pdf/Exception.php';
-            throw new Zend_Pdf_Exception('Insufficient table data',
-                                         Zend_Pdf_Exception::CMAP_TABLE_DATA_TOO_SMALL);
+            throw new Zend_Pdf_Exception('Insufficient table data', Zend_Pdf_Exception::CMAP_TABLE_DATA_TOO_SMALL);
         }
 
         /* Sanity check: Make sure this is right data for this table type.
@@ -331,15 +318,13 @@ class Zend_Pdf_Cmap_SegmentToDelta extends Zend_Pdf_Cmap
         $type = $this->_extractUInt2($cmapData, 0);
         if ($type != Zend_Pdf_Cmap::TYPE_SEGMENT_TO_DELTA) {
             #require_once 'Zend/Pdf/Exception.php';
-            throw new Zend_Pdf_Exception('Wrong cmap table type',
-                                         Zend_Pdf_Exception::CMAP_WRONG_TABLE_TYPE);
+            throw new Zend_Pdf_Exception('Wrong cmap table type', Zend_Pdf_Exception::CMAP_WRONG_TABLE_TYPE);
         }
 
         $length = $this->_extractUInt2($cmapData, 2);
         if ($length != $actualLength) {
             #require_once 'Zend/Pdf/Exception.php';
-            throw new Zend_Pdf_Exception("Table length ($length) does not match actual length ($actualLength)",
-                                         Zend_Pdf_Exception::CMAP_WRONG_TABLE_LENGTH);
+            throw new Zend_Pdf_Exception("Table length ($length) does not match actual length ($actualLength)", Zend_Pdf_Exception::CMAP_WRONG_TABLE_LENGTH);
         }
 
         /* Mapping tables should be language-independent. The font may not work
@@ -357,7 +342,7 @@ class Zend_Pdf_Cmap_SegmentToDelta extends Zend_Pdf_Cmap
          * native PHP data types, so divide by two.
          */
         $this->_segmentCount = $this->_extractUInt2($cmapData, 6) >> 1;
-        $this->_searchRange  = $this->_extractUInt2($cmapData, 8) >> 1;
+        $this->_searchRange = $this->_extractUInt2($cmapData, 8) >> 1;
 
         $this->_searchIterations = $this->_extractUInt2($cmapData, 10) + 1;
 
@@ -399,8 +384,7 @@ class Zend_Pdf_Cmap_SegmentToDelta extends Zend_Pdf_Cmap
          */
         if ($offset != $length) {
             #require_once 'Zend/Pdf/Exception.php';
-            throw new Zend_Pdf_Exception("Ending offset ($offset) does not match length ($length)",
-                                         Zend_Pdf_Exception::CMAP_FINAL_OFFSET_NOT_LENGTH);
+            throw new Zend_Pdf_Exception("Ending offset ($offset) does not match length ($length)", Zend_Pdf_Exception::CMAP_FINAL_OFFSET_NOT_LENGTH);
         }
     }
 

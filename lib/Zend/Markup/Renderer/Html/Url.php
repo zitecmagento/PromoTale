@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Url.php 20663 2010-01-26 18:45:18Z kokx $
  */
-
 /**
  * @see Zend_Markup_Renderer_Html
  */

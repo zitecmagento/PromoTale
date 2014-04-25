@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catalog_Block_Product_Price
 {
+
     /**
      * Collect product prices to specified item xml object
      *
@@ -40,15 +42,16 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
      * @param Mage_XmlConnect_Model_Simplexml_Element $item
      */
     public function collectProductPrices(
-        Mage_Catalog_Model_Product $product, Mage_XmlConnect_Model_Simplexml_Element $item
-    ) {
+    Mage_Catalog_Model_Product $product, Mage_XmlConnect_Model_Simplexml_Element $item
+    )
+    {
         $this->setProduct($product)->setDisplayMinimalPrice(true)->setUseLinkForAsLowAs(false);
 
         $priceListXmlObj = $item->addCustomChild('price_list');
         $tierPrices = $this->_getTierPrices($product);
         if (count($tierPrices) > 0) {
             $tierPricesTextArray = $item->escapeXml(implode(
-                PHP_EOL, $this->_getTierPricesTextArray($tierPrices, $product)
+                            PHP_EOL, $this->_getTierPricesTextArray($tierPrices, $product)
             ));
             $item->addCustomChild('price_tier', $tierPricesTextArray);
         }
@@ -58,7 +61,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
         /** @var $weeeHelper Mage_Weee_Helper_Data */
         $weeeHelper = $this->helper('weee');
         /** @var $taxHelper Mage_Tax_Helper_Data */
-        $taxHelper  = $this->helper('tax');
+        $taxHelper = $this->helper('tax');
 
         $simplePricesTax = ($taxHelper->displayPriceIncludingTax() || $taxHelper->displayBothPrices());
         $minimalPriceValue = $product->getMinimalPrice();
@@ -196,9 +199,9 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
                             'formatted_value' => $coreHelper->currency($finalPriceInclTax, true, false)
                         ));
                     }
-                /**
-                 * if ($taxHelper->displayBothPrices()) {
-                 */
+                    /**
+                     * if ($taxHelper->displayBothPrices()) {
+                     */
                 } else {
                     /**
                      * Including
@@ -283,9 +286,9 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
                         ));
                     }
                 }
-            /**
-             * if ($finalPrice == $price) {
-             */
+                /**
+                 * if ($finalPrice == $price) {
+                 */
             } else {
                 $originalWeeeTaxAmount = $weeeHelper->getOriginalAmount($product);
                 /**
@@ -451,8 +454,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
                 }
             }
 
-            if ($this->getDisplayMinimalPrice() && $minimalPriceValue
-                && $minimalPriceValue < $product->getFinalPrice()
+            if ($this->getDisplayMinimalPrice() && $minimalPriceValue && $minimalPriceValue < $product->getFinalPrice()
             ) {
                 $minimalPriceDisplayValue = $minimalPrice;
 
@@ -468,9 +470,9 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
                     ));
                 }
             }
-        /**
-         * if (!$product->isGrouped()) {
-         */
+            /**
+             * if (!$product->isGrouped()) {
+             */
         } else {
             $exclTax = $taxHelper->getPrice($product, $minimalPriceValue, null);
             $inclTax = $taxHelper->getPrice($product, $minimalPriceValue, true);
@@ -517,26 +519,24 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
         if (null === $product) {
             return array();
         }
-        $prices  = $product->getFormatedTierPrice();
+        $prices = $product->getFormatedTierPrice();
 
         $res = array();
         if (is_array($prices)) {
             foreach ($prices as $price) {
-                $price['price_qty'] = $price['price_qty']*1;
+                $price['price_qty'] = $price['price_qty'] * 1;
                 if ($product->getPrice() != $product->getFinalPrice()) {
                     if ($price['price'] < $product->getFinalPrice()) {
                         $price['savePercent'] = ceil(100 - ((100 / $product->getFinalPrice()) * $price['price']));
                         $price['formated_price'] = Mage::app()->getStore()->formatPrice(
-                            Mage::app()->getStore()->convertPrice(
-                                Mage::helper('tax')->getPrice($product, $price['website_price'])
-                            ),
-                            false
+                                Mage::app()->getStore()->convertPrice(
+                                        Mage::helper('tax')->getPrice($product, $price['website_price'])
+                                ), false
                         );
                         $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(
-                            Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice(
-                                $product, $price['website_price'], true
-                            )),
-                            false
+                                Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice(
+                                                $product, $price['website_price'], true
+                                )), false
                         );
                         $res[] = $price;
                     }
@@ -544,16 +544,14 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
                     if ($price['price'] < $product->getPrice()) {
                         $price['savePercent'] = ceil(100 - ((100 / $product->getPrice()) * $price['price']));
                         $price['formated_price'] = Mage::app()->getStore()->formatPrice(
-                            Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice(
-                                $product, $price['website_price']
-                            )),
-                            false
+                                Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice(
+                                                $product, $price['website_price']
+                                )), false
                         );
                         $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(
-                            Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice(
-                                $product, $price['website_price'], true
-                            )),
-                            false
+                                Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice(
+                                                $product, $price['website_price'], true
+                                )), false
                         );
                         $res[] = $price;
                     }
@@ -609,7 +607,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
                         foreach ($weeeTaxAttributes as $attribute) {
                             $s .= $separator . $attribute->getName() . ': ';
                             $s .= Mage::helper('core')->currency(
-                                $attribute->getAmount() + $attribute->getTaxAmount()
+                                    $attribute->getAmount() + $attribute->getTaxAmount()
                             );
                         }
                         $s .= ')';
@@ -654,7 +652,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
                             foreach ($weeeTaxAttributes as $attribute) {
                                 $s .= $separator . $attribute->getName() . ': ';
                                 $s .= Mage::helper('core')->currency(
-                                    $attribute->getAmount() + $attribute->getTaxAmount()
+                                        $attribute->getAmount() + $attribute->getTaxAmount()
                                 );
                                 $separator = ' + ';
                             }
@@ -669,7 +667,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
                                 $s .= $attribute->getName() . ': ';
                                 $s .= Mage::helper('core')->currency($attribute->getAmount());
                             }
-                            $s .=  ' ' . $this->__('Total incl. Tax: %1$s', $price['formated_price_incl_weee']) . ')';
+                            $s .= ' ' . $this->__('Total incl. Tax: %1$s', $price['formated_price_incl_weee']) . ')';
                         }
                         $s .= ' ' . $this->__('each');
                     } else {
@@ -699,7 +697,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
                             foreach ($weeeTaxAttributes as $attribute) {
                                 $s .= $separator . $attribute->getName() . ': ';
                                 $s .= Mage::helper('core')->currency(
-                                    $attribute->getAmount() + $attribute->getTaxAmount()
+                                        $attribute->getAmount() + $attribute->getTaxAmount()
                                 );
                                 $separator = ' + ';
                             }
@@ -723,11 +721,9 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
                 }
             }
             if (!$product->isGrouped()) {
-                $condition1 = ($product->getPrice() == $product->getFinalPrice()
-                    && $product->getPrice() > $price['price']);
+                $condition1 = ($product->getPrice() == $product->getFinalPrice() && $product->getPrice() > $price['price']);
 
-                $condition2 = ($product->getPrice() != $product->getFinalPrice()
-                    && $product->getFinalPrice() > $price['price']);
+                $condition2 = ($product->getPrice() != $product->getFinalPrice() && $product->getFinalPrice() > $price['price']);
 
                 if ($condition1 || $condition2) {
                     $s .= ' ' . $this->__('and') . ' ' . $this->__('save') . ' ' . $price['savePercent'] . '%';
@@ -737,4 +733,5 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Default extends Mage_Catal
         }
         return $pricesArray;
     }
+
 }

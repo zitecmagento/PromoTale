@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Rules collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Admin_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Initialize resource model
      *
@@ -68,4 +69,5 @@ class Mage_Admin_Model_Resource_Rules_Collection extends Mage_Core_Model_Resourc
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 interface Zend_Memory_Container_Interface
 {
+
     /**
      * Get string value reference
      *
@@ -63,4 +65,3 @@ interface Zend_Memory_Container_Interface
      */
     public function isLocked();
 }
-

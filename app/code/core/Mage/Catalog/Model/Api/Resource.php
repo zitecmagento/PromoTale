@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 {
+
     /**
      * Default ignored attribute codes
      *
@@ -51,7 +53,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * Field name in session for saving store id
      * @var string
      */
-    protected $_storeIdSessionField   = 'store_id';
+    protected $_storeIdSessionField = 'store_id';
 
     /**
      * Name of resource model in ACL list
@@ -75,14 +77,11 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
             }
         }
 
-        if (is_array($attributes)
-            && !( in_array($attribute->getAttributeCode(), $attributes)
-                  || in_array($attribute->getAttributeId(), $attributes))) {
+        if (is_array($attributes) && !( in_array($attribute->getAttributeCode(), $attributes) || in_array($attribute->getAttributeId(), $attributes))) {
             return false;
         }
 
-        return !in_array($attribute->getFrontendInput(), $this->_ignoredAttributeTypes)
-               && !in_array($attribute->getAttributeCode(), $this->_ignoredAttributeCodes);
+        return !in_array($attribute->getFrontendInput(), $this->_ignoredAttributeTypes) && !in_array($attribute->getAttributeCode(), $this->_ignoredAttributeCodes);
     }
 
     /**
@@ -95,13 +94,15 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     protected function _getStoreId($store = null)
     {
         if (is_null($store)) {
-            $store = ($this->_getSession()->hasData($this->_storeIdSessionField)
-                        ? $this->_getSession()->getData($this->_storeIdSessionField) : 0);
+            $store = ($this->_getSession()->hasData($this->_storeIdSessionField) ? $this->_getSession()->getData($this->_storeIdSessionField) : 0);
         }
 
-        try {
+        try
+        {
             $storeId = Mage::app()->getStore($store)->getId();
-        } catch (Mage_Core_Model_Store_Exception $e) {
+        }
+        catch (Mage_Core_Model_Store_Exception $e)
+        {
             $this->_fault('store_not_exists');
         }
 
@@ -131,12 +132,15 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param string|int $store
      * @return int
      */
-    public function currentStore($store=null)
+    public function currentStore($store = null)
     {
         if (!is_null($store)) {
-            try {
+            try
+            {
                 $storeId = Mage::app()->getStore($store)->getId();
-            } catch (Mage_Core_Model_Store_Exception $e) {
+            }
+            catch (Mage_Core_Model_Store_Exception $e)
+            {
                 $this->_fault('store_not_exists');
             }
 
@@ -145,4 +149,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
         return $this->_getStoreId();
     }
-} // Class Mage_Catalog_Model_Api_Resource End
+
+}
+
+// Class Mage_Catalog_Model_Api_Resource End

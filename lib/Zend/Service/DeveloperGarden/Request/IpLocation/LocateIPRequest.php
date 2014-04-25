@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: LocateIPRequest.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Request_RequestAbstract
  */
@@ -38,9 +38,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Request_IpLocation_LocateIPRequest
-    extends Zend_Service_DeveloperGarden_Request_RequestAbstract
+class Zend_Service_DeveloperGarden_Request_IpLocation_LocateIPRequest extends Zend_Service_DeveloperGarden_Request_RequestAbstract
 {
+
     /**
      * the ip addresses to lookup for
      *
@@ -83,7 +83,7 @@ class Zend_Service_DeveloperGarden_Request_IpLocation_LocateIPRequest
     {
         if ($ip instanceof Zend_Service_DeveloperGarden_IpLocation_IpAddress) {
             $this->address[] = array(
-                'ipType'    => $ip->getVersion(),
+                'ipType' => $ip->getVersion(),
                 'ipAddress' => $ip->getIp(),
             );
             return $this;
@@ -91,12 +91,11 @@ class Zend_Service_DeveloperGarden_Request_IpLocation_LocateIPRequest
 
         if (is_array($ip)) {
             foreach ($ip as $ipObject) {
-                if (!$ipObject instanceof Zend_Service_DeveloperGarden_IpLocation_IpAddress
-                    && !is_string($ipObject)
+                if (!$ipObject instanceof Zend_Service_DeveloperGarden_IpLocation_IpAddress && !is_string($ipObject)
                 ) {
                     #require_once 'Zend/Service/DeveloperGarden/Request/Exception.php';
                     throw new Zend_Service_DeveloperGarden_Request_Exception(
-                        'Not a valid Ip Address object found.'
+                    'Not a valid Ip Address object found.'
                     );
                 }
                 $this->setIp($ipObject);
@@ -111,4 +110,5 @@ class Zend_Service_DeveloperGarden_Request_IpLocation_LocateIPRequest
 
         return $this->setIp(new Zend_Service_DeveloperGarden_IpLocation_IpAddress($ip));
     }
+
 }

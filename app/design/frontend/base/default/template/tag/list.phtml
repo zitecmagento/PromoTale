@@ -26,15 +26,15 @@
 ?>
 <div class="box-collateral box-tags">
     <h2><?php echo $this->__('Product Tags') ?></h2>
-    <?php echo $this->getChildHtml('list_before')?>
-    <?php if( $this->getCount() ): ?>
-    <h3><?php echo $this->__('Other people marked this product with these tags:') ?></h3>
-    <ul id="<?php echo $this->getUniqueHtmlId('product-tags_'); ?>" class="product-tags">
-        <?php echo $this->renderTags('<li><a href="%1$s">%2$s</a> (%3$s)</li>') ?>
-    </ul>
-    <script type="text/javascript">
-        decorateGeneric($("<?php echo $this->getUniqueHtmlId('product-tags_'); ?>").select('li'), ['first', 'last']);
-    </script>
+    <?php echo $this->getChildHtml('list_before') ?>
+    <?php if ($this->getCount()): ?>
+        <h3><?php echo $this->__('Other people marked this product with these tags:') ?></h3>
+        <ul id="<?php echo $this->getUniqueHtmlId('product-tags_'); ?>" class="product-tags">
+            <?php echo $this->renderTags('<li><a href="%1$s">%2$s</a> (%3$s)</li>') ?>
+        </ul>
+        <script type="text/javascript">
+            decorateGeneric($("<?php echo $this->getUniqueHtmlId('product-tags_'); ?>").select('li'), ['first', 'last']);
+        </script>
     <?php endif; ?>
     <form id="addTagForm" action="<?php echo $this->getFormAction(); ?>" method="get">
         <div class="form-add">
@@ -51,13 +51,13 @@
     </form>
     <p class="note"><?php echo $this->__("Use spaces to separate tags. Use single quotes (') for phrases.") ?></p>
     <script type="text/javascript">
-    //<![CDATA[
+        //<![CDATA[
         var addTagFormJs = new VarienForm('addTagForm');
-        function submitTagForm(){
-            if(addTagFormJs.validator.validate()) {
+        function submitTagForm() {
+            if (addTagFormJs.validator.validate()) {
                 addTagFormJs.form.submit();
             }
         }
-    //]]>
+        //]]>
     </script>
 </div>

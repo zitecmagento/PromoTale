@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,14 +20,11 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ZendServer.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** @see Zend_Cache_Backend_Interface */
 #require_once 'Zend/Cache/Backend/Interface.php';
 
 /** @see Zend_Cache_Backend */
 #require_once 'Zend/Cache/Backend.php';
-
 
 /**
  * @package    Zend_Cache
@@ -36,6 +34,7 @@
  */
 abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implements Zend_Cache_Backend_Interface
 {
+
     /**
      * Available options
      *
@@ -106,7 +105,7 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
         $tmp = $this->_fetch('internal-metadatas---' . $id);
         if ($tmp !== false) {
             if (!is_array($tmp) || !isset($tmp['mtime'])) {
-                Zend_Cache::throwException('Cache metadata for \'' . $id . '\' id is corrupted' );
+                Zend_Cache::throwException('Cache metadata for \'' . $id . '\' id is corrupted');
             }
             return $tmp['mtime'];
         }
@@ -150,7 +149,7 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
             $this->_log('Zend_Cache_Backend_ZendServer::save() : tags are unsupported by the ZendServer backends');
         }
 
-        return  $this->_store($data, $id, $lifetime) &&
+        return $this->_store($data, $id, $lifetime) &&
                 $this->_store($metadatas, 'internal-metadatas---' . $id, $lifetime);
     }
 
@@ -204,4 +203,5 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
                 break;
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TermsPriorityQueue.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Search_Lucene_PriorityQueue */
 #require_once 'Zend/Search/Lucene/PriorityQueue.php';
 
@@ -32,6 +32,7 @@
  */
 class Zend_Search_Lucene_Index_TermsPriorityQueue extends Zend_Search_Lucene_PriorityQueue
 {
+
     /**
      * Compare elements
      *

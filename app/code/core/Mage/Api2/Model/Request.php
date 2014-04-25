@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,21 +34,23 @@
  */
 class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
 {
+
     /**
      * Character set which must be used in request
      */
     const REQUEST_CHARSET = 'utf-8';
 
-    /**#@+
+    /*     * #@+
      * Name of query ($_GET) parameters to use in navigation and so on
      */
-    const QUERY_PARAM_REQ_ATTRS   = 'attrs';
-    const QUERY_PARAM_PAGE_NUM    = 'page';
-    const QUERY_PARAM_PAGE_SIZE   = 'limit';
+    const QUERY_PARAM_REQ_ATTRS = 'attrs';
+    const QUERY_PARAM_PAGE_NUM = 'page';
+    const QUERY_PARAM_PAGE_SIZE = 'limit';
     const QUERY_PARAM_ORDER_FIELD = 'order';
-    const QUERY_PARAM_ORDER_DIR   = 'dir';
-    const QUERY_PARAM_FILTER      = 'filter';
-    /**#@- */
+    const QUERY_PARAM_ORDER_DIR = 'dir';
+    const QUERY_PARAM_FILTER = 'filter';
+
+    /*     * #@- */
 
     /**
      * Interpreter adapter
@@ -98,11 +101,11 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     public function getAcceptTypes()
     {
         $qualityToTypes = array();
-        $orderedTypes   = array();
+        $orderedTypes = array();
 
         foreach (preg_split('/,\s*/', $this->getHeader('Accept')) as $definition) {
             $typeWithQ = explode(';', $definition);
-            $mimeType  = trim(array_shift($typeWithQ));
+            $mimeType = trim(array_shift($typeWithQ));
 
             // check MIME type validity
             if (!preg_match('~^([0-9a-z*+\-]+)(?:/([0-9a-z*+\-\.]+))?$~i', $mimeType)) {
@@ -146,7 +149,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     public function getBodyParams()
     {
         if (null == $this->_bodyParams) {
-            $this->_bodyParams = $this->_getInterpreter()->interpret((string)$this->getRawBody());
+            $this->_bodyParams = $this->_getInterpreter()->interpret((string) $this->getRawBody());
         }
         return $this->_bodyParams;
     }
@@ -170,7 +173,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         // request encoding check if it is specified in header
         if (isset($matches[2]) && self::REQUEST_CHARSET != strtolower($matches[2])) {
             throw new Mage_Api2_Exception(
-                'UTF-8 is the only supported charset', Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+            'UTF-8 is the only supported charset', Mage_Api2_Model_Server::HTTP_BAD_REQUEST
             );
         }
         return $matches[1];
@@ -210,9 +213,9 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         }
         // Map HTTP methods to classic CRUD verbs
         $operationByMethod = array(
-            'GET'    => Mage_Api2_Model_Resource::OPERATION_RETRIEVE,
-            'POST'   => Mage_Api2_Model_Resource::OPERATION_CREATE,
-            'PUT'    => Mage_Api2_Model_Resource::OPERATION_UPDATE,
+            'GET' => Mage_Api2_Model_Resource::OPERATION_RETRIEVE,
+            'POST' => Mage_Api2_Model_Resource::OPERATION_CREATE,
+            'PUT' => Mage_Api2_Model_Resource::OPERATION_UPDATE,
             'DELETE' => Mage_Api2_Model_Resource::OPERATION_DELETE
         );
 
@@ -322,4 +325,5 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         }
         return false;
     }
+
 }

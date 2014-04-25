@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
 {
+
     private $_username = -1;
 
     protected function _prepareLayout()
@@ -87,4 +89,5 @@ class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
         }
         return $this->_username;
     }
+
 }

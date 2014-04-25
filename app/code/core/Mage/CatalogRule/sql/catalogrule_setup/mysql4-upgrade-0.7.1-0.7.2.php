@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
@@ -36,18 +36,18 @@ if ($conn->tableColumnExists($ruleTable, 'store_ids')) {
     // catalogrule
     $conn->addColumn($ruleTable, 'website_ids', 'text');
     $select = $conn->select()
-        ->from($ruleTable, array('rule_id', 'store_ids'));
+            ->from($ruleTable, array('rule_id', 'store_ids'));
     $rows = $conn->fetchAll($select);
 
     foreach ($rows as $r) {
         $websiteIds = array();
         foreach (explode(',', $r['store_ids']) as $storeId) {
-            if (($storeId!=='') && isset($websites[$storeId])) {
+            if (($storeId !== '') && isset($websites[$storeId])) {
                 $websiteIds[$websites[$storeId]] = true;
             }
         }
 
-        $conn->update($ruleTable, array('website_ids'=>join(',',array_keys($websiteIds))), "rule_id=".$r['rule_id']);
+        $conn->update($ruleTable, array('website_ids' => join(',', array_keys($websiteIds))), "rule_id=" . $r['rule_id']);
     }
     $conn->dropColumn($ruleTable, 'store_ids');
 }
@@ -59,17 +59,17 @@ if ($conn->tableColumnExists($ruleProductTable, 'store_id')) {
     $unique = array();
 
     $select = $conn->select()
-        ->from($ruleProductTable);
+            ->from($ruleProductTable);
     $rows = $conn->fetchAll($select);
 
     //$q = $conn->query("select * from `$ruleProductTable`");
     foreach ($rows as $r) {
         $websiteId = $websites[$r['store_id']];
-        $key = $r['from_time'].'|'.$r['to_time'].'|'.$websiteId.'|'.$r['customer_group_id'].'|'.$r['product_id'].'|'.$r['sort_order'];
+        $key = $r['from_time'] . '|' . $r['to_time'] . '|' . $websiteId . '|' . $r['customer_group_id'] . '|' . $r['product_id'] . '|' . $r['sort_order'];
         if (isset($unique[$key])) {
             $conn->delete($ruleProductTable, $conn->quoteInto("rule_product_id=?", $r['rule_product_id']));
         } else {
-            $conn->update($ruleProductTable, array('website_id'=>$websiteId), "rule_product_id=".$r['rule_product_id']);
+            $conn->update($ruleProductTable, array('website_id' => $websiteId), "rule_product_id=" . $r['rule_product_id']);
             $unique[$key] = true;
         }
     }

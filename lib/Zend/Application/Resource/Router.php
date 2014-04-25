@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Router.php 20814 2010-02-01 20:13:08Z freak $
  */
-
 /**
  * @see Zend_Application_Resource_ResourceAbstract
  */
 #require_once 'Zend/Application/Resource/ResourceAbstract.php';
-
 
 /**
  * Resource for initializing the locale
@@ -36,9 +35,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Application_Resource_Router
-    extends Zend_Application_Resource_ResourceAbstract
+class Zend_Application_Resource_Router extends Zend_Application_Resource_ResourceAbstract
 {
+
     /**
      * @var Zend_Controller_Router_Rewrite
      */
@@ -84,4 +83,5 @@ class Zend_Application_Resource_Router
 
         return $this->_router;
     }
+
 }

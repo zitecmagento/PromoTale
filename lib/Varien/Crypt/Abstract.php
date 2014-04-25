@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Abstract class for crypter classes
  *
@@ -34,5 +34,5 @@
  */
 abstract class Varien_Crypt_Abstract extends Varien_Object
 {
-
+    
 }

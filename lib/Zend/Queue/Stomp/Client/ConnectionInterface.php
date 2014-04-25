@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 interface Zend_Queue_Stomp_Client_ConnectionInterface
 {
+
     /**
      * @param  string  $scheme ['tcp', 'udp']
      * @param  string  host

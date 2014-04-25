@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Get order item
      *
@@ -55,11 +57,11 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items extends Mage_Adm
             return false;
         }
         return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-            'item', $item, $item->getStoreId()
+                        'item', $item, $item->getStoreId()
         );
     }
 
-   /**
+    /**
      * Return form html
      *
      * @return string
@@ -67,9 +69,9 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items extends Mage_Adm
     public function getFormHtml()
     {
         return $this->getLayout()->createBlock('adminhtml/sales_order_create_giftmessage_form')
-            ->setEntity($this->getItem())
-            ->setEntityType('item')
-            ->toHtml();
+                        ->setEntity($this->getItem())
+                        ->setEntityType('item')
+                        ->toHtml();
     }
 
     /**
@@ -85,4 +87,5 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items extends Mage_Adm
         }
         return '';
     }
+
 }

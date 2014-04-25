@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 {
+
     const DIRECTORY_NAME_REGEXP = '/^[a-z0-9\-\_]+$/si';
     const THUMBS_DIRECTORY_NAME = '.thumbs';
     const THUMB_PLACEHOLDER_PATH_SUFFIX = 'images/placeholder/thumbnail.jpg';
@@ -63,7 +65,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $subDirectories = Mage::getModel('core/file_storage_directory_database')->getSubdirectories($path);
             foreach ($subDirectories as $directory) {
                 $fullPath = rtrim($path, DS) . DS . $directory['name'];
-                  if (!file_exists($fullPath)) {
+                if (!file_exists($fullPath)) {
                     mkdir($fullPath, 0777, true);
                 }
             }
@@ -81,16 +83,15 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 
         $regExp = $conditions['reg_exp'] ? ('~' . implode('|', array_keys($conditions['reg_exp'])) . '~i') : null;
         $collection = $this->getCollection($path)
-            ->setCollectDirs(true)
-            ->setCollectFiles(false)
-            ->setCollectRecursively(false);
+                ->setCollectDirs(true)
+                ->setCollectFiles(false)
+                ->setCollectRecursively(false);
         $storageRootLength = strlen($this->getHelper()->getStorageRoot());
 
         foreach ($collection as $key => $value) {
             $rootChildParts = explode(DIRECTORY_SEPARATOR, substr($value->getFilename(), $storageRootLength));
 
-            if (array_key_exists($rootChildParts[0], $conditions['plain'])
-                || ($regExp && preg_match($regExp, $value->getFilename()))) {
+            if (array_key_exists($rootChildParts[0], $conditions['plain']) || ($regExp && preg_match($regExp, $value->getFilename()))) {
                 $collection->removeItemByKey($key);
             }
         }
@@ -117,14 +118,14 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         }
 
         $collection = $this->getCollection($path)
-            ->setCollectDirs(false)
-            ->setCollectFiles(true)
-            ->setCollectRecursively(false)
-            ->setOrder('mtime', Varien_Data_Collection::SORT_ORDER_ASC);
+                ->setCollectDirs(false)
+                ->setCollectFiles(true)
+                ->setCollectRecursively(false)
+                ->setOrder('mtime', Varien_Data_Collection::SORT_ORDER_ASC);
 
         // Add files extension filter
         if ($allowed = $this->getAllowedExtensions($type)) {
-            $collection->setFilesFilter('/\.(' . implode('|', $allowed). ')$/i');
+            $collection->setFilesFilter('/\.(' . implode('|', $allowed) . ')$/i');
         }
 
         $helper = $this->getHelper();
@@ -139,7 +140,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             if ($this->isImage($item->getBasename())) {
                 $thumbUrl = $this->getThumbnailUrl($item->getFilename(), true);
                 // generate thumbnail "on the fly" if it does not exists
-                if(! $thumbUrl) {
+                if (!$thumbUrl) {
                     $thumbUrl = Mage::getSingleton('adminhtml/url')->getUrl('*/*/thumbnail', array('file' => $item->getId()));
                 }
 
@@ -205,10 +206,10 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             }
 
             $result = array(
-                'name'          => $name,
-                'short_name'    => $this->getHelper()->getShortFilename($name),
-                'path'          => $newPath,
-                'id'            => $this->getHelper()->convertPathToId($newPath)
+                'name' => $name,
+                'short_name' => $this->getHelper()->getShortFilename($name),
+                'path' => $newPath,
+                'id' => $this->getHelper()->convertPathToId($newPath)
             );
             return $result;
         }
@@ -265,7 +266,6 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         return $this;
     }
 
-
     /**
      * Upload and resize new file
      *
@@ -285,18 +285,18 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $result = $uploader->save($targetPath);
 
         if (!$result) {
-            Mage::throwException( Mage::helper('cms')->__('Cannot upload file.') );
+            Mage::throwException(Mage::helper('cms')->__('Cannot upload file.'));
         }
 
         // create thumbnail
         $this->resizeFile($targetPath . DS . $uploader->getUploadedFileName(), true);
 
         $result['cookie'] = array(
-            'name'     => session_name(),
-            'value'    => $this->getSession()->getSessionId(),
+            'name' => session_name(),
+            'value' => $this->getSession()->getSessionId(),
             'lifetime' => $this->getSession()->getCookieLifetime(),
-            'path'     => $this->getSession()->getCookiePath(),
-            'domain'   => $this->getSession()->getCookieDomain()
+            'path' => $this->getSession()->getCookiePath(),
+            'domain' => $this->getSession()->getCookieDomain()
         );
 
         return $result;
@@ -316,7 +316,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (strpos($filePath, $mediaRootDir) === 0) {
             $thumbPath = $this->getThumbnailRoot() . DS . substr($filePath, strlen($mediaRootDir));
 
-            if (! $checkFile || is_readable($thumbPath)) {
+            if (!$checkFile || is_readable($thumbPath)) {
                 return $thumbPath;
             }
         }
@@ -338,7 +338,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (strpos($filePath, $mediaRootDir) === 0) {
             $thumbSuffix = self::THUMBS_DIRECTORY_NAME . DS . substr($filePath, strlen($mediaRootDir));
 
-            if (! $checkFile || is_readable($mediaRootDir . $thumbSuffix)) {
+            if (!$checkFile || is_readable($mediaRootDir . $thumbSuffix)) {
                 $randomIndex = '?rand=' . time();
                 return str_replace('\\', '/', $this->getHelper()->getBaseUrl() . $thumbSuffix) . $randomIndex;
             }
@@ -441,7 +441,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function getConfig()
     {
-        if (! $this->_config) {
+        if (!$this->_config) {
             $this->_config = Mage::getConfig()->getNode('cms/browser', 'adminhtml');
         }
 
@@ -455,7 +455,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function getConfigAsArray()
     {
-        if (! $this->_configAsArray) {
+        if (!$this->_configAsArray) {
             $this->_configAsArray = $this->getConfig()->asCanonicalArray();
         }
 
@@ -469,7 +469,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * @param mixed $default
      * @return mixed
      */
-    public function getConfigData($key, $default=false)
+    public function getConfigData($key, $default = false)
     {
         $configArray = $this->getConfigAsArray();
         $key = (string) $key;
@@ -520,4 +520,5 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         return in_array($ext, $this->_getData('_image_extensions'));
     }
+
 }

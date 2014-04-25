@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ListingInfo.php 22791 2010-08-04 16:11:47Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Ebay_Finding_ListingInfo extends Zend_Service_Ebay_Finding_Abstract
 {
+
     /**
      * Shows whether or not the seller will accept a best offer for the
      * associated item.
@@ -191,14 +192,14 @@ class Zend_Service_Ebay_Finding_ListingInfo extends Zend_Service_Ebay_Finding_Ab
         parent::_init();
         $ns = Zend_Service_Ebay_Finding::XMLNS_FINDING;
 
-        $this->bestOfferEnabled       = $this->_query(".//$ns:bestOfferEnabled[1]", 'boolean');
-        $this->buyItNowAvailable      = $this->_query(".//$ns:buyItNowAvailable[1]", 'boolean');
-        $this->buyItNowPrice          = $this->_query(".//$ns:buyItNowPrice[1]", 'float');
+        $this->bestOfferEnabled = $this->_query(".//$ns:bestOfferEnabled[1]", 'boolean');
+        $this->buyItNowAvailable = $this->_query(".//$ns:buyItNowAvailable[1]", 'boolean');
+        $this->buyItNowPrice = $this->_query(".//$ns:buyItNowPrice[1]", 'float');
         $this->convertedBuyItNowPrice = $this->_query(".//$ns:convertedBuyItNowPrice[1]", 'float');
-        $this->endTime                = $this->_query(".//$ns:endTime[1]", 'string');
-        $this->gift                   = $this->_query(".//$ns:gift[1]", 'boolean');
-        $this->listingType            = $this->_query(".//$ns:listingType[1]", 'string');
-        $this->startTime              = $this->_query(".//$ns:startTime[1]", 'string');
+        $this->endTime = $this->_query(".//$ns:endTime[1]", 'string');
+        $this->gift = $this->_query(".//$ns:gift[1]", 'boolean');
+        $this->listingType = $this->_query(".//$ns:listingType[1]", 'string');
+        $this->startTime = $this->_query(".//$ns:startTime[1]", 'string');
 
         $this->_attributes['buyItNowPrice'] = array(
             'currencyId' => $this->_query(".//$ns:buyItNowPrice[1]/@currencyId[1]", 'string')
@@ -208,4 +209,5 @@ class Zend_Service_Ebay_Finding_ListingInfo extends Zend_Service_Ebay_Finding_Ab
             'currencyId' => $this->_query(".//$ns:convertedBuyItNowPrice[1]/@currencyId[1]", 'string')
         );
     }
+
 }

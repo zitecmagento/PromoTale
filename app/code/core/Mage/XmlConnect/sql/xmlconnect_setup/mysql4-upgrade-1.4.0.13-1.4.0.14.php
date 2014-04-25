@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
  * Xmlconnect Config data upgrade
  *
@@ -31,7 +31,6 @@
  * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 /** @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 $installer->startSetup();
@@ -41,44 +40,32 @@ $installer->startSetup();
  */
 $configTableName = $installer->getTable('xmlconnect/configData');
 $configTable = $installer->getConnection()
-    ->newTable($configTableName)
-    ->addColumn('application_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
-            'unsigned'  => true,
-            'nullable'  => false,
-        ), 'Application Id')
-    ->addColumn('category', Varien_Db_Ddl_Table::TYPE_TEXT, 60, array(
-            'nullable'  => false,
-            'default'  => 'default',
-        ), 'Category')
-    ->addColumn('path', Varien_Db_Ddl_Table::TYPE_TEXT, 250, array(
-            'nullable'  => false,
-        ), 'Path')
-    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
-            'nullable'  => false,
-        ), 'Value')
-    ->addIndex(
-        $installer->getIdxName(
-            $configTableName,
-            array('application_id', 'category', 'path'),
-            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
-        ),
-        array('application_id', 'category', 'path'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
-    )
-    ->addForeignKey(
-        $installer->getFkName(
-            $configTableName,
-            'application_id',
-            $installer->getTable('xmlconnect/application'),
-            'application_id'
-        ),
-        'application_id',
-        $installer->getTable('xmlconnect/application'),
-        'application_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
-    )
-    ->setComment('Xmlconnect Configuration Data');
+        ->newTable($configTableName)
+        ->addColumn('application_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+            'unsigned' => true,
+            'nullable' => false,
+                ), 'Application Id')
+        ->addColumn('category', Varien_Db_Ddl_Table::TYPE_TEXT, 60, array(
+            'nullable' => false,
+            'default' => 'default',
+                ), 'Category')
+        ->addColumn('path', Varien_Db_Ddl_Table::TYPE_TEXT, 250, array(
+            'nullable' => false,
+                ), 'Path')
+        ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
+            'nullable' => false,
+                ), 'Value')
+        ->addIndex(
+                $installer->getIdxName(
+                        $configTableName, array('application_id', 'category', 'path'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+                ), array('application_id', 'category', 'path'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        )
+        ->addForeignKey(
+                $installer->getFkName(
+                        $configTableName, 'application_id', $installer->getTable('xmlconnect/application'), 'application_id'
+                ), 'application_id', $installer->getTable('xmlconnect/application'), 'application_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE
+        )
+        ->setComment('Xmlconnect Configuration Data');
 $installer->getConnection()->createTable($configTable);
 
 $installer->endSetup();

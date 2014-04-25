@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Nil.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Zend_XmlRpc_Value_Scalar
  */
 #require_once 'Zend/XmlRpc/Value/Scalar.php';
-
 
 /**
  * @category   Zend
@@ -56,5 +54,5 @@ class Zend_XmlRpc_Value_Nil extends Zend_XmlRpc_Value_Scalar
     {
         return null;
     }
-}
 
+}

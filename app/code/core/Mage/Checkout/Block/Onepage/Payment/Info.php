@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Checkout_Block_Onepage_Payment_Info extends Mage_Payment_Block_Info_Container
 {
+
     /**
      * Retrieve payment info model
      *
@@ -55,4 +57,5 @@ class Mage_Checkout_Block_Onepage_Payment_Info extends Mage_Payment_Block_Info_C
         }
         return $html;
     }
+
 }

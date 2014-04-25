@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -41,32 +42,33 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Form extends Mage_Adminhtml_Blo
         $fieldset = $form->addFieldset('add_answer_form', array('legend' => Mage::helper('poll')->__('Add New Answer')));
 
         $fieldset->addField('answer_title', 'text', array(
-                    'name'      => 'answer_title',
-                    'title'     => Mage::helper('poll')->__('Answer Title'),
-                    'label'     => Mage::helper('poll')->__('Answer Title'),
-                    'maxlength' => '255',
-                    'no_span'   => true,
+            'name' => 'answer_title',
+            'title' => Mage::helper('poll')->__('Answer Title'),
+            'label' => Mage::helper('poll')->__('Answer Title'),
+            'maxlength' => '255',
+            'no_span' => true,
                 )
         );
 
         $fieldset->addField('poll_id', 'hidden', array(
-                    'name'      => 'poll_id',
-                    'no_span'   => true,
-                    'value'     => $this->getRequest()->getParam('id'),
+            'name' => 'poll_id',
+            'no_span' => true,
+            'value' => $this->getRequest()->getParam('id'),
                 )
         );
 
         $fieldset->addField('add_button', 'note', array(
-                    'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
-                                    ->setData(array(
-                                        'label'     => Mage::helper('poll')->__('Add Answer'),
-                                        'onclick'   => 'answers.add();',
-                                        'class'     => 'add',
-                                    ))->toHtml(),
-                    'no_span'   => true,
+            'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData(array(
+                        'label' => Mage::helper('poll')->__('Add Answer'),
+                        'onclick' => 'answers.add();',
+                        'class' => 'add',
+                    ))->toHtml(),
+            'no_span' => true,
                 )
         );
 
         $this->setForm($form);
     }
+
 }

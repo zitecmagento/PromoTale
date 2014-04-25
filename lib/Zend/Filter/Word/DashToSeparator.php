@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DashToSeparator.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_PregReplace
  */
@@ -39,4 +39,5 @@ class Zend_Filter_Word_DashToSeparator extends Zend_Filter_Word_Separator_Abstra
         $this->setReplacement($this->_separator);
         return parent::filter($value);
     }
+
 }

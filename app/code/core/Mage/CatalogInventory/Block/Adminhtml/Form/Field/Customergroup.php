@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * HTML select element block with customer groups options
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mage_Core_Block_Html_Select
 {
+
     /**
      * Customer groups cache
      *
@@ -92,4 +93,5 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
         }
         return parent::_toHtml();
     }
+
 }

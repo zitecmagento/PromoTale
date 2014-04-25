@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * GoogleAnalytics data helper
  *
@@ -33,11 +33,12 @@
  */
 class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Config paths for using throughout the code
      */
-    const XML_PATH_ACTIVE        = 'google/analytics/active';
-    const XML_PATH_ACCOUNT       = 'google/analytics/account';
+    const XML_PATH_ACTIVE = 'google/analytics/active';
+    const XML_PATH_ACCOUNT = 'google/analytics/account';
     const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
 
     /**
@@ -62,4 +63,5 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_ANONYMIZATION, $store);
     }
+
 }

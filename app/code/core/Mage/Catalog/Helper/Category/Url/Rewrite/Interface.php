@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Category url rewrite interface
  *
@@ -34,6 +34,7 @@
  */
 interface Mage_Catalog_Helper_Category_Url_Rewrite_Interface
 {
+
     /**
      * Join url rewrite table to eav collection
      *

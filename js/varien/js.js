@@ -22,23 +22,23 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-function popWin(url,win,para) {
-    var win = window.open(url,win,para);
+function popWin(url, win, para) {
+    var win = window.open(url, win, para);
     win.focus();
 }
 
-function setLocation(url){
+function setLocation(url) {
     window.location.href = url;
 }
 
-function setPLocation(url, setFocus){
-    if( setFocus ) {
+function setPLocation(url, setFocus) {
+    if (setFocus) {
         window.opener.focus();
     }
     window.opener.location.href = url;
 }
 
-function setLanguageCode(code, fromCode){
+function setLanguageCode(code, fromCode) {
     //TODO: javascript cookies have different domain and path than php cookies
     var href = window.location.href;
     var after = '', dash;
@@ -50,9 +50,9 @@ function setLanguageCode(code, fromCode){
     if (href.match(/[?]/)) {
         var re = /([?&]store=)[a-z0-9_]*/;
         if (href.match(re)) {
-            href = href.replace(re, '$1'+code);
+            href = href.replace(re, '$1' + code);
         } else {
-            href += '&store='+code;
+            href += '&store=' + code;
         }
 
         var re = /([?&]from_store=)[a-z0-9_]*/;
@@ -60,10 +60,10 @@ function setLanguageCode(code, fromCode){
             href = href.replace(re, '');
         }
     } else {
-        href += '?store='+code;
+        href += '?store=' + code;
     }
-    if (typeof(fromCode) != 'undefined') {
-        href += '&from_store='+fromCode;
+    if (typeof (fromCode) != 'undefined') {
+        href += '&from_store=' + fromCode;
     }
     href += after;
 
@@ -85,7 +85,7 @@ function decorateGeneric(elements, decorateParams)
 
     if (total) {
         // determine params called
-        if (typeof(decorateParams) == 'undefined') {
+        if (typeof (decorateParams) == 'undefined') {
             decorateParams = allSupportedParams;
         }
         if (!decorateParams.length) {
@@ -104,7 +104,7 @@ function decorateGeneric(elements, decorateParams)
             Element.addClassName(elements[0], 'first');
         }
         if (_decorateParams.last) {
-            Element.addClassName(elements[total-1], 'last');
+            Element.addClassName(elements[total - 1], 'last');
         }
         for (var i = 0; i < total; i++) {
             if ((i + 1) % 2 == 0) {
@@ -130,14 +130,14 @@ function decorateTable(table, options) {
     if (table) {
         // set default options
         var _options = {
-            'tbody'    : false,
-            'tbody tr' : ['odd', 'even', 'first', 'last'],
-            'thead tr' : ['first', 'last'],
-            'tfoot tr' : ['first', 'last'],
-            'tr td'    : ['last']
+            'tbody': false,
+            'tbody tr': ['odd', 'even', 'first', 'last'],
+            'thead tr': ['first', 'last'],
+            'tfoot tr': ['first', 'last'],
+            'tr td': ['last']
         };
         // overload options
-        if (typeof(options) != 'undefined') {
+        if (typeof (options) != 'undefined') {
             for (var k in options) {
                 _options[k] = options[k];
             }
@@ -172,7 +172,7 @@ function decorateTable(table, options) {
  */
 function decorateList(list, nonRecursive) {
     if ($(list)) {
-        if (typeof(nonRecursive) == 'undefined') {
+        if (typeof (nonRecursive) == 'undefined') {
             var items = $(list).select('li')
         }
         else {
@@ -202,12 +202,12 @@ function parseSidUrl(baseUrl, urlExt) {
     var sid = '';
     urlExt = (urlExt != undefined) ? urlExt : '';
 
-    if(sidPos > -1) {
+    if (sidPos > -1) {
         sid = '?' + baseUrl.substring(sidPos + 2);
         baseUrl = baseUrl.substring(0, sidPos + 1);
     }
 
-    return baseUrl+urlExt+sid;
+    return baseUrl + urlExt + sid;
 }
 
 /**
@@ -218,7 +218,7 @@ function parseSidUrl(baseUrl, urlExt) {
  *      null (show '-' if number is negative)
  */
 
-function formatCurrency(price, format, showPlus){
+function formatCurrency(price, format, showPlus) {
     var precision = isNaN(format.precision = Math.abs(format.precision)) ? 2 : format.precision;
     var requiredPrecision = isNaN(format.requiredPrecision = Math.abs(format.requiredPrecision)) ? 2 : format.requiredPrecision;
 
@@ -235,14 +235,17 @@ function formatCurrency(price, format, showPlus){
     var s = '';
 
     if (showPlus == undefined || showPlus == true) {
-        s = price < 0 ? "-" : ( showPlus ? "+" : "");
+        s = price < 0 ? "-" : (showPlus ? "+" : "");
     } else if (showPlus == false) {
         s = '';
     }
 
     var i = parseInt(price = Math.abs(+price || 0).toFixed(precision)) + "";
     var pad = (i.length < integerRequired) ? (integerRequired - i.length) : 0;
-    while (pad) { i = '0' + i; pad--; }
+    while (pad) {
+        i = '0' + i;
+        pad--;
+    }
     j = (j = i.length) > groupLength ? j % groupLength : 0;
     re = new RegExp("(\\d{" + groupLength + "})(?=\\d)", "g");
 
@@ -260,16 +263,21 @@ function formatCurrency(price, format, showPlus){
     }
 
     return pattern.replace('%s', r).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-};
+}
+;
 
 function expandDetails(el, childClass) {
-    if (Element.hasClassName(el,'show-details')) {
-        $$(childClass).each(function(item){item.hide()});
-        Element.removeClassName(el,'show-details');
+    if (Element.hasClassName(el, 'show-details')) {
+        $$(childClass).each(function(item) {
+            item.hide()
+        });
+        Element.removeClassName(el, 'show-details');
     }
     else {
-        $$(childClass).each(function(item){item.show()});
-        Element.addClassName(el,'show-details');
+        $$(childClass).each(function(item) {
+            item.show()
+        });
+        Element.addClassName(el, 'show-details');
     }
 }
 
@@ -279,11 +287,11 @@ var isIE = navigator.appVersion.match(/MSIE/) == "MSIE";
 if (!window.Varien)
     var Varien = new Object();
 
-Varien.showLoading = function(){
+Varien.showLoading = function() {
     var loader = $('loading-process');
     loader && loader.show();
 }
-Varien.hideLoading = function(){
+Varien.hideLoading = function() {
     var loader = $('loading-process');
     loader && loader.hide();
 }
@@ -291,9 +299,8 @@ Varien.GlobalHandlers = {
     onCreate: function() {
         Varien.showLoading();
     },
-
     onComplete: function() {
-        if(Ajax.activeRequestCount == 0) {
+        if (Ajax.activeRequestCount == 0) {
             Varien.hideLoading();
         }
     }
@@ -306,65 +313,60 @@ Ajax.Responders.register(Varien.GlobalHandlers);
  */
 Varien.searchForm = Class.create();
 Varien.searchForm.prototype = {
-    initialize : function(form, field, emptyText){
-        this.form   = $(form);
-        this.field  = $(field);
+    initialize: function(form, field, emptyText) {
+        this.form = $(form);
+        this.field = $(field);
         this.emptyText = emptyText;
 
-        Event.observe(this.form,  'submit', this.submit.bind(this));
+        Event.observe(this.form, 'submit', this.submit.bind(this));
         Event.observe(this.field, 'focus', this.focus.bind(this));
         Event.observe(this.field, 'blur', this.blur.bind(this));
         this.blur();
     },
-
-    submit : function(event){
-        if (this.field.value == this.emptyText || this.field.value == ''){
+    submit: function(event) {
+        if (this.field.value == this.emptyText || this.field.value == '') {
             Event.stop(event);
             return false;
         }
         return true;
     },
-
-    focus : function(event){
-        if(this.field.value==this.emptyText){
-            this.field.value='';
+    focus: function(event) {
+        if (this.field.value == this.emptyText) {
+            this.field.value = '';
         }
 
     },
-
-    blur : function(event){
-        if(this.field.value==''){
-            this.field.value=this.emptyText;
+    blur: function(event) {
+        if (this.field.value == '') {
+            this.field.value = this.emptyText;
         }
     },
-
-    initAutocomplete : function(url, destinationElement){
+    initAutocomplete: function(url, destinationElement) {
         new Ajax.Autocompleter(
-            this.field,
-            destinationElement,
-            url,
-            {
-                paramName: this.field.name,
-                method: 'get',
-                minChars: 2,
-                updateElement: this._selectAutocompleteItem.bind(this),
-                onShow : function(element, update) {
-                    if(!update.style.position || update.style.position=='absolute') {
-                        update.style.position = 'absolute';
-                        Position.clone(element, update, {
-                            setHeight: false,
-                            offsetTop: element.offsetHeight
-                        });
+                this.field,
+                destinationElement,
+                url,
+                {
+                    paramName: this.field.name,
+                    method: 'get',
+                    minChars: 2,
+                    updateElement: this._selectAutocompleteItem.bind(this),
+                    onShow: function(element, update) {
+                        if (!update.style.position || update.style.position == 'absolute') {
+                            update.style.position = 'absolute';
+                            Position.clone(element, update, {
+                                setHeight: false,
+                                offsetTop: element.offsetHeight
+                            });
+                        }
+                        Effect.Appear(update, {duration: 0});
                     }
-                    Effect.Appear(update,{duration:0});
-                }
 
-            }
+                }
         );
     },
-
-    _selectAutocompleteItem : function(element){
-        if(element.title){
+    _selectAutocompleteItem: function(element) {
+        if (element.title) {
             this.field.value = element.title;
         }
         this.form.submit();
@@ -373,32 +375,30 @@ Varien.searchForm.prototype = {
 
 Varien.Tabs = Class.create();
 Varien.Tabs.prototype = {
-  initialize: function(selector) {
-    var self=this;
-    $$(selector+' a').each(this.initTab.bind(this));
-  },
-
-  initTab: function(el) {
-      el.href = 'javascript:void(0)';
-      if ($(el.parentNode).hasClassName('active')) {
-        this.showContent(el);
-      }
-      el.observe('click', this.showContent.bind(this, el));
-  },
-
-  showContent: function(a) {
-    var li = $(a.parentNode), ul = $(li.parentNode);
-    ul.getElementsBySelector('li', 'ol').each(function(el){
-      var contents = $(el.id+'_contents');
-      if (el==li) {
-        el.addClassName('active');
-        contents.show();
-      } else {
-        el.removeClassName('active');
-        contents.hide();
-      }
-    });
-  }
+    initialize: function(selector) {
+        var self = this;
+        $$(selector + ' a').each(this.initTab.bind(this));
+    },
+    initTab: function(el) {
+        el.href = 'javascript:void(0)';
+        if ($(el.parentNode).hasClassName('active')) {
+            this.showContent(el);
+        }
+        el.observe('click', this.showContent.bind(this, el));
+    },
+    showContent: function(a) {
+        var li = $(a.parentNode), ul = $(li.parentNode);
+        ul.getElementsBySelector('li', 'ol').each(function(el) {
+            var contents = $(el.id + '_contents');
+            if (el == li) {
+                el.addClassName('active');
+                contents.show();
+            } else {
+                el.removeClassName('active');
+                contents.hide();
+            }
+        });
+    }
 }
 
 Varien.DateElement = Class.create();
@@ -406,24 +406,24 @@ Varien.DateElement.prototype = {
     initialize: function(type, content, required, format) {
         if (type == 'id') {
             // id prefix
-            this.day    = $(content + 'day');
-            this.month  = $(content + 'month');
-            this.year   = $(content + 'year');
-            this.full   = $(content + 'full');
+            this.day = $(content + 'day');
+            this.month = $(content + 'month');
+            this.year = $(content + 'year');
+            this.full = $(content + 'full');
             this.advice = $(content + 'date-advice');
         } else if (type == 'container') {
             // content must be container with data
-            this.day    = content.day;
-            this.month  = content.month;
-            this.year   = content.year;
-            this.full   = content.full;
+            this.day = content.day;
+            this.month = content.month;
+            this.year = content.year;
+            this.full = content.full;
             this.advice = content.advice;
         } else {
             return;
         }
 
         this.required = required;
-        this.format   = format;
+        this.format = format;
 
         this.day.addClassName('validate-custom');
         this.day.validate = this.validate.bind(this);
@@ -433,19 +433,19 @@ Varien.DateElement.prototype = {
         this.year.validate = this.validate.bind(this);
 
         this.setDateRange(false, false);
-        this.year.setAttribute('autocomplete','off');
+        this.year.setAttribute('autocomplete', 'off');
 
         this.advice.hide();
     },
     validate: function() {
         var error = false,
-            day   = parseInt(this.day.value, 10)   || 0,
-            month = parseInt(this.month.value, 10) || 0,
-            year  = parseInt(this.year.value, 10)  || 0;
+                day = parseInt(this.day.value, 10) || 0,
+                month = parseInt(this.month.value, 10) || 0,
+                year = parseInt(this.year.value, 10) || 0;
         if (this.day.value.strip().empty()
-            && this.month.value.strip().empty()
-            && this.year.value.strip().empty()
-        ) {
+                && this.month.value.strip().empty()
+                && this.year.value.strip().empty()
+                ) {
             if (this.required) {
                 error = 'This date is a required value.';
             } else {
@@ -455,21 +455,26 @@ Varien.DateElement.prototype = {
             error = 'Please enter a valid full date.';
         } else {
             var date = new Date, countDaysInMonth = 0, errorType = null;
-            date.setYear(year);date.setMonth(month-1);date.setDate(32);
+            date.setYear(year);
+            date.setMonth(month - 1);
+            date.setDate(32);
             countDaysInMonth = 32 - date.getDate();
-            if(!countDaysInMonth || countDaysInMonth>31) countDaysInMonth = 31;
+            if (!countDaysInMonth || countDaysInMonth > 31)
+                countDaysInMonth = 31;
 
-            if (day<1 || day>countDaysInMonth) {
+            if (day < 1 || day > countDaysInMonth) {
                 errorType = 'day';
                 error = 'Please enter a valid day (1-%d).';
-            } else if (month<1 || month>12) {
+            } else if (month < 1 || month > 12) {
                 errorType = 'month';
                 error = 'Please enter a valid month (1-12).';
             } else {
-                if(day % 10 == day) this.day.value = '0'+day;
-                if(month % 10 == month) this.month.value = '0'+month;
+                if (day % 10 == day)
+                    this.day.value = '0' + day;
+                if (month % 10 == month)
+                    this.month.value = '0' + month;
                 this.full.value = this.format.replace(/%[mb]/i, this.month.value).replace(/%[de]/i, this.day.value).replace(/%y/i, this.year.value);
-                var testFull = this.month.value + '/' + this.day.value + '/'+ this.year.value;
+                var testFull = this.month.value + '/' + this.day.value + '/' + this.year.value;
                 var test = new Date(testFull);
                 if (isNaN(test)) {
                     error = 'Please enter a valid date.';
@@ -478,7 +483,7 @@ Varien.DateElement.prototype = {
                 }
             }
             var valueError = false;
-            if (!error && !this.validateData()){//(year<1900 || year>curyear) {
+            if (!error && !this.validateData()) {//(year<1900 || year>curyear) {
                 errorType = this.validateDataErrorType;//'year';
                 valueError = this.validateDataErrorText;//'Please enter a valid year (1900-%d).';
                 error = valueError;
@@ -489,7 +494,8 @@ Varien.DateElement.prototype = {
             try {
                 error = Translator.translate(error);
             }
-            catch (e) {}
+            catch (e) {
+            }
             if (!valueError) {
                 this.advice.innerHTML = error.replace('%d', countDaysInMonth);
             } else {
@@ -511,7 +517,7 @@ Varien.DateElement.prototype = {
         var year = this.fullDate.getFullYear();
         var date = new Date;
         this.curyear = date.getFullYear();
-        return (year>=1900 && year<=this.curyear);
+        return (year >= 1900 && year <= this.curyear);
     },
     validateDataErrorType: 'year',
     validateDataErrorText: 'Please enter a valid year (1900-%d).',
@@ -531,12 +537,12 @@ Varien.DOB = Class.create();
 Varien.DOB.prototype = {
     initialize: function(selector, required, format) {
         var el = $$(selector)[0];
-        var container       = {};
-        container.day       = Element.select(el, '.dob-day input')[0];
-        container.month     = Element.select(el, '.dob-month input')[0];
-        container.year      = Element.select(el, '.dob-year input')[0];
-        container.full      = Element.select(el, '.dob-full input')[0];
-        container.advice    = Element.select(el, '.validation-advice')[0];
+        var container = {};
+        container.day = Element.select(el, '.dob-day input')[0];
+        container.month = Element.select(el, '.dob-month input')[0];
+        container.year = Element.select(el, '.dob-year input')[0];
+        container.full = Element.select(el, '.dob-full input')[0];
+        container.advice = Element.select(el, '.validation-advice')[0];
 
         new Varien.DateElement('container', container, required, format);
     }
@@ -592,7 +598,7 @@ Varien.dateRangeDate.prototype = Object.extend(new Varien.DateElement(), {
 
 Varien.FileElement = Class.create();
 Varien.FileElement.prototype = {
-    initialize: function (id) {
+    initialize: function(id) {
         this.fileElement = $(id);
         this.hiddenElement = $(id + '_value');
 
@@ -604,19 +610,19 @@ Varien.FileElement.prototype = {
 };
 
 Validation.addAllThese([
-    ['validate-custom', ' ', function(v,elm) {
-        return elm.validate();
-    }]
+    ['validate-custom', ' ', function(v, elm) {
+            return elm.validate();
+        }]
 ]);
 
 function truncateOptions() {
-    $$('.truncated').each(function(element){
-        Event.observe(element, 'mouseover', function(){
+    $$('.truncated').each(function(element) {
+        Event.observe(element, 'mouseover', function() {
             if (element.down('div.truncated_full_value')) {
                 element.down('div.truncated_full_value').addClassName('show')
             }
         });
-        Event.observe(element, 'mouseout', function(){
+        Event.observe(element, 'mouseout', function() {
             if (element.down('div.truncated_full_value')) {
                 element.down('div.truncated_full_value').removeClassName('show')
             }
@@ -624,15 +630,15 @@ function truncateOptions() {
 
     });
 }
-Event.observe(window, 'load', function(){
-   truncateOptions();
+Event.observe(window, 'load', function() {
+    truncateOptions();
 });
 
 Element.addMethods({
     getInnerText: function(element)
     {
         element = $(element);
-        if(element.innerText && !Prototype.Browser.Opera) {
+        if (element.innerText && !Prototype.Browser.Opera) {
             return element.innerText
         }
         return element.innerHTML.stripScripts().unescapeHTML().replace(/[\n\r\s]+/g, ' ').strip();
@@ -640,16 +646,16 @@ Element.addMethods({
 });
 
 /*
-if (!("console" in window) || !("firebug" in console))
-{
-    var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml",
-    "group", "groupEnd", "time", "timeEnd", "count", "trace", "profile", "profileEnd"];
-
-    window.console = {};
-    for (var i = 0; i < names.length; ++i)
-        window.console[names[i]] = function() {}
-}
-*/
+ if (!("console" in window) || !("firebug" in console))
+ {
+ var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml",
+ "group", "groupEnd", "time", "timeEnd", "count", "trace", "profile", "profileEnd"];
+ 
+ window.console = {};
+ for (var i = 0; i < names.length; ++i)
+ window.console[names[i]] = function() {}
+ }
+ */
 
 /**
  * Executes event handler on the element. Works with event handlers attached by Prototype,
@@ -663,7 +669,7 @@ function fireEvent(element, event) {
     if (document.createEvent) {
         // dispatch for all browsers except IE before version 9
         var evt = document.createEvent("HTMLEvents");
-        evt.initEvent(event, true, true ); // event type, bubbling, cancelable
+        evt.initEvent(event, true, true); // event type, bubbling, cancelable
         return element.dispatchEvent(evt);
     } else {
         // dispatch for IE before version 9
@@ -701,7 +707,7 @@ if ((typeof Range != "undefined") && !Range.prototype.createContextualFragment)
     Range.prototype.createContextualFragment = function(html)
     {
         var frag = document.createDocumentFragment(),
-        div = document.createElement("div");
+                div = document.createElement("div");
         frag.appendChild(div);
         div.outerHTML = html;
         return frag;

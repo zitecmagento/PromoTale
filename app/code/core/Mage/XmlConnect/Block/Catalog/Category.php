@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Category extends Mage_XmlConnect_Block_Catalog
 {
+
     /**
      * Render block HTML
      *
@@ -42,7 +44,7 @@ class Mage_XmlConnect_Block_Catalog_Category extends Mage_XmlConnect_Block_Catal
     {
         /** @var $categoryXmlObj Mage_XmlConnect_Model_Simplexml_Element */
         $categoryXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<category></category>');
-        $categoryId     = $this->getRequest()->getParam('id', null);
+        $categoryId = $this->getRequest()->getParam('id', null);
         $rootCategoryId = Mage::app()->getStore()->getRootCategoryId();
         if (null === $categoryId) {
             $categoryId = $rootCategoryId;
@@ -50,15 +52,15 @@ class Mage_XmlConnect_Block_Catalog_Category extends Mage_XmlConnect_Block_Catal
 
         $productsXmlObj = $productListBlock = false;
         /** @var $categoryModel Mage_Catalog_Model_Category */
-        $categoryModel  = Mage::getModel('catalog/category')->load($categoryId);
+        $categoryModel = Mage::getModel('catalog/category')->load($categoryId);
         if ($categoryModel->getId()) {
             $hasMoreProductItems = 0;
             $productListBlock = $this->getChild('product_list');
             if ($productListBlock && $categoryModel->getLevel() > 1) {
                 $layer = Mage::getSingleton('catalog/layer');
                 $productsXmlObj = $productListBlock->setCategory($categoryModel)->setLayer($layer)
-                    ->getProductsXmlObject();
-                $hasMoreProductItems = (int)$productListBlock->getHasProductItems();
+                        ->getProductsXmlObject();
+                $hasMoreProductItems = (int) $productListBlock->getHasProductItems();
             }
 
             $infoBlock = $this->getChild('category_info');
@@ -91,7 +93,7 @@ class Mage_XmlConnect_Block_Catalog_Category extends Mage_XmlConnect_Block_Catal
                     $itemXmlObj->addChild('parent_id', $item->getParentId());
                 }
                 $icon = Mage::helper('xmlconnect/catalog_category_image')->initialize($item, 'thumbnail')
-                    ->resize($categoryImageSize);
+                        ->resize($categoryImageSize);
 
                 $iconXml = $itemXmlObj->addChild('icon', $icon);
                 $iconXml->addAttribute('modification_time', filemtime($icon->getNewFile()));
@@ -112,7 +114,7 @@ class Mage_XmlConnect_Block_Catalog_Category extends Mage_XmlConnect_Block_Catal
     public function getCurrentChildCategories()
     {
         $layer = Mage::getSingleton('catalog/layer');
-        $category   = $layer->getCurrentCategory();
+        $category = $layer->getCurrentCategory();
         /* @var $category Mage_Catalog_Model_Category */
         $categories = $category->getChildrenCategories();
         $productCollection = Mage::getResourceModel('catalog/product_collection');
@@ -120,4 +122,5 @@ class Mage_XmlConnect_Block_Catalog_Category extends Mage_XmlConnect_Block_Catal
         $productCollection->addCountToCategories($categories);
         return $categories;
     }
+
 }

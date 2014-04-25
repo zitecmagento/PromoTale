@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Accordion extends Mage_Adminhtml_Block_Widget_Accordion
 {
+
     protected function _prepareLayout()
     {
         $customer = Mage::registry('current_customer');
@@ -40,8 +42,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Accordion extends Mage_Adminht
         $this->setId('customerViewAccordion');
 
         $this->addItem('lastOrders', array(
-            'title'       => Mage::helper('customer')->__('Recent Orders'),
-            'ajax'        => true,
+            'title' => Mage::helper('customer')->__('Recent Orders'),
+            'ajax' => true,
             'content_url' => $this->getUrl('*/*/lastOrders', array('_current' => true)),
         ));
 
@@ -51,10 +53,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Accordion extends Mage_Adminht
 
             // count cart items
             $cartItemsCount = Mage::getModel('sales/quote')
-                ->setWebsite($website)->loadByCustomer($customer)
-                ->getItemsCollection(false)
-                ->addFieldToFilter('parent_item_id', array('null' => true))
-                ->getSize();
+                    ->setWebsite($website)->loadByCustomer($customer)
+                    ->getItemsCollection(false)
+                    ->addFieldToFilter('parent_item_id', array('null' => true))
+                    ->getSize();
             // prepare title for cart
             $title = Mage::helper('customer')->__('Shopping Cart - %d item(s)', $cartItemsCount);
             if (count($customer->getSharedWebsiteIds()) > 1) {
@@ -63,22 +65,23 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Accordion extends Mage_Adminht
 
             // add cart ajax accordion
             $this->addItem('shopingCart' . $websiteId, array(
-                'title'   => $title,
-                'ajax'    => true,
+                'title' => $title,
+                'ajax' => true,
                 'content_url' => $this->getUrl('*/*/viewCart', array('_current' => true, 'website_id' => $websiteId)),
             ));
         }
 
         // count wishlist items
         $wishlistCount = Mage::getModel('wishlist/item')->getCollection()
-            ->addCustomerIdFilter($customer->getId())
-            ->addStoreData()
-            ->getSize();
+                ->addCustomerIdFilter($customer->getId())
+                ->addStoreData()
+                ->getSize();
         // add wishlist ajax accordion
         $this->addItem('wishlist', array(
             'title' => Mage::helper('customer')->__('Wishlist - %d item(s)', $wishlistCount),
-            'ajax'  => true,
+            'ajax' => true,
             'content_url' => $this->getUrl('*/*/viewWishlist', array('_current' => true)),
         ));
     }
+
 }

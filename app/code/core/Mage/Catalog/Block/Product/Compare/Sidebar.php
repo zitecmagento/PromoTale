@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Comapare Products Sidebar Block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Product_Compare_Abstract
 {
+
     /**
      * Compare Products Collection
      *
@@ -116,9 +117,10 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
         foreach ($this->getItems() as $product) {
             $this->addModelTags($product);
             $this->addModelTags(
-                $compareItem->setId($product->getCatalogCompareItemId())
+                    $compareItem->setId($product->getCatalogCompareItemId())
             );
         }
         return parent::getCacheTags();
     }
+
 }

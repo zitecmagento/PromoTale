@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ApplicationDirectory.php 20851 2010-02-02 21:45:51Z ralph $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Filesystem_Directory
  */
@@ -40,9 +40,8 @@ class Zend_Tool_Project_Context_Zf_ApplicationDirectory extends Zend_Tool_Projec
 {
 
     protected $_filesystemName = 'application';
-
     protected $_classNamePrefix = 'Application_';
-    
+
     public function init()
     {
         if ($this->_resource->hasAttribute('classNamePrefix')) {
@@ -50,7 +49,7 @@ class Zend_Tool_Project_Context_Zf_ApplicationDirectory extends Zend_Tool_Projec
         }
         parent::init();
     }
-    
+
     /**
      * getPersistentAttributes
      *
@@ -60,19 +59,19 @@ class Zend_Tool_Project_Context_Zf_ApplicationDirectory extends Zend_Tool_Projec
     {
         return array(
             'classNamePrefix' => $this->getClassNamePrefix()
-            );
+        );
     }
-    
+
     public function getName()
     {
         return 'ApplicationDirectory';
     }
-    
+
     public function setClassNamePrefix($classNamePrefix)
     {
         $this->_classNamePrefix = $classNamePrefix;
     }
-    
+
     public function getClassNamePrefix()
     {
         return $this->_classNamePrefix;

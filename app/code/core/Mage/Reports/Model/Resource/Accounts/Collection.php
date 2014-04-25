@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * New Accounts Report collection
  *
@@ -47,7 +47,7 @@ class Mage_Reports_Model_Resource_Accounts_Collection extends Mage_Reports_Model
 
         $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
         $this->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to, 'datetime' => true))
-             ->addExpressionAttributeToSelect('accounts', 'COUNT({{entity_id}})', array('entity_id'));
+                ->addExpressionAttributeToSelect('accounts', 'COUNT({{entity_id}})', array('entity_id'));
 
         $this->getSelect()->having("{$this->_joinFields['accounts']['field']} > ?", 0);
 
@@ -64,7 +64,7 @@ class Mage_Reports_Model_Resource_Accounts_Collection extends Mage_Reports_Model
     public function setDateRange($from, $to)
     {
         $this->_reset()
-             ->_joinFields($from, $to);
+                ->_joinFields($from, $to);
         return $this;
     }
 
@@ -77,8 +77,9 @@ class Mage_Reports_Model_Resource_Accounts_Collection extends Mage_Reports_Model
     public function setStoreIds($storeIds)
     {
         if ($storeIds) {
-            $this->addAttributeToFilter('store_id', array('in' => (array)$storeIds));
+            $this->addAttributeToFilter('store_id', array('in' => (array) $storeIds));
         }
         return $this;
     }
+
 }

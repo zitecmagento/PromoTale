@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -37,9 +38,9 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('catalog/tag')
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Catalog'), Mage::helper('adminhtml')->__('Catalog'))
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Tags'), Mage::helper('adminhtml')->__('Tags'));
+                ->_setActiveMenu('catalog/tag')
+                ->_addBreadcrumb(Mage::helper('adminhtml')->__('Catalog'), Mage::helper('adminhtml')->__('Catalog'))
+                ->_addBreadcrumb(Mage::helper('adminhtml')->__('Tags'), Mage::helper('adminhtml')->__('Tags'));
 
         return $this;
     }
@@ -76,13 +77,13 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     public function indexAction()
     {
         $this->_title($this->__('Catalog'))
-             ->_title($this->__('Tags'))
-             ->_title($this->__('All Tags'));
+                ->_title($this->__('Tags'))
+                ->_title($this->__('All Tags'));
 
         $this->_initAction()
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('All Tags'), Mage::helper('adminhtml')->__('All Tags'))
-            ->_setActiveMenu('catalog/tag/all')
-            ->renderLayout();
+                ->_addBreadcrumb(Mage::helper('adminhtml')->__('All Tags'), Mage::helper('adminhtml')->__('All Tags'))
+                ->_setActiveMenu('catalog/tag/all')
+                ->renderLayout();
     }
 
     /**
@@ -121,20 +122,20 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     public function editAction()
     {
         $this->_title($this->__('Catalog'))
-             ->_title($this->__('Tags'));
+                ->_title($this->__('Tags'));
 
-        if (! (int) $this->getRequest()->getParam('store')) {
+        if (!(int) $this->getRequest()->getParam('store')) {
             return $this->_redirect('*/*/*/', array('store' => Mage::app()->getAnyStoreView()->getId(), '_current' => true));
         }
 
-        if (! ($model = $this->_initTag())) {
+        if (!($model = $this->_initTag())) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Wrong tag was specified.'));
             return $this->_redirect('*/*/index', array('store' => $this->getRequest()->getParam('store')));
         }
 
         // set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getTagData(true);
-        if (! empty($data)) {
+        if (!empty($data)) {
             $model->addData($data);
         }
 
@@ -156,10 +157,10 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 $data['tag_id'] = $postData['tag_id'];
             }
 
-            $data['name']               = trim($postData['tag_name']);
-            $data['status']             = $postData['tag_status'];
-            $data['base_popularity']    = (isset($postData['base_popularity'])) ? $postData['base_popularity'] : 0;
-            $data['store']              = $postData['store_id'];
+            $data['name'] = trim($postData['tag_name']);
+            $data['status'] = $postData['tag_status'];
+            $data['base_popularity'] = (isset($postData['base_popularity'])) ? $postData['base_popularity'] : 0;
+            $data['store'] = $postData['store_id'];
 
             if (!$model = $this->_initTag()) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Wrong tag was specified.'));
@@ -170,23 +171,27 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
             if (isset($postData['tag_assigned_products'])) {
                 $productIds = Mage::helper('adminhtml/js')->decodeGridSerializedInput(
-                    $postData['tag_assigned_products']
+                        $postData['tag_assigned_products']
                 );
                 $model->setData('tag_assigned_products', $productIds);
             }
 
-            try {
+            try
+            {
                 $model->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The tag has been saved.'));
                 Mage::getSingleton('adminhtml/session')->setTagData(false);
 
                 if (($continue = $this->getRequest()->getParam('continue'))) {
-                    return $this->_redirect('*/tag/edit', array('tag_id' => $model->getId(), 'store' => $model->getStoreId(), 'ret' => $continue));
+                    return $this->_redirect('*/tag/edit', array('tag_id' => $model->getId(), 'store' => $model->getStoreId(),
+                                'ret' => $continue));
                 } else {
                     return $this->_redirect('*/tag/' . $this->getRequest()->getParam('ret', 'index'));
                 }
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setTagData($data);
 
@@ -204,14 +209,17 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
      */
     public function deleteAction()
     {
-        $model   = $this->_initTag();
+        $model = $this->_initTag();
         $session = Mage::getSingleton('adminhtml/session');
 
         if ($model && $model->getId()) {
-            try {
+            try
+            {
                 $model->delete();
                 $session->addSuccess(Mage::helper('adminhtml')->__('The tag has been deleted.'));
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $session->addError($e->getMessage());
             }
         } else {
@@ -228,13 +236,13 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     public function pendingAction()
     {
         $this->_title($this->__('Catalog'))
-             ->_title($this->__('Tags'))
-             ->_title($this->__('Pending Tags'));
+                ->_title($this->__('Tags'))
+                ->_title($this->__('Pending Tags'));
 
         $this->_initAction()
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Pending Tags'), Mage::helper('adminhtml')->__('Pending Tags'))
-            ->_setActiveMenu('catalog/tag/pending')
-            ->renderLayout();
+                ->_addBreadcrumb(Mage::helper('adminhtml')->__('Pending Tags'), Mage::helper('adminhtml')->__('Pending Tags'))
+                ->_setActiveMenu('catalog/tag/pending')
+                ->renderLayout();
     }
 
     /**
@@ -290,18 +298,21 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     public function massDeleteAction()
     {
         $tagIds = $this->getRequest()->getParam('tag');
-        if(!is_array($tagIds)) {
-             Mage::getSingleton('adminhtml/session')->addError($this->__('Please select tag(s).'));
+        if (!is_array($tagIds)) {
+            Mage::getSingleton('adminhtml/session')->addError($this->__('Please select tag(s).'));
         } else {
-            try {
+            try
+            {
                 foreach ($tagIds as $tagId) {
                     $tag = Mage::getModel('tag/tag')->load($tagId);
                     $tag->delete();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    $this->__('Total of %d record(s) have been deleted.', count($tagIds))
+                        $this->__('Total of %d record(s) have been deleted.', count($tagIds))
                 );
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
@@ -316,27 +327,30 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     public function massStatusAction()
     {
         $tagIds = $this->getRequest()->getParam('tag');
-        $storeId = (int)$this->getRequest()->getParam('store', 0);
-        if(!is_array($tagIds)) {
+        $storeId = (int) $this->getRequest()->getParam('store', 0);
+        if (!is_array($tagIds)) {
             // No products selected
             Mage::getSingleton('adminhtml/session')->addError($this->__('Please select tag(s).'));
         } else {
-            try {
+            try
+            {
                 foreach ($tagIds as $tagId) {
                     $tag = Mage::getModel('tag/tag')
-                        ->load($tagId)
-                        ->setStatus($this->getRequest()->getParam('status'));
-                     $tag->save();
+                            ->load($tagId)
+                            ->setStatus($this->getRequest()->getParam('status'));
+                    $tag->save();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    $this->__('Total of %d record(s) have been updated.', count($tagIds))
+                        $this->__('Total of %d record(s) have been updated.', count($tagIds))
                 );
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
         $ret = $this->getRequest()->getParam('ret') ? $this->getRequest()->getParam('ret') : 'index';
-        $this->_redirect('*/*/'.$ret);
+        $this->_redirect('*/*/' . $ret);
     }
 
     /**
@@ -357,4 +371,5 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 break;
         }
     }
+
 }

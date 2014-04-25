@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Hex.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Validate_Hex extends Zend_Validate_Abstract
 {
+
     const INVALID = 'hexInvalid';
     const NOT_HEX = 'notHex';
 

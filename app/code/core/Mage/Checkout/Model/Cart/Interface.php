@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 interface Mage_Checkout_Model_Cart_Interface
 {
+
     /**
      * Add product to shopping cart (quote)
      *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Process autentication start action
      *
@@ -48,8 +50,9 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
      */
     public function authenticationCompleteAction()
     {
-        try {
-           if ($validator = $this->_getValidator()) {
+        try
+        {
+            if ($validator = $this->_getValidator()) {
                 $request = $this->getRequest();
 
                 $data = new Varien_Object();
@@ -59,7 +62,9 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
                 $validator->authenticate($data);
                 Mage::register('current_centinel_validator', $validator);
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::register('current_centinel_validator', false);
         }
         $this->loadLayout()->renderLayout();
@@ -87,5 +92,5 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
         }
         return false;
     }
-}
 
+}

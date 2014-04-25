@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 require_once "Varien/Pear/Package.php";
 
 /**
@@ -35,6 +35,7 @@ require_once "Varien/Pear/Package.php";
  */
 class Mage_Install_Model_Installer_Pear extends Mage_Install_Model_Installer_Abstract
 {
+
     public function getPackages()
     {
         $packages = array(
@@ -75,4 +76,5 @@ class Mage_Install_Model_Installer_Pear extends Mage_Install_Model_Installer_Abs
         }
         return $result;
     }
+
 }

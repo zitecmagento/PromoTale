@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -39,11 +40,11 @@
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
 {
-    const ENTITY         = 'store_group';
-    const CACHE_TAG      = 'store_group';
+
+    const ENTITY = 'store_group';
+    const CACHE_TAG = 'store_group';
 
     protected $_cacheTag = true;
 
@@ -160,8 +161,8 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     public function getStoreCollection()
     {
         return Mage::getModel('core/store')
-            ->getCollection()
-            ->addGroupFilter($this->getId());
+                        ->getCollection()
+                        ->addGroupFilter($this->getId());
     }
 
     /**
@@ -337,8 +338,9 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     public function isReadOnly($value = null)
     {
         if (null !== $value) {
-            $this->_isReadOnly = (bool)$value;
+            $this->_isReadOnly = (bool) $value;
         }
         return $this->_isReadOnly;
     }
+
 }

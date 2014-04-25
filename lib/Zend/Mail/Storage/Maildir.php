@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Maildir.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Mail_Storage_Abstract
  */
@@ -36,7 +35,6 @@
  */
 #require_once 'Zend/Mail/Storage.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -46,6 +44,7 @@
  */
 class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
 {
+
     /**
      * used message class, change it in an extened class to extend the returned message class
      * @var string
@@ -66,11 +65,11 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
      * @var array
      */
     protected static $_knownFlags = array('D' => Zend_Mail_Storage::FLAG_DRAFT,
-                                          'F' => Zend_Mail_Storage::FLAG_FLAGGED,
-                                          'P' => Zend_Mail_Storage::FLAG_PASSED,
-                                          'R' => Zend_Mail_Storage::FLAG_ANSWERED,
-                                          'S' => Zend_Mail_Storage::FLAG_SEEN,
-                                          'T' => Zend_Mail_Storage::FLAG_DELETED);
+        'F' => Zend_Mail_Storage::FLAG_FLAGGED,
+        'P' => Zend_Mail_Storage::FLAG_PASSED,
+        'R' => Zend_Mail_Storage::FLAG_ANSWERED,
+        'S' => Zend_Mail_Storage::FLAG_SEEN,
+        'T' => Zend_Mail_Storage::FLAG_DELETED);
 
     // TODO: getFlags($id) for fast access if headers are not needed (i.e. just setting flags)?
 
@@ -97,15 +96,15 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
         }
 
         $flags = array_flip($flags);
-           foreach ($this->_files as $file) {
-               foreach ($flags as $flag => $v) {
-                   if (!isset($file['flaglookup'][$flag])) {
-                       continue 2;
-                   }
-               }
-               ++$count;
-           }
-           return $count;
+        foreach ($this->_files as $file) {
+            foreach ($flags as $flag => $v) {
+                if (!isset($file['flaglookup'][$flag])) {
+                    continue 2;
+                }
+            }
+            ++$count;
+        }
+        return $count;
     }
 
     /**
@@ -163,8 +162,6 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
         return $result;
     }
 
-
-
     /**
      * Fetch a message
      *
@@ -176,12 +173,12 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
     {
         // TODO that's ugly, would be better to let the message class decide
         if (strtolower($this->_messageClass) == 'zend_mail_message_file' || is_subclass_of($this->_messageClass, 'zend_mail_message_file')) {
-            return new $this->_messageClass(array('file'  => $this->_getFileData($id, 'filename'),
-                                                  'flags' => $this->_getFileData($id, 'flags')));
+            return new $this->_messageClass(array('file' => $this->_getFileData($id, 'filename'),
+                'flags' => $this->_getFileData($id, 'flags')));
         }
 
         return new $this->_messageClass(array('handler' => $this, 'id' => $id, 'headers' => $this->getRawHeader($id),
-                                              'flags'   => $this->_getFileData($id, 'flags')));
+            'flags' => $this->_getFileData($id, 'flags')));
     }
 
     /*
@@ -193,6 +190,7 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
      * @return string raw header
      * @throws Zend_Mail_Storage_Exception
      */
+
     public function getRawHeader($id, $part = null, $topLines = 0)
     {
         if ($part !== null) {
@@ -227,6 +225,7 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
      * @return string raw content
      * @throws Zend_Mail_Storage_Exception
      */
+
     public function getRawContent($id, $part = null)
     {
         if ($part !== null) {
@@ -263,7 +262,7 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
     public function __construct($params)
     {
         if (is_array($params)) {
-            $params = (object)$params;
+            $params = (object) $params;
         }
 
         if (!isset($params->dirname) || !is_dir($params->dirname)) {
@@ -357,7 +356,7 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
             }
 
             @list($uniq, $info) = explode(':', $entry, 2);
-            @list(,$size) = explode(',', $uniq, 2);
+            @list(, $size) = explode(',', $uniq, 2);
             if ($size && $size[0] == 'S' && $size[1] == '=') {
                 $size = substr($size, 2);
             }
@@ -376,17 +375,16 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
                 $named_flags[$flag] = isset(self::$_knownFlags[$flag]) ? self::$_knownFlags[$flag] : $flag;
             }
 
-            $data = array('uniq'       => $uniq,
-                          'flags'      => $named_flags,
-                          'flaglookup' => array_flip($named_flags),
-                          'filename'   => $dirname . $entry);
+            $data = array('uniq' => $uniq,
+                'flags' => $named_flags,
+                'flaglookup' => array_flip($named_flags),
+                'filename' => $dirname . $entry);
             if ($size !== null) {
-                $data['size'] = (int)$size;
+                $data['size'] = (int) $size;
             }
             $this->_files[] = $data;
         }
     }
-
 
     /**
      * Close resource for mail lib. If you need to control, when the resource
@@ -399,7 +397,6 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
         $this->_files = array();
     }
 
-
     /**
      * Waste some CPU cycles doing nothing.
      *
@@ -409,7 +406,6 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
     {
         return true;
     }
-
 
     /**
      * stub for not supported message deletion
@@ -472,4 +468,5 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
         #require_once 'Zend/Mail/Storage/Exception.php';
         throw new Zend_Mail_Storage_Exception('unique id not found');
     }
+
 }

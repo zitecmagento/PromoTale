@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -43,20 +44,22 @@
  */
 class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 {
-    /**#@+
+    /*     * #@+
      * System roles identifiers
      */
+
     const ROLE_GUEST_ID = 1;
     const ROLE_CUSTOMER_ID = 2;
-    /**#@-*/
+    /*     * #@- */
 
-    /**#@+
+    /*     * #@+
      * Config node identifiers
      */
     const ROLE_CONFIG_NODE_NAME_GUEST = 'guest';
     const ROLE_CONFIG_NODE_NAME_CUSTOMER = 'customer';
     const ROLE_CONFIG_NODE_NAME_ADMIN = 'admin';
-    /**#@-*/
+
+    /*     * #@- */
 
     /**
      * Permissions model
@@ -89,14 +92,13 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
         }
 
         //check and protect guest role
-        if (Mage_Api2_Model_Acl_Global_Role::isSystemRole($this)
-            && $this->getRoleName() != $this->getOrigData('role_name')) {
+        if (Mage_Api2_Model_Acl_Global_Role::isSystemRole($this) && $this->getRoleName() != $this->getOrigData('role_name')) {
 
             /** @var $helper Mage_Core_Helper_Data */
             $helper = Mage::helper('core');
 
             Mage::throwException(
-                Mage::helper('api2')->__('%s role is a special one and can\'t be changed.', $helper->escapeHtml($this->getRoleName()))
+                    Mage::helper('api2')->__('%s role is a special one and can\'t be changed.', $helper->escapeHtml($this->getRoleName()))
             );
         }
 
@@ -116,7 +118,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
             $helper = Mage::helper('core');
 
             Mage::throwException(
-                Mage::helper('api2')->__('%s role is a special one and can\'t be deleted.', $helper->escapeHtml($this->getRoleName()))
+                    Mage::helper('api2')->__('%s role is a special one and can\'t be deleted.', $helper->escapeHtml($this->getRoleName()))
             );
         }
 
@@ -180,4 +182,5 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
         }
         return $roleNodeName;
     }
+
 }

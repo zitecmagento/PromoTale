@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TestLibraryNamespaceDirectory.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Filesystem_Directory
  */
@@ -42,7 +42,7 @@ class Zend_Tool_Project_Context_Zf_TestLibraryNamespaceDirectory extends Zend_To
     /**
      * @var string
      */
-    protected $_namespaceName  = '';
+    protected $_namespaceName = '';
 
     /**
      * @var string
@@ -66,7 +66,7 @@ class Zend_Tool_Project_Context_Zf_TestLibraryNamespaceDirectory extends Zend_To
      */
     public function init()
     {
-        $this->_namespaceName  = $this->_resource->getAttribute('namespaceName');
+        $this->_namespaceName = $this->_resource->getAttribute('namespaceName');
         $this->_filesystemName = $this->_namespaceName;
         parent::init();
         return $this;

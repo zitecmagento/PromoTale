@@ -20,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: NoteSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Simpy_Note
  */
 #require_once 'Zend/Service/Simpy/Note.php';
-
 
 /**
  * @category   Zend
@@ -37,6 +34,7 @@
  */
 class Zend_Service_Simpy_NoteSet implements IteratorAggregate
 {
+
     /**
      * List of notes
      *
@@ -80,4 +78,5 @@ class Zend_Service_Simpy_NoteSet implements IteratorAggregate
     {
         return count($this->_notes);
     }
+
 }

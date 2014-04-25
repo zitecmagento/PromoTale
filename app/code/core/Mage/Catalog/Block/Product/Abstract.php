@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Abstract Block
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Template
 {
+
     /**
      * Price block array
      *
@@ -118,8 +119,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             return $this->helper('checkout/cart')->getAddUrl($product, $additional);
         }
         $additional = array_merge(
-            $additional,
-            array(Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey())
+                $additional, array(Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey())
         );
         if (!isset($additional['_escape'])) {
             $additional['_escape'] = true;
@@ -197,8 +197,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     {
         $stockItem = $product->getStockItem();
         if ($stockItem) {
-            return ($stockItem->getMinSaleQty()
-            && $stockItem->getMinSaleQty() > 0 ? $stockItem->getMinSaleQty() * 1 : null);
+            return ($stockItem->getMinSaleQty() && $stockItem->getMinSaleQty() > 0 ? $stockItem->getMinSaleQty() * 1 : null);
         }
         return null;
     }
@@ -239,7 +238,6 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         return $this->_priceBlockDefaultTemplate;
     }
 
-
     /**
      * Prepares and returns block to render some product type
      *
@@ -249,8 +247,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     public function _preparePriceRenderer($productType)
     {
         return $this->_getPriceBlock($productType)
-            ->setTemplate($this->_getPriceBlockTemplate($productType))
-            ->setUseLinkForAsLowAs($this->_useLinkForAsLowAs);
+                        ->setTemplate($this->_getPriceBlockTemplate($productType))
+                        ->setUseLinkForAsLowAs($this->_useLinkForAsLowAs);
     }
 
     /**
@@ -266,20 +264,20 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         $type_id = $product->getTypeId();
         if (Mage::helper('catalog')->canApplyMsrp($product)) {
             $realPriceHtml = $this->_preparePriceRenderer($type_id)
-                ->setProduct($product)
-                ->setDisplayMinimalPrice($displayMinimalPrice)
-                ->setIdSuffix($idSuffix)
-                ->toHtml();
+                    ->setProduct($product)
+                    ->setDisplayMinimalPrice($displayMinimalPrice)
+                    ->setIdSuffix($idSuffix)
+                    ->toHtml();
             $product->setAddToCartUrl($this->getAddToCartUrl($product));
             $product->setRealPriceHtml($realPriceHtml);
             $type_id = $this->_mapRenderer;
         }
 
         return $this->_preparePriceRenderer($type_id)
-            ->setProduct($product)
-            ->setDisplayMinimalPrice($displayMinimalPrice)
-            ->setIdSuffix($idSuffix)
-            ->toHtml();
+                        ->setProduct($product)
+                        ->setDisplayMinimalPrice($displayMinimalPrice)
+                        ->setIdSuffix($idSuffix)
+                        ->toHtml();
     }
 
     /**
@@ -307,8 +305,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param bool $displayIfNoReviews
      * @return string
      */
-    public function getReviewsSummaryHtml(Mage_Catalog_Model_Product $product, $templateType = false,
-        $displayIfNoReviews = false)
+    public function getReviewsSummaryHtml(Mage_Catalog_Model_Product $product, $templateType = false, $displayIfNoReviews = false)
     {
         if ($this->_initReviewsHelperBlock()) {
             return $this->_reviewsHelperBlock->getSummaryHtml($product, $templateType, $displayIfNoReviews);
@@ -391,11 +388,11 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             $product = $this->getProduct();
         }
         return $this->_getPriceBlock($product->getTypeId())
-            ->setTemplate($this->getTierPriceTemplate())
-            ->setProduct($product)
-            ->setInGrouped($product->isGrouped())
-            ->setParent($parent)
-            ->callParentToHtml();
+                        ->setTemplate($this->getTierPriceTemplate())
+                        ->setProduct($product)
+                        ->setInGrouped($product->isGrouped())
+                        ->setParent($parent)
+                        ->callParentToHtml();
     }
 
     /*
@@ -406,6 +403,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      *  @return string
      */
+
     protected function callParentToHtml()
     {
         return $this->toHtml();
@@ -444,13 +442,13 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
                     $price['savePercent'] = ceil(100 - ((100 / $_productPrice) * $price['price']));
 
                     $tierPrice = Mage::app()->getStore()->convertPrice(
-                        Mage::helper('tax')->getPrice($product, $price['website_price'])
+                            Mage::helper('tax')->getPrice($product, $price['website_price'])
                     );
                     $price['formated_price'] = Mage::app()->getStore()->formatPrice($tierPrice);
                     $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(
-                        Mage::app()->getStore()->convertPrice(
-                            Mage::helper('tax')->getPrice($product, $price['website_price'], true)
-                        )
+                            Mage::app()->getStore()->convertPrice(
+                                    Mage::helper('tax')->getPrice($product, $price['website_price'], true)
+                            )
                     );
 
                     if (Mage::helper('catalog')->canApplyMsrp($product)) {
@@ -485,11 +483,11 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     protected function _addProductAttributesAndPrices(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         return $collection
-            ->addMinimalPrice()
-            ->addFinalPrice()
-            ->addTaxPercents()
-            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->addUrlRewrite();
+                        ->addMinimalPrice()
+                        ->addFinalPrice()
+                        ->addTaxPercents()
+                        ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+                        ->addUrlRewrite();
     }
 
     /**
@@ -558,8 +556,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             $pageLayout = $this->getPageLayout();
             if ($pageLayout && $this->getColumnCountLayoutDepend($pageLayout->getCode())) {
                 $this->setData(
-                    'column_count',
-                    $this->getColumnCountLayoutDepend($pageLayout->getCode())
+                        'column_count', $this->getColumnCountLayoutDepend($pageLayout->getCode())
                 );
             } else {
                 $this->setData('column_count', $this->_defaultColumnCount);
@@ -642,7 +639,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     {
         $statusInfo = new Varien_Object(array('display_status' => true));
         Mage::dispatchEvent('catalog_block_product_status_display', array('status' => $statusInfo));
-        return (boolean)$statusInfo->getDisplayStatus();
+        return (boolean) $statusInfo->getDisplayStatus();
     }
 
     /**
@@ -664,4 +661,5 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -43,10 +44,10 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     public function getPluginSettings($config)
     {
         $settings = array(
-            'widget_plugin_src'   => Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/plugins/magentowidget/editor_plugin.js',
-            'widget_images_url'   => $this->getPlaceholderImagesBaseUrl(),
+            'widget_plugin_src' => Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tiny_mce/plugins/magentowidget/editor_plugin.js',
+            'widget_images_url' => $this->getPlaceholderImagesBaseUrl(),
             'widget_placeholders' => $this->getAvailablePlaceholderFilenames(),
-            'widget_window_url'   => $this->getWidgetWindowUrl($config)
+            'widget_window_url' => $this->getWidgetWindowUrl($config)
         );
 
         return $settings;
@@ -84,9 +85,9 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
         if (is_dir($targetDir) && is_readable($targetDir)) {
             $collection = new Varien_Data_Collection_Filesystem();
             $collection->addTargetDir($targetDir)
-                ->setCollectDirs(false)
-                ->setCollectFiles(true)
-                ->setCollectRecursively(false);
+                    ->setCollectDirs(false)
+                    ->setCollectFiles(true)
+                    ->setCollectRecursively(false);
             foreach ($collection as $file) {
                 $result[] = $file->getBasename();
             }

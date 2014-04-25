@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,8 +33,10 @@
  */
 class Mage_Page_Block_Js_Translate extends Mage_Core_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
     }
+
 }

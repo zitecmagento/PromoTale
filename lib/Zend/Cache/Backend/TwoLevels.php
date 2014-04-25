@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TwoLevels.php 22736 2010-07-30 16:25:54Z andyfowler $
  */
-
-
 /**
  * @see Zend_Cache_Backend_ExtendedInterface
  */
@@ -31,16 +30,15 @@
  */
 #require_once 'Zend/Cache/Backend.php';
 
-
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Cache_Backend_ExtendedInterface
 {
+
     /**
      * Available options
      *
@@ -128,10 +126,7 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
             $this->_slowBackend = $this->_options['slow_backend'];
         } else {
             $this->_slowBackend = Zend_Cache::_makeBackend(
-                $this->_options['slow_backend'],
-                $this->_options['slow_backend_options'],
-                $this->_options['slow_backend_custom_naming'],
-                $this->_options['slow_backend_autoload']
+                            $this->_options['slow_backend'], $this->_options['slow_backend_options'], $this->_options['slow_backend_custom_naming'], $this->_options['slow_backend_autoload']
             );
             if (!in_array('Zend_Cache_Backend_ExtendedInterface', class_implements($this->_slowBackend))) {
                 Zend_Cache::throwException('slow_backend must implement the Zend_Cache_Backend_ExtendedInterface interface');
@@ -144,10 +139,7 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
             $this->_fastBackend = $this->_options['fast_backend'];
         } else {
             $this->_fastBackend = Zend_Cache::_makeBackend(
-                $this->_options['fast_backend'],
-                $this->_options['fast_backend_options'],
-                $this->_options['fast_backend_custom_naming'],
-                $this->_options['fast_backend_autoload']
+                            $this->_options['fast_backend'], $this->_options['fast_backend_options'], $this->_options['fast_backend_custom_naming'], $this->_options['fast_backend_autoload']
             );
             if (!in_array('Zend_Cache_Backend_ExtendedInterface', class_implements($this->_fastBackend))) {
                 Zend_Cache::throwException('fast_backend must implement the Zend_Cache_Backend_ExtendedInterface interface');
@@ -283,7 +275,7 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {
-        switch($mode) {
+        switch ($mode) {
             case Zend_Cache::CLEANING_MODE_ALL:
                 $boolFast = $this->_fastBackend->clean(Zend_Cache::CLEANING_MODE_ALL);
                 $boolSlow = $this->_slowBackend->clean(Zend_Cache::CLEANING_MODE_ALL);
@@ -382,7 +374,6 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
     {
         return $this->_slowBackend->getIdsMatchingAnyTags($tags);
     }
-
 
     /**
      * Return the filling percentage of the backend storage

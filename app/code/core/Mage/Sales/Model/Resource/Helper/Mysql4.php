@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales Mysql resource helper model
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4
-    implements Mage_Sales_Model_Resource_Helper_Interface
+class Mage_Sales_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4 implements Mage_Sales_Model_Resource_Helper_Interface
 {
+
     /**
      * Update rating position
      *
@@ -44,23 +44,24 @@ class Mage_Sales_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_H
      * @param string $aggregationTable
      * @return Mage_Sales_Model_Resource_Helper_Abstract
      */
-    public function getBestsellersReportUpdateRatingPos($aggregation, $aggregationAliases,
-        $mainTable, $aggregationTable
-    ) {
+    public function getBestsellersReportUpdateRatingPos($aggregation, $aggregationAliases, $mainTable, $aggregationTable
+    )
+    {
         /** @var $reportsResourceHelper Mage_Reports_Model_Resource_Helper_Interface */
         $reportsResourceHelper = Mage::getResourceHelper('reports');
 
         if ($aggregation == $aggregationAliases['monthly']) {
             $reportsResourceHelper
-                ->updateReportRatingPos('month', 'qty_ordered', $mainTable, $aggregationTable);
+                    ->updateReportRatingPos('month', 'qty_ordered', $mainTable, $aggregationTable);
         } elseif ($aggregation == $aggregationAliases['yearly']) {
             $reportsResourceHelper
-                ->updateReportRatingPos('year', 'qty_ordered', $mainTable, $aggregationTable);
+                    ->updateReportRatingPos('year', 'qty_ordered', $mainTable, $aggregationTable);
         } else {
             $reportsResourceHelper
-                ->updateReportRatingPos('day', 'qty_ordered', $mainTable, $aggregationTable);
+                    ->updateReportRatingPos('day', 'qty_ordered', $mainTable, $aggregationTable);
         }
 
         return $this;
     }
+
 }

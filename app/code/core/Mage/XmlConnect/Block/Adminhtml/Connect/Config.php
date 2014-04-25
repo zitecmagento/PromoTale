@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Connect_Config extends Mage_Core_Block_Abstract
 {
+
     /**
      * Render login form xml
      *
@@ -44,7 +46,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Config extends Mage_Core_Block_Abs
         $configXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<configuration></configuration>');
         $this->_addLocalization($configXmlObj);
         $configXmlObj->addCustomChild('xmlconnect_version', Mage::getConfig()->getNode(
-            Mage_XmlConnect_Model_Application::XML_PATH_MODULE_VERSION
+                        Mage_XmlConnect_Model_Application::XML_PATH_MODULE_VERSION
         ));
 
         return $configXmlObj->asNiceXml();
@@ -65,4 +67,5 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Config extends Mage_Core_Block_Abs
         ));
         return $this;
     }
+
 }

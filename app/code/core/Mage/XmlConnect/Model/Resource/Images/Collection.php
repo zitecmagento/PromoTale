@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Xmlconnect_Model_Resource_Images_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Init resource model
      */
@@ -88,4 +90,5 @@ class Mage_Xmlconnect_Model_Resource_Images_Collection extends Mage_Core_Model_R
         $this->getSelect()->limit($count, $offset);
         return $this;
     }
+
 }

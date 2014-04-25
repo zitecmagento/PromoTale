@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $installer = $this;
 
@@ -31,18 +31,15 @@ $installer->startSetup();
 
 // Remove sales foreign keys
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('downloadable_link_purchased'),
-    'FK_DOWNLOADABLE_ORDER_ID'
+        $installer->getTable('downloadable_link_purchased'), 'FK_DOWNLOADABLE_ORDER_ID'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('downloadable_link_purchased'),
-    'FK_DOWNLOADABLE_PURCHASED_ORDER_ITEM_ID'
+        $installer->getTable('downloadable_link_purchased'), 'FK_DOWNLOADABLE_PURCHASED_ORDER_ITEM_ID'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('downloadable_link_purchased_item'),
-    'FK_DOWNLOADABLE_ORDER_ITEM_ID'
+        $installer->getTable('downloadable_link_purchased_item'), 'FK_DOWNLOADABLE_ORDER_ITEM_ID'
 );
 
 

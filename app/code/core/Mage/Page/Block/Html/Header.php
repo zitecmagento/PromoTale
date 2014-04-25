@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
 {
+
     public function _construct()
     {
         $this->setTemplate('page/html/header.phtml');
@@ -45,7 +47,7 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
      */
     public function getIsHomePage()
     {
-        return $this->getUrl('') == $this->getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true));
+        return $this->getUrl('') == $this->getUrl('*/*/*', array('_current' => true, '_use_rewrite' => true));
     }
 
     public function setLogo($logo_src, $logo_alt)
@@ -90,4 +92,5 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
 
         return $this->_data['welcome'];
     }
+
 }

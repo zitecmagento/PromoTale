@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item extends Mage_Api2_Model_Resource_Validator_Fields
 {
+
     /**
      * Validate data.
      * If fails validation, then this method returns false, and
@@ -59,4 +61,5 @@ class Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item extends Mage_Ap
         }
         return !count($this->getErrors());
     }
+
 }

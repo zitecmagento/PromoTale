@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Layer Decimal Attribute Filter Block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Block_Layer_Filter_Decimal extends Mage_Catalog_Block_Layer_Filter_Abstract
 {
+
     /**
      * Initialize Decimal Filter Model
      *
@@ -54,4 +55,5 @@ class Mage_Catalog_Block_Layer_Filter_Decimal extends Mage_Catalog_Block_Layer_F
         $this->_filter->setAttributeModel($this->getAttributeModel());
         return $this;
     }
+
 }

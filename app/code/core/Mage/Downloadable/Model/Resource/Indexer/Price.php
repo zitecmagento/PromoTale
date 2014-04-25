@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Downloadable products Price indexer resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
 {
+
     /**
      * Reindex temporary (price result data) for all products
      *
@@ -43,13 +44,16 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
     {
         $this->useIdxTable(true);
         $this->beginTransaction();
-        try {
+        try
+        {
             $this->_prepareFinalPriceData();
             $this->_applyCustomOption();
             $this->_applyDownloadableLink();
             $this->_movePriceDataToIndexTable();
             $this->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->rollBack();
             throw $e;
         }
@@ -105,8 +109,8 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
      */
     protected function _applyDownloadableLink()
     {
-        $write  = $this->_getWriteAdapter();
-        $table  = $this->_getDownloadableLinkPriceTable();
+        $write = $this->_getWriteAdapter();
+        $table = $this->_getDownloadableLinkPriceTable();
 
         $this->_prepareDownloadableLinkPriceTable();
 
@@ -115,32 +119,23 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
         $ifPrice = $write->getIfNullSql('dlpw.price_id', 'dlpd.price');
 
         $select = $write->select()
-            ->from(
-                array('i' => $this->_getDefaultFinalPriceTable()),
-                array('entity_id', 'customer_group_id', 'website_id'))
-            ->join(
-                array('dl' => $dlType->getBackend()->getTable()),
-                "dl.entity_id = i.entity_id AND dl.attribute_id = {$dlType->getAttributeId()}"
-                    . " AND dl.store_id = 0",
-                array())
-            ->join(
-                array('dll' => $this->getTable('downloadable/link')),
-                'dll.product_id = i.entity_id',
-                array())
-            ->join(
-                array('dlpd' => $this->getTable('downloadable/link_price')),
-                'dll.link_id = dlpd.link_id AND dlpd.website_id = 0',
-                array())
-            ->joinLeft(
-                array('dlpw' => $this->getTable('downloadable/link_price')),
-                'dlpd.link_id = dlpw.link_id AND dlpw.website_id = i.website_id',
-                array())
-            ->where('dl.value = ?', 1)
-            ->group(array('i.entity_id', 'i.customer_group_id', 'i.website_id'))
-            ->columns(array(
-                'min_price' => new Zend_Db_Expr('MIN('.$ifPrice.')'),
-                'max_price' => new Zend_Db_Expr('SUM('.$ifPrice.')')
-            ));
+                ->from(
+                        array('i' => $this->_getDefaultFinalPriceTable()), array('entity_id', 'customer_group_id', 'website_id'))
+                ->join(
+                        array('dl' => $dlType->getBackend()->getTable()), "dl.entity_id = i.entity_id AND dl.attribute_id = {$dlType->getAttributeId()}"
+                        . " AND dl.store_id = 0", array())
+                ->join(
+                        array('dll' => $this->getTable('downloadable/link')), 'dll.product_id = i.entity_id', array())
+                ->join(
+                        array('dlpd' => $this->getTable('downloadable/link_price')), 'dll.link_id = dlpd.link_id AND dlpd.website_id = 0', array())
+                ->joinLeft(
+                        array('dlpw' => $this->getTable('downloadable/link_price')), 'dlpd.link_id = dlpw.link_id AND dlpw.website_id = i.website_id', array())
+                ->where('dl.value = ?', 1)
+                ->group(array('i.entity_id', 'i.customer_group_id', 'i.website_id'))
+                ->columns(array(
+            'min_price' => new Zend_Db_Expr('MIN(' . $ifPrice . ')'),
+            'max_price' => new Zend_Db_Expr('SUM(' . $ifPrice . ')')
+        ));
 
         $query = $select->insertFromSelect($table);
         $write->query($query);
@@ -149,17 +144,15 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
         $ifGroupPrice = $write->getCheckSql('i.group_price IS NOT NULL', '(i.group_price + id.min_price)', 'NULL');
 
         $select = $write->select()
-            ->join(
-                array('id' => $table),
-                'i.entity_id = id.entity_id AND i.customer_group_id = id.customer_group_id'
-                    .' AND i.website_id = id.website_id',
-                array())
-            ->columns(array(
-                'min_price'   => new Zend_Db_Expr('i.min_price + id.min_price'),
-                'max_price'   => new Zend_Db_Expr('i.max_price + id.max_price'),
-                'tier_price'  => new Zend_Db_Expr($ifTierPrice),
-                'group_price' => new Zend_Db_Expr($ifGroupPrice),
-            ));
+                ->join(
+                        array('id' => $table), 'i.entity_id = id.entity_id AND i.customer_group_id = id.customer_group_id'
+                        . ' AND i.website_id = id.website_id', array())
+                ->columns(array(
+            'min_price' => new Zend_Db_Expr('i.min_price + id.min_price'),
+            'max_price' => new Zend_Db_Expr('i.max_price + id.max_price'),
+            'tier_price' => new Zend_Db_Expr($ifTierPrice),
+            'group_price' => new Zend_Db_Expr($ifGroupPrice),
+        ));
 
         $query = $select->crossUpdateFromSelect(array('i' => $this->_getDefaultFinalPriceTable()));
         $write->query($query);
@@ -168,4 +161,5 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Maildir.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Mail_Storage_Folder_Maildir
  */
@@ -31,7 +30,6 @@
  */
 #require_once 'Zend/Mail/Storage/Writable/Interface.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -39,8 +37,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Maildir
-                                         implements Zend_Mail_Storage_Writable_Interface
+class Zend_Mail_Storage_Writable_Maildir extends Zend_Mail_Storage_Folder_Maildir implements Zend_Mail_Storage_Writable_Interface
 {
     // TODO: init maildir (+ constructor option create if not found)
 
@@ -108,9 +105,10 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
      * @param  $params array mail reader specific parameters
      * @throws Zend_Mail_Storage_Exception
      */
-    public function __construct($params) {
+    public function __construct($params)
+    {
         if (is_array($params)) {
-            $params = (object)$params;
+            $params = (object) $params;
         }
 
         if (!empty($params->create) && isset($params->dirname) && !file_exists($params->dirname . DIRECTORY_SEPARATOR . 'cur')) {
@@ -145,9 +143,12 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
 
         // first we check if we try to create a folder that does exist
         $exists = null;
-        try {
+        try
+        {
             $exists = $this->getFolders($folder);
-        } catch (Zend_Mail_Exception $e) {
+        }
+        catch (Zend_Mail_Exception $e)
+        {
             // ok
         }
         if ($exists) {
@@ -173,8 +174,7 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
         $fulldir = $this->_rootdir . '.' . $folder;
 
         // check if we got tricked and would create a dir outside of the rootdir or not as direct child
-        if (strpos($folder, DIRECTORY_SEPARATOR) !== false || strpos($folder, '/') !== false
-            || dirname($fulldir) . DIRECTORY_SEPARATOR != $this->_rootdir) {
+        if (strpos($folder, DIRECTORY_SEPARATOR) !== false || strpos($folder, '/') !== false || dirname($fulldir) . DIRECTORY_SEPARATOR != $this->_rootdir) {
             /**
              * @see Zend_Mail_Storage_Exception
              */
@@ -187,9 +187,12 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
         if (strpos($folder, $this->_delim)) {
             // let's see if the parent folder exists
             $parent = substr($folder, 0, strrpos($folder, $this->_delim));
-            try {
+            try
+            {
                 $this->getFolders($parent);
-            } catch (Zend_Mail_Exception $e) {
+            }
+            catch (Zend_Mail_Exception $e)
+            {
                 // does not - create parent folder
                 $this->createFolder($parent);
             }
@@ -478,11 +481,11 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
              */
             #require_once 'Zend/Mail/Storage/Exception.php';
             throw new Zend_Mail_Storage_Exception("tried $max_tries unique ids for a temp file, but all were taken"
-                                                . ' - giving up');
+            . ' - giving up');
         }
 
         return array('dirname' => $this->_rootdir . '.' . $folder, 'uniq' => $uniq, 'filename' => $tmpdir . $uniq,
-                     'handle' => $fh);
+            'handle' => $fh);
     }
 
     /**
@@ -537,7 +540,7 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
      *                                                              should only be used in delivery
      * @throws  Zend_Mail_Storage_Exception
      */
-     // not yet * @param string|Zend_Mail_Message|Zend_Mime_Message $message message as string or instance of message class
+    // not yet * @param string|Zend_Mail_Message|Zend_Mime_Message $message message as string or instance of message class
 
     public function appendMessage($message, $folder = null, $flags = null, $recent = false)
     {
@@ -596,11 +599,11 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
             throw $exception;
         }
 
-        $this->_files[] = array('uniq'     => $temp_file['uniq'],
-                                'flags'    => $flags,
-                                'filename' => $new_filename);
+        $this->_files[] = array('uniq' => $temp_file['uniq'],
+            'flags' => $flags,
+            'filename' => $new_filename);
         if ($this->_quota) {
-            $this->_addQuotaEntry((int)$size, 1);
+            $this->_addQuotaEntry((int) $size, 1);
         }
     }
 
@@ -671,15 +674,14 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
             throw $exception;
         }
 
-        if ($folder->getGlobalName() == $this->_currentFolder
-            || ($this->_currentFolder == 'INBOX' && $folder->getGlobalName() == '/')) {
-            $this->_files[] = array('uniq'     => $temp_file['uniq'],
-                                    'flags'    => $flags,
-                                    'filename' => $new_file);
+        if ($folder->getGlobalName() == $this->_currentFolder || ($this->_currentFolder == 'INBOX' && $folder->getGlobalName() == '/')) {
+            $this->_files[] = array('uniq' => $temp_file['uniq'],
+                'flags' => $flags,
+                'filename' => $new_file);
         }
 
         if ($this->_quota) {
-            $this->_addQuotaEntry((int)$size, 1);
+            $this->_addQuotaEntry((int) $size, 1);
         }
     }
 
@@ -691,13 +693,13 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
      * @return null
      * @throws Zend_Mail_Storage_Exception
      */
-    public function moveMessage($id, $folder) {
+    public function moveMessage($id, $folder)
+    {
         if (!($folder instanceof Zend_Mail_Storage_Folder)) {
             $folder = $this->getFolders($folder);
         }
 
-        if ($folder->getGlobalName() == $this->_currentFolder
-            || ($this->_currentFolder == 'INBOX' && $folder->getGlobalName() == '/')) {
+        if ($folder->getGlobalName() == $this->_currentFolder || ($this->_currentFolder == 'INBOX' && $folder->getGlobalName() == '/')) {
             /**
              * @see Zend_Mail_Storage_Exception
              */
@@ -748,7 +750,6 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
         $this->_files = array_values($this->_files);
     }
 
-
     /**
      * set flags for message
      *
@@ -774,12 +775,11 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
             throw new Zend_Mail_Storage_Exception('cannot rename file');
         }
 
-        $filedata['flags']    = $flags;
+        $filedata['flags'] = $flags;
         $filedata['filename'] = $new_filename;
 
         $this->_files[$id - 1] = $filedata;
     }
-
 
     /**
      * stub for not supported message deletion
@@ -806,7 +806,7 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
         // remove the gap
         $this->_files = array_values($this->_files);
         if ($this->_quota) {
-            $this->_addQuotaEntry(0 - (int)$size, -1);
+            $this->_addQuotaEntry(0 - (int) $size, -1);
         }
     }
 
@@ -821,7 +821,8 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
      * @param bool|array $value new quota value
      * @return null
      */
-    public function setQuota($value) {
+    public function setQuota($value)
+    {
         $this->_quota = $value;
     }
 
@@ -832,7 +833,8 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
      *
      * @return bool|array
      */
-    public function getQuota($fromStorage = false) {
+    public function getQuota($fromStorage = false)
+    {
         if ($fromStorage) {
             $fh = @fopen($this->_rootdir . 'maildirsize', 'r');
             if (!$fh) {
@@ -862,7 +864,8 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
     /**
      * @see http://www.inter7.com/courierimap/README.maildirquota.html "Calculating maildirsize"
      */
-    protected function _calculateMaildirsize() {
+    protected function _calculateMaildirsize()
+    {
         $timestamps = array();
         $messages = 0;
         $total_size = 0;
@@ -870,9 +873,12 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
         if (is_array($this->_quota)) {
             $quota = $this->_quota;
         } else {
-            try {
+            try
+            {
                 $quota = $this->getQuota(true);
-            } catch (Zend_Mail_Storage_Exception $e) {
+            }
+            catch (Zend_Mail_Storage_Exception $e)
+            {
                 throw new Zend_Mail_Storage_Exception('no quota definition found', 0, $e);
             }
         }
@@ -958,10 +964,11 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
     /**
      * @see http://www.inter7.com/courierimap/README.maildirquota.html "Calculating the quota for a Maildir++"
      */
-    protected function _calculateQuota($forceRecalc = false) {
+    protected function _calculateQuota($forceRecalc = false)
+    {
         $fh = null;
         $total_size = 0;
-        $messages   = 0;
+        $messages = 0;
         $maildirsize = '';
         if (!$forceRecalc && file_exists($this->_rootdir . 'maildirsize') && filesize($this->_rootdir . 'maildirsize') < 5120) {
             $fh = fopen($this->_rootdir . 'maildirsize', 'r');
@@ -977,8 +984,8 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
         if (!$fh) {
             $result = $this->_calculateMaildirsize();
             $total_size = $result['size'];
-            $messages   = $result['count'];
-            $quota      = $result['quota'];
+            $messages = $result['count'];
+            $quota = $result['quota'];
         } else {
             $maildirsize = explode("\n", $maildirsize);
             if (is_array($this->_quota)) {
@@ -998,13 +1005,13 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
             foreach ($maildirsize as $line) {
                 list($size, $count) = explode(' ', trim($line));
                 $total_size += $size;
-                $messages   += $count;
+                $messages += $count;
             }
         }
 
         $over_quota = false;
-        $over_quota = $over_quota || (isset($quota['size'])  && $total_size > $quota['size']);
-        $over_quota = $over_quota || (isset($quota['count']) && $messages   > $quota['count']);
+        $over_quota = $over_quota || (isset($quota['size']) && $total_size > $quota['size']);
+        $over_quota = $over_quota || (isset($quota['count']) && $messages > $quota['count']);
         // NOTE: $maildirsize equals false if it wasn't set (AKA we recalculated) or it's only
         // one line, because $maildirsize[0] gets unsetted.
         // Also we're using local time to calculate the 15 minute offset. Touching a file just for known the
@@ -1012,11 +1019,11 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
         if ($over_quota && ($maildirsize || filemtime($this->_rootdir . 'maildirsize') > time() - 900)) {
             $result = $this->_calculateMaildirsize();
             $total_size = $result['size'];
-            $messages   = $result['count'];
-            $quota      = $result['quota'];
+            $messages = $result['count'];
+            $quota = $result['quota'];
             $over_quota = false;
-            $over_quota = $over_quota || (isset($quota['size'])  && $total_size > $quota['size']);
-            $over_quota = $over_quota || (isset($quota['count']) && $messages   > $quota['count']);
+            $over_quota = $over_quota || (isset($quota['size']) && $total_size > $quota['size']);
+            $over_quota = $over_quota || (isset($quota['count']) && $messages > $quota['count']);
         }
 
         if ($fh) {
@@ -1027,12 +1034,13 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
         return array('size' => $total_size, 'count' => $messages, 'quota' => $quota, 'over_quota' => $over_quota);
     }
 
-    protected function _addQuotaEntry($size, $count = 1) {
+    protected function _addQuotaEntry($size, $count = 1)
+    {
         if (!file_exists($this->_rootdir . 'maildirsize')) {
             // TODO: should get file handler from _calculateQuota
         }
-        $size = (int)$size;
-        $count = (int)$count;
+        $size = (int) $size;
+        $count = (int) $count;
         file_put_contents($this->_rootdir . 'maildirsize', "$size $count\n", FILE_APPEND);
     }
 
@@ -1042,8 +1050,10 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
      * @param bool $detailedResponse return known data of quota and current size and message count @see _calculateQuota()
      * @return bool|array over quota state or detailed response
      */
-    public function checkQuota($detailedResponse = false, $forceRecalc = false) {
+    public function checkQuota($detailedResponse = false, $forceRecalc = false)
+    {
         $result = $this->_calculateQuota($forceRecalc);
         return $detailedResponse ? $result : $result['over_quota'];
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Websites collection
  *
@@ -34,10 +34,11 @@
  */
 class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * @deprecated since 1.5.0.0
      */
-    protected $_loadDefault    = false;
+    protected $_loadDefault = false;
 
     /**
      * Map field to alias
@@ -64,7 +65,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
      */
     public function setLoadDefault($loadDefault)
     {
-        $this->setFlag('load_default_website', (bool)$loadDefault);
+        $this->setFlag('load_default_website', (bool) $loadDefault);
         return $this;
     }
 
@@ -97,7 +98,6 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     {
         return $this->_toOptionHash('website_id', 'name');
     }
-
 
     /**
      * Add website filter to collection
@@ -132,10 +132,9 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
             $this->getSelect()->where('main_table.website_id > ?', 0);
         }
         $this->unshiftOrder('main_table.name', Varien_Db_Select::SQL_ASC)       // website name SECOND
-             ->unshiftOrder('main_table.sort_order', Varien_Db_Select::SQL_ASC); // website sort order FIRST
+                ->unshiftOrder('main_table.sort_order', Varien_Db_Select::SQL_ASC); // website sort order FIRST
 
         return parent::load($printQuery, $logQuery);
-
     }
 
     /**
@@ -152,18 +151,16 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
         if (!$this->getFlag('groups_and_stores_joined')) {
             $this->_idFieldName = 'website_group_store';
             $this->getSelect()->joinLeft(
-                array('group_table' => $this->getTable('core/store_group')),
-                'main_table.website_id = group_table.website_id',
-                array('group_id' => 'group_id', 'group_title' => 'name')
+                    array('group_table' => $this->getTable('core/store_group')), 'main_table.website_id = group_table.website_id', array(
+                'group_id' => 'group_id', 'group_title' => 'name')
             )->joinLeft(
-                array('store_table' => $this->getTable('core/store')),
-                'group_table.group_id = store_table.group_id',
-                array('store_id' => 'store_id', 'store_title' => 'name')
+                    array('store_table' => $this->getTable('core/store')), 'group_table.group_id = store_table.group_id', array(
+                'store_id' => 'store_id', 'store_title' => 'name')
             );
             $this->addOrder('group_table.name', Varien_Db_Select::SQL_ASC)       // store name
-                ->addOrder('CASE WHEN store_table.store_id = 0 THEN 0 ELSE 1 END', Varien_Db_Select::SQL_ASC) // view is admin
-                ->addOrder('store_table.sort_order', Varien_Db_Select::SQL_ASC) // view sort order
-                ->addOrder('store_table.name', Varien_Db_Select::SQL_ASC)       // view name
+                    ->addOrder('CASE WHEN store_table.store_id = 0 THEN 0 ELSE 1 END', Varien_Db_Select::SQL_ASC) // view is admin
+                    ->addOrder('store_table.sort_order', Varien_Db_Select::SQL_ASC) // view sort order
+                    ->addOrder('store_table.name', Varien_Db_Select::SQL_ASC)       // view name
             ;
             $this->setFlag('groups_and_stores_joined', true);
         }
@@ -184,4 +181,5 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
         }
         return $this;
     }
+
 }

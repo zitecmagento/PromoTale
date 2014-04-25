@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Repository.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Framework_Registry_EnabledInterface
  */
@@ -31,8 +31,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_Manifest_Repository
-    implements Zend_Tool_Framework_Registry_EnabledInterface, IteratorAggregate, Countable
+class Zend_Tool_Framework_Manifest_Repository implements Zend_Tool_Framework_Registry_EnabledInterface, IteratorAggregate, Countable
 {
 
     /**
@@ -84,7 +83,7 @@ class Zend_Tool_Framework_Manifest_Repository
         }
 
         // get the required objects from the framework registry
-        $actionRepository   = $this->_registry->getActionRepository();
+        $actionRepository = $this->_registry->getActionRepository();
         $providerRepository = $this->_registry->getProviderRepository();
 
         // load providers if interface supports that method
@@ -100,19 +99,18 @@ class Zend_Tool_Framework_Manifest_Repository
                 if (is_string($provider)) {
                     $provider = new $provider();
                 }
-                
+
                 if (!$provider instanceof Zend_Tool_Framework_Provider_Interface) {
                     #require_once 'Zend/Tool/Framework/Manifest/Exception.php';
                     throw new Zend_Tool_Framework_Manifest_Exception(
-                        'A provider provided by the ' . get_class($manifest)
-                        . ' does not implement Zend_Tool_Framework_Provider_Interface'
-                        );
+                    'A provider provided by the ' . get_class($manifest)
+                    . ' does not implement Zend_Tool_Framework_Provider_Interface'
+                    );
                 }
                 if (!$providerRepository->hasProvider($provider, false)) {
                     $providerRepository->addProvider($provider);
                 }
             }
-
         }
 
         // load actions if interface supports that method
@@ -183,17 +181,16 @@ class Zend_Tool_Framework_Manifest_Repository
                         }
                         $metadata = new Zend_Tool_Framework_Metadata_Dynamic($metadata);
                     }
-                    
+
                     if (!$metadata instanceof Zend_Tool_Framework_Metadata_Interface) {
                         #require_once 'Zend/Tool/Framework/Manifest/Exception.php';
                         throw new Zend_Tool_Framework_Manifest_Exception(
-                            'A Zend_Tool_Framework_Metadata_Interface object was not found in manifest ' . get_class($manifest)
-                            );
+                        'A Zend_Tool_Framework_Metadata_Interface object was not found in manifest ' . get_class($manifest)
+                        );
                     }
 
                     $this->addMetadata($metadata);
                 }
-
             }
         }
 
@@ -241,7 +238,6 @@ class Zend_Tool_Framework_Manifest_Repository
             // all searching has been accounted for, if we reach this point, then the metadata
             // is good and we can return it
             $returnMetadatas[] = $metadata;
-
         }
 
         return $returnMetadatas;

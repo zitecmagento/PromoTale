@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ParticipantStatus.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Validate_Ip
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantStatus
 {
+
     /**
      * @var string
      */
@@ -54,7 +55,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantStatus
     public function __construct($name, $value = null)
     {
         $this->setName($name)
-             ->setValue($value);
+                ->setValue($value);
     }
 
     /**
@@ -100,4 +101,5 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantStatus
         $this->value = $value;
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,7 +30,8 @@
  */
 class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
 {
-    protected $_code  = Mage_Paypal_Model_Config::METHOD_WPP_PE_DIRECT;
+
+    protected $_code = Mage_Paypal_Model_Config::METHOD_WPP_PE_DIRECT;
 
     /**
      * Transaction info fetching is not implemented in PayPal Uk
@@ -79,9 +81,9 @@ class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
     protected function _importResultToPayment($api, $payment)
     {
         $payment->setTransactionId($api->getPaypalTransactionId())->setIsTransactionClosed(0)
-            ->setIsTransactionPending($api->getIsPaymentPending())
-            ->setTransactionAdditionalInfo(Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID, $api->getTransactionId())
-            ;
+                ->setIsTransactionPending($api->getIsPaymentPending())
+                ->setTransactionAdditionalInfo(Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID, $api->getTransactionId())
+        ;
         $payment->setPreparedMessage(Mage::helper('paypaluk')->__('Payflow PNREF: #%s.', $api->getTransactionId()));
         $this->_pro->importPaymentInfo($api, $payment);
     }
@@ -98,4 +100,5 @@ class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
     {
         return sprintf('%02d', $month) . sprintf('%02d', substr($year, -2, 2));
     }
+
 }

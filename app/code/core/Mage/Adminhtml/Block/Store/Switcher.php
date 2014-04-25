@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Key in config for store switcher hint
      */
@@ -248,13 +250,14 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
         $url = $this->getHintUrl();
         if ($url) {
             $html = '<a'
-                . ' href="'. $this->escapeUrl($url) . '"'
-                . ' onclick="this.target=\'_blank\'"'
-                . ' title="' . $this->__('What is this?') . '"'
-                . ' class="link-store-scope">'
-                . $this->__('What is this?')
-                . '</a>';
+                    . ' href="' . $this->escapeUrl($url) . '"'
+                    . ' onclick="this.target=\'_blank\'"'
+                    . ' title="' . $this->__('What is this?') . '"'
+                    . ' class="link-store-scope">'
+                    . $this->__('What is this?')
+                    . '</a>';
         }
         return $html;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order creditmemo resource
  *
@@ -34,33 +34,34 @@
  */
 class Mage_Sales_Model_Resource_Order_Creditmemo extends Mage_Sales_Model_Resource_Order_Abstract
 {
+
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix                  = 'sales_order_creditmemo_resource';
+    protected $_eventPrefix = 'sales_order_creditmemo_resource';
 
     /**
      * Is grid available
      *
      * @var bool
      */
-    protected $_grid                         = true;
+    protected $_grid = true;
 
     /**
      * Flag for using of increment id
      *
      * @var bool
      */
-    protected $_useIncrementId               = true;
+    protected $_useIncrementId = true;
 
     /**
      * Entity code for increment id (Eav entity code)
      *
      * @var string
      */
-    protected $_entityTypeForIncrementId     = 'creditmemo';
+    protected $_entityTypeForIncrementId = 'creditmemo';
 
     /**
      * Model initialization
@@ -79,30 +80,22 @@ class Mage_Sales_Model_Resource_Order_Creditmemo extends Mage_Sales_Model_Resour
     protected function _initVirtualGridColumns()
     {
         parent::_initVirtualGridColumns();
-        $adapter          = $this->getReadConnection();
+        $adapter = $this->getReadConnection();
         $checkedFirstname = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
-        $checkedLastname  = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
-        $concatName       = $adapter->getConcatSql(array($checkedFirstname, $adapter->quote(' '), $checkedLastname));
+        $checkedLastname = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
+        $concatName = $adapter->getConcatSql(array($checkedFirstname, $adapter->quote(' '), $checkedLastname));
 
         $this->addVirtualGridColumn(
-            'billing_name',
-            'sales/order_address',
-            array('billing_address_id' => 'entity_id'),
-            $concatName
-        )
-        ->addVirtualGridColumn(
-            'order_increment_id',
-            'sales/order',
-            array('order_id' => 'entity_id'),
-            'increment_id'
-        )
-        ->addVirtualGridColumn(
-            'order_created_at',
-            'sales/order',
-            array('order_id' => 'entity_id'),
-            'created_at'
+                        'billing_name', 'sales/order_address', array('billing_address_id' => 'entity_id'), $concatName
+                )
+                ->addVirtualGridColumn(
+                        'order_increment_id', 'sales/order', array('order_id' => 'entity_id'), 'increment_id'
+                )
+                ->addVirtualGridColumn(
+                        'order_created_at', 'sales/order', array('order_id' => 'entity_id'), 'created_at'
         );
 
         return $this;
     }
+
 }

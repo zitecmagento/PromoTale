@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 interface Mage_Payment_Model_Billing_Agreement_MethodInterface
 {
+
     /**
      * Init billing agreement
      *

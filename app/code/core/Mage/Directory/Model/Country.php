@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -42,6 +43,7 @@
  */
 class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 {
+
     static public $_format = array();
 
     protected function _construct()
@@ -74,7 +76,7 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
         return $collection;
     }
 
-    public function formatAddress(Varien_Object $address, $html=false)
+    public function formatAddress(Varien_Object $address, $html = false)
     {
         //TODO: is it still used?
         $address->getRegion();
@@ -82,7 +84,7 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 
 
 
-        $template = $this->getData('address_template_'.($html ? 'html' : 'plain'));
+        $template = $this->getData('address_template_' . ($html ? 'html' : 'plain'));
         if (empty($template)) {
             if (!$this->getId()) {
                 $template = '{{firstname}} {{lastname}}';
@@ -121,9 +123,9 @@ T: {{telephone}}";
     {
         if (!isset(self::$_format[$this->getId()]) && $this->getId()) {
             self::$_format[$this->getId()] = Mage::getModel('directory/country_format')
-                                                ->getCollection()
-                                                ->setCountryFilter($this)
-                                                ->load();
+                    ->getCollection()
+                    ->setCountryFilter($this)
+                    ->load();
         }
 
         if (isset(self::$_format[$this->getId()])) {
@@ -143,7 +145,7 @@ T: {{telephone}}";
     {
         if ($this->getFormats()) {
             foreach ($this->getFormats() as $format) {
-                if ($format->getType()==$type) {
+                if ($format->getType() == $type) {
                     return $format;
                 }
             }
@@ -153,10 +155,9 @@ T: {{telephone}}";
 
     public function getName()
     {
-        if(!$this->getData('name')) {
+        if (!$this->getData('name')) {
             $this->setData(
-                'name',
-                Mage::app()->getLocale()->getCountryTranslation($this->getId())
+                    'name', Mage::app()->getLocale()->getCountryTranslation($this->getId())
             );
         }
         return $this->getData('name');

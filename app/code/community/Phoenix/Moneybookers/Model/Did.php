@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,9 +20,11 @@
  */
 class Phoenix_Moneybookers_Model_Did extends Phoenix_Moneybookers_Model_Abstract
 {
+
     /**
      * unique internal payment method identifier
      */
-    protected $_code			= 'moneybookers_did';
-    protected $_paymentMethod	= 'DID';
+    protected $_code = 'moneybookers_did';
+    protected $_paymentMethod = 'DID';
+
 }

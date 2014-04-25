@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -26,9 +27,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Project_Provider_Controller
-    extends Zend_Tool_Project_Provider_Abstract
-    implements Zend_Tool_Framework_Provider_Pretendable
+class Zend_Tool_Project_Provider_Controller extends Zend_Tool_Project_Provider_Abstract implements Zend_Tool_Framework_Provider_Pretendable
 {
 
     /**
@@ -57,9 +56,8 @@ class Zend_Tool_Project_Provider_Controller
         }
 
         $newController = $controllersDirectory->createResource(
-            'controllerFile', 
-            array('controllerName' => $controllerName, 'moduleName' => $moduleName)
-            );
+                'controllerFile', array('controllerName' => $controllerName, 'moduleName' => $moduleName)
+        );
 
         return $newController;
     }
@@ -124,15 +122,16 @@ class Zend_Tool_Project_Provider_Controller
         if (preg_match('#[_-]#', $name)) {
             throw new Zend_Tool_Project_Provider_Exception('Controller names should be camel cased.');
         }
-        
+
         $originalName = $name;
         $name = ucfirst($name);
-        
+
         // get request & response
         $request = $this->_registry->getRequest();
         $response = $this->_registry->getResponse();
-        
-        try {
+
+        try
+        {
             $controllerResource = self::createResource($this->_loadedProfile, $name, $module);
             if ($indexActionIncluded) {
                 $indexActionResource = Zend_Tool_Project_Provider_Action::createResource($this->_loadedProfile, 'index', $name, $module);
@@ -141,8 +140,9 @@ class Zend_Tool_Project_Provider_Controller
             if ($testingEnabled) {
                 $testControllerResource = Zend_Tool_Project_Provider_Test::createApplicationResource($this->_loadedProfile, $name, 'index', $module);
             }
-
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $response->setException($e);
             return;
         }
@@ -151,28 +151,26 @@ class Zend_Tool_Project_Provider_Controller
         if (($name !== $originalName)) {
             $tense = (($request->isPretend()) ? 'would be' : 'is');
             $response->appendContent(
-                'Note: The canonical controller name that ' . $tense
+                    'Note: The canonical controller name that ' . $tense
                     . ' used with other providers is "' . $name . '";'
-                    . ' not "' . $originalName . '" as supplied',
-                array('color' => array('yellow'))
-                );
+                    . ' not "' . $originalName . '" as supplied', array('color' => array('yellow'))
+            );
             unset($tense);
         }
-        
+
         // do the creation
         if ($request->isPretend()) {
-            
-            $response->appendContent('Would create a controller at '  . $controllerResource->getContext()->getPath());
+
+            $response->appendContent('Would create a controller at ' . $controllerResource->getContext()->getPath());
 
             if (isset($indexActionResource)) {
                 $response->appendContent('Would create an index action method in controller ' . $name);
                 $response->appendContent('Would create a view script for the index action method at ' . $indexActionViewResource->getContext()->getPath());
             }
-            
+
             if ($testControllerResource) {
                 $response->appendContent('Would create a controller test file at ' . $testControllerResource->getContext()->getPath());
             }
-
         } else {
 
             $response->appendContent('Creating a controller at ' . $controllerResource->getContext()->getPath());
@@ -192,9 +190,6 @@ class Zend_Tool_Project_Provider_Controller
 
             $this->_storeProfile();
         }
-
     }
-
-
 
 }

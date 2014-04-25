@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert db table adapter
  *
@@ -45,12 +45,12 @@ class Mage_Dataflow_Model_Convert_Adapter_Db_Table extends Mage_Dataflow_Model_C
 
     public function load()
     {
-
+        
     }
 
     public function save()
     {
-
+        
     }
 
 }

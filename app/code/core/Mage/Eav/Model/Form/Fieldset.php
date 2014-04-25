@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Form Fieldset Model
  *
@@ -43,6 +43,7 @@
  */
 class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
 {
+
     /**
      * Prefix of model events names
      *
@@ -149,4 +150,5 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
         }
         return $this->_getData('store_id');
     }
+
 }

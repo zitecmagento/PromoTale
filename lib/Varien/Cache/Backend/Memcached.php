@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,10 +30,9 @@
  *
  * @deprecated after 1.7.0.2
  */
-class Varien_Cache_Backend_Memcached
-    extends Zend_Cache_Backend_Memcached
-    implements Zend_Cache_Backend_ExtendedInterface
+class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implements Zend_Cache_Backend_ExtendedInterface
 {
+
     /**
      * Maximum chunk of data that could be saved in one memcache cell (1 MiB)
      */
@@ -161,4 +161,5 @@ class Varien_Cache_Backend_Memcached
         // Data has not been splitted to chunks on save
         return $data;
     }
+
 }

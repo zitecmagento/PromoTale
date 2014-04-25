@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogIndex Data Retreiver Abstract Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
 {
+
     /**
      * Product Type instance
      *
@@ -47,10 +48,10 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      * @var boolean
      */
     protected $_haveChildren = array(
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS=>true,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES=>true,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES=>true,
-                        );
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => true,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES => true,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES => true,
+    );
 
     /**
      * Defines when product type has parents
@@ -164,22 +165,22 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
             switch ($row['attribute_id']) {
                 case $priceId:
                     $basePrice = $row['value'];
-                break;
+                    break;
                 case $specialPriceId:
                     $specialPrice = $row['value'];
-                break;
+                    break;
                 case $specialPriceFromId:
                     $specialPriceFrom = $row['value'];
-                break;
+                    break;
                 case $specialPriceToId:
                     $specialPriceTo = $row['value'];
-                break;
+                    break;
             }
         }
 
         $finalPrice = Mage::getSingleton('catalog/product_type')
-            ->priceFactory($this->getTypeCode())
-            ->calculatePrice($basePrice, $specialPrice, $specialPriceFrom, $specialPriceTo, false, $store, $group, $product);
+                ->priceFactory($this->getTypeCode())
+                ->calculatePrice($basePrice, $specialPrice, $specialPriceFrom, $specialPriceTo, false, $store, $group, $product);
 
         return $finalPrice;
     }
@@ -200,7 +201,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
         $data = $this->getResource()->getMinimalPrice($products, $priceAttributes, $store->getId());
 
         $this->setMinimalPriceData($data);
-        $eventData = array('indexer'=>$this, 'product_ids'=>$products, 'store'=>$store);
+        $eventData = array('indexer' => $this, 'product_ids' => $products, 'store' => $store);
         Mage::dispatchEvent('catalogindex_get_minimal_price', $eventData);
         $data = $this->getMinimalPriceData();
 
@@ -217,11 +218,10 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     public function getTaxClassId($productId, $store)
     {
         $attributeId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'tax_class_id');
-        $taxClassId  = $this->getResource()->getAttributeData(array($productId), array($attributeId), $store->getId());
+        $taxClassId = $this->getResource()->getAttributeData(array($productId), array($attributeId), $store->getId());
         if (is_array($taxClassId) && isset($taxClassId[0]['value'])) {
             $taxClassId = $taxClassId[0]['value'];
-        }
-        else {
+        } else {
             $taxClassId = 0;
         }
         return $taxClassId;
@@ -296,8 +296,9 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
             $product = new Varien_Object();
             $product->setTypeId($this->getTypeCode());
             $this->_typeInstance = Mage::getSingleton('catalog/product_type')
-                ->factory($product, true);
+                    ->factory($product, true);
         }
         return $this->_typeInstance;
     }
+
 }

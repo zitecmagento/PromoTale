@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,10 @@
  */
 class Mage_Directory_Model_Observer
 {
+
     const CRON_STRING_PATH = 'crontab/jobs/currency_rates_update/schedule/cron_expr';
     const IMPORT_ENABLE = 'currency/import/enabled';
     const IMPORT_SERVICE = 'currency/import/service';
-
     const XML_PATH_ERROR_TEMPLATE = 'currency/import/error_email_template';
     const XML_PATH_ERROR_IDENTITY = 'currency/import/error_email_identity';
     const XML_PATH_ERROR_RECIPIENT = 'currency/import/error_email';
@@ -42,25 +43,28 @@ class Mage_Directory_Model_Observer
     public function scheduledUpdateCurrencyRates($schedule)
     {
         $importWarnings = array();
-        if(!Mage::getStoreConfig(self::IMPORT_ENABLE) || !Mage::getStoreConfig(self::CRON_STRING_PATH)) {
+        if (!Mage::getStoreConfig(self::IMPORT_ENABLE) || !Mage::getStoreConfig(self::CRON_STRING_PATH)) {
             return;
         }
 
         $service = Mage::getStoreConfig(self::IMPORT_SERVICE);
-        if( !$service ) {
+        if (!$service) {
             $importWarnings[] = Mage::helper('directory')->__('FATAL ERROR:') . ' ' . Mage::helper('directory')->__('Invalid Import Service specified.');
         }
 
-        try {
+        try
+        {
             $importModel = Mage::getModel(Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $importWarnings[] = Mage::helper('directory')->__('FATAL ERROR:') . ' ' . Mage::throwException(Mage::helper('directory')->__('Unable to initialize the import model.'));
         }
 
         $rates = $importModel->fetchRates();
         $errors = $importModel->getMessages();
 
-        if( sizeof($errors) > 0 ) {
+        if (sizeof($errors) > 0) {
             foreach ($errors as $error) {
                 $importWarnings[] = Mage::helper('directory')->__('WARNING:') . ' ' . $error;
             }
@@ -68,8 +72,7 @@ class Mage_Directory_Model_Observer
 
         if (sizeof($importWarnings) == 0) {
             Mage::getModel('directory/currency')->saveRates($rates);
-        }
-        else {
+        } else {
             $translate = Mage::getSingleton('core/translate');
             /* @var $translate Mage_Core_Model_Translate */
             $translate->setTranslateInline(false);
@@ -77,18 +80,15 @@ class Mage_Directory_Model_Observer
             /* @var $mailTemplate Mage_Core_Model_Email_Template */
             $mailTemplate = Mage::getModel('core/email_template');
             $mailTemplate->setDesignConfig(array(
-                'area'  => 'frontend',
+                'area' => 'frontend',
             ))->sendTransactional(
-                Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE),
-                Mage::getStoreConfig(self::XML_PATH_ERROR_IDENTITY),
-                Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT),
-                null,
-                array(
-                    'warnings'    => join("\n", $importWarnings),
-                )
+                    Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE), Mage::getStoreConfig(self::XML_PATH_ERROR_IDENTITY), Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT), null, array(
+                'warnings' => join("\n", $importWarnings),
+                    )
             );
 
             $translate->setTranslateInline(true);
         }
     }
+
 }

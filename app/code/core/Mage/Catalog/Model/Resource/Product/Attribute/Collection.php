@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product EAV additional attribute resource collection
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Attribute_Collection
-    extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
+class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {
+
     /**
      * Resource model initialization
      *
@@ -51,23 +51,22 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
      */
     protected function _initSelect()
     {
-        $entityTypeId = (int)Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
+        $entityTypeId = (int) Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
         $columns = $this->getConnection()->describeTable($this->getResource()->getMainTable());
         unset($columns['attribute_id']);
         $retColumns = array();
         foreach ($columns as $labelColumn => $columnData) {
             $retColumns[$labelColumn] = $labelColumn;
             if ($columnData['DATA_TYPE'] == Varien_Db_Ddl_Table::TYPE_TEXT) {
-                $retColumns[$labelColumn] = Mage::getResourceHelper('core')->castField('main_table.'.$labelColumn);
+                $retColumns[$labelColumn] = Mage::getResourceHelper('core')->castField('main_table.' . $labelColumn);
             }
         }
         $this->getSelect()
-            ->from(array('main_table' => $this->getResource()->getMainTable()), $retColumns)
-            ->join(
-                array('additional_table' => $this->getTable('catalog/eav_attribute')),
-                'additional_table.attribute_id = main_table.attribute_id'
+                ->from(array('main_table' => $this->getResource()->getMainTable()), $retColumns)
+                ->join(
+                        array('additional_table' => $this->getTable('catalog/eav_attribute')), 'additional_table.attribute_id = main_table.attribute_id'
                 )
-            ->where('main_table.entity_type_id = ?', $entityTypeId);
+                ->where('main_table.entity_type_id = ?', $entityTypeId);
         return $this;
     }
 
@@ -91,12 +90,11 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     protected function _getLoadDataFields()
     {
         $fields = array_merge(
-            parent::_getLoadDataFields(),
-            array(
-                'additional_table.is_global',
-                'additional_table.is_html_allowed_on_front',
-                'additional_table.is_wysiwyg_enabled'
-            )
+                parent::_getLoadDataFields(), array(
+            'additional_table.is_global',
+            'additional_table.is_html_allowed_on_front',
+            'additional_table.is_wysiwyg_enabled'
+                )
         );
 
         return $fields;
@@ -179,8 +177,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
         );
 
         if ($addRequiredCodes) {
-            $conditions[] = $this->getConnection()->quoteInto('main_table.attribute_code IN (?)',
-                array('status', 'visibility'));
+            $conditions[] = $this->getConnection()->quoteInto('main_table.attribute_code IN (?)', array('status', 'visibility'));
         }
 
         $this->getSelect()->where(sprintf('(%s)', implode(' OR ', $conditions)));
@@ -196,10 +193,11 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     public function addSearchableAttributeFilter()
     {
         $this->getSelect()->where(
-            'additional_table.is_searchable = 1 OR '.
-            $this->getConnection()->quoteInto('main_table.attribute_code IN (?)', array('status', 'visibility'))
+                'additional_table.is_searchable = 1 OR ' .
+                $this->getConnection()->quoteInto('main_table.attribute_code IN (?)', array('status', 'visibility'))
         );
 
         return $this;
     }
+
 }

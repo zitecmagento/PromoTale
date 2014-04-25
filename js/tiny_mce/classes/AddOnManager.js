@@ -9,177 +9,171 @@
  */
 
 (function(tinymce) {
-	var Dispatcher = tinymce.util.Dispatcher, each = tinymce.each;
+    var Dispatcher = tinymce.util.Dispatcher, each = tinymce.each;
 
-	/**
-	 * This class handles the loading of themes/plugins or other add-ons and their language packs.
-	 *
-	 * @class tinymce.AddOnManager
-	 */
-	tinymce.create('tinymce.AddOnManager', {
-		AddOnManager : function() {
-			var self = this;
+    /**
+     * This class handles the loading of themes/plugins or other add-ons and their language packs.
+     *
+     * @class tinymce.AddOnManager
+     */
+    tinymce.create('tinymce.AddOnManager', {
+        AddOnManager: function() {
+            var self = this;
 
-			self.items = [];
-			self.urls = {};
-			self.lookup = {};
-			self.onAdd = new Dispatcher(self);
-		},
+            self.items = [];
+            self.urls = {};
+            self.lookup = {};
+            self.onAdd = new Dispatcher(self);
+        },
+        /**
+         * Fires when a item is added.
+         *
+         * @event onAdd
+         */
 
-		/**
-		 * Fires when a item is added.
-		 *
-		 * @event onAdd
-		 */
+        /**
+         * Returns the specified add on by the short name.
+         *
+         * @method get
+         * @param {String} n Add-on to look for.
+         * @return {tinymce.Theme/tinymce.Plugin} Theme or plugin add-on instance or undefined.
+         */
+        get: function(n) {
+            if (this.lookup[n]) {
+                return this.lookup[n].instance;
+            } else {
+                return undefined;
+            }
+        },
+        dependencies: function(n) {
+            var result;
+            if (this.lookup[n]) {
+                result = this.lookup[n].dependencies;
+            }
+            return result || [];
+        },
+        /**
+         * Loads a language pack for the specified add-on.
+         *
+         * @method requireLangPack
+         * @param {String} n Short name of the add-on.
+         */
+        requireLangPack: function(n) {
+            var s = tinymce.settings;
 
-		/**
-		 * Returns the specified add on by the short name.
-		 *
-		 * @method get
-		 * @param {String} n Add-on to look for.
-		 * @return {tinymce.Theme/tinymce.Plugin} Theme or plugin add-on instance or undefined.
-		 */
-		get : function(n) {
-			if (this.lookup[n]) {
-				return this.lookup[n].instance;
-			} else {
-				return undefined;
-			}
-		},
+            if (s && s.language && s.language_load !== false)
+                tinymce.ScriptLoader.add(this.urls[n] + '/langs/' + s.language + '.js');
+        },
+        /**
+         * Adds a instance of the add-on by it's short name.
+         *
+         * @method add
+         * @param {String} id Short name/id for the add-on.
+         * @param {tinymce.Theme/tinymce.Plugin} o Theme or plugin to add.
+         * @return {tinymce.Theme/tinymce.Plugin} The same theme or plugin instance that got passed in.
+         * @example
+         * // Create a simple plugin
+         * tinymce.create('tinymce.plugins.TestPlugin', {
+         *     TestPlugin : function(ed, url) {
+         *         ed.onClick.add(function(ed, e) {
+         *             ed.windowManager.alert('Hello World!');
+         *         });
+         *     }
+         * });
+         * 
+         * // Register plugin using the add method
+         * tinymce.PluginManager.add('test', tinymce.plugins.TestPlugin);
+         * 
+         * // Initialize TinyMCE
+         * tinyMCE.init({
+         *    ...
+         *    plugins : '-test' // Init the plugin but don't try to load it
+         * });
+         */
+        add: function(id, o, dependencies) {
+            this.items.push(o);
+            this.lookup[id] = {instance: o, dependencies: dependencies};
+            this.onAdd.dispatch(this, id, o);
 
-		dependencies : function(n) {
-			var result;
-			if (this.lookup[n]) {
-				result = this.lookup[n].dependencies;
-			}
-			return result || [];
-		},
+            return o;
+        },
+        createUrl: function(baseUrl, dep) {
+            if (typeof dep === "object") {
+                return dep
+            } else {
+                return {prefix: baseUrl.prefix, resource: dep, suffix: baseUrl.suffix};
+            }
+        },
+        /**
+         * Add a set of components that will make up the add-on. Using the url of the add-on name as the base url.
+         * This should be used in development mode.  A new compressor/javascript munger process will ensure that the 
+         * components are put together into the editor_plugin.js file and compressed correctly.
+         * @param pluginName {String} name of the plugin to load scripts from (will be used to get the base url for the plugins).
+         * @param scripts {Array} Array containing the names of the scripts to load.
+         */
+        addComponents: function(pluginName, scripts) {
+            var pluginUrl = this.urls[pluginName];
+            tinymce.each(scripts, function(script) {
+                tinymce.ScriptLoader.add(pluginUrl + "/" + script);
+            });
+        },
+        /**
+         * Loads an add-on from a specific url.
+         *
+         * @method load
+         * @param {String} n Short name of the add-on that gets loaded.
+         * @param {String} u URL to the add-on that will get loaded.
+         * @param {function} cb Optional callback to execute ones the add-on is loaded.
+         * @param {Object} s Optional scope to execute the callback in.
+         * @example
+         * // Loads a plugin from an external URL
+         * tinymce.PluginManager.load('myplugin', '/some/dir/someplugin/editor_plugin.js');
+         *
+         * // Initialize TinyMCE
+         * tinyMCE.init({
+         *    ...
+         *    plugins : '-myplugin' // Don't try to load it again
+         * });
+         */
+        load: function(n, u, cb, s) {
+            var t = this, url = u;
 
-		/**
-		 * Loads a language pack for the specified add-on.
-		 *
-		 * @method requireLangPack
-		 * @param {String} n Short name of the add-on.
-		 */
-		requireLangPack : function(n) {
-			var s = tinymce.settings;
+            function loadDependencies() {
+                var dependencies = t.dependencies(n);
+                tinymce.each(dependencies, function(dep) {
+                    var newUrl = t.createUrl(u, dep);
+                    t.load(newUrl.resource, newUrl, undefined, undefined);
+                });
+                if (cb) {
+                    if (s) {
+                        cb.call(s);
+                    } else {
+                        cb.call(tinymce.ScriptLoader);
+                    }
+                }
+            }
 
-			if (s && s.language && s.language_load !== false)
-				tinymce.ScriptLoader.add(this.urls[n] + '/langs/' + s.language + '.js');
-		},
+            if (t.urls[n])
+                return;
+            if (typeof u === "object")
+                url = u.prefix + u.resource + u.suffix;
 
-		/**
-		 * Adds a instance of the add-on by it's short name.
-		 *
-		 * @method add
-		 * @param {String} id Short name/id for the add-on.
-		 * @param {tinymce.Theme/tinymce.Plugin} o Theme or plugin to add.
-		 * @return {tinymce.Theme/tinymce.Plugin} The same theme or plugin instance that got passed in.
-		 * @example
-		 * // Create a simple plugin
-		 * tinymce.create('tinymce.plugins.TestPlugin', {
-		 *     TestPlugin : function(ed, url) {
-		 *         ed.onClick.add(function(ed, e) {
-		 *             ed.windowManager.alert('Hello World!');
-		 *         });
-		 *     }
-		 * });
-		 * 
-		 * // Register plugin using the add method
-		 * tinymce.PluginManager.add('test', tinymce.plugins.TestPlugin);
-		 * 
-		 * // Initialize TinyMCE
-		 * tinyMCE.init({
-		 *    ...
-		 *    plugins : '-test' // Init the plugin but don't try to load it
-		 * });
-		 */
-		add : function(id, o, dependencies) {
-			this.items.push(o);
-			this.lookup[id] = {instance:o, dependencies:dependencies};
-			this.onAdd.dispatch(this, id, o);
+            if (url.indexOf('/') != 0 && url.indexOf('://') == -1)
+                url = tinymce.baseURL + '/' + url;
 
-			return o;
-		},
-		createUrl: function(baseUrl, dep) {
-			if (typeof dep === "object") {
-				return dep
-			} else {
-				return {prefix: baseUrl.prefix, resource: dep, suffix: baseUrl.suffix};
-			}
-		},
+            t.urls[n] = url.substring(0, url.lastIndexOf('/'));
 
-		/**
-	 	 * Add a set of components that will make up the add-on. Using the url of the add-on name as the base url.
-		 * This should be used in development mode.  A new compressor/javascript munger process will ensure that the 
-		 * components are put together into the editor_plugin.js file and compressed correctly.
-		 * @param pluginName {String} name of the plugin to load scripts from (will be used to get the base url for the plugins).
-		 * @param scripts {Array} Array containing the names of the scripts to load.
-	 	 */
-		addComponents: function(pluginName, scripts) {
-			var pluginUrl = this.urls[pluginName];
-			tinymce.each(scripts, function(script){
-				tinymce.ScriptLoader.add(pluginUrl+"/"+script);	
-			});
-		},
+            if (t.lookup[n]) {
+                loadDependencies();
+            } else {
+                tinymce.ScriptLoader.add(url, loadDependencies, s);
+            }
+        }
+    });
 
-		/**
-		 * Loads an add-on from a specific url.
-		 *
-		 * @method load
-		 * @param {String} n Short name of the add-on that gets loaded.
-		 * @param {String} u URL to the add-on that will get loaded.
-		 * @param {function} cb Optional callback to execute ones the add-on is loaded.
-		 * @param {Object} s Optional scope to execute the callback in.
-		 * @example
-		 * // Loads a plugin from an external URL
-		 * tinymce.PluginManager.load('myplugin', '/some/dir/someplugin/editor_plugin.js');
-		 *
-		 * // Initialize TinyMCE
-		 * tinyMCE.init({
-		 *    ...
-		 *    plugins : '-myplugin' // Don't try to load it again
-		 * });
-		 */
-		load : function(n, u, cb, s) {
-			var t = this, url = u;
-
-			function loadDependencies() {
-				var dependencies = t.dependencies(n);
-				tinymce.each(dependencies, function(dep) {
-					var newUrl = t.createUrl(u, dep);
-					t.load(newUrl.resource, newUrl, undefined, undefined);
-				});
-				if (cb) {
-					if (s) {
-						cb.call(s);
-					} else {
-						cb.call(tinymce.ScriptLoader);
-					}
-				}
-			}
-
-			if (t.urls[n])
-				return;
-			if (typeof u === "object")
-				url = u.prefix + u.resource + u.suffix;
-
-			if (url.indexOf('/') != 0 && url.indexOf('://') == -1)
-				url = tinymce.baseURL + '/' + url;
-
-			t.urls[n] = url.substring(0, url.lastIndexOf('/'));
-
-			if (t.lookup[n]) {
-				loadDependencies();
-			} else {
-				tinymce.ScriptLoader.add(url, loadDependencies, s);
-			}
-		}
-	});
-
-	// Create plugin and theme managers
-	tinymce.PluginManager = new tinymce.AddOnManager();
-	tinymce.ThemeManager = new tinymce.AddOnManager();
+    // Create plugin and theme managers
+    tinymce.PluginManager = new tinymce.AddOnManager();
+    tinymce.ThemeManager = new tinymce.AddOnManager();
 }(tinymce));
 
 /**

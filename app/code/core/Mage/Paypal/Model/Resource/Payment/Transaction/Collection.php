@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,15 +33,16 @@
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Model_Resource_Payment_Transaction_Collection
-    extends Mage_Core_Model_Resource_Db_Collection_Abstract
+class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Created Before filter
      *
      * @var string
      */
-    protected $_createdBefore          = "";
+    protected $_createdBefore = "";
+
     /**
      * Initialize collection items factory class
      */
@@ -94,4 +96,5 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection
         }
         return parent::_afterLoad();
     }
+
 }

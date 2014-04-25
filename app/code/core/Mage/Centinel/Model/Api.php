@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
  * 3D Secure Validation Library for Payment
  */
@@ -34,13 +34,13 @@ include_once '3Dsecure/CentinelClient.php';
  */
 class Mage_Centinel_Model_Api extends Varien_Object
 {
+
     /**
      * Fields that should be replaced in debug with '***'
      *
      * @var array
      */
     protected $_debugReplacePrivateDataKeys = array('TransactionPwd', 'CardNumber', 'CardExpMonth', 'CardExpYear');
-
     protected static $_iso4217Currencies = array(
         'AED' => '784', 'AFN' => '971',
         'ALL' => '008', 'AMD' => '051', 'ANG' => '532', 'AOA' => '973', 'ARS' => '032', 'AUD' => '036', 'AWG' => '533',
@@ -142,22 +142,25 @@ class Mage_Centinel_Model_Api extends Varien_Object
     {
         $client = $this->_getClientInstance();
         $request = array_merge(array(
-            'MsgType'         => $method,
-            'Version'         => $this->_getVersion(),
-            'ProcessorId'     => $this->getProcessorId(),
-            'MerchantId'      => $this->getMerchantId(),
-            'TransactionPwd'  => $this->getTransactionPwd(),
+            'MsgType' => $method,
+            'Version' => $this->_getVersion(),
+            'ProcessorId' => $this->getProcessorId(),
+            'MerchantId' => $this->getMerchantId(),
+            'TransactionPwd' => $this->getTransactionPwd(),
             'TransactionType' => $this->_getTransactionType(),
-        ), $data);
+                ), $data);
 
         $debugData = array('request' => $request);
 
-        try {
-            foreach($request as $key => $val) {
+        try
+        {
+            foreach ($request as $key => $val) {
                 $client->add($key, $val);
             }
             $client->sendHttp($this->_getApiEndpointUrl(), $this->_getTimeoutConnect(), $this->_getTimeoutRead());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $debugData['response'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
             $this->_debug($debugData);
             throw $e;
@@ -201,16 +204,16 @@ class Mage_Centinel_Model_Api extends Varien_Object
         $currencyNumber = isset(self::$_iso4217Currencies[$currencyCode]) ? self::$_iso4217Currencies[$currencyCode] : '';
         if (!$currencyNumber) {
             return $result->setErrorNo(1)->setErrorDesc(
-                Mage::helper('payment')->__('Unsupported currency code: %s.', $currencyCode)
+                            Mage::helper('payment')->__('Unsupported currency code: %s.', $currencyCode)
             );
         }
 
         $clientResponse = $this->_call('cmpi_lookup', array(
             'Amount' => round($data->getAmount() * 100),
             'CurrencyCode' => $currencyNumber,
-            'CardNumber' =>  $data->getCardNumber(),
-            'CardExpMonth'=> $month,
-            'CardExpYear' =>  $data->getCardExpYear(),
+            'CardNumber' => $data->getCardNumber(),
+            'CardExpMonth' => $month,
+            'CardExpYear' => $data->getCardExpYear(),
             'OrderNumber' => $data->getOrderNumber()
         ));
 
@@ -236,7 +239,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
 
         $clientResponse = $this->_call('cmpi_authenticate', array(
             'TransactionId' => $data->getTransactionId(),
-            'PAResPayload'  => $data->getPaResPayload(),
+            'PAResPayload' => $data->getPaResPayload(),
         ));
 
         $result->setErrorNo($clientResponse->getValue('ErrorNo'));
@@ -259,9 +262,9 @@ class Mage_Centinel_Model_Api extends Varien_Object
     {
         if ($this->getDebugFlag()) {
             Mage::getModel('core/log_adapter', 'card_validation_3d_secure.log')
-               ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
-               ->log($debugData);
+                    ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
+                    ->log($debugData);
         }
     }
-}
 
+}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Order shipping address backend
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Perform operation before save
      *
@@ -66,4 +66,5 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getAttributeCode());
         }
     }
+
 }

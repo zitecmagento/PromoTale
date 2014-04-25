@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,29 +24,27 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
 $installer = $this;
 
 $pollModel = Mage::getModel('poll/poll');
 
-$pollModel  ->setDatePosted(now())
-            ->setPollTitle('What is your favorite color')
-            ->setStoreIds(array(1));
+$pollModel->setDatePosted(now())
+        ->setPollTitle('What is your favorite color')
+        ->setStoreIds(array(1));
 
-$answers  = array(
-                array('Green', 4),
-                array('Red', 1),
-                array('Black', 0),
-                array('Magenta', 2)
-                );
+$answers = array(
+    array('Green', 4),
+    array('Red', 1),
+    array('Black', 0),
+    array('Magenta', 2)
+);
 
-foreach( $answers as $key => $answer ) {
+foreach ($answers as $key => $answer) {
     $answerModel = Mage::getModel('poll/poll_answer');
     $answerModel->setAnswerTitle($answer[0])
-                ->setVotesCount($answer[1]);
+            ->setVotesCount($answer[1]);
 
     $pollModel->addAnswer($answerModel);
 }

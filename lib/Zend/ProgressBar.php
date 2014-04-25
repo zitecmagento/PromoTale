@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LICENSE
  *
@@ -27,6 +28,7 @@
  */
 class Zend_ProgressBar
 {
+
     /**
      * Min value
      *
@@ -93,8 +95,8 @@ class Zend_ProgressBar
             throw new Zend_ProgressBar_Exception('$max must be greater than $min');
         }
 
-        $this->_min     = (float) $min;
-        $this->_max     = (float) $max;
+        $this->_min = (float) $min;
+        $this->_max = (float) $max;
         $this->_current = (float) $min;
 
         // See if we have to open a session namespace
@@ -113,13 +115,13 @@ class Zend_ProgressBar
         // See If a persistenceNamespace exists and handle accordingly
         if ($this->_persistenceNamespace !== null) {
             if (isset($this->_persistenceNamespace->isSet)) {
-                $this->_startTime  = $this->_persistenceNamespace->startTime;
-                $this->_current    = $this->_persistenceNamespace->current;
+                $this->_startTime = $this->_persistenceNamespace->startTime;
+                $this->_current = $this->_persistenceNamespace->current;
                 $this->_statusText = $this->_persistenceNamespace->statusText;
             } else {
-                $this->_persistenceNamespace->isSet      = true;
-                $this->_persistenceNamespace->startTime  = $this->_startTime;
-                $this->_persistenceNamespace->current    = $this->_current;
+                $this->_persistenceNamespace->isSet = true;
+                $this->_persistenceNamespace->startTime = $this->_startTime;
+                $this->_persistenceNamespace->current = $this->_current;
                 $this->_persistenceNamespace->statusText = $this->_statusText;
             }
         } else {
@@ -158,7 +160,7 @@ class Zend_ProgressBar
 
         // See if we have to update a namespace
         if ($this->_persistenceNamespace !== null) {
-            $this->_persistenceNamespace->current    = $this->_current;
+            $this->_persistenceNamespace->current = $this->_current;
             $this->_persistenceNamespace->statusText = $this->_statusText;
         }
 
@@ -206,4 +208,5 @@ class Zend_ProgressBar
 
         $this->_adapter->finish();
     }
+
 }

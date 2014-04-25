@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CidFont.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element/Array.php';
 #require_once 'Zend/Pdf/Element/Dictionary.php';
@@ -56,6 +56,7 @@
  */
 abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
 {
+
     /**
      * Object representing the font's cmap (character to glyph map).
      * @var Zend_Pdf_Cmap
@@ -76,7 +77,6 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
      */
     protected $_missingCharWidth = 0;
 
-
     /**
      * Object constructor
      *
@@ -96,18 +96,18 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
 
         $this->_fontNames = $fontParser->names;
 
-        $this->_isBold       = $fontParser->isBold;
-        $this->_isItalic     = $fontParser->isItalic;
+        $this->_isBold = $fontParser->isBold;
+        $this->_isItalic = $fontParser->isItalic;
         $this->_isMonospaced = $fontParser->isMonospaced;
 
-        $this->_underlinePosition  = $fontParser->underlinePosition;
+        $this->_underlinePosition = $fontParser->underlinePosition;
         $this->_underlineThickness = $fontParser->underlineThickness;
-        $this->_strikePosition     = $fontParser->strikePosition;
-        $this->_strikeThickness    = $fontParser->strikeThickness;
+        $this->_strikePosition = $fontParser->strikePosition;
+        $this->_strikeThickness = $fontParser->strikeThickness;
 
         $this->_unitsPerEm = $fontParser->unitsPerEm;
 
-        $this->_ascent  = $fontParser->ascent;
+        $this->_ascent = $fontParser->ascent;
         $this->_descent = $fontParser->descent;
         $this->_lineGap = $fontParser->lineGap;
 
@@ -126,21 +126,21 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
          */
         /* Constract characters widths array using font CMap and glyphs widths array */
         $glyphWidths = $fontParser->glyphWidths;
-        $charGlyphs  = $this->_cmap->getCoveredCharactersGlyphs();
-        $charWidths  = array();
+        $charGlyphs = $this->_cmap->getCoveredCharactersGlyphs();
+        $charWidths = array();
         foreach ($charGlyphs as $charCode => $glyph) {
             $charWidths[$charCode] = $glyphWidths[$glyph];
         }
-        $this->_charWidths       = $charWidths;
+        $this->_charWidths = $charWidths;
         $this->_missingCharWidth = $glyphWidths[0];
 
         /* Width array optimization. Step1: extract default value */
         $widthFrequencies = array_count_values($charWidths);
-        $defaultWidth          = null;
+        $defaultWidth = null;
         $defaultWidthFrequency = -1;
         foreach ($widthFrequencies as $width => $frequency) {
             if ($frequency > $defaultWidthFrequency) {
-                $defaultWidth          = $width;
+                $defaultWidth = $width;
                 $defaultWidthFrequency = $frequency;
             }
         }
@@ -181,8 +181,8 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
         $pdfCharsWidths = array();
         foreach ($widthsSequences as $startCode => $widthsSequence) {
             /* Width array optimization. Step3: Compact widths sequences */
-            $pdfWidths        = array();
-            $lastWidth        = -1;
+            $pdfWidths = array();
+            $lastWidth = -1;
             $widthsInSequence = 0;
             foreach ($widthsSequence as $width) {
                 if ($lastWidth != $width) {
@@ -192,7 +192,6 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
                         $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($startCode);                         // First character code
                         $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($startCode + $widthsInSequence - 1); // Last character code
                         $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($this->toEmSpace($lastWidth));       // Width
-
                         // Reset widths sequence
                         $startCode = $startCode + $widthsInSequence;
                         $widthsInSequence = 0;
@@ -207,7 +206,6 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
                     if (count($pdfWidths) != 0) {
                         // We already have some widths collected
                         // So, we've just detected new widths sequence
-
                         // Remove last element from widths list, since it's a part of widths sequence
                         array_pop($pdfWidths);
 
@@ -216,7 +214,6 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
                             // Save it as 'c_1st [w1 w2 ... wn]'.
                             $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($startCode); // First character code
                             $pdfCharsWidths[] = new Zend_Pdf_Element_Array($pdfWidths);   // Widths array
-
                             // Reset widths collection
                             $startCode += count($pdfWidths);
                             $pdfWidths = array();
@@ -236,7 +233,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
                 // Save it as 'c_1st [w1 w2 ... wn]'.
                 $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($startCode); // First character code
                 $pdfCharsWidths[] = new Zend_Pdf_Element_Array($pdfWidths);   // Widths array
-            } else if ($widthsInSequence != 0){
+            } else if ($widthsInSequence != 0) {
                 // We have widths sequence
                 // Save it as 'c_1st c_last w'.
                 $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($startCode);                         // First character code
@@ -255,14 +252,12 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
 
         /* CIDSystemInfo dictionary */
         $cidSystemInfo = new Zend_Pdf_Element_Dictionary();
-        $cidSystemInfo->Registry   = new Zend_Pdf_Element_String('Adobe');
-        $cidSystemInfo->Ordering   = new Zend_Pdf_Element_String('UCS');
+        $cidSystemInfo->Registry = new Zend_Pdf_Element_String('Adobe');
+        $cidSystemInfo->Ordering = new Zend_Pdf_Element_String('UCS');
         $cidSystemInfo->Supplement = new Zend_Pdf_Element_Numeric(0);
-        $cidSystemInfoObject            = $this->_objectFactory->newObject($cidSystemInfo);
+        $cidSystemInfoObject = $this->_objectFactory->newObject($cidSystemInfo);
         $this->_resource->CIDSystemInfo = $cidSystemInfoObject;
     }
-
-
 
     /**
      * Returns an array of glyph numbers corresponding to the Unicode characters.
@@ -312,7 +307,6 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
         #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('CIDFont PDF objects could not be used as the operand of the text drawing operators');
     }
-
 
     /**
      * Returns a number between 0 and 1 inclusive that indicates the percentage
@@ -487,4 +481,5 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
         #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('CIDFont PDF objects could not be used as the operand of the text drawing operators');
     }
+
 }

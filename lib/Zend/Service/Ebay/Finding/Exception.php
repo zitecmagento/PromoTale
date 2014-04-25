@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_Exception
  */
@@ -34,4 +34,6 @@
  * @uses       Zend_Service_Ebay_Exception
  */
 class Zend_Service_Ebay_Finding_Exception extends Zend_Service_Ebay_Exception
-{}
+{
+    
+}

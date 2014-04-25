@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Dashboard_Grid
 {
 
@@ -47,17 +47,17 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
             return $this;
         }
         $collection = Mage::getResourceModel('reports/order_collection')
-            ->addItemCountExpr()
-            ->joinCustomerName('customer')
-            ->orderByCreatedAt();
+                ->addItemCountExpr()
+                ->joinCustomerName('customer')
+                ->orderByCreatedAt();
 
-        if($this->getParam('store') || $this->getParam('website') || $this->getParam('group')) {
+        if ($this->getParam('store') || $this->getParam('website') || $this->getParam('group')) {
             if ($this->getParam('store')) {
                 $collection->addAttributeToFilter('store_id', $this->getParam('store'));
-            } else if ($this->getParam('website')){
+            } else if ($this->getParam('website')) {
                 $storeIds = Mage::app()->getWebsite($this->getParam('website'))->getStoreIds();
                 $collection->addAttributeToFilter('store_id', array('in' => $storeIds));
-            } else if ($this->getParam('group')){
+            } else if ($this->getParam('group')) {
                 $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
                 $collection->addAttributeToFilter('store_id', array('in' => $storeIds));
             }
@@ -86,29 +86,29 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
     protected function _prepareColumns()
     {
         $this->addColumn('customer', array(
-            'header'    => $this->__('Customer'),
-            'sortable'  => false,
-            'index'     => 'customer',
-            'default'   => $this->__('Guest'),
+            'header' => $this->__('Customer'),
+            'sortable' => false,
+            'index' => 'customer',
+            'default' => $this->__('Guest'),
         ));
 
         $this->addColumn('items', array(
-            'header'    => $this->__('Items'),
-            'align'     => 'right',
-            'type'      => 'number',
-            'sortable'  => false,
-            'index'     => 'items_count'
+            'header' => $this->__('Items'),
+            'align' => 'right',
+            'type' => 'number',
+            'sortable' => false,
+            'index' => 'items_count'
         ));
 
-        $baseCurrencyCode = Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode();
+        $baseCurrencyCode = Mage::app()->getStore((int) $this->getParam('store'))->getBaseCurrencyCode();
 
         $this->addColumn('total', array(
-            'header'    => $this->__('Grand Total'),
-            'align'     => 'right',
-            'sortable'  => false,
-            'type'      => 'currency',
-            'currency_code'  => $baseCurrencyCode,
-            'index'     => 'revenue'
+            'header' => $this->__('Grand Total'),
+            'align' => 'right',
+            'sortable' => false,
+            'type' => 'currency',
+            'currency_code' => $baseCurrencyCode,
+            'index' => 'revenue'
         ));
 
         $this->setFilterVisibility(false);
@@ -119,6 +119,7 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/sales_order/view', array('order_id'=>$row->getId()));
+        return $this->getUrl('*/sales_order/view', array('order_id' => $row->getId()));
     }
+
 }

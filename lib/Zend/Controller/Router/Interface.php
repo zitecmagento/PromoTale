@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -28,6 +29,7 @@
  */
 interface Zend_Controller_Router_Interface
 {
+
     /**
      * Processes a request and sets its controller and action.  If
      * no route was possible, an exception is thrown.
@@ -120,5 +122,4 @@ interface Zend_Controller_Router_Interface
      * @return Zend_Controller_Router_Interface
      */
     public function clearParams($name = null);
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Shipping_TrackingController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Ajax action
      *
@@ -47,13 +48,13 @@ class Mage_Shipping_TrackingController extends Mage_Core_Controller_Front_Action
             $className = Mage::getConfig()->getBlockClassName('core/template');
             $block = new $className();
             $block->setType('core/template')
-                ->setIsAnonymous(true)
-                ->setTemplate('sales/order/trackinginfo.phtml');
+                    ->setIsAnonymous(true)
+                    ->setTemplate('sales/order/trackinginfo.phtml');
 
-            foreach ($tracks as $track){
+            foreach ($tracks as $track) {
                 $trackingInfo = $track->getNumberDetail();
                 $block->setTrackingInfo($trackingInfo);
-                $response .= $block->toHtml()."\n<br />";
+                $response .= $block->toHtml() . "\n<br />";
             }
 
             $this->getResponse()->setBody($response);
@@ -75,7 +76,6 @@ class Mage_Shipping_TrackingController extends Mage_Core_Controller_Front_Action
         $this->loadLayout();
         $this->renderLayout();
     }
-
 
     /**
      * Initialize order model instance

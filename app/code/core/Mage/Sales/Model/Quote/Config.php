@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Sales_Model_Quote_Config
 {
+
     const XML_PATH_QUOTE_PRODUCT_ATTRIBUTES = 'global/sales/quote/item/product_attributes';
 
     public function getProductAttributes()
@@ -40,6 +40,7 @@ class Mage_Sales_Model_Quote_Config
 
     public function getTotalModels()
     {
-
+        
     }
+
 }

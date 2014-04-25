@@ -32,33 +32,33 @@
  */
 ?>
 <?php
-    $_helper    = $this->helper('catalog/output');
-    $_category  = $this->getCurrentCategory();
-    $_categoryTitle = '<div class="category-title page-title"><h1>'.$_helper->categoryAttribute($_category, $_category->getName(), 'name').'</h1></div>';
-    $_imgUrl = $_category->getImageUrl();
-    $_imgHtml   = '';
-    if ($_imgUrl) {
-        $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->escapeHtml($_category->getName()).'" title="'.$this->escapeHtml($_category->getName()).'" /></p>';
-        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
-    }
+$_helper = $this->helper('catalog/output');
+$_category = $this->getCurrentCategory();
+$_categoryTitle = '<div class="category-title page-title"><h1>' . $_helper->categoryAttribute($_category, $_category->getName(), 'name') . '</h1></div>';
+$_imgUrl = $_category->getImageUrl();
+$_imgHtml = '';
+if ($_imgUrl) {
+    $_imgHtml = '<p class="category-image"><img src="' . $_imgUrl . '" alt="' . $this->escapeHtml($_category->getName()) . '" title="' . $this->escapeHtml($_category->getName()) . '" /></p>';
+    $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+}
 ?>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
 <div class="category-view">
-    <?php if($_imgUrl): ?>
+    <?php if ($_imgUrl): ?>
         <?php echo $_imgHtml ?>
     <?php endif; ?>
 
-    <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+    <?php if ($_description = $this->getCurrentCategory()->getDescription()): ?>
         <div class="category-description std">
             <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
         </div>
     <?php endif; ?>
 
-    <?php if($this->isContentMode()): ?>
+    <?php if ($this->isContentMode()): ?>
         <?php echo $_categoryTitle ?>
         <?php echo $this->getCmsBlockHtml() ?>
 
-    <?php elseif($this->isMixedMode()): ?>
+    <?php elseif ($this->isMixedMode()): ?>
         <?php echo $this->getCmsBlockHtml() ?>
         <?php echo $_categoryTitle ?>
         <?php echo $this->getProductListHtml() ?>

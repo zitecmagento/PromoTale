@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_InfoCard_Xml_Element
  */
@@ -70,13 +70,13 @@ abstract class Zend_InfoCard_Xml_EncryptedData_Abstract extends Zend_InfoCard_Xm
          */
         list($encryption_method) = $this->xpath("//enc:EncryptionMethod");
 
-        if(!($encryption_method instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($encryption_method instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception("Unable to find the enc:EncryptionMethod symmetric encryption block");
         }
 
         $dom = self::convertToDOM($encryption_method);
 
-        if(!$dom->hasAttribute('Algorithm')) {
+        if (!$dom->hasAttribute('Algorithm')) {
             throw new Zend_InfoCard_Xml_Exception("Unable to determine the encryption algorithm in the Symmetric enc:EncryptionMethod XML block");
         }
 

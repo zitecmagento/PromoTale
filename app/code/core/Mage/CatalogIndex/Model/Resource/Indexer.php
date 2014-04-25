@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reindexer resource model
  *
@@ -34,26 +34,27 @@
  */
 class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Enter description here ...
-     *
-     * @var unknown
-     */
-    protected $_insertData       = array();
 
     /**
      * Enter description here ...
      *
      * @var unknown
      */
-    protected $_tableFields      = array();
+    protected $_insertData = array();
 
     /**
      * Enter description here ...
      *
      * @var unknown
      */
-    protected $_attributeCache   = array();
+    protected $_tableFields = array();
+
+    /**
+     * Enter description here ...
+     *
+     * @var unknown
+     */
+    protected $_attributeCache = array();
 
     /**
      * Enter description here ...
@@ -90,19 +91,17 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * @param mixed $products applicable products
      * @param mixed $store applicable stores
      */
-    public function clear($eav = true, $price = true, $minimal = true, $finalPrice = true, $tierPrice = true,
-        $products = null, $store = null)
+    public function clear($eav = true, $price = true, $minimal = true, $finalPrice = true, $tierPrice = true, $products = null, $store = null)
     {
         $suffix = '';
         $priceSuffix = '';
-        $tables = array('eav'=>'catalogindex/eav', 'price'=>'catalogindex/price');
+        $tables = array('eav' => 'catalogindex/eav', 'price' => 'catalogindex/price');
         if (!is_null($products)) {
             if ($products instanceof Mage_Catalog_Model_Product) {
                 $products = $products->getId();
             } elseif ($products instanceof Mage_Catalog_Model_Product_Condition_Interface) {
-                $suffix = 'entity_id IN ('.$products->getIdsSelect($this->_getWriteAdapter())->__toString().')';
-            }
-            else if (!is_numeric($products) && !is_array($products)) {
+                $suffix = 'entity_id IN (' . $products->getIdsSelect($this->_getWriteAdapter())->__toString() . ')';
+            } else if (!is_numeric($products) && !is_array($products)) {
                 Mage::throwException('Invalid products supplied for indexing');
             }
             if (empty($suffix)) {
@@ -140,7 +139,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
 
             $priceSuffix = $suffix . $this->_getWriteAdapter()->quoteInto('website_id in (?)', $websiteIds);
             $suffix .= $this->_getWriteAdapter()->quoteInto('store_id in (?)', $store);
-
         }
 
         if ($tierPrice) {
@@ -156,7 +154,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         }
 
 
-        foreach ($tables as $variable=>$table) {
+        foreach ($tables as $variable => $table) {
             $variable = $$variable;
             $suffixToInsert = $suffix;
             if (in_array($table, $this->_getPriceTables())) {
@@ -171,7 +169,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
 
                 $this->_getWriteAdapter()->query($query);
             } else if (is_array($variable) && count($variable)) {
-                $query  = "DELETE FROM {$this->getTable($table)} WHERE ";
+                $query = "DELETE FROM {$this->getTable($table)} WHERE ";
                 $query .= $this->_getWriteAdapter()->quoteInto("attribute_id in (?)", $variable);
                 if ($suffixToInsert) {
                     $query .= " AND {$suffixToInsert}";
@@ -205,8 +203,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         $websiteId = $store->getWebsiteId();
         $attribute = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'tier_price');
         $this->_beginInsert(
-            'catalogindex/price',
-            array('entity_id', 'attribute_id', 'value', 'website_id', 'customer_group_id', 'qty')
+                'catalogindex/price', array('entity_id', 'attribute_id', 'value', 'website_id', 'customer_group_id', 'qty')
         );
 
         /**
@@ -217,7 +214,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
          */
         $products = Mage::getSingleton('catalogindex/retreiver')->assignProductTypes($products);
         if (is_null($forcedId)) {
-            foreach ($products as $type=>$typeIds) {
+            foreach ($products as $type => $typeIds) {
                 $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
                 if ($retreiver->areChildrenIndexable(Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS)) {
                     foreach ($typeIds as $id) {
@@ -297,7 +294,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         ));
 
         $productTypes = Mage::getSingleton('catalogindex/retreiver')->assignProductTypes($products);
-        foreach ($productTypes as $type=>$products) {
+        foreach ($productTypes as $type => $products) {
             $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
             foreach ($products as $product) {
                 if (is_null($forcedId)) {
@@ -352,7 +349,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         $this->clear(false, false, true, false, false, $products, $store);
         $products = Mage::getSingleton('catalogindex/retreiver')->assignProductTypes($products);
 
-        foreach ($products as $type=>$typeIds) {
+        foreach ($products as $type => $typeIds) {
             $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
 
             foreach ($typeIds as $id) {
@@ -360,10 +357,10 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 if ($retreiver->areChildrenIndexable(Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES)) {
                     $children = $retreiver->getChildProductIds($store, $id);
                     if ($children) {
-                        $minimal = $this->getMinimalPrice(array($type=>$children), $store);
+                        $minimal = $this->getMinimalPrice(array($type => $children), $store);
                     }
                 } else {
-                    $minimal = $this->getMinimalPrice(array($type=>array($id)), $store);
+                    $minimal = $this->getMinimalPrice(array($type => array($id)), $store);
                 }
 
                 if (is_array($minimal)) {
@@ -398,8 +395,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * @param bool $storeIsWebsite
      * @return Mage_CatalogIndex_Model_Resource_Indexer
      */
-    public function reindexAttributes($products, $attributeIds, $store, $forcedId = null, $table = 'catalogindex/eav',
-        $storeIsWebsite = false)
+    public function reindexAttributes($products, $attributeIds, $store, $forcedId = null, $table = 'catalogindex/eav', $storeIsWebsite = false)
     {
         $storeField = 'store_id';
         $websiteId = null;
@@ -417,7 +413,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         $products = Mage::getSingleton('catalogindex/retreiver')->assignProductTypes($products);
 
         if (is_null($forcedId)) {
-            foreach ($products as $type=>$typeIds) {
+            foreach ($products as $type => $typeIds) {
                 $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
                 if ($retreiver->areChildrenIndexable(Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES)) {
                     foreach ($typeIds as $id) {
@@ -475,7 +471,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
     public function getTierData($products, $store)
     {
         $result = array();
-        foreach ($products as $type=>$typeIds) {
+        foreach ($products as $type => $typeIds) {
             $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
             $byType = $retreiver->getTierPrices($typeIds, $store);
             if ($byType) {
@@ -495,7 +491,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
     public function getMinimalPrice($products, $store)
     {
         $result = array();
-        foreach ($products as $type=>$typeIds) {
+        foreach ($products as $type => $typeIds) {
             $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
             $byType = $retreiver->getMinimalPrice($typeIds, $store);
             if ($byType) {
@@ -516,7 +512,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
     public function getProductData($products, $attributeIds, $store)
     {
         $result = array();
-        foreach ($products as $type=>$typeIds) {
+        foreach ($products as $type => $typeIds) {
             $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
             $byType = $retreiver->getAttributeData($typeIds, $attributeIds, $store);
             if ($byType) {
@@ -589,12 +585,12 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         foreach (Mage::getSingleton('catalogindex/retreiver')->getCustomerGroups() as $group) {
             $columnName = 'display_price_group_' . $group->getId();
             $columns[$columnName] = array(
-                'type'      => 'decimal(12,4)',
-                'unsigned'  => false,
-                'nullable'   => true,
-                'default'   => null,
-                'extra'     => null,
-                'comment'   => $columnName . ' column'
+                'type' => 'decimal(12,4)',
+                'unsigned' => false,
+                'nullable' => true,
+                'default' => null,
+                'extra' => null,
+                'comment' => $columnName . ' column'
             );
         }
 
@@ -615,9 +611,9 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
 
         foreach (Mage::getSingleton('catalogindex/retreiver')->getCustomerGroups() as $group) {
             $columnName = 'display_price_group_' . $group->getId();
-            $indexName  = 'IDX_DISPLAY_PRICE_GROUP_' . $group->getId();
+            $indexName = 'IDX_DISPLAY_PRICE_GROUP_' . $group->getId();
             $indexes[$indexName] = array(
-                'type'   => 'index',
+                'type' => 'index',
                 'fields' => array($columnName)
             );
         }
@@ -643,7 +639,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         $addChildData = Mage::helper('catalog/product_flat')->isAddChildData();
 
         $priceAttribute = Mage::getSingleton('eav/entity_attribute')
-            ->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'price');
+                ->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'price');
         $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
 
         foreach (Mage::getSingleton('catalogindex/retreiver')->getCustomerGroups() as $group) {
@@ -653,19 +649,17 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
              * Update prices of main products in flat table
              */
             $select = $this->_getWriteAdapter()->select()
-                ->join(
-                    array('p' => $this->getTable('catalogindex/price')),
-                    "`e`.`entity_id`=`p`.`entity_id`"
-                        . " AND `p`.`attribute_id`={$priceAttribute}"
-                        . " AND `p`.`customer_group_id`={$group->getId()}"
-                        . " AND `p`.`website_id`={$websiteId}",
-                    array($columnName => 'value'));
+                    ->join(
+                    array('p' => $this->getTable('catalogindex/price')), "`e`.`entity_id`=`p`.`entity_id`"
+                    . " AND `p`.`attribute_id`={$priceAttribute}"
+                    . " AND `p`.`customer_group_id`={$group->getId()}"
+                    . " AND `p`.`website_id`={$websiteId}", array($columnName => 'value'));
             if ($addChildData) {
                 $select->where('e.is_child=?', 0);
             }
 
             if ($productIds instanceof Mage_Catalog_Model_Product_Condition_Interface) {
-                $select->where('e.entity_id IN ('.$productIds->getIdsSelect($this->_getWriteAdapter())->__toString().')');
+                $select->where('e.entity_id IN (' . $productIds->getIdsSelect($this->_getWriteAdapter())->__toString() . ')');
             } elseif (!is_null($productIds)) {
                 $select->where("e.entity_id IN(?)", $productIds);
             }
@@ -678,17 +672,15 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                  * Update prices for children products in flat table
                  */
                 $select = $this->_getWriteAdapter()->select()
-                    ->join(
-                        array('p' => $this->getTable('catalogindex/price')),
-                        "`e`.`child_id`=`p`.`entity_id`"
-                            . " AND `p`.`attribute_id`={$priceAttribute}"
-                            . " AND `p`.`customer_group_id`={$group->getId()}"
-                            . " AND `p`.`website_id`={$websiteId}",
-                        array($columnName => 'value'))
-                    ->where('e.is_child=?', 1);
+                        ->join(
+                                array('p' => $this->getTable('catalogindex/price')), "`e`.`child_id`=`p`.`entity_id`"
+                                . " AND `p`.`attribute_id`={$priceAttribute}"
+                                . " AND `p`.`customer_group_id`={$group->getId()}"
+                                . " AND `p`.`website_id`={$websiteId}", array($columnName => 'value'))
+                        ->where('e.is_child=?', 1);
 
                 if ($productIds instanceof Mage_Catalog_Model_Product_Condition_Interface) {
-                    $select->where('e.child_id IN ('.$productIds->getIdsSelect($this->_getWriteAdapter())->__toString().')');
+                    $select->where('e.child_id IN (' . $productIds->getIdsSelect($this->_getWriteAdapter())->__toString() . ')');
                 } elseif (!is_null($productIds)) {
                     $select->where("e.child_id IN(?)", $productIds);
                 }
@@ -696,9 +688,9 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 $sql = $select->crossUpdateFromSelect(array('e' => $tableName));
                 $this->_getWriteAdapter()->query($sql);
             }
-
         }
 
         return $this;
     }
+
 }

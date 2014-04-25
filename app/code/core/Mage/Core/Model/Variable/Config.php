@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Core_Model_Variable_Config
 {
+
     /**
      * Prepare variable wysiwyg config
      *
@@ -44,15 +46,15 @@ class Mage_Core_Model_Variable_Config
         $variableConfig = array();
         $onclickParts = array(
             'search' => array('html_id'),
-            'subject' => 'MagentovariablePlugin.loadChooser(\''.$this->getVariablesWysiwygActionUrl().'\', \'{{html_id}}\');'
+            'subject' => 'MagentovariablePlugin.loadChooser(\'' . $this->getVariablesWysiwygActionUrl() . '\', \'{{html_id}}\');'
         );
         $variableWysiwygPlugin = array(array('name' => 'magentovariable',
-            'src' => $this->getWysiwygJsPluginSrc(),
-            'options' => array(
-                'title' => Mage::helper('adminhtml')->__('Insert Variable...'),
-                'url' => $this->getVariablesWysiwygActionUrl(),
-                'onclick' => $onclickParts,
-                'class'   => 'add-variable plugin'
+                'src' => $this->getWysiwygJsPluginSrc(),
+                'options' => array(
+                    'title' => Mage::helper('adminhtml')->__('Insert Variable...'),
+                    'url' => $this->getVariablesWysiwygActionUrl(),
+                    'onclick' => $onclickParts,
+                    'class' => 'add-variable plugin'
         )));
         $configPlugins = $config->getData('plugins');
         $variableConfig['plugins'] = array_merge($configPlugins, $variableWysiwygPlugin);
@@ -66,7 +68,7 @@ class Mage_Core_Model_Variable_Config
      */
     public function getWysiwygJsPluginSrc()
     {
-        return Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/plugins/magentovariable/editor_plugin.js';
+        return Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tiny_mce/plugins/magentovariable/editor_plugin.js';
     }
 
     /**
@@ -78,4 +80,5 @@ class Mage_Core_Model_Variable_Config
     {
         return Mage::getSingleton('adminhtml/url')->getUrl('*/system_variable/wysiwygPlugin');
     }
+
 }

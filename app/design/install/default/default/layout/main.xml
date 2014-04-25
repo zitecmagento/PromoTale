@@ -30,7 +30,9 @@
     <install_wizard>
         <!-- Mage_Install -->
         <block type="core/template" name="root" output="toHtml">
-            <action method="setTemplate"><template>page.phtml</template></action>
+            <action method="setTemplate">
+                <template>page.phtml</template>
+            </action>
             <block type="core/text_list" name="left" as="left"/>
             <block type="core/text_list" name="content" as="content" />
         </block>
@@ -38,8 +40,14 @@
     </install_wizard>
     <install_wizard_config>
         <reference name="database">
-            <action method="setTemplate"><template>install/db/main.phtml</template></action>
-            <action method="addDatabaseBlock"><type>mysql4</type><block>install/db_type_mysql4</block><template>install/db/mysql4.phtml</template></action>
+            <action method="setTemplate">
+                <template>install/db/main.phtml</template>
+            </action>
+            <action method="addDatabaseBlock">
+                <type>mysql4</type>
+                <block>install/db_type_mysql4</block>
+                <template>install/db/mysql4.phtml</template>
+            </action>
         </reference>
     </install_wizard_config>
 </layout>

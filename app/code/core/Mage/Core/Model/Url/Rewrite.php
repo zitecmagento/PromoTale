@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Url rewrite model class
@@ -54,9 +54,10 @@
  */
 class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Mage_Core_Model_Url_Rewrite_Interface
 {
+
     const TYPE_CATEGORY = 1;
-    const TYPE_PRODUCT  = 2;
-    const TYPE_CUSTOM   = 3;
+    const TYPE_PRODUCT = 2;
+    const TYPE_CUSTOM = 3;
     const REWRITE_REQUEST_PATH_ALIAS = 'rewrite_request_path';
 
     /**
@@ -117,9 +118,9 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         $loadTags = is_array($tags) ? $tags : explode(',', $tags);
 
         $search = $this->getResourceCollection();
-        foreach ($loadTags as $k=>$t) {
+        foreach ($loadTags as $k => $t) {
             if (!is_numeric($k)) {
-                $t = $k.'='.$t;
+                $t = $k . '=' . $t;
             }
             $search->addTagsFilter($t);
         }
@@ -129,7 +130,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         $search->setPageSize(1)->load();
 
-        if ($search->getSize()>0) {
+        if ($search->getSize() > 0) {
             foreach ($search as $rewrite) {
                 $this->setData($rewrite->getData());
             }
@@ -151,9 +152,9 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         $addTags = is_array($tags) ? $tags : explode(',', $tags);
 
-        foreach ($addTags as $k=>$t) {
+        foreach ($addTags as $k => $t) {
             if (!is_numeric($k)) {
-                $t = $k.'='.$t;
+                $t = $k . '=' . $t;
             }
             if (!in_array($t, $curTags)) {
                 $curTags[] = $t;
@@ -173,7 +174,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         foreach ($removeTags as $t) {
             if (!is_numeric($k)) {
-                $t = $k.'='.$t;
+                $t = $k . '=' . $t;
             }
             if ($key = array_search($t, $curTags)) {
                 unset($curTags[$key]);
@@ -193,7 +194,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * @return  Mage_Core_Model_Url
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      */
-    public function rewrite(Zend_Controller_Request_Http $request=null, Zend_Controller_Response_Http $response=null)
+    public function rewrite(Zend_Controller_Request_Http $request = null, Zend_Controller_Response_Http $response = null)
     {
         if (!Mage::isInstalled()) {
             return false;
@@ -204,7 +205,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         if (is_null($response)) {
             $response = Mage::app()->getFrontController()->getResponse();
         }
-        if (is_null($this->getStoreId()) || false===$this->getStoreId()) {
+        if (is_null($this->getStoreId()) || false === $this->getStoreId()) {
             $this->setStoreId(Mage::app()->getStore()->getId());
         }
 
@@ -235,10 +236,12 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
          * Try to find rewrite by request path at first, if no luck - try to find by id_path
          */
         if (!$this->getId() && isset($_GET['___from_store'])) {
-            try {
+            try
+            {
                 $fromStoreId = Mage::app()->getStore($_GET['___from_store'])->getId();
             }
-            catch (Exception $e) {
+            catch (Exception $e)
+            {
                 return false;
             }
 
@@ -250,7 +253,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
             $this->setStoreId($currentStore->getId())->loadByIdPath($this->getIdPath());
 
             Mage::app()->getCookie()->set(Mage_Core_Model_Store::COOKIE_NAME, $currentStore->getCode(), true);
-            $targetUrl = $request->getBaseUrl(). '/' . $this->getRequestPath();
+            $targetUrl = $request->getBaseUrl() . '/' . $this->getRequestPath();
 
             $this->_sendRedirectHeaders($targetUrl, true);
         }
@@ -269,24 +272,24 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
             $this->_sendRedirectHeaders($this->getTargetPath(), $isPermanentRedirectOption);
         } else {
-            $targetUrl = $request->getBaseUrl(). '/' . $this->getTargetPath();
+            $targetUrl = $request->getBaseUrl() . '/' . $this->getTargetPath();
         }
         $isRedirectOption = $this->hasOption('R');
         if ($isRedirectOption || $isPermanentRedirectOption) {
             if (Mage::getStoreConfig('web/url/use_store') && $storeCode = Mage::app()->getStore()->getCode()) {
-                $targetUrl = $request->getBaseUrl(). '/' . $storeCode . '/' .$this->getTargetPath();
+                $targetUrl = $request->getBaseUrl() . '/' . $storeCode . '/' . $this->getTargetPath();
             }
 
             $this->_sendRedirectHeaders($targetUrl, $isPermanentRedirectOption);
         }
 
         if (Mage::getStoreConfig('web/url/use_store') && $storeCode = Mage::app()->getStore()->getCode()) {
-                $targetUrl = $request->getBaseUrl(). '/' . $storeCode . '/' .$this->getTargetPath();
-            }
+            $targetUrl = $request->getBaseUrl() . '/' . $storeCode . '/' . $this->getTargetPath();
+        }
 
         $queryString = $this->_getQueryString();
         if ($queryString) {
-            $targetUrl .= '?'.$queryString;
+            $targetUrl .= '?' . $queryString;
         }
 
         $request->setRequestUri($targetUrl);
@@ -307,7 +310,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
             $queryParams = array();
             parse_str($_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
-            foreach ($queryParams as $key=>$value) {
+            foreach ($queryParams as $key => $value) {
                 if (substr($key, 0, 3) === '___') {
                     unset($queryParams[$key]);
                     $hasChanges = true;
@@ -315,8 +318,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
             }
             if ($hasChanges) {
                 return http_build_query($queryParams);
-            }
-            else {
+            } else {
                 return $_SERVER['QUERY_STRING'];
             }
         }
@@ -346,4 +348,5 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         header('Location: ' . $url);
         exit;
     }
+
 }

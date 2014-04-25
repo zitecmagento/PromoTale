@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -40,6 +41,7 @@
  */
 abstract class Mage_Api2_Model_Resource_Validator
 {
+
     /**
      * Array of validation failure errors.
      *
@@ -99,4 +101,5 @@ abstract class Mage_Api2_Model_Resource_Validator
     {
         return $this->_errors;
     }
+
 }

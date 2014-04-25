@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form extends Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form
 {
+
     /**
      * Prepare form before rendering HTML
      * Setting Form Fieldsets and fields
@@ -58,11 +60,11 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form extends Mage_XmlConnect_Bl
         }
 
         $fieldset = $this->getForm()->addFieldset(
-            "message_settings", array('legend' => $this->__('Message Settings')), '^'
+                "message_settings", array('legend' => $this->__('Message Settings')), '^'
         );
 
         if ($model->getId()) {
-            $fieldset->addField('message_id', 'hidden', array('name'  => 'message_id'));
+            $fieldset->addField('message_id', 'hidden', array('name' => 'message_id'));
         }
 
         // set exec_time for showing accordingly to locale datetime settings
@@ -70,24 +72,24 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form extends Mage_XmlConnect_Bl
 
         /** @var $sovereignField Varien_Data_Form_Element_Abstract */
         $sovereignField = $fieldset->addField('type', 'select', array(
-            'name'      => 'type',
-            'values'    => Mage::helper('xmlconnect')->getMessageTypeOptions(),
-            'label'     => $this->__('Message Type'),
-            'title'     => $this->__('Message Type'),
-            'disabled'  => !$this->_fieldsEnabled,
-            'required'  => true,
+            'name' => 'type',
+            'values' => Mage::helper('xmlconnect')->getMessageTypeOptions(),
+            'label' => $this->__('Message Type'),
+            'title' => $this->__('Message Type'),
+            'disabled' => !$this->_fieldsEnabled,
+            'required' => true,
         ));
 
         $fieldset->addField('exec_time', 'date', array(
-            'name'      => 'exec_time',
-            'format'    => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
-            'label'     => $this->__('Start Date'),
-            'time'      => true,
-            'title'     => $this->__('Start Date'),
-            'image'     => $this->getSkinUrl('images/grid-cal.gif'),
-            'note'      => $this->__('If leave this field empty, the message will be sent immediately'),
-            'disabled'  => !$this->_fieldsEnabled,
-            'required'  => false,
+            'name' => 'exec_time',
+            'format' => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
+            'label' => $this->__('Start Date'),
+            'time' => true,
+            'title' => $this->__('Start Date'),
+            'image' => $this->getSkinUrl('images/grid-cal.gif'),
+            'note' => $this->__('If leave this field empty, the message will be sent immediately'),
+            'disabled' => !$this->_fieldsEnabled,
+            'required' => false,
         ));
 
         $this->_addElementTypes($fieldset);
@@ -97,23 +99,18 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form extends Mage_XmlConnect_Bl
             $dependenceBlock = $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence');
 
             $dependenceBlock->addFieldMap(
-                $this->_dependentFields['message_title']->getHtmlId(),
-                $this->_dependentFields['message_title']->getName()
-            )
-            ->addFieldMap(
-                $this->_dependentFields['content']->getHtmlId(),
-                $this->_dependentFields['content']->getName()
-            )
-            ->addFieldMap(
-                $sovereignField->getHtmlId(),
-                $sovereignField->getName()
+                            $this->_dependentFields['message_title']->getHtmlId(), $this->_dependentFields['message_title']->getName()
+                    )
+                    ->addFieldMap(
+                            $this->_dependentFields['content']->getHtmlId(), $this->_dependentFields['content']->getName()
+                    )
+                    ->addFieldMap(
+                            $sovereignField->getHtmlId(), $sovereignField->getName()
             );
 
             if (!empty($this->_dependentFields['message_title'])) {
                 $dependenceBlock->addFieldDependence(
-                    $this->_dependentFields['message_title']->getName(),
-                    $sovereignField->getName(),
-                    Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL
+                        $this->_dependentFields['message_title']->getName(), $sovereignField->getName(), Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL
                 );
 
                 if (!$this->_fieldsEnabled) {
@@ -123,9 +120,7 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form extends Mage_XmlConnect_Bl
 
             if (!empty($this->_dependentFields['content'])) {
                 $dependenceBlock->addFieldDependence(
-                    $this->_dependentFields['content']->getName(),
-                    $sovereignField->getName(),
-                    Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL
+                        $this->_dependentFields['content']->getName(), $sovereignField->getName(), Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL
                 );
 
                 if (!$this->_fieldsEnabled) {
@@ -160,4 +155,5 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form extends Mage_XmlConnect_Bl
 
         $this->setForm($this->getForm());
     }
+
 }

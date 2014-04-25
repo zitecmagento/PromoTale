@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 interface Mage_Api2_Model_Route_Interface
 {
+
     /**
      * Matches a Request with parts defined by a map. Assigns and
      * returns an array of variables on a successful match.

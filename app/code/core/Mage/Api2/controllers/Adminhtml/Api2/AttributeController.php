@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,20 +34,21 @@
  */
 class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Show user types grid
      */
     public function indexAction()
     {
         $this->_title($this->__('System'))
-             ->_title($this->__('Web Services'))
-             ->_title($this->__('REST Attributes'));
+                ->_title($this->__('Web Services'))
+                ->_title($this->__('REST Attributes'));
 
         $this->loadLayout()->_setActiveMenu('system/services/attributes');
 
         $this->_addBreadcrumb($this->__('Web services'), $this->__('Web services'))
-            ->_addBreadcrumb($this->__('REST Attributes'), $this->__('REST Attributes'))
-            ->_addBreadcrumb($this->__('Attributes'), $this->__('Attributes'));
+                ->_addBreadcrumb($this->__('REST Attributes'), $this->__('REST Attributes'))
+                ->_addBreadcrumb($this->__('Attributes'), $this->__('Attributes'));
 
         $this->renderLayout();
     }
@@ -57,7 +59,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
     public function editAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('system/services/attributes');
+                ->_setActiveMenu('system/services/attributes');
 
         $type = $this->getRequest()->getParam('type');
 
@@ -69,8 +71,8 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
         }
 
         $this->_title($this->__('System'))
-            ->_title($this->__('Web Services'))
-            ->_title($this->__('REST ACL Attributes'));
+                ->_title($this->__('Web Services'))
+                ->_title($this->__('REST ACL Attributes'));
 
         $title = $this->__('Edit %s ACL attribute rules', $userTypes[$type]);
         $this->_title($title);
@@ -90,7 +92,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
         if (!$type) {
             $this->_getSession()->addError(
-                $this->__('User type "%s" no longer exists', $type));
+                    $this->__('User type "%s" no longer exists', $type));
             $this->_redirect('*/*/');
             return;
         }
@@ -98,11 +100,11 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
         /** @var $session Mage_Adminhtml_Model_Session */
         $session = $this->_getSession();
 
-        try {
+        try
+        {
             /** @var $ruleTree Mage_Api2_Model_Acl_Global_Rule_Tree */
             $ruleTree = Mage::getSingleton(
-                'api2/acl_global_rule_tree',
-                array('type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_ATTRIBUTE)
+                            'api2/acl_global_rule_tree', array('type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_ATTRIBUTE)
             );
 
             /** @var $attribute Mage_Api2_Model_Acl_Filter_Attribute */
@@ -120,29 +122,34 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
             foreach ($ruleTree->getPostResources() as $resourceId => $operations) {
                 if (Mage_Api2_Model_Acl_Global_Rule::RESOURCE_ALL === $resourceId) {
                     $attribute->setUserType($type)
-                        ->setResourceId($resourceId)
-                        ->save();
+                            ->setResourceId($resourceId)
+                            ->save();
                 } else {
                     foreach ($operations as $operation => $attributes) {
                         $attribute->setId(null)
-                            ->isObjectNew(true);
+                                ->isObjectNew(true);
 
                         $attribute->setUserType($type)
-                            ->setResourceId($resourceId)
-                            ->setOperation($operation)
-                            ->setAllowedAttributes(implode(',', array_keys($attributes)))
-                            ->save();
+                                ->setResourceId($resourceId)
+                                ->setOperation($operation)
+                                ->setAllowedAttributes(implode(',', array_keys($attributes)))
+                                ->save();
                     }
                 }
             }
 
             $session->addSuccess($this->__('The attribute rules were saved.'));
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $session->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $session->addException($e, $this->__('An error occurred while saving attribute rules.'));
         }
 
         $this->_redirect('*/*/edit', array('type' => $type));
     }
+
 }

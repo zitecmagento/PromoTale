@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 class Zend_Queue_Stomp_Client
 {
+
     /**
      * Array of $client Zend_Queue_Stomp_Client_Interface
      *
@@ -46,13 +48,10 @@ class Zend_Queue_Stomp_Client
      * @param integer port
      */
     public function __construct(
-        $scheme = null, $host = null, $port = null,
-        $connectionClass = 'Zend_Queue_Stomp_Client_Connection',
-        $frameClass = 'Zend_Queue_Stomp_Frame'
-    ) {
-        if (($scheme !== null)
-            && ($host !== null)
-            && ($port !== null)
+    $scheme = null, $host = null, $port = null, $connectionClass = 'Zend_Queue_Stomp_Client_Connection', $frameClass = 'Zend_Queue_Stomp_Frame'
+    )
+    {
+        if (($scheme !== null) && ($host !== null) && ($port !== null)
         ) {
             $this->addConnection($scheme, $host, $port, $connectionClass);
             $this->getConnection()->setFrameClass($frameClass);
@@ -170,4 +169,5 @@ class Zend_Queue_Stomp_Client
     {
         return $this->getConnection()->createFrame();
     }
+
 }

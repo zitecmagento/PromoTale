@@ -19,6 +19,6 @@
  */
 ?>
 <?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?>
-    {{pdf_row_separator}}
+{{pdf_row_separator}}
 <?php echo Mage::helper('moneybookers')->__('Moneybookers Transaction ID: %s', $this->escapeHtml($this->getInfo()->getLastTransId())) ?>
-    {{pdf_row_separator}}
+{{pdf_row_separator}}

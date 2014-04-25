@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sitemaps grid
  *
@@ -39,7 +39,6 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
         parent::__construct();
         $this->setId('sitemapGrid');
         $this->setDefaultSort('sitemap_id');
-
     }
 
     protected function _prepareCollection()
@@ -53,48 +52,48 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
     protected function _prepareColumns()
     {
         $this->addColumn('sitemap_id', array(
-            'header'    => Mage::helper('sitemap')->__('ID'),
-            'width'     => '50px',
-            'index'     => 'sitemap_id'
+            'header' => Mage::helper('sitemap')->__('ID'),
+            'width' => '50px',
+            'index' => 'sitemap_id'
         ));
 
         $this->addColumn('sitemap_filename', array(
-            'header'    => Mage::helper('sitemap')->__('Filename'),
-            'index'     => 'sitemap_filename'
+            'header' => Mage::helper('sitemap')->__('Filename'),
+            'index' => 'sitemap_filename'
         ));
 
         $this->addColumn('sitemap_path', array(
-            'header'    => Mage::helper('sitemap')->__('Path'),
-            'index'     => 'sitemap_path'
+            'header' => Mage::helper('sitemap')->__('Path'),
+            'index' => 'sitemap_path'
         ));
 
         $this->addColumn('link', array(
-            'header'    => Mage::helper('sitemap')->__('Link for Google'),
-            'index'     => 'concat(sitemap_path, sitemap_filename)',
-            'renderer'  => 'adminhtml/sitemap_grid_renderer_link',
+            'header' => Mage::helper('sitemap')->__('Link for Google'),
+            'index' => 'concat(sitemap_path, sitemap_filename)',
+            'renderer' => 'adminhtml/sitemap_grid_renderer_link',
         ));
 
         $this->addColumn('sitemap_time', array(
-            'header'    => Mage::helper('sitemap')->__('Last Time Generated'),
-            'width'     => '150px',
-            'index'     => 'sitemap_time',
-            'type'      => 'datetime',
+            'header' => Mage::helper('sitemap')->__('Last Time Generated'),
+            'width' => '150px',
+            'index' => 'sitemap_time',
+            'type' => 'datetime',
         ));
 
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', array(
-                'header'    => Mage::helper('sitemap')->__('Store View'),
-                'index'     => 'store_id',
-                'type'      => 'store',
+                'header' => Mage::helper('sitemap')->__('Store View'),
+                'index' => 'store_id',
+                'type' => 'store',
             ));
         }
 
         $this->addColumn('action', array(
-            'header'   => Mage::helper('sitemap')->__('Action'),
-            'filter'   => false,
+            'header' => Mage::helper('sitemap')->__('Action'),
+            'filter' => false,
             'sortable' => false,
-            'width'    => '100',
+            'width' => '100',
             'renderer' => 'adminhtml/sitemap_grid_renderer_action'
         ));
 

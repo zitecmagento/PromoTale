@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_OfflineCatalog_Product extends Mage_XmlConnect_Block_Catalog_Product_List
 {
+
     /**
      * Type product
      */
@@ -58,7 +60,7 @@ class Mage_XmlConnect_Model_OfflineCatalog_Product extends Mage_XmlConnect_Block
         /** @var $helper Mage_Catalog_Helper_Category */
         $helper = Mage::helper('catalog/category');
         Mage::app()->getRequest()->setParam(
-            'count', Mage_XmlConnect_Model_OfflineCatalog_Category::PRODUCT_IN_CATEGORY
+                'count', Mage_XmlConnect_Model_OfflineCatalog_Category::PRODUCT_IN_CATEGORY
         );
         foreach ($helper->getStoreCategories() as $category) {
             if (!$category->getIsActive()) {
@@ -108,4 +110,5 @@ class Mage_XmlConnect_Model_OfflineCatalog_Product extends Mage_XmlConnect_Block
                 return null;
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Form_Renderer_Date extends Enterprise_Customer_Block_Form_Renderer_Date
 {
+
     /**
      * Field type
      *
@@ -75,13 +77,13 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Date extends Enterprise_Custo
     {
         $attributes = array(
             'label' => $this->getLabel(),
-            'name'  => $this->getFieldName(),
-            'format'=> $this->getDateFormat(),
+            'name' => $this->getFieldName(),
+            'format' => $this->getDateFormat(),
             'value' => $this->_prepareValues()
         );
 
         $attributes += Mage::helper('xmlconnect/customer_form_renderer')
-            ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
+                ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
 
         $fieldXmlObj = $fieldsetXmlObj->addField($this->getHtmlId('full'), $this->_filedType, $attributes);
 
@@ -96,4 +98,5 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Date extends Enterprise_Custo
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends Mage_Adminhtml_Block_Widget
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -43,20 +45,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
     {
 
         $this->setChild(
-            'attributes',
-            $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_new_product_attributes')
-                ->setGroupAttributes($this->_getGroupAttributes())
+                'attributes', $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_new_product_attributes')
+                        ->setGroupAttributes($this->_getGroupAttributes())
         );
 
         $this->setChild(
-            'close_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'   => Mage::helper('catalog')->__('Close Window'),
-                    'onclick' => 'addAttribute(true)'
-                ))
+                'close_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('catalog')->__('Close Window'),
+                            'onclick' => 'addAttribute(true)'
+                        ))
         );
-
     }
 
     protected function _getGroupAttributes()
@@ -64,7 +63,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
         $attributes = array();
         $product = Mage::registry('product');
         /* @var $product Mage_Catalog_Model_Product */
-        foreach($product->getAttributes($this->getRequest()->getParam('group')) as $attribute) {
+        foreach ($product->getAttributes($this->getRequest()->getParam('group')) as $attribute) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             if ($attribute->getId() == $this->getRequest()->getParam('attribute')) {
                 $attributes[] = $attribute;
@@ -86,4 +85,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
 
         return Mage::helper('core')->jsonEncode($result);
     }
-} // Class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created End
+
+}
+
+// Class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created End

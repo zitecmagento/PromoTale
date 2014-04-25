@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Xmlconnect_Block_Cart_CartTotals_Shipping extends Mage_Tax_Block_Checkout_Shipping
 {
+
     /**
      * Total id prefix
      *
@@ -110,4 +112,5 @@ class Mage_Xmlconnect_Block_Cart_CartTotals_Shipping extends Mage_Tax_Block_Chec
     {
         return $this->_totalIdPrefix;
     }
+
 }

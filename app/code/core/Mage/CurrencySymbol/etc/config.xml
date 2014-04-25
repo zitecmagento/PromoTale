@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_CurrencySymbol>
-             <version>1.0.0.0.0</version>
+            <version>1.0.0.0.0</version>
         </Mage_CurrencySymbol>
     </modules>
 
@@ -83,9 +83,9 @@
         <translate>
             <modules>
                 <Mage_CurrencySymbol>
-                     <files>
-                          <default>Mage_CurrencySymbol.csv</default>
-                     </files>
+                    <files>
+                        <default>Mage_CurrencySymbol.csv</default>
+                    </files>
                 </Mage_CurrencySymbol>
             </modules>
         </translate>

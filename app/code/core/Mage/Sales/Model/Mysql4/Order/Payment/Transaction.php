@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales transaction resource model
  *
@@ -34,4 +34,5 @@
  */
 class Mage_Sales_Model_Mysql4_Order_Payment_Transaction extends Mage_Sales_Model_Resource_Order_Payment_Transaction
 {
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,6 +26,7 @@
  */
 class Mage_Weee_Model_Config_Source_Fpt_Tax
 {
+
     /**
      * Array of options for FPT Tax Configuration
      *
@@ -50,6 +52,5 @@ class Mage_Weee_Model_Config_Source_Fpt_Tax
     {
         return Mage::helper($helperName);
     }
+
 }
-
-

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments
-    extends Mage_Adminhtml_Block_Widget_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -55,12 +55,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass())
-            ->addFieldToSelect('entity_id')
-            ->addFieldToSelect('created_at')
-            ->addFieldToSelect('increment_id')
-            ->addFieldToSelect('total_qty')
-            ->addFieldToSelect('shipping_name')
-            ->setOrderFilter($this->getOrder())
+                ->addFieldToSelect('entity_id')
+                ->addFieldToSelect('created_at')
+                ->addFieldToSelect('increment_id')
+                ->addFieldToSelect('total_qty')
+                ->addFieldToSelect('shipping_name')
+                ->setOrderFilter($this->getOrder())
         ;
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -87,7 +87,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments
         $this->addColumn('total_qty', array(
             'header' => Mage::helper('sales')->__('Total Qty'),
             'index' => 'total_qty',
-            'type'  => 'number',
+            'type' => 'number',
         ));
 
         return parent::_prepareColumns();
@@ -106,11 +106,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments
     public function getRowUrl($row)
     {
         return $this->getUrl(
-            '*/sales_order_shipment/view',
-            array(
-                'shipment_id'=> $row->getId(),
-                'order_id'  => $row->getOrderId()
-             ));
+                        '*/sales_order_shipment/view', array(
+                    'shipment_id' => $row->getId(),
+                    'order_id' => $row->getOrderId()
+        ));
     }
 
     public function getGridUrl()
@@ -143,4 +142,5 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments
     {
         return false;
     }
+
 }

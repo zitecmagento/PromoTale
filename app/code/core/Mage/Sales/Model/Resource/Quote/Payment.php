@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Quote payment resource model
  *
@@ -34,12 +34,13 @@
  */
 class Mage_Sales_Model_Resource_Quote_Payment extends Mage_Sales_Model_Resource_Abstract
 {
+
     /**
      * Serializeable field: additional_information
      *
      * @var array
      */
-    protected $_serializableFields   = array(
+    protected $_serializableFields = array(
         'additional_information' => array(null, array())
     );
 
@@ -51,4 +52,5 @@ class Mage_Sales_Model_Resource_Quote_Payment extends Mage_Sales_Model_Resource_
     {
         $this->_init('sales/quote_payment', 'payment_id');
     }
+
 }

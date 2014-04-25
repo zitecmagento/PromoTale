@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Install_Block_Config extends Mage_Install_Block_Abstract
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -59,8 +61,7 @@ class Mage_Install_Block_Config extends Mage_Install_Block_Abstract
             $data = Mage::getSingleton('install/session')->getConfigData(true);
             if (empty($data)) {
                 $data = Mage::getModel('install/installer_config')->getFormData();
-            }
-            else {
+            } else {
                 $data = new Varien_Object($data);
             }
             $this->setFormData($data);
@@ -82,19 +83,20 @@ class Mage_Install_Block_Config extends Mage_Install_Block_Abstract
     {
         return array(
             'files' => Mage::helper('install')->__('File System'),
-            'db'    => Mage::helper('install')->__('Database'),
+            'db' => Mage::helper('install')->__('Database'),
         );
     }
 
     public function getSessionSaveSelect()
     {
         $html = $this->getLayout()->createBlock('core/html_select')
-            ->setName('config[session_save]')
-            ->setId('session_save')
-            ->setTitle(Mage::helper('install')->__('Save Session Files In'))
-            ->setClass('required-entry')
-            ->setOptions($this->getSessionSaveOptions())
-            ->getHtml();
+                ->setName('config[session_save]')
+                ->setId('session_save')
+                ->setTitle(Mage::helper('install')->__('Save Session Files In'))
+                ->setClass('required-entry')
+                ->setOptions($this->getSessionSaveOptions())
+                ->getHtml();
         return $html;
     }
+
 }

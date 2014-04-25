@@ -19,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Atom.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Feed_Abstract
  */
@@ -30,7 +28,6 @@
  * @see Zend_Feed_Entry_Atom
  */
 #require_once 'Zend/Feed/Entry/Atom.php';
-
 
 /**
  * Atom feed class
@@ -72,7 +69,6 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
      */
     protected $_defaultNamespace = 'atom';
 
-
     /**
      * Override Zend_Feed_Abstract to set up the $_element and $_entries aliases.
      *
@@ -94,11 +90,10 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
                  */
                 #require_once 'Zend/Feed/Exception.php';
                 throw new Zend_Feed_Exception('No root <feed> or <' . $this->_entryElementName
-                                              . '> element found, cannot parse feed.');
+                . '> element found, cannot parse feed.');
             }
 
-            $doc = new DOMDocument($this->_element->version,
-                                   $this->_element->actualEncoding);
+            $doc = new DOMDocument($this->_element->version, $this->_element->actualEncoding);
             $feed = $doc->appendChild($doc->createElement('feed'));
             $feed->appendChild($doc->importNode($element, true));
             $element = $feed;
@@ -110,7 +105,6 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
         // simplicity.
         $this->_buildEntryCache();
     }
-
 
     /**
      * Easy access to <link> tags keyed by "rel" attributes.
@@ -155,7 +149,6 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
         return null;
     }
 
-
     /**
      * Make accessing some individual elements of the feed easier.
      *
@@ -171,7 +164,7 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
     {
         switch ($var) {
             case 'entry':
-                // fall through to the next case
+            // fall through to the next case
             case 'entries':
                 return $this;
 
@@ -335,15 +328,11 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
             }
 
             if (isset($dataentry->comments)) {
-                $comments = $this->_element->createElementNS('http://wellformedweb.org/CommentAPI/',
-                                                             'wfw:comment',
-                                                             $dataentry->comments);
+                $comments = $this->_element->createElementNS('http://wellformedweb.org/CommentAPI/', 'wfw:comment', $dataentry->comments);
                 $entry->appendChild($comments);
             }
             if (isset($dataentry->commentRss)) {
-                $comments = $this->_element->createElementNS('http://wellformedweb.org/CommentAPI/',
-                                                             'wfw:commentRss',
-                                                             $dataentry->commentRss);
+                $comments = $this->_element->createElementNS('http://wellformedweb.org/CommentAPI/', 'wfw:commentRss', $dataentry->commentRss);
                 $entry->appendChild($comments);
             }
 
@@ -359,8 +348,7 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
     public function saveXml()
     {
         // Return a complete document including XML prologue.
-        $doc = new DOMDocument($this->_element->ownerDocument->version,
-                               $this->_element->ownerDocument->actualEncoding);
+        $doc = new DOMDocument($this->_element->ownerDocument->version, $this->_element->ownerDocument->actualEncoding);
         $doc->appendChild($doc->importNode($this->_element, true));
         $doc->formatOutput = true;
 
@@ -387,4 +375,5 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
 
         echo $this->saveXML();
     }
+
 }

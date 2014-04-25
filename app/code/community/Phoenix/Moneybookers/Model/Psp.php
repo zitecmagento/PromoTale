@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,9 +20,11 @@
  */
 class Phoenix_Moneybookers_Model_Psp extends Phoenix_Moneybookers_Model_Abstract
 {
+
     /**
      * unique internal payment method identifier
      */
-    protected $_code			= 'moneybookers_psp';
-    protected $_paymentMethod	= 'PSP';
+    protected $_code = 'moneybookers_psp';
+    protected $_paymentMethod = 'PSP';
+
 }

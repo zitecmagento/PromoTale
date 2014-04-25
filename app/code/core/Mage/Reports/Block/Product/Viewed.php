@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,14 +34,15 @@
  */
 class Mage_Reports_Block_Product_Viewed extends Mage_Reports_Block_Product_Abstract
 {
-    const XML_PATH_RECENTLY_VIEWED_COUNT    = 'catalog/recently_products/viewed_count';
+
+    const XML_PATH_RECENTLY_VIEWED_COUNT = 'catalog/recently_products/viewed_count';
 
     /**
      * Viewed Product Index model name
      *
      * @var string
      */
-    protected $_indexName       = 'reports/product_index_viewed';
+    protected $_indexName = 'reports/product_index_viewed';
 
     /**
      * Retrieve page size (count)
@@ -90,8 +92,8 @@ class Mage_Reports_Block_Product_Viewed extends Mage_Reports_Block_Product_Abstr
     public function getCacheTags()
     {
         return array_merge(
-            parent::getCacheTags(),
-            $this->getItemsTags($this->getItemsCollection())
+                parent::getCacheTags(), $this->getItemsTags($this->getItemsCollection())
         );
     }
+
 }

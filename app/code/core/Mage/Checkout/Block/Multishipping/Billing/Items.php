@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Checkout_Block_Multishipping_Billing_Items extends Mage_Sales_Block_Items_Abstract
 {
+
     /**
      * Get multishipping checkout model
      *
@@ -78,4 +80,5 @@ class Mage_Checkout_Block_Multishipping_Billing_Items extends Mage_Sales_Block_I
         }
         return $items;
     }
+
 }

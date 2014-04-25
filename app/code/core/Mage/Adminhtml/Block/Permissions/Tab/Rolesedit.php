@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Get tab label
      *
@@ -141,7 +142,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
      */
     protected function _sortTree($a, $b)
     {
-        return $a['sort_order']<$b['sort_order'] ? -1 : ($a['sort_order']>$b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
     }
 
     /**
@@ -157,9 +158,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         $selres = $this->getSelectedResources();
 
         if ($level != 0) {
-            $item['text'] = Mage::helper('adminhtml')->__((string)$node->title);
-            $item['sort_order'] = isset($node->sort_order) ? (string)$node->sort_order : 0;
-            $item['id'] = (string)$node->attributes()->aclpath;
+            $item['text'] = Mage::helper('adminhtml')->__((string) $node->title);
+            $item['sort_order'] = isset($node->sort_order) ? (string) $node->sort_order : 0;
+            $item['id'] = (string) $node->attributes()->aclpath;
 
             if (in_array($item['id'], $selres))
                 $item['checked'] = true;
@@ -178,13 +179,13 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             //$item['cls'] = 'fiche-node';
             foreach ($children as $child) {
                 if ($child->getName() != 'title' && $child->getName() != 'sort_order') {
-                    if (!(string)$child->title) {
+                    if (!(string) $child->title) {
                         continue;
                     }
                     if ($level != 0) {
-                        $item['children'][] = $this->_getNodeJson($child, $level+1);
+                        $item['children'][] = $this->_getNodeJson($child, $level + 1);
                     } else {
-                        $item = $this->_getNodeJson($child, $level+1);
+                        $item = $this->_getNodeJson($child, $level + 1);
                     }
                 }
             }
@@ -194,4 +195,5 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         }
         return $item;
     }
+
 }

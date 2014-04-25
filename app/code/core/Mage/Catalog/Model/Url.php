@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Url
 {
+
     /**
      * Number of characters allowed to be in URL path
      *
@@ -104,7 +106,7 @@ class Mage_Catalog_Model_Url
      */
     protected $_saveRewritesHistory = null;
 
-     /**
+    /**
      * Singleton of category model for building URL path
      *
      * @var Mage_Catalog_Model_Category
@@ -139,8 +141,8 @@ class Mage_Catalog_Model_Url
 
         // Generate url_path
         $urlPath = self::$_categoryForUrlPath
-            ->setData($category->getData())
-            ->getUrlPath();
+                ->setData($category->getData())
+                ->getUrlPath();
         $category->setUrlPath($urlPath);
     }
 
@@ -194,7 +196,8 @@ class Mage_Catalog_Model_Url
      * @param int $storeId
      * @return Varien_Object
      */
-    public function getStoreRootCategory($storeId) {
+    public function getStoreRootCategory($storeId)
+    {
         if (!array_key_exists($storeId, $this->_rootCategories)) {
             $category = null;
             $store = $this->getStores($storeId);
@@ -216,7 +219,7 @@ class Mage_Catalog_Model_Url
      */
     public function setShouldSaveRewritesHistory($flag)
     {
-        $this->_saveRewritesHistory = (bool)$flag;
+        $this->_saveRewritesHistory = (bool) $flag;
         return $this;
     }
 
@@ -271,23 +274,22 @@ class Mage_Catalog_Model_Url
         if ($category->getId() != $this->getStores($category->getStoreId())->getRootCategoryId()) {
             if ($category->getUrlKey() == '') {
                 $urlKey = $this->getCategoryModel()->formatUrlKey($category->getName());
-            }
-            else {
+            } else {
                 $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
             }
 
-            $idPath      = $this->generatePath('id', null, $category);
-            $targetPath  = $this->generatePath('target', null, $category);
+            $idPath = $this->generatePath('id', null, $category);
+            $targetPath = $this->generatePath('target', null, $category);
             $requestPath = $this->getCategoryRequestPath($category, $parentPath);
 
             $rewriteData = array(
-                'store_id'      => $category->getStoreId(),
-                'category_id'   => $category->getId(),
-                'product_id'    => null,
-                'id_path'       => $idPath,
-                'request_path'  => $requestPath,
-                'target_path'   => $targetPath,
-                'is_system'     => 1
+                'store_id' => $category->getStoreId(),
+                'category_id' => $category->getId(),
+                'product_id' => null,
+                'id_path' => $idPath,
+                'request_path' => $requestPath,
+                'target_path' => $targetPath,
+                'is_system' => 1
             );
 
             $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
@@ -304,8 +306,7 @@ class Mage_Catalog_Model_Url
                 $category->setUrlPath($requestPath);
                 $this->getResource()->saveCategoryAttribute($category, 'url_path');
             }
-        }
-        else {
+        } else {
             if ($category->getUrlPath() != '') {
                 $category->setUrlPath('');
                 $this->getResource()->saveCategoryAttribute($category, 'url_path');
@@ -337,13 +338,12 @@ class Mage_Catalog_Model_Url
         }
         if ($product->getUrlKey() == '') {
             $urlKey = $this->getProductModel()->formatUrlKey($product->getName());
-        }
-        else {
+        } else {
             $urlKey = $this->getProductModel()->formatUrlKey($product->getUrlKey());
         }
 
-        $idPath      = $this->generatePath('id', $product, $category);
-        $targetPath  = $this->generatePath('target', $product, $category);
+        $idPath = $this->generatePath('id', $product, $category);
+        $targetPath = $this->generatePath('target', $product, $category);
         $requestPath = $this->getProductRequestPath($product, $category);
 
         $categoryId = null;
@@ -354,13 +354,13 @@ class Mage_Catalog_Model_Url
         }
 
         $rewriteData = array(
-            'store_id'      => $category->getStoreId(),
-            'category_id'   => $categoryId,
-            'product_id'    => $product->getId(),
-            'id_path'       => $idPath,
-            'request_path'  => $requestPath,
-            'target_path'   => $targetPath,
-            'is_system'     => 1
+            'store_id' => $category->getStoreId(),
+            'category_id' => $categoryId,
+            'product_id' => $product->getId(),
+            'id_path' => $idPath,
+            'request_path' => $requestPath,
+            'target_path' => $targetPath,
+            'is_system' => 1
         );
 
         $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
@@ -398,9 +398,7 @@ class Mage_Catalog_Model_Url
             if (!$products) {
                 if ($firstIteration) {
                     $this->getResource()->deleteCategoryProductStoreRewrites(
-                        $category->getId(),
-                        array(),
-                        $category->getStoreId()
+                            $category->getId(), array(), $category->getStoreId()
                     );
                 }
                 $process = false;
@@ -411,9 +409,7 @@ class Mage_Catalog_Model_Url
             $rootCategory = $this->getStoreRootCategory($category->getStoreId());
             $categoryIds = array($category->getId(), $rootCategory->getId());
             $this->_rewrites = $this->getResource()->prepareRewrites(
-                $category->getStoreId(),
-                $categoryIds,
-                array_keys($products)
+                    $category->getStoreId(), $categoryIds, array_keys($products)
             );
 
             foreach ($products as $product) {
@@ -526,9 +522,9 @@ class Mage_Catalog_Model_Url
      */
     public function refreshProductRewrites($storeId)
     {
-        $this->_categories      = array();
-        $storeRootCategoryId    = $this->getStores($storeId)->getRootCategoryId();
-        $storeRootCategoryPath  = $this->getStores($storeId)->getRootCategoryPath();
+        $this->_categories = array();
+        $storeRootCategoryId = $this->getStores($storeId)->getRootCategoryId();
+        $storeRootCategoryPath = $this->getStores($storeId)->getRootCategoryPath();
         $this->_categories[$storeRootCategoryId] = $this->getResource()->getCategory($storeRootCategoryId, $storeId);
 
         $lastEntityId = 0;
@@ -632,8 +628,7 @@ class Mage_Catalog_Model_Url
             if ($this->_rewrites[$idPath]->getRequestPath() == $requestPath) {
                 return $requestPath;
             }
-        }
-        else {
+        } else {
             $this->_rewrite = null;
         }
 
@@ -645,7 +640,7 @@ class Mage_Catalog_Model_Url
             }
             // match request_url abcdef1234(-12)(.html) pattern
             $match = array();
-            $regularExpression = '#^([0-9a-z/-]+?)(-([0-9]+))?('.preg_quote($suffix).')?$#i';
+            $regularExpression = '#^([0-9a-z/-]+?)(-([0-9]+))?(' . preg_quote($suffix) . ')?$#i';
             if (!preg_match($regularExpression, $requestPath, $match)) {
                 return $this->getUnusedPath($storeId, '-', $idPath);
             }
@@ -653,15 +648,14 @@ class Mage_Catalog_Model_Url
             $match[4] = isset($match[4]) ? $match[4] : '';
 
             $lastRequestPath = $this->getResource()
-                ->getLastUsedRewriteRequestIncrement($match[1], $match[4], $storeId);
+                    ->getLastUsedRewriteRequestIncrement($match[1], $match[4], $storeId);
             if ($lastRequestPath) {
                 $match[3] = $lastRequestPath;
             }
             return $match[1]
-                . (isset($match[3]) ? ($match[3]+1) : '1')
-                . $match[4];
-        }
-        else {
+                    . (isset($match[3]) ? ($match[3] + 1) : '1')
+                    . $match[4];
+        } else {
             return $requestPath;
         }
     }
@@ -698,8 +692,8 @@ class Mage_Catalog_Model_Url
     public function getCategoryRequestPath($category, $parentPath)
     {
         $storeId = $category->getStoreId();
-        $idPath  = $this->generatePath('id', null, $category);
-        $suffix  = $this->getCategoryUrlSuffix($storeId);
+        $idPath = $this->generatePath('id', null, $category);
+        $suffix = $this->getCategoryUrlSuffix($storeId);
 
         if (isset($this->_rewrites[$idPath])) {
             $this->_rewrite = $this->_rewrites[$idPath];
@@ -708,20 +702,17 @@ class Mage_Catalog_Model_Url
 
         if ($category->getUrlKey() == '') {
             $urlKey = $this->getCategoryModel()->formatUrlKey($category->getName());
-        }
-        else {
+        } else {
             $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
         }
 
         $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
         if (null === $parentPath) {
             $parentPath = $this->getResource()->getCategoryParentPath($category);
-        }
-        elseif ($parentPath == '/') {
+        } elseif ($parentPath == '/') {
             $parentPath = '';
         }
-        $parentPath = Mage::helper('catalog/category')->getCategoryUrlPath($parentPath,
-                                                                           true, $category->getStoreId());
+        $parentPath = Mage::helper('catalog/category')->getCategoryUrlPath($parentPath, true, $category->getStoreId());
 
         $requestPath = $parentPath . $urlKey . $categoryUrlSuffix;
         if (isset($existingRequestPath) && $existingRequestPath == $requestPath . $suffix) {
@@ -732,8 +723,7 @@ class Mage_Catalog_Model_Url
             return $requestPath;
         }
 
-        return $this->getUnusedPath($category->getStoreId(), $requestPath,
-                                    $this->generatePath('id', null, $category)
+        return $this->getUnusedPath($category->getStoreId(), $requestPath, $this->generatePath('id', null, $category)
         );
     }
 
@@ -771,16 +761,15 @@ class Mage_Catalog_Model_Url
             $urlKey = $this->getProductModel()->formatUrlKey($product->getUrlKey());
         }
         $storeId = $category->getStoreId();
-        $suffix  = $this->getProductUrlSuffix($storeId);
-        $idPath  = $this->generatePath('id', $product, $category);
+        $suffix = $this->getProductUrlSuffix($storeId);
+        $idPath = $this->generatePath('id', $product, $category);
         /**
          * Prepare product base request path
          */
         if ($category->getLevel() > 1) {
             // To ensure, that category has path either from attribute or generated now
             $this->_addCategoryUrlPath($category);
-            $categoryUrl = Mage::helper('catalog/category')->getCategoryUrlPath($category->getUrlPath(),
-                false, $storeId);
+            $categoryUrl = Mage::helper('catalog/category')->getCategoryUrlPath($category->getUrlPath(), false, $storeId);
             $requestPath = $categoryUrl . '/' . $urlKey;
         } else {
             $requestPath = $urlKey;
@@ -806,18 +795,17 @@ class Mage_Catalog_Model_Url
             /**
              * Check if existing request past can be used
              */
-            if ($product->getUrlKey() == '' && !empty($requestPath)
-                && strpos($existingRequestPath, $requestPath) === 0
+            if ($product->getUrlKey() == '' && !empty($requestPath) && strpos($existingRequestPath, $requestPath) === 0
             ) {
                 $existingRequestPath = preg_replace(
-                    '/^' . preg_quote($requestPath, '/') . '/', '', $existingRequestPath
+                        '/^' . preg_quote($requestPath, '/') . '/', '', $existingRequestPath
                 );
                 if (preg_match('#^-([0-9]+)$#i', $existingRequestPath)) {
                     return $this->_rewrites[$idPath]->getRequestPath();
                 }
             }
 
-            $fullPath = $requestPath.$suffix;
+            $fullPath = $requestPath . $suffix;
             if ($this->_deleteOldTargetPath($fullPath, $idPath, $storeId)) {
                 return $fullPath;
             }
@@ -826,8 +814,7 @@ class Mage_Catalog_Model_Url
          * Check 2 variants: $requestPath and $requestPath . '-' . $productId
          */
         $validatedPath = $this->getResource()->checkRequestPaths(
-            array($requestPath.$suffix, $requestPath.'-'.$product->getId().$suffix),
-            $storeId
+                array($requestPath . $suffix, $requestPath . '-' . $product->getId() . $suffix), $storeId
         );
 
         if ($validatedPath) {
@@ -836,7 +823,7 @@ class Mage_Catalog_Model_Url
         /**
          * Use unique path generator
          */
-        return $this->getUnusedPath($storeId, $requestPath.$suffix, $idPath);
+        return $this->getUnusedPath($storeId, $requestPath . $suffix, $idPath);
     }
 
     /**
@@ -876,23 +863,19 @@ class Mage_Catalog_Model_Url
             if (!$product) {
                 if ($category->getUrlKey() == '') {
                     $urlKey = $this->getCategoryModel()->formatUrlKey($category->getName());
-                }
-                else {
+                } else {
                     $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
                 }
 
                 $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
                 if (null === $parentPath) {
                     $parentPath = $this->getResource()->getCategoryParentPath($category);
-                }
-                elseif ($parentPath == '/') {
+                } elseif ($parentPath == '/') {
                     $parentPath = '';
                 }
-                $parentPath = Mage::helper('catalog/category')->getCategoryUrlPath($parentPath,
-                    true, $category->getStoreId());
+                $parentPath = Mage::helper('catalog/category')->getCategoryUrlPath($parentPath, true, $category->getStoreId());
 
-                return $this->getUnusedPath($category->getStoreId(), $parentPath . $urlKey . $categoryUrlSuffix,
-                    $this->generatePath('id', null, $category)
+                return $this->getUnusedPath($category->getStoreId(), $parentPath . $urlKey . $categoryUrlSuffix, $this->generatePath('id', null, $category)
                 );
             }
 
@@ -903,24 +886,20 @@ class Mage_Catalog_Model_Url
 
             if ($product->getUrlKey() == '') {
                 $urlKey = $this->getProductModel()->formatUrlKey($product->getName());
-            }
-            else {
+            } else {
                 $urlKey = $this->getProductModel()->formatUrlKey($product->getUrlKey());
             }
-            $productUrlSuffix  = $this->getProductUrlSuffix($category->getStoreId());
+            $productUrlSuffix = $this->getProductUrlSuffix($category->getStoreId());
             if ($category->getLevel() > 1) {
                 // To ensure, that category has url path either from attribute or generated now
                 $this->_addCategoryUrlPath($category);
-                $categoryUrl = Mage::helper('catalog/category')->getCategoryUrlPath($category->getUrlPath(),
-                    false, $category->getStoreId());
-                return $this->getUnusedPath($category->getStoreId(), $categoryUrl . '/' . $urlKey . $productUrlSuffix,
-                    $this->generatePath('id', $product, $category)
+                $categoryUrl = Mage::helper('catalog/category')->getCategoryUrlPath($category->getUrlPath(), false, $category->getStoreId());
+                return $this->getUnusedPath($category->getStoreId(), $categoryUrl . '/' . $urlKey . $productUrlSuffix, $this->generatePath('id', $product, $category)
                 );
             }
 
             // for product only
-            return $this->getUnusedPath($category->getStoreId(), $urlKey . $productUrlSuffix,
-                $this->generatePath('id', $product)
+            return $this->getUnusedPath($category->getStoreId(), $urlKey . $productUrlSuffix, $this->generatePath('id', $product)
             );
         }
 
@@ -965,4 +944,5 @@ class Mage_Catalog_Model_Url
 
         return $this;
     }
+
 }

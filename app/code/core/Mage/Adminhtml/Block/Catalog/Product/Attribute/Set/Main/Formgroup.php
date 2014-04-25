@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,9 +30,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup extends Mage_Adminhtml_Block_Widget_Form
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -41,34 +42,30 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup extends 
     {
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('set_fieldset', array('legend'=>Mage::helper('catalog')->__('Add New Group')));
+        $fieldset = $form->addFieldset('set_fieldset', array('legend' => Mage::helper('catalog')->__('Add New Group')));
 
-        $fieldset->addField('attribute_group_name', 'text',
-                            array(
-                                'label' => Mage::helper('catalog')->__('Name'),
-                                'name' => 'attribute_group_name',
-                                'required' => true,
-                            )
+        $fieldset->addField('attribute_group_name', 'text', array(
+            'label' => Mage::helper('catalog')->__('Name'),
+            'name' => 'attribute_group_name',
+            'required' => true,
+                )
         );
 
-        $fieldset->addField('submit', 'note',
-                            array(
-                                'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
-                                            ->setData(array(
-                                                'label'     => Mage::helper('catalog')->__('Add Group'),
-                                                'onclick'   => 'this.form.submit();',
-                                                                                                'class' => 'add'
-                                            ))
-                                            ->toHtml(),
-                            )
+        $fieldset->addField('submit', 'note', array(
+            'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData(array(
+                        'label' => Mage::helper('catalog')->__('Add Group'),
+                        'onclick' => 'this.form.submit();',
+                        'class' => 'add'
+                    ))
+                    ->toHtml(),
+                )
         );
 
-        $fieldset->addField('attribute_set_id', 'hidden',
-                            array(
-                                'name' => 'attribute_set_id',
-                                'value' => $this->_getSetId(),
-                            )
-
+        $fieldset->addField('attribute_set_id', 'hidden', array(
+            'name' => 'attribute_set_id',
+            'value' => $this->_getSetId(),
+                )
         );
 
         $form->setUseContainer(true);
@@ -79,10 +76,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup extends 
 
     protected function _getSetId()
     {
-        return ( intval($this->getRequest()->getParam('id')) > 0 )
-                    ? intval($this->getRequest()->getParam('id'))
-                    : Mage::getModel('eav/entity_type')
+        return ( intval($this->getRequest()->getParam('id')) > 0 ) ? intval($this->getRequest()->getParam('id')) : Mage::getModel('eav/entity_type')
                         ->load(Mage::registry('entityType'))
                         ->getDefaultAttributeSetId();
     }
+
 }

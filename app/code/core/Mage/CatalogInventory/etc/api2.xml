@@ -102,14 +102,18 @@
                         <manage_stock>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "manage_stock" field must be set to 0 or 1.</message>
                             </regex>
                         </manage_stock>
                         <use_config_manage_stock>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "use_config_manage_stock" field must be set to 0 or 1.</message>
                             </regex>
                         </use_config_manage_stock>
@@ -117,7 +121,10 @@
                             <required>1</required>
                             <between>
                                 <type>Between</type>
-                                <options><min>-99999999.9999</min><max>99999999.9999</max></options>
+                                <options>
+                                    <min>-99999999.9999</min>
+                                    <max>99999999.9999</max>
+                                </options>
                             </between>
                         </qty>
                         <min_qty>
@@ -127,34 +134,45 @@
                             </float>
                             <between>
                                 <type>Between</type>
-                                <options><min>0</min><max>99999999.9999</max></options>
+                                <options>
+                                    <min>0</min>
+                                    <max>99999999.9999</max>
+                                </options>
                             </between>
                         </min_qty>
                         <use_config_min_qty>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "use_config_min_qty" field must be set to 0 or 1.</message>
                             </regex>
                         </use_config_min_qty>
                         <is_qty_decimal>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "is_qty_decimal" field must be set to 0 or 1.</message>
                             </regex>
                         </is_qty_decimal>
                         <backorders>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1,2]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1,2]$/</pattern>
+                                </options>
                                 <message>The "is_qty_decimal" field must be set to 0, 1, or 2.</message>
                             </regex>
                         </backorders>
                         <use_config_backorders>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "use_config_backorders" field must be set to 0 or 1.</message>
                             </regex>
                         </use_config_backorders>
@@ -165,13 +183,18 @@
                             </int>
                             <between>
                                 <type>Between</type>
-                                <options><min>0</min><max>99999999</max></options>
+                                <options>
+                                    <min>0</min>
+                                    <max>99999999</max>
+                                </options>
                             </between>
                         </min_sale_qty>
                         <use_config_min_sale_qty>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "use_config_min_sale_qty" field must be set to 0 or 1.</message>
                             </regex>
                         </use_config_min_sale_qty>
@@ -182,20 +205,27 @@
                             </int>
                             <between>
                                 <type>Between</type>
-                                <options><min>0</min><max>99999999</max></options>
+                                <options>
+                                    <min>0</min>
+                                    <max>99999999</max>
+                                </options>
                             </between>
                         </max_sale_qty>
                         <use_config_max_sale_qty>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "use_config_max_sale_qty" field must be set to 0 or 1.</message>
                             </regex>
                         </use_config_max_sale_qty>
                         <is_in_stock>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "is_in_stock" field must be set to 0 or 1.</message>
                             </regex>
                         </is_in_stock>
@@ -208,21 +238,27 @@
                         <use_config_notify_stock_qty>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "use_config_notify_stock_qty" field must be set to 0 or 1.</message>
                             </regex>
                         </use_config_notify_stock_qty>
                         <stock_status_changed_auto>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "stock_status_changed_auto" field must be set to 0 or 1.</message>
                             </regex>
                         </stock_status_changed_auto>
                         <use_config_qty_increments>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "use_config_qty_increments" field must be set to 0 or 1.</message>
                             </regex>
                         </use_config_qty_increments>
@@ -233,28 +269,37 @@
                             </int>
                             <between translate="message" module="api2">
                                 <type>Between</type>
-                                <options><min>0</min><max>99999999</max></options>
+                                <options>
+                                    <min>0</min>
+                                    <max>99999999</max>
+                                </options>
                                 <message>Please use numbers only in "qty_increments" field. Please avoid spaces or other characters such as dots or commas.</message>
                             </between>
                         </qty_increments>
                         <use_config_enable_qty_inc>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "use_config_enable_qty_inc" field must be set to 0 or 1.</message>
                             </regex>
                         </use_config_enable_qty_inc>
                         <enable_qty_increments>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "enable_qty_increments" field must be set to 0 or 1.</message>
                             </regex>
                         </enable_qty_increments>
                         <is_decimal_divided>
                             <regex translate="message" module="api2">
                                 <type>Regex</type>
-                                <options><pattern>/^[0,1]$/</pattern></options>
+                                <options>
+                                    <pattern>/^[0,1]$/</pattern>
+                                </options>
                                 <message>The "is_decimal_divided" field must be set to 0 or 1.</message>
                             </regex>
                         </is_decimal_divided>

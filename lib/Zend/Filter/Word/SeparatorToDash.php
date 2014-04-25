@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SeparatorToDash.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_SeperatorToSeparator
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Filter_Word_SeparatorToDash extends Zend_Filter_Word_SeparatorToSeparator
 {
+
     /**
      * Constructor
      *

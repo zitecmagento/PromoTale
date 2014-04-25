@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reports refunded collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Reports_Model_Resource_Refunded_Collection extends Mage_Sales_Model_Entity_Order_Collection
 {
+
     /**
      * Set date range
      *
@@ -44,14 +45,14 @@ class Mage_Reports_Model_Resource_Refunded_Collection extends Mage_Sales_Model_E
     public function setDateRange($from, $to)
     {
         $this->_reset()
-            ->addAttributeToSelect('*')
-            ->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to))
-            ->addExpressionAttributeToSelect('orders', 'COUNT({{total_refunded}})', array('total_refunded'));
+                ->addAttributeToSelect('*')
+                ->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to))
+                ->addExpressionAttributeToSelect('orders', 'COUNT({{total_refunded}})', array('total_refunded'));
 
         $this->getSelect()
-            ->where('base_total_refunded > ?', 0)
-            ->group('("*")')
-            ->having('orders > ?', 0);
+                ->where('base_total_refunded > ?', 0)
+                ->group('("*")')
+                ->having('orders > ?', 0);
 
         return $this;
     }
@@ -65,32 +66,23 @@ class Mage_Reports_Model_Resource_Refunded_Collection extends Mage_Sales_Model_E
     public function setStoreIds($storeIds)
     {
         if ($storeIds) {
-            $this->addAttributeToFilter('store_id', array('in' => (array)$storeIds))
-                ->addExpressionAttributeToSelect(
-                    'refunded',
-                    'SUM({{base_total_refunded}})',
-                    array('base_total_refunded'))
-                ->addExpressionAttributeToSelect(
-                    'online_refunded',
-                    'SUM({{base_total_online_refunded}})',
-                    array('base_total_online_refunded'))
-                ->addExpressionAttributeToSelect(
-                    'offline_refunded',
-                    'SUM({{base_total_offline_refunded}})',
-                    array('base_total_offline_refunded'));
+            $this->addAttributeToFilter('store_id', array('in' => (array) $storeIds))
+                    ->addExpressionAttributeToSelect(
+                            'refunded', 'SUM({{base_total_refunded}})', array('base_total_refunded'))
+                    ->addExpressionAttributeToSelect(
+                            'online_refunded', 'SUM({{base_total_online_refunded}})', array('base_total_online_refunded'))
+                    ->addExpressionAttributeToSelect(
+                            'offline_refunded', 'SUM({{base_total_offline_refunded}})', array('base_total_offline_refunded'));
         } else {
             $this->addExpressionAttributeToSelect(
-                'refunded',
-                'SUM({{base_total_refunded}}*{{base_to_global_rate}})',
-                array('base_total_refunded', 'base_to_global_rate'))
-            ->addExpressionAttributeToSelect(
-                'online_refunded',
-                'SUM({{base_total_online_refunded}}*{{base_to_global_rate}})',
-                array('base_total_online_refunded', 'base_to_global_rate'))
-            ->addExpressionAttributeToSelect(
-                'offline_refunded',
-                'SUM({{base_total_offline_refunded}}*{{base_to_global_rate}})',
-                array('base_total_offline_refunded', 'base_to_global_rate'));
+                            'refunded', 'SUM({{base_total_refunded}}*{{base_to_global_rate}})', array('base_total_refunded',
+                        'base_to_global_rate'))
+                    ->addExpressionAttributeToSelect(
+                            'online_refunded', 'SUM({{base_total_online_refunded}}*{{base_to_global_rate}})', array('base_total_online_refunded',
+                        'base_to_global_rate'))
+                    ->addExpressionAttributeToSelect(
+                            'offline_refunded', 'SUM({{base_total_offline_refunded}}*{{base_to_global_rate}})', array('base_total_offline_refunded',
+                        'base_to_global_rate'));
         }
 
         return $this;
@@ -114,4 +106,5 @@ class Mage_Reports_Model_Resource_Refunded_Collection extends Mage_Sales_Model_E
 
         return $countSelect;
     }
+
 }

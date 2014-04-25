@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: MediaKeywords.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Extension
  */
@@ -37,6 +36,7 @@
  */
 class Zend_Gdata_Media_Extension_MediaKeywords extends Zend_Gdata_Extension
 {
+
     protected $_rootElement = 'keywords';
     protected $_rootNamespace = 'media';
 

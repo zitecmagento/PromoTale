@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,13 +34,14 @@
  */
 class Mage_Review_Block_Form extends Mage_Core_Block_Template
 {
+
     public function __construct()
     {
         $customerSession = Mage::getSingleton('customer/session');
 
         parent::__construct();
 
-        $data =  Mage::getSingleton('review/session')->getFormData(true);
+        $data = Mage::getSingleton('review/session')->getFormData(true);
         $data = new Varien_Object($data);
 
         // add logged in customer name as nickname
@@ -53,18 +55,18 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
         $this->setAllowWriteReviewFlag($customerSession->isLoggedIn() || Mage::helper('review')->getIsGuestAllowToWrite());
         if (!$this->getAllowWriteReviewFlag) {
             $this->setLoginLink(
-                Mage::getUrl('customer/account/login/', array(
-                    Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME => Mage::helper('core')->urlEncode(
-                        Mage::getUrl('*/*/*', array('_current' => true)) .
-                        '#review-form')
+                    Mage::getUrl('customer/account/login/', array(
+                        Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME => Mage::helper('core')->urlEncode(
+                                Mage::getUrl('*/*/*', array('_current' => true)) .
+                                '#review-form')
+                            )
                     )
-                )
             );
         }
 
         $this->setTemplate('review/form.phtml')
-            ->assign('data', $data)
-            ->assign('messages', Mage::getSingleton('review/session')->getMessages(true));
+                ->assign('data', $data)
+                ->assign('messages', Mage::getSingleton('review/session')->getMessages(true));
     }
 
     public function getProductInfo()
@@ -82,13 +84,14 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
     public function getRatings()
     {
         $ratingCollection = Mage::getModel('rating/rating')
-            ->getResourceCollection()
-            ->addEntityFilter('product')
-            ->setPositionOrder()
-            ->addRatingPerStoreName(Mage::app()->getStore()->getId())
-            ->setStoreFilter(Mage::app()->getStore()->getId())
-            ->load()
-            ->addOptionToItems();
+                ->getResourceCollection()
+                ->addEntityFilter('product')
+                ->setPositionOrder()
+                ->addRatingPerStoreName(Mage::app()->getStore()->getId())
+                ->setStoreFilter(Mage::app()->getStore()->getId())
+                ->load()
+                ->addOptionToItems();
         return $ratingCollection;
     }
+
 }

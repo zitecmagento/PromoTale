@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -48,13 +49,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
     {
         $tagId = Mage::registry('tagId');
 
-        if( $this->getCustomerId() instanceof Mage_Customer_Model_Customer ) {
-            $this->setCustomerId( $this->getCustomerId()->getId() );
+        if ($this->getCustomerId() instanceof Mage_Customer_Model_Customer) {
+            $this->setCustomerId($this->getCustomerId()->getId());
         }
 
         $collection = Mage::getResourceModel('tag/customer_collection')
-            ->addCustomerFilter($this->getCustomerId())
-            ->addGroupByTag();
+                ->addCustomerFilter($this->getCustomerId())
+                ->addGroupByTag();
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -62,42 +63,42 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
 
     protected function _afterLoadCollection()
     {
-            $this->getCollection()->addProductName();
+        $this->getCollection()->addProductName();
         return parent::_afterLoadCollection();
     }
 
     protected function _prepareColumns()
     {
         $this->addColumn('name', array(
-            'header'    => Mage::helper('customer')->__('Tag Name'),
-            'index'     => 'name',
+            'header' => Mage::helper('customer')->__('Tag Name'),
+            'index' => 'name',
         ));
 
         $this->addColumn('status', array(
-            'header'    => Mage::helper('customer')->__('Status'),
-            'width'     => '90px',
-            'index'     => 'status',
-            'type'      => 'options',
-            'options'    => array(
+            'header' => Mage::helper('customer')->__('Status'),
+            'width' => '90px',
+            'index' => 'status',
+            'type' => 'options',
+            'options' => array(
                 Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('customer')->__('Disabled'),
-                Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('customer')->__('Pending'),
+                Mage_Tag_Model_Tag::STATUS_PENDING => Mage::helper('customer')->__('Pending'),
                 Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('customer')->__('Approved'),
             ),
-            'filter'    => false,
+            'filter' => false,
         ));
 
         $this->addColumn('product', array(
-            'header'    => Mage::helper('customer')->__('Product Name'),
-            'index'     => 'product',
-            'filter'    => false,
-            'sortable'  => false,
+            'header' => Mage::helper('customer')->__('Product Name'),
+            'index' => 'product',
+            'filter' => false,
+            'sortable' => false,
         ));
 
         $this->addColumn('product_sku', array(
-            'header'    => Mage::helper('customer')->__('SKU'),
-            'index'     => 'product_sku',
-            'filter'    => false,
-            'sortable'  => false,
+            'header' => Mage::helper('customer')->__('SKU'),
+            'index' => 'product_sku',
+            'filter' => false,
+            'sortable' => false,
         ));
 
         return parent::_prepareColumns();
@@ -106,16 +107,16 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
     public function getRowUrl($row)
     {
         return $this->getUrl('*/tag/edit', array(
-            'tag_id' => $row->getTagId(),
-            'customer_id' => $this->getCustomerId(),
+                    'tag_id' => $row->getTagId(),
+                    'customer_id' => $this->getCustomerId(),
         ));
     }
 
     public function getGridUrl()
     {
         return $this->getUrl('*/customer/tagGrid', array(
-            '_current' => true,
-            'id'       => $this->getCustomerId()
+                    '_current' => true,
+                    'id' => $this->getCustomerId()
         ));
     }
 

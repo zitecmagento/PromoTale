@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog EAV collection resource abstract model
  * Implement using diferent stores for retrieve attribute values
@@ -35,6 +35,7 @@
  */
 class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Entity_Collection_Abstract
 {
+
     /**
      * Current scope (store Id)
      *
@@ -65,7 +66,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         if ($storeId instanceof Mage_Core_Model_Store) {
             $storeId = $storeId->getId();
         }
-        $this->_storeId = (int)$storeId;
+        $this->_storeId = (int) $storeId;
         return $this;
     }
 
@@ -108,26 +109,24 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
 
         if ($storeId) {
 
-            $adapter        = $this->getConnection();
-            $entityIdField  = $this->getEntity()->getEntityIdField();
-            $joinCondition  = array(
+            $adapter = $this->getConnection();
+            $entityIdField = $this->getEntity()->getEntityIdField();
+            $joinCondition = array(
                 't_s.attribute_id = t_d.attribute_id',
                 't_s.entity_id = t_d.entity_id',
                 $adapter->quoteInto('t_s.store_id = ?', $storeId)
             );
             $select = $adapter->select()
-                ->from(array('t_d' => $table), array($entityIdField, 'attribute_id'))
-                ->joinLeft(
-                    array('t_s' => $table),
-                    implode(' AND ', $joinCondition),
-                    array())
-                ->where('t_d.entity_type_id = ?', $this->getEntity()->getTypeId())
-                ->where("t_d.{$entityIdField} IN (?)", array_keys($this->_itemsById))
-                ->where('t_d.attribute_id IN (?)', $attributeIds)
-                ->where('t_d.store_id = ?', 0);
+                    ->from(array('t_d' => $table), array($entityIdField, 'attribute_id'))
+                    ->joinLeft(
+                            array('t_s' => $table), implode(' AND ', $joinCondition), array())
+                    ->where('t_d.entity_type_id = ?', $this->getEntity()->getTypeId())
+                    ->where("t_d.{$entityIdField} IN (?)", array_keys($this->_itemsById))
+                    ->where('t_d.attribute_id IN (?)', $attributeIds)
+                    ->where('t_d.store_id = ?', 0);
         } else {
             $select = parent::_getLoadAttributesSelect($table)
-                ->where('store_id = ?', $this->getDefaultStoreId());
+                    ->where('store_id = ?', $this->getDefaultStoreId());
         }
 
         return $select;
@@ -144,17 +143,15 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         $storeId = $this->getStoreId();
         if ($storeId) {
             $helper = Mage::getResourceHelper('eav');
-            $adapter        = $this->getConnection();
-            $valueExpr      = $adapter->getCheckSql(
-                't_s.value_id IS NULL',
-                $helper->prepareEavAttributeValue('t_d.value', $type),
-                $helper->prepareEavAttributeValue('t_s.value', $type)
+            $adapter = $this->getConnection();
+            $valueExpr = $adapter->getCheckSql(
+                    't_s.value_id IS NULL', $helper->prepareEavAttributeValue('t_d.value', $type), $helper->prepareEavAttributeValue('t_s.value', $type)
             );
 
             $select->columns(array(
                 'default_value' => $helper->prepareEavAttributeValue('t_d.value', $type),
-                'store_value'   => $helper->prepareEavAttributeValue('t_s.value', $type),
-                'value'         => $valueExpr
+                'store_value' => $helper->prepareEavAttributeValue('t_s.value', $type),
+                'value' => $valueExpr
             ));
         } else {
             $select = parent::_addLoadAttributesSelectValues($select, $table, $type);
@@ -188,33 +185,30 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
              * Add joining default value for not default store
              * if value for store is null - we use default value
              */
-            $defCondition = '('.implode(') AND (', $condition).')';
-            $defAlias     = $tableAlias . '_default';
-            $defAlias     = $this->getConnection()->getTableName($defAlias);
-            $defFieldAlias= str_replace($tableAlias, $defAlias, $fieldAlias);
-            $tableAlias   = $this->getConnection()->getTableName($tableAlias);
+            $defCondition = '(' . implode(') AND (', $condition) . ')';
+            $defAlias = $tableAlias . '_default';
+            $defAlias = $this->getConnection()->getTableName($defAlias);
+            $defFieldAlias = str_replace($tableAlias, $defAlias, $fieldAlias);
+            $tableAlias = $this->getConnection()->getTableName($tableAlias);
 
             $defCondition = str_replace($tableAlias, $defAlias, $defCondition);
             $defCondition.= $adapter->quoteInto(
-                " AND " . $adapter->quoteColumnAs("$defAlias.store_id", null) . " = ?",
-                $this->getDefaultStoreId());
+                    " AND " . $adapter->quoteColumnAs("$defAlias.store_id", null) . " = ?", $this->getDefaultStoreId());
 
             $this->getSelect()->$method(
-                array($defAlias => $attribute->getBackend()->getTable()),
-                $defCondition,
-                array()
+                    array($defAlias => $attribute->getBackend()->getTable()), $defCondition, array()
             );
 
             $method = 'joinLeft';
-            $fieldAlias = $this->getConnection()->getCheckSql("{$tableAlias}.value_id > 0",
-                $fieldAlias, $defFieldAlias);
+            $fieldAlias = $this->getConnection()->getCheckSql("{$tableAlias}.value_id > 0", $fieldAlias, $defFieldAlias);
             $this->_joinAttributes[$fieldCode]['condition_alias'] = $fieldAlias;
-            $this->_joinAttributes[$fieldCode]['attribute']       = $attribute;
+            $this->_joinAttributes[$fieldCode]['attribute'] = $attribute;
         } else {
             $store_id = $this->getDefaultStoreId();
         }
         $condition[] = $adapter->quoteInto(
-            $adapter->quoteColumnAs("$tableAlias.store_id", null) . ' = ?', $store_id);
+                $adapter->quoteColumnAs("$tableAlias.store_id", null) . ' = ?', $store_id);
         return parent::_joinAttributeToSelect($method, $attribute, $tableAlias, $condition, $fieldCode, $fieldAlias);
     }
+
 }

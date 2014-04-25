@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,9 +30,9 @@
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Tax_Block_Checkout_Shipping extends Mage_Checkout_Block_Total_Default
 {
+
     protected $_template = 'tax/checkout/shipping.phtml';
 
     /**
@@ -93,4 +94,5 @@ class Mage_Tax_Block_Checkout_Shipping extends Mage_Checkout_Block_Total_Default
     {
         return $this->helper('tax')->__('Shipping Excl. Tax (%s)', $this->escapeHtml($this->getTotal()->getAddress()->getShippingDescription()));
     }
+
 }

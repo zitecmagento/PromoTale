@@ -36,14 +36,14 @@
             <?php echo $this->getChildHtml('top'); ?>
             <fieldset>
                 <?php if ($this->hasWishlistItems()): ?>
-                    <?php echo $this->getBlockHtml('formkey');?>
+                    <?php echo $this->getBlockHtml('formkey'); ?>
                     <?php $this->getChild('items')->setItems($this->getWishlistItems()); ?>
-                    <?php echo $this->getChildHtml('items');?>
+                    <?php echo $this->getChildHtml('items'); ?>
                 <?php else: ?>
                     <p class="wishlist-empty"><?php echo $this->__('You have no items in your wishlist.') ?></p>
                 <?php endif ?>
                 <div class="buttons-set">
-                    <?php echo $this->getChild('control_buttons')->toHtml();?>
+                    <?php echo $this->getChild('control_buttons')->toHtml(); ?>
                 </div>
             </fieldset>
         </form>
@@ -64,11 +64,11 @@
             function calculateQty() {
                 var itemQtys = new Array();
                 $$('#wishlist-view-form .qty').each(
-                    function (input, index) {
-                        var idxStr = input.name;
-                        var idx = idxStr.replace( /[^\d.]/g, '' );
-                        itemQtys[idx] = input.value;
-                    }
+                        function(input, index) {
+                            var idxStr = input.name;
+                            var idx = idxStr.replace(/[^\d.]/g, '');
+                            itemQtys[idx] = input.value;
+                        }
                 );
 
                 $$('#qty')[0].value = JSON.stringify(itemQtys);
@@ -82,4 +82,5 @@
         </script>
     </div>
     <?php echo $this->getChildHtml('bottom'); ?>
-<?php endif ?>
+    <?php
+ endif ?>

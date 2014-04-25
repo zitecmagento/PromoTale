@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtml_Block_Catalog_Category_Tree
 {
+
     protected $_selectedCategories = array();
 
     /**
@@ -80,12 +82,12 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         $sourceUrl = $this->getUrl('*/catalog_category_widget/chooser', array('uniq_id' => $uniqId, 'use_massaction' => false));
 
         $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
-            ->setElement($element)
-            ->setTranslationHelper($this->getTranslationHelper())
-            ->setConfig($this->getConfig())
-            ->setFieldsetId($this->getFieldsetId())
-            ->setSourceUrl($sourceUrl)
-            ->setUniqId($uniqId);
+                ->setElement($element)
+                ->setTranslationHelper($this->getTranslationHelper())
+                ->setConfig($this->getConfig())
+                ->setFieldsetId($this->getFieldsetId())
+                ->setSourceUrl($sourceUrl)
+                ->setUniqId($uniqId);
 
         if ($element->getValue()) {
             $value = explode('/', $element->getValue());
@@ -125,9 +127,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
             $chooserJsObject = $this->getId();
             $js = '
                 function (node, e) {
-                    '.$chooserJsObject.'.setElementValue("category/" + node.attributes.id);
-                    '.$chooserJsObject.'.setElementLabel(node.text);
-                    '.$chooserJsObject.'.close();
+                    ' . $chooserJsObject . '.setElementValue("category/" + node.attributes.id);
+                    ' . $chooserJsObject . '.setElementLabel(node.text);
+                    ' . $chooserJsObject . '.close();
                 }
             ';
         }
@@ -147,7 +149,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         if (in_array($node->getId(), $this->getSelectedCategories())) {
             $item['checked'] = true;
         }
-        $item['is_anchor'] = (int)$node->getIsAnchor();
+        $item['is_anchor'] = (int) $node->getIsAnchor();
         $item['url_key'] = $node->getData('url_key');
         return $item;
     }
@@ -167,12 +169,13 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      *
      * @return string
      */
-    public function getLoadTreeUrl($expanded=null)
+    public function getLoadTreeUrl($expanded = null)
     {
         return $this->getUrl('*/catalog_category_widget/categoriesJson', array(
-            '_current'=>true,
-            'uniq_id' => $this->getId(),
-            'use_massaction' => $this->getUseMassaction()
+                    '_current' => true,
+                    'uniq_id' => $this->getId(),
+                    'use_massaction' => $this->getUseMassaction()
         ));
     }
+
 }

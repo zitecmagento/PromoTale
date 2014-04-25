@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_System_Email_Template_Preview extends Mage_Adminhtml_Block_Widget
 {
+
     /**
      * Prepare html output
      *
@@ -42,7 +44,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Preview extends Mage_Adminhtml_
     {
         /** @var $template Mage_Core_Model_Email_Template */
         $template = Mage::getModel('core/email_template');
-        $id = (int)$this->getRequest()->getParam('id');
+        $id = (int) $this->getRequest()->getParam('id');
         if ($id) {
             $template->load($id);
         } else {
@@ -55,7 +57,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Preview extends Mage_Adminhtml_
         $filter = Mage::getSingleton('core/input_filter_maliciousCode');
 
         $template->setTemplateText(
-            $filter->filter($template->getTemplateText())
+                $filter->filter($template->getTemplateText())
         );
 
         Varien_Profiler::start("email_template_proccessing");
@@ -71,4 +73,5 @@ class Mage_Adminhtml_Block_System_Email_Template_Preview extends Mage_Adminhtml_
 
         return $templateProcessed;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ZendMonitor.php 23351 2010-11-16 18:09:45Z matthew $
  */
-
 /** Zend_Log_Writer_Abstract */
 #require_once 'Zend/Log/Writer/Abstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Log_Writer_ZendMonitor extends Zend_Log_Writer_Abstract
 {
+
     /**
      * Is Zend Monitor enabled?
      * @var bool
@@ -108,7 +109,7 @@ class Zend_Log_Writer_ZendMonitor extends Zend_Log_Writer_Abstract
     protected function _write($event)
     {
         $priority = $event['priority'];
-        $message  = $event['message'];
+        $message = $event['message'];
         unset($event['priority'], $event['message']);
 
         if (!empty($event)) {
@@ -127,4 +128,5 @@ class Zend_Log_Writer_ZendMonitor extends Zend_Log_Writer_Abstract
             monitor_custom_event($priority, $message);
         }
     }
+
 }

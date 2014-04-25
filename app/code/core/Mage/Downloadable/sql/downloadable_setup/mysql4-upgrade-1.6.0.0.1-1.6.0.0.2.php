@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installFile = dirname(__FILE__) . DS . 'upgrade-1.6.0.0.1-1.6.0.0.2.php';
 if (file_exists($installFile)) {
     include $installFile;
@@ -34,6 +34,5 @@ $installer = $this;
 /** @var $connection Varien_Db_Adapter_Pdo_Mysql */
 $connection = $installer->getConnection();
 $connection->changeTableEngine(
-    $installer->getTable('downloadable/product_price_indexer_tmp'),
-    Varien_Db_Adapter_Pdo_Mysql::ENGINE_MEMORY
+        $installer->getTable('downloadable/product_price_indexer_tmp'), Varien_Db_Adapter_Pdo_Mysql::ENGINE_MEMORY
 );

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Payment_Method_Authorizenet extends Mage_Payment_Block_Form_Ccsave
 {
+
     /**
      * Prevent any rendering
      *
@@ -86,8 +88,7 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Authorizenet extends Mage_Pa
         if ($this->hasVerification()) {
             $cvnText = $this->__('Card Verification Number');
             $cvnValidationText = $this->__('Card verification number is wrong');
-            $verification =
-        '<field name="payment[cc_cid]" type="text" label="' . $cvnText . '" required="true">
+            $verification = '<field name="payment[cc_cid]" type="text" label="' . $cvnText . '" required="true">
             <validators>
                 <validator relation="payment[cc_type]" type="credit_card_svn" message="' . $cvnValidationText . '"/>
             </validators>
@@ -125,4 +126,5 @@ EOT;
         $fieldsetXmlObj = Mage::getModel('xmlconnect/simplexml_element', $xml);
         $formXmlObj->appendChild($fieldsetXmlObj);
     }
+
 }

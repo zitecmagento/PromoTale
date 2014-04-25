@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer->startSetup();
@@ -64,36 +64,32 @@ CREATE TABLE IF NOT EXISTS `{$installer->getTable('xmlconnect_history')}` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 ");
 
-$entityTypeId     = $installer->getEntityTypeId('catalog_category');
-$attributeSetId   = $installer->getDefaultAttributeSetId($entityTypeId);
+$entityTypeId = $installer->getEntityTypeId('catalog_category');
+$attributeSetId = $installer->getDefaultAttributeSetId($entityTypeId);
 $attributeGroupId = $installer->getDefaultAttributeGroupId($entityTypeId, $attributeSetId);
 
 $installer->addAttribute('catalog_category', 'thumbnail', array(
-    'type'              => 'varchar',
-    'backend'           => 'catalog/category_attribute_backend_image',
-    'frontend'          => '',
-    'label'             => 'Thumbnail Image',
-    'input'             => 'image',
-    'class'             => '',
-    'source'            => '',
-    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    'visible'           => true,
-    'required'          => false,
-    'user_defined'      => false,
-    'default'           => '',
-    'searchable'        => false,
-    'filterable'        => false,
-    'comparable'        => false,
-    'visible_on_front'  => false,
-    'unique'            => false,
+    'type' => 'varchar',
+    'backend' => 'catalog/category_attribute_backend_image',
+    'frontend' => '',
+    'label' => 'Thumbnail Image',
+    'input' => 'image',
+    'class' => '',
+    'source' => '',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+    'visible' => true,
+    'required' => false,
+    'user_defined' => false,
+    'default' => '',
+    'searchable' => false,
+    'filterable' => false,
+    'comparable' => false,
+    'visible_on_front' => false,
+    'unique' => false,
 ));
 
 $installer->addAttributeToGroup(
-    $entityTypeId,
-    $attributeSetId,
-    $attributeGroupId,
-    'thumbnail',
-    '4'
+        $entityTypeId, $attributeSetId, $attributeGroupId, 'thumbnail', '4'
 );
 
 $installer->endSetup();

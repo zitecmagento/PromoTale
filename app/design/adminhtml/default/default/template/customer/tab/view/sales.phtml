@@ -45,38 +45,38 @@
                 </tr>
             </tfoot>
             <?php if ($this->getRows()): ?>
-            <tbody>
-                <?php $_i = 0; ?>
-                <?php foreach ($this->getRows() as $_websiteId => $_groups): ?>
-                    <?php $_websiteRow = false; ?>
-                    <?php foreach ($_groups as $_groupId => $_stores): ?>
-                        <?php $_groupRow = false; ?>
-                        <?php foreach ($_stores as $_row): ?>
-                        <?php if ($_row->getStoreId() == 0): ?>
-                        <td colspan="3" class="label"><?php echo $_row->getStoreName() ?></td>
-                        <?php else: ?>
-                <tr<?php echo ($_i++ % 2 ? ' class="even"' : '') ?>>
-                        <?php if (!$_websiteRow): ?>
-                    <td rowspan="<?php echo $this->getWebsiteCount($_websiteId) ?>"><?php echo $_row->getWebsiteName() ?></td>
-                            <?php $_websiteRow = true; ?>
-                        <?php endif; ?>
-                        <?php if (!$_groupRow): ?>
-                    <td rowspan="<?php echo count($_stores) ?>"><?php echo $_row->getGroupName() ?></td>
-                            <?php $_groupRow = true; ?>
-                        <?php endif; ?>
-                    <td class="label"><?php echo $_row->getStoreName() ?></td>
-                        <?php endif; ?>
-                    <td><?php echo $this->formatCurrency($_row->getLifetime(), $_row->getWebsiteId()) ?></td>
-                    <td><?php echo $this->formatCurrency($_row->getAvgsale(), $_row->getWebsiteId()) ?></td>
-                </tr>
+                <tbody>
+                    <?php $_i = 0; ?>
+                    <?php foreach ($this->getRows() as $_websiteId => $_groups): ?>
+                        <?php $_websiteRow = false; ?>
+                        <?php foreach ($_groups as $_groupId => $_stores): ?>
+                            <?php $_groupRow = false; ?>
+                            <?php foreach ($_stores as $_row): ?>
+                                <?php if ($_row->getStoreId() == 0): ?>
+                                <td colspan="3" class="label"><?php echo $_row->getStoreName() ?></td>
+                            <?php else: ?>
+                                <tr<?php echo ($_i++ % 2 ? ' class="even"' : '') ?>>
+                                    <?php if (!$_websiteRow): ?>
+                                        <td rowspan="<?php echo $this->getWebsiteCount($_websiteId) ?>"><?php echo $_row->getWebsiteName() ?></td>
+                                        <?php $_websiteRow = true; ?>
+                                    <?php endif; ?>
+                                    <?php if (!$_groupRow): ?>
+                                        <td rowspan="<?php echo count($_stores) ?>"><?php echo $_row->getGroupName() ?></td>
+                                        <?php $_groupRow = true; ?>
+                                    <?php endif; ?>
+                                    <td class="label"><?php echo $_row->getStoreName() ?></td>
+                                <?php endif; ?>
+                                <td><?php echo $this->formatCurrency($_row->getLifetime(), $_row->getWebsiteId()) ?></td>
+                                <td><?php echo $this->formatCurrency($_row->getAvgsale(), $_row->getWebsiteId()) ?></td>
+                            </tr>
                         <?php endforeach; ?>
                     <?php endforeach; ?>
                 <?php endforeach; ?>
-            </tbody>
+                </tbody>
             <?php else: ?>
-            <tbody>
-                <tr class="no-display"><td colspan="5"></td></tr>
-            </tbody>
+                <tbody>
+                    <tr class="no-display"><td colspan="5"></td></tr>
+                </tbody>
             <?php endif; ?>
         </table>
     </div>

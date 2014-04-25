@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Payment_Method_Paypal_Config extends Mage_Paypal_Model_Config
 {
+
     /**
      * PayPal Website Payments Pro - PayPal Mobile Express Checkout Library
      */
@@ -69,4 +71,5 @@ class Mage_XmlConnect_Model_Payment_Method_Paypal_Config extends Mage_Paypal_Mod
 
         return $path;
     }
+
 }

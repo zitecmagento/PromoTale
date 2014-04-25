@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DataDirectory.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Filesystem_Directory
  */
@@ -53,8 +53,9 @@ class Zend_Tool_Project_Context_Zf_DocsDirectory extends Zend_Tool_Project_Conte
     {
         return 'DocsDirectory';
     }
-    
-    public function create(){
+
+    public function create()
+    {
         parent::create();
     }
 

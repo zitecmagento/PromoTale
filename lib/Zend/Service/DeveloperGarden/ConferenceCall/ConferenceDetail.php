@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail
 {
+
     /**
      * name of this conference
      *
@@ -126,4 +128,5 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail
     {
         return $this->name;
     }
+
 }

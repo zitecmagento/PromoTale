@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Statement.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Db
  */
@@ -137,8 +137,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         $sql = $this->_stripQuoted($sql);
 
         // split into text and params
-        $this->_sqlSplit = preg_split('/(\?|\:[a-zA-Z0-9_]+)/',
-            $sql, -1, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY);
+        $this->_sqlSplit = preg_split('/(\?|\:[a-zA-Z0-9_]+)/', $sql, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
 
         // map params
         $this->_sqlParam = array();
@@ -212,7 +211,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      */
     public function bindColumn($column, &$param, $type = null)
     {
-        $this->_bindColumn[$column] =& $param;
+        $this->_bindColumn[$column] = & $param;
         return true;
     }
 
@@ -259,7 +258,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         }
 
         // Finally we are assured that $position is valid
-        $this->_bindParam[$position] =& $variable;
+        $this->_bindParam[$position] = & $variable;
         return $this->_bindParam($position, $variable, $type, $length, $options);
     }
 
@@ -473,4 +472,5 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
     {
         return $this->_stmt;
     }
+
 }

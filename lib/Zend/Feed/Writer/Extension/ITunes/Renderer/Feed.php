@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,22 +19,20 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Feed.php 22662 2010-07-24 17:37:36Z mabe $
  */
- 
 /**
  * @see Zend_Feed_Writer_Extension_RendererAbstract
  */
 #require_once 'Zend/Feed/Writer/Extension/RendererAbstract.php';
- 
+
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
-    extends Zend_Feed_Writer_Extension_RendererAbstract
+class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed extends Zend_Feed_Writer_Extension_RendererAbstract
 {
-    
+
     /**
      * Set to TRUE if a rendering method actually renders something. This
      * is used to prevent premature appending of a XML namespace declaration
@@ -42,7 +41,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
      * @var bool
      */
     protected $_called = false;
-    
+
     /**
      * Render feed
      * 
@@ -65,7 +64,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
             $this->_appendNamespaces();
         }
     }
-    
+
     /**
      * Append feed namespaces
      * 
@@ -73,8 +72,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
      */
     protected function _appendNamespaces()
     {
-        $this->getRootElement()->setAttribute('xmlns:itunes',
-            'http://www.itunes.com/dtds/podcast-1.0.dtd');  
+        $this->getRootElement()->setAttribute('xmlns:itunes', 'http://www.itunes.com/dtds/podcast-1.0.dtd');
     }
 
     /**
@@ -98,7 +96,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
         }
         $this->_called = true;
     }
-    
+
     /**
      * Set feed itunes block
      * 
@@ -118,7 +116,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set feed categories
      * 
@@ -132,7 +130,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
         if (!$cats || empty($cats)) {
             return;
         }
-        foreach ($cats as $key=>$cat) {
+        foreach ($cats as $key => $cat) {
             if (!is_array($cat)) {
                 $el = $dom->createElement('itunes:category');
                 $el->setAttribute('text', $cat);
@@ -150,7 +148,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
         }
         $this->_called = true;
     }
-    
+
     /**
      * Set feed image (icon)
      * 
@@ -169,7 +167,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set feed cumulative duration
      * 
@@ -189,7 +187,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set explicit flag
      * 
@@ -209,7 +207,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set feed keywords
      * 
@@ -229,7 +227,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set feed's new URL
      * 
@@ -249,7 +247,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set feed owners 
      * 
@@ -277,7 +275,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
         }
         $this->_called = true;
     }
-    
+
     /**
      * Set feed subtitle
      * 
@@ -297,7 +295,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set feed summary
      * 
@@ -317,4 +315,5 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
         $root->appendChild($el);
         $this->_called = true;
     }
+
 }

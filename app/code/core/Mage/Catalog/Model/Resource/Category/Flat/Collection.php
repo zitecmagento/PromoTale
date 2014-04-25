@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog category flat collection
  *
@@ -34,26 +34,27 @@
  */
 class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix    = 'catalog_category_collection';
+    protected $_eventPrefix = 'catalog_category_collection';
 
     /**
      * Event object name
      *
      * @var string
      */
-    protected $_eventObject    = 'category_collection';
+    protected $_eventObject = 'category_collection';
 
     /**
      * Store id of application
      *
      * @var integer
      */
-    protected $_storeId        = null;
+    protected $_storeId = null;
 
     /**
      * Catalog factory instance
@@ -92,8 +93,8 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     protected function _initSelect()
     {
         $this->getSelect()->from(
-            array('main_table' => $this->getResource()->getMainStoreTable($this->getStoreId())),
-            array('entity_id', 'level', 'path', 'position', 'is_active', 'is_anchor')
+                array('main_table' => $this->getResource()->getMainStoreTable($this->getStoreId())), array('entity_id', 'level',
+            'path', 'position', 'is_active', 'is_anchor')
         );
         return $this;
     }
@@ -133,8 +134,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
      */
     protected function _beforeLoad()
     {
-        Mage::dispatchEvent($this->_eventPrefix . '_load_before',
-                            array($this->_eventObject => $this));
+        Mage::dispatchEvent($this->_eventPrefix . '_load_before', array($this->_eventObject => $this));
         return parent::_beforeLoad();
     }
 
@@ -145,8 +145,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
      */
     protected function _afterLoad()
     {
-        Mage::dispatchEvent($this->_eventPrefix . '_load_after',
-                            array($this->_eventObject => $this));
+        Mage::dispatchEvent($this->_eventPrefix . '_load_after', array($this->_eventObject => $this));
 
         return parent::_afterLoad();
     }
@@ -224,8 +223,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     public function addIsActiveFilter()
     {
         $this->addFieldToFilter('is_active', 1);
-        Mage::dispatchEvent($this->_eventPrefix . '_add_is_active_filter',
-                            array($this->_eventObject => $this));
+        Mage::dispatchEvent($this->_eventPrefix . '_add_is_active_filter', array($this->_eventObject => $this));
         return $this;
     }
 
@@ -343,7 +341,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
      */
     protected function _getCurrentStoreId()
     {
-        return (int)Mage::app()->getStore()->getId();
+        return (int) Mage::app()->getStore()->getId();
     }
 
     /**
@@ -404,7 +402,8 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     public function setPage($pageNum, $pageSize)
     {
         $this->setCurPage($pageNum)
-            ->setPageSize($pageSize);
+                ->setPageSize($pageSize);
         return $this;
     }
+
 }

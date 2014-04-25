@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 class Zend_Amf_Util_BinaryStream
 {
+
     /**
      * @var string Byte stream
      */
@@ -67,10 +69,10 @@ class Zend_Amf_Util_BinaryStream
             throw new Zend_Amf_Exception('Inputdata is not of type String');
         }
 
-        $this->_stream       = $stream;
-        $this->_needle       = 0;
+        $this->_stream = $stream;
+        $this->_needle = 0;
         $this->_streamLength = strlen($stream);
-        $this->_bigEndian    = (pack('l', 1) === "\x00\x00\x00\x01");
+        $this->_bigEndian = (pack('l', 1) === "\x00\x00\x00\x01");
     }
 
     /**
@@ -188,7 +190,6 @@ class Zend_Amf_Util_BinaryStream
         $this->_stream.= $stream;
         return $this;
     }
-
 
     /**
      * Read a long UTF string

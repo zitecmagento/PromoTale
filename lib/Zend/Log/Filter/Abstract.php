@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 21892 2010-04-16 19:15:20Z juokaz $
  */
-
 /** @see Zend_Log_Filter_Interface */
 #require_once 'Zend/Log/Filter/Interface.php';
 
@@ -34,9 +34,9 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 21892 2010-04-16 19:15:20Z juokaz $
  */
-abstract class Zend_Log_Filter_Abstract 
-    implements Zend_Log_Filter_Interface, Zend_Log_FactoryInterface
+abstract class Zend_Log_Filter_Abstract implements Zend_Log_Filter_Interface, Zend_Log_FactoryInterface
 {
+
     /**
      * Validate and optionally convert the config to array
      * 
@@ -57,4 +57,5 @@ abstract class Zend_Log_Filter_Abstract
 
         return $config;
     }
+
 }

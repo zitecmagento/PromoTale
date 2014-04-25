@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HorizontalSlider.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Dojo_View_Helper_Slider */
 #require_once 'Zend/Dojo/View/Helper/Slider.php';
 
@@ -31,14 +31,15 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
-  */
+ */
 class Zend_Dojo_View_Helper_HorizontalSlider extends Zend_Dojo_View_Helper_Slider
 {
+
     /**
      * Dijit being used
      * @var string
      */
-    protected $_dijit  = 'dijit.form.HorizontalSlider';
+    protected $_dijit = 'dijit.form.HorizontalSlider';
 
     /**
      * Slider type
@@ -59,4 +60,5 @@ class Zend_Dojo_View_Helper_HorizontalSlider extends Zend_Dojo_View_Helper_Slide
     {
         return $this->prepareSlider($id, $value, $params, $attribs);
     }
+
 }

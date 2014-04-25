@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -47,28 +48,28 @@ class Mage_Adminhtml_Block_Report_Product_Ordered_Grid extends Mage_Adminhtml_Bl
     protected function _prepareColumns()
     {
         $this->addColumn('name', array(
-            'header'    =>Mage::helper('reports')->__('Product Name'),
-            'index'     =>'name'
+            'header' => Mage::helper('reports')->__('Product Name'),
+            'index' => 'name'
         ));
 
         $baseCurrencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('price', array(
-            'header'        => Mage::helper('reports')->__('Price'),
-            'width'         => '120px',
-            'type'          => 'currency',
+            'header' => Mage::helper('reports')->__('Price'),
+            'width' => '120px',
+            'type' => 'currency',
             'currency_code' => $baseCurrencyCode,
-            'index'         => 'price',
-            'rate'          => $this->getRate($baseCurrencyCode),
+            'index' => 'price',
+            'rate' => $this->getRate($baseCurrencyCode),
         ));
 
         $this->addColumn('ordered_qty', array(
-            'header'    =>Mage::helper('reports')->__('Quantity Ordered'),
-            'width'     =>'120px',
-            'align'     =>'right',
-            'index'     =>'ordered_qty',
-            'total'     =>'sum',
-            'type'      =>'number'
+            'header' => Mage::helper('reports')->__('Quantity Ordered'),
+            'width' => '120px',
+            'align' => 'right',
+            'index' => 'ordered_qty',
+            'total' => 'sum',
+            'type' => 'number'
         ));
 
         $this->addExportType('*/*/exportOrderedCsv', Mage::helper('reports')->__('CSV'));
@@ -76,4 +77,5 @@ class Mage_Adminhtml_Block_Report_Product_Ordered_Grid extends Mage_Adminhtml_Bl
 
         return parent::_prepareColumns();
     }
+
 }

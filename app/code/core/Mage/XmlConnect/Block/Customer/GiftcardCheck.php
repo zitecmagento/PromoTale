@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_GiftcardCheck extends Enterprise_GiftCardAccount_Block_Check
 {
+
     /**
      * Render gift card info xml
      *
@@ -62,4 +64,5 @@ class Mage_XmlConnect_Block_Customer_GiftcardCheck extends Enterprise_GiftCardAc
 
         return $xmlModel->asNiceXml();
     }
+
 }

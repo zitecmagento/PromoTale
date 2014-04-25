@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 class Zend_Barcode
 {
+
     /**
      * Factory for Zend_Barcode classes.
      *
@@ -55,12 +57,9 @@ class Zend_Barcode
      * @throws Zend_Barcode_Exception
      */
     public static function factory(
-        $barcode, 
-        $renderer = 'image', 
-        $barcodeConfig = array(), 
-        $rendererConfig = array(), 
-        $automaticRenderError = true
-    ) {
+    $barcode, $renderer = 'image', $barcodeConfig = array(), $rendererConfig = array(), $automaticRenderError = true
+    )
+    {
         /*
          * Convert Zend_Config argument to plain string
          * barcode name and separate config object.
@@ -82,14 +81,17 @@ class Zend_Barcode
             }
         }
 
-        try {
-            $barcode  = self::makeBarcode($barcode, $barcodeConfig);
+        try
+        {
+            $barcode = self::makeBarcode($barcode, $barcodeConfig);
             $renderer = self::makeRenderer($renderer, $rendererConfig);
-        } catch (Zend_Exception $e) {
+        }
+        catch (Zend_Exception $e)
+        {
             $renderable = ($e instanceof Zend_Barcode_Exception) ? $e->isRenderable() : false;
             if ($automaticRenderError && $renderable) {
                 $barcode = self::makeBarcode('error', array(
-                    'text' => $e->getMessage()
+                            'text' => $e->getMessage()
                 ));
                 $renderer = self::makeRenderer($renderer, array());
             } else {
@@ -141,7 +143,7 @@ class Zend_Barcode
              */
             #require_once 'Zend/Barcode/Exception.php';
             throw new Zend_Barcode_Exception(
-                'Barcode parameters must be in an array or a Zend_Config object'
+            'Barcode parameters must be in an array or a Zend_Config object'
             );
         }
 
@@ -154,7 +156,7 @@ class Zend_Barcode
              */
             #require_once 'Zend/Barcode/Exception.php';
             throw new Zend_Barcode_Exception(
-                'Barcode name must be specified in a string'
+            'Barcode name must be specified in a string'
             );
         }
         /*
@@ -167,7 +169,7 @@ class Zend_Barcode
 
         $barcodeName = strtolower($barcodeNamespace . '_' . $barcode);
         $barcodeName = str_replace(' ', '_', ucwords(
-            str_replace( '_', ' ', $barcodeName)
+                        str_replace('_', ' ', $barcodeName)
         ));
 
         /*
@@ -194,7 +196,7 @@ class Zend_Barcode
              */
             #require_once 'Zend/Barcode/Exception.php';
             throw new Zend_Barcode_Exception(
-                "Barcode class '$barcodeName' does not extend Zend_Barcode_Object_ObjectAbstract"
+            "Barcode class '$barcodeName' does not extend Zend_Barcode_Object_ObjectAbstract"
             );
         }
         return $bcAdapter;
@@ -238,7 +240,7 @@ class Zend_Barcode
              */
             #require_once 'Zend/Barcode/Exception.php';
             $e = new Zend_Barcode_Exception(
-                'Barcode parameters must be in an array or a Zend_Config object'
+                    'Barcode parameters must be in an array or a Zend_Config object'
             );
             $e->setIsRenderable(false);
             throw $e;
@@ -253,7 +255,7 @@ class Zend_Barcode
              */
             #require_once 'Zend/Barcode/Exception.php';
             $e = new Zend_Barcode_Exception(
-                'Renderer name must be specified in a string'
+                    'Renderer name must be specified in a string'
             );
             $e->setIsRenderable(false);
             throw $e;
@@ -269,7 +271,7 @@ class Zend_Barcode
 
         $rendererName = strtolower($rendererNamespace . '_' . $renderer);
         $rendererName = str_replace(' ', '_', ucwords(
-            str_replace( '_', ' ', $rendererName)
+                        str_replace('_', ' ', $rendererName)
         ));
 
         /*
@@ -296,7 +298,7 @@ class Zend_Barcode
              */
             #require_once 'Zend/Barcode/Exception.php';
             $e = new Zend_Barcode_Exception(
-                "Renderer class '$rendererName' does not extend Zend_Barcode_Renderer_RendererAbstract"
+                    "Renderer class '$rendererName' does not extend Zend_Barcode_Renderer_RendererAbstract"
             );
             $e->setIsRenderable(false);
             throw $e;
@@ -313,11 +315,9 @@ class Zend_Barcode
      * @param array | Zend_Config $rendererConfig
      */
     public static function render(
-        $barcode, 
-        $renderer, 
-        $barcodeConfig = array(), 
-        $rendererConfig = array()
-    ) {
+    $barcode, $renderer, $barcodeConfig = array(), $rendererConfig = array()
+    )
+    {
         self::factory($barcode, $renderer, $barcodeConfig, $rendererConfig)->render();
     }
 
@@ -331,11 +331,9 @@ class Zend_Barcode
      * @return mixed
      */
     public static function draw(
-        $barcode, 
-        $renderer, 
-        $barcodeConfig = array(), 
-        $rendererConfig = array()
-    ) {
+    $barcode, $renderer, $barcodeConfig = array(), $rendererConfig = array()
+    )
+    {
         return self::factory($barcode, $renderer, $barcodeConfig, $rendererConfig)->draw();
     }
 
@@ -349,4 +347,5 @@ class Zend_Barcode
         #require_once 'Zend/Barcode/Object/ObjectAbstract.php';
         Zend_Barcode_Object_ObjectAbstract::setBarcodeFont($font);
     }
+
 }

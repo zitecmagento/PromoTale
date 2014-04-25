@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $installer = $this;
 
@@ -32,15 +32,15 @@ $eavResource = Mage::getResourceModel('catalog/eav_attribute');
 
 $multiSelectAttributeCodes = $eavResource->getAttributeCodesByFrontendType('multiselect');
 
-foreach($multiSelectAttributeCodes as $attributeCode) {
+foreach ($multiSelectAttributeCodes as $attributeCode) {
     /** @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
     $attribute = $installer->getAttribute('catalog_product', $attributeCode);
     if ($attribute) {
         $attributeTable = $installer->getAttributeTable('catalog_product', $attributeCode);
         $select = $installer->getConnection()->select()
-            ->from(array('e' => $attributeTable))
-            ->where("e.attribute_id=?", $attribute['attribute_id'])
-            ->where('e.value LIKE "%,,%"');
+                ->from(array('e' => $attributeTable))
+                ->where("e.attribute_id=?", $attribute['attribute_id'])
+                ->where('e.value LIKE "%,,%"');
         $result = $installer->getConnection()->fetchAll($select);
 
         if ($result) {
@@ -51,7 +51,7 @@ foreach($multiSelectAttributeCodes as $attributeCode) {
 
                     if ($replaceCnt) {
                         $installer->getConnection()
-                            ->update($attributeTable, array('value' => $row['value']), "value_id=" . $row['value_id']);
+                                ->update($attributeTable, array('value' => $row['value']), "value_id=" . $row['value_id']);
                     }
                 }
             }

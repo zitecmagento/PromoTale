@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Link.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Extension_Link
  */
@@ -29,7 +29,6 @@
  * @see Zend_Gdata_YouTube_Extension_Token
  */
 #require_once 'Zend/Gdata/YouTube/Extension/Token.php';
-
 
 /**
  * Specialized Link class for use with YouTube. Enables use of yt extension elements.
@@ -50,8 +49,7 @@ class Zend_Gdata_YouTube_Extension_Link extends Zend_Gdata_App_Extension_Link
      * @see Zend_Gdata_App_Extension_Link#__construct
      * @param Zend_Gdata_YouTube_Extension_Token $token
      */
-    public function __construct($href = null, $rel = null, $type = null,
-            $hrefLang = null, $title = null, $length = null, $token = null)
+    public function __construct($href = null, $rel = null, $type = null, $hrefLang = null, $title = null, $length = null, $token = null)
     {
         $this->registerAllNamespaces(Zend_Gdata_YouTube::$namespaces);
         parent::__construct($href, $rel, $type, $hrefLang, $title, $length);
@@ -87,14 +85,14 @@ class Zend_Gdata_YouTube_Extension_Link extends Zend_Gdata_App_Extension_Link
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-        case $this->lookupNamespace('yt') . ':' . 'token':
-            $token = new Zend_Gdata_YouTube_Extension_Token();
-            $token->transferFromDOM($child);
-            $this->_token = $token;
-            break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            case $this->lookupNamespace('yt') . ':' . 'token':
+                $token = new Zend_Gdata_YouTube_Extension_Token();
+                $token->transferFromDOM($child);
+                $this->_token = $token;
+                break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 
@@ -121,13 +119,13 @@ class Zend_Gdata_YouTube_Extension_Link extends Zend_Gdata_App_Extension_Link
     }
 
     /**
-    * Get the value of this element's token attribute.
-    *
-    * @return string The token's text value
-    */
+     * Get the value of this element's token attribute.
+     *
+     * @return string The token's text value
+     */
     public function getTokenValue()
     {
-      return $this->getToken()->getText();
+        return $this->getToken()->getText();
     }
 
 }

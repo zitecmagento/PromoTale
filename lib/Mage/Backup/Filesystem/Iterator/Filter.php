@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Backup_Filesystem_Iterator_Filter extends FilterIterator
 {
+
     /**
      * Array that is used for filtering
      *
@@ -74,4 +76,5 @@ class Mage_Backup_Filesystem_Iterator_Filter extends FilterIterator
 
         return true;
     }
+
 }

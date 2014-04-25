@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -32,6 +33,7 @@
  */
 class Zend_Server_Reflection_ReturnValue
 {
+
     /**
      * Return value type
      * @var string
@@ -107,4 +109,5 @@ class Zend_Server_Reflection_ReturnValue
 
         $this->_description = $description;
     }
+
 }

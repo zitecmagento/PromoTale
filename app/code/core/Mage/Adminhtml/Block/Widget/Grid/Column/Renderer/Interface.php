@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 interface Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Interface
 {
+
     /**
      * Set column for renderer
      *

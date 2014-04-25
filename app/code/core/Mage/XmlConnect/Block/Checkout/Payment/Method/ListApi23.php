@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Payment_Method_ListApi23 extends Mage_XmlConnect_Block_Checkout_Payment_Method_List
 {
+
     /**
      * Method list xml object
      *
@@ -46,7 +48,8 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_ListApi23 extends Mage_XmlCo
      * @param Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj
      * @return bool
      */
-    protected function _addGiftCard(Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj) {
+    protected function _addGiftCard(Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj)
+    {
         if (is_object(Mage::getConfig()->getNode('modules/Enterprise_GiftCardAccount'))) {
             $this->addGiftCardToXmlObj($methodsXmlObj);
             if ($this->getIsUsedGiftCard() && $this->_isPaymentRequired()) {
@@ -66,7 +69,7 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_ListApi23 extends Mage_XmlCo
     public function addGiftCardToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj)
     {
         $giftCardInfoBlock = $this->getLayout()->addBlock(
-            'enterprise_giftcardaccount/checkout_onepage_payment_additional', 'giftcard_info'
+                'enterprise_giftcardaccount/checkout_onepage_payment_additional', 'giftcard_info'
         );
 
         if (intval($giftCardInfoBlock->getAppliedGiftCardAmount())) {
@@ -89,17 +92,17 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_ListApi23 extends Mage_XmlCo
         if (is_object(Mage::getConfig()->getNode('modules/Enterprise_CustomerBalance'))) {
             /** @var $customerBalanceBlock Enterprise_CustomerBalance_Block_Checkout_Onepage_Payment_Additional */
             $customerBalanceBlock = $this->getLayout()
-                ->addBlock('enterprise_customerbalance/checkout_onepage_payment_additional', 'customer_balance');
+                    ->addBlock('enterprise_customerbalance/checkout_onepage_payment_additional', 'customer_balance');
             $storeCreditFlag = (int) Mage::getStoreConfig(Enterprise_CustomerBalance_Helper_Data::XML_PATH_ENABLED);
             if ($storeCreditFlag && $customerBalanceBlock->isDisplayContainer()) {
                 $balance = $this->getQuote()->getStore()->formatPrice($customerBalanceBlock->getBalance(), false);
                 $methodsXmlObj->addCustomChild('method', null, array(
-                    'id'        => 'customer_balance',
+                    'id' => 'customer_balance',
                     'post_name' => 'payment[use_customer_balance]',
-                    'code'      => 1,
-                    'label'     => $this->__('Use Store Credit (%s available)', $balance),
+                    'code' => 1,
+                    'label' => $this->__('Use Store Credit (%s available)', $balance),
                     'is_cover_a_quote' => intval($customerBalanceBlock->isFullyPaidAfterApplication()),
-                    'selected'  => intval($customerBalanceBlock->isCustomerBalanceUsed())
+                    'selected' => intval($customerBalanceBlock->isCustomerBalanceUsed())
                 ));
             }
         }
@@ -130,4 +133,5 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_ListApi23 extends Mage_XmlCo
     {
         return parent::_buildPaymentMethods($this->getMethodList($methodsXmlObj));
     }
+
 }

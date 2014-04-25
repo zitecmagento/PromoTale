@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20261 2010-01-13 18:55:25Z matthew $
  */
-
 /**
  * @see Zend_Controller_Action
  */
@@ -34,6 +34,7 @@
  */
 abstract class Zend_Controller_Action_Helper_Abstract
 {
+
     /**
      * $_actionController
      *
@@ -85,6 +86,7 @@ abstract class Zend_Controller_Action_Helper_Abstract
      */
     public function init()
     {
+        
     }
 
     /**
@@ -94,6 +96,7 @@ abstract class Zend_Controller_Action_Helper_Abstract
      */
     public function preDispatch()
     {
+        
     }
 
     /**
@@ -103,6 +106,7 @@ abstract class Zend_Controller_Action_Helper_Abstract
      */
     public function postDispatch()
     {
+        
     }
 
     /**
@@ -151,4 +155,5 @@ abstract class Zend_Controller_Action_Helper_Abstract
             return $full_class_name;
         }
     }
+
 }

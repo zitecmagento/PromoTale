@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -17,7 +18,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * Zend_XmlRpc_Value
  */
@@ -41,6 +41,7 @@
  */
 class Zend_XmlRpc_Response
 {
+
     /**
      * Return value
      * @var mixed
@@ -176,11 +177,14 @@ class Zend_XmlRpc_Response
             return false;
         }
 
-        try {
+        try
+        {
             $useInternalXmlErrors = libxml_use_internal_errors(true);
             $xml = new SimpleXMLElement($response);
             libxml_use_internal_errors($useInternalXmlErrors);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             libxml_use_internal_errors($useInternalXmlErrors);
             // Not valid XML
             $this->_fault = new Zend_XmlRpc_Fault(651);
@@ -203,13 +207,16 @@ class Zend_XmlRpc_Response
             return false;
         }
 
-        try {
+        try
+        {
             if (!isset($xml->params) || !isset($xml->params->param) || !isset($xml->params->param->value)) {
                 throw new Zend_XmlRpc_Value_Exception('Missing XML-RPC value in XML');
             }
             $valueXml = $xml->params->param->value->asXML();
             $value = Zend_XmlRpc_Value::getXmlRpcValue($valueXml, Zend_XmlRpc_Value::XML_STRING);
-        } catch (Zend_XmlRpc_Value_Exception $e) {
+        }
+        catch (Zend_XmlRpc_Value_Exception $e)
+        {
             $this->_fault = new Zend_XmlRpc_Fault(653);
             $this->_fault->setEncoding($this->getEncoding());
             return false;
@@ -229,12 +236,12 @@ class Zend_XmlRpc_Response
         $value = $this->_getXmlRpcReturn();
         $generator = Zend_XmlRpc_Value::getGenerator();
         $generator->openElement('methodResponse')
-                  ->openElement('params')
-                  ->openElement('param');
+                ->openElement('params')
+                ->openElement('param');
         $value->generateXml();
         $generator->closeElement('param')
-                  ->closeElement('params')
-                  ->closeElement('methodResponse');
+                ->closeElement('params')
+                ->closeElement('methodResponse');
 
         return $generator->flush();
     }
@@ -248,4 +255,5 @@ class Zend_XmlRpc_Response
     {
         return $this->saveXML();
     }
+
 }

@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Query.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_Gdata_Query
  */
@@ -37,7 +36,7 @@
  *
  * This class should never be instantiated directly. Instead, instantiate a
  * class which inherits from this class.
-  *
+ *
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
@@ -105,19 +104,17 @@ abstract class Zend_Gdata_Gapps_Query extends Zend_Gdata_Query
      * @param string $domain (optional) A fully-qualified domain to use
      *          instead of the default domain for this service instance.
      */
-     public function getBaseUrl($domain = null)
-     {
-         if ($domain !== null) {
-             return Zend_Gdata_Gapps::APPS_BASE_FEED_URI . '/' . $domain;
-         }
-         else if ($this->_domain !== null) {
-             return Zend_Gdata_Gapps::APPS_BASE_FEED_URI . '/' . $this->_domain;
-         }
-         else {
-             #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
-             throw new Zend_Gdata_App_InvalidArgumentException(
-                 'Domain must be specified.');
-         }
-     }
+    public function getBaseUrl($domain = null)
+    {
+        if ($domain !== null) {
+            return Zend_Gdata_Gapps::APPS_BASE_FEED_URI . '/' . $domain;
+        } else if ($this->_domain !== null) {
+            return Zend_Gdata_Gapps::APPS_BASE_FEED_URI . '/' . $this->_domain;
+        } else {
+            #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
+            throw new Zend_Gdata_App_InvalidArgumentException(
+            'Domain must be specified.');
+        }
+    }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,7 +34,8 @@
  */
 class Varien_Data_Form_Element_Hidden extends Varien_Data_Form_Element_Abstract
 {
-    public function __construct($attributes=array())
+
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setType('hidden');
@@ -48,4 +50,5 @@ class Varien_Data_Form_Element_Hidden extends Varien_Data_Form_Element_Abstract
         }
         return $html;
     }
+
 }

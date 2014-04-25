@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Entity Form Model
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Eav_Model_Form
 {
+
     /**
      * Current module pathname
      *
@@ -102,7 +103,7 @@ abstract class Mage_Eav_Model_Form
      *
      * @var boolean
      */
-    protected $_isAjax          = false;
+    protected $_isAjax = false;
 
     /**
      * Whether the invisible form fields need to be filtered/ignored
@@ -254,12 +255,12 @@ abstract class Mage_Eav_Model_Form
             $collection = $this->_getFormAttributeCollection();
 
             $collection->setStore($this->getStore())
-                ->setEntityType($this->getEntityType())
-                ->addFormCodeFilter($this->getFormCode())
-                ->setSortOrder();
+                    ->setEntityType($this->getEntityType())
+                    ->addFormCodeFilter($this->getFormCode())
+                    ->setSortOrder();
 
-            $this->_attributes      = array();
-            $this->_userAttributes  = array();
+            $this->_attributes = array();
+            $this->_userAttributes = array();
             foreach ($collection as $attribute) {
                 /* @var $attribute Mage_Eav_Model_Entity_Attribute */
                 $this->_attributes[$attribute->getAttributeCode()] = $attribute;
@@ -490,7 +491,7 @@ abstract class Mage_Eav_Model_Form
      */
     public function setIsAjaxRequest($flag = true)
     {
-        $this->_isAjax = (bool)$flag;
+        $this->_isAjax = (bool) $flag;
         return $this;
     }
 
@@ -531,7 +532,7 @@ abstract class Mage_Eav_Model_Form
     public function ignoreInvisible($setValue = null)
     {
         if (null !== $setValue) {
-            $this->_ignoreInvisible = (bool)$setValue;
+            $this->_ignoreInvisible = (bool) $setValue;
             return $this;
         }
         return $this->_ignoreInvisible;
@@ -550,4 +551,5 @@ abstract class Mage_Eav_Model_Form
         }
         return false;
     }
+
 }

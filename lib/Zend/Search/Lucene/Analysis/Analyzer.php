@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Analyzer.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** User land classes and interfaces turned on by Zend/Search/Analyzer.php file inclusion. */
 /** @todo Section should be removed with ZF 2.0 release as obsolete                      */
 if (!defined('ZEND_SEARCH_LUCENE_COMMON_ANALYZER_PROCESSED')) {
@@ -49,7 +48,6 @@ if (!defined('ZEND_SEARCH_LUCENE_COMMON_ANALYZER_PROCESSED')) {
     #require_once 'Zend/Search/Lucene/Analysis/Analyzer/Common/TextNum/CaseInsensitive.php';
 }
 
-
 /**
  * An Analyzer is used to analyze text.
  * It thus represents a policy for extracting index terms from text.
@@ -66,9 +64,9 @@ if (!defined('ZEND_SEARCH_LUCENE_COMMON_ANALYZER_PROCESSED')) {
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 abstract class Zend_Search_Lucene_Analysis_Analyzer
 {
+
     /**
      * The Analyzer implementation used by default.
      *
@@ -111,7 +109,6 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer
         return $tokenList;
     }
 
-
     /**
      * Tokenization stream API
      * Set input
@@ -120,7 +117,7 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer
      */
     public function setInput($data, $encoding = '')
     {
-        $this->_input    = $data;
+        $this->_input = $data;
         $this->_encoding = $encoding;
         $this->reset();
     }
@@ -141,9 +138,6 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer
      */
     abstract public function nextToken();
 
-
-
-
     /**
      * Set the default Analyzer implementation used by indexing code.
      *
@@ -153,7 +147,6 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer
     {
         self::$_defaultImpl = $analyzer;
     }
-
 
     /**
      * Return the default Analyzer implementation used by indexing code.
@@ -171,5 +164,5 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer
 
         return self::$_defaultImpl;
     }
-}
 
+}

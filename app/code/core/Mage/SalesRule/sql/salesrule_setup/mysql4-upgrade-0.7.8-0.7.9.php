@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,14 +24,11 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 $installer = $this;
 
 $installer->getConnection()->addColumn(
-    $this->getTable('salesrule'),
-    'apply_to_shipping',
-    "tinyint(1) unsigned not null default '0' after simple_free_shipping"
+        $this->getTable('salesrule'), 'apply_to_shipping', "tinyint(1) unsigned not null default '0' after simple_free_shipping"
 );
 
 $installer->run("
@@ -47,17 +45,9 @@ CREATE TABLE `{$this->getTable('salesrule/label')}` (
 ");
 
 $installer->getConnection()->addConstraint(
-    'SALESRULE_LABEL_RULE',
-    $this->getTable('salesrule/label'),
-    'rule_id',
-    $this->getTable('salesrule'),
-    'rule_id'
+        'SALESRULE_LABEL_RULE', $this->getTable('salesrule/label'), 'rule_id', $this->getTable('salesrule'), 'rule_id'
 );
 
 $installer->getConnection()->addConstraint(
-    'SALESRULE_LABEL_STORE',
-    $this->getTable('salesrule/label'),
-    'store_id',
-    $this->getTable('core/store'),
-    'store_id'
+        'SALESRULE_LABEL_STORE', $this->getTable('salesrule/label'), 'store_id', $this->getTable('core/store'), 'store_id'
 );

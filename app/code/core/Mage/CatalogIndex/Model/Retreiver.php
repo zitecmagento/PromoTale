@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -52,6 +53,7 @@
  */
 class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
 {
+
     const CHILDREN_FOR_TIERS = 1;
     const CHILDREN_FOR_PRICES = 2;
     const CHILDREN_FOR_ATTRIBUTES = 3;
@@ -79,7 +81,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $config = Mage::getConfig()->getNode('global/catalog/product/type')->asArray();
-        foreach ($config as $type=>$data) {
+        foreach ($config as $type => $data) {
             if (isset($data['index_data_retreiver'])) {
                 $this->_retreivers[$type] = $data['index_data_retreiver'];
             }
@@ -131,4 +133,5 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
         }
         return $result;
     }
+
 }

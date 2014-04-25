@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Persistent Config Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Persistent_Model_Persistent_Config
 {
+
     /**
      * XML config instance for Persistent mode
      * @var null|Varien_Simplexml_Element
@@ -121,22 +122,20 @@ class Mage_Persistent_Model_Persistent_Config
      */
     public function fireOne($info, $instance = false)
     {
-        if (!$instance
-            || (isset($info['block_type']) && !($instance instanceof $info['block_type']))
-            || !isset($info['class'])
-            || !isset($info['method'])
+        if (!$instance || (isset($info['block_type']) && !($instance instanceof $info['block_type'])) || !isset($info['class']) || !isset($info['method'])
         ) {
             return $this;
         }
-        $object     = Mage::getModel($info['class']);
-        $method     = $info['method'];
+        $object = Mage::getModel($info['class']);
+        $method = $info['method'];
 
         if (method_exists($object, $method)) {
             $object->$method($instance);
         } elseif (Mage::getIsDeveloperMode()) {
-            Mage::throwException('Method "' . $method.'" is not defined in "' . get_class($object) . '"');
+            Mage::throwException('Method "' . $method . '" is not defined in "' . get_class($object) . '"');
         }
 
         return $this;
     }
+
 }

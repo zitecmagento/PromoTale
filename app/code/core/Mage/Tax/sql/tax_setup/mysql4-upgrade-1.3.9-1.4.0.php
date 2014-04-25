@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,15 +24,13 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 
 $installer->startSetup();
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('tax/sales_order_tax'),
-    'FK_SALES_ORDER_TAX_ORDER'
+        $installer->getTable('tax/sales_order_tax'), 'FK_SALES_ORDER_TAX_ORDER'
 );
 
 $installer->endSetup();

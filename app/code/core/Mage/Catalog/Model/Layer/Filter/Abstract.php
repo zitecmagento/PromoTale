@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
 {
+
     /**
      * Request variable name with filter value
      *
@@ -149,18 +151,15 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     protected function _initItems()
     {
         $data = $this->_getItemsData();
-        $items=array();
+        $items = array();
         foreach ($data as $itemData) {
             $items[] = $this->_createItem(
-                $itemData['label'],
-                $itemData['value'],
-                $itemData['count']
+                    $itemData['label'], $itemData['value'], $itemData['count']
             );
         }
         $this->_items = $items;
         return $this;
     }
-
 
     /**
      * Retrieve layer object
@@ -185,13 +184,13 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
      * @param   int $count
      * @return  Mage_Catalog_Model_Layer_Filter_Item
      */
-    protected function _createItem($label, $value, $count=0)
+    protected function _createItem($label, $value, $count = 0)
     {
         return Mage::getModel('catalog/layer_filter_item')
-            ->setFilter($this)
-            ->setLabel($label)
-            ->setValue($value)
-            ->setCount($count);
+                        ->setFilter($this)
+                        ->setLabel($label)
+                        ->setValue($value)
+                        ->setCount($count);
     }
 
     /**
@@ -310,4 +309,5 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     {
         return false;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,14 +24,14 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Zend_Cache_Backend_ExtendedInterface
 {
+
     /**
      * Log message
      */
     const TAGS_UNSUPPORTED_BY_CLEAN_OF_EACCELERATOR_BACKEND = 'Varien_Cache_Backend_Eaccelerator::clean() : tags are unsupported by the Eaccelerator backend';
-    const TAGS_UNSUPPORTED_BY_SAVE_OF_EACCELERATOR_BACKEND =  'Varien_Cache_Backend_Eaccelerator::save() : tags are unsupported by the Eaccelerator backend';
+    const TAGS_UNSUPPORTED_BY_SAVE_OF_EACCELERATOR_BACKEND = 'Varien_Cache_Backend_Eaccelerator::save() : tags are unsupported by the Eaccelerator backend';
 
     /**
      * Constructor
@@ -170,8 +171,8 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
     public function getFillingPercentage()
     {
         $mem = eaccelerator_info();
-        $memSize    = $mem['memorySize'];
-        $memAvailable= $mem['memoryAvailable'];
+        $memSize = $mem['memorySize'];
+        $memAvailable = $mem['memoryAvailable'];
         $memUsed = $memSize - $memAvailable;
         if ($memSize == 0) {
             Zend_Cache::throwException('can\'t get eaccelerator memory size');
@@ -302,7 +303,7 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
             }
             $lifetime = $tmp[2];
             $newLifetime = $lifetime - (time() - $mtime) + $extraLifetime;
-            if ($newLifetime <=0) {
+            if ($newLifetime <= 0) {
                 return false;
             }
             eaccelerator_put($id, array($data, time(), $newLifetime), $newLifetime);

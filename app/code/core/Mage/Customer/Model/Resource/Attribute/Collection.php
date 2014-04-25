@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer EAV additional attribute resource collection
  *
@@ -34,12 +34,13 @@
  */
 class Mage_Customer_Model_Resource_Attribute_Collection extends Mage_Eav_Model_Resource_Attribute_Collection
 {
+
     /**
      * Default attribute entity type code
      *
      * @var string
      */
-    protected $_entityTypeCode   = 'customer';
+    protected $_entityTypeCode = 'customer';
 
     /**
      * Default attribute entity type code
@@ -63,4 +64,5 @@ class Mage_Customer_Model_Resource_Attribute_Collection extends Mage_Eav_Model_R
     {
         return $this->getTable('customer/eav_attribute_website');
     }
+
 }

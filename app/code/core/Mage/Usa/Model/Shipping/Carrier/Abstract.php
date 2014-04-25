@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -74,12 +75,11 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
 
         $result = $this->getTracking($tracking);
 
-        if($result instanceof Mage_Shipping_Model_Tracking_Result){
+        if ($result instanceof Mage_Shipping_Model_Tracking_Result) {
             if ($trackings = $result->getAllTrackings()) {
                 return $trackings[0];
             }
-        }
-        elseif (is_string($result) && !empty($result)) {
+        } elseif (is_string($result) && !empty($result)) {
             return $result;
         }
 
@@ -174,21 +174,21 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
         //Skip by item validation if there is no items in request
-        if(!count($this->getAllItems($request))) {
+        if (!count($this->getAllItems($request))) {
             return $this;
         }
 
-        $maxAllowedWeight   = (float) $this->getConfigData('max_package_weight');
-        $errorMsg           = '';
-        $configErrorMsg     = $this->getConfigData('specificerrmsg');
-        $defaultErrorMsg    = Mage::helper('shipping')->__('The shipping module is not available.');
-        $showMethod         = $this->getConfigData('showmethod');
+        $maxAllowedWeight = (float) $this->getConfigData('max_package_weight');
+        $errorMsg = '';
+        $configErrorMsg = $this->getConfigData('specificerrmsg');
+        $defaultErrorMsg = Mage::helper('shipping')->__('The shipping module is not available.');
+        $showMethod = $this->getConfigData('showmethod');
 
         foreach ($this->getAllItems($request) as $item) {
             if ($item->getProduct() && $item->getProduct()->getId()) {
-                $weight         = $item->getProduct()->getWeight();
-                $stockItem      = $item->getProduct()->getStockItem();
-                $doValidation   = true;
+                $weight = $item->getProduct()->getWeight();
+                $stockItem = $item->getProduct()->getStockItem();
+                $doValidation = true;
 
                 if ($stockItem->getIsQtyDecimal() && $stockItem->getIsDecimalDivided()) {
                     if ($stockItem->getEnableQtyIncrements() && $stockItem->getQtyIncrements()) {
@@ -233,9 +233,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     {
         if (is_array($requestParams)) {
             $requestParams = implode(',', array_merge(
-                array($this->getCarrierCode()),
-                array_keys($requestParams),
-                $requestParams)
+                            array($this->getCarrierCode()), array_keys($requestParams), $requestParams)
             );
         }
         return crc32($requestParams);
@@ -278,7 +276,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      */
     protected function _prepareServiceName($name)
     {
-        $name = html_entity_decode((string)$name);
+        $name = html_entity_decode((string) $name);
         $name = strip_tags(preg_replace('#&\w+;#', '', $name));
         return trim($name);
     }
@@ -331,7 +329,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             } else {
                 $data[] = array(
                     'tracking_number' => $result->getTrackingNumber(),
-                    'label_content'   => $result->getShippingLabelContent()
+                    'label_content' => $result->getShippingLabelContent()
                 );
             }
             if (!isset($isFirstRequest)) {
@@ -341,7 +339,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         }
 
         $response = new Varien_Object(array(
-            'info'   => $data
+            'info' => $data
         ));
         if ($result->getErrors()) {
             $response->setErrors($result->getErrors());
@@ -380,7 +378,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             } else {
                 $data[] = array(
                     'tracking_number' => $result->getTrackingNumber(),
-                    'label_content'   => $result->getShippingLabelContent()
+                    'label_content' => $result->getShippingLabelContent()
                 );
             }
             if (!isset($isFirstRequest)) {
@@ -390,7 +388,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         }
 
         $response = new Varien_Object(array(
-            'info'   => $data
+            'info' => $data
         ));
         if ($result->getErrors()) {
             $response->setErrors($result->getErrors());
@@ -447,7 +445,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * @param null|string $countyDest
      * @return bool
      */
-    public function isGirthAllowed($countyDest = null) {
+    public function isGirthAllowed($countyDest = null)
+    {
         return false;
     }
+
 }

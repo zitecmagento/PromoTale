@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Url.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_Abstract.php */
 #require_once 'Zend/View/Helper/Abstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_View_Helper_Url extends Zend_View_Helper_Abstract
 {
+
     /**
      * Generates an url given the name of a route.
      *
@@ -48,4 +49,5 @@ class Zend_View_Helper_Url extends Zend_View_Helper_Abstract
         $router = Zend_Controller_Front::getInstance()->getRouter();
         return $router->assemble($urlOptions, $name, $reset, $encode);
     }
+
 }

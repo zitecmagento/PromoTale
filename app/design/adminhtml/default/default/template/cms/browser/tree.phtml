@@ -42,41 +42,41 @@
 <div id="tree" style="width:100%; overflow:auto;"></div>
 
 <script type="text/javascript">
-Ext.onReady(function(){
-    var Tree = Ext.tree;
-    var tree = new Tree.TreePanel('tree', {
-        animate:true,
-        loader: new Tree.TreeLoader({
-            dataUrl:'<?php echo $this->getTreeLoaderUrl() ?>'
-        }),
-        enableDD:false,
-        containerScroll: true
-    });
+    Ext.onReady(function() {
+        var Tree = Ext.tree;
+        var tree = new Tree.TreePanel('tree', {
+            animate: true,
+            loader: new Tree.TreeLoader({
+                dataUrl: '<?php echo $this->getTreeLoaderUrl() ?>'
+            }),
+            enableDD: false,
+            containerScroll: true
+        });
 
-    // set the root node
-    var root = new Tree.AsyncTreeNode({
-        text: '<?php echo $this->getRootNodeName() ?>',
-        draggable:false,
-        id:'root'
-    });
-    tree.setRootNode(root);
+        // set the root node
+        var root = new Tree.AsyncTreeNode({
+            text: '<?php echo $this->getRootNodeName() ?>',
+            draggable: false,
+            id: 'root'
+        });
+        tree.setRootNode(root);
 
-    // render the tree
-    tree.render();
-    root.expand();
+        // render the tree
+        tree.render();
+        root.expand();
 
-    Event.observe($('tree_action_collapse'), 'click', function(){
-        tree.collapseAll();
-    });
+        Event.observe($('tree_action_collapse'), 'click', function() {
+            tree.collapseAll();
+        });
 
-    Event.observe($('tree_action_expand'), 'click', function(){
-        tree.expandAll();
-    });
+        Event.observe($('tree_action_expand'), 'click', function() {
+            tree.expandAll();
+        });
 
-    MediabrowserInstance.setTree(tree);
-    tree.addListener('click', MediabrowserInstance.selectFolder.bind(MediabrowserInstance));
-    tree.expandPath('<?php echo $this->getTreeCurrentPath() ?>','', function(success, node) {
-        MediabrowserInstance.selectFolder(node);
+        MediabrowserInstance.setTree(tree);
+        tree.addListener('click', MediabrowserInstance.selectFolder.bind(MediabrowserInstance));
+        tree.expandPath('<?php echo $this->getTreeCurrentPath() ?>', '', function(success, node) {
+            MediabrowserInstance.selectFolder(node);
+        });
     });
-});
 </script>

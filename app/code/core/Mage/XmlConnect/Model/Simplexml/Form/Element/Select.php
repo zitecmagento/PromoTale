@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Simplexml_Form_Element_Select extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
 {
+
     /**
      * Init text element
      *
@@ -79,4 +81,5 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Select extends Mage_XmlConnec
             }
         }
     }
+
 }

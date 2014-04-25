@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogInventory Stock source model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogInventory_Model_Source_Stock
 {
+
     /**
      * Retrieve option array
      *
@@ -52,4 +53,5 @@ class Mage_CatalogInventory_Model_Source_Stock
             ),
         );
     }
+
 }

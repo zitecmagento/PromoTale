@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_Element_Textarea
 {
+
     /**
      * Retrieve additional html and put it at the end of element html
      *
@@ -44,13 +46,13 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_
         if ($this->getIsWysiwygEnabled()) {
             $disabled = ($this->getDisabled() || $this->getReadonly());
             $html .= Mage::getSingleton('core/layout')
-                ->createBlock('adminhtml/widget_button', '', array(
-                    'label'   => Mage::helper('catalog')->__('WYSIWYG Editor'),
-                    'type'    => 'button',
-                    'disabled' => $disabled,
-                    'class' => 'btn-wysiwyg',
-                    'onclick' => 'catalogWysiwygEditor.open(\''.Mage::helper('adminhtml')->getUrl('*/*/wysiwyg').'\', \''.$this->getHtmlId().'\')'
-                ))->toHtml();
+                            ->createBlock('adminhtml/widget_button', '', array(
+                                'label' => Mage::helper('catalog')->__('WYSIWYG Editor'),
+                                'type' => 'button',
+                                'disabled' => $disabled,
+                                'class' => 'btn-wysiwyg',
+                                'onclick' => 'catalogWysiwygEditor.open(\'' . Mage::helper('adminhtml')->getUrl('*/*/wysiwyg') . '\', \'' . $this->getHtmlId() . '\')'
+                            ))->toHtml();
         }
         return $html;
     }
@@ -63,11 +65,10 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_
     public function getIsWysiwygEnabled()
     {
         if (Mage::helper('catalog')->isModuleEnabled('Mage_Cms')) {
-            return (bool)(Mage::getSingleton('cms/wysiwyg_config')->isEnabled()
-                && $this->getEntityAttribute()->getIsWysiwygEnabled());
+            return (bool) (Mage::getSingleton('cms/wysiwyg_config')->isEnabled() && $this->getEntityAttribute()->getIsWysiwygEnabled());
         }
 
         return false;
     }
-}
 
+}

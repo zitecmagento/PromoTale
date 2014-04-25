@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Term.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Search_Query */
 #require_once 'Zend/Search/Lucene/Search/Query.php';
-
 
 /**
  * @category   Zend
@@ -34,6 +32,7 @@
  */
 class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Query
 {
+
     /**
      * Term to find.
      *
@@ -55,7 +54,6 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
      * @var array
      */
     private $_termFreqs;
-
 
     /**
      * Zend_Search_Lucene_Search_Query_Term constructor
@@ -111,7 +109,6 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
         return $this;
     }
 
-
     /**
      * Constructs an appropriate Weight implementation for this query.
      *
@@ -164,9 +161,9 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
     {
         if (isset($this->_docVector[$docId])) {
             return $reader->getSimilarity()->tf($this->_termFreqs[$docId]) *
-                   $this->_weight->getValue() *
-                   $reader->norm($docId, $this->_term->field) *
-                   $this->getBoost();
+                    $this->_weight->getValue() *
+                    $reader->norm($docId, $this->_term->field) *
+                    $this->getBoost();
         } else {
             return 0;
         }
@@ -224,5 +221,5 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
 
         return $query;
     }
-}
 
+}

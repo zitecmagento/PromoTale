@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TokenList.php 20277 2010-01-14 14:17:12Z kokx $
  */
-
 /**
  * @see Zend_Markup_Token
  */
@@ -121,4 +121,5 @@ class Zend_Markup_TokenList implements RecursiveIterator
     {
         return $this->current() !== false;
     }
+
 }

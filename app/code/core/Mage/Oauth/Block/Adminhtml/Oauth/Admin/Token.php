@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     /**
      * Construct grid container
      */
@@ -45,4 +47,5 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token extends Mage_Adminhtml_Block_
         $this->_headerText = Mage::helper('adminhtml')->__('My Applications');
         $this->_removeButton('add');
     }
+
 }

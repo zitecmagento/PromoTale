@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Customer_Block_Widget_Taxvat extends Mage_Customer_Block_Widget_Abstract
 {
+
     public function _construct()
     {
         parent::_construct();
@@ -34,16 +35,17 @@ class Mage_Customer_Block_Widget_Taxvat extends Mage_Customer_Block_Widget_Abstr
 
     public function isEnabled()
     {
-        return (bool)$this->_getAttribute('taxvat')->getIsVisible();
+        return (bool) $this->_getAttribute('taxvat')->getIsVisible();
     }
 
     public function isRequired()
     {
-        return (bool)$this->_getAttribute('taxvat')->getIsRequired();
+        return (bool) $this->_getAttribute('taxvat')->getIsRequired();
     }
 
     public function getCustomer()
     {
         return Mage::getSingleton('customer/session')->getCustomer();
     }
+
 }

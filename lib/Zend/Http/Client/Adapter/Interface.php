@@ -35,6 +35,7 @@
  */
 interface Zend_Http_Client_Adapter_Interface
 {
+
     /**
      * Set the configuration array for the adapter
      *

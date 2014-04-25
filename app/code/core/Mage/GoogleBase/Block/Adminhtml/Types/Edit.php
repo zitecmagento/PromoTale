@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_GoogleBase
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_GoogleBase_Block_Adminhtml_Types_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -45,7 +46,7 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit extends Mage_Adminhtml_Block_Wi
         $this->_updateButton('save', 'label', $this->__('Save Mapping'));
         $this->_updateButton('save', 'id', 'save_button');
         $this->_updateButton('delete', 'label', $this->__('Delete Mapping'));
-        if(!$model->getId()) {
+        if (!$model->getId()) {
             $this->_removeButton('delete');
         }
 
@@ -63,7 +64,7 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit extends Mage_Adminhtml_Block_Wi
                                 $("select_target_country")
                             ].flatten();
                             $(\'save_button\').disabled = true;
-                            new Ajax.Updater("attributes_details", "'.$this->getUrl('*/*/loadAttributes').'",
+                            new Ajax.Updater("attributes_details", "' . $this->getUrl('*/*/loadAttributes') . '",
                                 {
                                     parameters:Form.serializeElements(elements),
                                     evalScripts:true,
@@ -81,7 +82,7 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit extends Mage_Adminhtml_Block_Wi
                                 $("select_itemtype"),
                                 $("select_target_country")
                             ].flatten();
-                            new Ajax.Updater("gbase_itemtype_select", "'.$this->getUrl('*/*/loadItemTypes').'",
+                            new Ajax.Updater("gbase_itemtype_select", "' . $this->getUrl('*/*/loadItemTypes') . '",
                                 {
                                     parameters:Form.serializeElements(elements),
                                     evalScripts:true,
@@ -92,7 +93,7 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit extends Mage_Adminhtml_Block_Wi
                                 }
                             );
 
-                            new Ajax.Updater("attribute_set_select", "'.$this->getUrl('*/*/loadAttributeSets').'",
+                            new Ajax.Updater("attribute_set_select", "' . $this->getUrl('*/*/loadAttributeSets') . '",
                                 {
                                     parameters:Form.serializeElements(elements),
                                     evalScripts:true,
@@ -109,7 +110,7 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit extends Mage_Adminhtml_Block_Wi
                     confirmChanges: function() {
                         var blocksCount = Element.select($("attributes_details"), "div[id^=gbase_attribute_]").length;
                         if (blocksCount > 0
-                            && confirm("'.$this->__('Current Mapping will be reloaded. Continue?').'")
+                            && confirm("' . $this->__('Current Mapping will be reloaded. Continue?') . '")
                             || blocksCount == 0
                         ) {
                             return true;
@@ -135,14 +136,15 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit extends Mage_Adminhtml_Block_Wi
 
     public function getHeaderText()
     {
-        if(!is_null(Mage::registry('current_item_type')->getId())) {
+        if (!is_null(Mage::registry('current_item_type')->getId())) {
             return $this->__('Edit Item Type "%s"', $this->escapeHtml(Mage::registry('current_item_type')->getGbaseItemtype()));
         } else {
             return $this->__('New Item Type');
         }
     }
 
-    public function getHeaderCssClass() {
+    public function getHeaderCssClass()
+    {
         return 'icon-head head-customer-groups';
     }
 

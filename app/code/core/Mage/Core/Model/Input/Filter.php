@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -106,6 +107,7 @@
  */
 class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
 {
+
     /**
      * Filters data collectors
      *
@@ -363,4 +365,5 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
         }
         return $filter;
     }
+
 }

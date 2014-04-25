@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Collection of events
  *
@@ -34,13 +34,14 @@
  */
 class Varien_Event_Collection
 {
+
     /**
      * Array of events in the collection
      *
      * @var array
      */
     protected $_events;
-    
+
     /**
      * Global observers
      * 
@@ -49,7 +50,7 @@ class Varien_Event_Collection
      * @var Varien_Event_Observer_Collection
      */
     protected $_observers;
-    
+
     /**
      * Initializes global observers collection
      * 
@@ -59,7 +60,7 @@ class Varien_Event_Collection
         $this->_events = array();
         $this->_globalObservers = new Varien_Event_Observer_Collection();
     }
-    
+
     /**
      * Returns all registered events in collection
      *
@@ -69,7 +70,7 @@ class Varien_Event_Collection
     {
         return $this->_events;
     }
-    
+
     /**
      * Returns all registered global observers for the collection of events
      *
@@ -79,7 +80,7 @@ class Varien_Event_Collection
     {
         return $this->_globalObservers;
     }
-    
+
     /**
      * Returns event by its name
      *
@@ -91,11 +92,11 @@ class Varien_Event_Collection
     public function getEventByName($eventName)
     {
         if (!isset($this->_events[$eventName])) {
-            $this->addEvent(new Varien_Event(array('name'=>$eventName)));
+            $this->addEvent(new Varien_Event(array('name' => $eventName)));
         }
         return $this->_events[$eventName];
     }
-    
+
     /**
      * Register an event for this collection
      *
@@ -107,7 +108,7 @@ class Varien_Event_Collection
         $this->_events[$event->getName()] = $event;
         return $this;
     }
-    
+
     /**
      * Register an observer
      * 
@@ -127,7 +128,7 @@ class Varien_Event_Collection
         }
         return $this;
     }
-    
+
     /**
      * Dispatch event name with optional data
      *
@@ -137,11 +138,12 @@ class Varien_Event_Collection
      * @param array $data
      * @return Varien_Event_Collection
      */
-    public function dispatch($eventName, array $data=array())
+    public function dispatch($eventName, array $data = array())
     {
         $event = $this->getEventByName($eventName);
         $event->addData($data)->dispatch();
         $this->getGlobalObservers()->dispatch($event);
         return $this;
     }
+
 }

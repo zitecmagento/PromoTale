@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Search extends Mage_XmlConnect_Block_Catalog
 {
+
     /**
      * Search results xml renderer
      * XML also contains filters that can be apply (accordingly already applied filters
@@ -42,7 +44,7 @@ class Mage_XmlConnect_Block_Catalog_Search extends Mage_XmlConnect_Block_Catalog
      */
     protected function _toHtml()
     {
-        $searchXmlObject  = Mage::getModel('xmlconnect/simplexml_element', '<search></search>');
+        $searchXmlObject = Mage::getModel('xmlconnect/simplexml_element', '<search></search>');
         $filtersXmlObject = Mage::getModel('xmlconnect/simplexml_element', '<filters></filters>');
 
         $helper = Mage::helper('catalogsearch');
@@ -66,9 +68,9 @@ class Mage_XmlConnect_Block_Catalog_Search extends Mage_XmlConnect_Block_Catalog
         if ($productListBlock) {
             $layer = Mage::getSingleton('catalogsearch/layer');
             $productsXmlObj = $productListBlock->setLayer($layer)
-                ->setNeedBlockApplyingFilters(!$isLayeredNavigationAllowed)->getProductsXmlObject();
+                            ->setNeedBlockApplyingFilters(!$isLayeredNavigationAllowed)->getProductsXmlObject();
             $searchXmlObject->appendChild($productsXmlObj);
-            $hasMoreProductItems = (int)$productListBlock->getHasProductItems();
+            $hasMoreProductItems = (int) $productListBlock->getHasProductItems();
         }
 
         $searchXmlObject->addAttribute('has_more_items', $hasMoreProductItems);
@@ -79,8 +81,7 @@ class Mage_XmlConnect_Block_Catalog_Search extends Mage_XmlConnect_Block_Catalog
         $showFiltersAndOrders = (bool) count($productsXmlObj);
         $requestParams = $this->getRequest()->getParams();
         foreach ($requestParams as $key => $value) {
-            if (0 === strpos($key, parent::REQUEST_SORT_ORDER_PARAM_PREFIX)
-                || 0 === strpos($key, parent::REQUEST_FILTER_PARAM_PREFIX)
+            if (0 === strpos($key, parent::REQUEST_SORT_ORDER_PARAM_PREFIX) || 0 === strpos($key, parent::REQUEST_FILTER_PARAM_PREFIX)
             ) {
                 $showFiltersAndOrders = false;
                 break;
@@ -101,7 +102,7 @@ class Mage_XmlConnect_Block_Catalog_Search extends Mage_XmlConnect_Block_Catalog
                 $values = $item->addChild('values');
 
                 foreach ($filter->getItems() as $valueItem) {
-                    $count = (int)$valueItem->getCount();
+                    $count = (int) $valueItem->getCount();
                     if (!$count) {
                         continue;
                     }
@@ -136,10 +137,11 @@ class Mage_XmlConnect_Block_Catalog_Search extends Mage_XmlConnect_Block_Catalog
             return false;
         }
         foreach ($filter->getItems() as $valueItem) {
-            if ((int)$valueItem->getCount()) {
+            if ((int) $valueItem->getCount()) {
                 return true;
             }
         }
         return false;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Action
 {
+
     public function indexAction()
     {
         $this->_title($this->__('Dashboard'));
@@ -75,7 +77,7 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
 
     public function ajaxBlockAction()
     {
-        $output   = '';
+        $output = '';
         $blockTab = $this->getRequest()->getParam('block');
         if (in_array($blockTab, array('tab_orders', 'tab_amounts', 'totals'))) {
             $output = $this->getLayout()->createBlock('adminhtml/dashboard_' . $blockTab)->toHtml();
@@ -101,8 +103,8 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
                     $headers = $response->getHeaders();
 
                     $this->getResponse()
-                        ->setHeader('Content-type', $headers['Content-type'])
-                        ->setBody($response->getBody());
+                            ->setHeader('Content-type', $headers['Content-type'])
+                            ->setBody($response->getBody());
                 }
             }
         }
@@ -112,4 +114,5 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
     {
         return Mage::getSingleton('admin/session')->isAllowed('dashboard');
     }
+
 }

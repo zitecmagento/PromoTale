@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Memory.php 20804 2010-02-01 15:49:16Z alexander $
  */
-
 /** Zend_Memory_Exception */
 #require_once 'Zend/Memory/Manager.php';
 
@@ -39,6 +39,7 @@
  */
 class Zend_Memory
 {
+
     /**
      * Factory
      *
@@ -79,4 +80,5 @@ class Zend_Memory
 
         return new Zend_Memory_Manager($backendObject);
     }
+
 }

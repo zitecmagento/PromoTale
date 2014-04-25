@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,9 +36,9 @@
  * @method Mage_Api2_Block_Adminhtml_Roles_Tab_Users setUsers(array $users)
  * @method Mage_Admin_Model_Resource_User_Collection getCollection()
  */
-class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Widget_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Construct grid block
      */
@@ -48,8 +49,8 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
         $this->setData('use_ajax', true);
         $this->setSaveParametersInSession(true);
         $this->setDefaultSort('user_id')
-            ->setDefaultDir(Varien_Db_Select::SQL_DESC);
-        $this->setDefaultFilter(array('filter_in_role_users'=>1));
+                ->setDefaultDir(Varien_Db_Select::SQL_DESC);
+        $this->setDefaultFilter(array('filter_in_role_users' => 1));
     }
 
     /**
@@ -62,9 +63,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
         /** @var $collection Mage_Admin_Model_Resource_User_Collection */
         $collection = Mage::getModel('admin/user')->getCollection();
         $collection->getSelect()->joinLeft(
-            array('acl' => $collection->getTable('api2/acl_user')),
-            'acl.admin_id = main_table.user_id',
-            'role_id'
+                array('acl' => $collection->getTable('api2/acl_user')), 'acl.admin_id = main_table.user_id', 'role_id'
         );
         if ($this->getRole() && $this->getRole()->getId()) {
             $collection->addFilter('acl.role_id', $this->getRole()->getId());
@@ -84,11 +83,11 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     {
         $this->addColumn('filter_in_role_users', array(
             'header_css_class' => 'a-center',
-            'type'      => 'checkbox',
-            'name'      => 'filter_in_role_users',
-            'values'    => $this->getUsers(),
-            'align'     => 'center',
-            'index'     => 'user_id'
+            'type' => 'checkbox',
+            'name' => 'filter_in_role_users',
+            'values' => $this->getUsers(),
+            'align' => 'center',
+            'index' => 'user_id'
         ));
 
         $this->addColumn('user_id', array(
@@ -199,7 +198,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('user_id', array('in' => $inRoleIds));
             } else {
-                if($inRoleIds) {
+                if ($inRoleIds) {
                     $this->getCollection()->addFieldToFilter('user_id', array('nin' => $inRoleIds));
                 }
             }
@@ -224,7 +223,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
                 return '{}';
             }
             $jsonUsers = array();
-            foreach($users as $usrId) {
+            foreach ($users as $usrId) {
                 $jsonUsers[$usrId] = 0;
             }
             /** @var $helper Mage_Core_Helper_Data */
@@ -236,4 +235,5 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
 
         return $result;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Http.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /** Zend_Oauth_Http_Utility */
 #require_once 'Zend/Oauth/Http/Utility.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Oauth_Http
 {
+
     /**
      * Array of all custom service parameters to be sent in the HTTP request
      * in addition to the usual OAuth parameters.
@@ -80,10 +81,9 @@ class Zend_Oauth_Http
      * @return void
      */
     public function __construct(
-        Zend_Oauth_Consumer $consumer, 
-        array $parameters = null,
-        Zend_Oauth_Http_Utility $utility = null
-    ) {
+    Zend_Oauth_Consumer $consumer, array $parameters = null, Zend_Oauth_Http_Utility $utility = null
+    )
+    {
         $this->_consumer = $consumer;
         $this->_preferredRequestScheme = $this->_consumer->getRequestScheme();
         if ($parameters !== null) {
@@ -169,23 +169,26 @@ class Zend_Oauth_Http
     public function startRequestCycle(array $params)
     {
         $response = null;
-        $body     = null;
-        $status   = null;
-        try {
+        $body = null;
+        $status = null;
+        try
+        {
             $response = $this->_attemptRequest($params);
-        } catch (Zend_Http_Client_Exception $e) {
+        }
+        catch (Zend_Http_Client_Exception $e)
+        {
             #require_once 'Zend/Oauth/Exception.php';
             throw new Zend_Oauth_Exception('Error in HTTP request', null, $e);
         }
         if ($response !== null) {
-            $body   = $response->getBody();
+            $body = $response->getBody();
             $status = $response->getStatus();
         }
         if ($response === null // Request failure/exception
-            || $status == 500  // Internal Server Error
-            || $status == 400  // Bad Request
-            || $status == 401  // Unauthorized
-            || empty($body)    // Missing token
+                || $status == 500  // Internal Server Error
+                || $status == 400  // Bad Request
+                || $status == 401  // Unauthorized
+                || empty($body)    // Missing token
         ) {
             $this->_assessRequestAttempt($response);
             $response = $this->startRequestCycle($params);
@@ -206,7 +209,7 @@ class Zend_Oauth_Http
         $client = Zend_Oauth::getHttpClient();
         $client->setUri($url);
         $client->getUri()->setQuery(
-            $this->_httpUtility->toEncodedQueryString($params)
+                $this->_httpUtility->toEncodedQueryString($params)
         );
         $client->setMethod($this->_preferredRequestMethod);
         return $client;
@@ -232,10 +235,8 @@ class Zend_Oauth_Http
             default:
                 #require_once 'Zend/Oauth/Exception.php';
                 throw new Zend_Oauth_Exception(
-                    'Could not retrieve a valid Token response from Token URL:'
-                    . ($response !== null 
-                        ? PHP_EOL . $response->getBody()
-                        : ' No body - check for headers')
+                'Could not retrieve a valid Token response from Token URL:'
+                . ($response !== null ? PHP_EOL . $response->getBody() : ' No body - check for headers')
                 );
         }
     }
@@ -257,10 +258,11 @@ class Zend_Oauth_Http
                 continue;
             }
             $headerValue[] = Zend_Oauth_Http_Utility::urlEncode($key)
-                           . '="'
-                           . Zend_Oauth_Http_Utility::urlEncode($value)
-                           . '"';
+                    . '="'
+                    . Zend_Oauth_Http_Utility::urlEncode($value)
+                    . '"';
         }
         return implode(",", $headerValue);
     }
+
 }

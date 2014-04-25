@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Paypal_Mecl_Checkout extends Mage_Paypal_Model_Express_Checkout
 {
+
     /**
      * Payment method type
      *
@@ -59,8 +61,9 @@ class Mage_XmlConnect_Model_Paypal_Mecl_Checkout extends Mage_Paypal_Model_Expre
     protected function _setSandboxFlag()
     {
         $this->_config->sandboxFlag = Mage::helper('payment')
-            ->getMethodInstance(Mage_XmlConnect_Model_Payment_Method_Paypal_Config::METHOD_WPP_EXPRESS)
-            ->getConfigData('sandbox_flag');
+                ->getMethodInstance(Mage_XmlConnect_Model_Payment_Method_Paypal_Config::METHOD_WPP_EXPRESS)
+                ->getConfigData('sandbox_flag');
         return $this;
     }
+
 }

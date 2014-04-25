@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product group price backend attribute model
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice
-    extends Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract
+class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice extends Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract
 {
+
     /**
      * Initialize connection and define main table
      *
@@ -43,4 +43,5 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice
     {
         $this->_init('catalog/product_attribute_group_price', 'value_id');
     }
+
 }

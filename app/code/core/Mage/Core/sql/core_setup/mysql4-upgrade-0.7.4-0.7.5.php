@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
@@ -74,13 +74,13 @@ UPDATE {$this->getTable('core_website')}
 ");
 
 $websiteRows = $installer->getConnection()
-    ->fetchAll($installer->getConnection()
+        ->fetchAll($installer->getConnection()
         ->select()
         ->from($this->getTable('core_website'))
         ->where($installer->getConnection()->quoteInto('website_id>?', 0)));
 
 $rows = $installer->getConnection()
-    ->fetchAll($installer->getConnection()
+        ->fetchAll($installer->getConnection()
         ->select()
         ->from($this->getTable('core_config_data'))
         ->where($installer->getConnection()->quoteInto('path LIKE ?', 'catalog/category/root_id')));
@@ -93,37 +93,32 @@ foreach ($websiteRows as $websiteRow) {
     $rootCategoryId = 2;
     if (isset($rootCategoryIds['website'][$websiteRow['website_id']])) {
         $rootCategoryId = $rootCategoryIds['website'][$websiteRow['website_id']];
-    }
-    elseif (isset($rootCategoryIds['default'][0])) {
+    } elseif (isset($rootCategoryIds['default'][0])) {
         $rootCategoryId = $rootCategoryIds['default'][0];
     }
-    $defaultStoreId = (int)$installer->getConnection()
-        ->fetchOne($installer->getConnection()
-            ->select()
-            ->from($this->getTable('core_store'))
-            ->where($installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id']))
-            ->limit(0, 1), 'store_id');
+    $defaultStoreId = (int) $installer->getConnection()
+                    ->fetchOne($installer->getConnection()
+                            ->select()
+                            ->from($this->getTable('core_store'))
+                            ->where($installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id']))
+                            ->limit(0, 1), 'store_id');
 
     // create group for website
     $installer->getConnection()->insert($this->getTable('core_store_group'), array(
-        'website_id'        => $websiteRow['website_id'],
-        'name'              => $websiteRow['name'] . ' Store',
-        'root_category_id'  => $rootCategoryId,
-        'default_store_id'  => $defaultStoreId
+        'website_id' => $websiteRow['website_id'],
+        'name' => $websiteRow['name'] . ' Store',
+        'root_category_id' => $rootCategoryId,
+        'default_store_id' => $defaultStoreId
     ));
     $groupId = $installer->getConnection()->lastInsertId();
     // set group for store(s)
     $installer->getConnection()
-        ->update($this->getTable('core_store'),
-            array('group_id'=>$groupId),
-            $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
-        );
+            ->update($this->getTable('core_store'), array('group_id' => $groupId), $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
+    );
     // set created group as default for website
     $installer->getConnection()
-        ->update($this->getTable('core_website'),
-            array('default_group_id'=>$groupId),
-            $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
-        );
+            ->update($this->getTable('core_website'), array('default_group_id' => $groupId), $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
+    );
 }
 
 $installer->endSetup();

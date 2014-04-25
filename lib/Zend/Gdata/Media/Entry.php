@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Entry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Entry
  */
@@ -97,14 +96,14 @@ class Zend_Gdata_Media_Entry extends Zend_Gdata_Entry
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-        case $this->lookupNamespace('media') . ':' . 'group':
-            $mediaGroup = new Zend_Gdata_Media_Extension_MediaGroup();
-            $mediaGroup->transferFromDOM($child);
-            $this->_mediaGroup = $mediaGroup;
-            break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            case $this->lookupNamespace('media') . ':' . 'group':
+                $mediaGroup = new Zend_Gdata_Media_Extension_MediaGroup();
+                $mediaGroup->transferFromDOM($child);
+                $this->_mediaGroup = $mediaGroup;
+                break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 
@@ -112,7 +111,7 @@ class Zend_Gdata_Media_Entry extends Zend_Gdata_Entry
      * Returns the entry's mediaGroup object.
      *
      * @return Zend_Gdata_Media_Extension_MediaGroup
-    */
+     */
     public function getMediaGroup()
     {
         return $this->_mediaGroup;
@@ -129,6 +128,5 @@ class Zend_Gdata_Media_Entry extends Zend_Gdata_Entry
         $this->_mediaGroup = $mediaGroup;
         return $this;
     }
-
 
 }

@@ -642,7 +642,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        0</sort_order>
+                            0</sort_order>
                     </fields>
                 </fedex>
                 <ups translate="label" module="usa">
@@ -1070,7 +1070,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><size>LARGE</size></depends>
+                            <depends>
+                                <size>LARGE</size>
+                            </depends>
                         </width>
                         <length translate="label">
                             <label>Length</label>
@@ -1079,7 +1081,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><size>LARGE</size></depends>
+                            <depends>
+                                <size>LARGE</size>
+                            </depends>
                         </length>
                         <height translate="label">
                             <label>Height</label>
@@ -1088,7 +1092,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><size>LARGE</size></depends>
+                            <depends>
+                                <size>LARGE</size>
+                            </depends>
                         </height>
                         <girth translate="label">
                             <label>Girth</label>
@@ -1097,7 +1103,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><size>LARGE</size></depends>
+                            <depends>
+                                <size>LARGE</size>
+                            </depends>
                         </girth>
                         <machinable translate="label">
                             <label>Machinable</label>
@@ -1236,7 +1244,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        0</sort_order>
+                            0</sort_order>
                     </fields>
                 </usps>
                 <dhlint translate="label" module="usa">
@@ -1371,7 +1379,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><size>1</size></depends>
+                            <depends>
+                                <size>1</size>
+                            </depends>
                         </height>
                         <depth translate="label">
                             <label>Depth</label>
@@ -1380,7 +1390,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><size>1</size></depends>
+                            <depends>
+                                <size>1</size>
+                            </depends>
                         </depth>
                         <width translate="label">
                             <label>Width</label>
@@ -1389,7 +1401,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><size>1</size></depends>
+                            <depends>
+                                <size>1</size>
+                            </depends>
                         </width>
                         <doc_methods translate="label">
                             <label>Allowed Methods</label>
@@ -1399,7 +1413,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><content_type>D</content_type></depends>
+                            <depends>
+                                <content_type>D</content_type>
+                            </depends>
                         </doc_methods>
                         <nondoc_methods translate="label">
                             <label>Allowed Methods</label>
@@ -1409,7 +1425,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><content_type>N</content_type></depends>
+                            <depends>
+                                <content_type>N</content_type>
+                            </depends>
                         </nondoc_methods>
                         <ready_time>
                             <label>Ready time</label>
@@ -1441,7 +1459,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><content_type>D</content_type></depends>
+                            <depends>
+                                <content_type>D</content_type>
+                            </depends>
                         </free_method_doc>
                         <free_method_nondoc translate="label">
                             <label>Free Method</label>
@@ -1452,7 +1472,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><content_type>N</content_type></depends>
+                            <depends>
+                                <content_type>N</content_type>
+                            </depends>
                         </free_method_nondoc>
                         <free_shipping_enable translate="label">
                             <label>Free Shipping with Minimum Order Amount</label>

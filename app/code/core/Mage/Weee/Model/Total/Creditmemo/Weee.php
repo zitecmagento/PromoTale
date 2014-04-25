@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,16 +24,15 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
 {
+
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
         $store = $creditmemo->getStore();
 
-        $totalTax              = 0;
-        $baseTotalTax          = 0;
+        $totalTax = 0;
+        $baseTotalTax = 0;
 
         $weeeTaxAmount = 0;
         $baseWeeeTaxAmount = 0;
@@ -43,14 +43,10 @@ class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Credi
             }
             $orderItemQty = $item->getOrderItem()->getQtyOrdered();
 
-            $weeeAmountExclTax = (Mage::helper('weee')->getWeeeTaxInclTax($item)
-                - Mage::helper('weee')->getTotalTaxAppliedForWeeeTax($item)
-                - $item->getOrderItem()->getDiscountAppliedForWeeeTax()) * $item->getQty();
+            $weeeAmountExclTax = (Mage::helper('weee')->getWeeeTaxInclTax($item) - Mage::helper('weee')->getTotalTaxAppliedForWeeeTax($item) - $item->getOrderItem()->getDiscountAppliedForWeeeTax()) * $item->getQty();
             $totalTax += $weeeAmountExclTax;
 
-            $baseWeeeAmountExclTax = (Mage::helper('weee')->getBaseWeeeTaxInclTax($item)
-                - Mage::helper('weee')->getBaseTotalTaxAppliedForWeeeTax($item)
-                - $item->getOrderItem()->getDiscountAppliedForWeeeTax()) * $item->getQty();
+            $baseWeeeAmountExclTax = (Mage::helper('weee')->getBaseWeeeTaxInclTax($item) - Mage::helper('weee')->getBaseTotalTaxAppliedForWeeeTax($item) - $item->getOrderItem()->getDiscountAppliedForWeeeTax()) * $item->getQty();
             $baseTotalTax += $baseWeeeAmountExclTax;
 
             $item->setWeeeTaxAppliedRowAmount($weeeAmountExclTax);
@@ -97,4 +93,5 @@ class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Credi
 
         return $this;
     }
+
 }

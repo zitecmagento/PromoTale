@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * ProductAlert email back in stock grid
  *
@@ -34,6 +34,7 @@
  */
 class Mage_ProductAlert_Block_Email_Stock extends Mage_ProductAlert_Block_Email_Abstract
 {
+
     /**
      * Constructor
      *
@@ -66,4 +67,5 @@ class Mage_ProductAlert_Block_Email_Stock extends Mage_ProductAlert_Block_Email_
     {
         return $this->getUrl('productalert/unsubscribe/stockAll', $this->_getUrlParams());
     }
+
 }

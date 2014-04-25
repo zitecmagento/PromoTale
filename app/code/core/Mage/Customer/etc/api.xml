@@ -142,36 +142,36 @@
         <acl>
             <resources>
                 <customer translate="title" module="customer">
-                     <title>Customers</title>
-                     <sort_order>3</sort_order>
-                     <create translate="title" module="customer">
+                    <title>Customers</title>
+                    <sort_order>3</sort_order>
+                    <create translate="title" module="customer">
                         <title>Create</title>
-                     </create>
-                     <update translate="title" module="customer">
+                    </create>
+                    <update translate="title" module="customer">
                         <title>Update</title>
-                     </update>
-                     <delete translate="title" module="customer">
+                    </update>
+                    <delete translate="title" module="customer">
                         <title>Delete</title>
-                     </delete>
-                     <info translate="title" module="customer">
+                    </delete>
+                    <info translate="title" module="customer">
                         <title>Retrieve customer info</title>
-                     </info>
-                     <address translate="title" module="customer">
-                         <title>Addresses</title>
-                         <sort_order>100</sort_order>
-                         <create translate="title" module="customer">
+                    </info>
+                    <address translate="title" module="customer">
+                        <title>Addresses</title>
+                        <sort_order>100</sort_order>
+                        <create translate="title" module="customer">
                             <title>Create</title>
-                         </create>
-                         <update translate="title" module="customer">
+                        </create>
+                        <update translate="title" module="customer">
                             <title>Update</title>
-                         </update>
-                         <delete translate="title" module="customer">
+                        </update>
+                        <delete translate="title" module="customer">
                             <title>Delete</title>
-                         </delete>
-                         <info translate="title" module="customer">
+                        </delete>
+                        <info translate="title" module="customer">
                             <title>Retrieve address info</title>
-                         </info>
-                     </address>
+                        </info>
+                    </address>
                 </customer>
             </resources>
         </acl>

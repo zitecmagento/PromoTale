@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,13 @@
  */
 class Varien_Data_Form_Element_Label extends Varien_Data_Form_Element_Abstract
 {
+
     /**
      * Assigns attributes for Element
      *
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setType('label');
@@ -57,4 +59,5 @@ class Varien_Data_Form_Element_Label extends Varien_Data_Form_Element_Abstract
         $html.= $this->getAfterElementHtml();
         return $html;
     }
+
 }

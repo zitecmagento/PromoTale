@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Theme
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Theme extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     /**
      * Renders grid column
      *
@@ -43,7 +44,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Theme
     public function render(Varien_Object $row)
     {
         $options = $this->getOptions();
-        $value   = $this->_getValue($row);
+        $value = $this->_getValue($row);
         if ($value == '') {
             $value = 'all';
         }
@@ -66,7 +67,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Theme
         }
         if (empty($options) || !is_array($options)) {
             $options = Mage::getModel('core/design_source_design')
-                ->setIsFullLabel(true)->getAllOptions(false);
+                            ->setIsFullLabel(true)->getAllOptions(false);
         }
 
         return $options;
@@ -100,4 +101,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Theme
 
         return false;
     }
+
 }

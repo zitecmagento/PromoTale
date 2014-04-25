@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -40,26 +41,27 @@
  */
 class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 {
+
     /**
      * Recipient Names
      *
      * @var array
      */
-    protected $_names   = array();
+    protected $_names = array();
 
     /**
      * Recipient Emails
      *
      * @var array
      */
-    protected $_emails  = array();
+    protected $_emails = array();
 
     /**
      * Sender data array
      *
      * @var array
      */
-    protected $_sender  = array();
+    protected $_sender = array();
 
     /**
      * Product Instance
@@ -108,12 +110,13 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      * @return array
      */
     public function toOptionArray()
-    {        return array();
+    {
+        return array();
     }
 
     public function send()
     {
-        if ($this->isExceedLimit()){
+        if ($this->isExceedLimit()) {
             Mage::throwException(Mage::helper('sendfriend')->__('You have exceeded limit of %d sends in an hour', $this->getMaxSendsToFriend()));
         }
 
@@ -125,34 +128,29 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         $mailTemplate = Mage::getModel('core/email_template');
 
         $message = nl2br(htmlspecialchars($this->getSender()->getMessage()));
-        $sender  = array(
-            'name'  => $this->_getHelper()->escapeHtml($this->getSender()->getName()),
+        $sender = array(
+            'name' => $this->_getHelper()->escapeHtml($this->getSender()->getName()),
             'email' => $this->_getHelper()->escapeHtml($this->getSender()->getEmail())
         );
 
         $mailTemplate->setDesignConfig(array(
-            'area'  => 'frontend',
+            'area' => 'frontend',
             'store' => Mage::app()->getStore()->getId()
         ));
 
         foreach ($this->getRecipients()->getEmails() as $k => $email) {
             $name = $this->getRecipients()->getNames($k);
             $mailTemplate->sendTransactional(
-                $this->getTemplate(),
-                $sender,
-                $email,
-                $name,
-                array(
-                    'name'          => $name,
-                    'email'         => $email,
-                    'product_name'  => $this->getProduct()->getName(),
-                    'product_url'   => $this->getProduct()->getUrlInStore(),
-                    'message'       => $message,
-                    'sender_name'   => $sender['name'],
-                    'sender_email'  => $sender['email'],
-                    'product_image' => Mage::helper('catalog/image')->init($this->getProduct(),
-                        'small_image')->resize(75),
-                )
+                    $this->getTemplate(), $sender, $email, $name, array(
+                'name' => $name,
+                'email' => $email,
+                'product_name' => $this->getProduct()->getName(),
+                'product_url' => $this->getProduct()->getUrlInStore(),
+                'message' => $message,
+                'sender_name' => $sender['name'],
+                'sender_email' => $sender['email'],
+                'product_image' => Mage::helper('catalog/image')->init($this->getProduct(), 'small_image')->resize(75),
+                    )
             );
         }
 
@@ -289,14 +287,12 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     public function setRecipients($recipients)
     {
         // validate array
-        if (!is_array($recipients) OR !isset($recipients['email'])
-            OR !isset($recipients['name']) OR !is_array($recipients['email'])
-            OR !is_array($recipients['name'])) {
+        if (!is_array($recipients) OR !isset($recipients['email']) OR !isset($recipients['name']) OR !is_array($recipients['email']) OR !is_array($recipients['name'])) {
             return $this;
         }
 
         $emails = array();
-        $names  = array();
+        $names = array();
         foreach ($recipients['email'] as $k => $email) {
             if (!isset($emails[$email]) && isset($recipients['name'][$k])) {
                 $emails[$email] = true;
@@ -309,8 +305,8 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         }
 
         return $this->setData('_recipients', new Varien_Object(array(
-            'emails' => $emails,
-            'names'  => $names
+                    'emails' => $emails,
+                    'names' => $names
         )));
     }
 
@@ -323,9 +319,9 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     {
         $recipients = $this->_getData('_recipients');
         if (!$recipients instanceof Varien_Object) {
-            $recipients =  new Varien_Object(array(
+            $recipients = new Varien_Object(array(
                 'emails' => array(),
-                'names'  => array()
+                'names' => array()
             ));
             $this->setData('_recipients', $recipients);
         }
@@ -506,8 +502,8 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      */
     protected function _sentCountByCookies($increment = false)
     {
-        $cookie   = $this->_getHelper()->getCookieName();
-        $time     = time();
+        $cookie = $this->_getHelper()->getCookieName();
+        $time = time();
         $newTimes = array();
 
         if (isset($this->_lastCookieValue[$cookie])) {
@@ -535,6 +531,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 
         return count($newTimes);
     }
+
     /**
      * Return count of sent in last period by IP address
      *
@@ -543,7 +540,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      */
     protected function _sentCountByIp($increment = false)
     {
-        $time   = time();
+        $time = time();
         $period = $this->_getHelper()->getPeriod();
         $websiteId = $this->getWebsiteId();
 
@@ -556,6 +553,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 
         return $this->_getResource()->getSendCount($this, $this->getRemoteAddr(), time() - $period, $websiteId);
     }
+
     /**
      * Register self in global register with name send_to_friend_model
      *
@@ -590,4 +588,5 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     {
         return $this->_sentCountByIp(true);
     }
+
 }

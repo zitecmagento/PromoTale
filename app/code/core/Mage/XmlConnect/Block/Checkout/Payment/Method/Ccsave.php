@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Payment_Method_Ccsave extends Mage_Payment_Block_Form_Ccsave
 {
+
     /**
      * Prevent any rendering
      *
@@ -87,12 +89,11 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Ccsave extends Mage_Payment_
 
         $verification = '';
         if ($this->hasVerification()) {
-            $verification =
-            '<field name="payment[cc_cid]" type="text" label="'
-                . $this->__('Card Verification Number') . '" required="true">
+            $verification = '<field name="payment[cc_cid]" type="text" label="'
+                    . $this->__('Card Verification Number') . '" required="true">
                 <validators>
                     <validator relation="payment[cc_type]" type="credit_card_svn" message="'
-                . $this->__('Card verification number is wrong') . '"/>
+                    . $this->__('Card verification number is wrong') . '"/>
                 </validators>
             </field>';
         }
@@ -100,10 +101,10 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Ccsave extends Mage_Payment_
         $solo = '';
         if ($this->hasSsCardType()) {
             $ssCcMonths = $helper->getArrayAsXmlItemValues(
-                $ccMonthArray, $this->getInfoData('cc_ss_start_month')
+                    $ccMonthArray, $this->getInfoData('cc_ss_start_month')
             );
             $ssCcYears = $helper->getArrayAsXmlItemValues(
-                $this->getSsStartYears(), $this->getInfoData('cc_ss_start_year')
+                    $this->getSsStartYears(), $this->getInfoData('cc_ss_start_year')
             );
             $solo = $helper->getSoloXml($ssCcMonths, $ssCcYears);
         }
@@ -138,4 +139,5 @@ EOT;
         $fieldsetXmlObj = Mage::getModel('xmlconnect/simplexml_element', $xml);
         $formXmlObj->appendChild($fieldsetXmlObj);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_CatalogInventory_Model_Observer
 {
+
     /**
      * Product qty's checked
      * data is valid if you check quote item qty and use singleton instance
@@ -94,9 +96,7 @@ class Mage_CatalogInventory_Model_Observer
     public function removeInventoryData($observer)
     {
         $product = $observer->getEvent()->getProduct();
-        if (($product instanceof Mage_Catalog_Model_Product)
-            && $product->getId()
-            && isset($this->_stockItemsArray[$product->getId()])) {
+        if (($product instanceof Mage_Catalog_Model_Product) && $product->getId() && isset($this->_stockItemsArray[$product->getId()])) {
             unset($this->_stockItemsArray[$product->getId()]);
         }
         return $this;
@@ -146,7 +146,7 @@ class Mage_CatalogInventory_Model_Observer
         if (is_null($product->getStockData())) {
             if ($product->getIsChangedWebsites() || $product->dataHasChangedFor('status')) {
                 Mage::getSingleton('cataloginventory/stock_status')
-                    ->updateStatus($product->getId());
+                        ->updateStatus($product->getId());
             }
             return $this;
         }
@@ -175,19 +175,19 @@ class Mage_CatalogInventory_Model_Observer
 
         $newProduct->unsStockItem();
         $stockData = array(
-            'use_config_min_qty'        => 1,
-            'use_config_min_sale_qty'   => 1,
-            'use_config_max_sale_qty'   => 1,
-            'use_config_backorders'     => 1,
+            'use_config_min_qty' => 1,
+            'use_config_min_sale_qty' => 1,
+            'use_config_max_sale_qty' => 1,
+            'use_config_backorders' => 1,
             'use_config_notify_stock_qty' => 1
         );
         $currentStockItem = $currentProduct->getStockItem();
         if ($currentStockItem) {
             $stockData += array(
-                'use_config_enable_qty_inc'  => $currentStockItem->getData('use_config_enable_qty_inc'),
-                'enable_qty_increments'             => $currentStockItem->getData('enable_qty_increments'),
-                'use_config_qty_increments'         => $currentStockItem->getData('use_config_qty_increments'),
-                'qty_increments'                    => $currentStockItem->getData('qty_increments'),
+                'use_config_enable_qty_inc' => $currentStockItem->getData('use_config_enable_qty_inc'),
+                'enable_qty_increments' => $currentStockItem->getData('enable_qty_increments'),
+                'use_config_qty_increments' => $currentStockItem->getData('use_config_qty_increments'),
+                'qty_increments' => $currentStockItem->getData('qty_increments'),
             );
         }
         $newProduct->setStockData($stockData);
@@ -205,43 +205,35 @@ class Mage_CatalogInventory_Model_Observer
     protected function _prepareItemForSave($item, $product)
     {
         $item->addData($product->getStockData())
-            ->setProduct($product)
-            ->setProductId($product->getId())
-            ->setStockId($item->getStockId());
-        if (!is_null($product->getData('stock_data/min_qty'))
-            && is_null($product->getData('stock_data/use_config_min_qty'))) {
+                ->setProduct($product)
+                ->setProductId($product->getId())
+                ->setStockId($item->getStockId());
+        if (!is_null($product->getData('stock_data/min_qty')) && is_null($product->getData('stock_data/use_config_min_qty'))) {
             $item->setData('use_config_min_qty', false);
         }
-        if (!is_null($product->getData('stock_data/min_sale_qty'))
-            && is_null($product->getData('stock_data/use_config_min_sale_qty'))) {
+        if (!is_null($product->getData('stock_data/min_sale_qty')) && is_null($product->getData('stock_data/use_config_min_sale_qty'))) {
             $item->setData('use_config_min_sale_qty', false);
         }
-        if (!is_null($product->getData('stock_data/max_sale_qty'))
-            && is_null($product->getData('stock_data/use_config_max_sale_qty'))) {
+        if (!is_null($product->getData('stock_data/max_sale_qty')) && is_null($product->getData('stock_data/use_config_max_sale_qty'))) {
             $item->setData('use_config_max_sale_qty', false);
         }
-        if (!is_null($product->getData('stock_data/backorders'))
-            && is_null($product->getData('stock_data/use_config_backorders'))) {
+        if (!is_null($product->getData('stock_data/backorders')) && is_null($product->getData('stock_data/use_config_backorders'))) {
             $item->setData('use_config_backorders', false);
         }
-        if (!is_null($product->getData('stock_data/notify_stock_qty'))
-            && is_null($product->getData('stock_data/use_config_notify_stock_qty'))) {
+        if (!is_null($product->getData('stock_data/notify_stock_qty')) && is_null($product->getData('stock_data/use_config_notify_stock_qty'))) {
             $item->setData('use_config_notify_stock_qty', false);
         }
         $originalQty = $product->getData('stock_data/original_inventory_qty');
-        if (strlen($originalQty)>0) {
-            $item->setQtyCorrection($item->getQty()-$originalQty);
+        if (strlen($originalQty) > 0) {
+            $item->setQtyCorrection($item->getQty() - $originalQty);
         }
-        if (!is_null($product->getData('stock_data/enable_qty_increments'))
-            && is_null($product->getData('stock_data/use_config_enable_qty_inc'))) {
+        if (!is_null($product->getData('stock_data/enable_qty_increments')) && is_null($product->getData('stock_data/use_config_enable_qty_inc'))) {
             $item->setData('use_config_enable_qty_inc', false);
         }
-        if (!is_null($product->getData('stock_data/qty_increments'))
-            && is_null($product->getData('stock_data/use_config_qty_increments'))) {
+        if (!is_null($product->getData('stock_data/qty_increments')) && is_null($product->getData('stock_data/use_config_qty_increments'))) {
             $item->setData('use_config_qty_increments', false);
         }
         return $this;
-
     }
 
     /**
@@ -304,8 +296,7 @@ class Mage_CatalogInventory_Model_Observer
     {
         $quoteItem = $observer->getEvent()->getItem();
         /* @var $quoteItem Mage_Sales_Model_Quote_Item */
-        if (!$quoteItem || !$quoteItem->getProductId() || !$quoteItem->getQuote()
-            || $quoteItem->getQuote()->getIsSuperMode()) {
+        if (!$quoteItem || !$quoteItem->getProductId() || !$quoteItem->getQuote() || $quoteItem->getQuote()->getIsSuperMode()) {
             return $this;
         }
 
@@ -325,15 +316,10 @@ class Mage_CatalogInventory_Model_Observer
         if ($stockItem) {
             if (!$stockItem->getIsInStock() || ($parentStockItem && !$parentStockItem->getIsInStock())) {
                 $quoteItem->addErrorInfo(
-                    'cataloginventory',
-                    Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                    Mage::helper('cataloginventory')->__('This product is currently out of stock.')
+                        'cataloginventory', Mage_CatalogInventory_Helper_Data::ERROR_QTY, Mage::helper('cataloginventory')->__('This product is currently out of stock.')
                 );
                 $quoteItem->getQuote()->addErrorInfo(
-                    'stock',
-                    'cataloginventory',
-                    Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                    Mage::helper('cataloginventory')->__('Some of the products are currently out of stock.')
+                        'stock', 'cataloginventory', Mage_CatalogInventory_Helper_Data::ERROR_QTY, Mage::helper('cataloginventory')->__('Some of the products are currently out of stock.')
                 );
                 return $this;
             } else {
@@ -354,22 +340,16 @@ class Mage_CatalogInventory_Model_Observer
                 $result = $stockItem->checkQtyIncrements($qty);
                 if ($result->getHasError()) {
                     $quoteItem->addErrorInfo(
-                        'cataloginventory',
-                        Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS,
-                        $result->getMessage()
+                            'cataloginventory', Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS, $result->getMessage()
                     );
 
                     $quoteItem->getQuote()->addErrorInfo(
-                        $result->getQuoteMessageIndex(),
-                        'cataloginventory',
-                        Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS,
-                        $result->getQuoteMessage()
+                            $result->getQuoteMessageIndex(), 'cataloginventory', Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS, $result->getQuoteMessage()
                     );
                 } else {
                     // Delete error from item and its quote, if it was set due to qty problems
                     $this->_removeErrorsFromQuoteAndItem(
-                        $quoteItem,
-                        Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS
+                            $quoteItem, Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS
                     );
                 }
             }
@@ -390,7 +370,7 @@ class Mage_CatalogInventory_Model_Observer
                 /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
                 if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
                     Mage::throwException(
-                        Mage::helper('cataloginventory')->__('The stock item for Product in option is not valid.')
+                            Mage::helper('cataloginventory')->__('The stock item for Product in option is not valid.')
                     );
                 }
 
@@ -404,9 +384,7 @@ class Mage_CatalogInventory_Model_Observer
                 $stockItem->setSuppressCheckQtyIncrements(true);
 
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
-                    $option->getProduct()->getId(),
-                    $quoteItem->getId(),
-                    $increaseOptionQty
+                        $option->getProduct()->getId(), $quoteItem->getId(), $increaseOptionQty
                 );
 
                 $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck, $optionValue);
@@ -437,16 +415,11 @@ class Mage_CatalogInventory_Model_Observer
                     $quoteItemHasErrors = true;
 
                     $quoteItem->addErrorInfo(
-                        'cataloginventory',
-                        Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                        $result->getMessage()
+                            'cataloginventory', Mage_CatalogInventory_Helper_Data::ERROR_QTY, $result->getMessage()
                     );
 
                     $quoteItem->getQuote()->addErrorInfo(
-                        $result->getQuoteMessageIndex(),
-                        'cataloginventory',
-                        Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                        $result->getQuoteMessage()
+                            $result->getQuoteMessageIndex(), 'cataloginventory', Mage_CatalogInventory_Helper_Data::ERROR_QTY, $result->getQuoteMessage()
                     );
                 } elseif (!$quoteItemHasErrors) {
                     // Delete error from item and its quote, if it was set due to qty lack
@@ -470,17 +443,13 @@ class Mage_CatalogInventory_Model_Observer
                  * we are using 0 because original qty was processed
                  */
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
-                    $quoteItem->getProduct()->getId(),
-                    $quoteItem->getId(),
-                    0
+                        $quoteItem->getProduct()->getId(), $quoteItem->getId(), 0
                 );
             } else {
                 $increaseQty = $quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty;
                 $rowQty = $qty;
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
-                    $quoteItem->getProduct()->getId(),
-                    $quoteItem->getId(),
-                    $increaseQty
+                        $quoteItem->getProduct()->getId(), $quoteItem->getId(), $increaseQty
                 );
             }
 
@@ -511,11 +480,9 @@ class Mage_CatalogInventory_Model_Observer
              * qty of child products are declared just during add process
              * exception for updating also managed by product type
              */
-            if ($result->getHasQtyOptionUpdate()
-                && (!$quoteItem->getParentItem()
-                    || $quoteItem->getParentItem()->getProduct()->getTypeInstance(true)
-                        ->getForceChildItemQtyChanges($quoteItem->getParentItem()->getProduct())
-                )
+            if ($result->getHasQtyOptionUpdate() && (!$quoteItem->getParentItem() || $quoteItem->getParentItem()->getProduct()->getTypeInstance(true)
+                            ->getForceChildItemQtyChanges($quoteItem->getParentItem()->getProduct())
+                    )
             ) {
                 $quoteItem->setData('qty', $result->getOrigQty());
             }
@@ -533,16 +500,11 @@ class Mage_CatalogInventory_Model_Observer
 
             if ($result->getHasError()) {
                 $quoteItem->addErrorInfo(
-                    'cataloginventory',
-                    Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                    $result->getMessage()
+                        'cataloginventory', Mage_CatalogInventory_Helper_Data::ERROR_QTY, $result->getMessage()
                 );
 
                 $quoteItem->getQuote()->addErrorInfo(
-                    $result->getQuoteMessageIndex(),
-                    'cataloginventory',
-                    Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                    $result->getQuoteMessage()
+                        $result->getQuoteMessageIndex(), 'cataloginventory', Mage_CatalogInventory_Helper_Data::ERROR_QTY, $result->getQuoteMessage()
                 );
             } else {
                 // Delete error from item and its quote, if it was set due to qty lack
@@ -584,8 +546,8 @@ class Mage_CatalogInventory_Model_Observer
     {
         $qty = $itemQty;
         if (isset($this->_checkedQuoteItems[$productId]['qty']) &&
-            !in_array($quoteItemId, $this->_checkedQuoteItems[$productId]['items'])) {
-                $qty += $this->_checkedQuoteItems[$productId]['qty'];
+                !in_array($quoteItemId, $this->_checkedQuoteItems[$productId]['items'])) {
+            $qty += $this->_checkedQuoteItems[$productId]['qty'];
         }
 
         $this->_checkedQuoteItems[$productId]['qty'] = $qty;
@@ -679,7 +641,7 @@ class Mage_CatalogInventory_Model_Observer
             }
             $items[$productId] = array(
                 'item' => $stockItem,
-                'qty'  => $quoteItem->getTotalQty()
+                'qty' => $quoteItem->getTotalQty()
             );
         }
     }
@@ -700,7 +662,7 @@ class Mage_CatalogInventory_Model_Observer
     {
         $items = array();
         foreach ($relatedItems as $item) {
-            $productId  = $item->getProductId();
+            $productId = $item->getProductId();
             if (!$productId) {
                 continue;
             }
@@ -728,7 +690,7 @@ class Mage_CatalogInventory_Model_Observer
         $productIds = array();
         foreach ($quote->getAllItems() as $item) {
             $productIds[$item->getProductId()] = $item->getProductId();
-            $children   = $item->getChildrenItems();
+            $children = $item->getChildrenItems();
             if ($children) {
                 foreach ($children as $childItem) {
                     $productIds[$childItem->getProductId()] = $childItem->getProductId();
@@ -782,7 +744,7 @@ class Mage_CatalogInventory_Model_Observer
                     $items[$item->getProductId()]['qty'] += $qty;
                 } else {
                     $items[$item->getProductId()] = array(
-                        'qty'  => $qty,
+                        'qty' => $qty,
                         'item' => null,
                     );
                 }
@@ -836,7 +798,7 @@ class Mage_CatalogInventory_Model_Observer
     {
         $productId = $observer->getEvent()->getProductId();
         Mage::getSingleton('cataloginventory/stock_status')
-            ->updateStatus($productId);
+                ->updateStatus($productId);
         return $this;
     }
 
@@ -854,7 +816,7 @@ class Mage_CatalogInventory_Model_Observer
         foreach ($websiteIds as $websiteId) {
             foreach ($productIds as $productId) {
                 Mage::getSingleton('cataloginventory/stock_status')
-                    ->updateStatus($productId, null, $websiteId);
+                        ->updateStatus($productId, null, $websiteId);
             }
         }
 
@@ -869,11 +831,11 @@ class Mage_CatalogInventory_Model_Observer
      */
     public function addStockStatusToPrepareIndexSelect(Varien_Event_Observer $observer)
     {
-        $website    = $observer->getEvent()->getWebsite();
-        $select     = $observer->getEvent()->getSelect();
+        $website = $observer->getEvent()->getWebsite();
+        $select = $observer->getEvent()->getSelect();
 
         Mage::getSingleton('cataloginventory/stock_status')
-            ->addStockStatusToSelect($select, $website);
+                ->addStockStatusToSelect($select, $website);
 
         return $this;
     }
@@ -886,12 +848,12 @@ class Mage_CatalogInventory_Model_Observer
      */
     public function prepareCatalogProductIndexSelect(Varien_Event_Observer $observer)
     {
-        $select     = $observer->getEvent()->getSelect();
-        $entity     = $observer->getEvent()->getEntityField();
-        $website    = $observer->getEvent()->getWebsiteField();
+        $select = $observer->getEvent()->getSelect();
+        $entity = $observer->getEvent()->getEntityField();
+        $website = $observer->getEvent()->getWebsiteField();
 
         Mage::getSingleton('cataloginventory/stock_status')
-            ->prepareCatalogProductIndexSelect($select, $entity, $website);
+                ->prepareCatalogProductIndexSelect($select, $entity, $website);
 
         return $this;
     }
@@ -943,7 +905,6 @@ class Mage_CatalogInventory_Model_Observer
         /**
          * Before creating order item need subtract ordered qty from product stock
          */
-
         $children = $item->getChildrenItems();
 
         if (!$item->getId() && empty($children)) {
@@ -963,8 +924,7 @@ class Mage_CatalogInventory_Model_Observer
     public function refundOrderItem($observer)
     {
         $item = $observer->getEvent()->getCreditmemoItem();
-        if ($item->getId() && $item->getBackToStock() && ($productId = $item->getProductId())
-            && ($qty = $item->getQty())
+        if ($item->getId() && $item->getBackToStock() && ($productId = $item->getProductId()) && ($qty = $item->getQty())
         ) {
             Mage::getSingleton('cataloginventory/stock')->backItemQty($productId, $qty);
         }
@@ -979,7 +939,7 @@ class Mage_CatalogInventory_Model_Observer
     public function reindexProductsMassAction($observer)
     {
         Mage::getSingleton('index/indexer')->indexEvents(
-            Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
+                Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
         );
     }
 
@@ -995,4 +955,5 @@ class Mage_CatalogInventory_Model_Observer
         $info->setDisplayStatus(Mage::helper('cataloginventory')->isDisplayProductStockStatus());
         return $this;
     }
+
 }

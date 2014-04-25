@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Paypal_Model_System_Config_Source_PaymentActions_Express
 {
+
     /**
      * Options getter
      *
@@ -40,4 +42,5 @@ class Mage_Paypal_Model_System_Config_Source_PaymentActions_Express
         $configModel->setMethod(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
         return $configModel->getPaymentActions();
     }
+
 }

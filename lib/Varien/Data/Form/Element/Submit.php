@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,7 +34,8 @@
  */
 class Varien_Data_Form_Element_Submit extends Varien_Data_Form_Element_Abstract
 {
-    public function __construct($attributes=array())
+
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setExtType('submit');
@@ -45,4 +47,5 @@ class Varien_Data_Form_Element_Submit extends Varien_Data_Form_Element_Abstract
         $this->addClass('submit');
         return parent::getHtml();
     }
+
 }

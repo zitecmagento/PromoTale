@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_OfflineCatalog_Category extends Mage_XmlConnect_Block_Catalog_Category
 {
+
     /**
      * Category url
      */
@@ -108,7 +110,7 @@ class Mage_XmlConnect_Model_OfflineCatalog_Category extends Mage_XmlConnect_Bloc
     protected function _exportCategory($category)
     {
         /** @var $exportHelper Mage_XmlConnect_Helper_OfflineCatalog */
-        $exportHelper  = Mage::helper('xmlconnect/offlineCatalog');
+        $exportHelper = Mage::helper('xmlconnect/offlineCatalog');
         $this->_getRequest()->setParam('app_code', $exportHelper->getCurrentDeviceModel()->getCode());
 
         $categoryId = $category->getId();
@@ -117,4 +119,5 @@ class Mage_XmlConnect_Model_OfflineCatalog_Category extends Mage_XmlConnect_Bloc
         $this->getCategoryModel()->exportData();
         return $this;
     }
+
 }

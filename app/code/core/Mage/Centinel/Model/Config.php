@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Centinel_Model_Config
 {
+
     /**
      * Store id or store model
      *
@@ -124,7 +126,7 @@ class Mage_Centinel_Model_Config
      */
     public function getIsTestMode()
     {
-        return (bool)(int)$this->_getServiceConfigValue('test_mode');
+        return (bool) (int) $this->_getServiceConfigValue('test_mode');
     }
 
     /**
@@ -147,4 +149,5 @@ class Mage_Centinel_Model_Config
     {
         return $this->_getServiceConfigValue('debug');
     }
+
 }

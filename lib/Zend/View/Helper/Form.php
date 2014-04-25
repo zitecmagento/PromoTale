@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Form.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_FormElement */
 #require_once 'Zend/View/Helper/FormElement.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_View_Helper_Form extends Zend_View_Helper_FormElement
 {
+
     /**
      * Render HTML form
      *
@@ -57,15 +58,16 @@ class Zend_View_Helper_Form extends Zend_View_Helper_FormElement
         }
 
         $xhtml = '<form'
-               . $id
-               . $this->_htmlAttribs($attribs)
-               . '>';
+                . $id
+                . $this->_htmlAttribs($attribs)
+                . '>';
 
         if (false !== $content) {
             $xhtml .= $content
-                   .  '</form>';
+                    . '</form>';
         }
 
         return $xhtml;
     }
+
 }

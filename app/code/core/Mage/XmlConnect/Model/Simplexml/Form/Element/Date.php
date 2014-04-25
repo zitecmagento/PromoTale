@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Simplexml_Form_Element_Date extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
 {
+
     /**
      * Init multiline element
      *
@@ -81,4 +83,5 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Date extends Mage_XmlConnect_
         }
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Action
 {
+
     /**
      * Name of "is URLs checked" flag
      */
@@ -108,7 +110,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * @return Mage_Adminhtml_Controller_Action
      */
-    protected function _addBreadcrumb($label, $title, $link=null)
+    protected function _addBreadcrumb($label, $title, $link = null)
     {
         $this->getLayout()->getBlock('breadcrumbs')->addLink($label, $title, $link);
         return $this;
@@ -144,12 +146,12 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     {
         // override admin store design settings via stores section
         Mage::getDesign()
-            ->setArea($this->_currentArea)
-            ->setPackageName((string)Mage::getConfig()->getNode('stores/admin/design/package/name'))
-            ->setTheme((string)Mage::getConfig()->getNode('stores/admin/design/theme/default'))
+                ->setArea($this->_currentArea)
+                ->setPackageName((string) Mage::getConfig()->getNode('stores/admin/design/package/name'))
+                ->setTheme((string) Mage::getConfig()->getNode('stores/admin/design/theme/default'))
         ;
         foreach (array('layout', 'template', 'skin', 'locale') as $type) {
-            if ($value = (string)Mage::getConfig()->getNode("stores/admin/design/theme/{$type}")) {
+            if ($value = (string) Mage::getConfig()->getNode("stores/admin/design/theme/{$type}")) {
                 Mage::getDesign()->setTheme($type, $value);
             }
         }
@@ -175,27 +177,22 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
             if ($this->getRequest()->getQuery('isAjax', false) || $this->getRequest()->getQuery('ajax', false)) {
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array(
-                    'error' => true,
-                    'message' => $_keyErrorMsg
+                            'error' => true,
+                            'message' => $_keyErrorMsg
                 )));
             } else {
-                $this->_redirect( Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl() );
+                $this->_redirect(Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl());
             }
             return $this;
         }
 
-        if ($this->getRequest()->isDispatched()
-            && $this->getRequest()->getActionName() !== 'denied'
-            && !$this->_isAllowed()) {
+        if ($this->getRequest()->isDispatched() && $this->getRequest()->getActionName() !== 'denied' && !$this->_isAllowed()) {
             $this->_forward('denied');
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return $this;
         }
 
-        if (!$this->getFlag('', self::FLAG_IS_URLS_CHECKED)
-            && !$this->getRequest()->getParam('forwarded')
-            && !$this->_getSession()->getIsUrlNotice(true)
-            && !Mage::getConfig()->getNode('global/can_use_base_url')) {
+        if (!$this->getFlag('', self::FLAG_IS_URLS_CHECKED) && !$this->getRequest()->getParam('forwarded') && !$this->_getSession()->getIsUrlNotice(true) && !Mage::getConfig()->getNode('global/can_use_base_url')) {
             //$this->_checkUrlSettings();
             $this->setFlag('', self::FLAG_IS_URLS_CHECKED, true);
         }
@@ -221,37 +218,38 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         $configData = Mage::getModel('core/config_data');
 
-        $defaultUnsecure = (string)Mage::getConfig()->getNode(
-            'default/' . Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL
+        $defaultUnsecure = (string) Mage::getConfig()->getNode(
+                        'default/' . Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL
         );
-        $defaultSecure = (string)Mage::getConfig()->getNode(
-            'default/' . Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL
+        $defaultSecure = (string) Mage::getConfig()->getNode(
+                        'default/' . Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL
         );
 
         if ($defaultSecure == '{{base_url}}' || $defaultUnsecure == '{{base_url}}') {
             $this->_getSession()->addNotice(
-                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', array('section'=>'web')))
+                    $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', array(
+                                'section' => 'web')))
             );
             return $this;
         }
 
         $dataCollection = $configData->getCollection()
-            ->addValueFilter('{{base_url}}');
+                ->addValueFilter('{{base_url}}');
 
         $url = false;
         foreach ($dataCollection as $data) {
             if ($data->getScope() == 'stores') {
                 $code = Mage::app()->getStore($data->getScopeId())->getCode();
-                $url = $this->getUrl('adminhtml/system_config/edit', array('section'=>'web', 'store'=>$code));
+                $url = $this->getUrl('adminhtml/system_config/edit', array('section' => 'web', 'store' => $code));
             }
             if ($data->getScope() == 'websites') {
                 $code = Mage::app()->getWebsite($data->getScopeId())->getCode();
-                $url = $this->getUrl('adminhtml/system_config/edit', array('section'=>'web', 'website'=>$code));
+                $url = $this->getUrl('adminhtml/system_config/edit', array('section' => 'web', 'website' => $code));
             }
 
             if ($url) {
                 $this->_getSession()->addNotice(
-                    $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $url)
+                        $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $url)
                 );
                 return $this;
             }
@@ -261,7 +259,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     public function deniedAction()
     {
-        $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
+        $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
         if (!Mage::getSingleton('admin/session')->isLoggedIn()) {
             $this->_redirect('*/index/login');
             return;
@@ -270,7 +268,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         $this->renderLayout();
     }
 
-    public function loadLayout($ids=null, $generateBlocks=true, $generateXml=true)
+    public function loadLayout($ids = null, $generateBlocks = true, $generateXml = true)
     {
         parent::loadLayout($ids, $generateBlocks, $generateXml);
         $this->_initLayoutMessages('adminhtml/session');
@@ -279,12 +277,11 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     public function norouteAction($coreRoute = null)
     {
-        $this->getResponse()->setHeader('HTTP/1.1','404 Not Found');
-        $this->getResponse()->setHeader('Status','404 File not found');
+        $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
+        $this->getResponse()->setHeader('Status', '404 File not found');
         $this->loadLayout(array('default', 'adminhtml_noroute'));
         $this->renderLayout();
     }
-
 
     /**
      * Retrieve currently used module name
@@ -329,7 +326,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * @param   string $defaultUrl
      * @return  Mage_Adminhtml_Controller_Action
      */
-    protected function _redirectReferer($defaultUrl=null)
+    protected function _redirectReferer($defaultUrl = null)
     {
         $defaultUrl = empty($defaultUrl) ? $this->getUrl('*') : $defaultUrl;
         parent::_redirectReferer($defaultUrl);
@@ -342,7 +339,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * @param   string $path
      * @param   array $arguments
      */
-    protected function _redirect($path, $arguments=array())
+    protected function _redirect($path, $arguments = array())
     {
         $this->_getSession()->setIsUrlNotice($this->getFlag('', self::FLAG_IS_URLS_CHECKED));
         $this->getResponse()->setRedirect($this->getUrl($path, $arguments));
@@ -362,7 +359,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * @param   array $params
      * @return  string
      */
-    public function getUrl($route='', $params=array())
+    public function getUrl($route = '', $params = array())
     {
         return Mage::helper('adminhtml')->getUrl($route, $params);
     }
@@ -378,10 +375,10 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             return true;
         }
 
-        if (!($secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME, null))
-            || $secretKey != Mage::getSingleton('adminhtml/url')->getSecretKey()) {
+        if (!($secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME, null)) || $secretKey != Mage::getSingleton('adminhtml/url')->getSecretKey()) {
             return false;
         }
         return true;
     }
+
 }

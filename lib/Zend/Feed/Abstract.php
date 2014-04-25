@@ -19,13 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Feed_Element
  */
 #require_once 'Zend/Feed/Element.php';
-
 
 /**
  * The Zend_Feed_Abstract class is an abstract class representing feeds.
@@ -42,6 +39,7 @@
  */
 abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator, Countable
 {
+
     /**
      * Current index on the collection of feed entries for the
      * Iterator implementation.
@@ -100,7 +98,6 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
         }
     }
 
-
     /**
      * Load the feed as an XML DOMDocument object
      *
@@ -134,7 +131,6 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
         $this->_element = $doc;
     }
 
-
     /**
      * Prepare for serialiation
      *
@@ -146,7 +142,6 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
 
         return array('_element');
     }
-
 
     /**
      * Cache the individual feed elements so they don't need to be
@@ -164,7 +159,6 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
         }
     }
 
-
     /**
      * Get the number of entries in this feed object.
      *
@@ -174,7 +168,6 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
     {
         return count($this->_entries);
     }
-
 
     /**
      * Required by the Iterator interface.
@@ -186,7 +179,6 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
         $this->_entryIndex = 0;
     }
 
-
     /**
      * Required by the Iterator interface.
      *
@@ -195,10 +187,8 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
     public function current()
     {
         return new $this->_entryClassName(
-            null,
-            $this->_entries[$this->_entryIndex]);
+                null, $this->_entries[$this->_entryIndex]);
     }
-
 
     /**
      * Required by the Iterator interface.
@@ -210,7 +200,6 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
         return $this->_entryIndex;
     }
 
-
     /**
      * Required by the Iterator interface.
      *
@@ -220,7 +209,6 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
     {
         ++$this->_entryIndex;
     }
-
 
     /**
      * Required by the Iterator interface.

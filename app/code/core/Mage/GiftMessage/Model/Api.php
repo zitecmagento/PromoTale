@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Product
 {
+
     /**
      * Return an Array of attributes.
      *
@@ -63,13 +65,15 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
          * @see Mage_Core_Model_App::_callObserverMethod($object, $method, $observer)
          * And result of Mage::dispatchEvent will always return an Object of Mage_Core_Model_App.
          */
-        try {
+        try
+        {
             Mage::dispatchEvent(
-                'checkout_controller_onepage_save_shipping_method',
-                array('request' => $request, 'quote' => $quote)
+                    'checkout_controller_onepage_save_shipping_method', array('request' => $request, 'quote' => $quote)
             );
             return array('entityId' => $entityId, 'result' => true, 'error' => '');
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             return array('entityId' => $entityId, 'result' => false, 'error' => $e->getMessage());
         }
     }
@@ -118,9 +122,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
             $this->_fault('invalid_data');
         }
 
-        if (count($productsAndMessages) == 2
-                && isset($productsAndMessages['product'])
-                && isset($productsAndMessages['message'])) {
+        if (count($productsAndMessages) == 2 && isset($productsAndMessages['product']) && isset($productsAndMessages['message'])) {
             $productsAndMessages = array($productsAndMessages);
         }
 
@@ -182,4 +184,5 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
 
         return $this->_setGiftMessage($quoteItemId, $request, $quote);
     }
+
 }

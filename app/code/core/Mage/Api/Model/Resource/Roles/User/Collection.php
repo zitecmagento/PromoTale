@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Roles User Resource Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Api_Model_Resource_Roles_User_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Resource collection initialization
      *
@@ -56,4 +57,5 @@ class Mage_Api_Model_Resource_Roles_User_Collection extends Mage_Core_Model_Reso
 
         return $this;
     }
+
 }

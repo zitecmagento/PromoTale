@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
 {
+
     /**
      * Adapter mime type
      */
@@ -82,7 +84,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
     {
         /* @var $writer Mage_Api2_Model_Renderer_Xml_Writer */
         $writer = Mage::getModel('api2/renderer_xml_writer', array(
-            'config' => new Zend_Config($this->_prepareData($data, true))
+                    'config' => new Zend_Config($this->_prepareData($data, true))
         ));
         return $writer->render();
     }
@@ -104,7 +106,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
                 throw new Exception('Prepare data must be an object or an array.');
             }
         }
-        $data = $data instanceof Varien_Object ? $data->toArray() : (array)$data;
+        $data = $data instanceof Varien_Object ? $data->toArray() : (array) $data;
         $isAssoc = !preg_match('/^\d+$/', implode(array_keys($data), ''));
 
         $preparedData = array();
@@ -128,9 +130,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
     protected function _prepareValue($value)
     {
         return str_replace(
-            array_keys($this->_replacementInTagValue),
-            array_values($this->_replacementInTagValue),
-            $value
+                array_keys($this->_replacementInTagValue), array_values($this->_replacementInTagValue), $value
         );
     }
 
@@ -159,4 +159,5 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
     {
         return self::MIME_TYPE;
     }
+
 }

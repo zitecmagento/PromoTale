@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Tax_Rule_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Init class
      *
@@ -49,10 +50,10 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit extends Mage_Adminhtml_Block_Widget_For
         $this->_updateButton('delete', 'label', Mage::helper('tax')->__('Delete Rule'));
 
         $this->_addButton('save_and_continue', array(
-            'label'     => Mage::helper('tax')->__('Save and Continue Edit'),
-            'onclick'   => 'saveAndContinueEdit()',
+            'label' => Mage::helper('tax')->__('Save and Continue Edit'),
+            'onclick' => 'saveAndContinueEdit()',
             'class' => 'save'
-        ), 10);
+                ), 10);
 
         $this->_formScripts[] = " function saveAndContinueEdit(){ editForm.submit($('edit_form').action + 'back/edit/') } ";
     }
@@ -66,9 +67,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit extends Mage_Adminhtml_Block_Widget_For
     {
         if (Mage::registry('tax_rule')->getId()) {
             return Mage::helper('tax')->__("Edit Rule");
-        }
-        else {
+        } else {
             return Mage::helper('tax')->__('New Rule');
         }
     }
+
 }

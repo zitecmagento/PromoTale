@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Homebanners extends Mage_Core_Block_Abstract
 {
+
     /**
      * List of images separated by device those have to be shown on home banners page
      *
@@ -103,7 +105,7 @@ class Mage_XmlConnect_Block_Homebanners extends Mage_Core_Block_Abstract
     protected function _addImageAction(Mage_XmlConnect_Model_Simplexml_Element $imageXml, $imageId)
     {
         $imageActionData = Mage::helper('xmlconnect')->getApplication()->getImageActionModel()
-            ->getImageActionData($imageId);
+                ->getImageActionData($imageId);
 
         if (empty($imageActionData)) {
             return $this;
@@ -112,7 +114,7 @@ class Mage_XmlConnect_Block_Homebanners extends Mage_Core_Block_Abstract
         switch ($imageActionData['action_type']) {
             case Mage_XmlConnect_Model_ImageAction::ACTION_TYPE_CMS:
                 $page = Mage::getModel('cms/page')->setStoreId(Mage::app()->getStore()->getId())
-                    ->load($imageActionData['entity_action'], 'identifier');
+                        ->load($imageActionData['entity_action'], 'identifier');
                 if ($page->getId()) {
                     $actionXml = $imageXml->addCustomChild('action', null, array(
                         'type' => $imageActionData['action_type']
@@ -153,4 +155,5 @@ class Mage_XmlConnect_Block_Homebanners extends Mage_Core_Block_Abstract
         }
         return $this;
     }
+
 }

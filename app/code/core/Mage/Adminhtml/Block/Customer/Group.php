@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -51,7 +52,9 @@ class Mage_Adminhtml_Block_Customer_Group extends Mage_Adminhtml_Block_Widget_Gr
      *
      * @return string
      */
-    public function getHeaderCssClass() {
+    public function getHeaderCssClass()
+    {
         return 'icon-head head-customer-groups';
     }
+
 }

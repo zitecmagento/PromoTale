@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Content.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Extension_Text
  */
@@ -59,11 +58,11 @@ class Zend_Gdata_App_Extension_Content extends Zend_Gdata_App_Extension_Text
     protected function takeAttributeFromDOM($attribute)
     {
         switch ($attribute->localName) {
-        case 'src':
-            $this->_src = $attribute->nodeValue;
-            break;
-        default:
-            parent::takeAttributeFromDOM($attribute);
+            case 'src':
+                $this->_src = $attribute->nodeValue;
+                break;
+            default:
+                parent::takeAttributeFromDOM($attribute);
         }
     }
 

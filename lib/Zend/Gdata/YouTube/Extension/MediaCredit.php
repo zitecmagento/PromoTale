@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: MediaCredit.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Extension
  */
@@ -68,8 +67,7 @@ class Zend_Gdata_YouTube_Extension_MediaCredit extends Zend_Gdata_Extension
      * @param string $role
      * @param string $scheme
      */
-    public function __construct($text = null, $role = null,  $scheme = null,
-        $yttype = null)
+    public function __construct($text = null, $role = null, $scheme = null, $yttype = null)
     {
         $this->registerAllNamespaces(Zend_Gdata_Media::$namespaces);
         parent::__construct();
@@ -99,8 +97,7 @@ class Zend_Gdata_YouTube_Extension_MediaCredit extends Zend_Gdata_Extension
             $element->setAttribute('scheme', $this->_scheme);
         }
         if ($this->_yttype !== null) {
-            $element->setAttributeNS('http://gdata.youtube.com/schemas/2007',
-                'yt:type', $this->_yttype);
+            $element->setAttributeNS('http://gdata.youtube.com/schemas/2007', 'yt:type', $this->_yttype);
         }
         return $element;
     }

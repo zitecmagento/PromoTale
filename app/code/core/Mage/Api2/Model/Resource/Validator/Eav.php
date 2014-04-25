@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Validator
 {
+
     /**
      * Config node key of current validator
      */
@@ -89,7 +91,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         $userType = $resource->getUserType();
 
         $validationConfig = $resource->getConfig()->getValidationConfig(
-            $resource->getResourceType(), self::CONFIG_NODE_KEY);
+                $resource->getResourceType(), self::CONFIG_NODE_KEY);
 
         if (empty($validationConfig[$userType]['form_model'])) {
             throw new Exception("Config parameter 'formPath' is empty.");
@@ -114,8 +116,8 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
             throw new Exception("Eav form '{$this->_formPath}' is not found.");
         }
         $this->_eavForm->setEntity($this->_entity)
-            ->setFormCode($this->_formCode)
-            ->ignoreInvisible(false);
+                ->setFormCode($this->_formCode)
+                ->ignoreInvisible(false);
     }
 
     /**
@@ -149,7 +151,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
                         }
                     }
                     if (!$isValid) {
-                        $errors[] = 'Invalid value "' . $value . '" for '. $attribute->getAttributeCode();
+                        $errors[] = 'Invalid value "' . $value . '" for ' . $attribute->getAttributeCode();
                     }
                 } else {
                     $errors[] = 'Invalid value type for ' . $attribute->getAttributeCode();
@@ -195,8 +197,8 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
             $attrValue = isset($data[$attribute->getAttributeCode()]) ? $data[$attribute->getAttributeCode()] : null;
 
             $result = Mage_Eav_Model_Attribute_Data::factory($attribute, $this->_eavForm->getEntity())
-                ->setExtractedData($data)
-                ->validateValue($attrValue);
+                    ->setExtractedData($data)
+                    ->validateValue($attrValue);
 
             if ($result !== true) {
                 $errors = array_merge($errors, $result);
@@ -221,12 +223,12 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
     public function getErrors()
     {
         // business asked to avoid additional validation message, so we filter it here
-        $errors        = array();
+        $errors = array();
         $requiredAttrs = array();
-        $isRequiredRE  = '/^' . str_replace('%s', '(.+)', preg_quote(Mage::helper('eav')->__('"%s" is a required value.'))) . '$/';
+        $isRequiredRE = '/^' . str_replace('%s', '(.+)', preg_quote(Mage::helper('eav')->__('"%s" is a required value.'))) . '$/';
         $greaterThanRE = '/^' . str_replace(
-            '%s', '(.+)', preg_quote(Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.'))
-        ) . '$/';
+                        '%s', '(.+)', preg_quote(Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.'))
+                ) . '$/';
 
         // find all required attributes labels
         foreach ($this->_errors as $error) {
@@ -236,13 +238,12 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         }
         // exclude additional messages for required attributes been failed
         foreach ($this->_errors as $error) {
-            if (preg_match($isRequiredRE, $error)
-                || !preg_match($greaterThanRE, $error, $matches)
-                || !isset($requiredAttrs[$matches[1]])
+            if (preg_match($isRequiredRE, $error) || !preg_match($greaterThanRE, $error, $matches) || !isset($requiredAttrs[$matches[1]])
             ) {
                 $errors[] = $error;
             }
         }
         return $errors;
     }
+
 }

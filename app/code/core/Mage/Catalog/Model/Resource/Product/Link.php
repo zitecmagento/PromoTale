@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product link resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Product Link Attributes Table
      *
@@ -65,23 +66,23 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
         }
 
         $attributes = $this->getAttributesByType($typeId);
-        $adapter    = $this->_getWriteAdapter();
+        $adapter = $this->_getWriteAdapter();
 
-        $bind   = array(
-            ':product_id'    => (int)$product->getId(),
-            ':link_type_id'  => (int)$typeId
+        $bind = array(
+            ':product_id' => (int) $product->getId(),
+            ':link_type_id' => (int) $typeId
         );
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('linked_product_id', 'link_id'))
-            ->where('product_id = :product_id')
-            ->where('link_type_id = :link_type_id');
+                ->from($this->getMainTable(), array('linked_product_id', 'link_id'))
+                ->where('product_id = :product_id')
+                ->where('link_type_id = :link_type_id');
 
-        $links   = $adapter->fetchPairs($select, $bind);
+        $links = $adapter->fetchPairs($select, $bind);
 
         $deleteIds = array();
-        foreach($links as $linkedProductId => $linkId) {
+        foreach ($links as $linkedProductId => $linkId) {
             if (!isset($data[$linkedProductId])) {
-                $deleteIds[] = (int)$linkId;
+                $deleteIds[] = (int) $linkId;
             }
         }
         if (!empty($deleteIds)) {
@@ -97,9 +98,9 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
                 unset($links[$linkedProductId]);
             } else {
                 $bind = array(
-                    'product_id'        => $product->getId(),
+                    'product_id' => $product->getId(),
                     'linked_product_id' => $linkedProductId,
-                    'link_type_id'      => $typeId
+                    'link_type_id' => $typeId
                 );
                 $adapter->insert($this->getMainTable(), $bind);
                 $linkId = $adapter->lastInsertId($this->getMainTable());
@@ -109,17 +110,16 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
                 $attributeTable = $this->getAttributeTypeTable($attributeInfo['type']);
                 if ($attributeTable) {
                     if (isset($linkInfo[$attributeInfo['code']])) {
-                        $value = $this->_prepareAttributeValue($attributeInfo['type'],
-                            $linkInfo[$attributeInfo['code']]);
+                        $value = $this->_prepareAttributeValue($attributeInfo['type'], $linkInfo[$attributeInfo['code']]);
                         $bind = array(
                             'product_link_attribute_id' => $attributeInfo['id'],
-                            'link_id'                   => $linkId,
-                            'value'                     => $value
+                            'link_id' => $linkId,
+                            'value' => $value
                         );
                         $adapter->insertOnDuplicate($attributeTable, $bind, array('value'));
                     } else {
                         $adapter->delete($attributeTable, array(
-                            'link_id = ?'                   => $linkId,
+                            'link_id = ?' => $linkId,
                             'product_link_attribute_id = ?' => $attributeInfo['id']
                         ));
                     }
@@ -140,9 +140,9 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
     protected function _prepareAttributeValue($type, $value)
     {
         if ($type == 'int') {
-            $value = (int)$value;
+            $value = (int) $value;
         } elseif ($type == 'decimal') {
-            $value = (float)sprintf('%F', $value);
+            $value = (float) sprintf('%F', $value);
         }
         return $value;
     }
@@ -157,12 +157,12 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->_attributesTable, array(
-                'id'    => 'product_link_attribute_id',
-                'code'  => 'product_link_attribute_code',
-                'type'  => 'data_type'
-            ))
-            ->where('link_type_id = ?', $typeId);
+                ->from($this->_attributesTable, array(
+                    'id' => 'product_link_attribute_id',
+                    'code' => 'product_link_attribute_code',
+                    'type' => 'data_type'
+                ))
+                ->where('link_type_id = ?', $typeId);
         return $adapter->fetchAll($select);
     }
 
@@ -189,21 +189,19 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
      */
     public function getChildrenIds($parentId, $typeId)
     {
-        $adapter     = $this->_getReadAdapter();
+        $adapter = $this->_getReadAdapter();
         $childrenIds = array();
-        $bind        = array(
-            ':product_id'    => (int)$parentId,
-            ':link_type_id'  => (int)$typeId
+        $bind = array(
+            ':product_id' => (int) $parentId,
+            ':link_type_id' => (int) $typeId
         );
         $select = $adapter->select()
-            ->from(array('l' => $this->getMainTable()), array('linked_product_id'))
-            ->where('product_id = :product_id')
-            ->where('link_type_id = :link_type_id');
+                ->from(array('l' => $this->getMainTable()), array('linked_product_id'))
+                ->where('product_id = :product_id')
+                ->where('link_type_id = :link_type_id');
         if ($typeId == Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED) {
             $select->join(
-                array('e' => $this->getTable('catalog/product')),
-                'e.entity_id = l.linked_product_id AND e.required_options = 0',
-                array()
+                    array('e' => $this->getTable('catalog/product')), 'e.entity_id = l.linked_product_id AND e.required_options = 0', array()
             );
         }
 
@@ -225,12 +223,12 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
      */
     public function getParentIdsByChild($childId, $typeId)
     {
-        $parentIds  = array();
-        $adapter    = $this->_getReadAdapter();
+        $parentIds = array();
+        $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('product_id', 'linked_product_id'))
-            ->where('linked_product_id IN(?)', $childId)
-            ->where('link_type_id = ?', $typeId);
+                ->from($this->getMainTable(), array('product_id', 'linked_product_id'))
+                ->where('linked_product_id IN(?)', $childId)
+                ->where('link_type_id = ?', $typeId);
 
         $result = $adapter->fetchAll($select);
         foreach ($result as $row) {
@@ -252,14 +250,14 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
     {
         $adapter = $this->_getWriteAdapter();
         // check for change relations
-        $bind    = array(
-            'product_id'    => (int)$product->getId(),
-            'link_type_id'  => (int)$typeId
+        $bind = array(
+            'product_id' => (int) $product->getId(),
+            'link_type_id' => (int) $typeId
         );
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('linked_product_id'))
-            ->where('product_id = :product_id')
-            ->where('link_type_id = :link_type_id');
+                ->from($this->getMainTable(), array('linked_product_id'))
+                ->where('product_id = :product_id')
+                ->where('link_type_id = :link_type_id');
         $old = $adapter->fetchCol($select, $bind);
         $new = array_keys($data);
 
@@ -272,8 +270,9 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
 
         // Grouped product relations should be added to relation table
         Mage::getResourceSingleton('catalog/product_relation')
-            ->processRelations($product->getId(), $new);
+                ->processRelations($product->getId(), $new);
 
         return $this;
     }
+
 }

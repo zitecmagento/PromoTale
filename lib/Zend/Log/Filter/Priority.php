@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Priority.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /** Zend_Log_Filter_Abstract */
 #require_once 'Zend/Log/Filter/Abstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Log_Filter_Priority extends Zend_Log_Filter_Abstract
 {
+
     /**
      * @var integer
      */
@@ -53,7 +54,7 @@ class Zend_Log_Filter_Priority extends Zend_Log_Filter_Abstract
      */
     public function __construct($priority, $operator = NULL)
     {
-        if (! is_integer($priority)) {
+        if (!is_integer($priority)) {
             #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception('Priority must be an integer');
         }
@@ -69,13 +70,13 @@ class Zend_Log_Filter_Priority extends Zend_Log_Filter_Abstract
      * @return Zend_Log_Filter_Priority
      * @throws Zend_Log_Exception
      */
-    static public function factory($config) 
+    static public function factory($config)
     {
         $config = self::_parseConfig($config);
         $config = array_merge(array(
-            'priority' => null, 
+            'priority' => null,
             'operator' => null,
-        ), $config);
+                ), $config);
 
         // Add support for constants
         if (!is_numeric($config['priority']) && isset($config['priority']) && defined($config['priority'])) {
@@ -83,8 +84,7 @@ class Zend_Log_Filter_Priority extends Zend_Log_Filter_Abstract
         }
 
         return new self(
-            (int) $config['priority'], 
-            $config['operator']
+                (int) $config['priority'], $config['operator']
         );
     }
 
@@ -98,4 +98,5 @@ class Zend_Log_Filter_Priority extends Zend_Log_Filter_Abstract
     {
         return version_compare($event['priority'], $this->_priority, $this->_operator);
     }
+
 }

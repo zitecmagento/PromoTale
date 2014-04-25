@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bundle Options Resource Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * All item ids cache
      *
@@ -46,7 +47,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
      *
      * @var bool
      */
-    protected $_selectionsAppended   = false;
+    protected $_selectionsAppended = false;
 
     /**
      * Init model and resource model
@@ -66,28 +67,21 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     public function joinValues($storeId)
     {
         $this->getSelect()
-            ->joinLeft(
-                array('option_value_default' => $this->getTable('bundle/option_value')),
-                'main_table.option_id = option_value_default.option_id and option_value_default.store_id = 0',
-                array()
-            )
-            ->columns(array('default_title' => 'option_value_default.title'));
+                ->joinLeft(
+                        array('option_value_default' => $this->getTable('bundle/option_value')), 'main_table.option_id = option_value_default.option_id and option_value_default.store_id = 0', array()
+                )
+                ->columns(array('default_title' => 'option_value_default.title'));
 
         $title = $this->getConnection()->getCheckSql(
-            'option_value.title IS NOT NULL',
-            'option_value.title',
-            'option_value_default.title'
+                'option_value.title IS NOT NULL', 'option_value.title', 'option_value_default.title'
         );
         if ($storeId !== null) {
             $this->getSelect()
-                ->columns(array('title' => $title))
-                ->joinLeft(array('option_value' => $this->getTable('bundle/option_value')),
-                    $this->getConnection()->quoteInto(
-                        'main_table.option_id = option_value.option_id and option_value.store_id = ?',
-                        $storeId
-                    ),
-                    array()
-                );
+                    ->columns(array('title' => $title))
+                    ->joinLeft(array('option_value' => $this->getTable('bundle/option_value')), $this->getConnection()->quoteInto(
+                                    'main_table.option_id = option_value.option_id and option_value.store_id = ?', $storeId
+                            ), array()
+            );
         }
         return $this;
     }
@@ -112,7 +106,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     public function setPositionOrder()
     {
         $this->getSelect()->order('main_table.position asc')
-            ->order('main_table.option_id asc');
+                ->order('main_table.option_id asc');
         return $this;
     }
 
@@ -202,5 +196,5 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         }
         return $this->_itemIds;
     }
-}
 
+}

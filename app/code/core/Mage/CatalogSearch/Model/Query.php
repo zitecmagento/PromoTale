@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -54,6 +55,7 @@
  */
 class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 {
+
     /**
      * Event prefix
      *
@@ -68,10 +70,10 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     protected $_eventObject = 'catalogsearch_query';
 
-    const CACHE_TAG                     = 'SEARCH_QUERY';
-    const XML_PATH_MIN_QUERY_LENGTH     = 'catalog/search/min_query_length';
-    const XML_PATH_MAX_QUERY_LENGTH     = 'catalog/search/max_query_length';
-    const XML_PATH_MAX_QUERY_WORDS      = 'catalog/search/max_query_words';
+    const CACHE_TAG = 'SEARCH_QUERY';
+    const XML_PATH_MIN_QUERY_LENGTH = 'catalog/search/min_query_length';
+    const XML_PATH_MAX_QUERY_LENGTH = 'catalog/search/max_query_length';
+    const XML_PATH_MAX_QUERY_WORDS = 'catalog/search/max_query_words';
 
     /**
      * Init resource model
@@ -109,9 +111,9 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
             }
 
             $collection->addSearchFilter($text)
-                ->addStoreFilter()
-                ->addMinimalPrice()
-                ->addTaxPercents();
+                    ->addStoreFilter()
+                    ->addMinimalPrice()
+                    ->addTaxPercents();
             $this->setData('result_collection', $collection);
         }
         return $collection;
@@ -127,8 +129,8 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
         $collection = $this->getData('suggest_collection');
         if (is_null($collection)) {
             $collection = Mage::getResourceModel('catalogsearch/query_collection')
-                ->setStoreId($this->getStoreId())
-                ->setQueryFilter($this->getQueryText());
+                    ->setStoreId($this->getStoreId())
+                    ->setQueryFilter($this->getQueryText());
             $this->setData('suggest_collection', $collection);
         }
         return $collection;
@@ -219,7 +221,8 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      *
      * @return int
      */
-    public function getMinQueryLength(){
+    public function getMinQueryLength()
+    {
         return $this->getMinQueryLenght();
     }
 
@@ -253,4 +256,5 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     {
         return Mage::getStoreConfig(self::XML_PATH_MAX_QUERY_WORDS, $this->getStoreId());
     }
+
 }

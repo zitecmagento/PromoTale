@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Stream.php 22797 2010-08-06 15:02:12Z alexander $
  */
-
-
 /** Internally used classes */
 #require_once 'Zend/Pdf.php';
 
@@ -37,13 +36,13 @@
  */
 class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
 {
+
     /**
      * Object value
      *
      * @var Zend_Memory_Container
      */
     public $value;
-
 
     /**
      * Object constructor
@@ -55,7 +54,6 @@ class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
         $this->value = Zend_Pdf::getMemoryManager()->create($val);
     }
 
-
     /**
      * Return type of the element.
      *
@@ -65,7 +63,6 @@ class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
     {
         return Zend_Pdf_Element::TYPE_STREAM;
     }
-
 
     /**
      * Stream length.
@@ -78,7 +75,6 @@ class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
         return strlen($this->value->getRef());
     }
 
-
     /**
      * Clear stream
      *
@@ -90,7 +86,6 @@ class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
         $this->value->touch();
     }
 
-
     /**
      * Append value to a stream
      *
@@ -99,10 +94,9 @@ class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
     public function append($val)
     {
         $ref = &$this->value->getRef();
-        $ref .= (string)$val;
+        $ref .= (string) $val;
         $this->value->touch();
     }
-
 
     /**
      * Detach PDF object from the factory (if applicable), clone it and attach to new factory.
@@ -127,4 +121,5 @@ class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
     {
         return "stream\n" . $this->value->getRef() . "\nendstream";
     }
+
 }

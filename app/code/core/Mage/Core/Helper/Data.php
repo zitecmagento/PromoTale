@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,22 +32,22 @@
  */
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_DEFAULT_COUNTRY              = 'general/country/default';
-    const XML_PATH_PROTECTED_FILE_EXTENSIONS    = 'general/file/protected_extensions';
-    const XML_PATH_PUBLIC_FILES_VALID_PATHS     = 'general/file/public_files_valid_paths';
-    const XML_PATH_ENCRYPTION_MODEL             = 'global/helpers/core/encryption_model';
-    const XML_PATH_DEV_ALLOW_IPS                = 'dev/restrict/allow_ips';
-    const XML_PATH_CACHE_BETA_TYPES             = 'global/cache/betatypes';
-    const XML_PATH_CONNECTION_TYPE              = 'global/resources/default_setup/connection/type';
 
-    const CHARS_LOWERS                          = 'abcdefghijklmnopqrstuvwxyz';
-    const CHARS_UPPERS                          = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const CHARS_DIGITS                          = '0123456789';
-    const CHARS_SPECIALS                        = '!$*+-.=?@^_|~';
-    const CHARS_PASSWORD_LOWERS                 = 'abcdefghjkmnpqrstuvwxyz';
-    const CHARS_PASSWORD_UPPERS                 = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
-    const CHARS_PASSWORD_DIGITS                 = '23456789';
-    const CHARS_PASSWORD_SPECIALS               = '!$*-.=?@_';
+    const XML_PATH_DEFAULT_COUNTRY = 'general/country/default';
+    const XML_PATH_PROTECTED_FILE_EXTENSIONS = 'general/file/protected_extensions';
+    const XML_PATH_PUBLIC_FILES_VALID_PATHS = 'general/file/public_files_valid_paths';
+    const XML_PATH_ENCRYPTION_MODEL = 'global/helpers/core/encryption_model';
+    const XML_PATH_DEV_ALLOW_IPS = 'dev/restrict/allow_ips';
+    const XML_PATH_CACHE_BETA_TYPES = 'global/cache/betatypes';
+    const XML_PATH_CONNECTION_TYPE = 'global/resources/default_setup/connection/type';
+    const CHARS_LOWERS = 'abcdefghijklmnopqrstuvwxyz';
+    const CHARS_UPPERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const CHARS_DIGITS = '0123456789';
+    const CHARS_SPECIALS = '!$*+-.=?@^_|~';
+    const CHARS_PASSWORD_LOWERS = 'abcdefghjkmnpqrstuvwxyz';
+    const CHARS_PASSWORD_UPPERS = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+    const CHARS_PASSWORD_DIGITS = '23456789';
+    const CHARS_PASSWORD_SPECIALS = '!$*-.=?@_';
 
     /**
      * Config pathes to merchant country code and merchant VAT number
@@ -64,7 +65,6 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @var Mage_Core_Model_Encryption
      */
     protected $_encryptor = null;
-
     protected $_allowedFormats = array(
         Mage_Core_Model_Locale::FORMAT_TYPE_FULL,
         Mage_Core_Model_Locale::FORMAT_TYPE_LONG,
@@ -72,14 +72,13 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
     );
 
-
     /**
      * @return Mage_Core_Model_Encryption
      */
     public function getEncryptor()
     {
         if ($this->_encryptor === null) {
-            $encryptionModel = (string)Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
+            $encryptionModel = (string) Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
             if ($encryptionModel) {
                 $this->_encryptor = new $encryptionModel;
             } else {
@@ -115,14 +114,16 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public static function currencyByStore($value, $store = null, $format = true, $includeContainer = true)
     {
-        try {
+        try
+        {
             if (!($store instanceof Mage_Core_Model_Store)) {
                 $store = Mage::app()->getStore($store);
             }
 
             $value = $store->convertPrice($value, $format, $includeContainer);
         }
-        catch (Exception $e){
+        catch (Exception $e)
+        {
             $value = $e->getMessage();
         }
 
@@ -253,8 +254,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_null($chars)) {
             $chars = self::CHARS_LOWERS . self::CHARS_UPPERS . self::CHARS_DIGITS;
         }
-        mt_srand(10000000*(double)microtime());
-        for ($i = 0, $str = '', $lc = strlen($chars)-1; $i < $len; $i++) {
+        mt_srand(10000000 * (double) microtime());
+        for ($i = 0, $str = '', $lc = strlen($chars) - 1; $i < $len; $i++) {
             $str .= $chars[mt_rand(0, $lc)];
         }
         return $str;
@@ -282,50 +283,50 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param   mixed $store
      * @return  int
      */
-    public function getStoreId($store=null)
+    public function getStoreId($store = null)
     {
         return Mage::app()->getStore($store)->getId();
     }
 
-    public function removeAccents($string, $german=false)
+    public function removeAccents($string, $german = false)
     {
         static $replacements;
 
         if (empty($replacements[$german])) {
             $subst = array(
                 // single ISO-8859-1 letters
-                192=>'A', 193=>'A', 194=>'A', 195=>'A', 196=>'A', 197=>'A', 199=>'C',
-                208=>'D', 200=>'E', 201=>'E', 202=>'E', 203=>'E', 204=>'I', 205=>'I',
-                206=>'I', 207=>'I', 209=>'N', 210=>'O', 211=>'O', 212=>'O', 213=>'O',
-                214=>'O', 216=>'O', 138=>'S', 217=>'U', 218=>'U', 219=>'U', 220=>'U',
-                221=>'Y', 142=>'Z', 224=>'a', 225=>'a', 226=>'a', 227=>'a', 228=>'a',
-                229=>'a', 231=>'c', 232=>'e', 233=>'e', 234=>'e', 235=>'e', 236=>'i',
-                237=>'i', 238=>'i', 239=>'i', 241=>'n', 240=>'o', 242=>'o', 243=>'o',
-                244=>'o', 245=>'o', 246=>'o', 248=>'o', 154=>'s', 249=>'u', 250=>'u',
-                251=>'u', 252=>'u', 253=>'y', 255=>'y', 158=>'z',
+                192 => 'A', 193 => 'A', 194 => 'A', 195 => 'A', 196 => 'A', 197 => 'A', 199 => 'C',
+                208 => 'D', 200 => 'E', 201 => 'E', 202 => 'E', 203 => 'E', 204 => 'I', 205 => 'I',
+                206 => 'I', 207 => 'I', 209 => 'N', 210 => 'O', 211 => 'O', 212 => 'O', 213 => 'O',
+                214 => 'O', 216 => 'O', 138 => 'S', 217 => 'U', 218 => 'U', 219 => 'U', 220 => 'U',
+                221 => 'Y', 142 => 'Z', 224 => 'a', 225 => 'a', 226 => 'a', 227 => 'a', 228 => 'a',
+                229 => 'a', 231 => 'c', 232 => 'e', 233 => 'e', 234 => 'e', 235 => 'e', 236 => 'i',
+                237 => 'i', 238 => 'i', 239 => 'i', 241 => 'n', 240 => 'o', 242 => 'o', 243 => 'o',
+                244 => 'o', 245 => 'o', 246 => 'o', 248 => 'o', 154 => 's', 249 => 'u', 250 => 'u',
+                251 => 'u', 252 => 'u', 253 => 'y', 255 => 'y', 158 => 'z',
                 // HTML entities
-                258=>'A', 260=>'A', 262=>'C', 268=>'C', 270=>'D', 272=>'D', 280=>'E',
-                282=>'E', 286=>'G', 304=>'I', 313=>'L', 317=>'L', 321=>'L', 323=>'N',
-                327=>'N', 336=>'O', 340=>'R', 344=>'R', 346=>'S', 350=>'S', 354=>'T',
-                356=>'T', 366=>'U', 368=>'U', 377=>'Z', 379=>'Z', 259=>'a', 261=>'a',
-                263=>'c', 269=>'c', 271=>'d', 273=>'d', 281=>'e', 283=>'e', 287=>'g',
-                305=>'i', 322=>'l', 314=>'l', 318=>'l', 324=>'n', 328=>'n', 337=>'o',
-                341=>'r', 345=>'r', 347=>'s', 351=>'s', 357=>'t', 355=>'t', 367=>'u',
-                369=>'u', 378=>'z', 380=>'z',
+                258 => 'A', 260 => 'A', 262 => 'C', 268 => 'C', 270 => 'D', 272 => 'D', 280 => 'E',
+                282 => 'E', 286 => 'G', 304 => 'I', 313 => 'L', 317 => 'L', 321 => 'L', 323 => 'N',
+                327 => 'N', 336 => 'O', 340 => 'R', 344 => 'R', 346 => 'S', 350 => 'S', 354 => 'T',
+                356 => 'T', 366 => 'U', 368 => 'U', 377 => 'Z', 379 => 'Z', 259 => 'a', 261 => 'a',
+                263 => 'c', 269 => 'c', 271 => 'd', 273 => 'd', 281 => 'e', 283 => 'e', 287 => 'g',
+                305 => 'i', 322 => 'l', 314 => 'l', 318 => 'l', 324 => 'n', 328 => 'n', 337 => 'o',
+                341 => 'r', 345 => 'r', 347 => 's', 351 => 's', 357 => 't', 355 => 't', 367 => 'u',
+                369 => 'u', 378 => 'z', 380 => 'z',
                 // ligatures
-                198=>'Ae', 230=>'ae', 140=>'Oe', 156=>'oe', 223=>'ss',
+                198 => 'Ae', 230 => 'ae', 140 => 'Oe', 156 => 'oe', 223 => 'ss',
             );
 
             if ($german) {
                 // umlauts
                 $subst = array_merge($subst, array(
-                    196=>'Ae', 228=>'ae', 214=>'Oe', 246=>'oe', 220=>'Ue', 252=>'ue'
+                    196 => 'Ae', 228 => 'ae', 214 => 'Oe', 246 => 'oe', 220 => 'Ue', 252 => 'ue'
                 ));
             }
 
             $replacements[$german] = array();
-            foreach ($subst as $k=>$v) {
-                $replacements[$german][$k<256 ? chr($k) : '&#'.$k.';'] = $v;
+            foreach ($subst as $k => $v) {
+                $replacements[$german][$k < 256 ? chr($k) : '&#' . $k . ';'] = $v;
             }
         }
 
@@ -341,7 +342,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         return $string;
     }
 
-    public function isDevAllowed($storeId=null)
+    public function isDevAllowed($storeId = null)
     {
         $allow = true;
 
@@ -349,8 +350,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
         if (!empty($allowedIps) && !empty($remoteAddr)) {
             $allowedIps = preg_split('#\s*,\s*#', $allowedIps, null, PREG_SPLIT_NO_EMPTY);
-            if (array_search($remoteAddr, $allowedIps) === false
-                && array_search(Mage::helper('core/http')->getHttpHost(), $allowedIps) === false) {
+            if (array_search($remoteAddr, $allowedIps) === false && array_search(Mage::helper('core/http')->getHttpHost(), $allowedIps) === false) {
                 $allow = false;
             }
         }
@@ -367,8 +367,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $types = array();
         $config = Mage::getConfig()->getNode(Mage_Core_Model_Cache::XML_PATH_TYPES);
-        foreach ($config->children() as $type=>$node) {
-            $types[$type] = (string)$node->label;
+        foreach ($config->children() as $type => $node) {
+            $types[$type] = (string) $node->label;
         }
         return $types;
     }
@@ -383,8 +383,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $types = array();
         $config = Mage::getConfig()->getNode(self::XML_PATH_CACHE_BETA_TYPES);
         if ($config) {
-            foreach ($config->children() as $type=>$node) {
-                $types[$type] = (string)$node->label;
+            foreach ($config->children() as $type => $node) {
+                $types[$type] = (string) $node->label;
             }
         }
         return $types;
@@ -404,10 +404,9 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $root
      * @return boolean
      */
-    public function copyFieldset($fieldset, $aspect, $source, $target, $root='global')
+    public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {
-        if (!(is_array($source) || $source instanceof Varien_Object)
-            || !(is_array($target) || $target instanceof Varien_Object)) {
+        if (!(is_array($source) || $source instanceof Varien_Object) || !(is_array($target) || $target instanceof Varien_Object)) {
 
             return false;
         }
@@ -420,7 +419,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $targetIsArray = is_array($target);
 
         $result = false;
-        foreach ($fields as $code=>$node) {
+        foreach ($fields as $code => $node) {
             if (empty($node->$aspect)) {
                 continue;
             }
@@ -431,7 +430,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 $value = $source->getDataUsingMethod($code);
             }
 
-            $targetCode = (string)$node->$aspect;
+            $targetCode = (string) $node->$aspect;
             $targetCode = $targetCode == '*' ? $code : $targetCode;
 
             if ($targetIsArray) {
@@ -447,7 +446,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         Mage::dispatchEvent($eventName, array(
             'target' => $target,
             'source' => $source,
-            'root'   => $root
+            'root' => $root
         ));
 
         return $result;
@@ -481,12 +480,12 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $keyIsFirst = "{$prefix}is_first";
-        $keyIsOdd   = "{$prefix}is_odd";
-        $keyIsEven  = "{$prefix}is_even";
-        $keyIsLast  = "{$prefix}is_last";
+        $keyIsOdd = "{$prefix}is_odd";
+        $keyIsEven = "{$prefix}is_even";
+        $keyIsLast = "{$prefix}is_last";
 
-        $count  = count($array); // this will force Iterator to load
-        $i      = 0;
+        $count = count($array); // this will force Iterator to load
+        $i = 0;
         $isEven = false;
         foreach ($array as $key => $element) {
             if (is_object($element)) {
@@ -496,8 +495,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 $isEven = !$isEven;
                 $i++;
                 $this->_decorateArrayObject($element, $keyIsLast, ($i === $count), $forceSetAll || ($i === $count));
-            }
-            elseif (is_array($element)) {
+            } elseif (is_array($element)) {
                 if ($forceSetAll || (0 === $i)) {
                     $array[$key][$keyIsFirst] = (0 === $i);
                 }
@@ -518,12 +516,12 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         return $array;
     }
 
-    private function _decorateArrayObject($element, $key, $value, $dontSkip) {
+    private function _decorateArrayObject($element, $key, $value, $dontSkip)
+    {
         if ($dontSkip) {
             if ($element instanceof Varien_Object) {
                 $element->setData($key, $value);
-            }
-            else {
+            } else {
                 $element->$key = $value;
             }
         }
@@ -569,7 +567,7 @@ XML;
     private function _assocToXml(array $array, $rootName, SimpleXMLElement &$xml)
     {
         $hasNumericKey = false;
-        $hasStringKey  = false;
+        $hasStringKey = false;
         foreach ($array as $key => $value) {
             if (!is_array($value)) {
                 if (is_string($key)) {
@@ -578,13 +576,11 @@ XML;
                     }
                     $hasStringKey = true;
                     $xml->$key = $value;
-                }
-                elseif (is_int($key)) {
+                } elseif (is_int($key)) {
                     $hasNumericKey = true;
                     $xml->{$rootName}[$key] = $value;
                 }
-            }
-            else {
+            } else {
                 self::_assocToXml($value, $key, $xml->$key);
             }
         }
@@ -608,18 +604,17 @@ XML;
             if (isset($value->$key)) {
                 $i = 0;
                 foreach ($value->$key as $v) {
-                    $array[$key][$i++] = (string)$v;
+                    $array[$key][$i++] = (string) $v;
                 }
-            }
-            else {
+            } else {
                 // try to transform it into string value, trimming spaces between elements
-                $array[$key] = trim((string)$value);
+                $array[$key] = trim((string) $value);
                 if (empty($array[$key]) && !empty($value)) {
                     $array[$key] = self::xmlToAssoc($value);
                 }
                 // untrim strings values
                 else {
-                    $array[$key] = (string)$value;
+                    $array[$key] = (string) $value;
                 }
             }
         }
@@ -667,7 +662,7 @@ XML;
      */
     public function uniqHash($prefix = '')
     {
-        return $prefix . md5(uniqid(microtime().mt_rand(), true));
+        return $prefix . md5(uniqid(microtime() . mt_rand(), true));
     }
 
     /**
@@ -689,10 +684,10 @@ XML;
      * @param array|string $extensionsFilter
      * @return bool|string
      */
-    public function mergeFiles(array $srcFiles, $targetFile = false, $mustMerge = false,
-        $beforeMergeCallback = null, $extensionsFilter = array())
+    public function mergeFiles(array $srcFiles, $targetFile = false, $mustMerge = false, $beforeMergeCallback = null, $extensionsFilter = array())
     {
-        try {
+        try
+        {
             // check whether merger is required
             $shouldMerge = $mustMerge || !$targetFile;
             if (!$shouldMerge) {
@@ -721,7 +716,7 @@ XML;
                     if (!is_array($extensionsFilter)) {
                         $extensionsFilter = array($extensionsFilter);
                     }
-                    if (!empty($srcFiles)){
+                    if (!empty($srcFiles)) {
                         foreach ($srcFiles as $key => $file) {
                             $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
                             if (!in_array($fileExt, $extensionsFilter)) {
@@ -758,7 +753,9 @@ XML;
             }
 
             return true; // no need in merger or merged into file successfully
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
         }
         return false;
@@ -877,4 +874,5 @@ XML;
 
         return $remainder;
     }
+
 }

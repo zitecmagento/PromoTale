@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Filesystem.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Storage_Directory */
 #require_once 'Zend/Search/Lucene/Storage/Directory.php';
-
 
 /**
  * FileSystem implementation of Directory abstraction.
@@ -36,6 +34,7 @@
  */
 class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene_Storage_Directory
 {
+
     /**
      * Filesystem path to the directory
      *
@@ -59,7 +58,6 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
      */
     protected static $_defaultFilePermissions = 0666;
 
-
     /**
      * Get default file permissions
      *
@@ -80,7 +78,6 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
         self::$_defaultFilePermissions = $mode;
     }
 
-
     /**
      * Utility function to recursive directory creation
      *
@@ -89,7 +86,6 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
      * @param boolean $recursive
      * @return boolean
      */
-
     public static function mkdirs($dir, $mode = 0777, $recursive = true)
     {
         if (($dir === null) || $dir === '') {
@@ -103,7 +99,6 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
         }
         return false;
     }
-
 
     /**
      * Object constructor
@@ -129,7 +124,6 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
         $this->_fileHandlers = array();
     }
 
-
     /**
      * Closes the store.
      *
@@ -144,7 +138,6 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
         $this->_fileHandlers = array();
     }
 
-
     /**
      * Returns an array of strings, one for each file in the directory.
      *
@@ -154,11 +147,12 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
     {
         $result = array();
 
-        $dirContent = opendir( $this->_dirPath );
+        $dirContent = opendir($this->_dirPath);
         while (($file = readdir($dirContent)) !== false) {
-            if (($file == '..')||($file == '.'))   continue;
+            if (($file == '..') || ($file == '.'))
+                continue;
 
-            if( !is_dir($this->_dirPath . '/' . $file) ) {
+            if (!is_dir($this->_dirPath . '/' . $file)) {
                 $result[] = $file;
             }
         }
@@ -190,7 +184,6 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
         return $this->_fileHandlers[$filename];
     }
 
-
     /**
      * Removes an existing $filename in the directory.
      *
@@ -206,7 +199,8 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
         unset($this->_fileHandlers[$filename]);
 
         global $php_errormsg;
-        $trackErrors = ini_get('track_errors'); ini_set('track_errors', '1');
+        $trackErrors = ini_get('track_errors');
+        ini_set('track_errors', '1');
         if (!@unlink($this->_dirPath . '/' . $filename)) {
             ini_set('track_errors', $trackErrors);
             #require_once 'Zend/Search/Lucene/Exception.php';
@@ -231,7 +225,6 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
         unset($this->_fileHandlers[$filename]);
     }
 
-
     /**
      * Returns true if a file with the given $filename exists.
      *
@@ -241,9 +234,8 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
     public function fileExists($filename)
     {
         return isset($this->_fileHandlers[$filename]) ||
-               file_exists($this->_dirPath . '/' . $filename);
+                file_exists($this->_dirPath . '/' . $filename);
     }
-
 
     /**
      * Returns the length of a $filename in the directory.
@@ -253,12 +245,11 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
      */
     public function fileLength($filename)
     {
-        if (isset( $this->_fileHandlers[$filename] )) {
+        if (isset($this->_fileHandlers[$filename])) {
             return $this->_fileHandlers[$filename]->size();
         }
-        return filesize($this->_dirPath .'/'. $filename);
+        return filesize($this->_dirPath . '/' . $filename);
     }
-
 
     /**
      * Returns the UNIX timestamp $filename was last modified.
@@ -268,9 +259,8 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
      */
     public function fileModified($filename)
     {
-        return filemtime($this->_dirPath .'/'. $filename);
+        return filemtime($this->_dirPath . '/' . $filename);
     }
-
 
     /**
      * Renames an existing file in the directory.
@@ -316,7 +306,6 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
         return $success;
     }
 
-
     /**
      * Sets the modified time of $filename to now.
      *
@@ -325,9 +314,8 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
      */
     public function touchFile($filename)
     {
-        return touch($this->_dirPath .'/'. $filename);
+        return touch($this->_dirPath . '/' . $filename);
     }
-
 
     /**
      * Returns a Zend_Search_Lucene_Storage_File object for a given $filename in the directory.
@@ -350,7 +338,7 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
             return new Zend_Search_Lucene_Storage_File_Filesystem($fullFilename);
         }
 
-        if (isset( $this->_fileHandlers[$filename] )) {
+        if (isset($this->_fileHandlers[$filename])) {
             $this->_fileHandlers[$filename]->seek(0);
             return $this->_fileHandlers[$filename];
         }
@@ -358,5 +346,5 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
         $this->_fileHandlers[$filename] = new Zend_Search_Lucene_Storage_File_Filesystem($fullFilename);
         return $this->_fileHandlers[$filename];
     }
-}
 
+}

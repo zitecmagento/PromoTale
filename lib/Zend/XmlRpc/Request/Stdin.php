@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -17,7 +18,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * Zend_XmlRpc_Request
  */
@@ -38,6 +38,7 @@
  */
 class Zend_XmlRpc_Request_Stdin extends Zend_XmlRpc_Request
 {
+
     /**
      * Raw XML as received via request
      * @var string
@@ -81,4 +82,5 @@ class Zend_XmlRpc_Request_Stdin extends Zend_XmlRpc_Request
     {
         return $this->_xml;
     }
+
 }

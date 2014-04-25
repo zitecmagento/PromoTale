@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    MAbout This Orderage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
 {
+
     /**
      * Try to load valid order and register it
      *
@@ -158,4 +159,5 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
             $this->_redirect('sales/guest/form');
         }
     }
+
 }

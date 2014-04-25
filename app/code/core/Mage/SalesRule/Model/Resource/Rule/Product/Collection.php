@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SalesRule Model Resource Rule Product_Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_SalesRule_Model_Resource_Rule_Product_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Collection constructor
      *
@@ -43,4 +44,5 @@ class Mage_SalesRule_Model_Resource_Rule_Product_Collection extends Mage_Core_Mo
         parent::_construct();
         $this->_init('salesrule/rule_product');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,34 +34,33 @@
  */
 class Mage_Paypal_Model_Info
 {
+
     /**
      * Cross-models public exchange keys
      *
      * @var string
      */
-    const PAYER_ID       = 'payer_id';
-    const PAYER_EMAIL    = 'email';
-    const PAYER_STATUS   = 'payer_status';
-    const ADDRESS_ID     = 'address_id';
+    const PAYER_ID = 'payer_id';
+    const PAYER_EMAIL = 'email';
+    const PAYER_STATUS = 'payer_status';
+    const ADDRESS_ID = 'address_id';
     const ADDRESS_STATUS = 'address_status';
-    const PROTECTION_EL  = 'protection_eligibility';
-    const FRAUD_FILTERS  = 'collected_fraud_filters';
+    const PROTECTION_EL = 'protection_eligibility';
+    const FRAUD_FILTERS = 'collected_fraud_filters';
     const CORRELATION_ID = 'correlation_id';
-    const AVS_CODE       = 'avs_result';
-    const CVV2_MATCH     = 'cvv2_check_result';
-    const CENTINEL_VPAS  = 'centinel_vpas_result';
-    const CENTINEL_ECI   = 'centinel_eci_result';
-
+    const AVS_CODE = 'avs_result';
+    const CVV2_MATCH = 'cvv2_check_result';
+    const CENTINEL_VPAS = 'centinel_vpas_result';
+    const CENTINEL_ECI = 'centinel_eci_result';
     // Next two fields are required for Brazil
-    const BUYER_TAX_ID   = 'buyer_tax_id';
+    const BUYER_TAX_ID = 'buyer_tax_id';
     const BUYER_TAX_ID_TYPE = 'buyer_tax_id_type';
-
     const PAYMENT_STATUS = 'payment_status';
     const PENDING_REASON = 'pending_reason';
-    const IS_FRAUD       = 'is_fraud_detected';
+    const IS_FRAUD = 'is_fraud_detected';
     const PAYMENT_STATUS_GLOBAL = 'paypal_payment_status';
     const PENDING_REASON_GLOBAL = 'paypal_pending_reason';
-    const IS_FRAUD_GLOBAL       = 'paypal_is_fraud_detected';
+    const IS_FRAUD_GLOBAL = 'paypal_is_fraud_detected';
 
     /**
      * Possible buyer's tax id types (Brazil only)
@@ -74,19 +74,19 @@ class Mage_Paypal_Model_Info
      * @var array
      */
     protected $_paymentMap = array(
-        self::PAYER_ID       => 'paypal_payer_id',
-        self::PAYER_EMAIL    => 'paypal_payer_email',
-        self::PAYER_STATUS   => 'paypal_payer_status',
-        self::ADDRESS_ID     => 'paypal_address_id',
+        self::PAYER_ID => 'paypal_payer_id',
+        self::PAYER_EMAIL => 'paypal_payer_email',
+        self::PAYER_STATUS => 'paypal_payer_status',
+        self::ADDRESS_ID => 'paypal_address_id',
         self::ADDRESS_STATUS => 'paypal_address_status',
-        self::PROTECTION_EL  => 'paypal_protection_eligibility',
-        self::FRAUD_FILTERS  => 'paypal_fraud_filters',
+        self::PROTECTION_EL => 'paypal_protection_eligibility',
+        self::FRAUD_FILTERS => 'paypal_fraud_filters',
         self::CORRELATION_ID => 'paypal_correlation_id',
-        self::AVS_CODE       => 'paypal_avs_code',
-        self::CVV2_MATCH     => 'paypal_cvv2_match',
-        self::CENTINEL_VPAS  => self::CENTINEL_VPAS,
-        self::CENTINEL_ECI   => self::CENTINEL_ECI,
-        self::BUYER_TAX_ID   => self::BUYER_TAX_ID,
+        self::AVS_CODE => 'paypal_avs_code',
+        self::CVV2_MATCH => 'paypal_cvv2_match',
+        self::CENTINEL_VPAS => self::CENTINEL_VPAS,
+        self::CENTINEL_ECI => self::CENTINEL_ECI,
+        self::BUYER_TAX_ID => self::BUYER_TAX_ID,
         self::BUYER_TAX_ID_TYPE => self::BUYER_TAX_ID_TYPE,
     );
 
@@ -98,7 +98,7 @@ class Mage_Paypal_Model_Info
     protected $_systemMap = array(
         self::PAYMENT_STATUS => self::PAYMENT_STATUS_GLOBAL,
         self::PENDING_REASON => self::PENDING_REASON_GLOBAL,
-        self::IS_FRAUD       => self::IS_FRAUD_GLOBAL,
+        self::IS_FRAUD => self::IS_FRAUD_GLOBAL,
     );
 
     /**
@@ -106,30 +106,30 @@ class Mage_Paypal_Model_Info
      *
      * @var string
      */
-    const PAYMENTSTATUS_NONE         = 'none';
-    const PAYMENTSTATUS_COMPLETED    = 'completed';
-    const PAYMENTSTATUS_DENIED       = 'denied';
-    const PAYMENTSTATUS_EXPIRED      = 'expired';
-    const PAYMENTSTATUS_FAILED       = 'failed';
-    const PAYMENTSTATUS_INPROGRESS   = 'in_progress';
-    const PAYMENTSTATUS_PENDING      = 'pending';
-    const PAYMENTSTATUS_REFUNDED     = 'refunded';
+    const PAYMENTSTATUS_NONE = 'none';
+    const PAYMENTSTATUS_COMPLETED = 'completed';
+    const PAYMENTSTATUS_DENIED = 'denied';
+    const PAYMENTSTATUS_EXPIRED = 'expired';
+    const PAYMENTSTATUS_FAILED = 'failed';
+    const PAYMENTSTATUS_INPROGRESS = 'in_progress';
+    const PAYMENTSTATUS_PENDING = 'pending';
+    const PAYMENTSTATUS_REFUNDED = 'refunded';
     const PAYMENTSTATUS_REFUNDEDPART = 'partially_refunded';
-    const PAYMENTSTATUS_REVERSED     = 'reversed';
-    const PAYMENTSTATUS_UNREVERSED   = 'canceled_reversal';
-    const PAYMENTSTATUS_PROCESSED    = 'processed';
-    const PAYMENTSTATUS_VOIDED       = 'voided';
+    const PAYMENTSTATUS_REVERSED = 'reversed';
+    const PAYMENTSTATUS_UNREVERSED = 'canceled_reversal';
+    const PAYMENTSTATUS_PROCESSED = 'processed';
+    const PAYMENTSTATUS_VOIDED = 'voided';
 
     /**
      * PayPal payment transaction type
      */
     const TXN_TYPE_ADJUSTMENT = 'adjustment';
-    const TXN_TYPE_NEW_CASE   = 'new_case';
+    const TXN_TYPE_NEW_CASE = 'new_case';
 
     /**
      * PayPal payment reason code when payment_status is Reversed, Refunded, or Canceled_Reversal.
      */
-    const PAYMENT_REASON_CODE_REFUND  = 'refund';
+    const PAYMENT_REASON_CODE_REFUND = 'refund';
 
     /**
      * PayPal order status for Reverse payment status
@@ -221,8 +221,7 @@ class Mage_Paypal_Model_Info
     public function &exportFromPayment(Mage_Payment_Model_Info $payment, $to, array $map = null)
     {
         $fullMap = array_merge($this->_paymentMap, $this->_systemMap);
-        Varien_Object_Mapper::accumulateByMap(array($payment, 'getAdditionalInformation'), $to,
-            $map ? $map : array_flip($fullMap)
+        Varien_Object_Mapper::accumulateByMap(array($payment, 'getAdditionalInformation'), $to, $map ? $map : array_flip($fullMap)
         );
         return $to;
     }
@@ -251,8 +250,7 @@ class Mage_Paypal_Model_Info
      */
     public static function isFraudReviewAllowed(Mage_Payment_Model_Info $payment)
     {
-        return self::isPaymentReviewRequired($payment)
-            && 1 == $payment->getAdditionalInformation(self::IS_FRAUD_GLOBAL);
+        return self::isPaymentReviewRequired($payment) && 1 == $payment->getAdditionalInformation(self::IS_FRAUD_GLOBAL);
     }
 
     /**
@@ -277,14 +275,13 @@ class Mage_Paypal_Model_Info
     {
         $paymentStatus = $payment->getAdditionalInformation(self::PAYMENT_STATUS_GLOBAL);
         if (in_array($paymentStatus, array(
-            self::PAYMENTSTATUS_COMPLETED, self::PAYMENTSTATUS_INPROGRESS, self::PAYMENTSTATUS_REFUNDED,
-            self::PAYMENTSTATUS_REFUNDEDPART, self::PAYMENTSTATUS_UNREVERSED, self::PAYMENTSTATUS_PROCESSED,
-        ))) {
+                    self::PAYMENTSTATUS_COMPLETED, self::PAYMENTSTATUS_INPROGRESS, self::PAYMENTSTATUS_REFUNDED,
+                    self::PAYMENTSTATUS_REFUNDEDPART, self::PAYMENTSTATUS_UNREVERSED, self::PAYMENTSTATUS_PROCESSED,
+                ))) {
             return true;
         }
         $pendingReason = $payment->getAdditionalInformation(self::PENDING_REASON_GLOBAL);
-        return self::PAYMENTSTATUS_PENDING === $paymentStatus
-            && in_array($pendingReason, array('authorization', 'order'));
+        return self::PAYMENTSTATUS_PENDING === $paymentStatus && in_array($pendingReason, array('authorization', 'order'));
     }
 
     /**
@@ -352,27 +349,25 @@ class Mage_Paypal_Model_Info
     public static function explainReasonCode($code)
     {
         $comments = array(
-            'chargeback'               => Mage::helper('paypal')->__('A reversal has occurred on this transaction due to a chargeback by your customer.'),
-            'guarantee'                => Mage::helper('paypal')->__('A reversal has occurred on this transaction due to your customer triggering a money-back guarantee.'),
-            'buyer-complaint'          => Mage::helper('paypal')->__('A reversal has occurred on this transaction due to a complaint about the transaction from your customer.'),
-            'buyer_complaint'          => Mage::helper('paypal')->__('A reversal has occurred on this transaction due to a complaint about the transaction from your customer.'),
-            'refund'                   => Mage::helper('paypal')->__('A reversal has occurred on this transaction because you have given the customer a refund.'),
-            'adjustment_reversal'      => Mage::helper('paypal')->__('Reversal of an adjustment.'),
-            'admin_fraud_reversal'     => Mage::helper('paypal')->__('Transaction reversal due to fraud detected by PayPal administrators.'),
-            'admin_reversal'           => Mage::helper('paypal')->__('Transaction reversal by PayPal administrators.'),
+            'chargeback' => Mage::helper('paypal')->__('A reversal has occurred on this transaction due to a chargeback by your customer.'),
+            'guarantee' => Mage::helper('paypal')->__('A reversal has occurred on this transaction due to your customer triggering a money-back guarantee.'),
+            'buyer-complaint' => Mage::helper('paypal')->__('A reversal has occurred on this transaction due to a complaint about the transaction from your customer.'),
+            'buyer_complaint' => Mage::helper('paypal')->__('A reversal has occurred on this transaction due to a complaint about the transaction from your customer.'),
+            'refund' => Mage::helper('paypal')->__('A reversal has occurred on this transaction because you have given the customer a refund.'),
+            'adjustment_reversal' => Mage::helper('paypal')->__('Reversal of an adjustment.'),
+            'admin_fraud_reversal' => Mage::helper('paypal')->__('Transaction reversal due to fraud detected by PayPal administrators.'),
+            'admin_reversal' => Mage::helper('paypal')->__('Transaction reversal by PayPal administrators.'),
             'chargeback_reimbursement' => Mage::helper('paypal')->__('Reimbursement for a chargeback.'),
-            'chargeback_settlement'    => Mage::helper('paypal')->__('Settlement of a chargeback.'),
-            'unauthorized_spoof'       => Mage::helper('paypal')->__('A reversal has occurred on this transaction because of a customer dispute suspecting unauthorized spoof.'),
-            'non_receipt'              => Mage::helper('paypal')->__('Buyer claims that he did not receive goods or service.'),
-            'not_as_described'         => Mage::helper('paypal')->__('Buyer claims that the goods or service received differ from merchant’s description of the goods or service.'),
-            'unauthorized'             => Mage::helper('paypal')->__('Buyer claims that he/she did not authorize transaction.'),
-            'adjustment_reimburse'     => Mage::helper('paypal')->__('A case that has been resolved and close requires a reimbursement.'),
-            'duplicate'                => Mage::helper('paypal')->__('Buyer claims that a possible duplicate payment was made to the merchant.'),
-            'merchandise'              => Mage::helper('paypal')->__('Buyer claims that the received merchandise is unsatisfactory, defective, or damaged.'),
+            'chargeback_settlement' => Mage::helper('paypal')->__('Settlement of a chargeback.'),
+            'unauthorized_spoof' => Mage::helper('paypal')->__('A reversal has occurred on this transaction because of a customer dispute suspecting unauthorized spoof.'),
+            'non_receipt' => Mage::helper('paypal')->__('Buyer claims that he did not receive goods or service.'),
+            'not_as_described' => Mage::helper('paypal')->__('Buyer claims that the goods or service received differ from merchant’s description of the goods or service.'),
+            'unauthorized' => Mage::helper('paypal')->__('Buyer claims that he/she did not authorize transaction.'),
+            'adjustment_reimburse' => Mage::helper('paypal')->__('A case that has been resolved and close requires a reimbursement.'),
+            'duplicate' => Mage::helper('paypal')->__('Buyer claims that a possible duplicate payment was made to the merchant.'),
+            'merchandise' => Mage::helper('paypal')->__('Buyer claims that the received merchandise is unsatisfactory, defective, or damaged.'),
         );
-        $value = (array_key_exists($code, $comments) && !empty($comments[$code]))
-            ? $comments[$code]
-            : Mage::helper('paypal')->__('Unknown reason. Please contact PayPal customer service.'
+        $value = (array_key_exists($code, $comments) && !empty($comments[$code])) ? $comments[$code] : Mage::helper('paypal')->__('Unknown reason. Please contact PayPal customer service.'
         );
         return $value;
     }
@@ -487,8 +482,8 @@ class Mage_Paypal_Model_Info
     {
         $labels = array(
             'chargeback' => Mage::helper('paypal')->__('Chargeback'),
-            'complaint'  => Mage::helper('paypal')->__('Complaint'),
-            'dispute'    => Mage::helper('paypal')->__('Dispute')
+            'complaint' => Mage::helper('paypal')->__('Complaint'),
+            'dispute' => Mage::helper('paypal')->__('Dispute')
         );
         $value = (array_key_exists($key, $labels) && !empty($labels[$key])) ? $labels[$key] : '';
         return $value;
@@ -703,4 +698,5 @@ class Mage_Paypal_Model_Info
         }
         return $value;
     }
+
 }

@@ -30,18 +30,30 @@
     <adminhtml_index_login>
         <reference name="form.additional.info">
             <block type="captcha/captcha" name="captcha">
-                <action method="setFormId"><formId>backend_login</formId></action>
-                <action method="setImgWidth"><width>226</width></action>
-                <action method="setImgHeight"><width>50</width></action>
+                <action method="setFormId">
+                    <formId>backend_login</formId>
+                </action>
+                <action method="setImgWidth">
+                    <width>226</width>
+                </action>
+                <action method="setImgHeight">
+                    <width>50</width>
+                </action>
             </block>
         </reference>
     </adminhtml_index_login>
     <adminhtml_index_forgotpassword>
         <reference name="form.additional.info">
             <block type="captcha/captcha" name="captcha">
-                <action method="setFormId"><formId>backend_forgotpassword</formId></action>
-                <action method="setImgWidth"><width>226</width></action>
-                <action method="setImgHeight"><width>50</width></action>
+                <action method="setFormId">
+                    <formId>backend_forgotpassword</formId>
+                </action>
+                <action method="setImgWidth">
+                    <width>226</width>
+                </action>
+                <action method="setImgHeight">
+                    <width>50</width>
+                </action>
             </block>
         </reference>
     </adminhtml_index_forgotpassword>

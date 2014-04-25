@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Rating entity resource
  *
@@ -34,4 +34,5 @@
  */
 class Mage_Rating_Model_Mysql4_Rating_Entity extends Mage_Rating_Model_Resource_Rating_Entity
 {
+    
 }

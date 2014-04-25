@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Newsletter_Model_Observer
 {
+
     public function subscribeCustomer($observer)
     {
         $customer = $observer->getEvent()->getCustomer();
@@ -49,8 +51,8 @@ class Mage_Newsletter_Model_Observer
     public function customerDeleted($observer)
     {
         $subscriber = Mage::getModel('newsletter/subscriber')
-            ->loadByEmail($observer->getEvent()->getCustomer()->getEmail());
-        if($subscriber->getId()) {
+                ->loadByEmail($observer->getEvent()->getCustomer()->getEmail());
+        if ($subscriber->getId()) {
             $subscriber->delete();
         }
         return $this;
@@ -58,15 +60,16 @@ class Mage_Newsletter_Model_Observer
 
     public function scheduledSend($schedule)
     {
-        $countOfQueue  = 3;
+        $countOfQueue = 3;
         $countOfSubscritions = 20;
 
         $collection = Mage::getModel('newsletter/queue')->getCollection()
-            ->setPageSize($countOfQueue)
-            ->setCurPage(1)
-            ->addOnlyForSendingFilter()
-            ->load();
+                ->setPageSize($countOfQueue)
+                ->setCurPage(1)
+                ->addOnlyForSendingFilter()
+                ->load();
 
-         $collection->walk('sendPerSubscriber', array($countOfSubscritions));
+        $collection->walk('sendPerSubscriber', array($countOfSubscritions));
     }
+
 }

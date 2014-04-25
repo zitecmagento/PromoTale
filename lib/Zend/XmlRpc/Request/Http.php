@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -17,7 +18,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * Zend_XmlRpc_Request
  */
@@ -38,6 +38,7 @@
  */
 class Zend_XmlRpc_Request_Http extends Zend_XmlRpc_Request
 {
+
     /**
      * Array of headers
      * @var array
@@ -121,4 +122,5 @@ class Zend_XmlRpc_Request_Http extends Zend_XmlRpc_Request
 
         return $request;
     }
+
 }

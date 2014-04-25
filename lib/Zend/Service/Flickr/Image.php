@@ -21,7 +21,6 @@
  * @version    $Id: Image.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Flickr_Image
 {
+
     /**
      * The URI of the image
      *
@@ -67,10 +67,10 @@ class Zend_Service_Flickr_Image
      */
     public function __construct(DOMElement $image)
     {
-        $this->uri      = (string) $image->getAttribute('source');
+        $this->uri = (string) $image->getAttribute('source');
         $this->clickUri = (string) $image->getAttribute('url');
-        $this->height   = (int) $image->getAttribute('height');
-        $this->width    = (int) $image->getAttribute('width');
+        $this->height = (int) $image->getAttribute('height');
+        $this->width = (int) $image->getAttribute('width');
     }
-}
 
+}

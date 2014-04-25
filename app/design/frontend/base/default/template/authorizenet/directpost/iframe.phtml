@@ -23,7 +23,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * @var $this Mage_Authorizenet_Block_Directpost_Iframe
  */
@@ -34,23 +33,23 @@ $_params = $this->getParams();
 $_helper = $this->helper('authorizenet');
 ?>
 <html>
-<head>
-<script type="text/javascript">
-//<![CDATA[
+    <head>
+        <script type="text/javascript">
+        //<![CDATA[
 <?php if (isset($_params['redirect'])): ?>
-window.location="<?php echo $this->escapeUrl($_params['redirect']) ?>";
+                window.location = "<?php echo $this->escapeUrl($_params['redirect']) ?>";
 <?php endif; ?>
 <?php if (isset($_params['redirect_parent'])): ?>
-window.top.location="<?php echo $this->escapeUrl($_params['redirect_parent']) ?>";
+                window.top.location = "<?php echo $this->escapeUrl($_params['redirect_parent']) ?>";
 <?php endif; ?>
 <?php if (isset($_params['error_msg'])): ?>
-window.top.directPostModel.showError(<?php echo $this->helper('core')->jsonEncode($_params['error_msg']) ?>);
-<?php if (isset($_params['x_invoice_num'])): ?>
-window.top.directPostModel.successUrl="<?php echo $_helper->getSuccessOrderUrl($_params) ?>";
+                window.top.directPostModel.showError(<?php echo $this->helper('core')->jsonEncode($_params['error_msg']) ?>);
+    <?php if (isset($_params['x_invoice_num'])): ?>
+                    window.top.directPostModel.successUrl = "<?php echo $_helper->getSuccessOrderUrl($_params) ?>";
+    <?php endif; ?>
 <?php endif; ?>
-<?php endif; ?>
-//]]>
-</script>
-</head>
-<body></body>
+        //]]>
+        </script>
+    </head>
+    <body></body>
 </html>

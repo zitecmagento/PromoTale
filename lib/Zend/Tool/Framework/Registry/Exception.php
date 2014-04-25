@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 #require_once 'Zend/Tool/Framework/Exception.php';
 
 /**
@@ -29,5 +29,5 @@
  */
 class Zend_Tool_Framework_Registry_Exception extends Zend_Tool_Framework_Exception
 {
-
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
 {
+
     /**
      * Product type attribute sets and attributes parameters.
      *
@@ -101,12 +103,11 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     final public function __construct(array $params)
     {
         if ($this->isSuitable()) {
-            if (!isset($params[0]) || !isset($params[1])
-                || !is_object($params[0]) || !($params[0] instanceof Mage_ImportExport_Model_Import_Entity_Product)) {
+            if (!isset($params[0]) || !isset($params[1]) || !is_object($params[0]) || !($params[0] instanceof Mage_ImportExport_Model_Import_Entity_Product)) {
                 Mage::throwException(Mage::helper('importexport')->__('Invalid parameters'));
             }
             $this->_entityModel = $params[0];
-            $this->_type        = $params[1];
+            $this->_type = $params[1];
 
             foreach ($this->_messageTemplates as $errorCode => $message) {
                 $this->_entityModel->addMessageTemplate($errorCode, $message);
@@ -163,28 +164,27 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
         foreach (Mage::getResourceModel('eav/entity_attribute_set_collection')
                 ->setEntityTypeFilter($this->_entityModel->getEntityTypeId()) as $attributeSet) {
             foreach (Mage::getResourceModel('catalog/product_attribute_collection')
-                ->setAttributeSetFilter($attributeSet->getId()) as $attribute) {
+                    ->setAttributeSetFilter($attributeSet->getId()) as $attribute) {
 
                 $attributeCode = $attribute->getAttributeCode();
-                $attributeId   = $attribute->getId();
+                $attributeId = $attribute->getId();
 
                 if ($attribute->getIsVisible() || in_array($attributeCode, $this->_forcedAttributesCodes)) {
                     if (!isset($attributesCache[$attributeId])) {
                         $attributesCache[$attributeId] = array(
-                            'id'               => $attributeId,
-                            'code'             => $attributeCode,
+                            'id' => $attributeId,
+                            'code' => $attributeCode,
                             'for_configurable' => $attribute->getIsConfigurable(),
-                            'is_global'        => $attribute->getIsGlobal(),
-                            'is_required'      => $attribute->getIsRequired(),
-                            'is_unique'        => $attribute->getIsUnique(),
-                            'frontend_label'   => $attribute->getFrontendLabel(),
-                            'is_static'        => $attribute->isStatic(),
-                            'apply_to'         => $attribute->getApplyTo(),
-                            'type'             => Mage_ImportExport_Model_Import::getAttributeType($attribute),
-                            'default_value'    => strlen($attribute->getDefaultValue())
-                                                  ? $attribute->getDefaultValue() : null,
-                            'options'          => $this->_entityModel
-                                                      ->getAttributeOptions($attribute, $this->_indexValueAttributes)
+                            'is_global' => $attribute->getIsGlobal(),
+                            'is_required' => $attribute->getIsRequired(),
+                            'is_unique' => $attribute->getIsUnique(),
+                            'frontend_label' => $attribute->getFrontendLabel(),
+                            'is_static' => $attribute->isStatic(),
+                            'apply_to' => $attribute->getApplyTo(),
+                            'type' => Mage_ImportExport_Model_Import::getAttributeType($attribute),
+                            'default_value' => strlen($attribute->getDefaultValue()) ? $attribute->getDefaultValue() : null,
+                            'options' => $this->_entityModel
+                                    ->getAttributeOptions($attribute, $this->_indexValueAttributes)
                         );
                     }
                     $this->_addAttributeParams($attributeSet->getAttributeSetName(), $attributesCache[$attributeId]);
@@ -248,31 +248,29 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */
     public function isRowValid(array $rowData, $rowNum, $isNewProduct = true)
     {
-        $error    = false;
+        $error = false;
         $rowScope = $this->_entityModel->getRowScope($rowData);
 
         if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_NULL != $rowScope) {
             foreach ($this->_getProductAttributes($rowData) as $attrCode => $attrParams) {
                 // check value for non-empty in the case of required attribute?
                 if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
-                    $error |= !$this->_entityModel->isAttributeValid($attrCode, $attrParams, $rowData, $rowNum);
+                    $error |=!$this->_entityModel->isAttributeValid($attrCode, $attrParams, $rowData, $rowNum);
                 } elseif (
-                    $this->_isAttributeRequiredCheckNeeded($attrCode)
-                    && $attrParams['is_required']) {
-                        // For the default scope - if this is a new product or
-                        // for an old product, if the imported doc has the column present for the attrCode
-                        if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope &&
+                        $this->_isAttributeRequiredCheckNeeded($attrCode) && $attrParams['is_required']) {
+                    // For the default scope - if this is a new product or
+                    // for an old product, if the imported doc has the column present for the attrCode
+                    if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope &&
                             ($isNewProduct || array_key_exists($attrCode, $rowData))) {
-                            $this->_entityModel->addRowError(
-                                Mage_ImportExport_Model_Import_Entity_Product::ERROR_VALUE_IS_REQUIRED,
-                                    $rowNum, $attrCode
-                            );
-                            $error = true;
-                        }
+                        $this->_entityModel->addRowError(
+                                Mage_ImportExport_Model_Import_Entity_Product::ERROR_VALUE_IS_REQUIRED, $rowNum, $attrCode
+                        );
+                        $error = true;
+                    }
                 }
             }
         }
-        $error |= !$this->_isParticularAttributesValid($rowData, $rowNum);
+        $error |=!$this->_isParticularAttributesValid($rowData, $rowNum);
 
         return !$error;
     }
@@ -301,10 +299,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
         foreach ($this->_getProductAttributes($rowData) as $attrCode => $attrParams) {
             if (!$attrParams['is_static']) {
                 if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
-                    $resultAttrs[$attrCode] =
-                        ('select' == $attrParams['type'] || 'multiselect' == $attrParams['type'])
-                        ? $attrParams['options'][strtolower($rowData[$attrCode])]
-                        : $rowData[$attrCode];
+                    $resultAttrs[$attrCode] = ('select' == $attrParams['type'] || 'multiselect' == $attrParams['type']) ? $attrParams['options'][strtolower($rowData[$attrCode])] : $rowData[$attrCode];
                 } elseif ($withDefaultValue && null !== $attrParams['default_value']) {
                     $resultAttrs[$attrCode] = $attrParams['default_value'];
                 }
@@ -322,4 +317,5 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     {
         return $this;
     }
+
 }

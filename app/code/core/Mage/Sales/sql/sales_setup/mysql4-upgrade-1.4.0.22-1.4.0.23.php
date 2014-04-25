@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,12 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 $installer = $this;
 
-$statusTable        = $installer->getTable('sales/order_status');
-$statusStateTable   = $installer->getTable('sales/order_status_state');
-$statusLabelTable   = $installer->getTable('sales/order_status_label');
+$statusTable = $installer->getTable('sales/order_status');
+$statusStateTable = $installer->getTable('sales/order_status_state');
+$statusLabelTable = $installer->getTable('sales/order_status_label');
 
 $installer->run("
 CREATE TABLE `{$statusTable}` (
@@ -43,8 +43,8 @@ $statuses = Mage::getConfig()->getNode('global/sales/order/statuses')->asArray()
 $data = array();
 foreach ($statuses as $code => $info) {
     $data[] = array(
-        'status'    => $code,
-        'label'     => $info['label']
+        'status' => $code,
+        'label' => $info['label']
     );
 }
 $installer->getConnection()->insertArray($statusTable, array('status', 'label'), $data);
@@ -59,23 +59,21 @@ CREATE TABLE `{$statusStateTable}` (
     REFERENCES `{$statusTable}` (`status`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 ");
-$states     = Mage::getConfig()->getNode('global/sales/order/states')->asArray();
+$states = Mage::getConfig()->getNode('global/sales/order/states')->asArray();
 $data = array();
 foreach ($states as $code => $info) {
     if (isset($info['statuses'])) {
         foreach ($info['statuses'] as $status => $statusInfo) {
             $data[] = array(
-                'status'    => $status,
-                'state'     => $code,
-                'is_default'=> is_array($statusInfo) && isset($statusInfo['@']['default']) ? 1 : 0
+                'status' => $status,
+                'state' => $code,
+                'is_default' => is_array($statusInfo) && isset($statusInfo['@']['default']) ? 1 : 0
             );
         }
     }
 }
 $installer->getConnection()->insertArray(
-    $statusStateTable,
-    array('status', 'state', 'is_default'),
-    $data
+        $statusStateTable, array('status', 'state', 'is_default'), $data
 );
 
 $installer->run("

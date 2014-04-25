@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -49,6 +50,5 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Form extends Mage_Adminhtml_Block_
         $this->setForm($form);
         return parent::_prepareForm();
     }
-
 
 }

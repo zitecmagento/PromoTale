@@ -26,7 +26,7 @@
  */
 -->
 <config>
-   <sections>
+    <sections>
         <payment>
             <groups>
                 <paypal_notice translate="label" module="paypal">
@@ -213,7 +213,9 @@
                                                 <sort_order>70</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><use_proxy>1</use_proxy></depends>
+                                                <depends>
+                                                    <use_proxy>1</use_proxy>
+                                                </depends>
                                             </proxy_host>
                                             <proxy_port translate="label">
                                                 <label>Proxy Port</label>
@@ -222,7 +224,9 @@
                                                 <sort_order>80</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><use_proxy>1</use_proxy></depends>
+                                                <depends>
+                                                    <use_proxy>1</use_proxy>
+                                                </depends>
                                             </proxy_port>
                                             <payflow_advanced_info>
                                                 <frontend_model>paypal/adminhtml_system_config_payflowlink_advanced</frontend_model>
@@ -290,7 +294,9 @@
                                                 <sort_order>50</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><api_authentication>0</api_authentication></depends>
+                                                <depends>
+                                                    <api_authentication>0</api_authentication>
+                                                </depends>
                                                 <shared>1</shared>
                                             </api_signature>
                                             <api_cert translate="label">
@@ -301,7 +307,9 @@
                                                 <sort_order>60</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><api_authentication>1</api_authentication></depends>
+                                                <depends>
+                                                    <api_authentication>1</api_authentication>
+                                                </depends>
                                                 <shared>1</shared>
                                             </api_cert>
                                             <api_wizard translate="button_label sandbox_button_label">
@@ -342,7 +350,9 @@
                                                 <sort_order>100</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><use_proxy>1</use_proxy></depends>
+                                                <depends>
+                                                    <use_proxy>1</use_proxy>
+                                                </depends>
                                                 <shared>1</shared>
                                             </proxy_host>
                                             <proxy_port translate="label">
@@ -352,7 +362,9 @@
                                                 <sort_order>110</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><use_proxy>1</use_proxy></depends>
+                                                <depends>
+                                                    <use_proxy>1</use_proxy>
+                                                </depends>
                                                 <shared>1</shared>
                                             </proxy_port>
                                         </fields>
@@ -436,7 +448,9 @@
                                                 <sort_order>25</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><allowspecific>1</allowspecific></depends>
+                                                <depends>
+                                                    <allowspecific>1</allowspecific>
+                                                </depends>
                                             </specificcountry>
                                             <debug translate="label">
                                                 <label>Debug Mode</label>
@@ -473,7 +487,9 @@
                                                 <sort_order>50</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><csc_editable>1</csc_editable></depends>
+                                                <depends>
+                                                    <csc_editable>1</csc_editable>
+                                                </depends>
                                             </csc_required>
                                             <email_confirmation translate="label">
                                                 <label>Send Email Confirmation</label>
@@ -561,7 +577,9 @@
                                                         <sort_order>60</sort_order>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
-                                                        <depends><allowspecific>1</allowspecific></depends>
+                                                        <depends>
+                                                            <allowspecific>1</allowspecific>
+                                                        </depends>
                                                         <shared>1</shared>
                                                     </specificcountry>
                                                     <debug translate="label">
@@ -659,7 +677,9 @@
                                                         <sort_order>50</sort_order>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
-                                                        <depends><settlement_reports_ftp_sandbox>0</settlement_reports_ftp_sandbox></depends>
+                                                        <depends>
+                                                            <settlement_reports_ftp_sandbox>0</settlement_reports_ftp_sandbox>
+                                                        </depends>
                                                         <shared>1</shared>
                                                     </settlement_reports_ftp_ip>
                                                     <settlement_reports_ftp_path translate="label comeent">
@@ -670,7 +690,9 @@
                                                         <sort_order>60</sort_order>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
-                                                        <depends><settlement_reports_ftp_sandbox>0</settlement_reports_ftp_sandbox></depends>
+                                                        <depends>
+                                                            <settlement_reports_ftp_sandbox>0</settlement_reports_ftp_sandbox>
+                                                        </depends>
                                                         <shared>1</shared>
                                                     </settlement_reports_ftp_path>
                                                     <heading_schedule translate="label">
@@ -870,7 +892,9 @@
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <shared>1</shared>
-                                        <depends><payment_action>Order</payment_action></depends>
+                                        <depends>
+                                            <payment_action>Order</payment_action>
+                                        </depends>
                                     </authorization_honor_period>
                                     <order_valid_period translate="label comment">
                                         <label>Order Valid Period (days)</label>
@@ -881,7 +905,9 @@
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <shared>1</shared>
-                                        <depends><payment_action>Order</payment_action></depends>
+                                        <depends>
+                                            <payment_action>Order</payment_action>
+                                        </depends>
                                     </order_valid_period>
                                     <child_authorization_number translate="label comment">
                                         <label>Number of Child Authorizations</label>
@@ -892,7 +918,9 @@
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <shared>1</shared>
-                                        <depends><payment_action>Order</payment_action></depends>
+                                        <depends>
+                                            <payment_action>Order</payment_action>
+                                        </depends>
                                     </child_authorization_number>
                                     <settings_express_checkout_advanced type="group" translate="label">
                                         <label>Advanced Settings</label>
@@ -921,7 +949,9 @@
                                                 <sort_order>20</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><allowspecific>1</allowspecific></depends>
+                                                <depends>
+                                                    <allowspecific>1</allowspecific>
+                                                </depends>
                                                 <shared>1</shared>
                                             </specificcountry>
                                             <debug translate="label">
@@ -964,7 +994,9 @@
                                                 <sort_order>50</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><line_items_enabled>1</line_items_enabled></depends>
+                                                <depends>
+                                                    <line_items_enabled>1</line_items_enabled>
+                                                </depends>
                                                 <shared>1</shared>
                                             </transfer_shipping_options>
                                             <button_flavor translate="label">
@@ -1032,37 +1064,37 @@
                         <activity_path>payment/paypal_direct/active</activity_path>
                         <learn_more_link>https://www.paypal.com/webapps/mpp/referral/website-payments-pro?partner_id=NB9WWHYEMVUMS</learn_more_link>
                         <backend_config>
-                                <CA>
-                                    <include>1</include>
-                                    <sort_order>10</sort_order>
-                                </CA>
-                                <GB translate="label comment">
-                                    <include>1</include>
-                                    <group>paypal_group_all_in_one</group>
-                                    <frontend_class>pp-general-uk</frontend_class>
-                                    <sort_order>20</sort_order>
-                                    <learn_more_link>https://www.paypal-business.co.uk/process-online-payments-with-paypal/index.htm</learn_more_link>
-                                    <demo_link>http://www.youtube.com/watch?v=LBe-TW87eGI&amp;list=PLF18B1094ABCD7CE8&amp;index=1&amp;feature=plpp_video</demo_link>
-                                    <comment>Accept payments with a completely customizable checkout page.</comment>
-                                </GB>
-                                <US translate="label">
-                                    <label>Payments Pro (Includes Express Checkout)</label>
-                                    <include>1</include>
-                                    <group>paypal_group_all_in_one</group>
-                                    <fields>
-                                        <wpp_required_settings>
-                                            <fields>
-                                                <wpp_and_express_checkout translate="label">
-                                                    <label>Payments Pro and Express Checkout</label>
-                                                </wpp_and_express_checkout>
-                                            </fields>
-                                        </wpp_required_settings>
-                                        <wpp_settings translate="label">
-                                            <label>Basic Settings - PayPal Payments Pro</label>
-                                        </wpp_settings>
-                                    </fields>
-                                </US>
-                            </backend_config>
+                            <CA>
+                                <include>1</include>
+                                <sort_order>10</sort_order>
+                            </CA>
+                            <GB translate="label comment">
+                                <include>1</include>
+                                <group>paypal_group_all_in_one</group>
+                                <frontend_class>pp-general-uk</frontend_class>
+                                <sort_order>20</sort_order>
+                                <learn_more_link>https://www.paypal-business.co.uk/process-online-payments-with-paypal/index.htm</learn_more_link>
+                                <demo_link>http://www.youtube.com/watch?v=LBe-TW87eGI&amp;list=PLF18B1094ABCD7CE8&amp;index=1&amp;feature=plpp_video</demo_link>
+                                <comment>Accept payments with a completely customizable checkout page.</comment>
+                            </GB>
+                            <US translate="label">
+                                <label>Payments Pro (Includes Express Checkout)</label>
+                                <include>1</include>
+                                <group>paypal_group_all_in_one</group>
+                                <fields>
+                                    <wpp_required_settings>
+                                        <fields>
+                                            <wpp_and_express_checkout translate="label">
+                                                <label>Payments Pro and Express Checkout</label>
+                                            </wpp_and_express_checkout>
+                                        </fields>
+                                    </wpp_required_settings>
+                                    <wpp_settings translate="label">
+                                        <label>Basic Settings - PayPal Payments Pro</label>
+                                    </wpp_settings>
+                                </fields>
+                            </US>
+                        </backend_config>
                         <fields>
                             <wpp_required_settings type="group" translate="label">
                                 <label>Required PayPal Settings</label>
@@ -1189,7 +1221,9 @@
                                                 <sort_order>25</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><allowspecific>1</allowspecific></depends>
+                                                <depends>
+                                                    <allowspecific>1</allowspecific>
+                                                </depends>
                                             </specificcountry>
                                             <debug translate="label">
                                                 <label>Debug Mode</label>
@@ -1252,7 +1286,9 @@
                                                 <sort_order>65</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><centinel>1</centinel></depends>
+                                                <depends>
+                                                    <centinel>1</centinel>
+                                                </depends>
                                             </centinel_is_mode_strict>
                                             <centinel_api_url translate="label comment">
                                                 <label>Centinel Custom API URL</label>
@@ -1263,7 +1299,9 @@
                                                 <sort_order>70</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><centinel>1</centinel></depends>
+                                                <depends>
+                                                    <centinel>1</centinel>
+                                                </depends>
                                             </centinel_api_url>
                                             <wpp_billing_agreement type="group" translate="label">
                                                 <label>PayPal Billing Agreement Settings</label>
@@ -1494,7 +1532,9 @@
                                                 <sort_order>20</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><allowspecific>1</allowspecific></depends>
+                                                <depends>
+                                                    <allowspecific>1</allowspecific>
+                                                </depends>
                                             </specificcountry>
                                             <sandbox_flag translate="label">
                                                 <label>Sandbox Mode</label>
@@ -1523,7 +1563,9 @@
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
-                                                <depends><line_items_enabled>0</line_items_enabled></depends>
+                                                <depends>
+                                                    <line_items_enabled>0</line_items_enabled>
+                                                </depends>
                                             </line_items_summary>
                                             <debug translate="label">
                                                 <label>Debug Mode</label>
@@ -1564,19 +1606,19 @@
                         <learn_more_link>https://www.paypal.com/webapps/mpp/referral/paypal-payflow-pro?partner_id=NB9WWHYEMVUMS</learn_more_link>
                         <paypal_ec_separate>1</paypal_ec_separate>
                         <backend_config>
-                                <CA>
-                                    <include>1</include>
-                                    <sort_order>30</sort_order>
-                                </CA>
-                                <AU>
-                                    <include>1</include>
-                                    <sort_order>20</sort_order>
-                                </AU>
-                                <NZ>
-                                    <include>1</include>
-                                    <sort_order>20</sort_order>
-                                </NZ>
-                            </backend_config>
+                            <CA>
+                                <include>1</include>
+                                <sort_order>30</sort_order>
+                            </CA>
+                            <AU>
+                                <include>1</include>
+                                <sort_order>20</sort_order>
+                            </AU>
+                            <NZ>
+                                <include>1</include>
+                                <sort_order>20</sort_order>
+                            </NZ>
+                        </backend_config>
                         <fields>
                             <paypal_payflow_required type="group" translate="label">
                                 <label>Required PayPal Settings</label>
@@ -1653,7 +1695,9 @@
                                                 <sort_order>80</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><use_proxy>1</use_proxy></depends>
+                                                <depends>
+                                                    <use_proxy>1</use_proxy>
+                                                </depends>
                                             </proxy_host>
                                             <proxy_port translate="label">
                                                 <label>Proxy Port</label>
@@ -1662,7 +1706,9 @@
                                                 <sort_order>90</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><use_proxy>1</use_proxy></depends>
+                                                <depends>
+                                                    <use_proxy>1</use_proxy>
+                                                </depends>
                                             </proxy_port>
                                         </fields>
                                     </paypal_payflow_api_settings>
@@ -1760,7 +1806,9 @@
                                                 <source_model>paypal/system_config_source_buyerCountry</source_model>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><allowspecific>1</allowspecific></depends>
+                                                <depends>
+                                                    <allowspecific>1</allowspecific>
+                                                </depends>
                                             </specificcountry>
                                             <debug translate="label">
                                                 <label>Debug Mode</label>
@@ -1814,7 +1862,9 @@
                                                 <sort_order>70</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><centinel>1</centinel></depends>
+                                                <depends>
+                                                    <centinel>1</centinel>
+                                                </depends>
                                             </centinel_is_mode_strict>
                                             <centinel_api_url translate="label comment">
                                                 <label>Centinel API URL</label>
@@ -1825,7 +1875,9 @@
                                                 <sort_order>80</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><centinel>1</centinel></depends>
+                                                <depends>
+                                                    <centinel>1</centinel>
+                                                </depends>
                                             </centinel_api_url>
                                             <paypal_payflow_settlement_report type="group" translate="label">
                                                 <label>Settlement Report Settings</label>
@@ -2018,7 +2070,9 @@
                                                 <source_model>paypal/system_config_source_buyerCountry</source_model>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><allowspecific>1</allowspecific></depends>
+                                                <depends>
+                                                    <allowspecific>1</allowspecific>
+                                                </depends>
                                             </specificcountry>
                                             <debug translate="label">
                                                 <label>Debug Mode</label>
@@ -2067,15 +2121,15 @@
                         <activity_path>payment/payflow_link/active</activity_path>
                         <learn_more_link>https://www.paypal.com/webapps/mpp/referral/paypal-payflow-link?partner_id=NB9WWHYEMVUMS</learn_more_link>
                         <backend_config>
-                                <CA>
-                                    <include>1</include>
-                                    <sort_order>40</sort_order>
-                                </CA>
-                                <US>
-                                    <include>1</include>
-                                    <group>paypal_payment_gateways</group>
-                                </US>
-                            </backend_config>
+                            <CA>
+                                <include>1</include>
+                                <sort_order>40</sort_order>
+                            </CA>
+                            <US>
+                                <include>1</include>
+                                <group>paypal_payment_gateways</group>
+                            </US>
+                        </backend_config>
                         <fields>
                             <payflow_link_required type="group" translate="label">
                                 <label>Required PayPal Settings</label>
@@ -2152,7 +2206,9 @@
                                                 <sort_order>70</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><use_proxy>1</use_proxy></depends>
+                                                <depends>
+                                                    <use_proxy>1</use_proxy>
+                                                </depends>
                                             </proxy_host>
                                             <proxy_port translate="label">
                                                 <label>Proxy Port</label>
@@ -2161,7 +2217,9 @@
                                                 <sort_order>80</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><use_proxy>1</use_proxy></depends>
+                                                <depends>
+                                                    <use_proxy>1</use_proxy>
+                                                </depends>
                                             </proxy_port>
                                             <payflowlink_info>
                                                 <frontend_model>paypal/adminhtml_system_config_payflowlink_info</frontend_model>
@@ -2282,7 +2340,9 @@
                                                 <sort_order>20</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><allowspecific>1</allowspecific></depends>
+                                                <depends>
+                                                    <allowspecific>1</allowspecific>
+                                                </depends>
                                             </specificcountry>
                                             <debug translate="label">
                                                 <label>Debug Mode</label>
@@ -2319,7 +2379,9 @@
                                                 <sort_order>50</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><csc_editable>1</csc_editable></depends>
+                                                <depends>
+                                                    <csc_editable>1</csc_editable>
+                                                </depends>
                                             </csc_required>
                                             <email_confirmation translate="label">
                                                 <label>Send Email Confirmation</label>
@@ -2538,7 +2600,9 @@
                                                 <sort_order>80</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><use_proxy>1</use_proxy></depends>
+                                                <depends>
+                                                    <use_proxy>1</use_proxy>
+                                                </depends>
                                             </proxy_host>
                                             <proxy_port translate="label">
                                                 <label>Proxy Port</label>
@@ -2547,7 +2611,9 @@
                                                 <sort_order>90</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><use_proxy>1</use_proxy></depends>
+                                                <depends>
+                                                    <use_proxy>1</use_proxy>
+                                                </depends>
                                             </proxy_port>
                                         </fields>
                                     </pp_pe_api_settings>
@@ -2643,7 +2709,9 @@
                                                 <sort_order>20</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><allowspecific>1</allowspecific></depends>
+                                                <depends>
+                                                    <allowspecific>1</allowspecific>
+                                                </depends>
                                             </specificcountry>
                                             <debug translate="label">
                                                 <label>Debug Mode</label>
@@ -2706,7 +2774,9 @@
                                                 <sort_order>70</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><centinel>1</centinel></depends>
+                                                <depends>
+                                                    <centinel>1</centinel>
+                                                </depends>
                                             </centinel_is_mode_strict>
                                             <centinel_api_url translate="label comment">
                                                 <label>Centinel API URL</label>
@@ -2717,7 +2787,9 @@
                                                 <sort_order>80</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><centinel>1</centinel></depends>
+                                                <depends>
+                                                    <centinel>1</centinel>
+                                                </depends>
                                             </centinel_api_url>
                                             <pp_pe_settlement_report type="group" translate="label">
                                                 <label>Settlement Report Settings</label>
@@ -2976,7 +3048,9 @@
                                                 <sort_order>20</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
-                                                <depends><allowspecific>1</allowspecific></depends>
+                                                <depends>
+                                                    <allowspecific>1</allowspecific>
+                                                </depends>
                                             </specificcountry>
                                             <debug translate="label">
                                                 <label>Debug Mode</label>

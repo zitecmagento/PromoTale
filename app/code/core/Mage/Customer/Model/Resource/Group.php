@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer group resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -53,7 +54,7 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
             array(
                 'field' => 'customer_group_code',
                 'title' => Mage::helper('customer')->__('Customer Group')
-            ));
+        ));
 
         return $this;
     }
@@ -82,8 +83,8 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
     protected function _afterDelete(Mage_Core_Model_Abstract $group)
     {
         $customerCollection = Mage::getResourceModel('customer/customer_collection')
-            ->addAttributeToFilter('group_id', $group->getId())
-            ->load();
+                ->addAttributeToFilter('group_id', $group->getId())
+                ->load();
         foreach ($customerCollection as $customer) {
             $defaultGroupId = Mage::helper('customer')->getDefaultCustomerGroupId($customer->getStoreId());
             $customer->setGroupId($defaultGroupId);
@@ -91,4 +92,5 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
         }
         return parent::_afterDelete($group);
     }
+
 }

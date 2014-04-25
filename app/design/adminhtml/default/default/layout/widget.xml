@@ -43,11 +43,23 @@
 
     <adminhtml_widget_instance_edit>
         <reference name="head">
-            <action method="setCanLoadExtJs"><flag>1</flag></action>
-            <action method="addJs"><script>mage/adminhtml/wysiwyg/widget.js</script></action>
-            <action method="addItem"><type>js</type><name>prototype/window.js</name></action>
-            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
-            <action method="addCss"><name>lib/prototype/windows/themes/magento.css</name></action>
+            <action method="setCanLoadExtJs">
+                <flag>1</flag>
+            </action>
+            <action method="addJs">
+                <script>mage/adminhtml/wysiwyg/widget.js</script>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>prototype/window.js</name>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/default.css</name>
+            </action>
+            <action method="addCss">
+                <name>lib/prototype/windows/themes/magento.css</name>
+            </action>
         </reference>
         <reference name="content">
             <block type="widget/adminhtml_widget_instance_edit" name="widget_instance_edit" />
@@ -57,9 +69,18 @@
                 <block type="widget/adminhtml_widget_instance_edit_tab_settings" name="widget_instance_edit_tab_settings" />
                 <block type="widget/adminhtml_widget_instance_edit_tab_main" name="widget_instance_edit_tab_main" />
                 <block type="widget/adminhtml_widget_instance_edit_tab_properties" name="widget_instance_edit_tab_properties" />
-                <action method="addTab"><name>settings_section</name><block>widget_instance_edit_tab_settings</block></action>
-                <action method="addTab"><name>main_section</name><block>widget_instance_edit_tab_main</block></action>
-                <action method="addTab"><name>properties_section</name><block>widget_instance_edit_tab_properties</block></action>
+                <action method="addTab">
+                    <name>settings_section</name>
+                    <block>widget_instance_edit_tab_settings</block>
+                </action>
+                <action method="addTab">
+                    <name>main_section</name>
+                    <block>widget_instance_edit_tab_main</block>
+                </action>
+                <action method="addTab">
+                    <name>properties_section</name>
+                    <block>widget_instance_edit_tab_properties</block>
+                </action>
             </block>
         </reference>
         <reference name="js">

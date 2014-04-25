@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Customer we're working with
      *
@@ -67,14 +69,14 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
         }
 
         $this->_customer = Mage::getModel('customer/customer')
-            ->load($customerId);
+                ->load($customerId);
 
         $quoteItemId = (int) $this->getRequest()->getParam('id');
         $websiteId = (int) $this->getRequest()->getParam('website_id');
 
         $this->_quote = Mage::getModel('sales/quote')
-            ->setWebsite(Mage::app()->getWebsite($websiteId))
-            ->loadByCustomer($this->_customer);
+                ->setWebsite(Mage::app()->getWebsite($websiteId))
+                ->loadByCustomer($this->_customer);
 
         $this->_quoteItem = $this->_quote->getItemById($quoteItemId);
         if (!$this->_quoteItem) {
@@ -92,14 +94,15 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
     public function configureAction()
     {
         $configureResult = new Varien_Object();
-        try {
+        try
+        {
             $this->_initData();
 
             $quoteItem = $this->_quoteItem;
 
             $optionCollection = Mage::getModel('sales/quote_item_option')
-                ->getCollection()
-                ->addItemFilter($quoteItem);
+                    ->getCollection()
+                    ->addItemFilter($quoteItem);
             $quoteItem->setOptions($optionCollection->getOptionsByItem($quoteItem));
 
             $configureResult->setOk(true);
@@ -107,7 +110,9 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
             $configureResult->setBuyRequest($quoteItem->getBuyRequest());
             $configureResult->setCurrentStoreId($quoteItem->getStoreId());
             $configureResult->setCurrentCustomer($this->_customer);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $configureResult->setError(true);
             $configureResult->setMessage($e->getMessage());
         }
@@ -129,16 +134,19 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
     public function updateAction()
     {
         $updateResult = new Varien_Object();
-        try {
+        try
+        {
             $this->_initData();
 
             $buyRequest = new Varien_Object($this->getRequest()->getParams());
             $this->_quote->updateItem($this->_quoteItem->getId(), $buyRequest);
             $this->_quote->collectTotals()
-                ->save();
+                    ->save();
 
             $updateResult->setOk(true);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $updateResult->setError(true);
             $updateResult->setMessage($e->getMessage());
         }
@@ -159,4 +167,5 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
     {
         return Mage::getSingleton('admin/session')->isAllowed('customer/manage');
     }
+
 }

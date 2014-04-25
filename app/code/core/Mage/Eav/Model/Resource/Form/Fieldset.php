@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Form Fieldset Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize connection and define main table
      */
@@ -55,14 +56,14 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         if ($object->hasLabels()) {
-            $new        = $object->getLabels();
-            $old        = $this->getLabels($object);
+            $new = $object->getLabels();
+            $old = $this->getLabels($object);
 
-            $adapter    = $this->_getWriteAdapter();
+            $adapter = $this->_getWriteAdapter();
 
-            $insert     = array_diff(array_keys($new), array_keys($old));
-            $delete     = array_diff(array_keys($old), array_keys($new));
-            $update     = array();
+            $insert = array_diff(array_keys($new), array_keys($old));
+            $delete = array_diff(array_keys($old), array_keys($new));
+            $update = array();
 
             foreach ($new as $storeId => $label) {
                 if (isset($old[$storeId]) && $old[$storeId] != $label) {
@@ -80,9 +81,9 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
                         continue;
                     }
                     $data[] = array(
-                        'fieldset_id'   => (int)$object->getId(),
-                        'store_id'      => (int)$storeId,
-                        'label'         => $label
+                        'fieldset_id' => (int) $object->getId(),
+                        'store_id' => (int) $storeId,
+                        'label' => $label
                     );
                 }
                 if ($data) {
@@ -100,10 +101,10 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
 
             if (!empty($update)) {
                 foreach ($update as $storeId => $label) {
-                    $bind  = array('label' => $label);
+                    $bind = array('label' => $label);
                     $where = array(
                         'fieldset_id =?' => $object->getId(),
-                        'store_id =?'    => $storeId
+                        'store_id =?' => $storeId
                     );
                     $adapter->update($this->getTable('eav/form_fieldset_label'), $bind, $where);
                 }
@@ -126,10 +127,10 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
             return array();
         }
         $adapter = $this->_getReadAdapter();
-        $bind    = array(':fieldset_id' => $objectId);
-        $select  = $adapter->select()
-            ->from($this->getTable('eav/form_fieldset_label'), array('store_id', 'label'))
-            ->where('fieldset_id = :fieldset_id');
+        $bind = array(':fieldset_id' => $objectId);
+        $select = $adapter->select()
+                ->from($this->getTable('eav/form_fieldset_label'), array('store_id', 'label'))
+                ->where('fieldset_id = :fieldset_id');
 
         return $adapter->fetchPairs($select, $bind);
     }
@@ -149,17 +150,14 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
         $labelExpr = $select->getAdapter()->getIfNullSql('store_label.label', 'default_label.label');
 
         $select
-            ->joinLeft(
-                array('default_label' => $this->getTable('eav/form_fieldset_label')),
-                $this->getMainTable() . '.fieldset_id = default_label.fieldset_id AND default_label.store_id=0',
-                array())
-            ->joinLeft(
-                array('store_label' => $this->getTable('eav/form_fieldset_label')),
-                $this->getMainTable() . '.fieldset_id = store_label.fieldset_id AND default_label.store_id='
-                    . (int)$object->getStoreId(),
-                array('label' => $labelExpr)
-            );
+                ->joinLeft(
+                        array('default_label' => $this->getTable('eav/form_fieldset_label')), $this->getMainTable() . '.fieldset_id = default_label.fieldset_id AND default_label.store_id=0', array())
+                ->joinLeft(
+                        array('store_label' => $this->getTable('eav/form_fieldset_label')), $this->getMainTable() . '.fieldset_id = store_label.fieldset_id AND default_label.store_id='
+                        . (int) $object->getStoreId(), array('label' => $labelExpr)
+        );
 
         return $select;
     }
+
 }

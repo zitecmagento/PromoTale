@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
 {
+
     /**
      * Initialize attributes map
      */
@@ -56,21 +58,24 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
         /** @var $invoiceCollection Mage_Sales_Model_Mysql4_Order_Invoice_Collection */
         $invoiceCollection = Mage::getResourceModel('sales/order_invoice_collection');
         $invoiceCollection->addAttributeToSelect('entity_id')
-            ->addAttributeToSelect('order_id')
-            ->addAttributeToSelect('increment_id')
-            ->addAttributeToSelect('created_at')
-            ->addAttributeToSelect('state')
-            ->addAttributeToSelect('grand_total')
-            ->addAttributeToSelect('order_currency_code');
+                ->addAttributeToSelect('order_id')
+                ->addAttributeToSelect('increment_id')
+                ->addAttributeToSelect('created_at')
+                ->addAttributeToSelect('state')
+                ->addAttributeToSelect('grand_total')
+                ->addAttributeToSelect('order_currency_code');
 
         /** @var $apiHelper Mage_Api_Helper_Data */
         $apiHelper = Mage::helper('api');
-        try {
+        try
+        {
             $filters = $apiHelper->parseFilters($filters, $this->_attributesMap['invoice']);
             foreach ($filters as $field => $value) {
                 $invoiceCollection->addFieldToFilter($field, $value);
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('filters_invalid', $e->getMessage());
         }
         foreach ($invoiceCollection as $invoice) {
@@ -127,17 +132,17 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
 
         /* @var $order Mage_Sales_Model_Order */
         /**
-          * Check order existing
-          */
+         * Check order existing
+         */
         if (!$order->getId()) {
-             $this->_fault('order_not_exists');
+            $this->_fault('order_not_exists');
         }
 
         /**
          * Check invoice create availability
          */
         if (!$order->canInvoice()) {
-             $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do invoice for order.'));
+            $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do invoice for order.'));
         }
 
         $invoice = $order->prepareInvoice($itemsQty);
@@ -154,14 +159,17 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
 
         $invoice->getOrder()->setIsInProcess(true);
 
-        try {
+        try
+        {
             $transactionSave = Mage::getModel('core/resource_transaction')
-                ->addObject($invoice)
-                ->addObject($invoice->getOrder())
-                ->save();
+                    ->addObject($invoice)
+                    ->addObject($invoice->getOrder())
+                    ->save();
 
             $invoice->sendEmail($email, ($includeComment ? $comment : ''));
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -188,11 +196,14 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
         }
 
 
-        try {
+        try
+        {
             $invoice->addComment($comment, $email);
             $invoice->sendUpdateEmail($email, ($includeComment ? $comment : ''));
             $invoice->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -219,16 +230,21 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Invoice cannot be captured.'));
         }
 
-        try {
+        try
+        {
             $invoice->capture();
             $invoice->getOrder()->setIsInProcess(true);
             $transactionSave = Mage::getModel('core/resource_transaction')
-                ->addObject($invoice)
-                ->addObject($invoice->getOrder())
-                ->save();
-        } catch (Mage_Core_Exception $e) {
+                    ->addObject($invoice)
+                    ->addObject($invoice->getOrder())
+                    ->save();
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('status_not_changed', $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Invoice capturing problem.'));
         }
 
@@ -255,16 +271,21 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Invoice cannot be voided.'));
         }
 
-        try {
+        try
+        {
             $invoice->void();
             $invoice->getOrder()->setIsInProcess(true);
             $transactionSave = Mage::getModel('core/resource_transaction')
-                ->addObject($invoice)
-                ->addObject($invoice->getOrder())
-                ->save();
-        } catch (Mage_Core_Exception $e) {
+                    ->addObject($invoice)
+                    ->addObject($invoice->getOrder())
+                    ->save();
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('status_not_changed', $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Invoice void problem'));
         }
 
@@ -291,19 +312,25 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Invoice cannot be canceled.'));
         }
 
-        try {
+        try
+        {
             $invoice->cancel();
             $invoice->getOrder()->setIsInProcess(true);
             $transactionSave = Mage::getModel('core/resource_transaction')
-                ->addObject($invoice)
-                ->addObject($invoice->getOrder())
-                ->save();
-        } catch (Mage_Core_Exception $e) {
+                    ->addObject($invoice)
+                    ->addObject($invoice->getOrder())
+                    ->save();
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('status_not_changed', $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Invoice canceling problem.'));
         }
 
         return true;
     }
+
 }

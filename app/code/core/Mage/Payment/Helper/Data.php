@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     const XML_PATH_PAYMENT_METHODS = 'payment';
     const XML_PATH_PAYMENT_GROUPS = 'global/payment/groups';
 
@@ -42,7 +44,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getMethodInstance($code)
     {
-        $key = self::XML_PATH_PAYMENT_METHODS.'/'.$code.'/model';
+        $key = self::XML_PATH_PAYMENT_METHODS . '/' . $code . '/model';
         $class = Mage::getStoreConfig($key);
         return Mage::getModel($class);
     }
@@ -74,7 +76,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                 /* if the payment method cannot be used at this time */
                 continue;
             }
-            $sortOrder = (int)$methodInstance->getConfigData('sort_order', $store);
+            $sortOrder = (int) $methodInstance->getConfigData('sort_order', $store);
             $methodInstance->setSortOrder($sortOrder);
             $res[] = $methodInstance;
         }
@@ -86,7 +88,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     protected function _sortMethods($a, $b)
     {
         if (is_object($a)) {
-            return (int)$a->sort_order < (int)$b->sort_order ? -1 : ((int)$a->sort_order > (int)$b->sort_order ? 1 : 0);
+            return (int) $a->sort_order < (int) $b->sort_order ? -1 : ((int) $a->sort_order > (int) $b->sort_order ? 1 : 0);
         }
         return 0;
     }
@@ -119,8 +121,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
         $blockType = $info->getMethodInstance()->getInfoBlockType();
         if ($this->getLayout()) {
             $block = $this->getLayout()->createBlock($blockType);
-        }
-        else {
+        } else {
             $className = Mage::getConfig()->getBlockClassName($blockType);
             $block = new $className;
         }
@@ -297,4 +298,5 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfig(Mage_Payment_Model_Method_Free::XML_PATH_PAYMENT_FREE_PAYMENT_ACTION, $store);
     }
+
 }

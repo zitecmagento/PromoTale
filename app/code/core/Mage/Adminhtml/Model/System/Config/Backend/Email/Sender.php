@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * System config email sender field backend model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Email_Sender extends Mage_Core_Model_Config_Data
 {
+
     /**
      * Check sender name validity
      *
@@ -51,4 +52,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Sender extends Mage_Core_
         }
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Acl resource
  *
@@ -34,5 +34,5 @@
  */
 class Mage_Api_Model_Acl_Resource extends Zend_Acl_Resource
 {
-
+    
 }

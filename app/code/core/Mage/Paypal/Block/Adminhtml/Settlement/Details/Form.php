@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Prepare read-only data and group it by fieldsets
      * @return Mage_Paypal_Block_Adminhtml_Settlement_Details_Form
@@ -58,7 +60,6 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
                 ),
                 'legend' => Mage::helper('paypal')->__('Reference Information')
             ),
-
             'transaction_fieldset' => array(
                 'fields' => array(
                     'transaction_event_code' => array(
@@ -80,13 +81,12 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
                     'gross_transaction_amount' => array(
                         'label' => $settlement->getFieldLabel('gross_transaction_amount'),
                         'value' => Mage::app()->getLocale()
-                                       ->currency($model->getData('gross_transaction_currency'))
-                                       ->toCurrency($model->getData('gross_transaction_amount'))
+                                ->currency($model->getData('gross_transaction_currency'))
+                                ->toCurrency($model->getData('gross_transaction_amount'))
                     ),
                 ),
                 'legend' => Mage::helper('paypal')->__('Transaction Information')
             ),
-
             'fee_fieldset' => array(
                 'fields' => array(
                     'fee_debit_or_credit' => array(
@@ -96,8 +96,8 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
                     'fee_amount' => array(
                         'label' => $settlement->getFieldLabel('fee_amount'),
                         'value' => Mage::app()->getLocale()
-                                       ->currency($model->getData('fee_currency'))
-                                       ->toCurrency($model->getData('fee_amount'))
+                                ->currency($model->getData('fee_currency'))
+                                ->toCurrency($model->getData('fee_amount'))
                     ),
                 ),
                 'legend' => Mage::helper('paypal')->__('PayPal Fee Information')
@@ -109,7 +109,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
             $fieldset = $form->addFieldset($key, array('legend' => $data['legend']));
             foreach ($data['fields'] as $id => $info) {
                 $fieldset->addField($id, 'label', array(
-                    'name'  => $id,
+                    'name' => $id,
                     'label' => $info['label'],
                     'title' => $info['label'],
                     'value' => isset($info['value']) ? $info['value'] : $model->getData($id),
@@ -119,4 +119,5 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
         $this->setForm($form);
         return parent::_prepareForm();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Windows.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Service_Amazon_Ec2_Abstract
  */
@@ -47,6 +47,7 @@
  */
 class Zend_Service_Amazon_Ec2_Instance_Windows extends Zend_Service_Amazon_Ec2_Abstract
 {
+
     /**
      * Bundles an Amazon EC2 instance running Windows
      *
@@ -127,11 +128,11 @@ class Zend_Service_Amazon_Ec2_Instance_Windows extends Zend_Service_Amazon_Ec2_A
         $params = array();
         $params['Action'] = 'DescribeBundleTasks';
 
-        if(is_array($bundleId) && !empty($bundleId)) {
-            foreach($bundleId as $k=>$name) {
-                $params['bundleId.' . ($k+1)] = $name;
+        if (is_array($bundleId) && !empty($bundleId)) {
+            foreach ($bundleId as $k => $name) {
+                $params['bundleId.' . ($k + 1)] = $name;
             }
-        } elseif(!empty($bundleId)) {
+        } elseif (!empty($bundleId)) {
             $params['bundleId.1'] = $bundleId;
         }
 
@@ -142,7 +143,7 @@ class Zend_Service_Amazon_Ec2_Instance_Windows extends Zend_Service_Amazon_Ec2_A
         $items = $xpath->evaluate('//ec2:bundleInstanceTasksSet/ec2:item');
         $return = array();
 
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $i = array();
             $i['instanceId'] = $xpath->evaluate('string(ec2:instanceId/text())', $item);
             $i['bundleId'] = $xpath->evaluate('string(ec2:bundleId/text())', $item);
@@ -192,4 +193,5 @@ class Zend_Service_Amazon_Ec2_Instance_Windows extends Zend_Service_Amazon_Ec2_A
         $hmac = Zend_Crypt_Hmac::compute($this->_getSecretKey(), 'SHA1', $policy, Zend_Crypt_Hmac::BINARY);
         return $hmac;
     }
+
 }

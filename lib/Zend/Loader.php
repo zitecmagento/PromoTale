@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 class Zend_Loader
 {
+
     /**
      * Loads a class from a PHP file.  The filename must be formatted
      * as "$class.php".
@@ -65,12 +67,12 @@ class Zend_Loader
         // Framework Interop Group reference implementation:
         // http://groups.google.com/group/php-standards/web/psr-0-final-proposal
         $className = ltrim($class, '\\');
-        $file      = '';
+        $file = '';
         $namespace = '';
         if ($lastNsPos = strripos($className, '\\')) {
             $namespace = substr($className, 0, $lastNsPos);
             $className = substr($className, $lastNsPos + 1);
-            $file      = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+            $file = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
         }
         $file .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
@@ -179,8 +181,7 @@ class Zend_Loader
             return true;
         }
 
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN'
-            && preg_match('/^[a-z]:/i', $filename)
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN' && preg_match('/^[a-z]:/i', $filename)
         ) {
             // If on windows, and path provided is clearly an absolute path, 
             // return false immediately
@@ -243,10 +244,13 @@ class Zend_Loader
     public static function autoload($class)
     {
         trigger_error(__CLASS__ . '::' . __METHOD__ . ' is deprecated as of 1.8.0 and will be removed with 2.0.0; use Zend_Loader_Autoloader instead', E_USER_NOTICE);
-        try {
+        try
+        {
             @self::loadClass($class);
             return $class;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             return false;
         }
     }
@@ -323,7 +327,8 @@ class Zend_Loader
         if ($once) {
             return include_once $filespec;
         } else {
-            return include $filespec ;
+            return include $filespec;
         }
     }
+
 }

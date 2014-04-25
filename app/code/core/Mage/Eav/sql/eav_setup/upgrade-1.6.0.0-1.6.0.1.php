@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 
@@ -31,8 +31,7 @@ $installer->startSetup();
 $connection = $installer->getConnection();
 
 $connection->delete(
-    $this->getTable('eav/attribute'),
-    $connection->prepareSqlCondition('attribute_code', 'enable_googlecheckout')
+        $this->getTable('eav/attribute'), $connection->prepareSqlCondition('attribute_code', 'enable_googlecheckout')
 );
 
 $installer->endSetup();

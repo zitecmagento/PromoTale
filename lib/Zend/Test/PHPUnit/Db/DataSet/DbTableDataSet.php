@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,9 +20,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DbTableDataSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 #require_once "PHPUnit/Extensions/Database/DataSet/QueryDataSet.php";
-
 #require_once "PHPUnit/Extensions/Database/DB/IDatabaseConnection.php";
 
 /**
@@ -41,6 +40,7 @@
  */
 class Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet extends PHPUnit_Extensions_Database_DataSet_AbstractDataSet
 {
+
     /**
      * @var array
      */
@@ -100,4 +100,5 @@ class Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet extends PHPUnit_Extensions_Dat
     {
         return array_keys($this->tables);
     }
+
 }

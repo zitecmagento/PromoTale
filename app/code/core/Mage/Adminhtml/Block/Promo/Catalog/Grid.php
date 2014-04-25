@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Initialize grid
      * Set sort settings
@@ -56,7 +58,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
     {
         /** @var $collection Mage_CatalogRule_Model_Mysql4_Rule_Collection */
         $collection = Mage::getModel('catalogrule/rule')
-            ->getResourceCollection();
+                ->getResourceCollection();
         $collection->addWebsitesToResult();
         $this->setCollection($collection);
 
@@ -72,42 +74,42 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
     protected function _prepareColumns()
     {
         $this->addColumn('rule_id', array(
-            'header'    => Mage::helper('catalogrule')->__('ID'),
-            'align'     =>'right',
-            'width'     => '50px',
-            'index'     => 'rule_id',
+            'header' => Mage::helper('catalogrule')->__('ID'),
+            'align' => 'right',
+            'width' => '50px',
+            'index' => 'rule_id',
         ));
 
         $this->addColumn('name', array(
-            'header'    => Mage::helper('catalogrule')->__('Rule Name'),
-            'align'     =>'left',
-            'index'     => 'name',
+            'header' => Mage::helper('catalogrule')->__('Rule Name'),
+            'align' => 'left',
+            'index' => 'name',
         ));
 
         $this->addColumn('from_date', array(
-            'header'    => Mage::helper('catalogrule')->__('Date Start'),
-            'align'     => 'left',
-            'width'     => '120px',
-            'type'      => 'date',
-            'index'     => 'from_date',
+            'header' => Mage::helper('catalogrule')->__('Date Start'),
+            'align' => 'left',
+            'width' => '120px',
+            'type' => 'date',
+            'index' => 'from_date',
         ));
 
         $this->addColumn('to_date', array(
-            'header'    => Mage::helper('catalogrule')->__('Date Expire'),
-            'align'     => 'left',
-            'width'     => '120px',
-            'type'      => 'date',
-            'default'   => '--',
-            'index'     => 'to_date',
+            'header' => Mage::helper('catalogrule')->__('Date Expire'),
+            'align' => 'left',
+            'width' => '120px',
+            'type' => 'date',
+            'default' => '--',
+            'index' => 'to_date',
         ));
 
         $this->addColumn('is_active', array(
-            'header'    => Mage::helper('catalogrule')->__('Status'),
-            'align'     => 'left',
-            'width'     => '80px',
-            'index'     => 'is_active',
-            'type'      => 'options',
-            'options'   => array(
+            'header' => Mage::helper('catalogrule')->__('Status'),
+            'align' => 'left',
+            'width' => '80px',
+            'index' => 'is_active',
+            'type' => 'options',
+            'options' => array(
                 1 => Mage::helper('catalogrule')->__('Active'),
                 0 => Mage::helper('catalogrule')->__('Inactive')
             ),
@@ -115,13 +117,13 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('rule_website', array(
-                'header'    => Mage::helper('catalogrule')->__('Website'),
-                'align'     =>'left',
-                'index'     => 'website_ids',
-                'type'      => 'options',
-                'sortable'  => false,
-                'options'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteOptionHash(),
-                'width'     => 200,
+                'header' => Mage::helper('catalogrule')->__('Website'),
+                'align' => 'left',
+                'index' => 'website_ids',
+                'type' => 'options',
+                'sortable' => false,
+                'options' => Mage::getSingleton('adminhtml/system_store')->getWebsiteOptionHash(),
+                'width' => 200,
             ));
         }
 

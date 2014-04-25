@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Form Type Model
  *
@@ -47,6 +47,7 @@
  */
 class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
 {
+
     /**
      * Prefix of model events names
      *
@@ -133,11 +134,11 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
     public function createFromSkeleton(Mage_Eav_Model_Form_Type $skeleton)
     {
         $fieldsetCollection = Mage::getModel('eav/form_fieldset')->getCollection()
-            ->addTypeFilter($skeleton)
-            ->setSortOrder();
+                ->addTypeFilter($skeleton)
+                ->setSortOrder();
         $elementCollection = Mage::getModel('eav/form_element')->getCollection()
-            ->addTypeFilter($skeleton)
-            ->setSortOrder();
+                ->addTypeFilter($skeleton)
+                ->setSortOrder();
 
         // copy fieldsets
         $fieldsetMap = array();
@@ -145,10 +146,10 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
             /* @var $skeletonFieldset Mage_Eav_Model_Form_Fieldset */
             $fieldset = Mage::getModel('eav/form_fieldset');
             $fieldset->setTypeId($this->getId())
-                ->setCode($skeletonFieldset->getCode())
-                ->setLabels($skeletonFieldset->getLabels())
-                ->setSortOrder($skeletonFieldset->getSortOrder())
-                ->save();
+                    ->setCode($skeletonFieldset->getCode())
+                    ->setLabels($skeletonFieldset->getLabels())
+                    ->setSortOrder($skeletonFieldset->getSortOrder())
+                    ->save();
             $fieldsetMap[$skeletonFieldset->getId()] = $fieldset->getId();
         }
 
@@ -161,11 +162,12 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
                 $fieldsetId = $fieldsetMap[$skeletonElement->getFieldsetId()];
             }
             $element->setTypeId($this->getId())
-                ->setFieldsetId($fieldsetId)
-                ->setAttributeId($skeletonElement->getAttributeId())
-                ->setSortOrder($skeletonElement->getSortOrder());
+                    ->setFieldsetId($fieldsetId)
+                    ->setAttributeId($skeletonElement->getAttributeId())
+                    ->setSortOrder($skeletonElement->getSortOrder());
         }
 
         return $this;
     }
+
 }

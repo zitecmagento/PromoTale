@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert profile collection
  *
@@ -34,10 +34,10 @@
  */
 class Varien_Convert_Profile_Collection
 {
+
     protected $_xml;
     protected $_containers;
     protected $_profiles = array();
-
     protected $_simplexmlDefaultClass = 'Varien_Simplexml_Element';
     protected $_profileDefaultClass = 'Varien_Convert_Profile';
     protected $_profileCollectionDefaultClass = 'Varien_Convert_Profile_Collection';
@@ -58,7 +58,6 @@ class Varien_Convert_Profile_Collection
         return $this->getContainers()->getItem($name);
     }
 
-
     public function addContainer($name, Varien_Convert_Container_Interface $container)
     {
         $container = $this->getContainers()->addItem($name, $container);
@@ -78,7 +77,7 @@ class Varien_Convert_Profile_Collection
         return $this->_profiles[$name];
     }
 
-    public function addProfile($name, Varien_Convert_Profile_Abstract $profile=null)
+    public function addProfile($name, Varien_Convert_Profile_Abstract $profile = null)
     {
         if (is_null($profile)) {
             $profile = new $this->_profileDefaultClass();
@@ -112,10 +111,10 @@ class Varien_Convert_Profile_Collection
             if (!$containerNode['name'] || !$containerNode['type']) {
                 continue;
             }
-            $class = $this->getClassNameByType((string)$containerNode['type']);
-            $container = $this->addContainer((string)$containerNode['name'], new $class());
+            $class = $this->getClassNameByType((string) $containerNode['type']);
+            $container = $this->addContainer((string) $containerNode['name'], new $class());
             foreach ($containerNode->var as $varNode) {
-                $container->setVar((string)$varNode['name'], (string)$varNode);
+                $container->setVar((string) $varNode['name'], (string) $varNode);
             }
         }
         return $this;
@@ -126,7 +125,7 @@ class Varien_Convert_Profile_Collection
         if (!$this->_xml) {
             return $this;
         }
-        $nodes = $this->_xml->xpath("//profile[@name='".$name."']");
+        $nodes = $this->_xml->xpath("//profile[@name='" . $name . "']");
         if (!$nodes) {
             return $this;
         }
@@ -136,14 +135,14 @@ class Varien_Convert_Profile_Collection
         $profile->setContainers($this->getContainers());
         foreach ($profileNode->action as $actionNode) {
             $action = $profile->addAction();
-            foreach ($actionNode->attributes() as $key=>$value) {
-                $action->setParam($key, (string)$value);
+            foreach ($actionNode->attributes() as $key => $value) {
+                $action->setParam($key, (string) $value);
             }
 
             if ($actionNode['use']) {
-                $container = $profile->getContainer((string)$actionNode['use']);
+                $container = $profile->getContainer((string) $actionNode['use']);
             } else {
-                $action->setParam('class', $this->getClassNameByType((string)$actionNode['type']));
+                $action->setParam('class', $this->getClassNameByType((string) $actionNode['type']));
                 $container = $action->getContainer();
             }
             $action->setContainer($container);
@@ -151,10 +150,11 @@ class Varien_Convert_Profile_Collection
                 $this->addContainer($action->getParam('name'), $container);
             }
             foreach ($actionNode->var as $varNode) {
-                $container->setVar((string)$varNode['name'], (string)$varNode);
+                $container->setVar((string) $varNode['name'], (string) $varNode);
             }
         }
 
         return $this;
     }
+
 }

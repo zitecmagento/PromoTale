@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product options text type block
@@ -91,14 +91,14 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         $yearEnd = Mage::getSingleton('catalog/product_option_type_date')->getYearEnd();
 
         $calendar = $this->getLayout()
-            ->createBlock('core/html_date')
-            ->setId('options_'.$this->getOption()->getId().'_date')
-            ->setName('options['.$this->getOption()->getId().'][date]')
-            ->setClass('product-custom-option datetime-picker input-text' . $require)
-            ->setImage($this->getSkinUrl('images/calendar.gif'))
-            ->setFormat(Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT))
-            ->setValue($value)
-            ->setYearsRange('[' . $yearStart . ', ' . $yearEnd . ']');
+                ->createBlock('core/html_date')
+                ->setId('options_' . $this->getOption()->getId() . '_date')
+                ->setName('options[' . $this->getOption()->getId() . '][date]')
+                ->setClass('product-custom-option datetime-picker input-text' . $require)
+                ->setImage($this->getSkinUrl('images/calendar.gif'))
+                ->setFormat(Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT))
+                ->setValue($value)
+                ->setYearsRange('[' . $yearStart . ', ' . $yearEnd . ']');
         if (!$this->getSkipJsReloadPrice()) {
             $calendar->setExtraParams('onchange="opConfig.reloadPrice()"');
         }
@@ -147,11 +147,11 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
             $hourStart = 1;
             $hourEnd = 12;
             $dayPartHtml = $this->_getHtmlSelect('day_part')
-                ->setOptions(array(
-                    'am' => Mage::helper('catalog')->__('AM'),
-                    'pm' => Mage::helper('catalog')->__('PM')
-                ))
-                ->getHtml();
+                    ->setOptions(array(
+                        'am' => Mage::helper('catalog')->__('AM'),
+                        'pm' => Mage::helper('catalog')->__('PM')
+                    ))
+                    ->getHtml();
         }
         $hoursHtml = $this->_getSelectFromToHtml('hour', $hourStart, $hourEnd);
         $minutesHtml = $this->_getSelectFromToHtml('minute', 0, 59);
@@ -177,8 +177,8 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
             $options[] = array('value' => $i, 'label' => $this->_getValueWithLeadingZeros($i));
         }
         return $this->_getHtmlSelect($name, $value)
-            ->setOptions($options)
-            ->getHtml();
+                        ->setOptions($options)
+                        ->getHtml();
     }
 
     /**
@@ -194,10 +194,10 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         // $require = $this->getOption()->getIsRequire() ? ' required-entry' : '';
         $require = '';
         $select = $this->getLayout()->createBlock('core/html_select')
-            ->setId('options_' . $this->getOption()->getId() . '_' . $name)
-            ->setClass('product-custom-option datetime-picker' . $require)
-            ->setExtraParams()
-            ->setName('options[' . $option->getId() . '][' . $name . ']');
+                ->setId('options_' . $this->getOption()->getId() . '_' . $name)
+                ->setClass('product-custom-option datetime-picker' . $require)
+                ->setExtraParams()
+                ->setName('options[' . $option->getId() . '][' . $name . ']');
 
         $extraParams = 'style="width:auto"';
         if (!$this->getSkipJsReloadPrice()) {
@@ -226,6 +226,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         if (!$this->_fillLeadingZeros) {
             return $value;
         }
-        return $value < 10 ? '0'.$value : $value;
+        return $value < 10 ? '0' . $value : $value;
     }
+
 }

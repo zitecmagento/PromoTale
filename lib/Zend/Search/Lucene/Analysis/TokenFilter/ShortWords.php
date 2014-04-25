@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ShortWords.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Analysis_TokenFilter */
 #require_once 'Zend/Search/Lucene/Analysis/TokenFilter.php';
-
 
 /**
  * Token filter that removes short words. What is short word can be configured with constructor.
@@ -34,9 +32,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_Search_Lucene_Analysis_TokenFilter_ShortWords extends Zend_Search_Lucene_Analysis_TokenFilter
 {
+
     /**
      * Minimum allowed term length
      * @var integer
@@ -48,7 +46,8 @@ class Zend_Search_Lucene_Analysis_TokenFilter_ShortWords extends Zend_Search_Luc
      *
      * @param integer $short  minimum allowed length of term which passes this filter (default 2)
      */
-    public function __construct($length = 2) {
+    public function __construct($length = 2)
+    {
         $this->length = $length;
     }
 
@@ -58,12 +57,13 @@ class Zend_Search_Lucene_Analysis_TokenFilter_ShortWords extends Zend_Search_Luc
      * @param Zend_Search_Lucene_Analysis_Token $srcToken
      * @return Zend_Search_Lucene_Analysis_Token
      */
-    public function normalize(Zend_Search_Lucene_Analysis_Token $srcToken) {
+    public function normalize(Zend_Search_Lucene_Analysis_Token $srcToken)
+    {
         if (strlen($srcToken->getTermText()) < $this->length) {
             return null;
         } else {
             return $srcToken;
         }
     }
-}
 
+}

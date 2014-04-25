@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,20 +19,18 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Entry.php 20325 2010-01-16 00:17:59Z padraic $
  */
- 
 /**
  * @see Zend_Feed_Writer_Extension_RendererAbstract
  */
 #require_once 'Zend/Feed/Writer/Extension/RendererAbstract.php';
- 
+
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Writer_Extension_WellFormedWeb_Renderer_Entry
-    extends Zend_Feed_Writer_Extension_RendererAbstract
+class Zend_Feed_Writer_Extension_WellFormedWeb_Renderer_Entry extends Zend_Feed_Writer_Extension_RendererAbstract
 {
 
     /**
@@ -42,7 +41,7 @@ class Zend_Feed_Writer_Extension_WellFormedWeb_Renderer_Entry
      * @var bool
      */
     protected $_called = false;
-    
+
     /**
      * Render entry
      * 
@@ -58,7 +57,7 @@ class Zend_Feed_Writer_Extension_WellFormedWeb_Renderer_Entry
             $this->_appendNamespaces();
         }
     }
-    
+
     /**
      * Append entry namespaces
      * 
@@ -66,10 +65,9 @@ class Zend_Feed_Writer_Extension_WellFormedWeb_Renderer_Entry
      */
     protected function _appendNamespaces()
     {
-        $this->getRootElement()->setAttribute('xmlns:wfw',
-            'http://wellformedweb.org/CommentAPI/');  
+        $this->getRootElement()->setAttribute('xmlns:wfw', 'http://wellformedweb.org/CommentAPI/');
     }
-    
+
     /**
      * Set entry comment feed links
      * 
@@ -93,4 +91,5 @@ class Zend_Feed_Writer_Extension_WellFormedWeb_Renderer_Entry
         }
         $this->_called = true;
     }
+
 }

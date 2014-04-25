@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Query.php 23382 2010-11-18 22:50:50Z bittarman $
  */
-
 
 /**
  * @category   Zend
@@ -203,11 +203,11 @@ class Zend_Db_Profiler_Query
      */
     public function getStartedMicrotime()
     {
-        if(null === $this->_startedMicrotime) {
+        if (null === $this->_startedMicrotime) {
             return false;
         }
 
         return $this->_startedMicrotime;
     }
-}
 
+}

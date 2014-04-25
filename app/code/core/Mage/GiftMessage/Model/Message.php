@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Gift Message model
  *
@@ -45,17 +45,18 @@
  */
 class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
 {
+
     /**
      * Allowed types of entities for using of gift messages
      *
      * @var array
      */
     static protected $_allowedEntityTypes = array(
-        'order'         => 'sales/order',
-        'order_item'    => 'sales/order_item',
+        'order' => 'sales/order',
+        'order_item' => 'sales/order_item',
         'order_address' => 'sales/order_address',
-        'quote'         => 'sales/quote',
-        'quote_item'    => 'sales/quote_item',
+        'quote' => 'sales/quote',
+        'quote_item' => 'sales/quote_item',
         'quote_address' => 'sales/quote_address',
         'quote_address_item' => 'sales/quote_address_item'
     );
@@ -74,7 +75,7 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
     public function getEntityModelByType($type)
     {
         $types = self::getAllowedEntityTypes();
-        if(!isset($types[$type])) {
+        if (!isset($types[$type])) {
             Mage::throwException(Mage::helper('giftmessage')->__('Unknown entity type'));
         }
 

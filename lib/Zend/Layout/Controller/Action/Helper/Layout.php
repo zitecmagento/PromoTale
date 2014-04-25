@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Layout.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Controller_Action_Helper_Abstract */
 #require_once 'Zend/Controller/Action/Helper/Abstract.php';
 
@@ -35,6 +35,7 @@
  */
 class Zend_Layout_Controller_Action_Helper_Layout extends Zend_Controller_Action_Helper_Abstract
 {
+
     /**
      * @var Zend_Controller_Front
      */
@@ -183,4 +184,5 @@ class Zend_Layout_Controller_Action_Helper_Layout extends Zend_Controller_Action
         #require_once 'Zend/Layout/Exception.php';
         throw new Zend_Layout_Exception(sprintf("Invalid method '%s' called on layout action helper", $method));
     }
+
 }

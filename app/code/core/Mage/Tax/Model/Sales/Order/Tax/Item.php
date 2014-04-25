@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Tax_Model_Sales_Order_Tax_Item extends Mage_Core_Model_Abstract
 {
+
     /**
      * Initialization
      */
@@ -38,4 +40,5 @@ class Mage_Tax_Model_Sales_Order_Tax_Item extends Mage_Core_Model_Abstract
     {
         $this->_init('tax/sales_order_tax_item');
     }
+
 }

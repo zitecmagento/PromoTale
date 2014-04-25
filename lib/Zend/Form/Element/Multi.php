@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Element_Xhtml */
 #require_once 'Zend/Form/Element/Xhtml.php';
 
@@ -34,6 +34,7 @@
  */
 abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
 {
+
     /**
      * Array of options for multi-item
      * @var array
@@ -103,7 +104,7 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
      */
     public function addMultiOption($option, $value = '')
     {
-        $option  = (string) $option;
+        $option = (string) $option;
         $this->_getMultiOptions();
         if (!$this->_translateOption($option, $value)) {
             $this->options[$option] = $value;
@@ -121,9 +122,7 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
     public function addMultiOptions(array $options)
     {
         foreach ($options as $option => $value) {
-            if (is_array($value)
-                && array_key_exists('key', $value)
-                && array_key_exists('value', $value)
+            if (is_array($value) && array_key_exists('key', $value) && array_key_exists('value', $value)
             ) {
                 $this->addMultiOption($value['key'], $value['value']);
             } else {
@@ -153,7 +152,7 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
      */
     public function getMultiOption($option)
     {
-        $option  = (string) $option;
+        $option = (string) $option;
         $this->_getMultiOptions();
         if (isset($this->options[$option])) {
             $this->_translateOption($option, $this->options[$option]);
@@ -185,7 +184,7 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
      */
     public function removeMultiOption($option)
     {
-        $option  = (string) $option;
+        $option = (string) $option;
         $this->_getMultiOptions();
         if (isset($this->options[$option])) {
             unset($this->options[$option]);
@@ -246,22 +245,19 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
         if ($this->registerInArrayValidator()) {
             if (!$this->getValidator('InArray')) {
                 $multiOptions = $this->getMultiOptions();
-                $options      = array();
+                $options = array();
 
                 foreach ($multiOptions as $opt_value => $opt_label) {
                     // optgroup instead of option label
                     if (is_array($opt_label)) {
                         $options = array_merge($options, array_keys($opt_label));
-                    }
-                    else {
+                    } else {
                         $options[] = $opt_value;
                     }
                 }
 
                 $this->addValidator(
-                    'InArray',
-                    true,
-                    array($options)
+                        'InArray', true, array($options)
                 );
             }
         }
@@ -314,4 +310,5 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
             return $value;
         }
     }
+
 }

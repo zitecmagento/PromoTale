@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Configurable product assocciated products grid in stock renderer
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_Inventory extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     /**
      * Renders grid column value
      *
@@ -44,8 +45,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_I
     {
         $inStock = $this->_getValue($row);
         return $inStock ?
-               Mage::helper('catalog')->__('In Stock')
-               : Mage::helper('catalog')->__('Out of Stock');
+                Mage::helper('catalog')->__('In Stock') : Mage::helper('catalog')->__('Out of Stock');
     }
 
 }

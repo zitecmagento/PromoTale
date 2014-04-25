@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Device_Iphone extends Mage_XmlConnect_Model_Device_Abstract
 {
+
     /**
      * Portrait banner image type
      */
@@ -51,7 +53,7 @@ class Mage_XmlConnect_Model_Device_Iphone extends Mage_XmlConnect_Model_Device_A
     /**
      * iPhone default screen size
      */
-    const SCREEN_SIZE_DEFAULT   = '320x480';
+    const SCREEN_SIZE_DEFAULT = '320x480';
 
     /**
      * Portrait preview banner width
@@ -114,4 +116,5 @@ class Mage_XmlConnect_Model_Device_Iphone extends Mage_XmlConnect_Model_Device_A
     {
         return $this->_imageSizeConfiguration;
     }
+
 }

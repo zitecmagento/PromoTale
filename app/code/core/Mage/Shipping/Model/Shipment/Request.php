@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -86,4 +87,5 @@
  */
 class Mage_Shipping_Model_Shipment_Request extends Varien_Object
 {
+    
 }

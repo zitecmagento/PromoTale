@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Adminhtml_Search_Catalog extends Varien_Object
 {
+
     /**
      * Load search results
      *
@@ -48,24 +50,25 @@ class Mage_XmlConnect_Model_Adminhtml_Search_Catalog extends Varien_Object
         }
 
         $collection = Mage::helper('catalogsearch')->getQuery()->getSearchCollection()
-            ->addAttributeToSelect('product_id')->addAttributeToSelect('name')->addAttributeToSelect('description')
-            ->addAttributeToSelect('image')->addSearchFilter($this->getQuery())->setCurPage($this->getStart())
-            ->setPageSize($this->getLimit())->load();
+                        ->addAttributeToSelect('product_id')->addAttributeToSelect('name')->addAttributeToSelect('description')
+                        ->addAttributeToSelect('image')->addSearchFilter($this->getQuery())->setCurPage($this->getStart())
+                        ->setPageSize($this->getLimit())->load();
 
         foreach ($collection as $product) {
             $description = Mage::helper('core')->stripTags($product->getDescription());
             $arr[] = array(
-                'id'            => 'product/1/' . $product->getId(),
-                'item_id'       => $product->getId(),
-                'type'          => Mage_XmlConnect_Model_ImageAction::ACTION_TYPE_PRODUCT,
-                'label'         => Mage::helper('adminhtml')->__('Product'),
-                'name'          => $product->getName(),
-                'image'         => $product->getImage(),
-                'description'   => Mage::helper('core/string')->substr($description, 0, 30),
+                'id' => 'product/1/' . $product->getId(),
+                'item_id' => $product->getId(),
+                'type' => Mage_XmlConnect_Model_ImageAction::ACTION_TYPE_PRODUCT,
+                'label' => Mage::helper('adminhtml')->__('Product'),
+                'name' => $product->getName(),
+                'image' => $product->getImage(),
+                'description' => Mage::helper('core/string')->substr($description, 0, 30),
                 'url' => Mage::helper('adminhtml')->getUrl('*/catalog_product/edit', array('id' => $product->getId())),
             );
         }
         $this->setResults($arr);
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist
-    extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
+class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
+
     /**
      * Storage action on selected item
      *
@@ -119,4 +120,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist
     {
         return true;
     }
+
 }

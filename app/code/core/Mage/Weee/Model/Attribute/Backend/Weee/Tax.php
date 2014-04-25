@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,14 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Product_Attribute_Backend_Price
 {
+
     public static function getBackendModelName()
     {
         return 'weee/attribute_backend_weee_tax';
     }
+
     /**
      * Retrieve resource model
      *
@@ -64,7 +66,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
 
             if (!empty($dup[$key1])) {
                 Mage::throwException(
-                    Mage::helper('catalog')->__('Duplicate website, country and state tax found.')
+                        Mage::helper('catalog')->__('Duplicate website, country and state tax found.')
                 );
             }
             $dup[$key1] = 1;
@@ -82,18 +84,17 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
     {
         $data = $this->_getResource()->loadProductData($object, $this->getAttribute());
 
-        foreach ($data as $i=>$row) {
+        foreach ($data as $i => $row) {
             if ($data[$i]['website_id'] == 0) {
                 $rate = Mage::app()->getStore()->getBaseCurrency()->getRate(Mage::app()->getBaseCurrencyCode());
                 if ($rate) {
-                    $data[$i]['website_value'] = $data[$i]['value']/$rate;
+                    $data[$i]['website_value'] = $data[$i]['value'] / $rate;
                 } else {
                     unset($data[$i]);
                 }
             } else {
                 $data[$i]['website_value'] = $data[$i]['value'];
             }
-
         }
         $object->setData($this->getAttribute()->getName(), $data);
         return $this;
@@ -126,10 +127,10 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
             }
 
             $data = array();
-            $data['website_id']   = $tax['website_id'];
-            $data['country']      = $tax['country'];
-            $data['state']        = $state;
-            $data['value']        = $tax['price'];
+            $data['website_id'] = $tax['website_id'];
+            $data['country'] = $tax['country'];
+            $data['state'] = $state;
+            $data['value'] = $tax['price'];
             $data['attribute_id'] = $this->getAttribute()->getId();
 
             $this->_getResource()->insertProductData($object, $data);
@@ -148,5 +149,5 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
     {
         return $this->_getResource()->getTable('weee/tax');
     }
-}
 
+}

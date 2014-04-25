@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Storage.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Framework_Client_Storage_AdapterInterface
  */
@@ -83,7 +83,6 @@ class Zend_Tool_Framework_Client_Storage
         } else {
             return $defaultValue;
         }
-
     }
 
     public function has($name)
@@ -114,4 +113,5 @@ class Zend_Tool_Framework_Client_Storage
 
         return $this->_adapter->getStreamUri($name);
     }
+
 }

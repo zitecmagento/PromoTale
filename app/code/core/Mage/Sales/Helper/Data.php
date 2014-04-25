@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
 {
+
     /**
      * Maximum available number
      */
@@ -47,10 +49,10 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
      */
     public function checkQuoteAmount(Mage_Sales_Model_Quote $quote, $amount)
     {
-        if (!$quote->getHasError() && ($amount>=self::MAXIMUM_AVAILABLE_NUMBER)) {
+        if (!$quote->getHasError() && ($amount >= self::MAXIMUM_AVAILABLE_NUMBER)) {
             $quote->setHasError(true);
             $quote->addMessage(
-                $this->__('Items maximum quantity or price do not allow checkout.')
+                    $this->__('Items maximum quantity or price do not allow checkout.')
             );
         }
         return $this;
@@ -169,4 +171,5 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
         }
         return (array) $node;
     }
+
 }

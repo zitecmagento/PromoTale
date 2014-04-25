@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sitemap module observer
  *
@@ -48,12 +48,12 @@ class Mage_Sitemap_Model_Observer
     /**
      * Error email template configuration
      */
-    const XML_PATH_ERROR_TEMPLATE  = 'sitemap/generate/error_email_template';
+    const XML_PATH_ERROR_TEMPLATE = 'sitemap/generate/error_email_template';
 
     /**
      * Error email identity configuration
      */
-    const XML_PATH_ERROR_IDENTITY  = 'sitemap/generate/error_email_identity';
+    const XML_PATH_ERROR_IDENTITY = 'sitemap/generate/error_email_identity';
 
     /**
      * 'Send error emails to' configuration
@@ -79,10 +79,12 @@ class Mage_Sitemap_Model_Observer
         foreach ($collection as $sitemap) {
             /* @var $sitemap Mage_Sitemap_Model_Sitemap */
 
-            try {
+            try
+            {
                 $sitemap->generateXml();
             }
-            catch (Exception $e) {
+            catch (Exception $e)
+            {
                 $errors[] = $e->getMessage();
             }
         }
@@ -95,15 +97,13 @@ class Mage_Sitemap_Model_Observer
             $emailTemplate = Mage::getModel('core/email_template');
             /* @var $emailTemplate Mage_Core_Model_Email_Template */
             $emailTemplate->setDesignConfig(array('area' => 'backend'))
-                ->sendTransactional(
-                    Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE),
-                    Mage::getStoreConfig(self::XML_PATH_ERROR_IDENTITY),
-                    Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT),
-                    null,
-                    array('warnings' => join("\n", $errors))
-                );
+                    ->sendTransactional(
+                            Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE), Mage::getStoreConfig(self::XML_PATH_ERROR_IDENTITY), Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT), null, array(
+                        'warnings' => join("\n", $errors))
+            );
 
             $translate->setTranslateInline(true);
         }
     }
+
 }

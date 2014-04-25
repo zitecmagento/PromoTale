@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -46,6 +47,7 @@
  */
 class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
 {
+
     const XML_PATH_SAMPLES_TITLE = 'catalog/downloadable/samples_title';
 
     /**
@@ -76,7 +78,7 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     protected function _afterSave()
     {
         $this->getResource()
-            ->saveItemTitle($this);
+                ->saveItemTitle($this);
         return parent::_afterSave();
     }
 
@@ -124,6 +126,7 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     public function getSearchableData($productId, $storeId)
     {
         return $this->_getResource()
-            ->getSearchableData($productId, $storeId);
+                        ->getSearchableData($productId, $storeId);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,10 +34,12 @@
  */
 class Mage_XmlConnect_Block_Customer_Form_Renderer_Textarea extends Mage_XmlConnect_Block_Customer_Form_Renderer_Text
 {
+
     /**
      * Field type
      *
      * @var string
      */
     protected $_filedType = 'textarea';
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Payment_Model_Observer
 {
+
     /**
      * Set forced canCreditmemo flag
      *
@@ -80,23 +82,22 @@ class Mage_Payment_Model_Observer
         }
 
         $profile = Mage::getModel('payment/recurring_profile')
-            ->setLocale(Mage::app()->getLocale())
-            ->setStore(Mage::app()->getStore())
-            ->importBuyRequest($buyRequest)
-            ->importProduct($product);
+                ->setLocale(Mage::app()->getLocale())
+                ->setStore(Mage::app()->getStore())
+                ->importBuyRequest($buyRequest)
+                ->importProduct($product);
         if (!$profile) {
             return;
         }
 
         // add the start datetime as product custom option
-        $product->addCustomOption(Mage_Payment_Model_Recurring_Profile::PRODUCT_OPTIONS_KEY,
-            serialize(array('start_datetime' => $profile->getStartDatetime()))
+        $product->addCustomOption(Mage_Payment_Model_Recurring_Profile::PRODUCT_OPTIONS_KEY, serialize(array('start_datetime' => $profile->getStartDatetime()))
         );
 
         // duplicate as 'additional_options' to render with the product statically
         $infoOptions = array(array(
-            'label' => $profile->getFieldLabel('start_datetime'),
-            'value' => $profile->exportStartDatetime(true),
+                'label' => $profile->getFieldLabel('start_datetime'),
+                'value' => $profile->exportStartDatetime(true),
         ));
 
         foreach ($profile->exportScheduleInfo() as $info) {
@@ -119,8 +120,7 @@ class Mage_Payment_Model_Observer
         /** @var Mage_Sales_Model_Order_Payment $payment */
         $payment = $observer->getEvent()->getPayment();
         if ($payment->getMethod() === Mage_Payment_Model_Method_Banktransfer::PAYMENT_METHOD_BANKTRANSFER_CODE) {
-            $payment->setAdditionalInformation('instructions',
-                $payment->getMethodInstance()->getInstructions());
+            $payment->setAdditionalInformation('instructions', $payment->getMethodInstance()->getInstructions());
         }
     }
 
@@ -136,9 +136,9 @@ class Mage_Payment_Model_Observer
         $state = $observer->getEvent()->getState();
         if ($state == Mage_Sales_Model_Order::STATE_NEW) {
             $statusModel = $observer->getEvent()->getStatus();
-            $status      = $statusModel->getStatus();
-            $used        = 0;
-            $titles      = array();
+            $status = $statusModel->getStatus();
+            $used = 0;
+            $titles = array();
             foreach (Mage::app()->getWebsites(true) as $website) {
                 $store = current($website->getStores()); // just need one store from each website
                 if (!$store) {
@@ -149,12 +149,12 @@ class Mage_Payment_Model_Observer
                         ++$used;
 
                         // Remember the payment's information
-                        $title       = $value['title'];
+                        $title = $value['title'];
                         $websiteName = $website->getName();
                         if (array_key_exists($title, $titles)) {
                             $titles[$title][] = $websiteName;
                         } else {
-                            $titles[$title]   = array($websiteName);
+                            $titles[$title] = array($websiteName);
                         }
                     }
                 }
@@ -162,14 +162,14 @@ class Mage_Payment_Model_Observer
             if ($used > 0) {
                 // build the error message, and throw it
                 $methods = '';
-                $spacer  = '';
+                $spacer = '';
                 foreach ($titles as $key => $values) {
                     $methods = $methods . $spacer . $key . ' [' . join(', ', $values) . ']';
                     $spacer = ', ';
                 }
-                throw new Mage_Core_Exception(Mage::helper('sales')->__('Status "%s" cannot be unassigned. It is in used in %d payment method configuration(s): %s',
-                    $statusModel->getLabel(), $used, $methods));
+                throw new Mage_Core_Exception(Mage::helper('sales')->__('Status "%s" cannot be unassigned. It is in used in %d payment method configuration(s): %s', $statusModel->getLabel(), $used, $methods));
             }
         }
     }
+
 }

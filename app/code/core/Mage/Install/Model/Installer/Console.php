@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Console installer
@@ -71,31 +71,31 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     {
         if (is_null($this->_options)) {
             $this->_options = array(
-                'license_agreement_accepted'    => array('required' => true, 'comment' => ''),
-                'locale'              => array('required' => true, 'comment' => ''),
-                'timezone'            => array('required' => true, 'comment' => ''),
-                'default_currency'    => array('required' => true, 'comment' => ''),
-                'db_model'            => array('comment' => ''),
-                'db_host'             => array('required' => true, 'comment' => ''),
-                'db_name'             => array('required' => true, 'comment' => ''),
-                'db_user'             => array('required' => true, 'comment' => ''),
-                'db_pass'             => array('comment' => ''),
-                'db_prefix'           => array('comment' => ''),
-                'url'                 => array('required' => true, 'comment' => ''),
+                'license_agreement_accepted' => array('required' => true, 'comment' => ''),
+                'locale' => array('required' => true, 'comment' => ''),
+                'timezone' => array('required' => true, 'comment' => ''),
+                'default_currency' => array('required' => true, 'comment' => ''),
+                'db_model' => array('comment' => ''),
+                'db_host' => array('required' => true, 'comment' => ''),
+                'db_name' => array('required' => true, 'comment' => ''),
+                'db_user' => array('required' => true, 'comment' => ''),
+                'db_pass' => array('comment' => ''),
+                'db_prefix' => array('comment' => ''),
+                'url' => array('required' => true, 'comment' => ''),
                 'skip_url_validation' => array('comment' => ''),
-                'use_rewrites'      => array('required' => true, 'comment' => ''),
-                'use_secure'        => array('required' => true, 'comment' => ''),
-                'secure_base_url'   => array('required' => true, 'comment' => ''),
-                'use_secure_admin'  => array('required' => true, 'comment' => ''),
-                'admin_lastname'    => array('required' => true, 'comment' => ''),
-                'admin_firstname'   => array('required' => true, 'comment' => ''),
-                'admin_email'       => array('required' => true, 'comment' => ''),
-                'admin_username'    => array('required' => true, 'comment' => ''),
-                'admin_password'    => array('required' => true, 'comment' => ''),
-                'encryption_key'    => array('comment' => ''),
-                'session_save'      => array('comment' => ''),
-                'admin_frontname'   => array('comment' => ''),
-                'enable_charts'     => array('comment' => ''),
+                'use_rewrites' => array('required' => true, 'comment' => ''),
+                'use_secure' => array('required' => true, 'comment' => ''),
+                'secure_base_url' => array('required' => true, 'comment' => ''),
+                'use_secure_admin' => array('required' => true, 'comment' => ''),
+                'admin_lastname' => array('required' => true, 'comment' => ''),
+                'admin_firstname' => array('required' => true, 'comment' => ''),
+                'admin_email' => array('required' => true, 'comment' => ''),
+                'admin_username' => array('required' => true, 'comment' => ''),
+                'admin_password' => array('required' => true, 'comment' => ''),
+                'encryption_key' => array('comment' => ''),
+                'session_save' => array('comment' => ''),
+                'admin_frontname' => array('comment' => ''),
+                'enable_charts' => array('comment' => ''),
             );
         }
         return $this->_options;
@@ -161,7 +161,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
          */
         if (!$this->_checkFlag($args['license_agreement_accepted'])) {
             $this->addError(
-                'ERROR: You have to accept Magento license agreement terms and conditions to continue installation'
+                    'ERROR: You have to accept Magento license agreement terms and conditions to continue installation'
             );
             return false;
         }
@@ -219,8 +219,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      */
     protected function _checkFlag($value)
     {
-        $res = (1 == $value)
-            || preg_match('/^(yes|y|true)$/i', $value);
+        $res = (1 == $value) || preg_match('/^(yes|y|true)$/i', $value);
         return $res;
     }
 
@@ -280,41 +279,41 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
          * Locale settings
          */
         $this->_getDataModel()->setLocaleData(array(
-            'locale'            => $this->_args['locale'],
-            'timezone'          => $this->_args['timezone'],
-            'currency'          => $this->_args['default_currency'],
+            'locale' => $this->_args['locale'],
+            'timezone' => $this->_args['timezone'],
+            'currency' => $this->_args['default_currency'],
         ));
 
         /**
          * Database and web config
          */
         $this->_getDataModel()->setConfigData(array(
-            'db_model'            => $this->_args['db_model'],
-            'db_host'             => $this->_args['db_host'],
-            'db_name'             => $this->_args['db_name'],
-            'db_user'             => $this->_args['db_user'],
-            'db_pass'             => $this->_args['db_pass'],
-            'db_prefix'           => $this->_args['db_prefix'],
-            'use_rewrites'        => $this->_checkFlag($this->_args['use_rewrites']),
-            'use_secure'          => $this->_checkFlag($this->_args['use_secure']),
-            'unsecure_base_url'   => $this->_args['url'],
-            'secure_base_url'     => $this->_args['secure_base_url'],
-            'use_secure_admin'    => $this->_checkFlag($this->_args['use_secure_admin']),
-            'session_save'        => $this->_checkSessionSave($this->_args['session_save']),
-            'admin_frontname'     => $this->_checkAdminFrontname($this->_args['admin_frontname']),
+            'db_model' => $this->_args['db_model'],
+            'db_host' => $this->_args['db_host'],
+            'db_name' => $this->_args['db_name'],
+            'db_user' => $this->_args['db_user'],
+            'db_pass' => $this->_args['db_pass'],
+            'db_prefix' => $this->_args['db_prefix'],
+            'use_rewrites' => $this->_checkFlag($this->_args['use_rewrites']),
+            'use_secure' => $this->_checkFlag($this->_args['use_secure']),
+            'unsecure_base_url' => $this->_args['url'],
+            'secure_base_url' => $this->_args['secure_base_url'],
+            'use_secure_admin' => $this->_checkFlag($this->_args['use_secure_admin']),
+            'session_save' => $this->_checkSessionSave($this->_args['session_save']),
+            'admin_frontname' => $this->_checkAdminFrontname($this->_args['admin_frontname']),
             'skip_url_validation' => $this->_checkFlag($this->_args['skip_url_validation']),
-            'enable_charts'       => $this->_checkFlag($this->_args['enable_charts']),
+            'enable_charts' => $this->_checkFlag($this->_args['enable_charts']),
         ));
 
         /**
          * Primary admin user
          */
         $this->_getDataModel()->setAdminData(array(
-            'firstname'         => $this->_args['admin_firstname'],
-            'lastname'          => $this->_args['admin_lastname'],
-            'email'             => $this->_args['admin_email'],
-            'username'          => $this->_args['admin_username'],
-            'new_password'      => $this->_args['admin_password'],
+            'firstname' => $this->_args['admin_firstname'],
+            'lastname' => $this->_args['admin_lastname'],
+            'email' => $this->_args['admin_email'],
+            'username' => $this->_args['admin_username'],
+            'new_password' => $this->_args['admin_password'],
         ));
 
         return $this;
@@ -327,7 +326,8 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      */
     public function install()
     {
-        try {
+        try
+        {
 
             /**
              * Check if already installed
@@ -366,7 +366,6 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
             /**
              * Reinitialize configuration (to use new config data)
              */
-
             $this->_app->cleanCache();
             Mage::getConfig()->reinit();
 
@@ -394,9 +393,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
             /**
              * Prepare encryption key and validate it
              */
-            $encryptionKey = empty($this->_args['encryption_key'])
-                ? md5(Mage::helper('core')->getRandomString(10))
-                : $this->_args['encryption_key'];
+            $encryptionKey = empty($this->_args['encryption_key']) ? md5(Mage::helper('core')->getRandomString(10)) : $this->_args['encryption_key'];
             $this->_getDataModel()->setEncryptionKey($encryptionKey);
             $installer->validateEncryptionKey($encryptionKey);
 
@@ -436,8 +433,9 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
              */
             @chmod('var/cache', 0777);
             @chmod('var/session', 0777);
-
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->addError('ERROR: ' . $e->getMessage());
             return false;
         }
@@ -453,9 +451,9 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     public function printOptions()
     {
         $options = array(
-            'locale'    => $this->_app->getLocale()->getOptionLocales(),
-            'currency'  => $this->_app->getLocale()->getOptionCurrencies(),
-            'timezone'  => $this->_app->getLocale()->getOptionTimezones(),
+            'locale' => $this->_app->getLocale()->getOptionLocales(),
+            'currency' => $this->_app->getLocale()->getOptionCurrencies(),
+            'timezone' => $this->_app->getLocale()->getOptionTimezones(),
         );
         var_export($options);
         return $this;
@@ -467,7 +465,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * @param string $url fallback url to redirect to
      * @return boolean
      */
-    public function checkConsole($url=null)
+    public function checkConsole($url = null)
     {
         if (defined('STDIN') && defined('STDOUT') && (defined('STDERR'))) {
             return true;

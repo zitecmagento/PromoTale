@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements SeekableIterator
 {
+
     /**
      * Column names array.
      *
@@ -117,10 +119,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     public function current()
     {
         return array_combine(
-            $this->_colNames,
-            count($this->_currentRow) != $this->_colQuantity
-                    ? array_pad($this->_currentRow, $this->_colQuantity, '')
-                    : $this->_currentRow
+                $this->_colNames, count($this->_currentRow) != $this->_colQuantity ? array_pad($this->_currentRow, $this->_colQuantity, '') : $this->_currentRow
         );
     }
 
@@ -174,4 +173,5 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     {
         return $this;
     }
+
 }

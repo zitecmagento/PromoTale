@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -42,13 +44,12 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
 
     protected function _prepareLayout()
     {
-        $this->setChild('save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('adminhtml')->__('Save Cache Settings'),
-                    'onclick'   => 'configForm.submit()',
-                    'class' => 'save',
-                ))
+        $this->setChild('save_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('adminhtml')->__('Save Cache Settings'),
+                            'onclick' => 'configForm.submit()',
+                            'class' => 'save',
+                        ))
         );
         return parent::_prepareLayout();
     }
@@ -60,14 +61,13 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current'=>true));
+        return $this->getUrl('*/*/save', array('_current' => true));
     }
 
     public function initForm()
     {
-        $this->setChild('form',
-            $this->getLayout()->createBlock('adminhtml/system_cache_form')
-                ->initForm()
+        $this->setChild('form', $this->getLayout()->createBlock('adminhtml/system_cache_form')
+                        ->initForm()
         );
         return $this;
     }
@@ -101,85 +101,86 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
         }
 
         return array(
-            'refresh_catalog_rewrites'   => array(
-                'label'     => Mage::helper('adminhtml')->__('Catalog Rewrites'),
-                'buttons'   => array(
+            'refresh_catalog_rewrites' => array(
+                'label' => Mage::helper('adminhtml')->__('Catalog Rewrites'),
+                'buttons' => array(
                     array(
-                        'name'      => 'refresh_catalog_rewrites',
-                        'action'    => Mage::helper('adminhtml')->__('Refresh'),
-                        )
+                        'name' => 'refresh_catalog_rewrites',
+                        'action' => Mage::helper('adminhtml')->__('Refresh'),
+                    )
                 ),
             ),
-            'clear_images_cache'         => array(
-                'label'     => Mage::helper('adminhtml')->__('Images Cache'),
-                'buttons'   => array(
+            'clear_images_cache' => array(
+                'label' => Mage::helper('adminhtml')->__('Images Cache'),
+                'buttons' => array(
                     array(
-                        'name'      => 'clear_images_cache',
-                        'action'    => Mage::helper('adminhtml')->__('Clear'),
-                        )
+                        'name' => 'clear_images_cache',
+                        'action' => Mage::helper('adminhtml')->__('Clear'),
+                    )
                 ),
             ),
             'refresh_layered_navigation' => array(
-                'label'     => Mage::helper('adminhtml')->__('Layered Navigation Indices'),
-                'buttons'   => array(
+                'label' => Mage::helper('adminhtml')->__('Layered Navigation Indices'),
+                'buttons' => array(
                     array(
-                        'name'      => 'refresh_layered_navigation',
-                        'action'    => $layeredAction,
-                        'disabled'  => $layeredIsDisabled,
-                        ),
+                        'name' => 'refresh_layered_navigation',
+                        'action' => $layeredAction,
+                        'disabled' => $layeredIsDisabled,
+                    ),
                     array(
-                        'name'      => 'refresh_layered_navigation_now',
-                        'action'    => Mage::helper('adminhtml')->__('Refresh Now*'),
-                        'comment'   => Mage::helper('adminhtml')->__('* - If indexing is in progress, it will be killed and new indexing process will start.'),
-                        'warning'   => $warning,
-                        )
+                        'name' => 'refresh_layered_navigation_now',
+                        'action' => Mage::helper('adminhtml')->__('Refresh Now*'),
+                        'comment' => Mage::helper('adminhtml')->__('* - If indexing is in progress, it will be killed and new indexing process will start.'),
+                        'warning' => $warning,
+                    )
                 ),
             ),
-            'rebuild_search_index'      => array(
-                'label'     => Mage::helper('adminhtml')->__('Search Index'),
-                'buttons'   => array(
+            'rebuild_search_index' => array(
+                'label' => Mage::helper('adminhtml')->__('Search Index'),
+                'buttons' => array(
                     array(
-                        'name'      => 'rebuild_search_index',
-                        'action'    => Mage::helper('adminhtml')->__('Rebuild'),
+                        'name' => 'rebuild_search_index',
+                        'action' => Mage::helper('adminhtml')->__('Rebuild'),
                     )
                 ),
             ),
             'rebuild_inventory_stock_status' => array(
-                'label'     => Mage::helper('adminhtml')->__('Inventory Stock Status'),
-                'buttons'   => array(
+                'label' => Mage::helper('adminhtml')->__('Inventory Stock Status'),
+                'buttons' => array(
                     array(
-                        'name'      => 'rebuild_inventory_stock_status',
-                        'action'    => Mage::helper('adminhtml')->__('Refresh'),
+                        'name' => 'rebuild_inventory_stock_status',
+                        'action' => Mage::helper('adminhtml')->__('Refresh'),
                     )
                 ),
             ),
-            'rebuild_catalog_index'         => array(
-                'label'     => Mage::helper('adminhtml')->__('Rebuild Catalog Index'),
-                'buttons'   => array(
+            'rebuild_catalog_index' => array(
+                'label' => Mage::helper('adminhtml')->__('Rebuild Catalog Index'),
+                'buttons' => array(
                     array(
-                        'name'      => 'rebuild_catalog_index',
-                        'action'    => Mage::helper('adminhtml')->__('Rebuild'),
+                        'name' => 'rebuild_catalog_index',
+                        'action' => Mage::helper('adminhtml')->__('Rebuild'),
                     )
                 ),
             ),
             'rebuild_flat_catalog_category' => array(
-                'label'     => Mage::helper('adminhtml')->__('Rebuild Flat Catalog Category'),
-                'buttons'   => array(
+                'label' => Mage::helper('adminhtml')->__('Rebuild Flat Catalog Category'),
+                'buttons' => array(
                     array(
-                        'name'      => 'rebuild_flat_catalog_category',
-                        'action'    => Mage::helper('adminhtml')->__('Rebuild'),
+                        'name' => 'rebuild_flat_catalog_category',
+                        'action' => Mage::helper('adminhtml')->__('Rebuild'),
                     )
                 ),
             ),
             'rebuild_flat_catalog_product' => array(
-                'label'     => Mage::helper('adminhtml')->__('Rebuild Flat Catalog Product'),
-                'buttons'   => array(
+                'label' => Mage::helper('adminhtml')->__('Rebuild Flat Catalog Product'),
+                'buttons' => array(
                     array(
-                        'name'      => 'rebuild_flat_catalog_product',
-                        'action'    => Mage::helper('adminhtml')->__('Rebuild'),
+                        'name' => 'rebuild_flat_catalog_product',
+                        'action' => Mage::helper('adminhtml')->__('Rebuild'),
                     )
                 ),
             ),
         );
     }
+
 }

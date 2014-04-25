@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Fulltext Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
+
     /**
      * Retrieve query model object
      *
@@ -55,12 +56,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
         Mage::getSingleton('catalogsearch/fulltext')->prepareResult();
 
         $this->getSelect()->joinInner(
-            array('search_result' => $this->getTable('catalogsearch/result')),
-            $this->getConnection()->quoteInto(
-                'search_result.product_id=e.entity_id AND search_result.query_id=?',
-                $this->_getQuery()->getId()
-            ),
-            array('relevance' => 'relevance')
+                array('search_result' => $this->getTable('catalogsearch/result')), $this->getConnection()->quoteInto(
+                        'search_result.product_id=e.entity_id AND search_result.query_id=?', $this->_getQuery()->getId()
+                ), array('relevance' => 'relevance')
         );
 
         return $this;
@@ -92,4 +90,5 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     {
         return $this;
     }
+
 }

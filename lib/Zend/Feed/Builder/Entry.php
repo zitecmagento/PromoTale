@@ -20,7 +20,6 @@
  * @version    $Id: Entry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * An entry of a custom build feed
  *
@@ -34,6 +33,7 @@
  */
 class Zend_Feed_Builder_Entry extends ArrayObject
 {
+
     /**
      * Create a new builder entry
      *
@@ -183,7 +183,7 @@ class Zend_Feed_Builder_Entry extends ArrayObject
     public function setSource($title, $url)
     {
         $this->offsetSet('source', array('title' => $title,
-                                         'url' => $url));
+            'url' => $url));
         return $this;
     }
 
@@ -289,9 +289,10 @@ class Zend_Feed_Builder_Entry extends ArrayObject
             $enclosure = $this->offsetGet('enclosure');
         }
         $enclosure[] = array('url' => $url,
-                             'type' => $type,
-                             'length' => $length);
+            'type' => $type,
+            'length' => $length);
         $this->offsetSet('enclosure', $enclosure);
         return $this;
     }
+
 }

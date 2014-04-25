@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_GoogleBase_Model_Source_Accounttype
 {
+
     public function toOptionArray()
     {
         return array(
@@ -42,4 +44,5 @@ class Mage_GoogleBase_Model_Source_Accounttype
             array('value' => 'HOSTED', 'label' => Mage::helper('googlebase')->__('Hosted'))
         );
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Abstract
 {
+
     /**
      * Returns expresion for field unification
      *
@@ -43,6 +45,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
     {
         return $field;
     }
+
     /**
      * Returns analytic expression for database column
      *
@@ -53,7 +56,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      */
     public function prepareColumn($column, $groupAliasName = null, $orderBy = null)
     {
-        return new Zend_Db_Expr((string)$column);
+        return new Zend_Db_Expr((string) $column);
     }
 
     /**
@@ -111,7 +114,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         foreach ($selectOrders as $term) {
             if (is_array($term)) {
                 if (!is_numeric($term[0])) {
-                    $orders[]   = sprintf('%s %s', $this->_getReadAdapter()->quoteIdentifier($term[0], true), $term[1]);
+                    $orders[] = sprintf('%s %s', $this->_getReadAdapter()->quoteIdentifier($term[0], true), $term[1]);
                 }
             } else {
                 if (!is_numeric($term)) {
@@ -142,7 +145,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
     {
         $string = $field;
         if (!is_numeric($field) && (strpos($field, '.') !== false)) {
-            $size  = strpos($field, '.');
+            $size = strpos($field, '.');
             if ($reverse) {
                 $string = substr($field, 0, $size);
             } else {
@@ -197,8 +200,8 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         $havings = array();
         $columns = $select->getPart(Zend_Db_Select::COLUMNS);
         foreach ($columns as $columnEntry) {
-            $correlationName = (string)$columnEntry[1];
-            $column          = $columnEntry[2];
+            $correlationName = (string) $columnEntry[1];
+            $column = $columnEntry[2];
             foreach ($selectHavings as $having) {
                 /**
                  * Looking for column expression in the having clause
@@ -234,7 +237,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
     protected function _assembleLimit($query, $limitCount, $limitOffset, $columnList = array())
     {
         if ($limitCount !== null) {
-              $limitCount = intval($limitCount);
+            $limitCount = intval($limitCount);
             if ($limitCount <= 0) {
 //                throw new Exception("LIMIT argument count={$limitCount} is not valid");
             }
@@ -271,9 +274,9 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
             return $select->getPart(Zend_Db_Select::COLUMNS);
         }
 
-        $columns          = $select->getPart(Zend_Db_Select::COLUMNS);
-        $tables           = $select->getPart(Zend_Db_Select::FROM);
-        $preparedColumns  = array();
+        $columns = $select->getPart(Zend_Db_Select::COLUMNS);
+        $tables = $select->getPart(Zend_Db_Select::FROM);
+        $preparedColumns = array();
 
         foreach ($columns as $columnEntry) {
             list($correlationName, $column, $alias) = $columnEntry;
@@ -292,7 +295,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                         throw new Zend_Db_Exception("Can't prepare expression when tableName is instance of Zend_Db_Expr");
                     }
                     $tableColumns = $this->_getReadAdapter()->describeTable($tables[$correlationName]['tableName']);
-                    foreach(array_keys($tableColumns) as $col) {
+                    foreach (array_keys($tableColumns) as $col) {
                         $preparedColumns[strtoupper($col)] = array($correlationName, $col, null);
                     }
                 } else {
@@ -331,7 +334,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         }
         $separator = '';
         if ($groupConcatDelimiter) {
-            $separator = sprintf(" SEPARATOR '%s'",  $groupConcatDelimiter);
+            $separator = sprintf(" SEPARATOR '%s'", $groupConcatDelimiter);
         }
 
         $select->columns(array($fieldAlias => new Zend_Db_Expr(sprintf('GROUP_CONCAT(%s%s)', $fieldExpr, $separator))));
@@ -368,4 +371,5 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         $value = $this->escapeLikeValue($value, $options);
         return new Zend_Db_Expr($this->_getReadAdapter()->quote($value));
     }
+
 }

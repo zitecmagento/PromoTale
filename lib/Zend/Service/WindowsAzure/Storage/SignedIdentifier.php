@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SignedIdentifier.php 22773 2010-08-03 07:18:27Z maartenba $
  */
-
 /**
  * @see Zend_Service_WindowsAzure_Exception
  */
@@ -42,9 +42,9 @@
  * @property string $Expiry       The time at which the Shared Access Signature becomes invalid.
  * @property string $Permissions  Signed permissions - read (r), write (w), delete (d) and list (l)
  */
-class Zend_Service_WindowsAzure_Storage_SignedIdentifier
-	extends Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
+class Zend_Service_WindowsAzure_Storage_SignedIdentifier extends Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
 {
+
     /**
      * Constructor
      * 
@@ -53,13 +53,14 @@ class Zend_Service_WindowsAzure_Storage_SignedIdentifier
      * @param string $expiry       The time at which the Shared Access Signature becomes invalid.
      * @param string $permissions  Signed permissions - read (r), write (w), delete (d) and list (l)
      */
-    public function __construct($id = '', $start = '', $expiry = '', $permissions = '') 
+    public function __construct($id = '', $start = '', $expiry = '', $permissions = '')
     {
         $this->_data = array(
-            'id'           => $id,
-            'start'        => $start,
-            'expiry'       => $expiry,
-            'permissions'  => $permissions
+            'id' => $id,
+            'start' => $start,
+            'expiry' => $expiry,
+            'permissions' => $permissions
         );
     }
+
 }

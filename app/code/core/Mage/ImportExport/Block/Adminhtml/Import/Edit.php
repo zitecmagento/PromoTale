@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Block_Adminhtml_Import_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Constructor
      *
@@ -43,10 +45,10 @@ class Mage_ImportExport_Block_Adminhtml_Import_Edit extends Mage_Adminhtml_Block
         parent::__construct();
 
         $this->removeButton('back')
-            ->removeButton('reset')
-            ->_updateButton('save', 'label', $this->__('Check Data'))
-            ->_updateButton('save', 'id', 'upload_button')
-            ->_updateButton('save', 'onclick', 'editForm.postToFrame();');
+                ->removeButton('reset')
+                ->_updateButton('save', 'label', $this->__('Check Data'))
+                ->_updateButton('save', 'id', 'upload_button')
+                ->_updateButton('save', 'onclick', 'editForm.postToFrame();');
     }
 
     /**
@@ -58,7 +60,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Edit extends Mage_Adminhtml_Block
     {
         parent::_construct();
 
-        $this->_objectId   = 'import_id';
+        $this->_objectId = 'import_id';
         $this->_blockGroup = 'importexport';
         $this->_controller = 'adminhtml_import';
     }
@@ -72,4 +74,5 @@ class Mage_ImportExport_Block_Adminhtml_Import_Edit extends Mage_Adminhtml_Block
     {
         return Mage::helper('importexport')->__('Import');
     }
+
 }

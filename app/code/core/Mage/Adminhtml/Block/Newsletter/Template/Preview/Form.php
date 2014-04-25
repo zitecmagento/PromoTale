@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -42,17 +43,17 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview_Form extends Mage_Adminht
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(array(
-                'id' => 'preview_form',
-                'action' => $this->getUrl('*/*/drop', array('_current' => true)),
-                'method' => 'post'
-            ));
+            'id' => 'preview_form',
+            'action' => $this->getUrl('*/*/drop', array('_current' => true)),
+            'method' => 'post'
+        ));
 
         if ($data = $this->getFormData()) {
 
             $mapper = array('preview_store_id' => 'store_id');
 
             foreach ($data as $key => $value) {
-                if(array_key_exists($key, $mapper)) {
+                if (array_key_exists($key, $mapper)) {
                     $name = $mapper[$key];
                 } else {
                     $name = $key;
@@ -66,5 +67,5 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview_Form extends Mage_Adminht
         $this->setForm($form);
         return parent::_prepareForm();
     }
-}
 
+}

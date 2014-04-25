@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,16 +32,16 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Review_Grid_Filter_Type extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
+
     protected function _getOptions()
     {
         return array(
-              array('label'=>'', 'value'=>''),
-              array('label'=>Mage::helper('review')->__('Administrator'), 'value'=>1),
-              array('label'=>Mage::helper('review')->__('Customer'), 'value'=>2),
-              array('label'=>Mage::helper('review')->__('Guest'), 'value'=>3)
+            array('label' => '', 'value' => ''),
+            array('label' => Mage::helper('review')->__('Administrator'), 'value' => 1),
+            array('label' => Mage::helper('review')->__('Customer'), 'value' => 2),
+            array('label' => Mage::helper('review')->__('Guest'), 'value' => 3)
         );
     }
 
@@ -54,4 +55,7 @@ class Mage_Adminhtml_Block_Review_Grid_Filter_Type extends Mage_Adminhtml_Block_
             return 3;
         }
     }
-}// Class Mage_Adminhtml_Block_Review_Grid_Filter_Type END
+
+}
+
+// Class Mage_Adminhtml_Block_Review_Grid_Filter_Type END

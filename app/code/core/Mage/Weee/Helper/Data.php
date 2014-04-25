@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -40,12 +41,12 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_FPT_ENABLED = 'tax/weee/enable';
 
     /**
-     *'FPT Tax Configuration' for TAXED
+     * 'FPT Tax Configuration' for TAXED
      */
     const TAXED = '1';
 
     /**
-     *'FPT Tax Configuration' for LOADED_AND_DISPLAY_WITH_TAX
+     * 'FPT Tax Configuration' for LOADED_AND_DISPLAY_WITH_TAX
      */
     const LOADED_AND_DISPLAY_WITH_TAX = '2';
 
@@ -59,7 +60,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @var array
      */
-    protected $_storeDisplayConfig   = array();
+    protected $_storeDisplayConfig = array();
 
     /**
      * Get weee amount display type on product view page
@@ -125,7 +126,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     public function isTaxable($store = null)
     {
         return Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::TAXED ||
-            Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::LOADED_AND_DISPLAY_WITH_TAX;
+                Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::LOADED_AND_DISPLAY_WITH_TAX;
     }
 
     /**
@@ -175,7 +176,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if ($this->isEnabled()) {
             return Mage::getSingleton('weee/tax')->
-                getWeeeAmount($product, $shipping, $billing, $website, $calculateTaxes);
+                            getWeeeAmount($product, $shipping, $billing, $website, $calculateTaxes);
         }
         return 0;
     }
@@ -237,11 +238,10 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * @param bool                       $calculateTaxes
      * @return array
      */
-    public function getProductWeeeAttributes($product, $shipping = null, $billing = null,
-                                             $website = null, $calculateTaxes = false)
+    public function getProductWeeeAttributes($product, $shipping = null, $billing = null, $website = null, $calculateTaxes = false)
     {
         return Mage::getSingleton('weee/tax')
-            ->getProductWeeeAttributes($product, $shipping, $billing, $website, $calculateTaxes);
+                        ->getProductWeeeAttributes($product, $shipping, $billing, $website, $calculateTaxes);
     }
 
     /**
@@ -313,16 +313,11 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * @param mixed $calculateTaxes
      * @return array
      */
-    public function getProductWeeeAttributesForRenderer($product, $shipping = null, $billing = null,
-                                                        $website = null, $calculateTaxes = false)
+    public function getProductWeeeAttributesForRenderer($product, $shipping = null, $billing = null, $website = null, $calculateTaxes = false)
     {
         if ($this->isEnabled()) {
             return $this->getProductWeeeAttributes(
-                $product,
-                $shipping,
-                $billing,
-                $website,
-                $calculateTaxes ? $calculateTaxes : $this->typeOfDisplay($product, 1)
+                            $product, $shipping, $billing, $website, $calculateTaxes ? $calculateTaxes : $this->typeOfDisplay($product, 1)
             );
         }
         return array();
@@ -337,8 +332,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     public function getAmountForDisplay($product)
     {
         if ($this->isEnabled()) {
-            $attributes = $this->getProductWeeeAttributesForRenderer($product,
-                null, null, null, true);
+            $attributes = $this->getProductWeeeAttributesForRenderer($product, null, null, null, true);
 
             if (is_array($attributes)) {
                 $amount = 0;
@@ -361,8 +355,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     public function getAmountForDisplayInclTaxes($product)
     {
         if ($this->isEnabled()) {
-            $attributes = $this->getProductWeeeAttributesForRenderer($product,
-                null, null, null, true);
+            $attributes = $this->getProductWeeeAttributesForRenderer($product, null, null, null, true);
             return $this->getAmountInclTaxes($attributes);
         }
         return 0;
@@ -398,10 +391,10 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($tierPrices as $index => &$tier) {
             $spanTag = '<span class="price tier-' . ($includeIndex ? $index : 'fixed');
             $html = $store->formatPrice($store->convertPrice(
-                Mage::helper('tax')->getPrice($product, $tier['website_price'], true) + $weeeAmountInclTax), false);
+                            Mage::helper('tax')->getPrice($product, $tier['website_price'], true) + $weeeAmountInclTax), false);
             $tier['formated_price_incl_weee'] = $spanTag . '-incl-tax">' . $html . '</span>';
             $html = $store->formatPrice($store->convertPrice(
-                Mage::helper('tax')->getPrice($product, $tier['website_price']) + $weeeAmount), false);
+                            Mage::helper('tax')->getPrice($product, $tier['website_price']) + $weeeAmount), false);
             $tier['formated_price_incl_weee_only'] = $spanTag . '">' . $html . '</span>';
             $tier['formated_weee'] = $store->formatPrice($store->convertPrice($weeeAmount));
         }
@@ -452,7 +445,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
             throw new Mage_Exception('$attributes must be an array');
         }
 
-        return (float)$amount;
+        return (float) $amount;
     }
 
     /**
@@ -470,8 +463,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
 
         // If FPT == Including tax & Catalog Prices Excluding Tax or
         // FPT = Taxed (Meaning - go ahead and calculate tax on fpt and Catalog Prices Include tax)
-        return (($fptTaxConfig == Mage_Tax_Model_Config::FPT_LOADED_DISPLAY_WITH_TAX && !$priceIncludesTax)
-            || ($fptTaxConfig == Mage_Tax_Model_Config::FPT_TAXED && $priceIncludesTax));
+        return (($fptTaxConfig == Mage_Tax_Model_Config::FPT_LOADED_DISPLAY_WITH_TAX && !$priceIncludesTax) || ($fptTaxConfig == Mage_Tax_Model_Config::FPT_TAXED && $priceIncludesTax));
     }
 
     /**
@@ -573,8 +565,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         $weeeTaxAppliedAmounts = $this->getApplied($item);
         $totalTaxForWeeeTax = 0;
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
-            $totalTaxForWeeeTax += max($weeeTaxAppliedAmount['amount_incl_tax']
-                - $weeeTaxAppliedAmount['amount'], 0);
+            $totalTaxForWeeeTax += max($weeeTaxAppliedAmount['amount_incl_tax'] - $weeeTaxAppliedAmount['amount'], 0);
         }
         return $totalTaxForWeeeTax;
     }
@@ -590,8 +581,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         $weeeTaxAppliedAmounts = $this->getApplied($item);
         $totalTaxForWeeeTax = 0;
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
-            $totalTaxForWeeeTax += max($weeeTaxAppliedAmount['base_amount_incl_tax']
-                - $weeeTaxAppliedAmount['base_amount'], 0);
+            $totalTaxForWeeeTax += max($weeeTaxAppliedAmount['base_amount_incl_tax'] - $weeeTaxAppliedAmount['base_amount'], 0);
         }
         return $totalTaxForWeeeTax;
     }
@@ -607,8 +597,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         $weeeTaxAppliedAmounts = $this->getApplied($item);
         $totalTaxForWeeeTax = 0;
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
-            $totalTaxForWeeeTax += max($weeeTaxAppliedAmount['row_amount_incl_tax']
-                - $weeeTaxAppliedAmount['row_amount'], 0);
+            $totalTaxForWeeeTax += max($weeeTaxAppliedAmount['row_amount_incl_tax'] - $weeeTaxAppliedAmount['row_amount'], 0);
         }
         return $totalTaxForWeeeTax;
     }
@@ -624,8 +613,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         $weeeTaxAppliedAmounts = $this->getApplied($item);
         $totalTaxForWeeeTax = 0;
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
-            $totalTaxForWeeeTax += max($weeeTaxAppliedAmount['base_row_amount_incl_tax']
-                - $weeeTaxAppliedAmount['base_row_amount'], 0);
+            $totalTaxForWeeeTax += max($weeeTaxAppliedAmount['base_row_amount_incl_tax'] - $weeeTaxAppliedAmount['base_row_amount'], 0);
         }
         return $totalTaxForWeeeTax;
     }
@@ -640,5 +628,5 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::helper($helperName);
     }
-}
 
+}

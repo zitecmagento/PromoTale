@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogSearch Fulltext Index resource model
  *
@@ -34,40 +34,41 @@
  */
 class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Searchable attributes cache
      *
      * @var array
      */
-    protected $_searchableAttributes     = null;
+    protected $_searchableAttributes = null;
 
     /**
      * Index values separator
      *
      * @var string
      */
-    protected $_separator                = '|';
+    protected $_separator = '|';
 
     /**
      * Array of Zend_Date objects per store
      *
      * @var array
      */
-    protected $_dates                    = array();
+    protected $_dates = array();
 
     /**
      * Product Type Instances cache
      *
      * @var array
      */
-    protected $_productTypes             = array();
+    protected $_productTypes = array();
 
     /**
      * Store search engine instance
      *
      * @var object
      */
-    protected $_engine                   = null;
+    protected $_engine = null;
 
     /**
      * Whether table changes are allowed
@@ -75,11 +76,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * @deprecated after 1.6.1.0
      * @var bool
      */
-    protected $_allowTableChanges       = true;
-
-
-
-
+    protected $_allowTableChanges = true;
 
     /**
      * Init resource model
@@ -139,17 +136,17 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             $staticFields[] = $attribute->getAttributeCode();
         }
         $dynamicFields = array(
-            'int'       => array_keys($this->_getSearchableAttributes('int')),
-            'varchar'   => array_keys($this->_getSearchableAttributes('varchar')),
-            'text'      => array_keys($this->_getSearchableAttributes('text')),
-            'decimal'   => array_keys($this->_getSearchableAttributes('decimal')),
-            'datetime'  => array_keys($this->_getSearchableAttributes('datetime')),
+            'int' => array_keys($this->_getSearchableAttributes('int')),
+            'varchar' => array_keys($this->_getSearchableAttributes('varchar')),
+            'text' => array_keys($this->_getSearchableAttributes('text')),
+            'decimal' => array_keys($this->_getSearchableAttributes('decimal')),
+            'datetime' => array_keys($this->_getSearchableAttributes('datetime')),
         );
 
         // status and visibility filter
-        $visibility     = $this->_getSearchableAttribute('visibility');
-        $status         = $this->_getSearchableAttribute('status');
-        $statusVals     = Mage::getSingleton('catalog/product_status')->getVisibleStatusIds();
+        $visibility = $this->_getSearchableAttribute('visibility');
+        $status = $this->_getSearchableAttribute('status');
+        $statusVals = Mage::getSingleton('catalog/product_status')->getVisibleStatusIds();
         $allowedVisibilityValues = $this->_engine->getAllowedVisibility();
 
         $lastProductId = 0;
@@ -160,7 +157,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             }
 
             $productAttributes = array();
-            $productRelations  = array();
+            $productRelations = array();
             foreach ($products as $productData) {
                 $lastProductId = $productData['entity_id'];
                 $productAttributes[$productData['entity_id']] = $productData['entity_id'];
@@ -173,7 +170,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 }
             }
 
-            $productIndexes    = array();
+            $productIndexes = array();
             $productAttributes = $this->_getProductAttributes($storeId, $productAttributes, $dynamicFields);
             foreach ($products as $productData) {
                 if (!isset($productAttributes[$productData['entity_id']])) {
@@ -181,8 +178,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 }
 
                 $productAttr = $productAttributes[$productData['entity_id']];
-                if (!isset($productAttr[$visibility->getId()])
-                    || !in_array($productAttr[$visibility->getId()], $allowedVisibilityValues)
+                if (!isset($productAttr[$visibility->getId()]) || !in_array($productAttr[$visibility->getId()], $allowedVisibilityValues)
                 ) {
                     continue;
                 }
@@ -225,42 +221,34 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * @param int $limit
      * @return array
      */
-    protected function _getSearchableProducts($storeId, array $staticFields, $productIds = null, $lastProductId = 0,
-        $limit = 100)
+    protected function _getSearchableProducts($storeId, array $staticFields, $productIds = null, $lastProductId = 0, $limit = 100)
     {
-        $websiteId      = Mage::app()->getStore($storeId)->getWebsiteId();
-        $writeAdapter   = $this->_getWriteAdapter();
+        $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
+        $writeAdapter = $this->_getWriteAdapter();
 
         $select = $writeAdapter->select()
-            ->useStraightJoin(true)
-            ->from(
-                array('e' => $this->getTable('catalog/product')),
-                array_merge(array('entity_id', 'type_id'), $staticFields)
-            )
-            ->join(
-                array('website' => $this->getTable('catalog/product_website')),
-                $writeAdapter->quoteInto(
-                    'website.product_id=e.entity_id AND website.website_id=?',
-                    $websiteId
-                ),
-                array()
-            )
-            ->join(
-                array('stock_status' => $this->getTable('cataloginventory/stock_status')),
-                $writeAdapter->quoteInto(
-                    'stock_status.product_id=e.entity_id AND stock_status.website_id=?',
-                    $websiteId
-                ),
-                array('in_stock' => 'stock_status')
-            );
+                ->useStraightJoin(true)
+                ->from(
+                        array('e' => $this->getTable('catalog/product')), array_merge(array('entity_id', 'type_id'), $staticFields)
+                )
+                ->join(
+                        array('website' => $this->getTable('catalog/product_website')), $writeAdapter->quoteInto(
+                                'website.product_id=e.entity_id AND website.website_id=?', $websiteId
+                        ), array()
+                )
+                ->join(
+                array('stock_status' => $this->getTable('cataloginventory/stock_status')), $writeAdapter->quoteInto(
+                        'stock_status.product_id=e.entity_id AND stock_status.website_id=?', $websiteId
+                ), array('in_stock' => 'stock_status')
+        );
 
         if (!is_null($productIds)) {
             $select->where('e.entity_id IN(?)', $productIds);
         }
 
         $select->where('e.entity_id>?', $lastProductId)
-            ->limit($limit)
-            ->order('e.entity_id');
+                ->limit($limit)
+                ->order('e.entity_id');
 
         $result = $writeAdapter->fetchAll($select);
 
@@ -314,13 +302,12 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             $searchType = $object->getSearchType($query->getStoreId());
 
             $preparedTerms = Mage::getResourceHelper('catalogsearch')
-                ->prepareTerms($queryText, $query->getMaxQueryWords());
+                    ->prepareTerms($queryText, $query->getMaxQueryWords());
 
             $bind = array();
             $like = array();
-            $likeCond  = '';
-            if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE
-                || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
+            $likeCond = '';
+            if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
             ) {
                 $helper = Mage::getResourceHelper('core');
                 $words = Mage::helper('core/string')->splitWords($queryText, true, $query->getMaxQueryWords());
@@ -337,24 +324,21 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 'product_id',
             );
             $select = $adapter->select()
-                ->from(array($mainTableAlias => $this->getMainTable()), $fields)
-                ->joinInner(array('e' => $this->getTable('catalog/product')),
-                    'e.entity_id = s.product_id',
-                    array())
-                ->where($mainTableAlias.'.store_id = ?', (int)$query->getStoreId());
+                    ->from(array($mainTableAlias => $this->getMainTable()), $fields)
+                    ->joinInner(array('e' => $this->getTable('catalog/product')), 'e.entity_id = s.product_id', array())
+                    ->where($mainTableAlias . '.store_id = ?', (int) $query->getStoreId());
 
-            if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_FULLTEXT
-                || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
+            if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_FULLTEXT || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
             ) {
                 $bind[':query'] = implode(' ', $preparedTerms[0]);
                 $where = Mage::getResourceHelper('catalogsearch')
-                    ->chooseFulltext($this->getMainTable(), $mainTableAlias, $select);
+                        ->chooseFulltext($this->getMainTable(), $mainTableAlias, $select);
             }
 
             if ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE) {
-                    $where .= ($where ? ' OR ' : '') . $likeCond;
+                $where .= ($where ? ' OR ' : '') . $likeCond;
             } elseif ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE) {
-                $select->columns(array('relevance'  => new Zend_Db_Expr(0)));
+                $select->columns(array('relevance' => new Zend_Db_Expr(0)));
                 $where = $likeCond;
             }
 
@@ -362,10 +346,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 $select->where($where);
             }
 
-            $sql = $adapter->insertFromSelect($select,
-                $this->getTable('catalogsearch/result'),
-                array(),
-                Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE);
+            $sql = $adapter->insertFromSelect($select, $this->getTable('catalogsearch/result'), array(), Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE);
             $adapter->query($sql, $bind);
 
             $query->setIsProcessed(1);
@@ -410,8 +391,8 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             ));
 
             $entity = $this->getEavConfig()
-                ->getEntityType(Mage_Catalog_Model_Product::ENTITY)
-                ->getEntity();
+                    ->getEntityType(Mage_Catalog_Model_Product::ENTITY)
+                    ->getEntity();
 
             foreach ($attributes as $attribute) {
                 $attribute->setEntity($entity);
@@ -469,7 +450,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     {
         if ($backendType == 'datetime') {
             $expr = Mage::getResourceHelper('catalogsearch')->castField(
-                $this->_getReadAdapter()->getDateFormatSql($field, '%Y-%m-%d %H:%i:%s'));
+                    $this->_getReadAdapter()->getDateFormatSql($field, '%Y-%m-%d %H:%i:%s'));
         } else {
             $expr = Mage::getResourceHelper('catalogsearch')->castField($field);
         }
@@ -486,7 +467,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      */
     protected function _getProductAttributes($storeId, array $productIds, array $attributeTypes)
     {
-        $result  = array();
+        $result = array();
         $selects = array();
         $adapter = $this->_getWriteAdapter();
         $ifStoreValue = $adapter->getCheckSql('t_store.value_id > 0', 't_store.value', 't_default.value');
@@ -494,20 +475,16 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             if ($attributeIds) {
                 $tableName = $this->getTable(array('catalog/product', $backendType));
                 $selects[] = $adapter->select()
-                    ->from(
-                        array('t_default' => $tableName),
-                        array('entity_id', 'attribute_id'))
-                    ->joinLeft(
-                        array('t_store' => $tableName),
-                        $adapter->quoteInto(
-                            't_default.entity_id=t_store.entity_id' .
-                                ' AND t_default.attribute_id=t_store.attribute_id' .
-                                ' AND t_store.store_id=?',
-                            $storeId),
-                        array('value' => $this->_unifyField($ifStoreValue, $backendType)))
-                    ->where('t_default.store_id=?', 0)
-                    ->where('t_default.attribute_id IN (?)', $attributeIds)
-                    ->where('t_default.entity_id IN (?)', $productIds);
+                        ->from(
+                                array('t_default' => $tableName), array('entity_id', 'attribute_id'))
+                        ->joinLeft(
+                                array('t_store' => $tableName), $adapter->quoteInto(
+                                        't_default.entity_id=t_store.entity_id' .
+                                        ' AND t_default.attribute_id=t_store.attribute_id' .
+                                        ' AND t_store.store_id=?', $storeId), array('value' => $this->_unifyField($ifStoreValue, $backendType)))
+                        ->where('t_default.store_id=?', 0)
+                        ->where('t_default.attribute_id IN (?)', $attributeIds)
+                        ->where('t_default.entity_id IN (?)', $productIds);
             }
         }
 
@@ -535,7 +512,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             $productEmulator->setTypeId($typeId);
 
             $this->_productTypes[$typeId] = Mage::getSingleton('catalog/product_type')
-                ->factory($productEmulator);
+                    ->factory($productEmulator);
         }
         return $this->_productTypes[$typeId];
     }
@@ -550,16 +527,13 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     protected function _getProductChildIds($productId, $typeId)
     {
         $typeInstance = $this->_getProductTypeInstance($typeId);
-        $relation = $typeInstance->isComposite()
-            ? $typeInstance->getRelationInfo()
-            : false;
+        $relation = $typeInstance->isComposite() ? $typeInstance->getRelationInfo() : false;
 
         if ($relation && $relation->getTable() && $relation->getParentFieldName() && $relation->getChildFieldName()) {
             $select = $this->_getReadAdapter()->select()
-                ->from(
-                    array('main' => $this->getTable($relation->getTable())),
-                    array($relation->getChildFieldName()))
-                ->where("{$relation->getParentFieldName()}=?", $productId);
+                    ->from(
+                            array('main' => $this->getTable($relation->getTable())), array($relation->getChildFieldName()))
+                    ->where("{$relation->getParentFieldName()}=?", $productId);
             if (!is_null($relation->getWhere())) {
                 $select->where($relation->getWhere());
             }
@@ -632,9 +606,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
 
         if (!$this->_engine->allowAdvancedIndex()) {
             $product = $this->_getProductEmulator()
-                ->setId($productData['entity_id'])
-                ->setTypeId($productData['type_id'])
-                ->setStoreId($storeId);
+                    ->setId($productData['entity_id'])
+                    ->setTypeId($productData['type_id'])
+                    ->setStoreId($storeId);
             $typeInstance = $this->_getProductTypeInstance($productData['type_id']);
             if ($data = $typeInstance->getSearchableData($product)) {
                 $index['options'] = $data;
@@ -667,10 +641,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             if ($this->_engine->allowAdvancedIndex()) {
                 if ($attribute->getAttributeCode() == 'visibility') {
                     return $value;
-                } elseif (!($attribute->getIsVisibleInAdvancedSearch()
-                    || $attribute->getIsFilterable()
-                    || $attribute->getIsFilterableInSearch()
-                    || $attribute->getUsedForSortBy())
+                } elseif (!($attribute->getIsVisibleInAdvancedSearch() || $attribute->getIsFilterable() || $attribute->getIsFilterableInSearch() || $attribute->getUsedForSortBy())
                 ) {
                     return null;
                 }
@@ -753,8 +724,8 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     {
         if (!isset($this->_dates[$storeId])) {
             $timezone = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE, $storeId);
-            $locale   = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $storeId);
-            $locale   = new Zend_Locale($locale);
+            $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $storeId);
+            $locale = new Zend_Locale($locale);
 
             $dateObj = new Zend_Date(null, null, $locale);
             $dateObj->setTimezone($timezone);
@@ -770,10 +741,6 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
 
         return null;
     }
-
-
-
-
 
     // Deprecated methods
 
@@ -803,4 +770,5 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     {
         return $this;
     }
+
 }

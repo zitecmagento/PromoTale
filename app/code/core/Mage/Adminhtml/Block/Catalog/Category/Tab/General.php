@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -57,7 +58,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         $form->setHtmlIdPrefix('_general');
         $form->setDataObject($this->getCategory());
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('catalog')->__('General Information')));
+        $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('catalog')->__('General Information')));
 
         if (!$this->getCategory()->getId()) {
 //            $fieldset->addField('path', 'select', array(
@@ -75,16 +76,16 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
                 $parentId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
             }
             $fieldset->addField('path', 'hidden', array(
-                'name'  => 'path',
+                'name' => 'path',
                 'value' => $parentId
             ));
         } else {
             $fieldset->addField('id', 'hidden', array(
-                'name'  => 'id',
+                'name' => 'id',
                 'value' => $this->getCategory()->getId()
             ));
             $fieldset->addField('path', 'hidden', array(
-                'name'  => 'path',
+                'name' => 'path',
                 'value' => $this->getCategory()->getPath()
             ));
         }
@@ -95,7 +96,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
             if ($this->getCategory()->getLevel() == 1) {
                 $fieldset->removeField('url_key');
                 $fieldset->addField('url_key', 'hidden', array(
-                    'name'  => 'url_key',
+                    'name' => 'url_key',
                     'value' => $this->getCategory()->getUrlKey()
                 ));
             }
@@ -114,7 +115,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         );
     }
 
-    protected function _getParentCategoryOptions($node=null, &$options=array())
+    protected function _getParentCategoryOptions($node = null, &$options = array())
     {
         if (is_null($node)) {
             $node = $this->getRoot();
@@ -122,8 +123,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
 
         if ($node) {
             $options[] = array(
-               'value' => $node->getPathId(),
-               'label' => str_repeat('&nbsp;', max(0, 3*($node->getLevel()))) . $this->escapeHtml($node->getName()),
+                'value' => $node->getPathId(),
+                'label' => str_repeat('&nbsp;', max(0, 3 * ($node->getLevel()))) . $this->escapeHtml($node->getName()),
             );
 
             foreach ($node->getChildren() as $child) {
@@ -134,4 +135,3 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
     }
 
 }
-

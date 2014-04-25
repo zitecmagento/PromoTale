@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,11 +30,12 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Tree_Attribute extends Mage_Adminhtml_Block_Template
 {
+
     protected function _construct()
     {
         $this->setTemplate('catalog/product/attribute/set/main/tree/attribute.phtml');
     }
+
 }

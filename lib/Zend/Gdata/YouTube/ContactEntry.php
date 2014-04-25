@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ContactEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_YouTube_UserProfileEntry
  */
@@ -100,14 +99,14 @@ class Zend_Gdata_YouTube_ContactEntry extends Zend_Gdata_YouTube_UserProfileEntr
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-        case $this->lookupNamespace('yt') . ':' . 'status':
-            $status = new Zend_Gdata_YouTube_Extension_Status();
-            $status->transferFromDOM($child);
-            $this->_status = $status;
-            break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            case $this->lookupNamespace('yt') . ':' . 'status':
+                $status = new Zend_Gdata_YouTube_Extension_Status();
+                $status->transferFromDOM($child);
+                $this->_status = $status;
+                break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 

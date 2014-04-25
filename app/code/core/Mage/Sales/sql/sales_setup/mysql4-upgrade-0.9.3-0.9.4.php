@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 
@@ -94,8 +94,8 @@ CREATE TABLE `{$installer->getTable('sales_flat_order_item')}` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
 
-$itemFields     = $installer->getConnection()->describeTable($installer->getTable('sales_flat_order_item'));
-$itemEntityId   = $installer->getEntityTypeId('order_item');
+$itemFields = $installer->getConnection()->describeTable($installer->getTable('sales_flat_order_item'));
+$itemEntityId = $installer->getEntityTypeId('order_item');
 
 $itemAttributes = $installer->getConnection()->fetchPairs("SELECT attribute_id, attribute_code FROM {$installer->getTable('eav_attribute')} WHERE entity_type_id={$itemEntityId}");
 
@@ -155,8 +155,8 @@ foreach ($items as $itemData) {
     }
 
     $newItemData = array(
-        'item_id'   => $itemData['entity_id'],
-        'order_id'  => $itemData['parent_id'],
+        'item_id' => $itemData['entity_id'],
+        'order_id' => $itemData['parent_id'],
     );
 
     foreach ($itemData as $key => $value) {

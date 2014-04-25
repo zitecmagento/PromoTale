@@ -23,7 +23,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 error_reporting(E_ALL & ~E_NOTICE);
 
 // just a shortcut
@@ -44,13 +43,13 @@ if (strpos($_includePath, $_libDir) === false) {
 }
 
 /**
-* Class for connect
-*
-* @category   Mage
-* @package    Mage_Connect
-* @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
-* @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*/
+ * Class for connect
+ *
+ * @category   Mage
+ * @package    Mage_Connect
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 class Maged_Connect
 {
 
@@ -69,10 +68,10 @@ class Maged_Connect
     protected $_sconfig;
 
     /**
-    * Object of frontend
-    *
-    * @var Mage_Connect_Frontend
-    */
+     * Object of frontend
+     *
+     * @var Mage_Connect_Frontend
+     */
     protected $_frontend;
 
     /**
@@ -138,14 +137,14 @@ class Maged_Connect
     {
         if (!$this->_config) {
             $this->_config = new Mage_Connect_Config();
-            $ftp=$this->_config->__get('remote_config');
-            if(!empty($ftp)){
+            $ftp = $this->_config->__get('remote_config');
+            if (!empty($ftp)) {
                 $packager = new Mage_Connect_Packager();
                 list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
-                $this->_config=$config;
-                $this->_sconfig=$cache;
+                $this->_config = $config;
+                $this->_sconfig = $cache;
             }
-            $this->_config->magento_root = dirname(dirname(__FILE__)).DS.'..';
+            $this->_config->magento_root = dirname(dirname(__FILE__)) . DS . '..';
             Mage_Connect_Command::setConfigObject($this->_config);
         }
         return $this->_config;
@@ -159,16 +158,15 @@ class Maged_Connect
      */
     public function getSingleConfig($reload = false)
     {
-        if(!$this->_sconfig || $reload) {
+        if (!$this->_sconfig || $reload) {
             $this->_sconfig = new Mage_Connect_Singleconfig(
-                $this->getConfig()->magento_root . DIRECTORY_SEPARATOR
-                . $this->getConfig()->downloader_path . DIRECTORY_SEPARATOR
-                . Mage_Connect_Singleconfig::DEFAULT_SCONFIG_FILENAME
+                    $this->getConfig()->magento_root . DIRECTORY_SEPARATOR
+                    . $this->getConfig()->downloader_path . DIRECTORY_SEPARATOR
+                    . Mage_Connect_Singleconfig::DEFAULT_SCONFIG_FILENAME
             );
         }
         Mage_Connect_Command::setSconfig($this->_sconfig);
         return $this->_sconfig;
-
     }
 
     /**
@@ -222,12 +220,13 @@ class Maged_Connect
      * @param string $path
      * @return Maged_Connect
      */
-    public function delTree($path) {
+    public function delTree($path)
+    {
         if (@is_dir($path)) {
             $entries = @scandir($path);
             foreach ($entries as $entry) {
                 if ($entry != '.' && $entry != '..') {
-                    $this->delTree($path.DS.$entry);
+                    $this->delTree($path . DS . $entry);
                 }
             }
             @rmdir($path);
@@ -245,7 +244,7 @@ class Maged_Connect
      * @param array $params
      * @return boolean|Mage_Connect_Error
      */
-    public function run($command, $options=array(), $params=array())
+    public function run($command, $options = array(), $params = array())
     {
         @set_time_limit(0);
         @ini_set('memory_limit', '256M');
@@ -253,8 +252,8 @@ class Maged_Connect
         if (empty($this->_cmdCache[$command])) {
             Mage_Connect_Command::getCommands();
             /**
-            * @var $cmd Mage_Connect_Command
-            */
+             * @var $cmd Mage_Connect_Command
+             */
             $cmd = Mage_Connect_Command::getInstance($command);
             if ($cmd instanceof Mage_Connect_Error) {
                 return $cmd;
@@ -262,13 +261,13 @@ class Maged_Connect
             $this->_cmdCache[$command] = $cmd;
         } else {
             /**
-            * @var $cmd Mage_Connect_Command
-            */
+             * @var $cmd Mage_Connect_Command
+             */
             $cmd = $this->_cmdCache[$command];
         }
-        $ftp=$this->getConfig()->remote_config;
-        if(strlen($ftp)>0){
-            $options=array_merge($options, array('ftp'=>$ftp));
+        $ftp = $this->getConfig()->remote_config;
+        if (strlen($ftp) > 0) {
+            $options = array_merge($options, array('ftp' => $ftp));
         }
         $cmd->run($command, $options, $params);
         if ($cmd->ui()->hasErrors()) {
@@ -286,7 +285,7 @@ class Maged_Connect
      */
     public function setRemoteConfig($uri)
     {
-        $this->getConfig()->remote_config=$uri;
+        $this->getConfig()->remote_config = $uri;
         return $this;
     }
 
@@ -326,7 +325,9 @@ class Maged_Connect
         }
         @ini_set('zlib.output_compression', 0);
         @ini_set('implicit_flush', 1);
-        for ($i = 0; $i < ob_get_level(); $i++) { ob_end_flush(); }
+        for ($i = 0; $i < ob_get_level(); $i++) {
+            ob_end_flush();
+        }
         ob_implicit_flush();
 
         $fe = $this->getFrontend();
@@ -338,7 +339,7 @@ class Maged_Connect
         } elseif (is_array($runParams)) {
             $run = new Maged_Model_Connect_Request($runParams);
         } elseif (is_string($runParams)) {
-            $run = new Maged_Model_Connect_Request(array('comment'=>$runParams));
+            $run = new Maged_Model_Connect_Request(array('comment' => $runParams));
         } else {
             throw Maged_Exception("Invalid run parameters");
         }
@@ -346,7 +347,7 @@ class Maged_Connect
         if (!$run->get('no-header')) {
             $this->_consoleHeader();
         }
-        echo htmlspecialchars($run->get('comment')).'<br/>';
+        echo htmlspecialchars($run->get('comment')) . '<br/>';
 
         if ($command = $run->get('command')) {
             $result = $this->run($command, $run->get('options'), $run->get('params'));
@@ -394,124 +395,129 @@ class Maged_Connect
      *
      * @return void
      */
-    protected function _consoleHeader() {
+    protected function _consoleHeader()
+    {
         if (!$this->_consoleStarted) {
-?>
-<html><head><style type="text/css">
-body { margin:0px;
-    padding:3px;
-    background:black;
-    color:#2EC029;
-    font:normal 11px Lucida Console, Courier New, serif;
-    }
-</style></head><body>
-<script type="text/javascript">
-if (parent && parent.disableInputs) {
-    parent.disableInputs(true);
-}
-if (typeof auto_scroll=='undefined') {
-    var auto_scroll = window.setInterval(console_scroll, 10);
-}
-function console_scroll()
-{
-    if (typeof top.$ != 'function') {
-        return;
-    }
-    if (top.$('connect_iframe_scroll').checked) {
-        document.body.scrollTop+=3;
-    }
-}
-function show_message(message, newline)
-{
-    var bodyElement = document.getElementsByTagName('body')[0];
-    if (typeof newline == 'undefined') {
-        newline = true
-    }
-    if (newline) {
-        bodyElement.innerHTML += '<br/>';
-    }
-    bodyElement.innerHTML += message;
-}
-function clear_cache(callbacks)
-{
-    if (typeof top.Ajax != 'object') {
-        return;
-    }
-    var message = 'Exception during cache and session cleaning';
-    var url = window.location.href.split('?')[0] + '?A=cleanCache';
-    var intervalID = setInterval(function() {show_message('.', false); }, 500);
-    var clean = 0;
-    var maintenance = 0;
-    if (window.location.href.indexOf('clean_sessions') >= 0) {
-        clean = 1;
-    }
-    if (window.location.href.indexOf('maintenance') >= 0) {
-        maintenance = 1;
-    }
+            ?>
+            <html><head><style type="text/css">
+                        body { margin:0px;
+                               padding:3px;
+                               background:black;
+                               color:#2EC029;
+                               font:normal 11px Lucida Console, Courier New, serif;
+                        }
+                    </style></head><body>
+                    <script type="text/javascript">
+                        if (parent && parent.disableInputs) {
+                            parent.disableInputs(true);
+                        }
+                        if (typeof auto_scroll == 'undefined') {
+                            var auto_scroll = window.setInterval(console_scroll, 10);
+                        }
+                        function console_scroll()
+                        {
+                            if (typeof top.$ != 'function') {
+                                return;
+                            }
+                            if (top.$('connect_iframe_scroll').checked) {
+                                document.body.scrollTop += 3;
+                            }
+                        }
+                        function show_message(message, newline)
+                        {
+                            var bodyElement = document.getElementsByTagName('body')[0];
+                            if (typeof newline == 'undefined') {
+                                newline = true
+                            }
+                            if (newline) {
+                                bodyElement.innerHTML += '<br/>';
+                            }
+                            bodyElement.innerHTML += message;
+                        }
+                        function clear_cache(callbacks)
+                        {
+                            if (typeof top.Ajax != 'object') {
+                                return;
+                            }
+                            var message = 'Exception during cache and session cleaning';
+                            var url = window.location.href.split('?')[0] + '?A=cleanCache';
+                            var intervalID = setInterval(function() {
+                                show_message('.', false);
+                            }, 500);
+                            var clean = 0;
+                            var maintenance = 0;
+                            if (window.location.href.indexOf('clean_sessions') >= 0) {
+                                clean = 1;
+                            }
+                            if (window.location.href.indexOf('maintenance') >= 0) {
+                                maintenance = 1;
+                            }
 
-    new top.Ajax.Request(url, {
-        method: 'post',
-        parameters: {clean_sessions:clean, maintenance:maintenance},
-        onCreate: function() {
-            show_message('Cleaning cache');
-            show_message('');
-        },
-        onSuccess: function(transport, json) {
-            var result = true;
-            try{
-                var response = eval('(' + transport.responseText + ')');
-                if (typeof response.result != 'undefined') {
-                    result = response.result;
-                } else {
-                    result = false;
+                            new top.Ajax.Request(url, {
+                                method: 'post',
+                                parameters: {clean_sessions: clean, maintenance: maintenance},
+                                onCreate: function() {
+                                    show_message('Cleaning cache');
+                                    show_message('');
+                                },
+                                onSuccess: function(transport, json) {
+                                    var result = true;
+                                    try {
+                                        var response = eval('(' + transport.responseText + ')');
+                                        if (typeof response.result != 'undefined') {
+                                            result = response.result;
+                                        } else {
+                                            result = false;
+                                        }
+                                        if (typeof response.message != 'undefined') {
+                                            if (response.message.length > 0) {
+                                                message = response.message;
+                                            } else {
+                                                message = 'Cache cleaned successfully';
+                                            }
+                                        }
+                                    } catch (ex) {
+                                        result = false;
+                                    }
+                                    if (result) {
+                                        callbacks.success();
+                                    } else {
+                                        callbacks.fail();
+                                    }
+                                },
+                                onFailure: function() {
+                                    callbacks.fail();
+                                },
+                                onComplete: function(transport) {
+                                    clearInterval(intervalID);
+                                    show_message(message);
+                                }
+                            });
+                        }
+                    </script>
+                    <?php
+                    $this->_consoleStarted = true;
                 }
-                if (typeof response.message != 'undefined') {
-                    if (response.message.length > 0) {
-                        message = response.message;
-                    } else {
-                        message = 'Cache cleaned successfully';
-                    }
-                }
-            } catch (ex){
-                result = false;
             }
-            if (result) {
-                callbacks.success();
-            } else {
-                callbacks.fail();
-            }
-        },
-        onFailure: function() {
-            callbacks.fail();
-        },
-        onComplete: function(transport) {
-            clearInterval(intervalID);
-            show_message(message);
-        }
-    });
-}
-</script>
-<?php
-            $this->_consoleStarted = true;
-        }
-    }
 
-    /**
-     * Show HTML Console Footer
-     *
-     * @return void
-     */
-    protected function _consoleFooter() {
-        if ($this->_consoleStarted) {
-?>
-<script type="text/javascript">
-if (parent && parent.disableInputs) {
-    parent.disableInputs(false);
-}
-</script>
-</body></html>
-<?php
+            /**
+             * Show HTML Console Footer
+             *
+             * @return void
+             */
+            protected function _consoleFooter()
+            {
+                if ($this->_consoleStarted) {
+                    ?>
+                    <script type="text/javascript">
+                        if (parent && parent.disableInputs) {
+                            parent.disableInputs(false);
+                        }
+                    </script>
+                </body></html>
+            <?php
             $this->_consoleStarted = false;
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 20574 2010-01-24 17:39:14Z mabe $
  */
-
 /** @see Zend_Exception */
 #require_once 'Zend/Exception.php';
 
@@ -30,4 +30,5 @@
  */
 class Zend_Serializer_Exception extends Zend_Exception
 {
+    
 }

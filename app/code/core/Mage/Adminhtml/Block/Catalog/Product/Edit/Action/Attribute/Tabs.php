@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml catalog product edit action attributes update tabs block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
+
     protected function _construct()
     {
         parent::_construct();
@@ -42,4 +43,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tabs extends Ma
         $this->setDestElementId('attributes_edit_form');
         $this->setTitle(Mage::helper('catalog')->__('Products Information'));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Store grid column filter
  *
@@ -32,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     protected $_skipAllStoresLabel = false;
     protected $_skipEmptyStoresLabel = false;
 
@@ -55,9 +55,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store
      */
     protected function _getShowAllStoresLabelFlag()
     {
-        return $this->getColumn()->getData('skipAllStoresLabel')
-            ? $this->getColumn()->getData('skipAllStoresLabel')
-            : $this->_skipAllStoresLabel;
+        return $this->getColumn()->getData('skipAllStoresLabel') ? $this->getColumn()->getData('skipAllStoresLabel') : $this->_skipAllStoresLabel;
     }
 
     /**
@@ -67,9 +65,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store
      */
     protected function _getShowEmptyStoresLabelFlag()
     {
-        return $this->getColumn()->getData('skipEmptyStoresLabel')
-            ? $this->getColumn()->getData('skipEmptyStoresLabel')
-            : $this->_skipEmptyStoresLabel;
+        return $this->getColumn()->getData('skipEmptyStoresLabel') ? $this->getColumn()->getData('skipEmptyStoresLabel') : $this->_skipEmptyStoresLabel;
     }
 
     /**
@@ -103,8 +99,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store
 
         if (empty($origStores)) {
             return '';
-        }
-        elseif (in_array(0, $origStores) && count($origStores) == 1 && !$skipAllStoresLabel) {
+        } elseif (in_array(0, $origStores) && count($origStores) == 1 && !$skipAllStoresLabel) {
             return Mage::helper('adminhtml')->__('All Store Views');
         }
 
@@ -166,4 +161,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store
 
         return $out;
     }
+
 }

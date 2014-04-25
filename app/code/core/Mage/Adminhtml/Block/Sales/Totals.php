@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
 {
+
     /**
      * Format total value based on order currency
      *
@@ -36,9 +37,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
     {
         if (!$total->getIsFormated()) {
             return $this->helper('adminhtml/sales')->displayPrices(
-                $this->getOrder(),
-                $total->getBaseValue(),
-                $total->getValue()
+                            $this->getOrder(), $total->getBaseValue(), $total->getValue()
             );
         }
         return $total->getValue();
@@ -53,21 +52,20 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
     {
         $this->_totals = array();
         $this->_totals['subtotal'] = new Varien_Object(array(
-            'code'      => 'subtotal',
-            'value'     => $this->getSource()->getSubtotal(),
-            'base_value'=> $this->getSource()->getBaseSubtotal(),
-            'label'     => $this->helper('sales')->__('Subtotal')
+            'code' => 'subtotal',
+            'value' => $this->getSource()->getSubtotal(),
+            'base_value' => $this->getSource()->getBaseSubtotal(),
+            'label' => $this->helper('sales')->__('Subtotal')
         ));
 
         /**
          * Add shipping
          */
-        if (!$this->getSource()->getIsVirtual() && ((float) $this->getSource()->getShippingAmount() || $this->getSource()->getShippingDescription()))
-        {
+        if (!$this->getSource()->getIsVirtual() && ((float) $this->getSource()->getShippingAmount() || $this->getSource()->getShippingDescription())) {
             $this->_totals['shipping'] = new Varien_Object(array(
-                'code'      => 'shipping',
-                'value'     => $this->getSource()->getShippingAmount(),
-                'base_value'=> $this->getSource()->getBaseShippingAmount(),
+                'code' => 'shipping',
+                'value' => $this->getSource()->getShippingAmount(),
+                'base_value' => $this->getSource()->getBaseShippingAmount(),
                 'label' => $this->helper('sales')->__('Shipping & Handling')
             ));
         }
@@ -75,29 +73,30 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
         /**
          * Add discount
          */
-        if (((float)$this->getSource()->getDiscountAmount()) != 0) {
+        if (((float) $this->getSource()->getDiscountAmount()) != 0) {
             if ($this->getSource()->getDiscountDescription()) {
                 $discountLabel = $this->helper('sales')->__('Discount (%s)', $this->getSource()->getDiscountDescription());
             } else {
                 $discountLabel = $this->helper('sales')->__('Discount');
             }
             $this->_totals['discount'] = new Varien_Object(array(
-                'code'      => 'discount',
-                'value'     => $this->getSource()->getDiscountAmount(),
-                'base_value'=> $this->getSource()->getBaseDiscountAmount(),
-                'label'     => $discountLabel
+                'code' => 'discount',
+                'value' => $this->getSource()->getDiscountAmount(),
+                'base_value' => $this->getSource()->getBaseDiscountAmount(),
+                'label' => $discountLabel
             ));
         }
 
         $this->_totals['grand_total'] = new Varien_Object(array(
-            'code'      => 'grand_total',
-            'strong'    => true,
-            'value'     => $this->getSource()->getGrandTotal(),
-            'base_value'=> $this->getSource()->getBaseGrandTotal(),
-            'label'     => $this->helper('sales')->__('Grand Total'),
-            'area'      => 'footer'
+            'code' => 'grand_total',
+            'strong' => true,
+            'value' => $this->getSource()->getGrandTotal(),
+            'base_value' => $this->getSource()->getBaseGrandTotal(),
+            'label' => $this->helper('sales')->__('Grand Total'),
+            'area' => 'footer'
         ));
 
         return $this;
     }
+
 }

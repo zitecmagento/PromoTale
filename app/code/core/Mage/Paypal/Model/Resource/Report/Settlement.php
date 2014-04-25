@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report settlement resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Table name
      *
@@ -61,9 +62,10 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
     {
         $rows = $object->getRows();
         if (is_array($rows)) {
-            $adapter  = $this->_getWriteAdapter();
-            $reportId = (int)$object->getId();
-            try {
+            $adapter = $this->_getWriteAdapter();
+            $reportId = (int) $object->getId();
+            try
+            {
                 $adapter->beginTransaction();
                 if ($reportId) {
                     $adapter->delete($this->_rowsTable, array('report_id = ?' => $reportId));
@@ -82,7 +84,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
                     /*
                      * Converting numeric
                      */
-                    $rows[$key]['fee_amount'] = (float)$rows[$key]['fee_amount'];
+                    $rows[$key]['fee_amount'] = (float) $rows[$key]['fee_amount'];
                     /*
                      * Setting reportId
                      */
@@ -92,7 +94,9 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
                     $adapter->insertMultiple($this->_rowsTable, $rows);
                 }
                 $adapter->commit();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $adapter->rollback();
             }
         }
@@ -111,10 +115,10 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
     public function loadByAccountAndDate(Mage_Paypal_Model_Report_Settlement $report, $accountId, $reportDate)
     {
         $adapter = $this->_getReadAdapter();
-        $select  = $adapter->select()
-            ->from($this->getMainTable())
-            ->where('account_id = :account_id')
-            ->where('report_date = :report_date');
+        $select = $adapter->select()
+                ->from($this->getMainTable())
+                ->where('account_id = :account_id')
+                ->where('report_date = :report_date');
 
         $data = $adapter->fetchRow($select, array(':account_id' => $accountId, ':report_date' => $reportDate));
         if ($data) {
@@ -123,4 +127,5 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,36 +24,38 @@
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Connect_Channel_VO implements Iterator
 {
-    
+
     private $_validator = null;
-    
     protected $properties = array(
         'name' => '',
         'uri' => '',
         'summary' => '',
     );
 
-    public function rewind() {
+    public function rewind()
+    {
         reset($this->properties);
     }
 
-    public function valid() {
+    public function valid()
+    {
         return current($this->properties) !== false;
     }
 
-    public function key() {
+    public function key()
+    {
         return key($this->properties);
     }
 
-    public function current() {
+    public function current()
+    {
         return current($this->properties);
     }
 
-    public function next() {
+    public function next()
+    {
         next($this->properties);
     }
 
@@ -81,30 +84,29 @@ class Mage_Connect_Channel_VO implements Iterator
     {
         return array('channel' => $this->properties);
     }
-     
+
     public function fromArray(array $arr)
     {
-        foreach($arr as $k=>$v) {
+        foreach ($arr as $k => $v) {
             $this->$k = $v;
         }
     }
 
-    
     private function validator()
-    { 
-        if(is_null($this->_validator)) {
+    {
+        if (is_null($this->_validator)) {
             $this->_validator = new Mage_Connect_Validator();
         }
         return $this->_validator;
     }
-    
+
     /**
-     Stub for validation result
+      Stub for validation result
      */
     public function validate()
     {
         $v = $this->validator();
-        if(!$v->validatePackageName($this->name)) {
+        if (!$v->validatePackageName($this->name)) {
             return false;
         }
         return true;

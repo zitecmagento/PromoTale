@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Serialized_Array extends Mage_Adminhtml_Model_System_Config_Backend_Serialized
 {
+
     /**
      * Unset array element with '__empty' key
      *
@@ -43,4 +45,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Serialized_Array extends Mage_A
         $this->setValue($value);
         parent::_beforeSave();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SubmitButton.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Dojo_View_Helper_Button */
 #require_once 'Zend/Dojo/View/Helper/Button.php';
 
@@ -31,9 +31,10 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
-  */
+ */
 class Zend_Dojo_View_Helper_SubmitButton extends Zend_Dojo_View_Helper_Button
 {
+
     /**
      * @var string Submit input
      */
@@ -64,4 +65,5 @@ class Zend_Dojo_View_Helper_SubmitButton extends Zend_Dojo_View_Helper_Button
         }
         return $this->_createFormElement($id, $value, $params, $attribs);
     }
+
 }

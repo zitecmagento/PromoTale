@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Version.php 22763 2010-08-02 02:59:36Z ramon $
  */
-
 #require_once 'Zend/Tool/Framework/Registry.php';
 #require_once 'Zend/Tool/Framework/Provider/Interface.php';
 #require_once 'Zend/Version.php';
@@ -31,8 +31,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_System_Provider_Version
-    implements Zend_Tool_Framework_Provider_Interface, Zend_Tool_Framework_Registry_EnabledInterface
+class Zend_Tool_Framework_System_Provider_Version implements Zend_Tool_Framework_Provider_Interface, Zend_Tool_Framework_Registry_EnabledInterface
 {
 
     /**
@@ -42,7 +41,7 @@ class Zend_Tool_Framework_System_Provider_Version
 
     const MODE_MAJOR = 'major';
     const MODE_MINOR = 'minor';
-    const MODE_MINI  = 'mini';
+    const MODE_MINI = 'mini';
 
     protected $_specialties = array('MajorPart', 'MinorPart', 'MiniPart');
 
@@ -63,7 +62,7 @@ class Zend_Tool_Framework_System_Provider_Version
 
         $versionInfo = $this->_splitVersion();
 
-        switch($mode) {
+        switch ($mode) {
             case self::MODE_MINOR:
                 unset($versionInfo['mini']);
                 break;
@@ -98,7 +97,7 @@ class Zend_Tool_Framework_System_Provider_Version
     public function showMiniPart($nameIncluded = true)
     {
         $versionNumbers = $this->_splitVersion();
-        $output = (($nameIncluded == true) ? 'ZF Mini Version: ' : null)  . $versionNumbers['mini'];
+        $output = (($nameIncluded == true) ? 'ZF Mini Version: ' : null) . $versionNumbers['mini'];
         $this->_registry->response->appendContent($output);
     }
 

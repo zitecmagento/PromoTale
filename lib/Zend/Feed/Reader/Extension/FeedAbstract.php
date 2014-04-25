@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FeedAbstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Feed_Reader
  */
@@ -43,6 +43,7 @@
  */
 abstract class Zend_Feed_Reader_Extension_FeedAbstract
 {
+
     /**
      * Parsed feed data
      *
@@ -127,7 +128,6 @@ abstract class Zend_Feed_Reader_Extension_FeedAbstract
     {
         return $this->_data['type'];
     }
-
 
     /**
      * Return the feed as an array

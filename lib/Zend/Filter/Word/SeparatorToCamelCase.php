@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SeparatorToCamelCase.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_PregReplace
  */
@@ -39,11 +39,11 @@ class Zend_Filter_Word_SeparatorToCamelCase extends Zend_Filter_Word_Separator_A
         $pregQuotedSeparator = preg_quote($this->_separator, '#');
 
         if (self::isUnicodeSupportEnabled()) {
-            parent::setMatchPattern(array('#('.$pregQuotedSeparator.')(\p{L}{1})#e','#(^\p{Ll}{1})#e'));
-            parent::setReplacement(array("strtoupper('\\2')","strtoupper('\\1')"));
+            parent::setMatchPattern(array('#(' . $pregQuotedSeparator . ')(\p{L}{1})#e', '#(^\p{Ll}{1})#e'));
+            parent::setReplacement(array("strtoupper('\\2')", "strtoupper('\\1')"));
         } else {
-            parent::setMatchPattern(array('#('.$pregQuotedSeparator.')([A-Za-z]{1})#e','#(^[A-Za-z]{1})#e'));
-            parent::setReplacement(array("strtoupper('\\2')","strtoupper('\\1')"));
+            parent::setMatchPattern(array('#(' . $pregQuotedSeparator . ')([A-Za-z]{1})#e', '#(^[A-Za-z]{1})#e'));
+            parent::setReplacement(array("strtoupper('\\2')", "strtoupper('\\1')"));
         }
 
         return parent::filter($value);

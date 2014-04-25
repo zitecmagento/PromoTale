@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Catalog_Model_System_Config_Backend_Catalog_Category_Flat extends Mage_Core_Model_Config_Data
 {
+
     /**
      * After enable flat category required reindex
      *
@@ -38,10 +40,11 @@ class Mage_Catalog_Model_System_Config_Backend_Catalog_Category_Flat extends Mag
     {
         if ($this->isValueChanged() && $this->getValue()) {
             Mage::getModel('index/indexer')
-                ->getProcessByCode(Mage_Catalog_Helper_Category_Flat::CATALOG_CATEGORY_FLAT_PROCESS_CODE)
-                ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
+                    ->getProcessByCode(Mage_Catalog_Helper_Category_Flat::CATALOG_CATEGORY_FLAT_PROCESS_CODE)
+                    ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
         }
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
@@ -35,19 +35,17 @@ $websites = $conn->fetchPairs("SELECT store_id, website_id FROM {$this->getTable
 $conn->addColumn($this->getTable('salesrule'), 'website_ids', 'text');
 
 $select = $conn->select()
-    ->from($this->getTable('salesrule'), array('rule_id', 'store_ids'));
+        ->from($this->getTable('salesrule'), array('rule_id', 'store_ids'));
 $rows = $conn->fetchAll($select);
 
 foreach ($rows as $r) {
     $websiteIds = array();
-    foreach (explode(',',$r['store_ids']) as $storeId) {
-        if ($storeId!=='') {
+    foreach (explode(',', $r['store_ids']) as $storeId) {
+        if ($storeId !== '') {
             $websiteIds[$websites[$storeId]] = true;
         }
     }
-    $conn->update($this->getTable('salesrule'),
-        array('website_ids'=>join(',',array_keys($websiteIds))),
-        "rule_id=".$r['rule_id']
+    $conn->update($this->getTable('salesrule'), array('website_ids' => join(',', array_keys($websiteIds))), "rule_id=" . $r['rule_id']
     );
 }
 $conn->dropColumn($this->getTable('salesrule'), 'store_ids');

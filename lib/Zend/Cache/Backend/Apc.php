@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Apc.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Cache_Backend_Interface
  */
@@ -31,7 +30,6 @@
  */
 #require_once 'Zend/Cache/Backend.php';
 
-
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
@@ -40,11 +38,12 @@
  */
 class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Backend_ExtendedInterface
 {
+
     /**
      * Log message
      */
     const TAGS_UNSUPPORTED_BY_CLEAN_OF_APC_BACKEND = 'Zend_Cache_Backend_Apc::clean() : tags are unsupported by the Apc backend';
-    const TAGS_UNSUPPORTED_BY_SAVE_OF_APC_BACKEND =  'Zend_Cache_Backend_Apc::save() : tags are unsupported by the Apc backend';
+    const TAGS_UNSUPPORTED_BY_SAVE_OF_APC_BACKEND = 'Zend_Cache_Backend_Apc::save() : tags are unsupported by the Apc backend';
 
     /**
      * Constructor
@@ -184,8 +183,8 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
     public function getFillingPercentage()
     {
         $mem = apc_sma_info(true);
-        $memSize    = $mem['num_seg'] * $mem['seg_size'];
-        $memAvailable= $mem['avail_mem'];
+        $memSize = $mem['num_seg'] * $mem['seg_size'];
+        $memAvailable = $mem['avail_mem'];
         $memUsed = $memSize - $memAvailable;
         if ($memSize == 0) {
             Zend_Cache::throwException('can\'t get apc memory size');
@@ -317,7 +316,7 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
             }
             $lifetime = $tmp[2];
             $newLifetime = $lifetime - (time() - $mtime) + $extraLifetime;
-            if ($newLifetime <=0) {
+            if ($newLifetime <= 0) {
                 return false;
             }
             apc_store($id, array($data, time(), $newLifetime), $newLifetime);

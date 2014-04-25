@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Index_Model_Observer
 {
+
     /**
      * Indexer model
      *
@@ -47,9 +48,7 @@ class Mage_Index_Model_Observer
     {
         $store = $observer->getEvent()->getStore();
         $this->_indexer->processEntityAction(
-            $store,
-            Mage_Core_Model_Store::ENTITY,
-            Mage_Index_Model_Event::TYPE_SAVE
+                $store, Mage_Core_Model_Store::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
     }
 
@@ -62,9 +61,7 @@ class Mage_Index_Model_Observer
     {
         $storeGroup = $observer->getEvent()->getStoreGroup();
         $this->_indexer->processEntityAction(
-            $storeGroup,
-            Mage_Core_Model_Store_Group::ENTITY,
-            Mage_Index_Model_Event::TYPE_SAVE
+                $storeGroup, Mage_Core_Model_Store_Group::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
     }
 
@@ -77,9 +74,7 @@ class Mage_Index_Model_Observer
     {
         $website = $observer->getEvent()->getWebsite();
         $this->_indexer->processEntityAction(
-            $website,
-            Mage_Core_Model_Website::ENTITY,
-            Mage_Index_Model_Event::TYPE_SAVE
+                $website, Mage_Core_Model_Website::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
     }
 
@@ -92,9 +87,7 @@ class Mage_Index_Model_Observer
     {
         $store = $observer->getEvent()->getStore();
         $this->_indexer->processEntityAction(
-            $store,
-            Mage_Core_Model_Store::ENTITY,
-            Mage_Index_Model_Event::TYPE_DELETE
+                $store, Mage_Core_Model_Store::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
         );
     }
 
@@ -107,9 +100,7 @@ class Mage_Index_Model_Observer
     {
         $storeGroup = $observer->getEvent()->getStoreGroup();
         $this->_indexer->processEntityAction(
-            $storeGroup,
-            Mage_Core_Model_Store_Group::ENTITY,
-            Mage_Index_Model_Event::TYPE_DELETE
+                $storeGroup, Mage_Core_Model_Store_Group::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
         );
     }
 
@@ -122,9 +113,7 @@ class Mage_Index_Model_Observer
     {
         $website = $observer->getEvent()->getWebsite();
         $this->_indexer->processEntityAction(
-            $website,
-            Mage_Core_Model_Website::ENTITY,
-            Mage_Index_Model_Event::TYPE_DELETE
+                $website, Mage_Core_Model_Website::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
         );
     }
 
@@ -137,9 +126,7 @@ class Mage_Index_Model_Observer
     {
         $configData = $observer->getEvent()->getConfigData();
         $this->_indexer->processEntityAction(
-            $configData,
-            Mage_Core_Model_Config_Data::ENTITY,
-            Mage_Index_Model_Event::TYPE_SAVE
+                $configData, Mage_Core_Model_Config_Data::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
     }
 

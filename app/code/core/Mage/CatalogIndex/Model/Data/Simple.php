@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_CatalogIndex_Model_Data_Simple extends Mage_CatalogIndex_Model_Data_Abstract
 {
+
     protected $_haveChildren = false;
 
     /**
@@ -42,4 +44,5 @@ class Mage_CatalogIndex_Model_Data_Simple extends Mage_CatalogIndex_Model_Data_A
     {
         return Mage_Catalog_Model_Product_Type::TYPE_SIMPLE;
     }
+
 }

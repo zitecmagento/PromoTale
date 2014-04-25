@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Int.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Validate_Int extends Zend_Validate_Abstract
 {
+
     const INVALID = 'intInvalid';
     const NOT_INT = 'notInt';
 
@@ -47,7 +48,6 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
         self::INVALID => "Invalid type given. String or integer expected",
         self::NOT_INT => "'%value%' does not appear to be an integer",
     );
-
     protected $_locale;
 
     /**
@@ -122,7 +122,7 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
 
         $this->_setValue($value);
         if ($this->_locale === null) {
-            $locale        = localeconv();
+            $locale = localeconv();
             $valueFiltered = str_replace($locale['decimal_point'], '.', $value);
             $valueFiltered = str_replace($locale['thousands_sep'], '', $valueFiltered);
 
@@ -130,14 +130,16 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
                 $this->_error(self::NOT_INT);
                 return false;
             }
-
         } else {
-            try {
+            try
+            {
                 if (!Zend_Locale_Format::isInteger($value, array('locale' => $this->_locale))) {
                     $this->_error(self::NOT_INT);
                     return false;
                 }
-            } catch (Zend_Locale_Exception $e) {
+            }
+            catch (Zend_Locale_Exception $e)
+            {
                 $this->_error(self::NOT_INT);
                 return false;
             }
@@ -145,4 +147,5 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
 
         return true;
     }
+
 }

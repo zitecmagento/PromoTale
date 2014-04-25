@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: File.php 23330 2010-11-14 20:08:09Z mabe $
  */
-
-
 /**
  * @see Zend_Cache_Core
  */
 #require_once 'Zend/Cache/Core.php';
-
 
 /**
  * @package    Zend_Cache
@@ -40,7 +38,7 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
      * Consts for master_files_mode
      */
     const MODE_AND = 'AND';
-    const MODE_OR  = 'OR';
+    const MODE_OR = 'OR';
 
     /**
      * Available options
@@ -103,7 +101,7 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
      */
     public function setMasterFiles(array $masterFiles)
     {
-        $this->_specificOptions['master_file']  = null; // to keep a compatibility
+        $this->_specificOptions['master_file'] = null; // to keep a compatibility
         $this->_specificOptions['master_files'] = null;
         $this->_masterFile_mtimes = array();
 
@@ -136,7 +134,7 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
      */
     public function setMasterFile($masterFile)
     {
-          $this->setMasterFiles(array($masterFile));
+        $this->setMasterFiles(array($masterFile));
     }
 
     /**
@@ -191,7 +189,7 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
         if ($lastModified) {
             if ($this->_specificOptions['master_files_mode'] == self::MODE_AND) {
                 // MODE_AND
-                foreach($this->_masterFile_mtimes as $masterFileMTime) {
+                foreach ($this->_masterFile_mtimes as $masterFileMTime) {
                     if ($masterFileMTime) {
                         if ($lastModified > $masterFileMTime) {
                             return $lastModified;
@@ -201,7 +199,7 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
             } else {
                 // MODE_OR
                 $res = true;
-                foreach($this->_masterFile_mtimes as $masterFileMTime) {
+                foreach ($this->_masterFile_mtimes as $masterFileMTime) {
                     if ($masterFileMTime) {
                         if ($lastModified <= $masterFileMTime) {
                             return false;
@@ -215,4 +213,3 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
     }
 
 }
-

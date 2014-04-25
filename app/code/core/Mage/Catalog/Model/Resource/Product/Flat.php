@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Flat resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Store scope Id
      *
@@ -46,7 +47,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      *
      * @var array
      */
-    protected $_isBuilt                  = array();
+    protected $_isBuilt = array();
 
     /**
      * Init connection and resource table
@@ -55,7 +56,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     protected function _construct()
     {
         $this->_init('catalog/product_flat', 'entity_id');
-        $this->_storeId = (int)Mage::app()->getStore()->getId();
+        $this->_storeId = (int) Mage::app()->getStore()->getId();
     }
 
     /**
@@ -79,7 +80,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if (is_int($store)) {
             $this->_storeId = $store;
         } else {
-            $this->_storeId = (int)Mage::app()->getStore($store)->getId();
+            $this->_storeId = (int) Mage::app()->getStore($store)->getId();
         }
         return $this;
     }
@@ -106,8 +107,8 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     public function getTypeId()
     {
         return Mage::getSingleton('catalog/config')
-            ->getEntityType(Mage_Catalog_Model_Product::ENTITY)
-            ->getEntityTypeId();
+                        ->getEntityType(Mage_Catalog_Model_Product::ENTITY)
+                        ->getEntityTypeId();
     }
 
     /**
@@ -178,7 +179,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
             $attributeCode = $attribute;
         } elseif (is_numeric($attribute)) {
             $attributeCode = $this->getAttribute($attribute)
-                ->getAttributeCode();
+                    ->getAttributeCode();
         }
 
         if ($attributeCode) {
@@ -212,7 +213,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     public function getAttribute($attribute)
     {
         return Mage::getSingleton('catalog/config')
-            ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attribute);
+                        ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attribute);
     }
 
     /**
@@ -243,14 +244,18 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
 
         if (!isset($this->_isBuilt[$storeId])) {
             $select = $this->_getReadAdapter()->select()
-                ->from($this->getFlatTableName($storeId), 'entity_id')
-                ->limit(1);
-            try {
-                $this->_isBuilt[$storeId] = (bool)$this->_getReadAdapter()->fetchOne($select);
-            } catch (Exception $e) {
+                    ->from($this->getFlatTableName($storeId), 'entity_id')
+                    ->limit(1);
+            try
+            {
+                $this->_isBuilt[$storeId] = (bool) $this->_getReadAdapter()->fetchOne($select);
+            }
+            catch (Exception $e)
+            {
                 $this->_isBuilt[$storeId] = false;
             }
         }
         return $this->_isBuilt[$storeId];
     }
+
 }

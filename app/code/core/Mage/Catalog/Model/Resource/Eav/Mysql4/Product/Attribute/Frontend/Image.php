@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product image attribute frontend
  *
@@ -32,7 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Frontend_Image
-    extends Mage_Catalog_Model_Resource_Product_Attribute_Frontend_Image
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Frontend_Image extends Mage_Catalog_Model_Resource_Product_Attribute_Frontend_Image
 {
+    
 }

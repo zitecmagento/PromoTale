@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SnippetFeed.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Gbase_Feed
  */
@@ -39,10 +38,12 @@
  */
 class Zend_Gdata_Gbase_SnippetFeed extends Zend_Gdata_Feed
 {
+
     /**
      * The classname for individual snippet feed elements.
      *
      * @var string
      */
     protected $_entryClassName = 'Zend_Gdata_Gbase_SnippetEntry';
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,4 +34,5 @@
  */
 class Mage_Wishlist_Model_Mysql4_Item_Option extends Mage_Wishlist_Model_Resource_Item_Option
 {
+    
 }

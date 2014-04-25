@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 {
+
     /**
      * Config instance
      * @var Mage_Paypal_Model_Config
@@ -85,7 +87,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected $_recurringPaymentProfiles = array();
 
-   /**
+    /**
      * Fields that should be replaced in debug with '***'
      *
      * @var array
@@ -348,9 +350,9 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         $result = Varien_Object_Mapper::accumulateByMap(array($this, 'getDataUsingMethod'), $request, $map);
         foreach ($privateRequestMap as $key) {
             if (isset($this->_exportToRequestFilters[$key]) && isset($result[$key])) {
-                $callback   = $this->_exportToRequestFilters[$key];
+                $callback = $this->_exportToRequestFilters[$key];
                 $privateKey = $result[$key];
-                $publicKey  = $map[$this->_globalMap[$key]];
+                $publicKey = $map[$this->_globalMap[$key]];
                 $result[$key] = call_user_func(array($this, $callback), $privateKey, $publicKey);
             }
         }
@@ -414,7 +416,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
                 $result = true;
                 $value = $item->getDataUsingMethod($publicKey);
                 if (isset($this->_lineItemExportItemsFilters[$publicKey])) {
-                    $callback   = $this->_lineItemExportItemsFilters[$publicKey];
+                    $callback = $this->_lineItemExportItemsFilters[$publicKey];
                     $value = call_user_func(array($this, $callback), $value);
                 }
                 if (is_float($value)) {
@@ -486,7 +488,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected function _filterInt($value)
     {
-        return (int)$value;
+        return (int) $value;
     }
 
     /**
@@ -503,7 +505,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         }
         return $this->_config->$key ? $this->_config->$key : $default;
     }
-
 
     /**
      * region_id workaround: PayPal requires state code, try to find one in the address
@@ -531,18 +532,20 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected function _importStreetFromAddress(Varien_Object $address, array &$to)
     {
-        $keys = func_get_args(); array_shift($keys); array_shift($keys);
+        $keys = func_get_args();
+        array_shift($keys);
+        array_shift($keys);
         $street = $address->getStreet();
         if (!$keys || !$street || !is_array($street)) {
             return;
         }
 
         $street = Mage::helper('customer/address')
-            ->convertStreetLines($address->getStreet(), count($keys));
+                ->convertStreetLines($address->getStreet(), count($keys));
 
         $i = 0;
         foreach ($keys as $key) {
-            $to[$key] = isset($street[$i]) ? $street[$i]: '';
+            $to[$key] = isset($street[$i]) ? $street[$i] : '';
             $i++;
         }
     }
@@ -579,8 +582,8 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     {
         if ($this->getDebugFlag()) {
             Mage::getModel('core/log_adapter', 'payment_' . $this->_config->getMethodCode() . '.log')
-               ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
-               ->log($debugData);
+                    ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
+                    ->log($debugData);
         }
     }
 
@@ -601,6 +604,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     public function getUseCertAuthentication()
     {
-        return (bool)$this->_config->apiAuthentication;
+        return (bool) $this->_config->apiAuthentication;
     }
+
 }

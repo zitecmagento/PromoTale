@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,8 +32,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_DateFieldsOrder
-    extends Mage_Adminhtml_Block_System_Config_Form_Field
+class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_DateFieldsOrder extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
 
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
@@ -44,8 +44,8 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_DateFieldsOrder
         );
 
         $element->setValues($_options)
-            ->setClass('select-date')
-            ->setName($element->getName() . '[]');
+                ->setClass('select-date')
+                ->setName($element->getName() . '[]');
         if ($element->getValue()) {
             $values = explode(',', $element->getValue());
         } else {
@@ -59,4 +59,5 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_DateFieldsOrder
 
         return implode(' <span>/</span> ', $_parts);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
 {
+
     /**
      * Retrieve credit card type name
      *
@@ -51,7 +53,7 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
      */
     public function hasCcExpDate()
     {
-        return (int)$this->getInfo()->getCcExpMonth() || (int)$this->getInfo()->getCcExpYear();
+        return (int) $this->getInfo()->getCcExpMonth() || (int) $this->getInfo()->getCcExpYear();
     }
 
     /**
@@ -62,8 +64,8 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
     public function getCcExpMonth()
     {
         $month = $this->getInfo()->getCcExpMonth();
-        if ($month<10) {
-            $month = '0'.$month;
+        if ($month < 10) {
+            $month = '0' . $month;
         }
         return $month;
     }
@@ -107,7 +109,7 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
             $year = $this->getInfo()->getCcSsStartYear();
             $month = $this->getInfo()->getCcSsStartMonth();
             if ($year && $month) {
-                $data[Mage::helper('payment')->__('Switch/Solo/Maestro Start Date')] =  $this->_formatCardDate($year, $month);
+                $data[Mage::helper('payment')->__('Switch/Solo/Maestro Start Date')] = $this->_formatCardDate($year, $month);
             }
         }
         return $transport->setData(array_merge($data, $transport->getData()));
@@ -124,4 +126,5 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
     {
         return sprintf('%s/%s', sprintf('%02d', $month), $year);
     }
+
 }

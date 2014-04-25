@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Fuzzy.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Search_Query_Processing */
 #require_once 'Zend/Search/Lucene/Search/Query/Preprocessing.php';
-
 
 /**
  * It's an internal abstract class intended to finalize ase a query processing after query parsing.
@@ -38,6 +36,7 @@
  */
 class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lucene_Search_Query_Preprocessing
 {
+
     /**
      * word (query parser lexeme) to find.
      *
@@ -51,7 +50,6 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
      * @var string
      */
     private $_encoding;
-
 
     /**
      * Field name.
@@ -81,9 +79,9 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
      */
     public function __construct($word, $encoding, $fieldName, $minimumSimilarity)
     {
-        $this->_word     = $word;
+        $this->_word = $word;
         $this->_encoding = $encoding;
-        $this->_field    = $fieldName;
+        $this->_field = $fieldName;
         $this->_minimumSimilarity = $minimumSimilarity;
     }
 
@@ -110,15 +108,12 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
 
             #require_once 'Zend/Search/Lucene/Search/Query/Preprocessing/Fuzzy.php';
             foreach ($searchFields as $fieldName) {
-                $subquery = new Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy($this->_word,
-                                                                                    $this->_encoding,
-                                                                                    $fieldName,
-                                                                                    $this->_minimumSimilarity);
+                $subquery = new Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy($this->_word, $this->_encoding, $fieldName, $this->_minimumSimilarity);
 
                 $rewrittenSubquery = $subquery->rewrite($index);
 
-                if ( !($rewrittenSubquery instanceof Zend_Search_Lucene_Search_Query_Insignificant  ||
-                       $rewrittenSubquery instanceof Zend_Search_Lucene_Search_Query_Empty) ) {
+                if (!($rewrittenSubquery instanceof Zend_Search_Lucene_Search_Query_Insignificant ||
+                        $rewrittenSubquery instanceof Zend_Search_Lucene_Search_Query_Empty)) {
                     $query->addSubquery($rewrittenSubquery);
                 }
 
@@ -196,7 +191,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
 
         if (count($tokens) == 1) {
             #require_once 'Zend/Search/Lucene/Index/Term.php';
-            $term  = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
+            $term = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
             #require_once 'Zend/Search/Lucene/Search/Query/Fuzzy.php';
             $query = new Zend_Search_Lucene_Search_Query_Fuzzy($term, $this->_minimumSimilarity);
             $query->setBoost($this->getBoost());
@@ -221,9 +216,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
     protected function _highlightMatches(Zend_Search_Lucene_Search_Highlighter_Interface $highlighter)
     {
         /** Skip fields detection. We don't need it, since we expect all fields presented in the HTML body and don't differentiate them */
-
         /** Skip exact term matching recognition, keyword fields highlighting is not supported */
-
         // -------------------------------------
         // Recognize wildcard queries
 
@@ -249,7 +242,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
         }
         if (count($tokens) == 1) {
             #require_once 'Zend/Search/Lucene/Index/Term.php';
-            $term  = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
+            $term = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
             #require_once 'Zend/Search/Lucene/Search/Query/Fuzzy.php';
             $query = new Zend_Search_Lucene_Search_Query_Fuzzy($term, $this->_minimumSimilarity);
 
@@ -284,4 +277,5 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
 
         return $query;
     }
+
 }

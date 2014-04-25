@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_Container
 {
+
     /**
      * Part for building some blocks names
      *
@@ -57,20 +59,20 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     {
         $this->setTemplate('urlrewrite/edit.phtml');
         $this->_addButton('back', array(
-            'label'   => Mage::helper('adminhtml')->__('Back'),
+            'label' => Mage::helper('adminhtml')->__('Back'),
             'onclick' => 'setLocation(\'' . Mage::helper('adminhtml')->getUrl('*/*/') . '\')',
-            'class'   => 'back',
-            'level'   => -1
+            'class' => 'back',
+            'level' => -1
         ));
 
         // links to products/categories (if any) selectors
         if ($this->getProductId()) {
             $this->setChild('product_link', $this->getLayout()->createBlock('adminhtml/urlrewrite_link')
-                ->setData(array(
-                    'item_url' => Mage::helper('adminhtml')->getUrl('*/*/*') . 'product',
-                    'item'     => Mage::registry('current_product'),
-                    'label'    => Mage::helper('adminhtml')->__('Product:')
-                ))
+                            ->setData(array(
+                                'item_url' => Mage::helper('adminhtml')->getUrl('*/*/*') . 'product',
+                                'item' => Mage::registry('current_product'),
+                                'label' => Mage::helper('adminhtml')->__('Product:')
+                            ))
             );
         }
         if ($this->getCategoryId()) {
@@ -79,11 +81,11 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                 $itemUrl = Mage::helper('adminhtml')->getUrl('*/*/*', array('product' => $this->getProductId())) . 'category';
             }
             $this->setChild('category_link', $this->getLayout()->createBlock('adminhtml/urlrewrite_link')
-                ->setData(array(
-                    'item_url' => $itemUrl,
-                    'item'     => Mage::registry('current_category'),
-                    'label'    => Mage::helper('adminhtml')->__('Category:')
-                ))
+                            ->setData(array(
+                                'item_url' => $itemUrl,
+                                'item' => Mage::registry('current_category'),
+                                'label' => Mage::helper('adminhtml')->__('Category:')
+                            ))
             );
         }
 
@@ -93,8 +95,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         if ($this->getUrlrewriteId()) {
             $this->_headerText = Mage::helper('adminhtml')->__('Edit URL Rewrite');
             $this->_setFormChild();
-        }
-        elseif ($this->getProductId()) {
+        } elseif ($this->getProductId()) {
             $this->_headerText = Mage::helper('adminhtml')->__('Add URL Rewrite for a Product');
 
             // edit form for product with or without category
@@ -104,15 +105,14 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
             // categories selector & skip categories button
             else {
                 $this->setChild('categories_tree', $this->getLayout()->createBlock('adminhtml/urlrewrite_category_tree'));
-                $this->setChild('skip_categories',
-                    $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                        'label'   => Mage::helper('adminhtml')->__('Skip Category Selection'),
-                        'onclick' => 'window.location = \'' . Mage::helper('adminhtml')->getUrl('*/*/*', array(
-                            'product' => $this->getProductId()
-                        )) . '\'',
-                        'class'   => 'save',
-                        'level'   => -1
-                    ))
+                $this->setChild('skip_categories', $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+                            'label' => Mage::helper('adminhtml')->__('Skip Category Selection'),
+                            'onclick' => 'window.location = \'' . Mage::helper('adminhtml')->getUrl('*/*/*', array(
+                                'product' => $this->getProductId()
+                            )) . '\'',
+                            'class' => 'save',
+                            'level' => -1
+                        ))
                 );
                 $this->_updateButton('back', 'onclick', 'setLocation(\'' . Mage::helper('adminhtml')->getUrl('*/*/edit') . 'product\')');
             }
@@ -128,14 +128,11 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
 
             if ($this->isMode('id')) {
                 $this->updateModeLayout('id');
-            }
-            elseif ($this->isMode('product')) {
+            } elseif ($this->isMode('product')) {
                 $this->updateModeLayout('product');
-            }
-            elseif ($this->isMode('category')) {
+            } elseif ($this->isMode('category')) {
                 $this->updateModeLayout('category');
-            }
-            else {
+            } else {
                 $this->updateModeLayout();
             }
         }
@@ -153,24 +150,24 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         $this->setChild('form', Mage::getBlockSingleton('adminhtml/urlrewrite_edit_form'));
         if ($this->getUrlrewriteId()) {
             $this->_addButton('reset', array(
-                'label'   => Mage::helper('adminhtml')->__('Reset'),
+                'label' => Mage::helper('adminhtml')->__('Reset'),
                 'onclick' => '$(\'edit_form\').reset()',
-                'class'   => 'scalable',
-                'level'   => -1
+                'class' => 'scalable',
+                'level' => -1
             ));
             $this->_addButton('delete', array(
-                'label'   => Mage::helper('adminhtml')->__('Delete'),
+                'label' => Mage::helper('adminhtml')->__('Delete'),
                 'onclick' => 'deleteConfirm(\'' . Mage::helper('adminhtml')->__('Are you sure you want to do this?')
-                    . '\', \'' . Mage::helper('adminhtml')->getUrl('*/*/delete', array('id' => $this->getUrlrewriteId())) . '\')',
-                'class'   => 'scalable delete',
-                'level'   => -1
+                . '\', \'' . Mage::helper('adminhtml')->getUrl('*/*/delete', array('id' => $this->getUrlrewriteId())) . '\')',
+                'class' => 'scalable delete',
+                'level' => -1
             ));
         }
         $this->_addButton('save', array(
-            'label'   => Mage::helper('adminhtml')->__('Save'),
+            'label' => Mage::helper('adminhtml')->__('Save'),
             'onclick' => 'editForm.submit()',
-            'class'   => 'save',
-            'level'   => -1
+            'class' => 'save',
+            'level' => -1
         ));
 
         // update back button link
@@ -182,8 +179,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
             if ($this->getProductId()) {
                 $suffix = 'category';
                 $params['product'] = $this->getProductId();
-            }
-            elseif ($this->getCategoryId()) {
+            } elseif ($this->getCategoryId()) {
                 $suffix = 'category';
             }
         }
@@ -265,7 +261,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     {
         if (!$mode) {
             $modes = array_keys(Mage::getBlockSingleton('adminhtml/urlrewrite_selector')->getModes());
-            $mode  = array_shift($modes);
+            $mode = array_shift($modes);
         }
 
         // edit form for new custom urlrewrite
@@ -282,4 +278,5 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         }
         return $this;
     }
+
 }

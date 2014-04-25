@@ -24,51 +24,51 @@
  */
 -->
 <mx:Application
-	xmlns:mx="http://www.adobe.com/2006/mxml"
-	width="230"
-	height="20"
-	xmlns:upload="varien.upload.*"
-	xmlns:bridge="bridge.*"
-	layout="absolute"
-	backgroundGradientAlphas="[1.0, 1.0]"
-  	backgroundGradientColors="[#D7E5EF, #D7E5EF]"
-	>
-	<upload:Uploader id="upload" ></upload:Uploader>
-	<bridge:FABridge></bridge:FABridge>
-	<mx:Button
-		label="Browse Files..."
-		click="upload.browse();"
-		alpha="1"
-		width="110"
-		height="20"
-		borderColor="#ED6502"
-		color="#FFFFFF"
-		textRollOverColor="#FFFFFF"
-		fontSize="12"
-		fontFamily="arial,helvetica,sans-serif"
-		cornerRadius="0"
-		x="0" 
-		y="0"
-		fillAlphas="[1.0, 1.0]"
-		fillColors="[#FA8F29, #FA8F29]"
-		>
-	</mx:Button>
-	<mx:Button
-		label="Upload Files"
-		click="upload.upload();"
-		alpha="1"
-		width="110"
-		height="20"
-		borderColor="#ED6502"
-		color="#FFFFFF"
-		textRollOverColor="#FFFFFF"
-		fontSize="12"
-		fontFamily="arial,helvetica,sans-serif"
-		cornerRadius="0"
-		x="120" 
-		y="0"
-		fillAlphas="[1.0, 1.0]"
-		fillColors="[#FA8F29, #FA8F29]"
-		>
-	</mx:Button>
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    width="230"
+    height="20"
+    xmlns:upload="varien.upload.*"
+    xmlns:bridge="bridge.*"
+    layout="absolute"
+    backgroundGradientAlphas="[1.0, 1.0]"
+    backgroundGradientColors="[#D7E5EF, #D7E5EF]"
+>
+    <upload:Uploader id="upload" ></upload:Uploader>
+    <bridge:FABridge></bridge:FABridge>
+    <mx:Button
+        label="Browse Files..."
+        click="upload.browse();"
+        alpha="1"
+        width="110"
+        height="20"
+        borderColor="#ED6502"
+        color="#FFFFFF"
+        textRollOverColor="#FFFFFF"
+        fontSize="12"
+        fontFamily="arial,helvetica,sans-serif"
+        cornerRadius="0"
+        x="0" 
+        y="0"
+        fillAlphas="[1.0, 1.0]"
+        fillColors="[#FA8F29, #FA8F29]"
+    >
+    </mx:Button>
+    <mx:Button
+        label="Upload Files"
+        click="upload.upload();"
+        alpha="1"
+        width="110"
+        height="20"
+        borderColor="#ED6502"
+        color="#FFFFFF"
+        textRollOverColor="#FFFFFF"
+        fontSize="12"
+        fontFamily="arial,helvetica,sans-serif"
+        cornerRadius="0"
+        x="120" 
+        y="0"
+        fillAlphas="[1.0, 1.0]"
+        fillColors="[#FA8F29, #FA8F29]"
+    >
+    </mx:Button>
 </mx:Application>

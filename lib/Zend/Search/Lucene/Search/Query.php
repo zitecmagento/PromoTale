@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Query.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -30,6 +30,7 @@
  */
 abstract class Zend_Search_Lucene_Search_Query
 {
+
     /**
      * query boost factor
      *
@@ -153,7 +154,6 @@ abstract class Zend_Search_Lucene_Search_Query
         $this->_weight = null;
     }
 
-
     /**
      * Print a query
      *
@@ -217,7 +217,7 @@ abstract class Zend_Search_Lucene_Search_Query
         }
 
         $inputHTML = '<html><head><META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/></head><body>'
-                   . iconv($encoding, 'UTF-8//IGNORE', $inputHtmlFragment) . '</body></html>';
+                . iconv($encoding, 'UTF-8//IGNORE', $inputHtmlFragment) . '</body></html>';
 
         /** Zend_Search_Lucene_Document_Html */
         #require_once 'Zend/Search/Lucene/Document/Html.php';
@@ -229,5 +229,5 @@ abstract class Zend_Search_Lucene_Search_Query
 
         return $doc->getHtmlBody();
     }
-}
 
+}

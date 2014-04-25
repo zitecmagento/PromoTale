@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 abstract class Zend_Config_Writer
 {
+
     /**
      * Option keys to skip when calling setOptions()
      *

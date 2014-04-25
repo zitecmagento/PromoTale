@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ViewControllerScriptsDirectory.php 23343 2010-11-15 15:33:22Z ramon $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Filesystem_Directory
  */
@@ -39,7 +39,6 @@
  * @see Zend_Filter_StringToLower
  */
 #require_once 'Zend/Filter/StringToLower.php';
-
 
 /**
  * This class is the front most class for utilizing Zend_Tool_Project
@@ -87,7 +86,7 @@ class Zend_Tool_Project_Context_Zf_ViewControllerScriptsDirectory extends Zend_T
     {
         return array(
             'forControllerName' => $this->_forControllerName
-            );
+        );
     }
 
     /**
@@ -104,7 +103,7 @@ class Zend_Tool_Project_Context_Zf_ViewControllerScriptsDirectory extends Zend_T
     {
         $filter = new Zend_Filter();
         $filter->addFilter(new Zend_Filter_Word_CamelCaseToDash())
-            ->addFilter(new Zend_Filter_StringToLower());
+                ->addFilter(new Zend_Filter_StringToLower());
         return $filter->filter($controllerName);
     }
 

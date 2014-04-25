@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Link.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Entry
  */
@@ -29,7 +29,6 @@
  * @see Zend_Gdata_Entry
  */
 #require_once 'Zend/Gdata/Calendar/Extension/WebContent.php';
-
 
 /**
  * Specialized Link class for use with Calendar. Enables use of gCal extension elements.
@@ -50,8 +49,7 @@ class Zend_Gdata_Calendar_Extension_Link extends Zend_Gdata_App_Extension_Link
      * @see Zend_Gdata_App_Extension_Link#__construct
      * @param Zend_Gdata_Calendar_Extension_Webcontent $webContent
      */
-    public function __construct($href = null, $rel = null, $type = null,
-            $hrefLang = null, $title = null, $length = null, $webContent = null)
+    public function __construct($href = null, $rel = null, $type = null, $hrefLang = null, $title = null, $length = null, $webContent = null)
     {
         $this->registerAllNamespaces(Zend_Gdata_Calendar::$namespaces);
         parent::__construct($href, $rel, $type, $hrefLang, $title, $length);
@@ -87,14 +85,14 @@ class Zend_Gdata_Calendar_Extension_Link extends Zend_Gdata_App_Extension_Link
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-        case $this->lookupNamespace('gCal') . ':' . 'webContent':
-            $webContent = new Zend_Gdata_Calendar_Extension_WebContent();
-            $webContent->transferFromDOM($child);
-            $this->_webContent = $webContent;
-            break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            case $this->lookupNamespace('gCal') . ':' . 'webContent':
+                $webContent = new Zend_Gdata_Calendar_Extension_WebContent();
+                $webContent->transferFromDOM($child);
+                $this->_webContent = $webContent;
+                break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 
@@ -120,6 +118,4 @@ class Zend_Gdata_Calendar_Extension_Link extends Zend_Gdata_App_Extension_Link
         return $this;
     }
 
-
 }
-

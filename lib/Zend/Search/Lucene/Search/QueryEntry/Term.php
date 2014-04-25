@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Term.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Search_Lucene_Search_QueryEntry */
 #require_once 'Zend/Search/Lucene/Search/QueryEntry.php';
 
@@ -32,6 +32,7 @@
  */
 class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Search_QueryEntry
 {
+
     /**
      * Term value
      *
@@ -45,7 +46,6 @@ class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Searc
      * @var string|null
      */
     private $_field;
-
 
     /**
      * Fuzzy search query
@@ -61,7 +61,6 @@ class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Searc
      */
     private $_similarity = 1.;
 
-
     /**
      * Object constractor
      *
@@ -70,7 +69,7 @@ class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Searc
      */
     public function __construct($term, $field)
     {
-        $this->_term  = $term;
+        $this->_term = $term;
         $this->_field = $field;
     }
 
@@ -104,13 +103,10 @@ class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Searc
         if ($this->_fuzzyQuery) {
             /** Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy */
             #require_once 'Zend/Search/Lucene/Search/Query/Preprocessing/Fuzzy.php';
-            $query = new Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy($this->_term,
-                                                                             $encoding,
-                                                                             ($this->_field !== null)?
-                                                                                  iconv($encoding, 'UTF-8', $this->_field) :
-                                                                                  null,
-                                                                             $this->_similarity
-                                                                             );
+            $query = new Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy($this->_term, $encoding, ($this->_field !== null) ?
+                            iconv($encoding, 'UTF-8', $this->_field) :
+                            null, $this->_similarity
+            );
             $query->setBoost($this->_boost);
             return $query;
         }
@@ -118,13 +114,12 @@ class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Searc
 
         /** Zend_Search_Lucene_Search_Query_Preprocessing_Term */
         #require_once 'Zend/Search/Lucene/Search/Query/Preprocessing/Term.php';
-        $query = new Zend_Search_Lucene_Search_Query_Preprocessing_Term($this->_term,
-                                                                        $encoding,
-                                                                        ($this->_field !== null)?
-                                                                              iconv($encoding, 'UTF-8', $this->_field) :
-                                                                              null
-                                                                        );
+        $query = new Zend_Search_Lucene_Search_Query_Preprocessing_Term($this->_term, $encoding, ($this->_field !== null) ?
+                        iconv($encoding, 'UTF-8', $this->_field) :
+                        null
+        );
         $query->setBoost($this->_boost);
         return $query;
     }
+
 }

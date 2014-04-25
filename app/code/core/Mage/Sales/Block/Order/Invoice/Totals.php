@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,6 +26,7 @@
  */
 class Mage_Sales_Block_Order_Invoice_Totals extends Mage_Sales_Block_Order_Totals
 {
+
     protected $_invoice = null;
 
     public function getInvoice()
@@ -68,6 +70,5 @@ class Mage_Sales_Block_Order_Invoice_Totals extends Mage_Sales_Block_Order_Total
         $this->removeTotal('base_grandtotal');
         return $this;
     }
-
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
-    extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
 {
+
     /**
      * Customer Address Form instance
      *
@@ -60,8 +61,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
     {
         if (is_null($this->_addressForm)) {
             $this->_addressForm = Mage::getModel('customer/form')
-                ->setFormCode('adminhtml_customer_address')
-                ->setStore($this->getStore());
+                    ->setFormCode('adminhtml_customer_address')
+                    ->setStore($this->getStore());
         }
         return $this->_addressForm;
     }
@@ -77,15 +78,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
         $data = array();
 
         $emptyAddress = $this->getCustomer()
-            ->getAddressById(null)
-            ->setCountryId(Mage::helper('core')->getDefaultCountry($this->getStore()));
+                ->getAddressById(null)
+                ->setCountryId(Mage::helper('core')->getDefaultCountry($this->getStore()));
         $data[0] = $addressForm->setEntity($emptyAddress)
-            ->outputData(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON);
+                ->outputData(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON);
 
         foreach ($this->getAddressCollection() as $address) {
             $addressForm->setEntity($address);
             $data[$address->getId()] = $addressForm->outputData(
-                Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON
+                    Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON
             );
         }
         return Mage::helper('core')->jsonEncode($data);
@@ -106,12 +107,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
         $addressModel = Mage::getModel('customer/address');
 
         $addressForm = $this->_getAddressForm()
-            ->setEntity($addressModel);
+                ->setEntity($addressModel);
 
         $attributes = $addressForm->getAttributes();
-        if(isset($attributes['street'])) {
+        if (isset($attributes['street'])) {
             Mage::helper('adminhtml/addresses')
-                ->processStreetAttribute($attributes['street']);
+                    ->processStreetAttribute($attributes['street']);
         }
         $this->_addAttributesToForm($attributes, $fieldset);
 
@@ -120,10 +121,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
             $prefixOptions = $this->helper('customer')->getNamePrefixOptions($this->getStore());
             if (!empty($prefixOptions)) {
                 $fieldset->removeField($prefixElement->getId());
-                $prefixField = $fieldset->addField($prefixElement->getId(),
-                    'select',
-                    $prefixElement->getData(),
-                    '^'
+                $prefixField = $fieldset->addField($prefixElement->getId(), 'select', $prefixElement->getData(), '^'
                 );
                 $prefixField->setValues($prefixOptions);
                 if ($this->getAddressId()) {
@@ -137,10 +135,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
             $suffixOptions = $this->helper('customer')->getNameSuffixOptions($this->getStore());
             if (!empty($suffixOptions)) {
                 $fieldset->removeField($suffixElement->getId());
-                $suffixField = $fieldset->addField($suffixElement->getId(),
-                    'select',
-                    $suffixElement->getData(),
-                    $this->_form->getElement('lastname')->getId()
+                $suffixField = $fieldset->addField($suffixElement->getId(), 'select', $suffixElement->getData(), $this->_form->getElement('lastname')->getId()
                 );
                 $suffixField->setValues($suffixOptions);
                 if ($this->getAddressId()) {
@@ -168,7 +163,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
         }
         if (is_null($this->_form->getElement('country_id')->getValue())) {
             $this->_form->getElement('country_id')->setValue(
-                Mage::helper('core')->getDefaultCountry($this->getStore())
+                    Mage::helper('core')->getDefaultCountry($this->getStore())
             );
         }
 
@@ -176,8 +171,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
         $vatIdElement = $this->_form->getElement('vat_id');
         if ($vatIdElement && $this->getDisplayVatValidationButton() !== false) {
             $vatIdElement->setRenderer(
-                $this->getLayout()->createBlock('adminhtml/customer_sales_order_address_form_renderer_vat')
-                    ->setJsVariablePrefix($this->getJsVariablePrefix())
+                    $this->getLayout()->createBlock('adminhtml/customer_sales_order_address_form_renderer_vat')
+                            ->setJsVariablePrefix($this->getJsVariablePrefix())
             );
         }
 
@@ -218,4 +213,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
     {
         return $this->escapeHtml($address->format('oneline'));
     }
+
 }

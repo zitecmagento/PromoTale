@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file contains the code for a HTTP transport layer.
  *
@@ -19,14 +20,12 @@
  * @license    http://www.php.net/license/2_02.txt  PHP License 2.02
  * @link       http://pear.php.net/package/SOAP
  */
-
 /**
  * HTTP Transport class
  *
  * @package  SOAP
  * @category Web Services
  */
-
 /**
  * Needed Classes
  */
@@ -42,6 +41,7 @@ require_once 'SOAP/Transport.php';
  */
 class SOAP_Transport_HTTP extends SOAP_Transport
 {
+
     /**
      * Basic Auth string.
      *
@@ -67,9 +67,7 @@ class SOAP_Transport_HTTP extends SOAP_Transport
      * HTTP-Response Content-Type.
      */
     var $result_content_type;
-
     var $result_headers = array();
-
     var $result_cookies = array();
 
     /**
@@ -107,7 +105,7 @@ class SOAP_Transport_HTTP extends SOAP_Transport
         }
 
         if (isset($options['timeout'])) {
-            $this->timeout = (int)$options['timeout'];
+            $this->timeout = (int) $options['timeout'];
         }
 
         if (strcasecmp($this->urlparts['scheme'], 'HTTP') == 0) {
@@ -161,7 +159,7 @@ class SOAP_Transport_HTTP extends SOAP_Transport
         $this->cookies = array();
 
         if (empty($options['nocookies']) &&
-            isset($this->result_cookies)) {
+                isset($this->result_cookies)) {
             // Add the cookies we got from the last request.
             foreach ($this->result_cookies as $cookie) {
                 if ($cookie['domain'] == $this->urlparts['host']) {
@@ -198,7 +196,7 @@ class SOAP_Transport_HTTP extends SOAP_Transport
      */
     function _validateUrl()
     {
-        if (!is_array($this->urlparts) ) {
+        if (!is_array($this->urlparts)) {
             $this->_raiseSoapFault('Unable to parse URL ' . $this->url);
             return false;
         }
@@ -212,11 +210,9 @@ class SOAP_Transport_HTTP extends SOAP_Transport
             } elseif (strcasecmp($this->urlparts['scheme'], 'HTTPS') == 0) {
                 $this->urlparts['port'] = 443;
             }
-
         }
         if (isset($this->urlparts['user'])) {
-            $this->setCredentials(urldecode($this->urlparts['user']),
-                                  urldecode($this->urlparts['pass']));
+            $this->setCredentials(urldecode($this->urlparts['user']), urldecode($this->urlparts['pass']));
         }
         if (!isset($this->urlparts['path']) || !$this->urlparts['path']) {
             $this->urlparts['path'] = '/';
@@ -242,9 +238,7 @@ class SOAP_Transport_HTTP extends SOAP_Transport
         // Strip the string of \r.
         $this->result_content_type = str_replace("\r", '', $ct[1]);
 
-        if (preg_match('/(.*?)(?:;\s?charset=)(.*)/i',
-                       $this->result_content_type,
-                       $m)) {
+        if (preg_match('/(.*?)(?:;\s?charset=)(.*)/i', $this->result_content_type, $m)) {
             $this->result_content_type = $m[1];
             if (count($m) > 2) {
                 $enc = strtoupper(str_replace('"', '', $m[2]));
@@ -271,7 +265,7 @@ class SOAP_Transport_HTTP extends SOAP_Transport
         $this->result_headers = array();
         $headers = preg_split('/\r?\n/', $headers);
         foreach ($headers as $value) {
-            if (strpos($value,':') === false) {
+            if (strpos($value, ':') === false) {
                 $this->result_headers[0] = $value;
                 continue;
             }
@@ -283,24 +277,23 @@ class SOAP_Transport_HTTP extends SOAP_Transport
             if ($headername == 'set-cookie') {
                 // Parse a SetCookie header to fill _cookies array.
                 $cookie = array('expires' => null,
-                                'domain'  => $this->urlparts['host'],
-                                'path'    => null,
-                                'secure'  => false);
+                    'domain' => $this->urlparts['host'],
+                    'path' => null,
+                    'secure' => false);
 
                 if (!strpos($headervalue, ';')) {
                     // Only a name=value pair.
                     list($cookie['name'], $cookie['value']) = array_map('trim', explode('=', $headervalue));
-                    $cookie['name']  = urldecode($cookie['name']);
+                    $cookie['name'] = urldecode($cookie['name']);
                     $cookie['value'] = urldecode($cookie['value']);
-
                 } else {
                     // Some optional parameters are supplied.
                     $elements = explode(';', $headervalue);
                     list($cookie['name'], $cookie['value']) = array_map('trim', explode('=', $elements[0]));
-                    $cookie['name']  = urldecode($cookie['name']);
+                    $cookie['name'] = urldecode($cookie['name']);
                     $cookie['value'] = urldecode($cookie['value']);
 
-                    for ($i = 1; $i < count($elements);$i++) {
+                    for ($i = 1; $i < count($elements); $i++) {
                         list($elName, $elValue) = array_map('trim', explode('=', $elements[$i]));
                         if ('secure' == $elName) {
                             $cookie['secure'] = true;
@@ -326,9 +319,7 @@ class SOAP_Transport_HTTP extends SOAP_Transport
      */
     function _parseResponse()
     {
-        if (!preg_match("/^(.*?)\r?\n\r?\n(.*)/s",
-                       $this->incoming_payload,
-                       $match)) {
+        if (!preg_match("/^(.*?)\r?\n\r?\n(.*)/s", $this->incoming_payload, $match)) {
             $this->_raiseSoapFault('Invalid HTTP Response');
             return false;
         }
@@ -341,7 +332,7 @@ class SOAP_Transport_HTTP extends SOAP_Transport
         list(, $code, $msg) = sscanf($this->result_headers[0], '%s %s %s');
         unset($this->result_headers[0]);
 
-        switch($code) {
+        switch ($code) {
             case 100: // Continue
                 $this->incoming_payload = $match[2];
                 return $this->_parseResponse();
@@ -431,13 +422,13 @@ class SOAP_Transport_HTTP extends SOAP_Transport
 
         if (isset($options['proxy_host'])) {
             $fullpath = 'http://' . $this->urlparts['host'] . ':' .
-                $this->urlparts['port'] . $fullpath;
+                    $this->urlparts['port'] . $fullpath;
         }
 
         if (isset($options['proxy_user'])) {
             $this->headers['Proxy-Authorization'] = 'Basic ' .
-                base64_encode($options['proxy_user'] . ':' .
-                              $options['proxy_pass']);
+                    base64_encode($options['proxy_user'] . ':' .
+                            $options['proxy_pass']);
         }
 
         if (isset($options['user'])) {
@@ -465,7 +456,7 @@ class SOAP_Transport_HTTP extends SOAP_Transport
             $headers .= "$k: $v\r\n";
         }
         $this->outgoing_payload = "POST $fullpath HTTP/1.0\r\n" . $headers .
-            "\r\n" . $msg;
+                "\r\n" . $msg;
 
         return $this->outgoing_payload;
     }
@@ -548,17 +539,14 @@ class SOAP_Transport_HTTP extends SOAP_Transport
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         if (isset($options['proxy_host'])) {
             $port = isset($options['proxy_port']) ? $options['proxy_port'] : 8080;
-            curl_setopt($ch, CURLOPT_PROXY,
-                        $options['proxy_host'] . ':' . $port);
+            curl_setopt($ch, CURLOPT_PROXY, $options['proxy_host'] . ':' . $port);
         }
         if (isset($options['proxy_user'])) {
-            curl_setopt($ch, CURLOPT_PROXYUSERPWD,
-                        $options['proxy_user'] . ':' . $options['proxy_pass']);
+            curl_setopt($ch, CURLOPT_PROXYUSERPWD, $options['proxy_user'] . ':' . $options['proxy_pass']);
         }
 
         if (isset($options['user'])) {
-            curl_setopt($ch, CURLOPT_USERPWD,
-                        $options['user'] . ':' . $options['pass']);
+            curl_setopt($ch, CURLOPT_USERPWD, $options['user'] . ':' . $options['pass']);
         }
 
         $headers = array();

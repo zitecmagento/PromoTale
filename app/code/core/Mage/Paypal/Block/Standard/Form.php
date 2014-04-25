@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Paypal_Block_Standard_Form extends Mage_Payment_Block_Form
 {
+
     /**
      * Payment method code
      * @var string
@@ -52,15 +54,15 @@ class Mage_Paypal_Block_Standard_Form extends Mage_Payment_Block_Form
         $mark = Mage::getConfig()->getBlockClassName('core/template');
         $mark = new $mark;
         $mark->setTemplate('paypal/payment/mark.phtml')
-            ->setPaymentAcceptanceMarkHref($this->_config->getPaymentMarkWhatIsPaypalUrl($locale))
-            ->setPaymentAcceptanceMarkSrc($this->_config->getPaymentMarkImageUrl($locale->getLocaleCode()))
+                ->setPaymentAcceptanceMarkHref($this->_config->getPaymentMarkWhatIsPaypalUrl($locale))
+                ->setPaymentAcceptanceMarkSrc($this->_config->getPaymentMarkImageUrl($locale->getLocaleCode()))
         ; // known issue: code above will render only static mark image
         $this->setTemplate('paypal/payment/redirect.phtml')
-            ->setRedirectMessage(
-                Mage::helper('paypal')->__('You will be redirected to the PayPal website when you place an order.')
-            )
-            ->setMethodTitle('') // Output PayPal mark, omit title
-            ->setMethodLabelAfterHtml($mark->toHtml())
+                ->setRedirectMessage(
+                        Mage::helper('paypal')->__('You will be redirected to the PayPal website when you place an order.')
+                )
+                ->setMethodTitle('') // Output PayPal mark, omit title
+                ->setMethodLabelAfterHtml($mark->toHtml())
         ;
         return parent::_construct();
     }
@@ -73,4 +75,5 @@ class Mage_Paypal_Block_Standard_Form extends Mage_Payment_Block_Form
     {
         return $this->_methodCode;
     }
+
 }

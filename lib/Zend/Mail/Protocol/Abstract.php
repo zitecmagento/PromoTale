@@ -20,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 22602 2010-07-16 22:37:31Z freak $
  */
-
-
 /**
  * @see Zend_Validate
  */
@@ -32,7 +30,6 @@
  * @see Zend_Validate_Hostname
  */
 #require_once 'Zend/Validate/Hostname.php';
-
 
 /**
  * Zend_Mail_Protocol_Abstract
@@ -49,11 +46,11 @@
  */
 abstract class Zend_Mail_Protocol_Abstract
 {
+
     /**
      * Mail default EOL string
      */
     const EOL = "\r\n";
-
 
     /**
      * Default timeout in seconds for initiating session
@@ -66,13 +63,11 @@ abstract class Zend_Mail_Protocol_Abstract
      */
     protected $_maximumLog = 64;
 
-
     /**
      * Hostname or IP address of remote server
      * @var string
      */
     protected $_host;
-
 
     /**
      * Port number of connection
@@ -80,13 +75,11 @@ abstract class Zend_Mail_Protocol_Abstract
      */
     protected $_port;
 
-
     /**
      * Instance of Zend_Validate to check hostnames
      * @var Zend_Validate
      */
     protected $_validHost;
-
 
     /**
      * Socket connection resource
@@ -94,20 +87,17 @@ abstract class Zend_Mail_Protocol_Abstract
      */
     protected $_socket;
 
-
     /**
      * Last request sent to server
      * @var string
      */
     protected $_request;
 
-
     /**
      * Array of server responses to last request
      * @var array
      */
     protected $_response;
-
 
     /**
      * String template for parsing server responses using sscanf (default: 3 digit code and response string)
@@ -116,13 +106,11 @@ abstract class Zend_Mail_Protocol_Abstract
      */
     protected $_template = '%d%s';
 
-
     /**
      * Log of mail requests and server responses for a session
      * @var array
      */
     private $_log = array();
-
 
     /**
      * Constructor.
@@ -149,7 +137,6 @@ abstract class Zend_Mail_Protocol_Abstract
         $this->_port = $port;
     }
 
-
     /**
      * Class destructor to cleanup open resources
      *
@@ -170,8 +157,7 @@ abstract class Zend_Mail_Protocol_Abstract
     {
         $this->_maximumLog = (int) $maximumLog;
     }
-    
-    
+
     /**
      * Get the maximum log size 
      * 
@@ -181,7 +167,6 @@ abstract class Zend_Mail_Protocol_Abstract
     {
         return $this->_maximumLog;
     }
-    
 
     /**
      * Create a connection to the remote host
@@ -189,7 +174,6 @@ abstract class Zend_Mail_Protocol_Abstract
      * Concrete adapters for this class will implement their own unique connect scripts, using the _connect() method to create the socket resource.
      */
     abstract public function connect();
-
 
     /**
      * Retrieve the last client request
@@ -201,7 +185,6 @@ abstract class Zend_Mail_Protocol_Abstract
         return $this->_request;
     }
 
-
     /**
      * Retrieve the last server response
      *
@@ -212,7 +195,6 @@ abstract class Zend_Mail_Protocol_Abstract
         return $this->_response;
     }
 
-
     /**
      * Retrieve the transaction log
      *
@@ -222,7 +204,6 @@ abstract class Zend_Mail_Protocol_Abstract
     {
         return implode('', $this->_log);
     }
-
 
     /**
      * Reset the transaction log
@@ -288,7 +269,6 @@ abstract class Zend_Mail_Protocol_Abstract
         return $result;
     }
 
-
     /**
      * Disconnect from remote host and free resource
      *
@@ -300,7 +280,6 @@ abstract class Zend_Mail_Protocol_Abstract
             fclose($this->_socket);
         }
     }
-
 
     /**
      * Send the given request followed by a LINEEND to the server.
@@ -337,7 +316,6 @@ abstract class Zend_Mail_Protocol_Abstract
         return $result;
     }
 
-
     /**
      * Get a line from the stream.
      *
@@ -357,7 +335,7 @@ abstract class Zend_Mail_Protocol_Abstract
 
         // Adapters may wish to supply per-commend timeouts according to appropriate RFC
         if ($timeout !== null) {
-           stream_set_timeout($this->_socket, $timeout);
+            stream_set_timeout($this->_socket, $timeout);
         }
 
         // Retrieve response
@@ -388,7 +366,6 @@ abstract class Zend_Mail_Protocol_Abstract
         return $reponse;
     }
 
-
     /**
      * Parse server response for successful codes
      *
@@ -402,9 +379,9 @@ abstract class Zend_Mail_Protocol_Abstract
     protected function _expect($code, $timeout = null)
     {
         $this->_response = array();
-        $cmd  = '';
+        $cmd = '';
         $more = '';
-        $msg  = '';
+        $msg = '';
         $errMsg = '';
 
         if (!is_array($code)) {
@@ -418,9 +395,8 @@ abstract class Zend_Mail_Protocol_Abstract
             if ($errMsg !== '') {
                 $errMsg .= ' ' . $msg;
             } elseif ($cmd === null || !in_array($cmd, $code)) {
-                $errMsg =  $msg;
+                $errMsg = $msg;
             }
-
         } while (strpos($more, '-') === 0); // The '-' message prefix indicates an information string instead of a response string.
 
         if ($errMsg !== '') {
@@ -433,4 +409,5 @@ abstract class Zend_Mail_Protocol_Abstract
 
         return $msg;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,8 +30,10 @@
  */
 class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_SHOW_OUT_OF_STOCK    = 'cataloginventory/options/show_out_of_stock';
-    const XML_PATH_ITEM_AUTO_RETURN     = 'cataloginventory/item_options/auto_return';
+
+    const XML_PATH_SHOW_OUT_OF_STOCK = 'cataloginventory/options/show_out_of_stock';
+    const XML_PATH_ITEM_AUTO_RETURN = 'cataloginventory/item_options/auto_return';
+
     /**
      * Path to configuration option 'Display product stock status'
      */
@@ -39,8 +42,8 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Error codes, that Catalog Inventory module can set to quote or quote items
      */
-    const ERROR_QTY =               1;
-    const ERROR_QTY_INCREMENTS =    2;
+    const ERROR_QTY = 1;
+    const ERROR_QTY_INCREMENTS = 2;
 
     /**
      * All product types registry in scope of quantity availability
@@ -76,7 +79,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
             self::$_isQtyTypeIds = array();
             $productTypesXml = Mage::getConfig()->getNode('global/catalog/product/type');
             foreach ($productTypesXml->children() as $typeId => $configXml) {
-                self::$_isQtyTypeIds[$typeId] = (bool)$configXml->is_qty;
+                self::$_isQtyTypeIds[$typeId] = (bool) $configXml->is_qty;
             }
         }
         if (null === $filter) {
@@ -140,4 +143,5 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_DISPLAY_PRODUCT_STOCK_STATUS);
     }
+
 }

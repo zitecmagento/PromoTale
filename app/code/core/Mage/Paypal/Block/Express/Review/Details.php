@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Paypal_Block_Express_Review_Details extends Mage_Checkout_Block_Cart_Totals
 {
+
     protected $_address;
 
     /**
@@ -57,4 +59,5 @@ class Mage_Paypal_Block_Express_Review_Details extends Mage_Checkout_Block_Cart_
     {
         return $this->getQuote()->getTotals();
     }
+
 }

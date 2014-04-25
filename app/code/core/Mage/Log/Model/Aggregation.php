@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -83,26 +84,26 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     private function _process($store)
     {
         $lastDateRecord = null;
-        $start          = $this->_lastRecord;
-        $end            = time();
-        $date           = $start;
+        $start = $this->_lastRecord;
+        $end = time();
+        $date = $start;
 
         while ($date < $end) {
             $to = $date + 3600;
             $counts = $this->_getCounts($this->_date($date), $this->_date($to), $store);
             $data = array(
-                'store_id'=>$store,
-                'visitor_count'=>$counts['visitors'],
-                'customer_count'=>$counts['customers'],
-                'add_date'=>$this->_date($date)
-                );
+                'store_id' => $store,
+                'visitor_count' => $counts['visitors'],
+                'customer_count' => $counts['customers'],
+                'add_date' => $this->_date($date)
+            );
 
             if ($counts['visitors'] || $counts['customers']) {
                 $this->_save($data, $this->_date($date), $this->_date($to));
             }
 
             $lastDateRecord = $date;
-            $date = $to; 
+            $date = $to;
         }
         return $lastDateRecord;
     }
@@ -171,4 +172,5 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     {
         return date("Y-m-d H:00:00", $this->_timestamp($in));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 class Mage_CatalogSearch_Block_Layer_Filter_Attribute extends Mage_Catalog_Block_Layer_Filter_Attribute
 {
+
     /**
      * Set filter model name
      *
@@ -39,4 +41,5 @@ class Mage_CatalogSearch_Block_Layer_Filter_Attribute extends Mage_Catalog_Block
         parent::__construct();
         $this->_filterModelName = 'catalogsearch/layer_filter_attribute';
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ProjectDirectory.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Filesystem_Directory
  */
@@ -51,11 +51,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Project_Context_System_ProjectDirectory
-    extends Zend_Tool_Project_Context_Filesystem_Directory
-    implements Zend_Tool_Project_Context_System_Interface,
-               Zend_Tool_Project_Context_System_NotOverwritable,
-               Zend_Tool_Project_Context_System_TopLevelRestrictable
+class Zend_Tool_Project_Context_System_ProjectDirectory extends Zend_Tool_Project_Context_Filesystem_Directory implements Zend_Tool_Project_Context_System_Interface, Zend_Tool_Project_Context_System_NotOverwritable, Zend_Tool_Project_Context_System_TopLevelRestrictable
 {
 
     /**
@@ -107,18 +103,18 @@ class Zend_Tool_Project_Context_System_ProjectDirectory
     {
         if (file_exists($this->getPath())) {
             /*
-            foreach (new DirectoryIterator($this->getPath()) as $item) {
-                if (!$item->isDot()) {
-                    if ($registry->getClient()->isInteractive()) {
-                        // @todo prompt for override
-                    } else {
-                        #require_once 'Zend/Tool/Project/Context/Exception.php';
-                        throw new Zend_Tool_Project_Context_Exception('This directory is not empty, project creation aborted.');
-                    }
-                    break;
-                }
-            }
-            */
+              foreach (new DirectoryIterator($this->getPath()) as $item) {
+              if (!$item->isDot()) {
+              if ($registry->getClient()->isInteractive()) {
+              // @todo prompt for override
+              } else {
+              #require_once 'Zend/Tool/Project/Context/Exception.php';
+              throw new Zend_Tool_Project_Context_Exception('This directory is not empty, project creation aborted.');
+              }
+              break;
+              }
+              }
+             */
         }
 
         parent::create();

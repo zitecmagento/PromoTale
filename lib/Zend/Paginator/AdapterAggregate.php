@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 interface Zend_Paginator_AdapterAggregate
 {
+
     /**
      * Return a fully configured Paginator Adapter from this method.
      *

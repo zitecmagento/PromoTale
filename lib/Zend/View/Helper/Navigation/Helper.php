@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 interface Zend_View_Helper_Navigation_Helper
 {
+
     /**
      * Sets navigation container the helper should operate on by default
      *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Address_Billing extends Mage_Checkout_Block_Onepage_Billing
 {
+
     /**
      * Render billing addresses xml
      *
@@ -60,4 +62,5 @@ class Mage_XmlConnect_Block_Checkout_Address_Billing extends Mage_Checkout_Block
 
         return $billingXmlObj->asNiceXml();
     }
+
 }

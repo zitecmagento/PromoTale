@@ -41,8 +41,8 @@
                 <?php echo $this->getChildHtml('accountLinks') ?>
             </dd>
             <dt class="cart-icon <?php echo $this->getInCart() ? 'active' : '' ?>">
-                <a href="<?php echo $this->getUrl('checkout/cart'); ?>">Cart</a>
-                <?php echo $_cartItems > 0 ? '<span>'.$_cartItems.'</span>' : ''; ?>
+            <a href="<?php echo $this->getUrl('checkout/cart'); ?>">Cart</a>
+            <?php echo $_cartItems > 0 ? '<span>' . $_cartItems . '</span>' : ''; ?>
             </dt>
             <dd></dd>
         </dl>

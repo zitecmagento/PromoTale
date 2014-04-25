@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Block_Order_Item_Renderer_Grouped extends Mage_Sales_Block_Order_Item_Renderer_Default
 {
+
     /**
      * Prepare item html
      *
@@ -54,4 +56,5 @@ class Mage_Sales_Block_Order_Item_Renderer_Grouped extends Mage_Sales_Block_Orde
         }
         return parent::_toHtml();
     }
+
 }

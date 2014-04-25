@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request_Interpreter_Interface
 {
+
     /**
      * Default name for item of non-associative array
      */
@@ -90,7 +92,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
         // Search for parent node values
         if (count($xmlObject->attributes()) > 0) {
             foreach ($xmlObject->attributes() as $key => $value) {
-                $value = (string)$value;
+                $value = (string) $value;
                 if (array_key_exists($key, $config)) {
                     if (!is_array($config[$key])) {
                         $config[$key] = array($config[$key]);
@@ -110,7 +112,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
                 } else if (count($value->attributes()) > 0) {
                     $attributes = $value->attributes();
                     if (isset($attributes['value'])) {
-                        $value = (string)$attributes['value'];
+                        $value = (string) $attributes['value'];
                     } else {
                         $value = $this->_toArray($value);
                     }
@@ -151,4 +153,5 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
             $this->_loadErrorStr .= (PHP_EOL . $errstr);
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Payment_Model_Source_Invoice
 {
+
     public function toOptionArray()
     {
         return array(
@@ -44,4 +46,5 @@ class Mage_Payment_Model_Source_Invoice
             ),
         );
     }
+
 }

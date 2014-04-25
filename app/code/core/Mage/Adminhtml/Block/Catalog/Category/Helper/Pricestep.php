@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml additional helper block for sort by
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep extends Varien_Data_Form_Element_Text
 {
+
     /**
      * Returns js code that is used instead of default toggle code for "Use default config" checkbox
      *
@@ -43,7 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep extends Varien_Data
     {
         $htmlId = 'use_config_' . $this->getHtmlId();
         return "toggleValueElements(this, this.parentNode.parentNode);"
-            . "if (!this.checked) toggleValueElements($('$htmlId'), $('$htmlId').parentNode);";
+                . "if (!this.checked) toggleValueElements($('$htmlId'), $('$htmlId').parentNode);";
     }
 
     /**
@@ -64,7 +65,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep extends Varien_Data
         parent::addClass('validate-number validate-number-range number-range-0.01-1000000000');
         $html = parent::getElementHtml();
         $htmlId = 'use_config_' . $this->getHtmlId();
-        $html .= '<br/><input id="'.$htmlId.'" name="use_config[]" value="' . $this->getId() . '"';
+        $html .= '<br/><input id="' . $htmlId . '" name="use_config[]" value="' . $this->getId() . '"';
         $html .= ($disabled ? ' checked="checked"' : '');
 
         if ($this->getReadonly() || $elementDisabled) {
@@ -74,10 +75,11 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep extends Varien_Data
         $html .= ' onclick="toggleValueElements(this, this.parentNode);" class="checkbox" type="checkbox" />';
 
         $html .= ' <label for="' . $htmlId . '" class="normal">'
-            . Mage::helper('adminhtml')->__('Use Config Settings') .'</label>';
+                . Mage::helper('adminhtml')->__('Use Config Settings') . '</label>';
         $html .= '<script type="text/javascript">' . 'toggleValueElements($(\'' . $htmlId . '\'), $(\'' . $htmlId
-            . '\').parentNode);' . '</script>';
+                . '\').parentNode);' . '</script>';
 
         return $html;
     }
+
 }

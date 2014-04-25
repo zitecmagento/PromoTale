@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,19 +31,19 @@ $installer = $this;
  */
 $data = array(
     array(
-        'class_id'     => 2,
-        'class_name'   => 'Taxable Goods',
-        'class_type'   => Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT
+        'class_id' => 2,
+        'class_name' => 'Taxable Goods',
+        'class_type' => Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT
     ),
     array(
-        'class_id'     => 3,
-        'class_name'   => 'Retail Customer',
-        'class_type'   => Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER
+        'class_id' => 3,
+        'class_name' => 'Retail Customer',
+        'class_type' => Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER
     ),
     array(
-        'class_id'     => 4,
-        'class_name'   => 'Shipping',
-        'class_type'   => Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT
+        'class_id' => 4,
+        'class_name' => 'Shipping',
+        'class_type' => Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT
     )
 );
 foreach ($data as $row) {
@@ -53,10 +54,10 @@ foreach ($data as $row) {
  * install tax calculation rule
  */
 $data = array(
-    'tax_calculation_rule_id'   => 1,
-    'code'                      => 'Retail Customer-Taxable Goods-Rate 1',
-    'priority'                  => 1,
-    'position'                  => 1
+    'tax_calculation_rule_id' => 1,
+    'code' => 'Retail Customer-Taxable Goods-Rate 1',
+    'priority' => 1,
+    'position' => 1
 );
 $installer->getConnection()->insertForce($installer->getTable('tax/tax_calculation_rule'), $data);
 
@@ -65,20 +66,20 @@ $installer->getConnection()->insertForce($installer->getTable('tax/tax_calculati
  */
 $data = array(
     array(
-        'tax_calculation_rate_id'   => 1,
-        'tax_country_id'            => 'US',
-        'tax_region_id'             => 12,
-        'tax_postcode'              => '*',
-        'code'                      => 'US-CA-*-Rate 1',
-        'rate'                      => '8.2500'
+        'tax_calculation_rate_id' => 1,
+        'tax_country_id' => 'US',
+        'tax_region_id' => 12,
+        'tax_postcode' => '*',
+        'code' => 'US-CA-*-Rate 1',
+        'rate' => '8.2500'
     ),
     array(
-        'tax_calculation_rate_id'   => 2,
-        'tax_country_id'            => 'US',
-        'tax_region_id'             => 43,
-        'tax_postcode'              => '*',
-        'code'                      => 'US-NY-*-Rate 1',
-        'rate'                      => '8.3750'
+        'tax_calculation_rate_id' => 2,
+        'tax_country_id' => 'US',
+        'tax_region_id' => 43,
+        'tax_postcode' => '*',
+        'code' => 'US-NY-*-Rate 1',
+        'rate' => '8.3750'
     )
 );
 foreach ($data as $row) {
@@ -90,16 +91,16 @@ foreach ($data as $row) {
  */
 $data = array(
     array(
-        'tax_calculation_rate_id'   => 1,
-        'tax_calculation_rule_id'   => 1,
-        'customer_tax_class_id'     => 3,
-        'product_tax_class_id'      => 2
+        'tax_calculation_rate_id' => 1,
+        'tax_calculation_rule_id' => 1,
+        'customer_tax_class_id' => 3,
+        'product_tax_class_id' => 2
     ),
     array(
-        'tax_calculation_rate_id'   => 2,
-        'tax_calculation_rule_id'   => 1,
-        'customer_tax_class_id'     => 3,
-        'product_tax_class_id'      => 2
+        'tax_calculation_rate_id' => 2,
+        'tax_calculation_rule_id' => 1,
+        'customer_tax_class_id' => 3,
+        'product_tax_class_id' => 2
     )
 );
 $installer->getConnection()->insertMultiple($installer->getTable('tax/tax_calculation'), $data);

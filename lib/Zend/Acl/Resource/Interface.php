@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Interface.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Acl
@@ -28,6 +28,7 @@
  */
 interface Zend_Acl_Resource_Interface
 {
+
     /**
      * Returns the string identifier of the Resource
      *

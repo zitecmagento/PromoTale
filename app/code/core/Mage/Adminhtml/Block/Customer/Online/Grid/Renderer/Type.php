@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -36,7 +37,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid_Renderer_Type extends Mage_Admin
 
     public function render(Varien_Object $row)
     {
-        return ($row->getCustomerId() > 0 ) ? Mage::helper('customer')->__('Customer') : Mage::helper('customer')->__('Visitor') ;
+        return ($row->getCustomerId() > 0 ) ? Mage::helper('customer')->__('Customer') : Mage::helper('customer')->__('Visitor');
     }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Imfs.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Service_Nirvanix_Namespace_Base
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Service_Nirvanix_Namespace_Imfs extends Zend_Service_Nirvanix_Namespace_Base
 {
+
     /**
      * Convenience function to get the contents of a file on
      * the Nirvanix IMFS.  Analog to PHP's file_get_contents().
@@ -48,10 +49,10 @@ class Zend_Service_Nirvanix_Namespace_Imfs extends Zend_Service_Nirvanix_Namespa
     public function getContents($filePath, $expiration = 3600)
     {
         // get url to download the file
-        $params = array('filePath'   => $filePath,
-                        'expiration' => $expiration);
+        $params = array('filePath' => $filePath,
+            'expiration' => $expiration);
         $resp = $this->getOptimalUrls($params);
-        $url = (string)$resp->Download->DownloadURL;
+        $url = (string) $resp->Download->DownloadURL;
 
         // download the file
         $this->_httpClient->resetParameters();
@@ -75,14 +76,14 @@ class Zend_Service_Nirvanix_Namespace_Imfs extends Zend_Service_Nirvanix_Namespa
         // get storage node for upload
         $params = array('sizeBytes' => strlen($data));
         $resp = $this->getStorageNode($params);
-        $host        = (string)$resp->GetStorageNode->UploadHost;
-        $uploadToken = (string)$resp->GetStorageNode->UploadToken;
+        $host = (string) $resp->GetStorageNode->UploadHost;
+        $uploadToken = (string) $resp->GetStorageNode->UploadToken;
 
         // http upload data into remote file
         $this->_httpClient->resetParameters();
         $this->_httpClient->setUri("http://{$host}/Upload.ashx");
         $this->_httpClient->setParameterPost('uploadToken', $uploadToken);
-        $this->_httpClient->setParameterPost('destFolderPath', str_replace('\\', '/',dirname($filePath)));
+        $this->_httpClient->setParameterPost('destFolderPath', str_replace('\\', '/', dirname($filePath)));
         $this->_httpClient->setFileUpload(basename($filePath), 'uploadFile', $data, $mimeType);
         $response = $this->_httpClient->request(Zend_Http_Client::POST);
 

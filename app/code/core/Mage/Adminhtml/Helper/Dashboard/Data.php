@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
 {
+
     protected $_locale = null;
     protected $_stores = null;
 
@@ -44,7 +45,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      */
     public function getStores()
     {
-        if(!$this->_stores) {
+        if (!$this->_stores) {
             $this->_stores = Mage::app()->getStore()->getResourceCollection()->load();
         }
 
@@ -70,10 +71,10 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
     {
         return array(
             '24h' => $this->__('Last 24 Hours'),
-            '7d'  => $this->__('Last 7 Days'),
-            '1m'  => $this->__('Current Month'),
-            '1y'  => $this->__('YTD'),
-            '2y'  => $this->__('2YTD')
+            '7d' => $this->__('Last 7 Days'),
+            '1m' => $this->__('Current Month'),
+            '1y' => $this->__('YTD'),
+            '2y' => $this->__('2YTD')
         );
     }
 
@@ -86,7 +87,8 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      */
     public function getChartDataHash($data)
     {
-        $secret = (string)Mage::getConfig()->getNode(Mage_Core_Model_App::XML_PATH_INSTALL_DATE);
+        $secret = (string) Mage::getConfig()->getNode(Mage_Core_Model_App::XML_PATH_INSTALL_DATE);
         return md5($data . $secret);
     }
+
 }

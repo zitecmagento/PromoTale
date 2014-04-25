@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** @see Zend_Service_ReCaptcha */
 #require_once 'Zend/Service/ReCaptcha.php';
 
@@ -34,14 +34,15 @@
  */
 class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
 {
-    /**#@+
+    /*     * #@+
      * Encryption constants
      */
+
     const ENCRYPTION_MODE = MCRYPT_MODE_CBC;
     const ENCRYPTION_CIPHER = MCRYPT_RIJNDAEL_128;
     const ENCRYPTION_BLOCK_SIZE = 16;
     const ENCRYPTION_IV = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
-    /**#@-*/
+    /*     * #@- */
 
     /**
      * Url to the mailhide server
@@ -115,7 +116,6 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
         }
     }
 
-
     /**
      * Get emailValidator
      *
@@ -142,7 +142,6 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
         return $this;
     }
 
-
     /**
      * See if the mcrypt extension is available
      *
@@ -168,9 +167,12 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
      */
     public function __toString()
     {
-        try {
+        try
+        {
             $return = $this->getHtml();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $return = '';
             trigger_error($e->getMessage(), E_USER_WARNING);
         }
@@ -186,11 +188,11 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
     public function getDefaultOptions()
     {
         return array(
-            'encoding'       => 'UTF-8',
-            'linkTitle'      => 'Reveal this e-mail address',
+            'encoding' => 'UTF-8',
+            'linkTitle' => 'Reveal this e-mail address',
             'linkHiddenText' => '...',
-            'popupWidth'     => 500,
-            'popupHeight'    => 300,
+            'popupWidth' => 500,
+            'popupHeight' => 300,
         );
     }
 
@@ -312,18 +314,18 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
         $enc = $this->getOption('encoding');
 
         /* Genrate the HTML used to represent the email address */
-        $html = htmlentities($this->getEmailLocalPart(), ENT_COMPAT, $enc) 
-            . '<a href="' 
-                . htmlentities($url, ENT_COMPAT, $enc) 
-                . '" onclick="window.open(\'' 
-                    . htmlentities($url, ENT_COMPAT, $enc) 
-                    . '\', \'\', \'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width='
-                    . $this->_options['popupWidth'] 
-                    . ',height=' 
-                    . $this->_options['popupHeight'] 
-                . '\'); return false;" title="' 
-                . $this->_options['linkTitle'] 
-                . '">' . $this->_options['linkHiddenText'] . '</a>@' 
+        $html = htmlentities($this->getEmailLocalPart(), ENT_COMPAT, $enc)
+                . '<a href="'
+                . htmlentities($url, ENT_COMPAT, $enc)
+                . '" onclick="window.open(\''
+                . htmlentities($url, ENT_COMPAT, $enc)
+                . '\', \'\', \'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width='
+                . $this->_options['popupWidth']
+                . ',height='
+                . $this->_options['popupHeight']
+                . '\'); return false;" title="'
+                . $this->_options['linkTitle']
+                . '">' . $this->_options['linkHiddenText'] . '</a>@'
                 . htmlentities($this->getEmailDomainPart(), ENT_COMPAT, $enc);
 
         return $html;
@@ -348,4 +350,5 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
         /* Return the url */
         return self::MAILHIDE_SERVER . '?k=' . $this->_publicKey . '&c=' . strtr(base64_encode($emailEncrypted), '+/', '-_');
     }
+
 }

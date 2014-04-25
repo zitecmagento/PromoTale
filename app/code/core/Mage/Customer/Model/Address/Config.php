@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer address config
  *
@@ -34,23 +34,24 @@
  */
 class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
 {
-    const DEFAULT_ADDRESS_RENDERER  = 'customer/address_renderer_default';
+
+    const DEFAULT_ADDRESS_RENDERER = 'customer/address_renderer_default';
     const XML_PATH_ADDRESS_TEMPLATE = 'customer/address_templates/';
-    const DEFAULT_ADDRESS_FORMAT    = 'oneline';
+    const DEFAULT_ADDRESS_FORMAT = 'oneline';
 
     /**
      * Customer Address Templates per store
      *
      * @var array
      */
-    protected $_types           = array();
+    protected $_types = array();
 
     /**
      * Current store instance
      *
      * @var Mage_Core_Model_Store
      */
-    protected $_store           = null;
+    protected $_store = null;
 
     /**
      * Default types per store
@@ -58,7 +59,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
      *
      * @var array
      */
-    protected $_defaultTypes    = array();
+    protected $_defaultTypes = array();
 
     public function setStore($store)
     {
@@ -103,20 +104,19 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
                 $path = sprintf('%s%s', self::XML_PATH_ADDRESS_TEMPLATE, $typeCode);
                 $type = new Varien_Object();
                 $htmlEscape = strtolower($typeConfig->htmlEscape);
-                $htmlEscape = $htmlEscape == 'false' || $htmlEscape == '0' || $htmlEscape == 'no'
-                        || !strlen($typeConfig->htmlEscape) ? false : true;
+                $htmlEscape = $htmlEscape == 'false' || $htmlEscape == '0' || $htmlEscape == 'no' || !strlen($typeConfig->htmlEscape) ? false : true;
                 $type->setCode($typeCode)
-                    ->setTitle((string)$typeConfig->title)
-                    ->setDefaultFormat(Mage::getStoreConfig($path, $store))
-                    ->setHtmlEscape($htmlEscape);
+                        ->setTitle((string) $typeConfig->title)
+                        ->setDefaultFormat(Mage::getStoreConfig($path, $store))
+                        ->setHtmlEscape($htmlEscape);
 
-                $renderer = (string)$typeConfig->renderer;
+                $renderer = (string) $typeConfig->renderer;
                 if (!$renderer) {
                     $renderer = self::DEFAULT_ADDRESS_RENDERER;
                 }
 
                 $type->setRenderer(
-                    Mage::helper('customer/address')->getRenderer($renderer)->setType($type)
+                        Mage::helper('customer/address')->getRenderer($renderer)->setType($type)
                 );
 
                 $this->_types[$storeId][] = $type;
@@ -135,16 +135,16 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     {
         $store = $this->getStore();
         $storeId = $store->getId();
-        if(!isset($this->_defaultType[$storeId])) {
+        if (!isset($this->_defaultType[$storeId])) {
             $this->_defaultType[$storeId] = new Varien_Object();
             $this->_defaultType[$storeId]->setCode('default')
-                ->setDefaultFormat('{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}'
-                        . '{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}, '
-                        . '{{var street}}, {{var city}}, {{var region}} {{var postcode}}, {{var country}}');
+                    ->setDefaultFormat('{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}'
+                            . '{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}, '
+                            . '{{var street}}, {{var city}}, {{var region}} {{var postcode}}, {{var country}}');
 
             $this->_defaultType[$storeId]->setRenderer(
-                Mage::helper('customer/address')
-                    ->getRenderer(self::DEFAULT_ADDRESS_RENDERER)->setType($this->_defaultType[$storeId])
+                    Mage::helper('customer/address')
+                            ->getRenderer(self::DEFAULT_ADDRESS_RENDERER)->setType($this->_defaultType[$storeId])
             );
         }
         return $this->_defaultType[$storeId];
@@ -158,8 +158,8 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
      */
     public function getFormatByCode($typeCode)
     {
-        foreach($this->getFormats() as $type) {
-            if($type->getCode()==$typeCode) {
+        foreach ($this->getFormats() as $type) {
+            if ($type->getCode() == $typeCode) {
                 return $type;
             }
         }

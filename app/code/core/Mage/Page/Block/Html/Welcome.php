@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Page_Block_Html_Welcome extends Mage_Core_Block_Template
 {
+
     /**
      * Get block messsage
      *
@@ -64,4 +66,5 @@ class Mage_Page_Block_Html_Welcome extends Mage_Core_Block_Template
 
         return parent::getCacheTags();
     }
+
 }

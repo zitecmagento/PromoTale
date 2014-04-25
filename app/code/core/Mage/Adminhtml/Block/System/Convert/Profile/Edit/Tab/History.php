@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -44,8 +46,8 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History extends Mage_
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('dataflow/profile_history_collection')
-            ->joinAdminUser()
-            ->addFieldToFilter('profile_id', Mage::registry('current_convert_profile')->getId());
+                ->joinAdminUser()
+                ->addFieldToFilter('profile_id', Mage::registry('current_convert_profile')->getId());
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -53,27 +55,27 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History extends Mage_
     protected function _prepareColumns()
     {
         $this->addColumn('action_code', array(
-            'header'    => Mage::helper('adminhtml')->__('Profile Action'),
-            'index'     => 'action_code',
-            'filter'    => 'adminhtml/system_convert_profile_edit_filter_action',
-            'renderer'  => 'adminhtml/system_convert_profile_edit_renderer_action',
+            'header' => Mage::helper('adminhtml')->__('Profile Action'),
+            'index' => 'action_code',
+            'filter' => 'adminhtml/system_convert_profile_edit_filter_action',
+            'renderer' => 'adminhtml/system_convert_profile_edit_renderer_action',
         ));
 
         $this->addColumn('performed_at', array(
-            'header'    => Mage::helper('adminhtml')->__('Performed At'),
-            'type'      => 'datetime',
-            'index'     => 'performed_at',
-            'width'     => '150px',
+            'header' => Mage::helper('adminhtml')->__('Performed At'),
+            'type' => 'datetime',
+            'index' => 'performed_at',
+            'width' => '150px',
         ));
 
         $this->addColumn('firstname', array(
-            'header'    => Mage::helper('adminhtml')->__('First Name'),
-            'index'     => 'firstname',
+            'header' => Mage::helper('adminhtml')->__('First Name'),
+            'index' => 'firstname',
         ));
 
         $this->addColumn('lastname', array(
-            'header'    => Mage::helper('adminhtml')->__('Last Name'),
-            'index'     => 'lastname',
+            'header' => Mage::helper('adminhtml')->__('Last Name'),
+            'index' => 'lastname',
         ));
 
         return parent::_prepareColumns();
@@ -83,4 +85,5 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History extends Mage_
     {
         return $this->getUrl('*/*/history', array('_current' => true));
     }
+
 }

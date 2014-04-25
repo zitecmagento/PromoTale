@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Response.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Http_Response
  */
@@ -32,7 +32,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_Amazon_Ec2_Response {
+class Zend_Service_Amazon_Ec2_Response
+{
+
     /**
      * XML namespace used for EC2 responses.
      */
@@ -98,8 +100,7 @@ class Zend_Service_Amazon_Ec2_Response {
                 $this->_xpath = false;
             } else {
                 $this->_xpath = new DOMXPath($document);
-                $this->_xpath->registerNamespace('ec2',
-                    $this->getNamespace());
+                $this->_xpath->registerNamespace('ec2', $this->getNamespace());
             }
         }
 
@@ -113,9 +114,12 @@ class Zend_Service_Amazon_Ec2_Response {
      */
     public function getDocument()
     {
-        try {
+        try
+        {
             $body = $this->_httpResponse->getBody();
-        } catch (Zend_Http_Exception $e) {
+        }
+        catch (Zend_Http_Exception $e)
+        {
             $body = false;
         }
 

@@ -29,7 +29,9 @@
 <layout version="0.1.0">
     <checkout_onepage_index>
         <reference name="head">
-            <action method="addJs"><file>mage/directpost.js</file></action>
+            <action method="addJs">
+                <file>mage/directpost.js</file>
+            </action>
         </reference>
     </checkout_onepage_index>
     <checkout_onepage_review>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Context.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * PDF reference object context
  * Reference context is defined by PDF parser and PDF Refernce table
@@ -31,6 +31,7 @@
  */
 class Zend_Pdf_Element_Reference_Context
 {
+
     /**
      * PDF parser object.
      *
@@ -51,13 +52,11 @@ class Zend_Pdf_Element_Reference_Context
      * @param Zend_Pdf_StringParser $parser
      * @param Zend_Pdf_Element_Reference_Table $refTable
      */
-    public function __construct(Zend_Pdf_StringParser $parser,
-                                Zend_Pdf_Element_Reference_Table $refTable)
+    public function __construct(Zend_Pdf_StringParser $parser, Zend_Pdf_Element_Reference_Table $refTable)
     {
         $this->_stringParser = $parser;
-        $this->_refTable     = $refTable;
+        $this->_refTable = $refTable;
     }
-
 
     /**
      * Context parser
@@ -69,7 +68,6 @@ class Zend_Pdf_Element_Reference_Context
         return $this->_stringParser;
     }
 
-
     /**
      * Context reference table
      *
@@ -79,5 +77,5 @@ class Zend_Pdf_Element_Reference_Context
     {
         return $this->_refTable;
     }
-}
 
+}

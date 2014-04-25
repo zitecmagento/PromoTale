@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Sales
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Order extends Mage_Sales_Block_Adminhtml_Report_Filter_Form
 {
+
     protected function _prepareForm()
     {
         parent::_prepareForm();
@@ -45,16 +46,16 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Order extends Mage_Sales_Blo
         if (is_object($fieldset) && $fieldset instanceof Varien_Data_Form_Element_Fieldset) {
 
             $fieldset->addField('show_actual_columns', 'select', array(
-                'name'       => 'show_actual_columns',
-                'options'    => array(
+                'name' => 'show_actual_columns',
+                'options' => array(
                     '1' => Mage::helper('reports')->__('Yes'),
                     '0' => Mage::helper('reports')->__('No')
                 ),
-                'label'      => Mage::helper('reports')->__('Show Actual Values'),
+                'label' => Mage::helper('reports')->__('Show Actual Values'),
             ));
-
         }
 
         return $this;
     }
+
 }

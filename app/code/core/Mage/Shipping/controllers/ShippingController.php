@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Shipping_ShippingController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * @deprecated after 1.3.2.3
      */
@@ -38,4 +40,5 @@ class Mage_Shipping_ShippingController extends Mage_Core_Controller_Front_Action
         $this->loadLayout();
         $this->renderLayout();
     }
+
 }

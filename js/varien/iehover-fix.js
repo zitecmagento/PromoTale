@@ -25,17 +25,23 @@
 function toggleMenu(el, over)
 {
     if (Element.childElements(el)) {
-    var uL = Element.childElements(el)[1];
-    var iS = true;
+        var uL = Element.childElements(el)[1];
+        var iS = true;
     }
     if (over) {
         Element.addClassName(el, 'over');
-        
-        if(iS){ uL.addClassName('shown-sub')};
+
+        if (iS) {
+            uL.addClassName('shown-sub')
+        }
+        ;
     }
     else {
         Element.removeClassName(el, 'over');
-        if(iS){ uL.removeClassName('shown-sub')};
+        if (iS) {
+            uL.removeClassName('shown-sub')
+        }
+        ;
     }
 }
 
@@ -44,21 +50,21 @@ ieHover = function() {
     items = $$('#nav ul', '.truncated_full_value .item-options', '.tool-tip');
     $$('#checkout-step-payment', '.tool-tip').each(function(el) {
         el.show();
-        el.setStyle({'visibility':'hidden'})
+        el.setStyle({'visibility': 'hidden'})
     })
-    for (var j=0; j<items.length; j++) {
+    for (var j = 0; j < items.length; j++) {
         iframe = document.createElement('IFRAME');
         iframe.src = BLANK_URL;
         iframe.scrolling = 'no';
         iframe.frameBorder = 0;
         iframe.className = 'hover-fix';
-        iframe.style.width = items[j].offsetWidth+"px";
-        iframe.style.height = items[j].offsetHeight+"px";
+        iframe.style.width = items[j].offsetWidth + "px";
+        iframe.style.height = items[j].offsetHeight + "px";
         items[j].insertBefore(iframe, items[j].firstChild);
     }
     $$('.tool-tip', '#checkout-step-payment').each(function(el) {
         el.hide();
-        el.setStyle({'visibility':'visible'})
+        el.setStyle({'visibility': 'visible'})
     })
 }
 Event.observe(window, 'load', ieHover);

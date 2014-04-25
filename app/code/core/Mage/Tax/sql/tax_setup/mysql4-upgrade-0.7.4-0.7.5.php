@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,23 +24,22 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Customer_Model_Entity_Setup  */
 
 $installer->startSetup();
 
 $customerTaxClassIds = $installer->getConnection()->fetchCol(
-    "SELECT class_id FROM {$installer->getTable('tax_class')}
+        "SELECT class_id FROM {$installer->getTable('tax_class')}
         WHERE class_type = 'CUSTOMER'
         ORDER BY class_id ASC"
 );
 
 if (count($customerTaxClassIds) > 0) {
     $installer->run(
-        "UPDATE {$installer->getTable('customer_group')}
+            "UPDATE {$installer->getTable('customer_group')}
             SET tax_class_id = {$customerTaxClassIds[0]}
-            WHERE tax_class_id NOT IN (".implode(',', $customerTaxClassIds).")"
+            WHERE tax_class_id NOT IN (" . implode(',', $customerTaxClassIds) . ")"
     );
 }
 

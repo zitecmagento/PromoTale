@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Rating_Rating extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     public function __construct()
     {
         $this->_controller = 'rating';
@@ -41,4 +42,5 @@ class Mage_Adminhtml_Block_Rating_Rating extends Mage_Adminhtml_Block_Widget_Gri
         $this->_addButtonLabel = Mage::helper('rating')->__('Add New Rating');
         parent::__construct();
     }
+
 }

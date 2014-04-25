@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Decorator_Abstract */
 #require_once 'Zend/Form/Decorator/Abstract.php';
 
@@ -36,6 +36,7 @@
  */
 class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
 {
+
     /**
      * Attribs that should be removed prior to rendering
      * @var array
@@ -121,15 +122,15 @@ class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
     public function render($content)
     {
         $element = $this->getElement();
-        $view    = $element->getView();
+        $view = $element->getView();
         if (null === $view) {
             return $content;
         }
 
-        $legend  = $this->getLegend();
+        $legend = $this->getLegend();
         $attribs = $this->getOptions();
-        $name    = $element->getFullyQualifiedName();
-        $id      = (string)$element->getId();
+        $name = $element->getFullyQualifiedName();
+        $id = (string) $element->getId();
 
         if (!array_key_exists('id', $attribs) && '' !== $id) {
             $attribs['id'] = 'fieldset-' . $id;
@@ -152,4 +153,5 @@ class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
 
         return $view->fieldset($name, $content, $attribs);
     }
+
 }

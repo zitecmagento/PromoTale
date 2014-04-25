@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,35 +34,36 @@
  */
 class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
 {
+
     /**
      * Status in queue identifier
      */
-    const STATUS_IN_QUEUE   = 0;
+    const STATUS_IN_QUEUE = 0;
 
     /**
      * Status cenceled identifier
      */
-    const STATUS_CANCELED   = 1;
+    const STATUS_CANCELED = 1;
 
     /**
      * Status completed identifier
      */
-    const STATUS_COMPLETED  = 2;
+    const STATUS_COMPLETED = 2;
 
     /**
      * Status deleted identifier
      */
-    const STATUS_DELETED    = 3;
+    const STATUS_DELETED = 3;
 
     /**
      * Airmail message type
      */
-    const MESSAGE_TYPE_AIRMAIL  = 'airmail';
+    const MESSAGE_TYPE_AIRMAIL = 'airmail';
 
     /**
      * Push notification message type
      */
-    const MESSAGE_TYPE_PUSH     = 'push';
+    const MESSAGE_TYPE_PUSH = 'push';
 
     /**
      * Notification type config path
@@ -198,17 +200,17 @@ EOT;
 
         switch ($this->getData('type')) {
             case Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL:
-                $html  = sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Push title'))
-                    . $this->getPushTitle()
-                    . sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message title'))
-                    . $this->getMessageTitle()
-                    . sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message content'))
-                    . $processor->filter($this->getContent());
+                $html = sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Push title'))
+                        . $this->getPushTitle()
+                        . sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message title'))
+                        . $this->getMessageTitle()
+                        . sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message content'))
+                        . $processor->filter($this->getContent());
                 break;
             case Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_PUSH:
             default:
-                $html  = sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Push title'))
-                    . $this->getPushTitle();
+                $html = sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Push title'))
+                        . $this->getPushTitle();
                 break;
         }
         return $html;
@@ -226,7 +228,6 @@ EOT;
 
         return $this;
     }
-
 
     /**
      * Get JSON-encoded params for broadcast AirMail
@@ -249,7 +250,7 @@ EOT;
     public function getAirmailBroadcastParams()
     {
         $notificationType = Mage::getStoreConfig(
-            sprintf(Mage_XmlConnect_Model_Queue::XML_PATH_NOTIFICATION_TYPE, $this->getApplicationType())
+                        sprintf(Mage_XmlConnect_Model_Queue::XML_PATH_NOTIFICATION_TYPE, $this->getApplicationType())
         );
 
         $payload = array(
@@ -280,7 +281,7 @@ EOT;
     public function getPushBroadcastParams()
     {
         $notificationType = Mage::getStoreConfig(
-            sprintf(Mage_XmlConnect_Model_Queue::XML_PATH_NOTIFICATION_TYPE, $this->getApplicationType())
+                        sprintf(Mage_XmlConnect_Model_Queue::XML_PATH_NOTIFICATION_TYPE, $this->getApplicationType())
         );
 
         $payload = array(
@@ -301,9 +302,12 @@ EOT;
     public function save()
     {
         if (!$this->getIsSent() && $this->getStatus() == self::STATUS_IN_QUEUE) {
-            try {
+            try
+            {
                 Mage::dispatchEvent('before_save_message_queue', array('queueMessage' => $this));
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::logException($e);
             }
         }
@@ -325,4 +329,5 @@ EOT;
         }
         return $this->_appCode;
     }
+
 }

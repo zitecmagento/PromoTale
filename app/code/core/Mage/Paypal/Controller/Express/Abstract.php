@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * @var Mage_Paypal_Model_Express_Checkout
      */
@@ -58,7 +60,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     public function startAction()
     {
-        try {
+        try
+        {
             $this->_initCheckout();
 
             if ($this->_getQuote()->getIsMultiShipping()) {
@@ -69,22 +72,20 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $customer = Mage::getSingleton('customer/session')->getCustomer();
             if ($customer && $customer->getId()) {
                 $this->_checkout->setCustomerWithAddressChange(
-                    $customer, $this->_getQuote()->getBillingAddress(), $this->_getQuote()->getShippingAddress()
+                        $customer, $this->_getQuote()->getBillingAddress(), $this->_getQuote()->getShippingAddress()
                 );
             }
 
             // billing agreement
-            $isBARequested = (bool)$this->getRequest()
-                ->getParam(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT);
+            $isBARequested = (bool) $this->getRequest()
+                            ->getParam(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT);
             if ($customer && $customer->getId()) {
                 $this->_checkout->setIsBillingAgreementRequested($isBARequested);
             }
 
             // giropay
             $this->_checkout->prepareGiropayUrls(
-                Mage::getUrl('checkout/onepage/success'),
-                Mage::getUrl('paypal/express/cancel'),
-                Mage::getUrl('checkout/onepage/success')
+                    Mage::getUrl('checkout/onepage/success'), Mage::getUrl('paypal/express/cancel'), Mage::getUrl('checkout/onepage/success')
             );
 
             $token = $this->_checkout->start(Mage::getUrl('*/*/return'), Mage::getUrl('*/*/cancel'));
@@ -93,9 +94,13 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                 $this->getResponse()->setRedirect($url);
                 return;
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getCheckoutSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getCheckoutSession()->addError($this->__('Unable to start Express Checkout.'));
             Mage::logException($e);
         }
@@ -108,13 +113,16 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     public function shippingOptionsCallbackAction()
     {
-        try {
+        try
+        {
             $quoteId = $this->getRequest()->getParam('quote_id');
             $this->_quote = Mage::getModel('sales/quote')->load($quoteId);
             $this->_initCheckout();
             $response = $this->_checkout->getShippingOptionsCallbackResponse($this->getRequest()->getParams());
             $this->getResponse()->setBody($response);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
         }
     }
@@ -124,7 +132,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     public function cancelAction()
     {
-        try {
+        try
+        {
             $this->_initToken(false);
             // TODO verify if this logic of order cancelation is deprecated
             // if there is an order - cancel it
@@ -133,18 +142,22 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             if ($order && $order->getId() && $order->getQuoteId() == $this->_getCheckoutSession()->getQuoteId()) {
                 $order->cancel()->save();
                 $this->_getCheckoutSession()
-                    ->unsLastQuoteId()
-                    ->unsLastSuccessQuoteId()
-                    ->unsLastOrderId()
-                    ->unsLastRealOrderId()
-                    ->addSuccess($this->__('Express Checkout and Order have been canceled.'))
+                        ->unsLastQuoteId()
+                        ->unsLastSuccessQuoteId()
+                        ->unsLastOrderId()
+                        ->unsLastRealOrderId()
+                        ->addSuccess($this->__('Express Checkout and Order have been canceled.'))
                 ;
             } else {
                 $this->_getCheckoutSession()->addSuccess($this->__('Express Checkout has been canceled.'));
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getCheckoutSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getCheckoutSession()->addError($this->__('Unable to cancel Express Checkout.'));
             Mage::logException($e);
         }
@@ -157,16 +170,19 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     public function returnAction()
     {
-        try {
+        try
+        {
             $this->_initCheckout();
             $this->_checkout->returnFromPaypal($this->_initToken());
             $this->_redirect('*/*/review');
             return;
         }
-        catch (Mage_Core_Exception $e) {
+        catch (Mage_Core_Exception $e)
+        {
             Mage::getSingleton('checkout/session')->addError($e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             Mage::getSingleton('checkout/session')->addError($this->__('Unable to process Express Checkout approval.'));
             Mage::logException($e);
         }
@@ -178,7 +194,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     public function reviewAction()
     {
-        try {
+        try
+        {
             $this->_initCheckout();
             $this->_checkout->prepareOrderReview($this->_initToken());
             $this->loadLayout();
@@ -192,12 +209,14 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->renderLayout();
             return;
         }
-        catch (Mage_Core_Exception $e) {
+        catch (Mage_Core_Exception $e)
+        {
             Mage::getSingleton('checkout/session')->addError($e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             Mage::getSingleton('checkout/session')->addError(
-                $this->__('Unable to initialize Express Checkout review.')
+                    $this->__('Unable to initialize Express Checkout review.')
             );
             Mage::logException($e);
         }
@@ -209,10 +228,12 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     public function editAction()
     {
-        try {
+        try
+        {
             $this->getResponse()->setRedirect($this->_config->getExpressCheckoutEditUrl($this->_initToken()));
         }
-        catch (Mage_Core_Exception $e) {
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
             $this->_redirect('*/*/review');
         }
@@ -223,26 +244,31 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     public function saveShippingMethodAction()
     {
-        try {
+        try
+        {
             $isAjax = $this->getRequest()->getParam('isAjax');
             $this->_initCheckout();
             $this->_checkout->updateShippingMethod($this->getRequest()->getParam('shipping_method'));
             if ($isAjax) {
                 $this->loadLayout('paypal_express_review_details');
                 $this->getResponse()->setBody($this->getLayout()->getBlock('root')
-                    ->setQuote($this->_getQuote())
-                    ->toHtml());
+                                ->setQuote($this->_getQuote())
+                                ->toHtml());
                 return;
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($this->__('Unable to update shipping method.'));
             Mage::logException($e);
         }
         if ($isAjax) {
             $this->getResponse()->setBody('<script type="text/javascript">window.location.href = '
-                . Mage::getUrl('*/*/review') . ';</script>');
+                    . Mage::getUrl('*/*/review') . ';</script>');
         } else {
             $this->_redirect('*/*/review');
         }
@@ -253,23 +279,28 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     public function updateShippingMethodsAction()
     {
-        try {
+        try
+        {
             $this->_initCheckout();
             $this->_checkout->prepareOrderReview($this->_initToken());
             $this->loadLayout('paypal_express_review');
 
             $this->getResponse()->setBody($this->getLayout()->getBlock('express.review.shipping.method')
-                ->setQuote($this->_getQuote())
-                ->toHtml());
+                            ->setQuote($this->_getQuote())
+                            ->toHtml());
             return;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($this->__('Unable to update Order data.'));
             Mage::logException($e);
         }
         $this->getResponse()->setBody('<script type="text/javascript">window.location.href = '
-            . Mage::getUrl('*/*/review') . ';</script>');
+                . Mage::getUrl('*/*/review') . ';</script>');
     }
 
     /**
@@ -277,26 +308,31 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     public function updateOrderAction()
     {
-        try {
+        try
+        {
             $isAjax = $this->getRequest()->getParam('isAjax');
             $this->_initCheckout();
             $this->_checkout->updateOrder($this->getRequest()->getParams());
             if ($isAjax) {
                 $this->loadLayout('paypal_express_review_details');
                 $this->getResponse()->setBody($this->getLayout()->getBlock('root')
-                    ->setQuote($this->_getQuote())
-                    ->toHtml());
+                                ->setQuote($this->_getQuote())
+                                ->toHtml());
                 return;
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($this->__('Unable to update Order data.'));
             Mage::logException($e);
         }
         if ($isAjax) {
             $this->getResponse()->setBody('<script type="text/javascript">window.location.href = '
-                . Mage::getUrl('*/*/review') . ';</script>');
+                    . Mage::getUrl('*/*/review') . ';</script>');
         } else {
             $this->_redirect('*/*/review');
         }
@@ -307,7 +343,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     public function placeOrderAction()
     {
-        try {
+        try
+        {
             $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
             if ($requiredAgreements) {
                 $postedAgreements = array_keys($this->getRequest()->getPost('agreement', array()));
@@ -331,7 +368,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $order = $this->_checkout->getOrder();
             if ($order) {
                 $session->setLastOrderId($order->getId())
-                    ->setLastRealOrderId($order->getIncrementId());
+                        ->setLastRealOrderId($order->getIncrementId());
                 // as well a billing agreement can be created
                 $agreement = $this->_checkout->getBillingAgreement();
                 if ($agreement) {
@@ -343,7 +380,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $profiles = $this->_checkout->getRecurringPaymentProfiles();
             if ($profiles) {
                 $ids = array();
-                foreach($profiles as $profile) {
+                foreach ($profiles as $profile) {
                     $ids[] = $profile->getId();
                 }
                 $session->setLastRecurringProfileIds($ids);
@@ -359,10 +396,12 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_redirect('checkout/onepage/success');
             return;
         }
-        catch (Mage_Core_Exception $e) {
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($this->__('Unable to place the order.'));
             Mage::logException($e);
         }
@@ -377,12 +416,12 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         $quote = $this->_getQuote();
         if (!$quote->hasItems() || $quote->getHasError()) {
-            $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
+            $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
             Mage::throwException(Mage::helper('paypal')->__('Unable to initialize Express Checkout.'));
         }
         $this->_checkout = Mage::getSingleton($this->_checkoutType, array(
-            'config' => $this->_config,
-            'quote'  => $quote,
+                    'config' => $this->_config,
+                    'quote' => $quote,
         ));
     }
 
@@ -458,10 +497,10 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         $this->setFlag('', 'no-dispatch', true);
         $this->getResponse()->setRedirect(
-            Mage::helper('core/url')->addRequestParam(
-                Mage::helper('customer')->getLoginUrl(),
-                array('context' => 'checkout')
-            )
+                Mage::helper('core/url')->addRequestParam(
+                        Mage::helper('customer')->getLoginUrl(), array('context' => 'checkout')
+                )
         );
     }
+
 }

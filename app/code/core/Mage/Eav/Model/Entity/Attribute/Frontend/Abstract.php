@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Entity/Attribute/Model - attribute frontend abstract
  *
@@ -32,8 +32,7 @@
  * @package    Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
-    implements Mage_Eav_Model_Entity_Attribute_Frontend_Interface
+abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage_Eav_Model_Entity_Attribute_Frontend_Interface
 {
 
     /**
@@ -99,10 +98,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
     public function getValue(Varien_Object $object)
     {
         $value = $object->getData($this->getAttribute()->getAttributeCode());
-        if (in_array($this->getConfigField('input'), array('select','boolean'))) {
+        if (in_array($this->getConfigField('input'), array('select', 'boolean'))) {
             $valueOption = $this->getOption($value);
             if (!$valueOption) {
-                $opt     = Mage::getModel('eav/entity_attribute_source_boolean');
+                $opt = Mage::getModel('eav/entity_attribute_source_boolean');
                 $options = $opt->getAllOptions();
                 if ($options) {
                     foreach ($options as $option) {
@@ -140,15 +139,15 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
      */
     public function getClass()
     {
-        $out    = array();
-        $out[]  = $this->getAttribute()->getFrontendClass();
+        $out = array();
+        $out[] = $this->getAttribute()->getFrontendClass();
         if ($this->getAttribute()->getIsRequired()) {
-            $out[]  = 'required-entry';
+            $out[] = 'required-entry';
         }
 
         $inputRuleClass = $this->_getInputValidateClass();
         if ($inputRuleClass) {
-             $out[] = $inputRuleClass;
+            $out[] = $inputRuleClass;
         }
         if (!empty($out)) {
             $out = implode(' ', $out);
@@ -158,15 +157,15 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
         return $out;
     }
 
-     /**
+    /**
      * Return validate class by attribute input validation rule
      *
      * @return string|false
      */
     protected function _getInputValidateClass()
     {
-        $class          = false;
-        $validateRules  = $this->getAttribute()->getValidateRules();
+        $class = false;
+        $validateRules = $this->getAttribute()->getValidateRules();
         if (!empty($validateRules['input_validation'])) {
             switch ($validateRules['input_validation']) {
                 case 'alphanumeric':
@@ -233,11 +232,13 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
      *
      * @return string
      */
-    public function getInputRendererClass() {
+    public function getInputRendererClass()
+    {
         $className = $this->getAttribute()->getData('frontend_input_renderer');
         if ($className) {
             return Mage::getConfig()->getBlockClassName($className);
         }
         return null;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Mime
  */
 #require_once 'Zend/Mime.php';
-
 
 /**
  * Abstract for sending eMails through different
@@ -39,6 +37,7 @@
  */
 abstract class Zend_Mail_Transport_Abstract
 {
+
     /**
      * Mail body
      * @var string
@@ -232,31 +231,29 @@ abstract class Zend_Mail_Transport_Abstract
      */
     protected function _buildBody()
     {
-        if (($text = $this->_mail->getBodyText())
-            && ($html = $this->_mail->getBodyHtml()))
-        {
+        if (($text = $this->_mail->getBodyText()) && ($html = $this->_mail->getBodyHtml())) {
             // Generate unique boundary for multipart/alternative
             $mime = new Zend_Mime(null);
             $boundaryLine = $mime->boundaryLine($this->EOL);
-            $boundaryEnd  = $mime->mimeEnd($this->EOL);
+            $boundaryEnd = $mime->mimeEnd($this->EOL);
 
             $text->disposition = false;
             $html->disposition = false;
 
             $body = $boundaryLine
-                  . $text->getHeaders($this->EOL)
-                  . $this->EOL
-                  . $text->getContent($this->EOL)
-                  . $this->EOL
-                  . $boundaryLine
-                  . $html->getHeaders($this->EOL)
-                  . $this->EOL
-                  . $html->getContent($this->EOL)
-                  . $this->EOL
-                  . $boundaryEnd;
+                    . $text->getHeaders($this->EOL)
+                    . $this->EOL
+                    . $text->getContent($this->EOL)
+                    . $this->EOL
+                    . $boundaryLine
+                    . $html->getHeaders($this->EOL)
+                    . $this->EOL
+                    . $html->getContent($this->EOL)
+                    . $this->EOL
+                    . $boundaryEnd;
 
-            $mp           = new Zend_Mime_Part($body);
-            $mp->type     = Zend_Mime::MULTIPART_ALTERNATIVE;
+            $mp = new Zend_Mime_Part($body);
+            $mp->type = Zend_Mime::MULTIPART_ALTERNATIVE;
             $mp->boundary = $mime->boundary();
 
             $this->_isMultipart = true;
@@ -305,15 +302,15 @@ abstract class Zend_Mail_Transport_Abstract
     public function send(Zend_Mail $mail)
     {
         $this->_isMultipart = false;
-        $this->_mail        = $mail;
-        $this->_parts       = $mail->getParts();
-        $mime               = $mail->getMime();
+        $this->_mail = $mail;
+        $this->_parts = $mail->getParts();
+        $mime = $mail->getMime();
 
         // Build body content
         $this->_buildBody();
 
         // Determine number of parts and boundary
-        $count    = count($this->_parts);
+        $count = count($this->_parts);
         $boundary = null;
         if ($count < 1) {
             /**
@@ -325,7 +322,7 @@ abstract class Zend_Mail_Transport_Abstract
 
         if ($count > 1) {
             // Multipart message; create new MIME object and boundary
-            $mime     = new Zend_Mime($this->_mail->getMimeBoundary());
+            $mime = new Zend_Mime($this->_mail->getMimeBoundary());
             $boundary = $mime->boundary();
         } elseif ($this->_isMultipart) {
             // multipart/alternative -- grab boundary
@@ -347,4 +344,5 @@ abstract class Zend_Mail_Transport_Abstract
         // Send to transport!
         $this->_sendMail();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,9 +25,8 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- *Report settlement row resource model
+ * Report settlement row resource model
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -34,6 +34,7 @@
  */
 class Mage_Paypal_Model_Resource_Report_Settlement_Row extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource model initialization.
      * Set main entity table name and primary key field name.
@@ -42,4 +43,5 @@ class Mage_Paypal_Model_Resource_Report_Settlement_Row extends Mage_Core_Model_R
     {
         $this->_init('paypal/settlement_report_row', 'row_id');
     }
+
 }

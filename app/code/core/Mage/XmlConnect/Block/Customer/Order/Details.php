@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_Info
 {
+
     /**
      * Pre-defined array of methods that we are going to render
      *
@@ -68,11 +70,11 @@ class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_In
 
         $orderDate = $this->formatDate($order->getCreatedAtStoreDate(), 'long');
         $orderXmlObj->addCustomChild('order', null, array(
-             'label' => $this->__('Order #%s - %s', $order->getRealOrderId(), $order->getStatusLabel()),
-             'order_date' => $this->__('Order Date: %s', $orderDate)
+            'label' => $this->__('Order #%s - %s', $order->getRealOrderId(), $order->getStatusLabel()),
+            'order_date' => $this->__('Order Date: %s', $orderDate)
         ));
 
-        $billing  = Mage::helper('xmlconnect')->trimLineBreaks($order->getBillingAddress()->format('text'));
+        $billing = Mage::helper('xmlconnect')->trimLineBreaks($order->getBillingAddress()->format('text'));
         $orderXmlObj->addCustomChild('billing_address', $billing);
 
         if (!$order->getIsVirtual()) {
@@ -136,13 +138,12 @@ class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_In
             $this->setInfo($order->getPayment());
 
             $specificInfo = array_merge(
-                (array)$order->getPayment()->getAdditionalInformation(),
-                (array)$this->getSpecificInformation()
+                    (array) $order->getPayment()->getAdditionalInformation(), (array) $this->getSpecificInformation()
             );
             if (!empty($specificInfo)) {
                 foreach ($specificInfo as $label => $value) {
                     if ($value) {
-                        $paymentNode->addCustomChild('item',implode($this->getValueAsArray($value, true), '\n'), array(
+                        $paymentNode->addCustomChild('item', implode($this->getValueAsArray($value, true), '\n'), array(
                             'label' => $label
                         ));
                     }
@@ -179,4 +180,5 @@ class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_In
     {
         return preg_replace(array('@\r@', '@\n+@'), array('', '\n'), $address);
     }
+
 }

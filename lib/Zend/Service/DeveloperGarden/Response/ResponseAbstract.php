@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ResponseAbstract.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Response_Exception
  */
@@ -35,6 +35,7 @@
  */
 abstract class Zend_Service_DeveloperGarden_Response_ResponseAbstract
 {
+
     /**
      * errorCode
      *
@@ -59,8 +60,7 @@ abstract class Zend_Service_DeveloperGarden_Response_ResponseAbstract
     {
         if ($this->hasError()) {
             throw new Zend_Service_DeveloperGarden_Response_Exception(
-                $this->getErrorMessage(),
-                $this->getErrorCode()
+            $this->getErrorMessage(), $this->getErrorCode()
             );
         }
 
@@ -94,8 +94,7 @@ abstract class Zend_Service_DeveloperGarden_Response_ResponseAbstract
      */
     public function isValid()
     {
-        return ($this->errorCode === null
-             || $this->errorCode == '0000');
+        return ($this->errorCode === null || $this->errorCode == '0000');
     }
 
     /**
@@ -105,7 +104,7 @@ abstract class Zend_Service_DeveloperGarden_Response_ResponseAbstract
      */
     public function hasError()
     {
-        return ($this->errorCode !== null
-                && $this->errorCode != '0000');
+        return ($this->errorCode !== null && $this->errorCode != '0000');
     }
+
 }

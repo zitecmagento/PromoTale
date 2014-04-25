@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Internal constructor
      *
@@ -64,10 +65,10 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
     protected function _preparelayout()
     {
         $this->_addButton('save_and_edit', array(
-            'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
-            'class'     => 'save',
-            'onclick'   => 'editForm.submit(\'' . $this->getSaveAndContinueUrl() . '\');'
-        ), 100);
+            'label' => Mage::helper('adminhtml')->__('Save and Continue Edit'),
+            'class' => 'save',
+            'onclick' => 'editForm.submit(\'' . $this->getSaveAndContinueUrl() . '\');'
+                ), 100);
         if (!$this->getVariable()->getId()) {
             $this->removeButton('delete');
         }
@@ -84,8 +85,8 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
         $formHtml = parent::getFormHtml();
         if (!Mage::app()->isSingleStoreMode() && $this->getVariable()->getId()) {
             $storeSwitcher = $this->getLayout()
-                ->createBlock('adminhtml/store_switcher')->toHtml();
-            $formHtml = $storeSwitcher.$formHtml;
+                            ->createBlock('adminhtml/store_switcher')->toHtml();
+            $formHtml = $storeSwitcher . $formHtml;
         }
         return $formHtml;
     }
@@ -99,8 +100,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
     {
         if ($this->getVariable()->getId()) {
             return Mage::helper('adminhtml')->__('Custom Variable "%s"', $this->escapeHtml($this->getVariable()->getName()));
-        }
-        else {
+        } else {
             return Mage::helper('adminhtml')->__('New Custom Variable');
         }
     }
@@ -112,7 +112,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
      */
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', array('_current'=>true));
+        return $this->getUrl('*/*/validate', array('_current' => true));
     }
 
     /**
@@ -134,4 +134,5 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
     {
         return $this->getUrl('*/*/save', array('_current' => true, 'back' => 'edit'));
     }
+
 }

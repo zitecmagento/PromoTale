@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -44,7 +46,7 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
     {
         $collection = Mage::getResourceModel('tag/tag_collection')
 //            ->addStoreFilter(Mage::app()->getStore()->getId())
-               ->addStoresVisibility()
+                ->addStoresVisibility()
         ;
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -53,24 +55,24 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
     protected function _prepareColumns()
     {
         $this->addColumn('name', array(
-            'header'    => Mage::helper('tag')->__('Tag'),
-            'index'     => 'name',
+            'header' => Mage::helper('tag')->__('Tag'),
+            'index' => 'name',
         ));
         $this->addColumn('total_used', array(
-            'header'    => Mage::helper('tag')->__('# of Uses'),
-            'width'     => '140px',
-            'align'     => 'center',
-            'index'     => 'total_used',
-            'type'      => 'number',
+            'header' => Mage::helper('tag')->__('# of Uses'),
+            'width' => '140px',
+            'align' => 'center',
+            'index' => 'total_used',
+            'type' => 'number',
         ));
         $this->addColumn('status', array(
-            'header'    => Mage::helper('tag')->__('Status'),
-            'width'     => '90px',
-            'index'     => 'status',
-            'type'      => 'options',
-            'options'    => array(
+            'header' => Mage::helper('tag')->__('Status'),
+            'width' => '90px',
+            'index' => 'status',
+            'type' => 'options',
+            'options' => array(
                 Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('tag')->__('Disabled'),
-                Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('tag')->__('Pending'),
+                Mage_Tag_Model_Tag::STATUS_PENDING => Mage::helper('tag')->__('Pending'),
                 Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('tag')->__('Approved'),
             ),
         ));
@@ -78,8 +80,8 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
 
 
         $this->setColumnFilter('id')
-            ->setColumnFilter('name')
-            ->setColumnFilter('total_used')
+                ->setColumnFilter('name')
+                ->setColumnFilter('total_used')
         ;
 
         return parent::_prepareColumns();
@@ -88,8 +90,8 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
     protected function _addColumnFilterToCollection($column)
     {
         if ($this->getCollection() && $column->getFilter()->getValue()) {
-            if($column->getIndex()=='stores') {
-                $this->getCollection()->addAttributeToFilter( $column->getIndex(), $column->getFilter()->getCondition());
+            if ($column->getIndex() == 'stores') {
+                $this->getCollection()->addAttributeToFilter($column->getIndex(), $column->getFilter()->getCondition());
             } else {
                 $this->getCollection()->addStoreFilter($column->getFilter()->getCondition());
             }

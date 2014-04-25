@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales report coupons collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_Resource_Report_Collection_Abstract
 {
+
     /**
      * Period format for report (day, month, year)
      *
@@ -53,7 +54,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
      *
      * @var array
      */
-    protected $_selectedColumns    = array();
+    protected $_selectedColumns = array();
 
     /**
      * array where rules ids stored
@@ -85,24 +86,23 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         if ('month' == $this->_period) {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m');
         } elseif ('year' == $this->_period) {
-            $this->_periodFormat =
-                $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
+            $this->_periodFormat = $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
         } else {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m-%d');
         }
 
         if (!$this->isTotals() && !$this->isSubTotals()) {
             $this->_selectedColumns = array(
-                'period'                  => $this->_periodFormat,
+                'period' => $this->_periodFormat,
                 'coupon_code',
                 'rule_name',
-                'coupon_uses'             => 'SUM(coupon_uses)',
-                'subtotal_amount'         => 'SUM(subtotal_amount)',
-                'discount_amount'         => 'SUM(discount_amount)',
-                'total_amount'            => 'SUM(total_amount)',
-                'subtotal_amount_actual'  => 'SUM(subtotal_amount_actual)',
-                'discount_amount_actual'  => 'SUM(discount_amount_actual)',
-                'total_amount_actual'     => 'SUM(total_amount_actual)',
+                'coupon_uses' => 'SUM(coupon_uses)',
+                'subtotal_amount' => 'SUM(subtotal_amount)',
+                'discount_amount' => 'SUM(discount_amount)',
+                'total_amount' => 'SUM(total_amount)',
+                'subtotal_amount_actual' => 'SUM(subtotal_amount_actual)',
+                'discount_amount_actual' => 'SUM(discount_amount_actual)',
+                'total_amount_actual' => 'SUM(total_amount_actual)',
             );
         }
 
@@ -111,8 +111,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         }
 
         if ($this->isSubTotals()) {
-            $this->_selectedColumns =
-                $this->getAggregatedColumns() +
+            $this->_selectedColumns = $this->getAggregatedColumns() +
                     array('period' => $this->_periodFormat);
         }
 
@@ -189,4 +188,5 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         $this->_applyRulesFilter();
         return parent::_applyCustomFilter();
     }
+
 }

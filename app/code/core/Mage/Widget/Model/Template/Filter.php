@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Widget_Model_Template_Filter extends Mage_Cms_Model_Template_Filter
 {
+
     /**
      * Generate widget
      *
@@ -54,7 +56,7 @@ class Mage_Widget_Model_Template_Filter extends Mage_Cms_Model_Template_Filter
             $type = $params['type'];
         } elseif (!empty($params['id'])) {
             $preconfigured = Mage::getResourceSingleton('widget/widget')
-                ->loadPreconfiguredWidget($params['id']);
+                    ->loadPreconfiguredWidget($params['id']);
             $type = $preconfigured['widget_type'];
             $params = $preconfigured['parameters'];
         } else {
@@ -75,4 +77,5 @@ class Mage_Widget_Model_Template_Filter extends Mage_Cms_Model_Template_Filter
 
         return $widget->toHtml();
     }
+
 }

@@ -161,9 +161,9 @@
                         <can_use_qty_decimals>0</can_use_qty_decimals>
                     </downloadable>
                     <!--<bundle>-->
-                        <!--<allowed_selection_types>-->
-                            <!--<downloadable/>-->
-                        <!--</allowed_selection_types>-->
+                    <!--<allowed_selection_types>-->
+                    <!--<downloadable/>-->
+                    <!--</allowed_selection_types>-->
                     <!--</bundle>-->
                     <configurable>
                         <allow_product_types>

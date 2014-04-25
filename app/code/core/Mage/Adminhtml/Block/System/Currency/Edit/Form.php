@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,13 +34,14 @@
  */
 class Mage_Adminhtml_Block_System_Currency_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('currency_edit_form');
         $this->setTitle(Mage::helper('adminhtml')->__('Currency Information'));
     }
-    
+
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(array('id' => 'currency_edit_form', 'action' => $this->getData('action'), 'method' => 'post'));
@@ -47,4 +49,5 @@ class Mage_Adminhtml_Block_System_Currency_Edit_Form extends Mage_Adminhtml_Bloc
         $this->setForm($form);
         return parent::_prepareForm();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Datetime extends Varien_Data_Form_Element_Abstract
 {
+
     /**
      * Date
      *
@@ -40,7 +42,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Datetime extends Varie
      */
     protected $_value;
 
-    public function __construct($attributes=array())
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setType('text');
@@ -59,7 +61,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Datetime extends Varie
      */
     protected function _toTimestamp($value)
     {
-        $value = (int)$value;
+        $value = (int) $value;
         if ($value > 3155760000) {
             $value = 0;
         }
@@ -104,9 +106,12 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Datetime extends Varie
                 $locale = null;
             }
         }
-        try {
+        try
+        {
             $this->_value = new Zend_Date($value, $format, $locale);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_value = '';
         }
         return $this;
@@ -156,22 +161,14 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Datetime extends Varie
         $this->addClass('input-text');
 
         $html = sprintf(
-            '<input name="%s" id="%s" value="%s" %s style="width:110px !important;" />'
-            .' <img src="%s" alt="" class="v-middle" id="%s_trig" title="%s" style="%s" />',
-            $this->getName(),
-            $this->getHtmlId(),
-            $this->_escape($this->getValue()),
-            $this->serialize($this->getHtmlAttributes()),
-            $this->getImage(),
-            $this->getHtmlId(),
-            'Select Date',
-            ($this->getDisabled() ? 'display:none;' : '')
+                '<input name="%s" id="%s" value="%s" %s style="width:110px !important;" />'
+                . ' <img src="%s" alt="" class="v-middle" id="%s_trig" title="%s" style="%s" />', $this->getName(), $this->getHtmlId(), $this->_escape($this->getValue()), $this->serialize($this->getHtmlAttributes()), $this->getImage(), $this->getHtmlId(), 'Select Date', ($this->getDisabled() ? 'display:none;' : '')
         );
         $outputFormat = $this->getFormat();
         $outputTimeFormat = $this->getFormatT();
         if (empty($outputFormat)) {
             Mage::throwException(
-                $this->__('Output format is not specified. Please, specify "format" key in constructor, or set it using setFormat().')
+                    $this->__('Output format is not specified. Please, specify "format" key in constructor, or set it using setFormat().')
             );
         }
         $displayFormat = Varien_Date::convertZendToStrFtime($outputFormat, true, false);
@@ -190,15 +187,12 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Datetime extends Varie
                     timeFormat: 12
                 });
             //]]>
-            </script>',
-            $this->getHtmlId(),
-            $displayFormat . " " . $displayTimeFormat,
-            $this->getTime() ? 'true' : 'false',
-            $this->getHtmlId()
+            </script>', $this->getHtmlId(), $displayFormat . " " . $displayTimeFormat, $this->getTime() ? 'true' : 'false', $this->getHtmlId()
         );
 
         $html .= $this->getAfterElementHtml();
 
         return $html;
     }
+
 }

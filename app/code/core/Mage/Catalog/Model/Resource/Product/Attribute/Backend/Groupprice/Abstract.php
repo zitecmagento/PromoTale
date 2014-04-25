@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product abstract price backend attribute model with customer group specific
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract
-    extends Mage_Core_Model_Resource_Db_Abstract
+abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Load Tier Prices for product
      *
@@ -47,18 +47,18 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
         $adapter = $this->_getReadAdapter();
 
         $columns = array(
-            'price_id'      => $this->getIdFieldName(),
-            'website_id'    => 'website_id',
-            'all_groups'    => 'all_groups',
-            'cust_group'    => 'customer_group_id',
-            'price'         => 'value',
+            'price_id' => $this->getIdFieldName(),
+            'website_id' => 'website_id',
+            'all_groups' => 'all_groups',
+            'cust_group' => 'customer_group_id',
+            'price' => 'value',
         );
 
         $columns = $this->_loadPriceDataColumns($columns);
 
-        $select  = $adapter->select()
-            ->from($this->getMainTable(), $columns)
-            ->where('entity_id=?', $productId);
+        $select = $adapter->select()
+                ->from($this->getMainTable(), $columns)
+                ->where('entity_id=?', $productId);
 
         $this->_loadPriceDataSelect($select);
 
@@ -107,7 +107,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
     {
         $adapter = $this->_getWriteAdapter();
 
-        $conds   = array(
+        $conds = array(
             $adapter->quoteInto('entity_id = ?', $productId)
         );
 
@@ -133,7 +133,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
     public function savePriceData(Varien_Object $priceObject)
     {
         $adapter = $this->_getWriteAdapter();
-        $data    = $this->_prepareDataForTable($priceObject, $this->getMainTable());
+        $data = $this->_prepareDataForTable($priceObject, $this->getMainTable());
 
         if (!empty($data[$this->getIdFieldName()])) {
             $where = $adapter->quoteInto($this->getIdFieldName() . ' = ?', $data[$this->getIdFieldName()]);
@@ -144,4 +144,5 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
         }
         return $this;
     }
+
 }

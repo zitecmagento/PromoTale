@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog category landing page attribute source
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Resource_Category_Attribute_Source_Mode extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+
     /**
      * Returns all mode options
      *
@@ -59,4 +60,5 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Source_Mode extends Mage_Ea
         }
         return $this->_options;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SendSMS.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Request_SendSms_SendSMS
-    extends Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
+class Zend_Service_DeveloperGarden_Request_SendSms_SendSMS extends Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
 {
+
     /**
      * this is the sms type
      * 1 = normal SMS
@@ -43,4 +43,5 @@ class Zend_Service_DeveloperGarden_Request_SendSms_SendSMS
      * @var integer
      */
     protected $_smsType = 1;
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer address entity resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -41,8 +42,7 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
     {
         $resource = Mage::getSingleton('core/resource');
         $this->setType('customer_address')->setConnection(
-            $resource->getConnection('customer_read'),
-            $resource->getConnection('customer_write')
+                $resource->getConnection('customer_read'), $resource->getConnection('customer_write')
         );
     }
 
@@ -59,7 +59,7 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
         }
         if ($address->getId() && ($address->getIsDefaultBilling() || $address->getIsDefaultShipping())) {
             $customer = Mage::getModel('customer/customer')
-                ->load($address->getCustomerId());
+                    ->load($address->getCustomerId());
 
             if ($address->getIsDefaultBilling()) {
                 $customer->setDefaultBilling($address->getId());
@@ -96,4 +96,5 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
     {
         return $this;
     }
+
 }

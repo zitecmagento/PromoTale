@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TableInstance.php 22773 2010-08-03 07:18:27Z maartenba $
  */
-
 /**
  * @see Zend_Service_WindowsAzure_Exception
  */
@@ -42,9 +42,9 @@
  * @property string  $Href            Href
  * @property string  $Updated         Updated
  */
-class Zend_Service_WindowsAzure_Storage_TableInstance
-	extends Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
+class Zend_Service_WindowsAzure_Storage_TableInstance extends Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
 {
+
     /**
      * Constructor
      * 
@@ -53,13 +53,14 @@ class Zend_Service_WindowsAzure_Storage_TableInstance
      * @param string  $href            Href
      * @param string  $updated         Updated
      */
-    public function __construct($id, $name, $href, $updated) 
-    {	        
+    public function __construct($id, $name, $href, $updated)
+    {
         $this->_data = array(
-            'id'               => $id,
-            'name'             => $name,
-            'href'             => $href,
-            'updated'          => $updated
+            'id' => $id,
+            'name' => $name,
+            'href' => $href,
+            'updated' => $updated
         );
     }
+
 }

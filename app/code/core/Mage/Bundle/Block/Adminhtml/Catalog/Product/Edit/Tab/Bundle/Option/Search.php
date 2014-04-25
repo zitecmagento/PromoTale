@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search extends Mage_Adminhtml_Block_Widget
 {
+
     protected function _construct()
     {
         $this->setId('bundle_option_selection_search');
@@ -48,9 +49,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
     protected function _prepareLayout()
     {
         $this->setChild(
-            'grid',
-            $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_search_grid',
-                'adminhtml.catalog.product.edit.tab.bundle.option.search.grid')
+                'grid', $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_search_grid', 'adminhtml.catalog.product.edit.tab.bundle.option.search.grid')
         );
         return parent::_prepareLayout();
     }
@@ -58,7 +57,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
     protected function _beforeToHtml()
     {
         $this->getChild('grid')->setIndex($this->getIndex())
-            ->setFirstShow($this->getFirstShow());
+                ->setFirstShow($this->getFirstShow());
 
         return parent::_beforeToHtml();
     }
@@ -66,7 +65,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
     public function getButtonsHtml()
     {
         $addButtonData = array(
-            'id'    => 'add_button_' . $this->getIndex(),
+            'id' => 'add_button_' . $this->getIndex(),
             'label' => Mage::helper('sales')->__('Add Selected Product(s) to Option'),
             'onclick' => 'bSelection.productGridAddSelected(event)',
             'class' => 'add',
@@ -78,4 +77,5 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
     {
         return 'head-catalog-product';
     }
+
 }

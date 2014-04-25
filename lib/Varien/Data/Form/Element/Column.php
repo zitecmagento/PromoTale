@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,11 +32,13 @@
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Varien_Data_Form_Element_Column extends Varien_Data_Form_Element_Abstract 
+class Varien_Data_Form_Element_Column extends Varien_Data_Form_Element_Abstract
 {
-    public function __construct($attributes = array()) 
+
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setType('column');
     }
+
 }

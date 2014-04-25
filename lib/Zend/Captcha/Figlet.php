@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** @see Zend_Captcha_Word */
 #require_once 'Zend/Captcha/Word.php';
 
@@ -39,6 +39,7 @@
  */
 class Zend_Captcha_Figlet extends Zend_Captcha_Word
 {
+
     /**
      * Figlet text renderer
      *
@@ -79,7 +80,8 @@ class Zend_Captcha_Figlet extends Zend_Captcha_Word
     public function render(Zend_View_Interface $view = null, $element = null)
     {
         return '<pre>'
-             . $this->_figlet->render($this->getWord())
-             . "</pre>\n";
+                . $this->_figlet->render($this->getWord())
+                . "</pre>\n";
     }
+
 }

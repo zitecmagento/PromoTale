@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Abstract resource model class
  *
@@ -34,10 +34,11 @@
  */
 abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Resource_Abstract
 {
+
     /**
      * @deprecated since 1.5.0.0
      */
-    const CHECKSUM_KEY_NAME= 'Checksum';
+    const CHECKSUM_KEY_NAME = 'Checksum';
 
     /**
      * Cached resources singleton
@@ -58,7 +59,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_connections          = array();
+    protected $_connections = array();
 
     /**
      * Resource model name that contains entities (names of tables)
@@ -72,7 +73,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_tables               = array();
+    protected $_tables = array();
 
     /**
      * Main table name
@@ -93,21 +94,21 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var bool
      */
-    protected $_isPkAutoIncrement    = true;
+    protected $_isPkAutoIncrement = true;
 
     /**
      * Use is object new method for save of object
      *
      * @var boolean
      */
-    protected $_useIsObjectNew       = false;
+    protected $_useIsObjectNew = false;
 
     /**
      * Fields List for update in forsedSave
      *
      * @var array
      */
-    protected $_fieldsForUpdate      = array();
+    protected $_fieldsForUpdate = array();
 
     /**
      * Fields of main table
@@ -131,7 +132,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_uniqueFields         = null;
+    protected $_uniqueFields = null;
 
     /**
      * Serializable fields declaration
@@ -145,7 +146,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_serializableFields   = array();
+    protected $_serializableFields = array();
 
     /**
      * Standard resource model initialization
@@ -173,7 +174,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         $this->_resources = Mage::getSingleton('core/resource');
 
         if (is_array($connections)) {
-            foreach ($connections as $k=>$v) {
+            foreach ($connections as $k => $v) {
                 $this->_connections[$k] = $this->_resources->getConnection($v);
             }
         } else if (is_string($connections)) {
@@ -256,10 +257,10 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     public function getTable($entityName)
     {
         if (is_array($entityName)) {
-            $cacheName    = join('@', $entityName);
+            $cacheName = join('@', $entityName);
             list($entityName, $entitySuffix) = $entityName;
         } else {
-            $cacheName    = $entityName;
+            $cacheName = $entityName;
             $entitySuffix = null;
         }
 
@@ -291,7 +292,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         return $this->_tables[$cacheName];
     }
 
-
     /**
      * Retrieve table name for the entity separated value
      *
@@ -317,7 +317,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
         if (!empty($this->_resourcePrefix)) {
             $this->_connections[$connectionName] = $this->_resources->getConnection(
-                $this->_resourcePrefix . '_' . $connectionName);
+                    $this->_resourcePrefix . '_' . $connectionName);
         } else {
             $this->_connections[$connectionName] = $this->_resources->getConnection($connectionName);
         }
@@ -400,10 +400,10 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      */
     protected function _getLoadSelect($field, $value, $object)
     {
-        $field  = $this->_getReadAdapter()->quoteIdentifier(sprintf('%s.%s', $this->getMainTable(), $field));
+        $field = $this->_getReadAdapter()->quoteIdentifier(sprintf('%s.%s', $this->getMainTable(), $field));
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable())
-            ->where($field . '=?', $value);
+                ->from($this->getMainTable())
+                ->where($field . '=?', $value);
         return $select;
     }
 
@@ -423,7 +423,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         $this->_beforeSave($object);
         $this->_checkUnique($object);
         if (!is_null($object->getId()) && (!$this->_useIsObjectNew || !$object->isObjectNew())) {
-            $condition = $this->_getWriteAdapter()->quoteInto($this->getIdFieldName().'=?', $object->getId());
+            $condition = $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $object->getId());
             /**
              * Not auto increment primary key support
              */
@@ -433,8 +433,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
                 $this->_getWriteAdapter()->update($this->getMainTable(), $data, $condition);
             } else {
                 $select = $this->_getWriteAdapter()->select()
-                    ->from($this->getMainTable(), array($this->getIdFieldName()))
-                    ->where($condition);
+                        ->from($this->getMainTable(), array($this->getIdFieldName()))
+                        ->where($condition);
                 if ($this->_getWriteAdapter()->fetchOne($select) !== false) {
                     $data = $this->_prepareDataForSave($object);
                     unset($data[$this->getIdFieldName()]);
@@ -481,7 +481,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         // update
         if (!is_null($object->getId()) && $this->_isPkAutoIncrement) {
             unset($bind[$this->getIdFieldName()]);
-            $condition = $adapter->quoteInto($this->getIdFieldName().'=?', $object->getId());
+            $condition = $adapter->quoteInto($this->getIdFieldName() . '=?', $object->getId());
             $adapter->update($this->getMainTable(), $bind, $condition);
         } else {
             $adapter->insertOnDuplicate($this->getMainTable(), $bind, $this->_fieldsForUpdate);
@@ -503,8 +503,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     {
         $this->_beforeDelete($object);
         $this->_getWriteAdapter()->delete(
-            $this->getMainTable(),
-            $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $object->getId())
+                $this->getMainTable(), $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $object->getId())
         );
         $this->_afterDelete($object);
         return $this;
@@ -521,7 +520,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (is_null($this->_uniqueFields)) {
             $this->_initUniqueFields();
         }
-        if (is_array($this->_uniqueFields) ) {
+        if (is_array($this->_uniqueFields)) {
             $this->_uniqueFields[] = $field;
         }
         return $this;
@@ -535,7 +534,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     public function resetUniqueField()
     {
         $this->_uniqueFields = array();
-         return $this;
+        return $this;
     }
 
     /**
@@ -643,7 +642,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
             $data = new Varien_Object($this->_prepareDataForSave($object));
             $select = $this->_getWriteAdapter()->select()
-                ->from($this->getMainTable());
+                    ->from($this->getMainTable());
 
             foreach ($fields as $unique) {
                 $select->reset(Zend_Db_Select::WHERE);
@@ -668,7 +667,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
 
         if (!empty($existent)) {
-            if (count($existent) == 1 ) {
+            if (count($existent) == 1) {
                 $error = Mage::helper('core')->__('%s already exists.', $existent[0]);
             } else {
                 $error = Mage::helper('core')->__('%s already exist.', implode(', ', $existent));
@@ -773,4 +772,5 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
         return $checksum;
     }
+
 }

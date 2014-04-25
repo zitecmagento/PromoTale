@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Rating.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Extension
  */
@@ -55,8 +54,7 @@ class Zend_Gdata_Extension_Rating extends Zend_Gdata_Extension
      * @param integer $numRaters (optional) Number of raters.
      * @param integer $value (optional) The value of the rating.
      */
-    public function __construct($average = null, $min = null,
-            $max = null, $numRaters = null, $value = null)
+    public function __construct($average = null, $min = null, $max = null, $numRaters = null, $value = null)
     {
         parent::__construct();
         $this->_average = $average;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,7 +34,9 @@
  */
 class Varien_Debug
 {
+
     public static $argLength = 16;
+
     /**
      * Magento Root path
      *
@@ -68,7 +71,7 @@ class Varien_Debug
      */
     public static function backtrace($return = false, $html = true, $withArgs = true)
     {
-        $trace  = debug_backtrace();
+        $trace = debug_backtrace();
         return self::trace($trace, $return, $html, $withArgs);
     }
 
@@ -83,7 +86,7 @@ class Varien_Debug
      */
     public static function trace(array $trace, $return = false, $html = true, $withArgs = true)
     {
-        $out    = '';
+        $out = '';
         if ($html) {
             $out .= '<pre>';
         }
@@ -113,11 +116,7 @@ class Varien_Debug
                     $className .= sprintf('#%s#', spl_object_hash($data['object']));
                 }
 
-                $methodName = sprintf('%s%s%s(%s)',
-                    $className,
-                    isset($data['type']) ? $data['type'] : '->',
-                    $data['function'],
-                    join(', ', $args)
+                $methodName = sprintf('%s%s%s(%s)', $className, isset($data['type']) ? $data['type'] : '->', $data['function'], join(', ', $args)
                 );
             } else if (isset($data['function'])) {
                 $methodName = sprintf('%s(%s)', $data['function'], join(', ', $args));
@@ -164,7 +163,6 @@ class Varien_Debug
         $out = '';
         if (is_object($arg)) {
             $out .= sprintf("&%s#%s#", get_class($arg), spl_object_hash($arg));
-
         } else if (is_resource($arg)) {
             $out .= '#[' . get_resource_type($arg) . ']';
         } else if (is_array($arg)) {
@@ -201,4 +199,5 @@ class Varien_Debug
 
         return $out;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -32,6 +33,7 @@
  */
 class Zend_Service_StrikeIron_Decorator
 {
+
     /**
      * Name of the decorated object
      * @var null|string
@@ -53,7 +55,7 @@ class Zend_Service_StrikeIron_Decorator
     public function __construct($object, $name = null)
     {
         $this->_object = $object;
-        $this->_name   = $name;
+        $this->_name = $name;
     }
 
     /**
@@ -69,7 +71,7 @@ class Zend_Service_StrikeIron_Decorator
     {
         $result = null;
 
-        if (! isset($this->_object->$property)) {
+        if (!isset($this->_object->$property)) {
             $property = $this->_inflect($property);
         }
 
@@ -140,4 +142,5 @@ class Zend_Service_StrikeIron_Decorator
     {
         return $this->_name;
     }
+
 }

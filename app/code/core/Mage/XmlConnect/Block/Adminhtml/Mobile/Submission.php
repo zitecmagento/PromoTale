@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,17 +32,17 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission
-    extends Mage_Adminhtml_Block_Widget_Form_Container
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Setting buttons for submit application page
      */
     public function __construct()
     {
-        $this->_objectId    = 'application_id';
-        $this->_controller  = 'adminhtml_mobile';
-        $this->_blockGroup  = 'xmlconnect';
+        $this->_objectId = 'application_id';
+        $this->_controller = 'adminhtml_mobile';
+        $this->_blockGroup = 'xmlconnect';
         $this->_mode = 'submission';
         parent::__construct();
 
@@ -64,9 +65,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission
 
         $this->_updateButton('back', 'label', $this->__('Back to App Edit'));
         $this->_updateButton(
-            'back',
-            'onclick',
-            'setLocation(\'' . $this->getUrl('*/*/edit', array('application_id' => $app->getId())) . '\')'
+                'back', 'onclick', 'setLocation(\'' . $this->getUrl('*/*/edit', array('application_id' => $app->getId())) . '\')'
         );
     }
 
@@ -97,7 +96,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission
                 break;
             default:
                 Mage::throwException(
-                    $this->__('Device doesn\'t recognized: "%s". Unable to load preview model.', $deviceType)
+                        $this->__('Device doesn\'t recognized: "%s". Unable to load preview model.', $deviceType)
                 );
                 break;
         }
@@ -118,4 +117,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission
         }
         return '';
     }
+
 }

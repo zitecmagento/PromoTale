@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HelperAbstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_View_Helper_Navigation_Helper
  */
@@ -39,10 +39,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_View_Helper_Navigation_HelperAbstract
-    extends Zend_View_Helper_HtmlElement
-    implements Zend_View_Helper_Navigation_Helper
+abstract class Zend_View_Helper_Navigation_HelperAbstract extends Zend_View_Helper_HtmlElement implements Zend_View_Helper_Navigation_Helper
 {
+
     /**
      * Container to operate on by default
      *
@@ -292,7 +291,7 @@ abstract class Zend_View_Helper_Navigation_HelperAbstract
     public function setTranslator($translator = null)
     {
         if (null == $translator ||
-            $translator instanceof Zend_Translate_Adapter) {
+                $translator instanceof Zend_Translate_Adapter) {
             $this->_translator = $translator;
         } elseif ($translator instanceof Zend_Translate) {
             $this->_translator = $translator->getAdapter();
@@ -372,14 +371,13 @@ abstract class Zend_View_Helper_Navigation_HelperAbstract
     public function setRole($role = null)
     {
         if (null === $role || is_string($role) ||
-            $role instanceof Zend_Acl_Role_Interface) {
+                $role instanceof Zend_Acl_Role_Interface) {
             $this->_role = $role;
         } else {
             #require_once 'Zend/View/Exception.php';
             $e = new Zend_View_Exception(sprintf(
-                '$role must be a string, null, or an instance of ' 
-                .  'Zend_Acl_Role_Interface; %s given',
-                gettype($role)
+                            '$role must be a string, null, or an instance of '
+                            . 'Zend_Acl_Role_Interface; %s given', gettype($role)
             ));
             $e->setView($this->view);
             throw $e;
@@ -499,8 +497,7 @@ abstract class Zend_View_Helper_Navigation_HelperAbstract
     public function __call($method, array $arguments = array())
     {
         return call_user_func_array(
-                array($this->getContainer(), $method),
-                $arguments);
+                array($this->getContainer(), $method), $arguments);
     }
 
     /**
@@ -515,9 +512,12 @@ abstract class Zend_View_Helper_Navigation_HelperAbstract
      */
     public function __toString()
     {
-        try {
+        try
+        {
             return $this->render();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $msg = get_class($e) . ': ' . $e->getMessage();
             trigger_error($msg, E_USER_ERROR);
             return '';
@@ -547,9 +547,7 @@ abstract class Zend_View_Helper_Navigation_HelperAbstract
      *                                               'page', or an empty array
      *                                               if not found
      */
-    public function findActive(Zend_Navigation_Container $container,
-                               $minDepth = null,
-                               $maxDepth = -1)
+    public function findActive(Zend_Navigation_Container $container, $minDepth = null, $maxDepth = -1)
     {
         if (!is_int($minDepth)) {
             $minDepth = $this->getMinDepth();
@@ -558,10 +556,9 @@ abstract class Zend_View_Helper_Navigation_HelperAbstract
             $maxDepth = $this->getMaxDepth();
         }
 
-        $found  = null;
+        $found = null;
         $foundDepth = -1;
-        $iterator = new RecursiveIteratorIterator($container,
-                RecursiveIteratorIterator::CHILD_FIRST);
+        $iterator = new RecursiveIteratorIterator($container, RecursiveIteratorIterator::CHILD_FIRST);
 
         foreach ($iterator as $page) {
             $currDepth = $iterator->getDepth();
@@ -670,16 +667,16 @@ abstract class Zend_View_Helper_Navigation_HelperAbstract
 
         // get attribs for anchor element
         $attribs = array(
-            'id'     => $page->getId(),
-            'title'  => $title,
-            'class'  => $page->getClass(),
-            'href'   => $page->getHref(),
+            'id' => $page->getId(),
+            'title' => $title,
+            'class' => $page->getClass(),
+            'href' => $page->getHref(),
             'target' => $page->getTarget()
         );
 
         return '<a' . $this->_htmlAttribs($attribs) . '>'
-             . $this->view->escape($label)
-             . '</a>';
+                . $this->view->escape($label)
+                . '</a>';
     }
 
     // Iterator filter methods:
@@ -842,14 +839,15 @@ abstract class Zend_View_Helper_Navigation_HelperAbstract
     public static function setDefaultRole($role = null)
     {
         if (null === $role ||
-            is_string($role) ||
-            $role instanceof Zend_Acl_Role_Interface) {
+                is_string($role) ||
+                $role instanceof Zend_Acl_Role_Interface) {
             self::$_defaultRole = $role;
         } else {
             #require_once 'Zend/View/Exception.php';
             throw new Zend_View_Exception(
-                '$role must be null|string|Zend_Acl_Role_Interface'
+            '$role must be null|string|Zend_Acl_Role_Interface'
             );
         }
     }
+
 }

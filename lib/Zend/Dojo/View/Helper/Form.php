@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Form.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Dojo_View_Helper_Dijit */
 #require_once 'Zend/Dojo/View/Helper/Dijit.php';
 
@@ -31,14 +31,15 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
-  */
+ */
 class Zend_Dojo_View_Helper_Form extends Zend_Dojo_View_Helper_Dijit
 {
+
     /**
      * Dijit being used
      * @var string
      */
-    protected $_dijit  = 'dijit.form.Form';
+    protected $_dijit = 'dijit.form.Form';
 
     /**
      * Module being used
@@ -93,4 +94,5 @@ class Zend_Dojo_View_Helper_Form extends Zend_Dojo_View_Helper_Dijit
         }
         return $this->_helper;
     }
+
 }

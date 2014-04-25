@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Config installer
  * @category   Mage
@@ -32,7 +32,8 @@
  */
 class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_Abstract
 {
-    const TMP_INSTALL_DATE_VALUE= 'd-d-d-d-d';
+
+    const TMP_INSTALL_DATE_VALUE = 'd-d-d-d-d';
     const TMP_ENCRYPT_KEY_VALUE = 'k-k-k-k-k';
 
     /**
@@ -41,7 +42,6 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
      * @var string
      */
     protected $_localConfigFile;
-
     protected $_configData = array();
 
     public function __construct()
@@ -65,7 +65,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     public function install()
     {
         $data = $this->getConfigData();
-        foreach (Mage::getModel('core/config')->getDistroServerVars() as $index=>$value) {
+        foreach (Mage::getModel('core/config')->getDistroServerVars() as $index => $value) {
             if (!isset($data[$index])) {
                 $data[$index] = $value;
             }
@@ -86,14 +86,13 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
                 $data['secure_base_url'] = 'https://' . $data['secure_base_url'];
             }
 
-            if (!empty($data['use_secure'])
-                && !$this->_getInstaller()->getDataModel()->getSkipUrlValidation()) {
+            if (!empty($data['use_secure']) && !$this->_getInstaller()->getDataModel()->getSkipUrlValidation()) {
                 $this->_checkUrl($data['secure_base_url']);
             }
         }
 
-        $data['date']   = self::TMP_INSTALL_DATE_VALUE;
-        $data['key']    = self::TMP_ENCRYPT_KEY_VALUE;
+        $data['date'] = self::TMP_INSTALL_DATE_VALUE;
+        $data['key'] = self::TMP_ENCRYPT_KEY_VALUE;
         $data['var_dir'] = $data['root_dir'] . '/var';
 
         $data['use_script_name'] = isset($data['use_script_name']) ? 'true' : 'false';
@@ -124,24 +123,24 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
                 ->getResourceConnectionConfig(Mage_Core_Model_Resource::DEFAULT_SETUP_RESOURCE);
 
         $data = Mage::getModel('varien/object')
-            ->setDbHost($connectDefault->host)
-            ->setDbName($connectDefault->dbname)
-            ->setDbUser($connectDefault->username)
-            ->setDbModel($connectDefault->model)
-            ->setDbPass('')
-            ->setSecureBaseUrl($baseSecureUrl)
-            ->setUnsecureBaseUrl($baseUrl)
-            ->setAdminFrontname('admin')
-            ->setEnableCharts('1')
+                ->setDbHost($connectDefault->host)
+                ->setDbName($connectDefault->dbname)
+                ->setDbUser($connectDefault->username)
+                ->setDbModel($connectDefault->model)
+                ->setDbPass('')
+                ->setSecureBaseUrl($baseSecureUrl)
+                ->setUnsecureBaseUrl($baseUrl)
+                ->setAdminFrontname('admin')
+                ->setEnableCharts('1')
         ;
         return $data;
     }
 
     protected function _checkHostsInfo($data)
     {
-        $url  = $data['protocol'] . '://' . $data['host'] . ':' . $data['port'] . $data['base_path'];
+        $url = $data['protocol'] . '://' . $data['host'] . ':' . $data['port'] . $data['base_path'];
         $surl = $data['secure_protocol'] . '://' . $data['secure_host'] . ':' . $data['secure_port']
-            . $data['secure_base_path'];
+                . $data['secure_base_path'];
 
         $this->_checkUrl($url);
         $this->_checkUrl($surl, true);
@@ -152,21 +151,23 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     protected function _checkUrl($url, $secure = false)
     {
         $prefix = $secure ? 'install/wizard/checkSecureHost/' : 'install/wizard/checkHost/';
-        try {
+        try
+        {
             $client = new Varien_Http_Client($url . 'index.php/' . $prefix);
             $response = $client->request('GET');
             /* @var $responce Zend_Http_Response */
             $body = $response->getBody();
         }
-        catch (Exception $e){
+        catch (Exception $e)
+        {
             $this->_getInstaller()->getDataModel()
-                ->addError(Mage::helper('install')->__('The URL "%s" is not accessible.', $url));
+                    ->addError(Mage::helper('install')->__('The URL "%s" is not accessible.', $url));
             throw $e;
         }
 
         if ($body != Mage_Install_Model_Installer::INSTALLER_HOST_RESPONSE) {
             $this->_getInstaller()->getDataModel()
-                ->addError(Mage::helper('install')->__('The URL "%s" is invalid.', $url));
+                    ->addError(Mage::helper('install')->__('The URL "%s" is invalid.', $url));
             Mage::throwException(Mage::helper('install')->__('Response from server isn\'t valid.'));
         }
         return $this;
@@ -174,7 +175,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
 
     public function replaceTmpInstallDate($date = null)
     {
-        $stamp    = strtotime((string) $date);
+        $stamp = strtotime((string) $date);
         $localXml = file_get_contents($this->_localConfigFile);
         $localXml = str_replace(self::TMP_INSTALL_DATE_VALUE, date('r', $stamp ? $stamp : time()), $localXml);
         file_put_contents($this->_localConfigFile, $localXml);
@@ -193,4 +194,5 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
 
         return $this;
     }
+
 }

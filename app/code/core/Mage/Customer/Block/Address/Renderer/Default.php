@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Address format renderer default
  *
@@ -32,10 +32,9 @@
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Block_Address_Renderer_Default
-    extends Mage_Core_Block_Abstract
-    implements Mage_Customer_Block_Address_Renderer_Interface
+class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstract implements Mage_Customer_Block_Address_Renderer_Interface
 {
+
     /**
      * Format type object
      *
@@ -65,11 +64,9 @@ class Mage_Customer_Block_Address_Renderer_Default
         return $this;
     }
 
-    public function getFormat(Mage_Customer_Model_Address_Abstract $address=null)
+    public function getFormat(Mage_Customer_Model_Address_Abstract $address = null)
     {
-        $countryFormat = is_null($address)
-            ? false
-            : $address->getCountryModel()->getFormat($this->getType()->getCode());
+        $countryFormat = is_null($address) ? false : $address->getCountryModel()->getFormat($this->getType()->getCode());
         $format = $countryFormat ? $countryFormat->getFormat() : $this->getType()->getDefaultFormat();
         return $format;
     }
@@ -80,7 +77,7 @@ class Mage_Customer_Block_Address_Renderer_Default
      * @param Mage_Customer_Model_Address_Abstract $address
      * @return string
      */
-    public function render(Mage_Customer_Model_Address_Abstract $address, $format=null)
+    public function render(Mage_Customer_Model_Address_Abstract $address, $format = null)
     {
         switch ($this->getType()->getCode()) {
             case 'html':
@@ -97,7 +94,7 @@ class Mage_Customer_Block_Address_Renderer_Default
                 break;
         }
 
-        $formater   = new Varien_Filter_Template();
+        $formater = new Varien_Filter_Template();
         $attributes = Mage::helper('customer/address')->getAttributes();
 
         $data = array();
@@ -112,9 +109,9 @@ class Mage_Customer_Block_Address_Renderer_Default
                 $data['region'] = Mage::helper('directory')->__($address->getRegion());
             } else {
                 $dataModel = Mage_Customer_Model_Attribute_Data::factory($attribute, $address);
-                $value     = $dataModel->outputValue($dataFormat);
+                $value = $dataModel->outputValue($dataFormat);
                 if ($attribute->getFrontendInput() == 'multiline') {
-                    $values    = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY);
+                    $values = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY);
                     // explode lines
                     foreach ($values as $k => $v) {
                         $key = sprintf('%s%d', $attribute->getAttributeCode(), $k + 1);
@@ -137,4 +134,5 @@ class Mage_Customer_Block_Address_Renderer_Default
 
         return $formater->filter($format);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,10 +30,10 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('system/acl')
-            ->_addBreadcrumb($this->__('System'), $this->__('System'))
-            ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
-            ->_addBreadcrumb($this->__('Users'), $this->__('Users'))
+                ->_setActiveMenu('system/acl')
+                ->_addBreadcrumb($this->__('System'), $this->__('System'))
+                ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
+                ->_addBreadcrumb($this->__('Users'), $this->__('Users'))
         ;
         return $this;
     }
@@ -40,12 +41,12 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
     public function indexAction()
     {
         $this->_title($this->__('System'))
-             ->_title($this->__('Permissions'))
-             ->_title($this->__('Users'));
+                ->_title($this->__('Permissions'))
+                ->_title($this->__('Users'));
 
         $this->_initAction()
-            ->_addContent($this->getLayout()->createBlock('adminhtml/permissions_user'))
-            ->renderLayout();
+                ->_addContent($this->getLayout()->createBlock('adminhtml/permissions_user'))
+                ->renderLayout();
     }
 
     public function newAction()
@@ -56,15 +57,15 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
     public function editAction()
     {
         $this->_title($this->__('System'))
-             ->_title($this->__('Permissions'))
-             ->_title($this->__('Users'));
+                ->_title($this->__('Permissions'))
+                ->_title($this->__('Users'));
 
         $id = $this->getRequest()->getParam('user_id');
         $model = Mage::getModel('admin/user');
 
         if ($id) {
             $model->load($id);
-            if (! $model->getId()) {
+            if (!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('This user no longer exists.'));
                 $this->_redirect('*/*/');
                 return;
@@ -87,10 +88,10 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
             $breadcrumb = $this->__('New User');
         }
         $this->_initAction()
-            ->_addBreadcrumb($breadcrumb, $breadcrumb);
+                ->_addBreadcrumb($breadcrumb, $breadcrumb);
 
         $this->getLayout()->getBlock('adminhtml.permissions.user.edit')
-            ->setData('action', $this->getUrl('*/permissions_user/save'));
+                ->setData('action', $this->getUrl('*/permissions_user/save'));
 
         $this->renderLayout();
     }
@@ -128,28 +129,31 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 return $this;
             }
 
-            try {
+            try
+            {
                 $model->save();
-                if ( $uRoles = $this->getRequest()->getParam('roles', false) ) {
-                    /*parse_str($uRoles, $uRoles);
-                    $uRoles = array_keys($uRoles);*/
-                    if ( 1 == sizeof($uRoles) ) {
+                if ($uRoles = $this->getRequest()->getParam('roles', false)) {
+                    /* parse_str($uRoles, $uRoles);
+                      $uRoles = array_keys($uRoles); */
+                    if (1 == sizeof($uRoles)) {
                         $model->setRoleIds($uRoles)
-                            ->setRoleUserId($model->getUserId())
-                            ->saveRelations();
-                    } else if ( sizeof($uRoles) > 1 ) {
+                                ->setRoleUserId($model->getUserId())
+                                ->saveRelations();
+                    } else if (sizeof($uRoles) > 1) {
                         //@FIXME: stupid fix of previous multi-roles logic.
                         //@TODO:  make proper DB upgrade in the future revisions.
                         $rs = array();
                         $rs[0] = $uRoles[0];
-                        $model->setRoleIds( $rs )->setRoleUserId( $model->getUserId() )->saveRelations();
+                        $model->setRoleIds($rs)->setRoleUserId($model->getUserId())->saveRelations();
                     }
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
                 Mage::getSingleton('adminhtml/session')->setUserData(false);
                 $this->_redirect('*/*/');
                 return;
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setUserData($data);
                 $this->_redirect('*/*/edit', array('user_id' => $model->getUserId()));
@@ -164,12 +168,13 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         $currentUser = Mage::getSingleton('admin/session')->getUser();
 
         if ($id = $this->getRequest()->getParam('user_id')) {
-            if ( $currentUser->getId() == $id ) {
+            if ($currentUser->getId() == $id) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('You cannot delete your own account.'));
                 $this->_redirect('*/*/edit', array('user_id' => $id));
                 return;
             }
-            try {
+            try
+            {
                 $model = Mage::getModel('admin/user');
                 $model->setId($id);
                 $model->delete();
@@ -177,7 +182,8 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 $this->_redirect('*/*/');
                 return;
             }
-            catch (Exception $e) {
+            catch (Exception $e)
+            {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('user_id' => $this->getRequest()->getParam('user_id')));
                 return;
@@ -198,18 +204,18 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
 
         Mage::register('permissions_user', $model);
         $this->getResponse()->setBody(
-            $this->getLayout()
-                ->createBlock('adminhtml/permissions_user_edit_tab_roles')
-                ->toHtml()
+                $this->getLayout()
+                        ->createBlock('adminhtml/permissions_user_edit_tab_roles')
+                        ->toHtml()
         );
     }
 
     public function roleGridAction()
     {
         $this->getResponse()
-            ->setBody($this->getLayout()
-            ->createBlock('adminhtml/permissions_user_grid')
-            ->toHtml()
+                ->setBody($this->getLayout()
+                        ->createBlock('adminhtml/permissions_user_grid')
+                        ->toHtml()
         );
     }
 

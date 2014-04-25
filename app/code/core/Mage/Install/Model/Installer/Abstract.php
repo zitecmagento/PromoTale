@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Abstract installer model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Install_Model_Installer_Abstract
 {
+
     /**
      * Installer singleton
      *
@@ -91,4 +92,5 @@ class Mage_Install_Model_Installer_Abstract
         }
         return $value;
     }
+
 }

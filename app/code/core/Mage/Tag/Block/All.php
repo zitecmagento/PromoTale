@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Tag
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Tag_Block_All extends Mage_Core_Block_Template
 {
 
@@ -44,12 +44,12 @@ class Mage_Tag_Block_All extends Mage_Core_Block_Template
         if (empty($this->_tags)) {
             $this->_tags = array();
             $tags = Mage::getModel('tag/tag')->getPopularCollection()
-                ->joinFields(Mage::app()->getStore()->getId())
-                ->limit(100)
-                ->load()
-                ->getItems();
+                    ->joinFields(Mage::app()->getStore()->getId())
+                    ->limit(100)
+                    ->load()
+                    ->getItems();
 
-            if( count($tags) == 0 ) {
+            if (count($tags) == 0) {
                 return $this;
             }
 
@@ -58,7 +58,7 @@ class Mage_Tag_Block_All extends Mage_Core_Block_Template
             $range = $this->_maxPopularity - $this->_minPopularity;
             $range = ( $range == 0 ) ? 1 : $range;
             foreach ($tags as $tag) {
-                $tag->setRatio(($tag->getPopularity()-$this->_minPopularity)/$range);
+                $tag->setRatio(($tag->getPopularity() - $this->_minPopularity) / $range);
                 $this->_tags[$tag->getName()] = $tag;
             }
             ksort($this->_tags);
@@ -86,4 +86,5 @@ class Mage_Tag_Block_All extends Mage_Core_Block_Template
     {
         return Mage::helper('tag')->__('All Tags');
     }
+
 }

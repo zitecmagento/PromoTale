@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales extends Mage_Adminhtml_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -45,4 +47,5 @@ class Mage_Adminhtml_Block_Sales extends Mage_Adminhtml_Block_Template
         $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/sales_grid', 'sales.grid'));
         return parent::_beforeToHtml();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
 {
+
     /**
      * Element unique id
      *
@@ -101,7 +103,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
     protected function _prepareXmlObject()
     {
         $this->setXmlObject(
-            Mage::getModel('xmlconnect/simplexml_element', '<' . $this->_mainNode . '></' . $this->_mainNode . '>')
+                Mage::getModel('xmlconnect/simplexml_element', '<' . $this->_mainNode . '></' . $this->_mainNode . '>')
         );
         return $this;
     }
@@ -280,8 +282,8 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
     public function __toArray(array $arrAttributes = array())
     {
         $res = array();
-        $res['config']  = $this->getData();
-        $res['formElements']= array();
+        $res['config'] = $this->getData();
+        $res['formElements'] = array();
         foreach ($this->getElements() as $element) {
             $res['formElements'][] = $element->toArray();
         }
@@ -379,7 +381,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
      * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
      */
-    protected  function _addRequiredAttributes(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
+    protected function _addRequiredAttributes(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
         $this->_addId($xmlObj);
         $this->_addName($xmlObj);
@@ -388,7 +390,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
             $data = $this->getData($this->_underscore($attribute));
             if (null !== $data) {
                 $xmlObj->addAttribute($attribute, $xmlObj->xmlAttribute($data));
-            } elseif(null !== $defValue){
+            } elseif (null !== $defValue) {
                 $xmlObj->addAttribute($attribute, $xmlObj->xmlAttribute($defValue));
             } else {
                 Mage::throwException(Mage::helper('xmlconnect')->__('%s attribute is required.', $attribute));
@@ -421,7 +423,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
             $xmlObj->addAttribute('id', $xmlObj->xmlAttribute($this->getXmlId()));
         } else {
             Mage::throwException(
-                Mage::helper('xmlconnect')->__('"id" attribute is required for a "%s" field.', $this->getType())
+                    Mage::helper('xmlconnect')->__('"id" attribute is required for a "%s" field.', $this->getType())
             );
         }
         return $this;
@@ -437,7 +439,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
     {
         if ($this->getName()) {
             $name = $this->getName();
-        } elseif($this->getNameRequired()) {
+        } elseif ($this->getNameRequired()) {
             $name = $this->getXmlId();
         }
 
@@ -521,4 +523,5 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
         }
         return array();
     }
+
 }

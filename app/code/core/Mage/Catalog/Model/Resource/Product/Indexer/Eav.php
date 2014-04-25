@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Eav Indexer Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
 {
+
     /**
      * EAV Indexers by type
      *
@@ -58,9 +59,9 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
     public function getIndexers()
     {
         if (is_null($this->_types)) {
-            $this->_types   = array(
-                'source'    => Mage::getResourceModel('catalog/product_indexer_eav_source'),
-                'decimal'   => Mage::getResourceModel('catalog/product_indexer_eav_decimal'),
+            $this->_types = array(
+                'source' => Mage::getResourceModel('catalog/product_indexer_eav_source'),
+                'decimal' => Mage::getResourceModel('catalog/product_indexer_eav_decimal'),
             );
         }
 
@@ -197,8 +198,9 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {
-           return $this->getTable('catalog/product_eav_indexer_idx');
+            return $this->getTable('catalog/product_eav_indexer_idx');
         }
         return $this->getTable('catalog/product_eav_indexer_tmp');
     }
+
 }

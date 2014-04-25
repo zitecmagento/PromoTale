@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 class Zend_Json_Server_Response
 {
+
     /**
      * Response error
      * @var null|Zend_Json_Server_Error
@@ -174,14 +176,14 @@ class Zend_Json_Server_Response
         if ($this->isError()) {
             $response = array(
                 'result' => null,
-                'error'  => $this->getError()->toArray(),
-                'id'     => $this->getId(),
+                'error' => $this->getError()->toArray(),
+                'id' => $this->getId(),
             );
         } else {
             $response = array(
                 'result' => $this->getResult(),
-                'id'     => $this->getId(),
-                'error'  => null,
+                'id' => $this->getId(),
+                'error' => null,
             );
         }
 
@@ -246,5 +248,5 @@ class Zend_Json_Server_Response
     {
         return $this->toJson();
     }
-}
 
+}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,29 +24,28 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
 $installer->startSetup();
 
 $select = $installer->getConnection()->select()
-    ->from($installer->getTable('catalog_category_product'), array(
-        'category_id',
-        'product_id',
-        'position',
-        'cnt' => 'COUNT(product_id)'
-    ))
-    ->group('category_id')
-    ->group('product_id')
-    ->having('cnt > 1');
+        ->from($installer->getTable('catalog_category_product'), array(
+            'category_id',
+            'product_id',
+            'position',
+            'cnt' => 'COUNT(product_id)'
+        ))
+        ->group('category_id')
+        ->group('product_id')
+        ->having('cnt > 1');
 $rowSet = $installer->getConnection()->fetchAll($select);
 
 foreach ($rowSet as $row) {
     $data = array(
-        'category_id'   => $row['category_id'],
-        'product_id'    => $row['product_id'],
-        'position'      => $row['position']
+        'category_id' => $row['category_id'],
+        'product_id' => $row['product_id'],
+        'position' => $row['position']
     );
     $installer->getConnection()->delete($installer->getTable('catalog_category_product'), array(
         $installer->getConnection()->quoteInto('category_id = ?', $row['category_id']),

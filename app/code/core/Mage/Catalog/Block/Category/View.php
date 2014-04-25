@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
 {
+
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -54,11 +56,11 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
                 $headBlock->addLinkRel('canonical', $category->getUrl());
             }
             /*
-            want to show rss feed in the url
-            */
+              want to show rss feed in the url
+             */
             if ($this->IsRssCatalogEnable() && $this->IsTopCategory()) {
-                $title = $this->helper('rss')->__('%s RSS Feed',$this->getCurrentCategory()->getName());
-                $headBlock->addItem('rss', $this->getRssLink(), 'title="'.$title.'"');
+                $title = $this->helper('rss')->__('%s RSS Feed', $this->getCurrentCategory()->getName());
+                $headBlock->addItem('rss', $this->getRssLink(), 'title="' . $title . '"');
             }
         }
 
@@ -72,16 +74,15 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
 
     public function IsTopCategory()
     {
-        return $this->getCurrentCategory()->getLevel()==2;
+        return $this->getCurrentCategory()->getLevel() == 2;
     }
 
     public function getRssLink()
     {
-        return Mage::getUrl('rss/catalog/category',
-            array(
-                'cid' => $this->getCurrentCategory()->getId(),
-                'store_id' => Mage::app()->getStore()->getId()
-            )
+        return Mage::getUrl('rss/catalog/category', array(
+                    'cid' => $this->getCurrentCategory()->getId(),
+                    'store_id' => Mage::app()->getStore()->getId()
+                        )
         );
     }
 
@@ -107,8 +108,8 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
     {
         if (!$this->getData('cms_block_html')) {
             $html = $this->getLayout()->createBlock('cms/block')
-                ->setBlockId($this->getCurrentCategory()->getLandingPage())
-                ->toHtml();
+                    ->setBlockId($this->getCurrentCategory()->getLandingPage())
+                    ->toHtml();
             $this->setData('cms_block_html', $html);
         }
         return $this->getData('cms_block_html');
@@ -120,7 +121,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
      */
     public function isProductMode()
     {
-        return $this->getCurrentCategory()->getDisplayMode()==Mage_Catalog_Model_Category::DM_PRODUCT;
+        return $this->getCurrentCategory()->getDisplayMode() == Mage_Catalog_Model_Category::DM_PRODUCT;
     }
 
     /**
@@ -129,7 +130,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
      */
     public function isMixedMode()
     {
-        return $this->getCurrentCategory()->getDisplayMode()==Mage_Catalog_Model_Category::DM_MIXED;
+        return $this->getCurrentCategory()->getDisplayMode() == Mage_Catalog_Model_Category::DM_MIXED;
     }
 
     /**
@@ -142,7 +143,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
     {
         $category = $this->getCurrentCategory();
         $res = false;
-        if ($category->getDisplayMode()==Mage_Catalog_Model_Category::DM_PAGE) {
+        if ($category->getDisplayMode() == Mage_Catalog_Model_Category::DM_PAGE) {
             $res = true;
             if ($category->getIsAnchor()) {
                 $state = Mage::getSingleton('catalog/layer')->getState();
@@ -163,4 +164,5 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
     {
         return array_merge(parent::getCacheTags(), $this->getCurrentCategory()->getCacheIdTags());
     }
+
 }

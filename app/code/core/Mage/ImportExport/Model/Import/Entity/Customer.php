@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_Model_Import_Entity_Abstract
 {
+
     /**
      * Size of bunch - part of entities to save in one step.
      */
@@ -50,22 +52,22 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      * Names that begins with underscore is not an attribute. This name convention is for
      * to avoid interference with same attribute name.
      */
-    const COL_EMAIL   = 'email';
+    const COL_EMAIL = 'email';
     const COL_WEBSITE = '_website';
-    const COL_STORE   = '_store';
+    const COL_STORE = '_store';
 
     /**
      * Error codes.
      */
-    const ERROR_INVALID_WEBSITE      = 'invalidWebsite';
-    const ERROR_INVALID_EMAIL        = 'invalidEmail';
+    const ERROR_INVALID_WEBSITE = 'invalidWebsite';
+    const ERROR_INVALID_EMAIL = 'invalidEmail';
     const ERROR_DUPLICATE_EMAIL_SITE = 'duplicateEmailSite';
-    const ERROR_EMAIL_IS_EMPTY       = 'emailIsEmpty';
-    const ERROR_ROW_IS_ORPHAN        = 'rowIsOrphan';
-    const ERROR_VALUE_IS_REQUIRED    = 'valueIsRequired';
-    const ERROR_INVALID_STORE        = 'invalidStore';
+    const ERROR_EMAIL_IS_EMPTY = 'emailIsEmpty';
+    const ERROR_ROW_IS_ORPHAN = 'rowIsOrphan';
+    const ERROR_VALUE_IS_REQUIRED = 'valueIsRequired';
+    const ERROR_INVALID_STORE = 'invalidStore';
     const ERROR_EMAIL_SITE_NOT_FOUND = 'emailSiteNotFound';
-    const ERROR_PASSWORD_LENGTH      = 'passwordLength';
+    const ERROR_PASSWORD_LENGTH = 'passwordLength';
 
     /**
      * Customer constants
@@ -138,15 +140,15 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      * @var array
      */
     protected $_messageTemplates = array(
-        self::ERROR_INVALID_WEBSITE      => 'Invalid value in Website column (website does not exists?)',
-        self::ERROR_INVALID_EMAIL        => 'E-mail is invalid',
+        self::ERROR_INVALID_WEBSITE => 'Invalid value in Website column (website does not exists?)',
+        self::ERROR_INVALID_EMAIL => 'E-mail is invalid',
         self::ERROR_DUPLICATE_EMAIL_SITE => 'E-mail is duplicated in import file',
-        self::ERROR_EMAIL_IS_EMPTY       => 'E-mail is not specified',
-        self::ERROR_ROW_IS_ORPHAN        => 'Orphan rows that will be skipped due default row errors',
-        self::ERROR_VALUE_IS_REQUIRED    => "Required attribute '%s' has an empty value",
-        self::ERROR_INVALID_STORE        => 'Invalid value in Store column (store does not exists?)',
+        self::ERROR_EMAIL_IS_EMPTY => 'E-mail is not specified',
+        self::ERROR_ROW_IS_ORPHAN => 'Orphan rows that will be skipped due default row errors',
+        self::ERROR_VALUE_IS_REQUIRED => "Required attribute '%s' has an empty value",
+        self::ERROR_INVALID_STORE => 'Invalid value in Store column (store does not exists?)',
         self::ERROR_EMAIL_SITE_NOT_FOUND => 'E-mail and website combination is not found',
-        self::ERROR_PASSWORD_LENGTH      => 'Invalid password length'
+        self::ERROR_PASSWORD_LENGTH => 'Invalid password length'
     );
 
     /**
@@ -215,12 +217,12 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         parent::__construct();
 
         $this->_initWebsites()
-            ->_initStores()
-            ->_initCustomerGroups()
-            ->_initAttributes()
-            ->_initCustomers();
+                ->_initStores()
+                ->_initCustomerGroups()
+                ->_initAttributes()
+                ->_initCustomers();
 
-        $this->_entityTable   = Mage::getModel('customer/customer')->getResource()->getEntityTable();
+        $this->_entityTable = Mage::getModel('customer/customer')->getResource()->getEntityTable();
         $this->_addressEntity = Mage::getModel('importexport/import_entity_customer_address', $this);
     }
 
@@ -241,9 +243,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             }
             if ($idToDelete) {
                 $this->_connection->query(
-                    $this->_connection->quoteInto(
-                        "DELETE FROM `{$this->_entityTable}` WHERE `entity_id` IN (?)", $idToDelete
-                    )
+                        $this->_connection->quoteInto(
+                                "DELETE FROM `{$this->_entityTable}` WHERE `entity_id` IN (?)", $idToDelete
+                        )
                 );
             }
         }
@@ -277,12 +279,12 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         $collection = Mage::getResourceModel('customer/attribute_collection')->addSystemHiddenFilterWithPasswordHash();
         foreach ($collection as $attribute) {
             $this->_attributes[$attribute->getAttributeCode()] = array(
-                'id'          => $attribute->getId(),
+                'id' => $attribute->getId(),
                 'is_required' => $attribute->getIsRequired(),
-                'is_static'   => $attribute->isStatic(),
-                'rules'       => $attribute->getValidateRules() ? unserialize($attribute->getValidateRules()) : null,
-                'type'        => Mage_ImportExport_Model_Import::getAttributeType($attribute),
-                'options'     => $this->getAttributeOptions($attribute)
+                'is_static' => $attribute->isStatic(),
+                'rules' => $attribute->getValidateRules() ? unserialize($attribute->getValidateRules()) : null,
+                'type' => Mage_ImportExport_Model_Import::getAttributeType($attribute),
+                'options' => $this->getAttributeOptions($attribute)
             );
         }
         return $this;
@@ -344,7 +346,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         /** @var $website Mage_Core_Model_Website */
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteCodeToId[$website->getCode()] = $website->getId();
-            $this->_websiteIdToCode[$website->getId()]   = $website->getCode();
+            $this->_websiteIdToCode[$website->getId()] = $website->getCode();
         }
         return $this;
     }
@@ -357,17 +359,17 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     protected function _saveCustomers()
     {
         /** @var $resource Mage_Customer_Model_Customer */
-        $resource       = Mage::getModel('customer/customer');
+        $resource = Mage::getModel('customer/customer');
         $strftimeFormat = Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
         $table = $resource->getResource()->getEntityTable();
-        $nextEntityId   = Mage::getResourceHelper('importexport')->getNextAutoincrement($table);
-        $passId         = $resource->getAttribute('password_hash')->getId();
-        $passTable      = $resource->getAttribute('password_hash')->getBackend()->getTable();
+        $nextEntityId = Mage::getResourceHelper('importexport')->getNextAutoincrement($table);
+        $passId = $resource->getAttribute('password_hash')->getId();
+        $passTable = $resource->getAttribute('password_hash')->getBackend()->getTable();
 
         while ($bunch = $this->_dataSourceModel->getNextBunch()) {
             $entityRowsIn = array();
             $entityRowsUp = array();
-            $attributes   = array();
+            $attributes = array();
 
             $oldCustomersToLower = array_change_key_case($this->_oldCustomers, CASE_LOWER);
 
@@ -378,11 +380,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 if (self::SCOPE_DEFAULT == $this->getRowScope($rowData)) {
                     // entity table data
                     $entityRow = array(
-                        'group_id'   => empty($rowData['group_id']) ? self::DEFAULT_GROUP_ID : $rowData['group_id'],
-                        'store_id'   => empty($rowData[self::COL_STORE])
-                                        ? 0 : $this->_storeCodeToId[$rowData[self::COL_STORE]],
-                        'created_at' => empty($rowData['created_at'])
-                                        ? now() : gmstrftime($strftimeFormat, strtotime($rowData['created_at'])),
+                        'group_id' => empty($rowData['group_id']) ? self::DEFAULT_GROUP_ID : $rowData['group_id'],
+                        'store_id' => empty($rowData[self::COL_STORE]) ? 0 : $this->_storeCodeToId[$rowData[self::COL_STORE]],
+                        'created_at' => empty($rowData['created_at']) ? now() : gmstrftime($strftimeFormat, strtotime($rowData['created_at'])),
                         'updated_at' => now()
                     );
 
@@ -392,14 +392,14 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                         $entityRow['entity_id'] = $entityId;
                         $entityRowsUp[] = $entityRow;
                     } else { // create
-                        $entityId                      = $nextEntityId++;
-                        $entityRow['entity_id']        = $entityId;
-                        $entityRow['entity_type_id']   = $this->_entityTypeId;
+                        $entityId = $nextEntityId++;
+                        $entityRow['entity_id'] = $entityId;
+                        $entityRow['entity_type_id'] = $this->_entityTypeId;
                         $entityRow['attribute_set_id'] = 0;
-                        $entityRow['website_id']       = $this->_websiteCodeToId[$rowData[self::COL_WEBSITE]];
-                        $entityRow['email']            = $rowData[self::COL_EMAIL];
-                        $entityRow['is_active']        = 1;
-                        $entityRowsIn[]                = $entityRow;
+                        $entityRow['website_id'] = $this->_websiteCodeToId[$rowData[self::COL_WEBSITE]];
+                        $entityRow['email'] = $rowData[self::COL_EMAIL];
+                        $entityRow['is_active'] = 1;
+                        $entityRowsIn[] = $entityRow;
 
                         $this->_newCustomers[$rowData[self::COL_EMAIL]][$rowData[self::COL_WEBSITE]] = $entityId;
                     }
@@ -407,8 +407,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     foreach (array_intersect_key($rowData, $this->_attributes) as $attrCode => $value) {
                         if (!$this->_attributes[$attrCode]['is_static'] && strlen($value)) {
                             /** @var $attribute Mage_Customer_Model_Attribute */
-                            $attribute  = $resource->getAttribute($attrCode);
-                            $backModel  = $attribute->getBackendModel();
+                            $attribute = $resource->getAttribute($attrCode);
+                            $backModel = $attribute->getBackendModel();
                             $attrParams = $this->_attributes[$attrCode];
 
                             if ('select' == $attrParams['type']) {
@@ -450,10 +450,10 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             foreach ($data as $customerId => $attrData) {
                 foreach ($attrData as $attributeId => $value) {
                     $tableData[] = array(
-                        'entity_id'      => $customerId,
+                        'entity_id' => $customerId,
                         'entity_type_id' => $this->_entityTypeId,
-                        'attribute_id'   => $attributeId,
-                        'value'          => $value
+                        'attribute_id' => $attributeId,
+                        'value' => $value
                     );
                 }
             }
@@ -476,9 +476,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         }
         if ($entityRowsUp) {
             $this->_connection->insertOnDuplicate(
-                $this->_entityTable,
-                $entityRowsUp,
-                array('group_id', 'store_id', 'updated_at', 'created_at')
+                    $this->_entityTable, $entityRowsUp, array('group_id', 'store_id', 'updated_at', 'created_at')
             );
         }
         return $this;
@@ -544,7 +542,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     public function validateRow(array $rowData, $rowNum)
     {
-        static $email   = null; // e-mail is remembered through all customer rows
+        static $email = null; // e-mail is remembered through all customer rows
         static $website = null; // website is remembered through all customer rows
 
         if (isset($this->_validatedRows[$rowNum])) { // check that row is already validated
@@ -559,17 +557,16 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         }
 
 
-        $email        = $rowData[self::COL_EMAIL];
+        $email = $rowData[self::COL_EMAIL];
         $emailToLower = strtolower($rowData[self::COL_EMAIL]);
-        $website      = $rowData[self::COL_WEBSITE];
+        $website = $rowData[self::COL_WEBSITE];
 
         $oldCustomersToLower = array_change_key_case($this->_oldCustomers, CASE_LOWER);
         $newCustomersToLower = array_change_key_case($this->_newCustomers, CASE_LOWER);
 
         // BEHAVIOR_DELETE use specific validation logic
         if (Mage_ImportExport_Model_Import::BEHAVIOR_DELETE == $this->getBehavior()) {
-            if (self::SCOPE_DEFAULT == $rowScope
-                && !isset($oldCustomersToLower[$emailToLower][$website])) {
+            if (self::SCOPE_DEFAULT == $rowScope && !isset($oldCustomersToLower[$emailToLower][$website])) {
                 $this->addRowError(self::ERROR_EMAIL_SITE_NOT_FOUND, $rowNum);
             }
         } elseif (self::SCOPE_DEFAULT == $rowScope) { // row is SCOPE_DEFAULT = new customer block begins
@@ -587,8 +584,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     $this->addRowError(self::ERROR_INVALID_STORE, $rowNum);
                 }
                 // check password
-                if (isset($rowData['password']) && strlen($rowData['password'])
-                    && Mage::helper('core/string')->strlen($rowData['password']) < self::MAX_PASSWD_LENGTH
+                if (isset($rowData['password']) && strlen($rowData['password']) && Mage::helper('core/string')->strlen($rowData['password']) < self::MAX_PASSWD_LENGTH
                 ) {
                     $this->addRowError(self::ERROR_PASSWORD_LENGTH, $rowNum);
                 }
@@ -619,4 +615,5 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
 
         return !isset($this->_invalidRows[$rowNum]);
     }
+
 }

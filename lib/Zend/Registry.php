@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 class Zend_Registry extends ArrayObject
 {
+
     /**
      * Class name of the singleton registry object.
      * @var string

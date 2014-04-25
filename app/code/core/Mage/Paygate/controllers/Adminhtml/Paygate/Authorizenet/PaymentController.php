@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -40,19 +41,24 @@ class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage
     public function cancelAction()
     {
         $result['success'] = false;
-        try {
+        try
+        {
             $paymentMethod = Mage::helper('payment')->getMethodInstance(Mage_Paygate_Model_Authorizenet::METHOD_CODE);
             if ($paymentMethod) {
                 $paymentMethod->setStore(Mage::getSingleton('adminhtml/session_quote')->getQuote()->getStoreId());
                 $paymentMethod->cancelPartialAuthorization(Mage::getSingleton('adminhtml/session_quote')->getQuote()->getPayment());
             }
 
-            $result['success']  = true;
+            $result['success'] = true;
             $result['update_html'] = $this->_getPaymentMethodsHtml();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::logException($e);
             $result['error_message'] = $e->getMessage();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $result['error_message'] = $this->__('There was an error canceling transactions. Please contact us or try again later.');
         }
@@ -76,4 +82,5 @@ class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage
         $output = $layout->getOutput();
         return $output;
     }
+
 }

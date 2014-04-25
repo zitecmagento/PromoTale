@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+class Mage_Adminhtml_Block_Api_Edituser extends Mage_Adminhtml_Block_Widget_Tabs
+{
 
-class Mage_Adminhtml_Block_Api_Edituser extends Mage_Adminhtml_Block_Widget_Tabs {
     public function __construct()
     {
         parent::__construct();
@@ -35,16 +37,16 @@ class Mage_Adminhtml_Block_Api_Edituser extends Mage_Adminhtml_Block_Widget_Tabs
     protected function _beforeToHtml()
     {
         $this->addTab('account', array(
-            'label'     => Mage::helper('adminhtml')->__('User Info'),
-            'title'     => Mage::helper('adminhtml')->__('User Info'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_useredit')->toHtml(),
-            'active'    => true
+            'label' => Mage::helper('adminhtml')->__('User Info'),
+            'title' => Mage::helper('adminhtml')->__('User Info'),
+            'content' => $this->getLayout()->createBlock('adminhtml/api_tab_useredit')->toHtml(),
+            'active' => true
         ));
-        if( $this->getUser()->getUserId() ) {
+        if ($this->getUser()->getUserId()) {
             $this->addTab('roles', array(
-                'label'     => Mage::helper('adminhtml')->__('Roles'),
-                'title'     => Mage::helper('adminhtml')->__('Roles'),
-                'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_userroles')->toHtml(),
+                'label' => Mage::helper('adminhtml')->__('Roles'),
+                'title' => Mage::helper('adminhtml')->__('Roles'),
+                'content' => $this->getLayout()->createBlock('adminhtml/api_tab_userroles')->toHtml(),
             ));
         }
         return parent::_beforeToHtml();
@@ -54,4 +56,5 @@ class Mage_Adminhtml_Block_Api_Edituser extends Mage_Adminhtml_Block_Widget_Tabs
     {
         return Mage::registry('user_data');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax Rate Titles Fieldset
  *
@@ -32,8 +32,10 @@
  */
 class Mage_Adminhtml_Block_Tax_Rate_Title_Fieldset extends Varien_Data_Form_Element_Fieldset
 {
+
     public function getChildrenHtml()
     {
         return Mage::getBlockSingleton('adminhtml/tax_rate_title')->toHtml();
     }
+
 }

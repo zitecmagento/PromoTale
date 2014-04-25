@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 $installer->startSetup();
@@ -32,106 +32,86 @@ $installer->startSetup();
  * Drop foreign keys
  */
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('bundle/option'),
-    'FK_CATALOG_PRODUCT_BUNDLE_OPTION_PARENT'
+        $installer->getTable('bundle/option'), 'FK_CATALOG_PRODUCT_BUNDLE_OPTION_PARENT'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('bundle/option_value'),
-    'FK_CATALOG_PRODUCT_BUNDLE_OPTION_VALUE_OPTION'
+        $installer->getTable('bundle/option_value'), 'FK_CATALOG_PRODUCT_BUNDLE_OPTION_VALUE_OPTION'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('bundle/price_index'),
-    'FK_CATALOG_PRODUCT_BUNDLE_PRICE_INDEX_CUSTOMER_GROUP'
+        $installer->getTable('bundle/price_index'), 'FK_CATALOG_PRODUCT_BUNDLE_PRICE_INDEX_CUSTOMER_GROUP'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('bundle/price_index'),
-    'CATALOG_PRODUCT_BUNDLE_PRICE_INDEX_CUSTOMER_GROUP'
+        $installer->getTable('bundle/price_index'), 'CATALOG_PRODUCT_BUNDLE_PRICE_INDEX_CUSTOMER_GROUP'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('bundle/price_index'),
-    'FK_CATALOG_PRODUCT_BUNDLE_PRICE_INDEX_PRODUCT_ENTITY'
+        $installer->getTable('bundle/price_index'), 'FK_CATALOG_PRODUCT_BUNDLE_PRICE_INDEX_PRODUCT_ENTITY'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('bundle/price_index'),
-    'CATALOG_PRODUCT_BUNDLE_PRICE_INDEX_PRODUCT_ENTITY'
+        $installer->getTable('bundle/price_index'), 'CATALOG_PRODUCT_BUNDLE_PRICE_INDEX_PRODUCT_ENTITY'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('bundle/price_index'),
-    'FK_CATALOG_PRODUCT_BUNDLE_PRICE_INDEX_WEBSITE'
+        $installer->getTable('bundle/price_index'), 'FK_CATALOG_PRODUCT_BUNDLE_PRICE_INDEX_WEBSITE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('bundle/price_index'),
-    'CATALOG_PRODUCT_BUNDLE_PRICE_INDEX_WEBSITE'
+        $installer->getTable('bundle/price_index'), 'CATALOG_PRODUCT_BUNDLE_PRICE_INDEX_WEBSITE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('bundle/selection'),
-    'FK_CATALOG_PRODUCT_BUNDLE_SELECTION_PRODUCT'
+        $installer->getTable('bundle/selection'), 'FK_CATALOG_PRODUCT_BUNDLE_SELECTION_PRODUCT'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('bundle/selection'),
-    'FK_CATALOG_PRODUCT_BUNDLE_SELECTION_OPTION'
+        $installer->getTable('bundle/selection'), 'FK_CATALOG_PRODUCT_BUNDLE_SELECTION_OPTION'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('bundle/selection_price'),
-    'FK_BUNDLE_PRICE_SELECTION_ID'
+        $installer->getTable('bundle/selection_price'), 'FK_BUNDLE_PRICE_SELECTION_ID'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable('bundle/selection_price'),
-    'FK_BUNDLE_PRICE_SELECTION_WEBSITE'
+        $installer->getTable('bundle/selection_price'), 'FK_BUNDLE_PRICE_SELECTION_WEBSITE'
 );
 
 /**
  * Drop indexes
  */
 $installer->getConnection()->dropIndex(
-    $installer->getTable('bundle/option'),
-    'FK_CATALOG_PRODUCT_BUNDLE_OPTION_PARENT'
+        $installer->getTable('bundle/option'), 'FK_CATALOG_PRODUCT_BUNDLE_OPTION_PARENT'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable('bundle/option_value'),
-    'UNQ_OPTION_STORE'
+        $installer->getTable('bundle/option_value'), 'UNQ_OPTION_STORE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable('bundle/option_value'),
-    'FK_CATALOG_PRODUCT_BUNDLE_OPTION_VALUE_OPTION'
+        $installer->getTable('bundle/option_value'), 'FK_CATALOG_PRODUCT_BUNDLE_OPTION_VALUE_OPTION'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable('bundle/price_index'),
-    'IDX_WEBSITE'
+        $installer->getTable('bundle/price_index'), 'IDX_WEBSITE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable('bundle/price_index'),
-    'IDX_CUSTOMER_GROUP'
+        $installer->getTable('bundle/price_index'), 'IDX_CUSTOMER_GROUP'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable('bundle/selection'),
-    'FK_CATALOG_PRODUCT_BUNDLE_SELECTION_OPTION'
+        $installer->getTable('bundle/selection'), 'FK_CATALOG_PRODUCT_BUNDLE_SELECTION_OPTION'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable('bundle/selection'),
-    'FK_CATALOG_PRODUCT_BUNDLE_SELECTION_PRODUCT'
+        $installer->getTable('bundle/selection'), 'FK_CATALOG_PRODUCT_BUNDLE_SELECTION_PRODUCT'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable('bundle/selection_price'),
-    'FK_BUNDLE_PRICE_SELECTION_WEBSITE'
+        $installer->getTable('bundle/selection_price'), 'FK_BUNDLE_PRICE_SELECTION_WEBSITE'
 );
 
 /**
@@ -141,37 +121,37 @@ $tables = array(
     $installer->getTable('bundle/option') => array(
         'columns' => array(
             'option_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'identity'  => true,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Option Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'identity' => true,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Option Id'
             ),
             'parent_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'comment'   => 'Parent Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'comment' => 'Parent Id'
             ),
             'required' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'default'   => '0',
-                'comment'   => 'Required'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'default' => '0',
+                'comment' => 'Required'
             ),
             'position' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'default'   => '0',
-                'comment'   => 'Position'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'default' => '0',
+                'comment' => 'Position'
             ),
             'type' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Type'
+                'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
+                'length' => 255,
+                'comment' => 'Type'
             )
         ),
         'comment' => 'Catalog Product Bundle Option'
@@ -179,29 +159,29 @@ $tables = array(
     $installer->getTable('bundle/option_value') => array(
         'columns' => array(
             'value_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'identity'  => true,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Value Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'identity' => true,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Value Id'
             ),
             'option_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'comment'   => 'Option Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'comment' => 'Option Id'
             ),
             'store_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'comment'   => 'Store Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'comment' => 'Store Id'
             ),
             'title' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Title'
+                'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
+                'length' => 255,
+                'comment' => 'Title'
             )
         ),
         'comment' => 'Catalog Product Bundle Option Value'
@@ -209,71 +189,71 @@ $tables = array(
     $installer->getTable('bundle/selection') => array(
         'columns' => array(
             'selection_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'identity'  => true,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Selection Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'identity' => true,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Selection Id'
             ),
             'option_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'comment'   => 'Option Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'comment' => 'Option Id'
             ),
             'parent_product_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'comment'   => 'Parent Product Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'comment' => 'Parent Product Id'
             ),
             'product_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'comment'   => 'Product Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'comment' => 'Product Id'
             ),
             'position' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'default'   => '0',
-                'comment'   => 'Position'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'default' => '0',
+                'comment' => 'Position'
             ),
             'is_default' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'default'   => '0',
-                'comment'   => 'Is Default'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'default' => '0',
+                'comment' => 'Is Default'
             ),
             'selection_price_type' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'default'   => '0',
-                'comment'   => 'Selection Price Type'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'default' => '0',
+                'comment' => 'Selection Price Type'
             ),
             'selection_price_value' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'nullable'  => false,
-                'default'   => '0.0000',
-                'comment'   => 'Selection Price Value'
+                'nullable' => false,
+                'default' => '0.0000',
+                'comment' => 'Selection Price Value'
             ),
             'selection_qty' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Selection Qty'
+                'comment' => 'Selection Qty'
             ),
             'selection_can_change_qty' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'nullable'  => false,
-                'default'   => '0',
-                'comment'   => 'Selection Can Change Qty'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'nullable' => false,
+                'default' => '0',
+                'comment' => 'Selection Can Change Qty'
             )
         ),
         'comment' => 'Catalog Product Bundle Selection'
@@ -281,33 +261,33 @@ $tables = array(
     $installer->getTable('bundle/selection_price') => array(
         'columns' => array(
             'selection_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Selection Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Selection Id'
             ),
             'website_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Website Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Website Id'
             ),
             'selection_price_type' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'default'   => '0',
-                'comment'   => 'Selection Price Type'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'default' => '0',
+                'comment' => 'Selection Price Type'
             ),
             'selection_price_value' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'nullable'  => false,
-                'default'   => '0.0000',
-                'comment'   => 'Selection Price Value'
+                'nullable' => false,
+                'default' => '0.0000',
+                'comment' => 'Selection Price Value'
             )
         ),
         'comment' => 'Catalog Product Bundle Selection Price'
@@ -315,39 +295,39 @@ $tables = array(
     $installer->getTable('bundle/price_index') => array(
         'columns' => array(
             'entity_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Entity Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Entity Id'
             ),
             'website_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Website Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Website Id'
             ),
             'customer_group_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Customer Group Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Customer Group Id'
             ),
             'min_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'nullable'  => false,
-                'comment'   => 'Min Price'
+                'nullable' => false,
+                'comment' => 'Min Price'
             ),
             'max_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'nullable'  => false,
-                'comment'   => 'Max Price'
+                'nullable' => false,
+                'comment' => 'Max Price'
             )
         ),
         'comment' => 'Catalog Product Bundle Price Index'
@@ -355,38 +335,38 @@ $tables = array(
     $installer->getTable('bundle/stock_index') => array(
         'columns' => array(
             'entity_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Entity Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Entity Id'
             ),
             'website_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Website Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Website Id'
             ),
             'stock_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Stock Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Stock Id'
             ),
             'option_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'default'   => '0',
-                'comment'   => 'Option Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'default' => '0',
+                'comment' => 'Option Id'
             ),
             'stock_status' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'default'   => '0',
-                'comment'   => 'Stock Status'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'default' => '0',
+                'comment' => 'Stock Status'
             )
         ),
         'comment' => 'Catalog Product Bundle Stock Index'
@@ -394,85 +374,85 @@ $tables = array(
     $installer->getTable('bundle/price_indexer_idx') => array(
         'columns' => array(
             'entity_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Entity Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Entity Id'
             ),
             'customer_group_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Customer Group Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Customer Group Id'
             ),
             'website_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Website Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Website Id'
             ),
             'tax_class_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'default'   => '0',
-                'comment'   => 'Tax Class Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'default' => '0',
+                'comment' => 'Tax Class Id'
             ),
             'price_type' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'comment'   => 'Price Type'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'comment' => 'Price Type'
             ),
             'special_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Special Price'
+                'comment' => 'Special Price'
             ),
             'tier_percent' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Tier Percent'
+                'comment' => 'Tier Percent'
             ),
             'orig_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Orig Price'
+                'comment' => 'Orig Price'
             ),
             'price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Price'
+                'comment' => 'Price'
             ),
             'min_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Min Price'
+                'comment' => 'Min Price'
             ),
             'max_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Max Price'
+                'comment' => 'Max Price'
             ),
             'tier_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Tier Price'
+                'comment' => 'Tier Price'
             ),
             'base_tier' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Base Tier'
+                'comment' => 'Base Tier'
             )
         ),
         'comment' => 'Catalog Product Index Price Bundle Idx'
@@ -480,152 +460,152 @@ $tables = array(
     $installer->getTable('bundle/price_indexer_tmp') => array(
         'columns' => array(
             'entity_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Entity Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Entity Id'
             ),
             'customer_group_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Customer Group Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Customer Group Id'
             ),
             'website_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Website Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Website Id'
             ),
             'tax_class_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'default'   => '0',
-                'comment'   => 'Tax Class Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'default' => '0',
+                'comment' => 'Tax Class Id'
             ),
             'price_type' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'comment'   => 'Price Type'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'comment' => 'Price Type'
             ),
             'special_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Special Price'
+                'comment' => 'Special Price'
             ),
             'tier_percent' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Tier Percent'
+                'comment' => 'Tier Percent'
             ),
             'orig_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Orig Price'
+                'comment' => 'Orig Price'
             ),
             'price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Price'
+                'comment' => 'Price'
             ),
             'min_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Min Price'
+                'comment' => 'Min Price'
             ),
             'max_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Max Price'
+                'comment' => 'Max Price'
             ),
             'tier_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Tier Price'
+                'comment' => 'Tier Price'
             ),
             'base_tier' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Base Tier'
+                'comment' => 'Base Tier'
             )
         ),
         'comment' => 'Catalog Product Index Price Bundle Tmp',
-        'engine'  => 'InnoDB'
+        'engine' => 'InnoDB'
     ),
     $installer->getTable('bundle/selection_indexer_idx') => array(
         'columns' => array(
             'entity_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Entity Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Entity Id'
             ),
             'customer_group_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Customer Group Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Customer Group Id'
             ),
             'website_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Website Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Website Id'
             ),
             'option_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'default'   => '0',
-                'comment'   => 'Option Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'default' => '0',
+                'comment' => 'Option Id'
             ),
             'selection_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'default'   => '0',
-                'comment'   => 'Selection Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'default' => '0',
+                'comment' => 'Selection Id'
             ),
             'group_type' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'default'   => '0',
-                'comment'   => 'Group Type'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'default' => '0',
+                'comment' => 'Group Type'
             ),
             'is_required' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'default'   => '0',
-                'comment'   => 'Is Required'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'default' => '0',
+                'comment' => 'Is Required'
             ),
             'price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Price'
+                'comment' => 'Price'
             ),
             'tier_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Tier Price'
+                'comment' => 'Tier Price'
             )
         ),
         'comment' => 'Catalog Product Index Price Bundle Sel Idx'
@@ -633,130 +613,130 @@ $tables = array(
     $installer->getTable('bundle/selection_indexer_tmp') => array(
         'columns' => array(
             'entity_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Entity Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Entity Id'
             ),
             'customer_group_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Customer Group Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Customer Group Id'
             ),
             'website_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Website Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Website Id'
             ),
             'option_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'default'   => '0',
-                'comment'   => 'Option Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'default' => '0',
+                'comment' => 'Option Id'
             ),
             'selection_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'default'   => '0',
-                'comment'   => 'Selection Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'default' => '0',
+                'comment' => 'Selection Id'
             ),
             'group_type' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'default'   => '0',
-                'comment'   => 'Group Type'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'default' => '0',
+                'comment' => 'Group Type'
             ),
             'is_required' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'default'   => '0',
-                'comment'   => 'Is Required'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'default' => '0',
+                'comment' => 'Is Required'
             ),
             'price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Price'
+                'comment' => 'Price'
             ),
             'tier_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Tier Price'
+                'comment' => 'Tier Price'
             )
         ),
         'comment' => 'Catalog Product Index Price Bundle Sel Tmp',
-        'engine'  => 'InnoDB'
+        'engine' => 'InnoDB'
     ),
     $installer->getTable('bundle/option_indexer_idx') => array(
         'columns' => array(
             'entity_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Entity Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Entity Id'
             ),
             'customer_group_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Customer Group Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Customer Group Id'
             ),
             'website_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Website Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Website Id'
             ),
             'option_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'default'   => '0',
-                'comment'   => 'Option Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'default' => '0',
+                'comment' => 'Option Id'
             ),
             'min_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Min Price'
+                'comment' => 'Min Price'
             ),
             'alt_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Alt Price'
+                'comment' => 'Alt Price'
             ),
             'max_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Max Price'
+                'comment' => 'Max Price'
             ),
             'tier_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Tier Price'
+                'comment' => 'Tier Price'
             ),
             'alt_tier_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Alt Tier Price'
+                'comment' => 'Alt Tier Price'
             )
         ),
         'comment' => 'Catalog Product Index Price Bundle Opt Idx'
@@ -764,67 +744,67 @@ $tables = array(
     $installer->getTable('bundle/option_indexer_tmp') => array(
         'columns' => array(
             'entity_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Entity Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Entity Id'
             ),
             'customer_group_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Customer Group Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Customer Group Id'
             ),
             'website_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'comment'   => 'Website Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'comment' => 'Website Id'
             ),
             'option_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true,
-                'default'   => '0',
-                'comment'   => 'Option Id'
+                'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
+                'default' => '0',
+                'comment' => 'Option Id'
             ),
             'min_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Min Price'
+                'comment' => 'Min Price'
             ),
             'alt_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Alt Price'
+                'comment' => 'Alt Price'
             ),
             'max_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Max Price'
+                'comment' => 'Max Price'
             ),
             'tier_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Tier Price'
+                'comment' => 'Tier Price'
             ),
             'alt_tier_price' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
-                'scale'     => 4,
+                'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                'scale' => 4,
                 'precision' => 12,
-                'comment'   => 'Alt Tier Price'
+                'comment' => 'Alt Tier Price'
             )
         ),
         'comment' => 'Catalog Product Index Price Bundle Opt Tmp',
-        'engine'  => 'InnoDB'
+        'engine' => 'InnoDB'
     )
 );
 
@@ -835,50 +815,38 @@ $installer->getConnection()->modifyTables($tables);
  * Add indexes
  */
 $installer->getConnection()->addIndex(
-    $installer->getTable('bundle/option'),
-    $installer->getIdxName('bundle/option', array('parent_id')),
-    array('parent_id')
+        $installer->getTable('bundle/option'), $installer->getIdxName('bundle/option', array('parent_id')), array('parent_id')
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable('bundle/option_value'),
-    $installer->getIdxName(
-        'bundle/option_value',
-        array('option_id', 'store_id'),
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
-    ),
-    array('option_id', 'store_id'),
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        $installer->getTable('bundle/option_value'), $installer->getIdxName(
+                'bundle/option_value', array('option_id', 'store_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ), array('option_id', 'store_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable('bundle/price_index'),
-    $installer->getIdxName('bundle/price_index', array('website_id')),
-    array('website_id')
+        $installer->getTable('bundle/price_index'), $installer->getIdxName('bundle/price_index', array('website_id')), array(
+    'website_id')
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable('bundle/price_index'),
-    $installer->getIdxName('bundle/price_index', array('customer_group_id')),
-    array('customer_group_id')
+        $installer->getTable('bundle/price_index'), $installer->getIdxName('bundle/price_index', array('customer_group_id')), array(
+    'customer_group_id')
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable('bundle/selection'),
-    $installer->getIdxName('bundle/selection', array('option_id')),
-    array('option_id')
+        $installer->getTable('bundle/selection'), $installer->getIdxName('bundle/selection', array('option_id')), array(
+    'option_id')
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable('bundle/selection'),
-    $installer->getIdxName('bundle/selection', array('product_id')),
-    array('product_id')
+        $installer->getTable('bundle/selection'), $installer->getIdxName('bundle/selection', array('product_id')), array(
+    'product_id')
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable('bundle/selection_price'),
-    $installer->getIdxName('bundle/selection_price', array('website_id')),
-    array('website_id')
+        $installer->getTable('bundle/selection_price'), $installer->getIdxName('bundle/selection_price', array('website_id')), array(
+    'website_id')
 );
 
 
@@ -886,75 +854,39 @@ $installer->getConnection()->addIndex(
  * Add foreign keys
  */
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName('bundle/selection', 'option_id', 'bundle/option', 'option_id'),
-    $installer->getTable('bundle/selection'),
-    'option_id',
-    $installer->getTable('bundle/option'),
-    'option_id'
+        $installer->getFkName('bundle/selection', 'option_id', 'bundle/option', 'option_id'), $installer->getTable('bundle/selection'), 'option_id', $installer->getTable('bundle/option'), 'option_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName('bundle/option', 'parent_id', 'catalog/product', 'entity_id'),
-    $installer->getTable('bundle/option'),
-    'parent_id',
-    $installer->getTable('catalog/product'),
-    'entity_id'
+        $installer->getFkName('bundle/option', 'parent_id', 'catalog/product', 'entity_id'), $installer->getTable('bundle/option'), 'parent_id', $installer->getTable('catalog/product'), 'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName('bundle/option_value', 'option_id', 'bundle/option', 'option_id'),
-    $installer->getTable('bundle/option_value'),
-    'option_id',
-    $installer->getTable('bundle/option'),
-    'option_id'
+        $installer->getFkName('bundle/option_value', 'option_id', 'bundle/option', 'option_id'), $installer->getTable('bundle/option_value'), 'option_id', $installer->getTable('bundle/option'), 'option_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName('bundle/price_index', 'customer_group_id', 'customer/customer_group', 'customer_group_id'),
-    $installer->getTable('bundle/price_index'),
-    'customer_group_id',
-    $installer->getTable('customer/customer_group'),
-    'customer_group_id'
+        $installer->getFkName('bundle/price_index', 'customer_group_id', 'customer/customer_group', 'customer_group_id'), $installer->getTable('bundle/price_index'), 'customer_group_id', $installer->getTable('customer/customer_group'), 'customer_group_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName('bundle/price_index', 'entity_id', 'catalog/product', 'entity_id'),
-    $installer->getTable('bundle/price_index'),
-    'entity_id',
-    $installer->getTable('catalog/product'),
-    'entity_id'
+        $installer->getFkName('bundle/price_index', 'entity_id', 'catalog/product', 'entity_id'), $installer->getTable('bundle/price_index'), 'entity_id', $installer->getTable('catalog/product'), 'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName('bundle/price_index', 'website_id', 'core/website', 'website_id'),
-    $installer->getTable('bundle/price_index'),
-    'website_id',
-    $installer->getTable('core/website'),
-    'website_id'
+        $installer->getFkName('bundle/price_index', 'website_id', 'core/website', 'website_id'), $installer->getTable('bundle/price_index'), 'website_id', $installer->getTable('core/website'), 'website_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName('bundle/selection', 'product_id', 'catalog/product', 'entity_id'),
-    $installer->getTable('bundle/selection'),
-    'product_id',
-    $installer->getTable('catalog/product'),
-    'entity_id'
+        $installer->getFkName('bundle/selection', 'product_id', 'catalog/product', 'entity_id'), $installer->getTable('bundle/selection'), 'product_id', $installer->getTable('catalog/product'), 'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName('bundle/selection_price', 'website_id', 'core/website', 'website_id'),
-    $installer->getTable('bundle/selection_price'),
-    'website_id',
-    $installer->getTable('core/website'),
-    'website_id'
+        $installer->getFkName('bundle/selection_price', 'website_id', 'core/website', 'website_id'), $installer->getTable('bundle/selection_price'), 'website_id', $installer->getTable('core/website'), 'website_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName('bundle/selection_price', 'selection_id', 'bundle/selection', 'selection_id'),
-    $installer->getTable('bundle/selection_price'),
-    'selection_id',
-    $installer->getTable('bundle/selection'),
-    'selection_id'
+        $installer->getFkName('bundle/selection_price', 'selection_id', 'bundle/selection', 'selection_id'), $installer->getTable('bundle/selection_price'), 'selection_id', $installer->getTable('bundle/selection'), 'selection_id'
 );
 
 $installer->endSetup();

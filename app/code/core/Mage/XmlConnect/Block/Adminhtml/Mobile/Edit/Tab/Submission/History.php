@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Submission_History
-    extends Mage_Adminhtml_Block_Widget_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Submission_History extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Set order by column and order direction
      * Set grid ID
@@ -79,7 +79,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Submission_History
      */
     public function canShowTab()
     {
-        return (bool)$this->_getApplication()->getId();
+        return (bool) $this->_getApplication()->getId();
     }
 
     /**
@@ -101,7 +101,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Submission_History
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('xmlconnect/history_collection')
-            ->addApplicationFilter($this->_getApplication()->getId());
+                ->addApplicationFilter($this->_getApplication()->getId());
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -114,18 +114,18 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Submission_History
     protected function _prepareColumns()
     {
         $this->addColumn('activation_key', array(
-            'header'    => $this->__('Activation Key'),
-            'align'     => 'left',
-            'index'     => 'activation_key',
-            'type'      => 'text',
-            'escape'    => true
+            'header' => $this->__('Activation Key'),
+            'align' => 'left',
+            'index' => 'activation_key',
+            'type' => 'text',
+            'escape' => true
         ));
 
         $this->addColumn('created_at', array(
-            'header'    => $this->__('Date Submitted'),
-            'align'     => 'left',
-            'index'     => 'created_at',
-            'type'      => 'datetime'
+            'header' => $this->__('Date Submitted'),
+            'align' => 'left',
+            'index' => 'created_at',
+            'type' => 'datetime'
         ));
 
         return parent::_prepareColumns();
@@ -137,7 +137,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Submission_History
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/submissionHistoryGrid', array('_current'=>true));
+        return $this->getUrl('*/*/submissionHistoryGrid', array('_current' => true));
     }
 
     /**
@@ -160,4 +160,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Submission_History
     {
         return '';
     }
+
 }

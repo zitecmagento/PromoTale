@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -52,6 +53,7 @@
  */
 class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
 {
+
     /**
      * User friendly search criteria list
      *
@@ -118,11 +120,11 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
         if (is_null($attributes)) {
             $product = Mage::getModel('catalog/product');
             $attributes = Mage::getResourceModel('catalog/product_attribute_collection')
-                ->addHasOptionsFilter()
-                ->addDisplayInAdvancedSearchFilter()
-                ->addStoreLabel(Mage::app()->getStore()->getId())
-                ->setOrder('main_table.attribute_id', 'asc')
-                ->load();
+                    ->addHasOptionsFilter()
+                    ->addDisplayInAdvancedSearchFilter()
+                    ->addStoreLabel(Mage::app()->getStore()->getId())
+                    ->setOrder('main_table.attribute_id', 'asc')
+                    ->load();
             foreach ($attributes as $attribute) {
                 $attribute->setEntity($product->getResource());
             }
@@ -153,9 +155,9 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      */
     public function addFilters($values)
     {
-        $attributes     = $this->getAttributes();
-        $hasConditions  = false;
-        $allConditions  = array();
+        $attributes = $this->getAttributes();
+        $hasConditions = false;
+        $allConditions = array();
 
         foreach ($attributes as $attribute) {
             /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
@@ -174,7 +176,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                         $rate = 1;
                     }
                     if ($this->_getResource()->addRatedPriceFilter(
-                        $this->getProductCollection(), $attribute, $value, $rate)
+                                    $this->getProductCollection(), $attribute, $value, $rate)
                     ) {
                         $hasConditions = true;
                         $this->_addSearchCriteria($attribute, $value);
@@ -183,7 +185,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             } else if ($attribute->isIndexable()) {
                 if (!is_string($value) || strlen($value) != 0) {
                     if ($this->_getResource()->addIndexableAttributeModifiedFilter(
-                        $this->getProductCollection(), $attribute, $value)) {
+                                    $this->getProductCollection(), $attribute, $value)) {
                         $hasConditions = true;
                         $this->_addSearchCriteria($attribute, $value);
                     }
@@ -197,7 +199,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 $this->_addSearchCriteria($attribute, $value);
 
                 $table = $attribute->getBackend()->getTable();
-                if ($attribute->getBackendType() == 'static'){
+                if ($attribute->getBackendType() == 'static') {
                     $attributeId = $attribute->getAttributeCode();
                 } else {
                     $attributeId = $attribute->getId();
@@ -238,8 +240,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
 
                     if (strlen($value['from']) > 0 && strlen($value['to']) > 0) {
                         // -
-                        $value = sprintf('%s - %s',
-                            ($currencyModel ? $from : $value['from']), ($currencyModel ? $to : $value['to']));
+                        $value = sprintf('%s - %s', ($currencyModel ? $from : $value['from']), ($currencyModel ? $to : $value['to']));
                     } elseif (strlen($value['from']) > 0) {
                         // and more
                         $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $from : $value['from']));
@@ -253,10 +254,9 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             }
         }
 
-        if (($attribute->getFrontendInput() == 'select' || $attribute->getFrontendInput() == 'multiselect')
-            && is_array($value)
+        if (($attribute->getFrontendInput() == 'select' || $attribute->getFrontendInput() == 'multiselect') && is_array($value)
         ) {
-            foreach ($value as $key => $val){
+            foreach ($value as $key => $val) {
                 $value[$key] = $attribute->getSource()->getOptionText($val);
 
                 if (is_array($value[$key])) {
@@ -269,9 +269,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             if (is_array($value))
                 $value = $value['label'];
         } else if ($attribute->getFrontendInput() == 'boolean') {
-            $value = $value == 1
-                ? Mage::helper('catalogsearch')->__('Yes')
-                : Mage::helper('catalogsearch')->__('No');
+            $value = $value == 1 ? Mage::helper('catalogsearch')->__('Yes') : Mage::helper('catalogsearch')->__('No');
         }
 
         $this->_searchCriterias[] = array('name' => $name, 'value' => $value);
@@ -293,7 +291,8 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      *
      * @return Mage_CatalogSearch_Model_Resource_Advanced_Collection
      */
-    public function getProductCollection(){
+    public function getProductCollection()
+    {
         if (is_null($this->_productCollection)) {
             $collection = $this->_engine->getAdvancedResultCollection();
             $this->prepareProductCollection($collection);
@@ -315,13 +314,14 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     public function prepareProductCollection($collection)
     {
         $collection->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->setStore(Mage::app()->getStore())
-            ->addMinimalPrice()
-            ->addTaxPercents()
-            ->addStoreFilter();
+                ->setStore(Mage::app()->getStore())
+                ->addMinimalPrice()
+                ->addTaxPercents()
+                ->addStoreFilter();
 
         Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($collection);
         return $this;
     }
+
 }

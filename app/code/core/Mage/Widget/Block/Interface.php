@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 interface Mage_Widget_Block_Interface
 {
+
     /**
      * Produce and return widget's html output
      *

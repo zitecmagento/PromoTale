@@ -25,84 +25,77 @@
 var varienForm = new Class.create();
 
 varienForm.prototype = {
-    initialize : function(formId, validationUrl){
+    initialize: function(formId, validationUrl) {
         this.formId = formId;
         this.validationUrl = validationUrl;
         this.submitUrl = false;
 
-        if($(this.formId)){
-            this.validator  = new Validation(this.formId, {onElementValidate : this.checkErrors.bind(this)});
+        if ($(this.formId)) {
+            this.validator = new Validation(this.formId, {onElementValidate: this.checkErrors.bind(this)});
         }
         this.errorSections = $H({});
     },
-
-    checkErrors : function(result, elm){
-        if(!result)
+    checkErrors: function(result, elm) {
+        if (!result)
             elm.setHasError(true, this);
         else
             elm.setHasError(false, this);
     },
-
-    validate : function(){
-        if(this.validator && this.validator.validate()){
-            if(this.validationUrl){
+    validate: function() {
+        if (this.validator && this.validator.validate()) {
+            if (this.validationUrl) {
                 this._validate();
             }
             return true;
         }
         return false;
     },
-
-    submit : function(url){
+    submit: function(url) {
         if (typeof varienGlobalEvents != undefined) {
             varienGlobalEvents.fireEvent('formSubmit', this.formId);
         }
         this.errorSections = $H({});
         this.canShowError = true;
         this.submitUrl = url;
-        if(this.validator && this.validator.validate()){
-            if(this.validationUrl){
+        if (this.validator && this.validator.validate()) {
+            if (this.validationUrl) {
                 this._validate();
             }
-            else{
+            else {
                 this._submit();
             }
             return true;
         }
         return false;
     },
-
-    _validate : function(){
-        new Ajax.Request(this.validationUrl,{
+    _validate: function() {
+        new Ajax.Request(this.validationUrl, {
             method: 'post',
             parameters: $(this.formId).serialize(),
             onComplete: this._processValidationResult.bind(this),
             onFailure: this._processFailure.bind(this)
         });
     },
-
-    _processValidationResult : function(transport){
+    _processValidationResult: function(transport) {
         if (typeof varienGlobalEvents != undefined) {
             varienGlobalEvents.fireEvent('formValidateAjaxComplete', transport);
         }
         var response = transport.responseText.evalJSON();
-        if(response.error){
-            if($('messages')){
+        if (response.error) {
+            if ($('messages')) {
                 $('messages').innerHTML = response.message;
             }
         }
-        else{
+        else {
             this._submit();
         }
     },
-
-    _processFailure : function(transport){
+    _processFailure: function(transport) {
         location.href = BASE_URL;
     },
-
-    _submit : function(){
+    _submit: function() {
         var $form = $(this.formId);
-        if(this.submitUrl){
+        if (this.submitUrl) {
             $form.action = this.submitUrl;
         }
         $form.submit();
@@ -114,11 +107,12 @@ varienForm.prototype = {
  *
  * use for not visible elements validation
  */
-Validation.isVisible = function(elm){
+Validation.isVisible = function(elm) {
     while (elm && elm.tagName != 'BODY') {
-        if (elm.disabled) return false;
+        if (elm.disabled)
+            return false;
         if ((Element.hasClassName(elm, 'template') && Element.hasClassName(elm, 'no-display'))
-             || Element.hasClassName(elm, 'ignore-validate')){
+                || Element.hasClassName(elm, 'ignore-validate')) {
             return false;
         }
         elm = elm.parentNode;
@@ -130,30 +124,31 @@ Validation.isVisible = function(elm){
  *  Additional elements methods
  */
 var varienElementMethods = {
-    setHasChanges : function(element, event){
-        if($(element) && $(element).hasClassName('no-changes')) return;
+    setHasChanges: function(element, event) {
+        if ($(element) && $(element).hasClassName('no-changes'))
+            return;
         var elm = element;
-        while(elm && elm.tagName != 'BODY') {
-            if(elm.statusBar)
+        while (elm && elm.tagName != 'BODY') {
+            if (elm.statusBar)
                 Element.addClassName($(elm.statusBar), 'changed')
             elm = elm.parentNode;
         }
     },
-    setHasError : function(element, flag, form){
+    setHasError: function(element, flag, form) {
         var elm = element;
-        while(elm && elm.tagName != 'BODY') {
-            if(elm.statusBar){
-                if(form.errorSections.keys().indexOf(elm.statusBar.id)<0)
+        while (elm && elm.tagName != 'BODY') {
+            if (elm.statusBar) {
+                if (form.errorSections.keys().indexOf(elm.statusBar.id) < 0)
                     form.errorSections.set(elm.statusBar.id, flag);
-                if(flag){
+                if (flag) {
                     Element.addClassName($(elm.statusBar), 'error');
-                    if(form.canShowError && $(elm.statusBar).show){
+                    if (form.canShowError && $(elm.statusBar).show) {
                         form.canShowError = false;
                         $(elm.statusBar).show();
                     }
                     form.errorSections.set(elm.statusBar.id, flag);
                 }
-                else if(!form.errorSections.get(elm.statusBar.id)){
+                else if (!form.errorSections.get(elm.statusBar.id)) {
                     Element.removeClassName($(elm.statusBar), 'error')
                 }
             }
@@ -167,10 +162,10 @@ Element.addMethods(varienElementMethods);
 
 // Global bind changes
 varienWindowOnloadCache = {};
-function varienWindowOnload(useCache){
+function varienWindowOnload(useCache) {
     var dataElements = $$('input', 'select', 'textarea');
-    for(var i=0; i<dataElements.length;i++){
-        if(dataElements[i] && dataElements[i].id){
+    for (var i = 0; i < dataElements.length; i++) {
+        if (dataElements[i] && dataElements[i].id) {
             if ((!useCache) || (!varienWindowOnloadCache[dataElements[i].id])) {
                 Event.observe(dataElements[i], 'change', dataElements[i].setHasChanges.bind(dataElements[i]));
                 if (useCache) {
@@ -184,7 +179,7 @@ Event.observe(window, 'load', varienWindowOnload);
 
 RegionUpdater = Class.create();
 RegionUpdater.prototype = {
-    initialize: function (countryEl, regionTextEl, regionSelectEl, regions, disableAction, clearRegionValueOnDisable)
+    initialize: function(countryEl, regionTextEl, regionSelectEl, regions, disableAction, clearRegionValueOnDisable)
     {
         this.countryEl = $(countryEl);
         this.regionTextEl = $(regionTextEl);
@@ -195,10 +190,10 @@ RegionUpdater.prototype = {
         this.config = regions['config'];
         delete regions.config;
         this.regions = regions;
-        this.disableAction = (typeof disableAction=='undefined') ? 'hide' : disableAction;
+        this.disableAction = (typeof disableAction == 'undefined') ? 'hide' : disableAction;
         this.clearRegionValueOnDisable = (typeof clearRegionValueOnDisable == 'undefined') ? false : clearRegionValueOnDisable;
 
-        if (this.regionSelectEl.options.length<=1) {
+        if (this.regionSelectEl.options.length <= 1) {
             this.update();
         }
         else {
@@ -209,7 +204,6 @@ RegionUpdater.prototype = {
 
         Event.observe(this.countryEl, 'change', this.update.bind(this));
     },
-
     _checkRegionRequired: function()
     {
         var label, wildCard;
@@ -221,7 +215,7 @@ RegionUpdater.prototype = {
         var regionRequired = this.config.regions_required.indexOf(this.countryEl.value) >= 0;
 
         elements.each(function(currentElement) {
-            if(!currentElement) {
+            if (!currentElement) {
                 return;
             }
             Validation.reset(currentElement);
@@ -251,8 +245,8 @@ RegionUpdater.prototype = {
                     currentElement.removeClassName('required-entry');
                 }
                 if ('select' == currentElement.tagName.toLowerCase() &&
-                    currentElement.hasClassName('validate-select')
-                ) {
+                        currentElement.hasClassName('validate-select')
+                        ) {
                     currentElement.removeClassName('validate-select');
                 }
             } else {
@@ -260,14 +254,13 @@ RegionUpdater.prototype = {
                     currentElement.addClassName('required-entry');
                 }
                 if ('select' == currentElement.tagName.toLowerCase() &&
-                    !currentElement.hasClassName('validate-select')
-                ) {
+                        !currentElement.hasClassName('validate-select')
+                        ) {
                     currentElement.addClassName('validate-select');
                 }
             }
         });
     },
-
     update: function()
     {
         if (this.regions[this.countryEl.value]) {
@@ -275,7 +268,7 @@ RegionUpdater.prototype = {
 //                Element.insert(this.regionTextEl, {after : this.tpl.evaluate(this._regionSelectEl)});
 //                this.regionSelectEl = $(this._regionSelectEl.id);
 //            }
-            if (this.lastCountryId!=this.countryEl.value) {
+            if (this.lastCountryId != this.countryEl.value) {
                 var i, option, region, def;
 
                 def = this.regionSelectEl.getAttribute('defaultValue');
@@ -301,20 +294,20 @@ RegionUpdater.prototype = {
                         this.regionSelectEl.appendChild(option);
                     }
 
-                    if (regionId==def || region.name.toLowerCase()==def || region.code.toLowerCase()==def) {
+                    if (regionId == def || region.name.toLowerCase() == def || region.code.toLowerCase() == def) {
                         this.regionSelectEl.value = regionId;
                     }
                 }
             }
 
-            if (this.disableAction=='hide') {
+            if (this.disableAction == 'hide') {
                 if (this.regionTextEl) {
                     this.regionTextEl.style.display = 'none';
                     this.regionTextEl.style.disabled = true;
                 }
                 this.regionSelectEl.style.display = '';
                 this.regionSelectEl.disabled = false;
-            } else if (this.disableAction=='disable') {
+            } else if (this.disableAction == 'disable') {
                 if (this.regionTextEl) {
                     this.regionTextEl.disabled = true;
                 }
@@ -324,14 +317,14 @@ RegionUpdater.prototype = {
 
             this.lastCountryId = this.countryEl.value;
         } else {
-            if (this.disableAction=='hide') {
+            if (this.disableAction == 'hide') {
                 if (this.regionTextEl) {
                     this.regionTextEl.style.display = '';
                     this.regionTextEl.style.disabled = false;
                 }
                 this.regionSelectEl.style.display = 'none';
                 this.regionSelectEl.disabled = true;
-            } else if (this.disableAction=='disable') {
+            } else if (this.disableAction == 'disable') {
                 if (this.regionTextEl) {
                     this.regionTextEl.disabled = false;
                 }
@@ -339,7 +332,7 @@ RegionUpdater.prototype = {
                 if (this.clearRegionValueOnDisable) {
                     this.regionSelectEl.value = '';
                 }
-            } else if (this.disableAction=='nullify') {
+            } else if (this.disableAction == 'nullify') {
                 this.regionSelectEl.options.length = 1;
                 this.regionSelectEl.value = '';
                 this.regionSelectEl.selectedIndex = 0;
@@ -358,11 +351,10 @@ RegionUpdater.prototype = {
         varienGlobalEvents.fireEvent("address_country_changed", this.countryEl);
         this._checkRegionRequired();
     },
-
-    setMarkDisplay: function(elem, display){
-        if(elem.parentNode.parentNode){
+    setMarkDisplay: function(elem, display) {
+        if (elem.parentNode.parentNode) {
             var marks = Element.select(elem.parentNode.parentNode, '.required');
-            if(marks[0]){
+            if (marks[0]) {
                 display ? marks[0].show() : marks[0].hide();
             }
         }
@@ -374,26 +366,26 @@ regionUpdater = RegionUpdater;
 /**
  * Fix errorrs in IE
  */
-Event.pointerX = function(event){
-    try{
-        return event.pageX || (event.clientX +(document.documentElement.scrollLeft || document.body.scrollLeft));
+Event.pointerX = function(event) {
+    try {
+        return event.pageX || (event.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft));
     }
-    catch(e){
+    catch (e) {
 
     }
 }
-Event.pointerY = function(event){
-    try{
-        return event.pageY || (event.clientY +(document.documentElement.scrollTop || document.body.scrollTop));
+Event.pointerY = function(event) {
+    try {
+        return event.pageY || (event.clientY + (document.documentElement.scrollTop || document.body.scrollTop));
     }
-    catch(e){
+    catch (e) {
 
     }
 }
 
 SelectUpdater = Class.create();
 SelectUpdater.prototype = {
-    initialize: function (firstSelect, secondSelect, selectFirstMessage, noValuesMessage, values, selected)
+    initialize: function(firstSelect, secondSelect, selectFirstMessage, noValuesMessage, values, selected)
     {
         this.first = $(firstSelect);
         this.second = $(secondSelect);
@@ -406,7 +398,6 @@ SelectUpdater.prototype = {
 
         Event.observe(this.first, 'change', this.update.bind(this));
     },
-
     update: function()
     {
         this.second.length = 0;
@@ -426,7 +417,6 @@ SelectUpdater.prototype = {
             this.second.disabled = true;
         }
     },
-
     addOption: function(select, value, text)
     {
         option = document.createElement('OPTION');
@@ -465,7 +455,7 @@ FormElementDependenceController.prototype = {
      * @param object elementsMap
      * @param object config
      */
-    initialize : function (elementsMap, config)
+    initialize: function(elementsMap, config)
     {
         if (config) {
             this._config = config;
@@ -481,15 +471,13 @@ FormElementDependenceController.prototype = {
             }
         }
     },
-
     /**
      * Misc. config options
      * Keys are underscored intentionally
      */
-    _config : {
-        levels_up : 1 // how many levels up to travel when toggling element
+    _config: {
+        levels_up: 1 // how many levels up to travel when toggling element
     },
-
     /**
      * Define whether target element should be toggled and show/hide its row
      *
@@ -498,7 +486,7 @@ FormElementDependenceController.prototype = {
      * @param valuesFrom - ids of master elements and reference values
      * @return
      */
-    trackChange : function(e, idTo, valuesFrom)
+    trackChange: function(e, idTo, valuesFrom)
     {
         // define whether the target should show up
         var shouldShowUp = true;
@@ -518,18 +506,18 @@ FormElementDependenceController.prototype = {
         // toggle target row
         if (shouldShowUp) {
             var currentConfig = this._config;
-            $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function (item) {
+            $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function(item) {
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
-                if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)
-                    && !(currentConfig.can_edit_price != undefined && !currentConfig.can_edit_price)) {
+                if ((!item.type || item.type != 'hidden') && !($(item.id + '_inherit') && $(item.id + '_inherit').checked)
+                        && !(currentConfig.can_edit_price != undefined && !currentConfig.can_edit_price)) {
                     item.disabled = false;
                 }
             });
             $(idTo).up(this._config.levels_up).show();
         } else {
-            $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function (item){
+            $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function(item) {
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
-                if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)) {
+                if ((!item.type || item.type != 'hidden') && !($(item.id + '_inherit') && $(item.id + '_inherit').checked)) {
                     item.disabled = true;
                 }
             });

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Mbox.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Loader
  * May be used in constructor, but commented out for now
@@ -37,7 +36,6 @@
  */
 #require_once 'Zend/Mail/Message/File.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -47,6 +45,7 @@
  */
 class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
 {
+
     /**
      * file handle to mbox file
      * @var null|resource
@@ -88,7 +87,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         return count($this->_positions);
     }
 
-
     /**
      * Get a list of messages with number and size
      *
@@ -110,7 +108,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         return $result;
     }
 
-
     /**
      * Get positions for mail message or throw exeption if id is invalid
      *
@@ -131,7 +128,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         return $this->_positions[$id - 1];
     }
 
-
     /**
      * Fetch a message
      *
@@ -146,7 +142,7 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
             // TODO top/body lines
             $messagePos = $this->_getPos($id);
             return new $this->_messageClass(array('file' => $this->_fh, 'startPos' => $messagePos['start'],
-                                                  'endPos' => $messagePos['end']));
+                'endPos' => $messagePos['end']));
         }
 
         $bodyLines = 0; // TODO: need a way to change that
@@ -173,6 +169,7 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
      * @throws Zend_Mail_Protocol_Exception
      * @throws Zend_Mail_Storage_Exception
      */
+
     public function getRawHeader($id, $part = null, $topLines = 0)
     {
         if ($part !== null) {
@@ -197,6 +194,7 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
      * @throws Zend_Mail_Protocol_Exception
      * @throws Zend_Mail_Storage_Exception
      */
+
     public function getRawContent($id, $part = null)
     {
         if ($part !== null) {
@@ -222,7 +220,7 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
     public function __construct($params)
     {
         if (is_array($params)) {
-            $params = (object)$params;
+            $params = (object) $params;
         }
 
         if (!isset($params->filename) /* || Zend_Loader::isReadable($params['filename']) */) {
@@ -234,7 +232,7 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         }
 
         $this->_openMboxFile($params->filename);
-        $this->_has['top']      = true;
+        $this->_has['top'] = true;
         $this->_has['uniqueid'] = false;
     }
 
@@ -339,7 +337,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         $this->_positions = array();
     }
 
-
     /**
      * Waste some CPU cycles doing nothing.
      *
@@ -349,7 +346,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
     {
         return true;
     }
-
 
     /**
      * stub for not supported message deletion

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Form Input/Output Strip HTML tags Filter
  *
@@ -34,6 +34,7 @@
  */
 class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
 {
+
     /**
      * Date format
      *
@@ -59,8 +60,8 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
         if (is_null($format)) {
             $format = Varien_Date::DATE_INTERNAL_FORMAT;
         }
-        $this->_dateFormat  = $format;
-        $this->_locale      = $locale;
+        $this->_dateFormat = $format;
+        $this->_locale = $locale;
     }
 
     /**
@@ -72,12 +73,12 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
     public function inputFilter($value)
     {
         $filterInput = new Zend_Filter_LocalizedToNormalized(array(
-            'date_format'   => $this->_dateFormat,
-            'locale'        => $this->_locale
+            'date_format' => $this->_dateFormat,
+            'locale' => $this->_locale
         ));
         $filterInternal = new Zend_Filter_NormalizedToLocalized(array(
-            'date_format'   => Varien_Date::DATE_INTERNAL_FORMAT,
-            'locale'        => $this->_locale
+            'date_format' => Varien_Date::DATE_INTERNAL_FORMAT,
+            'locale' => $this->_locale
         ));
 
         $value = $filterInput->filter($value);
@@ -94,16 +95,17 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
     public function outputFilter($value)
     {
         $filterInput = new Zend_Filter_LocalizedToNormalized(array(
-            'date_format'   => Varien_Date::DATE_INTERNAL_FORMAT,
-            'locale'        => $this->_locale
+            'date_format' => Varien_Date::DATE_INTERNAL_FORMAT,
+            'locale' => $this->_locale
         ));
         $filterInternal = new Zend_Filter_NormalizedToLocalized(array(
-            'date_format'   => $this->_dateFormat,
-            'locale'        => $this->_locale
+            'date_format' => $this->_dateFormat,
+            'locale' => $this->_locale
         ));
 
         $value = $filterInput->filter($value);
         $value = $filterInternal->filter($value);
         return $value;
     }
+
 }

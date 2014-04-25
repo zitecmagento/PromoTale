@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Store / store view / website delete form container
@@ -54,10 +54,9 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
         $this->_updateButton('delete', 'onclick', 'editForm.submit();');
 
         $this->_addButton('cancel', array(
-            'label'     => Mage::helper('adminhtml')->__('Cancel'),
-            'onclick'   => 'setLocation(\'' . $this->getBackUrl() . '\')',
-        ), 2, 100, 'footer');
-
+            'label' => Mage::helper('adminhtml')->__('Cancel'),
+            'onclick' => 'setLocation(\'' . $this->getBackUrl() . '\')',
+                ), 2, 100, 'footer');
     }
 
     /**

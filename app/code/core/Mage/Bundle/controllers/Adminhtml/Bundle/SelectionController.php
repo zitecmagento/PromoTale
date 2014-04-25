@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Controller_Action
 {
+
     protected function _construct()
     {
         $this->setUsedModuleName('Mage_Bundle');
@@ -41,23 +43,22 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
     public function searchAction()
     {
         return $this->getResponse()->setBody(
-            $this->getLayout()
-                ->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_search')
-                ->setIndex($this->getRequest()->getParam('index'))
-                ->setFirstShow(true)
-                ->toHtml()
-           );
+                        $this->getLayout()
+                                ->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_search')
+                                ->setIndex($this->getRequest()->getParam('index'))
+                                ->setFirstShow(true)
+                                ->toHtml()
+        );
     }
 
     public function gridAction()
     {
         return $this->getResponse()->setBody(
-            $this->getLayout()
-                ->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_search_grid',
-                    'adminhtml.catalog.product.edit.tab.bundle.option.search.grid')
-                ->setIndex($this->getRequest()->getParam('index'))
-                ->toHtml()
-           );
+                        $this->getLayout()
+                                ->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_search_grid', 'adminhtml.catalog.product.edit.tab.bundle.option.search.grid')
+                                ->setIndex($this->getRequest()->getParam('index'))
+                                ->toHtml()
+        );
     }
 
 }

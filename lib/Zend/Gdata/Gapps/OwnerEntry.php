@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id:$
  */
-
 /**
  * @see Zend_Gdata_Entry
  */
@@ -155,4 +154,3 @@ class Zend_Gdata_Gapps_OwnerEntry extends Zend_Gdata_Entry
     }
 
 }
-

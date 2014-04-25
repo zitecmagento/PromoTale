@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resource
 {
 
@@ -151,7 +151,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
                 $this->_fault('billing_address_is_not_set');
             }
             $quote->getBillingAddress()->setPaymentMethod(
-                isset($paymentData['method']) ? $paymentData['method'] : null
+                    isset($paymentData['method']) ? $paymentData['method'] : null
             );
         } else {
             // check if shipping address is set
@@ -159,7 +159,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
                 $this->_fault('shipping_address_is_not_set');
             }
             $quote->getShippingAddress()->setPaymentMethod(
-                isset($paymentData['method']) ? $paymentData['method'] : null
+                    isset($paymentData['method']) ? $paymentData['method'] : null
             );
         }
 
@@ -172,25 +172,25 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
         foreach ($methods as $method) {
             if ($method->getCode() == $paymentData['method']) {
                 /** @var $method Mage_Payment_Model_Method_Abstract */
-                if (!($this->_canUsePaymentMethod($method, $quote)
-                    && ($total != 0
-                        || $method->getCode() == 'free'
-                        || ($quote->hasRecurringItems() && $method->canManageRecurringProfiles())))
+                if (!($this->_canUsePaymentMethod($method, $quote) && ($total != 0 || $method->getCode() == 'free' || ($quote->hasRecurringItems() && $method->canManageRecurringProfiles())))
                 ) {
                     $this->_fault("method_not_allowed");
                 }
             }
         }
 
-        try {
+        try
+        {
             $payment = $quote->getPayment();
             $payment->importData($paymentData);
 
 
             $quote->setTotalsCollectedFlag(false)
-                ->collectTotals()
-                ->save();
-        } catch (Mage_Core_Exception $e) {
+                    ->collectTotals()
+                    ->save();
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('payment_method_is_not_set', $e->getMessage());
         }
         return true;

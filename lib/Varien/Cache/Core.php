@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Varien_Cache_Core extends Zend_Cache_Core
 {
+
     /**
      * Specific slab size = 1Mb minus overhead
      *
@@ -107,7 +108,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      */
     protected function _tags($tags)
     {
-        foreach ($tags as $key=>$tag) {
+        foreach ($tags as $key => $tag) {
             $tags[$key] = $this->_id($tag);
         }
         return $tags;
@@ -238,4 +239,5 @@ class Varien_Cache_Core extends Zend_Cache_Core
         $tags = $this->_tags($tags);
         return parent::getIdsNotMatchingTags($tags);
     }
+
 }

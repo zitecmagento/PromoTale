@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Db2.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Db_Statement
  */
@@ -67,8 +67,7 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
              */
             #require_once 'Zend/Db/Statement/Db2/Exception.php';
             throw new Zend_Db_Statement_Db2_Exception(
-                db2_stmt_errormsg(),
-                db2_stmt_error()
+            db2_stmt_errormsg(), db2_stmt_error()
             );
         }
     }
@@ -102,8 +101,7 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
              */
             #require_once 'Zend/Db/Statement/Db2/Exception.php';
             throw new Zend_Db_Statement_Db2_Exception(
-                db2_stmt_errormsg(),
-                db2_stmt_error()
+            db2_stmt_errormsg(), db2_stmt_error()
             );
         }
 
@@ -124,7 +122,6 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         $this->_stmt = false;
         return true;
     }
-
 
     /**
      * Returns the number of columns in the result set.
@@ -169,7 +166,7 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
     public function errorInfo()
     {
         $error = $this->errorCode();
-        if ($error === false){
+        if ($error === false) {
             return false;
         }
 
@@ -210,8 +207,7 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
              */
             #require_once 'Zend/Db/Statement/Db2/Exception.php';
             throw new Zend_Db_Statement_Db2_Exception(
-                db2_stmt_errormsg(),
-                db2_stmt_error());
+            db2_stmt_errormsg(), db2_stmt_error());
         }
 
         $this->_keys = array();
@@ -332,7 +328,7 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         return $num;
     }
 
-     /**
+    /**
      * Returns an array containing all of the result set rows.
      *
      * @param int $style OPTIONAL Fetch mode.
@@ -357,4 +353,5 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         }
         return $results;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ChildrenIterator.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Ldap_Node
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Ldap_Node_ChildrenIterator implements Iterator, Countable, RecursiveIterator, ArrayAccess
 {
+
     /**
      * An array of Zend_Ldap_Node objects
      *
@@ -114,7 +115,7 @@ class Zend_Ldap_Node_ChildrenIterator implements Iterator, Countable, RecursiveI
      */
     public function valid()
     {
-        return (current($this->_data)!==false);
+        return (current($this->_data) !== false);
     }
 
     /**
@@ -181,7 +182,10 @@ class Zend_Ldap_Node_ChildrenIterator implements Iterator, Countable, RecursiveI
      * @param  string $name
      * @return null
      */
-    public function offsetUnset($name) { }
+    public function offsetUnset($name)
+    {
+        
+    }
 
     /**
      * Does nothing.
@@ -191,7 +195,10 @@ class Zend_Ldap_Node_ChildrenIterator implements Iterator, Countable, RecursiveI
      * @param  mixed $value
      * @return null
      */
-    public function offsetSet($name, $value) { }
+    public function offsetSet($name, $value)
+    {
+        
+    }
 
     /**
      * Get all children as an array
@@ -206,4 +213,5 @@ class Zend_Ldap_Node_ChildrenIterator implements Iterator, Countable, RecursiveI
         }
         return $data;
     }
+
 }

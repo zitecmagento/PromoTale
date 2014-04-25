@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_CatalogSearch_AjaxController extends Mage_Core_Controller_Front_Action
 {
+
     public function suggestAction()
     {
         if (!$this->getRequest()->getParam('q', false)) {
@@ -41,4 +43,5 @@ class Mage_CatalogSearch_AjaxController extends Mage_Core_Controller_Front_Actio
 
         $this->getResponse()->setBody($this->getLayout()->createBlock('catalogsearch/autocomplete')->toHtml());
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget
-    implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget implements Varien_Data_Form_Element_Renderer_Interface
 {
+
     /**
      * Object being rendered
      *
@@ -175,7 +176,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget
     {
         if (is_null($this->_countries)) {
             $this->_countries = Mage::getModel('adminhtml/system_config_source_country')
-                ->toOptionArray();
+                    ->toOptionArray();
         }
 
         return $this->_countries;
@@ -225,13 +226,12 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget
      */
     protected function _setAddButton()
     {
-        $this->setChild('add_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array('id' => "add_tax_" . $this->getElement()->getHtmlId(),
-                'label' => Mage::helper('catalog')->__('Add Tax'),
-                'onclick' => "weeeTaxControl.addItem('" . $this->getElement()->getHtmlId() . "')",
-                'class' => 'add'
-            )));
+        $this->setChild('add_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array('id' => "add_tax_" . $this->getElement()->getHtmlId(),
+                            'label' => Mage::helper('catalog')->__('Add Tax'),
+                            'onclick' => "weeeTaxControl.addItem('" . $this->getElement()->getHtmlId() . "')",
+                            'class' => 'add'
+        )));
     }
 
     /**
@@ -243,5 +243,5 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget
     {
         return $this->getChildHtml('add_button');
     }
-}
 
+}

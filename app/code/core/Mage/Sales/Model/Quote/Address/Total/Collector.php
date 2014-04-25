@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Config_Ordered
 {
+
     /**
      * Path to sort order values of checkout totals
      */
@@ -79,8 +81,8 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
             $this->_store = Mage::app()->getStore();
         }
         $this->_initModels()
-            ->_initCollectors()
-            ->_initRetrievers();
+                ->_initCollectors()
+                ->_initRetrievers();
     }
 
     /**
@@ -116,15 +118,14 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
         $model = Mage::getModel($class);
         if (!$model instanceof Mage_Sales_Model_Quote_Address_Total_Abstract) {
             Mage::throwException(
-                Mage::helper('sales')->__('The address total model should be extended from Mage_Sales_Model_Quote_Address_Total_Abstract.')
+                    Mage::helper('sales')->__('The address total model should be extended from Mage_Sales_Model_Quote_Address_Total_Abstract.')
             );
         }
 
         $model->setCode($totalCode);
-        $this->_modelsConfig[$totalCode]= $this->_prepareConfigArray($totalCode, $totalConfig);
-        $this->_modelsConfig[$totalCode]= $model->processConfigArray(
-            $this->_modelsConfig[$totalCode],
-            $this->_store
+        $this->_modelsConfig[$totalCode] = $this->_prepareConfigArray($totalCode, $totalConfig);
+        $this->_modelsConfig[$totalCode] = $model->processConfigArray(
+                $this->_modelsConfig[$totalCode], $this->_store
         );
 
         return $model;
@@ -174,4 +175,5 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
         }
         return $this;
     }
+
 }

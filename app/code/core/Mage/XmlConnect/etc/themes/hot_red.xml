@@ -52,13 +52,13 @@
                 <relatedProductBackgroundColor>#E00000</relatedProductBackgroundColor>
             </itemActions>
         </native>
-    <extra>
-        <fontColors>
-            <header>#FFFFFF</header>
-            <primary>#222222</primary>
-            <secondary>#FFFFFF</secondary>
-            <price>#CA1800</price>
-        </fontColors>
-    </extra>
+        <extra>
+            <fontColors>
+                <header>#FFFFFF</header>
+                <primary>#222222</primary>
+                <secondary>#FFFFFF</secondary>
+                <price>#CA1800</price>
+            </fontColors>
+        </extra>
     </configuration>
 </theme>

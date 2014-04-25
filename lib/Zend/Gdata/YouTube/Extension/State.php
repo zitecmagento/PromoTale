@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: State.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Extension
  */
@@ -52,8 +51,7 @@ class Zend_Gdata_YouTube_Extension_State extends Zend_Gdata_Extension
      * @param string $reasonCode(optional) The reasonCode value
      * @param string $helpUrl(optional) The helpUrl value
      */
-    public function __construct($explanation = null, $name = null,
-                                $reasonCode = null, $helpUrl = null)
+    public function __construct($explanation = null, $name = null, $reasonCode = null, $helpUrl = null)
     {
         $this->registerAllNamespaces(Zend_Gdata_YouTube::$namespaces);
         parent::__construct();
@@ -99,17 +97,17 @@ class Zend_Gdata_YouTube_Extension_State extends Zend_Gdata_Extension
     protected function takeAttributeFromDOM($attribute)
     {
         switch ($attribute->localName) {
-        case 'name':
-            $this->_name = $attribute->nodeValue;
-            break;
-        case 'reasonCode':
-            $this->_reasonCode = $attribute->nodeValue;
-            break;
-        case 'helpUrl':
-            $this->_helpUrl = $attribute->nodeValue;
-            break;
-        default:
-            parent::takeAttributeFromDOM($attribute);
+            case 'name':
+                $this->_name = $attribute->nodeValue;
+                break;
+            case 'reasonCode':
+                $this->_reasonCode = $attribute->nodeValue;
+                break;
+            case 'helpUrl':
+                $this->_helpUrl = $attribute->nodeValue;
+                break;
+            default:
+                parent::takeAttributeFromDOM($attribute);
         }
     }
 

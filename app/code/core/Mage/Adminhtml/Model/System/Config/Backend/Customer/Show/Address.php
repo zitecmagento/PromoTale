@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Address
-    extends Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer
+class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Address extends Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer
 {
+
     /**
      * Retrieve attribute objects
      *
@@ -45,4 +46,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Address
         $result[] = Mage::getSingleton('eav/config')->getAttribute('customer_address', $this->_getAttributeCode());
         return $result;
     }
+
 }

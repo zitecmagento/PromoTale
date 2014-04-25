@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Review
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Action predispatch
      *
@@ -73,4 +74,5 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         $this->getLayout()->getBlock('head')->setTitle($this->__('Review Details'));
         $this->renderLayout();
     }
+
 }

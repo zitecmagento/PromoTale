@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml customer orders grid block
  *
@@ -34,12 +34,12 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Default sort field
      *
      * @var string
      */
-
     protected $_defaultSort = 'added_at';
 
     /**
@@ -87,8 +87,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     protected function _createCollection()
     {
         return Mage::getModel('wishlist/item')->getCollection()
-            ->setWebsiteId($this->_getCustomer()->getWebsiteId())
-            ->setCustomerGroupId($this->_getCustomer()->getGroupId());
+                        ->setWebsiteId($this->_getCustomer()->getWebsiteId())
+                        ->setCustomerGroupId($this->_getCustomer()->getGroupId());
     }
 
     /**
@@ -99,9 +99,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     protected function _prepareCollection()
     {
         $collection = $this->_createCollection()->addCustomerIdFilter($this->_getCustomer()->getId())
-            ->resetSortOrder()
-            ->addDaysInWishlist()
-            ->addStoreData();
+                ->resetSortOrder()
+                ->addDaysInWishlist()
+                ->addStoreData();
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
@@ -115,63 +115,63 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     protected function _prepareColumns()
     {
         $this->addColumn('product_name', array(
-            'header'    => Mage::helper('catalog')->__('Product Name'),
-            'index'     => 'product_name',
-            'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item'
+            'header' => Mage::helper('catalog')->__('Product Name'),
+            'index' => 'product_name',
+            'renderer' => 'adminhtml/customer_edit_tab_view_grid_renderer_item'
         ));
 
         $this->addColumn('description', array(
-            'header'    => Mage::helper('wishlist')->__('User Description'),
-            'index'     => 'description',
-            'renderer'  => 'adminhtml/customer_edit_tab_wishlist_grid_renderer_description'
+            'header' => Mage::helper('wishlist')->__('User Description'),
+            'index' => 'description',
+            'renderer' => 'adminhtml/customer_edit_tab_wishlist_grid_renderer_description'
         ));
 
         $this->addColumn('qty', array(
-            'header'    => Mage::helper('catalog')->__('Qty'),
-            'index'     => 'qty',
-            'type'      => 'number',
-            'width'     => '60px'
+            'header' => Mage::helper('catalog')->__('Qty'),
+            'index' => 'qty',
+            'type' => 'number',
+            'width' => '60px'
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store', array(
-                'header'    => Mage::helper('wishlist')->__('Added From'),
-                'index'     => 'store_id',
-                'type'      => 'store',
-                'width'     => '160px'
+                'header' => Mage::helper('wishlist')->__('Added From'),
+                'index' => 'store_id',
+                'type' => 'store',
+                'width' => '160px'
             ));
         }
 
         $this->addColumn('added_at', array(
-            'header'    => Mage::helper('wishlist')->__('Date Added'),
-            'index'     => 'added_at',
+            'header' => Mage::helper('wishlist')->__('Date Added'),
+            'index' => 'added_at',
             'gmtoffset' => true,
-            'type'      => 'date'
+            'type' => 'date'
         ));
 
         $this->addColumn('days', array(
-            'header'    => Mage::helper('wishlist')->__('Days in Wishlist'),
-            'index'     => 'days_in_wishlist',
-            'type'      => 'number'
+            'header' => Mage::helper('wishlist')->__('Days in Wishlist'),
+            'index' => 'days_in_wishlist',
+            'type' => 'number'
         ));
 
         $this->addColumn('action', array(
-            'header'    => Mage::helper('customer')->__('Action'),
-            'index'     => 'wishlist_item_id',
-            'renderer'  => 'adminhtml/customer_grid_renderer_multiaction',
-            'filter'    => false,
-            'sortable'  => false,
-            'actions'   => array(
+            'header' => Mage::helper('customer')->__('Action'),
+            'index' => 'wishlist_item_id',
+            'renderer' => 'adminhtml/customer_grid_renderer_multiaction',
+            'filter' => false,
+            'sortable' => false,
+            'actions' => array(
                 array(
-                    'caption'   => Mage::helper('customer')->__('Configure'),
-                    'url'       => 'javascript:void(0)',
-                    'process'   => 'configurable',
+                    'caption' => Mage::helper('customer')->__('Configure'),
+                    'url' => 'javascript:void(0)',
+                    'process' => 'configurable',
                     'control_object' => 'wishlistControl'
                 ),
                 array(
-                    'caption'   => Mage::helper('customer')->__('Delete'),
-                    'url'       => '#',
-                    'onclick'   => 'return wishlistControl.removeItem($wishlist_item_id);'
+                    'caption' => Mage::helper('customer')->__('Delete'),
+                    'url' => '#',
+                    'onclick' => 'return wishlistControl.removeItem($wishlist_item_id);'
                 )
             )
         ));
@@ -186,7 +186,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/wishlist', array('_current'=>true));
+        return $this->getUrl('*/*/wishlist', array('_current' => true));
     }
 
     /**
@@ -248,7 +248,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      */
     public function getGridParentHtml()
     {
-        $templateName = Mage::getDesign()->getTemplateFilename($this->_parentTemplate, array('_relative'=>true));
+        $templateName = Mage::getDesign()->getTemplateFilename($this->_parentTemplate, array('_relative' => true));
         return $this->fetchView($templateName);
     }
 
@@ -285,4 +285,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     {
         return $this->_productHelpers;
     }
+
 }

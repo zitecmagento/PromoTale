@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,14 +35,15 @@
 class Mage_Backup_Model_Backup extends Varien_Object
 {
     /* internal constants */
-    const COMPRESS_RATE     = 9;
+
+    const COMPRESS_RATE = 9;
 
     /**
      * Type of backup file
      *
      * @var string
      */
-    private $_type  = 'db';
+    private $_type = 'db';
 
     /**
      * Gz file pointer
@@ -62,13 +64,13 @@ class Mage_Backup_Model_Backup extends Varien_Object
         $backupData = Mage::helper('backup')->extractDataFromFilename($fileName);
 
         $this->addData(array(
-            'id'   => $filePath . DS . $fileName,
-            'time' => (int)$backupData->getTime(),
+            'id' => $filePath . DS . $fileName,
+            'time' => (int) $backupData->getTime(),
             'path' => $filePath,
             'extension' => Mage::helper('backup')->getExtensionByType($backupData->getType()),
             'display_name' => Mage::helper('backup')->nameToDisplayName($backupData->getName()),
             'name' => $backupData->getName(),
-            'date_object' => new Zend_Date((int)$backupData->getTime(), Mage::app()->getLocale()->getLocaleCode())
+            'date_object' => new Zend_Date((int) $backupData->getTime(), Mage::app()->getLocale()->getLocaleCode())
         ));
 
         $this->setType($backupData->getType());
@@ -110,10 +112,10 @@ class Mage_Backup_Model_Backup extends Varien_Object
      * @param string $value
      * @return Mage_Backup_Model_Backup
      */
-    public function setType($value='db')
+    public function setType($value = 'db')
     {
         $possibleTypes = Mage::helper('backup')->getBackupTypesList();
-        if(!in_array($value, $possibleTypes)) {
+        if (!in_array($value, $possibleTypes)) {
             $value = Mage::helper('backup')->getDefaultBackupType();
         }
 
@@ -148,7 +150,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
 
         $ioProxy = new Varien_Io_File();
         $ioProxy->setAllowCreateFolders(true);
-        $ioProxy->open(array('path'=>$this->getPath()));
+        $ioProxy->open(array('path' => $this->getPath()));
 
         $compress = 0;
         if (extension_loaded("zlib")) {
@@ -156,8 +158,8 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         $rawContent = '';
-        if ( $compress ) {
-            $rawContent = gzcompress( $content, self::COMPRESS_RATE );
+        if ($compress) {
+            $rawContent = gzcompress($content, self::COMPRESS_RATE);
         } else {
             $rawContent = $content;
         }
@@ -223,7 +225,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         $ioProxy = new Varien_Io_File();
-        $ioProxy->open(array('path'=>$this->getPath()));
+        $ioProxy->open(array('path' => $this->getPath()));
         $ioProxy->rm($this->getFileName());
         return $this;
     }
@@ -241,12 +243,14 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         $ioAdapter = new Varien_Io_File();
-        try {
+        try
+        {
             $path = $ioAdapter->getCleanPath($this->getPath());
             $ioAdapter->checkAndCreateFolder($path);
             $filePath = $path . DS . $this->getFileName();
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             Mage::exception('Mage_Backup', $e->getMessage());
         }
 
@@ -263,7 +267,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
 
         if (!$this->_handler) {
             throw new Mage_Backup_Exception_NotEnoughPermissions(
-                Mage::helper('backup')->__('Backup file "%s" cannot be read from or written to.', $this->getFileName())
+            Mage::helper('backup')->__('Backup file "%s" cannot be read from or written to.', $this->getFileName())
             );
         }
 
@@ -306,10 +310,12 @@ class Mage_Backup_Model_Backup extends Varien_Object
             Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file handler was unspecified.'));
         }
 
-        try {
+        try
+        {
             gzwrite($this->_handler, $string);
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             Mage::exception('Mage_Backup', Mage::helper('backup')->__('An error occurred while writing to the backup file "%s".', $this->getFileName()));
         }
 
@@ -336,7 +342,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     public function output()
     {
         if (!$this->exists()) {
-            return ;
+            return;
         }
 
         $ioAdapter = new Varien_Io_File();
@@ -390,13 +396,14 @@ class Mage_Backup_Model_Backup extends Varien_Object
         foreach ($backupsCollection as $backup) {
             if ($backup->getId() == $backupId) {
                 $this->setType($backup->getType())
-                    ->setTime($backup->getTime())
-                    ->setName($backup->getName())
-                    ->setPath($backup->getPath());
+                        ->setTime($backup->getTime())
+                        ->setName($backup->getName())
+                        ->setPath($backup->getPath());
                 break;
             }
         }
 
         return $this;
     }
+
 }

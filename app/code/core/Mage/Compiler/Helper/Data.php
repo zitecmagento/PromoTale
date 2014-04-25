@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,4 +34,7 @@
  */
 class Mage_Compiler_Helper_Data extends Mage_Core_Helper_Abstract
 {
-} // Class Mage_Api_Helper_Data End
+    
+}
+
+// Class Mage_Api_Helper_Data End

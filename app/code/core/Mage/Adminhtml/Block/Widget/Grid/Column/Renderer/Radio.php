@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     protected $_defaultWidth = 55;
     protected $_values;
 
@@ -49,6 +50,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio
         }
         return $this->_values;
     }
+
     /**
      * Renders grid column
      *
@@ -58,7 +60,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio
     public function render(Varien_Object $row)
     {
         $values = $this->getColumn()->getValues();
-        $value  = $row->getData($this->getColumn()->getIndex());
+        $value = $row->getData($this->getColumn()->getIndex());
         if (is_array($values)) {
             $checked = in_array($value, $values) ? ' checked="checked"' : '';
         } else {
@@ -70,13 +72,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio
     }
 
     /*
-    public function renderHeader()
-    {
-        $checked = '';
-        if ($filter = $this->getColumn()->getFilter()) {
-            $checked = $filter->getValue() ? 'checked' : '';
-        }
-        return '<input type="checkbox" name="'.$this->getColumn()->getName().'" onclick="'.$this->getColumn()->getGrid()->getJsObjectName().'.checkCheckboxes(this)" class="checkbox" '.$checked.' title="'.Mage::helper('adminhtml')->__('Select All').'"/>';
-    }
-    */
+      public function renderHeader()
+      {
+      $checked = '';
+      if ($filter = $this->getColumn()->getFilter()) {
+      $checked = $filter->getValue() ? 'checked' : '';
+      }
+      return '<input type="checkbox" name="'.$this->getColumn()->getName().'" onclick="'.$this->getColumn()->getGrid()->getJsObjectName().'.checkCheckboxes(this)" class="checkbox" '.$checked.' title="'.Mage::helper('adminhtml')->__('Select All').'"/>';
+      }
+     */
 }

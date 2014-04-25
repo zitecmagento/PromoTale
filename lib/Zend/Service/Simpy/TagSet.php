@@ -20,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TagSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Simpy_Tag
  */
 #require_once 'Zend/Service/Simpy/Tag.php';
-
 
 /**
  * @category   Zend
@@ -37,6 +34,7 @@
  */
 class Zend_Service_Simpy_TagSet implements IteratorAggregate
 {
+
     /**
      * List of tags
      *
@@ -80,4 +78,5 @@ class Zend_Service_Simpy_TagSet implements IteratorAggregate
     {
         return count($this->_tags);
     }
+
 }

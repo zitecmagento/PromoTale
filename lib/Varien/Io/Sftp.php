@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 require_once('phpseclib/Net/SFTP.php');
 
 /**
@@ -36,6 +36,7 @@ require_once('phpseclib/Net/SFTP.php');
  */
 class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 {
+
     const REMOTE_TIMEOUT = 10;
     const SSH2_PORT = 22;
 
@@ -43,7 +44,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * @var Net_SFTP $_connection
      */
     protected $_connection = null;
-
 
     /**
      * Open a SFTP connection to a remote site.
@@ -70,7 +70,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
         if (!$this->_connection->login($args['username'], $args['password'])) {
             throw new Exception(sprintf(__("Unable to open SFTP connection as %s@%s", $args['username'], $args['host'])));
         }
-
     }
 
     /**
@@ -92,7 +91,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * false is returned and some part of the hierarchy might be created.
      * No rollback is performed.
      */
-    public function mkdir($dir, $mode=0777, $recursive=true)
+    public function mkdir($dir, $mode = 0777, $recursive = true)
     {
         if ($recursive) {
             $no_errors = true;
@@ -113,12 +112,12 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * Delete a directory
      *
      */
-    public function rmdir($dir, $recursive=false)
+    public function rmdir($dir, $recursive = false)
     {
         if ($recursive) {
             $no_errors = true;
             $cwd = $this->_connection->pwd();
-            if(!$this->_connection->chdir($dir)) {
+            if (!$this->_connection->chdir($dir)) {
                 throw new Exception("chdir(): $dir: Not a directory");
             }
             $list = $this->_connection->nlist();
@@ -128,7 +127,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
                 return $this->rmdir($dir, false);
             } else {
                 foreach ($list as $filename) {
-                    if($this->_connection->chdir($filename)) { // This is a directory
+                    if ($this->_connection->chdir($filename)) { // This is a directory
                         $this->_connection->chdir('..');
                         $no_errors = $no_errors && $this->rmdir($filename, $recursive);
                     } else {
@@ -165,7 +164,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * Read a file
      *
      */
-    public function read($filename, $dest=null)
+    public function read($filename, $dest = null)
     {
         if (is_null($dest)) {
             $dest = false;
@@ -177,7 +176,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * Write a file
      * @param $src Must be a local file name
      */
-    public function write($filename, $src, $mode=null)
+    public function write($filename, $src, $mode = null)
     {
         return $this->_connection->put($filename, $src);
     }
@@ -213,12 +212,12 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * Get list of cwd subdirectories and files
      *
      */
-    public function ls($grep=null)
+    public function ls($grep = null)
     {
         $list = $this->_connection->nlist();
         $pwd = $this->pwd();
         $result = array();
-        foreach($list as $name) {
+        foreach ($list as $name) {
             $result[] = array(
                 'text' => $name,
                 'id' => "{$pwd}{$name}",

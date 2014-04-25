@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -84,7 +85,7 @@ class Mage_Page_Model_Source_Layout
         }
 
         if ($withEmpty) {
-            array_unshift($options, array('value'=>'', 'label'=>Mage::helper('page')->__('-- Please Select --')));
+            array_unshift($options, array('value' => '', 'label' => Mage::helper('page')->__('-- Please Select --')));
         }
 
         return $options;
@@ -99,4 +100,5 @@ class Mage_Page_Model_Source_Layout
         $this->getOptions();
         return $this->_defaultValue;
     }
+
 }

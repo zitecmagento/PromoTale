@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Xml.php 20851 2010-02-02 21:45:51Z ralph $
  */
-
 #require_once 'Zend/Tool/Project/Profile/FileParser/Interface.php';
 #require_once 'Zend/Tool/Project/Context/Repository.php';
 #require_once 'Zend/Tool/Project/Profile.php';
@@ -72,11 +72,11 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
         if ($profile->hasAttribute('type')) {
             $xmlElement->addAttribute('type', $profile->getAttribute('type'));
         }
-        
+
         if ($profile->hasAttribute('version')) {
             $xmlElement->addAttribute('version', $profile->getAttribute('version'));
         }
-        
+
         self::_serializeRecurser($profile, $xmlElement);
 
         $doc = new DOMDocument('1.0');
@@ -111,15 +111,15 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
         if ($xmlDataIterator->getName() != 'projectProfile') {
             throw new Exception('Profiles must start with a projectProfile node');
         }
-        
+
         if (isset($xmlDataIterator['type'])) {
             $this->_profile->setAttribute('type', (string) $xmlDataIterator['type']);
         }
-        
+
         if (isset($xmlDataIterator['version'])) {
             $this->_profile->setAttribute('version', (string) $xmlDataIterator['version']);
         }
-        
+
         // start un-serialization of the xml doc
         $this->_unserializeRecurser($xmlDataIterator);
 
@@ -127,7 +127,6 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
         $this->_lazyLoadContexts();
 
         return $this->_profile;
-
     }
 
     /**
@@ -170,11 +169,8 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
             if ($resource->hasChildren()) {
                 self::_serializeRecurser($resource, $newNode);
             }
-
         }
-
     }
-
 
     /**
      * _unserializeRecurser()
@@ -234,7 +230,6 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
                 $resource->initializeContext();
             }
         }
-
     }
 
 }

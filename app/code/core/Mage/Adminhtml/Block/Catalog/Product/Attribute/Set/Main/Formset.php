@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,9 +30,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Mage_Adminhtml_Block_Widget_Form
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -44,10 +45,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
     protected function _prepareForm()
     {
         $data = Mage::getModel('eav/entity_attribute_set')
-            ->load($this->getRequest()->getParam('id'));
+                ->load($this->getRequest()->getParam('id'));
 
         $form = new Varien_Data_Form();
-        $fieldset = $form->addFieldset('set_name', array('legend'=> Mage::helper('catalog')->__('Edit Set Name')));
+        $fieldset = $form->addFieldset('set_name', array('legend' => Mage::helper('catalog')->__('Edit Set Name')));
         $fieldset->addField('attribute_set_name', 'text', array(
             'label' => Mage::helper('catalog')->__('Name'),
             'note' => Mage::helper('catalog')->__('For internal use.'),
@@ -57,17 +58,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
             'value' => $data->getAttributeSetName()
         ));
 
-        if( !$this->getRequest()->getParam('id', false) ) {
+        if (!$this->getRequest()->getParam('id', false)) {
             $fieldset->addField('gotoEdit', 'hidden', array(
                 'name' => 'gotoEdit',
                 'value' => '1'
             ));
 
             $sets = Mage::getModel('eav/entity_attribute_set')
-                ->getResourceCollection()
-                ->setEntityTypeFilter(Mage::registry('entityType'))
-                ->load()
-                ->toOptionArray();
+                    ->getResourceCollection()
+                    ->setEntityTypeFilter(Mage::registry('entityType'))
+                    ->load()
+                    ->toOptionArray();
 
             $fieldset->addField('skeleton_set', 'select', array(
                 'label' => Mage::helper('catalog')->__('Based On'),
@@ -85,4 +86,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
         $form->setOnsubmit('return false;');
         $this->setForm($form);
     }
+
 }

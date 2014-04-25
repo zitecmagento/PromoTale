@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @since      Preview Release 0.2
  */
-
 /**
  * @see Zend_Session_Validator_Interface
  */
@@ -51,7 +51,6 @@ abstract class Zend_Session_Validator_Abstract implements Zend_Session_Validator
 
         $_SESSION['__ZF']['VALID'][$validatorName] = $data;
     }
-
 
     /**
      * GetValidData() - This method should be used to retrieve the environment variables that

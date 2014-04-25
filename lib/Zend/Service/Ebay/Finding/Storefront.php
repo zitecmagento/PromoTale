@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Storefront.php 22824 2010-08-09 18:59:54Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Ebay_Finding_Storefront extends Zend_Service_Ebay_Finding_Abstract
 {
+
     /**
      * The name of the seller's eBay Store.
      *
@@ -58,7 +59,7 @@ class Zend_Service_Ebay_Finding_Storefront extends Zend_Service_Ebay_Finding_Abs
         $ns = Zend_Service_Ebay_Finding::XMLNS_FINDING;
 
         $this->storeName = $this->_query(".//$ns:storeName[1]", 'string');
-        $this->storeURL  = $this->_query(".//$ns:storeURL[1]", 'string');
+        $this->storeURL = $this->_query(".//$ns:storeURL[1]", 'string');
     }
 
     /**
@@ -70,4 +71,5 @@ class Zend_Service_Ebay_Finding_Storefront extends Zend_Service_Ebay_Finding_Abs
     {
         return $proxy->findItemsInEbayStores($this->storeName, $options);
     }
+
 }

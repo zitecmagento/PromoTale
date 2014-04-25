@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Ccr.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Extension_Element
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Gdata_Health_Extension_Ccr extends Zend_Gdata_App_Extension_Element
 {
+
     protected $_rootNamespace = 'ccr';
     protected $_rootElement = 'ContinuityOfCareRecord';
     protected $_ccrDom = null;
@@ -108,12 +109,12 @@ class Zend_Gdata_Health_Extension_Ccr extends Zend_Gdata_App_Extension_Element
                     $category = 'Alerts';
                     break;
                 case 'TestResults':
-                    // TestResults is an alias for LabResults
+                // TestResults is an alias for LabResults
                 case 'LabResults':
                     $category = 'Results';
                     break;
                 default:
-                    // $category is already well formatted
+                // $category is already well formatted
             }
 
             return $this->_ccrDom->getElementsByTagNameNS($this->lookupNamespace('ccr'), $category);
@@ -121,4 +122,5 @@ class Zend_Gdata_Health_Extension_Ccr extends Zend_Gdata_App_Extension_Element
             return null;
         }
     }
+
 }

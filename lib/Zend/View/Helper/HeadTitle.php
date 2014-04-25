@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: HeadTitle.php 23388 2010-11-19 00:37:55Z ramon $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_Placeholder_Container_Standalone */
 #require_once 'Zend/View/Helper/Placeholder/Container/Standalone.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_Standalone
 {
+
     /**
      * Registry key for placeholder
      * @var string
@@ -96,10 +97,10 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
     public function setDefaultAttachOrder($setType)
     {
         if (!in_array($setType, array(
-            Zend_View_Helper_Placeholder_Container_Abstract::APPEND,
-            Zend_View_Helper_Placeholder_Container_Abstract::SET,
-            Zend_View_Helper_Placeholder_Container_Abstract::PREPEND
-        ))) {
+                    Zend_View_Helper_Placeholder_Container_Abstract::APPEND,
+                    Zend_View_Helper_Placeholder_Container_Abstract::SET,
+                    Zend_View_Helper_Placeholder_Container_Abstract::PREPEND
+                ))) {
             #require_once 'Zend/View/Exception.php';
             throw new Zend_View_Exception("You must use a valid attach order: 'PREPEND', 'APPEND' or 'SET'");
         }
@@ -189,13 +190,11 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
      */
     public function toString($indent = null, $locale = null)
     {
-        $indent = (null !== $indent)
-                ? $this->getWhitespace($indent)
-                : $this->getIndent();
+        $indent = (null !== $indent) ? $this->getWhitespace($indent) : $this->getIndent();
 
         $items = array();
 
-        if($this->_translate && $translator = $this->getTranslator()) {
+        if ($this->_translate && $translator = $this->getTranslator()) {
             foreach ($this as $item) {
                 $items[] = $translator->translate($item, $locale);
             }
@@ -207,11 +206,11 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
 
         $separator = $this->getSeparator();
         $output = '';
-        if(($prefix = $this->getPrefix())) {
-            $output  .= $prefix;
+        if (($prefix = $this->getPrefix())) {
+            $output .= $prefix;
         }
         $output .= implode($separator, $items);
-        if(($postfix = $this->getPostfix())) {
+        if (($postfix = $this->getPostfix())) {
             $output .= $postfix;
         }
 
@@ -219,4 +218,5 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
 
         return $indent . '<title>' . $output . '</title>';
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Api2
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission
-    implements Mage_Api2_Model_Acl_PermissionInterface
+class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Api2_Model_Acl_PermissionInterface
 {
+
     /**
      * Resources permissions
      *
@@ -80,7 +81,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission
                     /** @var $rule Mage_Api2_Model_Acl_Filter_Attribute */
                     if (null !== $rule->getAllowedAttributes()) {
                         $allowedAttributes[$rule->getResourceId()][$rule->getOperation()] = explode(
-                            ',', $rule->getAllowedAttributes()
+                                ',', $rule->getAllowedAttributes()
                         );
                     }
                 }
@@ -99,8 +100,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission
                     }
                     $operations = $operationSource->toArray();
 
-                    if (empty($resourceUserPrivileges[Mage_Api2_Model_Resource::OPERATION_CREATE])
-                        && empty($resourceUserPrivileges[Mage_Api2_Model_Resource::OPERATION_UPDATE])
+                    if (empty($resourceUserPrivileges[Mage_Api2_Model_Resource::OPERATION_CREATE]) && empty($resourceUserPrivileges[Mage_Api2_Model_Resource::OPERATION_UPDATE])
                     ) {
                         unset($operations[Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE]);
                     }
@@ -110,38 +110,36 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission
                     if (!$operations) { // skip resource without any operations allowed
                         continue;
                     }
-                    try {
+                    try
+                    {
                         /** @var $resourceModel Mage_Api2_Model_Resource */
                         $resourceModel = Mage::getModel($config->getResourceModel($resource));
                         if ($resourceModel) {
                             $resourceModel->setResourceType($resource)
-                                ->setUserType($this->_userType);
+                                    ->setUserType($this->_userType);
 
                             foreach ($operations as $operation => $operationLabel) {
-                                if (!$this->_hasEntityOnlyAttributes
-                                    && $config->getResourceEntityOnlyAttributes($resource, $this->_userType, $operation)
+                                if (!$this->_hasEntityOnlyAttributes && $config->getResourceEntityOnlyAttributes($resource, $this->_userType, $operation)
                                 ) {
                                     $this->_hasEntityOnlyAttributes = true;
                                 }
                                 $availableAttributes = $resourceModel->getAvailableAttributes(
-                                    $this->_userType,
-                                    $operation
+                                        $this->_userType, $operation
                                 );
                                 asort($availableAttributes);
                                 foreach ($availableAttributes as $attribute => $attributeLabel) {
-                                    $status = isset($allowedAttributes[$resource][$operation])
-                                        && in_array($attribute, $allowedAttributes[$resource][$operation])
-                                            ? Mage_Api2_Model_Acl_Global_Rule_Permission::TYPE_ALLOW
-                                            : Mage_Api2_Model_Acl_Global_Rule_Permission::TYPE_DENY;
+                                    $status = isset($allowedAttributes[$resource][$operation]) && in_array($attribute, $allowedAttributes[$resource][$operation]) ? Mage_Api2_Model_Acl_Global_Rule_Permission::TYPE_ALLOW : Mage_Api2_Model_Acl_Global_Rule_Permission::TYPE_DENY;
 
                                     $rulesPairs[$resource]['operations'][$operation]['attributes'][$attribute] = array(
-                                        'status'    => $status,
-                                        'title'     => $attributeLabel
+                                        'status' => $status,
+                                        'title' => $attributeLabel
                                     );
                                 }
                             }
                         }
-                    } catch (Exception $e) {
+                    }
+                    catch (Exception $e)
+                    {
                         // getModel() throws exception when application is in development mode
                         Mage::logException($e);
                     }
@@ -178,4 +176,5 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission
     {
         return $this->_hasEntityOnlyAttributes;
     }
+
 }

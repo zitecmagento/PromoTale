@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Invoice backend model for child attribute
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Model_Resource_Order_Attribute_Backend_Child extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Perform operation before save
      *
@@ -48,4 +49,5 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Child extends Mage_Eav_M
         parent::beforeSave($object);
         return $this;
     }
+
 }

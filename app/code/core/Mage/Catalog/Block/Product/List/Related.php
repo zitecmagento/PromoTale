@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product related items block
  *
@@ -34,13 +34,13 @@
  */
 class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product_Abstract
 {
+
     /**
      * Default MAP renderer type
      *
      * @var string
      */
     protected $_mapRenderer = 'msrp_noform';
-
     protected $_itemCollection;
 
     protected function _prepareData()
@@ -49,14 +49,13 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
         /* @var $product Mage_Catalog_Model_Product */
 
         $this->_itemCollection = $product->getRelatedProductCollection()
-            ->addAttributeToSelect('required_options')
-            ->setPositionOrder()
-            ->addStoreFilter()
+                ->addAttributeToSelect('required_options')
+                ->setPositionOrder()
+                ->addStoreFilter()
         ;
 
         if (Mage::helper('catalog')->isModuleEnabled('Mage_Checkout')) {
-            Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter($this->_itemCollection,
-                Mage::getSingleton('checkout/session')->getQuoteId()
+            Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter($this->_itemCollection, Mage::getSingleton('checkout/session')->getQuoteId()
             );
             $this->_addProductAttributesAndPrices($this->_itemCollection);
         }
@@ -92,4 +91,5 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
     {
         return array_merge(parent::getCacheTags(), $this->getItemsTags($this->getItems()));
     }
+
 }

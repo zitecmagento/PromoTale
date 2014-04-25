@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,22 +24,21 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 $installer = $this;
 
 $invoiceTable = $installer->getTable('sales/invoice');
 $installer->getConnection()
-    ->addColumn($invoiceTable, 'discount_description', array(
-            'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-            'length'    => 255,
-            'comment'   => 'Discount Description'
-    ));
+        ->addColumn($invoiceTable, 'discount_description', array(
+            'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
+            'length' => 255,
+            'comment' => 'Discount Description'
+        ));
 
 $creditmemoTable = $installer->getTable('sales/creditmemo');
 $installer->getConnection()
-    ->addColumn($creditmemoTable, 'discount_description', array(
-            'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-            'length'    => 255,
-            'comment'   => 'Discount Description'
-    ));
+        ->addColumn($creditmemoTable, 'discount_description', array(
+            'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
+            'length' => 255,
+            'comment' => 'Discount Description'
+        ));

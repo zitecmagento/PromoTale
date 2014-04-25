@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View extends Mage_Adminhtml_Block_Widget_Form
 {
+
     public function initForm()
     {
         $form = new Varien_Data_Form();
@@ -41,8 +43,8 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View extends Mage_Adminht
         $model = Mage::registry('current_convert_profile');
 
         $fieldset = $form->addFieldset('base_fieldset', array(
-            'legend'=>Mage::helper('adminhtml')->__('View Actions XML'),
-            'class'=>'fieldset-wide'
+            'legend' => Mage::helper('adminhtml')->__('View Actions XML'),
+            'class' => 'fieldset-wide'
         ));
 
         $fieldset->addField('actions_xml', 'textarea', array(
@@ -61,4 +63,3 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View extends Mage_Adminht
     }
 
 }
-

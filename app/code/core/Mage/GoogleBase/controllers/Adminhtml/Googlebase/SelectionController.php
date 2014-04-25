@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,25 +34,27 @@
  */
 class Mage_GoogleBase_Adminhtml_Googlebase_SelectionController extends Mage_Adminhtml_Controller_Action
 {
+
     public function searchAction()
     {
         return $this->getResponse()->setBody(
-            $this->getLayout()
-                ->createBlock('googlebase/adminhtml_items_product')
-                ->setIndex($this->getRequest()->getParam('index'))
-                ->setFirstShow(true)
-                ->toHtml()
-           );
+                        $this->getLayout()
+                                ->createBlock('googlebase/adminhtml_items_product')
+                                ->setIndex($this->getRequest()->getParam('index'))
+                                ->setFirstShow(true)
+                                ->toHtml()
+        );
     }
 
     public function gridAction()
     {
         $this->loadLayout();
         return $this->getResponse()->setBody(
-            $this->getLayout()
-                ->createBlock('googlebase/adminhtml_items_product')
-                ->setIndex($this->getRequest()->getParam('index'))
-                ->toHtml()
-           );
+                        $this->getLayout()
+                                ->createBlock('googlebase/adminhtml_items_product')
+                                ->setIndex($this->getRequest()->getParam('index'))
+                                ->toHtml()
+        );
     }
+
 }

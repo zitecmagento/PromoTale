@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax Rate Titles Renderer
  *
@@ -32,6 +32,7 @@
  */
 class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
 {
+
     protected $_titles;
 
     protected function _construct()
@@ -61,11 +62,12 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
         $stores = $this->getData('stores');
         if (is_null($stores)) {
             $stores = Mage::getModel('core/store')
-                ->getResourceCollection()
-                ->setLoadDefault(false)
-                ->load();
+                    ->getResourceCollection()
+                    ->setLoadDefault(false)
+                    ->load();
             $this->setData('stores', $stores);
         }
         return $stores;
     }
+
 }

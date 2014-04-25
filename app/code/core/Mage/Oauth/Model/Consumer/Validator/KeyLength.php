@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_StringLength
 {
+
     /**
      * Key name
      *
@@ -48,7 +50,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
     public function __construct($options = array())
     {
         if (!is_array($options)) {
-            $options     = func_get_args();
+            $options = func_get_args();
             if (!isset($options[1])) {
                 $options[1] = 'utf-8';
             }
@@ -56,8 +58,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
             return;
         } else {
             if (isset($options['length'])) {
-                $options['max'] =
-                $options['min'] = $options['length'];
+                $options['max'] = $options['min'] = $options['length'];
             }
             if (isset($options['name'])) {
                 $this->_name = $options['name'];
@@ -73,10 +74,8 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      */
     protected function _initMessageTemplates()
     {
-        $_messageTemplates[self::TOO_LONG] =
-            Mage::helper('oauth')->__("%name% '%value%' is too long. It must has length %min% symbols.");
-        $_messageTemplates[self::TOO_SHORT] =
-            Mage::helper('oauth')->__("%name% '%value%' is too short. It must has length %min% symbols.");
+        $_messageTemplates[self::TOO_LONG] = Mage::helper('oauth')->__("%name% '%value%' is too long. It must has length %min% symbols.");
+        $_messageTemplates[self::TOO_SHORT] = Mage::helper('oauth')->__("%name% '%value%' is too short. It must has length %min% symbols.");
 
         return $this;
     }
@@ -87,8 +86,8 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      * @var array
      */
     protected $_messageVariables = array(
-        'min'  => '_min',
-        'max'  => '_max',
+        'min' => '_min',
+        'max' => '_max',
         'name' => '_name'
     );
 
@@ -154,4 +153,5 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
     {
         return $this->_name;
     }
+
 }

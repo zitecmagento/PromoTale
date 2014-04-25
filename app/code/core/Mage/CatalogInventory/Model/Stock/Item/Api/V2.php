@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventory_Model_Stock_Item_Api
 {
+
     /**
      * Update product stock data
      *
@@ -46,7 +48,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
         $productId = $idBySku ? $idBySku : $productId;
 
         $product->setStoreId($this->_getStoreId())
-            ->load($productId);
+                ->load($productId);
 
         if (!$product->getId()) {
             $this->_fault('not_exists');
@@ -54,12 +56,15 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
 
         /** @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
         $stockItem = $product->getStockItem();
-        $stockData = array_replace($stockItem->getData(), (array)$data);
+        $stockData = array_replace($stockItem->getData(), (array) $data);
         $stockItem->setData($stockData);
 
-        try {
+        try
+        {
             $stockItem->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('not_updated', $e->getMessage());
         }
 
@@ -79,7 +84,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
             $this->_fault('multi_update_not_match');
         }
 
-        $productData = (array)$productData;
+        $productData = (array) $productData;
 
         foreach ($productIds as $index => $productId) {
             $this->update($productId, $productData[$index]);
@@ -87,4 +92,5 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
 
         return true;
     }
+
 }

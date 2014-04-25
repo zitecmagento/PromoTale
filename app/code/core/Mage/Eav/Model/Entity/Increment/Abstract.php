@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Enter description here...
  *
@@ -34,9 +34,9 @@
  * - pad_char
  * - last_id
  */
-abstract class Mage_Eav_Model_Entity_Increment_Abstract extends Varien_Object
-    implements Mage_Eav_Model_Entity_Increment_Interface
+abstract class Mage_Eav_Model_Entity_Increment_Abstract extends Varien_Object implements Mage_Eav_Model_Entity_Increment_Interface
 {
+
     public function getPadLength()
     {
         $padLength = $this->getData('pad_length');
@@ -58,7 +58,7 @@ abstract class Mage_Eav_Model_Entity_Increment_Abstract extends Varien_Object
     public function format($id)
     {
         $result = $this->getPrefix();
-        $result.= str_pad((string)$id, $this->getPadLength(), $this->getPadChar(), STR_PAD_LEFT);
+        $result.= str_pad((string) $id, $this->getPadLength(), $this->getPadChar(), STR_PAD_LEFT);
         return $result;
     }
 
@@ -66,4 +66,5 @@ abstract class Mage_Eav_Model_Entity_Increment_Abstract extends Varien_Object
     {
         return $id;
     }
+
 }

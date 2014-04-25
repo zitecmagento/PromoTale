@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Placeholder.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_Placeholder_Registry */
 #require_once 'Zend/View/Helper/Placeholder/Registry.php';
 
@@ -39,6 +39,7 @@
  */
 class Zend_View_Helper_Placeholder extends Zend_View_Helper_Abstract
 {
+
     /**
      * Placeholder items
      * @var array
@@ -62,7 +63,6 @@ class Zend_View_Helper_Placeholder extends Zend_View_Helper_Abstract
         $this->_registry = Zend_View_Helper_Placeholder_Registry::getRegistry();
     }
 
-
     /**
      * Placeholder helper
      *
@@ -84,4 +84,5 @@ class Zend_View_Helper_Placeholder extends Zend_View_Helper_Abstract
     {
         return $this->_registry;
     }
+
 }

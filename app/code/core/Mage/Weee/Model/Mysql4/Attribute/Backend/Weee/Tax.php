@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product WEEE tax backend attribute model
  *
@@ -34,4 +34,5 @@
  */
 class Mage_Weee_Model_Mysql4_Attribute_Backend_Weee_Tax extends Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax
 {
+    
 }

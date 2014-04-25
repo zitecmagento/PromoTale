@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Entry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Entry
  */
@@ -115,9 +114,9 @@ class Zend_Gdata_Gbase_Entry extends Zend_Gdata_Entry
     {
         $itemType = $this->getGbaseAttribute('item_type');
         if (is_object($itemType[0])) {
-          return $itemType[0];
+            return $itemType[0];
         } else {
-          return null;
+            return null;
         }
     }
 
@@ -125,7 +124,8 @@ class Zend_Gdata_Gbase_Entry extends Zend_Gdata_Entry
      * Return all the Base attributes
      * @return Zend_Gdata_Gbase_Extension_BaseAttribute
      */
-    public function getGbaseAttributes() {
+    public function getGbaseAttributes()
+    {
         return $this->_baseAttributes;
     }
 
@@ -141,7 +141,7 @@ class Zend_Gdata_Gbase_Entry extends Zend_Gdata_Entry
         for ($i = 0; $i < count($this->_baseAttributes); $i++) {
             $baseAttribute = $this->_baseAttributes[$i];
             if ($baseAttribute->rootElement == $name &&
-                $baseAttribute->rootNamespaceURI == $this->lookupNamespace('g')) {
+                    $baseAttribute->rootNamespaceURI == $this->lookupNamespace('g')) {
                 $matches[] = &$this->_baseAttributes[$i];
             }
         }

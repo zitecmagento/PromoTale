@@ -25,8 +25,8 @@
  */
 ?>
 <?php if ($this->getCanDisplayTotalDue()): ?>
-<tr>
-    <td class="label"><big><strong><?php echo Mage::helper('sales')->__('Total Due', true) ?></strong></big></td>
+    <tr>
+        <td class="label"><big><strong><?php echo Mage::helper('sales')->__('Total Due', true) ?></strong></big></td>
     <td class="emph"><big><?php echo $this->displayPriceAttribute('total_due', true) ?></big></td>
-</tr>
+    </tr>
 <?php endif; ?>

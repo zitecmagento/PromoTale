@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Mock.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Log_Writer_Abstract */
 #require_once 'Zend/Log/Writer/Abstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Log_Writer_Mock extends Zend_Log_Writer_Abstract
 {
+
     /**
      * array of log events
      */
@@ -71,8 +72,9 @@ class Zend_Log_Writer_Mock extends Zend_Log_Writer_Abstract
      * @return Zend_Log_Writer_Mock
      * @throws Zend_Log_Exception
      */
-    static public function factory($config) 
+    static public function factory($config)
     {
         return new self();
     }
+
 }

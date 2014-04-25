@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -26,7 +27,6 @@
  * Summary of changes:
  * - code modified to follow Magento coding standards
  */
-
 /**
  * Licensed under New BSD license http://opensource.org/licenses/BSD-3-Clause
  * Copyright (c) 2012, Colin Mollenhour
@@ -66,4 +66,5 @@
  */
 class Mage_Cache_Backend_Redis extends Cm_Cache_Backend_Redis
 {
+    
 }

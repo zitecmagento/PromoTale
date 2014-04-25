@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LICENSE
  *
@@ -16,7 +17,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 #require_once 'Zend/Cloud/DocumentService/Adapter.php';
 #require_once 'Zend/Cloud/DocumentService/Document.php';
 #require_once 'Zend/Cloud/DocumentService/DocumentSet.php';
@@ -36,12 +36,12 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Cloud_DocumentService_Adapter_AbstractAdapter 
-    implements Zend_Cloud_DocumentService_Adapter
+abstract class Zend_Cloud_DocumentService_Adapter_AbstractAdapter implements Zend_Cloud_DocumentService_Adapter
 {
-    const DOCUMENT_CLASS    = 'document_class';
+
+    const DOCUMENT_CLASS = 'document_class';
     const DOCUMENTSET_CLASS = 'documentset_class';
-    const QUERY_CLASS       = 'query_class';
+    const QUERY_CLASS = 'query_class';
 
     /**
      * Class to utilize for new document objects
@@ -127,4 +127,5 @@ abstract class Zend_Cloud_DocumentService_Adapter_AbstractAdapter
     {
         return $this->_queryClass;
     }
+
 }

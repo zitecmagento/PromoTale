@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widget
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -35,31 +36,28 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
 
     protected function _prepareLayout()
     {
-        $this->setChild('back_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('core')->__('Back'),
-                    'onclick'   => 'setLocation(\''.$this->getUrl('*/*/').'\')',
-                    'class' => 'back'
-                ))
+        $this->setChild('back_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('core')->__('Back'),
+                            'onclick' => 'setLocation(\'' . $this->getUrl('*/*/') . '\')',
+                            'class' => 'back'
+                        ))
         );
 
-        $this->setChild('save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('core')->__('Save'),
-                    'onclick'   => 'designForm.submit()',
-                    'class' => 'save'
-                ))
+        $this->setChild('save_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('core')->__('Save'),
+                            'onclick' => 'designForm.submit()',
+                            'class' => 'save'
+                        ))
         );
 
-        $this->setChild('delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('core')->__('Delete'),
-                    'onclick'   => 'confirmSetLocation(\''.Mage::helper('core')->__('Are you sure?').'\', \''.$this->getDeleteUrl().'\')',
-                    'class'  => 'delete'
-                ))
+        $this->setChild('delete_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('core')->__('Delete'),
+                            'onclick' => 'confirmSetLocation(\'' . Mage::helper('core')->__('Are you sure?') . '\', \'' . $this->getDeleteUrl() . '\')',
+                            'class' => 'delete'
+                        ))
         );
         return parent::_prepareLayout();
     }
@@ -71,17 +69,17 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
 
     public function getDeleteUrl()
     {
-        return $this->getUrl('*/*/delete', array('_current'=>true));
+        return $this->getUrl('*/*/delete', array('_current' => true));
     }
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current'=>true));
+        return $this->getUrl('*/*/save', array('_current' => true));
     }
 
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', array('_current'=>true));
+        return $this->getUrl('*/*/validate', array('_current' => true));
     }
 
     public function getHeader()
@@ -94,4 +92,5 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
         }
         return $header;
     }
+
 }

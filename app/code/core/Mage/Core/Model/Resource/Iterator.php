@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Core_Model_Resource_Iterator extends Varien_Object
 {
+
     /**
      * Walk over records fetched from query one by one using callback function
      *
@@ -40,7 +42,7 @@ class Mage_Core_Model_Resource_Iterator extends Varien_Object
      * @param Varien_Db_Adapter_Interface $adapter
      * @return Mage_Core_Model_Resource_Iterator
      */
-    public function walk($query, array $callbacks, array $args=array(), $adapter = null)
+    public function walk($query, array $callbacks, array $args = array(), $adapter = null)
     {
         $stmt = $this->_getStatement($query, $adapter);
         $args['idx'] = 0;
@@ -52,7 +54,7 @@ class Mage_Core_Model_Resource_Iterator extends Varien_Object
                     $args = array_merge($args, $result);
                 }
             }
-            $args['idx']++;
+            $args['idx'] ++;
         }
 
         return $this;
@@ -85,4 +87,5 @@ class Mage_Core_Model_Resource_Iterator extends Varien_Object
 
         Mage::throwException(Mage::helper('core')->__('Invalid query'));
     }
+
 }

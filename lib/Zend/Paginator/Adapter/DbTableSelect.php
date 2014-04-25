@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DbTableSelect.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Paginator_Adapter_DbSelect
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Paginator_Adapter_DbTableSelect extends Zend_Paginator_Adapter_DbSelect
 {
+
     /**
      * Returns a Zend_Db_Table_Rowset_Abstract of items for a page.
      *
@@ -45,4 +46,5 @@ class Zend_Paginator_Adapter_DbTableSelect extends Zend_Paginator_Adapter_DbSele
 
         return $this->_select->getTable()->fetchAll($this->_select);
     }
+
 }

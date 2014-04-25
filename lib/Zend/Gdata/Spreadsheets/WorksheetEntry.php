@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: WorksheetEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Entry
  */
@@ -49,7 +48,6 @@ class Zend_Gdata_Spreadsheets_WorksheetEntry extends Zend_Gdata_Entry
 {
 
     protected $_entryClassName = 'Zend_Gdata_Spreadsheets_WorksheetEntry';
-
     protected $_rowCount = null;
     protected $_colCount = null;
 
@@ -111,7 +109,6 @@ class Zend_Gdata_Spreadsheets_WorksheetEntry extends Zend_Gdata_Entry
                 break;
         }
     }
-
 
     /**
      * Gets the row count for this entry.

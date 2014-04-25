@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogInventory Default Stock Status Indexer Resource Model
  *
@@ -32,10 +32,9 @@
  * @package     Mage_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
-    extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
-    implements Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
+class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract implements Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
 {
+
     /**
      * Current Product Type Id
      *
@@ -48,7 +47,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      *
      * @var bool
      */
-    protected $_isComposite    = false;
+    protected $_isComposite = false;
 
     /**
      * Initialize connection and define main table name
@@ -68,10 +67,13 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
     {
         $this->useIdxTable(true);
         $this->beginTransaction();
-        try {
+        try
+        {
             $this->_prepareIndexTable();
             $this->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->rollBack();
             throw $e;
         }
@@ -125,7 +127,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      */
     public function setIsComposite($flag)
     {
-        $this->_isComposite = (bool)$flag;
+        $this->_isComposite = (bool) $flag;
         return $this;
     }
 
@@ -160,33 +162,27 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
     {
         $adapter = $this->_getWriteAdapter();
         $qtyExpr = $adapter->getCheckSql('cisi.qty > 0', 'cisi.qty', 0);
-        $select  = $adapter->select()
-            ->from(array('e' => $this->getTable('catalog/product')), array('entity_id'));
+        $select = $adapter->select()
+                ->from(array('e' => $this->getTable('catalog/product')), array('entity_id'));
         $this->_addWebsiteJoinToSelect($select, true);
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'e.entity_id');
         $select->columns('cw.website_id')
-            ->join(
-                array('cis' => $this->getTable('cataloginventory/stock')),
-                '',
-                array('stock_id'))
-            ->joinLeft(
-                array('cisi' => $this->getTable('cataloginventory/stock_item')),
-                'cisi.stock_id = cis.stock_id AND cisi.product_id = e.entity_id',
-                array())
-            ->columns(array('qty' => $qtyExpr))
-            ->where('cw.website_id != 0')
-            ->where('e.type_id = ?', $this->getTypeId());
+                ->join(
+                        array('cis' => $this->getTable('cataloginventory/stock')), '', array('stock_id'))
+                ->joinLeft(
+                        array('cisi' => $this->getTable('cataloginventory/stock_item')), 'cisi.stock_id = cis.stock_id AND cisi.product_id = e.entity_id', array())
+                ->columns(array('qty' => $qtyExpr))
+                ->where('cw.website_id != 0')
+                ->where('e.type_id = ?', $this->getTypeId());
 
         // add limitation of status
         $condition = $adapter->quoteInto('=?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
         $this->_addAttributeToSelect($select, 'status', 'e.entity_id', 'cs.store_id', $condition);
 
         if ($this->_isManageStock()) {
-            $statusExpr = $adapter->getCheckSql('cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0',
-                1, 'cisi.is_in_stock');
+            $statusExpr = $adapter->getCheckSql('cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0', 1, 'cisi.is_in_stock');
         } else {
-            $statusExpr = $adapter->getCheckSql('cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1',
-                'cisi.is_in_stock', 1);
+            $statusExpr = $adapter->getCheckSql('cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1', 'cisi.is_in_stock', 1);
         }
 
         $select->columns(array('status' => $statusExpr));
@@ -207,8 +203,8 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
     protected function _prepareIndexTable($entityIds = null)
     {
         $adapter = $this->_getWriteAdapter();
-        $select  = $this->_getStockStatusSelect($entityIds);
-        $query   = $select->insertFromSelect($this->getIdxTable());
+        $select = $this->_getStockStatusSelect($entityIds);
+        $query = $select->insertFromSelect($this->getIdxTable());
         $adapter->query($query);
 
         return $this;
@@ -223,19 +219,19 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
     protected function _updateIndex($entityIds)
     {
         $adapter = $this->_getWriteAdapter();
-        $select  = $this->_getStockStatusSelect($entityIds, true);
-        $query   = $adapter->query($select);
+        $select = $this->_getStockStatusSelect($entityIds, true);
+        $query = $adapter->query($select);
 
-        $i      = 0;
-        $data   = array();
+        $i = 0;
+        $data = array();
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $i ++;
             $data[] = array(
-                'product_id'    => (int)$row['entity_id'],
-                'website_id'    => (int)$row['website_id'],
-                'stock_id'      => (int)$row['stock_id'],
-                'qty'           => (float)$row['qty'],
-                'stock_status'  => (int)$row['status'],
+                'product_id' => (int) $row['entity_id'],
+                'website_id' => (int) $row['website_id'],
+                'stock_id' => (int) $row['stock_id'],
+                'qty' => (float) $row['qty'],
+                'stock_status' => (int) $row['status'],
             );
             if (($i % 1000) == 0) {
                 $this->_updateIndexTable($data);
@@ -278,4 +274,5 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
         }
         return $this->getTable('cataloginventory/stock_status_indexer_tmp');
     }
+
 }

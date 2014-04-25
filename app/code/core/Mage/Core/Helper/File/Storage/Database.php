@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Database storage model
      * @var null|Mage_Core_Model_File_Storage_Database
@@ -69,7 +71,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     {
         if (null === $this->_useDb) {
             $currentStorage = (int) Mage::app()->getConfig()
-                ->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA);
+                            ->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA);
             $this->_useDb = ($currentStorage == Mage_Core_Model_File_Storage::STORAGE_MEDIA_DATABASE);
         }
 
@@ -135,7 +137,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     {
         if ($this->checkDbUsage()) {
             $this->getStorageDatabaseModel()
-                ->renameFile($this->_removeAbsPathFromFileName($oldName), $this->_removeAbsPathFromFileName($newName));
+                    ->renameFile($this->_removeAbsPathFromFileName($oldName), $this->_removeAbsPathFromFileName($newName));
         }
     }
 
@@ -145,10 +147,11 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      * @param string $oldName
      * @param string $newName
      */
-    public function copyFile($oldName, $newName) {
+    public function copyFile($oldName, $newName)
+    {
         if ($this->checkDbUsage()) {
             $this->getStorageDatabaseModel()
-                ->copyFile($this->_removeAbsPathFromFileName($oldName), $this->_removeAbsPathFromFileName($newName));
+                    ->copyFile($this->_removeAbsPathFromFileName($oldName), $this->_removeAbsPathFromFileName($newName));
         }
     }
 
@@ -177,8 +180,8 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     public function getUniqueFilename($directory, $filename)
     {
         if ($this->checkDbUsage()) {
-           $directory = $this->_removeAbsPathFromFileName($directory);
-            if($this->fileExists($directory . $filename)) {
+            $directory = $this->_removeAbsPathFromFileName($directory);
+            if ($this->fileExists($directory . $filename)) {
                 $index = 1;
                 $extension = strrchr($filename, '.');
                 $filenameWoExtension = substr($filename, 0, -1 * strlen($extension));
@@ -197,11 +200,12 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      * @param string $filename
      * @return bool|int
      */
-    public function saveFileToFilesystem($filename) {
+    public function saveFileToFilesystem($filename)
+    {
         if ($this->checkDbUsage()) {
             /** @var $file Mage_Core_Model_File_Storage_Database */
             $file = Mage::getModel('core/file_storage_database')
-                ->loadByFilename($this->_removeAbsPathFromFileName($filename));
+                    ->loadByFilename($this->_removeAbsPathFromFileName($filename));
             if (!$file->getId()) {
                 return false;
             }
@@ -304,4 +308,5 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
         }
         return $this->_mediaBaseDirectory;
     }
+
 }

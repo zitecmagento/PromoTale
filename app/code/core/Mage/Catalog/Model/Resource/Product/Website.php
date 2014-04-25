@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Website Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize connection and define resource table
      *
@@ -63,24 +64,25 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
      */
     public function removeProducts($websiteIds, $productIds)
     {
-        if (!is_array($websiteIds) || !is_array($productIds)
-            || count($websiteIds) == 0 || count($productIds) == 0)
-        {
+        if (!is_array($websiteIds) || !is_array($productIds) || count($websiteIds) == 0 || count($productIds) == 0) {
             return $this;
         }
 
-        $adapter   = $this->_getWriteAdapter();
+        $adapter = $this->_getWriteAdapter();
         $whereCond = array(
             $adapter->quoteInto('website_id IN(?)', $websiteIds),
-           $adapter->quoteInto('product_id IN(?)', $productIds)
+            $adapter->quoteInto('product_id IN(?)', $productIds)
         );
         $whereCond = join(' AND ', $whereCond);
 
         $adapter->beginTransaction();
-        try {
+        try
+        {
             $adapter->delete($this->getMainTable(), $whereCond);
             $adapter->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $adapter->rollBack();
             throw $e;
         }
@@ -98,9 +100,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
      */
     public function addProducts($websiteIds, $productIds)
     {
-        if (!is_array($websiteIds) || !is_array($productIds)
-            || count($websiteIds) == 0 || count($productIds) == 0)
-        {
+        if (!is_array($websiteIds) || !is_array($productIds) || count($websiteIds) == 0 || count($productIds) == 0) {
             return $this;
         }
 
@@ -108,7 +108,8 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
 
         // Before adding of products we should remove it old rows with same ids
         $this->removeProducts($websiteIds, $productIds);
-        try {
+        try
+        {
             foreach ($websiteIds as $websiteId) {
                 foreach ($productIds as $productId) {
                     if (!$productId) {
@@ -129,7 +130,9 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
             }
 
             $this->_getWriteAdapter()->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getWriteAdapter()->rollBack();
             throw $e;
         }
@@ -145,9 +148,9 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
     public function getWebsites($productIds)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), array('product_id', 'website_id'))
-            ->where('product_id IN (?)', $productIds);
-        $rowset  = $this->_getReadAdapter()->fetchAll($select);
+                ->from($this->getMainTable(), array('product_id', 'website_id'))
+                ->where('product_id IN (?)', $productIds);
+        $rowset = $this->_getReadAdapter()->fetchAll($select);
 
         $result = array();
         foreach ($rowset as $row) {
@@ -156,4 +159,5 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
 
         return $result;
     }
+
 }

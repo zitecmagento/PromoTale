@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * OAuth Consumer Edit Block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Consumer model
      *
@@ -65,13 +66,13 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
         $this->_mode = 'edit';
 
         $this->_addButton('save_and_continue', array(
-            'label'     => Mage::helper('oauth')->__('Save and Continue Edit'),
-            'onclick'   => 'saveAndContinueEdit()',
+            'label' => Mage::helper('oauth')->__('Save and Continue Edit'),
+            'onclick' => 'saveAndContinueEdit()',
             'class' => 'save'
-        ), 100);
+                ), 100);
 
         $this->_formScripts[] = "function saveAndContinueEdit()" .
-        "{editForm.submit($('edit_form').action + 'back/edit/')}";
+                "{editForm.submit($('edit_form').action + 'back/edit/')}";
 
         $this->_updateButton('save', 'label', $this->__('Save'));
         $this->_updateButton('save', 'id', 'save_button');
@@ -97,4 +98,5 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
             return $this->__('New Consumer');
         }
     }
+
 }

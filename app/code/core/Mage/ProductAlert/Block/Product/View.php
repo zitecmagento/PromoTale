@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
 {
+
     /**
      * Current product instance
      *
@@ -64,8 +66,7 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
      */
     public function preparePriceAlertData()
     {
-        if (!$this->_getHelper()->isPriceAlertAllowed()
-            || !$this->_product || false === $this->_product->getCanShowPrice()
+        if (!$this->_getHelper()->isPriceAlertAllowed() || !$this->_product || false === $this->_product->getCanShowPrice()
         ) {
             $this->setTemplate('');
             return;
@@ -100,4 +101,5 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
         }
         return $this->_helper;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CompressAbstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Compress_CompressInterface
  */
@@ -34,6 +34,7 @@
  */
 abstract class Zend_Filter_Compress_CompressAbstract implements Zend_Filter_Compress_CompressInterface
 {
+
     /**
      * Class constructor
      *
@@ -86,4 +87,5 @@ abstract class Zend_Filter_Compress_CompressAbstract implements Zend_Filter_Comp
 
         return $this;
     }
+
 }

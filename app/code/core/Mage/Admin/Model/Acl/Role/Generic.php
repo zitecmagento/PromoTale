@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * User acl role
  * 
@@ -32,7 +32,7 @@
  * @package    Mage_Admin
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Admin_Model_Acl_Role_Generic extends Zend_Acl_Role 
+class Mage_Admin_Model_Acl_Role_Generic extends Zend_Acl_Role
 {
-
+    
 }

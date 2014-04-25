@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,14 +24,13 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Status_Assign extends Mage_Adminhtml_Block_Widget_Form_Container
 {
 
     public function __construct()
     {
         $this->_controller = 'sales_order_status';
-        $this->_mode       = 'assign';
+        $this->_mode = 'assign';
         parent::__construct();
         $this->_updateButton('save', 'label', Mage::helper('sales')->__('Save Status Assignment'));
         $this->_removeButton('delete');
@@ -45,4 +45,5 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign extends Mage_Adminhtml_Bloc
     {
         return Mage::helper('sales')->__('Assign Order Status to State');
     }
+
 }

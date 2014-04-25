@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV entity type resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Resource_Entity_Type extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -63,11 +64,12 @@ class Mage_Eav_Model_Resource_Entity_Type extends Mage_Core_Model_Resource_Db_Ab
     public function getAdditionalAttributeTable($entityTypeId)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = array('entity_type_id' => $entityTypeId);
-        $select  = $adapter->select()
-            ->from($this->getMainTable(), array('additional_attribute_table'))
-            ->where('entity_type_id = :entity_type_id');
+        $bind = array('entity_type_id' => $entityTypeId);
+        $select = $adapter->select()
+                ->from($this->getMainTable(), array('additional_attribute_table'))
+                ->where('entity_type_id = :entity_type_id');
 
         return $adapter->fetchOne($select, $bind);
     }
+
 }

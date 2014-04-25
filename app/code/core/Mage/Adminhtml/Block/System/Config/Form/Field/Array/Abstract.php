@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
-    extends Mage_Adminhtml_Block_System_Config_Form_Field
+abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
+
     /**
      * Grid columns
      *
@@ -93,11 +94,11 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
     public function addColumn($name, $params)
     {
         $this->_columns[$name] = array(
-            'label'     => empty($params['label']) ? 'Column' : $params['label'],
-            'size'      => empty($params['size'])  ? false    : $params['size'],
-            'style'     => empty($params['style'])  ? null    : $params['style'],
-            'class'     => empty($params['class'])  ? null    : $params['class'],
-            'renderer'  => false,
+            'label' => empty($params['label']) ? 'Column' : $params['label'],
+            'size' => empty($params['size']) ? false : $params['size'],
+            'style' => empty($params['style']) ? null : $params['style'],
+            'class' => empty($params['class']) ? null : $params['class'],
+            'renderer' => false,
         );
         if ((!empty($params['renderer'])) && ($params['renderer'] instanceof Mage_Core_Block_Abstract)) {
             $this->_columns[$name]['renderer'] = $params['renderer'];
@@ -168,18 +169,18 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
         if (empty($this->_columns[$columnName])) {
             throw new Exception('Wrong column name specified.');
         }
-        $column     = $this->_columns[$columnName];
-        $inputName  = $this->getElement()->getName() . '[#{_id}][' . $columnName . ']';
+        $column = $this->_columns[$columnName];
+        $inputName = $this->getElement()->getName() . '[#{_id}][' . $columnName . ']';
 
         if ($column['renderer']) {
             return $column['renderer']->setInputName($inputName)->setColumnName($columnName)->setColumn($column)
-                ->toHtml();
+                            ->toHtml();
         }
 
         return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" ' .
-            ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="' .
-            (isset($column['class']) ? $column['class'] : 'input-text') . '"'.
-            (isset($column['style']) ? ' style="'.$column['style'] . '"' : '') . '/>';
+                ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="' .
+                (isset($column['class']) ? $column['class'] : 'input-text') . '"' .
+                (isset($column['style']) ? ' style="' . $column['style'] . '"' : '') . '/>';
     }
 
     /**
@@ -206,4 +207,5 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
         }
         return parent::_toHtml();
     }
+
 }

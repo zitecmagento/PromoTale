@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Acl model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Api_Model_Acl extends Zend_Acl
 {
+
     /**
      * All the group roles are prepended by G
      *
@@ -53,9 +54,9 @@ class Mage_Api_Model_Acl extends Zend_Acl
      * A - Authenticated admin user
      *
      */
-    const USER_TYPE_GUEST    = 'G';
+    const USER_TYPE_GUEST = 'G';
     const USER_TYPE_CUSTOMER = 'C';
-    const USER_TYPE_ADMIN    = 'A';
+    const USER_TYPE_ADMIN = 'A';
 
     /**
      * Permission level to deny access
@@ -100,4 +101,5 @@ class Mage_Api_Model_Acl extends Zend_Acl
         $this->_getRoleRegistry()->addParent($role, $parent);
         return $this;
     }
+
 }

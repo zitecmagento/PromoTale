@@ -32,20 +32,20 @@
 
 <?php if (!$this->getAgreements()) return; ?>
 <form action="" id="checkout-agreements" onsubmit="return false;">
-<ol class="checkout-agreements">
-<?php foreach ($this->getAgreements() as $_a): ?>
-    <li>
-        <div class="agreement-content"<?php echo ($_a->getContentHeight() ? ' style="height:' . $_a->getContentHeight() . '"' : '')?>>
-            <?php if ($_a->getIsHtml()):?>
-                <?php echo $_a->getContent() ?>
-            <?php else:?>
-                <?php echo nl2br($this->escapeHtml($_a->getContent())) ?>
-            <?php endif; ?>
-        </div>
-        <p class="agree">
-            <input type="checkbox" id="agreement-<?php echo $_a->getId()?>" name="agreement[<?php echo $_a->getId()?>]" value="1" title="<?php echo $this->escapeHtml($_a->getCheckboxText()) ?>" class="checkbox" /><label for="agreement-<?php echo $_a->getId()?>"><?php echo $_a->getIsHtml() ? $_a->getCheckboxText() : $this->escapeHtml($_a->getCheckboxText()) ?></label>
-        </p>
-    </li>
-<?php endforeach ?>
-</ol>
+    <ol class="checkout-agreements">
+        <?php foreach ($this->getAgreements() as $_a): ?>
+            <li>
+                <div class="agreement-content"<?php echo ($_a->getContentHeight() ? ' style="height:' . $_a->getContentHeight() . '"' : '') ?>>
+                    <?php if ($_a->getIsHtml()): ?>
+                        <?php echo $_a->getContent() ?>
+                    <?php else: ?>
+                        <?php echo nl2br($this->escapeHtml($_a->getContent())) ?>
+                    <?php endif; ?>
+                </div>
+                <p class="agree">
+                    <input type="checkbox" id="agreement-<?php echo $_a->getId() ?>" name="agreement[<?php echo $_a->getId() ?>]" value="1" title="<?php echo $this->escapeHtml($_a->getCheckboxText()) ?>" class="checkbox" /><label for="agreement-<?php echo $_a->getId() ?>"><?php echo $_a->getIsHtml() ? $_a->getCheckboxText() : $this->escapeHtml($_a->getCheckboxText()) ?></label>
+                </p>
+            </li>
+        <?php endforeach ?>
+    </ol>
 </form>

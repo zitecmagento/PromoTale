@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
+
     /**
      * Setting grid_id, DOM destination element id, Title
      */
@@ -53,12 +55,13 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tabs extends Mage_Adminhtml_Bl
     {
         if (Mage::getSingleton('adminhtml/session')->getNewApplication()) {
             $this->addTab('set', array(
-                'label'     => $this->__('Settings'),
-                'content'   => $this->getLayout()->createBlock('xmlconnect/adminhtml_mobile_edit_tab_settings')
-                    ->toHtml(),
-                'active'    => true
+                'label' => $this->__('Settings'),
+                'content' => $this->getLayout()->createBlock('xmlconnect/adminhtml_mobile_edit_tab_settings')
+                        ->toHtml(),
+                'active' => true
             ));
         }
         return parent::_prepareLayout();
     }
+
 }

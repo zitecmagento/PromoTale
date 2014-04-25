@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_CatalogInventory
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest
-    extends Mage_CatalogInventory_Model_Api2_Stock_Item
+abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_CatalogInventory_Model_Api2_Stock_Item
 {
+
     /**
      * Retrieve information about specified stock item
      *
@@ -84,7 +85,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest
 
         /* @var $validator Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item */
         $validator = Mage::getModel('cataloginventory/api2_stock_item_validator_item', array(
-            'resource' => $this
+                    'resource' => $this
         ));
 
         if (!$validator->isValidData($data)) {
@@ -95,11 +96,16 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest
         }
 
         $stockItem->addData($data);
-        try {
+        try
+        {
             $stockItem->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -112,7 +118,8 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest
     protected function _multiUpdate(array $data)
     {
         foreach ($data as $itemData) {
-            try {
+            try
+            {
                 if (!is_array($itemData)) {
                     $this->_errorMessage(self::RESOURCE_DATA_INVALID, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
@@ -120,7 +127,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest
 
                 /* @var $validator Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item */
                 $validator = Mage::getModel('cataloginventory/api2_stock_item_validator_item', array(
-                    'resource' => $this
+                            'resource' => $this
                 ));
                 if (!$validator->isValidSingleItemDataForMultiUpdate($itemData)) {
                     foreach ($validator->getErrors() as $error) {
@@ -142,22 +149,25 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest
                 $this->_successMessage(self::RESOURCE_UPDATED_SUCCESSFUL, Mage_Api2_Model_Server::HTTP_OK, array(
                     'item_id' => $stockItem->getId()
                 ));
-            } catch (Mage_Api2_Exception $e) {
+            }
+            catch (Mage_Api2_Exception $e)
+            {
                 // pre-validation errors are already added
                 if ($e->getMessage() != self::RESOURCE_DATA_PRE_VALIDATION_ERROR) {
                     $this->_errorMessage($e->getMessage(), $e->getCode(), array(
                         'item_id' => isset($itemData['item_id']) ? $itemData['item_id'] : null
                     ));
                 }
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_errorMessage(
-                    Mage_Api2_Model_Resource::RESOURCE_INTERNAL_ERROR,
-                    Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
-                    array(
-                        'item_id' => isset($itemData['item_id']) ? $itemData['item_id'] : null
-                    )
+                        Mage_Api2_Model_Resource::RESOURCE_INTERNAL_ERROR, Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR, array(
+                    'item_id' => isset($itemData['item_id']) ? $itemData['item_id'] : null
+                        )
                 );
             }
         }
     }
+
 }

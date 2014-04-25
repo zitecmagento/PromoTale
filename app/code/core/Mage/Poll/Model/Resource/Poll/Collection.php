@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Pool Mysql4 collection model resource
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Initialize collection
      *
@@ -81,12 +82,10 @@ class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_
     public function addStoreFilter($storeId, $withAdmin = true)
     {
         $this->getSelect()->join(
-            array('store_table' => $this->getTable('poll/poll_store')),
-            'main_table.poll_id = store_table.poll_id',
-            array()
-        )
-        ->where('store_table.store_id in (?)', ($withAdmin ? array(0, $storeId) : $storeId))
-        ->group('main_table.poll_id');
+                        array('store_table' => $this->getTable('poll/poll_store')), 'main_table.poll_id = store_table.poll_id', array()
+                )
+                ->where('store_table.store_id in (?)', ($withAdmin ? array(0, $storeId) : $storeId))
+                ->group('main_table.poll_id');
 
         /*
          * Allow analytic functions usage
@@ -108,8 +107,8 @@ class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_
 
         if (count($pollIds) > 0) {
             $select = $this->getConnection()->select()
-                ->from($this->getTable('poll/poll_store'))
-                ->where('poll_id IN(?)', $pollIds);
+                    ->from($this->getTable('poll/poll_store'))
+                    ->where('poll_id IN(?)', $pollIds);
             $result = $this->getConnection()->fetchAll($select);
 
             foreach ($result as $row) {
@@ -140,11 +139,12 @@ class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_
     {
         $pollId = $this->getId();
         $select = $this->getConnection()->select()
-            ->from($this->getTable('poll/poll_store'), array('stor_id'))
-            ->where('poll_id = :poll_id');
+                ->from($this->getTable('poll/poll_store'), array('stor_id'))
+                ->where('poll_id = :poll_id');
         $stores = $this->getConnection()->fetchCol($select, array(':poll_id' => $pollId));
         $this->setSelectStores($stores);
 
         return $this;
     }
+
 }

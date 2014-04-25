@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
 {
+
     /**
      * Customer object
      *
@@ -72,7 +74,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         }
 
         $this->init($namespace);
-        Mage::dispatchEvent('customer_session_init', array('customer_session'=>$this));
+        Mage::dispatchEvent('customer_session_init', array('customer_session' => $this));
     }
 
     /**
@@ -111,7 +113,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         }
 
         $customer = Mage::getModel('customer/customer')
-            ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+                ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
         if ($this->getId()) {
             $customer->load($this->getId());
         }
@@ -181,7 +183,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function isLoggedIn()
     {
-        return (bool)$this->getId() && (bool)$this->checkCustomerId($this->getId());
+        return (bool) $this->getId() && (bool) $this->checkCustomerId($this->getId());
     }
 
     /**
@@ -209,7 +211,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         /** @var $customer Mage_Customer_Model_Customer */
         $customer = Mage::getModel('customer/customer')
-            ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+                ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
 
         if ($customer->authenticate($username, $password)) {
             $this->setCustomerAsLoggedIn($customer);
@@ -222,7 +224,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     public function setCustomerAsLoggedIn($customer)
     {
         $this->setCustomer($customer);
-        Mage::dispatchEvent('customer_login', array('customer'=>$customer));
+        Mage::dispatchEvent('customer_login', array('customer' => $customer));
         return $this;
     }
 
@@ -250,7 +252,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     public function logout()
     {
         if ($this->isLoggedIn()) {
-            Mage::dispatchEvent('customer_logout', array('customer' => $this->getCustomer()) );
+            Mage::dispatchEvent('customer_logout', array('customer' => $this->getCustomer()));
             $this->_logout();
         }
         return $this;
@@ -273,8 +275,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         if (isset($loginUrl)) {
             $action->getResponse()->setRedirect($loginUrl);
         } else {
-            $action->setRedirectWithCookieCheck(Mage_Customer_Helper_Data::ROUTE_ACCOUNT_LOGIN,
-                Mage::helper('customer')->getLoginUrlParams()
+            $action->setRedirectWithCookieCheck(Mage_Customer_Helper_Data::ROUTE_ACCOUNT_LOGIN, Mage::helper('customer')->getLoginUrlParams()
             );
         }
 
@@ -291,7 +292,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     protected function _setAuthUrl($key, $url)
     {
         $url = Mage::helper('core/url')
-            ->removeRequestParam($url, Mage::getSingleton('core/session')->getSessionIdQueryParam());
+                ->removeRequestParam($url, Mage::getSingleton('core/session')->getSessionIdQueryParam());
         // Add correct session ID to URL if needed
         $url = Mage::getModel('core/url')->getRebuiltUrl($url);
         return $this->setData($key, $url);
@@ -344,4 +345,5 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
 
         return $this;
     }
+
 }

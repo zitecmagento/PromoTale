@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report event collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Store Ids
      *
@@ -47,7 +48,7 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
      *
      * @var bool
      */
-    protected $_useAnalyticFunction         = true;
+    protected $_useAnalyticFunction = true;
 
     /**
      * Resource initializations
@@ -85,9 +86,9 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
         $stores = $this->getResource()->getCurrentStoreIds($this->_storeIds);
         $select = $this->getSelect();
         $select->where('event_type_id = ?', $typeId)
-            ->where('subject_id = ?', $subjectId)
-            ->where('subtype = ?', $subtype)
-            ->where('store_id IN(?)', $stores);
+                ->where('subject_id = ?', $subjectId)
+                ->where('subtype = ?', $subtype)
+                ->where('store_id IN(?)', $stores);
         if ($ignore) {
             if (is_array($ignore)) {
                 $select->where('object_id NOT IN(?)', $ignore);
@@ -96,7 +97,8 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
             }
         }
         $select->group('object_id')
-            ->limit($limit);
+                ->limit($limit);
         return $this;
     }
+
 }

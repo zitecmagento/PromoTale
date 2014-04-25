@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Directory_CurrencyController extends Mage_Core_Controller_Front_Action
 {
+
     public function switchAction()
     {
         if ($curency = (string) $this->getRequest()->getParam('currency')) {
@@ -40,4 +42,5 @@ class Mage_Directory_CurrencyController extends Mage_Core_Controller_Front_Actio
         }
         $this->_redirectReferer(Mage::getBaseUrl());
     }
+
 }

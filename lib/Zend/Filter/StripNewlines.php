@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: StripNewlines.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Interface
  */
@@ -41,8 +41,9 @@ class Zend_Filter_StripNewlines implements Zend_Filter_Interface
      * @param  string $value
      * @return string
      */
-    public function filter ($value)
+    public function filter($value)
     {
         return str_replace(array("\n", "\r"), '', $value);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 interface Zend_View_Helper_Interface
 {
+
     /**
      * Set the View object
      *

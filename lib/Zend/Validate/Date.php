@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Date.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -32,9 +32,10 @@
  */
 class Zend_Validate_Date extends Zend_Validate_Abstract
 {
-    const INVALID        = 'dateInvalid';
-    const INVALID_DATE   = 'dateInvalidDate';
-    const FALSEFORMAT    = 'dateFalseFormat';
+
+    const INVALID = 'dateInvalid';
+    const INVALID_DATE = 'dateInvalidDate';
+    const FALSEFORMAT = 'dateFalseFormat';
 
     /**
      * Validation failure message template definitions
@@ -42,16 +43,16 @@ class Zend_Validate_Date extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID        => "Invalid type given. String, integer, array or Zend_Date expected",
-        self::INVALID_DATE   => "'%value%' does not appear to be a valid date",
-        self::FALSEFORMAT    => "'%value%' does not fit the date format '%format%'",
+        self::INVALID => "Invalid type given. String, integer, array or Zend_Date expected",
+        self::INVALID_DATE => "'%value%' does not appear to be a valid date",
+        self::FALSEFORMAT => "'%value%' does not fit the date format '%format%'",
     );
 
     /**
      * @var array
      */
     protected $_messageVariables = array(
-        'format'  => '_format'
+        'format' => '_format'
     );
 
     /**
@@ -162,7 +163,7 @@ class Zend_Validate_Date extends Zend_Validate_Abstract
     public function isValid($value)
     {
         if (!is_string($value) && !is_int($value) && !is_float($value) &&
-            !is_array($value) && !($value instanceof Zend_Date)) {
+                !is_array($value) && !($value instanceof Zend_Date)) {
             $this->_error(self::INVALID);
             return false;
         }
@@ -170,7 +171,7 @@ class Zend_Validate_Date extends Zend_Validate_Abstract
         $this->_setValue($value);
 
         if (($this->_format !== null) || ($this->_locale !== null) || is_array($value) ||
-             $value instanceof Zend_Date) {
+                $value instanceof Zend_Date) {
             #require_once 'Zend/Date.php';
             if (!Zend_Date::isDate($value, $this->_format, $this->_locale)) {
                 if ($this->_checkFormat($value) === false) {
@@ -207,22 +208,25 @@ class Zend_Validate_Date extends Zend_Validate_Abstract
      */
     private function _checkFormat($value)
     {
-        try {
+        try
+        {
             #require_once 'Zend/Locale/Format.php';
             $parsed = Zend_Locale_Format::getDate($value, array(
-                                                  'date_format' => $this->_format, 'format_type' => 'iso',
-                                                  'fix_date' => false));
+                        'date_format' => $this->_format, 'format_type' => 'iso',
+                        'fix_date' => false));
             if (isset($parsed['year']) and ((strpos(strtoupper($this->_format), 'YY') !== false) and
-                (strpos(strtoupper($this->_format), 'YYYY') === false))) {
+                    (strpos(strtoupper($this->_format), 'YYYY') === false))) {
                 $parsed['year'] = Zend_Date::getFullYear($parsed['year']);
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             // Date can not be parsed
             return false;
         }
 
         if (((strpos($this->_format, 'Y') !== false) or (strpos($this->_format, 'y') !== false)) and
-            (!isset($parsed['year']))) {
+                (!isset($parsed['year']))) {
             // Year expected but not found
             return false;
         }
@@ -238,7 +242,7 @@ class Zend_Validate_Date extends Zend_Validate_Abstract
         }
 
         if (((strpos($this->_format, 'H') !== false) or (strpos($this->_format, 'h') !== false)) and
-            (!isset($parsed['hour']))) {
+                (!isset($parsed['hour']))) {
             // Hour expected but not found
             return false;
         }
@@ -256,4 +260,5 @@ class Zend_Validate_Date extends Zend_Validate_Abstract
         // Date fits the format
         return true;
     }
+
 }

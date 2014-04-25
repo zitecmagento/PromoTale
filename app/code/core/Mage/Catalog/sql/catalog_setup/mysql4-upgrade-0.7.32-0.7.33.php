@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,12 +24,11 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
-$attributeId    = $installer->getAttributeId('catalog_category', 'is_active');
-$entityTypeId   = $installer->getEntityTypeId('catalog_category');
+$attributeId = $installer->getAttributeId('catalog_category', 'is_active');
+$entityTypeId = $installer->getEntityTypeId('catalog_category');
 $installer->updateAttribute('catalog_category', 'is_active', 'backend_type', 'int');
 
 $categoryIntTable = $installer->getTable('catalog_category_entity_int');

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Cache.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Server_Cache */
 #require_once 'Zend/Server/Cache.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_XmlRpc_Server_Cache extends Zend_Server_Cache
 {
+
     /**
      * @var array Skip system methods when caching XML-RPC server
      */
@@ -43,4 +44,5 @@ class Zend_XmlRpc_Server_Cache extends Zend_Server_Cache
         'system.methodSignature',
         'system.multicall',
     );
+
 }

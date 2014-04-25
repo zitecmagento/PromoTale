@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 require_once 'Mage/Downloadable/controllers/Adminhtml/Downloadable/Product/EditController.php';
 
 /**
@@ -36,6 +36,7 @@ require_once 'Mage/Downloadable/controllers/Adminhtml/Downloadable/Product/EditC
  */
 class Mage_Downloadable_Product_EditController extends Mage_Downloadable_Adminhtml_Downloadable_Product_EditController
 {
+
     /**
      * Controller predispatch method
      * Show 404 front page
@@ -44,4 +45,5 @@ class Mage_Downloadable_Product_EditController extends Mage_Downloadable_Adminht
     {
         $this->_forward('defaultIndex', 'cms_index');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,14 +19,11 @@
  * @version    $Id: Tbx.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-
 /** Zend_Locale */
 #require_once 'Zend/Locale.php';
 
 /** Zend_Translate_Adapter */
 #require_once 'Zend/Translate/Adapter.php';
-
 
 /**
  * @category   Zend
@@ -33,15 +31,17 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Translate_Adapter_Tbx extends Zend_Translate_Adapter {
+class Zend_Translate_Adapter_Tbx extends Zend_Translate_Adapter
+{
+
     // Internal variables
-    private $_file        = false;
-    private $_cleared     = array();
-    private $_langset     = null;
-    private $_termentry   = null;
-    private $_content     = null;
-    private $_term        = null;
-    private $_data        = array();
+    private $_file = false;
+    private $_cleared = array();
+    private $_langset = null;
+    private $_termentry = null;
+    private $_content = null;
+    private $_term = null;
+    private $_data = array();
 
     /**
      * Load translation data (TBX file reader)
@@ -69,9 +69,7 @@ class Zend_Translate_Adapter_Tbx extends Zend_Translate_Adapter {
         xml_set_character_data_handler($this->_file, "_contentElement");
 
         if (!xml_parse($this->_file, file_get_contents($filename))) {
-            $ex = sprintf('XML error: %s at line %d',
-                          xml_error_string(xml_get_error_code($this->_file)),
-                          xml_get_current_line_number($this->_file));
+            $ex = sprintf('XML error: %s at line %d', xml_error_string(xml_get_error_code($this->_file)), xml_get_current_line_number($this->_file));
             xml_parser_free($this->_file);
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception($ex);
@@ -83,13 +81,13 @@ class Zend_Translate_Adapter_Tbx extends Zend_Translate_Adapter {
     private function _startElement($file, $name, $attrib)
     {
         if ($this->_term !== null) {
-            $this->_content .= "<".$name;
-            foreach($attrib as $key => $value) {
+            $this->_content .= "<" . $name;
+            foreach ($attrib as $key => $value) {
                 $this->_content .= " $key=\"$value\"";
             }
             $this->_content .= ">";
         } else {
-            switch(strtolower($name)) {
+            switch (strtolower($name)) {
                 case 'termentry':
                     $this->_termentry = null;
                     break;
@@ -102,7 +100,7 @@ class Zend_Translate_Adapter_Tbx extends Zend_Translate_Adapter {
                     }
                     break;
                 case 'term':
-                    $this->_term    = true;
+                    $this->_term = true;
                     $this->_content = null;
                     break;
                 default:
@@ -114,7 +112,7 @@ class Zend_Translate_Adapter_Tbx extends Zend_Translate_Adapter {
     private function _endElement($file, $name)
     {
         if (($this->_term !== null) and ($name != "term")) {
-            $this->_content .= "</".$name.">";
+            $this->_content .= "</" . $name . ">";
         } else {
             switch (strtolower($name)) {
                 case 'langset':
@@ -162,4 +160,5 @@ class Zend_Translate_Adapter_Tbx extends Zend_Translate_Adapter {
     {
         return "Tbx";
     }
+
 }

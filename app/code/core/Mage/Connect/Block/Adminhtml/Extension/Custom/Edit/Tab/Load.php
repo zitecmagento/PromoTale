@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Connect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Load
-    extends Mage_Adminhtml_Block_Template
+class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Load extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Retrieve Grid Block HTML
      *
@@ -43,4 +44,5 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Load
     {
         return $this->getChildHtml('local_package_grid');
     }
+
 }

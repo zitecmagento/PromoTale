@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Dojo_Form_Element_TextBox */
 #require_once 'Zend/Dojo/Form/Element/TextBox.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_Dojo_Form_Element_ValidationTextBox extends Zend_Dojo_Form_Element_TextBox
 {
+
     /**
      * Use ValidationTextBox dijit view helper
      * @var string
@@ -146,7 +147,7 @@ class Zend_Dojo_Form_Element_ValidationTextBox extends Zend_Dojo_Form_Element_Te
     public function hasConstraint($key)
     {
         $constraints = $this->getConstraints();
-        return array_key_exists((string)$key, $constraints);
+        return array_key_exists((string) $key, $constraints);
     }
 
     /**
@@ -215,4 +216,5 @@ class Zend_Dojo_Form_Element_ValidationTextBox extends Zend_Dojo_Form_Element_Te
             $item = ($item) ? 'true' : 'false';
         }
     }
+
 }

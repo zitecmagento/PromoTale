@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 class Zend_Server_Method_Prototype
 {
+
     /**
      * @var string Return type
      */
@@ -126,7 +128,7 @@ class Zend_Server_Method_Prototype
      */
     public function setParameters(array $parameters)
     {
-        $this->_parameters       = array();
+        $this->_parameters = array();
         $this->_parameterNameMap = array();
         $this->addParameters($parameters);
         return $this;
@@ -205,4 +207,5 @@ class Zend_Server_Method_Prototype
             'parameters' => $this->getParameters(),
         );
     }
+
 }

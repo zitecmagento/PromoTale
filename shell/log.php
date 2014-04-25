@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 require_once 'abstract.php';
 
 /**
@@ -35,6 +35,7 @@ require_once 'abstract.php';
  */
 class Mage_Shell_Log extends Mage_Shell_Abstract
 {
+
     /**
      * Log instance
      *
@@ -108,7 +109,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
             echo "Log cleaned\n";
         } else if ($this->getArg('status')) {
             $resource = $this->_getLog()->getResource();
-            $adapter  = $resource->getReadConnection();
+            $adapter = $resource->getReadConnection();
             // log tables
             $tables = array(
                 $resource->getTable('log/customer'),
@@ -117,16 +118,14 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
                 $resource->getTable('log/url_table'),
                 $resource->getTable('log/url_info_table'),
                 $resource->getTable('log/quote_table'),
-
                 $resource->getTable('reports/viewed_product_index'),
                 $resource->getTable('reports/compared_product_index'),
                 $resource->getTable('reports/event'),
-
                 $resource->getTable('catalog/compare_item'),
             );
 
-            $rows        = 0;
-            $dataLengh   = 0;
+            $rows = 0;
+            $dataLengh = 0;
             $indexLength = 0;
 
             $line = '-----------------------------------+------------+------------+------------+' . "\n";
@@ -139,7 +138,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
             echo $line;
 
             foreach ($tables as $table) {
-                $query  = $adapter->quoteInto('SHOW TABLE STATUS LIKE ?', $table);
+                $query = $adapter->quoteInto('SHOW TABLE STATUS LIKE ?', $table);
                 $status = $adapter->fetchRow($query);
                 if (!$status) {
                     continue;
@@ -185,6 +184,7 @@ Usage:  php -f log.php -- [options]
 
 USAGE;
     }
+
 }
 
 $shell = new Mage_Shell_Log();

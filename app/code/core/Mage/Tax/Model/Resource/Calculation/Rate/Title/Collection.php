@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax Rate Title Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -53,4 +54,5 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection extends Mage_Cor
         $this->addFieldToFilter('main_table.tax_calculation_rate_id', $rateId);
         return $this->load();
     }
+
 }

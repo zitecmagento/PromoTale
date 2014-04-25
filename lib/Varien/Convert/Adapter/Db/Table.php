@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert db table adapter
  *
@@ -34,6 +34,7 @@
  */
 class Varien_Convert_Adapter_Db_Table extends Varien_Convert_Adapter_Abstract
 {
+
     public function getResource()
     {
         if (!$this->_resource) {
@@ -44,11 +45,12 @@ class Varien_Convert_Adapter_Db_Table extends Varien_Convert_Adapter_Abstract
 
     public function load()
     {
-
+        
     }
 
     public function save()
     {
-
+        
     }
+
 }

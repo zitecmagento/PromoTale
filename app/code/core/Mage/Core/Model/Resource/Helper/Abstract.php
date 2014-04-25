@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Core_Model_Resource_Helper_Abstract
 {
+
     /**
      * Read adapter instance
      *
@@ -61,7 +63,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      */
     public function __construct($module)
     {
-        $this->_modulePrefix = (string)$module;
+        $this->_modulePrefix = (string) $module;
     }
 
     /**
@@ -102,7 +104,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
     {
         $connection = sprintf('%s_%s', $this->_modulePrefix, $name);
         /** @var $resource Mage_Core_Model_Resource */
-        $resource   = Mage::getSingleton('core/resource');
+        $resource = Mage::getSingleton('core/resource');
 
         return $resource->getConnection($connection);
     }
@@ -201,12 +203,11 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
     public function convertOldColumnDefinition($column)
     {
         // Match type and size - e.g. varchar(100) or decimal(12,4) or int
-        $matches    = array();
+        $matches = array();
         $definition = trim($column['type']);
         if (!preg_match('/([^(]*)(\\((.*)\\))?/', $definition, $matches)) {
             throw Mage::exception(
-                'Mage_Core',
-                Mage::helper('core')->__("Wrong old style column type definition: {$definition}.")
+                    'Mage_Core', Mage::helper('core')->__("Wrong old style column type definition: {$definition}.")
             );
         }
 
@@ -299,17 +300,16 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 break;
             default:
                 throw Mage::exception(
-                    'Mage_Core',
-                    Mage::helper('core')->__("Unknown old style column type definition: {$definition}.")
+                        'Mage_Core', Mage::helper('core')->__("Unknown old style column type definition: {$definition}.")
                 );
         }
 
         $result = array(
-            'type'     => $type,
-            'length'   => $length,
+            'type' => $type,
+            'length' => $length,
             'unsigned' => $column['unsigned'],
             'nullable' => $column['is_null'],
-            'default'  => $column['default'],
+            'default' => $column['default'],
             'identity' => stripos($column['extra'], 'auto_increment') !== false
         );
 
@@ -323,4 +323,5 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
 
         return $result;
     }
+
 }

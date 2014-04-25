@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,6 +26,7 @@
  */
 class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
 {
+
     /**
      * Current entity (model instance) with getCommentsCollection() method
      *
@@ -83,8 +85,8 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
 
             $this->_commentCollection = Mage::getResourceModel($collectionClass);
             $this->_commentCollection->setParentFilter($entity)
-               ->setCreatedAtOrder()
-               ->addVisibleOnFrontFilter();
+                    ->setCreatedAtOrder()
+                    ->addVisibleOnFrontFilter();
         }
 
         return $this->_commentCollection;
@@ -99,4 +101,5 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
     {
         return $this->getComments()->count() > 0;
     }
+
 }

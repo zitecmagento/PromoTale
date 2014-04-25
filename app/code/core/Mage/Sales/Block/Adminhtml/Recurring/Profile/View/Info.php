@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Info extends Mage_Adminhtml_Block_Widget
 {
+
     /**
      * Return recurring profile information for view
      *
@@ -42,9 +44,10 @@ class Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Info extends Mage_Adminh
     {
         $recurringProfile = Mage::registry('current_recurring_profile');
         $information = array();
-        foreach($recurringProfile->getData() as $kay => $value) {
+        foreach ($recurringProfile->getData() as $kay => $value) {
             $information[$recurringProfile->getFieldLabel($kay)] = $value;
-        } 
+        }
         return $information;
     }
+
 }

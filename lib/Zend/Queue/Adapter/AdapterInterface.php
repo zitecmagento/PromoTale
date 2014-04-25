@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 interface Zend_Queue_Adapter_AdapterInterface
 {
+
     /**
      * Constructor
      *
@@ -79,7 +81,7 @@ interface Zend_Queue_Adapter_AdapterInterface
      * @param  integer $timeout Default visibility timeout
      * @return boolean
      */
-    public function create($name, $timeout=null);
+    public function create($name, $timeout = null);
 
     /**
      * Delete a queue and all of its messages
@@ -109,9 +111,9 @@ interface Zend_Queue_Adapter_AdapterInterface
      */
     public function count(Zend_Queue $queue = null);
 
-    /********************************************************************
+    /*     * ******************************************************************
      * Messsage management functions
-     *********************************************************************/
+     * ******************************************************************* */
 
     /**
      * Send a message to the queue
@@ -143,9 +145,9 @@ interface Zend_Queue_Adapter_AdapterInterface
      */
     public function deleteMessage(Zend_Queue_Message $message);
 
-    /********************************************************************
+    /*     * ******************************************************************
      * Supporting functions
-     *********************************************************************/
+     * ******************************************************************* */
 
     /**
      * Returns the configuration options in this adapter.

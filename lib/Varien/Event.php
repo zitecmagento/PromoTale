@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Event object and dispatcher
  *
@@ -34,6 +34,7 @@
  */
 class Varien_Event extends Varien_Object
 {
+
     /**
      * Observers collection
      *
@@ -48,7 +49,7 @@ class Varien_Event extends Varien_Object
      *
      * @param array $data
      */
-    public function __construct(array $data=array())
+    public function __construct(array $data = array())
     {
         $this->_observers = new Varien_Event_Observer_Collection();
         parent::__construct($data);
@@ -119,4 +120,5 @@ class Varien_Event extends Varien_Object
     {
         return $this->_getData('block');
     }
+
 }

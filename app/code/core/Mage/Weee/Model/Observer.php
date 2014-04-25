@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
 {
+
     /**
      * Assign custom renderer for product create/edit form weee attribute element
      *
@@ -51,7 +53,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
             $weeeTax = $form->getElement($code);
             if ($weeeTax) {
                 $weeeTax->setRenderer(
-                    Mage::app()->getLayout()->createBlock('weee/renderer_weee_tax')
+                        Mage::app()->getLayout()->createBlock('weee/renderer_weee_tax')
                 );
             }
         }
@@ -87,7 +89,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function prepareCatalogIndexSelect(Varien_Event_Observer $observer)
     {
-        $storeId = (int)$observer->getEvent()->getStoreId();
+        $storeId = (int) $observer->getEvent()->getStoreId();
         if (!Mage::helper('weee')->isEnabled($storeId)) {
             return $this;
         }
@@ -102,8 +104,8 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         $select = $observer->getEvent()->getSelect();
         $table = $observer->getEvent()->getTable();
 
-        $websiteId = (int)Mage::app()->getStore($storeId)->getWebsiteId();
-        $customerGroupId = (int)Mage::getSingleton('customer/session')->getCustomerGroupId();
+        $websiteId = (int) Mage::app()->getStore($storeId)->getWebsiteId();
+        $customerGroupId = (int) Mage::getSingleton('customer/session')->getCustomerGroupId();
 
         $response = $observer->getEvent()->getResponseObject();
         $additionalCalculations = $response->getAdditionalCalculations();
@@ -118,13 +120,11 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
             );
             $tableWeeDiscount = Mage::getSingleton('weee/tax')->getResource()->getTable('weee/discount');
             $select->joinLeft(
-                array('discount_percent' => $tableWeeDiscount),
-                implode(' AND ', $joinConditions),
-                array()
+                    array('discount_percent' => $tableWeeDiscount), implode(' AND ', $joinConditions), array()
             );
         }
         $checkDiscountField = $select->getAdapter()->getCheckSql(
-            'discount_percent.value IS NULL', 0, 'discount_percent.value');
+                'discount_percent.value IS NULL', 0, 'discount_percent.value');
         foreach ($attributes as $attribute) {
             $fieldAlias = sprintf('weee_%s_table.value', $attribute);
             $checkAdditionalCalculation = $select->getAdapter()->getCheckSql("{$fieldAlias} IS NULL", 0, $fieldAlias);
@@ -141,17 +141,17 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
 
         $attributes = Mage::getSingleton('weee/tax')->getWeeeTaxAttributeCodes();
         foreach ($attributes as $attribute) {
-            $attributeId = (int)Mage::getSingleton('eav/entity_attribute')
-                ->getIdByCode(Mage_Catalog_Model_Product::ENTITY, $attribute);
+            $attributeId = (int) Mage::getSingleton('eav/entity_attribute')
+                            ->getIdByCode(Mage_Catalog_Model_Product::ENTITY, $attribute);
             $tableAlias = sprintf('weee_%s_table', $attribute);
             $quotedTableAlias = $select->getAdapter()->quoteTableAs($tableAlias, null);
             $attributeSelect = $this->_getSelect();
             $attributeSelect
-                ->from(array($tableAlias => Mage::getSingleton('weee/tax')->getResource()->getTable('weee/tax')))
-                ->where("{$quotedTableAlias}.attribute_id = ?", $attributeId)
-                ->where("{$quotedTableAlias}.website_id IN(?)", array($websiteId, 0))
-                ->where("{$quotedTableAlias}.country = ?", $rateRequest->getCountryId())
-                ->where("{$quotedTableAlias}.state IN(?)", array($rateRequest->getRegionId(), '*'));
+                    ->from(array($tableAlias => Mage::getSingleton('weee/tax')->getResource()->getTable('weee/tax')))
+                    ->where("{$quotedTableAlias}.attribute_id = ?", $attributeId)
+                    ->where("{$quotedTableAlias}.website_id IN(?)", array($websiteId, 0))
+                    ->where("{$quotedTableAlias}.country = ?", $rateRequest->getCountryId())
+                    ->where("{$quotedTableAlias}.state IN(?)", array($rateRequest->getRegionId(), '*'));
 
             $order = array(
                 sprintf('%s.state %s', $tableAlias, Varien_Db_Select::SQL_DESC),
@@ -161,9 +161,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
 
             $joinCondition = sprintf('%s.entity_id = %s.entity_id', $table, $quotedTableAlias);
             $select->joinLeft(
-                array($tableAlias => $attributeSelect),
-                $joinCondition,
-                array()
+                    array($tableAlias => $attributeSelect), $joinCondition, array()
             );
         }
         return $this;
@@ -199,7 +197,6 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 'is_required',
                 'frontend_class',
                 'is_configurable',
-
                 '_scope',
                 '_default_value',
                 '_front_fieldset',
@@ -396,5 +393,5 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
 
         return $this;
     }
-}
 
+}

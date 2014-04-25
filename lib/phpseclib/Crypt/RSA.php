@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -65,7 +66,6 @@
  * @version    $Id: RSA.php,v 1.15 2010/04/10 15:57:02 terrafrost Exp $
  * @link       http://phpseclib.sourceforge.net
  */
-
 /**
  * Include Math_BigInteger
  */
@@ -81,7 +81,7 @@ require_once('Crypt/Random.php');
  */
 require_once('Crypt/Hash.php');
 
-/**#@+
+/* * #@+
  * @access public
  * @see Crypt_RSA::encrypt()
  * @see Crypt_RSA::decrypt()
@@ -95,7 +95,7 @@ require_once('Crypt/Hash.php');
  * @see Crypt_RSA::setHash()
  * @see Crypt_RSA::setMGFHash()
  */
-define('CRYPT_RSA_ENCRYPTION_OAEP',  1);
+define('CRYPT_RSA_ENCRYPTION_OAEP', 1);
 /**
  * Use PKCS#1 padding.
  *
@@ -103,9 +103,9 @@ define('CRYPT_RSA_ENCRYPTION_OAEP',  1);
  * compatability with protocols (like SSH-1) written before OAEP's introduction.
  */
 define('CRYPT_RSA_ENCRYPTION_PKCS1', 2);
-/**#@-*/
+/* * #@- */
 
-/**#@+
+/* * #@+
  * @access public
  * @see Crypt_RSA::sign()
  * @see Crypt_RSA::verify()
@@ -119,7 +119,7 @@ define('CRYPT_RSA_ENCRYPTION_PKCS1', 2);
  * @see Crypt_RSA::setSaltLength()
  * @see Crypt_RSA::setMGFHash()
  */
-define('CRYPT_RSA_SIGNATURE_PSS',  1);
+define('CRYPT_RSA_SIGNATURE_PSS', 1);
 /**
  * Use the PKCS#1 scheme by default.
  *
@@ -127,23 +127,23 @@ define('CRYPT_RSA_SIGNATURE_PSS',  1);
  * compatability with protocols (like SSH-2) written before PSS's introduction.
  */
 define('CRYPT_RSA_SIGNATURE_PKCS1', 2);
-/**#@-*/
+/* * #@- */
 
-/**#@+
+/* * #@+
  * @access private
  * @see Crypt_RSA::createKey()
  */
 /**
  * ASN1 Integer
  */
-define('CRYPT_RSA_ASN1_INTEGER',   2);
+define('CRYPT_RSA_ASN1_INTEGER', 2);
 /**
  * ASN1 Sequence (with the constucted bit set)
  */
 define('CRYPT_RSA_ASN1_SEQUENCE', 48);
-/**#@-*/
+/* * #@- */
 
-/**#@+
+/* * #@+
  * @access private
  * @see Crypt_RSA::Crypt_RSA()
  */
@@ -157,9 +157,9 @@ define('CRYPT_RSA_MODE_INTERNAL', 1);
  * (if enabled; otherwise, the internal implementation will be used)
  */
 define('CRYPT_RSA_MODE_OPENSSL', 2);
-/**#@-*/
+/* * #@- */
 
-/**#@+
+/* * #@+
  * @access public
  * @see Crypt_RSA::createKey()
  * @see Crypt_RSA::setPrivateKeyFormat()
@@ -170,9 +170,9 @@ define('CRYPT_RSA_MODE_OPENSSL', 2);
  * Used by OpenSSH
  */
 define('CRYPT_RSA_PRIVATE_FORMAT_PKCS1', 0);
-/**#@-*/
+/* * #@- */
 
-/**#@+
+/* * #@+
  * @access public
  * @see Crypt_RSA::createKey()
  * @see Crypt_RSA::setPublicKeyFormat()
@@ -201,7 +201,7 @@ define('CRYPT_RSA_PUBLIC_FORMAT_PKCS1', 2);
  * Place in $HOME/.ssh/authorized_keys
  */
 define('CRYPT_RSA_PUBLIC_FORMAT_OPENSSH', 3);
-/**#@-*/
+/* * #@- */
 
 /**
  * Pure-PHP PKCS#1 compliant implementation of RSA.
@@ -211,7 +211,9 @@ define('CRYPT_RSA_PUBLIC_FORMAT_OPENSSH', 3);
  * @access  public
  * @package Crypt_RSA
  */
-class Crypt_RSA {
+class Crypt_RSA
+{
+
     /**
      * Precomputed Zero
      *
@@ -384,7 +386,7 @@ class Crypt_RSA {
      */
     function Crypt_RSA()
     {
-        if ( !defined('CRYPT_RSA_MODE') ) {
+        if (!defined('CRYPT_RSA_MODE')) {
             switch (true) {
                 //case extension_loaded('openssl') && version_compare(PHP_VERSION, '4.2.0', '>='):
                 //    define('CRYPT_RSA_MODE', CRYPT_RSA_MODE_OPENSSL);
@@ -420,7 +422,7 @@ class Crypt_RSA {
      */
     function createKey($bits = 1024, $timeout = false, $partial = array())
     {
-        if ( CRYPT_RSA_MODE == CRYPT_RSA_MODE_OPENSSL ) {
+        if (CRYPT_RSA_MODE == CRYPT_RSA_MODE_OPENSSL) {
             $rsa = openssl_pkey_new(array('private_key_bits' => $bits));
             openssl_pkey_export($rsa, $privatekey);
             $publickey = openssl_pkey_get_details($rsa);
@@ -494,7 +496,7 @@ class Crypt_RSA {
                     if ($timeout <= 0) {
                         return serialize(array(
                             'privatekey' => '',
-                            'publickey'  => '',
+                            'publickey' => '',
                             'partialkey' => array(
                                 'primes' => $primes,
                                 'coefficients' => $coefficients,
@@ -518,13 +520,13 @@ class Crypt_RSA {
                 if ($primes[$i] === false) { // if we've reached the timeout
                     return array(
                         'privatekey' => '',
-                        'publickey'  => '',
+                        'publickey' => '',
                         'partialkey' => empty($primes) ? '' : serialize(array(
-                            'primes' => array_slice($primes, 0, $i - 1),
-                            'coefficients' => $coefficients,
-                            'lcm' => $lcm,
-                            'exponents' => $exponents
-                        ))
+                                    'primes' => array_slice($primes, 0, $i - 1),
+                                    'coefficients' => $coefficients,
+                                    'lcm' => $lcm,
+                                    'exponents' => $exponents
+                                ))
                     );
                 }
 
@@ -571,7 +573,7 @@ class Crypt_RSA {
 
         return array(
             'privatekey' => $this->_convertPrivateKey($n, $e, $d, $primes, $exponents, $coefficients),
-            'publickey'  => $this->_convertPublicKey($n, $e),
+            'publickey' => $this->_convertPublicKey($n, $e),
             'partialkey' => false
         );
     }
@@ -642,15 +644,15 @@ class Crypt_RSA {
                     $des->setIV($iv);
                     $iv = strtoupper(bin2hex($iv));
                     $RSAPrivateKey = "-----BEGIN RSA PRIVATE KEY-----\r\n" .
-                                     "Proc-Type: 4,ENCRYPTED\r\n" .
-                                     "DEK-Info: DES-EDE3-CBC,$iv\r\n" .
-                                     "\r\n" .
-                                     chunk_split(base64_encode($des->encrypt($RSAPrivateKey))) .
-                                     '-----END RSA PRIVATE KEY-----';
+                            "Proc-Type: 4,ENCRYPTED\r\n" .
+                            "DEK-Info: DES-EDE3-CBC,$iv\r\n" .
+                            "\r\n" .
+                            chunk_split(base64_encode($des->encrypt($RSAPrivateKey))) .
+                            '-----END RSA PRIVATE KEY-----';
                 } else {
                     $RSAPrivateKey = "-----BEGIN RSA PRIVATE KEY-----\r\n" .
-                                     chunk_split(base64_encode($RSAPrivateKey)) .
-                                     '-----END RSA PRIVATE KEY-----';
+                            chunk_split(base64_encode($RSAPrivateKey)) .
+                            '-----END RSA PRIVATE KEY-----';
                 }
 
                 return $RSAPrivateKey;
@@ -693,14 +695,12 @@ class Crypt_RSA {
                     'publicExponent' => pack('Ca*a*', CRYPT_RSA_ASN1_INTEGER, $this->_encodeLength(strlen($publicExponent)), $publicExponent)
                 );
 
-                $RSAPublicKey = pack('Ca*a*a*',
-                    CRYPT_RSA_ASN1_SEQUENCE, $this->_encodeLength(strlen($components['modulus']) + strlen($components['publicExponent'])),
-                    $components['modulus'], $components['publicExponent']
+                $RSAPublicKey = pack('Ca*a*a*', CRYPT_RSA_ASN1_SEQUENCE, $this->_encodeLength(strlen($components['modulus']) + strlen($components['publicExponent'])), $components['modulus'], $components['publicExponent']
                 );
 
                 $RSAPublicKey = "-----BEGIN PUBLIC KEY-----\r\n" .
-                                 chunk_split(base64_encode($RSAPublicKey)) .
-                                 '-----END PUBLIC KEY-----';
+                        chunk_split(base64_encode($RSAPublicKey)) .
+                        '-----END PUBLIC KEY-----';
 
                 return $RSAPublicKey;
         }
@@ -754,20 +754,20 @@ class Crypt_RSA {
             case CRYPT_RSA_PRIVATE_FORMAT_PKCS1:
             case CRYPT_RSA_PUBLIC_FORMAT_PKCS1:
                 /* Although PKCS#1 proposes a format that public and private keys can use, encrypting them is
-                   "outside the scope" of PKCS#1.  PKCS#1 then refers you to PKCS#12 and PKCS#15 if you're wanting to
-                   protect private keys, however, that's not what OpenSSL* does.  OpenSSL protects private keys by adding
-                   two new "fields" to the key - DEK-Info and Proc-Type.  These fields are discussed here:
+                  "outside the scope" of PKCS#1.  PKCS#1 then refers you to PKCS#12 and PKCS#15 if you're wanting to
+                  protect private keys, however, that's not what OpenSSL* does.  OpenSSL protects private keys by adding
+                  two new "fields" to the key - DEK-Info and Proc-Type.  These fields are discussed here:
 
-                   http://tools.ietf.org/html/rfc1421#section-4.6.1.1
-                   http://tools.ietf.org/html/rfc1421#section-4.6.1.3
+                  http://tools.ietf.org/html/rfc1421#section-4.6.1.1
+                  http://tools.ietf.org/html/rfc1421#section-4.6.1.3
 
-                   DES-EDE3-CBC as an algorithm, however, is not discussed anywhere, near as I can tell.
-                   DES-CBC and DES-EDE are discussed in RFC1423, however, DES-EDE3-CBC isn't, nor is its key derivation
-                   function.  As is, the definitive authority on this encoding scheme isn't the IETF but rather OpenSSL's
-                   own implementation.  ie. the implementation *is* the standard and any bugs that may exist in that 
-                   implementation are part of the standard, as well.
+                  DES-EDE3-CBC as an algorithm, however, is not discussed anywhere, near as I can tell.
+                  DES-CBC and DES-EDE are discussed in RFC1423, however, DES-EDE3-CBC isn't, nor is its key derivation
+                  function.  As is, the definitive authority on this encoding scheme isn't the IETF but rather OpenSSL's
+                  own implementation.  ie. the implementation *is* the standard and any bugs that may exist in that
+                  implementation are part of the standard, as well.
 
-                   * OpenSSL is the de facto standard.  It's utilized by OpenSSH and other projects */
+                 * OpenSSL is the de facto standard.  It's utilized by OpenSSH and other projects */
                 if (preg_match('#DEK-Info: (.+),(.+)#', $key, $matches)) {
                     $iv = pack('H*', trim($matches[2]));
                     $symkey = pack('H*', md5($this->password . $iv)); // symkey is short for symmetric key
@@ -818,11 +818,11 @@ class Crypt_RSA {
                 if ($tag == CRYPT_RSA_ASN1_SEQUENCE) {
                     /* intended for keys for which OpenSSL's asn1parse returns the following:
 
-                        0:d=0  hl=4 l= 290 cons: SEQUENCE
-                        4:d=1  hl=2 l=  13 cons:  SEQUENCE
-                        6:d=2  hl=2 l=   9 prim:   OBJECT            :rsaEncryption
-                       17:d=2  hl=2 l=   0 prim:   NULL
-                       19:d=1  hl=4 l= 271 prim:  BIT STRING */
+                      0:d=0  hl=4 l= 290 cons: SEQUENCE
+                      4:d=1  hl=2 l=  13 cons:  SEQUENCE
+                      6:d=2  hl=2 l=   9 prim:   OBJECT            :rsaEncryption
+                      17:d=2  hl=2 l=   0 prim:   NULL
+                      19:d=1  hl=4 l= 271 prim:  BIT STRING */
                     $this->_string_shift($key, $this->_decodeLength($key));
                     $this->_string_shift($key); // skip over the BIT STRING tag
                     $this->_decodeLength($key); // skip over the BIT STRING length
@@ -1072,7 +1072,7 @@ class Crypt_RSA {
     function _decodeLength(&$string)
     {
         $length = ord($this->_string_shift($string));
-        if ( $length & 0x80 ) { // definite length, long form
+        if ($length & 0x80) { // definite length, long form
             $length&= 0x7F;
             $temp = $this->_string_shift($string, $length);
             list(, $length) = unpack('N', substr(str_pad($temp, 4, chr(0), STR_PAD_LEFT), -4));
@@ -1487,7 +1487,6 @@ class Crypt_RSA {
         $mLen = strlen($m);
 
         // Length checking
-
         // if $l is larger than two million terrabytes and you're using sha1, PKCS#1 suggests a "Label too long" error
         // be output.
 
@@ -1548,7 +1547,6 @@ class Crypt_RSA {
     function _rsaes_oaep_decrypt($c, $l = '')
     {
         // Length checking
-
         // if $l is larger than two million terrabytes and you're using sha1, PKCS#1 suggests a "Label too long" error
         // be output.
 
@@ -2116,4 +2114,5 @@ class Crypt_RSA {
                 return $this->_rsassa_pss_verify($message, $signature);
         }
     }
+
 }

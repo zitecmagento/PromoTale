@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,10 +32,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Application_Bootstrap_BootstrapAbstract
-    implements Zend_Application_Bootstrap_Bootstrapper,
-               Zend_Application_Bootstrap_ResourceBootstrapper
+abstract class Zend_Application_Bootstrap_BootstrapAbstract implements Zend_Application_Bootstrap_Bootstrapper, Zend_Application_Bootstrap_ResourceBootstrapper
 {
+
     /**
      * @var Zend_Application|Zend_Application_Bootstrap_Bootstrapper
      */
@@ -194,9 +194,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
         if (is_array($array2)) {
             foreach ($array2 as $key => $val) {
                 if (is_array($array2[$key])) {
-                    $array1[$key] = (array_key_exists($key, $array1) && is_array($array1[$key]))
-                                  ? $this->mergeOptions($array1[$key], $array2[$key])
-                                  : $array2[$key];
+                    $array1[$key] = (array_key_exists($key, $array1) && is_array($array1[$key])) ? $this->mergeOptions($array1[$key], $array2[$key]) : $array2[$key];
                 } else {
                     $array1[$key] = $val;
                 }
@@ -217,9 +215,9 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     {
         if (null === $this->_classResources) {
             if (version_compare(PHP_VERSION, '5.2.6') === -1) {
-                $class        = new ReflectionObject($this);
+                $class = new ReflectionObject($this);
                 $classMethods = $class->getMethods();
-                $methodNames  = array();
+                $methodNames = array();
 
                 foreach ($classMethods as $method) {
                     $methodNames[] = $method->getName();
@@ -431,8 +429,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      */
     public function setApplication($application)
     {
-        if (($application instanceof Zend_Application)
-            || ($application instanceof Zend_Application_Bootstrap_Bootstrapper)
+        if (($application instanceof Zend_Application) || ($application instanceof Zend_Application_Bootstrap_Bootstrapper)
         ) {
             if ($application === $this) {
                 throw new Zend_Application_Bootstrap_Exception('Cannot set application to same object; creates recursion');
@@ -513,7 +510,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      */
     public function hasResource($name)
     {
-        $resource  = strtolower($name);
+        $resource = strtolower($name);
         $container = $this->getContainer();
         return isset($container->{$resource});
     }
@@ -532,7 +529,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      */
     public function getResource($name)
     {
-        $resource  = strtolower($name);
+        $resource = strtolower($name);
         $container = $this->getContainer();
         if ($this->hasResource($resource)) {
             return $container->{$resource};
@@ -700,7 +697,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      */
     protected function _loadPluginResource($resource, $options)
     {
-        $options   = (array) $options;
+        $options = (array) $options;
         $options['bootstrap'] = $this;
         $className = $this->getPluginLoader()->load(strtolower($resource), false);
 
@@ -751,10 +748,10 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     {
         if (isset($resource->_explicitType)) {
             $pluginName = $resource->_explicitType;
-        } else  {
-            $className  = get_class($resource);
+        } else {
+            $className = get_class($resource);
             $pluginName = $className;
-            $loader     = $this->getPluginLoader();
+            $loader = $this->getPluginLoader();
             foreach ($loader->getPaths() as $prefix => $paths) {
                 if (0 === strpos($className, $prefix)) {
                     $pluginName = substr($className, strlen($prefix));
@@ -766,4 +763,5 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
         $pluginName = strtolower($pluginName);
         return $pluginName;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
-    extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     protected $_pages;
 
     /**
@@ -71,11 +71,11 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
         }
 
         $fieldset->addField('conf/native/defaultCheckout/isActive', 'select', array(
-            'label'     => $this->__('Enable Standard Checkout'),
-            'name'      => 'conf[native][defaultCheckout][isActive]',
-            'values'    => $yesNoValues,
-            'note'      => $this->__('Standard Checkout uses the checkout methods provided by Magento. Only inline payment methods are supported. (e.g PayPal Direct,  Authorize.Net, etc.)'),
-            'value'     => $checkoutStatus
+            'label' => $this->__('Enable Standard Checkout'),
+            'name' => 'conf[native][defaultCheckout][isActive]',
+            'values' => $yesNoValues,
+            'note' => $this->__('Standard Checkout uses the checkout methods provided by Magento. Only inline payment methods are supported. (e.g PayPal Direct,  Authorize.Net, etc.)'),
+            'value' => $checkoutStatus
         ));
 
         $deviceType = Mage::helper('xmlconnect')->getDeviceType();
@@ -89,15 +89,15 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
                 ));
 
                 $paypalMepIsAvailable = Mage::getModel('xmlconnect/payment_method_paypal_mep')
-                    ->isAvailable(null);
+                        ->isAvailable(null);
 
                 $paypalActive = 0;
                 if (isset($data['conf[native][paypal][isActive]'])) {
-                    $paypalActive = (int)($data['conf[native][paypal][isActive]'] && $paypalMepIsAvailable);
+                    $paypalActive = (int) ($data['conf[native][paypal][isActive]'] && $paypalMepIsAvailable);
                 }
 
                 $paypalConfigurationUrl = $this->escapeHtml(
-                    $this->getUrl('adminhtml/system_config/edit', array('section' => 'paypal'))
+                        $this->getUrl('adminhtml/system_config/edit', array('section' => 'paypal'))
                 );
 
                 $activateMepMethodNote = $this->__('To activate PayPal MEP payment method activate Express checkout first. ');
@@ -105,12 +105,12 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
                 $businessAccountNote = $this->__('MEP is PayPal\'s native checkout experience for the iPhone. You can choose to use MEP alongside standard checkout, or use it as your only checkout method for Magento mobile. PayPal MEP requires a <a href="%s">PayPal business account</a>', $paypalConfigurationUrl);
 
                 $paypalActiveField = $fieldsetPaypal->addField('conf/native/paypal/isActive', 'select', array(
-                    'label'     => $this->__('Activate PayPal Checkout'),
-                    'name'      => 'conf[native][paypal][isActive]',
-                    'note'      => (!$paypalMepIsAvailable ? $activateMepMethodNote : $businessAccountNote),
-                    'values'    => $yesNoValues,
-                    'value'     => $paypalActive,
-                    'disabled'  => !$paypalMepIsAvailable
+                    'label' => $this->__('Activate PayPal Checkout'),
+                    'name' => 'conf[native][paypal][isActive]',
+                    'note' => (!$paypalMepIsAvailable ? $activateMepMethodNote : $businessAccountNote),
+                    'values' => $yesNoValues,
+                    'value' => $paypalActive,
+                    'disabled' => !$paypalMepIsAvailable
                 ));
 
                 if (isset($data['conf[special][merchantLabel]'])) {
@@ -119,11 +119,11 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
                     $merchantLabelValue = '';
                 }
                 $merchantlabelField = $fieldsetPaypal->addField('conf/special/merchantLabel', 'text', array(
-                    'name'      => 'conf[special][merchantLabel]',
-                    'label'     => $this->__('Merchant Label'),
-                    'title'     => $this->__('Merchant Label'),
-                    'required'  => true,
-                    'value'     => $merchantLabelValue
+                    'name' => 'conf[special][merchantLabel]',
+                    'label' => $this->__('Merchant Label'),
+                    'title' => $this->__('Merchant Label'),
+                    'required' => true,
+                    'value' => $merchantLabelValue
                 ));
 
                 if (isset($data['config_data[payment][paypalmep/allowspecific]'])) {
@@ -132,16 +132,14 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
                     $paypalMepAllow = 0;
                 }
                 $paypalMepAllowSpecific = $fieldsetPaypal->addField(
-                    'config_data/paypalmep/allowspecific',
-                    'select',
-                    array(
-                        'name'      => 'config_data[payment:paypalmep/allowspecific]',
-                        'label'     => $this->__('Payment Applicable From'),
-                        'values' => array(
-                            array('value' => 0, 'label' => $this->__('All Allowed Countries')),
-                            array('value' => 1, 'label' => $this->__('Specific Countries'))
-                        ),
-                        'value' => $paypalMepAllow
+                        'config_data/paypalmep/allowspecific', 'select', array(
+                    'name' => 'config_data[payment:paypalmep/allowspecific]',
+                    'label' => $this->__('Payment Applicable From'),
+                    'values' => array(
+                        array('value' => 0, 'label' => $this->__('All Allowed Countries')),
+                        array('value' => 1, 'label' => $this->__('Specific Countries'))
+                    ),
+                    'value' => $paypalMepAllow
                 ));
 
                 $countries = Mage::getModel('adminhtml/system_config_source_country')->toOptionArray(true);
@@ -153,42 +151,32 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
                 }
 
                 $paypalMepApplicable = $fieldsetPaypal->addField(
-                    'config_data/paypalmep/applicable',
-                    'multiselect',
-                    array(
-                        'name'  => 'config_data[payment:paypalmep/applicable]',
-                        'label' => $this->__('Countries Payment Applicable From'),
-                        'values' => $countries,
-                        'value' => $countrySelected
+                        'config_data/paypalmep/applicable', 'multiselect', array(
+                    'name' => 'config_data[payment:paypalmep/applicable]',
+                    'label' => $this->__('Countries Payment Applicable From'),
+                    'values' => $countries,
+                    'value' => $countrySelected
                 ));
 
                 // field dependencies
                 $this->setChild('form_after', $this->getLayout()
-                    ->createBlock('adminhtml/widget_form_element_dependence')
-                    ->addFieldMap($paypalMepAllowSpecific->getHtmlId(), $paypalMepAllowSpecific->getName())
-                    ->addFieldMap($paypalMepApplicable->getHtmlId(), $paypalMepApplicable->getName())
-                    ->addFieldMap($merchantlabelField->getHtmlId(), $merchantlabelField->getName())
-                    ->addFieldMap($paypalActiveField->getHtmlId(), $paypalActiveField->getName())
-                    ->addFieldDependence(
-                        $paypalMepApplicable->getName(),
-                        $paypalMepAllowSpecific->getName(),
-                        1
-                    )
-                    ->addFieldDependence(
-                        $paypalMepAllowSpecific->getName(),
-                        $paypalActiveField->getName(),
-                        1
-                    )
-                    ->addFieldDependence(
-                        $paypalMepApplicable->getName(),
-                        $paypalActiveField->getName(),
-                        1
-                    )
-                    ->addFieldDependence(
-                        $merchantlabelField->getName(),
-                        $paypalActiveField->getName(),
-                        1
-                    )
+                                ->createBlock('adminhtml/widget_form_element_dependence')
+                                ->addFieldMap($paypalMepAllowSpecific->getHtmlId(), $paypalMepAllowSpecific->getName())
+                                ->addFieldMap($paypalMepApplicable->getHtmlId(), $paypalMepApplicable->getName())
+                                ->addFieldMap($merchantlabelField->getHtmlId(), $merchantlabelField->getName())
+                                ->addFieldMap($paypalActiveField->getHtmlId(), $paypalActiveField->getName())
+                                ->addFieldDependence(
+                                        $paypalMepApplicable->getName(), $paypalMepAllowSpecific->getName(), 1
+                                )
+                                ->addFieldDependence(
+                                        $paypalMepAllowSpecific->getName(), $paypalActiveField->getName(), 1
+                                )
+                                ->addFieldDependence(
+                                        $paypalMepApplicable->getName(), $paypalActiveField->getName(), 1
+                                )
+                                ->addFieldDependence(
+                                        $merchantlabelField->getName(), $paypalActiveField->getName(), 1
+                                )
                 );
                 break;
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE:
@@ -216,17 +204,17 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
                 }
 
                 $fieldsetMecl->addField('config_data/paypalmecl_is_active', 'select', array(
-                    'label'     => $this->__('Activate PayPal MECL'),
-                    'name'      => 'config_data[payment:paypalmecl_is_active]',
-                    'note'      => (!$paypalMeclIsAvailable ? $activateMeclMethodNote : $meclAccountNote),
-                    'values'    => $yesNoValues,
-                    'value'     => $paypalMeclActive,
-                    'disabled'  => !$paypalMeclIsAvailable
+                    'label' => $this->__('Activate PayPal MECL'),
+                    'name' => 'config_data[payment:paypalmecl_is_active]',
+                    'note' => (!$paypalMeclIsAvailable ? $activateMeclMethodNote : $meclAccountNote),
+                    'values' => $yesNoValues,
+                    'value' => $paypalMeclActive,
+                    'disabled' => !$paypalMeclIsAvailable
                 ));
                 break;
             default:
                 Mage::throwException(
-                    $this->__('Device doesn\'t recognized: "%s". Unable to load preview model.', $deviceType)
+                        $this->__('Device doesn\'t recognized: "%s". Unable to load preview model.', $deviceType)
                 );
                 break;
         }
@@ -273,4 +261,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
     {
         return false;
     }
+
 }

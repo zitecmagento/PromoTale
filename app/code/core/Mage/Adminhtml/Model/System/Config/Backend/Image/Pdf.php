@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * System config image field backend model for Zend PDF generator
  *
@@ -34,8 +34,10 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Image_Pdf extends Mage_Adminhtml_Model_System_Config_Backend_Image
 {
+
     protected function _getAllowedExtensions()
     {
         return array('tif', 'tiff', 'png', 'jpg', 'jpe', 'jpeg');
     }
+
 }

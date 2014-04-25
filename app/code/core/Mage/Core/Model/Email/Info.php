@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -38,6 +39,7 @@
  */
 class Mage_Core_Model_Email_Info extends Varien_Object
 {
+
     /**
      * Name list of "Bcc" recipients
      *
@@ -65,7 +67,6 @@ class Mage_Core_Model_Email_Info extends Varien_Object
      * @var array
      */
     protected $_toEmails = array();
-
 
     /**
      * Add new "Bcc" recipient to current email
@@ -134,4 +135,5 @@ class Mage_Core_Model_Email_Info extends Varien_Object
     {
         return $this->_toEmails;
     }
+
 }

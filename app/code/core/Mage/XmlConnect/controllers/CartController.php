@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
 {
+
     /**
      * Shopping cart display action
      *
@@ -40,7 +42,8 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
      */
     public function indexAction()
     {
-        try {
+        try
+        {
             $messages = array();
             $cart = $this->_getCart();
             if ($cart->getQuote()->getItemsCount()) {
@@ -66,9 +69,13 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
             $this->_getSession()->setCartWasUpdated(true);
             $this->loadLayout(false)->getLayout()->getBlock('xmlconnect.cart')->setMessages($messages);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message($this->__('Can\'t load cart.'), self::MESSAGE_STATUS_ERROR);
         }
@@ -81,11 +88,12 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
      */
     public function updateAction()
     {
-        try {
+        try
+        {
             $cartData = $this->getRequest()->getParam('cart');
             if (is_array($cartData)) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                        array('locale' => Mage::app()->getLocale()->getLocaleCode())
                 );
                 foreach ($cartData as $index => $data) {
                     if (isset($data['qty'])) {
@@ -100,9 +108,13 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
             }
             $this->_getSession()->setCartWasUpdated(true);
             $this->_message($this->__('Cart has been updated.'), parent::MESSAGE_STATUS_SUCCESS);
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message($this->__('Can\'t update cart.'), self::MESSAGE_STATUS_ERROR);
         }
@@ -138,12 +150,13 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
      */
     public function addAction()
     {
-        $cart   = $this->_getCart();
+        $cart = $this->_getCart();
         $params = $this->getRequest()->getParams();
-        try {
+        try
+        {
             if (isset($params['qty'])) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                        array('locale' => Mage::app()->getLocale()->getLocaleCode())
                 );
                 $params['qty'] = $filter->filter($params['qty']);
             }
@@ -152,7 +165,7 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
             $productId = (int) $this->getRequest()->getParam('product');
             if ($productId) {
                 $_product = Mage::getModel('catalog/product')->setStoreId(Mage::app()->getStore()->getId())
-                    ->load($productId);
+                        ->load($productId);
                 if ($_product->getId()) {
                     $product = $_product;
                 }
@@ -177,10 +190,9 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
                 $qty = isset($params['qty']) ? $params['qty'] : 0;
                 $requestedQty = ($qty > 1) ? $qty : 1;
                 $subProduct = $product->getTypeInstance(true)
-                    ->getProductByAttributes($request->getSuperAttribute(), $product);
+                        ->getProductByAttributes($request->getSuperAttribute(), $product);
 
-                if (!empty($subProduct)
-                    && $requestedQty < ($requiredQty = $subProduct->getStockItem()->getMinSaleQty())
+                if (!empty($subProduct) && $requestedQty < ($requiredQty = $subProduct->getStockItem()->getMinSaleQty())
                 ) {
                     $requestedQty = $requiredQty;
                 }
@@ -202,15 +214,19 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
                 $item = Mage::getModel('wishlist/item')->load($id);
 
                 if ($item->getWishlistId() == $wishlist->getId()) {
-                    try {
+                    try
+                    {
                         $item->delete();
                         $wishlist->save();
-                    } catch (Mage_Core_Exception $e) {
+                    }
+                    catch (Mage_Core_Exception $e)
+                    {
                         $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-                    } catch(Exception $e) {
+                    }
+                    catch (Exception $e)
+                    {
                         $this->_message(
-                            $this->__('An error occurred while removing item from wishlist.'),
-                            self::MESSAGE_STATUS_ERROR
+                                $this->__('An error occurred while removing item from wishlist.'), self::MESSAGE_STATUS_ERROR
                         );
                     }
                 } else {
@@ -222,8 +238,8 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
             /**
              * @todo remove wishlist observer processAddToCart
              */
-            Mage::dispatchEvent('checkout_cart_add_product_complete',
-                array('product' => $product, 'request' => $this->getRequest(), 'response' => $this->getResponse())
+            Mage::dispatchEvent('checkout_cart_add_product_complete', array('product' => $product, 'request' => $this->getRequest(),
+                'response' => $this->getResponse())
             );
 
             if (!$this->_getSession()->getNoCartRedirect(true)) {
@@ -238,14 +254,18 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
                     $this->_message($message, parent::MESSAGE_STATUS_SUCCESS);
                 }
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             if ($this->_getSession()->getUseNotice(true)) {
                 $this->_message($e->getMessage(), parent::MESSAGE_STATUS_ERROR);
             } else {
                 $messageText = implode("\n", array_unique(explode("\n", $e->getMessage())));
                 $this->_message($messageText, parent::MESSAGE_STATUS_ERROR);
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message($this->__('Can\'t add item to shopping cart.'), self::MESSAGE_STATUS_ERROR);
         }
@@ -260,12 +280,17 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
     {
         $id = (int) $this->getRequest()->getParam('item_id');
         if ($id) {
-            try {
+            try
+            {
                 $this->_getCart()->removeItem($id)->save();
                 $this->_message($this->__('Item has been deleted from cart.'), parent::MESSAGE_STATUS_SUCCESS);
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_message($e->getMessage(), parent::MESSAGE_STATUS_ERROR);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::logException($e);
                 $this->_message($this->__('Can\'t remove the item.'), self::MESSAGE_STATUS_ERROR);
             }
@@ -298,29 +323,31 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
             return;
         }
 
-        try {
+        try
+        {
             $this->_getQuote()->getShippingAddress()->setCollectShippingRates(true);
             $this->_getQuote()->setCouponCode(strlen($couponCode) ? $couponCode : '')->collectTotals()->save();
 
             if ($couponCode) {
                 if ($couponCode == $this->_getQuote()->getCouponCode()) {
                     $this->_message(
-                        $this->__('Coupon code %s was applied.', strip_tags($couponCode)),
-                        parent::MESSAGE_STATUS_SUCCESS
+                            $this->__('Coupon code %s was applied.', strip_tags($couponCode)), parent::MESSAGE_STATUS_SUCCESS
                     );
                 } else {
                     $this->_message(
-                        $this->__('Coupon code %s is not valid.', strip_tags($couponCode)),
-                        self::MESSAGE_STATUS_ERROR
+                            $this->__('Coupon code %s is not valid.', strip_tags($couponCode)), self::MESSAGE_STATUS_ERROR
                     );
                 }
             } else {
                 $this->_message($this->__('Coupon code was canceled.'), parent::MESSAGE_STATUS_SUCCESS);
             }
-
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message($this->__('Can\'t apply the coupon code.'), self::MESSAGE_STATUS_ERROR);
         }
@@ -344,17 +371,21 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
         $data = $this->getRequest()->getPost();
         if (!empty($data['giftcard_code'])) {
             $code = $data['giftcard_code'];
-            try {
+            try
+            {
                 Mage::getModel('enterprise_giftcardaccount/giftcardaccount')->loadByCode($code)->addToCart();
                 $this->_message(
-                    $this->__('Gift Card "%s" was added.', Mage::helper('core')->escapeHtml($code)),
-                    self::MESSAGE_STATUS_SUCCESS
+                        $this->__('Gift Card "%s" was added.', Mage::helper('core')->escapeHtml($code)), self::MESSAGE_STATUS_SUCCESS
                 );
                 return;
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 Mage::dispatchEvent('enterprise_giftcardaccount_add', array('status' => 'fail', 'code' => $code));
                 $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_message($this->__('Cannot apply gift card.'), self::MESSAGE_STATUS_ERROR);
                 Mage::logException($e);
             }
@@ -373,15 +404,19 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
     {
         $code = $this->getRequest()->getParam('giftcard_code');
         if ($code) {
-            try {
+            try
+            {
                 Mage::getModel('enterprise_giftcardaccount/giftcardaccount')->loadByCode($code)->removeFromCart();
                 $this->_message(
-                    $this->__('Gift Card "%s" was removed.', Mage::helper('core')->escapeHtml($code)),
-                    self::MESSAGE_STATUS_SUCCESS
+                        $this->__('Gift Card "%s" was removed.', Mage::helper('core')->escapeHtml($code)), self::MESSAGE_STATUS_SUCCESS
                 );
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_message($this->__('Cannot remove gift card.'), self::MESSAGE_STATUS_ERROR);
                 Mage::logException($e);
             }
@@ -407,14 +442,13 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
 
         if ($quote->getUseCustomerBalance()) {
             $this->_message(
-                $this->__('The store credit payment has been removed from shopping cart.'),
-                self::MESSAGE_STATUS_SUCCESS
+                    $this->__('The store credit payment has been removed from shopping cart.'), self::MESSAGE_STATUS_SUCCESS
             );
             $quote->setUseCustomerBalance(false)->collectTotals()->save();
             return;
         } else {
             $this->_message(
-                $this->__('Store Credit payment is not being used in your shopping cart.'), self::MESSAGE_STATUS_ERROR
+                    $this->__('Store Credit payment is not being used in your shopping cart.'), self::MESSAGE_STATUS_ERROR
             );
             return;
         }
@@ -427,13 +461,18 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
      */
     public function infoAction()
     {
-        try {
+        try
+        {
             $this->_getQuote()->collectTotals()->save();
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message($this->__('Can\'t load cart info.'), self::MESSAGE_STATUS_ERROR);
         }
@@ -476,14 +515,19 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
      */
     protected function _getWishlist()
     {
-        try {
+        try
+        {
             $wishlist = Mage::getModel('wishlist/wishlist')
-                ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer(), true);
+                    ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer(), true);
             Mage::register('wishlist', $wishlist);
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
             return false;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Can\'t create wishlist.'), self::MESSAGE_STATUS_ERROR);
             return false;
         }
@@ -495,7 +539,8 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
      */
     public function shoppingCartAction()
     {
-        try {
+        try
+        {
             $messages = array();
             $cart = $this->_getCart();
             if ($cart->getQuote()->getItemsCount()) {
@@ -520,9 +565,13 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
             $this->_getSession()->setCartWasUpdated(true);
             $this->loadLayout(false)->getLayout()->getBlock('xmlconnect.cart')->setMessages($messages);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message($this->__('Can\'t load cart.'), self::MESSAGE_STATUS_ERROR);
         }
@@ -536,7 +585,8 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
         // Extract item and product to configure
         $id = (int) $this->getRequest()->getParam('id');
         $quoteItem = null;
-        try {
+        try
+        {
             $cart = $this->_getCart();
             $quoteItem = $cart->getQuote()->getItemById($id);
             if (!$quoteItem) {
@@ -563,7 +613,9 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
             $this->loadLayout(false);
             $this->getLayout()->getBlock('xmlconnect.catalog.product')->setProduct($product);
             $this->renderLayout();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Cannot configure product.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
             return;
@@ -582,10 +634,11 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
         if (!isset($params['options'])) {
             $params['options'] = array();
         }
-        try {
+        try
+        {
             if (isset($params['qty'])) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                        array('locale' => Mage::app()->getLocale()->getLocaleCode())
                 );
                 $params['qty'] = $filter->filter($params['qty']);
             }
@@ -621,16 +674,21 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
                 $message .= $this->__(' But cart has some errors.');
             }
             $this->_message($message, parent::MESSAGE_STATUS_SUCCESS);
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             if ($this->_getSession()->getUseNotice(true)) {
                 $this->_message($e->getMessage(), parent::MESSAGE_STATUS_ERROR);
             } else {
                 $messageText = implode("\n", array_unique(explode("\n", $e->getMessage())));
                 $this->_message($messageText, parent::MESSAGE_STATUS_ERROR);
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message($this->__('Cannot update the item.'), self::MESSAGE_STATUS_ERROR);
         }
     }
+
 }

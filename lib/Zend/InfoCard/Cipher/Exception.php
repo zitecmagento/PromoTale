@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_InfoCard_Exception
  */
 #require_once 'Zend/InfoCard/Exception.php';
-
 
 /**
  * @category   Zend
@@ -35,4 +34,5 @@
  */
 class Zend_InfoCard_Cipher_Exception extends Zend_InfoCard_Exception
 {
+    
 }

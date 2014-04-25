@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,14 +26,15 @@
  */
 
 /**
-* Helper class that simplifies bz2 files stream reading and writing
-*
-* @category    Mage
-* @package     Mage_Archive
-* @author      Magento Core Team <core@magentocommerce.com>
-*/
+ * Helper class that simplifies bz2 files stream reading and writing
+ *
+ * @category    Mage
+ * @package     Mage_Archive
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Archive_Helper_File_Bz extends Mage_Archive_Helper_File
 {
+
     /**
      * Open bz archive file
      *
@@ -88,5 +90,5 @@ class Mage_Archive_Helper_File_Bz extends Mage_Archive_Helper_File
     {
         bzclose($this->_fileHandler);
     }
-}
 
+}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Website Model
  *
@@ -39,6 +39,7 @@
  */
 class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
 {
+
     /**
      * Initialize resource model
      *
@@ -67,12 +68,14 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
      */
     public function removeProducts($websiteIds, $productIds)
     {
-        try {
+        try
+        {
             $this->_getResource()->removeProducts($websiteIds, $productIds);
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             Mage::throwException(
-                Mage::helper('catalog')->__('An error occurred while removing products from websites.')
+                    Mage::helper('catalog')->__('An error occurred while removing products from websites.')
             );
         }
         return $this;
@@ -87,12 +90,14 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
      */
     public function addProducts($websiteIds, $productIds)
     {
-        try {
+        try
+        {
             $this->_getResource()->addProducts($websiteIds, $productIds);
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             Mage::throwException(
-                Mage::helper('catalog')->__('An error occurred while adding products to websites.')
+                    Mage::helper('catalog')->__('An error occurred while adding products to websites.')
             );
         }
         return $this;
@@ -109,4 +114,5 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()->getWebsites($productIds);
     }
+
 }

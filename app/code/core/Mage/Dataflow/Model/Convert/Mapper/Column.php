@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert column mapper
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Convert_Mapper_Abstract
 {
+
     /**
      * Dataflow batch model
      *
@@ -98,14 +99,14 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
 
     public function map()
     {
-        $batchModel  = $this->getBatchModel();
+        $batchModel = $this->getBatchModel();
         $batchExport = $this->getBatchExportModel();
 
         $batchExportIds = $batchExport
-            ->setBatchId($this->getBatchModel()->getId())
-            ->getIdCollection();
+                ->setBatchId($this->getBatchModel()->getId())
+                ->getIdCollection();
 
-        $onlySpecified = (bool)$this->getVar('_only_specified') === true;
+        $onlySpecified = (bool) $this->getVar('_only_specified') === true;
 
         if (!$onlySpecified) {
             foreach ($batchExportIds as $batchExportId) {
@@ -118,15 +119,14 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
 
         if ($this->getVar('map') && is_array($this->getVar('map'))) {
             $attributesToSelect = $this->getVar('map');
-        }
-        else {
+        } else {
             $attributesToSelect = array();
         }
 
         if (!$attributesToSelect) {
             $this->getBatchExportModel()
-                ->setBatchId($this->getBatchModel()->getId())
-                ->deleteCollection();
+                    ->setBatchId($this->getBatchModel()->getId())
+                    ->deleteCollection();
 
             throw new Exception(Mage::helper('dataflow')->__('Error in field mapping: field list for mapping is not defined.'));
         }
@@ -141,11 +141,12 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
             }
 
             $batchExport->setBatchData($newRow)
-                ->setStatus(2)
-                ->save();
+                    ->setStatus(2)
+                    ->save();
             $this->getBatchModel()->parseFieldList($batchExport->getBatchData());
         }
 
         return $this;
     }
+
 }

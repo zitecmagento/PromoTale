@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Config data model
  *
@@ -45,7 +45,9 @@
  */
 class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
 {
+
     const ENTITY = 'core_config_data';
+
     /**
      * Prefix of model events names
      *
@@ -95,9 +97,9 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
      */
     public function getOldValue()
     {
-        $storeCode   = $this->getStoreCode();
+        $storeCode = $this->getStoreCode();
         $websiteCode = $this->getWebsiteCode();
-        $path        = $this->getPath();
+        $path = $this->getPath();
 
         if ($storeCode) {
             return Mage::app()->getStore($storeCode)->getConfig($path);
@@ -107,9 +109,8 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
         }
         return (string) Mage::getConfig()->getNode('default/' . $path);
     }
-    
 
-     /**
+    /**
      * Get value by key for new user data from <section>/groups/<group>/fields/<field>
      * 
      * @return string
@@ -119,4 +120,5 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
         $data = $this->_getData('fieldset_data');
         return (is_array($data) && isset($data[$key])) ? $data[$key] : null;
     }
+
 }

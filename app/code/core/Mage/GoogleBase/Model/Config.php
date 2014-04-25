@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_GoogleBase_Model_Config extends Varien_Object
 {
+
     /**
      *  Return config var
      *
@@ -165,4 +167,5 @@ class Mage_GoogleBase_Model_Config extends Varien_Object
         $country = isset($countries[$iso]) ? $countries[$iso] : null;
         return is_null($field) ? $country : ( isset($country[$field]) ? $country[$field] : null );
     }
+
 }

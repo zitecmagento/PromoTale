@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sitemap resource catalog collection model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Resource_Catalog_Abstract
 {
+
     /**
      * Init resource model (catalog/category)
      */
@@ -57,8 +58,8 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
         }
 
         $this->_select = $this->_getWriteAdapter()->select()
-            ->from($this->getMainTable())
-            ->where($this->getIdFieldName() . '=?', $store->getRootCategoryId());
+                ->from($this->getMainTable())
+                ->where($this->getIdFieldName() . '=?', $store->getRootCategoryId());
 
         $categoryRow = $this->_getWriteAdapter()->fetchRow($this->_select);
         if (!$categoryRow) {
@@ -66,10 +67,10 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
         }
 
         $this->_select = $this->_getWriteAdapter()->select()
-            ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName()))
-            ->where('main_table.path LIKE ?', $categoryRow['path'] . '/%');
+                ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName()))
+                ->where('main_table.path LIKE ?', $categoryRow['path'] . '/%');
 
-        $storeId = (int)$store->getId();
+        $storeId = (int) $store->getId();
 
         /** @var $urlRewrite Mage_Catalog_Helper_Category_Url_Rewrite_Interface */
         $urlRewrite = $this->_factory->getCategoryUrlRewriteHelper();
@@ -117,11 +118,12 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
 
         $this->_attributesCache[$attributeCode] = array(
             'entity_type_id' => $attribute->getEntityTypeId(),
-            'attribute_id'   => $attribute->getId(),
-            'table'          => $attribute->getBackend()->getTable(),
-            'is_global'      => $attribute->getIsGlobal(),
-            'backend_type'   => $attribute->getBackendType()
+            'attribute_id' => $attribute->getId(),
+            'table' => $attribute->getBackend()->getTable(),
+            'is_global' => $attribute->getIsGlobal(),
+            'backend_type' => $attribute->getBackendType()
         );
         return $this;
     }
+
 }

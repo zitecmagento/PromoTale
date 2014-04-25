@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     /**
      * Constructor to set default template
      *
@@ -90,6 +92,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
      * @param Mage_Catalog_Model_Product $product
      * @return string
      */
+
     public function getProduct()
     {
         return $this->getItem()->getProduct();
@@ -128,9 +131,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
      * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
      * @return string
      */
+
     public function render(Varien_Object $item)
     {
         $this->setItem($item);
         return $this->toHtml();
     }
+
 }

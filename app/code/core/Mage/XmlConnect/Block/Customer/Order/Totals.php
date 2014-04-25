@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Order_Totals extends Mage_Sales_Block_Order_Totals
 {
+
     /**
      * Add order totals rendered to XML object
      * (get from template: sales/order/totals.phtml)
@@ -44,32 +46,32 @@ class Mage_XmlConnect_Block_Customer_Order_Totals extends Mage_Sales_Block_Order
     {
         // all Enterprise renderers from layout update into array an realize checking of their using
         $enterpriseBlocks = array(
-            'reward.sales.order.total'  => array(
-                'module'    => 'Enterprise_Reward',
-                'block'     => 'enterprise_reward/sales_order_total'
+            'reward.sales.order.total' => array(
+                'module' => 'Enterprise_Reward',
+                'block' => 'enterprise_reward/sales_order_total'
             ),
-            'customerbalance'  => array(
-                'module'    => 'Enterprise_CustomerBalance',
-                'block'     => 'xmlconnect/customer_order_totals_customerbalance',
-                'template'  => 'customerbalance/order/customerbalance.phtml'
+            'customerbalance' => array(
+                'module' => 'Enterprise_CustomerBalance',
+                'block' => 'xmlconnect/customer_order_totals_customerbalance',
+                'template' => 'customerbalance/order/customerbalance.phtml'
             ),
-            'customerbalance_total_refunded'  => array(
-                'module'    => 'Enterprise_CustomerBalance',
-                'block'     => 'xmlconnect/customer_order_totals_customerbalance_refunded',
-                'template'  => 'customerbalance/order/customerbalance_refunded.phtml',
-                'after'     => '-',
-                'action'    => array(
-                    'method'    => 'setAfterTotal',
-                    'value'     => 'grand_total'
-            )),
-            'giftwrapping'  => array(
-                'module'    => 'Enterprise_GiftWrapping',
-                'block'     => 'enterprise_giftwrapping/sales_totals'
+            'customerbalance_total_refunded' => array(
+                'module' => 'Enterprise_CustomerBalance',
+                'block' => 'xmlconnect/customer_order_totals_customerbalance_refunded',
+                'template' => 'customerbalance/order/customerbalance_refunded.phtml',
+                'after' => '-',
+                'action' => array(
+                    'method' => 'setAfterTotal',
+                    'value' => 'grand_total'
+                )),
+            'giftwrapping' => array(
+                'module' => 'Enterprise_GiftWrapping',
+                'block' => 'enterprise_giftwrapping/sales_totals'
             ),
-            'giftcards'  => array(
-                'module'    => 'Enterprise_GiftCardAccount',
-                'block'     => 'xmlconnect/customer_order_totals_giftcards',
-                'template'  => 'giftcardaccount/order/giftcards.phtml'
+            'giftcards' => array(
+                'module' => 'Enterprise_GiftCardAccount',
+                'block' => 'xmlconnect/customer_order_totals_giftcards',
+                'template' => 'giftcardaccount/order/giftcards.phtml'
         ));
 
         foreach ($enterpriseBlocks as $name => $block) {
@@ -150,9 +152,7 @@ class Mage_XmlConnect_Block_Customer_Order_Totals extends Mage_Sales_Block_Order
     {
         if ($total instanceof Varien_Object && $total->getCode() && $total->getLabel() && $total->hasData('value')) {
             $totalsXml->addCustomChild(
-                preg_replace('@[\W]+@', '_', trim($total->getCode())),
-                $this->_formatPrice($total),
-                array('label' => $totalsXml->escapeXml($total->getLabel()))
+                    preg_replace('@[\W]+@', '_', trim($total->getCode())), $this->_formatPrice($total), array('label' => $totalsXml->escapeXml($total->getLabel()))
             );
         }
     }
@@ -168,8 +168,8 @@ class Mage_XmlConnect_Block_Customer_Order_Totals extends Mage_Sales_Block_Order
     {
         if ($total instanceof Varien_Object && $total->getCode() && $total->getLabel() && $total->hasData('value')) {
             $totalsXml->addCustomChild('item', $this->_formatPrice($total), array(
-                 'id' => preg_replace('@[\W]+@', '_', trim($total->getCode())),
-                 'label' => $totalsXml->escapeXml($total->getLabel()),
+                'id' => preg_replace('@[\W]+@', '_', trim($total->getCode())),
+                'label' => $totalsXml->escapeXml($total->getLabel()),
             ));
         }
     }
@@ -187,4 +187,5 @@ class Mage_XmlConnect_Block_Customer_Order_Totals extends Mage_Sales_Block_Order
         }
         return $total->getValue();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: GetConferenceStatusResponseType.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Response_BaseType
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceStatusResponseType
-    extends Zend_Service_DeveloperGarden_Response_BaseType
+class Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceStatusResponseType extends Zend_Service_DeveloperGarden_Response_BaseType
 {
+
     /**
      * details
      *
@@ -145,4 +145,5 @@ class Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceStatusRe
     {
         return $this->acc;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,10 +20,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Image.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Internally used classes */
-
 /** Zend_Pdf_Image */
 #require_once 'Zend/Pdf/Image.php';
 
@@ -40,6 +38,7 @@
  */
 abstract class Zend_Pdf_FileParser_Image extends Zend_Pdf_FileParser
 {
+
     /**
      * Image Type
      *
@@ -60,4 +59,5 @@ abstract class Zend_Pdf_FileParser_Image extends Zend_Pdf_FileParser
         parent::__construct($dataSource);
         $this->imageType = Zend_Pdf_Image::TYPE_UNKNOWN;
     }
+
 }

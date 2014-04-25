@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CaptchaRequiredException.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_CaptchaRequiredException
  */
@@ -42,6 +41,7 @@
  */
 class Zend_Gdata_App_CaptchaRequiredException extends Zend_Gdata_App_AuthException
 {
+
     /**
      * The Google Accounts URL prefix.
      */
@@ -67,7 +67,8 @@ class Zend_Gdata_App_CaptchaRequiredException extends Zend_Gdata_App_AuthExcepti
      * @param string $captchaToken The CAPTCHA token ID provided by the server.
      * @param string $captchaUrl The URL to the CAPTCHA challenge image.
      */
-    public function __construct($captchaToken, $captchaUrl) {
+    public function __construct($captchaToken, $captchaUrl)
+    {
         $this->captchaToken = $captchaToken;
         $this->captchaUrl = Zend_Gdata_App_CaptchaRequiredException::ACCOUNTS_URL . $captchaUrl;
         parent::__construct('CAPTCHA challenge issued by server');
@@ -78,7 +79,8 @@ class Zend_Gdata_App_CaptchaRequiredException extends Zend_Gdata_App_AuthExcepti
      *
      * @return string
      */
-    public function getCaptchaToken() {
+    public function getCaptchaToken()
+    {
         return $this->captchaToken;
     }
 
@@ -87,7 +89,8 @@ class Zend_Gdata_App_CaptchaRequiredException extends Zend_Gdata_App_AuthExcepti
      *
      * @return string
      */
-    public function getCaptchaUrl() {
+    public function getCaptchaUrl()
+    {
         return $this->captchaUrl;
     }
 

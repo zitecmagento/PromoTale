@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
 {
+
     /**
      * List of email infos
      * @see Mage_Core_Model_Email_Info
@@ -69,13 +71,8 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
             $emailTemplate->addBcc($emailInfo->getBccEmails());
             // Set required design parameters and delegate email sending to Mage_Core_Model_Email_Template
             $emailTemplate->setDesignConfig(array('area' => 'frontend', 'store' => $this->getStoreId()))
-                ->sendTransactional(
-                $this->getTemplateId(),
-                $this->getSender(),
-                $emailInfo->getToEmails(),
-                $emailInfo->getToNames(),
-                $this->getTemplateParams(),
-                $this->getStoreId()
+                    ->sendTransactional(
+                            $this->getTemplateId(), $this->getSender(), $emailInfo->getToEmails(), $emailInfo->getToNames(), $this->getTemplateParams(), $this->getStoreId()
             );
         }
         return $this;
@@ -164,4 +161,5 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
     {
         return $this->_getData('template_params');
     }
+
 }

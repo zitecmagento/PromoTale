@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Model_Api_Resource
 {
+
     const ATTRIBUTE_CODE = 'tier_price';
 
     public function __construct()
@@ -54,12 +56,12 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
         foreach ($tierPrices as $tierPrice) {
             $row = array();
             $row['customer_group_id'] = (empty($tierPrice['all_groups']) ? $tierPrice['cust_group'] : 'all' );
-            $row['website']           = ($tierPrice['website_id'] ?
+            $row['website'] = ($tierPrice['website_id'] ?
                             Mage::app()->getWebsite($tierPrice['website_id'])->getCode() :
                             'all'
                     );
-            $row['qty']               = $tierPrice['price_qty'];
-            $row['price']             = $tierPrice['price'];
+            $row['qty'] = $tierPrice['price_qty'];
+            $row['price'] = $tierPrice['price'];
 
             $result[] = $row;
         }
@@ -84,21 +86,24 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
         }
 
         $product->setData(self::ATTRIBUTE_CODE, $updatedTierPrices);
-        try {
+        try
+        {
             /**
              * @todo implement full validation process with errors returning which are ignoring now
              * @todo see Mage_Catalog_Model_Product::validate()
              */
             if (is_array($errors = $product->validate())) {
                 $strErrors = array();
-                foreach($errors as $code=>$error) {
-                    $strErrors[] = ($error === true)? Mage::helper('catalog')->__('Value for "%s" is invalid.', $code) : Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
+                foreach ($errors as $code => $error) {
+                    $strErrors[] = ($error === true) ? Mage::helper('catalog')->__('Value for "%s" is invalid.', $code) : Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
                 }
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('not_updated', $e->getMessage());
         }
 
@@ -125,18 +130,19 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
         $updateValue = array();
 
         foreach ($tierPrices as $tierPrice) {
-            if (!is_array($tierPrice)
-                || !isset($tierPrice['qty'])
-                || !isset($tierPrice['price'])) {
+            if (!is_array($tierPrice) || !isset($tierPrice['qty']) || !isset($tierPrice['price'])) {
                 $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid Tier Prices'));
             }
 
             if (!isset($tierPrice['website']) || $tierPrice['website'] == 'all') {
                 $tierPrice['website'] = 0;
             } else {
-                try {
+                try
+                {
                     $tierPrice['website'] = Mage::app()->getWebsite($tierPrice['website'])->getId();
-                } catch (Mage_Core_Exception $e) {
+                }
+                catch (Mage_Core_Exception $e)
+                {
                     $tierPrice['website'] = 0;
                 }
             }
@@ -156,8 +162,8 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
             $updateValue[] = array(
                 'website_id' => $tierPrice['website'],
                 'cust_group' => $tierPrice['customer_group_id'],
-                'price_qty'  => $tierPrice['qty'],
-                'price'      => $tierPrice['price']
+                'price_qty' => $tierPrice['qty'],
+                'price' => $tierPrice['price']
             );
         }
 
@@ -180,4 +186,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
 
         return $product;
     }
-} // Class Mage_Catalog_Model_Product_Attribute_Tierprice End
+
+}
+
+// Class Mage_Catalog_Model_Product_Attribute_Tierprice End

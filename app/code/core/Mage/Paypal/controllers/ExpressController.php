@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Paypal_ExpressController extends Mage_Paypal_Controller_Express_Abstract
 {
+
     /**
      * Config mode type
      *
@@ -49,4 +51,5 @@ class Mage_Paypal_ExpressController extends Mage_Paypal_Controller_Express_Abstr
      * @var string
      */
     protected $_checkoutType = 'paypal/express_checkout';
+
 }

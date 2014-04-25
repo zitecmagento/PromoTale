@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Connect_Loginform extends Mage_Core_Block_Abstract
 {
+
     /**
      * Render login form xml
      *
@@ -44,10 +46,10 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Loginform extends Mage_Core_Block_
 
         /** @var Mage_XmlConnect_Model_Simplexml_Form $fromXmlObj */
         $fromXmlObj = Mage::getModel('xmlconnect/simplexml_form', array(
-            'xml_id' => 'login_form',
-            'action' => $action,
-            'use_container' => true
-        ))->setFieldNameSuffix('login_info');
+                    'xml_id' => 'login_form',
+                    'action' => $action,
+                    'use_container' => true
+                ))->setFieldNameSuffix('login_info');
 
         $formFieldset = $fromXmlObj->addFieldset('account_info', array(
             'title' => $this->__('Log in to Admin Panel')
@@ -55,16 +57,17 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Loginform extends Mage_Core_Block_
 
         $formFieldset->addField('username', 'text', array(
             'label' => $this->__('User Name:'),
-            'name'  => 'username',
+            'name' => 'username',
             'required' => 1
         ));
 
         $formFieldset->addField('password', 'password', array(
             'label' => $this->__('Password:'),
-            'name'  => 'password',
+            'name' => 'password',
             'required' => 1
         ));
 
         return $fromXmlObj->getXml();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Client.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * For handling the HTTP connection to the XML-RPC service
  * @see Zend_Http_Client
@@ -64,7 +63,6 @@
  */
 #require_once 'Zend/XmlRpc/Fault.php';
 
-
 /**
  * An XML-RPC client implementation
  *
@@ -76,6 +74,7 @@
  */
 class Zend_XmlRpc_Client
 {
+
     /**
      * Full address of the XML-RPC service
      * @var string
@@ -135,10 +134,9 @@ class Zend_XmlRpc_Client
             $this->_httpClient = $httpClient;
         }
 
-        $this->_introspector  = new Zend_XmlRpc_Client_ServerIntrospection($this);
+        $this->_introspector = new Zend_XmlRpc_Client_ServerIntrospection($this);
         $this->_serverAddress = $server;
     }
-
 
     /**
      * Sets the HTTP client object to use for connecting the XML-RPC server.
@@ -151,7 +149,6 @@ class Zend_XmlRpc_Client
         return $this->_httpClient = $httpClient;
     }
 
-
     /**
      * Gets the HTTP client object.
      *
@@ -161,7 +158,6 @@ class Zend_XmlRpc_Client
     {
         return $this->_httpClient;
     }
-
 
     /**
      * Sets the object used to introspect remote servers
@@ -174,7 +170,6 @@ class Zend_XmlRpc_Client
         return $this->_introspector = $introspector;
     }
 
-
     /**
      * Gets the introspection object.
      *
@@ -185,8 +180,7 @@ class Zend_XmlRpc_Client
         return $this->_introspector;
     }
 
-
-   /**
+    /**
      * The request of the last method call
      *
      * @return Zend_XmlRpc_Request
@@ -195,7 +189,6 @@ class Zend_XmlRpc_Client
     {
         return $this->_lastRequest;
     }
-
 
     /**
      * The response received from the last method call
@@ -206,7 +199,6 @@ class Zend_XmlRpc_Client
     {
         return $this->_lastResponse;
     }
-
 
     /**
      * Returns a proxy object for more convenient method calls
@@ -262,7 +254,7 @@ class Zend_XmlRpc_Client
         iconv_set_encoding('internal_encoding', 'UTF-8');
 
         $http = $this->getHttpClient();
-        if($http->getUri() === null) {
+        if ($http->getUri() === null) {
             $http->setUri($this->_serverAddress);
         }
 
@@ -279,15 +271,14 @@ class Zend_XmlRpc_Client
         $http->setRawData($xml);
         $httpResponse = $http->request(Zend_Http_Client::POST);
 
-        if (! $httpResponse->isSuccessful()) {
+        if (!$httpResponse->isSuccessful()) {
             /**
              * Exception thrown when an HTTP error occurs
              * @see Zend_XmlRpc_Client_HttpException
              */
             #require_once 'Zend/XmlRpc/Client/HttpException.php';
             throw new Zend_XmlRpc_Client_HttpException(
-                                    $httpResponse->getMessage(),
-                                    $httpResponse->getStatus());
+            $httpResponse->getMessage(), $httpResponse->getStatus());
         }
 
         if ($response === null) {
@@ -305,15 +296,18 @@ class Zend_XmlRpc_Client
      * @return mixed
      * @throws Zend_XmlRpc_Client_FaultException
      */
-    public function call($method, $params=array())
+    public function call($method, $params = array())
     {
         if (!$this->skipSystemLookup() && ('system.' != substr($method, 0, 7))) {
             // Ensure empty array/struct params are cast correctly
             // If system.* methods are not available, bypass. (ZF-2978)
             $success = true;
-            try {
+            try
+            {
                 $signatures = $this->getIntrospector()->getMethodSignature($method);
-            } catch (Zend_XmlRpc_Exception $e) {
+            }
+            catch (Zend_XmlRpc_Exception $e)
+            {
                 $success = false;
             }
             if ($success) {
@@ -367,8 +361,7 @@ class Zend_XmlRpc_Client
              * @see Zend_XmlRpc_Client_FaultException
              */
             #require_once 'Zend/XmlRpc/Client/FaultException.php';
-            throw new Zend_XmlRpc_Client_FaultException($fault->getMessage(),
-                                                        $fault->getCode());
+            throw new Zend_XmlRpc_Client_FaultException($fault->getMessage(), $fault->getCode());
         }
 
         return $this->_lastResponse->getReturnValue();
@@ -383,4 +376,5 @@ class Zend_XmlRpc_Client
     {
         return new Zend_XmlRpc_Request($method, $params);
     }
+
 }

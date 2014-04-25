@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -51,8 +52,7 @@ abstract class Zend_Tool_Project_Context_Zf_AbstractClassFile extends Zend_Tool_
                 $containingResource = $currentResource;
                 break;
             }
-        } while ($currentResource instanceof Zend_Tool_Project_Profile_Resource
-            && $currentResource = $currentResource->getParentResource());
+        } while ($currentResource instanceof Zend_Tool_Project_Profile_Resource && $currentResource = $currentResource->getParentResource());
 
         $fullClassName = '';
 

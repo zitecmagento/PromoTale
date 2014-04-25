@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * @see Zend_Service_Amazon_Authentication
  */
@@ -38,6 +38,7 @@
  */
 class Zend_Service_Amazon_Authentication_V1 extends Zend_Service_Amazon_Authentication
 {
+
     /**
      * Signature Version
      */
@@ -47,7 +48,7 @@ class Zend_Service_Amazon_Authentication_V1 extends Zend_Service_Amazon_Authenti
      * Signature Encoding Method
      */
     protected $_signatureMethod = 'HmacSHA256';
-    
+
     /**
      * Generate the required attributes for the signature
      * @param string $url
@@ -56,15 +57,15 @@ class Zend_Service_Amazon_Authentication_V1 extends Zend_Service_Amazon_Authenti
      */
     public function generateSignature($url, array &$parameters)
     {
-        $parameters['AWSAccessKeyId']   = $this->_accessKey;
+        $parameters['AWSAccessKeyId'] = $this->_accessKey;
         $parameters['SignatureVersion'] = $this->_signatureVersion;
-        $parameters['Version']          = $this->_apiVersion;
-        if(!isset($parameters['Timestamp'])) {
-            $parameters['Timestamp']    = gmdate('Y-m-d\TH:i:s\Z', time()+10);
+        $parameters['Version'] = $this->_apiVersion;
+        if (!isset($parameters['Timestamp'])) {
+            $parameters['Timestamp'] = gmdate('Y-m-d\TH:i:s\Z', time() + 10);
         }
 
         $data = $this->_signParameters($url, $parameters);
-        
+
         return $data;
     }
 
@@ -95,14 +96,15 @@ class Zend_Service_Amazon_Authentication_V1 extends Zend_Service_Amazon_Authenti
         uksort($paramaters, 'strcasecmp');
         unset($paramaters['Signature']);
 
-        foreach($paramaters as $key => $value) {
+        foreach ($paramaters as $key => $value) {
             $data .= $key . $value;
         }
 
         $hmac = Zend_Crypt_Hmac::compute($this->_secretKey, 'SHA1', $data, Zend_Crypt_Hmac::BINARY);
 
         $paramaters['Signature'] = base64_encode($hmac);
-        
+
         return $data;
     }
+
 }

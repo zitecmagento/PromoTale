@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Fields:
  * - carrier: ups
@@ -36,6 +36,7 @@
  */
 class Mage_Shipping_Model_Rate_Result_Method extends Mage_Shipping_Model_Rate_Result_Abstract
 {
+
     /**
      * Round shipping carrier's method price
      *
@@ -47,4 +48,5 @@ class Mage_Shipping_Model_Rate_Result_Method extends Mage_Shipping_Model_Rate_Re
         $this->setData('price', Mage::app()->getStore()->roundPrice($price));
         return $this;
     }
+
 }

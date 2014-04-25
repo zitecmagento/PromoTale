@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 interface Mage_Payment_Model_Recurring_Profile_MethodInterface
 {
+
     /**
      * Validate data
      *

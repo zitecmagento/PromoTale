@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -60,13 +61,14 @@
  */
 class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 {
-    /**#@+
+    /*     * #@+
      * Configuration paths for email templates and identities
      */
-    const XML_PATH_FORGOT_EMAIL_TEMPLATE    = 'admin/emails/forgot_email_template';
-    const XML_PATH_FORGOT_EMAIL_IDENTITY    = 'admin/emails/forgot_email_identity';
-    const XML_PATH_STARTUP_PAGE             = 'admin/startup/page';
-    /**#@-*/
+
+    const XML_PATH_FORGOT_EMAIL_TEMPLATE = 'admin/emails/forgot_email_template';
+    const XML_PATH_FORGOT_EMAIL_IDENTITY = 'admin/emails/forgot_email_identity';
+    const XML_PATH_STARTUP_PAGE = 'admin/startup/page';
+    /*     * #@- */
 
     /**
      * Minimum length of admin password
@@ -116,10 +118,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     {
         $data = array(
             'firstname' => $this->getFirstname(),
-            'lastname'  => $this->getLastname(),
-            'email'     => $this->getEmail(),
-            'modified'  => now(),
-            'extra'     => serialize($this->getExtra())
+            'lastname' => $this->getLastname(),
+            'email' => $this->getEmail(),
+            'modified' => now(),
+            'extra' => serialize($this->getExtra())
         );
 
         if ($this->getId() > 0) {
@@ -249,7 +251,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @return Mage_Admin_Model_Resource_User_Collection
      */
-    public function getCollection() {
+    public function getCollection()
+    {
         return Mage::getResourceModel('admin/user_collection');
     }
 
@@ -333,10 +336,11 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $config = Mage::getStoreConfigFlag('admin/security/use_case_sensitive_login');
         $result = false;
 
-        try {
+        try
+        {
             Mage::dispatchEvent('admin_user_authenticate_before', array(
                 'username' => $username,
-                'user'     => $this
+                'user' => $this
             ));
             $this->loadByUsername($username);
             $sensitive = ($config) ? $username == $this->getUsername() : true;
@@ -354,11 +358,12 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             Mage::dispatchEvent('admin_user_authenticate_after', array(
                 'username' => $username,
                 'password' => $password,
-                'user'     => $this,
-                'result'   => $result,
+                'user' => $this,
+                'result' => $result,
             ));
         }
-        catch (Mage_Core_Exception $e) {
+        catch (Mage_Core_Exception $e)
+        {
             $this->unsetData();
             throw $e;
         }
@@ -459,10 +464,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             $aclResource = 'admin/' . $path . $childName;
             if (Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
                 if (!$child->children) {
-                    return (string)$child->action;
+                    return (string) $child->action;
                 } else if ($child->children) {
                     $action = $this->findFirstAvailableMenu($child->children, $path . $childName . '/', $level + 1);
-                    return $action ? $action : (string)$child->action;
+                    return $action ? $action : (string) $child->action;
                 }
             }
         }
@@ -542,8 +547,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 $errors[] = Mage::helper('adminhtml')->__('Password must be at least of %d characters.', self::MIN_PASSWORD_LENGTH);
             }
 
-            if (!preg_match('/[a-z]/iu', $this->getNewPassword())
-                || !preg_match('/[0-9]/u', $this->getNewPassword())
+            if (!preg_match('/[a-z]/iu', $this->getNewPassword()) || !preg_match('/[0-9]/u', $this->getNewPassword())
             ) {
                 $errors[] = Mage::helper('adminhtml')->__('Password must include both numeric and alphabetic characters.');
             }
@@ -572,7 +576,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * @return Mage_Admin_Model_User
      * @throws Mage_Core_Exception
      */
-    public function changeResetPasswordLinkToken($newResetPasswordLinkToken) {
+    public function changeResetPasswordLinkToken($newResetPasswordLinkToken)
+    {
         if (!is_string($newResetPasswordLinkToken) || empty($newResetPasswordLinkToken)) {
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Invalid password reset token.'));
         }
@@ -613,4 +618,5 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
         return false;
     }
+
 }

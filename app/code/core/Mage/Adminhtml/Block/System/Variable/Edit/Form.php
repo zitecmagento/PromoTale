@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Getter
      *
@@ -57,33 +59,33 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
         ));
 
         $fieldset = $form->addFieldset('base', array(
-            'legend'=>Mage::helper('adminhtml')->__('Variable'),
-            'class'=>'fieldset-wide'
+            'legend' => Mage::helper('adminhtml')->__('Variable'),
+            'class' => 'fieldset-wide'
         ));
 
         $fieldset->addField('code', 'text', array(
-            'name'     => 'code',
-            'label'    => Mage::helper('adminhtml')->__('Variable Code'),
-            'title'    => Mage::helper('adminhtml')->__('Variable Code'),
+            'name' => 'code',
+            'label' => Mage::helper('adminhtml')->__('Variable Code'),
+            'title' => Mage::helper('adminhtml')->__('Variable Code'),
             'required' => true,
-            'class'    => 'validate-xml-identifier'
+            'class' => 'validate-xml-identifier'
         ));
 
         $fieldset->addField('name', 'text', array(
-            'name'     => 'name',
-            'label'    => Mage::helper('adminhtml')->__('Variable Name'),
-            'title'    => Mage::helper('adminhtml')->__('Variable Name'),
+            'name' => 'name',
+            'label' => Mage::helper('adminhtml')->__('Variable Name'),
+            'title' => Mage::helper('adminhtml')->__('Variable Name'),
             'required' => true
         ));
 
         $useDefault = false;
         if ($this->getVariable()->getId() && $this->getVariable()->getStoreId()) {
-            $useDefault = !((bool)$this->getVariable()->getStoreHtmlValue());
-            $this->getVariable()->setUseDefaultValue((int)$useDefault);
+            $useDefault = !((bool) $this->getVariable()->getStoreHtmlValue());
+            $this->getVariable()->setUseDefaultValue((int) $useDefault);
             $fieldset->addField('use_default_value', 'select', array(
-                'name'   => 'use_default_value',
-                'label'  => Mage::helper('adminhtml')->__('Use Default Variable Values'),
-                'title'  => Mage::helper('adminhtml')->__('Use Default Variable Values'),
+                'name' => 'use_default_value',
+                'label' => Mage::helper('adminhtml')->__('Use Default Variable Values'),
+                'title' => Mage::helper('adminhtml')->__('Use Default Variable Values'),
                 'onchange' => 'toggleValueElement(this);',
                 'values' => array(
                     0 => Mage::helper('adminhtml')->__('No'),
@@ -93,22 +95,22 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
         }
 
         $fieldset->addField('html_value', 'textarea', array(
-            'name'     => 'html_value',
-            'label'    => Mage::helper('adminhtml')->__('Variable HTML Value'),
-            'title'    => Mage::helper('adminhtml')->__('Variable HTML Value'),
+            'name' => 'html_value',
+            'label' => Mage::helper('adminhtml')->__('Variable HTML Value'),
+            'title' => Mage::helper('adminhtml')->__('Variable HTML Value'),
             'disabled' => $useDefault
         ));
 
         $fieldset->addField('plain_value', 'textarea', array(
-            'name'     => 'plain_value',
-            'label'    => Mage::helper('adminhtml')->__('Variable Plain Value'),
-            'title'    => Mage::helper('adminhtml')->__('Variable Plain Value'),
+            'name' => 'plain_value',
+            'label' => Mage::helper('adminhtml')->__('Variable Plain Value'),
+            'title' => Mage::helper('adminhtml')->__('Variable Plain Value'),
             'disabled' => $useDefault
         ));
 
         $form->setValues($this->getVariable()->getData())
-            ->addFieldNameSuffix('variable')
-            ->setUseContainer(true);
+                ->addFieldNameSuffix('variable')
+                ->setUseContainer(true);
 
         $this->setForm($form);
         return parent::_prepareForm();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Jumping.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Paginator_ScrollingStyle_Interface
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Paginator_ScrollingStyle_Jumping implements Zend_Paginator_ScrollingStyle_Interface
 {
+
     /**
      * Returns an array of "local" pages given a page number and range.
      *
@@ -45,7 +46,7 @@ class Zend_Paginator_ScrollingStyle_Jumping implements Zend_Paginator_ScrollingS
      */
     public function getPages(Zend_Paginator $paginator, $pageRange = null)
     {
-        $pageRange  = $paginator->getPageRange();
+        $pageRange = $paginator->getPageRange();
         $pageNumber = $paginator->getCurrentPageNumber();
 
         $delta = $pageNumber % $pageRange;
@@ -54,10 +55,11 @@ class Zend_Paginator_ScrollingStyle_Jumping implements Zend_Paginator_ScrollingS
             $delta = $pageRange;
         }
 
-        $offset     = $pageNumber - $delta;
+        $offset = $pageNumber - $delta;
         $lowerBound = $offset + 1;
         $upperBound = $offset + $pageRange;
 
         return $paginator->getPagesInRange($lowerBound, $upperBound);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Payment transactions collection
  *
@@ -32,64 +32,64 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
-    extends Mage_Sales_Model_Resource_Order_Collection_Abstract
+class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
+
     /**
      * Order ID filter
      *
      * @var int
      */
-    protected $_orderId                = null;
+    protected $_orderId = null;
 
     /**
      * Columns of order info that should be selected
      *
      * @var array
      */
-    protected $_addOrderInformation    = array();
+    protected $_addOrderInformation = array();
 
     /**
      * Columns of payment info that should be selected
      *
      * @var array
      */
-    protected $_addPaymentInformation  = array();
+    protected $_addPaymentInformation = array();
 
     /**
      * Order Store ids
      *
      * @var array
      */
-    protected $_storeIds               = array();
+    protected $_storeIds = array();
 
     /**
      * Payment ID filter
      *
      * @var int
      */
-    protected $_paymentId              = null;
+    protected $_paymentId = null;
 
     /**
      * Parent ID filter
      *
      * @var int
      */
-    protected $_parentId               = null;
+    protected $_parentId = null;
 
     /**
      * Filter by transaction type
      *
      * @var array
      */
-    protected $_txnTypes               = null;
+    protected $_txnTypes = null;
 
     /**
      * Order field for setOrderFilter
      *
      * @var string
      */
-    protected $_orderField             = 'order_id';
+    protected $_orderField = 'order_id';
 
     /**
      * Initialize collection items factory class
@@ -133,7 +133,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
      */
     public function addOrderIdFilter($orderId)
     {
-        $this->_orderId = (int)$orderId;
+        $this->_orderId = (int) $orderId;
         return $this;
     }
 
@@ -150,7 +150,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
         if (is_object($payment)) {
             $id = $payment->getId();
         }
-        $this->_paymentId = (int)$id;
+        $this->_paymentId = (int) $id;
         return $this;
     }
 
@@ -162,7 +162,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
      */
     public function addParentIdFilter($parentId)
     {
-        $this->_parentId = (int)$parentId;
+        $this->_parentId = (int) $parentId;
         return $this;
     }
 
@@ -222,9 +222,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
         }
         if ($this->_addPaymentInformation) {
             $this->getSelect()->joinInner(
-                array('sop' => $this->getTable('sales/order_payment')),
-                'main_table.payment_id = sop.entity_id',
-                $this->_addPaymentInformation
+                    array('sop' => $this->getTable('sales/order_payment')), 'main_table.payment_id = sop.entity_id', $this->_addPaymentInformation
             );
         }
         if ($this->_storeIds) {
@@ -233,9 +231,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
         }
         if ($this->_addOrderInformation) {
             $this->getSelect()->joinInner(
-                array('so' => $this->getTable('sales/order')),
-                'main_table.order_id = so.entity_id',
-                $this->_addOrderInformation
+                    array('so' => $this->getTable('sales/order')), 'main_table.order_id = so.entity_id', $this->_addOrderInformation
             );
         }
         return $this;
@@ -253,4 +249,5 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
         }
         return parent::_afterLoad();
     }
+
 }

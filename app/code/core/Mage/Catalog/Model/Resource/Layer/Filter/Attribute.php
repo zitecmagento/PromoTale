@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Layer Attribute Filter Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize connection and define main table name
      *
@@ -53,7 +54,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
     public function applyFilterToCollection($filter, $value)
     {
         $collection = $filter->getLayer()->getProductCollection();
-        $attribute  = $filter->getAttributeModel();
+        $attribute = $filter->getAttributeModel();
         $connection = $this->_getReadAdapter();
         $tableAlias = $attribute->getAttributeCode() . '_idx';
         $conditions = array(
@@ -64,9 +65,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
         );
 
         $collection->getSelect()->join(
-            array($tableAlias => $this->getMainTable()),
-            implode(' AND ', $conditions),
-            array()
+                array($tableAlias => $this->getMainTable()), implode(' AND ', $conditions), array()
         );
 
         return $this;
@@ -89,7 +88,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
         $connection = $this->_getReadAdapter();
-        $attribute  = $filter->getAttributeModel();
+        $attribute = $filter->getAttributeModel();
         $tableAlias = sprintf('%s_idx', $attribute->getAttributeCode());
         $conditions = array(
             "{$tableAlias}.entity_id = e.entity_id",
@@ -98,12 +97,11 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
         );
 
         $select
-            ->join(
-                array($tableAlias => $this->getMainTable()),
-                join(' AND ', $conditions),
-                array('value', 'count' => new Zend_Db_Expr("COUNT({$tableAlias}.entity_id)")))
-            ->group("{$tableAlias}.value");
+                ->join(
+                        array($tableAlias => $this->getMainTable()), join(' AND ', $conditions), array('value', 'count' => new Zend_Db_Expr("COUNT({$tableAlias}.entity_id)")))
+                ->group("{$tableAlias}.value");
 
         return $connection->fetchPairs($select);
     }
+
 }

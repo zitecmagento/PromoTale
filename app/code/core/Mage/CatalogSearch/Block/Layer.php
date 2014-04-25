@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
 {
+
     /**
      * Internal constructor
      */
@@ -83,12 +85,12 @@ class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
             return false;
         }
         $availableResCount = (int) Mage::app()->getStore()
-            ->getConfig(Mage_CatalogSearch_Model_Layer::XML_PATH_DISPLAY_LAYER_COUNT);
+                        ->getConfig(Mage_CatalogSearch_Model_Layer::XML_PATH_DISPLAY_LAYER_COUNT);
 
-        if (!$availableResCount
-            || ($availableResCount > $this->getLayer()->getProductCollection()->getSize())) {
+        if (!$availableResCount || ($availableResCount > $this->getLayer()->getProductCollection()->getSize())) {
             return parent::canShowBlock();
         }
         return false;
     }
+
 }

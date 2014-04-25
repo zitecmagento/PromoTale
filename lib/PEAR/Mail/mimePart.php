@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The Mail_mimePart class is used to create MIME E-mail messages
  *
@@ -51,7 +52,6 @@
  * @link       http://pear.php.net/package/Mail_mime
  */
 
-
 /**
  * The Mail_mimePart class is used to create MIME E-mail messages
  *
@@ -71,46 +71,47 @@
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Mail_mime
  */
-class Mail_mimePart {
+class Mail_mimePart
+{
 
-   /**
-    * The encoding type of this part
-    *
-    * @var string
-    * @access private
-    */
+    /**
+     * The encoding type of this part
+     *
+     * @var string
+     * @access private
+     */
     var $_encoding;
 
-   /**
-    * An array of subparts
-    *
-    * @var array
-    * @access private
-    */
+    /**
+     * An array of subparts
+     *
+     * @var array
+     * @access private
+     */
     var $_subparts;
 
-   /**
-    * The output of this part after being built
-    *
-    * @var string
-    * @access private
-    */
+    /**
+     * The output of this part after being built
+     *
+     * @var string
+     * @access private
+     */
     var $_encoded;
 
-   /**
-    * Headers for this part
-    *
-    * @var array
-    * @access private
-    */
+    /**
+     * Headers for this part
+     *
+     * @var array
+     * @access private
+     */
     var $_headers;
 
-   /**
-    * The body of this part (not encoded)
-    *
-    * @var string
-    * @access private
-    */
+    /**
+     * The body of this part (not encoded)
+     *
+     * @var string
+     * @access private
+     */
     var $_body;
 
     /**
@@ -179,16 +180,13 @@ class Mail_mimePart {
                 case 'location':
                     $headers['Content-Location'] = $value;
                     break;
-
             }
         }
         if (isset($contentType['type'])) {
             $headers['Content-Type'] = $contentType['type'];
             if (isset($contentType['name'])) {
                 $headers['Content-Type'] .= ';' . MAIL_MIMEPART_CRLF;
-                $headers['Content-Type'] .= $this->_buildHeaderParam('name', $contentType['name'], 
-                                                isset($contentType['charset']) ? $contentType['charset'] : 'US-ASCII', 
-                                                isset($contentType['language']) ? $contentType['language'] : NULL);
+                $headers['Content-Type'] .= $this->_buildHeaderParam('name', $contentType['name'], isset($contentType['charset']) ? $contentType['charset'] : 'US-ASCII', isset($contentType['language']) ? $contentType['language'] : NULL);
             } elseif (isset($contentType['charset'])) {
                 $headers['Content-Type'] .= "; charset=\"{$contentType['charset']}\"";
             }
@@ -199,15 +197,13 @@ class Mail_mimePart {
             $headers['Content-Disposition'] = $contentDisp['disp'];
             if (isset($contentDisp['filename'])) {
                 $headers['Content-Disposition'] .= ';' . MAIL_MIMEPART_CRLF;
-                $headers['Content-Disposition'] .= $this->_buildHeaderParam('filename', $contentDisp['filename'], 
-                                                isset($contentDisp['charset']) ? $contentDisp['charset'] : 'US-ASCII', 
-                                                isset($contentDisp['language']) ? $contentDisp['language'] : NULL);
+                $headers['Content-Disposition'] .= $this->_buildHeaderParam('filename', $contentDisp['filename'], isset($contentDisp['charset']) ? $contentDisp['charset'] : 'US-ASCII', isset($contentDisp['language']) ? $contentDisp['language'] : NULL);
             }
         }
-        
-        
-        
-        
+
+
+
+
         // Default content-type
         if (!isset($headers['Content-Type'])) {
             $headers['Content-Type'] = 'text/plain';
@@ -219,9 +215,9 @@ class Mail_mimePart {
         }
 
         // Assign stuff to member variables
-        $this->_encoded  = array();
-        $this->_headers  = $headers;
-        $this->_body     = $body;
+        $this->_encoded = array();
+        $this->_headers = $headers;
+        $this->_body = $body;
     }
 
     /**
@@ -237,10 +233,10 @@ class Mail_mimePart {
      */
     function encode()
     {
-        $encoded =& $this->_encoded;
+        $encoded = & $this->_encoded;
 
         if (count($this->_subparts)) {
-            srand((double)microtime()*1000000);
+            srand((double) microtime() * 1000000);
             $boundary = '=_' . md5(rand() . microtime());
             $this->_headers['Content-Type'] .= ';' . MAIL_MIMEPART_CRLF . "\t" . 'boundary="' . $boundary . '"';
 
@@ -254,16 +250,15 @@ class Mail_mimePart {
                 $subparts[] = implode(MAIL_MIMEPART_CRLF, $headers) . MAIL_MIMEPART_CRLF . MAIL_MIMEPART_CRLF . $tmp['body'] . MAIL_MIMEPART_CRLF;
             }
 
-            $encoded['body'] = '--' . $boundary . MAIL_MIMEPART_CRLF . 
-                               rtrim(implode('--' . $boundary . MAIL_MIMEPART_CRLF , $subparts), MAIL_MIMEPART_CRLF) . MAIL_MIMEPART_CRLF . 
-                               '--' . $boundary.'--' . MAIL_MIMEPART_CRLF;
-
+            $encoded['body'] = '--' . $boundary . MAIL_MIMEPART_CRLF .
+                    rtrim(implode('--' . $boundary . MAIL_MIMEPART_CRLF, $subparts), MAIL_MIMEPART_CRLF) . MAIL_MIMEPART_CRLF .
+                    '--' . $boundary . '--' . MAIL_MIMEPART_CRLF;
         } else {
             $encoded['body'] = $this->_getEncodedData($this->_body, $this->_encoding);
         }
 
         // Add headers to $encoded
-        $encoded['headers'] =& $this->_headers;
+        $encoded['headers'] = & $this->_headers;
 
         return $encoded;
     }
@@ -331,26 +326,25 @@ class Mail_mimePart {
      *
      * @access private
      */
-    function _quotedPrintableEncode($input , $line_max = 76)
+    function _quotedPrintableEncode($input, $line_max = 76)
     {
-        $lines  = preg_split("/\r?\n/", $input);
-        $eol    = MAIL_MIMEPART_CRLF;
+        $lines = preg_split("/\r?\n/", $input);
+        $eol = MAIL_MIMEPART_CRLF;
         $escape = '=';
         $output = '';
 
         while (list(, $line) = each($lines)) {
 
-            $line    = preg_split('||', $line, -1, PREG_SPLIT_NO_EMPTY);
-            $linlen     = count($line);
+            $line = preg_split('||', $line, -1, PREG_SPLIT_NO_EMPTY);
+            $linlen = count($line);
             $newline = '';
 
             for ($i = 0; $i < $linlen; $i++) {
                 $char = $line[$i];
-                $dec  = ord($char);
+                $dec = ord($char);
 
                 if (($dec == 32) AND ($i == ($linlen - 1))) {    // convert space at eol only
                     $char = '=20';
-
                 } elseif (($dec == 9) AND ($i == ($linlen - 1))) {  // convert tab at eol only
                     $char = '=09';
                 } elseif ($dec == 9) {
@@ -364,8 +358,8 @@ class Mail_mimePart {
                 }
 
                 if ((strlen($newline) + strlen($char)) >= $line_max) {        // MAIL_MIMEPART_CRLF is not counted
-                    $output  .= $newline . $escape . $eol;                    // soft line break; " =\r\n" is okay
-                    $newline  = '';
+                    $output .= $newline . $escape . $eol;                    // soft line break; " =\r\n" is okay
+                    $newline = '';
                 }
                 $newline .= $char;
             } // end of for
@@ -388,7 +382,7 @@ class Mail_mimePart {
      *
      * @access private
      */
-    function _buildHeaderParam($name, $value, $charset=NULL, $language=NULL, $maxLength=75)
+    function _buildHeaderParam($name, $value, $charset = NULL, $language = NULL, $maxLength = 75)
     {
         //If we find chars to encode, or if charset or language
         //is not any of the defaults, we need to encode the value.
@@ -402,7 +396,7 @@ class Mail_mimePart {
             $shouldEncode = 1;
         }
         if ($shouldEncode) {
-            $search  = array('%',   ' ',   "\t");
+            $search = array('%', ' ', "\t");
             $replace = array('%25', '%20', '%09');
             $encValue = str_replace($search, $replace, $value);
             $encValue = preg_replace('#([\x80-\xFF])#e', '"%" . strtoupper(dechex(ord("\1")))', $encValue);
@@ -436,4 +430,7 @@ class Mail_mimePart {
         $headers = implode(MAIL_MIMEPART_CRLF, $headers) . ';';
         return $headers;
     }
-} // End of class
+
+}
+
+// End of class

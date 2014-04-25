@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widget
 {
+
     const DEFAULT_SECTION_BLOCK = 'adminhtml/system_config_form';
 
     protected $_section;
@@ -47,19 +49,18 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
 
         $this->_section = $sections->$sectionCode;
 
-        $this->setTitle((string)$this->_section->label);
-        $this->setHeaderCss((string)$this->_section->header_css);
+        $this->setTitle((string) $this->_section->label);
+        $this->setHeaderCss((string) $this->_section->header_css);
     }
 
     protected function _prepareLayout()
     {
-        $this->setChild('save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('adminhtml')->__('Save Config'),
-                    'onclick'   => 'configForm.submit()',
-                    'class' => 'save',
-                ))
+        $this->setChild('save_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('adminhtml')->__('Save Config'),
+                            'onclick' => 'configForm.submit()',
+                            'class' => 'save',
+                        ))
         );
         return parent::_prepareLayout();
     }
@@ -71,28 +72,26 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current'=>true));
+        return $this->getUrl('*/*/save', array('_current' => true));
     }
 
     public function initForm()
     {
         /*
-        $this->setChild('dwstree',
-            $this->getLayout()->createBlock('adminhtml/system_config_dwstree')
-                ->initTabs()
-        );
-        */
+          $this->setChild('dwstree',
+          $this->getLayout()->createBlock('adminhtml/system_config_dwstree')
+          ->initTabs()
+          );
+         */
 
-        $blockName = (string)$this->_section->frontend_model;
+        $blockName = (string) $this->_section->frontend_model;
         if (empty($blockName)) {
             $blockName = self::DEFAULT_SECTION_BLOCK;
         }
-        $this->setChild('form',
-            $this->getLayout()->createBlock($blockName)
-                ->initForm()
+        $this->setChild('form', $this->getLayout()->createBlock($blockName)
+                        ->initForm()
         );
         return $this;
     }
-
 
 }

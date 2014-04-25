@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Entity/Attribute/Model - attribute backend abstract
  *
@@ -32,9 +32,9 @@
  * @package    Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
-    implements Mage_Eav_Model_Entity_Attribute_Backend_Interface
+abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_Eav_Model_Entity_Attribute_Backend_Interface
 {
+
     /**
      * Reference to the attribute instance
      *
@@ -246,18 +246,14 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
             return false;
         }
 
-        if ($this->getAttribute()->getIsUnique()
-            && !$this->getAttribute()->getIsRequired()
-            && ($value == '' || $this->getAttribute()->isValueEmpty($value)))
-        {
+        if ($this->getAttribute()->getIsUnique() && !$this->getAttribute()->getIsRequired() && ($value == '' || $this->getAttribute()->isValueEmpty($value))) {
             return true;
         }
 
         if ($this->getAttribute()->getIsUnique()) {
             if (!$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
                 $label = $this->getAttribute()->getFrontend()->getLabel();
-                throw Mage::exception('Mage_Eav',
-                    Mage::helper('eav')->__('The value of attribute "%s" must be unique', $label)
+                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('The value of attribute "%s" must be unique', $label)
                 );
             }
         }
@@ -313,6 +309,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
     {
         return $this;
     }
+
     /**
      * After delete method
      *
@@ -323,4 +320,5 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
     {
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Xml.php 20104 2010-01-06 21:26:01Z matthew $
  */
-
 /** Zend_Log_Formatter_Interface */
 #require_once 'Zend/Log/Formatter/Interface.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Log_Formatter_Xml implements Zend_Log_Formatter_Interface
 {
+
     /**
      * @var Relates XML elements to log data field keys.
      */
@@ -58,7 +59,7 @@ class Zend_Log_Formatter_Xml implements Zend_Log_Formatter_Interface
     public function __construct($rootElement = 'logEntry', $elementMap = null, $encoding = 'UTF-8')
     {
         $this->_rootElement = $rootElement;
-        $this->_elementMap  = $elementMap;
+        $this->_elementMap = $elementMap;
         $this->setEncoding($encoding);
     }
 
@@ -106,7 +107,7 @@ class Zend_Log_Formatter_Xml implements Zend_Log_Formatter_Interface
         $elt = $dom->appendChild(new DOMElement($this->_rootElement));
 
         foreach ($dataToInsert as $key => $value) {
-            if($key == "message") {
+            if ($key == "message") {
                 $value = htmlspecialchars($value, ENT_COMPAT, $enc);
             }
             $elt->appendChild(new DOMElement($key, $value));

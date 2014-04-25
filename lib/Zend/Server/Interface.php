@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 interface Zend_Server_Interface
 {
+
     /**
      * Attach a function as a server method
      *

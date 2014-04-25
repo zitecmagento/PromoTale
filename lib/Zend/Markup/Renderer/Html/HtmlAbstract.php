@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HtmlAbstract.php 20271 2010-01-13 23:27:34Z kokx $
  */
-
 /**
  * @see Zend_Markup_Renderer_TokenConverterInterface
  */
@@ -44,7 +44,6 @@ abstract class Zend_Markup_Renderer_Html_HtmlAbstract implements Zend_Markup_Ren
      */
     protected $_renderer;
 
-
     /**
      * Set the HTML renderer instance
      *
@@ -66,4 +65,5 @@ abstract class Zend_Markup_Renderer_Html_HtmlAbstract implements Zend_Markup_Ren
     {
         return $this->_renderer;
     }
+
 }

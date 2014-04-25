@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Paypal_Model_System_Config_Backend_Cert extends Mage_Core_Model_Config_Data
 {
+
     /**
      * Process additional data before save config
      *
@@ -53,8 +55,8 @@ class Mage_Paypal_Model_System_Config_Backend_Cert extends Mage_Core_Model_Confi
             $this->setValue($_FILES['groups']['name'][$this->getGroupId()]['fields'][$this->getField()]['value']);
             $content = Mage::helper('core')->encrypt(file_get_contents($tmpPath));
             Mage::getModel('paypal/cert')->loadByWebsite($this->getScopeId())
-                ->setContent($content)
-                ->save();
+                    ->setContent($content)
+                    ->save();
         }
         return $this;
     }
@@ -69,4 +71,5 @@ class Mage_Paypal_Model_System_Config_Backend_Cert extends Mage_Core_Model_Confi
         Mage::getModel('paypal/cert')->loadByWebsite($this->getScopeId())->delete();
         return $this;
     }
+
 }

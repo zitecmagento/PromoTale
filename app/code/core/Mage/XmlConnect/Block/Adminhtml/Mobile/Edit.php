@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,40 +34,41 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Setting app action buttons for application
      */
     public function __construct()
     {
-        $this->_objectId    = 'application_id';
-        $this->_controller  = 'adminhtml_mobile';
-        $this->_blockGroup  = 'xmlconnect';
+        $this->_objectId = 'application_id';
+        $this->_controller = 'adminhtml_mobile';
+        $this->_blockGroup = 'xmlconnect';
         parent::__construct();
-        if ((bool)!Mage::getSingleton('adminhtml/session')->getNewApplication()) {
+        if ((bool) !Mage::getSingleton('adminhtml/session')->getNewApplication()) {
             $app = Mage::helper('xmlconnect')->getApplication();
             $this->_updateButton('save', 'label', $this->__('Save'));
             $this->_updateButton('save', 'onclick', 'if (editForm.submit()) {disableElements(\'save\')}');
 
             $this->_addButton('save_and_continue', array(
-                'label'     => $this->__('Save and Continue Edit'),
-                'onclick'   => 'saveAndContinueEdit()',
-                'class'     => 'save',
-            ), -5);
+                'label' => $this->__('Save and Continue Edit'),
+                'onclick' => 'saveAndContinueEdit()',
+                'class' => 'save',
+                    ), -5);
 
             if ($app->getId()) {
                 $this->_addButton('submit_application_button', array(
-                    'label' =>  $this->__('Save and Submit App'),
-                    'onclick'    => 'saveAndSubmitApp()',
-                    'class'     => 'save'
-                ), -10);
+                    'label' => $this->__('Save and Submit App'),
+                    'onclick' => 'saveAndSubmitApp()',
+                    'class' => 'save'
+                        ), -10);
             }
 
             $this->_formScripts[] = 'function saveAndContinueEdit() {'
-                .'if (editForm.submit($(\'edit_form\').action + \'back/edit/\')) {disableElements(\'save\')};}';
+                    . 'if (editForm.submit($(\'edit_form\').action + \'back/edit/\')) {disableElements(\'save\')};}';
             if ($app->getId()) {
                 $this->_formScripts[] = 'function saveAndSubmitApp() {'
-                    .'if (editForm.submit($(\'edit_form\').action + \'submitapp/' . $app->getId() . '\')) {'
-                    .'disableElements(\'save\')};}';
+                        . 'if (editForm.submit($(\'edit_form\').action + \'submitapp/' . $app->getId() . '\')) {'
+                        . 'disableElements(\'save\')};}';
             }
         } else {
             $this->removeButton('save');
@@ -90,7 +92,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit extends Mage_Adminhtml_Block_W
         $this->getLayout()->getBlock('head')->addJs('jscolor/jscolor.js');
         $this->getLayout()->getBlock('head')->addJs('scriptaculous/scriptaculous.js');
 
-        if ((bool)!Mage::getSingleton('adminhtml/session')->getNewApplication()) {
+        if ((bool) !Mage::getSingleton('adminhtml/session')->getNewApplication()) {
             $deviceType = Mage::helper('xmlconnect')->getDeviceType();
             switch ($deviceType) {
                 case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE:
@@ -106,7 +108,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit extends Mage_Adminhtml_Block_W
                     break;
                 default:
                     Mage::throwException(
-                        $this->__('Device doesn\'t recognized: "%s". Unable to load preview model.', $deviceType)
+                            $this->__('Device doesn\'t recognized: "%s". Unable to load preview model.', $deviceType)
                     );
                     break;
             }
@@ -122,7 +124,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit extends Mage_Adminhtml_Block_W
      */
     public function getHeaderText()
     {
-        if ((bool)!Mage::getSingleton('adminhtml/session')->getNewApplication()) {
+        if ((bool) !Mage::getSingleton('adminhtml/session')->getNewApplication()) {
             $app = Mage::helper('xmlconnect')->getApplication();
         }
 
@@ -132,4 +134,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit extends Mage_Adminhtml_Block_W
             return $this->__('New App');
         }
     }
+
 }

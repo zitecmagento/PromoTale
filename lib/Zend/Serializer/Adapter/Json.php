@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Json.php 20574 2010-01-24 17:39:14Z mabe $
  */
-
 /** @see Zend_Serializer_Adapter_AdapterAbstract */
 #require_once 'Zend/Serializer/Adapter/AdapterAbstract.php';
 
@@ -35,13 +35,14 @@
  */
 class Zend_Serializer_Adapter_Json extends Zend_Serializer_Adapter_AdapterAbstract
 {
+
     /**
      * @var array Default options
      */
     protected $_options = array(
-        'cycleCheck'           => false,
+        'cycleCheck' => false,
         'enableJsonExprFinder' => false,
-        'objectDecodeType'     => Zend_Json::TYPE_ARRAY,
+        'objectDecodeType' => Zend_Json::TYPE_ARRAY,
     );
 
     /**
@@ -56,9 +57,12 @@ class Zend_Serializer_Adapter_Json extends Zend_Serializer_Adapter_AdapterAbstra
     {
         $opts = $opts + $this->_options;
 
-        try  {
+        try
+        {
             return Zend_Json::encode($value, $opts['cycleCheck'], $opts);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             #require_once 'Zend/Serializer/Exception.php';
             throw new Zend_Serializer_Exception('Serialization failed', 0, $e);
         }
@@ -75,9 +79,12 @@ class Zend_Serializer_Adapter_Json extends Zend_Serializer_Adapter_AdapterAbstra
     {
         $opts = $opts + $this->_options;
 
-        try {
+        try
+        {
             $ret = Zend_Json::decode($json, $opts['objectDecodeType']);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             #require_once 'Zend/Serializer/Exception.php';
             throw new Zend_Serializer_Exception('Unserialization failed by previous error', 0, $e);
         }
@@ -90,4 +97,5 @@ class Zend_Serializer_Adapter_Json extends Zend_Serializer_Adapter_AdapterAbstra
 
         return $ret;
     }
+
 }

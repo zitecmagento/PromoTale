@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,13 @@
  */
 class Mage_Install_Block_State extends Mage_Core_Block_Template
 {
-    public function __construct() 
+
+    public function __construct()
     {
         $this->setTemplate('install/state.phtml');
         $this->assign('steps', Mage::getSingleton('install/wizard')->getSteps());
     }
-    
+
     /**
      * Get previous downloader steps
      * 
@@ -52,7 +54,7 @@ class Mage_Install_Block_State extends Mage_Core_Block_Template
                 Mage::helper('install')->__('Validation'),
                 Mage::helper('install')->__('Magento Connect Manager Deployment'),
             );
-            return $steps; 
+            return $steps;
         } else {
             return array();
         }
@@ -63,9 +65,10 @@ class Mage_Install_Block_State extends Mage_Core_Block_Template
      * 
      * @return bool
      */
-    public function isDownloaderInstall() 
+    public function isDownloaderInstall()
     {
         $session = Mage::app()->getCookie()->get('magento_downloader_session');
         return $session ? true : false;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: InlineScript.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_HeadScript */
 #require_once 'Zend/View/Helper/HeadScript.php';
 
@@ -35,6 +35,7 @@
  */
 class Zend_View_Helper_InlineScript extends Zend_View_Helper_HeadScript
 {
+
     /**
      * Registry key for placeholder
      * @var string
@@ -58,4 +59,5 @@ class Zend_View_Helper_InlineScript extends Zend_View_Helper_HeadScript
     {
         return $this->headScript($mode, $spec, $placement, $attrs, $type);
     }
+
 }

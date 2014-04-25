@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,15 +25,14 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Renderer for sub-heading in fieldset
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_System_Config_Form_Field_Heading
-    extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Adminhtml_Block_System_Config_Form_Field_Heading extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
+
     /**
      * Render element html
      *
@@ -42,8 +42,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Heading
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $useContainerId = $element->getData('use_container_id');
-        return sprintf('<tr class="system-fieldset-sub-head" id="row_%s"><td colspan="5"><h4 id="%s">%s</h4></td></tr>',
-            $element->getHtmlId(), $element->getHtmlId(), $element->getLabel()
+        return sprintf('<tr class="system-fieldset-sub-head" id="row_%s"><td colspan="5"><h4 id="%s">%s</h4></td></tr>', $element->getHtmlId(), $element->getHtmlId(), $element->getLabel()
         );
     }
+
 }

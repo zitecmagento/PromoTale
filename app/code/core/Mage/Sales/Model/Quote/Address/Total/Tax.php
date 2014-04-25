@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,13 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
+
     protected $_appliedTaxes = array();
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->setCode('tax');
     }
 
@@ -52,10 +53,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
         $taxCalculationModel = Mage::getSingleton('tax/calculation');
         /* @var $taxCalculationModel Mage_Tax_Model_Calculation */
         $request = $taxCalculationModel->getRateRequest(
-            $address,
-            $address->getQuote()->getBillingAddress(),
-            $custTaxClassId,
-            $store
+                $address, $address->getQuote()->getBillingAddress(), $custTaxClassId, $store
         );
 
         foreach ($items as $item) {
@@ -68,14 +66,13 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
             /**
              * We calculate parent tax amount as sum of children's tax amounts
              */
-
             if ($item->getHasChildren() && $item->isChildrenCalculated()) {
                 foreach ($item->getChildren() as $child) {
                     $discountBefore = $item->getDiscountAmount();
                     $baseDiscountBefore = $item->getBaseDiscountAmount();
 
                     $rate = $taxCalculationModel->getRate(
-                        $request->setProductClassId($child->getProduct()->getTaxClassId())
+                            $request->setProductClassId($child->getProduct()->getTaxClassId())
                     );
 
                     $child->setTaxPercent($rate);
@@ -83,39 +80,34 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
 
                     if ($discountBefore != $item->getDiscountAmount()) {
                         $address->setDiscountAmount(
-                            $address->getDiscountAmount() + ($item->getDiscountAmount() - $discountBefore)
+                                $address->getDiscountAmount() + ($item->getDiscountAmount() - $discountBefore)
                         );
                         $address->setBaseDiscountAmount(
-                            $address->getBaseDiscountAmount() + ($item->getBaseDiscountAmount() - $baseDiscountBefore)
+                                $address->getBaseDiscountAmount() + ($item->getBaseDiscountAmount() - $baseDiscountBefore)
                         );
 
                         $address->setGrandTotal(
-                            $address->getGrandTotal() - ($item->getDiscountAmount() - $discountBefore)
+                                $address->getGrandTotal() - ($item->getDiscountAmount() - $discountBefore)
                         );
                         $address->setBaseGrandTotal(
-                            $address->getBaseGrandTotal() - ($item->getBaseDiscountAmount() - $baseDiscountBefore)
+                                $address->getBaseGrandTotal() - ($item->getBaseDiscountAmount() - $baseDiscountBefore)
                         );
                     }
 
                     $this->_saveAppliedTaxes(
-                       $address,
-                       $taxCalculationModel->getAppliedRates($request),
-                       $child->getTaxAmount(),
-                       $child->getBaseTaxAmount(),
-                       $rate
+                            $address, $taxCalculationModel->getAppliedRates($request), $child->getTaxAmount(), $child->getBaseTaxAmount(), $rate
                     );
                 }
                 $itemTaxAmount = $item->getTaxAmount() + $item->getDiscountTaxCompensation();
                 $address->setTaxAmount($address->getTaxAmount() + $itemTaxAmount);
                 $itemBaseTaxAmount = $item->getBaseTaxAmount() + $item->getBaseDiscountTaxCompensation();
                 $address->setBaseTaxAmount($address->getBaseTaxAmount() + $itemBaseTaxAmount);
-            }
-            else {
+            } else {
                 $discountBefore = $item->getDiscountAmount();
                 $baseDiscountBefore = $item->getBaseDiscountAmount();
 
                 $rate = $taxCalculationModel->getRate(
-                    $request->setProductClassId($item->getProduct()->getTaxClassId())
+                        $request->setProductClassId($item->getProduct()->getTaxClassId())
                 );
 
                 $item->setTaxPercent($rate);
@@ -123,17 +115,17 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
 
                 if ($discountBefore != $item->getDiscountAmount()) {
                     $address->setDiscountAmount(
-                        $address->getDiscountAmount() + ($item->getDiscountAmount() - $discountBefore)
+                            $address->getDiscountAmount() + ($item->getDiscountAmount() - $discountBefore)
                     );
                     $address->setBaseDiscountAmount(
-                        $address->getBaseDiscountAmount() + ($item->getBaseDiscountAmount() - $baseDiscountBefore)
+                            $address->getBaseDiscountAmount() + ($item->getBaseDiscountAmount() - $baseDiscountBefore)
                     );
 
                     $address->setGrandTotal(
-                        $address->getGrandTotal() - ($item->getDiscountAmount() - $discountBefore)
+                            $address->getGrandTotal() - ($item->getDiscountAmount() - $discountBefore)
                     );
                     $address->setBaseGrandTotal(
-                        $address->getBaseGrandTotal() - ($item->getBaseDiscountAmount() - $baseDiscountBefore)
+                            $address->getBaseGrandTotal() - ($item->getBaseDiscountAmount() - $baseDiscountBefore)
                     );
                 }
 
@@ -144,11 +136,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
 
                 $applied = $taxCalculationModel->getAppliedRates($request);
                 $this->_saveAppliedTaxes(
-                   $address,
-                   $applied,
-                   $item->getTaxAmount(),
-                   $item->getBaseTaxAmount(),
-                   $rate
+                        $address, $applied, $item->getTaxAmount(), $item->getBaseTaxAmount(), $rate
                 );
             }
         }
@@ -156,31 +144,27 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
 
         $shippingTaxClass = Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_SHIPPING_TAX_CLASS, $store);
 
-        $shippingTax      = 0;
-        $shippingBaseTax  = 0;
+        $shippingTax = 0;
+        $shippingBaseTax = 0;
 
         if ($shippingTaxClass) {
             if ($rate = $taxCalculationModel->getRate($request->setProductClassId($shippingTaxClass))) {
                 if (!Mage::helper('tax')->shippingPriceIncludesTax()) {
-                    $shippingTax    = $address->getShippingAmount() * $rate/100;
-                    $shippingBaseTax= $address->getBaseShippingAmount() * $rate/100;
+                    $shippingTax = $address->getShippingAmount() * $rate / 100;
+                    $shippingBaseTax = $address->getBaseShippingAmount() * $rate / 100;
                 } else {
-                    $shippingTax    = $address->getShippingTaxAmount();
-                    $shippingBaseTax= $address->getBaseShippingTaxAmount();
+                    $shippingTax = $address->getShippingTaxAmount();
+                    $shippingBaseTax = $address->getBaseShippingTaxAmount();
                 }
 
-                $shippingTax    = $store->roundPrice($shippingTax);
-                $shippingBaseTax= $store->roundPrice($shippingBaseTax);
+                $shippingTax = $store->roundPrice($shippingTax);
+                $shippingBaseTax = $store->roundPrice($shippingBaseTax);
 
                 $address->setTaxAmount($address->getTaxAmount() + $shippingTax);
                 $address->setBaseTaxAmount($address->getBaseTaxAmount() + $shippingBaseTax);
 
                 $this->_saveAppliedTaxes(
-                    $address,
-                    $taxCalculationModel->getAppliedRates($request),
-                    $shippingTax,
-                    $shippingBaseTax,
-                    $rate
+                        $address, $taxCalculationModel->getAppliedRates($request), $shippingTax, $shippingBaseTax, $rate
                 );
             }
         }
@@ -212,8 +196,8 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
                 $row['percent'] = $row['percent'] ? $row['percent'] : 1;
                 $rate = $rate ? $rate : 1;
 
-                $appliedAmount = $amount/$rate*$row['percent'];
-                $baseAppliedAmount = $baseAmount/$rate*$row['percent'];
+                $appliedAmount = $amount / $rate * $row['percent'];
+                $baseAppliedAmount = $baseAmount / $rate * $row['percent'];
             } else {
                 $appliedAmount = 0;
                 $baseAppliedAmount = 0;
@@ -240,14 +224,15 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
         $store = $address->getQuote()->getStore();
         $amount = $address->getTaxAmount();
 
-        if (($amount!=0) || (Mage::helper('tax')->displayZeroTax($store))) {
+        if (($amount != 0) || (Mage::helper('tax')->displayZeroTax($store))) {
             $address->addTotal(array(
-                'code'=>$this->getCode(),
-                'title'=>Mage::helper('sales')->__('Tax'),
-                'full_info'=>$applied ? $applied : array(),
-                'value'=>$amount
+                'code' => $this->getCode(),
+                'title' => Mage::helper('sales')->__('Tax'),
+                'full_info' => $applied ? $applied : array(),
+                'value' => $amount
             ));
         }
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: LowerCase.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_StringToLower
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Filter_File_LowerCase extends Zend_Filter_StringToLower
 {
+
     /**
      * Adds options to the filter at initiation
      *
@@ -72,7 +73,7 @@ class Zend_Filter_File_LowerCase extends Zend_Filter_StringToLower
         }
 
         $content = parent::filter($content);
-        $result  = file_put_contents($value, $content);
+        $result = file_put_contents($value, $content);
 
         if (!$result) {
             #require_once 'Zend/Filter/Exception.php';
@@ -81,4 +82,5 @@ class Zend_Filter_File_LowerCase extends Zend_Filter_StringToLower
 
         return $value;
     }
+
 }

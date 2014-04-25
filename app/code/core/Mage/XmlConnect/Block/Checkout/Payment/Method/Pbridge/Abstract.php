@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_XmlConnect_Block_Checkout_Payment_Method_Pbridge_Abstract
-    extends Enterprise_Pbridge_Block_Payment_Form_Abstract
+abstract class Mage_XmlConnect_Block_Checkout_Payment_Method_Pbridge_Abstract extends Enterprise_Pbridge_Block_Payment_Form_Abstract
 {
+
     /**
      * Retrieve payment method model
      *
@@ -87,4 +88,5 @@ abstract class Mage_XmlConnect_Block_Checkout_Payment_Method_Pbridge_Abstract
 EOT;
         return $this->helper('xmlconnect')->htmlize($body);
     }
+
 }

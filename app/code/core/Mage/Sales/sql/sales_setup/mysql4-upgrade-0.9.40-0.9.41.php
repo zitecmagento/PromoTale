@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,24 +24,23 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 
 $installer->startSetup();
 
 $installer->addAttribute('quote_item', 'base_cost', array(
-    'type'              => 'decimal',
-    'label'             => 'Cost',
-    'visible'           => false,
-    'required'          => false,
+    'type' => 'decimal',
+    'label' => 'Cost',
+    'visible' => false,
+    'required' => false,
 ));
 
 $installer->addAttribute('quote_address_item', 'base_cost', array(
-    'type'              => 'decimal',
-    'label'             => 'Cost',
-    'visible'           => false,
-    'required'          => false,
+    'type' => 'decimal',
+    'label' => 'Cost',
+    'visible' => false,
+    'required' => false,
 ));
 
 $installer->getConnection()->changeColumn($installer->getTable('sales_flat_order_item'), 'cost', 'base_cost', 'DECIMAL( 12, 4 ) NULL DEFAULT \'0.0000\'');
@@ -48,7 +48,7 @@ $installer->getConnection()->changeColumn($installer->getTable('sales_flat_order
 $installer->getConnection()->addColumn($installer->getTable('sales_order'), 'base_total_invoiced_cost', 'DECIMAL( 12, 4 ) NULL DEFAULT NULL');
 
 $installer->addAttribute('order', 'base_total_invoiced_cost', array(
-    'type'              => 'static'
+    'type' => 'static'
 ));
 
 $installer->updateAttribute('order_item', 'cost', array('attribute_code' => 'base_cost'));

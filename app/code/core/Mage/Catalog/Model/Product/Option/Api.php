@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -52,8 +53,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
             $this->_fault('invalid_type');
         }
         $this->_prepareAdditionalFields(
-            $data,
-            $product->getOptionInstance()->getGroupByType($data['type'])
+                $data, $product->getOptionInstance()->getGroupByType($data['type'])
         );
         $this->_saveProductCustomOption($product, $data);
         return true;
@@ -81,12 +81,11 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         }
         if (isset($data['additional_fields'])) {
             $this->_prepareAdditionalFields(
-                $data,
-                $option->getGroupByType()
+                    $data, $option->getGroupByType()
             );
         }
         foreach ($option->getValues() as $valueId => $value) {
-            if(isset($data['values'][$valueId])) {
+            if (isset($data['values'][$valueId])) {
                 $data['values'][$valueId] = array_merge($value->getData(), $data['values'][$valueId]);
             }
         }
@@ -155,24 +154,26 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
             }
         }
 
-        try {
+        try
+        {
             if (!$product->getOptionsReadonly()) {
                 $product
-                    ->getOptionInstance()
-                    ->setOptions(array($data));
+                        ->getOptionInstance()
+                        ->setOptions(array($data));
 
                 $product->setHasOptions(true);
 
                 // an empty request can be set as event parameter
                 // because it is not used for options changing in observers
                 Mage::dispatchEvent(
-                    'catalog_product_prepare_save',
-                    array('product' => $product, 'request' => new Mage_Core_Controller_Request_Http())
+                        'catalog_product_prepare_save', array('product' => $product, 'request' => new Mage_Core_Controller_Request_Http())
                 );
 
                 $product->save();
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('save_option_error', $e->getMessage());
         }
     }
@@ -189,7 +190,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         foreach (Mage::getConfig()->getNode($path)->children() as $group) {
             $groupTypes = Mage::getConfig()->getNode($path . '/' . $group->getName() . '/types')->children();
             /** @var $type Mage_Core_Model_Config_Element */
-            foreach($groupTypes as $type){
+            foreach ($groupTypes as $type) {
                 $labelPath = $path . '/' . $group->getName() . '/types/' . $type->getName() . '/label';
                 $types[] = array(
                     'label' => (string) Mage::getConfig()->getNode($labelPath),
@@ -298,12 +299,15 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
-        try {
+        try
+        {
             $option->getValueInstance()->deleteValue($optionId);
             $option->deletePrices($optionId);
             $option->deleteTitles($optionId);
             $option->delete();
-        } catch (Exception $e){
+        }
+        catch (Exception $e)
+        {
             $this->fault('delete_option_error');
         }
         return true;
@@ -318,7 +322,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     protected function _isTypeAllowed($type)
     {
         $allowedTypes = array();
-        foreach($this->types() as $optionType){
+        foreach ($this->types() as $optionType) {
             $allowedTypes[] = $optionType['value'];
         }
 

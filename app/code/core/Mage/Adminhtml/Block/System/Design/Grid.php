@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -70,34 +71,34 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     {
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', array(
-                'header'        => Mage::helper('catalog')->__('Store'),
-                'width'         => '100px',
-                'type'          => 'store',
-                'store_view'    => true,
-                'sortable'      => false,
-                'index'         => 'store_id',
+                'header' => Mage::helper('catalog')->__('Store'),
+                'width' => '100px',
+                'type' => 'store',
+                'store_view' => true,
+                'sortable' => false,
+                'index' => 'store_id',
             ));
         }
 
         $this->addColumn('package', array(
-                'header'    => Mage::helper('catalog')->__('Design'),
-                'width'     => '150px',
-                'index'     => 'design',
+            'header' => Mage::helper('catalog')->__('Design'),
+            'width' => '150px',
+            'index' => 'design',
         ));
         $this->addColumn('date_from', array(
-            'header'    => Mage::helper('catalogrule')->__('Date From'),
-            'align'     => 'left',
-            'width'     => '100px',
-            'type'      => 'date',
-            'index'     => 'date_from',
+            'header' => Mage::helper('catalogrule')->__('Date From'),
+            'align' => 'left',
+            'width' => '100px',
+            'type' => 'date',
+            'index' => 'date_from',
         ));
 
         $this->addColumn('date_to', array(
-            'header'    => Mage::helper('catalogrule')->__('Date To'),
-            'align'     => 'left',
-            'width'     => '100px',
-            'type'      => 'date',
-            'index'     => 'date_to',
+            'header' => Mage::helper('catalogrule')->__('Date To'),
+            'align' => 'left',
+            'width' => '100px',
+            'type' => 'date',
+            'index' => 'date_to',
         ));
 
         return parent::_prepareColumns();

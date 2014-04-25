@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
 {
+
     protected $_reviewsCollection;
 
     /**
@@ -59,24 +61,24 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
     public function getReviewsSummaryHtml(Mage_Catalog_Model_Product $product, $templateType = false, $displayIfNoReviews = false)
     {
         return
-            $this->getLayout()->createBlock('rating/entity_detailed')
-                ->setEntityId($this->getProduct()->getId())
-                ->toHtml()
-            .
-            $this->getLayout()->getBlock('product_review_list.count')
-                ->assign('count', $this->getReviewsCollection()->getSize())
-                ->toHtml()
-            ;
+                        $this->getLayout()->createBlock('rating/entity_detailed')
+                        ->setEntityId($this->getProduct()->getId())
+                        ->toHtml()
+                .
+                        $this->getLayout()->getBlock('product_review_list.count')
+                        ->assign('count', $this->getReviewsCollection()->getSize())
+                        ->toHtml()
+        ;
     }
 
     public function getReviewsCollection()
     {
         if (null === $this->_reviewsCollection) {
             $this->_reviewsCollection = Mage::getModel('review/review')->getCollection()
-                ->addStoreFilter(Mage::app()->getStore()->getId())
-                ->addStatusFilter(Mage_Review_Model_Review::STATUS_APPROVED)
-                ->addEntityFilter('product', $this->getProduct()->getId())
-                ->setDateOrder();
+                    ->addStoreFilter(Mage::app()->getStore()->getId())
+                    ->addStatusFilter(Mage_Review_Model_Review::STATUS_APPROVED)
+                    ->addEntityFilter('product', $this->getProduct()->getId())
+                    ->setDateOrder();
         }
         return $this->_reviewsCollection;
     }
@@ -90,4 +92,5 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
     {
         return false;
     }
+
 }

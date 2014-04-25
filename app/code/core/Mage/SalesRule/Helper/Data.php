@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_SalesRule_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Set store and base price which will be used during discount calculation to item object
      *
@@ -54,14 +56,15 @@ class Mage_SalesRule_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function addItemDiscountPrices(Mage_Sales_Model_Quote_Item_Abstract $item, $basePrice, $price)
     {
-        $discountPrice      = $item->getDiscountCalculationPrice();
-        $baseDiscountPrice  = $item->getBaseDiscountCalculationPrice();
+        $discountPrice = $item->getDiscountCalculationPrice();
+        $baseDiscountPrice = $item->getBaseDiscountCalculationPrice();
 
         if ($discountPrice || $baseDiscountPrice || $basePrice || $price) {
-            $discountPrice      = $discountPrice ? $discountPrice : $item->getCalculationPrice();
-            $baseDiscountPrice  = $baseDiscountPrice ? $baseDiscountPrice : $item->getBaseCalculationPrice();
-            $this->setItemDiscountPrices($item, $baseDiscountPrice+$basePrice, $discountPrice+$price);
+            $discountPrice = $discountPrice ? $discountPrice : $item->getCalculationPrice();
+            $baseDiscountPrice = $baseDiscountPrice ? $baseDiscountPrice : $item->getBaseCalculationPrice();
+            $this->setItemDiscountPrices($item, $baseDiscountPrice + $basePrice, $discountPrice + $price);
         }
         return $this;
     }
+
 }

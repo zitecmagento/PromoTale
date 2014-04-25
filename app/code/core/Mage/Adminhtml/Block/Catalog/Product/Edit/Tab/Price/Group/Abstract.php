@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract
-    extends Mage_Adminhtml_Block_Widget
-    implements Varien_Data_Form_Element_Renderer_Interface
+abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract extends Mage_Adminhtml_Block_Widget implements Varien_Data_Form_Element_Renderer_Interface
 {
+
     /**
      * Form element instance
      *
@@ -115,9 +115,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         }
 
         foreach ($values as &$value) {
-            $value['readonly'] = ($value['website_id'] == 0)
-                && $this->isShowWebsiteColumn()
-                && !$this->isAllowChangeWebsite();
+            $value['readonly'] = ($value['website_id'] == 0) && $this->isShowWebsiteColumn() && !$this->isAllowChangeWebsite();
         }
 
         return $values;
@@ -220,7 +218,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
             );
         } elseif (!$this->isScopeGlobal()) {
             $websites = Mage::app()->getWebsites(false);
-            $productWebsiteIds  = $this->getProduct()->getWebsiteIds();
+            $productWebsiteIds = $this->getProduct()->getWebsiteIds();
             foreach ($websites as $website) {
                 /** @var $website Mage_Core_Model_Website */
                 if (!in_array($website->getId(), $productWebsiteIds)) {
@@ -344,4 +342,5 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         }
         return true;
     }
+
 }

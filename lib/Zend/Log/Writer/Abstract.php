@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 22567 2010-07-16 03:32:31Z ramon $
  */
-
 /** Zend_Log_Filter_Priority */
 #require_once 'Zend/Log/Filter/Priority.php';
 
@@ -33,6 +33,7 @@
  */
 abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
 {
+
     /**
      * @var array of Zend_Log_Filter_Interface
      */
@@ -75,7 +76,7 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
     public function write($event)
     {
         foreach ($this->_filters as $filter) {
-            if (! $filter->accept($event)) {
+            if (!$filter->accept($event)) {
                 return;
             }
         }
@@ -102,7 +103,9 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
      * @return void
      */
     public function shutdown()
-    {}
+    {
+        
+    }
 
     /**
      * Write a message to the log.
@@ -128,10 +131,11 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
         if (!is_array($config)) {
             #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception(
-				'Configuration must be an array or instance of Zend_Config'
-			);
+            'Configuration must be an array or instance of Zend_Config'
+            );
         }
 
         return $config;
     }
+
 }

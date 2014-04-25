@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Localization extends Mage_Core_Block_Abstract
 {
+
     /**
      * Render home category list xml
      *
@@ -52,4 +54,5 @@ class Mage_XmlConnect_Block_Localization extends Mage_Core_Block_Abstract
 
         return $l10nXmlObj->asNiceXml();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,11 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Null.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Pdf_Element */
 #require_once 'Zend/Pdf/Element.php';
-
 
 /**
  * PDF file 'null' element implementation
@@ -34,13 +32,13 @@
  */
 class Zend_Pdf_Element_Null extends Zend_Pdf_Element
 {
+
     /**
      * Object value. Always null.
      *
      * @var mixed
      */
     public $value;
-
 
     /**
      * Object constructor
@@ -49,7 +47,6 @@ class Zend_Pdf_Element_Null extends Zend_Pdf_Element
     {
         $this->value = null;
     }
-
 
     /**
      * Return type of the element.
@@ -61,7 +58,6 @@ class Zend_Pdf_Element_Null extends Zend_Pdf_Element
         return Zend_Pdf_Element::TYPE_NULL;
     }
 
-
     /**
      * Return object as string
      *
@@ -72,4 +68,5 @@ class Zend_Pdf_Element_Null extends Zend_Pdf_Element
     {
         return 'null';
     }
+
 }

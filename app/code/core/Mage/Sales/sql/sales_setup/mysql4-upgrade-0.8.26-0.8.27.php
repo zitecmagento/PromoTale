@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 
@@ -38,9 +38,9 @@ $conn->addColumn($installer->getTable('sales_quote_address'), 'prefix', 'varchar
 $conn->addColumn($installer->getTable('sales_quote_address'), 'middlename', 'varchar(40) after firstname');
 $conn->addColumn($installer->getTable('sales_quote_address'), 'suffix', 'varchar(40) after lastname');
 
-$installer->addAttribute('order', 'customer_prefix', array('type'=>'varchar', 'visible'=>false));
-$installer->addAttribute('order', 'customer_middlename', array('type'=>'varchar', 'visible'=>false));
-$installer->addAttribute('order', 'customer_suffix', array('type'=>'varchar', 'visible'=>false));
+$installer->addAttribute('order', 'customer_prefix', array('type' => 'varchar', 'visible' => false));
+$installer->addAttribute('order', 'customer_middlename', array('type' => 'varchar', 'visible' => false));
+$installer->addAttribute('order', 'customer_suffix', array('type' => 'varchar', 'visible' => false));
 
 $installer->addAttribute('order_address', 'prefix', array());
 $installer->addAttribute('order_address', 'middlename', array());

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,8 +32,7 @@
  * @package     Mage_Connect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Depends
-    extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
+class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Depends extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
 {
 
     /**
@@ -48,21 +48,21 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Depends
         $form->setHtmlIdPrefix('_depends');
 
         $fieldset = $form->addFieldset('depends_php_fieldset', array(
-            'legend'    => Mage::helper('connect')->__('PHP Version')
+            'legend' => Mage::helper('connect')->__('PHP Version')
         ));
 
         $fieldset->addField('depends_php_min', 'text', array(
-            'name'      => 'depends_php_min',
-            'label'     => Mage::helper('connect')->__('Minimum'),
-            'required'  => true,
-            'value'     => '5.2.0',
+            'name' => 'depends_php_min',
+            'label' => Mage::helper('connect')->__('Minimum'),
+            'required' => true,
+            'value' => '5.2.0',
         ));
 
         $fieldset->addField('depends_php_max', 'text', array(
-            'name'      => 'depends_php_max',
-            'label'     => Mage::helper('connect')->__('Maximum'),
-            'required'  => true,
-            'value'     => '5.2.20',
+            'name' => 'depends_php_max',
+            'label' => Mage::helper('connect')->__('Maximum'),
+            'required' => true,
+            'value' => '5.2.20',
         ));
 
         $form->setValues($this->getData());
@@ -105,4 +105,5 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Depends
     {
         return Mage::helper('connect')->__('Dependencies');
     }
+
 }

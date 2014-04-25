@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,12 +24,10 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 $this->startSetup();
 
-$installer->getConnection()->addColumn($installer->getTable('sales/order_aggregated_created'),
-    'base_canceled_amount', 'decimal(12,4) NOT NULL DEFAULT \'0\'');
+$installer->getConnection()->addColumn($installer->getTable('sales/order_aggregated_created'), 'base_canceled_amount', 'decimal(12,4) NOT NULL DEFAULT \'0\'');
 
 $this->endSetup();

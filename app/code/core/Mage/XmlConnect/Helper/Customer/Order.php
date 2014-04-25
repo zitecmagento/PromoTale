@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,16 +34,17 @@
  */
 class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
 {
-    /**#@+
+    /*     * #@+
      * Price display type
      *
      * @see Mage_Weee_Helper_Data::typeOfDisplay(...);
      */
+
     const PRICE_DISPLAY_TYPE_1 = 1;
     const PRICE_DISPLAY_TYPE_2 = 2;
     const PRICE_DISPLAY_TYPE_4 = 4;
     const PRICE_DISPLAY_TYPE_14 = 14;
-    /**#@-*/
+    /*     * #@- */
 
     /**
      * Including tax id
@@ -64,9 +66,7 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
      * @param bool $isIncludeTax
      * @return null
      */
-    public function addPriceAndSubtotalToXml(Mage_Core_Block_Template $renderer, Mage_Sales_Model_Order_Item $item,
-        Mage_XmlConnect_Model_Simplexml_Element $priceXml, Mage_XmlConnect_Model_Simplexml_Element $subtotalXml,
-        $isIncludeTax = false)
+    public function addPriceAndSubtotalToXml(Mage_Core_Block_Template $renderer, Mage_Sales_Model_Order_Item $item, Mage_XmlConnect_Model_Simplexml_Element $priceXml, Mage_XmlConnect_Model_Simplexml_Element $subtotalXml, $isIncludeTax = false)
     {
         $weeeParams = array();
 
@@ -75,15 +75,15 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
             $nodeName = self::INCLUDING_TAX_ID;
             $nodeLabel = $this->__('Incl. Tax');
 
-            $inclPrice      = $renderer->helper('checkout')->getPriceInclTax($item);
-            $inclSubtotal   = $renderer->helper('checkout')->getSubtotalInclTax($item);
+            $inclPrice = $renderer->helper('checkout')->getPriceInclTax($item);
+            $inclSubtotal = $renderer->helper('checkout')->getSubtotalInclTax($item);
 
             if ($typesOfDisplay[self::PRICE_DISPLAY_TYPE_14]) {
-                $price      = $inclPrice + $renderer->getWeeeTaxAppliedAmount();
-                $subtotal   = $inclSubtotal + $item->getWeeeTaxAppliedRowAmount();
+                $price = $inclPrice + $renderer->getWeeeTaxAppliedAmount();
+                $subtotal = $inclSubtotal + $item->getWeeeTaxAppliedRowAmount();
             } else {
-                $price      = $inclPrice - $renderer->getWeeeTaxDisposition();
-                $subtotal   = $inclSubtotal - $item->getWeeeTaxRowDisposition();
+                $price = $inclPrice - $renderer->getWeeeTaxDisposition();
+                $subtotal = $inclSubtotal - $item->getWeeeTaxRowDisposition();
             }
             $weeeParams['include'] = $inclPrice;
         } else {
@@ -91,10 +91,8 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
             $nodeLabel = $this->__('Excl. Tax');
 
             if ($typesOfDisplay[self::PRICE_DISPLAY_TYPE_14]) {
-                $price = $item->getPrice() + $renderer->getWeeeTaxAppliedAmount()
-                    + $renderer->getWeeeTaxDisposition();
-                $subtotal = $item->getRowTotal() + $item->getWeeeTaxAppliedRowAmount()
-                    + $item->getWeeeTaxRowDisposition();
+                $price = $item->getPrice() + $renderer->getWeeeTaxAppliedAmount() + $renderer->getWeeeTaxDisposition();
+                $subtotal = $item->getRowTotal() + $item->getWeeeTaxAppliedRowAmount() + $item->getWeeeTaxRowDisposition();
             } else {
                 $price = $item->getPrice();
                 $subtotal = $item->getRowTotal();
@@ -108,15 +106,15 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
         }
 
         $this->addWeeeTaxesToPriceXml(
-            $renderer, $item, $priceXml->addCustomChild($nodeName, null, $configNode), $weeeParams
+                $renderer, $item, $priceXml->addCustomChild($nodeName, null, $configNode), $weeeParams
         );
 
-        $configNode['value']        = $this->formatPrice($renderer, $subtotal);
-        $weeeParams['include']      = $isIncludeTax ? $inclSubtotal : null;
-        $weeeParams['is_subtotal']  = true;
+        $configNode['value'] = $this->formatPrice($renderer, $subtotal);
+        $weeeParams['include'] = $isIncludeTax ? $inclSubtotal : null;
+        $weeeParams['is_subtotal'] = true;
 
         $this->addWeeeTaxesToPriceXml(
-            $renderer, $item, $subtotalXml->addCustomChild($nodeName, null, $configNode), $weeeParams
+                $renderer, $item, $subtotalXml->addCustomChild($nodeName, null, $configNode), $weeeParams
         );
     }
 
@@ -130,11 +128,9 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
      * @param bool $isIncludeTax
      * @return null
      */
-    public function addPriceAndSubtotalToXmlApi23(Mage_Core_Block_Template $renderer, Mage_Sales_Model_Order_Item $item,
-        Mage_XmlConnect_Model_Simplexml_Element $priceXml,
-        Mage_XmlConnect_Model_Simplexml_Element $subtotalXml,
-        $isIncludeTax = false
-    ) {
+    public function addPriceAndSubtotalToXmlApi23(Mage_Core_Block_Template $renderer, Mage_Sales_Model_Order_Item $item, Mage_XmlConnect_Model_Simplexml_Element $priceXml, Mage_XmlConnect_Model_Simplexml_Element $subtotalXml, $isIncludeTax = false
+    )
+    {
         $weeeParams = array();
 
         $typesOfDisplay = $renderer->getTypesOfDisplay();
@@ -142,15 +138,15 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
             $nodeId = self::INCLUDING_TAX_ID;
             $nodeLabel = $this->__('Incl. Tax');
 
-            $inclPrice      = $renderer->helper('checkout')->getPriceInclTax($item);
-            $inclSubtotal   = $renderer->helper('checkout')->getSubtotalInclTax($item);
+            $inclPrice = $renderer->helper('checkout')->getPriceInclTax($item);
+            $inclSubtotal = $renderer->helper('checkout')->getSubtotalInclTax($item);
 
             if ($typesOfDisplay[self::PRICE_DISPLAY_TYPE_14]) {
-                $price      = $inclPrice + $renderer->getWeeeTaxAppliedAmount();
-                $subtotal   = $inclSubtotal + $item->getWeeeTaxAppliedRowAmount();
+                $price = $inclPrice + $renderer->getWeeeTaxAppliedAmount();
+                $subtotal = $inclSubtotal + $item->getWeeeTaxAppliedRowAmount();
             } else {
-                $price      = $inclPrice - $renderer->getWeeeTaxDisposition();
-                $subtotal   = $inclSubtotal - $item->getWeeeTaxRowDisposition();
+                $price = $inclPrice - $renderer->getWeeeTaxDisposition();
+                $subtotal = $inclSubtotal - $item->getWeeeTaxRowDisposition();
             }
             $weeeParams['include'] = $inclPrice;
         } else {
@@ -158,10 +154,8 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
             $nodeLabel = $this->__('Excl. Tax');
 
             if ($typesOfDisplay[self::PRICE_DISPLAY_TYPE_14]) {
-                $price = $item->getPrice() + $renderer->getWeeeTaxAppliedAmount()
-                    + $renderer->getWeeeTaxDisposition();
-                $subtotal = $item->getRowTotal() + $item->getWeeeTaxAppliedRowAmount()
-                    + $item->getWeeeTaxRowDisposition();
+                $price = $item->getPrice() + $renderer->getWeeeTaxAppliedAmount() + $renderer->getWeeeTaxDisposition();
+                $subtotal = $item->getRowTotal() + $item->getWeeeTaxAppliedRowAmount() + $item->getWeeeTaxRowDisposition();
             } else {
                 $price = $item->getPrice();
                 $subtotal = $item->getRowTotal();
@@ -183,9 +177,9 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
         $priceXml->addCustomChild('price', $price, $priceConfig);
         $this->addWeeeTaxesToPriceXmlApi23($renderer, $item, $priceXml, $weeeParams, $idPrefix, $isIncludeTax);
 
-        $priceValue                 = $this->formatPrice($renderer, $subtotal);
-        $weeeParams['include']      = $isIncludeTax ? $inclSubtotal : null;
-        $weeeParams['is_subtotal']  = true;
+        $priceValue = $this->formatPrice($renderer, $subtotal);
+        $weeeParams['include'] = $isIncludeTax ? $inclSubtotal : null;
+        $weeeParams['is_subtotal'] = true;
 
         $subtotalConfig = $configNode;
         $idPrefix = 'subtotal_';
@@ -203,9 +197,9 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
      * @param Mage_XmlConnect_Model_Simplexml_Element $itemXml
      * @return null
      */
-    public function addItemOptionsToXml(Mage_Core_Block_Template $renderer,
-        Mage_XmlConnect_Model_Simplexml_Element $itemXml
-    ) {
+    public function addItemOptionsToXml(Mage_Core_Block_Template $renderer, Mage_XmlConnect_Model_Simplexml_Element $itemXml
+    )
+    {
         $options = $renderer->getItemOptions();
         if (!empty($options)) {
             $optionsXml = $itemXml->addCustomChild('options');
@@ -238,9 +232,9 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
      * @param array $params Params for Weee taxes: 'include' - Price including tax, 'is_subtotal' - Flag of subtotal
      * @return null
      */
-    public function addWeeeTaxesToPriceXml(Mage_Core_Block_Template $renderer, Mage_Sales_Model_Order_Item $item,
-        Mage_XmlConnect_Model_Simplexml_Element $parentXml, $params = array()
-    ) {
+    public function addWeeeTaxesToPriceXml(Mage_Core_Block_Template $renderer, Mage_Sales_Model_Order_Item $item, Mage_XmlConnect_Model_Simplexml_Element $parentXml, $params = array()
+    )
+    {
         $weeTaxes = $renderer->getWeeeTaxes();
         if (empty($weeTaxes)) {
             return;
@@ -278,11 +272,9 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
             } else {
                 // excluding tax
                 if (isset($params['is_subtotal'])) {
-                    $total = $item->getRowTotal() + $item->getWeeeTaxAppliedRowAmount()
-                        + $item->getWeeeTaxRowDisposition();
+                    $total = $item->getRowTotal() + $item->getWeeeTaxAppliedRowAmount() + $item->getWeeeTaxRowDisposition();
                 } else {
-                    $total = $item->getPrice() + $renderer->getWeeeTaxAppliedAmount()
-                        + $renderer->getWeeeTaxDisposition();
+                    $total = $item->getPrice() + $renderer->getWeeeTaxAppliedAmount() + $renderer->getWeeeTaxDisposition();
                 }
             }
 
@@ -307,9 +299,9 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
      * @param bool $isIncludeTax
      * @return null
      */
-    public function addWeeeTaxesToPriceXmlApi23(Mage_Core_Block_Template $renderer, Mage_Sales_Model_Order_Item $item,
-        Mage_XmlConnect_Model_Simplexml_Element $parentXml, $params = array(), $idPrefix, $isIncludeTax
-    ) {
+    public function addWeeeTaxesToPriceXmlApi23(Mage_Core_Block_Template $renderer, Mage_Sales_Model_Order_Item $item, Mage_XmlConnect_Model_Simplexml_Element $parentXml, $params = array(), $idPrefix, $isIncludeTax
+    )
+    {
         $weeTaxes = $renderer->getWeeeTaxes();
         if (empty($weeTaxes)) {
             return;
@@ -352,19 +344,16 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
             } else {
                 // excluding tax
                 if (isset($params['is_subtotal'])) {
-                    $total = $item->getRowTotal() + $item->getWeeeTaxAppliedRowAmount()
-                        + $item->getWeeeTaxRowDisposition();
+                    $total = $item->getRowTotal() + $item->getWeeeTaxAppliedRowAmount() + $item->getWeeeTaxRowDisposition();
                 } else {
-                    $total = $item->getPrice() + $renderer->getWeeeTaxAppliedAmount()
-                        + $renderer->getWeeeTaxDisposition();
+                    $total = $item->getPrice() + $renderer->getWeeeTaxAppliedAmount() + $renderer->getWeeeTaxDisposition();
                 }
             }
 
             $totalNodeId = $idPrefix . 'fpt_total_' . ($isIncludeTax ? self::INCLUDING_TAX_ID : self::EXCLUDING_TAX_ID);
             $parentXml->addCustomChild('price', Mage::helper('xmlconnect')->formatPriceForXml($total), array(
-                'id'    => $totalNodeId,
-                'label' => $isIncludeTax ? $renderer->helper('weee')->__('Total incl. tax')
-                    : $renderer->helper('weee')->__('Total excl. tax'),
+                'id' => $totalNodeId,
+                'label' => $isIncludeTax ? $renderer->helper('weee')->__('Total incl. tax') : $renderer->helper('weee')->__('Total excl. tax'),
                 'formatted_price' => $this->formatPrice($renderer, $total)
             ));
         }
@@ -378,9 +367,9 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
      * @param Mage_Sales_Model_Order_Item $item
      * @return null
      */
-    public function addQuantityToXml(Mage_Core_Block_Template $renderer,
-        Mage_XmlConnect_Model_Simplexml_Element $quantityXml, Mage_Sales_Model_Order_Item $item
-    ) {
+    public function addQuantityToXml(Mage_Core_Block_Template $renderer, Mage_XmlConnect_Model_Simplexml_Element $quantityXml, Mage_Sales_Model_Order_Item $item
+    )
+    {
         $qty = 1 * $item->getQtyOrdered();
         if ($qty > 0) {
             $quantityXml->addCustomChild('value', $qty, array('label' => $this->__('Ordered')));
@@ -410,4 +399,5 @@ class Mage_XmlConnect_Helper_Customer_Order extends Mage_Core_Helper_Abstract
     {
         return $renderer->getOrder()->getOrderCurrency()->formatPrecision($price, 2, array(), false);
     }
+
 }

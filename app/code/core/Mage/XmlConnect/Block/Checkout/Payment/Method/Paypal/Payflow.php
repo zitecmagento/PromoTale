@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Payment_Method_Paypal_Payflow extends Mage_Payment_Block_Form_Ccsave
 {
+
     /**
      * Prevent any rendering
      *
@@ -156,4 +158,5 @@ EOT;
         $fieldsetXmlObj = Mage::getModel('xmlconnect/simplexml_element', $xml);
         $formXmlObj->appendChild($fieldsetXmlObj);
     }
+
 }

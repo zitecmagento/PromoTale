@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Persistent
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Persistent_Block_Form_Remember extends Mage_Core_Block_Template
 {
+
     /**
      * Prevent rendering if Persistent disabled
      *
@@ -57,4 +58,5 @@ class Mage_Persistent_Block_Form_Remember extends Mage_Core_Block_Template
         $helper = Mage::helper('persistent');
         return $helper->isEnabled() && $helper->isRememberMeEnabled() && $helper->isRememberMeCheckedDefault();
     }
+
 }

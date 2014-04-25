@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Online Customer last URL renderer
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Customer_Online_Grid_Renderer_Url extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     /**
      * Renders grid column
      *
@@ -44,4 +45,5 @@ class Mage_Adminhtml_Block_Customer_Online_Grid_Renderer_Url extends Mage_Adminh
     {
         return htmlspecialchars($row->getData($this->getColumn()->getIndex()));
     }
+
 }

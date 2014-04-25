@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Calatog Product Flat Flag Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
 {
+
     /**
      * Flag code
      *
@@ -64,13 +65,13 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
      */
     public function isStoreBuilt($storeId)
     {
-        $key = 'is_store_built_' . (int)$storeId;
+        $key = 'is_store_built_' . (int) $storeId;
         $flagData = $this->getFlagData();
         if (!isset($flagData[$key])) {
             $flagData[$key] = false;
             $this->setFlagData($flagData);
         }
-        return (bool)$flagData[$key];
+        return (bool) $flagData[$key];
     }
 
     /**
@@ -82,9 +83,9 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
      */
     public function setStoreBuilt($storeId, $built)
     {
-        $key = 'is_store_built_' . (int)$storeId;
+        $key = 'is_store_built_' . (int) $storeId;
         $flagData = $this->getFlagData();
-        $flagData[$key] = (bool)$built;
+        $flagData[$key] = (bool) $built;
         $this->setFlagData($flagData);
         return $this;
     }
@@ -101,7 +102,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
             $flagData['is_built'] = false;
             $this->setFlagData($flagData);
         }
-        return (bool)$flagData['is_built'];
+        return (bool) $flagData['is_built'];
     }
 
     /**
@@ -114,7 +115,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
     public function setIsBuilt($flag)
     {
         $flagData = $this->getFlagData();
-        $flagData['is_built'] = (bool)$flag;
+        $flagData['is_built'] = (bool) $flag;
         $this->setFlagData($flagData);
         return $this;
     }
@@ -133,4 +134,5 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
         $this->setIsBuilt($flag);
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,22 +24,15 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /* @var $installer Mage_Sendfriend_Model_Mysql4_Setup */
 $installer = $this;
 
 $installer->startSetup();
 $installer->getConnection()->dropKey($installer->getTable('sendfriend/sendfriend'), 'ip');
 $installer->getConnection()->dropKey($installer->getTable('sendfriend/sendfriend'), 'time');
-$installer->getConnection()->modifyColumn($installer->getTable('sendfriend/sendfriend'),
-    'log_id', 'int(10) unsigned NOT NULL');
-$installer->getConnection()->modifyColumn($installer->getTable('sendfriend/sendfriend'),
-    'ip', 'bigint(20) NOT NULL DEFAULT 0');
-$installer->getConnection()->modifyColumn($installer->getTable('sendfriend/sendfriend'),
-    'time', 'int(10) unsigned NOT NULL');
-$installer->getConnection()->addKey($installer->getTable('sendfriend/sendfriend'),
-    'IDX_REMOTE_ADDR', array('ip'));
-$installer->getConnection()->addKey($installer->getTable('sendfriend/sendfriend'),
-    'IDX_LOG_TIME', array('time'));
+$installer->getConnection()->modifyColumn($installer->getTable('sendfriend/sendfriend'), 'log_id', 'int(10) unsigned NOT NULL');
+$installer->getConnection()->modifyColumn($installer->getTable('sendfriend/sendfriend'), 'ip', 'bigint(20) NOT NULL DEFAULT 0');
+$installer->getConnection()->modifyColumn($installer->getTable('sendfriend/sendfriend'), 'time', 'int(10) unsigned NOT NULL');
+$installer->getConnection()->addKey($installer->getTable('sendfriend/sendfriend'), 'IDX_REMOTE_ADDR', array('ip'));
+$installer->getConnection()->addKey($installer->getTable('sendfriend/sendfriend'), 'IDX_LOG_TIME', array('time'));
 $installer->endSetup();

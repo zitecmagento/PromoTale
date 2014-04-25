@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 {
+
     public function __construct()
     {
         $this->_storeIdSessionField = 'category_store_id';
@@ -53,7 +55,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         // load root categories of website
         if (null !== $website) {
-            try {
+            try
+            {
                 $website = Mage::app()->getWebsite($website);
                 if (null === $store) {
                     if (null === $categoryId) {
@@ -66,40 +69,44 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                     }
                 } elseif (in_array($store, $website->getStoreIds())) {
                     $storeId = Mage::app()->getStore($store)->getId();
-                    $ids = (null === $categoryId)? $store->getRootCategoryId() : $categoryId;
+                    $ids = (null === $categoryId) ? $store->getRootCategoryId() : $categoryId;
                 } else {
                     $this->_fault('store_not_exists');
                 }
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_fault('website_not_exists', $e->getMessage());
             }
-        }
-        elseif (null !== $store) {
+        } elseif (null !== $store) {
             // load children of root category of store
             if (null === $categoryId) {
-                try {
+                try
+                {
                     $store = Mage::app()->getStore($store);
                     $storeId = $store->getId();
                     $ids = $store->getRootCategoryId();
-                } catch (Mage_Core_Model_Store_Exception $e) {
+                }
+                catch (Mage_Core_Model_Store_Exception $e)
+                {
                     $this->_fault('store_not_exists');
                 }
             }
             // load children of specified category id
             else {
                 $storeId = $this->_getStoreId($store);
-                $ids = (int)$categoryId;
+                $ids = (int) $categoryId;
             }
         }
         // load all root categories
         else {
-            $ids = (null === $categoryId)? Mage_Catalog_Model_Category::TREE_ROOT_ID : $categoryId;
+            $ids = (null === $categoryId) ? Mage_Catalog_Model_Category::TREE_ROOT_ID : $categoryId;
         }
 
         $collection = Mage::getModel('catalog/category')->getCollection()
-            ->setStoreId($storeId)
-            ->addAttributeToSelect('name')
-            ->addAttributeToSelect('is_active');
+                ->setStoreId($storeId)
+                ->addAttributeToSelect('name')
+                ->addAttributeToSelect('is_active');
 
         if (is_array($ids)) {
             $collection->addFieldToFilter('entity_id', array('in' => $ids));
@@ -113,11 +120,11 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             /* @var $category Mage_Catalog_Model_Category */
             $result[] = array(
                 'category_id' => $category->getId(),
-                'parent_id'   => $category->getParentId(),
-                'name'        => $category->getName(),
-                'is_active'   => $category->getIsActive(),
-                'position'    => $category->getPosition(),
-                'level'       => $category->getLevel()
+                'parent_id' => $category->getParentId(),
+                'name' => $category->getName(),
+                'is_active' => $category->getIsActive(),
+                'position' => $category->getPosition(),
+                'level' => $category->getLevel()
             );
         }
 
@@ -141,18 +148,18 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         /* @var $tree Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree */
         $tree = Mage::getResourceSingleton('catalog/category_tree')
-            ->load();
+                ->load();
 
         $root = $tree->getNodeById($parentId);
 
-        if($root && $root->getId() == 1) {
+        if ($root && $root->getId() == 1) {
             $root->setName(Mage::helper('catalog')->__('Root'));
         }
 
         $collection = Mage::getModel('catalog/category')->getCollection()
-            ->setStoreId($this->_getStoreId($store))
-            ->addAttributeToSelect('name')
-            ->addAttributeToSelect('is_active');
+                ->setStoreId($this->_getStoreId($store))
+                ->addAttributeToSelect('name')
+                ->addAttributeToSelect('is_active');
 
         $tree->addCollectionData($collection, true);
 
@@ -170,12 +177,12 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         // Only basic category data
         $result = array();
         $result['category_id'] = $node->getId();
-        $result['parent_id']   = $node->getParentId();
-        $result['name']        = $node->getName();
-        $result['is_active']   = $node->getIsActive();
-        $result['position']    = $node->getPosition();
-        $result['level']       = $node->getLevel();
-        $result['children']    = array();
+        $result['parent_id'] = $node->getParentId();
+        $result['name'] = $node->getName();
+        $result['is_active'] = $node->getIsActive();
+        $result['position'] = $node->getPosition();
+        $result['level'] = $node->getLevel();
+        $result['children'] = array();
 
         foreach ($node->getChildren() as $child) {
             $result['children'][] = $this->_nodeToArray($child);
@@ -194,8 +201,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     protected function _initCategory($categoryId, $store = null)
     {
         $category = Mage::getModel('catalog/category')
-            ->setStoreId($this->_getStoreId($store))
-            ->load($categoryId);
+                ->setStoreId($this->_getStoreId($store))
+                ->load($categoryId);
 
         if (!$category->getId()) {
             $this->_fault('not_exists');
@@ -220,18 +227,18 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $result = array();
         $result['category_id'] = $category->getId();
 
-        $result['is_active']   = $category->getIsActive();
-        $result['position']    = $category->getPosition();
-        $result['level']       = $category->getLevel();
+        $result['is_active'] = $category->getIsActive();
+        $result['position'] = $category->getPosition();
+        $result['level'] = $category->getLevel();
 
         foreach ($category->getAttributes() as $attribute) {
             if ($this->_isAllowedAttribute($attribute, $attributes)) {
                 $result[$attribute->getAttributeCode()] = $category->getData($attribute->getAttributeCode());
             }
         }
-        $result['parent_id']   = $category->getParentId();
-        $result['children']           = $category->getChildren();
-        $result['all_children']       = $category->getAllChildren();
+        $result['parent_id'] = $category->getParentId();
+        $result['children'] = $category->getChildren();
+        $result['all_children'] = $category->getAllChildren();
 
         return $result;
     }
@@ -250,23 +257,22 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         /** @var $category Mage_Catalog_Model_Category */
         $category = Mage::getModel('catalog/category')
-            ->setStoreId($this->_getStoreId($store));
+                ->setStoreId($this->_getStoreId($store));
 
-        $category->addData(array('path'=>implode('/', $parent_category->getPathIds())));
+        $category->addData(array('path' => implode('/', $parent_category->getPathIds())));
         $category->setAttributeSetId($category->getDefaultAttributeSetId());
 
         $useConfig = array();
         foreach ($category->getAttributes() as $attribute) {
-            if ($this->_isAllowedAttribute($attribute)
-                && isset($categoryData[$attribute->getAttributeCode()])
+            if ($this->_isAllowedAttribute($attribute) && isset($categoryData[$attribute->getAttributeCode()])
             ) {
                 // check whether value is 'use_config'
                 $attrCode = $attribute->getAttributeCode();
                 $categoryDataValue = $categoryData[$attrCode];
                 if ('use_config' === $categoryDataValue ||
-                    (is_array($categoryDataValue) &&
-                    count($categoryDataValue) == 1 &&
-                    'use_config' === $categoryDataValue[0])
+                        (is_array($categoryDataValue) &&
+                        count($categoryDataValue) == 1 &&
+                        'use_config' === $categoryDataValue[0])
                 ) {
                     $useConfig[] = $attrCode;
                     $category->setData($attrCode, null);
@@ -285,7 +291,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             $category->setData("use_post_data_config", $useConfig);
         }
 
-        try {
+        try
+        {
             $validate = $category->validate();
             if ($validate !== true) {
                 foreach ($validate as $code => $error) {
@@ -299,10 +306,12 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
             $category->save();
         }
-        catch (Mage_Core_Exception $e) {
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -322,32 +331,34 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $category = $this->_initCategory($categoryId, $store);
 
         foreach ($category->getAttributes() as $attribute) {
-            if ($this->_isAllowedAttribute($attribute)
-                && isset($categoryData[$attribute->getAttributeCode()])) {
+            if ($this->_isAllowedAttribute($attribute) && isset($categoryData[$attribute->getAttributeCode()])) {
                 $category->setData(
-                    $attribute->getAttributeCode(),
-                    $categoryData[$attribute->getAttributeCode()]
+                        $attribute->getAttributeCode(), $categoryData[$attribute->getAttributeCode()]
                 );
             }
         }
 
-        try {
+        try
+        {
             $validate = $category->validate();
             if ($validate !== true) {
                 foreach ($validate as $code => $error) {
                     if ($error === true) {
                         Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required.', $code));
-                    }
-                    else {
+                    } else {
                         Mage::throwException($error);
                     }
                 }
             }
 
             $category->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
-        } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
+        }
+        catch (Mage_Eav_Model_Entity_Attribute_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -373,13 +384,16 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             $afterId = array_pop(explode(',', $parentChildren));
         }
 
-        if( strpos($parent_category->getPath(), $category->getPath()) === 0) {
+        if (strpos($parent_category->getPath(), $category->getPath()) === 0) {
             $this->_fault('not_moved', "Operation do not allow to move a parent category to any of children category");
         }
 
-        try {
+        try
+        {
             $category->move($parentId, $afterId);
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('not_moved', $e->getMessage());
         }
 
@@ -400,9 +414,12 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         $category = $this->_initCategory($categoryId);
 
-        try {
+        try
+        {
             $category->delete();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('not_deleted', $e->getMessage());
         }
 
@@ -420,11 +437,10 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     {
         $product = Mage::helper('catalog/product')->getProduct($productId, null, $identifierType);
         if (!$product->getId()) {
-            $this->_fault('not_exists','Product not exists.');
+            $this->_fault('not_exists', 'Product not exists.');
         }
         return $product->getId();
     }
-
 
     /**
      * Retrieve list of assigned products to category
@@ -439,17 +455,18 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         $storeId = $this->_getStoreId($store);
         $collection = $category->setStoreId($storeId)->getProductCollection();
-        ($storeId == 0)? $collection->addOrder('position', 'asc') : $collection->setOrder('position', 'asc');;
+        ($storeId == 0) ? $collection->addOrder('position', 'asc') : $collection->setOrder('position', 'asc');
+        ;
 
         $result = array();
 
         foreach ($collection as $product) {
             $result[] = array(
                 'product_id' => $product->getId(),
-                'type'       => $product->getTypeId(),
-                'set'        => $product->getAttributeSetId(),
-                'sku'        => $product->getSku(),
-                'position'   => $product->getCatIndexPosition()
+                'type' => $product->getTypeId(),
+                'set' => $product->getAttributeSetId(),
+                'sku' => $product->getSku(),
+                'position' => $product->getCatIndexPosition()
             );
         }
 
@@ -472,15 +489,17 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $positions[$productId] = $position;
         $category->setPostedProducts($positions);
 
-        try {
+        try
+        {
             $category->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
         return true;
     }
-
 
     /**
      * Update product assignment
@@ -501,9 +520,12 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $positions[$productId] = $position;
         $category->setPostedProducts($positions);
 
-        try {
+        try
+        {
             $category->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -529,13 +551,18 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         unset($positions[$productId]);
         $category->setPostedProducts($positions);
 
-        try {
+        try
+        {
             $category->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
         return true;
     }
 
-} // Class Mage_Catalog_Model_Category_Api End
+}
+
+// Class Mage_Catalog_Model_Category_Api End

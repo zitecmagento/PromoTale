@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Flate.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Pdf_Filter_Compression */
 #require_once 'Zend/Pdf/Filter/Compression.php';
 
@@ -32,6 +31,7 @@
  */
 class Zend_Pdf_Filter_Compression_Flate extends Zend_Pdf_Filter_Compression
 {
+
     /**
      * Encode data
      *
@@ -47,7 +47,7 @@ class Zend_Pdf_Filter_Compression_Flate extends Zend_Pdf_Filter_Compression
         }
 
         if (extension_loaded('zlib')) {
-            $trackErrors = ini_get( "track_errors");
+            $trackErrors = ini_get("track_errors");
             ini_set('track_errors', '1');
 
             if (($output = @gzcompress($data)) === false) {
@@ -78,7 +78,7 @@ class Zend_Pdf_Filter_Compression_Flate extends Zend_Pdf_Filter_Compression
         global $php_errormsg;
 
         if (extension_loaded('zlib')) {
-            $trackErrors = ini_get( "track_errors");
+            $trackErrors = ini_get("track_errors");
             ini_set('track_errors', '1');
 
             if (($output = @gzuncompress($data)) === false) {
@@ -99,4 +99,5 @@ class Zend_Pdf_Filter_Compression_Flate extends Zend_Pdf_Filter_Compression
             return $output;
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
  * Xmlconnect templates data update
  *
@@ -31,7 +31,6 @@
  * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 
@@ -45,7 +44,7 @@ if ($appCodeField) {
     $templateModel = Mage::getModel('xmlconnect/template');
 
     $select = $templateModel->getResource()->getReadConnection()->select()
-        ->from($templateTableName, array('app_code', 'template_id'));
+            ->from($templateTableName, array('app_code', 'template_id'));
 
     $result = $templateModel->getResource()->getReadConnection()->fetchAll($select);
 

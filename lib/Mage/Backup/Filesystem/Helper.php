@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Backup_Filesystem_Helper
 {
+
     /**
      * Constant can be used in getInfo() function as second parameter.
      * Check whether directory and all files/sub directories are writable
@@ -47,7 +49,7 @@ class Mage_Backup_Filesystem_Helper
      *
      * @const int
      */
-    const INFO_READABLE  = 2;
+    const INFO_READABLE = 2;
 
     /**
      * Constant can be used in getInfo() function as second parameter.
@@ -55,7 +57,7 @@ class Mage_Backup_Filesystem_Helper
      *
      * @const int
      */
-    const INFO_SIZE      = 4;
+    const INFO_SIZE = 4;
 
     /**
      * Constant can be used in getInfo() function as second parameter.
@@ -63,7 +65,7 @@ class Mage_Backup_Filesystem_Helper
      *
      * @const int
      */
-    const INFO_ALL       = 7;
+    const INFO_ALL = 7;
 
     /**
      * Recursively delete $path
@@ -76,7 +78,7 @@ class Mage_Backup_Filesystem_Helper
     public function rm($path, $skipPaths = array(), $removeRoot = false)
     {
         $filesystemIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::CHILD_FIRST
+                new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::CHILD_FIRST
         );
 
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $skipPaths);
@@ -113,7 +115,7 @@ class Mage_Backup_Filesystem_Helper
         }
 
         $filesystemIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::CHILD_FIRST
+                new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::CHILD_FIRST
         );
 
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $skipFiles);
@@ -138,4 +140,5 @@ class Mage_Backup_Filesystem_Helper
 
         return $info;
     }
+
 }

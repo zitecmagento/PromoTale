@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 
@@ -288,17 +288,17 @@ $data = array(
 
 foreach ($data as $row) {
     $bind = array(
-        'country_id'    => $row[0],
-        'code'          => $row[1],
-        'default_name'  => $row[2],
+        'country_id' => $row[0],
+        'code' => $row[1],
+        'default_name' => $row[2],
     );
     $installer->getConnection()->insert($installer->getTable('directory/country_region'), $bind);
     $regionId = $installer->getConnection()->lastInsertId($installer->getTable('directory/country_region'));
 
     $bind = array(
-        'locale'    => 'en_US',
+        'locale' => 'en_US',
         'region_id' => $regionId,
-        'name'      => $row[2]
+        'name' => $row[2]
     );
     $installer->getConnection()->insert($installer->getTable('directory/country_region_name'), $bind);
 }

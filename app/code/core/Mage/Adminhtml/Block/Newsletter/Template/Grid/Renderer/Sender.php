@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,21 +32,22 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
- 
 class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Sender extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     public function render(Varien_Object $row)
     {
         $str = '';
-        if($row->getTemplateSenderName()) {
+        if ($row->getTemplateSenderName()) {
             $str .= htmlspecialchars($row->getTemplateSenderName()) . ' ';
-        }        
-        if($row->getTemplateSenderEmail()) {
+        }
+        if ($row->getTemplateSenderEmail()) {
             $str .= '[' . $row->getTemplateSenderEmail() . ']';
-        }        
-        if($str == '') {
+        }
+        if ($str == '') {
             $str .= '---';
-        }        
+        }
         return $str;
     }
+
 }

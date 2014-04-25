@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer Widget Form File Element Block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_Element_Abstract
 {
+
     /**
      * Initialize Form Element
      *
@@ -58,12 +59,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
             $this->addClass('required-file');
         }
 
-        $element = sprintf('<input id="%s" name="%s" %s />%s%s',
-            $this->getHtmlId(),
-            $this->getName(),
-            $this->serialize($this->getHtmlAttributes()),
-            $this->getAfterElementHtml(),
-            $this->_getHiddenInput()
+        $element = sprintf('<input id="%s" name="%s" %s />%s%s', $this->getHtmlId(), $this->getName(), $this->serialize($this->getHtmlAttributes()), $this->getAfterElementHtml(), $this->_getHiddenInput()
         );
 
         return $this->_getPreviewHtml() . $element . $this->_getDeleteCheckboxHtml();
@@ -79,15 +75,15 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
         $html = '';
         if ($this->getValue() && !$this->getRequired() && !is_array($this->getValue())) {
             $checkboxId = sprintf('%s_delete', $this->getHtmlId());
-            $checkbox   = array(
-                'type'  => 'checkbox',
-                'name'  => sprintf('%s[delete]', $this->getName()),
+            $checkbox = array(
+                'type' => 'checkbox',
+                'name' => sprintf('%s[delete]', $this->getName()),
                 'value' => '1',
                 'class' => 'checkbox',
-                'id'    => $checkboxId
+                'id' => $checkboxId
             );
-            $label      = array(
-                'for'   => $checkboxId
+            $label = array(
+                'for' => $checkboxId
             );
             if ($this->getDisabled()) {
                 $checkbox['disabled'] = 'disabled';
@@ -132,9 +128,9 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
         $html = '';
         if ($this->getValue() && !is_array($this->getValue())) {
             $image = array(
-                'alt'   => Mage::helper('adminhtml')->__('Download'),
+                'alt' => Mage::helper('adminhtml')->__('Download'),
                 'title' => Mage::helper('adminhtml')->__('Download'),
-                'src'   => Mage::getDesign()->getSkinUrl('images/fam_bullet_disk.gif'),
+                'src' => Mage::getDesign()->getSkinUrl('images/fam_bullet_disk.gif'),
                 'class' => 'v-middle'
             );
             $url = $this->_getPreviewUrl();
@@ -154,10 +150,10 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     protected function _getHiddenInput()
     {
         return $this->_drawElementHtml('input', array(
-            'type'  => 'hidden',
-            'name'  => sprintf('%s[value]', $this->getName()),
-            'id'    => sprintf('%s_value', $this->getHtmlId()),
-            'value' => $this->getEscapedValue()
+                    'type' => 'hidden',
+                    'name' => sprintf('%s[value]', $this->getName()),
+                    'id' => sprintf('%s_value', $this->getHtmlId()),
+                    'value' => $this->getEscapedValue()
         ));
     }
 
@@ -169,7 +165,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     protected function _getPreviewUrl()
     {
         return Mage::helper('adminhtml')->getUrl('adminhtml/customer/viewfile', array(
-            'file'      => Mage::helper('core')->urlEncode($this->getValue()),
+                    'file' => Mage::helper('core')->urlEncode($this->getValue()),
         ));
     }
 
@@ -209,4 +205,5 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
 
         return parent::getEscapedValue($index);
     }
+
 }

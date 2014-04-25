@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,19 +34,20 @@
  */
 class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * JavaScript actions for response.
      *
      * @var array
      */
     protected $_actions = array(
-        'clear'           => array(), // remove element from DOM
-        'innerHTML'       => array(), // set innerHTML property (use: elementID => new content)
-        'value'           => array(), // set value for form element (use: elementID => new value)
-        'show'            => array(), // show specified element
-        'hide'            => array(), // hide specified element
+        'clear' => array(), // remove element from DOM
+        'innerHTML' => array(), // set innerHTML property (use: elementID => new content)
+        'value' => array(), // set value for form element (use: elementID => new value)
+        'show' => array(), // show specified element
+        'hide' => array(), // hide specified element
         'removeClassName' => array(), // remove specified class name from element
-        'addClassName'    => array()  // add specified class name to element
+        'addClassName' => array()  // add specified class name to element
     );
 
     /**
@@ -54,9 +56,9 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      * @var array
      */
     protected $_messages = array(
-        'error'   => array(),
+        'error' => array(),
         'success' => array(),
-        'notice'  => array()
+        'notice' => array()
     );
 
     /**
@@ -149,8 +151,8 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
     public function getImportButtonHtml()
     {
         return '&nbsp;&nbsp;<button onclick="editForm.startImport(\'' . $this->getImportStartUrl()
-            . '\', \'' . Mage_ImportExport_Model_Import::FIELD_NAME_SOURCE_FILE . '\');" class="scalable save"'
-            . ' type="button"><span><span><span>' . $this->__('Import') . '</span></span></span></button>';
+                . '\', \'' . Mage_ImportExport_Model_Import::FIELD_NAME_SOURCE_FILE . '\');" class="scalable save"'
+                . ' type="button"><span><span><span>' . $this->__('Import') . '</span></span></span></button>';
     }
 
     /**
@@ -206,4 +208,5 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
         }
         return Mage::helper('core')->jsonEncode($this->_actions);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FormRadio.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Abstract class for extension
  */
 #require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to generate a set of radio button elements
@@ -38,6 +36,7 @@
  */
 class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
 {
+
     /**
      * Input type to use
      * @var string
@@ -68,17 +67,15 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
      *
      * @return string The radio buttons XHTML.
      */
-    public function formRadio($name, $value = null, $attribs = null,
-        $options = null, $listsep = "<br />\n")
+    public function formRadio($name, $value = null, $attribs = null, $options = null, $listsep = "<br />\n")
     {
 
         $info = $this->_getInfo($name, $value, $attribs, $options, $listsep);
         extract($info); // name, value, attribs, options, listsep, disable
-
         // retrieve attributes for labels (prefixed with 'label_' or 'label')
         $label_attribs = array();
         foreach ($attribs as $key => $val) {
-            $tmp    = false;
+            $tmp = false;
             $keyLen = strlen($key);
             if ((6 < $keyLen) && (substr($key, 0, 6) == 'label_')) {
                 $tmp = substr($key, 6);
@@ -112,7 +109,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
 
         // build the element
         $xhtml = '';
-        $list  = array();
+        $list = array();
 
         // should the name affect an array collection?
         $name = $this->view->escape($name);
@@ -126,7 +123,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
         // XHTML or HTML end tag?
         $endTag = ' />';
         if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {
-            $endTag= '>';
+            $endTag = '>';
         }
 
         // add radio buttons to the list.
@@ -180,4 +177,5 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
 
         return $xhtml;
     }
+
 }

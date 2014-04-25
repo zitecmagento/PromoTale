@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Session.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_OpenId_Provider_User
  */
@@ -43,6 +42,7 @@
  */
 class Zend_OpenId_Provider_User_Session extends Zend_OpenId_Provider_User
 {
+
     /**
      * Reference to an implementation of Zend_Session_Namespace object
      *

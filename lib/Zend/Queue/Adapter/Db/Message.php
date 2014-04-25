@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Message.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Db_Table_Abstract
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Queue_Adapter_Db_Message extends Zend_Db_Table_Abstract
 {
+
     /**
      * @var string
      */
@@ -48,4 +49,5 @@ class Zend_Queue_Adapter_Db_Message extends Zend_Db_Table_Abstract
      * @var mixed
      */
     protected $_sequence = true;
+
 }

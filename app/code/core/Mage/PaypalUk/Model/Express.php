@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
 {
+
     protected $_code = Mage_Paypal_Model_Config::METHOD_WPP_PE_EXPRESS;
     protected $_formBlockType = 'paypaluk/express_form';
     protected $_canCreateBillingAgreement = false;
@@ -61,7 +63,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
         }
         if (!$this->_ecInstance) {
             $this->_ecInstance = Mage::helper('payment')
-                ->getMethodInstance(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
+                    ->getMethodInstance(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
         }
         if ($quote && $this->_ecInstance) {
             $this->_ecInstance->setStore($quote->getStoreId());
@@ -78,11 +80,10 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
     protected function _importToPayment($api, $payment)
     {
         $payment->setTransactionId($api->getPaypalTransactionId())->setIsTransactionClosed(0)
-            ->setAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT,
-                $api->getRedirectRequired() || $api->getRedirectRequested()
-            )
-            ->setIsTransactionPending($api->getIsPaymentPending())
-            ->setTransactionAdditionalInfo(Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID, $api->getTransactionId())
+                ->setAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT, $api->getRedirectRequired() || $api->getRedirectRequested()
+                )
+                ->setIsTransactionPending($api->getIsPaymentPending())
+                ->setTransactionAdditionalInfo(Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID, $api->getTransactionId())
         ;
         $payment->setPreparedMessage(Mage::helper('paypaluk')->__('Payflow PNREF: #%s.', $api->getTransactionId()));
         Mage::getModel('paypal/info')->importToPayment($api, $payment);
@@ -99,4 +100,5 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
     {
         return Mage::getUrl('paypaluk/express/start');
     }
+
 }

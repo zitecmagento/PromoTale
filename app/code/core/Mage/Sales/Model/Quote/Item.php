@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales Quote Item Model
@@ -136,6 +136,7 @@
  */
 class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 {
+
     /**
      * Prefix of model events names
      *
@@ -339,8 +340,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             $qtyOptions = array();
             foreach ($this->getOptions() as $option) {
                 /** @var $option Mage_Sales_Model_Quote_Item_Option */
-                if (is_object($option->getProduct())
-                    && $option->getProduct()->getId() != $this->getProduct()->getId()
+                if (is_object($option->getProduct()) && $option->getProduct()->getId() != $this->getProduct()->getId()
                 ) {
                     $productIds[$option->getProduct()->getId()] = $option->getProduct()->getId();
                 }
@@ -383,14 +383,14 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             $product->setCustomerGroupId($this->getQuote()->getCustomerGroupId());
         }
         $this->setData('product', $product)
-            ->setProductId($product->getId())
-            ->setProductType($product->getTypeId())
-            ->setSku($this->getProduct()->getSku())
-            ->setName($product->getName())
-            ->setWeight($this->getProduct()->getWeight())
-            ->setTaxClassId($product->getTaxClassId())
-            ->setBaseCost($product->getCost())
-            ->setIsRecurring($product->getIsRecurring());
+                ->setProductId($product->getId())
+                ->setProductType($product->getTypeId())
+                ->setSku($this->getProduct()->getSku())
+                ->setName($product->getName())
+                ->setWeight($this->getProduct()->getWeight())
+                ->setTaxClassId($product->getTaxClassId())
+                ->setBaseCost($product->getCost())
+                ->setIsRecurring($product->getIsRecurring());
 
         if ($product->getStockItem()) {
             $this->setIsQtyDecimal($product->getStockItem()->getIsQtyDecimal());
@@ -463,9 +463,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             if (in_array($code, $this->_notRepresentOptions)) {
                 continue;
             }
-            if (!isset($options2[$code])
-                || ($options2[$code]->getValue() === null)
-                || $options2[$code]->getValue() != $option->getValue()
+            if (!isset($options2[$code]) || ($options2[$code]->getValue() === null) || $options2[$code]->getValue() != $option->getValue()
             ) {
                 return false;
             }
@@ -601,11 +599,11 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     {
         if (is_array($option)) {
             $option = Mage::getModel('sales/quote_item_option')->setData($option)
-                ->setItem($this);
+                    ->setItem($this);
         } elseif (($option instanceof Varien_Object) && !($option instanceof Mage_Sales_Model_Quote_Item_Option)) {
             $option = Mage::getModel('sales/quote_item_option')->setData($option->getData())
-                ->setProduct($option->getProduct())
-                ->setItem($this);
+                    ->setProduct($option->getProduct())
+                    ->setItem($this);
         } elseif ($option instanceof Mage_Sales_Model_Quote_Item_Option) {
             $option->setItem($this);
         } else {
@@ -640,13 +638,13 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         }
 
         $this->getProduct()->getTypeInstance(true)
-            ->updateQtyOption($this->getOptions(), $option, $value, $this->getProduct());
+                ->updateQtyOption($this->getOptions(), $option, $value, $this->getProduct());
 
         return $this;
     }
 
     /**
-     *Remove option from item options
+     * Remove option from item options
      *
      * @param string $code
      * @return Mage_Sales_Model_Quote_Item
@@ -785,7 +783,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
         // Overwrite standard buy request qty, because item qty could have changed since adding to quote
         $buyRequest->setOriginalQty($buyRequest->getQty())
-            ->setQty($this->getQty() * 1);
+                ->setQty($this->getQty() * 1);
 
         return $buyRequest;
     }
@@ -888,4 +886,5 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
         return $this;
     }
+
 }

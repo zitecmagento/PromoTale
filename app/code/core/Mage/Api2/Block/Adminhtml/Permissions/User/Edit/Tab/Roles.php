@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package    Mage_Api2
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
-    extends Mage_Adminhtml_Block_Widget_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Selected API2 roles for grid
      *
@@ -51,10 +51,10 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
         parent::__construct();
 
         $this->setId('api2_roles_section')
-            ->setDefaultSort('sort_order')
-            ->setDefaultDir(Varien_Db_Select::SQL_ASC)
-            ->setTitle($this->__('REST Roles Information'))
-            ->setUseAjax(true);
+                ->setDefaultSort('sort_order')
+                ->setDefaultDir(Varien_Db_Select::SQL_ASC)
+                ->setTitle($this->__('REST Roles Information'))
+                ->setUseAjax(true);
     }
 
     /**
@@ -82,17 +82,17 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
     {
         $this->addColumn('assigned_user_role', array(
             'header_css_class' => 'a-center',
-            'header'    => $this->__('Assigned'),
-            'type'      => 'radio',
+            'header' => $this->__('Assigned'),
+            'type' => 'radio',
             'html_name' => 'api2_roles[]',
-            'values'    => $this->_getSelectedRoles(),
-            'align'     => 'center',
-            'index'     => 'entity_id'
+            'values' => $this->_getSelectedRoles(),
+            'align' => 'center',
+            'index' => 'entity_id'
         ));
 
         $this->addColumn('role_name', array(
-            'header'    => $this->__('Role Name'),
-            'index'     => 'role_name'
+            'header' => $this->__('Role Name'),
+            'index' => 'role_name'
         ));
 
         return parent::_prepareColumns();
@@ -196,8 +196,8 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
     public function getGridUrl()
     {
         return $this->getUrl(
-            '*/api2_role/rolesGrid',
-            array('user_id' => Mage::registry('permissions_user')->getUserId())
+                        '*/api2_role/rolesGrid', array('user_id' => Mage::registry('permissions_user')->getUserId())
         );
     }
+
 }

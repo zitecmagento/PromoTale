@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml_Block_Abstract
 {
+
     /**
      * HTML ID of the element that will obtain the joined chosen values
      *
@@ -42,14 +44,14 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      *
      * @var array
      */
-    protected $_rangeValues     = array('from' => '', 'to' => '');
+    protected $_rangeValues = array('from' => '', 'to' => '');
 
     /**
      * Range string delimiter for from/to dates
      *
      * @var string
      */
-    protected $_rangeDelimiter  = '...';
+    protected $_rangeDelimiter = '...';
 
     /**
      * Render the chooser HTML
@@ -66,15 +68,15 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
         $idSuffix = Mage::helper('core')->uniqHash();
         $form = new Varien_Data_Form();
         foreach (array(
-            'from' => Mage::helper('adminhtml')->__('From'),
-            'to'   => Mage::helper('adminhtml')->__('To')) as $key => $label) {
+    'from' => Mage::helper('adminhtml')->__('From'),
+    'to' => Mage::helper('adminhtml')->__('To')) as $key => $label) {
             $id = "{$key}_{$idSuffix}";
             $element = new Varien_Data_Form_Element_Date(array(
-                'format'   => Varien_Date::DATE_INTERNAL_FORMAT, // hardcode because hardcoded values delimiter
-                'label'    => $label,
-                'image'    => $this->getSkinUrl('images/grid-cal.gif'),
+                'format' => Varien_Date::DATE_INTERNAL_FORMAT, // hardcode because hardcoded values delimiter
+                'label' => $label,
+                'image' => $this->getSkinUrl('images/grid-cal.gif'),
                 'onchange' => "dateTimeChoose_{$idSuffix}()", // won't work through Event.observe()
-                'value'    => $this->_rangeValues[$key],
+                'value' => $this->_rangeValues[$key],
             ));
             $element->setId($id);
             $form->addElement($element);
@@ -121,7 +123,8 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
     public function setRangeValue($delimitedString)
     {
         $split = explode($this->_rangeDelimiter, $delimitedString, 2);
-        $from = $split[0]; $to = '';
+        $from = $split[0];
+        $to = '';
         if (isset($split[1])) {
             $to = $split[1];
         }
@@ -136,7 +139,8 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      */
     public function setRangeDelimiter($value)
     {
-        $this->_rangeDelimiter = (string)$value;
+        $this->_rangeDelimiter = (string) $value;
         return $this;
     }
+
 }

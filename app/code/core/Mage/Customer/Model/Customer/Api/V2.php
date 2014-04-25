@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Customer_Api_V2 extends Mage_Customer_Model_Customer_Api
 {
+
     /**
      * Prepare data to insert/update.
      * Creating array for stdClass Object
@@ -47,4 +49,5 @@ class Mage_Customer_Model_Customer_Api_V2 extends Mage_Customer_Model_Customer_A
         }
         return array();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -50,7 +51,6 @@
  * @version    $Id: TripleDES.php,v 1.13 2010/02/26 03:40:25 terrafrost Exp $
  * @link       http://phpseclib.sourceforge.net
  */
-
 /**
  * Include Crypt_DES
  */
@@ -78,7 +78,9 @@ define('CRYPT_DES_MODE_CBC3', CRYPT_DES_MODE_CBC);
  * @access  public
  * @package Crypt_TerraDES
  */
-class Crypt_TripleDES {
+class Crypt_TripleDES
+{
+
     /**
      * The Three Keys
      *
@@ -196,7 +198,7 @@ class Crypt_TripleDES {
      */
     function Crypt_TripleDES($mode = CRYPT_DES_MODE_CBC)
     {
-        if ( !defined('CRYPT_DES_MODE') ) {
+        if (!defined('CRYPT_DES_MODE')) {
             switch (true) {
                 case extension_loaded('mcrypt'):
                     // i'd check to see if des was supported, by doing in_array('des', mcrypt_list_algorithms('')),
@@ -209,7 +211,7 @@ class Crypt_TripleDES {
             }
         }
 
-        if ( $mode == CRYPT_DES_MODE_3CBC ) {
+        if ($mode == CRYPT_DES_MODE_3CBC) {
             $this->mode = CRYPT_DES_MODE_3CBC;
             $this->des = array(
                 new Crypt_DES(CRYPT_DES_MODE_CBC),
@@ -225,7 +227,7 @@ class Crypt_TripleDES {
             return;
         }
 
-        switch ( CRYPT_DES_MODE ) {
+        switch (CRYPT_DES_MODE) {
             case CRYPT_DES_MODE_MCRYPT:
                 switch ($mode) {
                     case CRYPT_DES_MODE_ECB:
@@ -246,7 +248,7 @@ class Crypt_TripleDES {
                     new Crypt_DES(CRYPT_DES_MODE_ECB),
                     new Crypt_DES(CRYPT_DES_MODE_ECB)
                 );
- 
+
                 // we're going to be doing the padding, ourselves, so disable it in the Crypt_DES objects
                 $this->des[0]->disablePadding();
                 $this->des[1]->disablePadding();
@@ -290,8 +292,8 @@ class Crypt_TripleDES {
         switch (true) {
             case CRYPT_DES_MODE == CRYPT_DES_MODE_INTERNAL:
             case $this->mode == CRYPT_DES_MODE_3CBC:
-                $this->des[0]->setKey(substr($key,  0, 8));
-                $this->des[1]->setKey(substr($key,  8, 8));
+                $this->des[0]->setKey(substr($key, 0, 8));
+                $this->des[1]->setKey(substr($key, 8, 8));
                 $this->des[2]->setKey(substr($key, 16, 8));
         }
         $this->changed = true;
@@ -374,7 +376,7 @@ class Crypt_TripleDES {
             return $ciphertext;
         }
 
-        if ( CRYPT_DES_MODE == CRYPT_DES_MODE_MCRYPT ) {
+        if (CRYPT_DES_MODE == CRYPT_DES_MODE_MCRYPT) {
             if ($this->changed) {
                 if (!isset($this->enmcrypt)) {
                     $this->enmcrypt = mcrypt_module_open(MCRYPT_3DES, '', $this->mode, '');
@@ -465,7 +467,7 @@ class Crypt_TripleDES {
         // "The data is padded with "\0" to make sure the length of the data is n * blocksize."
         $ciphertext = str_pad($ciphertext, (strlen($ciphertext) + 7) & 0xFFFFFFF8, chr(0));
 
-        if ( CRYPT_DES_MODE == CRYPT_DES_MODE_MCRYPT ) {
+        if (CRYPT_DES_MODE == CRYPT_DES_MODE_MCRYPT) {
             if ($this->changed) {
                 if (!isset($this->demcrypt)) {
                     $this->demcrypt = mcrypt_module_open(MCRYPT_3DES, '', $this->mode, '');
@@ -684,6 +686,7 @@ class Crypt_TripleDES {
 
         return substr($text, 0, -$length);
     }
+
 }
 
 // vim: ts=4:sw=4:et:

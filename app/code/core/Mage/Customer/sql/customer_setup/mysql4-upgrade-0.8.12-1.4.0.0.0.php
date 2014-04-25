@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Customer_Model_Entity_Setup */
 $installer = $this;
 
@@ -48,9 +48,9 @@ CREATE TABLE `{$installer->getTable('customer/eav_attribute')}` (
 ");
 $visibleAttributes = array('store_id', 'default_billing', 'default_shipping', 'confirmation');
 $stmt = $installer->getConnection()->select()
-    ->from($installer->getTable('eav/attribute'), array('attribute_id', 'attribute_code'))
-    ->where('entity_type_id = ?', $installer->getEntityTypeId('customer'))
-    ->orWhere('entity_type_id = ?', $installer->getEntityTypeId('customer_address'));
+        ->from($installer->getTable('eav/attribute'), array('attribute_id', 'attribute_code'))
+        ->where('entity_type_id = ?', $installer->getEntityTypeId('customer'))
+        ->orWhere('entity_type_id = ?', $installer->getEntityTypeId('customer_address'));
 $result = $installer->getConnection()->fetchAll($stmt);
 
 $table = $installer->getTable('customer/eav_attribute');
@@ -65,13 +65,13 @@ foreach ($result as $row) {
         $_visible = false;
     }
     $attributes = array(
-        'attribute_id'              => $row['attribute_id'],
-        'is_visible'                => $_visible,
-        'is_visible_on_front'       => $_visibleOnFront,
-        'input_filter'              => $_inputFilter,
+        'attribute_id' => $row['attribute_id'],
+        'is_visible' => $_visible,
+        'is_visible_on_front' => $_visibleOnFront,
+        'input_filter' => $_inputFilter,
         'lines_to_divide_multiline' => $_linesToDivideMultiline,
-        'min_text_length'           => $_minLength,
-        'max_text_length'           => $_maxLength
+        'min_text_length' => $_minLength,
+        'max_text_length' => $_maxLength
     );
     $installer->getConnection()->insert($table, $attributes);
 }

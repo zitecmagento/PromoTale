@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Lzw.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Pdf_Filter_Compression */
 #require_once 'Zend/Pdf/Filter/Compression.php';
 
@@ -32,6 +31,7 @@
  */
 class Zend_Pdf_Filter_Compression_Lzw extends Zend_Pdf_Filter_Compression
 {
+
     /**
      * Get EarlyChange decode param value
      *
@@ -44,16 +44,15 @@ class Zend_Pdf_Filter_Compression_Lzw extends Zend_Pdf_Filter_Compression
         if (isset($params['EarlyChange'])) {
             $earlyChange = $params['EarlyChange'];
 
-            if ($earlyChange != 0  &&  $earlyChange != 1) {
+            if ($earlyChange != 0 && $earlyChange != 1) {
                 #require_once 'Zend/Pdf/Exception.php';
-                throw new Zend_Pdf_Exception('Invalid value of \'EarlyChange\' decode param - ' . $earlyChange . '.' );
+                throw new Zend_Pdf_Exception('Invalid value of \'EarlyChange\' decode param - ' . $earlyChange . '.');
             }
             return $earlyChange;
         } else {
             return 1;
         }
     }
-
 
     /**
      * Encode data
@@ -92,4 +91,5 @@ class Zend_Pdf_Filter_Compression_Lzw extends Zend_Pdf_Filter_Compression
             return $data;
         }
     }
+
 }

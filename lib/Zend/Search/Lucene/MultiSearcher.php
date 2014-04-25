@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: MultiSearcher.php 22967 2010-09-18 18:53:58Z ramon $
  */
-
-
 /** Zend_Search_Lucene_Interface */
 #require_once 'Zend/Search/Lucene/Interface.php';
 
@@ -33,6 +32,7 @@
  */
 class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_Interface
 {
+
     /**
      * List of indices for searching.
      * Array of Zend_Search_Lucene_Interface objects
@@ -68,7 +68,6 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
     {
         $this->_indices[] = $index;
     }
-
 
     /**
      * Get current generation number
@@ -216,7 +215,6 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
             $index->setDefaultSearchField($fieldName);
         }
     }
-
 
     /**
      * Get default search field.
@@ -477,7 +475,6 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
         }
 
         /** @todo Implement advanced sorting */
-
         return call_user_func_array('array_merge', $hitsList);
     }
 
@@ -777,7 +774,6 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
         throw new Zend_Search_Lucene_Exception('Document id is out of the range.');
     }
 
-
     /**
      * Callback used to choose target index for new documents
      *
@@ -798,7 +794,7 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
      */
     public function setDocumentDistributorCallback($callback)
     {
-        if ($callback !== null  &&  !is_callable($callback)) {
+        if ($callback !== null && !is_callable($callback)) {
             #require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('$callback parameter must be a valid callback.');
         }
@@ -871,7 +867,6 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
         return array_unique(call_user_func_array('array_merge', $termsList));
     }
 
-
     /**
      * Terms stream priority queue object
      *
@@ -937,7 +932,6 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
         $this->_termsStream = null;
     }
 
-
     /**
      * Undeletes all documents currently marked as deleted in this index.
      */
@@ -947,7 +941,6 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
             $index->undeleteAll();
         }
     }
-
 
     /**
      * Add reference to the index object
@@ -970,4 +963,5 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
     {
         // Do nothing, since it's never referenced by indices
     }
+
 }

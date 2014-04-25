@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Token.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -30,6 +30,7 @@
  */
 class Zend_Search_Lucene_Analysis_Token
 {
+
     /**
      * The text of the term.
      *
@@ -75,7 +76,6 @@ class Zend_Search_Lucene_Analysis_Token
      */
     private $_positionIncrement;
 
-
     /**
      * Object constructor
      *
@@ -86,13 +86,12 @@ class Zend_Search_Lucene_Analysis_Token
      */
     public function __construct($text, $start, $end)
     {
-        $this->_termText    = $text;
+        $this->_termText = $text;
         $this->_startOffset = $start;
-        $this->_endOffset   = $end;
+        $this->_endOffset = $end;
 
         $this->_positionIncrement = 1;
     }
-
 
     /**
      * positionIncrement setter
@@ -150,5 +149,5 @@ class Zend_Search_Lucene_Analysis_Token
     {
         return $this->_endOffset;
     }
-}
 
+}

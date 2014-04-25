@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: EmailList.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Extension
  */
@@ -71,9 +70,7 @@ class Zend_Gdata_Gapps_Extension_Property extends Zend_Gdata_Extension
         parent::__construct();
         $this->_name = $name;
         $this->_value = $value;
-
     }
-
 
     /**
      * Retrieves a DOMElement which corresponds to this element and all
@@ -96,7 +93,6 @@ class Zend_Gdata_Gapps_Extension_Property extends Zend_Gdata_Extension
         }
 
         return $element;
-
     }
 
     /**
@@ -109,14 +105,14 @@ class Zend_Gdata_Gapps_Extension_Property extends Zend_Gdata_Extension
     protected function takeAttributeFromDOM($attribute)
     {
         switch ($attribute->localName) {
-        case 'name':
-            $this->_name = $attribute->nodeValue;
-            break;
-        case 'value':
-            $this->_value = $attribute->nodeValue;
-            break;
-        default:
-            parent::takeAttributeFromDOM($attribute);
+            case 'name':
+                $this->_name = $attribute->nodeValue;
+                break;
+            case 'value':
+                $this->_value = $attribute->nodeValue;
+                break;
+            default:
+                parent::takeAttributeFromDOM($attribute);
         }
     }
 
@@ -174,7 +170,9 @@ class Zend_Gdata_Gapps_Extension_Property extends Zend_Gdata_Extension
     public function __toString()
     {
         return "Property Name: " . $this->getName() .
-               "\nProperty Value: " . $this->getValue();
+                "\nProperty Value: " . $this->getValue();
     }
+
 }
+
 ?>

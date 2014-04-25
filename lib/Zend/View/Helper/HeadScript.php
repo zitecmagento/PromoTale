@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: HeadScript.php 20363 2010-01-17 22:55:25Z mabe $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_Placeholder_Container_Standalone */
 #require_once 'Zend/View/Helper/Placeholder/Container/Standalone.php';
 
@@ -34,13 +34,15 @@
  */
 class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container_Standalone
 {
-    /**#@+
+    /*     * #@+
      * Script type contants
      * @const string
      */
-    const FILE   = 'FILE';
+
+    const FILE = 'FILE';
     const SCRIPT = 'SCRIPT';
-    /**#@-*/
+
+    /*     * #@- */
 
     /**
      * Registry key for placeholder
@@ -54,15 +56,15 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
      */
     protected $_arbitraryAttributes = false;
 
-    /**#@+
+    /*     * #@+
      * Capture type and/or attributes (used for hinting during capture)
      * @var string
      */
     protected $_captureLock;
-    protected $_captureScriptType  = null;
+    protected $_captureScriptType = null;
     protected $_captureScriptAttrs = null;
     protected $_captureType;
-    /**#@-*/
+    /*     * #@- */
 
     /**
      * Optional allowed attributes for script tag
@@ -114,7 +116,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
     public function headScript($mode = Zend_View_Helper_HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
     {
         if ((null !== $spec) && is_string($spec)) {
-            $action    = ucfirst(strtolower($mode));
+            $action = ucfirst(strtolower($mode));
             $placement = strtolower($placement);
             switch ($placement) {
                 case 'set':
@@ -148,9 +150,9 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
             throw $e;
         }
 
-        $this->_captureLock        = true;
-        $this->_captureType        = $captureType;
-        $this->_captureScriptType  = $type;
+        $this->_captureLock = true;
+        $this->_captureType = $captureType;
+        $this->_captureScriptType = $type;
         $this->_captureScriptAttrs = $attrs;
         ob_start();
     }
@@ -162,12 +164,12 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
      */
     public function captureEnd()
     {
-        $content                   = ob_get_clean();
-        $type                      = $this->_captureScriptType;
-        $attrs                     = $this->_captureScriptAttrs;
-        $this->_captureScriptType  = null;
+        $content = ob_get_clean();
+        $type = $this->_captureScriptType;
+        $attrs = $this->_captureScriptAttrs;
+        $this->_captureScriptType = null;
         $this->_captureScriptAttrs = null;
-        $this->_captureLock        = false;
+        $this->_captureLock = false;
 
         switch ($this->_captureType) {
             case Zend_View_Helper_Placeholder_Container_Abstract::SET:
@@ -210,10 +212,10 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
                 throw $e;
             }
 
-            $action  = $matches['action'];
-            $mode    = strtolower($matches['mode']);
-            $type    = 'text/javascript';
-            $attrs   = array();
+            $action = $matches['action'];
+            $mode = strtolower($matches['mode']);
+            $type = 'text/javascript';
+            $attrs = array();
 
             if ('offsetSet' == $action) {
                 $index = array_shift($args);
@@ -272,10 +274,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
     protected function _isDuplicate($file)
     {
         foreach ($this->getContainer() as $item) {
-            if (($item->source === null)
-                && array_key_exists('src', $item->attributes)
-                && ($file == $item->attributes['src']))
-            {
+            if (($item->source === null) && array_key_exists('src', $item->attributes) && ($file == $item->attributes['src'])) {
                 return true;
             }
         }
@@ -291,10 +290,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
      */
     protected function _isValid($value)
     {
-        if ((!$value instanceof stdClass)
-            || !isset($value->type)
-            || (!isset($value->source) && !isset($value->attributes)))
-        {
+        if ((!$value instanceof stdClass) || !isset($value->type) || (!isset($value->source) && !isset($value->attributes))) {
             return false;
         }
 
@@ -411,9 +407,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
         $attrString = '';
         if (!empty($item->attributes)) {
             foreach ($item->attributes as $key => $value) {
-                if (!$this->arbitraryAttributesAllowed()
-                    && !in_array($key, $this->_optionalAttributes))
-                {
+                if (!$this->arbitraryAttributesAllowed() && !in_array($key, $this->_optionalAttributes)) {
                     continue;
                 }
                 if ('defer' == $key) {
@@ -424,16 +418,13 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
         }
 
         $type = ($this->_autoEscape) ? $this->_escape($item->type) : $item->type;
-        $html  = '<script type="' . $type . '"' . $attrString . '>';
+        $html = '<script type="' . $type . '"' . $attrString . '>';
         if (!empty($item->source)) {
-              $html .= PHP_EOL . $indent . '    ' . $escapeStart . PHP_EOL . $item->source . $indent . '    ' . $escapeEnd . PHP_EOL . $indent;
+            $html .= PHP_EOL . $indent . '    ' . $escapeStart . PHP_EOL . $item->source . $indent . '    ' . $escapeEnd . PHP_EOL . $indent;
         }
         $html .= '</script>';
 
-        if (isset($item->attributes['conditional'])
-            && !empty($item->attributes['conditional'])
-            && is_string($item->attributes['conditional']))
-        {
+        if (isset($item->attributes['conditional']) && !empty($item->attributes['conditional']) && is_string($item->attributes['conditional'])) {
             $html = $indent . '<!--[if ' . $item->attributes['conditional'] . ']> ' . $html . '<![endif]-->';
         } else {
             $html = $indent . $html;
@@ -450,9 +441,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
      */
     public function toString($indent = null)
     {
-        $indent = (null !== $indent)
-                ? $this->getWhitespace($indent)
-                : $this->getIndent();
+        $indent = (null !== $indent) ? $this->getWhitespace($indent) : $this->getIndent();
 
         if ($this->view) {
             $useCdata = $this->view->doctype()->isXhtml() ? true : false;
@@ -460,7 +449,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
             $useCdata = $this->useCdata ? true : false;
         }
         $escapeStart = ($useCdata) ? '//<![CDATA[' : '//<!--';
-        $escapeEnd   = ($useCdata) ? '//]]>'       : '//-->';
+        $escapeEnd = ($useCdata) ? '//]]>' : '//-->';
 
         $items = array();
         $this->getContainer()->ksort();
@@ -486,10 +475,11 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
      */
     public function createData($type, array $attributes, $content = null)
     {
-        $data             = new stdClass();
-        $data->type       = $type;
+        $data = new stdClass();
+        $data->type = $type;
         $data->attributes = $attributes;
-        $data->source     = $content;
+        $data->source = $content;
         return $data;
     }
+
 }

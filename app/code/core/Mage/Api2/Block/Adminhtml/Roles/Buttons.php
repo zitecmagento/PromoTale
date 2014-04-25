@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,6 +36,7 @@
  */
 class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Construct
      */
@@ -52,28 +54,28 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
     protected function _prepareLayout()
     {
         $buttons = array(
-            'backButton'    => array(
-                'label'     => Mage::helper('adminhtml')->__('Back'),
-                'onclick'   => sprintf("window.location.href='%s';", $this->getUrl('*/*/')),
-                'class'     => 'back'
+            'backButton' => array(
+                'label' => Mage::helper('adminhtml')->__('Back'),
+                'onclick' => sprintf("window.location.href='%s';", $this->getUrl('*/*/')),
+                'class' => 'back'
             ),
-            'resetButton'   => array(
-                'label'     => Mage::helper('adminhtml')->__('Reset'),
-                'onclick'   => 'window.location.reload()'
+            'resetButton' => array(
+                'label' => Mage::helper('adminhtml')->__('Reset'),
+                'onclick' => 'window.location.reload()'
             ),
-            'saveButton'    => array(
-                'label'     => Mage::helper('adminhtml')->__('Save Role'),
-                'onclick'   => 'roleForm.submit(); return false;',
-                'class'     => 'save'
+            'saveButton' => array(
+                'label' => Mage::helper('adminhtml')->__('Save Role'),
+                'onclick' => 'roleForm.submit(); return false;',
+                'class' => 'save'
             ),
-            'deleteButton'  => array(
-                'label'     => Mage::helper('adminhtml')->__('Delete Role'),
-                'onclick'   => '',  //roleId is not set at this moment, so we set script later
-                'class'     => 'delete'
+            'deleteButton' => array(
+                'label' => Mage::helper('adminhtml')->__('Delete Role'),
+                'onclick' => '', //roleId is not set at this moment, so we set script later
+                'class' => 'delete'
             ),
         );
 
-        foreach ($buttons as $name=>$data) {
+        foreach ($buttons as $name => $data) {
             $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData($data);
             $this->setChild($name, $button);
         }
@@ -118,15 +120,13 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
      */
     public function getDeleteButtonHtml()
     {
-        if(!$this->getRole() || !$this->getRole()->getId()
-            || Mage_Api2_Model_Acl_Global_Role::isSystemRole($this->getRole())) {
+        if (!$this->getRole() || !$this->getRole()->getId() || Mage_Api2_Model_Acl_Global_Role::isSystemRole($this->getRole())) {
 
             return '';
         }
 
-        $this->getChild('deleteButton')->setData('onclick', sprintf("deleteConfirm('%s', '%s')",
-            Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
-            $this->getUrl('*/*/delete', array('id' => $this->getRole()->getId()))
+        $this->getChild('deleteButton')->setData('onclick', sprintf("deleteConfirm('%s', '%s')", Mage::helper('adminhtml')->__('Are you sure you want to do this?'), $this->getUrl('*/*/delete', array(
+                            'id' => $this->getRole()->getId()))
         ));
 
         return $this->getChildHtml('deleteButton');
@@ -139,8 +139,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
      */
     public function getCaption()
     {
-        return $this->getRole() && $this->getRole()->getId()
-                ? ($this->__('Edit Role') . " '{$this->escapeHtml($this->getRole()->getRoleName())}'")
-                : $this->__('Add New Role');
+        return $this->getRole() && $this->getRole()->getId() ? ($this->__('Edit Role') . " '{$this->escapeHtml($this->getRole()->getRoleName())}'") : $this->__('Add New Role');
     }
+
 }

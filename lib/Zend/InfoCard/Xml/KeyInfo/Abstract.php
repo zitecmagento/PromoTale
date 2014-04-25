@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_InfoCard_Xml_Element
  */
@@ -34,4 +34,5 @@
  */
 abstract class Zend_InfoCard_Xml_KeyInfo_Abstract extends Zend_InfoCard_Xml_Element
 {
+    
 }

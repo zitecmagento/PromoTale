@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 $installer->getConnection()->addColumn($installer->getTable('core/resource'), 'data_version', 'varchar(50)');
@@ -33,6 +33,5 @@ $installer->getConnection()->addColumn($installer->getTable('core/resource'), 'd
  * New 'data_version' column will contain value from 'version' column
  */
 $installer->getConnection()->update(
-    $this->getTable('core/resource'),
-    array('data_version' => new Zend_Db_Expr('version'))
+        $this->getTable('core/resource'), array('data_version' => new Zend_Db_Expr('version'))
 );

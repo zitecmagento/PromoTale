@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * @see Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Service_WindowsAzure_RetryPolicy_NoRetry extends Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract
 {
+
     /**
      * Execute function under retry policy
      * 
@@ -44,7 +45,7 @@ class Zend_Service_WindowsAzure_RetryPolicy_NoRetry extends Zend_Service_Windows
     public function execute($function, $parameters = array())
     {
         $returnValue = null;
-        
+
         try
         {
             $returnValue = call_user_func_array($function, $parameters);
@@ -55,4 +56,5 @@ class Zend_Service_WindowsAzure_RetryPolicy_NoRetry extends Zend_Service_Windows
             throw $ex;
         }
     }
+
 }

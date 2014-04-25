@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: RequestToken.php 23076 2010-10-10 21:37:20Z padraic $
  */
-
 /** Zend_Oauth_Http */
 #require_once 'Zend/Oauth/Http.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Oauth_Http_RequestToken extends Zend_Oauth_Http
 {
+
     /**
      * Singleton instance if required of the HTTP client
      *
@@ -47,9 +48,9 @@ class Zend_Oauth_Http_RequestToken extends Zend_Oauth_Http
      */
     public function execute()
     {
-        $params   = $this->assembleParams();
+        $params = $this->assembleParams();
         $response = $this->startRequestCycle($params);
-        $return   = new Zend_Oauth_Token_Request($response);
+        $return = new Zend_Oauth_Token_Request($response);
         return $return;
     }
 
@@ -61,11 +62,11 @@ class Zend_Oauth_Http_RequestToken extends Zend_Oauth_Http
     public function assembleParams()
     {
         $params = array(
-            'oauth_consumer_key'     => $this->_consumer->getConsumerKey(),
-            'oauth_nonce'            => $this->_httpUtility->generateNonce(),
-            'oauth_timestamp'        => $this->_httpUtility->generateTimestamp(),
+            'oauth_consumer_key' => $this->_consumer->getConsumerKey(),
+            'oauth_nonce' => $this->_httpUtility->generateNonce(),
+            'oauth_timestamp' => $this->_httpUtility->generateTimestamp(),
             'oauth_signature_method' => $this->_consumer->getSignatureMethod(),
-            'oauth_version'          => $this->_consumer->getVersion(),
+            'oauth_version' => $this->_consumer->getVersion(),
         );
 
         // indicates we support 1.0a
@@ -80,12 +81,7 @@ class Zend_Oauth_Http_RequestToken extends Zend_Oauth_Http
         }
 
         $params['oauth_signature'] = $this->_httpUtility->sign(
-            $params,
-            $this->_consumer->getSignatureMethod(),
-            $this->_consumer->getConsumerSecret(),
-            null,
-            $this->_preferredRequestMethod,
-            $this->_consumer->getRequestTokenUrl()
+                $params, $this->_consumer->getSignatureMethod(), $this->_consumer->getConsumerSecret(), null, $this->_preferredRequestMethod, $this->_consumer->getRequestTokenUrl()
         );
 
         return $params;
@@ -101,7 +97,7 @@ class Zend_Oauth_Http_RequestToken extends Zend_Oauth_Http
     public function getRequestSchemeHeaderClient(array $params)
     {
         $headerValue = $this->_httpUtility->toAuthorizationHeader(
-            $params
+                $params
         );
         $client = Zend_Oauth::getHttpClient();
         $client->setUri($this->_consumer->getRequestTokenUrl());
@@ -127,11 +123,10 @@ class Zend_Oauth_Http_RequestToken extends Zend_Oauth_Http
         $client->setUri($this->_consumer->getRequestTokenUrl());
         $client->setMethod($this->_preferredRequestMethod);
         $client->setRawData(
-            $this->_httpUtility->toEncodedQueryString($params)
+                $this->_httpUtility->toEncodedQueryString($params)
         );
         $client->setHeaders(
-            Zend_Http_Client::CONTENT_TYPE,
-            Zend_Http_Client::ENC_URLENCODED
+                Zend_Http_Client::CONTENT_TYPE, Zend_Http_Client::ENC_URLENCODED
         );
         return $client;
     }
@@ -153,10 +148,10 @@ class Zend_Oauth_Http_RequestToken extends Zend_Oauth_Http
                 $httpClient = $this->getRequestSchemePostBodyClient($params);
                 break;
             case Zend_Oauth::REQUEST_SCHEME_QUERYSTRING:
-                $httpClient = $this->getRequestSchemeQueryStringClient($params,
-                    $this->_consumer->getRequestTokenUrl());
+                $httpClient = $this->getRequestSchemeQueryStringClient($params, $this->_consumer->getRequestTokenUrl());
                 break;
         }
         return $httpClient->request();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Newsletter templates collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Newsletter_Model_Resource_Template_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Define resource model and model
      *
@@ -64,4 +65,5 @@ class Mage_Newsletter_Model_Resource_Template_Collection extends Mage_Core_Model
     {
         return $this->_toOptionArray('template_id', 'template_code');
     }
+
 }

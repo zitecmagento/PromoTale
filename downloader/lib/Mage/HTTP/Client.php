@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,13 @@
  */
 class Mage_HTTP_Client
 {
+
     /**
      * Disallow to instantiate - pvt constructor
      */
     private function __construct()
     {
-
+        
     }
 
     /**
@@ -71,12 +73,13 @@ class Mage_HTTP_Client
      */
     protected static function detectFrontend()
     {
-       if (function_exists("curl_init")) {
-              return "curl";
-       }
-       if (function_exists("fsockopen")) {
-              return "socket";
-       }
-       return false;
+        if (function_exists("curl_init")) {
+            return "curl";
+        }
+        if (function_exists("fsockopen")) {
+            return "socket";
+        }
+        return false;
     }
+
 }

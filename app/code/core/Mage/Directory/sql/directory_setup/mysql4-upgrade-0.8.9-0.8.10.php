@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,12 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var Mage_Core_Model_Resource_Setup */
 $installer = $this;
 
 /** @var Varien_Db_Adapter_Pdo_Mysql */
-$connection   = $this->getConnection();
-$regionTable  = $installer->getTable('directory/country_region');
+$connection = $this->getConnection();
+$regionTable = $installer->getTable('directory/country_region');
 $regNameTable = $installer->getTable('directory/country_region_name');
 
 $regionsToIns = array(
@@ -50,13 +50,14 @@ $regionsToIns = array(
 );
 
 foreach ($regionsToIns as $row) {
-    $regionId = $connection->fetchOne("SELECT `region_id` FROM `{$regionTable}` WHERE `country_id` = :country_id && `code` = :code", array('country_id' => $row[0], 'code' => $row[1]));
+    $regionId = $connection->fetchOne("SELECT `region_id` FROM `{$regionTable}` WHERE `country_id` = :country_id && `code` = :code", array(
+        'country_id' => $row[0], 'code' => $row[1]));
 
-    if (! $connection->fetchOne("SELECT 1 FROM `{$regNameTable}` WHERE `region_id` = {$regionId}")) {
+    if (!$connection->fetchOne("SELECT 1 FROM `{$regNameTable}` WHERE `region_id` = {$regionId}")) {
         $connection->insert($regNameTable, array(
-            'locale'    => 'en_US',
+            'locale' => 'en_US',
             'region_id' => $regionId,
-            'name'      => $row[2]
+            'name' => $row[2]
         ));
     }
 }

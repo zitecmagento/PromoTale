@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,6 +36,7 @@
  */
 class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
 {
+
     /**
      * Data key for matching result to be saved in
      */
@@ -66,7 +68,6 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
             Mage_Index_Model_Event::TYPE_SAVE
         )
     );
-
     protected $_relatedConfigSettings = array(
         Mage_Catalog_Helper_Category::XML_PATH_CATEGORY_URL_SUFFIX,
         Mage_Catalog_Helper_Product::XML_PATH_PRODUCT_URL_SUFFIX,
@@ -102,7 +103,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
-        $data       = $event->getNewData();
+        $data = $event->getNewData();
         if (isset($data[self::EVENT_MATCH_RESULT_KEY])) {
             return $data[self::EVENT_MATCH_RESULT_KEY];
         }
@@ -117,8 +118,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
             }
         } else if ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             $storeGroup = $event->getDataObject();
-            $hasDataChanges = $storeGroup && ($storeGroup->dataHasChangedFor('root_category_id')
-                || $storeGroup->dataHasChangedFor('website_id'));
+            $hasDataChanges = $storeGroup && ($storeGroup->dataHasChangedFor('root_category_id') || $storeGroup->dataHasChangedFor('website_id'));
             if ($storeGroup && !$storeGroup->isObjectNew() && $hasDataChanges) {
                 $result = true;
             } else {
@@ -151,7 +151,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
         $entity = $event->getEntity();
         switch ($entity) {
             case Mage_Catalog_Model_Product::ENTITY:
-               $this->_registerProductEvent($event);
+                $this->_registerProductEvent($event);
                 break;
 
             case Mage_Catalog_Model_Category::ENTITY:
@@ -180,9 +180,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
     protected function _registerProductEvent(Mage_Index_Model_Event $event)
     {
         $product = $event->getDataObject();
-        $dataChange = $product->dataHasChangedFor('url_key')
-            || $product->getIsChangedCategories()
-            || $product->getIsChangedWebsites();
+        $dataChange = $product->dataHasChangedFor('url_key') || $product->getIsChangedCategories() || $product->getIsChangedWebsites();
 
         if (!$product->getExcludeUrlRewrite() && $dataChange) {
             $event->addNewData('rewrite_product_ids', array($product->getId()));
@@ -231,10 +229,10 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
             $urlModel->setShouldSaveRewritesHistory($dataObject->getData('save_rewrites_history'));
         }
 
-        if(isset($data['rewrite_product_ids'])) {
+        if (isset($data['rewrite_product_ids'])) {
             $urlModel->clearStoreInvalidRewrites(); // Maybe some products were moved or removed from website
             foreach ($data['rewrite_product_ids'] as $productId) {
-                 $urlModel->refreshProductRewrite($productId);
+                $urlModel->refreshProductRewrite($productId);
             }
         }
         if (isset($data['rewrite_category_ids'])) {
@@ -253,12 +251,16 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
         /** @var $resourceModel Mage_Catalog_Model_Resource_Url */
         $resourceModel = Mage::getResourceSingleton('catalog/url');
         $resourceModel->beginTransaction();
-        try {
+        try
+        {
             Mage::getSingleton('catalog/url')->refreshRewrites();
             $resourceModel->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $resourceModel->rollBack();
             throw $e;
         }
     }
+
 }

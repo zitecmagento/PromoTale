@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 interface Zend_Controller_Action_Interface
 {
+
     /**
      * Class constructor
      *
@@ -55,9 +57,7 @@ interface Zend_Controller_Action_Interface
      * @param array $invokeArgs Any additional invocation arguments
      * @return void
      */
-    public function __construct(Zend_Controller_Request_Abstract $request,
-                                Zend_Controller_Response_Abstract $response,
-                                array $invokeArgs = array());
+    public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = array());
 
     /**
      * Dispatch the requested action

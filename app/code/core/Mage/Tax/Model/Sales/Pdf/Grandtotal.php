@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Tax_Model_Sales_Pdf_Grandtotal extends Mage_Sales_Model_Order_Pdf_Total_Default
 {
+
     /**
      * Check if tax amount should be included to grandtotals block
      * array(
@@ -40,7 +41,7 @@ class Mage_Tax_Model_Sales_Pdf_Grandtotal extends Mage_Sales_Model_Order_Pdf_Tot
     public function getTotalsForDisplay()
     {
         $store = $this->getOrder()->getStore();
-        $config= Mage::getSingleton('tax/config');
+        $config = Mage::getSingleton('tax/config');
         if (!$config->displaySalesTaxWithGrandTotal($store)) {
             return parent::getTotalsForDisplay();
         }
@@ -52,25 +53,26 @@ class Mage_Tax_Model_Sales_Pdf_Grandtotal extends Mage_Sales_Model_Order_Pdf_Tot
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
 
         $totals = array(array(
-            'amount'    => $this->getAmountPrefix().$amountExclTax,
-            'label'     => Mage::helper('tax')->__('Grand Total (Excl. Tax)') . ':',
-            'font_size' => $fontSize
+                'amount' => $this->getAmountPrefix() . $amountExclTax,
+                'label' => Mage::helper('tax')->__('Grand Total (Excl. Tax)') . ':',
+                'font_size' => $fontSize
         ));
 
         if ($config->displaySalesFullSummary($store)) {
-           $totals = array_merge($totals, $this->getFullTaxInfo());
+            $totals = array_merge($totals, $this->getFullTaxInfo());
         }
 
         $totals[] = array(
-            'amount'    => $this->getAmountPrefix().$tax,
-            'label'     => Mage::helper('tax')->__('Tax') . ':',
+            'amount' => $this->getAmountPrefix() . $tax,
+            'label' => Mage::helper('tax')->__('Tax') . ':',
             'font_size' => $fontSize
         );
         $totals[] = array(
-            'amount'    => $this->getAmountPrefix().$amount,
-            'label'     => Mage::helper('tax')->__('Grand Total (Incl. Tax)') . ':',
+            'amount' => $this->getAmountPrefix() . $amount,
+            'label' => Mage::helper('tax')->__('Grand Total (Incl. Tax)') . ':',
             'font_size' => $fontSize
         );
         return $totals;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_CatalogRule_Model_Rule_Condition_Combine extends Mage_Rule_Model_Condition_Combine
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -40,13 +42,13 @@ class Mage_CatalogRule_Model_Rule_Condition_Combine extends Mage_Rule_Model_Cond
         $productCondition = Mage::getModel('catalogrule/rule_condition_product');
         $productAttributes = $productCondition->loadAttributeOptions()->getAttributeOption();
         $attributes = array();
-        foreach ($productAttributes as $code=>$label) {
-            $attributes[] = array('value'=>'catalogrule/rule_condition_product|'.$code, 'label'=>$label);
+        foreach ($productAttributes as $code => $label) {
+            $attributes[] = array('value' => 'catalogrule/rule_condition_product|' . $code, 'label' => $label);
         }
         $conditions = parent::getNewChildSelectOptions();
         $conditions = array_merge_recursive($conditions, array(
-            array('value'=>'catalogrule/rule_condition_combine', 'label'=>Mage::helper('catalogrule')->__('Conditions Combination')),
-            array('label'=>Mage::helper('catalogrule')->__('Product Attribute'), 'value'=>$attributes),
+            array('value' => 'catalogrule/rule_condition_combine', 'label' => Mage::helper('catalogrule')->__('Conditions Combination')),
+            array('label' => Mage::helper('catalogrule')->__('Product Attribute'), 'value' => $attributes),
         ));
         return $conditions;
     }
@@ -58,4 +60,5 @@ class Mage_CatalogRule_Model_Rule_Condition_Combine extends Mage_Rule_Model_Cond
         }
         return $this;
     }
+
 }

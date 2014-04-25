@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Backend.php 20880 2010-02-03 18:18:32Z matthew $
  */
 
-
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
@@ -29,6 +29,7 @@
  */
 class Zend_Cache_Backend
 {
+
     /**
      * Frontend or Core directives
      *
@@ -43,8 +44,8 @@ class Zend_Cache_Backend
      */
     protected $_directives = array(
         'lifetime' => 3600,
-        'logging'  => false,
-        'logger'   => null
+        'logging' => false,
+        'logger' => null
     );
 
     /**
@@ -77,7 +78,8 @@ class Zend_Cache_Backend
      */
     public function setDirectives($directives)
     {
-        if (!is_array($directives)) Zend_Cache::throwException('Directives parameter must be an array');
+        if (!is_array($directives))
+            Zend_Cache::throwException('Directives parameter must be an array');
         while (list($name, $value) = each($directives)) {
             if (!is_string($name)) {
                 Zend_Cache::throwException("Incorrect option name : $name");
@@ -86,7 +88,6 @@ class Zend_Cache_Backend
             if (array_key_exists($name, $this->_directives)) {
                 $this->_directives[$name] = $value;
             }
-
         }
 
         $this->_loggerSanity();
@@ -263,4 +264,5 @@ class Zend_Cache_Backend
         }
         $logger->log($message, $priority);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_Block_Authorize extends Mage_Oauth_Block_AuthorizeBaseAbstract
 {
+
     /**
      * Retrieve customer form posting url
      *
@@ -82,4 +84,5 @@ class Mage_Oauth_Block_Authorize extends Mage_Oauth_Block_AuthorizeBaseAbstract
     {
         return 'oauth/authorize/reject';
     }
+
 }

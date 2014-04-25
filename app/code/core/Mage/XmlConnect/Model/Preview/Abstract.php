@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
 {
+
     /**
      * XmlConnect image model
      *
@@ -86,7 +88,6 @@ abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
         return $this;
     }
 
-
     /**
      * Getter for current loaded application model
      *
@@ -131,7 +132,7 @@ abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
         $items = array();
         $model = $this->getApplicationModel();
         $tabs = $model->getEnabledTabsArray();
-        $tabLimit = (int) Mage::getStoreConfig('xmlconnect/devices/'.strtolower($model->getType()).'/tab_limit');
+        $tabLimit = (int) Mage::getStoreConfig('xmlconnect/devices/' . strtolower($model->getType()) . '/tab_limit');
         $showedTabs = 0;
         foreach ($tabs as $tab) {
             if (++$showedTabs > $tabLimit) {
@@ -169,12 +170,12 @@ abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
         $this->setData('conf', $conf);
     }
 
-   /**
-    * Get preview images url
-    *
-    * @param string $name file name
-    * @return string
-    */
+    /**
+     * Get preview images url
+     *
+     * @param string $name file name
+     * @return string
+     */
     public function getPreviewImagesUrl($name = '')
     {
         return Mage::helper('xmlconnect/image')->getSkinImagesUrl('mobile_preview/' . $name);
@@ -216,7 +217,7 @@ abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
         $iconImage = false;
         if (count($imageArray)) {
             $iconImage = $this->getImageModel()->getCustomSizeImageUrl(
-                $imageArray[0]['image_file'], 35, 35
+                    $imageArray[0]['image_file'], 35, 35
             );
         }
 
@@ -236,11 +237,11 @@ abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
     {
         if (!strlen($this->_categoryItemTintColor)) {
             $percent = 0.4;
-            $mask   = 255;
+            $mask = 255;
 
-            $hex    = str_replace('#', '', $this->getData('conf/categoryItem/tintColor'));
-            $hex2   = '';
-            $_rgb   = array();
+            $hex = str_replace('#', '', $this->getData('conf/categoryItem/tintColor'));
+            $hex2 = '';
+            $_rgb = array();
 
             $hexChars = '[a-fA-F0-9]';
 
@@ -315,4 +316,5 @@ abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
         $this->_imageModel = $imageModel;
         return $this;
     }
+
 }

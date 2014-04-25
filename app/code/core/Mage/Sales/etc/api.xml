@@ -200,7 +200,7 @@
                         <message>Invoice status not changed</message>
                     </status_not_changed>
                 </faults>
-           </sales_order_invoice>
+            </sales_order_invoice>
             <sales_order_creditmemo>
                 <title>Credit memo API</title>
                 <model>sales/order_creditmemo_api</model>
@@ -285,11 +285,11 @@
                         <method>order</method>
                     </post>
                 </sales_order>
-               <sales_order_invoice>
-                   <delete>
-                       <method>cancel</method>
-                   </delete>
-               </sales_order_invoice>
+                <sales_order_invoice>
+                    <delete>
+                        <method>cancel</method>
+                    </delete>
+                </sales_order_invoice>
                 <sales_order_creditmemo>
                     <delete>
                         <method>cancel</method>

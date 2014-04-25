@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Usa_Model_Shipping_Carrier_Fedex_Source_Dropoff
 {
+
     public function toOptionArray()
     {
         $fedex = Mage::getSingleton('usa/shipping_carrier_fedex');
@@ -42,4 +44,5 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Source_Dropoff
         }
         return $arr;
     }
+
 }

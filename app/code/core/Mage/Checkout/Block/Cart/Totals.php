@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
 {
+
     protected $_totalRenderers;
     protected $_defaultRenderer = 'checkout/total_default';
     protected $_totals = null;
@@ -46,7 +47,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
 
     protected function _getTotalRenderer($code)
     {
-        $blockName = $code.'_total_renderer';
+        $blockName = $code . '_total_renderer';
         $block = $this->getLayout()->getBlock($blockName);
         if (!$block) {
             $block = $this->_defaultRenderer;
@@ -71,10 +72,10 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
             $code = $total->getAs();
         }
         return $this->_getTotalRenderer($code)
-            ->setTotal($total)
-            ->setColspan($colspan)
-            ->setRenderingArea(is_null($area) ? -1 : $area)
-            ->toHtml();
+                        ->setTotal($total)
+                        ->setColspan($colspan)
+                        ->setRenderingArea(is_null($area) ? -1 : $area)
+                        ->toHtml();
     }
 
     /**
@@ -87,7 +88,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
     public function renderTotals($area = null, $colspan = 1)
     {
         $html = '';
-        foreach($this->getTotals() as $total) {
+        foreach ($this->getTotals() as $total) {
             if ($total->getArea() != $area && $area != -1) {
                 continue;
             }
@@ -103,7 +104,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
      */
     public function needDisplayBaseGrandtotal()
     {
-        $quote  = $this->getQuote();
+        $quote = $this->getQuote();
         if ($quote->getBaseCurrencyCode() != $quote->getQuoteCurrencyCode()) {
             return true;
         }
@@ -141,4 +142,5 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
         }
         return $this->_quote;
     }
+
 }

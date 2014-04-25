@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Wishlist_Block_Customer_Wishlist_Button extends Mage_Core_Block_Template
 {
+
     /**
      * Retrieve current wishlist
      *
@@ -42,4 +44,5 @@ class Mage_Wishlist_Block_Customer_Wishlist_Button extends Mage_Core_Block_Templ
     {
         return Mage::helper('wishlist')->getWishlist();
     }
+
 }

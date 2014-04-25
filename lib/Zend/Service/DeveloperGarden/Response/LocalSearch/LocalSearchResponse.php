@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: LocalSearchResponse.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Response_BaseType
  */
@@ -38,9 +38,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Response_LocalSearch_LocalSearchResponse
-    extends Zend_Service_DeveloperGarden_Response_BaseType
+class Zend_Service_DeveloperGarden_Response_LocalSearch_LocalSearchResponse extends Zend_Service_DeveloperGarden_Response_BaseType
 {
+
     /**
      *
      * @var Zend_Service_DeveloperGarden_Response_LocalSearch_LocalSearchResponseType
@@ -54,13 +54,14 @@ class Zend_Service_DeveloperGarden_Response_LocalSearch_LocalSearchResponse
      * @todo implement special result methods
      */
     public function __construct(
-        Zend_Service_DeveloperGarden_Response_LocalSearch_LocalSearchResponseType $response
-    ) {
-        $this->errorCode     = $response->getErrorCode();
-        $this->errorMessage  = $response->getErrorMessage();
-        $this->statusCode    = $response->getStatusCode();
+    Zend_Service_DeveloperGarden_Response_LocalSearch_LocalSearchResponseType $response
+    )
+    {
+        $this->errorCode = $response->getErrorCode();
+        $this->errorMessage = $response->getErrorMessage();
+        $this->statusCode = $response->getStatusCode();
         $this->statusMessage = $response->getStatusMessage();
-        $this->searchResult  = $response;
+        $this->searchResult = $response;
     }
 
     /**
@@ -86,4 +87,5 @@ class Zend_Service_DeveloperGarden_Response_LocalSearch_LocalSearchResponse
         }
         return $result;
     }
+
 }

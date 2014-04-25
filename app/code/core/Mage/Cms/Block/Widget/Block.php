@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cms Static Block Widget
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Mage_Widget_Block_Interface
 {
+
     /**
      * Storage for used widgets
      *
@@ -60,8 +61,8 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
 
         if ($blockId) {
             $block = Mage::getModel('cms/block')
-                ->setStoreId(Mage::app()->getStore()->getId())
-                ->load($blockId);
+                    ->setStoreId(Mage::app()->getStore()->getId())
+                    ->load($blockId);
             if ($block->getIsActive()) {
                 /* @var $helper Mage_Cms_Helper_Data */
                 $helper = Mage::helper('cms');
@@ -73,4 +74,5 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
         unset(self::$_widgetUsageMap[$blockHash]);
         return $this;
     }
+
 }

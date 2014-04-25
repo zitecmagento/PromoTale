@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,8 +32,7 @@
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Customer_Block_Account_Resetpassword extends Mage_Core_Block_Template
 {
-
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Attribute_Backend_Boolean extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Set attribute default value if value empty
      *
@@ -47,4 +49,5 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Boolean extends Mage_Eav_Mode
         }
         return $this;
     }
+
 }

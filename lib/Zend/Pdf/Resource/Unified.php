@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Image.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Pdf_Resource */
 #require_once 'Zend/Pdf/Resource.php';
 
@@ -34,5 +33,5 @@
  */
 class Zend_Pdf_Resource_Unified extends Zend_Pdf_Resource
 {
+    
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,16 +36,14 @@ class Mage_Connect_Loader_Ftp
 {
 
     const TEMPORARY_DIR = 'var/package/tmp';
-
     const FTP_USER = 'magconnect';
-
     const FTP_PASS = '4SyTUxPts0o2';
 
     /**
-    * Object of Ftp
-    *
-    * @var Mage_Connect_Ftp
-    */
+     * Object of Ftp
+     *
+     * @var Mage_Connect_Ftp
+     */
     protected $_ftp = null;
 
     /**
@@ -60,8 +59,8 @@ class Mage_Connect_Loader_Ftp
     protected $_responseStatus = 0;
 
     /**
-    * Constructor
-    */
+     * Constructor
+     */
     public function __construct()
     {
         $this->_ftp = new Mage_Connect_Ftp();
@@ -73,21 +72,21 @@ class Mage_Connect_Loader_Ftp
     }
 
     /**
-    * Retrieve file from URI
-    *
-    * @param mixed $uri
-    * @return bool
-    */
+     * Retrieve file from URI
+     *
+     * @param mixed $uri
+     * @return bool
+     */
     public function get($uri)
     {
         $remoteFile = basename($uri);
         $uri = dirname($uri);
         $uri = str_replace('http://', '', $uri);
         $uri = str_replace('ftp://', '', $uri);
-        $uri = self::FTP_USER.":".self::FTP_PASS."@".$uri;
-        $this->getFtp()->connect("ftp://".$uri);
+        $uri = self::FTP_USER . ":" . self::FTP_PASS . "@" . $uri;
+        $this->getFtp()->connect("ftp://" . $uri);
         $this->getFtp()->pasv(true);
-        $localFile = self::TEMPORARY_DIR.DS.time().".xml";
+        $localFile = self::TEMPORARY_DIR . DS . time() . ".xml";
 
         if ($this->getFtp()->get($localFile, $remoteFile)) {
             $this->_responseBody = file_get_contents($localFile);
@@ -109,10 +108,10 @@ class Mage_Connect_Loader_Ftp
     }
 
     /**
-    * put your comment there...
-    *
-    * @return string
-    */
+     * put your comment there...
+     *
+     * @return string
+     */
     public function getBody()
     {
         return $this->_responseBody;

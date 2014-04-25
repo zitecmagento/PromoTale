@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
@@ -32,10 +31,8 @@ $installer->startSetup();
 
 $pageTable = $installer->getTable('cms/page');
 
-$installer->getConnection()->addColumn($pageTable, 'custom_root_template',
-    "VARCHAR(255) NOT NULL DEFAULT '' AFTER `custom_theme`");
+$installer->getConnection()->addColumn($pageTable, 'custom_root_template', "VARCHAR(255) NOT NULL DEFAULT '' AFTER `custom_theme`");
 
-$installer->getConnection()->addColumn($pageTable, 'custom_layout_update_xml',
-    'TEXT NULL AFTER `custom_root_template`');
+$installer->getConnection()->addColumn($pageTable, 'custom_layout_update_xml', 'TEXT NULL AFTER `custom_root_template`');
 
 $installer->endSetup();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Url rewrite resource model class
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Tag table
      *
@@ -60,12 +61,12 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
     {
         $this->_uniqueFields = array(
             array(
-                'field' => array('id_path','store_id','is_system'),
+                'field' => array('id_path', 'store_id', 'is_system'),
                 'title' => Mage::helper('core')->__('ID Path for Specified Store')
             ),
             array(
-                 'field' => array('request_path','store_id'),
-                 'title' => Mage::helper('core')->__('Request Path for Specified Store'),
+                'field' => array('request_path', 'store_id'),
+                'title' => Mage::helper('core')->__('Request Path for Specified Store'),
             )
         );
         return $this;
@@ -103,21 +104,21 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
     public function getRequestPathByIdPath($idPath, $store)
     {
         if ($store instanceof Mage_Core_Model_Store) {
-            $storeId = (int)$store->getId();
+            $storeId = (int) $store->getId();
         } else {
-            $storeId = (int)$store;
+            $storeId = (int) $store;
         }
 
         $select = $this->_getReadAdapter()->select();
         /** @var $select Varien_Db_Select */
         $select->from(array('main_table' => $this->getMainTable()), 'request_path')
-            ->where('main_table.store_id = :store_id')
-            ->where('main_table.id_path = :id_path')
-            ->limit(1);
+                ->where('main_table.store_id = :store_id')
+                ->where('main_table.id_path = :id_path')
+                ->limit(1);
 
         $bind = array(
             'store_id' => $storeId,
-            'id_path'  => $idPath
+            'id_path' => $idPath
         );
 
         return $this->_getReadAdapter()->fetchOne($select, $bind);
@@ -143,10 +144,10 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
         }
         // Form select
         $adapter = $this->_getReadAdapter();
-        $select  = $adapter->select()
-            ->from($this->getMainTable())
-            ->where('request_path IN (:' . implode(', :', array_flip($pathBind)) . ')')
-            ->where('store_id IN(?)', array(Mage_Core_Model_App::ADMIN_STORE_ID, (int)$object->getStoreId()));
+        $select = $adapter->select()
+                ->from($this->getMainTable())
+                ->where('request_path IN (:' . implode(', :', array_flip($pathBind)) . ')')
+                ->where('store_id IN(?)', array(Mage_Core_Model_App::ADMIN_STORE_ID, (int) $object->getStoreId()));
 
         $items = $adapter->fetchAll($select, $pathBind);
 
@@ -179,4 +180,5 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV entity attribute exception
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Entity_Attribute_Exception extends Exception
 {
+
     /**
      * Eav entity attribute
      *
@@ -67,7 +68,8 @@ class Mage_Eav_Model_Entity_Attribute_Exception extends Exception
      * @param string $part
      * @return Mage_Eav_Model_Entity_Attribute_Exception
      */
-    public function setPart($part) {
+    public function setPart($part)
+    {
         $this->_part = $part;
         return $this;
     }
@@ -91,4 +93,5 @@ class Mage_Eav_Model_Entity_Attribute_Exception extends Exception
     {
         return $this->_part;
     }
+
 }

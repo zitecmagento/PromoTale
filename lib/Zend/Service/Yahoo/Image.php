@@ -21,7 +21,6 @@
  * @version    $Id: Image.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -31,6 +30,7 @@
  */
 class Zend_Service_Yahoo_Image
 {
+
     /**
      * Image URL
      *
@@ -52,7 +52,6 @@ class Zend_Service_Yahoo_Image
      */
     public $Width;
 
-
     /**
      * Initializes the image
      *
@@ -68,4 +67,5 @@ class Zend_Service_Yahoo_Image
         $this->Height = (int) $xpath->query('./yh:Height/text()', $dom)->item(0)->data;
         $this->Width = (int) $xpath->query('./yh:Width/text()', $dom)->item(0)->data;
     }
+
 }

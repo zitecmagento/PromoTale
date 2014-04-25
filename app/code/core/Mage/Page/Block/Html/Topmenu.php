@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
 {
+
     /**
      * Top menu data tree
      *
@@ -124,7 +126,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
 
             $html .= '<li ' . $this->_getRenderedMenuItemAttributes($child) . '>';
             $html .= '<a href="' . $child->getUrl() . '" ' . $outermostClassCode . '><span>'
-                . $this->escapeHtml($child->getName()) . '</span></a>';
+                    . $this->escapeHtml($child->getName()) . '</span></a>';
 
             if ($child->hasChildren()) {
                 if (!empty($childrenWrapClass)) {
@@ -253,9 +255,9 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     public function getCurrentEntityKey()
     {
         if (null === $this->_currentEntityKey) {
-            $this->_currentEntityKey = Mage::registry('current_entity_key')
-                ? Mage::registry('current_entity_key') : Mage::app()->getStore()->getRootCategoryId();
+            $this->_currentEntityKey = Mage::registry('current_entity_key') ? Mage::registry('current_entity_key') : Mage::app()->getStore()->getRootCategoryId();
         }
         return $this->_currentEntityKey;
     }
+
 }

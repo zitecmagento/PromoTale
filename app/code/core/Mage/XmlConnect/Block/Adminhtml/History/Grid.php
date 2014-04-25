@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_History_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Constructor
      *
@@ -66,39 +68,39 @@ class Mage_XmlConnect_Block_Adminhtml_History_Grid extends Mage_Adminhtml_Block_
     protected function _prepareColumns()
     {
         $this->addColumn('title', array(
-            'header'    => $this->__('App Title'),
-            'align'     => 'left',
-            'index'     => 'title',
-            'type'      => 'text',
-            'escape'    => true
+            'header' => $this->__('App Title'),
+            'align' => 'left',
+            'index' => 'title',
+            'type' => 'text',
+            'escape' => true
         ));
 
         $this->addColumn('name', array(
-            'header'    => $this->__('App Name'),
-            'align'     => 'left',
-            'index'     => 'name',
-            'escape'    => true
+            'header' => $this->__('App Name'),
+            'align' => 'left',
+            'index' => 'name',
+            'escape' => true
         ));
 
         $this->addColumn('code', array(
-            'header'    => $this->__('App Code'),
-            'align'     => 'left',
-            'index'     => 'code',
-            'escape'    => true
+            'header' => $this->__('App Code'),
+            'align' => 'left',
+            'index' => 'code',
+            'escape' => true
         ));
 
         $this->addColumn('created_at', array(
-            'header'    => $this->__('Date Submitted'),
-            'align'     => 'left',
-            'index'     => 'created_at',
-            'type'      => 'datetime'
+            'header' => $this->__('Date Submitted'),
+            'align' => 'left',
+            'index' => 'created_at',
+            'type' => 'datetime'
         ));
 
         $this->addColumn('activation_key', array(
-            'header'    => $this->__('Activation Key'),
-            'align'     => 'left',
-            'index'     => 'activation_key',
-            'escape'    => true
+            'header' => $this->__('Activation Key'),
+            'align' => 'left',
+            'index' => 'activation_key',
+            'escape' => true
         ));
         return parent::_prepareColumns();
     }
@@ -113,4 +115,5 @@ class Mage_XmlConnect_Block_Adminhtml_History_Grid extends Mage_Adminhtml_Block_
     {
         return '';
     }
+
 }

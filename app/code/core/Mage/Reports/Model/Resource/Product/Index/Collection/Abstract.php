@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reports Product Index Abstract Product Resource Collection
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
-    extends Mage_Catalog_Model_Resource_Product_Collection
+abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract extends Mage_Catalog_Model_Resource_Product_Collection
 {
+
     /**
      * Customer id
      *
@@ -65,14 +65,11 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
     {
         if (!$this->getFlag('is_idx_table_joined')) {
             $this->joinTable(
-                array('idx_table' => $this->_getTableName()),
-                'product_id=entity_id',
-                array(
-                    'product_id'    => 'product_id',
-                    'item_store_id' => 'store_id',
-                    'added_at'      => 'added_at'
-                ),
-                $this->_getWhereCondition()
+                    array('idx_table' => $this->_getTableName()), 'product_id=entity_id', array(
+                'product_id' => 'product_id',
+                'item_store_id' => 'store_id',
+                'added_at' => 'added_at'
+                    ), $this->_getWhereCondition()
             );
             $this->setFlag('is_idx_table_joined', true);
         }
@@ -137,7 +134,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     public function setCustomerId($id)
     {
-        $this->_customerId = (int)$id;
+        $this->_customerId = (int) $id;
         return $this;
     }
 
@@ -198,7 +195,6 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
         return $result;
     }
 
-
     /**
      * Add exclude Product Ids
      *
@@ -214,4 +210,5 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
         $this->getSelect()->where('idx_table.product_id NOT IN(?)', $productIds);
         return $this;
     }
+
 }

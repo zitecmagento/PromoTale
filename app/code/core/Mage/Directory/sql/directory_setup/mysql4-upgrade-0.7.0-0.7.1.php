@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,12 +24,11 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
 $installer->startSetup()
-    ->run("
+        ->run("
 DROP TABLE IF EXISTS {$this->getTable('directory_country_format')};
 CREATE TABLE {$this->getTable('directory_country_format')} (
     `country_format_id` int(10) unsigned NOT NULL auto_increment,

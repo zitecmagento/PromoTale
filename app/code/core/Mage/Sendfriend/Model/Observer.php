@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sendfriend Observer
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sendfriend_Model_Observer
 {
+
     /**
      * Register Sendfriend Model in global registry
      *
@@ -45,4 +46,5 @@ class Mage_Sendfriend_Model_Observer
         Mage::getModel('sendfriend/sendfriend')->register();
         return $this;
     }
+
 }

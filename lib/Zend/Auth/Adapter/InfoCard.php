@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: InfoCard.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Auth_Adapter_Interface
  */
@@ -47,6 +47,7 @@
  */
 class Zend_Auth_Adapter_InfoCard implements Zend_Auth_Adapter_Interface
 {
+
     /**
      * The XML Token being authenticated
      *
@@ -209,53 +210,50 @@ class Zend_Auth_Adapter_InfoCard implements Zend_Auth_Adapter_Interface
      */
     public function authenticate()
     {
-        try {
+        try
+        {
             $claims = $this->_infoCard->process($this->getXmlToken());
-        } catch(Exception $e) {
-            return new Zend_Auth_Result(Zend_Auth_Result::FAILURE , null, array('Exception Thrown',
-                                                                                $e->getMessage(),
-                                                                                $e->getTraceAsString(),
-                                                                                serialize($e)));
+        }
+        catch (Exception $e)
+        {
+            return new Zend_Auth_Result(Zend_Auth_Result::FAILURE, null, array('Exception Thrown',
+                $e->getMessage(),
+                $e->getTraceAsString(),
+                serialize($e)));
         }
 
-        if(!$claims->isValid()) {
-            switch($claims->getCode()) {
+        if (!$claims->isValid()) {
+            switch ($claims->getCode()) {
                 case Zend_infoCard_Claims::RESULT_PROCESSING_FAILURE:
                     return new Zend_Auth_Result(
-                        Zend_Auth_Result::FAILURE,
-                        $claims,
-                        array(
-                            'Processing Failure',
-                            $claims->getErrorMsg()
-                        )
+                            Zend_Auth_Result::FAILURE, $claims, array(
+                        'Processing Failure',
+                        $claims->getErrorMsg()
+                            )
                     );
                     break;
                 case Zend_InfoCard_Claims::RESULT_VALIDATION_FAILURE:
                     return new Zend_Auth_Result(
-                        Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID,
-                        $claims,
-                        array(
-                            'Validation Failure',
-                            $claims->getErrorMsg()
-                        )
+                            Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID, $claims, array(
+                        'Validation Failure',
+                        $claims->getErrorMsg()
+                            )
                     );
                     break;
                 default:
                     return new Zend_Auth_Result(
-                        Zend_Auth_Result::FAILURE,
-                        $claims,
-                        array(
-                            'Unknown Failure',
-                            $claims->getErrorMsg()
-                        )
+                            Zend_Auth_Result::FAILURE, $claims, array(
+                        'Unknown Failure',
+                        $claims->getErrorMsg()
+                            )
                     );
                     break;
             }
         }
 
         return new Zend_Auth_Result(
-            Zend_Auth_Result::SUCCESS,
-            $claims
+                Zend_Auth_Result::SUCCESS, $claims
         );
     }
+
 }

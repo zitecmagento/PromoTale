@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: When.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Extension
  */
@@ -49,8 +48,7 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
     protected $_valueString = null;
     protected $_endTime = null;
 
-    public function __construct($startTime = null, $endTime = null,
-            $valueString = null, $reminders = null)
+    public function __construct($startTime = null, $endTime = null, $valueString = null, $reminders = null)
     {
         parent::__construct();
         $this->_startTime = $startTime;
@@ -89,9 +87,9 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
                 $reminder->transferFromDOM($child);
                 $this->_reminders[] = $reminder;
                 break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 
@@ -118,7 +116,7 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
             return $this->_valueString;
         else {
             return 'Starts: ' . $this->getStartTime() . ' ' .
-                   'Ends: ' .  $this->getEndTime();
+                    'Ends: ' . $this->getEndTime();
         }
     }
 

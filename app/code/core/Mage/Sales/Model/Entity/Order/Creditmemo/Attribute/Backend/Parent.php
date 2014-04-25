@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,11 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
-class Mage_Sales_Model_Entity_Order_Creditmemo_Attribute_Backend_Parent
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Sales_Model_Entity_Order_Creditmemo_Attribute_Backend_Parent extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     public function afterSave($object)
     {
         parent::afterSave($object);
@@ -38,11 +37,12 @@ class Mage_Sales_Model_Entity_Order_Creditmemo_Attribute_Backend_Parent
         foreach ($object->getAllItems() as $item) {
             $item->save();
         }
-        
-        foreach($object->getCommentsCollection() as $comment) {
+
+        foreach ($object->getCommentsCollection() as $comment) {
             $comment->save();
         }
 
         return $this;
     }
+
 }

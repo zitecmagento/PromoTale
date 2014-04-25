@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Form fieldset
  *
@@ -34,6 +34,7 @@
  */
 class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstract
 {
+
     /**
      * Sort child elements by specified data key
      *
@@ -53,7 +54,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      *
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->_renderer = Varien_Data_Form::getFieldsetRenderer();
@@ -67,12 +68,12 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      */
     public function getElementHtml()
     {
-        $html = '<fieldset id="'.$this->getHtmlId().'"'.$this->serialize(array('class')).'>'."\n";
+        $html = '<fieldset id="' . $this->getHtmlId() . '"' . $this->serialize(array('class')) . '>' . "\n";
         if ($this->getLegend()) {
-            $html.= '<legend>'.$this->getLegend().'</legend>'."\n";
+            $html.= '<legend>' . $this->getLegend() . '</legend>' . "\n";
         }
         $html.= $this->getChildrenHtml();
-        $html.= '</fieldset></div>'."\n";
+        $html.= '</fieldset></div>' . "\n";
         $html.= $this->getAfterElementHtml();
         return $html;
     }
@@ -116,7 +117,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      */
     public function getDefaultHtml()
     {
-        $html = '<div><h4 class="icon-head head-edit-form fieldset-legend">'.$this->getLegend().'</h4>'."\n";
+        $html = '<div><h4 class="icon-head head-edit-form fieldset-legend">' . $this->getLegend() . '</h4>' . "\n";
         $html.= $this->getElementHtml();
         return $html;
     }
@@ -130,7 +131,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      * @param boolean $after
      * @return Varien_Data_Form_Element_Abstract
      */
-    public function addField($elementId, $type, $config, $after=false)
+    public function addField($elementId, $type, $config, $after = false)
     {
         $element = parent::addField($elementId, $type, $config, $after);
         if ($renderer = Varien_Data_Form::getFieldsetElementRenderer()) {
@@ -175,12 +176,12 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
             }
             ksort($elements, $this->_sortChildrenDirection);
             $elements = array_values($elements);
-        }
-        else {
+        } else {
             foreach ($this->getElements() as $element) {
                 $elements[] = $element;
             }
         }
         return $elements;
     }
+
 }

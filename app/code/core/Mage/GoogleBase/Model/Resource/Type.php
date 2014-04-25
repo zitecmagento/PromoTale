@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Google Base Type resource model
  *
@@ -35,6 +35,7 @@
  */
 class Mage_GoogleBase_Model_Resource_Type extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      *
@@ -55,10 +56,11 @@ class Mage_GoogleBase_Model_Resource_Type extends Mage_Core_Model_Resource_Db_Ab
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->getMainTable(), 'type_id')
-            ->where('attribute_set_id=?', $attributeSetId)
-            ->where('target_country=?', $targetCountry);
+                ->from($this->getMainTable(), 'type_id')
+                ->where('attribute_set_id=?', $attributeSetId)
+                ->where('target_country=?', $targetCountry);
 
         return $adapter->fetchOne($select);
     }
+
 }

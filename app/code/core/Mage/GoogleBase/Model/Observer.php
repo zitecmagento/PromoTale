@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_GoogleBase_Model_Observer
 {
+
     /**
      * Update product item in Google Base
      *
@@ -42,23 +44,26 @@ class Mage_GoogleBase_Model_Observer
      */
     public function saveProductItem($observer)
     {
-        try {
+        try
+        {
             $product = $observer->getEvent()->getProduct();
             if (Mage::getStoreConfigFlag('google/googlebase/observed', $product->getStoreId())) {
                 $collection = Mage::getResourceModel('googlebase/item_collection')
-                    ->addProductFilterId($product->getId())
-                    ->load();
+                        ->addProductFilterId($product->getId())
+                        ->load();
                 foreach ($collection as $item) {
                     $product = Mage::getSingleton('catalog/product')
-                        ->setStoreId($item->getStoreId())
-                        ->load($item->getProductId());
+                            ->setStoreId($item->getStoreId())
+                            ->load($item->getProductId());
                     Mage::getModel('googlebase/item')->setProduct($product)->updateItem();
                 }
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             if (Mage::app()->getStore()->isAdmin()) {
                 Mage::getSingleton('adminhtml/session')->addNotice(
-                    Mage::helper('googlebase')->__("Cannot update Google Base Item for Store '%s'", Mage::app()->getStore($item->getStoreId())->getName())
+                        Mage::helper('googlebase')->__("Cannot update Google Base Item for Store '%s'", Mage::app()->getStore($item->getStoreId())->getName())
                 );
             } else {
                 throw $e;
@@ -75,20 +80,23 @@ class Mage_GoogleBase_Model_Observer
      */
     public function deleteProductItem($observer)
     {
-        try {
+        try
+        {
             $product = $observer->getEvent()->getProduct();
             if (Mage::getStoreConfigFlag('google/googlebase/observed', $product->getStoreId())) {
                 $collection = Mage::getResourceModel('googlebase/item_collection')
-                    ->addProductFilterId($product->getId())
-                    ->load();
+                        ->addProductFilterId($product->getId())
+                        ->load();
                 foreach ($collection as $item) {
                     $item->deleteItem()->delete();
                 }
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             if (Mage::app()->getStore()->isAdmin()) {
                 Mage::getSingleton('adminhtml/session')->addNotice(
-                    Mage::helper('googlebase')->__("Cannot update Google Base Item for Store '%s'", Mage::app()->getStore($item->getStoreId())->getName())
+                        Mage::helper('googlebase')->__("Cannot update Google Base Item for Store '%s'", Mage::app()->getStore($item->getStoreId())->getName())
                 );
             } else {
                 throw $e;
@@ -96,4 +104,5 @@ class Mage_GoogleBase_Model_Observer
         }
         return $this;
     }
+
 }

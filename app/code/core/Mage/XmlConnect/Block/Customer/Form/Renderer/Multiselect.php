@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Customer_Form_Renderer_Multiselect
-    extends Enterprise_Customer_Block_Form_Renderer_Multiselect
+class Mage_XmlConnect_Block_Customer_Form_Renderer_Multiselect extends Enterprise_Customer_Block_Form_Renderer_Multiselect
 {
+
     /**
      * Field type
      *
@@ -51,16 +52,17 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Multiselect
     {
         $attributes = array(
             'label' => $this->getLabel(),
-            'name'  => $this->getFieldName(''),
+            'name' => $this->getFieldName(''),
             'value' => $this->getValues(),
             'options' => $this->getOptions()
         );
 
         $attributes += Mage::helper('xmlconnect/customer_form_renderer')
-            ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
+                ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
 
         $fieldsetXmlObj->addField($this->getHtmlId(), $this->_filedType, $attributes);
 
         return $this;
     }
+
 }

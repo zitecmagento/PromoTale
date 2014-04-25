@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Admin_Application_Edit_Tab_Settings
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_XmlConnect_Block_Adminhtml_Admin_Application_Edit_Tab_Settings extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Prepare form before rendering HTML
      * Setting Form Fieldsets and fields
@@ -45,21 +45,21 @@ class Mage_XmlConnect_Block_Adminhtml_Admin_Application_Edit_Tab_Settings
     {
         /** @var $form Varien_Data_Form */
         $form = Mage::getModel('varien/data_form', array(
-            'id' => 'edit_form',
-            'action' => $this->getUrl('*/admin_application', array('_current'  => true)),
-            'method'  => 'post'
+                    'id' => 'edit_form',
+                    'action' => $this->getUrl('*/admin_application', array('_current' => true)),
+                    'method' => 'post'
         ));
 
         $form->setHtmlIdPrefix('admin_app_');
         $fieldset = $form->addFieldset('base_fieldset', array('legend' => $this->__('Admin Application Settings')));
 
         $fieldset->addField('type', 'select', array(
-            'name'      => 'is_active',
-            'label'     => $this->__('Enable Admin Application'),
-            'title'     => $this->__('Enable Admin Application'),
-            'values'    => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray(),
-            'required'  => true,
-            'value'     => (int)Mage::getSingleton('xmlconnect/configuration')->isActiveAdminApp()
+            'name' => 'is_active',
+            'label' => $this->__('Enable Admin Application'),
+            'title' => $this->__('Enable Admin Application'),
+            'values' => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray(),
+            'required' => true,
+            'value' => (int) Mage::getSingleton('xmlconnect/configuration')->isActiveAdminApp()
         ));
 
         $this->setForm($form);
@@ -105,4 +105,5 @@ class Mage_XmlConnect_Block_Adminhtml_Admin_Application_Edit_Tab_Settings
     {
         return false;
     }
+
 }

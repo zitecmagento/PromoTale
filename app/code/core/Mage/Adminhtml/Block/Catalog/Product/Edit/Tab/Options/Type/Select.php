@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,10 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends
-    Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract
+Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract
 {
+
     /**
      * Class constructor
      */
@@ -48,22 +49,20 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends
 
     protected function _prepareLayout()
     {
-        $this->setChild('add_select_row_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label' => Mage::helper('catalog')->__('Add New Row'),
-                    'class' => 'add add-select-row',
-                    'id'    => 'add_select_row_button_{{option_id}}'
-                ))
+        $this->setChild('add_select_row_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('catalog')->__('Add New Row'),
+                            'class' => 'add add-select-row',
+                            'id' => 'add_select_row_button_{{option_id}}'
+                        ))
         );
 
-        $this->setChild('delete_select_row_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label' => Mage::helper('catalog')->__('Delete Row'),
-                    'class' => 'delete delete-select-row icon-btn',
-                    'id'    => 'delete_select_row_button'
-                ))
+        $this->setChild('delete_select_row_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('catalog')->__('Delete Row'),
+                            'class' => 'delete delete-select-row icon-btn',
+                            'id' => 'delete_select_row_button'
+                        ))
         );
 
         return parent::_prepareLayout();
@@ -82,9 +81,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends
     public function getPriceTypeSelectHtml()
     {
         $this->getChild('option_price_type')
-            ->setData('id', 'product_option_{{id}}_select_{{select_id}}_price_type')
-            ->setName('product[options][{{id}}][values][{{select_id}}][price_type]');
+                ->setData('id', 'product_option_{{id}}_select_{{select_id}}_price_type')
+                ->setName('product[options][{{id}}][values][{{select_id}}][price_type]');
 
         return parent::getPriceTypeSelectHtml();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -42,7 +43,7 @@ class Mage_Downloadable_Block_Catalog_Product_Samples extends Mage_Catalog_Block
     public function hasSamples()
     {
         return $this->getProduct()->getTypeInstance(true)
-            ->hasSamples($this->getProduct());
+                        ->hasSamples($this->getProduct());
     }
 
     /**
@@ -53,7 +54,7 @@ class Mage_Downloadable_Block_Catalog_Product_Samples extends Mage_Catalog_Block
     public function getSamples()
     {
         return $this->getProduct()->getTypeInstance(true)
-            ->getSamples($this->getProduct());
+                        ->getSamples($this->getProduct());
     }
 
     public function getSampleUrl($sample)
@@ -83,4 +84,5 @@ class Mage_Downloadable_Block_Catalog_Product_Samples extends Mage_Catalog_Block
     {
         return Mage::getStoreConfigFlag(Mage_Downloadable_Model_Link::XML_PATH_TARGET_NEW_WINDOW);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Custom import CSV file field for shipping table rates
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Import extends Varien_Data_F
     {
         $html = '';
 
-        $html .= '<input id="time_condition" type="hidden" name="'.$this->getName().'" value="'.time().'" />';
+        $html .= '<input id="time_condition" type="hidden" name="' . $this->getName() . '" value="' . time() . '" />';
 
         $html .= <<<EndHTML
         <script type="text/javascript">

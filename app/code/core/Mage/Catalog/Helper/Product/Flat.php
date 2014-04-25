@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,17 +34,18 @@
  */
 class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
 {
+
     /**
      * Catalog Product Flat Config
      */
-    const XML_PATH_USE_PRODUCT_FLAT          = 'catalog/frontend/flat_catalog_product';
+    const XML_PATH_USE_PRODUCT_FLAT = 'catalog/frontend/flat_catalog_product';
     const XML_NODE_ADD_FILTERABLE_ATTRIBUTES = 'global/catalog/product/flat/add_filterable_attributes';
-    const XML_NODE_ADD_CHILD_DATA            = 'global/catalog/product/flat/add_child_data';
+    const XML_NODE_ADD_CHILD_DATA = 'global/catalog/product/flat/add_child_data';
 
     /**
      * Path for flat flag model
      */
-    const XML_PATH_FLAT_FLAG                 = 'global/catalog/product/flat/flag/model';
+    const XML_PATH_FLAT_FLAG = 'global/catalog/product/flat/flag/model';
 
     /**
      * Catalog Flat Product index process code
@@ -88,9 +90,9 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     public function getFlag()
     {
         if (is_null($this->_flagObject)) {
-            $className = (string)Mage::getConfig()->getNode(self::XML_PATH_FLAT_FLAG);
+            $className = (string) Mage::getConfig()->getNode(self::XML_PATH_FLAT_FLAG);
             $this->_flagObject = Mage::getSingleton($className)
-                ->loadSelf();
+                    ->loadSelf();
         }
         return $this->_flagObject;
     }
@@ -129,7 +131,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     public function isBuiltAllStores()
     {
         $isBuildAll = true;
-        foreach(Mage::app()->getStores(false) as $store) {
+        foreach (Mage::app()->getStores(false) as $store) {
             /** @var $store Mage_Core_Model_Store */
             $isBuildAll = $isBuildAll && $this->isBuilt($store->getId());
         }
@@ -155,4 +157,5 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     {
         return intval(Mage::getConfig()->getNode(self::XML_NODE_ADD_CHILD_DATA));
     }
+
 }

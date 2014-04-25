@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Newsletter_Model_Template_Filter extends Mage_Widget_Model_Template_Filter
 {
+
     /**
      * Generate widget HTML if template variables are assigned
      *
@@ -47,4 +49,5 @@ class Mage_Newsletter_Model_Template_Filter extends Mage_Widget_Model_Template_F
         $construction[2] .= sprintf(' store_id ="%s"', $this->getStoreId());
         return parent::widgetDirective($construction);
     }
+
 }

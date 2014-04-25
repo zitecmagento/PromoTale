@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,11 +19,8 @@
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-
 /** Zend_Controller_Exception */
 #require_once 'Zend/Exception.php';
-
 
 /**
  * @category   Zend
@@ -31,5 +29,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Memory_Exception extends Zend_Exception
-{}
-
+{
+    
+}

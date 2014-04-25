@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -56,6 +57,7 @@
  */
 class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
 {
+
     /**
      * Newsletter Template object
      *
@@ -124,7 +126,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     {
         if (is_null($this->_subscribersCollection)) {
             $this->_subscribersCollection = Mage::getResourceModel('newsletter/subscriber_collection')
-                ->useQueue($this);
+                    ->useQueue($this);
         }
 
         return $this->_subscribersCollection;
@@ -155,7 +157,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function setQueueStartAtByString($startAt)
     {
-        if(is_null($startAt) || $startAt == '') {
+        if (is_null($startAt) || $startAt == '') {
             $this->setQueueStartAt(null);
         } else {
             $locale = Mage::app()->getLocale();
@@ -164,7 +166,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             $this->setQueueStartAt(Mage::getModel('core/date')->gmtDate(null, $time));
         }
         return $this;
-     }
+    }
 
     /**
      * Send messages to subscribers for this queue
@@ -173,10 +175,9 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * @param   array   $additionalVariables
      * @return Mage_Newsletter_Model_Queue
      */
-    public function sendPerSubscriber($count=20, array $additionalVariables=array())
+    public function sendPerSubscriber($count = 20, array $additionalVariables = array())
     {
-        if($this->getQueueStatus()!=self::STATUS_SENDING
-           && ($this->getQueueStatus()!=self::STATUS_NEVER && $this->getQueueStartAt())
+        if ($this->getQueueStatus() != self::STATUS_SENDING && ($this->getQueueStatus() != self::STATUS_NEVER && $this->getQueueStartAt())
         ) {
             return $this;
         }
@@ -187,23 +188,23 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
         }
 
         $collection = $this->getSubscribersCollection()
-            ->useOnlyUnsent()
-            ->showCustomerInfo()
-            ->setPageSize($count)
-            ->setCurPage(1)
-            ->load();
+                ->useOnlyUnsent()
+                ->showCustomerInfo()
+                ->setPageSize($count)
+                ->setCurPage(1)
+                ->load();
 
         /* @var $sender Mage_Core_Model_Email_Template */
         $sender = Mage::getModel('core/email_template');
         $sender->setSenderName($this->getNewsletterSenderName())
-            ->setSenderEmail($this->getNewsletterSenderEmail())
-            ->setTemplateType(self::TYPE_HTML)
-            ->setTemplateSubject($this->getNewsletterSubject())
-            ->setTemplateText($this->getNewsletterText())
-            ->setTemplateStyles($this->getNewsletterStyles())
-            ->setTemplateFilter(Mage::helper('newsletter')->getTemplateProcessor());
+                ->setSenderEmail($this->getNewsletterSenderEmail())
+                ->setTemplateType(self::TYPE_HTML)
+                ->setTemplateSubject($this->getNewsletterSubject())
+                ->setTemplateText($this->getNewsletterText())
+                ->setTemplateStyles($this->getNewsletterStyles())
+                ->setTemplateFilter(Mage::helper('newsletter')->getTemplateProcessor());
 
-        foreach($collection->getItems() as $item) {
+        foreach ($collection->getItems() as $item) {
             $email = $item->getSubscriberEmail();
             $name = $item->getSubscriberFullName();
 
@@ -211,20 +212,20 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             $successSend = $sender->send($email, $name, array('subscriber' => $item));
             $sender->revertDesign();
 
-            if($successSend) {
+            if ($successSend) {
                 $item->received($this);
             } else {
                 $problem = Mage::getModel('newsletter/problem');
                 $notification = Mage::helper('newsletter')->__('Please refer to exeption.log');
                 $problem->addSubscriberData($item)
-                    ->addQueueData($this)
-                    ->addErrorData(new Exception($notification))
-                    ->save();
+                        ->addQueueData($this)
+                        ->addErrorData(new Exception($notification))
+                        ->save();
                 $item->received($this);
             }
         }
 
-        if(count($collection->getItems()) < $count-1 || count($collection->getItems()) == 0) {
+        if (count($collection->getItems()) < $count - 1 || count($collection->getItems()) == 0) {
             $this->_finishQueue();
         }
         return $this;
@@ -280,7 +281,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function setSaveTemplateFlag($value)
     {
-        $this->_saveTemplateFlag = (boolean)$value;
+        $this->_saveTemplateFlag = (boolean) $value;
         return $this;
     }
 
@@ -304,7 +305,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function setSaveStoresFlag($value)
     {
-        $this->_saveStoresFlag = (boolean)$value;
+        $this->_saveStoresFlag = (boolean) $value;
         return $this;
     }
 
@@ -339,7 +340,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function getStores()
     {
-        if(!$this->_stores) {
+        if (!$this->_stores) {
             $this->_stores = $this->_getResource()->getStores($this);
         }
 
@@ -355,7 +356,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     {
         if (is_null($this->_template)) {
             $this->_template = Mage::getModel('newsletter/template')
-                ->load($this->getTemplateId());
+                    ->load($this->getTemplateId());
         }
         return $this->_template;
     }
@@ -365,7 +366,8 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      *
      * @return int|string
      */
-    public function getType(){
+    public function getType()
+    {
         return $this->getNewsletterType();
     }
 

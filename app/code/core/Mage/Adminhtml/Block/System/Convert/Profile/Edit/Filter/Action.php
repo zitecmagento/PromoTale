@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * System Convert History action filter
  *
@@ -32,24 +32,25 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Filter_Action
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
+class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Filter_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
 {
+
     public function getHtml()
     {
         $values = array(
-            ''       => '',
+            '' => '',
             'create' => Mage::helper('adminhtml')->__('Create'),
-            'run'    => Mage::helper('adminhtml')->__('Run'),
+            'run' => Mage::helper('adminhtml')->__('Run'),
             'update' => Mage::helper('adminhtml')->__('Update'),
         );
         $value = $this->getValue();
 
-        $html  = '<select name="' . ($this->getColumn()->getName() ? $this->getColumn()->getName() : $this->getColumn()->getId()) . '" ' . $this->getColumn()->getValidateClass() . '>';
+        $html = '<select name="' . ($this->getColumn()->getName() ? $this->getColumn()->getName() : $this->getColumn()->getId()) . '" ' . $this->getColumn()->getValidateClass() . '>';
         foreach ($values as $k => $v) {
-            $html .= '<option value="'.$k.'"' . ($value == $k ? ' selected="selected"' : '') . '>'.$v.'</option>';
+            $html .= '<option value="' . $k . '"' . ($value == $k ? ' selected="selected"' : '') . '>' . $v . '</option>';
         }
         $html .= '</select>';
         return $html;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CallStatus2Response.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatus2Response
-    extends Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse
+class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatus2Response extends Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse
 {
+
     /**
      * returns the phone number of the second participant, who was called.
      *
@@ -85,4 +85,5 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatus2Response
         }
         return null;
     }
+
 }

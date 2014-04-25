@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,15 +24,14 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Varien_Filter_Object extends Zend_Filter
 {
+
     protected $_columnFilters = array();
-    
-    function addFilter(Zend_Filter_Interface $filter, $column='')
+
+    function addFilter(Zend_Filter_Interface $filter, $column = '')
     {
-        if (''===$column) {
+        if ('' === $column) {
             parent::addFilter($filter);
         } else {
             if (!isset($this->_columnFilters[$column])) {
@@ -40,7 +40,7 @@ class Varien_Filter_Object extends Zend_Filter
             $this->_columnFilters[$column]->addFilter($filter);
         }
     }
-    
+
     function filter($object)
     {
         if (!$object instanceof Varien_Object) {
@@ -48,7 +48,7 @@ class Varien_Filter_Object extends Zend_Filter
         }
         $class = get_class($object);
         $out = new $class;
-        foreach ($object->getData() as $column=>$value) {
+        foreach ($object->getData() as $column => $value) {
             $value = parent::filter($value);
             if (isset($this->_columnFilters[$column])) {
                 $value = $this->_columnFilters[$column]->filter($value);
@@ -57,4 +57,5 @@ class Varien_Filter_Object extends Zend_Filter
         }
         return $out;
     }
+
 }

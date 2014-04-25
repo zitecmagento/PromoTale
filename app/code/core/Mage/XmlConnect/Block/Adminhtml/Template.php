@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Template extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     /**
      * Class constructor
      */
@@ -55,11 +57,12 @@ class Mage_XmlConnect_Block_Adminhtml_Template extends Mage_Adminhtml_Block_Widg
     protected function _prepareLayout()
     {
         $this->_addButton('add_new', array(
-            'label'   => $this->__('Add New Template'),
+            'label' => $this->__('Add New Template'),
             'onclick' => "setLocation('{$this->getUrl('*/*/newTemplate')}')",
-            'class'   => 'add'
+            'class' => 'add'
         ));
 
         return parent::_prepareLayout();
     }
+
 }

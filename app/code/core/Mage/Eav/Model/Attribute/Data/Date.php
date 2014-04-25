@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Entity Attribute Date Data Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_Abstract
 {
+
     /**
      * Extract data from request and return value
      *
@@ -55,9 +56,9 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
      */
     public function validateValue($value)
     {
-        $errors     = array();
-        $attribute  = $this->getAttribute();
-        $label      = $attribute->getStoreLabel();
+        $errors = array();
+        $attribute = $this->getAttribute();
+        $label = $attribute->getStoreLabel();
 
         if ($value === false) {
             // try to load original value and validate it
@@ -79,8 +80,7 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
 
         //range validation
         $validateRules = $attribute->getValidateRules();
-        if ((!empty($validateRules['date_range_min']) && (strtotime($value) < $validateRules['date_range_min']))
-            || (!empty($validateRules['date_range_max']) && (strtotime($value) > $validateRules['date_range_max']))
+        if ((!empty($validateRules['date_range_min']) && (strtotime($value) < $validateRules['date_range_min'])) || (!empty($validateRules['date_range_max']) && (strtotime($value) > $validateRules['date_range_max']))
         ) {
             if (!empty($validateRules['date_range_min']) && !empty($validateRules['date_range_max'])) {
                 $errors[] = Mage::helper('customer')->__('Please enter a valid date between %s and %s at %s.', date('d/m/Y', $validateRules['date_range_min']), date('d/m/Y', $validateRules['date_range_max']), $label);
@@ -150,4 +150,5 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
 
         return $value;
     }
+
 }

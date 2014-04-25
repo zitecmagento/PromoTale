@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: LocalSearchRequest.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_RequestAbstract
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Request_LocalSearch_LocalSearchRequest
-    extends Zend_Service_DeveloperGarden_Request_RequestAbstract
+class Zend_Service_DeveloperGarden_Request_LocalSearch_LocalSearchRequest extends Zend_Service_DeveloperGarden_Request_RequestAbstract
 {
+
     /**
      * array of search parameters
      *
@@ -65,13 +65,12 @@ class Zend_Service_DeveloperGarden_Request_LocalSearch_LocalSearchRequest
      * @param integer $account
      * @return Zend_Service_DeveloperGarden_Request_RequestAbstract
      */
-    public function __construct($environment, 
-        Zend_Service_DeveloperGarden_LocalSearch_SearchParameters $searchParameters, 
-        $account = null
-    ) {
+    public function __construct($environment, Zend_Service_DeveloperGarden_LocalSearch_SearchParameters $searchParameters, $account = null
+    )
+    {
         parent::__construct($environment);
         $this->setSearchParameters($searchParameters)
-             ->setAccount($account);
+                ->setAccount($account);
     }
 
     /**
@@ -95,9 +94,10 @@ class Zend_Service_DeveloperGarden_Request_LocalSearch_LocalSearchRequest
      * @param Zend_Service_DeveloperGarden_LocalSearch_SearchParameters $searchParameters
      */
     public function setSearchParameters(
-        Zend_Service_DeveloperGarden_LocalSearch_SearchParameters $searchParameters
-    ) {
-        $this->searchParameters  = $searchParameters->getSearchParameters();
+    Zend_Service_DeveloperGarden_LocalSearch_SearchParameters $searchParameters
+    )
+    {
+        $this->searchParameters = $searchParameters->getSearchParameters();
         $this->_searchParameters = $searchParameters;
         return $this;
     }

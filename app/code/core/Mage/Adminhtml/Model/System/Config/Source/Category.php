@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Category
 {
+
     public function toOptionArray($addEmpty = true)
     {
         $tree = Mage::getResourceModel('catalog/category_tree');
@@ -40,8 +42,8 @@ class Mage_Adminhtml_Model_System_Config_Source_Category
         $collection = Mage::getResourceModel('catalog/category_collection');
 
         $collection->addAttributeToSelect('name')
-            ->addRootLevelFilter()
-            ->load();
+                ->addRootLevelFilter()
+                ->load();
 
         $options = array();
 
@@ -53,11 +55,12 @@ class Mage_Adminhtml_Model_System_Config_Source_Category
         }
         foreach ($collection as $category) {
             $options[] = array(
-               'label' => $category->getName(),
-               'value' => $category->getId()
+                'label' => $category->getName(),
+                'value' => $category->getId()
             );
         }
 
         return $options;
     }
+
 }

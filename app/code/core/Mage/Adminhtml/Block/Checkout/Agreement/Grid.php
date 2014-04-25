@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -38,47 +39,45 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('checkout/agreement')
-            ->getCollection();
+                ->getCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
 
     protected function _prepareColumns()
     {
-        $this->addColumn('agreement_id',
-            array(
-                'header'=>Mage::helper('checkout')->__('ID'),
-                'align' =>'right',
-                'width' => '50px',
-                'index' => 'agreement_id'
-            )
+        $this->addColumn('agreement_id', array(
+            'header' => Mage::helper('checkout')->__('ID'),
+            'align' => 'right',
+            'width' => '50px',
+            'index' => 'agreement_id'
+                )
         );
 
-        $this->addColumn('name',
-            array(
-                'header'=>Mage::helper('checkout')->__('Condition Name'),
-                'index' => 'name'
-            )
+        $this->addColumn('name', array(
+            'header' => Mage::helper('checkout')->__('Condition Name'),
+            'index' => 'name'
+                )
         );
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', array(
-                'header'        => Mage::helper('adminhtml')->__('Store View'),
-                'index'         => 'store_id',
-                'type'          => 'store',
-                'store_all'     => true,
-                'store_view'    => true,
-                'sortable'      => false,
+                'header' => Mage::helper('adminhtml')->__('Store View'),
+                'index' => 'store_id',
+                'type' => 'store',
+                'store_all' => true,
+                'store_view' => true,
+                'sortable' => false,
                 'filter_condition_callback'
-                                => array($this, '_filterStoreCondition'),
+                => array($this, '_filterStoreCondition'),
             ));
         }
 
         $this->addColumn('is_active', array(
-            'header'    => Mage::helper('adminhtml')->__('Status'),
-            'index'     => 'is_active',
-            'type'      => 'options',
-            'options'   => array(
+            'header' => Mage::helper('adminhtml')->__('Status'),
+            'index' => 'is_active',
+            'type' => 'options',
+            'options' => array(
                 0 => Mage::helper('adminhtml')->__('Disabled'),
                 1 => Mage::helper('adminhtml')->__('Enabled')
             ),

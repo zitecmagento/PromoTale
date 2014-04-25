@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Home extends Mage_XmlConnect_Block_Catalog
 {
+
     /**
      * Category list limitation
      */
@@ -76,7 +78,7 @@ class Mage_XmlConnect_Block_Home extends Mage_XmlConnect_Block_Catalog
             $itemXmlObj->addChild('entity_id', $item->getId());
             $itemXmlObj->addChild('content_type', $item->hasChildren() ? 'categories' : 'products');
             $icon = Mage::helper('xmlconnect/catalog_category_image')->initialize($item, 'thumbnail')
-                ->resize(Mage::getModel('xmlconnect/images')->getImageLimitParam('content/category'));
+                    ->resize(Mage::getModel('xmlconnect/images')->getImageLimitParam('content/category'));
 
             $iconXml = $itemXmlObj->addChild('icon', $icon);
             $iconXml->addAttribute('modification_time', filemtime($icon->getNewFile()));
@@ -85,4 +87,5 @@ class Mage_XmlConnect_Block_Home extends Mage_XmlConnect_Block_Catalog
 
         return $homeXmlObj->asNiceXml();
     }
+
 }

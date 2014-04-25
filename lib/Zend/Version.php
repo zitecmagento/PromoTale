@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 final class Zend_Version
 {
+
     /**
      * Zend Framework version identification - see compareVersion()
      */
@@ -69,7 +71,7 @@ final class Zend_Version
         if (null === self::$_lastestVersion) {
             self::$_lastestVersion = 'not available';
 
-            $handle = fopen('http://framework.zend.com/api/zf-version', 'r');        
+            $handle = fopen('http://framework.zend.com/api/zf-version', 'r');
             if (false !== $handle) {
                 self::$_lastestVersion = stream_get_contents($handle);
                 fclose($handle);
@@ -78,4 +80,5 @@ final class Zend_Version
 
         return self::$_lastestVersion;
     }
+
 }

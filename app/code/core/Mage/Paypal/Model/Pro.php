@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 class Mage_Paypal_Model_Pro
 {
+
     /**
      * Possible payment review actions (for FMF only)
      *
@@ -225,12 +227,12 @@ class Mage_Paypal_Model_Pro
             return false;
         }
         $api = $this->getApi()
-            ->setAuthorizationId($authTransactionId)
-            ->setIsCaptureComplete($payment->getShouldCloseParentTransaction())
-            ->setAmount($amount)
-            ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode())
-            ->setInvNum($payment->getOrder()->getIncrementId())
-            // TODO: pass 'NOTE' to API
+                ->setAuthorizationId($authTransactionId)
+                ->setIsCaptureComplete($payment->getShouldCloseParentTransaction())
+                ->setAmount($amount)
+                ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode())
+                ->setInvNum($payment->getOrder()->getIncrementId())
+        // TODO: pass 'NOTE' to API
         ;
 
         $api->callDoCapture();
@@ -250,15 +252,13 @@ class Mage_Paypal_Model_Pro
             $api = $this->getApi();
             $order = $payment->getOrder();
             $api->setPayment($payment)
-                ->setTransactionId($captureTxnId)
-                ->setAmount($amount)
-                ->setCurrencyCode($order->getBaseCurrencyCode())
+                    ->setTransactionId($captureTxnId)
+                    ->setAmount($amount)
+                    ->setCurrencyCode($order->getBaseCurrencyCode())
             ;
             $canRefundMore = $payment->getCreditmemo()->getInvoice()->canRefund();
-            $isFullRefund = !$canRefundMore
-                && (0 == ((float)$order->getBaseTotalOnlineRefunded() + (float)$order->getBaseTotalOfflineRefunded()));
-            $api->setRefundType($isFullRefund ? Mage_Paypal_Model_Config::REFUND_TYPE_FULL
-                : Mage_Paypal_Model_Config::REFUND_TYPE_PARTIAL
+            $isFullRefund = !$canRefundMore && (0 == ((float) $order->getBaseTotalOnlineRefunded() + (float) $order->getBaseTotalOfflineRefunded()));
+            $api->setRefundType($isFullRefund ? Mage_Paypal_Model_Config::REFUND_TYPE_FULL : Mage_Paypal_Model_Config::REFUND_TYPE_PARTIAL
             );
             $api->callRefundTransaction();
             $this->_importRefundResultToPayment($api, $payment, $canRefundMore);
@@ -324,8 +324,8 @@ class Mage_Paypal_Model_Pro
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
         $api = $this->getApi()
-            ->setTransactionId($transactionId)
-            ->setRawResponseNeeded(true);
+                ->setTransactionId($transactionId)
+                ->setRawResponseNeeded(true);
         $api->callGetTransactionDetails();
         $this->importPaymentInfo($api, $payment);
         $data = $api->getRawSuccessResponseData();
@@ -364,9 +364,9 @@ class Mage_Paypal_Model_Pro
      * @param Mage_Payment_Model_Info $paymentInfo
      * @throws Mage_Core_Exception
      */
-    public function submitRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile,
-        Mage_Payment_Model_Info $paymentInfo
-    ) {
+    public function submitRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile, Mage_Payment_Model_Info $paymentInfo
+    )
+    {
         $api = $this->getApi();
         Varien_Object_Mapper::accumulateByMap($profile, $api, array(
             'token', // EC fields
@@ -396,7 +396,7 @@ class Mage_Paypal_Model_Pro
     {
         $api = $this->getApi();
         $api->setRecurringProfileId($referenceId)
-            ->callGetRecurringPaymentsProfileDetails($result)
+                ->callGetRecurringPaymentsProfileDetails($result)
         ;
     }
 
@@ -407,7 +407,7 @@ class Mage_Paypal_Model_Pro
      */
     public function updateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile)
     {
-
+        
     }
 
     /**
@@ -420,17 +420,20 @@ class Mage_Paypal_Model_Pro
         $api = $this->getApi();
         $action = null;
         switch ($profile->getNewState()) {
-            case Mage_Sales_Model_Recurring_Profile::STATE_CANCELED: $action = 'cancel'; break;
-            case Mage_Sales_Model_Recurring_Profile::STATE_SUSPENDED: $action = 'suspend'; break;
-            case Mage_Sales_Model_Recurring_Profile::STATE_ACTIVE: $action = 'activate'; break;
+            case Mage_Sales_Model_Recurring_Profile::STATE_CANCELED: $action = 'cancel';
+                break;
+            case Mage_Sales_Model_Recurring_Profile::STATE_SUSPENDED: $action = 'suspend';
+                break;
+            case Mage_Sales_Model_Recurring_Profile::STATE_ACTIVE: $action = 'activate';
+                break;
         }
         $state = $profile->getState();
         $api->setRecurringProfileId($profile->getReferenceId())
-            ->setIsAlreadyCanceled($state == Mage_Sales_Model_Recurring_Profile::STATE_CANCELED)
-            ->setIsAlreadySuspended($state == Mage_Sales_Model_Recurring_Profile::STATE_SUSPENDED)
-            ->setIsAlreadyActive($state == Mage_Sales_Model_Recurring_Profile::STATE_ACTIVE)
-            ->setAction($action)
-            ->callManageRecurringPaymentsProfileStatus()
+                ->setIsAlreadyCanceled($state == Mage_Sales_Model_Recurring_Profile::STATE_CANCELED)
+                ->setIsAlreadySuspended($state == Mage_Sales_Model_Recurring_Profile::STATE_SUSPENDED)
+                ->setIsAlreadyActive($state == Mage_Sales_Model_Recurring_Profile::STATE_ACTIVE)
+                ->setAction($action)
+                ->callManageRecurringPaymentsProfileStatus()
         ;
     }
 
@@ -458,7 +461,7 @@ class Mage_Paypal_Model_Pro
         $payment->setTransactionId($api->getRefundTransactionId())
                 ->setIsTransactionClosed(1) // refund initiated by merchant
                 ->setShouldCloseParentTransaction(!$canRefundMore)
-            ;
+        ;
         $this->importPaymentInfo($api, $payment);
     }
 
@@ -472,4 +475,5 @@ class Mage_Paypal_Model_Pro
     {
         return $payment->getParentTransactionId() ? $payment->getParentTransactionId() : $payment->getLastTransId();
     }
+
 }

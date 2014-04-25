@@ -1,6 +1,8 @@
 <?php
+
 class Mage_Xml_Parser
 {
+
     protected $_dom = null;
     protected $_currentDom;
     protected $_content = array();
@@ -34,7 +36,7 @@ class Mage_Xml_Parser
         return $this->_content;
     }
 
-    protected function _xmlToArray($currentNode=false)
+    protected function _xmlToArray($currentNode = false)
     {
         if (!$currentNode) {
             $currentNode = $this->getDom();
@@ -50,10 +52,10 @@ class Mage_Xml_Parser
                     }
                     $attributes = array();
                     if ($node->hasAttributes()) {
-                        foreach($node->attributes as $attribute) {
-                            $attributes += array($attribute->name=>$attribute->value);
+                        foreach ($node->attributes as $attribute) {
+                            $attributes += array($attribute->name => $attribute->value);
                         }
-                        $value = array('_value'=>$value, '_attribute'=>$attributes);
+                        $value = array('_value' => $value, '_attribute' => $attributes);
                     }
                     if (isset($content[$node->nodeName])) {
                         if (!isset($content[$node->nodeName][0]) || !is_array($content[$node->nodeName][0])) {

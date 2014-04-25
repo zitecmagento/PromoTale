@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Review
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Review_Block_Customer_Recent extends Mage_Core_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -42,12 +43,12 @@ class Mage_Review_Block_Customer_Recent extends Mage_Core_Block_Template
         $this->_collection = Mage::getModel('review/review')->getProductCollection();
 
         $this->_collection
-            ->addStoreFilter(Mage::app()->getStore()->getId())
-            ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
-            ->setDateOrder()
-            ->setPageSize(5)
-            ->load()
-            ->addReviewSummary();
+                ->addStoreFilter(Mage::app()->getStore()->getId())
+                ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
+                ->setDateOrder()
+                ->setPageSize(5)
+                ->load()
+                ->addReviewSummary();
     }
 
     public function count()
@@ -89,4 +90,5 @@ class Mage_Review_Block_Customer_Recent extends Mage_Core_Block_Template
     {
         return Mage::getUrl('review/customer/view', array('id' => $id));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -194,21 +195,19 @@
 class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
 {
 
-    const STATUS_PENDING        = 1; // No items shipped, invoiced, canceled, refunded nor backordered
-    const STATUS_SHIPPED        = 2; // When qty ordered - [qty canceled + qty returned] = qty shipped
-    const STATUS_INVOICED       = 9; // When qty ordered - [qty canceled + qty returned] = qty invoiced
-    const STATUS_BACKORDERED    = 3; // When qty ordered - [qty canceled + qty returned] = qty backordered
-    const STATUS_CANCELED       = 5; // When qty ordered = qty canceled
-    const STATUS_PARTIAL        = 6; // If [qty shipped or(max of two) qty invoiced + qty canceled + qty returned]
-                                     // < qty ordered
-    const STATUS_MIXED          = 7; // All other combinations
-    const STATUS_REFUNDED       = 8; // When qty ordered = qty refunded
-
-    const STATUS_RETURNED       = 4; // When qty ordered = qty returned // not used at the moment
+    const STATUS_PENDING = 1; // No items shipped, invoiced, canceled, refunded nor backordered
+    const STATUS_SHIPPED = 2; // When qty ordered - [qty canceled + qty returned] = qty shipped
+    const STATUS_INVOICED = 9; // When qty ordered - [qty canceled + qty returned] = qty invoiced
+    const STATUS_BACKORDERED = 3; // When qty ordered - [qty canceled + qty returned] = qty backordered
+    const STATUS_CANCELED = 5; // When qty ordered = qty canceled
+    const STATUS_PARTIAL = 6; // If [qty shipped or(max of two) qty invoiced + qty canceled + qty returned]
+    // < qty ordered
+    const STATUS_MIXED = 7; // All other combinations
+    const STATUS_REFUNDED = 8; // When qty ordered = qty refunded
+    const STATUS_RETURNED = 4; // When qty ordered = qty returned // not used at the moment
 
     protected $_eventPrefix = 'sales_order_item';
     protected $_eventObject = 'item';
-
     protected static $_statuses = null;
 
     /**
@@ -216,9 +215,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      *
      * @var Mage_Sales_Model_Order
      */
-    protected $_order       = null;
-    protected $_parentItem  = null;
-    protected $_children    = array();
+    protected $_order = null;
+    protected $_parentItem = null;
+    protected $_children = array();
 
     /**
      * Init resource model
@@ -228,7 +227,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         $this->_init('sales/order_item');
     }
 
-     /**
+    /**
      * Init mapping array of short fields to
      * its full names
      *
@@ -290,7 +289,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function canInvoice()
     {
-        return $this->getQtyToInvoice()>0;
+        return $this->getQtyToInvoice() > 0;
     }
 
     /**
@@ -300,7 +299,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function canShip()
     {
-        return $this->getQtyToShip()>0;
+        return $this->getQtyToShip() > 0;
     }
 
     /**
@@ -310,7 +309,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function canRefund()
     {
-        return $this->getQtyToRefund()>0;
+        return $this->getQtyToRefund() > 0;
     }
 
     /**
@@ -334,10 +333,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getSimpleQtyToShip()
     {
-        $qty = $this->getQtyOrdered()
-            - $this->getQtyShipped()
-            - $this->getQtyRefunded()
-            - $this->getQtyCanceled();
+        $qty = $this->getQtyOrdered() - $this->getQtyShipped() - $this->getQtyRefunded() - $this->getQtyCanceled();
         return max($qty, 0);
     }
 
@@ -352,9 +348,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             return 0;
         }
 
-        $qty = $this->getQtyOrdered()
-            - $this->getQtyInvoiced()
-            - $this->getQtyCanceled();
+        $qty = $this->getQtyOrdered() - $this->getQtyInvoiced() - $this->getQtyCanceled();
         return max($qty, 0);
     }
 
@@ -368,7 +362,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         if ($this->isDummy()) {
             return 0;
         }
-        return max($this->getQtyInvoiced()-$this->getQtyRefunded(), 0);
+        return max($this->getQtyInvoiced() - $this->getQtyRefunded(), 0);
     }
 
     /**
@@ -380,8 +374,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     {
         if ($this->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
             $qtyToCancel = $this->getQtyToCancelBundle();
-        } elseif ($this->getParentItem()
-            && $this->getParentItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE
+        } elseif ($this->getParentItem() && $this->getParentItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE
         ) {
             $qtyToCancel = $this->getQtyToCancelBundleItem();
         } else {
@@ -399,9 +392,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function getQtyToCancelBundle()
     {
         if ($this->isDummy()) {
-            $qty = $this->getQtyOrdered()
-                - $this->getQtyInvoiced()
-                - $this->getQtyCanceled();
+            $qty = $this->getQtyOrdered() - $this->getQtyInvoiced() - $this->getQtyCanceled();
             return min(max($qty, 0), $this->getQtyToShip());
         }
         return min($this->getQtyToInvoice(), $this->getQtyToShip());
@@ -456,15 +447,15 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getStatusId()
     {
-        $backordered = (float)$this->getQtyBackordered();
+        $backordered = (float) $this->getQtyBackordered();
         if (!$backordered && $this->getHasChildren()) {
-            $backordered = (float)$this->_getQtyChildrenBackordered();
+            $backordered = (float) $this->_getQtyChildrenBackordered();
         }
-        $canceled    = (float)$this->getQtyCanceled();
-        $invoiced    = (float)$this->getQtyInvoiced();
-        $ordered     = (float)$this->getQtyOrdered();
-        $refunded    = (float)$this->getQtyRefunded();
-        $shipped     = (float)$this->getQtyShipped();
+        $canceled = (float) $this->getQtyCanceled();
+        $invoiced = (float) $this->getQtyInvoiced();
+        $ordered = (float) $this->getQtyOrdered();
+        $refunded = (float) $this->getQtyRefunded();
+        $shipped = (float) $this->getQtyShipped();
 
         $actuallyOrdered = $ordered - $canceled - $refunded;
 
@@ -479,7 +470,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             return self::STATUS_INVOICED;
         }
 
-        if ($backordered && ($actuallyOrdered == $backordered) ) {
+        if ($backordered && ($actuallyOrdered == $backordered)) {
             return self::STATUS_BACKORDERED;
         }
 
@@ -507,7 +498,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     {
         $backordered = null;
         foreach ($this->_children as $childItem) {
-            $backordered += (float)$childItem->getQtyBackordered();
+            $backordered += (float) $childItem->getQtyBackordered();
         }
 
         return $backordered;
@@ -547,15 +538,15 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function cancel()
     {
         if ($this->getStatusId() !== self::STATUS_CANCELED) {
-            Mage::dispatchEvent('sales_order_item_cancel', array('item'=>$this));
+            Mage::dispatchEvent('sales_order_item_cancel', array('item' => $this));
             $this->setQtyCanceled($this->getQtyToCancel());
             $this->setTaxCanceled(
-                $this->getTaxCanceled() +
-                $this->getBaseTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered()
+                    $this->getTaxCanceled() +
+                    $this->getBaseTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered()
             );
             $this->setHiddenTaxCanceled(
-                $this->getHiddenTaxCanceled() +
-                $this->getHiddenTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered()
+                    $this->getHiddenTaxCanceled() +
+                    $this->getHiddenTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered()
             );
         }
         return $this;
@@ -571,15 +562,15 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         if (is_null(self::$_statuses)) {
             self::$_statuses = array(
                 //self::STATUS_PENDING        => Mage::helper('sales')->__('Pending'),
-                self::STATUS_PENDING        => Mage::helper('sales')->__('Ordered'),
-                self::STATUS_SHIPPED        => Mage::helper('sales')->__('Shipped'),
-                self::STATUS_INVOICED       => Mage::helper('sales')->__('Invoiced'),
-                self::STATUS_BACKORDERED    => Mage::helper('sales')->__('Backordered'),
-                self::STATUS_RETURNED       => Mage::helper('sales')->__('Returned'),
-                self::STATUS_REFUNDED       => Mage::helper('sales')->__('Refunded'),
-                self::STATUS_CANCELED       => Mage::helper('sales')->__('Canceled'),
-                self::STATUS_PARTIAL        => Mage::helper('sales')->__('Partial'),
-                self::STATUS_MIXED          => Mage::helper('sales')->__('Mixed'),
+                self::STATUS_PENDING => Mage::helper('sales')->__('Ordered'),
+                self::STATUS_SHIPPED => Mage::helper('sales')->__('Shipped'),
+                self::STATUS_INVOICED => Mage::helper('sales')->__('Invoiced'),
+                self::STATUS_BACKORDERED => Mage::helper('sales')->__('Backordered'),
+                self::STATUS_RETURNED => Mage::helper('sales')->__('Returned'),
+                self::STATUS_REFUNDED => Mage::helper('sales')->__('Refunded'),
+                self::STATUS_CANCELED => Mage::helper('sales')->__('Canceled'),
+                self::STATUS_PARTIAL => Mage::helper('sales')->__('Partial'),
+                self::STATUS_MIXED => Mage::helper('sales')->__('Mixed'),
             );
         }
         return self::$_statuses;
@@ -631,7 +622,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * @param string $code
      * @return array
      */
-    public function getProductOptionByCode($code=null)
+    public function getProductOptionByCode($code = null)
     {
         $options = $this->getProductOptions();
         if (is_null($code)) {
@@ -675,7 +666,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      *
      * @return array
      */
-    public function getChildrenItems() {
+    public function getChildrenItems()
+    {
         return $this->_children;
     }
 
@@ -685,7 +677,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    public function isChildrenCalculated() {
+    public function isChildrenCalculated()
+    {
         if ($parentItem = $this->getParentItem()) {
             $options = $parentItem->getProductOptions();
         } else {
@@ -693,11 +686,12 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         }
 
         if (isset($options['product_calculations']) &&
-             $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
-                return true;
+                $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
+            return true;
         }
         return false;
     }
+
     /**
      * Check if discount has to be applied to parent item
      *
@@ -720,7 +714,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    public function isShipSeparately() {
+    public function isShipSeparately()
+    {
         if ($parentItem = $this->getParentItem()) {
             $options = $parentItem->getProductOptions();
         } else {
@@ -728,8 +723,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         }
 
         if (isset($options['shipment_type']) &&
-             $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
-                return true;
+                $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
+            return true;
         }
         return false;
     }
@@ -742,7 +737,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * @param bool $shipment
      * @return bool
      */
-    public function isDummy($shipment = false){
+    public function isDummy($shipment = false)
+    {
         if ($shipment) {
             if ($this->getHasChildren() && $this->isShipSeparately()) {
                 return true;
@@ -824,8 +820,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             if (isset($weeeTaxAppliedAmount['total_base_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_base_weee_discount'];
             } else {
-                $totalDiscount += isset($weeeTaxAppliedAmount['base_weee_discount'])
-                    ? $weeeTaxAppliedAmount['base_weee_discount'] : 0;
+                $totalDiscount += isset($weeeTaxAppliedAmount['base_weee_discount']) ? $weeeTaxAppliedAmount['base_weee_discount'] : 0;
             }
         }
         return $totalDiscount;
@@ -844,10 +839,10 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             if (isset($weeeTaxAppliedAmount['total_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_weee_discount'];
             } else {
-                $totalDiscount += isset($weeeTaxAppliedAmount['weee_discount'])
-                    ? $weeeTaxAppliedAmount['weee_discount'] : 0;
+                $totalDiscount += isset($weeeTaxAppliedAmount['weee_discount']) ? $weeeTaxAppliedAmount['weee_discount'] : 0;
             }
         }
         return $totalDiscount;
     }
+
 }

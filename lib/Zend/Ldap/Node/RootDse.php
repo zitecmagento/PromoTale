@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: RootDse.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Ldap_Node_Abstract
  */
@@ -36,10 +36,11 @@
  */
 class Zend_Ldap_Node_RootDse extends Zend_Ldap_Node_Abstract
 {
-    const SERVER_TYPE_GENERIC         = 1;
-    const SERVER_TYPE_OPENLDAP        = 2;
+
+    const SERVER_TYPE_GENERIC = 1;
+    const SERVER_TYPE_OPENLDAP = 2;
     const SERVER_TYPE_ACTIVEDIRECTORY = 3;
-    const SERVER_TYPE_EDIRECTORY      = 4;
+    const SERVER_TYPE_EDIRECTORY = 4;
 
     /**
      * Factory method to create the RootDSE.
@@ -155,4 +156,5 @@ class Zend_Ldap_Node_RootDse extends Zend_Ldap_Node_Abstract
         #require_once 'Zend/Ldap/Dn.php';
         return Zend_Ldap_Dn::fromString($schemaDn);
     }
+
 }

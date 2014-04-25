@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_OfflineCatalog_Home extends Mage_XmlConnect_Model_OfflineCatalog_Abstract
 {
+
     /**
      * Home url
      */
@@ -58,4 +60,5 @@ class Mage_XmlConnect_Model_OfflineCatalog_Home extends Mage_XmlConnect_Model_Of
     {
         return Mage::getBaseUrl() . self::HOME_URL;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * {license_notice}
  *
@@ -13,6 +14,7 @@
  */
 abstract class Magento_Profiler_OutputAbstract
 {
+
     /**
      * PCRE Regular Expression for filter
      *
@@ -26,8 +28,8 @@ abstract class Magento_Profiler_OutputAbstract
      * @var array
      */
     private $_thresholds = array(
-        Magento_Profiler::FETCH_TIME    => 0.001,
-        Magento_Profiler::FETCH_COUNT   => 10,
+        Magento_Profiler::FETCH_TIME => 0.001,
+        Magento_Profiler::FETCH_COUNT => 10,
         Magento_Profiler::FETCH_EMALLOC => 10000,
     );
 
@@ -58,11 +60,11 @@ abstract class Magento_Profiler_OutputAbstract
     {
         return array(
             'Timer Id' => 'timer_id',
-            'Time'     => Magento_Profiler::FETCH_TIME,
-            'Avg'      => Magento_Profiler::FETCH_AVG,
-            'Cnt'      => Magento_Profiler::FETCH_COUNT,
-            'Emalloc'  => Magento_Profiler::FETCH_EMALLOC,
-            'RealMem'  => Magento_Profiler::FETCH_REALMEM,
+            'Time' => Magento_Profiler::FETCH_TIME,
+            'Avg' => Magento_Profiler::FETCH_AVG,
+            'Cnt' => Magento_Profiler::FETCH_COUNT,
+            'Emalloc' => Magento_Profiler::FETCH_EMALLOC,
+            'RealMem' => Magento_Profiler::FETCH_REALMEM,
         );
     }
 
@@ -77,7 +79,7 @@ abstract class Magento_Profiler_OutputAbstract
         if ($columnId == 'timer_id') {
             return $this->_renderTimerId($timerId);
         }
-        $value = (string)Magento_Profiler::fetch($timerId, $columnId);
+        $value = (string) Magento_Profiler::fetch($timerId, $columnId);
         if (in_array($columnId, array(Magento_Profiler::FETCH_TIME, Magento_Profiler::FETCH_AVG))) {
             $value = number_format($value, 6);
         } else {
@@ -206,4 +208,5 @@ abstract class Magento_Profiler_OutputAbstract
             $this->_thresholds[$fetchKey] = $minAllowedValue;
         }
     }
+
 }

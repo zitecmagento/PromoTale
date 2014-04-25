@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Core_Model_Store_Observer
 {
+
     /**
      * Cleans cache by store tag
      */
@@ -40,4 +42,5 @@ class Mage_Core_Model_Store_Observer
     {
         Mage::app()->cleanCache(array(Mage_Core_Model_Store::CACHE_TAG));
     }
+
 }

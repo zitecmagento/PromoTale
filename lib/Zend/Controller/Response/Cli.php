@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,11 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Cli.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Controller_Response_Abstract */
 #require_once 'Zend/Controller/Response/Abstract.php';
-
 
 /**
  * Zend_Controller_Response_Cli
@@ -37,6 +35,7 @@
  */
 class Zend_Controller_Response_Cli extends Zend_Controller_Response_Abstract
 {
+
     /**
      * Flag; if true, when header operations are called after headers have been
      * sent, an exception will be raised; otherwise, processing will continue
@@ -46,7 +45,6 @@ class Zend_Controller_Response_Cli extends Zend_Controller_Response_Abstract
      * @var boolean
      */
     public $headersSentThrowsException = false;
-
 
     /**
      * Magic __toString functionality
@@ -65,4 +63,5 @@ class Zend_Controller_Response_Cli extends Zend_Controller_Response_Abstract
 
         return $this->_body;
     }
+
 }

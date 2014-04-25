@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -51,22 +52,25 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Cron extends Mage_Core
         $cronDayOfWeek = date('N');
 
         $cronExprArray = array(
-            intval($time[1]),                                   # Minute
-            intval($time[0]),                                   # Hour
-            ($frequency == $frequencyMonthly) ? '1' : '*',       # Day of the Month
-            '*',                                                # Month of the Year
-            ($frequency == $frequencyWeekly) ? '1' : '*',        # Day of the Week
+            intval($time[1]), # Minute
+            intval($time[0]), # Hour
+            ($frequency == $frequencyMonthly) ? '1' : '*', # Day of the Month
+            '*', # Month of the Year
+            ($frequency == $frequencyWeekly) ? '1' : '*', # Day of the Week
         );
 
         $cronExprString = join(' ', $cronExprArray);
 
-        try {
+        try
+        {
             Mage::getModel('core/config_data')
-                ->load(self::CRON_STRING_PATH, 'path')
-                ->setValue($cronExprString)
-                ->setPath(self::CRON_STRING_PATH)
-                ->save();
-        } catch (Exception $e) {
+                    ->load(self::CRON_STRING_PATH, 'path')
+                    ->setValue($cronExprString)
+                    ->setPath(self::CRON_STRING_PATH)
+                    ->save();
+        }
+        catch (Exception $e)
+        {
             throw new Exception(Mage::helper('cron')->__('Unable to save the cron expression.'));
         }
     }

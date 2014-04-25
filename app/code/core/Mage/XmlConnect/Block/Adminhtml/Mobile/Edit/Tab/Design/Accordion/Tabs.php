@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Tabs
-    extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Tabs extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
 {
+
     /**
      * Getter for accordion item title
      *
@@ -76,4 +77,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Tabs
         $this->setForm($form);
         return parent::_prepareForm();
     }
+
 }

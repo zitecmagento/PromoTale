@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Tax_Model_Sales_Pdf_Subtotal extends Mage_Sales_Model_Order_Pdf_Total_Default
 {
+
     /**
      * Get array of arrays with totals information for display in PDF
      * array(
@@ -40,46 +41,45 @@ class Mage_Tax_Model_Sales_Pdf_Subtotal extends Mage_Sales_Model_Order_Pdf_Total
     public function getTotalsForDisplay()
     {
         $store = $this->getOrder()->getStore();
-        $helper= Mage::helper('tax');
+        $helper = Mage::helper('tax');
         $amount = $this->getOrder()->formatPriceTxt($this->getAmount());
         if ($this->getSource()->getSubtotalInclTax()) {
             $amountInclTax = $this->getSource()->getSubtotalInclTax();
         } else {
-            $amountInclTax = $this->getAmount()
-                +$this->getSource()->getTaxAmount()
-                -$this->getSource()->getShippingTaxAmount();
+            $amountInclTax = $this->getAmount() + $this->getSource()->getTaxAmount() - $this->getSource()->getShippingTaxAmount();
         }
-        
+
         $amountInclTax = $this->getOrder()->formatPriceTxt($amountInclTax);
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
-        
+
         if ($helper->displaySalesSubtotalBoth($store)) {
             $totals = array(
                 array(
-                    'amount'    => $this->getAmountPrefix().$amount,
-                    'label'     => Mage::helper('tax')->__('Subtotal (Excl. Tax)') . ':',
+                    'amount' => $this->getAmountPrefix() . $amount,
+                    'label' => Mage::helper('tax')->__('Subtotal (Excl. Tax)') . ':',
                     'font_size' => $fontSize
                 ),
                 array(
-                    'amount'    => $this->getAmountPrefix().$amountInclTax,
-                    'label'     => Mage::helper('tax')->__('Subtotal (Incl. Tax)') . ':',
+                    'amount' => $this->getAmountPrefix() . $amountInclTax,
+                    'label' => Mage::helper('tax')->__('Subtotal (Incl. Tax)') . ':',
                     'font_size' => $fontSize
                 ),
             );
         } elseif ($helper->displaySalesSubtotalInclTax($store)) {
             $totals = array(array(
-                'amount'    => $this->getAmountPrefix().$amountInclTax,
-                'label'     => Mage::helper('sales')->__($this->getTitle()) . ':',
-                'font_size' => $fontSize
+                    'amount' => $this->getAmountPrefix() . $amountInclTax,
+                    'label' => Mage::helper('sales')->__($this->getTitle()) . ':',
+                    'font_size' => $fontSize
             ));
         } else {
             $totals = array(array(
-                'amount'    => $this->getAmountPrefix().$amount,
-                'label'     => Mage::helper('sales')->__($this->getTitle()) . ':',
-                'font_size' => $fontSize
+                    'amount' => $this->getAmountPrefix() . $amount,
+                    'label' => Mage::helper('sales')->__($this->getTitle()) . ':',
+                    'font_size' => $fontSize
             ));
         }
-        
+
         return $totals;
     }
+
 }

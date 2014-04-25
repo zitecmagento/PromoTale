@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Simplexml_Form_Element_Image extends Mage_XmlConnect_Model_Simplexml_Form_Element_File
 {
+
     /**
      * Init text element
      *
@@ -43,4 +45,5 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Image extends Mage_XmlConnect
         parent::__construct($attributes);
         $this->setType('image');
     }
+
 }

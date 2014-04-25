@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Price_Giftcard extends Mage_Bundle_Block_Catalog_Product_Price
 {
+
     /**
      * Return minimal amount for Giftcard product using price model
      *
@@ -68,8 +70,9 @@ class Mage_XmlConnect_Block_Catalog_Product_Price_Giftcard extends Mage_Bundle_B
      * @param Mage_XmlConnect_Model_Simplexml_Element $item
      */
     public function collectProductPrices(
-        Mage_Catalog_Model_Product $product, Mage_XmlConnect_Model_Simplexml_Element $item
-    ) {
+    Mage_Catalog_Model_Product $product, Mage_XmlConnect_Model_Simplexml_Element $item
+    )
+    {
         $this->setProduct($product);
 
         if ($product->getCanShowPrice() !== false) {
@@ -81,11 +84,11 @@ class Mage_XmlConnect_Block_Catalog_Product_Price_Giftcard extends Mage_Bundle_B
                 $priceXmlObj->addAttribute('regular', Mage::helper('core')->currency($min, true, false));
             } else if ($min && $min != 0) {
                 $priceXmlObj->addAttribute(
-                    'regular',
-                    Mage::helper('enterprise_giftcard')->__('From') . ': '
+                        'regular', Mage::helper('enterprise_giftcard')->__('From') . ': '
                         . Mage::helper('core')->currency($min, true, false)
                 );
             }
         }
     }
+
 }

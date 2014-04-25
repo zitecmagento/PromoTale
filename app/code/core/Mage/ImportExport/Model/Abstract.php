@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
 {
+
     /**
      * Enable loging
      *
@@ -79,7 +81,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
         }
 
         if (!$this->_logInstance) {
-            $dirName  = date('Y' . DS .'m' . DS .'d' . DS);
+            $dirName = date('Y' . DS . 'm' . DS . 'd' . DS);
             $fileName = join('_', array(
                 str_replace(':', '-', $this->getRunAt()),
                 $this->getScheduledOperationId(),
@@ -87,14 +89,14 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
                 $this->getEntity()
             ));
             $dirPath = Mage::getBaseDir('var') . DS . Mage_ImportExport_Model_Scheduled_Operation::LOG_DIRECTORY
-                . $dirName;
+                    . $dirName;
             if (!is_dir($dirPath)) {
                 mkdir($dirPath, 0777, true);
             }
             $fileName = substr(strstr(Mage_ImportExport_Model_Scheduled_Operation::LOG_DIRECTORY, DS), 1)
-                . $dirName . $fileName . '.log';
+                    . $dirName . $fileName . '.log';
             $this->_logInstance = Mage::getModel('core/log_adapter', $fileName)
-                ->setFilterDataKeys($this->_debugReplacePrivateDataKeys);
+                    ->setFilterDataKeys($this->_debugReplacePrivateDataKeys);
         }
         $this->_logInstance->log($debugData);
         return $this;
@@ -114,4 +116,5 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
         }
         return $trace;
     }
+
 }

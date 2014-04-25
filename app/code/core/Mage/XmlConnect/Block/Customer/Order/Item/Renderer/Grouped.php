@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Grouped extends Mage_Sales_Block_Order_Item_Renderer_Grouped
 {
+
     /**
      * Default product type
      */
@@ -59,4 +61,5 @@ class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Grouped extends Mage_Sa
         $renderer->setItem($this->getItem())->setNewApi($this->getNewApi());
         $renderer->addItemToXmlObject($orderItemXmlObj);
     }
+
 }

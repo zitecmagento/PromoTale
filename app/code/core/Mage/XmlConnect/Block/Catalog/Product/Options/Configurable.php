@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_XmlConnect_Block_Catalog_Product_Options
 {
+
     /**
      * Generate bundle product options xml
      *
@@ -74,7 +76,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
          * Allowed products options
          */
         foreach ($allowProducts as $item) {
-            $productId  = $item->getId();
+            $productId = $item->getId();
 
             foreach ($productAttributes as $attribute) {
                 $productAttribute = $attribute->getProductAttribute();
@@ -94,9 +96,9 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
             $productAttribute = $attribute->getProductAttribute();
             $attributeId = $productAttribute->getId();
             $info = array(
-               'id'        => $productAttribute->getId(),
-               'label'     => $attribute->getLabel(),
-               'options'   => array()
+                'id' => $productAttribute->getId(),
+                'label' => $attribute->getLabel(),
+                'options' => array()
             );
 
             $prices = $attribute->getPrices();
@@ -106,24 +108,24 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
                         continue;
                     }
                     $price = Mage::helper('xmlconnect')->formatPriceForXml(
-                        $this->_preparePrice($product, $value['pricing_value'], $value['is_percent'])
+                            $this->_preparePrice($product, $value['pricing_value'], $value['is_percent'])
                     );
                     $optionProducts = array();
                     if (isset($options[$attributeId][$value['value_index']])) {
                         $optionProducts = $options[$attributeId][$value['value_index']];
                     }
                     $info['options'][] = array(
-                        'id'                => $value['value_index'],
-                        'label'             => $value['label'],
-                        'price'             => $price,
-                        'formated_price'    => $this->_formatPriceString($price, $product),
-                        'products'          => $optionProducts,
+                        'id' => $value['value_index'],
+                        'label' => $value['label'],
+                        'price' => $price,
+                        'formated_price' => $this->_formatPriceString($price, $product),
+                        'products' => $optionProducts,
                     );
                 }
             }
 
             if (sizeof($info['options']) > 0) {
-               $attributes[$attributeId] = $info;
+                $attributes[$attributeId] = $info;
             }
         }
 
@@ -142,7 +144,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
                     $valueNode = $optionNode->addChild('value');
                     $valueNode->addAttribute('code', $option['id']);
                     $valueNode->addAttribute('label', $optionsXmlObj->escapeXml($option['label']));
-                    if ((float)$option['price'] != 0.00) {
+                    if ((float) $option['price'] != 0.00) {
                         $valueNode->addAttribute('price', $option['price']);
                         $valueNode->addAttribute('formated_price', $option['formated_price']);
                     }
@@ -151,7 +153,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
                     }
                     if ($product->hasPreconfiguredValues()) {
                         $this->_setCartSelectedValue($valueNode, 'select', $this->_getPreconfiguredOption(
-                            $optionData, $id, $option['id']
+                                        $optionData, $id, $option['id']
                         ));
                     }
                 }
@@ -197,7 +199,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
             $nodeValue = $relatedNode->addChild('value');
             $nodeValue->addAttribute('code', $option['id']);
             $nodeValue->addAttribute('label', $nodeValue->escapeXml($option['label']));
-            if ((float)$option['price'] != 0.00) {
+            if ((float) $option['price'] != 0.00) {
                 $nodeValue->addAttribute('price', $option['price']);
                 $nodeValue->addAttribute('formated_price', $option['formated_price']);
             }
@@ -231,4 +233,5 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
         $price = Mage::app()->getStore()->roundPrice($price);
         return $price;
     }
+
 }

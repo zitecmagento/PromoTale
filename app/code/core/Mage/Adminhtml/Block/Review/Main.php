@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Review_Main extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     public function __construct()
     {
         $this->_addButtonLabel = Mage::helper('review')->__('Add New Review');
@@ -53,10 +54,10 @@ class Mage_Adminhtml_Block_Review_Main extends Mage_Adminhtml_Block_Widget_Grid_
         $productName = null;
         if ($productId) {
             $product = Mage::getModel('catalog/product')->load($productId);
-            $productName =  $this->escapeHtml($product->getName());
+            $productName = $this->escapeHtml($product->getName());
         }
 
-        if( Mage::registry('usePendingFilter') === true ) {
+        if (Mage::registry('usePendingFilter') === true) {
             if ($customerName) {
                 $this->_headerText = Mage::helper('review')->__('Pending Reviews of Customer `%s`', $customerName);
             } else {
@@ -73,4 +74,5 @@ class Mage_Adminhtml_Block_Review_Main extends Mage_Adminhtml_Block_Widget_Grid_
             }
         }
     }
+
 }

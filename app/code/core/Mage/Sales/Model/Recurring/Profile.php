@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -101,26 +102,27 @@
  */
 class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Profile
 {
+
     /**
      * Available states
      *
      * @var string
      */
-    const STATE_UNKNOWN   = 'unknown';
-    const STATE_PENDING   = 'pending';
-    const STATE_ACTIVE    = 'active';
+    const STATE_UNKNOWN = 'unknown';
+    const STATE_PENDING = 'pending';
+    const STATE_ACTIVE = 'active';
     const STATE_SUSPENDED = 'suspended';
-    const STATE_CANCELED  = 'canceled';
-    const STATE_EXPIRED   = 'expired';
+    const STATE_CANCELED = 'canceled';
+    const STATE_EXPIRED = 'expired';
 
     /**
      * Payment types
      *
      * @var string
      */
-    const PAYMENT_TYPE_REGULAR   = 'regular';
-    const PAYMENT_TYPE_TRIAL     = 'trial';
-    const PAYMENT_TYPE_INITIAL   = 'initial';
+    const PAYMENT_TYPE_REGULAR = 'regular';
+    const PAYMENT_TYPE_TRIAL = 'trial';
+    const PAYMENT_TYPE_INITIAL = 'initial';
 
     /**
      * Allowed actions matrix
@@ -147,14 +149,17 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     public function submit()
     {
         $this->_getResource()->beginTransaction();
-        try {
+        try
+        {
             $this->setInternalReferenceId(Mage::helper('core')->uniqHash('temporary-'));
             $this->save();
             $this->setInternalReferenceId(Mage::helper('core')->uniqHash($this->getId() . '-'));
             $this->getMethodInstance()->submitRecurringProfile($this, $this->getQuote()->getPayment());
             $this->save();
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getResource()->rollBack();
             throw $e;
         }
@@ -169,7 +174,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         $this->setNewState(self::STATE_ACTIVE);
         $this->getMethodInstance()->updateRecurringProfileStatus($this);
         $this->setState(self::STATE_ACTIVE)
-            ->save();
+                ->save();
     }
 
     /**
@@ -191,7 +196,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         $this->setNewState(self::STATE_SUSPENDED);
         $this->getMethodInstance()->updateRecurringProfileStatus($this);
         $this->setState(self::STATE_SUSPENDED)
-            ->save();
+                ->save();
     }
 
     /**
@@ -213,7 +218,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         $this->setNewState(self::STATE_CANCELED);
         $this->getMethodInstance()->updateRecurringProfileStatus($this);
         $this->setState(self::STATE_CANCELED)
-            ->save();
+                ->save();
     }
 
     /**
@@ -248,6 +253,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     {
         return $this->getMethodInstance()->canGetRecurringProfileDetails();
     }
+
 //
 ////    public function billOutstandingAmount($baseAmount, Varien_Object $info = null)
 ////    {
@@ -312,24 +318,24 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         $order = Mage::getModel('sales/order');
 
         $billingAddress = Mage::getModel('sales/order_address')
-            ->setData($this->getBillingAddressInfo())
-            ->setId(null);
+                ->setData($this->getBillingAddressInfo())
+                ->setId(null);
 
         $shippingInfo = $this->getShippingAddressInfo();
         $shippingAddress = Mage::getModel('sales/order_address')
-            ->setData($shippingInfo)
-            ->setId(null);
+                ->setData($shippingInfo)
+                ->setId(null);
 
         $payment = Mage::getModel('sales/order_payment')
-            ->setMethod($this->getMethodCode());
+                ->setMethod($this->getMethodCode());
 
         $transferDataKays = array(
-            'store_id',             'store_name',           'customer_id',          'customer_email',
-            'customer_firstname',   'customer_lastname',    'customer_middlename',  'customer_prefix',
-            'customer_suffix',      'customer_taxvat',      'customer_gender',      'customer_is_guest',
-            'customer_note_notify', 'customer_group_id',    'customer_note',        'shipping_method',
-            'shipping_description', 'base_currency_code',   'global_currency_code', 'order_currency_code',
-            'store_currency_code',  'base_to_global_rate',  'base_to_order_rate',   'store_to_base_rate',
+            'store_id', 'store_name', 'customer_id', 'customer_email',
+            'customer_firstname', 'customer_lastname', 'customer_middlename', 'customer_prefix',
+            'customer_suffix', 'customer_taxvat', 'customer_gender', 'customer_is_guest',
+            'customer_note_notify', 'customer_group_id', 'customer_note', 'shipping_method',
+            'shipping_description', 'base_currency_code', 'global_currency_code', 'order_currency_code',
+            'store_currency_code', 'base_to_global_rate', 'base_to_order_rate', 'store_to_base_rate',
             'store_to_order_rate'
         );
 
@@ -343,24 +349,24 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         }
 
         $order->setStoreId($this->getStoreId())
-            ->setState(Mage_Sales_Model_Order::STATE_NEW)
-            ->setBaseToOrderRate($this->getInfoValue('order_info', 'base_to_quote_rate'))
-            ->setStoreToOrderRate($this->getInfoValue('order_info', 'store_to_quote_rate'))
-            ->setOrderCurrencyCode($this->getInfoValue('order_info', 'quote_currency_code'))
-            ->setBaseSubtotal($billingAmount)
-            ->setSubtotal($billingAmount)
-            ->setBaseShippingAmount($shippingAmount)
-            ->setShippingAmount($shippingAmount)
-            ->setBaseTaxAmount($taxAmount)
-            ->setTaxAmount($taxAmount)
-            ->setBaseGrandTotal($grandTotal)
-            ->setGrandTotal($grandTotal)
-            ->setIsVirtual($isVirtual)
-            ->setWeight($weight)
-            ->setTotalQtyOrdered($this->getInfoValue('order_info', 'items_qty'))
-            ->setBillingAddress($billingAddress)
-            ->setShippingAddress($shippingAddress)
-            ->setPayment($payment);
+                ->setState(Mage_Sales_Model_Order::STATE_NEW)
+                ->setBaseToOrderRate($this->getInfoValue('order_info', 'base_to_quote_rate'))
+                ->setStoreToOrderRate($this->getInfoValue('order_info', 'store_to_quote_rate'))
+                ->setOrderCurrencyCode($this->getInfoValue('order_info', 'quote_currency_code'))
+                ->setBaseSubtotal($billingAmount)
+                ->setSubtotal($billingAmount)
+                ->setBaseShippingAmount($shippingAmount)
+                ->setShippingAmount($shippingAmount)
+                ->setBaseTaxAmount($taxAmount)
+                ->setTaxAmount($taxAmount)
+                ->setBaseGrandTotal($grandTotal)
+                ->setGrandTotal($grandTotal)
+                ->setIsVirtual($isVirtual)
+                ->setWeight($weight)
+                ->setTotalQtyOrdered($this->getInfoValue('order_info', 'items_qty'))
+                ->setBillingAddress($billingAddress)
+                ->setShippingAddress($shippingAddress)
+                ->setPayment($payment);
 
         foreach ($items as $item) {
             $order->addItem($item);
@@ -432,8 +438,8 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
 
         // TODO: make it abstract from amounts
         $this->setBillingAmount($item->getBaseRowTotal())
-            ->setTaxAmount($item->getBaseTaxAmount())
-            ->setShippingAmount($item->getBaseShippingAmount())
+                ->setTaxAmount($item->getBaseTaxAmount())
+                ->setShippingAmount($item->getBaseShippingAmount())
         ;
         if (!$this->getScheduleDescription()) {
             $this->setScheduleDescription($item->getName());
@@ -520,12 +526,12 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     public function getStateLabel($state)
     {
         switch ($state) {
-            case self::STATE_UNKNOWN:   return Mage::helper('sales')->__('Not Initialized');
-            case self::STATE_PENDING:   return Mage::helper('sales')->__('Pending');
-            case self::STATE_ACTIVE:    return Mage::helper('sales')->__('Active');
+            case self::STATE_UNKNOWN: return Mage::helper('sales')->__('Not Initialized');
+            case self::STATE_PENDING: return Mage::helper('sales')->__('Pending');
+            case self::STATE_ACTIVE: return Mage::helper('sales')->__('Active');
             case self::STATE_SUSPENDED: return Mage::helper('sales')->__('Suspended');
-            case self::STATE_CANCELED:  return Mage::helper('sales')->__('Canceled');
-            case self::STATE_EXPIRED:   return Mage::helper('sales')->__('Expired');
+            case self::STATE_CANCELED: return Mage::helper('sales')->__('Canceled');
+            case self::STATE_EXPIRED: return Mage::helper('sales')->__('Expired');
             default: return $state;
         }
     }
@@ -604,12 +610,12 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     {
         if (null === $this->_workflow) {
             $this->_workflow = array(
-                'unknown'   => array('pending', 'active', 'suspended', 'canceled'),
-                'pending'   => array('active', 'canceled'),
-                'active'    => array('suspended', 'canceled'),
+                'unknown' => array('pending', 'active', 'suspended', 'canceled'),
+                'pending' => array('active', 'canceled'),
+                'active' => array('suspended', 'canceled'),
                 'suspended' => array('active', 'canceled'),
-                'canceled'  => array(),
-                'expired'   => array(),
+                'canceled' => array(),
+                'expired' => array(),
             );
         }
     }
@@ -629,7 +635,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         $result = (!empty($this->_workflow[$state])) && in_array($againstState, $this->_workflow[$state]);
         if (!$soft && !$result) {
             Mage::throwException(
-                Mage::helper('sales')->__('This profile state cannot be changed to "%s".', $againstState)
+                    Mage::helper('sales')->__('This profile state cannot be changed to "%s".', $againstState)
             );
         }
         return $result;
@@ -643,7 +649,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     public function getChildOrderIds()
     {
         $ids = $this->_getResource()->getChildOrderIds($this);
-        if (empty($ids)){
+        if (empty($ids)) {
             $ids[] = '-1';
         }
         return $ids;
@@ -696,16 +702,16 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         $taxAmount = $itemInfo->getTaxAmount() ? $itemInfo->getTaxAmount() : $this->getTaxAmount();
 
         $item = Mage::getModel('sales/order_item')
-            ->setData($this->getOrderItemInfo())
-            ->setQtyOrdered($this->getInfoValue('order_item_info', 'qty'))
-            ->setBaseOriginalPrice($this->getInfoValue('order_item_info', 'price'))
-            ->setPrice($price)
-            ->setBasePrice($price)
-            ->setRowTotal($price)
-            ->setBaseRowTotal($price)
-            ->setTaxAmount($taxAmount)
-            ->setShippingAmount($shippingAmount)
-            ->setId(null);
+                ->setData($this->getOrderItemInfo())
+                ->setQtyOrdered($this->getInfoValue('order_item_info', 'qty'))
+                ->setBaseOriginalPrice($this->getInfoValue('order_item_info', 'price'))
+                ->setPrice($price)
+                ->setBasePrice($price)
+                ->setRowTotal($price)
+                ->setBaseRowTotal($price)
+                ->setTaxAmount($taxAmount)
+                ->setShippingAmount($shippingAmount)
+                ->setId(null);
         return $item;
     }
 
@@ -721,7 +727,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         $item = $this->_getRegularItem($itemInfo);
 
         $item->setName(
-            Mage::helper('sales')->__('Trial ') . $item->getName()
+                Mage::helper('sales')->__('Trial ') . $item->getName()
         );
 
         $option = array(
@@ -747,22 +753,22 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         $shippingAmount = $itemInfo->getShippingAmount() ? $itemInfo->getShippingAmount() : 0;
         $taxAmount = $itemInfo->getTaxAmount() ? $itemInfo->getTaxAmount() : 0;
         $item = Mage::getModel('sales/order_item')
-            ->setStoreId($this->getStoreId())
-            ->setProductType(Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL)
-            ->setIsVirtual(1)
-            ->setSku('initial_fee')
-            ->setName(Mage::helper('sales')->__('Recurring Profile Initial Fee'))
-            ->setDescription('')
-            ->setWeight(0)
-            ->setQtyOrdered(1)
-            ->setPrice($price)
-            ->setOriginalPrice($price)
-            ->setBasePrice($price)
-            ->setBaseOriginalPrice($price)
-            ->setRowTotal($price)
-            ->setBaseRowTotal($price)
-            ->setTaxAmount($taxAmount)
-            ->setShippingAmount($shippingAmount);
+                ->setStoreId($this->getStoreId())
+                ->setProductType(Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL)
+                ->setIsVirtual(1)
+                ->setSku('initial_fee')
+                ->setName(Mage::helper('sales')->__('Recurring Profile Initial Fee'))
+                ->setDescription('')
+                ->setWeight(0)
+                ->setQtyOrdered(1)
+                ->setPrice($price)
+                ->setOriginalPrice($price)
+                ->setBasePrice($price)
+                ->setBaseOriginalPrice($price)
+                ->setRowTotal($price)
+                ->setBaseRowTotal($price)
+                ->setTaxAmount($taxAmount)
+                ->setShippingAmount($shippingAmount);
 
         $option = array(
             'label' => Mage::helper('sales')->__('Payment type'),
@@ -810,4 +816,5 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             }
         }
     }
+
 }

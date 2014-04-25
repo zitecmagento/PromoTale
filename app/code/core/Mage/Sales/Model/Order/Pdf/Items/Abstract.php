@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model_Abstract
 {
+
     /**
      * Order model
      *
@@ -225,7 +227,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
             if (isset($value['price'])) {
                 $resultValue .= " " . $order->formatPrice($value['price']);
             }
-            return  $resultValue;
+            return $resultValue;
         } else {
             return $value;
         }
@@ -260,29 +262,29 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     public function getItemPricesForDisplay()
     {
         $order = $this->getOrder();
-        $item  = $this->getItem();
+        $item = $this->getItem();
         if (Mage::helper('tax')->displaySalesBothPrices()) {
             $prices = array(
                 array(
-                    'label'    => Mage::helper('tax')->__('Excl. Tax') . ':',
-                    'price'    => $order->formatPriceTxt($item->getPrice()),
+                    'label' => Mage::helper('tax')->__('Excl. Tax') . ':',
+                    'price' => $order->formatPriceTxt($item->getPrice()),
                     'subtotal' => $order->formatPriceTxt($item->getRowTotal())
                 ),
                 array(
-                    'label'    => Mage::helper('tax')->__('Incl. Tax') . ':',
-                    'price'    => $order->formatPriceTxt($item->getPriceInclTax()),
+                    'label' => Mage::helper('tax')->__('Incl. Tax') . ':',
+                    'price' => $order->formatPriceTxt($item->getPriceInclTax()),
                     'subtotal' => $order->formatPriceTxt($item->getRowTotalInclTax())
                 ),
             );
         } elseif (Mage::helper('tax')->displaySalesPriceInclTax()) {
             $prices = array(array(
-                'price' => $order->formatPriceTxt($item->getPriceInclTax()),
-                'subtotal' => $order->formatPriceTxt($item->getRowTotalInclTax()),
+                    'price' => $order->formatPriceTxt($item->getPriceInclTax()),
+                    'subtotal' => $order->formatPriceTxt($item->getRowTotalInclTax()),
             ));
         } else {
             $prices = array(array(
-                'price' => $order->formatPriceTxt($item->getPrice()),
-                'subtotal' => $order->formatPriceTxt($item->getRowTotal()),
+                    'price' => $order->formatPriceTxt($item->getPrice()),
+                    'subtotal' => $order->formatPriceTxt($item->getRowTotal()),
             ));
         }
         return $prices;
@@ -293,7 +295,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      *
      * @return array
      */
-    public function getItemOptions() {
+    public function getItemOptions()
+    {
         $result = array();
         if ($options = $this->getItem()->getOrderItem()->getProductOptions()) {
             if (isset($options['options'])) {
@@ -361,4 +364,5 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         else
             return $item->getSku();
     }
+
 }

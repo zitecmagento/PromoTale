@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Term.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Search_Query_Processing */
 #require_once 'Zend/Search/Lucene/Search/Query/Preprocessing.php';
-
 
 /**
  * It's an internal abstract class intended to finalize ase a query processing after query parsing.
@@ -38,6 +36,7 @@
  */
 class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Lucene_Search_Query_Preprocessing
 {
+
     /**
      * word (query parser lexeme) to find.
      *
@@ -51,7 +50,6 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
      * @var string
      */
     private $_encoding;
-
 
     /**
      * Field name.
@@ -69,9 +67,9 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
      */
     public function __construct($word, $encoding, $fieldName)
     {
-        $this->_word     = $word;
+        $this->_word = $word;
         $this->_encoding = $encoding;
-        $this->_field    = $fieldName;
+        $this->_field = $fieldName;
     }
 
     /**
@@ -98,9 +96,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
 
             #require_once 'Zend/Search/Lucene/Search/Query/Preprocessing/Term.php';
             foreach ($searchFields as $fieldName) {
-                $subquery = new Zend_Search_Lucene_Search_Query_Preprocessing_Term($this->_word,
-                                                                                   $this->_encoding,
-                                                                                   $fieldName);
+                $subquery = new Zend_Search_Lucene_Search_Query_Preprocessing_Term($this->_word, $this->_encoding, $fieldName);
                 $rewrittenSubquery = $subquery->rewrite($index);
                 foreach ($rewrittenSubquery->getQueryTerms() as $term) {
                     $query->addTerm($term);
@@ -166,7 +162,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
             foreach ($subPatterns as $id => $subPattern) {
                 // Append corresponding wildcard character to the pattern before each sub-pattern (except first)
                 if ($id != 0) {
-                    $pattern .= $word[ $subPattern[1] - 1 ];
+                    $pattern .= $word[$subPattern[1] - 1];
                 }
 
                 // Check if each subputtern is a single word in terms of current analyzer
@@ -181,7 +177,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
             }
 
             #require_once 'Zend/Search/Lucene/Index/Term.php';
-            $term  = new Zend_Search_Lucene_Index_Term($pattern, $this->_field);
+            $term = new Zend_Search_Lucene_Index_Term($pattern, $this->_field);
             #require_once 'Zend/Search/Lucene/Search/Query/Wildcard.php';
             $query = new Zend_Search_Lucene_Search_Query_Wildcard($term);
             $query->setBoost($this->getBoost());
@@ -207,7 +203,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
 
         if (count($tokens) == 1) {
             #require_once 'Zend/Search/Lucene/Index/Term.php';
-            $term  = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
+            $term = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
             #require_once 'Zend/Search/Lucene/Search/Query/Term.php';
             $query = new Zend_Search_Lucene_Search_Query_Term($term);
             $query->setBoost($this->getBoost());
@@ -244,9 +240,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
     protected function _highlightMatches(Zend_Search_Lucene_Search_Highlighter_Interface $highlighter)
     {
         /** Skip fields detection. We don't need it, since we expect all fields presented in the HTML body and don't differentiate them */
-
         /** Skip exact term matching recognition, keyword fields highlighting is not supported */
-
         // -------------------------------------
         // Recognize wildcard queries
         /** @todo check for PCRE unicode support may be performed through Zend_Environment in some future */
@@ -269,7 +263,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
             foreach ($subPatterns as $id => $subPattern) {
                 // Append corresponding wildcard character to the pattern before each sub-pattern (except first)
                 if ($id != 0) {
-                    $pattern .= $word[ $subPattern[1] - 1 ];
+                    $pattern .= $word[$subPattern[1] - 1];
                 }
 
                 // Check if each subputtern is a single word in terms of current analyzer
@@ -284,7 +278,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
             }
 
             #require_once 'Zend/Search/Lucene/Index/Term.php';
-            $term  = new Zend_Search_Lucene_Index_Term($pattern, $this->_field);
+            $term = new Zend_Search_Lucene_Index_Term($pattern, $this->_field);
             #require_once 'Zend/Search/Lucene/Search/Query/Wildcard.php';
             $query = new Zend_Search_Lucene_Search_Query_Wildcard($term);
 
@@ -338,4 +332,5 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
 
         return $query;
     }
+
 }

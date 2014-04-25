@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
 {
+
     /**
      * @var Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup
      */
@@ -47,8 +49,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty extends Mage_A
     {
         if (!$this->_groupRenderer) {
             $this->_groupRenderer = $this->getLayout()->createBlock(
-                'cataloginventory/adminhtml_form_field_customergroup', '',
-                array('is_render_to_js_template' => true)
+                    'cataloginventory/adminhtml_form_field_customergroup', '', array('is_render_to_js_template' => true)
             );
             $this->_groupRenderer->setClass('customer_group_select');
             $this->_groupRenderer->setExtraParams('style="width:120px"');
@@ -81,8 +82,8 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty extends Mage_A
     protected function _prepareArrayRow(Varien_Object $row)
     {
         $row->setData(
-            'option_extra_attr_' . $this->_getGroupRenderer()->calcOptionHash($row->getData('customer_group_id')),
-            'selected="selected"'
+                'option_extra_attr_' . $this->_getGroupRenderer()->calcOptionHash($row->getData('customer_group_id')), 'selected="selected"'
         );
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
 {
+
     /**
      * Set payment method code
      */
@@ -60,8 +62,8 @@ class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
     public function getSecureToken()
     {
         return $this->_getOrder()
-            ->getPayment()
-            ->getAdditionalInformation('secure_token');
+                        ->getPayment()
+                        ->getAdditionalInformation('secure_token');
     }
 
     /**
@@ -72,8 +74,8 @@ class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
     public function getSecureTokenId()
     {
         return $this->_getOrder()
-            ->getPayment()
-            ->getAdditionalInformation('secure_token_id');
+                        ->getPayment()
+                        ->getAdditionalInformation('secure_token_id');
     }
 
     /**
@@ -94,8 +96,9 @@ class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
     public function isTestMode()
     {
         $mode = Mage::helper('payment')
-            ->getMethodInstance($this->_paymentMethodCode)
-            ->getConfigData('sandbox_flag');
+                ->getMethodInstance($this->_paymentMethodCode)
+                ->getConfigData('sandbox_flag');
         return (bool) $mode;
     }
+
 }

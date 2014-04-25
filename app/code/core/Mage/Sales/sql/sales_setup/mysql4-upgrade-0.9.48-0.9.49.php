@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 $installer = $this;
 
@@ -62,21 +61,11 @@ $installer->run("
 
 
 $installer->getConnection()->addConstraint(
-    'SALES_REFUNDED_AGGREGATED_STORE',
-    $installer->getTable('sales/refunded_aggregated'),
-    'store_id',
-    $installer->getTable('core/store'),
-    'store_id',
-    'SET NULL'
+        'SALES_REFUNDED_AGGREGATED_STORE', $installer->getTable('sales/refunded_aggregated'), 'store_id', $installer->getTable('core/store'), 'store_id', 'SET NULL'
 );
 
 $installer->getConnection()->addConstraint(
-    'SALES_REFUNDED_AGGREGATED_ORDER_STORE',
-    $installer->getTable('sales/refunded_aggregated_order'),
-    'store_id',
-    $installer->getTable('core/store'),
-    'store_id',
-    'SET NULL'
+        'SALES_REFUNDED_AGGREGATED_ORDER_STORE', $installer->getTable('sales/refunded_aggregated_order'), 'store_id', $installer->getTable('core/store'), 'store_id', 'SET NULL'
 );
 
 $this->endSetup();

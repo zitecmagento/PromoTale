@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,14 +19,11 @@
  * @version    $Id: Array.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-
 /** Zend_Locale */
 #require_once 'Zend/Locale.php';
 
 /** Zend_Translate_Adapter */
 #require_once 'Zend/Translate/Adapter.php';
-
 
 /**
  * @category   Zend
@@ -35,6 +33,7 @@
  */
 class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter
 {
+
     private $_data = array();
 
     /**
@@ -58,7 +57,7 @@ class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter
         }
         if (!is_array($data)) {
             #require_once 'Zend/Translate/Exception.php';
-            throw new Zend_Translate_Exception("Error including array or file '".$data."'");
+            throw new Zend_Translate_Exception("Error including array or file '" . $data . "'");
         }
 
         if (!isset($this->_data[$locale])) {
@@ -78,4 +77,5 @@ class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter
     {
         return "Array";
     }
+
 }

@@ -27,7 +27,7 @@
 -->
 <config>
     <menu>
-         <sales>
+        <sales>
             <children>
                 <checkoutagreement translate="title" module="checkout">
                     <sort_order>100</sort_order>
@@ -35,7 +35,7 @@
                     <action>adminhtml/checkout_agreement/</action>
                 </checkoutagreement>
             </children>
-         </sales>
+        </sales>
     </menu>
     <acl>
         <resources>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales report coupons collection
  *
@@ -32,13 +32,14 @@
  * @package     Mage_SalesRule
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_SalesRule_Model_Resource_Report_Updatedat_Collection
-    extends Mage_SalesRule_Model_Resource_Report_Collection
+class Mage_SalesRule_Model_Resource_Report_Updatedat_Collection extends Mage_SalesRule_Model_Resource_Report_Collection
 {
+
     /**
      * Aggregated Data Table
      *
      * @var string
      */
     protected $_aggregationTable = 'salesrule/coupon_aggregated_updated';
+
 }

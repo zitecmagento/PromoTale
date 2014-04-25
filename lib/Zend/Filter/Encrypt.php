@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Encrypt.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Interface
  */
@@ -39,6 +39,7 @@
  */
 class Zend_Filter_Encrypt implements Zend_Filter_Interface
 {
+
     /**
      * Encryption adapter
      */
@@ -89,7 +90,7 @@ class Zend_Filter_Encrypt implements Zend_Filter_Interface
             $options = array();
         }
 
-        if (Zend_Loader::isReadable('Zend/Filter/Encrypt/' . ucfirst($adapter). '.php')) {
+        if (Zend_Loader::isReadable('Zend/Filter/Encrypt/' . ucfirst($adapter) . '.php')) {
             $adapter = 'Zend_Filter_Encrypt_' . ucfirst($adapter);
         }
 
@@ -135,4 +136,5 @@ class Zend_Filter_Encrypt implements Zend_Filter_Interface
     {
         return $this->_adapter->encrypt($value);
     }
+
 }

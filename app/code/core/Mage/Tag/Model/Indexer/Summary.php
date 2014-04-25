@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Tag Indexer Model
@@ -53,6 +53,7 @@
  */
 class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
 {
+
     /**
      * @var array
      */
@@ -157,8 +158,8 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
     protected function _registerCatalogProductDeleteEvent(Mage_Index_Model_Event $event)
     {
         $tagIds = Mage::getModel('tag/tag_relation')
-            ->setProductId($event->getEntityPk())
-            ->getRelatedTagIds();
+                ->setProductId($event->getEntityPk())
+                ->getRelatedTagIds();
         if ($tagIds) {
             $event->addNewData('tag_reindex_tag_ids', $tagIds);
         }
@@ -173,8 +174,8 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
     {
         /* @var $actionObject Varien_Object */
         $actionObject = $event->getDataObject();
-        $attributes   = $this->_getProductAttributesDependOn();
-        $reindexTags  = false;
+        $attributes = $this->_getProductAttributesDependOn();
+        $reindexTags = false;
 
         // check if attributes changed
         $attrData = $actionObject->getAttributesData();
@@ -195,8 +196,8 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
         // register affected tags
         if ($reindexTags) {
             $tagIds = Mage::getModel('tag/tag_relation')
-                ->setProductId($actionObject->getProductIds())
-                ->getRelatedTagIds();
+                    ->setProductId($actionObject->getProductIds())
+                    ->getRelatedTagIds();
             if ($tagIds) {
                 $event->addNewData('tag_reindex_tag_ids', $tagIds);
             }
@@ -243,4 +244,5 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
     {
         $this->callEventHandler($event);
     }
+
 }

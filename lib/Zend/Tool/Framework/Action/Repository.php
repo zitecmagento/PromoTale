@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Repository.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Framework_Registry_EnabledInterface
  */
@@ -31,8 +31,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_Action_Repository
-    implements Zend_Tool_Framework_Registry_EnabledInterface, IteratorAggregate, Countable
+class Zend_Tool_Framework_Action_Repository implements Zend_Tool_Framework_Registry_EnabledInterface, IteratorAggregate, Countable
 {
 
     /**
@@ -73,7 +72,7 @@ class Zend_Tool_Framework_Action_Repository
         if (!$overrideExistingAction && array_key_exists(strtolower($actionName), $this->_actions)) {
             #require_once 'Zend/Tool/Framework/Action/Exception.php';
             throw new Zend_Tool_Framework_Action_Exception('An action by the name ' . $actionName
-                . ' is already registered and $overrideExistingAction is set to false.');
+            . ' is already registered and $overrideExistingAction is set to false.');
         }
 
         $this->_actions[strtolower($actionName)] = $action;

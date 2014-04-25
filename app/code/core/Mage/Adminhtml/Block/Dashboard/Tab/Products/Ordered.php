@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml_Block_Dashboard_Grid
 {
 
@@ -53,12 +53,12 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
             $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
             $storeId = array_pop($storeIds);
         } else {
-            $storeId = (int)$this->getParam('store');
+            $storeId = (int) $this->getParam('store');
         }
 
         $collection = Mage::getResourceModel('sales/report_bestsellers_collection')
-            ->setModel('catalog/product')
-            ->addStoreFilter($storeId)
+                ->setModel('catalog/product')
+                ->addStoreFilter($storeId)
         ;
 
         $this->setCollection($collection);
@@ -70,27 +70,27 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
     {
 
         $this->addColumn('name', array(
-            'header'    => Mage::helper('sales')->__('Product Name'),
-            'sortable'  => false,
-            'index'     => 'product_name'
+            'header' => Mage::helper('sales')->__('Product Name'),
+            'sortable' => false,
+            'index' => 'product_name'
         ));
 
         $this->addColumn('price', array(
-            'header'    => Mage::helper('sales')->__('Price'),
-            'width'     => '120px',
-            'type'      => 'currency',
-            'currency_code' => (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode(),
-            'sortable'  => false,
-            'index'     => 'product_price'
+            'header' => Mage::helper('sales')->__('Price'),
+            'width' => '120px',
+            'type' => 'currency',
+            'currency_code' => (string) Mage::app()->getStore((int) $this->getParam('store'))->getBaseCurrencyCode(),
+            'sortable' => false,
+            'index' => 'product_price'
         ));
 
         $this->addColumn('ordered_qty', array(
-            'header'    => Mage::helper('sales')->__('Quantity Ordered'),
-            'width'     => '120px',
-            'align'     => 'right',
-            'sortable'  => false,
-            'index'     => 'qty_ordered',
-            'type'      => 'number'
+            'header' => Mage::helper('sales')->__('Quantity Ordered'),
+            'width' => '120px',
+            'align' => 'right',
+            'sortable' => false,
+            'index' => 'qty_ordered',
+            'type' => 'number'
         ));
 
         $this->setFilterVisibility(false);
@@ -107,6 +107,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
      *
      * @return string
      */
+
     public function getRowUrl($row)
     {
         // getId() would return id of bestseller row, and product id we get by getProductId()
@@ -123,4 +124,5 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
         }
         return $this->getUrl('*/catalog_product/edit', $params);
     }
+
 }

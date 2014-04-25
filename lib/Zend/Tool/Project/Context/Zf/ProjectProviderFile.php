@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ProjectProviderFile.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Filesystem_File
  */
@@ -86,7 +86,7 @@ class Zend_Tool_Project_Context_Zf_ProjectProviderFile extends Zend_Tool_Project
         return array(
             'projectProviderName' => $this->getProjectProviderName(),
             'actionNames' => implode(',', $this->_actionNames)
-            );
+        );
     }
 
     /**
@@ -124,14 +124,14 @@ class Zend_Tool_Project_Context_Zf_ProjectProviderFile extends Zend_Tool_Project
         $class = new Zend_CodeGenerator_Php_Class(array(
             'name' => $className,
             'extendedClass' => 'Zend_Tool_Project_Provider_Abstract'
-            ));
+        ));
 
         $methods = array();
         foreach ($this->_actionNames as $actionName) {
             $methods[] = new Zend_CodeGenerator_Php_Method(array(
                 'name' => $actionName,
                 'body' => '        /** @todo Implementation */'
-                ));
+            ));
         }
 
         if ($methods) {
@@ -142,9 +142,9 @@ class Zend_Tool_Project_Context_Zf_ProjectProviderFile extends Zend_Tool_Project
             'requiredFiles' => array(
                 'Zend/Tool/Project/Provider/Abstract.php',
                 'Zend/Tool/Project/Provider/Exception.php'
-                ),
+            ),
             'classes' => array($class)
-            ));
+        ));
 
         return $codeGenFile->generate();
     }

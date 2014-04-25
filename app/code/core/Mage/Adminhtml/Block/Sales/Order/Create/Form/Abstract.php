@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales Order Create Form Abstract Block
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
-    extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
+abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
+
     /**
      * Data Form object
      *
@@ -53,13 +53,13 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
         parent::_prepareLayout();
 
         Varien_Data_Form::setElementRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element')
+                $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element')
         );
         Varien_Data_Form::setFieldsetRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset')
+                $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset')
         );
         Varien_Data_Form::setFieldsetElementRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element')
+                $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element')
         );
 
         return $this;
@@ -95,9 +95,9 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
     protected function _getAdditionalFormElementTypes()
     {
         return array(
-            'file'      => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_file'),
-            'image'     => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_image'),
-            'boolean'   => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_boolean'),
+            'file' => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_file'),
+            'image' => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_image'),
+            'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_boolean'),
         );
     }
 
@@ -109,7 +109,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
     protected function _getAdditionalFormElementRenderers()
     {
         return array(
-            'region'    => $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_region'),
+            'region' => $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_region'),
         );
     }
 
@@ -147,10 +147,10 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
 
             if ($inputType) {
                 $element = $form->addField($attribute->getAttributeCode(), $inputType, array(
-                    'name'      => $attribute->getAttributeCode(),
-                    'label'     => $this->__($attribute->getStoreLabel()),
-                    'class'     => $attribute->getFrontend()->getClass(),
-                    'required'  => $attribute->getIsRequired(),
+                    'name' => $attribute->getAttributeCode(),
+                    'label' => $this->__($attribute->getStoreLabel()),
+                    'class' => $attribute->getFrontend()->getClass(),
+                    'required' => $attribute->getIsRequired(),
                 ));
                 if ($inputType == 'multiline') {
                     $element->setLineCount($attribute->getMultilineCount());
@@ -184,4 +184,5 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
     {
         return array();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,19 +24,20 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
  * Disable magic quotes in runtime if needed
  *
  * @link http://us3.php.net/manual/en/security.magicquotes.disabling.php
  */
 if (get_magic_quotes_gpc()) {
-    function mageUndoMagicQuotes($array, $topLevel=true) {
+
+    function mageUndoMagicQuotes($array, $topLevel = true)
+    {
         $newArray = array();
-        foreach($array as $key => $value) {
+        foreach ($array as $key => $value) {
             if (!$topLevel) {
                 $newKey = stripslashes($key);
-                if ($newKey!==$key) {
+                if ($newKey !== $key) {
                     unset($array[$key]);
                 }
                 $key = $newKey;
@@ -44,6 +46,7 @@ if (get_magic_quotes_gpc()) {
         }
         return $newArray;
     }
+
     $_GET = mageUndoMagicQuotes($_GET);
     $_POST = mageUndoMagicQuotes($_POST);
     $_COOKIE = mageUndoMagicQuotes($_COOKIE);
@@ -60,9 +63,9 @@ if (get_magic_quotes_gpc()) {
 function __autoload($class)
 {
     if (defined('COMPILER_INCLUDE_PATH')) {
-        $classFile = $class.'.php';
+        $classFile = $class . '.php';
     } else {
-        $classFile = uc_words($class, DIRECTORY_SEPARATOR).'.php';
+        $classFile = uc_words($class, DIRECTORY_SEPARATOR) . '.php';
     }
 
     include($classFile);
@@ -105,7 +108,7 @@ function __()
  * @param string $srcSep
  * @return string
  */
-function uc_words($str, $destSep='_', $srcSep='_')
+function uc_words($str, $destSep = '_', $srcSep = '_')
 {
     return str_replace(' ', $destSep, ucwords(str_replace($srcSep, ' ', $str)));
 }
@@ -116,7 +119,7 @@ function uc_words($str, $destSep='_', $srcSep='_')
  * @param string $format
  * @return string
  */
-function now($dayOnly=false)
+function now($dayOnly = false)
 {
     return date($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s');
 }
@@ -129,19 +132,19 @@ function now($dayOnly=false)
  */
 function is_empty_date($date)
 {
-    return preg_replace('#[ 0:-]#', '', $date)==='';
+    return preg_replace('#[ 0:-]#', '', $date) === '';
 }
 
 function mageFindClassFile($class)
 {
     if (defined('COMPILER_INCLUDE_PATH')) {
-        $classFile = $class.'.php';
+        $classFile = $class . '.php';
     } else {
-        $classFile = uc_words($class, DIRECTORY_SEPARATOR).'.php';
+        $classFile = uc_words($class, DIRECTORY_SEPARATOR) . '.php';
     }
     $found = false;
     foreach (explode(PS, get_include_path()) as $path) {
-        $fileName = $path.DS.$classFile;
+        $fileName = $path . DS . $classFile;
         if (file_exists($fileName)) {
             $found = $fileName;
             break;
@@ -158,8 +161,9 @@ function mageFindClassFile($class)
  * @param string $errfile
  * @param integer $errline
  */
-function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
-    if (strpos($errstr, 'DateTimeZone::__construct')!==false) {
+function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
+{
+    if (strpos($errstr, 'DateTimeZone::__construct') !== false) {
         // there's no way to distinguish between caught system exceptions and warnings
         return false;
     }
@@ -179,8 +183,8 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
     }
 
     // PEAR specific message handling
-    if (stripos($errfile.$errstr, 'pear') !== false) {
-         // ignore strict and deprecated notices
+    if (stripos($errfile . $errstr, 'pear') !== false) {
+        // ignore strict and deprecated notices
         if (($errno == E_STRICT) || ($errno == E_DEPRECATED)) {
             return true;
         }
@@ -192,7 +196,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
 
     $errorMessage = '';
 
-    switch($errno){
+    switch ($errno) {
         case E_ERROR:
             $errorMessage .= "Error";
             break;
@@ -248,19 +252,21 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
     }
 }
 
-function mageDebugBacktrace($return=false, $html=true, $showFirst=false)
+function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 {
     $d = debug_backtrace();
     $out = '';
-    if ($html) $out .= "<pre>";
-    foreach ($d as $i=>$r) {
-        if (!$showFirst && $i==0) {
+    if ($html)
+        $out .= "<pre>";
+    foreach ($d as $i => $r) {
+        if (!$showFirst && $i == 0) {
             continue;
         }
         // sometimes there is undefined index 'file'
         @$out .= "[$i] {$r['file']}:{$r['line']}\n";
     }
-    if ($html) $out .= "</pre>";
+    if ($html)
+        $out .= "</pre>";
     if ($return) {
         return $out;
     } else {
@@ -274,8 +280,8 @@ function mageSendErrorHeader()
     if (!isset($_SERVER['SCRIPT_NAME'])) {
         return;
     }
-    $action = Mage::app()->getRequest()->getBasePath()."bugreport.php";
-    echo '<form id="error_report" method="post" style="display:none" action="'.$action.'"><textarea name="error">';
+    $action = Mage::app()->getRequest()->getBasePath() . "bugreport.php";
+    echo '<form id="error_report" method="post" style="display:none" action="' . $action . '"><textarea name="error">';
 }
 
 function mageSendErrorFooter()
@@ -288,12 +294,13 @@ function mageSendErrorFooter()
     exit;
 }
 
-function mageDelTree($path) {
+function mageDelTree($path)
+{
     if (is_dir($path)) {
         $entries = scandir($path);
         foreach ($entries as $entry) {
             if ($entry != '.' && $entry != '..') {
-                mageDelTree($path.DS.$entry);
+                mageDelTree($path . DS . $entry);
             }
         }
         @rmdir($path);
@@ -302,27 +309,26 @@ function mageDelTree($path) {
     }
 }
 
-function mageParseCsv($string, $delimiter=",", $enclosure='"', $escape='\\')
+function mageParseCsv($string, $delimiter = ",", $enclosure = '"', $escape = '\\')
 {
     $elements = explode($delimiter, $string);
     for ($i = 0; $i < count($elements); $i++) {
         $nquotes = substr_count($elements[$i], $enclosure);
-        if ($nquotes %2 == 1) {
-            for ($j = $i+1; $j < count($elements); $j++) {
+        if ($nquotes % 2 == 1) {
+            for ($j = $i + 1; $j < count($elements); $j++) {
                 if (substr_count($elements[$j], $enclosure) > 0) {
                     // Put the quoted string's pieces back together again
-                    array_splice($elements, $i, $j-$i+1,
-                        implode($delimiter, array_slice($elements, $i, $j-$i+1)));
+                    array_splice($elements, $i, $j - $i + 1, implode($delimiter, array_slice($elements, $i, $j - $i + 1)));
                     break;
                 }
             }
         }
         if ($nquotes > 0) {
             // Remove first and last quotes, then merge pairs of quotes
-            $qstr =& $elements[$i];
+            $qstr = & $elements[$i];
             $qstr = substr_replace($qstr, '', strpos($qstr, $enclosure), 1);
             $qstr = substr_replace($qstr, '', strrpos($qstr, $enclosure), 1);
-            $qstr = str_replace($enclosure.$enclosure, $enclosure, $qstr);
+            $qstr = str_replace($enclosure . $enclosure, $enclosure, $qstr);
         }
     }
     return $elements;
@@ -332,10 +338,10 @@ function is_dir_writeable($dir)
 {
     if (is_dir($dir) && is_writable($dir)) {
         if (stripos(PHP_OS, 'win') === 0) {
-            $dir    = ltrim($dir, DIRECTORY_SEPARATOR);
-            $file   = $dir . DIRECTORY_SEPARATOR . uniqid(mt_rand()).'.tmp';
-            $exist  = file_exists($file);
-            $fp     = @fopen($file, 'a');
+            $dir = ltrim($dir, DIRECTORY_SEPARATOR);
+            $file = $dir . DIRECTORY_SEPARATOR . uniqid(mt_rand()) . '.tmp';
+            $exist = file_exists($file);
+            $fp = @fopen($file, 'a');
             if ($fp === false) {
                 return false;
             }
@@ -349,29 +355,31 @@ function is_dir_writeable($dir)
     return false;
 }
 
-if ( !function_exists('sys_get_temp_dir') ) {
+if (!function_exists('sys_get_temp_dir')) {
+
     // Based on http://www.phpit.net/
     // article/creating-zip-tar-archives-dynamically-php/2/
     function sys_get_temp_dir()
     {
         // Try to get from environment variable
-        if ( !empty($_ENV['TMP']) ) {
-            return realpath( $_ENV['TMP'] );
-        } else if ( !empty($_ENV['TMPDIR']) ) {
-            return realpath( $_ENV['TMPDIR'] );
-        } else if ( !empty($_ENV['TEMP']) ) {
-            return realpath( $_ENV['TEMP'] );
+        if (!empty($_ENV['TMP'])) {
+            return realpath($_ENV['TMP']);
+        } else if (!empty($_ENV['TMPDIR'])) {
+            return realpath($_ENV['TMPDIR']);
+        } else if (!empty($_ENV['TEMP'])) {
+            return realpath($_ENV['TEMP']);
         } else {
             // Try to use system's temporary directory
             // as random name shouldn't exist
-            $temp_file = tempnam( md5(uniqid(rand(), TRUE)), '' );
-            if ( $temp_file ) {
-                $temp_dir = realpath( dirname($temp_file) );
-                unlink( $temp_file );
+            $temp_file = tempnam(md5(uniqid(rand(), TRUE)), '');
+            if ($temp_file) {
+                $temp_dir = realpath(dirname($temp_file));
+                unlink($temp_file);
                 return $temp_dir;
             } else {
                 return FALSE;
             }
         }
     }
+
 }

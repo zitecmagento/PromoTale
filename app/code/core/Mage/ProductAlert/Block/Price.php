@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,6 +31,7 @@
  */
 class Mage_ProductAlert_Block_Price extends Mage_Core_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -49,4 +51,5 @@ class Mage_ProductAlert_Block_Price extends Mage_Core_Block_Template
     {
         return Mage::helper('productalert')->getSaveUrl('price');
     }
+
 }

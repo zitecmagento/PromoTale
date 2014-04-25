@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml System Store Model
@@ -158,7 +158,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                     }
                     if (!$groupShow) {
                         $groupShow = true;
-                        $values    = array();
+                        $values = array();
                     }
                     $values[] = array(
                         'label' => str_repeat($nonEscapableNbspChar, 4) . $store->getName(),
@@ -283,7 +283,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     public function getWebsiteOptionHash($withDefault = false, $attribute = 'name')
     {
         $options = array();
-        foreach (Mage::app()->getWebsites((bool)$withDefault && $this->_isAdminScopeAllowed) as $website) {
+        foreach (Mage::app()->getWebsites((bool) $withDefault && $this->_isAdminScopeAllowed) as $website) {
             $options[$website->getId()] = $website->getDataUsingMethod($attribute);
         }
         return $options;
@@ -299,7 +299,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     public function getStoreOptionHash($withDefault = false, $attribute = 'name')
     {
         $options = array();
-        foreach (Mage::app()->getStores((bool)$withDefault && $this->_isAdminScopeAllowed) as $store) {
+        foreach (Mage::app()->getStores((bool) $withDefault && $this->_isAdminScopeAllowed) as $store) {
             $options[$store->getId()] = $store->getDataUsingMethod($attribute);
         }
         return $options;
@@ -370,7 +370,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      *
      * @param  int $storeId
      * @return Mage_Core_Model_Store
-     **/
+     * */
     public function getStoreData($storeId)
     {
         if (isset($this->_storeCollection[$storeId])) {
@@ -384,23 +384,22 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      *
      * @param  int $storeId
      * @return string
-     **/
+     * */
     public function getStoreNameWithWebsite($storeId)
     {
         $name = '';
         if (is_array($storeId)) {
             $names = array();
             foreach ($storeId as $id) {
-                $names[]= $this->getStoreNameWithWebsite($id);
+                $names[] = $this->getStoreNameWithWebsite($id);
             }
             $name = implode(', ', $names);
-        }
-        else {
+        } else {
             if (isset($this->_storeCollection[$storeId])) {
                 $data = $this->_storeCollection[$storeId];
                 $name .= $this->getWebsiteName($data->getWebsiteId());
-                $name .= ($name ? '/' : '').$this->getGroupName($data->getGroupId());
-                $name .= ($name ? '/' : '').$data->getName();
+                $name .= ($name ? '/' : '') . $this->getGroupName($data->getGroupId());
+                $name .= ($name ? '/' : '') . $data->getName();
             }
         }
         return $name;
@@ -449,8 +448,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
             $this->_loadWebsiteCollection();
             $this->_loadGroupCollection();
             $this->_loadStoreCollection();
-        }
-        else {
+        } else {
             switch ($type) {
                 case 'website':
                     $this->_loadWebsiteCollection();
@@ -473,18 +471,17 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      *
      * @param  int $storeId
      * @return string
-     **/
+     * */
     public function getStoreNamePath($storeId)
     {
         $name = '';
         if (is_array($storeId)) {
             $names = array();
             foreach ($storeId as $id) {
-                $names[]= $this->getStoreNamePath($id);
+                $names[] = $this->getStoreNamePath($id);
             }
             $name = implode(', ', $names);
-        }
-        else {
+        } else {
             if (isset($this->_storeCollection[$storeId])) {
                 $data = $this->_storeCollection[$storeId];
                 $name .= $this->getWebsiteName($data->getWebsiteId());
@@ -502,7 +499,8 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      */
     public function setIsAdminScopeAllowed($value)
     {
-        $this->_isAdminScopeAllowed = (bool)$value;
+        $this->_isAdminScopeAllowed = (bool) $value;
         return $this;
     }
+
 }

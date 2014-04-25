@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,14 @@
  */
 abstract class Mage_Sales_Model_Api2_Order_Address_Rest extends Mage_Sales_Model_Api2_Order_Address
 {
-    /**#@+
+    /*     * #@+
      * Parameters in request used in model (usually specified in route mask)
      */
-    const PARAM_ORDER_ID     = 'order_id';
+
+    const PARAM_ORDER_ID = 'order_id';
     const PARAM_ADDRESS_TYPE = 'address_type';
-    /**#@-*/
+
+    /*     * #@- */
 
     /**
      * Retrieve order address
@@ -49,8 +52,8 @@ abstract class Mage_Sales_Model_Api2_Order_Address_Rest extends Mage_Sales_Model
     {
         /** @var $address Mage_Sales_Model_Order_Address */
         $address = $this->_getCollectionForRetrieve()
-            ->addAttributeToFilter('address_type', $this->getRequest()->getParam(self::PARAM_ADDRESS_TYPE))
-            ->getFirstItem();
+                ->addAttributeToFilter('address_type', $this->getRequest()->getParam(self::PARAM_ADDRESS_TYPE))
+                ->getFirstItem();
         if (!$address->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
@@ -89,4 +92,5 @@ abstract class Mage_Sales_Model_Api2_Order_Address_Rest extends Mage_Sales_Model
 
         return $collection;
     }
+
 }

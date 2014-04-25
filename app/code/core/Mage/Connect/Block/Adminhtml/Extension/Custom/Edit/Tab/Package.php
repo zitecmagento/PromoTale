@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Connect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Package
-    extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
+class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Package extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
 {
+
     /**
      * Prepare Package Info Form before rendering HTML
      *
@@ -47,32 +48,32 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Package
         $form->setHtmlIdPrefix('_package');
 
         $fieldset = $form->addFieldset('package_fieldset', array(
-            'legend'    => Mage::helper('connect')->__('Package')
+            'legend' => Mage::helper('connect')->__('Package')
         ));
 
         if ($this->getData('name') != $this->getData('file_name')) {
             $this->setData('file_name_disabled', $this->getData('file_name'));
             $fieldset->addField('file_name_disabled', 'text', array(
-                'name'      => 'file_name_disabled',
-                'label'     => Mage::helper('connect')->__('Package File Name'),
-                'disabled'  => 'disabled',
+                'name' => 'file_name_disabled',
+                'label' => Mage::helper('connect')->__('Package File Name'),
+                'disabled' => 'disabled',
             ));
         }
 
         $fieldset->addField('file_name', 'hidden', array(
-            'name'      => 'file_name',
+            'name' => 'file_name',
         ));
 
         $fieldset->addField('name', 'text', array(
-            'name'      => 'name',
-            'label'     => Mage::helper('connect')->__('Name'),
-            'required'  => true,
+            'name' => 'name',
+            'label' => Mage::helper('connect')->__('Name'),
+            'required' => true,
         ));
 
         $fieldset->addField('channel', 'text', array(
-            'name'      => 'channel',
-            'label'     => Mage::helper('connect')->__('Channel'),
-            'required'  => true,
+            'name' => 'channel',
+            'label' => Mage::helper('connect')->__('Channel'),
+            'required' => true,
         ));
 
         $versionsInfo = array(
@@ -85,39 +86,39 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Package
                 'value' => Mage_Connect_Package::PACKAGE_VERSION_1X
             )
         );
-        $fieldset->addField('version_ids','multiselect',array(
-                'name'     => 'version_ids',
-                'required' => true,
-                'label'    => Mage::helper('connect')->__('Supported releases'),
-                'style'    => 'height: 45px;',
-                'values'   => $versionsInfo
+        $fieldset->addField('version_ids', 'multiselect', array(
+            'name' => 'version_ids',
+            'required' => true,
+            'label' => Mage::helper('connect')->__('Supported releases'),
+            'style' => 'height: 45px;',
+            'values' => $versionsInfo
         ));
 
         $fieldset->addField('summary', 'textarea', array(
-            'name'      => 'summary',
-            'label'     => Mage::helper('connect')->__('Summary'),
-            'style'     => 'height:50px;',
-            'required'  => true,
+            'name' => 'summary',
+            'label' => Mage::helper('connect')->__('Summary'),
+            'style' => 'height:50px;',
+            'required' => true,
         ));
 
         $fieldset->addField('description', 'textarea', array(
-            'name'      => 'description',
-            'label'     => Mage::helper('connect')->__('Description'),
-            'style'     => 'height:200px;',
-            'required'  => true,
+            'name' => 'description',
+            'label' => Mage::helper('connect')->__('Description'),
+            'style' => 'height:200px;',
+            'required' => true,
         ));
 
         $fieldset->addField('license', 'text', array(
-            'name'      => 'license',
-            'label'     => Mage::helper('connect')->__('License'),
-            'required'  => true,
-            'value'     => 'Open Software License (OSL 3.0)',
+            'name' => 'license',
+            'label' => Mage::helper('connect')->__('License'),
+            'required' => true,
+            'value' => 'Open Software License (OSL 3.0)',
         ));
 
         $fieldset->addField('license_uri', 'text', array(
-            'name'      => 'license_uri',
-            'label'     => Mage::helper('connect')->__('License URI'),
-            'value'     => 'http://opensource.org/licenses/osl-3.0.php',
+            'name' => 'license_uri',
+            'label' => Mage::helper('connect')->__('License URI'),
+            'value' => 'http://opensource.org/licenses/osl-3.0.php',
         ));
 
         $form->setValues($this->getData());
@@ -145,4 +146,5 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Package
     {
         return Mage::helper('connect')->__('Package Info');
     }
+
 }

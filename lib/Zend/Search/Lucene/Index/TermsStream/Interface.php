@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 interface Zend_Search_Lucene_Index_TermsStream_Interface
 {
+
     /**
      * Reset terms stream.
      */

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_GoogleBase_Block_Adminhtml_Store_Switcher extends Mage_Adminhtml_Block_Store_Switcher
 {
+
     /**
      * @var bool
      */
@@ -46,4 +48,5 @@ class Mage_GoogleBase_Block_Adminhtml_Store_Switcher extends Mage_Adminhtml_Bloc
         parent::__construct();
         $this->setUseConfirm(false)->setSwitchUrl($this->getUrl('*/*/*', array('store' => null)));
     }
+
 }

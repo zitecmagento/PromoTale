@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Number.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Implement needed classes
  */
@@ -38,20 +38,20 @@
  */
 class Zend_Measure_Number extends Zend_Measure_Abstract
 {
-    const STANDARD = 'DECIMAL';
 
-    const BINARY      = 'BINARY';
-    const TERNARY     = 'TERNARY';
-    const QUATERNARY  = 'QUATERNARY';
-    const QUINARY     = 'QUINARY';
-    const SENARY      = 'SENARY';
-    const SEPTENARY   = 'SEPTENARY';
-    const OCTAL       = 'OCTAL';
-    const NONARY      = 'NONARY';
-    const DECIMAL     = 'DECIMAL';
-    const DUODECIMAL  = 'DUODECIMAL';
+    const STANDARD = 'DECIMAL';
+    const BINARY = 'BINARY';
+    const TERNARY = 'TERNARY';
+    const QUATERNARY = 'QUATERNARY';
+    const QUINARY = 'QUINARY';
+    const SENARY = 'SENARY';
+    const SEPTENARY = 'SEPTENARY';
+    const OCTAL = 'OCTAL';
+    const NONARY = 'NONARY';
+    const DECIMAL = 'DECIMAL';
+    const DUODECIMAL = 'DUODECIMAL';
     const HEXADECIMAL = 'HEXADECIMAL';
-    const ROMAN       = 'ROMAN';
+    const ROMAN = 'ROMAN';
 
     /**
      * Calculations for all number units
@@ -59,19 +59,19 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
      * @var array
      */
     protected $_units = array(
-        'BINARY'      => array(2,  '⑵'),
-        'TERNARY'     => array(3,  '⑶'),
-        'QUATERNARY'  => array(4,  '⑷'),
-        'QUINARY'     => array(5,  '⑸'),
-        'SENARY'      => array(6,  '⑹'),
-        'SEPTENARY'   => array(7,  '⑺'),
-        'OCTAL'       => array(8,  '⑻'),
-        'NONARY'      => array(9,  '⑼'),
-        'DECIMAL'     => array(10, '⑽'),
-        'DUODECIMAL'  => array(12, '⑿'),
+        'BINARY' => array(2, '⑵'),
+        'TERNARY' => array(3, '⑶'),
+        'QUATERNARY' => array(4, '⑷'),
+        'QUINARY' => array(5, '⑸'),
+        'SENARY' => array(6, '⑹'),
+        'SEPTENARY' => array(7, '⑺'),
+        'OCTAL' => array(8, '⑻'),
+        'NONARY' => array(9, '⑼'),
+        'DECIMAL' => array(10, '⑽'),
+        'DUODECIMAL' => array(12, '⑿'),
         'HEXADECIMAL' => array(16, '⒃'),
-        'ROMAN'       => array(99, ''),
-        'STANDARD'    => 'DECIMAL'
+        'ROMAN' => array(99, ''),
+        'STANDARD' => 'DECIMAL'
     );
 
     /**
@@ -125,7 +125,7 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
         '/XC/' => '/F/',
         '/CD/' => '/G/',
         '/CM/' => '/H/',
-        '/M_V/'=> '/J/',
+        '/M_V/' => '/J/',
         '/MQ/' => '/K/',
         '/QR/' => '/N/',
         '/QS/' => '/W/',
@@ -195,7 +195,7 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
             throw new Zend_Measure_Exception('unknown type of number:' . $type);
         }
 
-        switch($type) {
+        switch ($type) {
             case 'BINARY':
                 preg_match('/[01]+/', $value, $ergebnis);
                 $value = $ergebnis[0];
@@ -252,9 +252,12 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
                 break;
 
             default:
-                try {
+                try
+                {
                     $value = Zend_Locale_Format::getInteger($value, array('locale' => $locale));
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     #require_once 'Zend/Measure/Exception.php';
                     throw new Zend_Measure_Exception($e->getMessage(), $e->getCode(), $e);
                 }
@@ -265,7 +268,7 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
         }
 
         $this->_value = $value;
-        $this->_type  = $type;
+        $this->_type = $type;
     }
 
     /**
@@ -280,13 +283,11 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
         $value = '';
         // Convert base xx values
         if ($this->_units[$type][0] <= 16) {
-            $split  = str_split($input);
+            $split = str_split($input);
             $length = strlen($input);
             for ($x = 0; $x < $length; ++$x) {
                 $split[$x] = hexdec($split[$x]);
-                $value     = call_user_func(Zend_Locale_Math::$add, $value,
-                            call_user_func(Zend_Locale_Math::$mul, $split[$x],
-                            call_user_func(Zend_Locale_Math::$pow, $this->_units[$type][0], ($length - $x - 1))));
+                $value = call_user_func(Zend_Locale_Math::$add, $value, call_user_func(Zend_Locale_Math::$mul, $split[$x], call_user_func(Zend_Locale_Math::$pow, $this->_units[$type][0], ($length - $x - 1))));
             }
         }
 
@@ -297,13 +298,13 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
 
             $split = preg_split('//', strrev($input), -1, PREG_SPLIT_NO_EMPTY);
 
-            for ($x =0; $x < sizeof($split); $x++) {
+            for ($x = 0; $x < sizeof($split); $x++) {
                 if ($split[$x] == '/') {
                     continue;
                 }
 
                 $num = self::$_roman[$split[$x]];
-                if (($x > 0 and ($split[$x-1] != '/') and ($num < self::$_roman[$split[$x-1]]))) {
+                if (($x > 0 and ($split[$x - 1] != '/') and ($num < self::$_roman[$split[$x - 1]]))) {
                     $num -= $num;
                 }
 
@@ -329,8 +330,8 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
         $tempvalue = $value;
         if ($this->_units[$type][0] <= 16) {
             $newvalue = '';
-            $count    = 200;
-            $base     = $this->_units[$type][0];
+            $count = 200;
+            $base = $this->_units[$type][0];
 
             while (call_user_func(Zend_Locale_Math::$comp, $value, 0, 25) <> 0) {
                 $target = call_user_func(Zend_Locale_Math::$mod, $value, $base);
@@ -353,14 +354,14 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
         }
 
         if ($type === 'ROMAN') {
-            $i        = 0;
+            $i = 0;
             $newvalue = '';
             $romanval = array_values(array_reverse(self::$_roman));
             $romankey = array_keys(array_reverse(self::$_roman));
-            $count    = 200;
+            $count = 200;
             while (call_user_func(Zend_Locale_Math::$comp, $value, 0, 25) <> 0) {
                 while ($value >= $romanval[$i]) {
-                    $value    -= $romanval[$i];
+                    $value -= $romanval[$i];
                     $newvalue .= $romankey[$i];
 
                     if ($value < 1) {
@@ -401,7 +402,7 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
         $value = $this->_fromDecimal($value, $type);
 
         $this->_value = $value;
-        $this->_type  = $type;
+        $this->_type = $type;
     }
 
     /**
@@ -417,4 +418,5 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
         $this->setType($type);
         return $this->toString($round, $locale);
     }
+
 }

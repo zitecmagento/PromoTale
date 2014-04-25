@@ -53,21 +53,21 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($billingAgreements as $item): ?>
-                <tr>
-                    <td><span class="nobr"><?php echo $this->getItemValue($item, 'reference_id') ?></span></td>
-                    <td><?php echo $this->getItemValue($item, 'status') ?></td>
-                    <td><span class="nobr"><?php echo $this->getItemValue($item, 'created_at') ?></span></td>
-                    <td><span class="nobr"><?php echo $this->getItemValue($item, 'updated_at') ?></span></td>
-                    <td><?php echo $this->getItemValue($item, 'payment_method_label') ?></td>
-                    <td><a href="<?php echo $this->getItemValue($item, 'edit_url') ?>"><?php echo $this->__('View') ?></a></td>
-                </tr>
+                <?php foreach ($billingAgreements as $item): ?>
+                    <tr>
+                        <td><span class="nobr"><?php echo $this->getItemValue($item, 'reference_id') ?></span></td>
+                        <td><?php echo $this->getItemValue($item, 'status') ?></td>
+                        <td><span class="nobr"><?php echo $this->getItemValue($item, 'created_at') ?></span></td>
+                        <td><span class="nobr"><?php echo $this->getItemValue($item, 'updated_at') ?></span></td>
+                        <td><?php echo $this->getItemValue($item, 'payment_method_label') ?></td>
+                        <td><a href="<?php echo $this->getItemValue($item, 'edit_url') ?>"><?php echo $this->__('View') ?></a></td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
         <script type="text/javascript">decorateTable('billing-agreements')</script>
     <?php else: ?>
-        <p><?php echo $this->__('There are no billing agreements yet.')?></p>
+        <p><?php echo $this->__('There are no billing agreements yet.') ?></p>
     <?php endif; ?>
 
     <?php $paymentMethods = $this->getWizardPaymentMethodOptions() ?>

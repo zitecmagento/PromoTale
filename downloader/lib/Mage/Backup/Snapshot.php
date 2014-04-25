@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Backup_Snapshot extends Mage_Backup_Filesystem
 {
+
     /**
      * Database backup manager
      *
@@ -52,9 +54,12 @@ class Mage_Backup_Snapshot extends Mage_Backup_Filesystem
 
         $this->_lastOperationSucceed = false;
 
-        try {
+        try
+        {
             $this->_getDbBackupManager()->rollback();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_removeDbBackup();
             throw $e;
         }
@@ -75,9 +80,12 @@ class Mage_Backup_Snapshot extends Mage_Backup_Filesystem
     {
         $this->_getDbBackupManager()->create();
 
-        try {
+        try
+        {
             $result = parent::create();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_removeDbBackup();
             throw $e;
         }
@@ -108,10 +116,10 @@ class Mage_Backup_Snapshot extends Mage_Backup_Filesystem
     protected function _createDbBackupInstance()
     {
         return Mage_Backup::getBackupInstance(Mage_Backup_Helper_Data::TYPE_DB)
-            ->setBackupExtension(Mage::helper('backup')->getExtensionByType(Mage_Backup_Helper_Data::TYPE_DB))
-            ->setTime($this->getTime())
-            ->setBackupsDir(Mage::getBaseDir("var"))
-            ->setResourceModel($this->getResourceModel());
+                        ->setBackupExtension(Mage::helper('backup')->getExtensionByType(Mage_Backup_Helper_Data::TYPE_DB))
+                        ->setTime($this->getTime())
+                        ->setBackupsDir(Mage::getBaseDir("var"))
+                        ->setResourceModel($this->getResourceModel());
     }
 
     /**
@@ -133,8 +141,10 @@ class Mage_Backup_Snapshot extends Mage_Backup_Filesystem
      *
      * @return Mage_Backup_Snapshot
      */
-    protected function _removeDbBackup(){
+    protected function _removeDbBackup()
+    {
         @unlink($this->_getDbBackupManager()->getBackupPath());
         return $this;
     }
+
 }

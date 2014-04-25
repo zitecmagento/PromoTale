@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,11 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     protected $_defaultWidth = 100;
+
     /**
      * Currency objects cache
      */
@@ -106,4 +108,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price
     {
         return parent::renderCss() . ' a-right';
     }
+
 }

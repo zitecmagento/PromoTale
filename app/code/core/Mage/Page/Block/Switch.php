@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Page_Block_Switch extends Mage_Core_Block_Template
 {
+
     protected $_storeInUrl;
 
     public function getCurrentWebsiteId()
@@ -155,4 +157,5 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
         }
         return $this->_storeInUrl;
     }
+
 }

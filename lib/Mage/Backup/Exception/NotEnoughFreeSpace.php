@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,4 +34,5 @@
  */
 class Mage_Backup_Exception_NotEnoughFreeSpace extends Mage_Backup_Exception
 {
+    
 }

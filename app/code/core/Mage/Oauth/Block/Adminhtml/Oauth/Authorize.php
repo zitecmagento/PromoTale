@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_Block_Adminhtml_Oauth_Authorize extends Mage_Oauth_Block_AuthorizeBaseAbstract
 {
+
     /**
      * Retrieve Session Form Key
      *
@@ -82,4 +84,5 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Authorize extends Mage_Oauth_Block_Author
     {
         return 'adminhtml/oauth_authorize/reject';
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     protected $_defaultWidth = 100;
 
     /**
@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency
      */
     public function render(Varien_Object $row)
     {
-        if ($data = (string)$row->getData($this->getColumn()->getIndex())) {
+        if ($data = (string) $row->getData($this->getColumn()->getIndex())) {
             $currency_code = $this->_getCurrencyCode($row);
 
             if (!$currency_code) {
@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency
             }
 
             $data = floatval($data) * $this->_getRate($row);
-            $sign = (bool)(int)$this->getColumn()->getShowNumberSign() && ($data > 0) ? '+' : '';
+            $sign = (bool) (int) $this->getColumn()->getShowNumberSign() && ($data > 0) ? '+' : '';
             $data = sprintf("%f", $data);
             $data = Mage::app()->getLocale()->currency($currency_code)->toCurrency($data);
             return $sign . $data;
@@ -109,4 +109,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency
     {
         return parent::renderCss() . ' a-right';
     }
+
 }

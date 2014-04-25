@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Connect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Contents
-    extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
+class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Contents extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
 {
+
     /**
      * Retrieve list of targets
      *
@@ -67,4 +68,5 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Contents
     {
         return Mage::helper('connect')->__('Contents');
     }
+
 }

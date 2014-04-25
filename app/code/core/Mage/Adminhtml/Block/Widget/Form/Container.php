@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Widget_Container
 {
+
     protected $_objectId = 'id';
     protected $_formScripts = array();
     protected $_formInitScripts = array();
@@ -49,31 +50,31 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
         }
 
         $this->_addButton('back', array(
-            'label'     => Mage::helper('adminhtml')->__('Back'),
-            'onclick'   => 'setLocation(\'' . $this->getBackUrl() . '\')',
-            'class'     => 'back',
-        ), -1);
+            'label' => Mage::helper('adminhtml')->__('Back'),
+            'onclick' => 'setLocation(\'' . $this->getBackUrl() . '\')',
+            'class' => 'back',
+                ), -1);
         $this->_addButton('reset', array(
-            'label'     => Mage::helper('adminhtml')->__('Reset'),
-            'onclick'   => 'setLocation(window.location.href)',
-        ), -1);
+            'label' => Mage::helper('adminhtml')->__('Reset'),
+            'onclick' => 'setLocation(window.location.href)',
+                ), -1);
 
         $objId = $this->getRequest()->getParam($this->_objectId);
 
-        if (! empty($objId)) {
+        if (!empty($objId)) {
             $this->_addButton('delete', array(
-                'label'     => Mage::helper('adminhtml')->__('Delete'),
-                'class'     => 'delete',
-                'onclick'   => 'deleteConfirm(\''. Mage::helper('adminhtml')->__('Are you sure you want to do this?')
-                    .'\', \'' . $this->getDeleteUrl() . '\')',
+                'label' => Mage::helper('adminhtml')->__('Delete'),
+                'class' => 'delete',
+                'onclick' => 'deleteConfirm(\'' . Mage::helper('adminhtml')->__('Are you sure you want to do this?')
+                . '\', \'' . $this->getDeleteUrl() . '\')',
             ));
         }
 
         $this->_addButton('save', array(
-            'label'     => Mage::helper('adminhtml')->__('Save'),
-            'onclick'   => 'editForm.submit();',
-            'class'     => 'save',
-        ), 1);
+            'label' => Mage::helper('adminhtml')->__('Save'),
+            'onclick' => 'editForm.submit();',
+            'class' => 'save',
+                ), 1);
     }
 
     protected function _prepareLayout()
@@ -132,7 +133,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
 
     public function getFormInitScripts()
     {
-        if ( !empty($this->_formInitScripts) && is_array($this->_formInitScripts) ) {
+        if (!empty($this->_formInitScripts) && is_array($this->_formInitScripts)) {
             return '<script type="text/javascript">' . implode("\n", $this->_formInitScripts) . '</script>';
         }
         return '';
@@ -140,7 +141,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
 
     public function getFormScripts()
     {
-        if ( !empty($this->_formScripts) && is_array($this->_formScripts) ) {
+        if (!empty($this->_formScripts) && is_array($this->_formScripts)) {
             return '<script type="text/javascript">' . implode("\n", $this->_formScripts) . '</script>';
         }
         return '';

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
 {
+
     /**
      * Add payment info block to layout
      *
@@ -42,8 +44,7 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
     {
         if ($info = $this->getPaymentInfo()) {
             $this->setChild(
-                $this->_getInfoBlockName(),
-                Mage::helper('payment')->getInfoBlock($info)
+                    $this->_getInfoBlockName(), Mage::helper('payment')->getInfoBlock($info)
             );
         }
         return parent::_prepareLayout();
@@ -57,7 +58,7 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
     protected function _getInfoBlockName()
     {
         if ($info = $this->getPaymentInfo()) {
-            return 'payment.info.'.$info->getMethodInstance()->getCode();
+            return 'payment.info.' . $info->getMethodInstance()->getCode();
         }
         return false;
     }
@@ -79,7 +80,7 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
      * @param   string $template
      * @return  Mage_Payment_Block_Info_Container
      */
-    public function setInfoTemplate($method='', $template='')
+    public function setInfoTemplate($method = '', $template = '')
     {
         if ($info = $this->getPaymentInfo()) {
             if ($info->getMethodInstance()->getCode() == $method) {
@@ -88,4 +89,5 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
         }
         return $this;
     }
+
 }

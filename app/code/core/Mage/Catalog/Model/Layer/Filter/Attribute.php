@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer_Filter_Abstract
 {
+
     const OPTIONS_ONLY_WITH_RESULTS = 1;
 
     /**
@@ -119,7 +121,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
         $attribute = $this->getAttributeModel();
         $this->_requestVar = $attribute->getAttributeCode();
 
-        $key = $this->getLayer()->getStateKey().'_'.$this->_requestVar;
+        $key = $this->getLayer()->getStateKey() . '_' . $this->_requestVar;
         $data = $this->getLayer()->getAggregator()->getCacheData($key);
 
         if ($data === null) {
@@ -140,8 +142,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
                                 'count' => $optionsCount[$option['value']],
                             );
                         }
-                    }
-                    else {
+                    } else {
                         $data[] = array(
                             'label' => $option['label'],
                             'value' => $option['value'],
@@ -152,7 +153,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
             }
 
             $tags = array(
-                Mage_Eav_Model_Entity_Attribute::CACHE_TAG.':'.$attribute->getId()
+                Mage_Eav_Model_Entity_Attribute::CACHE_TAG . ':' . $attribute->getId()
             );
 
             $tags = $this->getLayer()->getStateTags($tags);
@@ -160,4 +161,5 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
         }
         return $data;
     }
+
 }

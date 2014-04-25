@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,16 +25,14 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog indexer abstract class
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_CatalogIndex_Model_Indexer_Abstract
-    extends Mage_Core_Model_Abstract
-    implements Mage_CatalogIndex_Model_Indexer_Interface
+abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_Abstract implements Mage_CatalogIndex_Model_Indexer_Interface
 {
+
     protected $_processChildren = true;
     protected $_processChildrenForConfigurable = true;
     protected $_runOnce = false;
@@ -89,8 +88,8 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract
 
             foreach ($associated as $child) {
                 $child
-                    ->setStoreId($object->getStoreId())
-                    ->setWebsiteId($object->getWebsiteId());
+                        ->setStoreId($object->getStoreId())
+                        ->setWebsiteId($object->getWebsiteId());
                 $this->processAfterSave($child, $object->getId());
             }
         }
@@ -113,7 +112,7 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract
         }
 
         if ($object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG &&
-            $object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH) {
+                $object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH) {
             return false;
         }
 
@@ -149,4 +148,5 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract
     {
         return true;
     }
+
 }

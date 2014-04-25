@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_LocalizationController extends Mage_XmlConnect_Controller_Action
 {
+
     /**
      * Default action
      *
@@ -40,15 +42,21 @@ class Mage_XmlConnect_LocalizationController extends Mage_XmlConnect_Controller_
      */
     public function indexAction()
     {
-        try {
+        try
+        {
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_message($this->__('Unable to load localization.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
     }
+
 }

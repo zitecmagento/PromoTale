@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -42,10 +43,11 @@
  */
 class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
 {
-    const SEARCH_TYPE_LIKE              = 1;
-    const SEARCH_TYPE_FULLTEXT          = 2;
-    const SEARCH_TYPE_COMBINE           = 3;
-    const XML_PATH_CATALOG_SEARCH_TYPE  = 'catalog/search/search_type';
+
+    const SEARCH_TYPE_LIKE = 1;
+    const SEARCH_TYPE_FULLTEXT = 2;
+    const SEARCH_TYPE_COMBINE = 3;
+    const XML_PATH_CATALOG_SEARCH_TYPE = 'catalog/search/search_type';
 
     /**
      * Whether table changes are allowed
@@ -77,8 +79,8 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     public function rebuildIndex($storeId = null, $productIds = null)
     {
         Mage::dispatchEvent('catalogsearch_index_process_start', array(
-            'store_id'      => $storeId,
-            'product_ids'   => $productIds
+            'store_id' => $storeId,
+            'product_ids' => $productIds
         ));
 
         $this->getResource()->rebuildIndex($storeId, $productIds);
@@ -148,10 +150,6 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
         return Mage::getStoreConfig(self::XML_PATH_CATALOG_SEARCH_TYPE, $storeId);
     }
 
-
-
-
-
     // Deprecated methods
 
     /**
@@ -183,4 +181,5 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
         $this->getResource()->updateCategoryIndex($productIds, $categoryIds);
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
 {
+
     /**
      * Appends $source to current node
      *
@@ -50,7 +52,7 @@ class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
         $child->setParent($this);
 
         $attributes = $source->attributes();
-        foreach ($attributes as $key=>$value) {
+        foreach ($attributes as $key => $value) {
             $child->addAttribute($key, $this->xmlAttribute($value));
         }
 
@@ -82,7 +84,7 @@ class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
             if (is_null($data)) {
                 $data = $this;
             }
-            $data = (string)$data;
+            $data = (string) $data;
 
             if ($stripTags) {
                 $data = Mage::helper('core')->stripTags($data, $allowedTags);
@@ -104,7 +106,7 @@ class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
         if (is_null($value)) {
             $value = $this;
         }
-        $value = (string)$value;
+        $value = (string) $value;
 
         if ($stripTags) {
             $value = Mage::helper('core')->stripTags($value);
@@ -151,4 +153,5 @@ class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
         }
         return $customFiled;
     }
+
 }

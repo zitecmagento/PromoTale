@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Adminhtml_Block_Cache extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     /**
      * Class constructor
      */
@@ -36,16 +37,16 @@ class Mage_Adminhtml_Block_Cache extends Mage_Adminhtml_Block_Widget_Grid_Contai
         parent::__construct();
         $this->_removeButton('add');
         $this->_addButton('flush_magento', array(
-            'label'     => Mage::helper('core')->__('Flush Magento Cache'),
-            'onclick'   => 'setLocation(\'' . $this->getFlushSystemUrl() .'\')',
-            'class'     => 'delete',
+            'label' => Mage::helper('core')->__('Flush Magento Cache'),
+            'onclick' => 'setLocation(\'' . $this->getFlushSystemUrl() . '\')',
+            'class' => 'delete',
         ));
 
         $message = Mage::helper('core')->__('Cache storage may contain additional data. Are you sure that you want flush it?');
         $this->_addButton('flush_system', array(
-            'label'     => Mage::helper('core')->__('Flush Cache Storage'),
-            'onclick'   => 'confirmSetLocation(\''.$message.'\', \'' . $this->getFlushStorageUrl() .'\')',
-            'class'     => 'delete',
+            'label' => Mage::helper('core')->__('Flush Cache Storage'),
+            'onclick' => 'confirmSetLocation(\'' . $message . '\', \'' . $this->getFlushStorageUrl() . '\')',
+            'class' => 'delete',
         ));
     }
 
@@ -64,4 +65,5 @@ class Mage_Adminhtml_Block_Cache extends Mage_Adminhtml_Block_Widget_Grid_Contai
     {
         return $this->getUrl('*/*/flushSystem');
     }
+
 }

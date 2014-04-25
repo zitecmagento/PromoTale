@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 define('DS', DIRECTORY_SEPARATOR);
 define('PS', PATH_SEPARATOR);
 define('BP', dirname(dirname(__FILE__)));
@@ -31,11 +31,13 @@ define('MAGENTO_ROOT', dirname(dirname(__FILE__)));
 
 class __cli_Mage_Connect
 {
+
     private static $_instance;
     protected $argv;
+
     public static function instance()
     {
-        if(!self::$_instance) {
+        if (!self::$_instance) {
             self::$_instance = new self();
         }
         return self::$_instance;
@@ -43,7 +45,7 @@ class __cli_Mage_Connect
 
     public function init($argv)
     {
-                $this->argv = $argv;
+        $this->argv = $argv;
         $this->setIncludes();
         require_once("Mage/Autoload/Simple.php");
         Mage_Autoload_Simple::register();
@@ -59,12 +61,10 @@ class __cli_Mage_Connect
             $libPath = PS . BP . DS . 'downloader' . DS . 'lib';
         }
         $includePath = BP . DS . 'app'
-        . $libPath
-        . PS . get_include_path();
+                . $libPath
+                . PS . get_include_path();
         set_include_path($includePath);
     }
-
-
 
     public function getCommands()
     {
@@ -85,7 +85,7 @@ class __cli_Mage_Connect
         }
         $config = new Mage_Connect_Config($fileName);
         if (empty($config->magento_root)) {
-           $config->magento_root = dirname(dirname(__FILE__));
+            $config->magento_root = dirname(dirname(__FILE__));
         }
         Mage_Connect_Command::setConfigObject($config);
         $this->config = $config;
@@ -95,12 +95,12 @@ class __cli_Mage_Connect
     public function detectCommand()
     {
         $argv = $this->argv;
-        if(empty($argv[1])) {
+        if (empty($argv[1])) {
             return false;
         }
-        if(in_array($argv[1], $this->validCommands)) {
-            list($options,$params) = $this->parseCommandArgs($argv);
-            return array('name' => strtolower($argv[1]), 'options'=>$options, 'params'=>$params);
+        if (in_array($argv[1], $this->validCommands)) {
+            list($options, $params) = $this->parseCommandArgs($argv);
+            return array('name' => strtolower($argv[1]), 'options' => $options, 'params' => $params);
         }
         return false;
     }
@@ -120,9 +120,10 @@ class __cli_Mage_Connect
     }
 
     private $_sconfig;
+
     public function getSingleConfig()
     {
-        if(!$this->_sconfig) {
+        if (!$this->_sconfig) {
             $this->_sconfig = new Mage_Connect_Singleconfig(
                     $this->getConfig()->magento_root . DS .
                     $this->getConfig()->downloader_path . DS .
@@ -141,12 +142,11 @@ class __cli_Mage_Connect
         $this->validCommands = array_keys($this->commands);
         $this->getSingleConfig();
         $cmd = $this->detectCommand();
-        if(!$cmd) {
+        if (!$cmd) {
             $this->frontend->outputCommandList($this->commands);
         } else {
             $this->runCommand($cmd['name'], $cmd['options'], $cmd['params']);
         }
-
     }
 
 }

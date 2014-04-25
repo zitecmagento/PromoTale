@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
+
     /**
      * Internal constructor
      *
@@ -44,4 +46,5 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tabs extends Mage_Adminht
         $this->setDestElementId('edit_form');
         $this->setTitle(Mage::helper('widget')->__('Widget Instance'));
     }
+
 }

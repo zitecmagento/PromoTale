@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Preview_Ipad extends Mage_XmlConnect_Model_Preview_Abstract
 {
+
     /**
      * Current device orientation
      *
@@ -73,32 +75,32 @@ class Mage_XmlConnect_Model_Preview_Ipad extends Mage_XmlConnect_Model_Preview_A
         switch ($this->getOrientation()) {
             case Mage_XmlConnect_Model_Device_Ipad::ORIENTATION_LANDSCAPE:
                 $bannerImages = $this->getImageModel()
-                    ->getDeviceImagesByType(Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_LANDSCAPE_BANNER);
+                        ->getDeviceImagesByType(Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_LANDSCAPE_BANNER);
                 if (!empty($bannerImages)) {
-                    $width  = Mage_XmlConnect_Model_Device_Ipad::PREVIEW_LANDSCAPE_BANNER_WIDTH;
+                    $width = Mage_XmlConnect_Model_Device_Ipad::PREVIEW_LANDSCAPE_BANNER_WIDTH;
                     $height = Mage_XmlConnect_Model_Device_Ipad::PREVIEW_LANDSCAPE_BANNER_HEIGHT;
                     foreach ($bannerImages as $banner) {
                         if (!isset($banner['image_file'])) {
                             continue;
                         }
                         $result[] = $this->getImageModel()->getCustomSizeImageUrl(
-                            $banner['image_file'], $width, $height
+                                $banner['image_file'], $width, $height
                         );
                     }
                 }
                 break;
             case Mage_XmlConnect_Model_Device_Ipad::ORIENTATION_PORTRAIT:
                 $bannerImages = $this->getImageModel()
-                    ->getDeviceImagesByType(Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_PORTRAIT_BANNER);
+                        ->getDeviceImagesByType(Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_PORTRAIT_BANNER);
                 if (!empty($bannerImages)) {
-                    $width  = Mage_XmlConnect_Model_Device_Ipad::PREVIEW_PORTRAIT_BANNER_WIDTH;
+                    $width = Mage_XmlConnect_Model_Device_Ipad::PREVIEW_PORTRAIT_BANNER_WIDTH;
                     $height = Mage_XmlConnect_Model_Device_Ipad::PREVIEW_PORTRAIT_BANNER_HEIGHT;
                     foreach ($bannerImages as $banner) {
                         if (!isset($banner['image_file'])) {
                             continue;
                         }
                         $result[] = $this->getImageModel()->getCustomSizeImageUrl(
-                            $banner['image_file'], $width, $height
+                                $banner['image_file'], $width, $height
                         );
                     }
                 }
@@ -118,34 +120,35 @@ class Mage_XmlConnect_Model_Preview_Ipad extends Mage_XmlConnect_Model_Preview_A
         switch ($this->getOrientation()) {
             case Mage_XmlConnect_Model_Device_Ipad::ORIENTATION_LANDSCAPE:
                 $backgroundImage = $this->getImageModel()
-                    ->getImageItemByType(Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_LANDSCAPE_BACKGROUND);
+                        ->getImageItemByType(Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_LANDSCAPE_BACKGROUND);
                 if (is_object($backgroundImage) && $backgroundImage->getImageFile()) {
                     $width = Mage_XmlConnect_Model_Device_Ipad::PREVIEW_LANDSCAPE_BACKGROUND_WIDTH;
                     $height = Mage_XmlConnect_Model_Device_Ipad::PREVIEW_LANDSCAPE_BACKGROUND_HEIGHT;
                     $backgroundImage = $this->getImageModel()
-                        ->getCustomSizeImageUrl($backgroundImage->getImageFile(), $width, $height);
+                            ->getCustomSizeImageUrl($backgroundImage->getImageFile(), $width, $height);
                 } else {
                     $backgroundImage = $this->getPreviewImagesUrl('ipad/background_home_landscape.jpg');
                 }
                 break;
             case Mage_XmlConnect_Model_Device_Ipad::ORIENTATION_PORTRAIT:
                 $backgroundImage = $this->getImageModel()
-                    ->getImageItemByType(Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_PORTRAIT_BACKGROUND);
+                        ->getImageItemByType(Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_PORTRAIT_BACKGROUND);
                 if (is_object($backgroundImage) && $backgroundImage->getImageFile()) {
                     $width = Mage_XmlConnect_Model_Device_Ipad::PREVIEW_PORTRAIT_BACKGROUND_WIDTH;
                     $height = Mage_XmlConnect_Model_Device_Ipad::PREVIEW_PORTRAIT_BACKGROUND_HEIGHT;
                     $backgroundImage = $this->getImageModel()
-                        ->getCustomSizeImageUrl($backgroundImage->getImageFile(), $width, $height);
+                            ->getCustomSizeImageUrl($backgroundImage->getImageFile(), $width, $height);
                 } else {
                     $backgroundImage = $this->getPreviewImagesUrl('ipad/background_portrait.jpg');
                 }
                 break;
             default:
                 Mage::throwException(
-                    Mage::helper('xmlconnect')->__('Wrong Ipad background image orientation has been specified: "%s".', $this->getOrientation())
+                        Mage::helper('xmlconnect')->__('Wrong Ipad background image orientation has been specified: "%s".', $this->getOrientation())
                 );
                 break;
         }
         return $backgroundImage;
     }
+
 }

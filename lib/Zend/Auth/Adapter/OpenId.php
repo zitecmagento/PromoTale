@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: OpenId.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Auth_Adapter_Interface
  */
@@ -31,7 +30,6 @@
  * @see Zend_OpenId_Consumer
  */
 #require_once 'Zend/OpenId/Consumer.php';
-
 
 /**
  * A Zend_Auth Authentication Adapter allowing the use of OpenID protocol as an
@@ -45,6 +43,7 @@
  */
 class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
 {
+
     /**
      * The identity value being authenticated
      *
@@ -115,18 +114,14 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
      *        object to perform HTTP or HTML form redirection
      * @return void
      */
-    public function __construct($id = null,
-                                Zend_OpenId_Consumer_Storage $storage = null,
-                                $returnTo = null,
-                                $root = null,
-                                $extensions = null,
-                                Zend_Controller_Response_Abstract $response = null) {
-        $this->_id         = $id;
-        $this->_storage    = $storage;
-        $this->_returnTo   = $returnTo;
-        $this->_root       = $root;
+    public function __construct($id = null, Zend_OpenId_Consumer_Storage $storage = null, $returnTo = null, $root = null, $extensions = null, Zend_Controller_Response_Abstract $response = null)
+    {
+        $this->_id = $id;
+        $this->_storage = $storage;
+        $this->_returnTo = $returnTo;
+        $this->_root = $root;
         $this->_extensions = $extensions;
-        $this->_response   = $response;
+        $this->_response = $response;
     }
 
     /**
@@ -219,7 +214,8 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
      *
      * @param Zend_Http_Client $client HTTP client object to be used
      */
-    public function setHttpClient($client) {
+    public function setHttpClient($client)
+    {
         $this->_httpClient = $client;
     }
 
@@ -230,53 +226,36 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
      * @throws Zend_Auth_Adapter_Exception If answering the authentication query is impossible
      * @return Zend_Auth_Result
      */
-    public function authenticate() {
+    public function authenticate()
+    {
         $id = $this->_id;
         if (!empty($id)) {
             $consumer = new Zend_OpenId_Consumer($this->_storage);
             $consumer->setHttpClient($this->_httpClient);
             /* login() is never returns on success */
             if (!$this->_check_immediate) {
-                if (!$consumer->login($id,
-                        $this->_returnTo,
-                        $this->_root,
-                        $this->_extensions,
-                        $this->_response)) {
+                if (!$consumer->login($id, $this->_returnTo, $this->_root, $this->_extensions, $this->_response)) {
                     return new Zend_Auth_Result(
-                        Zend_Auth_Result::FAILURE,
-                        $id,
-                        array("Authentication failed", $consumer->getError()));
+                            Zend_Auth_Result::FAILURE, $id, array("Authentication failed", $consumer->getError()));
                 }
             } else {
-                if (!$consumer->check($id,
-                        $this->_returnTo,
-                        $this->_root,
-                        $this->_extensions,
-                        $this->_response)) {
+                if (!$consumer->check($id, $this->_returnTo, $this->_root, $this->_extensions, $this->_response)) {
                     return new Zend_Auth_Result(
-                        Zend_Auth_Result::FAILURE,
-                        $id,
-                        array("Authentication failed", $consumer->getError()));
+                            Zend_Auth_Result::FAILURE, $id, array("Authentication failed", $consumer->getError()));
                 }
             }
         } else {
             $params = (isset($_SERVER['REQUEST_METHOD']) &&
-                       $_SERVER['REQUEST_METHOD']=='POST') ? $_POST: $_GET;
+                    $_SERVER['REQUEST_METHOD'] == 'POST') ? $_POST : $_GET;
             $consumer = new Zend_OpenId_Consumer($this->_storage);
             $consumer->setHttpClient($this->_httpClient);
             if ($consumer->verify(
-                    $params,
-                    $id,
-                    $this->_extensions)) {
+                            $params, $id, $this->_extensions)) {
                 return new Zend_Auth_Result(
-                    Zend_Auth_Result::SUCCESS,
-                    $id,
-                    array("Authentication successful"));
+                        Zend_Auth_Result::SUCCESS, $id, array("Authentication successful"));
             } else {
                 return new Zend_Auth_Result(
-                    Zend_Auth_Result::FAILURE,
-                    $id,
-                    array("Authentication failed", $consumer->getError()));
+                        Zend_Auth_Result::FAILURE, $id, array("Authentication failed", $consumer->getError()));
             }
         }
     }

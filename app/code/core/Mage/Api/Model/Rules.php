@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -48,22 +49,27 @@
  */
 class Mage_Api_Model_Rules extends Mage_Core_Model_Abstract
 {
+
     protected function _construct()
     {
         $this->_init('api/rules');
     }
 
-    public function update() {
+    public function update()
+    {
         $this->getResource()->update($this);
         return $this;
     }
 
-    public function getCollection() {
+    public function getCollection()
+    {
         return Mage::getResourceModel('api/permissions_collection');
     }
 
-    public function saveRel() {
+    public function saveRel()
+    {
         $this->getResource()->saveRel($this);
         return $this;
     }
+
 }

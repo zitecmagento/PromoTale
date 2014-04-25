@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,9 +34,10 @@
  */
 class Mage_Review_Block_Helper extends Mage_Core_Block_Template
 {
+
     protected $_availableTemplates = array(
         'default' => 'review/helper/summary.phtml',
-        'short'   => 'review/helper/summary_short.phtml'
+        'short' => 'review/helper/summary_short.phtml'
     );
 
     public function getSummaryHtml($product, $templateType, $displayIfNoReviews)
@@ -50,7 +52,7 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
 
         if (!$product->getRatingSummary()) {
             Mage::getModel('review/review')
-               ->getEntitySummary($product, Mage::app()->getStore()->getId());
+                    ->getEntitySummary($product, Mage::app()->getStore()->getId());
         }
         $this->setProduct($product);
 
@@ -70,8 +72,8 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
     public function getReviewsUrl()
     {
         return Mage::getUrl('review/product/list', array(
-           'id'        => $this->getProduct()->getId(),
-           'category'  => $this->getProduct()->getCategoryId()
+                    'id' => $this->getProduct()->getId(),
+                    'category' => $this->getProduct()->getCategoryId()
         ));
     }
 
@@ -87,4 +89,5 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
     {
         $this->_availableTemplates[$type] = $template;
     }
+
 }

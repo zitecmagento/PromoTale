@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -50,6 +51,7 @@
  */
 class Zend_Json_Expr
 {
+
     /**
      * Storage for javascript expression.
      *
@@ -77,4 +79,5 @@ class Zend_Json_Expr
     {
         return $this->_expression;
     }
+
 }

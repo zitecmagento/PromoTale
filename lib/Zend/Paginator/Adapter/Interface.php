@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 interface Zend_Paginator_Adapter_Interface extends Countable
 {
+
     /**
      * Returns an collection of items for a page.
      *

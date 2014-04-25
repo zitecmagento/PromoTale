@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SlideShow.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 
 /**
  * The Zend_Service_SlideShare_SlideShow class represents a slide show on the
@@ -134,7 +134,6 @@ class Zend_Service_SlideShare_SlideShow
      */
     protected $_transcript;
 
-
     /**
      * Retrieves the location of the slide show
      *
@@ -153,7 +152,7 @@ class Zend_Service_SlideShare_SlideShow
      */
     public function setLocation($loc)
     {
-        $this->_location = (string)$loc;
+        $this->_location = (string) $loc;
         return $this;
     }
 
@@ -175,7 +174,7 @@ class Zend_Service_SlideShare_SlideShow
      */
     public function setTranscript($t)
     {
-        $this->_transcript = (string)$t;
+        $this->_transcript = (string) $t;
         return $this;
     }
 
@@ -187,7 +186,7 @@ class Zend_Service_SlideShare_SlideShow
      */
     public function addTag($tag)
     {
-        $this->_tags[] = (string)$tag;
+        $this->_tags[] = (string) $tag;
         return $this;
     }
 
@@ -222,7 +221,7 @@ class Zend_Service_SlideShare_SlideShow
      */
     public function setFilename($file)
     {
-        $this->_slideShowFilename = (string)$file;
+        $this->_slideShowFilename = (string) $file;
         return $this;
     }
 
@@ -245,7 +244,7 @@ class Zend_Service_SlideShare_SlideShow
      */
     public function setId($id)
     {
-        $this->_slideShowId = (string)$id;
+        $this->_slideShowId = (string) $id;
         return $this;
     }
 
@@ -267,7 +266,7 @@ class Zend_Service_SlideShare_SlideShow
      */
     public function setEmbedCode($code)
     {
-        $this->_embedCode = (string)$code;
+        $this->_embedCode = (string) $code;
         return $this;
     }
 
@@ -311,7 +310,7 @@ class Zend_Service_SlideShare_SlideShow
      */
     public function setTitle($title)
     {
-        $this->_title = (string)$title;
+        $this->_title = (string) $title;
         return $this;
     }
 
@@ -333,7 +332,7 @@ class Zend_Service_SlideShare_SlideShow
      */
     public function setDescription($desc)
     {
-        $this->_description = (string)$desc;
+        $this->_description = (string) $desc;
         return $this;
     }
 
@@ -355,7 +354,7 @@ class Zend_Service_SlideShare_SlideShow
      */
     public function setStatus($status)
     {
-        $this->_status = (int)$status;
+        $this->_status = (int) $status;
         return $this;
     }
 
@@ -377,7 +376,7 @@ class Zend_Service_SlideShare_SlideShow
      */
     public function setStatusDescription($desc)
     {
-        $this->_statusDescription = (string)$desc;
+        $this->_statusDescription = (string) $desc;
         return $this;
     }
 
@@ -399,7 +398,7 @@ class Zend_Service_SlideShare_SlideShow
      */
     public function setPermaLink($url)
     {
-        $this->_permalink = (string)$url;
+        $this->_permalink = (string) $url;
         return $this;
     }
 
@@ -421,7 +420,7 @@ class Zend_Service_SlideShare_SlideShow
      */
     public function setNumViews($views)
     {
-        $this->_numViews = (int)$views;
+        $this->_numViews = (int) $views;
         return $this;
     }
 
@@ -434,4 +433,5 @@ class Zend_Service_SlideShare_SlideShow
     {
         return $this->_numViews;
     }
+
 }

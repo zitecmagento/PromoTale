@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Cache
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Cache extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Prepare form before rendering HTML
      * Setting Form Fieldsets and fields
@@ -55,10 +55,10 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Cache
             $lifetime = Mage::helper('xmlconnect')->getDefaultCacheLifetime();
         }
         $fieldset->addField('conf/native/cacheLifetime', 'text', array(
-            'label'     => $this->__('Cache Lifetime (seconds)'),
-            'name'      => 'conf[native][cacheLifetime]',
-            'value'     => $lifetime,
-            'note'      => $this->__('If you want to disable the cache on the application side, leave the field empty. Warning! When disabling cache, the application will take time to load each page.'),
+            'label' => $this->__('Cache Lifetime (seconds)'),
+            'name' => 'conf[native][cacheLifetime]',
+            'value' => $lifetime,
+            'note' => $this->__('If you want to disable the cache on the application side, leave the field empty. Warning! When disabling cache, the application will take time to load each page.'),
         ));
 
         return parent::_prepareForm();
@@ -103,4 +103,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Cache
     {
         return false;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -17,7 +18,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Decorator_ViewHelper */
 #require_once 'Zend/Form/Decorator/ViewHelper.php';
 
@@ -42,6 +42,7 @@
  */
 class Zend_Dojo_Form_Decorator_DijitElement extends Zend_Form_Decorator_ViewHelper
 {
+
     /**
      * Element attributes
      * @var array
@@ -157,11 +158,11 @@ class Zend_Dojo_Form_Decorator_DijitElement extends Zend_Form_Decorator_ViewHelp
         }
 
         $options = null;
-        $helper    = $this->getHelper();
+        $helper = $this->getHelper();
         $separator = $this->getSeparator();
-        $value     = $this->getValue($element);
-        $attribs   = $this->getElementAttribs();
-        $name      = $element->getFullyQualifiedName();
+        $value = $this->getValue($element);
+        $attribs = $this->getElementAttribs();
+        $name = $element->getFullyQualifiedName();
 
         $dijitParams = $this->getDijitParams();
         $dijitParams['required'] = $element->isRequired();
@@ -177,7 +178,7 @@ class Zend_Dojo_Form_Decorator_DijitElement extends Zend_Form_Decorator_ViewHelp
         $attribs['id'] = $id;
 
         if (array_key_exists('options', $attribs)) {
-               $options = $attribs['options'];
+            $options = $attribs['options'];
         }
 
         $elementContent = $view->$helper($name, $value, $dijitParams, $attribs, $options);
@@ -190,4 +191,5 @@ class Zend_Dojo_Form_Decorator_DijitElement extends Zend_Form_Decorator_ViewHelp
                 return $elementContent;
         }
     }
+
 }

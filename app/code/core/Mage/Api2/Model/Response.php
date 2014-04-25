@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,18 +34,20 @@
  */
 class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
 {
+
     /**
      * Character set which must be used in response
      */
     const RESPONSE_CHARSET = 'utf-8';
 
-    /**#@+
+    /*     * #@+
      * Default message types
      */
     const MESSAGE_TYPE_SUCCESS = 'success';
-    const MESSAGE_TYPE_ERROR   = 'error';
+    const MESSAGE_TYPE_ERROR = 'error';
     const MESSAGE_TYPE_WARNING = 'warning';
-    /**#@- */
+
+    /*     * #@- */
 
     /**
      * Messages
@@ -88,7 +91,7 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
      */
     public function hasMessages()
     {
-        return (bool)count($this->_messages) > 0;
+        return (bool) count($this->_messages) > 0;
     }
 
     /**
@@ -111,4 +114,5 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
         $this->_messages = array();
         return $this;
     }
+
 }

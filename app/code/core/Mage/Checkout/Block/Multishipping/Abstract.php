@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Checkout_Block_Multishipping_Abstract extends Mage_Core_Block_Template
 {
+
     /**
      * Retrieve multishipping checkout model
      *
@@ -42,4 +44,5 @@ class Mage_Checkout_Block_Multishipping_Abstract extends Mage_Core_Block_Templat
     {
         return Mage::getSingleton('checkout/type_multishipping');
     }
+
 }

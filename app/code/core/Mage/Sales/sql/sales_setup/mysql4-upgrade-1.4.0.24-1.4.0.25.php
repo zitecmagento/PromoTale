@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -26,4 +27,4 @@
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 $installer = $this;
 
-$installer->getConnection()->addKey($this->getTable('sales/order'), 'IDX_QUOTE_ID' ,'quote_id');
+$installer->getConnection()->addKey($this->getTable('sales/order'), 'IDX_QUOTE_ID', 'quote_id');

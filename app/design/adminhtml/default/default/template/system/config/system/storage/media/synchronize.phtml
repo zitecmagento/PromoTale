@@ -29,26 +29,26 @@
 
 <script type="text/javascript">
 //<![CDATA[
-    Validation.add('required-synchronize', '<?php echo $this->__('Synchronization is required.') ?>', function(){
+    Validation.add('required-synchronize', '<?php echo $this->__('Synchronization is required.') ?>', function() {
         storage = getConnectionName(
-            $('system_media_storage_configuration_media_storage').value,
-            $('system_media_storage_configuration_media_database').value
-        );
+                $('system_media_storage_configuration_media_storage').value,
+                $('system_media_storage_configuration_media_database').value
+                );
 
         return allowedStorages.include(storage);
     });
 
-    defaultValues   = [];
-    defaultValues['system_media_storage_configuration_media_storage']   = $('system_media_storage_configuration_media_storage').value;
-    defaultValues['system_media_storage_configuration_media_database']  = $('system_media_storage_configuration_media_database').value;
+    defaultValues = [];
+    defaultValues['system_media_storage_configuration_media_storage'] = $('system_media_storage_configuration_media_storage').value;
+    defaultValues['system_media_storage_configuration_media_database'] = $('system_media_storage_configuration_media_database').value;
 
     allowedStorages = [];
     addAllowedStorage(
-        $('system_media_storage_configuration_media_storage').value,
-        $('system_media_storage_configuration_media_database').value
-    );
+            $('system_media_storage_configuration_media_storage').value,
+            $('system_media_storage_configuration_media_database').value
+            );
 
-    <?php $syncStorageParams = $this->getSyncStorageParams() ?>
+<?php $syncStorageParams = $this->getSyncStorageParams() ?>
     addAllowedStorage(<?php echo $syncStorageParams['storage_type'] ?>, '<?php echo $syncStorageParams['connection_name'] ?>');
 
     function getConnectionName(storageType, connection)
@@ -75,14 +75,14 @@
         var element = Event.element(event);
 
         defaultStorage = getConnectionName(
-            defaultValues['system_media_storage_configuration_media_storage'],
-            defaultValues['system_media_storage_configuration_media_database']
-        );
+                defaultValues['system_media_storage_configuration_media_storage'],
+                defaultValues['system_media_storage_configuration_media_database']
+                );
 
         storage = getConnectionName(
-            $('system_media_storage_configuration_media_storage').value,
-            $('system_media_storage_configuration_media_database').value
-        );
+                $('system_media_storage_configuration_media_storage').value,
+                $('system_media_storage_configuration_media_database').value
+                );
 
         if (defaultStorage != storage) {
             enableSyncButton();
@@ -111,7 +111,7 @@
         $('synchronize_button').addClassName('disabled');
     }
 
-    Event.observe(window, 'load', function(){
+    Event.observe(window, 'load', function() {
         disableStorageSelection();
         disableSyncButton();
         checkStatus();
@@ -121,18 +121,17 @@
 
     function checkStatus() {
         u = new Ajax.PeriodicalUpdater('', '<?php echo $this->getAjaxStatusUpdateUrl() ?>', {
-            method:     'get',
-            frequency:  5,
+            method: 'get',
+            frequency: 5,
             loaderArea: false,
-
             onSuccess: function(transport) {
                 var response;
 
                 try {
                     response = eval('(' + transport.responseText + ')');
                     if (response.state == '<?php echo Mage_Core_Model_File_Storage_Flag::STATE_RUNNING ?>'
-                        && response.message
-                    ) {
+                            && response.message
+                            ) {
                         if ($('sync_span').hasClassName('no-display')) {
                             $('sync_span').removeClassName('no-display');
                             $('sync_message_span').update(response.message);
@@ -157,9 +156,9 @@
                                 enableSyncButton();
                             } else {
                                 addAllowedStorage(
-                                    $('system_media_storage_configuration_media_storage').value,
-                                    $('system_media_storage_configuration_media_database').value
-                                );
+                                        $('system_media_storage_configuration_media_storage').value,
+                                        $('system_media_storage_configuration_media_database').value
+                                        );
                             }
                         }
                     }
@@ -176,14 +175,14 @@
             advice.hide();
         }
         params = {
-            storage:    $('system_media_storage_configuration_media_storage').value,
+            storage: $('system_media_storage_configuration_media_storage').value,
             connection: $('system_media_storage_configuration_media_database').value
         }
 
         new Ajax.Request('<?php echo $this->getAjaxSyncUrl() ?>', {
-            parameters:     params,
-            loaderArea:     false,
-            asynchronous:   true
+            parameters: params,
+            loaderArea: false,
+            asynchronous: true
         });
 
         window.setTimeout('checkStatus()', 2011);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Helper_Translate extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Hash of localization
      *
@@ -511,4 +513,5 @@ class Mage_XmlConnect_Helper_Translate extends Mage_Core_Helper_Abstract
             'qtyLabelTitle' => $this->__('Quantity:')
         );
     }
+
 }

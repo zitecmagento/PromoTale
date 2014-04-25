@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -49,7 +50,8 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
             $tmpPath = Mage_Downloadable_Model_Link::getBaseSampleTmpPath();
         }
         $result = array();
-        try {
+        try
+        {
             $uploader = new Mage_Core_Model_File_Uploader($type);
             $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(true);
@@ -67,14 +69,16 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
             }
 
             $result['cookie'] = array(
-                'name'     => session_name(),
-                'value'    => $this->_getSession()->getSessionId(),
+                'name' => session_name(),
+                'value' => $this->_getSession()->getSessionId(),
                 'lifetime' => $this->_getSession()->getCookieLifetime(),
-                'path'     => $this->_getSession()->getCookiePath(),
-                'domain'   => $this->_getSession()->getCookieDomain()
+                'path' => $this->_getSession()->getCookiePath(),
+                'domain' => $this->_getSession()->getCookieDomain()
             );
-        } catch (Exception $e) {
-            $result = array('error'=>$e->getMessage(), 'errorcode'=>$e->getCode());
+        }
+        catch (Exception $e)
+        {
+            $result = array('error' => $e->getMessage(), 'errorcode' => $e->getCode());
         }
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Widget_Model_Widget extends Varien_Object
 {
+
     /**
      * Load Widgets XML config from widget.xml files and cache it
      *
@@ -49,8 +51,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
             Mage::getConfig()->loadModulesConfiguration('widget.xml', $config);
             $xmlConfig = $config;
             if (Mage::app()->useCache('config')) {
-                Mage::app()->saveCache($config->getXmlString(), 'widget_config',
-                    array(Mage_Core_Model_Config::CACHE_TAG));
+                Mage::app()->saveCache($config->getXmlString(), 'widget_config', array(Mage_Core_Model_Config::CACHE_TAG));
             }
         }
         return $xmlConfig;
@@ -115,7 +116,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
             foreach ($params as $key => $data) {
                 if (is_array($data)) {
                     $data['key'] = $key;
-                    $data['sort_order'] = isset($data['sort_order']) ? (int)$data['sort_order'] : $sortOrder;
+                    $data['sort_order'] = isset($data['sort_order']) ? (int) $data['sort_order'] : $sortOrder;
 
                     // prepare values (for drop-dawns) specified directly in configuration
                     $values = array();
@@ -165,14 +166,17 @@ class Mage_Widget_Model_Widget extends Varien_Object
         // filter widgets by params
         if (is_array($filters) && count($filters) > 0) {
             foreach ($widgets as $code => $widget) {
-                try {
+                try
+                {
                     $reflection = new ReflectionObject($widget);
                     foreach ($filters as $field => $value) {
-                        if (!$reflection->hasProperty($field) || (string)$widget->{$field} != $value) {
+                        if (!$reflection->hasProperty($field) || (string) $widget->{$field} != $value) {
                             throw new Exception();
                         }
                     }
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     unset($result->{$code});
                     continue;
                 }
@@ -196,10 +200,10 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 $helper = $widget->getAttribute('module') ? $widget->getAttribute('module') : 'widget';
                 $helper = Mage::helper($helper);
                 $result[$widget->getName()] = array(
-                    'name'          => $helper->__((string)$widget->name),
-                    'code'          => $widget->getName(),
-                    'type'          => $widget->getAttribute('type'),
-                    'description'   => $helper->__((string)$widget->description)
+                    'name' => $helper->__((string) $widget->name),
+                    'code' => $widget->getName(),
+                    'type' => $widget->getAttribute('type'),
+                    'description' => $helper->__((string) $widget->description)
                 );
             }
             usort($result, array($this, "_sortWidgets"));
@@ -248,10 +252,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         } else {
             $image = $config->getPlaceholderImagesBaseUrl() . 'default.gif';
         }
-        $html = sprintf('<img id="%s" src="%s" title="%s">',
-            $this->_idEncode($directive),
-            $image,
-            Mage::helper('core')->urlEscape($directive)
+        $html = sprintf('<img id="%s" src="%s" title="%s">', $this->_idEncode($directive), $image, Mage::helper('core')->urlEscape($directive)
         );
         return $html;
     }
@@ -266,12 +267,12 @@ class Mage_Widget_Model_Widget extends Varien_Object
         $result = array();
         foreach ($this->getWidgetsXml() as $widget) {
             if ($widget->js) {
-                foreach (explode(',', (string)$widget->js) as $js) {
+                foreach (explode(',', (string) $widget->js) as $js) {
                     $result[] = $js;
                 }
             }
-       }
-       return $result;
+        }
+        return $result;
     }
 
     /**
@@ -306,8 +307,9 @@ class Mage_Widget_Model_Widget extends Varien_Object
      */
     protected function _sortParameters($a, $b)
     {
-        $aOrder = (int)$a->getData('sort_order');
-        $bOrder = (int)$b->getData('sort_order');
+        $aOrder = (int) $a->getData('sort_order');
+        $bOrder = (int) $b->getData('sort_order');
         return $aOrder < $bOrder ? -1 : ($aOrder > $bOrder ? 1 : 0);
     }
+
 }

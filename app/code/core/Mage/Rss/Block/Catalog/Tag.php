@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,11 +34,12 @@
  */
 class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
 {
+
     protected function _construct()
     {
         /*
-        * setting cache to save the rss for 10 minutes
-        */
+         * setting cache to save the rss for 10 minutes
+         */
         $tagModel = Mage::registry('tag_model');
         if ($tagModel) {
             $this->setCacheKey('rss_catalog_tag_' . $this->getStoreId() . '_' . $tagModel->getName());
@@ -57,25 +59,23 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         $rssObj = Mage::getModel('rss/rss');
         $data = array('title' => $title,
             'description' => $title,
-            'link'        => $newurl,
-            'charset'     => 'UTF-8',
-            'language'    => $lang
+            'link' => $newurl,
+            'charset' => 'UTF-8',
+            'language' => $lang
         );
         $rssObj->_addHeader($data);
 
         $_collection = $tagModel->getEntityCollection()
-            ->addTagFilter($tagModel->getId())
-            ->addStoreFilter($storeId);
+                ->addTagFilter($tagModel->getId())
+                ->addStoreFilter($storeId);
 
         $_collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
 
         $product = Mage::getModel('catalog/product');
 
         Mage::getSingleton('core/resource_iterator')->walk(
-            Mage::getResourceHelper('core')->getQueryUsingAnalyticFunction($_collection->getSelect()),
-            array(array($this, 'addTaggedItemXml')),
-            array('rssObj'=> $rssObj, 'product'=>$product),
-            $_collection->getSelect()->getAdapter()
+                Mage::getResourceHelper('core')->getQueryUsingAnalyticFunction($_collection->getSelect()), array(array($this,
+                'addTaggedItemXml')), array('rssObj' => $rssObj, 'product' => $product), $_collection->getSelect()->getAdapter()
         );
 
         return $rssObj->createRssXml();
@@ -102,23 +102,24 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         $allowedPriceInRss = $product->getAllowedPriceInRss();
 
         $product->unsetData()->load($args['row']['entity_id']);
-        $description = '<table><tr><td><a href="'.$product->getProductUrl().'">'
-            . '<img src="' . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
-            . '" border="0" align="left" height="75" width="75"></a></td>'
-            . '<td  style="text-decoration:none;">'.$product->getDescription();
+        $description = '<table><tr><td><a href="' . $product->getProductUrl() . '">'
+                . '<img src="' . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
+                . '" border="0" align="left" height="75" width="75"></a></td>'
+                . '<td  style="text-decoration:none;">' . $product->getDescription();
 
         if ($allowedPriceInRss) {
-            $description .= $this->getPriceHtml($product,true);
+            $description .= $this->getPriceHtml($product, true);
         }
 
         $description .='</td></tr></table>';
 
         $rssObj = $args['rssObj'];
         $data = array(
-            'title'         => $product->getName(),
-            'link'          => $product->getProductUrl(),
-            'description'   => $description,
+            'title' => $product->getName(),
+            'link' => $product->getProductUrl(),
+            'description' => $description,
         );
         $rssObj->_addEntry($data);
     }
+
 }

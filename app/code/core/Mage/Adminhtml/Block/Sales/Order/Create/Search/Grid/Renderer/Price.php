@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,8 +33,9 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Price extends
-    Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price
+Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price
 {
+
     /**
      * Render minimal price for downloadable products
      *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Abstract
 {
+
     /**
      * Render customer form xml
      *
@@ -47,14 +49,14 @@ class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Abstract
 
         /** @var Mage_XmlConnect_Model_Simplexml_Form $fromXmlObj */
         $fromXmlObj = Mage::getModel('xmlconnect/simplexml_form', array(
-            'xml_id' => 'account_form',
-            'action' => $action,
-            'use_container' => true
+                    'xml_id' => 'account_form',
+                    'action' => $action,
+                    'use_container' => true
         ));
 
         $customerFieldset = $fromXmlObj->addFieldset('account_info', array(
-            'legend' => $this->__('Account Information')
-        ))->setCustomAttributes(array('legend'));
+                    'legend' => $this->__('Account Information')
+                ))->setCustomAttributes(array('legend'));
 
         if ($this->getIsCheckoutRegistrationPage()) {
             $customerFieldset->addField('checkout_page_registration', 'text', array(
@@ -68,15 +70,15 @@ class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Abstract
 
         /** Add custom attributes for customer */
         Mage::helper('xmlconnect/customer_form_renderer')->setAttributesBlockName($this->getAttributesBlockName())
-            ->setFormCode($this->getCustomerFormCode())->setBlockEntity($this->getCustomer())
-            ->addCustomAttributes($customerFieldset, $this->getLayout());
+                ->setFormCode($this->getCustomerFormCode())->setBlockEntity($this->getCustomer())
+                ->addCustomAttributes($customerFieldset, $this->getLayout());
 
         if ($this->getIsEditPage()) {
             $customerFieldset->addField('change_password', 'checkbox', array('label' => $this->__('Change Password')));
 
             $customerPasswordFieldset = $fromXmlObj->addFieldset('password_edit', array(
-                'legend' => $this->__('Change Password')
-            ))->setCustomAttributes(array('legend'));
+                        'legend' => $this->__('Change Password')
+                    ))->setCustomAttributes(array('legend'));
 
             $this->_addPasswordFields($customerPasswordFieldset);
         } else {
@@ -122,7 +124,6 @@ class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Abstract
 
         return $this;
     }
-
 
     /**
      * Add customer fields - first name, last name and email
@@ -170,11 +171,11 @@ class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Abstract
         }
         $formFieldset->addField('password', 'password', array(
             'label' => $this->getPasswordLabel()
-        ) + $this->_getRequiredParam());
+                ) + $this->_getRequiredParam());
 
         $field = $formFieldset->addField('confirmation', 'password', array(
-            'label' => $this->getConfirmLabel()
-        ) + $this->_getRequiredParam())->addValidator();
+                    'label' => $this->getConfirmLabel()
+                        ) + $this->_getRequiredParam())->addValidator();
 
         $field->getXmlObject()->addCustomChild('validator', 'password', array(
             'type' => 'confirmation',
@@ -196,4 +197,5 @@ class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Abstract
         }
         return array();
     }
+
 }

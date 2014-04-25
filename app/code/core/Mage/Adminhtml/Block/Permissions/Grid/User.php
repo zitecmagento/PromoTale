@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -45,7 +46,7 @@ class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Wi
 
     protected function _prepareCollection()
     {
-        $collection =  Mage::getModel("permissions/users")->getCollection();
+        $collection = Mage::getModel("permissions/users")->getCollection();
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
@@ -54,29 +55,29 @@ class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Wi
     protected function _prepareColumns()
     {
         $this->addColumn('user_id', array(
-            'header'    =>Mage::helper('adminhtml')->__('ID'),
-            'width'     =>5,
-            'align'     =>'right',
-            'sortable'  =>true,
-            'index'     =>'user_id'
+            'header' => Mage::helper('adminhtml')->__('ID'),
+            'width' => 5,
+            'align' => 'right',
+            'sortable' => true,
+            'index' => 'user_id'
         ));
         $this->addColumn('username', array(
-            'header'    =>Mage::helper('adminhtml')->__('User Name'),
-            'index'     =>'username'
+            'header' => Mage::helper('adminhtml')->__('User Name'),
+            'index' => 'username'
         ));
         $this->addColumn('firstname', array(
-            'header'    =>Mage::helper('adminhtml')->__('First Name'),
-            'index'     =>'firstname'
+            'header' => Mage::helper('adminhtml')->__('First Name'),
+            'index' => 'firstname'
         ));
         $this->addColumn('lastname', array(
-            'header'    =>Mage::helper('adminhtml')->__('Last Name'),
-            'index'     =>'lastname'
+            'header' => Mage::helper('adminhtml')->__('Last Name'),
+            'index' => 'lastname'
         ));
         $this->addColumn('email', array(
-            'header'    =>Mage::helper('adminhtml')->__('Email'),
-            'width'     =>40,
-            'align'     =>'left',
-            'index'     =>'email'
+            'header' => Mage::helper('adminhtml')->__('Email'),
+            'width' => 40,
+            'align' => 'left',
+            'index' => 'email'
         ));
 
         return parent::_prepareColumns();
@@ -88,4 +89,3 @@ class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Wi
     }
 
 }
-

@@ -29,8 +29,15 @@
 <layout>
     <default>
         <reference name="head">
-            <action method="addCss"><name>xmlconnect/boxes.css</name></action>
-            <action method="addItem"><type>skin_css</type><name>xmlconnect/iestyles.css</name><params/><if>lte IE 8</if></action>
+            <action method="addCss">
+                <name>xmlconnect/boxes.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>xmlconnect/iestyles.css</name>
+                <params/>
+                <if>lte IE 8</if>
+            </action>
         </reference>
     </default>
 
@@ -71,17 +78,39 @@
     </adminhtml_mobile_queuemessage>
 
     <adminhtml_mobile_edittemplate>
-         <reference name="head">
-            <action method="setCanLoadExtJs"><flag>1</flag></action>
-            <action method="addJs"><script>mage/adminhtml/variables.js</script></action>
-            <action method="addJs"><script>mage/adminhtml/wysiwyg/widget.js</script></action>
-            <action method="addJs"><script>lib/flex.js</script></action>
-            <action method="addJs"><script>lib/FABridge.js</script></action>
-            <action method="addJs"><script>mage/adminhtml/flexuploader.js</script></action>
-            <action method="addJs"><script>mage/adminhtml/browser.js</script></action>
-            <action method="addJs"><script>prototype/window.js</script></action>
-            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
-            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
+        <reference name="head">
+            <action method="setCanLoadExtJs">
+                <flag>1</flag>
+            </action>
+            <action method="addJs">
+                <script>mage/adminhtml/variables.js</script>
+            </action>
+            <action method="addJs">
+                <script>mage/adminhtml/wysiwyg/widget.js</script>
+            </action>
+            <action method="addJs">
+                <script>lib/flex.js</script>
+            </action>
+            <action method="addJs">
+                <script>lib/FABridge.js</script>
+            </action>
+            <action method="addJs">
+                <script>mage/adminhtml/flexuploader.js</script>
+            </action>
+            <action method="addJs">
+                <script>mage/adminhtml/browser.js</script>
+            </action>
+            <action method="addJs">
+                <script>prototype/window.js</script>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/default.css</name>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/magento.css</name>
+            </action>
         </reference>
         <reference name="content">
             <block type="xmlconnect/adminhtml_template_edit" name="template_edit"/>
@@ -110,8 +139,14 @@
                         <block type="xmlconnect/adminhtml_mobile_edit_tab_design_accordion_themes" name="accordion_themes" />
                         <block type="xmlconnect/adminhtml_mobile_edit_tab_design_accordion_tabs" name="accordion_tabs" />
 
-                        <action method="addAccordionItem"><name>themes</name><block>accordion_themes</block></action>
-                        <action method="addAccordionItem"><name>tabs</name><block>accordion_tabs</block></action>
+                        <action method="addAccordionItem">
+                            <name>themes</name>
+                            <block>accordion_themes</block>
+                        </action>
+                        <action method="addAccordionItem">
+                            <name>tabs</name>
+                            <block>accordion_tabs</block>
+                        </action>
                     </block>
                     <block type="xmlconnect/adminhtml_mobile_edit_tab_design_preview" name="mobile_edit_tab_design_preview" as="app_preview" />
                 </block>
@@ -125,15 +160,42 @@
                     <block type="core/template" name="mobile_edit_tab_notification_helper" as="app_notification_helper" template="xmlconnect/mobile/notification_helper.phtml" />
                 </block>
 
-                <action method="addTab"><id>general_section</id><block>mobile_edit_tab_general</block></action>
-                <action method="addTab"><id>design_section</id><block>mobile_edit_tab_design</block></action>
-                <action method="addTab"><id>content_section</id><block>mobile_edit_tab_content</block></action>
-                <action method="addTab"><id>payment_methods</id><block>mobile_edit_tab_payment</block></action>
-                <action method="addTab"><id>flurryanalytics_section</id><block>mobile_edit_tab_flurryanalytics</block></action>
-                <action method="addTab"><id>history_grid</id><block>mobile_edit_tab_submission_history_grid</block></action>
-                <action method="addTab"><id>cache_section</id><block>mobile_edit_tab_cache</block></action>
-                <action method="addTab"><id>social_section</id><block>mobile_edit_tab_social</block></action>
-                <action method="addTab"><id>notification_section</id><block>mobile_edit_tab_notification</block></action>
+                <action method="addTab">
+                    <id>general_section</id>
+                    <block>mobile_edit_tab_general</block>
+                </action>
+                <action method="addTab">
+                    <id>design_section</id>
+                    <block>mobile_edit_tab_design</block>
+                </action>
+                <action method="addTab">
+                    <id>content_section</id>
+                    <block>mobile_edit_tab_content</block>
+                </action>
+                <action method="addTab">
+                    <id>payment_methods</id>
+                    <block>mobile_edit_tab_payment</block>
+                </action>
+                <action method="addTab">
+                    <id>flurryanalytics_section</id>
+                    <block>mobile_edit_tab_flurryanalytics</block>
+                </action>
+                <action method="addTab">
+                    <id>history_grid</id>
+                    <block>mobile_edit_tab_submission_history_grid</block>
+                </action>
+                <action method="addTab">
+                    <id>cache_section</id>
+                    <block>mobile_edit_tab_cache</block>
+                </action>
+                <action method="addTab">
+                    <id>social_section</id>
+                    <block>mobile_edit_tab_social</block>
+                </action>
+                <action method="addTab">
+                    <id>notification_section</id>
+                    <block>mobile_edit_tab_notification</block>
+                </action>
                 <!--<action method="addTab"><id>offline_catalog</id><block>mobile_edit_tab_offlineCatalog</block></action>-->
             </block>
         </reference>
@@ -144,8 +206,12 @@
             <block type="core/template" name="image_action_block" template="xmlconnect/edit/tab/design/image_edit.phtml"/>
         </reference>
         <reference name="head">
-            <action method="addCss"><name>xmlconnect/dropdown.css</name></action>
-            <action method="addCss"><name>xmlconnect/styles.css</name></action>
+            <action method="addCss">
+                <name>xmlconnect/dropdown.css</name>
+            </action>
+            <action method="addCss">
+                <name>xmlconnect/styles.css</name>
+            </action>
         </reference>
     </adminhtml_mobile_edit>
 
@@ -161,14 +227,19 @@
                     <block type="xmlconnect/adminhtml_mobile_submission_tab_container_submission" name="mobile_submission_tab_container_submission" as="edit_form"/>
                     <block type="xmlconnect/adminhtml_mobile_edit_tab_design_preview" name="mobile_edit_tab_design_preview" as="app_preview" />
                 </block>
-                <action method="addTab"><id>submission_section</id><block>mobile_submission_tab_container</block></action>
+                <action method="addTab">
+                    <id>submission_section</id>
+                    <block>mobile_submission_tab_container</block>
+                </action>
             </block>
         </reference>
         <reference name="content">
             <block type="xmlconnect/adminhtml_mobile_submission" name="mobile_submission_content"/>
         </reference>
         <reference name="head">
-            <action method="addCss"><name>xmlconnect/styles.css</name></action>
+            <action method="addCss">
+                <name>xmlconnect/styles.css</name>
+            </action>
         </reference>
     </adminhtml_mobile_submission>
 
@@ -189,9 +260,13 @@
     <adminhtml_mobile_previewhome>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_home_content">
-                <action method="setTemplate"><templateType>home</templateType></action>
+                <action method="setTemplate">
+                    <templateType>home</templateType>
+                </action>
                 <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
-                    <action method="setActiveTab"><tab>home</tab></action>
+                    <action method="setActiveTab">
+                        <tab>home</tab>
+                    </action>
                 </block>
             </block>
             <block type="core/template" template="xmlconnect/edit/tab/design/preview/banner_rotator.phtml"/>
@@ -201,9 +276,13 @@
     <adminhtml_mobile_previewhomehor>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_home_hor_content">
-                <action method="setTemplate"><templateType>home_hor</templateType></action>
+                <action method="setTemplate">
+                    <templateType>home_hor</templateType>
+                </action>
                 <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
-                    <action method="setActiveTab"><tab>home</tab></action>
+                    <action method="setActiveTab">
+                        <tab>home</tab>
+                    </action>
                 </block>
             </block>
             <block type="core/template" template="xmlconnect/edit/tab/design/preview/banner_rotator.phtml"/>
@@ -213,9 +292,13 @@
     <adminhtml_mobile_previewcataloghor>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_catalog_hor_content">
-                <action method="setTemplate"><templateType>catalog_hor</templateType></action>
+                <action method="setTemplate">
+                    <templateType>catalog_hor</templateType>
+                </action>
                 <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
-                    <action method="setActiveTab"><tab>shop</tab></action>
+                    <action method="setActiveTab">
+                        <tab>shop</tab>
+                    </action>
                 </block>
             </block>
         </block>
@@ -224,9 +307,13 @@
     <adminhtml_mobile_previewcatalog>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_catalog_content">
-                <action method="setTemplate"><templateType>catalog</templateType></action>
+                <action method="setTemplate">
+                    <templateType>catalog</templateType>
+                </action>
                 <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
-                    <action method="setActiveTab"><tab>shop</tab></action>
+                    <action method="setActiveTab">
+                        <tab>shop</tab>
+                    </action>
                 </block>
             </block>
         </block>
@@ -235,9 +322,13 @@
     <adminhtml_mobile_previewproductinfo>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_productinfo_content">
-                <action method="setTemplate"><templateType>productinfo</templateType></action>
+                <action method="setTemplate">
+                    <templateType>productinfo</templateType>
+                </action>
                 <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
-                    <action method="setActiveTab"><tab>shop</tab></action>
+                    <action method="setActiveTab">
+                        <tab>shop</tab>
+                    </action>
                 </block>
             </block>
         </block>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * File storage database resource model class
  *
@@ -34,4 +34,5 @@
  */
 class Mage_Core_Model_Mysql4_File_Storage_Database extends Mage_Core_Model_Resource_File_Storage_Database
 {
+    
 }

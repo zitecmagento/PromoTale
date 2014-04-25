@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
 {
+
     /**
      * Strage for identifiers of related blocks
      *
@@ -84,4 +86,5 @@ class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
         }
         return parent::_toHtml();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Enter description here ...
  *
@@ -47,6 +47,7 @@
  */
 class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
 {
+
     /**
      * Shipment instance
      *
@@ -112,4 +113,5 @@ class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
 
         return $this;
     }
+
 }

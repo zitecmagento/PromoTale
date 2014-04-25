@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HtmlPage.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_View_Helper_HtmlObject
  */
@@ -34,6 +34,7 @@
  */
 class Zend_View_Helper_HtmlPage extends Zend_View_Helper_HtmlObject
 {
+
     /**
      * Default file type for html
      *
@@ -44,7 +45,7 @@ class Zend_View_Helper_HtmlPage extends Zend_View_Helper_HtmlObject
      * Object classid
      *
      */
-    const ATTRIB_CLASSID  = 'clsid:25336920-03F9-11CF-8FD0-00AA00686F13';
+    const ATTRIB_CLASSID = 'clsid:25336920-03F9-11CF-8FD0-00AA00686F13';
 
     /**
      * Default attributes
@@ -72,4 +73,5 @@ class Zend_View_Helper_HtmlPage extends Zend_View_Helper_HtmlObject
 
         return $this->htmlObject($data, self::TYPE, $attribs, $params, $content);
     }
+
 }

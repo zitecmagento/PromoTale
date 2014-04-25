@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Customer_Model_Observer
 {
+
     /**
      * VAT ID validation processed flag code
      */
@@ -49,8 +51,7 @@ class Mage_Customer_Model_Observer
      */
     protected function _isDefaultBilling($address)
     {
-        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultBilling())
-            || $address->getIsPrimaryBilling() || $address->getIsDefaultBilling();
+        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultBilling()) || $address->getIsPrimaryBilling() || $address->getIsDefaultBilling();
     }
 
     /**
@@ -61,8 +62,7 @@ class Mage_Customer_Model_Observer
      */
     protected function _isDefaultShipping($address)
     {
-        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultShipping())
-            || $address->getIsPrimaryShipping() || $address->getIsDefaultShipping();
+        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultShipping()) || $address->getIsPrimaryShipping() || $address->getIsDefaultShipping();
     }
 
     /**
@@ -98,7 +98,7 @@ class Mage_Customer_Model_Observer
         $loggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
 
         $observer->getEvent()->getLayout()->getUpdate()
-           ->addHandle('customer_logged_' . ($loggedIn ? 'in' : 'out'));
+                ->addHandle('customer_logged_' . ($loggedIn ? 'in' : 'out'));
     }
 
     /**
@@ -119,8 +119,7 @@ class Mage_Customer_Model_Observer
         } else {
             $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType();
 
-            $forceProcess = ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING)
-                ? $customerAddress->getIsDefaultShipping() : $customerAddress->getIsDefaultBilling();
+            $forceProcess = ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING) ? $customerAddress->getIsDefaultShipping() : $customerAddress->getIsDefaultBilling();
 
             if ($forceProcess) {
                 $customerAddress->setForceProcess(true);
@@ -141,22 +140,19 @@ class Mage_Customer_Model_Observer
         $customerAddress = $observer->getCustomerAddress();
         $customer = $customerAddress->getCustomer();
 
-        if (!Mage::helper('customer/address')->isVatValidationEnabled($customer->getStore())
-            || Mage::registry(self::VIV_PROCESSED_FLAG)
-            || !$this->_canProcessAddress($customerAddress)
+        if (!Mage::helper('customer/address')->isVatValidationEnabled($customer->getStore()) || Mage::registry(self::VIV_PROCESSED_FLAG) || !$this->_canProcessAddress($customerAddress)
         ) {
             return;
         }
 
-        try {
+        try
+        {
             Mage::register(self::VIV_PROCESSED_FLAG, true);
 
             /** @var $customerHelper Mage_Customer_Helper_Data */
             $customerHelper = Mage::helper('customer');
 
-            if ($customerAddress->getVatId() == ''
-                || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry()))
-            {
+            if ($customerAddress->getVatId() == '' || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry())) {
                 $defaultGroupId = $customerHelper->getDefaultCustomerGroupId($customer->getStore());
 
                 if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $defaultGroupId) {
@@ -166,12 +162,11 @@ class Mage_Customer_Model_Observer
             } else {
 
                 $result = $customerHelper->checkVatNumber(
-                    $customerAddress->getCountryId(),
-                    $customerAddress->getVatId()
+                        $customerAddress->getCountryId(), $customerAddress->getVatId()
                 );
 
                 $newGroupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
-                    $customerAddress->getCountryId(), $result, $customer->getStore()
+                        $customerAddress->getCountryId(), $result, $customer->getStore()
                 );
 
                 if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $newGroupId) {
@@ -180,8 +175,7 @@ class Mage_Customer_Model_Observer
                 }
 
                 if (!Mage::app()->getStore()->isAdmin()) {
-                    $validationMessage = Mage::helper('customer')->getVatValidationUserMessage($customerAddress,
-                        $customer->getDisableAutoGroupChange(), $result);
+                    $validationMessage = Mage::helper('customer')->getVatValidationUserMessage($customerAddress, $customer->getDisableAutoGroupChange(), $result);
 
                     if (!$validationMessage->getIsError()) {
                         Mage::getSingleton('customer/session')->addSuccess($validationMessage->getMessage());
@@ -190,7 +184,9 @@ class Mage_Customer_Model_Observer
                     }
                 }
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::register(self::VIV_PROCESSED_FLAG, false, true);
         }
     }
@@ -214,8 +210,9 @@ class Mage_Customer_Model_Observer
         }
 
         $customer->setGroupId(
-            $customer->getOrigData('group_id')
+                $customer->getOrigData('group_id')
         );
         $customer->save();
     }
+
 }

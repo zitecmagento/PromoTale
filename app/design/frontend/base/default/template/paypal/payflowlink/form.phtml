@@ -23,23 +23,22 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * @see Mage_Paypal_Block_Payflow_Link_Iframe
  */
 ?>
 <html>
-<head></head>
-<body>
-    <form id="token_form" method="POST" action="<?php echo $this->getTransactionUrl() ?>">
-        <input type="hidden" name="SECURETOKEN" value="<?php echo $this->getSecureToken(); ?>" />
-        <input type="hidden" name="SECURETOKENID" value="<?php echo $this->getSecureTokenId(); ?>" />
-        <input type="hidden" name="MODE" value="<?php echo $this->isTestMode() ? 'TEST' : 'LIVE'; ?>" />
-    </form>
-    <script type="text/javascript">
-    //<![CDATA[
-        document.getElementById('token_form').submit();
-    //]]>
-    </script>
-</body>
+    <head></head>
+    <body>
+        <form id="token_form" method="POST" action="<?php echo $this->getTransactionUrl() ?>">
+            <input type="hidden" name="SECURETOKEN" value="<?php echo $this->getSecureToken(); ?>" />
+            <input type="hidden" name="SECURETOKENID" value="<?php echo $this->getSecureTokenId(); ?>" />
+            <input type="hidden" name="MODE" value="<?php echo $this->isTestMode() ? 'TEST' : 'LIVE'; ?>" />
+        </form>
+        <script type="text/javascript">
+            //<![CDATA[
+            document.getElementById('token_form').submit();
+            //]]>
+        </script>
+    </body>
 </html>

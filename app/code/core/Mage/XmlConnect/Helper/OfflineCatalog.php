@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Helper_OfflineCatalog extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Result folder
      */
@@ -304,4 +306,5 @@ class Mage_XmlConnect_Helper_OfflineCatalog extends Mage_Core_Helper_Abstract
         $storeUrl = Mage::getModel('core/store')->load($app->getStoreId())->getUrl(self::EXPORT_URL, $secretKey);
         return $storeUrl;
     }
+
 }

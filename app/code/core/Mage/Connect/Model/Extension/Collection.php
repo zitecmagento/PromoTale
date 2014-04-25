@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,13 +34,14 @@
  */
 class Mage_Connect_Model_Extension_Collection extends Varien_Data_Collection_Filesystem
 {
+
     /**
      * Files and folders regexsp
      *
      * @var string
      */
-    protected $_allowedDirsMask     = '/^[a-z0-9\.\-]+$/i';
-    protected $_allowedFilesMask    = '/^[a-z0-9\.\-\_]+\.(xml|ser)$/i';
+    protected $_allowedDirsMask = '/^[a-z0-9\.\-]+$/i';
+    protected $_allowedFilesMask = '/^[a-z0-9\.\-\_]+\.(xml|ser)$/i';
     protected $_disallowedFilesMask = '/^package\.xml$/i';
 
     /**

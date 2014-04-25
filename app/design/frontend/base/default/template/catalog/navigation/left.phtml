@@ -23,7 +23,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * Category left navigation
  *
@@ -32,28 +31,28 @@
 ?>
 <?php if (!Mage::registry('current_category')) return ?>
 <?php $_categories = $this->getCurrentChildCategories() ?>
-<?php $_count = is_array($_categories)?count($_categories):$_categories->count(); ?>
-<?php if($_count): ?>
-<div class="block block-layered-nav">
-    <div class="block-title">
-        <strong><span><?php echo $this->__('Browse By') ?></span></strong>
+<?php $_count = is_array($_categories) ? count($_categories) : $_categories->count(); ?>
+<?php if ($_count): ?>
+    <div class="block block-layered-nav">
+        <div class="block-title">
+            <strong><span><?php echo $this->__('Browse By') ?></span></strong>
+        </div>
+        <div class="block-content">
+            <dl id="narrow-by-list2">
+                <dt><?php echo $this->__('Category') ?></dt>
+                <dd>
+                    <ol>
+                        <?php foreach ($_categories as $_category): ?>
+                            <?php if ($_category->getIsActive()): ?>
+                                <li>
+                                    <a href="<?php echo $this->getCategoryUrl($_category) ?>"<?php if ($this->isCategoryActive($_category)): ?> class="current"<?php endif; ?>><?php echo $this->escapeHtml($_category->getName()) ?></a> (<?php echo $_category->getProductCount() ?>)
+                                </li>
+                            <?php endif; ?>
+                        <?php endforeach ?>
+                    </ol>
+                </dd>
+            </dl>
+            <script type="text/javascript">decorateDataList('narrow-by-list2')</script>
+        </div>
     </div>
-    <div class="block-content">
-        <dl id="narrow-by-list2">
-            <dt><?php echo $this->__('Category') ?></dt>
-            <dd>
-                <ol>
-                <?php foreach ($_categories as $_category): ?>
-                    <?php if($_category->getIsActive()): ?>
-                    <li>
-                        <a href="<?php echo $this->getCategoryUrl($_category) ?>"<?php if ($this->isCategoryActive($_category)): ?> class="current"<?php endif; ?>><?php echo $this->escapeHtml($_category->getName()) ?></a> (<?php echo $_category->getProductCount() ?>)
-                    </li>
-                    <?php endif; ?>
-                <?php endforeach ?>
-                </ol>
-            </dd>
-        </dl>
-        <script type="text/javascript">decorateDataList('narrow-by-list2')</script>
-    </div>
-</div>
 <?php endif; ?>

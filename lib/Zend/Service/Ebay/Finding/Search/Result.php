@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Result.php 22804 2010-08-08 05:08:05Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Ebay_Finding_Search_Result extends Zend_Service_Ebay_Finding_Abstract
 {
+
     /**
      * Container for the data of a single item that matches the search criteria.
      *
@@ -60,4 +61,5 @@ class Zend_Service_Ebay_Finding_Search_Result extends Zend_Service_Ebay_Finding_
             $this->item = new Zend_Service_Ebay_Finding_Search_Item_Set($nodes);
         }
     }
+
 }

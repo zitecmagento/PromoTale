@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,4 +34,5 @@
  */
 class Mage_XmlConnect_Model_Mysql4_ConfigData extends Mage_XmlConnect_Model_Resource_ConfigData
 {
+    
 }

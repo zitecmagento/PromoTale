@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Downlaodable Sales Order Email items renderer
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Downloadable_Block_Sales_Order_Email_Items_Downloadable extends Mage_Sales_Block_Order_Email_Items_Default
 {
+
     protected $_purchased = null;
 
     /**
@@ -44,9 +45,9 @@ class Mage_Downloadable_Block_Sales_Order_Email_Items_Downloadable extends Mage_
     public function getLinks()
     {
         $this->_purchased = Mage::getModel('downloadable/link_purchased')
-            ->load($this->getItem()->getOrder()->getId(), 'order_id');
+                ->load($this->getItem()->getOrder()->getId(), 'order_id');
         $purchasedLinks = Mage::getModel('downloadable/link_purchased_item')->getCollection()
-            ->addFieldToFilter('order_item_id', $this->getItem()->getOrderItem()->getId());
+                ->addFieldToFilter('order_item_id', $this->getItem()->getOrderItem()->getId());
         $this->_purchased->setPurchasedItems($purchasedLinks);
 
         return $this->_purchased;
@@ -63,10 +64,11 @@ class Mage_Downloadable_Block_Sales_Order_Email_Items_Downloadable extends Mage_
     public function getPurchasedLinkUrl($item)
     {
         return $this->getUrl('downloadable/download/link', array(
-            'id'        => $item->getLinkHash(),
-            '_store'    => $this->getOrder()->getStore(),
-            '_secure'   => true,
-            '_nosid'    => true
+                    'id' => $item->getLinkHash(),
+                    '_store' => $this->getOrder()->getStore(),
+                    '_secure' => true,
+                    '_nosid' => true
         ));
     }
+
 }

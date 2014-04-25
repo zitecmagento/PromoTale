@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: UpdateInfoContainer.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Container which collects updated object info.
  *
@@ -29,6 +29,7 @@
  */
 class Zend_Pdf_UpdateInfoContainer
 {
+
     /**
      * Object number
      *
@@ -42,7 +43,6 @@ class Zend_Pdf_UpdateInfoContainer
      * @var integer
      */
     private $_genNum;
-
 
     /**
      * Flag, which signals, that object is free
@@ -78,7 +78,6 @@ class Zend_Pdf_UpdateInfoContainer
             }
         }
     }
-
 
     /**
      * Get object number
@@ -127,5 +126,5 @@ class Zend_Pdf_UpdateInfoContainer
 
         return $this->_dump->getRef();
     }
-}
 
+}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,16 +24,15 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Tax_Model_Class_Source_Customer extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+
     public function getAllOptions()
     {
         if (!$this->_options) {
             $this->_options = Mage::getResourceModel('tax/class_collection')
-                ->addFieldToFilter('class_type', Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER)
-                ->load()->toOptionArray();
+                            ->addFieldToFilter('class_type', Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER)
+                            ->load()->toOptionArray();
         }
         return $this->_options;
     }
@@ -41,4 +41,5 @@ class Mage_Tax_Model_Class_Source_Customer extends Mage_Eav_Model_Entity_Attribu
     {
         return $this->getAllOptions();
     }
+
 }

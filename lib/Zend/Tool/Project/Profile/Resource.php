@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Resource.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Project_Profile_Resource_Container
  */
@@ -51,12 +51,12 @@ class Zend_Tool_Project_Profile_Resource extends Zend_Tool_Project_Profile_Resou
      */
     protected $_parentResource = null;
 
-    /**#@+
+    /*     * #@+
      * @var bool
      */
     protected $_deleted = false;
     protected $_enabled = true;
-    /**#@-*/
+    /*     * #@- */
 
     /**
      * @var Zend_Tool_Project_Context|string

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Design Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table and primary key
      *
@@ -65,20 +66,16 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         $check = $this->_checkIntersection(
-            $object->getStoreId(),
-            $dateFrom,
-            $dateTo,
-            $object->getId()
+                $object->getStoreId(), $dateFrom, $dateTo, $object->getId()
         );
 
         if ($check) {
             Mage::throwException(
-                Mage::helper('core')->__('Your design change for the specified store intersects with another one, please specify another date range.'));
+                    Mage::helper('core')->__('Your design change for the specified store intersects with another one, please specify another date range.'));
         }
 
         parent::_beforeSave($object);
     }
-
 
     /**
      * Check intersections
@@ -93,9 +90,9 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from(array('main_table'=>$this->getTable('design_change')))
-            ->where('main_table.store_id = :store_id')
-            ->where('main_table.design_change_id <> :current_id');
+                ->from(array('main_table' => $this->getTable('design_change')))
+                ->where('main_table.store_id = :store_id')
+                ->where('main_table.design_change_id <> :current_id');
 
         $dateConditions = array('date_to IS NULL AND date_from IS NULL');
 
@@ -137,8 +134,8 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         $bind = array(
-            'store_id'   => (int)$storeId,
-            'current_id' => (int)$currentId,
+            'store_id' => (int) $storeId,
+            'current_id' => (int) $currentId,
         );
 
         if (!empty($dateTo)) {
@@ -166,16 +163,17 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         $select = $this->_getReadAdapter()->select()
-            ->from(array('main_table' => $this->getTable('design_change')))
-            ->where('store_id = :store_id')
-            ->where('date_from <= :required_date or date_from IS NULL')
-            ->where('date_to >= :required_date or date_to IS NULL');
+                ->from(array('main_table' => $this->getTable('design_change')))
+                ->where('store_id = :store_id')
+                ->where('date_from <= :required_date or date_from IS NULL')
+                ->where('date_to >= :required_date or date_to IS NULL');
 
         $bind = array(
-            'store_id'      => (int)$storeId,
+            'store_id' => (int) $storeId,
             'required_date' => $date
         );
 
         return $this->_getReadAdapter()->fetchRow($select, $bind);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Paygate_Model_Authorizenet_Cards
 {
+
     const CARDS_NAMESPACE = 'authorize_cards';
     const CARD_ID_KEY = 'id';
     const CARD_PROCESSED_AMOUNT_KEY = 'processed_amount';
@@ -119,7 +120,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     {
         $this->_isPaymentValid();
         $_cards = array();
-        foreach(array_keys($this->_cards) as $key) {
+        foreach (array_keys($this->_cards) as $key) {
             $_cards[$key] = $this->getCard($key);
         }
         return $_cards;
@@ -189,6 +190,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
             throw new Exception('Payment instance is not set');
         }
     }
+
     /**
      * Return total for cards data fields
      *
@@ -205,4 +207,5 @@ class Mage_Paygate_Model_Authorizenet_Cards
         }
         return $amount;
     }
+
 }

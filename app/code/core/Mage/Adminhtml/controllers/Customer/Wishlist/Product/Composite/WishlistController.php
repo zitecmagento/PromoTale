@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,10 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
-    extends Mage_Adminhtml_Controller_Action
+class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController extends Mage_Adminhtml_Controller_Action
 {
-     /**
+
+    /**
      * Wishlist we're working with
      *
      * @var Mage_Wishlist_Model_Wishlist
@@ -62,14 +63,14 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
 
         /* @var $wishlistItem Mage_Wishlist_Model_Item */
         $wishlistItem = Mage::getModel('wishlist/item')
-            ->loadWithOptions($wishlistItemId);
+                ->loadWithOptions($wishlistItemId);
 
         if (!$wishlistItem->getWishlistId()) {
             Mage::throwException($this->__('Wishlist item is not loaded.'));
         }
 
         $this->_wishlist = Mage::getModel('wishlist/wishlist')
-            ->load($wishlistItem->getWishlistId());
+                ->load($wishlistItem->getWishlistId());
 
         $this->_wishlistItem = $wishlistItem;
 
@@ -84,7 +85,8 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
     public function configureAction()
     {
         $configureResult = new Varien_Object();
-        try {
+        try
+        {
             $this->_initData();
 
             $configureResult->setProductId($this->_wishlistItem->getProductId());
@@ -93,7 +95,9 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
             $configureResult->setCurrentCustomerId($this->_wishlist->getCustomerId());
 
             $configureResult->setOk(true);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $configureResult->setError(true);
             $configureResult->setMessage($e->getMessage());
         }
@@ -115,17 +119,20 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
     {
         // Update wishlist item
         $updateResult = new Varien_Object();
-        try {
+        try
+        {
             $this->_initData();
 
             $buyRequest = new Varien_Object($this->getRequest()->getParams());
 
             $this->_wishlist
-                ->updateItem($this->_wishlistItem->getId(), $buyRequest)
-                ->save();
+                    ->updateItem($this->_wishlistItem->getId(), $buyRequest)
+                    ->save();
 
             $updateResult->setOk(true);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $updateResult->setError(true);
             $updateResult->setMessage($e->getMessage());
         }
@@ -145,4 +152,5 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
     {
         return Mage::getSingleton('admin/session')->isAllowed('customer/manage');
     }
+
 }

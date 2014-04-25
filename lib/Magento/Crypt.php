@@ -1,4 +1,5 @@
 <?php
+
 /**
  * {license_notice}
  *
@@ -13,6 +14,7 @@
  */
 class Magento_Crypt
 {
+
     /**
      * @var string
      */
@@ -52,7 +54,8 @@ class Magento_Crypt
         $this->_cipher = $cipher;
         $this->_mode = $mode;
         $this->_handle = mcrypt_module_open($cipher, '', $mode, '');
-        try {
+        try
+        {
             $maxKeySize = mcrypt_enc_get_key_size($this->_handle);
             if (strlen($key) > $maxKeySize) {
                 throw new Magento_Exception('Key must not exceed ' . $maxKeySize . ' bytes.');
@@ -72,7 +75,9 @@ class Magento_Crypt
                 throw new Magento_Exception('Init vector must be a string of ' . $initVectorSize . ' bytes.');
             }
             $this->_initVector = $initVector;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             mcrypt_module_close($this->_handle);
             throw $e;
         }
@@ -151,4 +156,5 @@ class Magento_Crypt
         $data = rtrim($data, "\0");
         return $data;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist sidebar block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
 {
+
     /**
      * Retrieve block title
      *
@@ -53,9 +54,9 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
     protected function _prepareCollection($collection)
     {
         $collection->setCurPage(1)
-            ->setPageSize(3)
-            ->setInStockFilter(true)
-            ->setOrder('added_at');
+                ->setPageSize(3)
+                ->setInStockFilter(true)
+                ->setOrder('added_at');
 
         return $this;
     }
@@ -157,6 +158,5 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
         }
         return parent::getCacheTags();
     }
-
 
 }

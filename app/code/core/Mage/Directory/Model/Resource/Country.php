@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Directory Country Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Directory_Model_Resource_Country extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      *
@@ -70,4 +71,5 @@ class Mage_Directory_Model_Resource_Country extends Mage_Core_Model_Resource_Db_
 
         return $this->load($country, $code, $field);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Index_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Get array of index names which require data reindex
      *
@@ -37,8 +38,7 @@ class Mage_Index_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Temp
         $processes = Mage::getSingleton('index/indexer')->getProcessesCollection()->addEventsStats();
         /** @var $process Mage_Index_Model_Process */
         foreach ($processes as $process) {
-            if (($process->getStatus() == Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX
-                || $process->getEvents() > 0) && $process->getIndexer()->isVisible()
+            if (($process->getStatus() == Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX || $process->getEvents() > 0) && $process->getIndexer()->isVisible()
             ) {
                 $res[] = $process->getIndexer()->getName();
             }
@@ -68,4 +68,5 @@ class Mage_Index_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Temp
         }
         return '';
     }
+
 }

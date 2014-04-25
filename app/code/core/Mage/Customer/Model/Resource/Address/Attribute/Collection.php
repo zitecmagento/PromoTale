@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer Address EAV additional attribute resource collection
  *
@@ -32,13 +32,14 @@
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Model_Resource_Address_Attribute_Collection
-    extends Mage_Customer_Model_Resource_Attribute_Collection
+class Mage_Customer_Model_Resource_Address_Attribute_Collection extends Mage_Customer_Model_Resource_Attribute_Collection
 {
+
     /**
      * Default attribute entity type code
      *
      * @var string
      */
-    protected $_entityTypeCode   = 'customer_address';
+    protected $_entityTypeCode = 'customer_address';
+
 }

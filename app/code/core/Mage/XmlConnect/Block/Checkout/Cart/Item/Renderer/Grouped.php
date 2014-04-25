@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Xmlconnect_Block_Checkout_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block_Cart_Item_Renderer_Grouped
 {
+
     /**
      * Get product thumbnail image
      *
@@ -41,12 +43,11 @@ class Mage_Xmlconnect_Block_Checkout_Cart_Item_Renderer_Grouped extends Mage_Che
     public function getProductThumbnail()
     {
         $product = $this->getProduct();
-        if (!$product->getData('thumbnail')
-            ||($product->getData('thumbnail') == 'no_selection')
-            || (Mage::getStoreConfig(self::GROUPED_PRODUCT_IMAGE) == self::USE_PARENT_IMAGE)
+        if (!$product->getData('thumbnail') || ($product->getData('thumbnail') == 'no_selection') || (Mage::getStoreConfig(self::GROUPED_PRODUCT_IMAGE) == self::USE_PARENT_IMAGE)
         ) {
             $product = $this->getGroupedProduct();
         }
         return $this->helper('xmlconnect/catalog_product_image')->init($product, 'thumbnail');
     }
+
 }

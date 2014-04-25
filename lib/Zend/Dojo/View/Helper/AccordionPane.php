@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: AccordionPane.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Dojo_View_Helper_DijitContainer */
 #require_once 'Zend/Dojo/View/Helper/DijitContainer.php';
 
@@ -31,14 +31,15 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
-  */
+ */
 class Zend_Dojo_View_Helper_AccordionPane extends Zend_Dojo_View_Helper_DijitContainer
 {
+
     /**
      * Dijit being used
      * @var string
      */
-    protected $_dijit  = 'dijit.layout.AccordionPane';
+    protected $_dijit = 'dijit.layout.AccordionPane';
 
     /**
      * Module being used
@@ -63,4 +64,5 @@ class Zend_Dojo_View_Helper_AccordionPane extends Zend_Dojo_View_Helper_DijitCon
 
         return $this->_createLayoutContainer($id, $content, $params, $attribs);
     }
+
 }

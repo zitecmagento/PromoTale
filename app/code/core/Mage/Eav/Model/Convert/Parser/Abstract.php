@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,18 +24,16 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
-abstract class Mage_Eav_Model_Convert_Parser_Abstract
-    extends Mage_Dataflow_Model_Convert_Parser_Abstract
+abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Model_Convert_Parser_Abstract
 {
+
     protected $_storesById;
     protected $_attributeSetsById;
     protected $_attributeSetsByName;
 
     public function getStoreIds($stores)
     {
-       if (empty($stores)) {
+        if (empty($stores)) {
             $storeIds = array(0);
         } else {
             $storeIds = array();
@@ -42,11 +41,11 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract
                 if (is_numeric($store)) {
                     $storeIds[] = $store;
                 } else {
-                    $storeNode = Mage::getConfig()->getNode('stores/'.$store);
+                    $storeNode = Mage::getConfig()->getNode('stores/' . $store);
                     if (!$storeNode) {
                         return false;
                     }
-                    $storeIds[] = (int)$storeNode->system->store->id;
+                    $storeIds[] = (int) $storeNode->system->store->id;
                 }
             }
         }
@@ -55,17 +54,17 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract
 
     public function getStoreCode($storeId)
     {
-        return Mage::app()->getStore($storeId?$storeId:0)->getCode();
+        return Mage::app()->getStore($storeId ? $storeId : 0)->getCode();
     }
 
     public function loadAttributeSets($entityTypeId)
     {
         $attributeSetCollection = Mage::getResourceModel('eav/entity_attribute_set_collection')
-            ->setEntityTypeFilter($entityTypeId)
-            ->load();
+                ->setEntityTypeFilter($entityTypeId)
+                ->load();
         $this->_attributeSetsById = array();
         $this->_attributeSetsByName = array();
-        foreach ($attributeSetCollection as $id=>$attributeSet) {
+        foreach ($attributeSetCollection as $id => $attributeSet) {
             $name = $attributeSet->getAttributeSetName();
             $this->_attributeSetsById[$id] = $name;
             $this->_attributeSetsByName[$name] = $id;
@@ -92,10 +91,11 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract
     public function getSourceOptionId(Mage_Eav_Model_Entity_Attribute_Source_Interface $source, $value)
     {
         foreach ($source->getAllOptions() as $option) {
-            if (strcasecmp($option['label'], $value)==0) {
+            if (strcasecmp($option['label'], $value) == 0) {
                 return $option['value'];
             }
         }
         return null;
     }
+
 }

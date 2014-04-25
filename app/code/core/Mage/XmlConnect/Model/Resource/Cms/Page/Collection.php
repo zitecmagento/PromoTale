@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Resource_Cms_Page_Collection extends Mage_Cms_Model_Resource_Page_Collection
 {
+
     /**
      * Returns pairs identifier - title for unique identifiers
      * and pairs identifier|page_id - title for non-unique after first
@@ -62,4 +64,5 @@ class Mage_XmlConnect_Model_Resource_Cms_Page_Collection extends Mage_Cms_Model_
 
         return $res;
     }
+
 }

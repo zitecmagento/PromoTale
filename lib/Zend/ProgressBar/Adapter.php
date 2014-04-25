@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 abstract class Zend_ProgressBar_Adapter
 {
+
     /**
      * Option keys to skip when calling setOptions()
      *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Cache.php 23154 2010-10-18 17:41:06Z mabe $
  */
-
 
 /**
  * @package    Zend_Cache
@@ -41,7 +41,7 @@ abstract class Zend_Cache
      * @var array
      */
     public static $standardBackends = array('File', 'Sqlite', 'Memcached', 'Libmemcached', 'Apc', 'ZendPlatform',
-                                            'Xcache', 'TwoLevels', 'ZendServer_Disk', 'ZendServer_ShMem');
+        'Xcache', 'TwoLevels', 'ZendServer_Disk', 'ZendServer_ShMem');
 
     /**
      * Standard backends which implement the ExtendedInterface
@@ -64,14 +64,15 @@ abstract class Zend_Cache
      * @var array
      * @deprecated
      */
-    public static $availableBackends = array('File', 'Sqlite', 'Memcached', 'Libmemcached', 'Apc', 'ZendPlatform', 'Xcache', 'TwoLevels');
+    public static $availableBackends = array('File', 'Sqlite', 'Memcached', 'Libmemcached', 'Apc', 'ZendPlatform', 'Xcache',
+        'TwoLevels');
 
     /**
      * Consts for clean() method
      */
-    const CLEANING_MODE_ALL              = 'all';
-    const CLEANING_MODE_OLD              = 'old';
-    const CLEANING_MODE_MATCHING_TAG     = 'matchingTag';
+    const CLEANING_MODE_ALL = 'all';
+    const CLEANING_MODE_OLD = 'old';
+    const CLEANING_MODE_MATCHING_TAG = 'matchingTag';
     const CLEANING_MODE_NOT_MATCHING_TAG = 'notMatchingTag';
     const CLEANING_MODE_MATCHING_ANY_TAG = 'matchingAnyTag';
 
@@ -124,7 +125,7 @@ abstract class Zend_Cache
     public static function _makeBackend($backend, $backendOptions, $customBackendNaming = false, $autoload = false)
     {
         if (!$customBackendNaming) {
-            $backend  = self::_normalizeName($backend);
+            $backend = self::_normalizeName($backend);
         }
         if (in_array($backend, Zend_Cache::$standardBackends)) {
             // we use a standard backend

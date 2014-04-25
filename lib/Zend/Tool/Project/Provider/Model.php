@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -45,9 +46,8 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
         }
 
         $newModel = $modelsDirectory->createResource(
-            'modelFile', 
-            array('modelName' => $modelName, 'moduleName' => $moduleName)
-            );
+                'modelFile', array('modelName' => $modelName, 'moduleName' => $moduleName)
+        );
 
         return $newModel;
     }
@@ -69,7 +69,7 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
         $modelsDirectory = self::_getModelsDirectoryResource($profile, $moduleName);
         return (($modelsDirectory->search(array('modelFile' => array('modelName' => $modelName)))) instanceof Zend_Tool_Project_Profile_Resource);
     }
-    
+
     /**
      * _getModelsDirectoryResource()
      *
@@ -89,7 +89,7 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
 
         return $profile->search($profileSearchParams);
     }
-    
+
     /**
      * Create a new model
      *
@@ -101,9 +101,9 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
         $this->_loadProfile(self::NO_PROFILE_THROW_EXCEPTION);
 
         $originalName = $name;
-        
+
         $name = ucwords($name);
-        
+
         // determine if testing is enabled in the project
         $testingEnabled = false; //Zend_Tool_Project_Provider_Test::isTestingEnabled($this->_loadedProfile);
         $testModelResource = null;
@@ -112,35 +112,36 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
         if (preg_match('#[_-]#', $name)) {
             throw new Zend_Tool_Project_Provider_Exception('Model names should be camel cased.');
         }
-        
+
         if (self::hasResource($this->_loadedProfile, $name, $module)) {
             throw new Zend_Tool_Project_Provider_Exception('This project already has a model named ' . $name);
         }
-        
+
         // get request/response object
         $request = $this->_registry->getRequest();
         $response = $this->_registry->getResponse();
-        
+
         // alert the user about inline converted names
         $tense = (($request->isPretend()) ? 'would be' : 'is');
-        
+
         if ($name !== $originalName) {
             $response->appendContent(
-                'Note: The canonical model name that ' . $tense
+                    'Note: The canonical model name that ' . $tense
                     . ' used with other providers is "' . $name . '";'
-                    . ' not "' . $originalName . '" as supplied',
-                array('color' => array('yellow'))
-                );
+                    . ' not "' . $originalName . '" as supplied', array('color' => array('yellow'))
+            );
         }
-        
-        try {
+
+        try
+        {
             $modelResource = self::createResource($this->_loadedProfile, $name, $module);
 
             if ($testingEnabled) {
                 // $testModelResource = Zend_Tool_Project_Provider_Test::createApplicationResource($this->_loadedProfile, $name, 'index', $module);
             }
-
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $response->setException($e);
             return;
         }
@@ -148,12 +149,11 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
         // do the creation
         if ($request->isPretend()) {
 
-            $response->appendContent('Would create a model at '  . $modelResource->getContext()->getPath());
+            $response->appendContent('Would create a model at ' . $modelResource->getContext()->getPath());
 
             if ($testModelResource) {
                 $response->appendContent('Would create a model test file at ' . $testModelResource->getContext()->getPath());
             }
-
         } else {
 
             $response->appendContent('Creating a model at ' . $modelResource->getContext()->getPath());
@@ -166,8 +166,6 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
 
             $this->_storeProfile();
         }
-
     }
-
 
 }

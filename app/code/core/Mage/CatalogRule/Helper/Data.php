@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_CatalogRule_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Algorithm for calculating price rule
      *
@@ -56,4 +58,5 @@ class Mage_CatalogRule_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return $priceRule;
     }
+
 }

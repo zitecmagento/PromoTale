@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+abstract class Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Format url key attribute before save, also use product name as url key if it empty
      *
@@ -48,7 +49,7 @@ abstract class Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract
         if ($urlKey === false) {
             return $this;
         }
-        if ($urlKey=='') {
+        if ($urlKey == '') {
             $urlKey = $object->getName();
         }
 
@@ -71,4 +72,5 @@ abstract class Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract
          */
         return $this;
     }
+
 }

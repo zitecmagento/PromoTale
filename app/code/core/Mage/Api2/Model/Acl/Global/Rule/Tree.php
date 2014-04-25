@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,24 +34,25 @@
  */
 class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
 {
-    /**#@+
+    /*     * #@+
      * Tree types
      */
+
     const TYPE_ATTRIBUTE = 'attribute';
     const TYPE_PRIVILEGE = 'privilege';
-    /**#@-*/
+    /*     * #@- */
 
-    /**#@+
+    /*     * #@+
      * Names
      */
-    const NAME_CHILDREN         = 'children';
-    const NAME_PRIVILEGE        = 'privilege';
-    const NAME_OPERATION        = 'operation';
-    const NAME_ATTRIBUTE        = 'attribute';
-    const NAME_RESOURCE         = 'resource';
-    const NAME_RESOURCE_GROUPS  = 'resource_groups';
-    const NAME_GROUP            = 'group';
-    /**#@-*/
+    const NAME_CHILDREN = 'children';
+    const NAME_PRIVILEGE = 'privilege';
+    const NAME_OPERATION = 'operation';
+    const NAME_ATTRIBUTE = 'attribute';
+    const NAME_RESOURCE = 'resource';
+    const NAME_RESOURCE_GROUPS = 'resource_groups';
+    const NAME_GROUP = 'group';
+    /*     * #@- */
 
     /**
      * Separator for tree ID
@@ -190,7 +192,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
         } else {
             $resources = array();
             $checkedResources = explode(',', Mage::app()->getRequest()->getParam('resource'));
-            $prefixResource  = self::NAME_RESOURCE . self::ID_SEPARATOR;
+            $prefixResource = self::NAME_RESOURCE . self::ID_SEPARATOR;
             switch ($this->_type) {
                 case self::TYPE_PRIVILEGE:
                     $prefixPrivilege = self::NAME_PRIVILEGE . self::ID_SEPARATOR;
@@ -224,9 +226,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                         } elseif (0 === strpos($item, $prefixAttribute)) {
                             $name = substr($item, mb_strlen($prefixOperation, 'UTF-8'));
                             $attributeName = str_replace(
-                                $nameResource . self::ID_SEPARATOR . $operationName . self::ID_SEPARATOR,
-                                '',
-                                $name
+                                    $nameResource . self::ID_SEPARATOR . $operationName . self::ID_SEPARATOR, '', $name
                             );
                             $resources[$nameResource][$operationName][$attributeName] = $allow;
                         } else {
@@ -278,8 +278,8 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
         $item = array();
 
         $isResource = false;
-        $isGroup    = false;
-        $name       = null;
+        $isGroup = false;
+        $name = null;
 
         if ($level != 0) {
             $name = $node->getName();
@@ -456,7 +456,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             $item['checked'] = $checked ? $checked : $item['checked'];
             $item[self::NAME_CHILDREN][] = array(
                 'id' => self::NAME_ATTRIBUTE . self::ID_SEPARATOR . $name . self::ID_SEPARATOR . $privilege
-                    . self::ID_SEPARATOR . $key,
+                . self::ID_SEPARATOR . $key,
                 'text' => $title,
                 'checked' => $checked,
                 'sort_order' => ++$cnt,
@@ -543,4 +543,5 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     {
         return $this->_hasEntityOnlyAttributes;
     }
+
 }

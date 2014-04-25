@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
 {
+
     /**
      * Render cart totals xml
      *
@@ -41,10 +43,10 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
     protected function _toHtml()
     {
         /** @var $totalsXmlObj Mage_XmlConnect_Model_Simplexml_Element */
-        $totalsXmlObj   = Mage::getModel('xmlconnect/simplexml_element', '<totals></totals>');
+        $totalsXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<totals></totals>');
 
         foreach ($this->getQuote()->getTotals() as $total) {
-            $code  = $total->getCode();
+            $code = $total->getCode();
             if ($code == 'giftwrapping') {
                 continue;
             }
@@ -58,10 +60,10 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
                     if ($renderer->displayBoth()) {
                         $title = $this->__('Subtotal (Excl. Tax)');
                         $this->_addTotalDataToXmlObj(
-                            $totalsXmlObj, $code . '_excl_tax', $title, $total->getValueExclTax()
+                                $totalsXmlObj, $code . '_excl_tax', $title, $total->getValueExclTax()
                         );
 
-                        $code  = $code . '_incl_tax';
+                        $code = $code . '_incl_tax';
                         $title = $this->__('Subtotal (Incl. Tax)');
                         $value = $total->getValueInclTax();
                     }
@@ -70,10 +72,10 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
                     if ($renderer->displayBoth()) {
                         $title = $renderer->getExcludeTaxLabel();
                         $this->_addTotalDataToXmlObj(
-                            $totalsXmlObj, $code . '_excl_tax', $title, $renderer->getShippingExcludeTax()
+                                $totalsXmlObj, $code . '_excl_tax', $title, $renderer->getShippingExcludeTax()
                         );
 
-                        $code  = $code . '_incl_tax';
+                        $code = $code . '_incl_tax';
                         $title = $renderer->getIncludeTaxLabel();
                         $value = $renderer->getShippingIncludeTax();
                     } else if ($renderer->displayIncludeTax()) {
@@ -88,9 +90,9 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
                     if ($displayBoth) {
                         $title = $this->__('Grand Total (Excl. Tax)');
                         $this->_addTotalDataToXmlObj(
-                            $totalsXmlObj, $code . '_excl_tax', $title, $grandTotalExlTax
+                                $totalsXmlObj, $code . '_excl_tax', $title, $grandTotalExlTax
                         );
-                        $code  = $code . '_incl_tax';
+                        $code = $code . '_incl_tax';
                         $title = $this->__('Grand Total (Incl. Tax)');
                     }
                     break;
@@ -151,4 +153,5 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
         $totalXmlObj->addChild('value', $value);
         $totalXmlObj->addChild('formated_value', $formattedValue);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
 {
+
     /**
      * Enter description here...
      *
@@ -52,4 +54,5 @@ class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
     {
         return Mage::getSingleton('core/session')->getFormKey();
     }
+
 }

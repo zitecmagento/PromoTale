@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Widget_Model_Observer
 {
+
     /**
      * Add additional settings to wysiwyg config for Widgets Insertion Plugin
      *

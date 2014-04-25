@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,11 +25,12 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
- /**
-  * Totals item block
-  */
+/**
+ * Totals item block
+ */
 class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_Sales_Order_Totals
 {
+
     /**
      * Determine display parameters before rendering HTML
      *
@@ -53,10 +55,10 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
     public function initTotals()
     {
         $total = new Varien_Object(array(
-            'code'      => $this->getNameInLayout(),
-            'block_name'=> $this->getNameInLayout(),
-            'area'      => $this->getDisplayArea(),
-            'strong'    => $this->getStrong()
+            'code' => $this->getNameInLayout(),
+            'block_name' => $this->getNameInLayout(),
+            'area' => $this->getDisplayArea(),
+            'strong' => $this->getStrong()
         ));
         if ($this->getBeforeCondition()) {
             $this->getParentBlock()->addTotalBefore($total, $this->getBeforeCondition());
@@ -100,4 +102,5 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
     {
         return $this->getParentBlock()->getSource();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -28,9 +29,9 @@
  * @file        Abstract.php
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 abstract class Varien_Image_Adapter_Abstract
 {
+
     public $fileName = null;
     public $imageBackgroundColor = 0;
 
@@ -56,7 +57,6 @@ abstract class Varien_Image_Adapter_Abstract
     protected $_watermarkHeigth = null;
     protected $_watermarkImageOpacity = null;
     protected $_quality = null;
-
     protected $_keepAspectRatio;
     protected $_keepFrame;
     protected $_keepTransparency;
@@ -65,23 +65,23 @@ abstract class Varien_Image_Adapter_Abstract
 
     abstract public function open($fileName);
 
-    abstract public function save($destination=null, $newName=null);
+    abstract public function save($destination = null, $newName = null);
 
     abstract public function display();
 
-    abstract public function resize($width=null, $height=null);
+    abstract public function resize($width = null, $height = null);
 
     abstract public function rotate($angle);
 
-    abstract public function crop($top=0, $left=0, $right=0, $bottom=0);
+    abstract public function crop($top = 0, $left = 0, $right = 0, $bottom = 0);
 
-    abstract public function watermark($watermarkImage, $positionX=0, $positionY=0, $watermarkImageOpacity=30, $repeat=false);
+    abstract public function watermark($watermarkImage, $positionX = 0, $positionY = 0, $watermarkImageOpacity = 30, $repeat = false);
 
     abstract public function checkDependencies();
 
     public function getMimeType()
     {
-        if( $this->_fileType ) {
+        if ($this->_fileType) {
             return $this->_fileType;
         } else {
             list($this->_imageSrcWidth, $this->_imageSrcHeight, $this->_fileType, ) = getimagesize($this->_fileName);
@@ -156,7 +156,6 @@ abstract class Varien_Image_Adapter_Abstract
         return $this->_watermarkHeigth;
     }
 
-
     /**
      * Get/set keepAspectRatio
      *
@@ -166,7 +165,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function keepAspectRatio($value = null)
     {
         if (null !== $value) {
-            $this->_keepAspectRatio = (bool)$value;
+            $this->_keepAspectRatio = (bool) $value;
         }
         return $this->_keepAspectRatio;
     }
@@ -180,7 +179,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function keepFrame($value = null)
     {
         if (null !== $value) {
-            $this->_keepFrame = (bool)$value;
+            $this->_keepFrame = (bool) $value;
         }
         return $this->_keepFrame;
     }
@@ -194,7 +193,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function keepTransparency($value = null)
     {
         if (null !== $value) {
-            $this->_keepTransparency = (bool)$value;
+            $this->_keepTransparency = (bool) $value;
         }
         return $this->_keepTransparency;
     }
@@ -208,7 +207,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function constrainOnly($value = null)
     {
         if (null !== $value) {
-            $this->_constrainOnly = (bool)$value;
+            $this->_constrainOnly = (bool) $value;
         }
         return $this->_constrainOnly;
     }
@@ -222,7 +221,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function quality($value = null)
     {
         if (null !== $value) {
-            $this->_quality = (int)$value;
+            $this->_quality = (int) $value;
         }
         return $this->_quality;
     }
@@ -256,4 +255,5 @@ abstract class Varien_Image_Adapter_Abstract
         $this->_fileSrcPath = $pathinfo['dirname'];
         $this->_fileSrcName = $pathinfo['basename'];
     }
+
 }

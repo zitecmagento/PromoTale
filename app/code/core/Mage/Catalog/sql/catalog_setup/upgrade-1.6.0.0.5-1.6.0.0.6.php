@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,27 +24,16 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /** @var $installer Mage_Catalog_Model_Resource_Setup */
-
 $installer->updateAttribute(
-    Mage_Catalog_Model_Product::ENTITY,
-    'url_key',
-    'frontend_label',
-    'URL Key'
+        Mage_Catalog_Model_Product::ENTITY, 'url_key', 'frontend_label', 'URL Key'
 );
 
 $installer->updateAttribute(
-    Mage_Catalog_Model_Category::ENTITY,
-    'url_key',
-    'frontend_label',
-    'URL Key'
+        Mage_Catalog_Model_Category::ENTITY, 'url_key', 'frontend_label', 'URL Key'
 );
 
 $installer->updateAttribute(
-    Mage_Catalog_Model_Product::ENTITY,
-    'options_container',
-    'frontend_label',
-    'Display Product Options In'
+        Mage_Catalog_Model_Product::ENTITY, 'options_container', 'frontend_label', 'Display Product Options In'
 );

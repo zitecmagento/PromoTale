@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,9 +33,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Tag_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -47,12 +48,12 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget
         $model = Mage::registry('tag_tag');
 
         $form = new Varien_Data_Form(array(
-                                        'id' => 'edit_form',
-                                        'action' => $this->getUrl('*/*/save', array('id' => $this->getRequest()->getParam('id'), 'ret' => Mage::registry('ret'))),
-                                        'method' => 'post'
+            'id' => 'edit_form',
+            'action' => $this->getUrl('*/*/save', array('id' => $this->getRequest()->getParam('id'), 'ret' => Mage::registry('ret'))),
+            'method' => 'post'
         ));
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('tag')->__('General Information')));
+        $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('tag')->__('General Information')));
 
         if ($model->getTagId()) {
             $fieldset->addField('tag_id', 'hidden', array(
@@ -74,17 +75,17 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget
             'required' => true,
             'options' => array(
                 Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('tag')->__('Disabled'),
-                Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('tag')->__('Pending'),
+                Mage_Tag_Model_Tag::STATUS_PENDING => Mage::helper('tag')->__('Pending'),
                 Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('tag')->__('Approved'),
             ),
         ));
 
         $form->setValues($model->getData());
         $form->setUseContainer(true);
-        $form->setAction( $this->getUrl($form->getAction(), array(
-            'ret' => $this->getRequest()->getParam('ret'),
-            'customer_id' => $this->getRequest()->getParam('customer_id'),
-            'product_id' => $this->getRequest()->getParam('product_id'),
+        $form->setAction($this->getUrl($form->getAction(), array(
+                    'ret' => $this->getRequest()->getParam('ret'),
+                    'customer_id' => $this->getRequest()->getParam('customer_id'),
+                    'product_id' => $this->getRequest()->getParam('product_id'),
         )));
         $this->setForm($form);
         return parent::_prepareForm();

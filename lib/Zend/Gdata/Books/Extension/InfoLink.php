@@ -19,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: InfoLink.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Books_Extension_BooksLink
  */
@@ -35,7 +34,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Books_Extension_InfoLink extends
-    Zend_Gdata_Books_Extension_BooksLink
+Zend_Gdata_Books_Extension_BooksLink
 {
 
     /**
@@ -49,8 +48,7 @@ class Zend_Gdata_Books_Extension_InfoLink extends
      * @param string|null $title Human-readable resource title
      * @param string|null $length Resource length in octets
      */
-    public function __construct($href = null, $rel = null, $type = null,
-            $hrefLang = null, $title = null, $length = null)
+    public function __construct($href = null, $rel = null, $type = null, $hrefLang = null, $title = null, $length = null)
     {
         $this->registerAllNamespaces(Zend_Gdata_Books::$namespaces);
         parent::__construct($href, $rel, $type, $hrefLang, $title, $length);

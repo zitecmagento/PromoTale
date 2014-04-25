@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,25 +24,23 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 $installer = $this;
 
-$orderGridTable             = $installer->getTable('sales/order_grid');
-$orderTable                 = $installer->getTable('sales/order');
-$paymentTransactionTable    = $installer->getTable('sales/payment_transaction');
-$profileTable               = $installer->getTable('sales_recurring_profile');
-$orderItemTable             = $installer->getTable('sales_flat_order_item');
-$flatOrderTable             = $installer->getTable('sales_flat_order');
-$profileOrderTable          = $installer->getTable('sales_recurring_profile_order');
-$customerEntityTable        = $installer->getTable('customer_entity');
-$coreStoreTable             = $installer->getTable('core_store');
-$billingAgreementTable      = $installer->getTable('sales/billing_agreement');
+$orderGridTable = $installer->getTable('sales/order_grid');
+$orderTable = $installer->getTable('sales/order');
+$paymentTransactionTable = $installer->getTable('sales/payment_transaction');
+$profileTable = $installer->getTable('sales_recurring_profile');
+$orderItemTable = $installer->getTable('sales_flat_order_item');
+$flatOrderTable = $installer->getTable('sales_flat_order');
+$profileOrderTable = $installer->getTable('sales_recurring_profile_order');
+$customerEntityTable = $installer->getTable('customer_entity');
+$coreStoreTable = $installer->getTable('core_store');
+$billingAgreementTable = $installer->getTable('sales/billing_agreement');
 $billingAgreementOrderTable = $installer->getTable('sales/billing_agreement_order');
 
 //-------
-$installer->getConnection()->addColumn($orderGridTable,
-    'store_name', 'varchar(255) null default null AFTER `store_id`');
+$installer->getConnection()->addColumn($orderGridTable, 'store_name', 'varchar(255) null default null AFTER `store_id`');
 
 $installer->run("
     UPDATE {$orderGridTable} AS og
@@ -51,8 +50,7 @@ $installer->run("
 ");
 
 //-------
-$installer->getConnection()->addColumn($paymentTransactionTable,
-    'created_at', 'DATETIME NULL');
+$installer->getConnection()->addColumn($paymentTransactionTable, 'created_at', 'DATETIME NULL');
 
 //-------
 $this->getConnection()->addColumn($orderItemTable, 'is_nominal', 'int NOT NULL DEFAULT \'0\'');
@@ -73,12 +71,7 @@ $installer->run("
 ");
 
 $installer->getConnection()->addConstraint(
-    'FK_BILLING_AGREEMENT_CUSTOMER',
-    $billingAgreementTable,
-    'customer_id',
-    $installer->getTable('customer/entity'),
-    'entity_id'
-
+        'FK_BILLING_AGREEMENT_CUSTOMER', $billingAgreementTable, 'customer_id', $installer->getTable('customer/entity'), 'entity_id'
 );
 
 //-------
@@ -91,19 +84,11 @@ $installer->run("
 ");
 
 $installer->getConnection()->addConstraint(
-    'FK_BILLING_AGREEMENT_ORDER_AGREEMENT',
-    $billingAgreementOrderTable,
-    'agreement_id',
-    $billingAgreementTable,
-    'agreement_id'
+        'FK_BILLING_AGREEMENT_ORDER_AGREEMENT', $billingAgreementOrderTable, 'agreement_id', $billingAgreementTable, 'agreement_id'
 );
 
 $installer->getConnection()->addConstraint(
-    'FK_BILLING_AGREEMENT_ORDER_ORDER',
-    $billingAgreementOrderTable,
-    'order_id',
-    $orderTable,
-    'entity_id'
+        'FK_BILLING_AGREEMENT_ORDER_ORDER', $billingAgreementOrderTable, 'order_id', $orderTable, 'entity_id'
 );
 
 //-------
@@ -149,12 +134,10 @@ CREATE TABLE `{$profileTable}` (
   KEY `IDX_RECURRING_PROFILE_STORE` (`store_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
-$this->getConnection()->addConstraint('FK_RECURRING_PROFILE_CUSTOMER', $profileTable, 'customer_id',
-    $customerEntityTable, 'entity_id', 'SET NULL'
+$this->getConnection()->addConstraint('FK_RECURRING_PROFILE_CUSTOMER', $profileTable, 'customer_id', $customerEntityTable, 'entity_id', 'SET NULL'
 );
 
-$this->getConnection()->addConstraint('FK_RECURRING_PROFILE_STORE', $profileTable, 'store_id',
-    $coreStoreTable, 'store_id', 'SET NULL'
+$this->getConnection()->addConstraint('FK_RECURRING_PROFILE_STORE', $profileTable, 'store_id', $coreStoreTable, 'store_id', 'SET NULL'
 );
 
 $this->run("
@@ -168,10 +151,8 @@ CREATE TABLE `{$profileOrderTable}` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
 
-$this->getConnection()->addConstraint('FK_RECURRING_PROFILE_ORDER_PROFILE', $profileOrderTable, 'profile_id',
-    $profileTable, 'profile_id'
+$this->getConnection()->addConstraint('FK_RECURRING_PROFILE_ORDER_PROFILE', $profileOrderTable, 'profile_id', $profileTable, 'profile_id'
 );
 
-$this->getConnection()->addConstraint('FK_RECURRING_PROFILE_ORDER_ORDER', $profileOrderTable, 'order_id',
-    $flatOrderTable, 'entity_id'
+$this->getConnection()->addConstraint('FK_RECURRING_PROFILE_ORDER_ORDER', $profileOrderTable, 'order_id', $flatOrderTable, 'entity_id'
 );

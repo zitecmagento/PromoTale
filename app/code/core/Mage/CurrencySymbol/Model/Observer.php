@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_CurrencySymbol_Model_Observer
 {
+
     /**
      * Generate options for currency displaying with custom currency symbol
      *
@@ -47,4 +49,5 @@ class Mage_CurrencySymbol_Model_Observer
 
         return $this;
     }
+
 }

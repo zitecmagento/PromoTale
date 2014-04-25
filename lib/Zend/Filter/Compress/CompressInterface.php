@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 interface Zend_Filter_Compress_CompressInterface
 {
+
     /**
      * Compresses $value with the defined settings
      *

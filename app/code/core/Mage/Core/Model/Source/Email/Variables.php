@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Store Contact Information source model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Source_Email_Variables
 {
+
     /**
      * Assoc array of configuration variables
      *
@@ -126,4 +127,5 @@ class Mage_Core_Model_Source_Email_Variables
         }
         return $optionArray;
     }
+
 }

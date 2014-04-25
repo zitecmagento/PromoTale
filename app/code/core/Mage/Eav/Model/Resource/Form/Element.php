@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Form Element Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Resource_Form_Element extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize connection and define main table
      */
@@ -58,11 +59,11 @@ class Mage_Eav_Model_Resource_Form_Element extends Mage_Core_Model_Resource_Db_A
     {
         $select = parent::_getLoadSelect($field, $value, $object);
         $select->join(
-            $this->getTable('eav/attribute'),
-            $this->getTable('eav/attribute') . '.attribute_id = ' . $this->getMainTable() . '.attribute_id',
-            array('attribute_code', 'entity_type_id')
+                $this->getTable('eav/attribute'), $this->getTable('eav/attribute') . '.attribute_id = ' . $this->getMainTable() . '.attribute_id', array(
+            'attribute_code', 'entity_type_id')
         );
 
         return $select;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,10 +30,12 @@
  */
 class Mage_PaypalUk_Model_Express_Pro extends Mage_PaypalUk_Model_Pro
 {
+
     /**
      * Api model type
      *
      * @var string
      */
     protected $_apiType = 'paypaluk/api_express_nvp';
+
 }

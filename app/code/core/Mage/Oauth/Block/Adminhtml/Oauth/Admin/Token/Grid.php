@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Construct grid block
      */
@@ -43,7 +45,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
         $this->setUseAjax(true);
         $this->setSaveParametersInSession(true);
         $this->setDefaultSort('entity_id')
-            ->setDefaultDir(Varien_Db_Select::SQL_DESC);
+                ->setDefaultDir(Varien_Db_Select::SQL_DESC);
     }
 
     /**
@@ -75,27 +77,27 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(
-            'header'    => Mage::helper('oauth')->__('ID'),
-            'index'     => 'entity_id',
-            'align'     => 'right',
-            'width'     => '50px',
+            'header' => Mage::helper('oauth')->__('ID'),
+            'index' => 'entity_id',
+            'align' => 'right',
+            'width' => '50px',
         ));
 
         $this->addColumn('name', array(
-            'header'    => $this->__('Application Name'),
-            'index'     => 'name',
-            'escape'    => true,
+            'header' => $this->__('Application Name'),
+            'index' => 'name',
+            'escape' => true,
         ));
 
         /** @var $sourceYesNo Mage_Adminhtml_Model_System_Config_Source_Yesno */
         $sourceYesNo = Mage::getSingleton('adminhtml/system_config_source_yesno');
         $this->addColumn('revoked', array(
-            'header'    => $this->__('Revoked'),
-            'index'     => 'revoked',
-            'width'     => '100px',
-            'type'      => 'options',
-            'options'   => $sourceYesNo->toArray(),
-            'sortable'  => true,
+            'header' => $this->__('Revoked'),
+            'index' => 'revoked',
+            'width' => '100px',
+            'type' => 'options',
+            'options' => $sourceYesNo->toArray(),
+            'sortable' => true,
         ));
 
         parent::_prepareColumns();
@@ -115,15 +117,15 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
         $block->setFormFieldName('items');
         $block->addItem('enable', array(
             'label' => Mage::helper('index')->__('Enable'),
-            'url'   => $this->getUrl('*/*/revoke', array('status' => 0)),
+            'url' => $this->getUrl('*/*/revoke', array('status' => 0)),
         ));
         $block->addItem('revoke', array(
             'label' => Mage::helper('index')->__('Revoke'),
-            'url'   => $this->getUrl('*/*/revoke', array('status' => 1)),
+            'url' => $this->getUrl('*/*/revoke', array('status' => 1)),
         ));
         $block->addItem('delete', array(
             'label' => Mage::helper('index')->__('Delete'),
-            'url'   => $this->getUrl('*/*/delete'),
+            'url' => $this->getUrl('*/*/delete'),
         ));
 
         return $this;
@@ -138,4 +140,5 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
     {
         return $this->getUrl('*/*/grid', array('_current' => true));
     }
+
 }

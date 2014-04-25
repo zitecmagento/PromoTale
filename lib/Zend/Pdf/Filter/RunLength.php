@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: RunLength.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
-
 /** Zend_Pdf_Filter_Interface */
 #require_once 'Zend/Pdf/Filter/Interface.php';
 
@@ -32,6 +31,7 @@
  */
 class Zend_Pdf_Filter_RunLength implements Zend_Pdf_Filter_Interface
 {
+
     /**
      * Encode data
      *
@@ -50,11 +50,11 @@ class Zend_Pdf_Filter_RunLength implements Zend_Pdf_Filter_Interface
         while ($offset < strlen($data)) {
             // Do not encode 2 char chains since they produce 2 char run sequence,
             // but it takes more time to decode such output (because of processing additional run)
-            if (($repeatedCharChainLength = strspn($data, $data[$offset], $offset + 1, 127) + 1)  >  2) {
+            if (($repeatedCharChainLength = strspn($data, $data[$offset], $offset + 1, 127) + 1) > 2) {
                 if ($chainStartOffset != $offset) {
                     // Drop down previouse (non-repeatable chars) run
                     $output .= chr($offset - $chainStartOffset - 1)
-                             . substr($data, $chainStartOffset, $offset - $chainStartOffset);
+                            . substr($data, $chainStartOffset, $offset - $chainStartOffset);
                 }
 
                 $output .= chr(257 - $repeatedCharChainLength) . $data[$offset];
@@ -98,7 +98,7 @@ class Zend_Pdf_Filter_RunLength implements Zend_Pdf_Filter_Interface
         $output = '';
         $offset = 0;
 
-        while($offset < $dataLength) {
+        while ($offset < $dataLength) {
             $length = ord($data[$offset]);
 
             $offset++;
@@ -121,5 +121,5 @@ class Zend_Pdf_Filter_RunLength implements Zend_Pdf_Filter_Interface
 
         return $output;
     }
-}
 
+}

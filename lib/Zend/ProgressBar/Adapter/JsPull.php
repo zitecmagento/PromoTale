@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LICENSE
  *
@@ -16,7 +17,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: JsPull.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Json
  */
@@ -39,6 +39,7 @@
  */
 class Zend_ProgressBar_Adapter_JsPull extends Zend_ProgressBar_Adapter
 {
+
     /**
      * Wether to exit after json data send or not
      *
@@ -71,13 +72,13 @@ class Zend_ProgressBar_Adapter_JsPull extends Zend_ProgressBar_Adapter
     public function notify($current, $max, $percent, $timeTaken, $timeRemaining, $text)
     {
         $arguments = array(
-            'current'       => $current,
-            'max'           => $max,
-            'percent'       => ($percent * 100),
-            'timeTaken'     => $timeTaken,
+            'current' => $current,
+            'max' => $max,
+            'percent' => ($percent * 100),
+            'timeTaken' => $timeTaken,
             'timeRemaining' => $timeRemaining,
-            'text'          => $text,
-            'finished'      => false
+            'text' => $text,
+            'finished' => false
         );
 
         $data = Zend_Json::encode($arguments);
@@ -114,4 +115,5 @@ class Zend_ProgressBar_Adapter_JsPull extends Zend_ProgressBar_Adapter
             exit;
         }
     }
+
 }

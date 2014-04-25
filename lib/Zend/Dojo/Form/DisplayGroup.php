@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_DisplayGroup */
 #require_once 'Zend/Form/DisplayGroup.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_Dojo_Form_DisplayGroup extends Zend_Form_DisplayGroup
 {
+
     /**
      * Constructor
      *
@@ -65,4 +66,5 @@ class Zend_Dojo_Form_DisplayGroup extends Zend_Form_DisplayGroup
         }
         return parent::setView($view);
     }
+
 }

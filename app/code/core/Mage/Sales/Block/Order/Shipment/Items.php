@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Block_Order_Shipment_Items extends Mage_Sales_Block_Items_Abstract
 {
+
     /**
      * Retrieve current order model instance
      *
@@ -43,11 +45,13 @@ class Mage_Sales_Block_Order_Shipment_Items extends Mage_Sales_Block_Items_Abstr
         return Mage::registry('current_order');
     }
 
-    public function getPrintShipmentUrl($shipment){
+    public function getPrintShipmentUrl($shipment)
+    {
         return Mage::getUrl('*/*/printShipment', array('shipment_id' => $shipment->getId()));
     }
 
-    public function getPrintAllShipmentsUrl($order){
+    public function getPrintAllShipmentsUrl($order)
+    {
         return Mage::getUrl('*/*/printShipment', array('order_id' => $order->getId()));
     }
 
@@ -63,9 +67,10 @@ class Mage_Sales_Block_Order_Shipment_Items extends Mage_Sales_Block_Items_Abstr
         $comments = $this->getChild('shipment_comments');
         if ($comments) {
             $comments->setEntity($shipment)
-                ->setTitle(Mage::helper('sales')->__('About Your Shipment'));
+                    ->setTitle(Mage::helper('sales')->__('About Your Shipment'));
             $html = $comments->toHtml();
         }
         return $html;
     }
+
 }

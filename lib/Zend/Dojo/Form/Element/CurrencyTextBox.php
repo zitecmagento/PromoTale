@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Dojo_Form_Element_NumberTextBox */
 #require_once 'Zend/Dojo/Form/Element/NumberTextBox.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_Dojo_Form_Element_CurrencyTextBox extends Zend_Dojo_Form_Element_NumberTextBox
 {
+
     /**
      * Use CurrencyTextBox dijit view helper
      * @var string
@@ -117,4 +118,5 @@ class Zend_Dojo_Form_Element_CurrencyTextBox extends Zend_Dojo_Form_Element_Numb
     {
         return ('true' == $this->getConstraint('fractional'));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: AsyncMessage.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Amf_Value_Messaging_AbstractMessage */
 #require_once 'Zend/Amf/Value/Messaging/AbstractMessage.php';
 
@@ -35,9 +34,11 @@
  */
 class Zend_Amf_Value_Messaging_AsyncMessage extends Zend_Amf_Value_Messaging_AbstractMessage
 {
+
     /**
      * The message id to be responded to.
      * @var String
      */
     public $correlationId;
+
 }

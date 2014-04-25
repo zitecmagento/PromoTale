@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,11 +35,11 @@
 class Mage_Contacts_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
-    const XML_PATH_ENABLED   = 'contacts/contacts/enabled';
+    const XML_PATH_ENABLED = 'contacts/contacts/enabled';
 
     public function isEnabled()
     {
-        return Mage::getStoreConfig( self::XML_PATH_ENABLED );
+        return Mage::getStoreConfig(self::XML_PATH_ENABLED);
     }
 
     public function getUserName()
@@ -58,4 +59,5 @@ class Mage_Contacts_Helper_Data extends Mage_Core_Helper_Abstract
         $customer = Mage::getSingleton('customer/session')->getCustomer();
         return $customer->getEmail();
     }
+
 }

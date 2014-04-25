@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: BooksCategory.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Extension_Category
  */
@@ -36,7 +35,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Books_Extension_BooksCategory extends
-    Zend_Gdata_App_Extension_Category
+Zend_Gdata_App_Extension_Category
 {
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Mass processing resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Resource_Abstract
 {
+
     /**
      * Intialize connection
      *
@@ -42,10 +43,9 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
     {
         $resource = Mage::getSingleton('core/resource');
         $this->setType(Mage_Catalog_Model_Product::ENTITY)
-            ->setConnection(
-                $resource->getConnection('catalog_read'),
-                $resource->getConnection('catalog_write')
-            );
+                ->setConnection(
+                        $resource->getConnection('catalog_read'), $resource->getConnection('catalog_write')
+        );
     }
 
     /**
@@ -60,10 +60,11 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
     {
         $object = new Varien_Object();
         $object->setIdFieldName('entity_id')
-            ->setStoreId($storeId);
+                ->setStoreId($storeId);
 
         $this->_getWriteAdapter()->beginTransaction();
-        try {
+        try
+        {
             foreach ($attrData as $attrCode => $value) {
                 $attribute = $this->getAttribute($attrCode);
                 if (!$attribute->getAttributeId()) {
@@ -84,11 +85,14 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
                 $this->_processAttributeValues();
             }
             $this->_getWriteAdapter()->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getWriteAdapter()->rollBack();
             throw $e;
         }
 
         return $this;
     }
+
 }

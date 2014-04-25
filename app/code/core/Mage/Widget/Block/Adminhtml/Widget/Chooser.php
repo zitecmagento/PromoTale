@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Chooser source URL getter
      *
@@ -79,7 +80,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
 
         // chooser control buttons
         $buttons = array(
-            'open'  => Mage::helper('widget')->__('Choose...'),
+            'open' => Mage::helper('widget')->__('Choose...'),
             'close' => Mage::helper('widget')->__('Close')
         );
         if (isset($configArray['button']) && is_array($configArray['button'])) {
@@ -132,7 +133,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
      */
     public function getHiddenEnabled()
     {
-        return $this->hasData('hidden_enabled') ? (bool)$this->_getData('hidden_enabled') : true;
+        return $this->hasData('hidden_enabled') ? (bool) $this->_getData('hidden_enabled') : true;
     }
 
     /**
@@ -142,15 +143,15 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
      */
     protected function _toHtml()
     {
-        $element   = $this->getElement();
+        $element = $this->getElement();
         /* @var $fieldset Varien_Data_Form_Element_Fieldset */
-        $fieldset  = $element->getForm()->getElement($this->getFieldsetId());
+        $fieldset = $element->getForm()->getElement($this->getFieldsetId());
         $chooserId = $this->getUniqId();
-        $config    = $this->getConfig();
+        $config = $this->getConfig();
 
         // add chooser element to fieldset
         $chooser = $fieldset->addField('chooser' . $element->getId(), 'note', array(
-            'label'       => $config->getLabel() ? $config->getLabel() : '',
+            'label' => $config->getLabel() ? $config->getLabel() : '',
             'value_class' => 'value2',
         ));
         $hiddenHtml = '';
@@ -166,19 +167,19 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
 
         $buttons = $config->getButtons();
         $chooseButton = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setType('button')
-            ->setId($chooserId . 'control')
-            ->setClass('btn-chooser')
-            ->setLabel($buttons['open'])
-            ->setOnclick($chooserId.'.choose()')
-            ->setDisabled($element->getReadonly());
+                ->setType('button')
+                ->setId($chooserId . 'control')
+                ->setClass('btn-chooser')
+                ->setLabel($buttons['open'])
+                ->setOnclick($chooserId . '.choose()')
+                ->setDisabled($element->getReadonly());
         $chooser->setData('after_element_html', $hiddenHtml . $chooseButton->toHtml());
 
         // render label and chooser scripts
         $configJson = Mage::helper('core')->jsonEncode($config->getData());
         return '
             <label class="widget-option-label" id="' . $chooserId . 'label">'
-            . ($this->getLabel() ? $this->getLabel() : Mage::helper('widget')->__('Not Selected')) . '</label>
+                . ($this->getLabel() ? $this->getLabel() : Mage::helper('widget')->__('Not Selected')) . '</label>
             <div id="' . $chooserId . 'advice-container" class="hidden"></div>
             <script type="text/javascript">//<![CDATA[
                 (function() {
@@ -202,4 +203,5 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
             //]]></script>
         ';
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,28 +34,29 @@
  */
 class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    /**#@+
+    /*     * #@+
      * Endpoint types with appropriate routes
      */
-    const ENDPOINT_AUTHORIZE_CUSTOMER        = 'oauth/authorize';
-    const ENDPOINT_AUTHORIZE_ADMIN           = 'adminhtml/oauth_authorize';
-    const ENDPOINT_AUTHORIZE_CUSTOMER_SIMPLE = 'oauth/authorize/simple';
-    const ENDPOINT_AUTHORIZE_ADMIN_SIMPLE    = 'adminhtml/oauth_authorize/simple';
-    const ENDPOINT_INITIATE                  = 'oauth/initiate';
-    const ENDPOINT_TOKEN                     = 'oauth/token';
-    /**#@-*/
 
-    /**#@+
+    const ENDPOINT_AUTHORIZE_CUSTOMER = 'oauth/authorize';
+    const ENDPOINT_AUTHORIZE_ADMIN = 'adminhtml/oauth_authorize';
+    const ENDPOINT_AUTHORIZE_CUSTOMER_SIMPLE = 'oauth/authorize/simple';
+    const ENDPOINT_AUTHORIZE_ADMIN_SIMPLE = 'adminhtml/oauth_authorize/simple';
+    const ENDPOINT_INITIATE = 'oauth/initiate';
+    const ENDPOINT_TOKEN = 'oauth/token';
+    /*     * #@- */
+
+    /*     * #@+
      * Cleanup xpath config settings
      */
-    const XML_PATH_CLEANUP_PROBABILITY       = 'oauth/cleanup/cleanup_probability';
+    const XML_PATH_CLEANUP_PROBABILITY = 'oauth/cleanup/cleanup_probability';
     const XML_PATH_CLEANUP_EXPIRATION_PERIOD = 'oauth/cleanup/expiration_period';
-    /**#@-*/
+    /*     * #@- */
 
-    /**#@+ Email template */
+    /*     * #@+ Email template */
     const XML_PATH_EMAIL_TEMPLATE = 'oauth/email/template';
     const XML_PATH_EMAIL_IDENTITY = 'oauth/email/identity';
-    /**#@-*/
+    /*     * #@- */
 
     /**
      * Cleanup expiration period in minutes
@@ -90,7 +92,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (function_exists('openssl_random_pseudo_bytes')) {
             // use openssl lib if it is install. It provides a better randomness
-            $bytes = openssl_random_pseudo_bytes(ceil($length/2), $strong);
+            $bytes = openssl_random_pseudo_bytes(ceil($length / 2), $strong);
             $hex = bin2hex($bytes); // hex() doubles the length of the string
             $randomString = substr($hex, 0, $length); // we truncate at most 1 char if length parameter is an odd number
         } else {
@@ -98,7 +100,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
             /** @var $helper Mage_Core_Helper_Data */
             $helper = Mage::helper('core');
             $randomString = $helper->getRandomString(
-                $length, Mage_Core_Helper_Data::CHARS_DIGITS . Mage_Core_Helper_Data::CHARS_LOWERS
+                    $length, Mage_Core_Helper_Data::CHARS_DIGITS . Mage_Core_Helper_Data::CHARS_LOWERS
             );
         }
 
@@ -238,17 +240,12 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         $mailTemplate = Mage::getModel('core/email_template');
 
         $mailTemplate->sendTransactional(
-            Mage::getStoreConfig(self::XML_PATH_EMAIL_TEMPLATE),
-            Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY),
-            $userEmail,
-            $userName,
-            array(
-                'name'              => $userName,
-                'email'             => $userEmail,
-                'applicationName'   => $applicationName,
-                'status'            => $status,
-
-            )
+                Mage::getStoreConfig(self::XML_PATH_EMAIL_TEMPLATE), Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY), $userEmail, $userName, array(
+            'name' => $userName,
+            'email' => $userEmail,
+            'applicationName' => $applicationName,
+            'status' => $status,
+                )
         );
     }
 
@@ -260,8 +257,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     protected function _getIsSimple()
     {
         $simple = false;
-        if (stristr($this->_getRequest()->getActionName(), 'simple')
-            || !is_null($this->_getRequest()->getParam('simple', null))
+        if (stristr($this->_getRequest()->getActionName(), 'simple') || !is_null($this->_getRequest()->getParam('simple', null))
         ) {
             $simple = true;
         }
@@ -307,4 +303,5 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->_getRequest()->getParam('oauth_token', null);
     }
+
 }

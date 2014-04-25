@@ -26,7 +26,7 @@
 ?>
 <script type="text/javascript">
 //<![CDATA[
-    var quoteBaseGrandTotal = <?php echo (float)$this->getQuoteBaseGrandTotal(); ?>;
+    var quoteBaseGrandTotal = <?php echo (float) $this->getQuoteBaseGrandTotal(); ?>;
     var checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
     var payment = new Payment('co-payment-form', '<?php echo $this->getUrl('checkout/onepage/savePayment') ?>');
     var lastPrice;
@@ -43,7 +43,8 @@
 </div>
 <div class="buttons-set" id="payment-buttons-container">
     <p class="required"><?php echo $this->__('* Required Fields') ?></p>
-    <p class="back-link"><a href="#" onclick="checkout.back(); return false;"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+    <p class="back-link"><a href="#" onclick="checkout.back();
+            return false;"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
     <button type="button" class="button" onclick="payment.save()"><span><span><?php echo $this->__('Continue') ?></span></span></button>
     <span class="please-wait" id="payment-please-wait" style="display:none;">
         <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Loading next step...') ?>" title="<?php echo $this->__('Loading next step...') ?>" class="v-middle" /> <?php echo $this->__('Loading next step...') ?>
@@ -51,17 +52,17 @@
 </div>
 <script type="text/javascript">
 //<![CDATA[
-    function toggleToolTip(event){
-        if($('payment-tool-tip')){
+    function toggleToolTip(event) {
+        if ($('payment-tool-tip')) {
             $('payment-tool-tip').setStyle({
-                top: (Event.pointerY(event)-560)+'px'//,
-                //left: (Event.pointerX(event)+100)+'px'
+                top: (Event.pointerY(event) - 560) + 'px'//,
+                        //left: (Event.pointerX(event)+100)+'px'
             })
             $('payment-tool-tip').toggle();
         }
         Event.stop(event);
     }
-    if($('payment-tool-tip-close')){
+    if ($('payment-tool-tip-close')) {
         Event.observe($('payment-tool-tip-close'), 'click', toggleToolTip);
     }
 //]]>

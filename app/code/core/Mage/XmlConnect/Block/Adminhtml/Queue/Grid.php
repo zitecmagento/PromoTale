@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Queue_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Setting grid_id, sort order and sort direction
      */
@@ -55,7 +57,7 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid extends Mage_Adminhtml_Block_Wi
         $collection = Mage::getModel('xmlconnect/queue')->getCollection();
 
         $collection->addFieldToFilter(
-            'main_table.status', array('neq' => Mage_XmlConnect_Model_Queue::STATUS_DELETED)
+                'main_table.status', array('neq' => Mage_XmlConnect_Model_Queue::STATUS_DELETED)
         );
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -69,77 +71,76 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid extends Mage_Adminhtml_Block_Wi
     protected function _prepareColumns()
     {
         $this->addColumn('queue_id', array(
-            'header'    => $this->__('ID'),
-            'align'     => 'center',
-            'index'     => 'main_table.queue_id',
-            'width'     => '40px',
-            'renderer'  => 'xmlconnect/adminhtml_queue_grid_renderer_id'
+            'header' => $this->__('ID'),
+            'align' => 'center',
+            'index' => 'main_table.queue_id',
+            'width' => '40px',
+            'renderer' => 'xmlconnect/adminhtml_queue_grid_renderer_id'
         ));
 
         $this->addColumn('exec_time', array(
-            'header'    => $this->__('Queue Date'),
-            'index'     => 'exec_time',
-            'type'      => 'datetime',
+            'header' => $this->__('Queue Date'),
+            'index' => 'exec_time',
+            'type' => 'datetime',
             'gmtoffset' => false,
-            'default'   => ' ---- '
+            'default' => ' ---- '
         ));
 
         $this->addColumn('app_code', array(
-            'header'    => $this->__('Application Name'),
-            'align'     => 'left',
-            'index'     => 'app.code',
-            'type'      => 'options',
-            'options'   => Mage::helper('xmlconnect')->getApplications(),
-            'renderer'  => 'xmlconnect/adminhtml_queue_grid_renderer_application'
+            'header' => $this->__('Application Name'),
+            'align' => 'left',
+            'index' => 'app.code',
+            'type' => 'options',
+            'options' => Mage::helper('xmlconnect')->getApplications(),
+            'renderer' => 'xmlconnect/adminhtml_queue_grid_renderer_application'
         ));
 
         $this->addColumn('name', array(
-            'header'    => $this->__('Template Name'),
-            'align'     => 'left',
-            'index'     => 't.name',
-            'type'      => 'text',
-            'default'   => '--- Parent template has been deleted ---',
-            'renderer'  => 'xmlconnect/adminhtml_queue_grid_renderer_template'
+            'header' => $this->__('Template Name'),
+            'align' => 'left',
+            'index' => 't.name',
+            'type' => 'text',
+            'default' => '--- Parent template has been deleted ---',
+            'renderer' => 'xmlconnect/adminhtml_queue_grid_renderer_template'
         ));
 
         $this->addColumn('push_title', array(
-            'header'    => $this->__('Push Title'),
-            'align'     => 'left',
-            'index'     => 'main_table.push_title',
-            'type'      => 'text',
-            'renderer'  => 'xmlconnect/adminhtml_queue_grid_renderer_pushtitle'
+            'header' => $this->__('Push Title'),
+            'align' => 'left',
+            'index' => 'main_table.push_title',
+            'type' => 'text',
+            'renderer' => 'xmlconnect/adminhtml_queue_grid_renderer_pushtitle'
         ));
 
         $this->addColumn('message_title', array(
-            'header'    => $this->__('Message Title'),
-            'align'     => 'left',
-            'index'     => 'main_table.message_title',
-            'type'      => 'text',
-            'renderer'  => 'xmlconnect/adminhtml_queue_grid_renderer_msgtitle'
+            'header' => $this->__('Message Title'),
+            'align' => 'left',
+            'index' => 'main_table.message_title',
+            'type' => 'text',
+            'renderer' => 'xmlconnect/adminhtml_queue_grid_renderer_msgtitle'
         ));
 
         $this->addColumn('status', array(
-            'header'    => $this->__('Status'),
-            'align'     => 'left',
-            'index'     => 'main_table.status',
-            'type'      => 'options',
-            'width'     => '50px',
-            'options'   => array(
+            'header' => $this->__('Status'),
+            'align' => 'left',
+            'index' => 'main_table.status',
+            'type' => 'options',
+            'width' => '50px',
+            'options' => array(
                 Mage_XmlConnect_Model_Queue::STATUS_CANCELED => $this->__('Canceled'),
                 Mage_XmlConnect_Model_Queue::STATUS_IN_QUEUE => $this->__('In Queue'),
                 Mage_XmlConnect_Model_Queue::STATUS_COMPLETED => $this->__('Completed'),
             ),
-            'renderer'  => 'xmlconnect/adminhtml_queue_grid_renderer_status',
+            'renderer' => 'xmlconnect/adminhtml_queue_grid_renderer_status',
         ));
 
         $this->addColumn('action', array(
-            'header'    => $this->__('Action'),
-            'type'      => 'action',
-            'getter'    => 'getId',
-            'renderer'  => 'xmlconnect/adminhtml_queue_grid_renderer_action',
-
-            'filter'    => false,
-            'sortable'  => false,
+            'header' => $this->__('Action'),
+            'type' => 'action',
+            'getter' => 'getId',
+            'renderer' => 'xmlconnect/adminhtml_queue_grid_renderer_action',
+            'filter' => false,
+            'sortable' => false,
         ));
 
         return parent::_prepareColumns();
@@ -156,15 +157,15 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid extends Mage_Adminhtml_Block_Wi
         $this->getMassactionBlock()->setFormFieldName('queue');
 
         $this->getMassactionBlock()->addItem('delete', array(
-             'label'    => $this->__('Delete'),
-             'url'      => $this->getUrl('*/*/massDeleteQueue'),
-             'confirm'  => $this->__('Are you sure you want to delete selected records?')
+            'label' => $this->__('Delete'),
+            'url' => $this->getUrl('*/*/massDeleteQueue'),
+            'confirm' => $this->__('Are you sure you want to delete selected records?')
         ));
 
         $this->getMassactionBlock()->addItem('cancel', array(
-             'label'    => $this->__('Cancel'),
-             'url'      => $this->getUrl('*/*/massCancelQueue'),
-             'confirm'  => $this->__('Are you sure you want to cancel selected records?')
+            'label' => $this->__('Cancel'),
+            'url' => $this->getUrl('*/*/massCancelQueue'),
+            'confirm' => $this->__('Are you sure you want to cancel selected records?')
         ));
         return $this;
     }
@@ -179,4 +180,5 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid extends Mage_Adminhtml_Block_Wi
     {
         return $this->getUrl('*/*/editQueue', array('id' => $row->getId()));
     }
+
 }

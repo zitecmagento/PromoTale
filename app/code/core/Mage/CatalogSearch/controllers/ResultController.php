@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Retrieve catalog session
      *
@@ -38,6 +40,7 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
     {
         return Mage::getSingleton('catalog/session');
     }
+
     /**
      * Display search result
      */
@@ -51,23 +54,20 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
         if ($query->getQueryText() != '') {
             if (Mage::helper('catalogsearch')->isMinQueryLength()) {
                 $query->setId(0)
-                    ->setIsActive(1)
-                    ->setIsProcessed(1);
-            }
-            else {
+                        ->setIsActive(1)
+                        ->setIsProcessed(1);
+            } else {
                 if ($query->getId()) {
-                    $query->setPopularity($query->getPopularity()+1);
-                }
-                else {
+                    $query->setPopularity($query->getPopularity() + 1);
+                } else {
                     $query->setPopularity(1);
                 }
 
-                if ($query->getRedirect()){
+                if ($query->getRedirect()) {
                     $query->save();
                     $this->getResponse()->setRedirect($query->getRedirect());
                     return;
-                }
-                else {
+                } else {
                     $query->prepare();
                 }
             }
@@ -82,9 +82,9 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
             if (!Mage::helper('catalogsearch')->isMinQueryLength()) {
                 $query->save();
             }
-        }
-        else {
+        } else {
             $this->_redirectReferer();
         }
     }
+
 }

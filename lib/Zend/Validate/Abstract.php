@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 22472 2010-06-20 07:36:16Z thomas $
  */
-
 /**
  * @see Zend_Validate_Interface
  */
@@ -32,6 +32,7 @@
  */
 abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
 {
+
     /**
      * The value to be validated
      *
@@ -142,7 +143,7 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
     {
         if ($messageKey === null) {
             $keys = array_keys($this->_messageTemplates);
-            foreach($keys as $key) {
+            foreach ($keys as $key) {
                 $this->setMessage($messageString, $key);
             }
             return $this;
@@ -230,7 +231,7 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
                 $value = $value->__toString();
             }
         } else {
-            $value = (string)$value;
+            $value = (string) $value;
         }
 
         if ($this->getObscureValue()) {
@@ -264,7 +265,7 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
         if ($value === null) {
             $value = $this->_value;
         }
-        $this->_errors[]              = $messageKey;
+        $this->_errors[] = $messageKey;
         $this->_messages[$messageKey] = $this->_createMessage($messageKey, $value);
     }
 
@@ -276,9 +277,9 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
      */
     protected function _setValue($value)
     {
-        $this->_value    = $value;
+        $this->_value = $value;
         $this->_messages = array();
-        $this->_errors   = array();
+        $this->_errors = array();
     }
 
     /**
@@ -359,7 +360,7 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
      */
     public function hasTranslator()
     {
-        return (bool)$this->_translator;
+        return (bool) $this->_translator;
     }
 
     /**
@@ -409,7 +410,7 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
      */
     public static function hasDefaultTranslator()
     {
-        return (bool)self::$_defaultTranslator;
+        return (bool) self::$_defaultTranslator;
     }
 
     /**
@@ -453,4 +454,5 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
     {
         self::$_messageLength = $length;
     }
+
 }

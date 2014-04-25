@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HtmlEntities.php 21060 2010-02-15 21:56:07Z thomas $
  */
-
 /**
  * @see Zend_Filter_Interface
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Filter_HtmlEntities implements Zend_Filter_Interface
 {
+
     /**
      * Corresponds to the second htmlentities() argument
      *
@@ -116,7 +117,6 @@ class Zend_Filter_HtmlEntities implements Zend_Filter_Interface
         return $this;
     }
 
-
     /**
      * Get encoding
      *
@@ -124,7 +124,7 @@ class Zend_Filter_HtmlEntities implements Zend_Filter_Interface
      */
     public function getEncoding()
     {
-         return $this->_encoding;
+        return $this->_encoding;
     }
 
     /**
@@ -199,4 +199,5 @@ class Zend_Filter_HtmlEntities implements Zend_Filter_Interface
     {
         return htmlentities((string) $value, $this->getQuoteStyle(), $this->getEncoding(), $this->getDoubleQuote());
     }
+
 }

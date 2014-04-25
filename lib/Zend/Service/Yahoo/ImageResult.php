@@ -20,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ImageResult.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Yahoo_Result
  */
 #require_once 'Zend/Service/Yahoo/Result.php';
-
 
 /**
  * @category   Zend
@@ -37,6 +34,7 @@
  */
 class Zend_Service_Yahoo_ImageResult extends Zend_Service_Yahoo_Result
 {
+
     /**
      * Summary info for the image
      *
@@ -93,7 +91,6 @@ class Zend_Service_Yahoo_ImageResult extends Zend_Service_Yahoo_Result
      */
     protected $_namespace = 'urn:yahoo:srchmi';
 
-
     /**
      * Initializes the image result
      *
@@ -108,4 +105,5 @@ class Zend_Service_Yahoo_ImageResult extends Zend_Service_Yahoo_Result
 
         $this->_setThumbnail();
     }
+
 }

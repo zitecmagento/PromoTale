@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,23 +24,22 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 
-$tableOrder         = $this->getTable('sales_order');
-$tableOrderItem     = $this->getTable('sales_flat_order_item');
+$tableOrder = $this->getTable('sales_order');
+$tableOrderItem = $this->getTable('sales_flat_order_item');
 
 $select = $installer->getConnection()->select()
-    ->from($tableOrderItem, array(
-        'total_qty_ordered'   => 'SUM(qty_ordered)',
-        'entity_id'           => 'order_id'))
-    ->group(array('order_id'));
+        ->from($tableOrderItem, array(
+            'total_qty_ordered' => 'SUM(qty_ordered)',
+            'entity_id' => 'order_id'))
+        ->group(array('order_id'));
 
 $installer->run('CREATE TEMPORARY TABLE `tmp_order_items` ' . $select->assemble());
 
 $select->reset()
-    ->join('tmp_order_items', 'tmp_order_items.entity_id = order.entity_id', array('total_qty_ordered', 'entity_id'));
+        ->join('tmp_order_items', 'tmp_order_items.entity_id = order.entity_id', array('total_qty_ordered', 'entity_id'));
 $sqlQuery = $select->crossUpdateFromSelect(array('order' => $tableOrder));
 $installer->getConnection()->query($sqlQuery);
 

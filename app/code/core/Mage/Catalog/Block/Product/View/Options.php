@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product options block
  *
@@ -34,17 +34,15 @@
  */
 class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
 {
-    protected $_product;
 
+    protected $_product;
     protected $_optionRenders = array();
 
     public function __construct()
     {
         parent::__construct();
         $this->addOptionRenderer(
-            'default',
-            'catalog/product_view_options_type_default',
-            'catalog/product/view/options/type/default.phtml'
+                'default', 'catalog/product_view_options_type_default', 'catalog/product/view/options/type/default.phtml'
         );
     }
 
@@ -144,10 +142,10 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     protected function _getPriceConfiguration($option)
     {
         $data = array();
-        $data['price']      = Mage::helper('core')->currency($option->getPrice(true), false, false);
-        $data['oldPrice']   = Mage::helper('core')->currency($option->getPrice(false), false, false);
+        $data['price'] = Mage::helper('core')->currency($option->getPrice(true), false, false);
+        $data['oldPrice'] = Mage::helper('core')->currency($option->getPrice(false), false, false);
         $data['priceValue'] = $option->getPrice(false);
-        $data['type']       = $option->getPriceType();
+        $data['type'] = $option->getPriceType();
         $data['excludeTax'] = $price = Mage::helper('tax')->getPrice($option->getProduct(), $data['price'], false);
         $data['includeTax'] = $price = Mage::helper('tax')->getPrice($option->getProduct(), $data['price'], true);
         return $data;
@@ -190,15 +188,16 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     public function getOptionHtml(Mage_Catalog_Model_Product_Option $option)
     {
         $renderer = $this->getOptionRender(
-            $this->getGroupOfOption($option->getType())
+                $this->getGroupOfOption($option->getType())
         );
         if (is_null($renderer['renderer'])) {
             $renderer['renderer'] = $this->getLayout()->createBlock($renderer['block'])
-                ->setTemplate($renderer['template']);
+                    ->setTemplate($renderer['template']);
         }
         return $renderer['renderer']
-            ->setProduct($this->getProduct())
-            ->setOption($option)
-            ->toHtml();
+                        ->setProduct($this->getProduct())
+                        ->setOption($option)
+                        ->toHtml();
     }
+
 }

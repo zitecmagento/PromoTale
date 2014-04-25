@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SendSms.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Client_ClientAbstract
  */
@@ -53,9 +53,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_SendSms
-    extends Zend_Service_DeveloperGarden_Client_ClientAbstract
+class Zend_Service_DeveloperGarden_SendSms extends Zend_Service_DeveloperGarden_Client_ClientAbstract
 {
+
     /**
      * wsdl file
      *
@@ -77,7 +77,7 @@ class Zend_Service_DeveloperGarden_SendSms
      *
      */
     protected $_classMap = array(
-        'sendSMSResponse'      => 'Zend_Service_DeveloperGarden_Response_SendSms_SendSMSResponse',
+        'sendSMSResponse' => 'Zend_Service_DeveloperGarden_Response_SendSms_SendSMSResponse',
         'sendFlashSMSResponse' => 'Zend_Service_DeveloperGarden_Response_SendSms_SendFlashSMSResponse'
     );
 
@@ -146,11 +146,12 @@ class Zend_Service_DeveloperGarden_SendSms
                 $response = $client->sendFlashSms($request);
                 break;
             default : {
-                #require_once 'Zend/Service/DeveloperGarden/Client/Exception.php';
-                throw new Zend_Service_DeveloperGarden_Client_Exception('Unknown SMS Type');
-            }
+                    #require_once 'Zend/Service/DeveloperGarden/Client/Exception.php';
+                    throw new Zend_Service_DeveloperGarden_Client_Exception('Unknown SMS Type');
+                }
         }
 
         return $response->parse();
     }
+
 }

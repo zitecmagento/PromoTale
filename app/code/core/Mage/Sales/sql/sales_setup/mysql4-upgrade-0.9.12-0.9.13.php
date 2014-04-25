@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,12 +24,11 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 
-$installer->addAttribute('quote', 'subtotal', array('type'=>'decimal'));
-$installer->addAttribute('quote', 'base_subtotal', array('type'=>'decimal'));
+$installer->addAttribute('quote', 'subtotal', array('type' => 'decimal'));
+$installer->addAttribute('quote', 'base_subtotal', array('type' => 'decimal'));
 
-$installer->addAttribute('quote', 'subtotal_with_discount', array('type'=>'decimal'));
-$installer->addAttribute('quote', 'base_subtotal_with_discount', array('type'=>'decimal'));
+$installer->addAttribute('quote', 'subtotal_with_discount', array('type' => 'decimal'));
+$installer->addAttribute('quote', 'base_subtotal_with_discount', array('type' => 'decimal'));

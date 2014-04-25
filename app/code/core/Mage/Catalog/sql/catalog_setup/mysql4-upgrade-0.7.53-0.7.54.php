@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,40 +24,39 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
 $installer->startSetup();
 
 $installer->addAttribute('catalog_product', 'image_label', array(
-    'type'              => 'varchar',
-    'label'             => 'Image Label',
-    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    'visible'           => false,
-    'required'          => false,
-    'searchable'        => true,
-    'is_configurable'   => false,
+    'type' => 'varchar',
+    'label' => 'Image Label',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+    'visible' => false,
+    'required' => false,
+    'searchable' => true,
+    'is_configurable' => false,
 ));
 
 $installer->addAttribute('catalog_product', 'small_image_label', array(
-    'type'              => 'varchar',
-    'label'             => 'Small Image Label',
-    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    'visible'           => false,
-    'required'          => false,
-    'searchable'        => true,
-    'is_configurable'   => false,
+    'type' => 'varchar',
+    'label' => 'Small Image Label',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+    'visible' => false,
+    'required' => false,
+    'searchable' => true,
+    'is_configurable' => false,
 ));
 
 $installer->addAttribute('catalog_product', 'thumbnail_label', array(
-    'type'              => 'varchar',
-    'label'             => 'Thumbnail Label',
-    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    'visible'           => false,
-    'required'          => false,
-    'searchable'        => true,
-    'is_configurable'   => false,
+    'type' => 'varchar',
+    'label' => 'Thumbnail Label',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+    'visible' => false,
+    'required' => false,
+    'searchable' => true,
+    'is_configurable' => false,
 ));
 
 $installer->endSetup();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Frame.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /**
  * @see Zend_Queue_Stomp_FrameInterface
  */
@@ -34,12 +34,12 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Queue_Stomp_Frame
-    implements Zend_Queue_Stomp_FrameInterface
+class Zend_Queue_Stomp_Frame implements Zend_Queue_Stomp_FrameInterface
 {
-    const END_OF_FRAME   = "\x00\n";
+
+    const END_OF_FRAME = "\x00\n";
     const CONTENT_LENGTH = 'content-length';
-    const EOL            = "\n";
+    const EOL = "\n";
 
     /**
      * Headers for the frame
@@ -149,7 +149,8 @@ class Zend_Queue_Stomp_Frame
      * @return Zend_Queue_Stomp_Frame
      * @throws Zend_Queue_Exception
      */
-    public function setHeader($header, $value) {
+    public function setHeader($header, $value)
+    {
         if (!is_string($header)) {
             #require_once 'Zend/Queue/Exception.php';
             throw new Zend_Queue_Exception('$header is not a string: ' . print_r($header, true));
@@ -163,7 +164,6 @@ class Zend_Queue_Stomp_Frame
         $this->_headers[$header] = $value;
         return $this;
     }
-
 
     /**
      * Returns a value for a header
@@ -181,9 +181,7 @@ class Zend_Queue_Stomp_Frame
             throw new Zend_Queue_Exception('$header is not a string');
         }
 
-        return isset($this->_headers[$header])
-            ? $this->_headers[$header]
-            : false;
+        return isset($this->_headers[$header]) ? $this->_headers[$header] : false;
     }
 
     /**
@@ -195,9 +193,7 @@ class Zend_Queue_Stomp_Frame
      */
     public function getBody()
     {
-        return $this->_body === null
-            ? false
-            : $this->_body;
+        return $this->_body === null ? false : $this->_body;
     }
 
     /**
@@ -229,9 +225,7 @@ class Zend_Queue_Stomp_Frame
      */
     public function getCommand()
     {
-        return $this->_command === null
-            ? false
-            : $this->_command;
+        return $this->_command === null ? false : $this->_command;
     }
 
     /**
@@ -267,8 +261,8 @@ class Zend_Queue_Stomp_Frame
 
         $command = $this->getCommand();
         $headers = $this->getHeaders();
-        $body    = $this->getBody();
-        $frame   = '';
+        $body = $this->getBody();
+        $frame = '';
 
         // add a content-length to the SEND command.
         // @see http://stomp.codehaus.org/Protocol
@@ -280,13 +274,12 @@ class Zend_Queue_Stomp_Frame
         $frame = $command . self::EOL;
 
         // Headers
-        foreach ($headers as $key=>$value) {
+        foreach ($headers as $key => $value) {
             $frame .= $key . ': ' . $value . self::EOL;
         }
 
         // Seperator
         $frame .= self::EOL; // blank line required by protocol
-
         // add the body if any
         if ($body !== false) {
             $frame .= $body;
@@ -302,9 +295,12 @@ class Zend_Queue_Stomp_Frame
      */
     public function __toString()
     {
-        try {
+        try
+        {
             $return = $this->toFrame();
-        } catch (Zend_Queue_Exception $e) {
+        }
+        catch (Zend_Queue_Exception $e)
+        {
             $return = '';
         }
         return $return;
@@ -324,9 +320,9 @@ class Zend_Queue_Stomp_Frame
         }
 
         $headers = array();
-        $body    = null;
+        $body = null;
         $command = false;
-        $header  = '';
+        $header = '';
 
         // separate the headers and the body
         $match = self::EOL . self::EOL;
@@ -352,12 +348,13 @@ class Zend_Queue_Stomp_Frame
         }
 
         // crop the body if content-length is present
-        if ($this->getHeader(self::CONTENT_LENGTH) !== false ) {
+        if ($this->getHeader(self::CONTENT_LENGTH) !== false) {
             $length = (int) $this->getHeader(self::CONTENT_LENGTH);
-            $body   = substr($body, 0, $length);
+            $body = substr($body, 0, $length);
         }
 
         $this->setBody($body);
         return $this;
     }
+
 }

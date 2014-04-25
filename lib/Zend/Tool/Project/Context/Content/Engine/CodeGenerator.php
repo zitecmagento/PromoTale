@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -33,6 +34,7 @@
  */
 class Zend_Tool_Project_Context_Content_Engine_CodeGenerator
 {
+
     /**
      * @var Zend_Tool_Framework_Client_Storage
      */
@@ -51,7 +53,7 @@ class Zend_Tool_Project_Context_Content_Engine_CodeGenerator
      */
     public function __construct(Zend_Tool_Framework_Client_Storage $storage, $contentPrefix)
     {
-        $this->_storage       = $storage;
+        $this->_storage = $storage;
         $this->_contentPrefix = $contentPrefix;
     }
 
@@ -93,6 +95,5 @@ class Zend_Tool_Project_Context_Content_Engine_CodeGenerator
 
         return $codeGenerator->generate();
     }
-
 
 }

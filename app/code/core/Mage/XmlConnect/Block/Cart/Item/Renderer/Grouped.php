@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,8 +34,9 @@
  */
 class Mage_XmlConnect_Block_Cart_Item_Renderer_Grouped extends Mage_XmlConnect_Block_Cart_Item_Renderer
 {
+
     const GROUPED_PRODUCT_IMAGE = 'checkout/cart/grouped_product_image';
-    const USE_PARENT_IMAGE      = 'parent';
+    const USE_PARENT_IMAGE = 'parent';
 
     /**
      * Get item grouped product
@@ -49,4 +51,5 @@ class Mage_XmlConnect_Block_Cart_Item_Renderer_Grouped extends Mage_XmlConnect_B
         }
         return $this->getProduct();
     }
+
 }

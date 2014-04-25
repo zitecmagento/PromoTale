@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Downloads extends Mage_Downloadable_Block_Customer_Products_List
 {
+
     /**
      * Render downloadable products list xml
      *
@@ -60,7 +62,7 @@ class Mage_XmlConnect_Block_Customer_Downloads extends Mage_Downloadable_Block_C
             }
         } else {
             Mage::throwException(
-                Mage::helper('downloadable')->__('You have not purchased any downloadable products yet.')
+                    Mage::helper('downloadable')->__('You have not purchased any downloadable products yet.')
             );
         }
 
@@ -77,4 +79,5 @@ class Mage_XmlConnect_Block_Customer_Downloads extends Mage_Downloadable_Block_C
     {
         return $this->getUrl('downloadable/download/link', array('id' => $item->getLinkHash(), '_secure' => true));
     }
+
 }

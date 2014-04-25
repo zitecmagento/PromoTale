@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,6 +20,7 @@
  */
 class Phoenix_Moneybookers_Block_Placeform extends Mage_Core_Block_Template
 {
+
     /**
      * Return checkout session instance
      *
@@ -64,4 +66,5 @@ class Phoenix_Moneybookers_Block_Placeform extends Mage_Core_Block_Template
     {
         return $this->_getOrder()->getPayment()->getMethodInstance()->getUrl();
     }
+
 }

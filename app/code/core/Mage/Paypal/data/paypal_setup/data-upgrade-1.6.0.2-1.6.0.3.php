@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $this Mage_Core_Model_Resource_Setup */
 $installer = $this;
 $connection = $installer->getConnection();
@@ -33,8 +33,6 @@ $data = array(
     array('paypal_canceled_reversal', 'PayPal Canceled Reversal')
 );
 $connection = $installer->getConnection()->insertArray(
-    $installer->getTable('sales/order_status'),
-    array('status', 'label'),
-    $data
+        $installer->getTable('sales/order_status'), array('status', 'label'), $data
 );
 $installer->endSetup();

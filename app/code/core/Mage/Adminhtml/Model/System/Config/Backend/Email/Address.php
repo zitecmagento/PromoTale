@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * System config email field backend model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Email_Address extends Mage_Core_Model_Config_Data
 {
+
     protected function _beforeSave()
     {
         $value = $this->getValue();
@@ -42,4 +43,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Address extends Mage_Core
         }
         return $this;
     }
+
 }

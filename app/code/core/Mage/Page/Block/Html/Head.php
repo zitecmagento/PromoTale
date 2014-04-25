@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Html page block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
 {
+
     /**
      * Initialize template
      *
@@ -125,18 +126,18 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string $cond
      * @return Mage_Page_Block_Html_Head
      */
-    public function addItem($type, $name, $params=null, $if=null, $cond=null)
+    public function addItem($type, $name, $params = null, $if = null, $cond = null)
     {
-        if ($type==='skin_css' && empty($params)) {
+        if ($type === 'skin_css' && empty($params)) {
             $params = 'media="all"';
         }
-        $this->_data['items'][$type.'/'.$name] = array(
-            'type'   => $type,
-            'name'   => $name,
+        $this->_data['items'][$type . '/' . $name] = array(
+            'type' => $type,
+            'name' => $name,
             'params' => $params,
-            'if'     => $if,
-            'cond'   => $cond,
-       );
+            'if' => $if,
+            'cond' => $cond,
+        );
         return $this;
     }
 
@@ -149,7 +150,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      */
     public function removeItem($type, $name)
     {
-        unset($this->_data['items'][$type.'/'.$name]);
+        unset($this->_data['items'][$type . '/' . $name]);
         return $this;
     }
 
@@ -162,12 +163,12 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     public function getCssJsHtml()
     {
         // separate items by types
-        $lines  = array();
+        $lines = array();
         foreach ($this->_data['items'] as $item) {
             if (!is_null($item['cond']) && !$this->getData($item['cond']) || !isset($item['name'])) {
                 continue;
             }
-            $if     = !empty($item['if']) ? $item['if'] : '';
+            $if = !empty($item['if']) ? $item['if'] : '';
             $params = !empty($item['params']) ? $item['params'] : '';
             switch ($item['type']) {
                 case 'js':        // js/*.js
@@ -185,27 +186,23 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         // prepare HTML
         $shouldMergeJs = Mage::getStoreConfigFlag('dev/js/merge_files');
         $shouldMergeCss = Mage::getStoreConfigFlag('dev/css/merge_css_files');
-        $html   = '';
+        $html = '';
         foreach ($lines as $if => $items) {
             if (empty($items)) {
                 continue;
             }
             if (!empty($if)) {
-                $html .= '<!--[if '.$if.']>'."\n";
+                $html .= '<!--[if ' . $if . ']>' . "\n";
             }
 
             // static and skin css
-            $html .= $this->_prepareStaticAndSkinElements('<link rel="stylesheet" type="text/css" href="%s"%s />' . "\n",
-                empty($items['js_css']) ? array() : $items['js_css'],
-                empty($items['skin_css']) ? array() : $items['skin_css'],
-                $shouldMergeCss ? array(Mage::getDesign(), 'getMergedCssUrl') : null
+            $html .= $this->_prepareStaticAndSkinElements('<link rel="stylesheet" type="text/css" href="%s"%s />' . "\n", empty($items['js_css']) ? array() : $items['js_css'], empty($items['skin_css']) ? array() : $items['skin_css'], $shouldMergeCss ? array(
+                        Mage::getDesign(), 'getMergedCssUrl') : null
             );
 
             // static and skin javascripts
-            $html .= $this->_prepareStaticAndSkinElements('<script type="text/javascript" src="%s"%s></script>' . "\n",
-                empty($items['js']) ? array() : $items['js'],
-                empty($items['skin_js']) ? array() : $items['skin_js'],
-                $shouldMergeJs ? array(Mage::getDesign(), 'getMergedJsUrl') : null
+            $html .= $this->_prepareStaticAndSkinElements('<script type="text/javascript" src="%s"%s></script>' . "\n", empty($items['js']) ? array() : $items['js'], empty($items['skin_js']) ? array() : $items['skin_js'], $shouldMergeJs ? array(
+                        Mage::getDesign(), 'getMergedJsUrl') : null
             );
 
             // other stuff
@@ -214,7 +211,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             }
 
             if (!empty($if)) {
-                $html .= '<![endif]-->'."\n";
+                $html .= '<![endif]-->' . "\n";
             }
         }
         return $html;
@@ -252,8 +249,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         // lookup each file basing on current theme configuration
         foreach ($skinItems as $params => $rows) {
             foreach ($rows as $name) {
-                $items[$params][] = $mergeCallback ? $designPackage->getFilename($name, array('_type' => 'skin'))
-                    : $designPackage->getSkinUrl($name, array());
+                $items[$params][] = $mergeCallback ? $designPackage->getFilename($name, array('_type' => 'skin')) : $designPackage->getSkinUrl($name, array());
             }
         }
 
@@ -292,11 +288,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     protected function _separateOtherHtmlHeadElements(&$lines, $itemIf, $itemType, $itemParams, $itemName, $itemThe)
     {
         $params = $itemParams ? ' ' . $itemParams : '';
-        $href   = $itemName;
+        $href = $itemName;
         switch ($itemType) {
             case 'rss':
-                $lines[$itemIf]['other'][] = sprintf('<link href="%s"%s rel="alternate" type="application/rss+xml" />',
-                    $href, $params
+                $lines[$itemIf]['other'][] = sprintf('<link href="%s"%s rel="alternate" type="application/rss+xml" />', $href, $params
                 );
                 break;
             case 'link_rel':
@@ -328,13 +323,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     public function getChunkedItems($items, $prefix = '', $maxLen = 450)
     {
         $chunks = array();
-        $chunk  = $prefix;
+        $chunk = $prefix;
         foreach ($items as $item) {
-            if (strlen($chunk.','.$item)>$maxLen) {
+            if (strlen($chunk . ',' . $item) > $maxLen) {
                 $chunks[] = $chunk;
                 $chunk = $prefix;
             }
-            $chunk .= ','.$item;
+            $chunk .= ',' . $item;
         }
         $chunks[] = $chunk;
         return $chunks;
@@ -348,7 +343,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     public function getContentType()
     {
         if (empty($this->_data['content_type'])) {
-            $this->_data['content_type'] = $this->getMediaType().'; charset='.$this->getCharset();
+            $this->_data['content_type'] = $this->getMediaType() . '; charset=' . $this->getCharset();
         }
         return $this->_data['content_type'];
     }
@@ -388,7 +383,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     public function setTitle($title)
     {
         $this->_data['title'] = Mage::getStoreConfig('design/head/title_prefix') . ' ' . $title
-            . ' ' . Mage::getStoreConfig('design/head/title_suffix');
+                . ' ' . Mage::getStoreConfig('design/head/title_suffix');
         return $this;
     }
 
@@ -492,7 +487,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $faviconFile = Mage::getBaseUrl('media') . $folderName . '/' . $storeConfig;
         $absolutePath = Mage::getBaseDir('media') . '/' . $folderName . '/' . $storeConfig;
 
-        if(!is_null($storeConfig) && $this->_isFile($absolutePath)) {
+        if (!is_null($storeConfig) && $this->_isFile($absolutePath)) {
             $url = $faviconFile;
         } else {
             $url = $this->getSkinUrl('favicon.ico');
@@ -506,10 +501,12 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string $filename
      * @return bool
      */
-    protected function _isFile($filename) {
+    protected function _isFile($filename)
+    {
         if (Mage::helper('core/file_storage_database')->checkDbUsage() && !is_file($filename)) {
             Mage::helper('core/file_storage_database')->saveFileToFilesystem($filename);
         }
         return is_file($filename);
     }
+
 }

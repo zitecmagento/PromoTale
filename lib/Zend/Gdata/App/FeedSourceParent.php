@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FeedSourceParent.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Entry
  */
@@ -76,7 +75,6 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
      * @var string
      */
     protected $_rootElement = null;
-
     protected $_generator = null;
     protected $_icon = null;
     protected $_logo = null;
@@ -137,7 +135,6 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
         }
     }
 
-
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
         $element = parent::getDOM($doc, $majorVersion, $minorVersion);
@@ -166,29 +163,29 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-        case $this->lookupNamespace('atom') . ':' . 'generator':
-            $generator = new Zend_Gdata_App_Extension_Generator();
-            $generator->transferFromDOM($child);
-            $this->_generator = $generator;
-            break;
-        case $this->lookupNamespace('atom') . ':' . 'icon':
-            $icon = new Zend_Gdata_App_Extension_Icon();
-            $icon->transferFromDOM($child);
-            $this->_icon = $icon;
-            break;
-        case $this->lookupNamespace('atom') . ':' . 'logo':
-            $logo = new Zend_Gdata_App_Extension_Logo();
-            $logo->transferFromDOM($child);
-            $this->_logo = $logo;
-            break;
-        case $this->lookupNamespace('atom') . ':' . 'subtitle':
-            $subtitle = new Zend_Gdata_App_Extension_Subtitle();
-            $subtitle->transferFromDOM($child);
-            $this->_subtitle = $subtitle;
-            break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            case $this->lookupNamespace('atom') . ':' . 'generator':
+                $generator = new Zend_Gdata_App_Extension_Generator();
+                $generator->transferFromDOM($child);
+                $this->_generator = $generator;
+                break;
+            case $this->lookupNamespace('atom') . ':' . 'icon':
+                $icon = new Zend_Gdata_App_Extension_Icon();
+                $icon->transferFromDOM($child);
+                $this->_icon = $icon;
+                break;
+            case $this->lookupNamespace('atom') . ':' . 'logo':
+                $logo = new Zend_Gdata_App_Extension_Logo();
+                $logo->transferFromDOM($child);
+                $this->_logo = $logo;
+                break;
+            case $this->lookupNamespace('atom') . ':' . 'subtitle':
+                $subtitle = new Zend_Gdata_App_Extension_Subtitle();
+                $subtitle->transferFromDOM($child);
+                $this->_subtitle = $subtitle;
+                break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 

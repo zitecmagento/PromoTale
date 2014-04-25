@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Category.php 22824 2010-08-09 18:59:54Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Ebay_Finding_Category extends Zend_Service_Ebay_Finding_Abstract
 {
+
     /**
      * The unique ID of a category on the specified eBay site.
      *
@@ -57,7 +58,7 @@ class Zend_Service_Ebay_Finding_Category extends Zend_Service_Ebay_Finding_Abstr
         parent::_init();
         $ns = Zend_Service_Ebay_Finding::XMLNS_FINDING;
 
-        $this->categoryId   = $this->_query(".//$ns:categoryId[1]", 'string');
+        $this->categoryId = $this->_query(".//$ns:categoryId[1]", 'string');
         $this->categoryName = $this->_query(".//$ns:categoryName[1]", 'string');
     }
 
@@ -70,4 +71,5 @@ class Zend_Service_Ebay_Finding_Category extends Zend_Service_Ebay_Finding_Abstr
     {
         return $proxy->findItemsByCategory($this->categoryId, $options);
     }
+
 }

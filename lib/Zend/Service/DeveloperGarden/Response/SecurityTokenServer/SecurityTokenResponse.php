@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SecurityTokenResponse.php 21189 2010-02-24 01:50:33Z stas $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Response_ResponseAbstract
  */
@@ -38,10 +38,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse
-    extends Zend_Service_DeveloperGarden_Response_ResponseAbstract
-    implements Zend_Service_DeveloperGarden_Response_SecurityTokenServer_Interface
+class Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse extends Zend_Service_DeveloperGarden_Response_ResponseAbstract implements Zend_Service_DeveloperGarden_Response_SecurityTokenServer_Interface
 {
+
     /**
      * the token format, should be saml20
      *
@@ -113,4 +112,5 @@ class Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenRes
         }
         return false;
     }
+
 }

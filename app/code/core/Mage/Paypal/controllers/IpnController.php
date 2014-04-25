@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Paypal_IpnController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Instantiate IPN model and pass IPN request to it
      */
@@ -38,12 +40,16 @@ class Mage_Paypal_IpnController extends Mage_Core_Controller_Front_Action
             return;
         }
 
-        try {
+        try
+        {
             $data = $this->getRequest()->getPost();
             Mage::getModel('paypal/ipn')->processIpnRequest($data, new Varien_Http_Adapter_Curl());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->getResponse()->setHttpResponseCode(500);
         }
     }
+
 }

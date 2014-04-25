@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Rss data helper
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Config path to RSS field
      */
@@ -130,4 +131,5 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_RSS_ACTIVE);
     }
+
 }

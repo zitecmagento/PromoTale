@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Cloud.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tag_Item
  */
@@ -33,6 +33,7 @@
  */
 class Zend_Tag_Cloud
 {
+
     /**
      * Decorator for the cloud
      *
@@ -323,7 +324,7 @@ class Zend_Tag_Cloud
     public function getPluginLoader()
     {
         if ($this->_pluginLoader === null) {
-            $prefix     = 'Zend_Tag_Cloud_Decorator_';
+            $prefix = 'Zend_Tag_Cloud_Decorator_';
             $pathPrefix = 'Zend/Tag/Cloud/Decorator/';
 
             #require_once 'Zend/Loader/PluginLoader.php';
@@ -384,7 +385,7 @@ class Zend_Tag_Cloud
             return '';
         }
 
-        $tagsResult  = $this->getTagDecorator()->render($tags);
+        $tagsResult = $this->getTagDecorator()->render($tags);
         $cloudResult = $this->getCloudDecorator()->render($tagsResult);
 
         return $cloudResult;
@@ -397,14 +398,18 @@ class Zend_Tag_Cloud
      */
     public function __toString()
     {
-        try {
+        try
+        {
             $result = $this->render();
             return $result;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $message = "Exception caught by tag cloud: " . $e->getMessage()
-                     . "\nStack Trace:\n" . $e->getTraceAsString();
+                    . "\nStack Trace:\n" . $e->getTraceAsString();
             trigger_error($message, E_USER_WARNING);
             return '';
         }
     }
+
 }

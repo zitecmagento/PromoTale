@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,11 +35,12 @@
  */
 class Mage_Checkout_Block_Onepage_Payment extends Mage_Checkout_Block_Onepage_Abstract
 {
+
     protected function _construct()
     {
         $this->getCheckout()->setStepData('payment', array(
-            'label'     => $this->__('Payment Information'),
-            'is_show'   => $this->isShow()
+            'label' => $this->__('Payment Information'),
+            'is_show' => $this->isShow()
         ));
         parent::_construct();
     }
@@ -50,6 +52,7 @@ class Mage_Checkout_Block_Onepage_Payment extends Mage_Checkout_Block_Onepage_Ab
      */
     public function getQuoteBaseGrandTotal()
     {
-        return (float)$this->getQuote()->getBaseGrandTotal();
+        return (float) $this->getQuote()->getBaseGrandTotal();
     }
+
 }

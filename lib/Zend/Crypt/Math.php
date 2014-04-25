@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Math.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Crypt_Math_BigInteger
  */
@@ -57,10 +57,10 @@ class Zend_Crypt_Math extends Zend_Crypt_Math_BigInteger
         }
         $rand = '';
         $i2 = strlen($maximum) - 1;
-        for ($i = 1;$i < $i2;$i++) {
-            $rand .= mt_rand(0,9);
+        for ($i = 1; $i < $i2; $i++) {
+            $rand .= mt_rand(0, 9);
         }
-        $rand .= mt_rand(0,9);
+        $rand .= mt_rand(0, 9);
         return $rand;
     }
 
@@ -71,7 +71,8 @@ class Zend_Crypt_Math extends Zend_Crypt_Math_BigInteger
      * @param string $long
      * @return string
      */
-    public function btwoc($long) {
+    public function btwoc($long)
+    {
         if (ord($long[0]) > 127) {
             return "\x00" . $long;
         }
@@ -84,7 +85,8 @@ class Zend_Crypt_Math extends Zend_Crypt_Math_BigInteger
      * @param string $binary
      * @return string
      */
-    public function fromBinary($binary) {
+    public function fromBinary($binary)
+    {
         return $this->_math->binaryToInteger($binary);
     }
 

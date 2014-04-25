@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @since      Preview Release 0.2
  */
-
-
 /**
  * @see Zend_Exception
  */
 #require_once 'Zend/Exception.php';
-
 
 /**
  * Zend_Session_Exception
@@ -37,6 +35,7 @@
  */
 class Zend_Session_Exception extends Zend_Exception
 {
+
     /**
      * sessionStartError
      *
@@ -70,5 +69,5 @@ class Zend_Session_Exception extends Zend_Exception
     {
         self::$sessionStartError .= PHP_EOL . $errfile . '(Line:' . $errline . '): Error #' . $errno . ' ' . $errstr . ' ' . $errcontext;
     }
-}
 
+}

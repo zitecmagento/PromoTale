@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Model for synchronization from DB to filesystem
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_File_Storage_File
 {
+
     /**
      * Prefix of model events names
      *
@@ -63,9 +64,9 @@ class Mage_Core_Model_Resource_File_Storage_File
      */
     public function getStorageData($dir = '')
     {
-        $files          = array();
-        $directories    = array();
-        $currentDir     = $this->getMediaBaseDirectory() . $dir;
+        $files = array();
+        $directories = array();
+        $currentDir = $this->getMediaBaseDirectory() . $dir;
 
         if (is_dir($currentDir)) {
             $dh = opendir($currentDir);
@@ -138,15 +139,12 @@ class Mage_Core_Model_Resource_File_Storage_File
      */
     public function saveDir($dir)
     {
-        if (!isset($dir['name']) || !strlen($dir['name'])
-            || !isset($dir['path'])
+        if (!isset($dir['name']) || !strlen($dir['name']) || !isset($dir['path'])
         ) {
             return false;
         }
 
-        $path = (strlen($dir['path']))
-            ? $dir['path'] . DS . $dir['name']
-            : $dir['name'];
+        $path = (strlen($dir['path'])) ? $dir['path'] . DS . $dir['name'] : $dir['name'];
         $path = Mage::helper('core/file_storage_database')->getMediaBaseDir() . DS . str_replace('/', DS, $path);
 
         if (!file_exists($path) || !is_dir($path)) {
@@ -169,7 +167,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     public function saveFile($filePath, $content, $overwrite = false)
     {
         $filename = basename($filePath);
-        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS, dirname($filePath));
 
         if (!file_exists($path) || !is_dir($path)) {
             @mkdir($path, 0777, true);
@@ -194,4 +192,5 @@ class Mage_Core_Model_Resource_File_Storage_File
 
         return false;
     }
+
 }

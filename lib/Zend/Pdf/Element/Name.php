@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,11 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Name.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Pdf_Element */
 #require_once 'Zend/Pdf/Element.php';
-
 
 /**
  * PDF file 'name' element implementation
@@ -34,13 +32,13 @@
  */
 class Zend_Pdf_Element_Name extends Zend_Pdf_Element
 {
+
     /**
      * Object value
      *
      * @var string
      */
     public $value;
-
 
     /**
      * Object constructor
@@ -51,13 +49,12 @@ class Zend_Pdf_Element_Name extends Zend_Pdf_Element
     public function __construct($val)
     {
         settype($val, 'string');
-        if (strpos($val,"\x00") !== false) {
+        if (strpos($val, "\x00") !== false) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Null character is not allowed in PDF Names');
         }
-        $this->value   = (string)$val;
+        $this->value = (string) $val;
     }
-
 
     /**
      * Return type of the element.
@@ -68,7 +65,6 @@ class Zend_Pdf_Element_Name extends Zend_Pdf_Element
     {
         return Zend_Pdf_Element::TYPE_NAME;
     }
-
 
     /**
      * Escape string according to the PDF rules
@@ -111,19 +107,17 @@ class Zend_Pdf_Element_Name extends Zend_Pdf_Element
                     break;
 
                 default:
-                    if ($nextCode >= 33 && $nextCode <= 126 ) {
+                    if ($nextCode >= 33 && $nextCode <= 126) {
                         // Visible ASCII symbol
                         $outStr .= $inStr[$count];
                     } else {
                         $outStr .= sprintf('#%02X', $nextCode);
                     }
             }
-
         }
 
         return $outStr;
     }
-
 
     /**
      * Unescape string according to the PDF rules
@@ -136,17 +130,16 @@ class Zend_Pdf_Element_Name extends Zend_Pdf_Element
         $outStr = '';
 
         for ($count = 0; $count < strlen($inStr); $count++) {
-            if ($inStr[$count] != '#' )  {
+            if ($inStr[$count] != '#') {
                 $outStr .= $inStr[$count];
             } else {
                 // Escape sequence
-                $outStr .= chr(base_convert(substr($inStr, $count+1, 2), 16, 10 ));
+                $outStr .= chr(base_convert(substr($inStr, $count + 1, 2), 16, 10));
                 $count +=2;
             }
         }
         return $outStr;
     }
-
 
     /**
      * Return object as string
@@ -156,6 +149,7 @@ class Zend_Pdf_Element_Name extends Zend_Pdf_Element
      */
     public function toString($factory = null)
     {
-        return '/' . self::escape((string)$this->value);
+        return '/' . self::escape((string) $this->value);
     }
+
 }

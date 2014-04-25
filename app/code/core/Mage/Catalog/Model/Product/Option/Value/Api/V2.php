@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Option_Value_Api_V2 extends Mage_Catalog_Model_Product_Option_Value_Api
 {
+
     /**
      * Retrieve values from specified option
      *
@@ -59,7 +61,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api_V2 extends Mage_Catalog_Model_
     public function info($valueId, $store = null)
     {
         return Mage::helper('api')->wsiArrayPacker(
-            parent::info($valueId, $store)
+                        parent::info($valueId, $store)
         );
     }
 
@@ -101,4 +103,5 @@ class Mage_Catalog_Model_Product_Option_Value_Api_V2 extends Mage_Catalog_Model_
     {
         return parent::remove($valueId);
     }
+
 }

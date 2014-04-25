@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_JsonController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Return JSON-encoded array of country regions
      *
@@ -44,9 +46,9 @@ class Mage_Adminhtml_JsonController extends Mage_Adminhtml_Controller_Action
 
         $countryId = $this->getRequest()->getParam('parent');
         $arrRegions = Mage::getResourceModel('directory/region_collection')
-            ->addCountryFilter($countryId)
-            ->load()
-            ->toOptionArray();
+                ->addCountryFilter($countryId)
+                ->load()
+                ->toOptionArray();
 
         if (!empty($arrRegions)) {
             foreach ($arrRegions as $region) {
@@ -56,4 +58,5 @@ class Mage_Adminhtml_JsonController extends Mage_Adminhtml_Controller_Action
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($arrRes));
     }
+
 }

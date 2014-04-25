@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -55,9 +56,10 @@
  */
 class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
 {
-    const CUSTOM_CARRIER_CODE   = 'custom';
-    protected $_shipment = null;
 
+    const CUSTOM_CARRIER_CODE = 'custom';
+
+    protected $_shipment = null;
     protected $_eventPrefix = 'sales_order_shipment_track';
     protected $_eventObject = 'track';
 
@@ -130,7 +132,7 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
      */
     public function getProtectCode()
     {
-        return (string)$this->getShipment()->getProtectCode();
+        return (string) $this->getShipment()->getProtectCode();
     }
 
     /**
@@ -195,4 +197,5 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml system config datetime field renderer
  *
@@ -34,9 +34,11 @@
  */
 class Mage_Adminhtml_Block_System_Config_Form_Field_Datetime extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
+
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $format = Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
         return Mage::app()->getLocale()->date(intval($element->getValue()))->toString($format);
     }
+
 }

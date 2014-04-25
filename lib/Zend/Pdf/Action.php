@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Action.php 22437 2010-06-15 16:13:46Z alexander $
  */
-
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element.php';
 #require_once 'Zend/Pdf/Element/Array.php';
@@ -28,7 +27,6 @@
 
 /** Zend_Pdf_Target */
 #require_once 'Zend/Pdf/Target.php';
-
 
 /**
  * Abstract PDF action representation class
@@ -40,13 +38,13 @@
  */
 abstract class Zend_Pdf_Action extends Zend_Pdf_Target implements RecursiveIterator, Countable
 {
+
     /**
      * Action dictionary
      *
      * @var Zend_Pdf_Element_Dictionary|Zend_Pdf_Element_Object|Zend_Pdf_Element_Reference
      */
     protected $_actionDictionary;
-
 
     /**
      * An original list of chained actions
@@ -123,7 +121,7 @@ abstract class Zend_Pdf_Action extends Zend_Pdf_Target implements RecursiveItera
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('$dictionary mast be a direct or an indirect dictionary object.');
         }
-        if (isset($dictionary->Type)  &&  $dictionary->Type->value != 'Action') {
+        if (isset($dictionary->Type) && $dictionary->Type->value != 'Action') {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Action dictionary Type entry must be set to \'Action\'.');
         }
@@ -267,7 +265,7 @@ abstract class Zend_Pdf_Action extends Zend_Pdf_Target implements RecursiveItera
         if (count($this->_originalNextList) != count($this->next)) {
             // If original and current children arrays have different size then children list was updated
             $childListUpdated = true;
-        } else if ( !(array_keys($this->_originalNextList) === array_keys($this->next)) ) {
+        } else if (!(array_keys($this->_originalNextList) === array_keys($this->next))) {
             // If original and current children arrays have different keys (with a glance to an order) then children list was updated
             $childListUpdated = true;
         } else {
@@ -315,7 +313,6 @@ abstract class Zend_Pdf_Action extends Zend_Pdf_Target implements RecursiveItera
             return $this->_actionDictionary;
         }
     }
-
 
     ////////////////////////////////////////////////////////////////////////
     //  RecursiveIterator interface methods
@@ -387,7 +384,6 @@ abstract class Zend_Pdf_Action extends Zend_Pdf_Target implements RecursiveItera
         return count($this->next) > 0;
     }
 
-
     ////////////////////////////////////////////////////////////////////////
     //  Countable interface methods
     //////////////
@@ -401,4 +397,5 @@ abstract class Zend_Pdf_Action extends Zend_Pdf_Target implements RecursiveItera
     {
         return count($this->childOutlines);
     }
+
 }

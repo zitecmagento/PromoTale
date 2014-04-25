@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Template
 {
+
     public function setItem(Varien_Object $item)
     {
         $this->setData('item', $item);
@@ -53,7 +55,6 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
     {
         return $this->getOrderItem()->getOrder();
     }
-
 
     public function getOrderItem()
     {
@@ -121,10 +122,13 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
         if (isset($optionInfo['custom_view']) && $optionInfo['custom_view']) {
             $_default = array('value' => $optionValue);
             if (isset($optionInfo['option_type'])) {
-                try {
+                try
+                {
                     $group = Mage::getModel('catalog/product_option')->groupFactory($optionInfo['option_type']);
                     return array('value' => $group->getCustomizedView($optionInfo));
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     return $_default;
                 }
             }
@@ -160,9 +164,9 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
      */
     public function getSku()
     {
-        /*if ($this->getOrderItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
-            return $this->getOrderItem()->getProductOptionByCode('simple_sku');
-        }*/
+        /* if ($this->getOrderItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+          return $this->getOrderItem()->getProductOptionByCode('simple_sku');
+          } */
         return $this->getItem()->getSku();
     }
 
@@ -175,4 +179,5 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
     {
         return $this->getLayout()->getBlock('additional.product.info');
     }
+
 }

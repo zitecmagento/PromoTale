@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ItemQuery.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Query
  */
@@ -30,7 +29,6 @@
  * @see Zend_Gdata_Gbase_Query
  */
 #require_once('Zend/Gdata/Gbase/Query.php');
-
 
 /**
  * Assists in constructing queries for Google Base Customer Items Feed
@@ -45,6 +43,7 @@
  */
 class Zend_Gdata_Gbase_ItemQuery extends Zend_Gdata_Gbase_Query
 {
+
     /**
      * Path to the customer items feeds on the Google Base server.
      */
@@ -77,6 +76,7 @@ class Zend_Gdata_Gbase_ItemQuery extends Zend_Gdata_Gbase_Query
     /*
      * @return string id
      */
+
     public function getId()
     {
         return $this->_id;

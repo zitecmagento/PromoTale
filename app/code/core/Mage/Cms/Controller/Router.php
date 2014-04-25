@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cms Controller Router
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abstract
 {
+
     /**
      * Initialize Controller Router
      *
@@ -57,8 +58,8 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
     {
         if (!Mage::isInstalled()) {
             Mage::app()->getFrontController()->getResponse()
-                ->setRedirect(Mage::getUrl('install'))
-                ->sendResponse();
+                    ->setRedirect(Mage::getUrl('install'))
+                    ->sendResponse();
             exit;
         }
 
@@ -66,18 +67,18 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
 
         $condition = new Varien_Object(array(
             'identifier' => $identifier,
-            'continue'   => true
+            'continue' => true
         ));
         Mage::dispatchEvent('cms_controller_router_match_before', array(
-            'router'    => $this,
+            'router' => $this,
             'condition' => $condition
         ));
         $identifier = $condition->getIdentifier();
 
         if ($condition->getRedirectUrl()) {
             Mage::app()->getFrontController()->getResponse()
-                ->setRedirect($condition->getRedirectUrl())
-                ->sendResponse();
+                    ->setRedirect($condition->getRedirectUrl())
+                    ->sendResponse();
             $request->setDispatched(true);
             return true;
         }
@@ -86,21 +87,21 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
             return false;
         }
 
-        $page   = Mage::getModel('cms/page');
+        $page = Mage::getModel('cms/page');
         $pageId = $page->checkIdentifier($identifier, Mage::app()->getStore()->getId());
         if (!$pageId) {
             return false;
         }
 
         $request->setModuleName('cms')
-            ->setControllerName('page')
-            ->setActionName('view')
-            ->setParam('page_id', $pageId);
+                ->setControllerName('page')
+                ->setActionName('view')
+                ->setParam('page_id', $pageId);
         $request->setAlias(
-            Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
-            $identifier
+                Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, $identifier
         );
 
         return true;
     }
+
 }

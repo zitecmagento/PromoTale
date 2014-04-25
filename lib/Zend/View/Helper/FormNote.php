@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FormNote.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Abstract class for extension
  */
 #require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to show an HTML note
@@ -38,8 +36,9 @@
  */
 class Zend_View_Helper_FormNote extends Zend_View_Helper_FormElement
 {
+
     /**
-    * Helper to show a "note" based on a hidden value.
+     * Helper to show a "note" based on a hidden value.
      *
      * @access public
      *
@@ -58,4 +57,5 @@ class Zend_View_Helper_FormNote extends Zend_View_Helper_FormElement
         extract($info); // name, value, attribs, options, listsep, disable
         return $value;
     }
+
 }

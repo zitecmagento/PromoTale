@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Add color chooser to fieldset
      *
@@ -43,8 +45,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form extends Mage_Adminhtml_
     protected function addColor($fieldset, $fieldName, $title)
     {
         $fieldset->addField($fieldName, 'color', array(
-            'name'      => $fieldName,
-            'label'     => $title,
+            'name' => $fieldName,
+            'label' => $title,
         ));
     }
 
@@ -61,11 +63,11 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form extends Mage_Adminhtml_
     public function addImage($fieldset, $fieldName, $title, $note = null, $default = '', $required = false)
     {
         $fieldset->addField($fieldName, 'image', array(
-            'name'      => $fieldName,
-            'label'     => $title,
-            'note'      => $note,
+            'name' => $fieldName,
+            'label' => $title,
+            'note' => $note,
             'default_value' => $default,
-            'required'  => $required,
+            'required' => $required,
         ));
     }
 
@@ -79,12 +81,12 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form extends Mage_Adminhtml_
     public function addFont($fieldset, $fieldPrefix, $title)
     {
         $element = $fieldset->addField($fieldPrefix, 'font', array(
-            'name'      => $fieldPrefix,
-            'label'     => $title,
+            'name' => $fieldPrefix,
+            'label' => $title,
         ));
 
         $element->initFields(array(
-            'name'      => $fieldPrefix,
+            'name' => $fieldPrefix,
             'fontNames' => Mage::helper('xmlconnect')->getDeviceHelper()->getFontList(),
             'fontSizes' => Mage::helper('xmlconnect')->getDeviceHelper()->getFontSizes(),
         ));
@@ -100,13 +102,14 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form extends Mage_Adminhtml_
         $config = Mage::getConfig();
         return array(
             'image' => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_image'),
-            'font'  => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_font'),
+            'font' => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_font'),
             'color' => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_color'),
-            'tabs'  => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_tabs'),
+            'tabs' => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_tabs'),
             'theme' => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_theme'),
-            'page'  => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_page'),
-            'addrow'=> $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_addrow'),
+            'page' => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_page'),
+            'addrow' => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_addrow'),
             'datetime' => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_datetime'),
         );
     }
+
 }

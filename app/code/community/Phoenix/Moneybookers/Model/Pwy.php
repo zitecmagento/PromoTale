@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,9 +20,11 @@
  */
 class Phoenix_Moneybookers_Model_Pwy extends Phoenix_Moneybookers_Model_Abstract
 {
+
     /**
      * unique internal payment method identifier
      */
-    protected $_code			= 'moneybookers_pwy';
-    protected $_paymentMethod	= 'PWY';
+    protected $_code = 'moneybookers_pwy';
+    protected $_paymentMethod = 'PWY';
+
 }

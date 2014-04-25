@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Index Event Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Initialize resource
      *
@@ -52,7 +53,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     public function addEntityFilter($entity)
     {
         if (is_array($entity) && !empty($entity)) {
-            $this->addFieldToFilter('entity', array('in'=>$entity));
+            $this->addFieldToFilter('entity', array('in' => $entity));
         } else {
             $this->addFieldToFilter('entity', $entity);
         }
@@ -68,7 +69,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     public function addTypeFilter($type)
     {
         if (is_array($type) && !empty($type)) {
-            $this->addFieldToFilter('type', array('in'=>$type));
+            $this->addFieldToFilter('type', array('in' => $type));
         } else {
             $this->addFieldToFilter('type', $type);
         }
@@ -111,9 +112,8 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     protected function _joinProcessEventTable()
     {
         if (!$this->getFlag('process_event_table_joined')) {
-            $this->getSelect()->join(array('process_event' => $this->getTable('index/process_event')),
-                'process_event.event_id=main_table.event_id',
-                array('process_event_status' => 'status')
+            $this->getSelect()->join(array('process_event' => $this->getTable('index/process_event')), 'process_event.event_id=main_table.event_id', array(
+                'process_event_status' => 'status')
             );
             $this->setFlag('process_event_table_joined', true);
         }
@@ -133,4 +133,5 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
         $this->_items = array();
         return $this;
     }
+
 }

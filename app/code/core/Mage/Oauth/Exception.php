@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,4 +34,5 @@
  */
 class Mage_Oauth_Exception extends Zend_Exception
 {
+    
 }

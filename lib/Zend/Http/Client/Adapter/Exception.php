@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * @see Zend_Http_Client_Exception
  */
@@ -34,5 +34,7 @@
  */
 class Zend_Http_Client_Adapter_Exception extends Zend_Http_Client_Exception
 {
+
     const READ_TIMEOUT = 1000;
+
 }

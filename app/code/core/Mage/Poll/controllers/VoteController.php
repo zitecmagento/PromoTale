@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,9 +31,9 @@
  * @file        Vote.php
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Poll_VoteController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Action list where need check enabled cookie
      *
@@ -47,8 +48,8 @@ class Mage_Poll_VoteController extends Mage_Core_Controller_Front_Action
      */
     public function addAction()
     {
-        $pollId     = intval($this->getRequest()->getParam('poll_id'));
-        $answerId   = intval($this->getRequest()->getParam('vote'));
+        $pollId = intval($this->getRequest()->getParam('poll_id'));
+        $answerId = intval($this->getRequest()->getParam('vote'));
 
         /** @var $poll Mage_Poll_Model_Poll */
         $poll = Mage::getModel('poll/poll')->load($pollId);
@@ -58,20 +59,20 @@ class Mage_Poll_VoteController extends Mage_Core_Controller_Front_Action
          */
         if ($poll->getId() && !$poll->getClosed() && !$poll->isVoted()) {
             $vote = Mage::getModel('poll/poll_vote')
-                ->setPollAnswerId($answerId)
-                ->setIpAddress(Mage::helper('core/http')->getRemoteAddr(true))
-                ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
+                    ->setPollAnswerId($answerId)
+                    ->setIpAddress(Mage::helper('core/http')->getRemoteAddr(true))
+                    ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
 
             $poll->addVote($vote);
             Mage::getSingleton('core/session')->setJustVotedPoll($pollId);
             Mage::dispatchEvent(
-                'poll_vote_add',
-                array(
-                    'poll'  => $poll,
-                    'vote'  => $vote
-                )
+                    'poll_vote_add', array(
+                'poll' => $poll,
+                'vote' => $vote
+                    )
             );
         }
         $this->_redirectReferer();
     }
+
 }

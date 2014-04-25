@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Resource_ConfigData_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
+
     /**
      * Is application filter applied
      *
@@ -168,4 +170,5 @@ class Mage_XmlConnect_Model_Resource_ConfigData_Collection extends Mage_Core_Mod
     {
         $this->_applicationFilter = $applicationFilter;
     }
+
 }

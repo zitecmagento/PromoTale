@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: BaseMediaSource.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_MediaSource
  */
@@ -82,7 +81,8 @@ abstract class Zend_Gdata_App_BaseMediaSource implements Zend_Gdata_App_MediaSou
      *
      * @return string
      */
-    public function getSlug(){
+    public function getSlug()
+    {
         return $this->_slug;
     }
 
@@ -93,11 +93,11 @@ abstract class Zend_Gdata_App_BaseMediaSource implements Zend_Gdata_App_MediaSou
      * @var string The slug value
      * @return Zend_Gdata_App_MediaSource Provides a fluent interface
      */
-    public function setSlug($value){
+    public function setSlug($value)
+    {
         $this->_slug = $value;
         return $this;
     }
-
 
     /**
      * Magic getter to allow acces like $source->foo to call $source->getFoo()
@@ -110,7 +110,7 @@ abstract class Zend_Gdata_App_BaseMediaSource implements Zend_Gdata_App_MediaSou
      */
     public function __get($name)
     {
-        $method = 'get'.ucfirst($name);
+        $method = 'get' . ucfirst($name);
         if (method_exists($this, $method)) {
             return call_user_func(array(&$this, $method));
         } else if (property_exists($this, "_${name}")) {
@@ -118,7 +118,7 @@ abstract class Zend_Gdata_App_BaseMediaSource implements Zend_Gdata_App_MediaSou
         } else {
             #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                    'Property ' . $name . ' does not exist');
+            'Property ' . $name . ' does not exist');
         }
     }
 
@@ -134,7 +134,7 @@ abstract class Zend_Gdata_App_BaseMediaSource implements Zend_Gdata_App_MediaSou
      */
     public function __set($name, $val)
     {
-        $method = 'set'.ucfirst($name);
+        $method = 'set' . ucfirst($name);
         if (method_exists($this, $method)) {
             return call_user_func(array(&$this, $method), $val);
         } else if (isset($this->{'_' . $name}) || ($this->{'_' . $name} === null)) {
@@ -142,7 +142,7 @@ abstract class Zend_Gdata_App_BaseMediaSource implements Zend_Gdata_App_MediaSou
         } else {
             #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                    'Property ' . $name . '  does not exist');
+            'Property ' . $name . '  does not exist');
         }
     }
 
@@ -158,7 +158,7 @@ abstract class Zend_Gdata_App_BaseMediaSource implements Zend_Gdata_App_MediaSou
         if (!($rc->hasProperty($privName))) {
             #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                    'Property ' . $name . ' does not exist');
+            'Property ' . $name . ' does not exist');
         } else {
             if (isset($this->{$privName})) {
                 if (is_array($this->{$privName})) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Abstract
 {
+
     /**
      * Sales Qoute Billing Address instance
      *
@@ -55,8 +57,8 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
     protected function _construct()
     {
         $this->getCheckout()->setStepData('billing', array(
-            'label'     => Mage::helper('checkout')->__('Billing Information'),
-            'is_show'   => $this->isShow()
+            'label' => Mage::helper('checkout')->__('Billing Information'),
+            'is_show' => $this->isShow()
         ));
 
         if ($this->isCustomerLoggedIn()) {
@@ -67,8 +69,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
 
     public function isUseBillingAddressForShipping()
     {
-        if (($this->getQuote()->getIsVirtual())
-            || !$this->getQuote()->getShippingAddress()->getSameAsBilling()) {
+        if (($this->getQuote()->getIsVirtual()) || !$this->getQuote()->getShippingAddress()->getSameAsBilling()) {
             return false;
         }
         return true;
@@ -104,10 +105,10 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         if (is_null($this->_address)) {
             if ($this->isCustomerLoggedIn()) {
                 $this->_address = $this->getQuote()->getBillingAddress();
-                if(!$this->_address->getFirstname()) {
+                if (!$this->_address->getFirstname()) {
                     $this->_address->setFirstname($this->getQuote()->getCustomer()->getFirstname());
                 }
-                if(!$this->_address->getLastname()) {
+                if (!$this->_address->getLastname()) {
                     $this->_address->setLastname($this->getQuote()->getCustomer()->getLastname());
                 }
             } else {
@@ -160,6 +161,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
 
     public function getSaveUrl()
     {
+        
     }
 
     /**
@@ -189,9 +191,10 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
     public function getTaxvatHtml()
     {
         return $this->_getTaxvat()
-            ->setTaxvat($this->getQuote()->getCustomerTaxvat())
-            ->setFieldIdFormat('billing:%s')
-            ->setFieldNameFormat('billing[%s]')
-            ->toHtml();
+                        ->setTaxvat($this->getQuote()->getCustomerTaxvat())
+                        ->setFieldIdFormat('billing:%s')
+                        ->setFieldNameFormat('billing[%s]')
+                        ->toHtml();
     }
+
 }

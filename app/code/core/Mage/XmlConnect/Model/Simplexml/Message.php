@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,20 +34,21 @@
  */
 class Mage_XmlConnect_Model_Simplexml_Message extends Varien_Object
 {
+
     /**
      * Message status `error`
      */
-    const MESSAGE_STATUS_ERROR      = 'error';
+    const MESSAGE_STATUS_ERROR = 'error';
 
     /**
      * Message status `warning`
      */
-    const MESSAGE_STATUS_WARNING    = 'warning';
+    const MESSAGE_STATUS_WARNING = 'warning';
 
     /**
      * Message status `success`
      */
-    const MESSAGE_STATUS_SUCCESS    = 'success';
+    const MESSAGE_STATUS_SUCCESS = 'success';
 
     /**
      * Error message decorator
@@ -109,8 +111,8 @@ class Mage_XmlConnect_Model_Simplexml_Message extends Varien_Object
                 break;
             default:
                 $this->setMessageCode(Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT)
-                    ->setMessageText(Mage::helper('xmlconnect')->__('Message type doesn\'t recognized'))
-                    ->_setMessageStatus()->_setFlagError(true);
+                        ->setMessageText(Mage::helper('xmlconnect')->__('Message type doesn\'t recognized'))
+                        ->_setMessageStatus()->_setFlagError(true);
                 $renderer = self::MESSAGE_STATUS_ERROR;
                 break;
         }
@@ -264,4 +266,5 @@ class Mage_XmlConnect_Model_Simplexml_Message extends Varien_Object
         $this->_flagError = $flagError;
         return $this;
     }
+
 }

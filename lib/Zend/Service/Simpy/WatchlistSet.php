@@ -20,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: WatchlistSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Simpy_Watchlist
  */
 #require_once 'Zend/Service/Simpy/Watchlist.php';
-
 
 /**
  * @category   Zend
@@ -37,6 +34,7 @@
  */
 class Zend_Service_Simpy_WatchlistSet implements IteratorAggregate
 {
+
     /**
      * List of watchlists
      *
@@ -79,4 +77,5 @@ class Zend_Service_Simpy_WatchlistSet implements IteratorAggregate
     {
         return count($this->_watchlists);
     }
+
 }

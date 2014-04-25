@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LICENSE
  *
@@ -16,7 +17,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 #require_once 'Zend/Cloud/DocumentService/QueryAdapter.php';
 
 /**
@@ -31,18 +31,18 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cloud_DocumentService_Query
-    implements Zend_Cloud_DocumentService_QueryAdapter
+class Zend_Cloud_DocumentService_Query implements Zend_Cloud_DocumentService_QueryAdapter
 {
+
     /**
      * Known query types
      */
-    const QUERY_SELECT  = 'select';
-    const QUERY_FROM    = 'from';
-    const QUERY_WHERE   = 'where';
+    const QUERY_SELECT = 'select';
+    const QUERY_FROM = 'from';
+    const QUERY_WHERE = 'where';
     const QUERY_WHEREID = 'whereid'; // request element by ID
-    const QUERY_LIMIT   = 'limit';
-    const QUERY_ORDER   = 'order';
+    const QUERY_LIMIT = 'limit';
+    const QUERY_ORDER = 'order';
 
     /**
      * Clause list
@@ -63,7 +63,7 @@ class Zend_Cloud_DocumentService_Query
      * @param  mixed $args
      * @return Zend_Cloud_DocumentService_Query
      */
-    public function __call($name, $args) 
+    public function __call($name, $args)
     {
         $this->_clauses[] = array(strtolower($name), $args);
         return $this;
@@ -87,7 +87,7 @@ class Zend_Cloud_DocumentService_Query
         $this->_clauses[] = array(self::QUERY_SELECT, $select);
         return $this;
     }
-    
+
     /**
      * FROM clause
      * 
@@ -96,14 +96,14 @@ class Zend_Cloud_DocumentService_Query
      */
     public function from($name)
     {
-        if(!is_string($name)) {
+        if (!is_string($name)) {
             #require_once 'Zend/Cloud/DocumentService/Exception.php';           
             throw new Zend_Cloud_DocumentService_Exception("FROM argument must be a string");
         }
         $this->_clauses[] = array(self::QUERY_FROM, $name);
         return $this;
     }
-    
+
     /**
      * WHERE query
      * 
@@ -178,7 +178,7 @@ class Zend_Cloud_DocumentService_Query
     {
         return $this->getClauses();
     }
-    
+
     /**
      * Return query clauses as an array
      * 
@@ -186,6 +186,7 @@ class Zend_Cloud_DocumentService_Query
      */
     public function getClauses()
     {
-         return $this->_clauses;   
+        return $this->_clauses;
     }
+
 }

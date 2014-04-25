@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Order_Totals_Tax extends Mage_Tax_Block_Sales_Order_Tax
 {
+
     /**
      * Add order taxes rendered to XML object
      *
@@ -52,19 +54,19 @@ class Mage_XmlConnect_Block_Customer_Order_Totals_Tax extends Mage_Tax_Block_Sal
         $fullInfo = $this->getOrder()->getFullTaxInfo();
 
         if ($this->displayFullSummary() && !empty($fullInfo)) {
-            foreach ((array)$fullInfo as $info) {
+            foreach ((array) $fullInfo as $info) {
                 if (isset($info['hidden']) && $info['hidden']) {
                     continue;
                 }
 
-                foreach ((array)$info['rates'] as $rate) {
+                foreach ((array) $info['rates'] as $rate) {
                     if (isset($info['amount'])) {
                         $config = array('label' => $rate['title']);
                         if (!is_null($rate['percent'])) {
                             $config['percent'] = sprintf('(%0.2f%%)', $rate['percent']);
                         }
                         $taxesXmlObj->addCustomChild(
-                            'item', is_null($rate['percent']) ? '' : $this->_formatPrice($info['amount']), $config
+                                'item', is_null($rate['percent']) ? '' : $this->_formatPrice($info['amount']), $config
                         );
                     }
                 }
@@ -87,19 +89,19 @@ class Mage_XmlConnect_Block_Customer_Order_Totals_Tax extends Mage_Tax_Block_Sal
         $fullInfo = $this->getOrder()->getFullTaxInfo();
 
         if ($this->displayFullSummary() && !empty($fullInfo)) {
-            foreach ((array)$fullInfo as $info) {
+            foreach ((array) $fullInfo as $info) {
                 if (isset($info['hidden']) && $info['hidden']) {
                     continue;
                 }
                 $i = 0;
-                foreach ((array)$info['rates'] as $rate) {
+                foreach ((array) $info['rates'] as $rate) {
                     if (isset($info['amount'])) {
                         $config = array('id' => 'tax_rate_' . $i, 'label' => $rate['title']);
                         if (!is_null($rate['percent'])) {
                             $config['percent'] = sprintf('(%0.2f%%)', $rate['percent']);
                         }
                         $totalsXmlObj->addCustomChild(
-                            'item', is_null($rate['percent']) ? '' : $this->_formatPrice($info['amount']), $config
+                                'item', is_null($rate['percent']) ? '' : $this->_formatPrice($info['amount']), $config
                         );
                         ++$i;
                     }
@@ -122,4 +124,5 @@ class Mage_XmlConnect_Block_Customer_Order_Totals_Tax extends Mage_Tax_Block_Sal
     {
         return Mage::helper('xmlconnect/customer_order')->formatPrice($this, $amount);
     }
+
 }

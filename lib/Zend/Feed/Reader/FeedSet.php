@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FeedSet.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /**
  * @see Zend_Feed_Reader
  */
@@ -39,9 +39,7 @@ class Zend_Feed_Reader_FeedSet extends ArrayObject
 {
 
     public $rss = null;
-
     public $rdf = null;
-
     public $atom = null;
 
     /**
@@ -63,15 +61,14 @@ class Zend_Feed_Reader_FeedSet extends ArrayObject
     public function addLinks(DOMNodeList $links, $uri)
     {
         foreach ($links as $link) {
-            if (strtolower($link->getAttribute('rel')) !== 'alternate'
-                || !$link->getAttribute('type') || !$link->getAttribute('href')) {
+            if (strtolower($link->getAttribute('rel')) !== 'alternate' || !$link->getAttribute('type') || !$link->getAttribute('href')) {
                 continue;
             }
             if (!isset($this->rss) && $link->getAttribute('type') == 'application/rss+xml') {
                 $this->rss = $this->_absolutiseUri(trim($link->getAttribute('href')), $uri);
-            } elseif(!isset($this->atom) && $link->getAttribute('type') == 'application/atom+xml') {
+            } elseif (!isset($this->atom) && $link->getAttribute('type') == 'application/atom+xml') {
                 $this->atom = $this->_absolutiseUri(trim($link->getAttribute('href')), $uri);
-            } elseif(!isset($this->rdf) && $link->getAttribute('type') == 'application/rdf+xml') {
+            } elseif (!isset($this->rdf) && $link->getAttribute('type') == 'application/rdf+xml') {
                 $this->rdf = $this->_absolutiseUri(trim($link->getAttribute('href')), $uri);
             }
             $this[] = new self(array(
@@ -81,7 +78,7 @@ class Zend_Feed_Reader_FeedSet extends ArrayObject
             ));
         }
     }
-    
+
     /**
      *  Attempt to turn a relative URI into an absolute URI
      */
@@ -103,7 +100,7 @@ class Zend_Feed_Reader_FeedSet extends ArrayObject
         }
         return $link;
     }
-    
+
     /**
      *  Canonicalize relative path
      */

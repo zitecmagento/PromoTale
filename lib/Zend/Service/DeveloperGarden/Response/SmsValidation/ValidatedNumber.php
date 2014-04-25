@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 class Zend_Service_DeveloperGarden_Response_SmsValidation_ValidatedNumber
 {
+
     /**
      * the number
      * @var string
@@ -61,4 +63,5 @@ class Zend_Service_DeveloperGarden_Response_SmsValidation_ValidatedNumber
     {
         return $this->validUntil;
     }
+
 }

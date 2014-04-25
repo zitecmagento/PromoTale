@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Exists.php 20352 2010-01-17 17:55:38Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Validate_File_Exists extends Zend_Validate_Abstract
 {
+
     /**
      * @const string Error constants
      */
@@ -73,7 +74,7 @@ class Zend_Validate_File_Exists extends Zend_Validate_Abstract
             $directory = explode(',', $directory);
         } else if (!is_array($directory)) {
             #require_once 'Zend/Validate/Exception.php';
-            throw new Zend_Validate_Exception ('Invalid options to validator provided');
+            throw new Zend_Validate_Exception('Invalid options to validator provided');
         }
 
         $this->setDirectory($directory);
@@ -87,7 +88,7 @@ class Zend_Validate_File_Exists extends Zend_Validate_Abstract
      */
     public function getDirectory($asArray = false)
     {
-        $asArray   = (bool) $asArray;
+        $asArray = (bool) $asArray;
         $directory = (string) $this->_directory;
         if ($asArray) {
             $directory = explode(',', $directory);
@@ -123,7 +124,7 @@ class Zend_Validate_File_Exists extends Zend_Validate_Abstract
             $directory = explode(',', $directory);
         } else if (!is_array($directory)) {
             #require_once 'Zend/Validate/Exception.php';
-            throw new Zend_Validate_Exception ('Invalid options to validator provided');
+            throw new Zend_Validate_Exception('Invalid options to validator provided');
         }
 
         foreach ($directory as $content) {
@@ -200,4 +201,5 @@ class Zend_Validate_File_Exists extends Zend_Validate_Abstract
         $this->_error($errorType);
         return false;
     }
+
 }

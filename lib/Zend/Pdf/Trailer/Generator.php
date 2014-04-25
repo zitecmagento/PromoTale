@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Generator.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Pdf_Trailer */
 #require_once 'Zend/Pdf/Trailer.php';
 
@@ -32,6 +31,7 @@
  */
 class Zend_Pdf_Trailer_Generator extends Zend_Pdf_Trailer
 {
+
     /**
      * Object constructor
      *
@@ -74,4 +74,5 @@ class Zend_Pdf_Trailer_Generator extends Zend_Pdf_Trailer
     {
         return 0;
     }
+
 }

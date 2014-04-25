@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Core_Model_Url_Rewrite_Request
 {
+
     /**
      * Instance of request
      *
@@ -88,12 +90,10 @@ class Mage_Core_Model_Url_Rewrite_Request
     public function __construct(array $args)
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getModel('core/factory');
-        $this->_app     = !empty($args['app']) ? $args['app'] : Mage::app();
-        $this->_config  = !empty($args['config']) ? $args['config'] : Mage::getConfig();
-        $this->_request = !empty($args['request'])
-            ? $args['request'] : Mage::app()->getFrontController()->getRequest();
-        $this->_rewrite = !empty($args['rewrite'])
-            ? $args['rewrite'] : $this->_factory->getModel('core/url_rewrite');
+        $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
+        $this->_config = !empty($args['config']) ? $args['config'] : Mage::getConfig();
+        $this->_request = !empty($args['request']) ? $args['request'] : Mage::app()->getFrontController()->getRequest();
+        $this->_rewrite = !empty($args['rewrite']) ? $args['rewrite'] : $this->_factory->getModel('core/url_rewrite');
 
         if (!empty($args['routers'])) {
             $this->_routers = $args['routers'];
@@ -168,8 +168,7 @@ class Mage_Core_Model_Url_Rewrite_Request
             return false;
         }
 
-        $this->_request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
-            $this->_rewrite->getRequestPath());
+        $this->_request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, $this->_rewrite->getRequestPath());
         $this->_processRedirectOptions();
 
         return true;
@@ -235,13 +234,13 @@ class Mage_Core_Model_Url_Rewrite_Request
             return false;
         }
         foreach ($config->children() as $rewrite) {
-            $from = (string)$rewrite->from;
-            $to = (string)$rewrite->to;
+            $from = (string) $rewrite->from;
+            $to = (string) $rewrite->to;
             if (empty($from) || empty($to)) {
                 continue;
             }
             $from = $this->_processRewriteUrl($from);
-            $to   = $this->_processRewriteUrl($to);
+            $to = $this->_processRewriteUrl($to);
 
             $pathInfo = preg_replace($from, $to, $this->_request->getPathInfo());
             if (isset($rewrite->complete)) {
@@ -389,4 +388,5 @@ class Mage_Core_Model_Url_Rewrite_Request
         }
         return $router;
     }
+
 }

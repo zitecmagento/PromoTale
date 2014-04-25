@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert container abstract
  *
@@ -32,22 +32,17 @@
  * @package    Mage_Dataflow
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Dataflow_Model_Convert_Container_Abstract
-    implements Mage_Dataflow_Model_Convert_Container_Interface
+abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Dataflow_Model_Convert_Container_Interface
 {
+
     protected $_batchParams = array();
-
     protected $_vars;
-
     protected $_profile;
-
     protected $_action;
-
     protected $_data;
-
     protected $_position;
 
-    public function getVar($key, $default=null)
+    public function getVar($key, $default = null)
     {
         if (!isset($this->_vars[$key]) || (!is_array($this->_vars[$key]) && strlen($this->_vars[$key]) == 0)) {
             return $default;
@@ -60,7 +55,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
         return $this->_vars;
     }
 
-    public function setVar($key, $value=null)
+    public function setVar($key, $value = null)
     {
         if (is_array($key) && is_null($value)) {
             $this->_vars = $key;
@@ -109,7 +104,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
         return $this;
     }
 
-    public function validateDataString($data=null)
+    public function validateDataString($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
@@ -120,7 +115,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
         return true;
     }
 
-    public function validateDataArray($data=null)
+    public function validateDataArray($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
@@ -131,13 +126,13 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
         return true;
     }
 
-    public function validateDataGrid($data=null)
+    public function validateDataGrid($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
         }
         if (!is_array($data) || !is_array(current($data))) {
-            if (count($data)==0) {
+            if (count($data) == 0) {
                 return true;
             }
             $this->addException("Invalid data type, expecting 2D grid array.", Mage_Dataflow_Model_Convert_Exception::FATAL);
@@ -148,8 +143,8 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
     public function getGridFields($grid)
     {
         $fields = array();
-        foreach ($grid as $i=>$row) {
-            foreach ($row as $fieldName=>$data) {
+        foreach ($grid as $i => $row) {
+            foreach ($row as $fieldName => $data) {
                 if (!in_array($fieldName, $fields)) {
                     $fields[] = $fieldName;
                 }
@@ -158,7 +153,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
         return $fields;
     }
 
-    public function addException($error, $level=null)
+    public function addException($error, $level = null)
     {
         $e = new Mage_Dataflow_Model_Convert_Exception($error);
         $e->setLevel(!is_null($level) ? $level : Mage_Dataflow_Model_Convert_Exception::NOTICE);
@@ -198,4 +193,5 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
         }
         return $this->_batchParams;
     }
+
 }

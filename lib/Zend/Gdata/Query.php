@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Query.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_Gdata_App_Util
  */
@@ -387,15 +386,15 @@ class Zend_Gdata_Query
     /*
      * @return string id
      */
+
     public function getCategory()
     {
         return $this->_category;
     }
 
-
     public function __get($name)
     {
-        $method = 'get'.ucfirst($name);
+        $method = 'get' . ucfirst($name);
         if (method_exists($this, $method)) {
             return call_user_func(array(&$this, $method));
         } else {
@@ -406,7 +405,7 @@ class Zend_Gdata_Query
 
     public function __set($name, $val)
     {
-        $method = 'set'.ucfirst($name);
+        $method = 'set' . ucfirst($name);
         if (method_exists($this, $method)) {
             return call_user_func(array(&$this, $method), $val);
         } else {

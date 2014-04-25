@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Widget
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Form with widget to select
      */
@@ -42,16 +43,16 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
         $form = new Varien_Data_Form();
 
         $fieldset = $form->addFieldset('base_fieldset', array(
-            'legend'    => $this->helper('widget')->__('Widget')
+            'legend' => $this->helper('widget')->__('Widget')
         ));
 
         $select = $fieldset->addField('select_widget_type', 'select', array(
-            'label'                 => $this->helper('widget')->__('Widget Type'),
-            'title'                 => $this->helper('widget')->__('Widget Type'),
-            'name'                  => 'widget_type',
-            'required'              => true,
-            'options'               => $this->_getWidgetSelectOptions(),
-            'after_element_html'    => $this->_getWidgetSelectAfterHtml(),
+            'label' => $this->helper('widget')->__('Widget Type'),
+            'title' => $this->helper('widget')->__('Widget Type'),
+            'name' => 'widget_type',
+            'required' => true,
+            'options' => $this->_getWidgetSelectOptions(),
+            'after_element_html' => $this->_getWidgetSelectAfterHtml(),
         ));
 
         $form->setUseContainer(true);
@@ -109,8 +110,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
             }
             if ($withEmptyElement) {
                 array_unshift($result, array(
-                    'type'        => '',
-                    'name'        => $this->helper('adminhtml')->__('-- Please Select --'),
+                    'type' => '',
+                    'name' => $this->helper('adminhtml')->__('-- Please Select --'),
                     'description' => '',
                 ));
             }
@@ -129,4 +130,5 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
     {
         return Mage::registry('skip_widgets');
     }
+
 }

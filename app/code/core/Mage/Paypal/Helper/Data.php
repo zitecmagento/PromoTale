@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Cache for shouldAskToCreateBillingAgreement()
      *
@@ -62,7 +64,8 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
-    public function getElementBackendConfig(Varien_Data_Form_Element_Abstract $element) {
+    public function getElementBackendConfig(Varien_Data_Form_Element_Abstract $element)
+    {
         $config = $element->getFieldConfig()->backend_congif;
         if (!$config) {
             return false;
@@ -76,4 +79,5 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return Mage::helper('core')->jsonEncode($config);
     }
+
 }

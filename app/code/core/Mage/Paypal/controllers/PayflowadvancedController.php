@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Express_Abstract
 {
+
     /**
      * Config mode type
      *
@@ -54,7 +56,6 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
      */
     protected $_checkoutType = 'Mage_Paypal_Model_Payflowadvanced';
 
-
     /**
      * When a customer cancel payment from payflow gateway.
      *
@@ -64,8 +65,8 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
     {
         $gotoSection = $this->_cancelPayment();
         $redirectBlock = $this->_getIframeBlock()
-            ->setGotoSection($gotoSection)
-            ->setTemplate('paypal/payflowadvanced/redirect.phtml');
+                ->setGotoSection($gotoSection)
+                ->setTemplate('paypal/payflowadvanced/redirect.phtml');
         $this->getResponse()->setBody($redirectBlock->toHtml());
     }
 
@@ -77,7 +78,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
     public function returnUrlAction()
     {
         $redirectBlock = $this->_getIframeBlock()
-            ->setTemplate('paypal/payflowadvanced/redirect.phtml');
+                ->setTemplate('paypal/payflowadvanced/redirect.phtml');
 
         $session = $this->_getCheckout();
         if ($session->getLastRealOrderId()) {
@@ -110,7 +111,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
     public function formAction()
     {
         $this->getResponse()
-            ->setBody($this->_getIframeBlock()->toHtml());
+                ->setBody($this->_getIframeBlock()->toHtml());
     }
 
     /**
@@ -124,9 +125,12 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
         if (isset($data['INVNUM'])) {
             /** @var $paymentModel Mage_Paypal_Model_Payflowadvanced */
             $paymentModel = Mage::getModel('paypal/payflowadvanced');
-            try {
+            try
+            {
                 $paymentModel->process($data);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::logException($e);
             }
         }
@@ -169,6 +173,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
     {
         $this->loadLayout('paypal_payflow_advanced_iframe');
         return $this->getLayout()
-            ->getBlock('payflow.advanced.iframe');
+                        ->getBlock('payflow.advanced.iframe');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
+
     /**
      * Flag to check can items be move to customer storage
      *
@@ -66,10 +68,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
             if ($stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
                 // This check has been performed properly in Inventory observer, so it has no sense
                 /*
-                $check = $stockItem->checkQuoteItemQty($item->getQty(), $item->getQty(), $item->getQty());
-                $item->setMessage($check->getMessage());
-                $item->setHasError($check->getHasError());
-                */
+                  $check = $stockItem->checkQuoteItemQty($item->getQty(), $item->getQty(), $item->getQty());
+                  $item->setMessage($check->getMessage());
+                  $item->setHasError($check->getHasError());
+                 */
                 if ($item->getProduct()->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_DISABLED) {
                     $item->setMessage(Mage::helper('adminhtml')->__('This product is currently disabled.'));
                     $item->setHasError(true);
@@ -144,12 +146,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     {
         if (is_null($item)) {
             return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-                'items', $this->getQuote(), $this->getStore()
+                            'items', $this->getQuote(), $this->getStore()
             );
         }
 
         return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-            'item', $item, $this->getStore()
+                        'item', $item, $this->getStore()
         );
     }
 
@@ -171,8 +173,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      */
     public function displayTotalsIncludeTax()
     {
-        $res = Mage::getSingleton('tax/config')->displayCartSubtotalInclTax($this->getStore())
-            || Mage::getSingleton('tax/config')->displayCartSubtotalBoth($this->getStore());
+        $res = Mage::getSingleton('tax/config')->displayCartSubtotalInclTax($this->getStore()) || Mage::getSingleton('tax/config')->displayCartSubtotalBoth($this->getStore());
         return $res;
     }
 
@@ -188,7 +189,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
             if ($address->getSubtotalInclTax()) {
                 return $address->getSubtotalInclTax();
             }
-            return $address->getSubtotal()+$address->getTaxAmount();
+            return $address->getSubtotal() + $address->getTaxAmount();
         } else {
             return $address->getSubtotal();
         }
@@ -204,8 +205,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     {
         $address = $this->getQuoteAddress();
         if ($this->displayTotalsIncludeTax()) {
-            $subtotalInclTax = $address->getSubtotal() + $address->getTaxAmount()
-                    + $address->getHiddenTaxAmount() + $this->getDiscountAmount();
+            $subtotalInclTax = $address->getSubtotal() + $address->getTaxAmount() + $address->getHiddenTaxAmount() + $this->getDiscountAmount();
             return $subtotalInclTax;
         } else {
             return $address->getSubtotal() + $this->getDiscountAmount();
@@ -241,8 +241,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     {
         if ($this->getQuote()->isVirtual()) {
             return $this->getQuote()->getBillingAddress();
-        }
-        else {
+        } else {
             return $this->getQuote()->getShippingAddress();
         }
     }
@@ -281,13 +280,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         if ($prices) {
             $info = array();
             foreach ($prices as $data) {
-                $qty    = $data['price_qty'] * 1;
-                $price  = $this->convertPrice($data['price']);
+                $qty = $data['price_qty'] * 1;
+                $price = $this->convertPrice($data['price']);
                 $info[] = $this->helper('sales')->__('Buy %s for price %s', $qty, $price);
             }
             return implode(', ', $info);
-        }
-        else {
+        } else {
             return $this->helper('sales')->__('Item ordered qty');
         }
     }
@@ -304,8 +302,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         $prices = $item->getProduct()->getTierPrice();
         if ($prices) {
             foreach ($prices as $data) {
-                $qty    = $data['price_qty'] * 1;
-                $price  = $this->convertPrice($data['price']);
+                $qty = $data['price_qty'] * 1;
+                $price = $this->convertPrice($data['price']);
                 $info[] = $this->helper('sales')->__('%s for %s', $qty, $price);
             }
             $html = implode('<br/>', $info);
@@ -334,8 +332,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
 
                     $quoteItemOption = $item->getOptionByCode('option_' . $option->getId());
                     $group = $option->groupFactory($option->getType())
-                        ->setOption($option)
-                        ->setQuoteItemOption($quoteItemOption);
+                            ->setOption($option)
+                            ->setQuoteItemOption($quoteItemOption);
 
                     $optionStr .= $group->getEditableOptionValue($quoteItemOption->getValue());
                     $optionStr .= "\n";
@@ -395,7 +393,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     public function displayRowTotalWithDiscountInclTax($item)
     {
         $tax = ($item->getTaxAmount() ? $item->getTaxAmount() : 0);
-        return $this->formatPrice($item->getRowTotal()-$item->getDiscountAmount()+$tax);
+        return $this->formatPrice($item->getRowTotal() - $item->getDiscountAmount() + $tax);
     }
 
     /**
@@ -441,8 +439,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         }
 
         return $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData($options)
-            ->toHtml();
+                        ->setData($options)
+                        ->toHtml();
     }
 
     /**
@@ -454,8 +452,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     public function getItemExtraInfo($item)
     {
         return $this->getLayout()
-            ->getBlock('order_item_extra_info')
-            ->setItem($item);
+                        ->getBlock('order_item_extra_info')
+                        ->setItem($item);
     }
 
     /**
@@ -469,7 +467,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         return $item->getProduct()->isVisibleInSiteVisibility();
     }
 
-
     /**
      * Retrieve collection of customer wishlists
      *
@@ -478,6 +475,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     public function getCustomerWishlists()
     {
         return Mage::getModel("wishlist/wishlist")->getCollection()
-            ->filterByCustomerId($this->getCustomerId());
+                        ->filterByCustomerId($this->getCustomerId());
     }
+
 }

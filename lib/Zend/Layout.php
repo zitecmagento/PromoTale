@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 class Zend_Layout
 {
+
     /**
      * Placeholder container for layout variables
      * @var Zend_View_Helper_Placeholder_Container
@@ -82,7 +84,6 @@ class Zend_Layout
      * @var string
      */
     protected $_viewScriptPath = null;
-
     protected $_viewBasePath = null;
     protected $_viewBasePrefix = 'Layout_View';
 
@@ -271,9 +272,8 @@ class Zend_Layout
                 Zend_Loader::loadClass($pluginClass);
             }
             $front->registerPlugin(
-                // register to run last | BUT before the ErrorHandler (if its available)
-                new $pluginClass($this),
-                99
+                    // register to run last | BUT before the ErrorHandler (if its available)
+                    new $pluginClass($this), 99
             );
         }
     }
@@ -382,7 +382,6 @@ class Zend_Layout
     {
         return $this->_enabled;
     }
-
 
     public function setViewBasePath($path, $prefix = 'Layout_View')
     {
@@ -640,8 +639,8 @@ class Zend_Layout
             #require_once 'Zend/Filter/Inflector.php';
             $inflector = new Zend_Filter_Inflector();
             $inflector->setTargetReference($this->_inflectorTarget)
-                      ->addRules(array(':script' => array('Word_CamelCaseToDash', 'StringToLower')))
-                      ->setStaticRuleReference('suffix', $this->_viewSuffix);
+                    ->addRules(array(':script' => array('Word_CamelCaseToDash', 'StringToLower')))
+                    ->setStaticRuleReference('suffix', $this->_viewSuffix);
             $this->setInflector($inflector);
         }
 
@@ -776,8 +775,7 @@ class Zend_Layout
             $name = $this->getLayout();
         }
 
-        if ($this->inflectorEnabled() && (null !== ($inflector = $this->getInflector())))
-        {
+        if ($this->inflectorEnabled() && (null !== ($inflector = $this->getInflector()))) {
             $name = $this->_inflector->filter(array('script' => $name));
         }
 
@@ -795,4 +793,5 @@ class Zend_Layout
 
         return $view->render($name);
     }
+
 }

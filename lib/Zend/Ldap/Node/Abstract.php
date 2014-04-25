@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Ldap_Attribute
  */
@@ -40,7 +40,8 @@
  */
 abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
 {
-    protected static $_systemAttributes=array('createtimestamp', 'creatorsname',
+
+    protected static $_systemAttributes = array('createtimestamp', 'creatorsname',
         'entrycsn', 'entrydn', 'entryuuid', 'hassubordinates', 'modifiersname',
         'modifytimestamp', 'structuralobjectclass', 'subschemasubentry',
         'distinguishedname', 'instancetype', 'name', 'objectcategory', 'objectguid',
@@ -299,10 +300,11 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
     {
         $name = strtolower($name);
         if (isset($this->_currentData[$name])) {
-            if ($emptyExists) return true;
-            return count($this->_currentData[$name])>0;
-        }
-        else return false;
+            if ($emptyExists)
+                return true;
+            return count($this->_currentData[$name]) > 0;
+        } else
+            return false;
     }
 
     /**
@@ -331,8 +333,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
     {
         if ($name == 'dn') {
             return $this->getDnString();
-        }
-        else {
+        } else {
             return Zend_Ldap_Attribute::getAttribute($this->_currentData, $name, $index);
         }
     }
@@ -482,4 +483,5 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
     {
         return count($this->_currentData);
     }
+
 }

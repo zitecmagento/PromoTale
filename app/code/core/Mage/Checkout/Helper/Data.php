@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     const XML_PATH_GUEST_CHECKOUT = 'checkout/options/guest_checkout';
     const XML_PATH_CUSTOMER_MUST_BE_LOGGED = 'checkout/options/customer_must_be_logged';
 
@@ -61,7 +63,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->getQuote()->getStore()->formatPrice($price);
     }
 
-    public function convertPrice($price, $format=true)
+    public function convertPrice($price, $format = true)
     {
         return $this->getQuote()->getStore()->convertPrice($price, $format);
     }
@@ -73,9 +75,9 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                 $this->_agreements = array();
             } else {
                 $this->_agreements = Mage::getModel('checkout/agreement')->getCollection()
-                    ->addStoreFilter(Mage::app()->getStore()->getId())
-                    ->addFieldToFilter('is_active', 1)
-                    ->getAllIds();
+                        ->addStoreFilter(Mage::app()->getStore()->getId())
+                        ->addFieldToFilter('is_active', 1)
+                        ->getAllIds();
             }
         }
         return $this->_agreements;
@@ -88,7 +90,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function canOnepageCheckout()
     {
-        return (bool)Mage::getStoreConfig('checkout/options/onepage_checkout_enabled');
+        return (bool) Mage::getStoreConfig('checkout/options/onepage_checkout_enabled');
     }
 
     /**
@@ -106,7 +108,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $qty = ($item->getQty() ? $item->getQty() : ($item->getQtyOrdered() ? $item->getQtyOrdered() : 1));
 
         //Unit price is rowtotal/qty
-        return $qty > 0 ? $this->getSubtotalInclTax($item)/$qty :0;
+        return $qty > 0 ? $this->getSubtotalInclTax($item) / $qty : 0;
     }
 
     /**
@@ -121,8 +123,8 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             return $item->getRowTotalInclTax();
         }
         //Since tax amount contains weee tax
-        $tax = $item->getTaxAmount() + $item->getDiscountTaxCompensation()
-            - $this->_getWeeeHelper()->getTotalRowTaxAppliedForWeeeTax($item);;
+        $tax = $item->getTaxAmount() + $item->getDiscountTaxCompensation() - $this->_getWeeeHelper()->getTotalRowTaxAppliedForWeeeTax($item);
+        ;
 
         return $item->getRowTotal() + $tax;
     }
@@ -158,9 +160,8 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getBaseSubtotalInclTax($item)
     {
-        $tax = $item->getBaseTaxAmount() + $item->getBaseDiscountTaxCompensation()
-            - $this->_getWeeeHelper()->getBaseTotalRowTaxAppliedForWeeeTax($item);
-        return $item->getBaseRowTotal()+$tax;
+        $tax = $item->getBaseTaxAmount() + $item->getBaseDiscountTaxCompensation() - $this->_getWeeeHelper()->getBaseTotalRowTaxAppliedForWeeeTax($item);
+        return $item->getBaseRowTotal() + $tax;
     }
 
     /**
@@ -191,8 +192,8 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $_reciever = Mage::getStoreConfig('checkout/payment_failed/reciever', $checkout->getStoreId());
         $sendTo = array(
             array(
-                'email' => Mage::getStoreConfig('trans_email/ident_'.$_reciever.'/email', $checkout->getStoreId()),
-                'name'  => Mage::getStoreConfig('trans_email/ident_'.$_reciever.'/name', $checkout->getStoreId())
+                'email' => Mage::getStoreConfig('trans_email/ident_' . $_reciever . '/email', $checkout->getStoreId()),
+                'name' => Mage::getStoreConfig('trans_email/ident_' . $_reciever . '/name', $checkout->getStoreId())
             )
         );
 
@@ -200,7 +201,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             foreach ($copyTo as $email) {
                 $sendTo[] = array(
                     'email' => $email,
-                    'name'  => null
+                    'name' => null
                 );
             }
         }
@@ -218,32 +219,28 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $items = '';
         foreach ($checkout->getAllVisibleItems() as $_item) {
             /* @var $_item Mage_Sales_Model_Quote_Item */
-            $items .= $_item->getProduct()->getName() . '  x '. $_item->getQty() . '  '
-                . $checkout->getStoreCurrencyCode() . ' '
-                . $_item->getProduct()->getFinalPrice($_item->getQty()) . "\n";
+            $items .= $_item->getProduct()->getName() . '  x ' . $_item->getQty() . '  '
+                    . $checkout->getStoreCurrencyCode() . ' '
+                    . $_item->getProduct()->getFinalPrice($_item->getQty()) . "\n";
         }
         $total = $checkout->getStoreCurrencyCode() . ' ' . $checkout->getGrandTotal();
 
         foreach ($sendTo as $recipient) {
-            $mailTemplate->setDesignConfig(array('area'=>'frontend', 'store'=>$checkout->getStoreId()))
-                ->sendTransactional(
-                $template,
-                Mage::getStoreConfig('checkout/payment_failed/identity', $checkout->getStoreId()),
-                $recipient['email'],
-                $recipient['name'],
-                array(
-                    'reason' => $message,
-                    'checkoutType' => $checkoutType,
-                    'dateAndTime' => Mage::app()->getLocale()->date(),
-                    'customer' => $checkout->getCustomerFirstname() . ' ' . $checkout->getCustomerLastname(),
-                    'customerEmail' => $checkout->getCustomerEmail(),
-                    'billingAddress' => $checkout->getBillingAddress(),
-                    'shippingAddress' => $checkout->getShippingAddress(),
-                    'shippingMethod' => Mage::getStoreConfig('carriers/'.$shippingMethod.'/title'),
-                    'paymentMethod' => Mage::getStoreConfig('payment/'.$paymentMethod.'/title'),
-                    'items' => nl2br($items),
-                    'total' => $total
-                )
+            $mailTemplate->setDesignConfig(array('area' => 'frontend', 'store' => $checkout->getStoreId()))
+                    ->sendTransactional(
+                            $template, Mage::getStoreConfig('checkout/payment_failed/identity', $checkout->getStoreId()), $recipient['email'], $recipient['name'], array(
+                        'reason' => $message,
+                        'checkoutType' => $checkoutType,
+                        'dateAndTime' => Mage::app()->getLocale()->date(),
+                        'customer' => $checkout->getCustomerFirstname() . ' ' . $checkout->getCustomerLastname(),
+                        'customerEmail' => $checkout->getCustomerEmail(),
+                        'billingAddress' => $checkout->getBillingAddress(),
+                        'shippingAddress' => $checkout->getShippingAddress(),
+                        'shippingMethod' => Mage::getStoreConfig('carriers/' . $shippingMethod . '/title'),
+                        'paymentMethod' => Mage::getStoreConfig('payment/' . $paymentMethod . '/title'),
+                        'items' => nl2br($items),
+                        'total' => $total
+                            )
             );
         }
 
@@ -270,18 +267,13 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     public function isMultishippingCheckoutAvailable()
     {
         $quote = $this->getQuote();
-        $isMultiShipping = (bool)(int)Mage::getStoreConfig('shipping/option/checkout_multiple');
+        $isMultiShipping = (bool) (int) Mage::getStoreConfig('shipping/option/checkout_multiple');
         if ((!$quote) || !$quote->hasItems()) {
             return $isMultiShipping;
         }
-        $maximunQty = (int)Mage::getStoreConfig('shipping/option/checkout_multiple_maximum_qty');
-        return $isMultiShipping
-            && !$quote->hasItemsWithDecimalQty()
-            && $quote->validateMinimumAmount(true)
-            && (($quote->getItemsSummaryQty() - $quote->getItemVirtualQty()) > 0)
-            && ($quote->getItemsSummaryQty() <= $maximunQty)
-            && !$quote->hasNominalItems()
-            ;
+        $maximunQty = (int) Mage::getStoreConfig('shipping/option/checkout_multiple_maximum_qty');
+        return $isMultiShipping && !$quote->hasItemsWithDecimalQty() && $quote->validateMinimumAmount(true) && (($quote->getItemsSummaryQty() - $quote->getItemVirtualQty()) > 0) && ($quote->getItemsSummaryQty() <= $maximunQty) && !$quote->hasNominalItems()
+        ;
     }
 
     /**
@@ -303,8 +295,8 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             $result = new Varien_Object();
             $result->setIsAllowed($guestCheckout);
             Mage::dispatchEvent('checkout_allow_guest', array(
-                'quote'  => $quote,
-                'store'  => $store,
+                'quote' => $quote,
+                'store' => $store,
                 'result' => $result
             ));
 
@@ -333,4 +325,5 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_CUSTOMER_MUST_BE_LOGGED);
     }
+
 }

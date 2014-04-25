@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Request interpret adapters
      */
@@ -41,14 +43,15 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Response render adapters
      */
-    const XML_PATH_API2_RESPONSE_RENDERS     = 'global/api2/response/renders';
+    const XML_PATH_API2_RESPONSE_RENDERS = 'global/api2/response/renders';
 
-    /**#@+
+    /*     * #@+
      * Config paths
      */
     const XML_PATH_AUTH_ADAPTERS = 'global/api2/auth_adapters';
-    const XML_PATH_USER_TYPES    = 'global/api2/user_types';
-    /**#@- */
+    const XML_PATH_USER_TYPES = 'global/api2/user_types';
+
+    /*     * #@- */
 
     /**
      * Compare order to be used in adapters list sort
@@ -195,4 +198,5 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
             throw new Exception('Can not determine operation type');
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Resource_Application extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Constructor, setting table and index field
      *
@@ -53,9 +55,7 @@ class Mage_XmlConnect_Model_Resource_Application extends Mage_Core_Model_Resourc
     public function updateApplicationStatus($applicationId, $status)
     {
         $this->_getWriteAdapter()->update(
-            $this->getMainTable(),
-            array('status' => $status),
-            $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $applicationId)
+                $this->getMainTable(), array('status' => $status), $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $applicationId)
         );
         return $this;
     }
@@ -88,9 +88,7 @@ class Mage_XmlConnect_Model_Resource_Application extends Mage_Core_Model_Resourc
         $isCodePrefixed = $object->isCodePrefixed();
         if (!$isCodePrefixed) {
             $this->_getWriteAdapter()->update(
-                $this->getMainTable(),
-                array('code' => $appCode . $object->getId()),
-                $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $object->getId())
+                    $this->getMainTable(), array('code' => $appCode . $object->getId()), $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $object->getId())
             );
         }
         return parent::_afterSave($object);
@@ -104,7 +102,7 @@ class Mage_XmlConnect_Model_Resource_Application extends Mage_Core_Model_Resourc
     public function getExistingStoreDeviceType()
     {
         $select = $this->_getWriteAdapter()->select()->from($this->getMainTable(), array('store_id', 'type'))
-            ->group(array('store_id', 'type'))->order(array('store_id', 'type'));
+                        ->group(array('store_id', 'type'))->order(array('store_id', 'type'));
         return $this->_getReadAdapter()->fetchAll($select, array('store_id', 'type'));
     }
 
@@ -117,8 +115,7 @@ class Mage_XmlConnect_Model_Resource_Application extends Mage_Core_Model_Resourc
     public function updateAllAppsUpdatedAtParameter()
     {
         $this->_getWriteAdapter()->update(
-            $this->getMainTable(),
-            array('updated_at' => date('Y-m-d H:i:s'))
+                $this->getMainTable(), array('updated_at' => date('Y-m-d H:i:s'))
         );
         return $this;
     }
@@ -134,4 +131,5 @@ class Mage_XmlConnect_Model_Resource_Application extends Mage_Core_Model_Resourc
         $this->_getWriteAdapter()->update($this->getMainTable(), array('updated_at' => $model->getUpdatedAt()));
         return $this;
     }
+
 }

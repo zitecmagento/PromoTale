@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,9 +20,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Multidb.php 22546 2010-07-10 15:18:12Z freak $
  */
-
 #require_once 'Zend/Application/Resource/ResourceAbstract.php';
-
 #require_once 'Zend/Db/Table.php';
 
 /**
@@ -56,6 +55,7 @@
  */
 class Zend_Application_Resource_Multidb extends Zend_Application_Resource_ResourceAbstract
 {
+
     /**
      * Associative array containing all configured db's
      *
@@ -85,15 +85,12 @@ class Zend_Application_Resource_Multidb extends Zend_Application_Resource_Resour
         }
 
         foreach ($options as $id => $params) {
-        	$adapter = $params['adapter'];
+            $adapter = $params['adapter'];
             $default = (int) (
-                isset($params['isDefaultTableAdapter']) && $params['isDefaultTableAdapter']
-                || isset($params['default']) && $params['default']
-            );
+                    isset($params['isDefaultTableAdapter']) && $params['isDefaultTableAdapter'] || isset($params['default']) && $params['default']
+                    );
             unset(
-                $params['adapter'],
-                $params['default'],
-                $params['isDefaultTableAdapter']
+                    $params['adapter'], $params['default'], $params['isDefaultTableAdapter']
             );
 
             $this->_dbs[$id] = Zend_Db::factory($adapter, $params);
@@ -114,7 +111,7 @@ class Zend_Application_Resource_Multidb extends Zend_Application_Resource_Resour
      */
     public function isDefault($db)
     {
-        if(!$db instanceof Zend_Db_Adapter_Abstract) {
+        if (!$db instanceof Zend_Db_Adapter_Abstract) {
             $db = $this->getDb($db);
         }
 
@@ -140,7 +137,7 @@ class Zend_Application_Resource_Multidb extends Zend_Application_Resource_Resour
         }
 
         throw new Zend_Application_Resource_Exception(
-            'A DB adapter was tried to retrieve, but was not configured'
+        'A DB adapter was tried to retrieve, but was not configured'
         );
     }
 
@@ -176,7 +173,7 @@ class Zend_Application_Resource_Multidb extends Zend_Application_Resource_Resour
         $this->_defaultDb = $adapter;
     }
 
-   /**
+    /**
      * Set the default metadata cache
      * 
      * @param string|Zend_Cache_Core $cache
@@ -189,10 +186,10 @@ class Zend_Application_Resource_Multidb extends Zend_Application_Resource_Resour
         if (is_string($cache)) {
             $bootstrap = $this->getBootstrap();
             if ($bootstrap instanceof Zend_Application_Bootstrap_ResourceBootstrapper &&
-                $bootstrap->hasPluginResource('CacheManager')
+                    $bootstrap->hasPluginResource('CacheManager')
             ) {
                 $cacheManager = $bootstrap->bootstrap('CacheManager')
-                    ->getResource('CacheManager');
+                        ->getResource('CacheManager');
                 if (null !== $cacheManager && $cacheManager->hasCache($cache)) {
                     $metadataCache = $cacheManager->getCache($cache);
                 }
@@ -207,4 +204,5 @@ class Zend_Application_Resource_Multidb extends Zend_Application_Resource_Resour
 
         return $this;
     }
+
 }

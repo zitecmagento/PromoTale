@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Widget_Container
 {
 
@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
         if (is_null($this->_addButtonLabel)) {
             $this->_addButtonLabel = $this->__('Add New');
         }
-        if(is_null($this->_backButtonLabel)) {
+        if (is_null($this->_backButtonLabel)) {
             $this->_backButtonLabel = $this->__('Back');
         }
 
@@ -53,17 +53,15 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
         $this->setTemplate('widget/grid/container.phtml');
 
         $this->_addButton('add', array(
-            'label'     => $this->getAddButtonLabel(),
-            'onclick'   => 'setLocation(\'' . $this->getCreateUrl() .'\')',
-            'class'     => 'add',
+            'label' => $this->getAddButtonLabel(),
+            'onclick' => 'setLocation(\'' . $this->getCreateUrl() . '\')',
+            'class' => 'add',
         ));
     }
 
     protected function _prepareLayout()
     {
-        $this->setChild( 'grid',
-            $this->getLayout()->createBlock( $this->_blockGroup.'/' . $this->_controller . '_grid',
-            $this->_controller . '.grid')->setSaveParametersInSession(true) );
+        $this->setChild('grid', $this->getLayout()->createBlock($this->_blockGroup . '/' . $this->_controller . '_grid', $this->_controller . '.grid')->setSaveParametersInSession(true));
         return parent::_prepareLayout();
     }
 
@@ -90,9 +88,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
     protected function _addBackButton()
     {
         $this->_addButton('back', array(
-            'label'     => $this->getBackButtonLabel(),
-            'onclick'   => 'setLocation(\'' . $this->getBackUrl() .'\')',
-            'class'     => 'back',
+            'label' => $this->getBackButtonLabel(),
+            'onclick' => 'setLocation(\'' . $this->getBackUrl() . '\')',
+            'class' => 'back',
         ));
     }
 
@@ -105,4 +103,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
     {
         return 'width:50%;';
     }
+
 }

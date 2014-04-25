@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Autoloader.php 20250 2010-01-12 22:15:20Z dasprid $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** @see Zend_Loader_Autoloader_Resource */
 #require_once 'Zend/Loader/Autoloader/Resource.php';
 
@@ -35,6 +35,7 @@
  */
 class Zend_Application_Module_Autoloader extends Zend_Loader_Autoloader_Resource
 {
+
     /**
      * Constructor
      *
@@ -58,37 +59,38 @@ class Zend_Application_Module_Autoloader extends Zend_Loader_Autoloader_Resource
         $this->addResourceTypes(array(
             'dbtable' => array(
                 'namespace' => 'Model_DbTable',
-                'path'      => 'models/DbTable',
+                'path' => 'models/DbTable',
             ),
             'mappers' => array(
                 'namespace' => 'Model_Mapper',
-                'path'      => 'models/mappers',
+                'path' => 'models/mappers',
             ),
-            'form'    => array(
+            'form' => array(
                 'namespace' => 'Form',
-                'path'      => 'forms',
+                'path' => 'forms',
             ),
-            'model'   => array(
+            'model' => array(
                 'namespace' => 'Model',
-                'path'      => 'models',
+                'path' => 'models',
             ),
-            'plugin'  => array(
+            'plugin' => array(
                 'namespace' => 'Plugin',
-                'path'      => 'plugins',
+                'path' => 'plugins',
             ),
             'service' => array(
                 'namespace' => 'Service',
-                'path'      => 'services',
+                'path' => 'services',
             ),
             'viewhelper' => array(
                 'namespace' => 'View_Helper',
-                'path'      => 'views/helpers',
+                'path' => 'views/helpers',
             ),
             'viewfilter' => array(
                 'namespace' => 'View_Filter',
-                'path'      => 'views/filters',
+                'path' => 'views/filters',
             ),
         ));
         $this->setDefaultResourceType('model');
     }
+
 }

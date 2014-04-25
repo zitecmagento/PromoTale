@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,11 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     protected function _prepareForm()
     {
         /* @var $model Mage_Cms_Model_Page */
@@ -55,7 +54,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main
 
         $form->setHtmlIdPrefix('page_');
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('cms')->__('Page Information')));
+        $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('cms')->__('Page Information')));
 
         if ($model->getPageId()) {
             $fieldset->addField('page_id', 'hidden', array(
@@ -64,21 +63,21 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main
         }
 
         $fieldset->addField('title', 'text', array(
-            'name'      => 'title',
-            'label'     => Mage::helper('cms')->__('Page Title'),
-            'title'     => Mage::helper('cms')->__('Page Title'),
-            'required'  => true,
-            'disabled'  => $isElementDisabled
+            'name' => 'title',
+            'label' => Mage::helper('cms')->__('Page Title'),
+            'title' => Mage::helper('cms')->__('Page Title'),
+            'required' => true,
+            'disabled' => $isElementDisabled
         ));
 
         $fieldset->addField('identifier', 'text', array(
-            'name'      => 'identifier',
-            'label'     => Mage::helper('cms')->__('URL Key'),
-            'title'     => Mage::helper('cms')->__('URL Key'),
-            'required'  => true,
-            'class'     => 'validate-identifier',
-            'note'      => Mage::helper('cms')->__('Relative to Website Base URL'),
-            'disabled'  => $isElementDisabled
+            'name' => 'identifier',
+            'label' => Mage::helper('cms')->__('URL Key'),
+            'title' => Mage::helper('cms')->__('URL Key'),
+            'required' => true,
+            'class' => 'validate-identifier',
+            'note' => Mage::helper('cms')->__('Relative to Website Base URL'),
+            'disabled' => $isElementDisabled
         ));
 
         /**
@@ -86,31 +85,30 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main
          */
         if (!Mage::app()->isSingleStoreMode()) {
             $field = $fieldset->addField('store_id', 'multiselect', array(
-                'name'      => 'stores[]',
-                'label'     => Mage::helper('cms')->__('Store View'),
-                'title'     => Mage::helper('cms')->__('Store View'),
-                'required'  => true,
-                'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
-                'disabled'  => $isElementDisabled,
+                'name' => 'stores[]',
+                'label' => Mage::helper('cms')->__('Store View'),
+                'title' => Mage::helper('cms')->__('Store View'),
+                'required' => true,
+                'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
+                'disabled' => $isElementDisabled,
             ));
             $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
             $field->setRenderer($renderer);
-        }
-        else {
+        } else {
             $fieldset->addField('store_id', 'hidden', array(
-                'name'      => 'stores[]',
-                'value'     => Mage::app()->getStore(true)->getId()
+                'name' => 'stores[]',
+                'value' => Mage::app()->getStore(true)->getId()
             ));
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }
 
         $fieldset->addField('is_active', 'select', array(
-            'label'     => Mage::helper('cms')->__('Status'),
-            'title'     => Mage::helper('cms')->__('Page Status'),
-            'name'      => 'is_active',
-            'required'  => true,
-            'options'   => $model->getAvailableStatuses(),
-            'disabled'  => $isElementDisabled,
+            'label' => Mage::helper('cms')->__('Status'),
+            'title' => Mage::helper('cms')->__('Page Status'),
+            'name' => 'is_active',
+            'required' => true,
+            'options' => $model->getAvailableStatuses(),
+            'disabled' => $isElementDisabled,
         ));
         if (!$model->getId()) {
             $model->setData('is_active', $isElementDisabled ? '0' : '1');
@@ -174,4 +172,5 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main
     {
         return Mage::getSingleton('admin/session')->isAllowed('cms/page/' . $action);
     }
+
 }

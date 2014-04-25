@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -17,7 +18,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * Zend_Server_Reflection_Function_Abstract
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Server_Reflection_Method extends Zend_Server_Reflection_Function_Abstract
 {
+
     /**
      * Parent class name
      * @var string
@@ -60,7 +61,7 @@ class Zend_Server_Reflection_Method extends Zend_Server_Reflection_Function_Abst
     public function __construct(Zend_Server_Reflection_Class $class, ReflectionMethod $r, $namespace = null, $argv = array())
     {
         $this->_classReflection = $class;
-        $this->_reflection      = $r;
+        $this->_reflection = $r;
 
         $classNamespace = $class->getNamespace();
 

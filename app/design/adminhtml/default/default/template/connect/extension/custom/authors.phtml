@@ -25,33 +25,33 @@
  */
 ?>
 <script type="text/javascript">
-var id = 0;
-var authorTemplate =
-    '<tr>'+
-        '<td style="margin-bottom:5px;">'+
-            '<input class="input-text required-entry" style="width:160px;" name="authors[name][]" id="authors_name_{{id}}" value="{{name}}"/>'+
-        '</td>'+
-        '<td style="margin-bottom:5px;">'+
-            '<input class="input-text required-entry" style="width:140px;" name="authors[user][]" id="authors_user_{{id}}" value="{{user}}"/>'+
-        '</td>'+
-        '<td style="margin-bottom:5px;">'+
-            '<input class="input-text required-entry validate-email" style="width:160px;" name="authors[email][]" id="authors_email_{{id}}" value="{{email}}"/>'+
-        '</td>'+
-        '<td style="margin-bottom:5px;">'+
-            '<?php echo $this->jsQuoteEscape($this->getRemoveRowButtonHtml('tr')) ?>'+
-        '</td>'+
-    '</tr>';
+    var id = 0;
+    var authorTemplate =
+            '<tr>' +
+            '<td style="margin-bottom:5px;">' +
+            '<input class="input-text required-entry" style="width:160px;" name="authors[name][]" id="authors_name_{{id}}" value="{{name}}"/>' +
+            '</td>' +
+            '<td style="margin-bottom:5px;">' +
+            '<input class="input-text required-entry" style="width:140px;" name="authors[user][]" id="authors_user_{{id}}" value="{{user}}"/>' +
+            '</td>' +
+            '<td style="margin-bottom:5px;">' +
+            '<input class="input-text required-entry validate-email" style="width:160px;" name="authors[email][]" id="authors_email_{{id}}" value="{{email}}"/>' +
+            '</td>' +
+            '<td style="margin-bottom:5px;">' +
+            '<?php echo $this->jsQuoteEscape($this->getRemoveRowButtonHtml('tr')) ?>' +
+            '</td>' +
+            '</tr>';
 
-function addAuthor(data)
-{
-    if (data == undefined) {
-        data = {};
+    function addAuthor(data)
+    {
+        if (data == undefined) {
+            data = {};
+        }
+        data.id = id++;
+
+        var template = new Template(authorTemplate, /(^|.|\r|\n)({{(\w+)}})/);
+        Element.insert($('authors_container'), {bottom: template.evaluate(data)});
     }
-    data.id = id++;
-
-    var template = new Template(authorTemplate, /(^|.|\r|\n)({{(\w+)}})/);
-    Element.insert($('authors_container'), {bottom: template.evaluate(data)});
-}
 </script>
 
 <div class="entry-edit">
@@ -71,15 +71,15 @@ function addAuthor(data)
                 </tr>
             </thead>
             <tbody id="authors_container">
-                <script type="text/javascript">
-                <?php if (count($this->getAuthors())): ?>
-                    <?php foreach ($this->getAuthors() as $author): ?>
+            <script type="text/javascript">
+<?php if (count($this->getAuthors())): ?>
+    <?php foreach ($this->getAuthors() as $author): ?>
                         addAuthor(<?php echo $author ?>);
-                    <?php endforeach ?>
-                <?php else: ?>
+    <?php endforeach ?>
+<?php else: ?>
                     addAuthor();
-                <?php endif;?>
-                </script>
+<?php endif; ?>
+            </script>
             </tbody>
             <tfoot>
                 <tr>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Crammd5.php 22653 2010-07-22 18:41:39Z mabe $
  */
-
-
 /**
  * @see Zend_Mail_Protocol_Smtp
  */
 #require_once 'Zend/Mail/Protocol/Smtp.php';
-
 
 /**
  * Performs CRAM-MD5 authentication
@@ -38,6 +36,7 @@
  */
 class Zend_Mail_Protocol_Smtp_Auth_Crammd5 extends Zend_Mail_Protocol_Smtp
 {
+
     /**
      * Constructor.
      *
@@ -60,7 +59,6 @@ class Zend_Mail_Protocol_Smtp_Auth_Crammd5 extends Zend_Mail_Protocol_Smtp
         parent::__construct($host, $port, $config);
     }
 
-
     /**
      * @todo Perform CRAM-MD5 authentication with supplied credentials
      *
@@ -79,7 +77,6 @@ class Zend_Mail_Protocol_Smtp_Auth_Crammd5 extends Zend_Mail_Protocol_Smtp
         $this->_expect(235);
         $this->_auth = true;
     }
-
 
     /**
      * Prepare CRAM-MD5 response to server's ticket
@@ -105,4 +102,5 @@ class Zend_Mail_Protocol_Smtp_Auth_Crammd5 extends Zend_Mail_Protocol_Smtp
 
         return $digest;
     }
+
 }

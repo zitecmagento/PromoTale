@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
@@ -32,7 +32,7 @@ $installer->startSetup();
 $installer->getConnection()->dropForeignKey($installer->getTable('design_change'), 'FK_DESIGN_CHANGE_STORE');
 
 $storeIds = $installer->getConnection()->fetchCol(
-    "SELECT store_id FROM {$installer->getTable('core_store')}"
+        "SELECT store_id FROM {$installer->getTable('core_store')}"
 );
 
 if (!empty($storeIds)) {
@@ -41,9 +41,7 @@ if (!empty($storeIds)) {
 }
 
 $installer->getConnection()->addConstraint(
-    'FK_DESIGN_CHANGE_STORE',
-    $installer->getTable('design_change'), 'store_id',
-    $installer->getTable('core_store'),    'store_id'
+        'FK_DESIGN_CHANGE_STORE', $installer->getTable('design_change'), 'store_id', $installer->getTable('core_store'), 'store_id'
 );
 
 $installer->endSetup();

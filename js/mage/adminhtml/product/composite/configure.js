@@ -25,64 +25,59 @@
 
 ProductConfigure = Class.create();
 ProductConfigure.prototype = {
-
-    listTypes:                  $H({}),
-    current:                    $H({}),
-    itemsFilter:                $H({}),
-    blockWindow:                null,
-    blockForm:                  null,
-    blockFormFields:            null,
-    blockFormAdd:               null,
-    blockFormConfirmed:         null,
-    blockConfirmed:             null,
-    blockIFrame:                null,
-    blockCancelBtn:             null,
-    blockMask:                  null,
-    blockMsg:                   null,
-    blockMsgError:              null,
-    windowHeight:               null,
-    confirmedCurrentId:         null,
-    confirmCallback:            {},
-    cancelCallback:             {},
-    onLoadIFrameCallback:       {},
-    showWindowCallback:         {},
-    beforeSubmitCallback:       {},
-    iFrameJSVarname:            null,
-    _listTypeId:                1,
-
+    listTypes: $H({}),
+    current: $H({}),
+    itemsFilter: $H({}),
+    blockWindow: null,
+    blockForm: null,
+    blockFormFields: null,
+    blockFormAdd: null,
+    blockFormConfirmed: null,
+    blockConfirmed: null,
+    blockIFrame: null,
+    blockCancelBtn: null,
+    blockMask: null,
+    blockMsg: null,
+    blockMsgError: null,
+    windowHeight: null,
+    confirmedCurrentId: null,
+    confirmCallback: {},
+    cancelCallback: {},
+    onLoadIFrameCallback: {},
+    showWindowCallback: {},
+    beforeSubmitCallback: {},
+    iFrameJSVarname: null,
+    _listTypeId: 1,
     /**
      * Initialize object
      */
     initialize: function() {
         this._initWindowElements();
     },
-
     /**
      * Initialize window elements
      */
     _initWindowElements: function() {
-        this.blockWindow                = $('product_composite_configure');
-        this.blockForm                  = $('product_composite_configure_form');
-        this.blockFormFields            = $('product_composite_configure_form_fields');
-        this.blockFormAdd               = $('product_composite_configure_form_additional');
-        this.blockFormConfirmed         = $('product_composite_configure_form_confirmed');
-        this.blockConfirmed             = $('product_composite_configure_confirmed');
-        this.blockIFrame                = $('product_composite_configure_iframe');
-        this.blockCancelBtn             = $('product_composite_configure_form_cancel');
-        this.blockMask                  = $('popup-window-mask');
-        this.blockMsg                   = $('product_composite_configure_messages');
-        this.blockMsgError              = this.blockMsg.select('.error-msg')[0];
-        this.windowHeight               = $('html-body').getHeight();
-        this.iFrameJSVarname            = this.blockForm.select('input[name="as_js_varname"]')[0].value;
+        this.blockWindow = $('product_composite_configure');
+        this.blockForm = $('product_composite_configure_form');
+        this.blockFormFields = $('product_composite_configure_form_fields');
+        this.blockFormAdd = $('product_composite_configure_form_additional');
+        this.blockFormConfirmed = $('product_composite_configure_form_confirmed');
+        this.blockConfirmed = $('product_composite_configure_confirmed');
+        this.blockIFrame = $('product_composite_configure_iframe');
+        this.blockCancelBtn = $('product_composite_configure_form_cancel');
+        this.blockMask = $('popup-window-mask');
+        this.blockMsg = $('product_composite_configure_messages');
+        this.blockMsgError = this.blockMsg.select('.error-msg')[0];
+        this.windowHeight = $('html-body').getHeight();
+        this.iFrameJSVarname = this.blockForm.select('input[name="as_js_varname"]')[0].value;
     },
-
     /**
-    * Returns next unique list type id
-    */
-    _generateListTypeId: function () {
+     * Returns next unique list type id
+     */
+    _generateListTypeId: function() {
         return '_internal_lt_' + (this._listTypeId++);
     },
-
     /**
      * Add product list types as scope and their urls
      * expamle: addListType('product_to_add', {urlFetch: 'http://magento...'})
@@ -101,25 +96,23 @@ ProductConfigure.prototype = {
         Object.extend(this.listTypes[type], urls);
         return this;
     },
-
     /**
-    * Adds complex list type - that is used to submit several list types at once
-    * Only urlSubmit is possible for this list type
-    * expamle: addComplexListType(['wishlist', 'product_list'], 'http://magento...')
-    *
-    * @param type types as scope
-    * @param urls obj can be
-    *             - {urlSubmit: 'http://magento...'} for submit configured data through iFrame
-    * @return type string
-    */
-   addComplexListType: function(types, urlSubmit) {
-       var type = this._generateListTypeId();
-       this.listTypes[type] = {};
-       this.listTypes[type].complexTypes = types;
-       this.listTypes[type].urlSubmit = urlSubmit;
-       return type;
-   },
-
+     * Adds complex list type - that is used to submit several list types at once
+     * Only urlSubmit is possible for this list type
+     * expamle: addComplexListType(['wishlist', 'product_list'], 'http://magento...')
+     *
+     * @param type types as scope
+     * @param urls obj can be
+     *             - {urlSubmit: 'http://magento...'} for submit configured data through iFrame
+     * @return type string
+     */
+    addComplexListType: function(types, urlSubmit) {
+        var type = this._generateListTypeId();
+        this.listTypes[type] = {};
+        this.listTypes[type].complexTypes = types;
+        this.listTypes[type].urlSubmit = urlSubmit;
+        return type;
+    },
     /**
      * Add filter of items
      *
@@ -136,31 +129,28 @@ ProductConfigure.prototype = {
         this.itemsFilter[listType] = this.itemsFilter[listType].concat(itemsFilter);
         return this;
     },
-
     /**
-    * Returns id of block where configuration for an item is stored
-    *
-    * @param listType scope name
-    * @param itemId
-    * @return string
-    */
-    _getConfirmedBlockId: function (listType, itemId) {
+     * Returns id of block where configuration for an item is stored
+     *
+     * @param listType scope name
+     * @param itemId
+     * @return string
+     */
+    _getConfirmedBlockId: function(listType, itemId) {
         return this.blockConfirmed.id + '[' + listType + '][' + itemId + ']';
     },
-
     /**
-    * Checks whether item has some configuration fields
-    *
-    * @param listType scope name
-    * @param itemId
-    * @return bool
-    */
-    itemConfigured: function (listType, itemId) {
+     * Checks whether item has some configuration fields
+     *
+     * @param listType scope name
+     * @param itemId
+     * @return bool
+     */
+    itemConfigured: function(listType, itemId) {
         var confirmedBlockId = this._getConfirmedBlockId(listType, itemId);
         var itemBlock = $(confirmedBlockId);
         return !!(itemBlock && itemBlock.innerHTML);
     },
-
     /**
      * Show configuration fields of item, if it not found then get it through ajax
      *
@@ -184,7 +174,6 @@ ProductConfigure.prototype = {
             this._showWindow();
         }
     },
-
     /**
      * Get configuration fields of product through ajax and show them
      *
@@ -230,7 +219,6 @@ ProductConfigure.prototype = {
             });
         }
     },
-
     /**
      * Triggered on confirm button click
      * Do submit configured data through iFrame if needed
@@ -249,7 +237,6 @@ ProductConfigure.prototype = {
         }
         return this;
     },
-
     /**
      * Triggered on cancel button click
      */
@@ -260,13 +247,12 @@ ProductConfigure.prototype = {
         }
         return this;
     },
-
     /**
      * Submit configured data through iFrame
      *
      * @param listType scope name
      */
-    submit: function (listType) {
+    submit: function(listType) {
         // prepare data
         if (listType) {
             this.current.listType = listType;
@@ -326,7 +312,6 @@ ProductConfigure.prototype = {
         varienLoaderHandler.handler.onCreate({options: {loaderArea: true}});
         return this;
     },
-
     /**
      * Add dynamically additional fields for form
      *
@@ -338,12 +323,11 @@ ProductConfigure.prototype = {
         }.bind(this));
         return this;
     },
-
     /**
      * Triggered when form was submitted and iFrame was loaded. Get response from iFrame and handle it
      */
     onLoadIFrame: function() {
-        this.blockFormConfirmed.select('[configure_disabled=1]').each(function (element) {
+        this.blockFormConfirmed.select('[configure_disabled=1]').each(function(element) {
             element.disabled = element.getAttribute('configure_prev_disabled') == '1';
         });
 
@@ -373,18 +357,16 @@ ProductConfigure.prototype = {
 
         this.clean('current');
     },
-
     /**
      * Helper for fetching content from iFrame
      */
     _getIFrameContent: function() {
         var content = (this.blockIFrame.contentWindow || this.blockIFrame.contentDocument);
         if (content.document) {
-            content=content.document;
+            content = content.document;
         }
         return content;
     },
-
     /**
      * Helper to find qty of currently confirmed item
      */
@@ -396,7 +378,6 @@ ProductConfigure.prototype = {
             }
         }
     },
-
     /**
      * Helper to find qty of active form
      */
@@ -408,40 +389,37 @@ ProductConfigure.prototype = {
             }
         }
     },
-
     /**
      * Show configuration window
      */
     _showWindow: function() {
         this._toggleSelectsExceptBlock(false);
-        this.blockMask.setStyle({'height':this.windowHeight+'px'}).show();
-        this.blockWindow.setStyle({'marginTop':-this.blockWindow.getHeight()/2 + "px", 'display':'block'});
+        this.blockMask.setStyle({'height': this.windowHeight + 'px'}).show();
+        this.blockWindow.setStyle({'marginTop': -this.blockWindow.getHeight() / 2 + "px", 'display': 'block'});
         if (Object.isFunction(this.showWindowCallback[this.current.listType])) {
             this.showWindowCallback[this.current.listType]();
         }
     },
-
     /**
      * toggles Selects states (for IE) except those to be shown in popup
      */
     _toggleSelectsExceptBlock: function(flag) {
-        if(Prototype.Browser.IE){
+        if (Prototype.Browser.IE) {
             if (this.blockForm) {
                 var states = new Array;
                 var selects = this.blockForm.getElementsByTagName("select");
-                for(var i=0; i<selects.length; i++){
+                for (var i = 0; i < selects.length; i++) {
                     states[i] = selects[i].style.visibility
                 }
             }
             toggleSelectsUnderBlock(this.blockMask, flag);
             if (this.blockForm) {
-                for(i=0; i<selects.length; i++){
+                for (i = 0; i < selects.length; i++) {
                     selects[i].style.visibility = states[i]
                 }
             }
         }
     },
-
     /**
      * Close configuration window
      */
@@ -451,7 +429,6 @@ ProductConfigure.prototype = {
         this.blockWindow.style.display = 'none';
         this.clean('window');
     },
-
     /**
      * Attach callback function triggered when confirm button was clicked
      *
@@ -461,7 +438,6 @@ ProductConfigure.prototype = {
         this.confirmCallback[listType] = confirmCallback;
         return this;
     },
-
     /**
      * Attach callback function triggered when cancel button was clicked
      *
@@ -471,7 +447,6 @@ ProductConfigure.prototype = {
         this.cancelCallback[listType] = cancelCallback;
         return this;
     },
-
     /**
      * Attach callback function triggered when iFrame was loaded
      *
@@ -481,7 +456,6 @@ ProductConfigure.prototype = {
         this.onLoadIFrameCallback[listType] = onLoadIFrameCallback;
         return this;
     },
-
     /**
      * Attach callback function triggered when iFrame was loaded
      *
@@ -491,7 +465,6 @@ ProductConfigure.prototype = {
         this.showWindowCallback[listType] = showWindowCallback;
         return this;
     },
-
     /**
      * Attach callback function triggered before submitting form
      *
@@ -501,7 +474,6 @@ ProductConfigure.prototype = {
         this.beforeSubmitCallback[listType] = beforeSubmitCallback;
         return this;
     },
-
     /**
      * Clean object data
      *
@@ -510,14 +482,14 @@ ProductConfigure.prototype = {
     clean: function(method) {
         var listInfo = null;
         var listTypes = null;
-        var removeConfirmed = function (listTypes) {
+        var removeConfirmed = function(listTypes) {
             this.blockConfirmed.childElements().each(function(elm) {
                 for (var i = 0, len = listTypes.length; i < len; i++) {
-                   var pattern = this.blockConfirmed.id + '[' + listTypes[i] + ']';
-                   if (elm.id.indexOf(pattern) == 0) {
-                       elm.remove();
-                       break;
-                   }
+                    var pattern = this.blockConfirmed.id + '[' + listTypes[i] + ']';
+                    if (elm.id.indexOf(pattern) == 0) {
+                        elm.remove();
+                        break;
+                    }
                 }
             }.bind(this));
         }.bind(this);
@@ -530,13 +502,13 @@ ProductConfigure.prototype = {
                     listTypes = listTypes.concat(listInfo.complexTypes);
                 }
                 removeConfirmed(listTypes);
-            break;
+                break;
             case 'window':
-                    this.blockFormFields.update();
-                    this.blockMsg.hide();
-                    this.blockMsgError.update();
-                    this.blockCancelBtn.show();
-            break;
+                this.blockFormFields.update();
+                this.blockMsg.hide();
+                this.blockMsgError.update();
+                this.blockCancelBtn.show();
+                break;
             default:
                 // search in list types for its cleaning
                 if (this.listTypes[method]) {
@@ -546,7 +518,7 @@ ProductConfigure.prototype = {
                         listTypes = listTypes.concat(listInfo.complexTypes);
                     }
                     removeConfirmed(listTypes);
-                // clean all
+                    // clean all
                 } else if (!method) {
                     this.current = $H({});
                     this.blockConfirmed.update();
@@ -555,7 +527,7 @@ ProductConfigure.prototype = {
                     this.blockMsgError.update();
                     this.blockCancelBtn.show();
                 }
-            break;
+                break;
         }
         this._getIFrameContent().body.innerHTML = '';
         this.blockIFrame.contentWindow[this.iFrameJSVarname] = {};
@@ -565,7 +537,6 @@ ProductConfigure.prototype = {
 
         return this;
     },
-
     /**
      * Process fields data: save, restore, move saved to form and back
      *
@@ -581,16 +552,16 @@ ProductConfigure.prototype = {
          * @param blockItem
          */
         var _renameFields = function(method, blockItem, listType) {
-            var pattern         = null;
-            var patternFlat     = null;
-            var replacement     = null;
+            var pattern = null;
+            var patternFlat = null;
+            var replacement = null;
             var replacementFlat = null
-            var scopeArr        = blockItem.id.match(/.*\[\w+\]\[([^\]]+)\]$/);
-            var itemId          = scopeArr[1];
+            var scopeArr = blockItem.id.match(/.*\[\w+\]\[([^\]]+)\]$/);
+            var itemId = scopeArr[1];
             if (method == 'current_confirmed_to_form') {
-                pattern         = RegExp('(\\w+)(\\[?)');
-                patternFlat     = RegExp('(\\w+)');
-                replacement     = 'item[' + itemId + '][$1]$2';
+                pattern = RegExp('(\\w+)(\\[?)');
+                patternFlat = RegExp('(\\w+)');
+                replacement = 'item[' + itemId + '][$1]$2';
                 replacementFlat = 'item_' + itemId + '_$1';
                 if (listType) {
                     replacement = 'list[' + listType + '][item][' + itemId + '][$1]$2';
@@ -603,14 +574,14 @@ ProductConfigure.prototype = {
                     stPattern = 'list\\[' + listType + '\\]\\[item\\]\\[' + itemId + '\\]\\[(\\w+)\\](.*)';
                     stPatternFlat = 'list_' + listType + '_' + stPatternFlat;
                 }
-                pattern         = new RegExp(stPattern);
-                patternFlat     = new RegExp(stPatternFlat);
-                replacement     = '$1$2';
+                pattern = new RegExp(stPattern);
+                patternFlat = new RegExp(stPatternFlat);
+                replacement = '$1$2';
                 replacementFlat = '$1';
             } else {
                 return false;
             }
-            var rename = function (elms) {
+            var rename = function(elms) {
                 for (var i = 0; i < elms.length; i++) {
                     if (elms[i].name && elms[i].type == 'file') {
                         elms[i].name = elms[i].name.replace(patternFlat, replacementFlat);
@@ -626,120 +597,120 @@ ProductConfigure.prototype = {
 
         switch (method) {
             case 'item_confirm':
-                    if (!$(this.confirmedCurrentId)) {
-                        this.blockConfirmed.insert(new Element('div', {id: this.confirmedCurrentId}));
-                    } else {
-                        $(this.confirmedCurrentId).update();
-                    }
-                    this.blockFormFields.childElements().each(function(elm) {
-                        $(this.confirmedCurrentId).insert(elm);
-                    }.bind(this));
-            break;
+                if (!$(this.confirmedCurrentId)) {
+                    this.blockConfirmed.insert(new Element('div', {id: this.confirmedCurrentId}));
+                } else {
+                    $(this.confirmedCurrentId).update();
+                }
+                this.blockFormFields.childElements().each(function(elm) {
+                    $(this.confirmedCurrentId).insert(elm);
+                }.bind(this));
+                break;
             case 'item_restore':
-                    this.blockFormFields.update();
+                this.blockFormFields.update();
 
-                    // clone confirmed to form
-                    var mageData = null;
-                    $(this.confirmedCurrentId).childElements().each(function(elm) {
-                        var cloned = elm.cloneNode(true);
-                        if (elm.mageData) {
-                            cloned.mageData = elm.mageData;
-                            mageData = elm.mageData;
-                        }
-                        this.blockFormFields.insert(cloned);
-                    }.bind(this));
+                // clone confirmed to form
+                var mageData = null;
+                $(this.confirmedCurrentId).childElements().each(function(elm) {
+                    var cloned = elm.cloneNode(true);
+                    if (elm.mageData) {
+                        cloned.mageData = elm.mageData;
+                        mageData = elm.mageData;
+                    }
+                    this.blockFormFields.insert(cloned);
+                }.bind(this));
 
-                    // get confirmed values
-                    var fieldsValue = {};
-                    var getConfirmedValues = function (elms) {
-                        for (var i = 0; i < elms.length; i++) {
-                            if (elms[i].name) {
-                                if ('undefined' == typeof fieldsValue[elms[i].name] ) {
-                                    fieldsValue[elms[i].name] = {};
+                // get confirmed values
+                var fieldsValue = {};
+                var getConfirmedValues = function(elms) {
+                    for (var i = 0; i < elms.length; i++) {
+                        if (elms[i].name) {
+                            if ('undefined' == typeof fieldsValue[elms[i].name]) {
+                                fieldsValue[elms[i].name] = {};
+                            }
+                            if (elms[i].type == 'checkbox') {
+                                fieldsValue[elms[i].name][elms[i].value] = elms[i].checked;
+                            } else if (elms[i].type == 'radio') {
+                                if (elms[i].checked) {
+                                    fieldsValue[elms[i].name] = elms[i].value;
                                 }
+                            } else {
+                                fieldsValue[elms[i].name] = Form.Element.getValue(elms[i]);
+                            }
+                        }
+                    }
+                }.bind(this);
+                getConfirmedValues($(this.confirmedCurrentId).getElementsByTagName('input'));
+                getConfirmedValues($(this.confirmedCurrentId).getElementsByTagName('select'));
+                getConfirmedValues($(this.confirmedCurrentId).getElementsByTagName('textarea'));
+
+                // restore confirmed values
+                var restoreConfirmedValues = function(elms) {
+                    for (var i = 0; i < elms.length; i++) {
+                        if ('undefined' != typeof fieldsValue[elms[i].name]) {
+                            if (elms[i].type != 'file') {
                                 if (elms[i].type == 'checkbox') {
-                                    fieldsValue[elms[i].name][elms[i].value] = elms[i].checked;
+                                    elms[i].checked = fieldsValue[elms[i].name][elms[i].value];
                                 } else if (elms[i].type == 'radio') {
-                                    if (elms[i].checked) {
-                                        fieldsValue[elms[i].name] = elms[i].value;
+                                    if (elms[i].value == fieldsValue[elms[i].name]) {
+                                        elms[i].checked = true;
                                     }
                                 } else {
-                                    fieldsValue[elms[i].name] = Form.Element.getValue(elms[i]);
+                                    elms[i].setValue(fieldsValue[elms[i].name]);
                                 }
                             }
                         }
-                    }.bind(this);
-                    getConfirmedValues($(this.confirmedCurrentId).getElementsByTagName('input'));
-                    getConfirmedValues($(this.confirmedCurrentId).getElementsByTagName('select'));
-                    getConfirmedValues($(this.confirmedCurrentId).getElementsByTagName('textarea'));
-
-                    // restore confirmed values
-                    var restoreConfirmedValues = function (elms) {
-                        for (var i = 0; i < elms.length; i++) {
-                            if ('undefined' != typeof fieldsValue[elms[i].name]) {
-                                if (elms[i].type != 'file') {
-                                    if (elms[i].type == 'checkbox') {
-                                        elms[i].checked = fieldsValue[elms[i].name][elms[i].value];
-                                    } else if (elms[i].type == 'radio') {
-                                        if (elms[i].value == fieldsValue[elms[i].name]) {
-                                            elms[i].checked = true;
-                                        }
-                                    } else {
-                                        elms[i].setValue(fieldsValue[elms[i].name]);
-                                    }
-                                }
-                            }
-                        }
-                    }.bind(this);
-                    restoreConfirmedValues(this.blockFormFields.getElementsByTagName('input'));
-                    restoreConfirmedValues(this.blockFormFields.getElementsByTagName('select'));
-                    restoreConfirmedValues(this.blockFormFields.getElementsByTagName('textarea'));
-
-                    // Execute scripts
-                    if (mageData && mageData.scripts) {
-                        this.restorePhase = true;
-                        try {
-                            mageData.scripts.map(function(script) {
-                                return eval(script);
-                            });
-                        } catch (e) {}
-                        this.restorePhase = false;
                     }
-            break;
+                }.bind(this);
+                restoreConfirmedValues(this.blockFormFields.getElementsByTagName('input'));
+                restoreConfirmedValues(this.blockFormFields.getElementsByTagName('select'));
+                restoreConfirmedValues(this.blockFormFields.getElementsByTagName('textarea'));
+
+                // Execute scripts
+                if (mageData && mageData.scripts) {
+                    this.restorePhase = true;
+                    try {
+                        mageData.scripts.map(function(script) {
+                            return eval(script);
+                        });
+                    } catch (e) {
+                    }
+                    this.restorePhase = false;
+                }
+                break;
             case 'current_confirmed_to_form':
-                    var allowedListTypes = {};
-                    allowedListTypes[this.current.listType] = true;
-                    var listInfo = this.listTypes[this.current.listType];
-                    if (listInfo.complexTypes) {
-                        for (var i = 0, len = listInfo.complexTypes.length; i < len; i++) {
-                           allowedListTypes[listInfo.complexTypes[i]] = true;
-                        }
+                var allowedListTypes = {};
+                allowedListTypes[this.current.listType] = true;
+                var listInfo = this.listTypes[this.current.listType];
+                if (listInfo.complexTypes) {
+                    for (var i = 0, len = listInfo.complexTypes.length; i < len; i++) {
+                        allowedListTypes[listInfo.complexTypes[i]] = true;
                     }
+                }
 
-                    this.blockFormConfirmed.update();
-                    this.blockConfirmed.childElements().each(function(blockItem) {
-                        var scopeArr    = blockItem.id.match(/.*\[(\w+)\]\[([^\]]+)\]$/);
-                        var listType    = scopeArr[1];
-                        var itemId    = scopeArr[2];
-                        if (allowedListTypes[listType] && (!this.itemsFilter[listType]
-                                || this.itemsFilter[listType].indexOf(itemId) != -1)) {
-                            _renameFields(method, blockItem, listInfo.complexTypes ? listType : null);
-                            this.blockFormConfirmed.insert(blockItem);
-                        }
-                    }.bind(this));
-            break;
-            case 'form_confirmed_to_confirmed':
-                    var listInfo = this.listTypes[this.current.listType];
-                    this.blockFormConfirmed.childElements().each(function(blockItem) {
-                        var scopeArr = blockItem.id.match(/.*\[(\w+)\]\[([^\]]+)\]$/);
-                        var listType = scopeArr[1];
+                this.blockFormConfirmed.update();
+                this.blockConfirmed.childElements().each(function(blockItem) {
+                    var scopeArr = blockItem.id.match(/.*\[(\w+)\]\[([^\]]+)\]$/);
+                    var listType = scopeArr[1];
+                    var itemId = scopeArr[2];
+                    if (allowedListTypes[listType] && (!this.itemsFilter[listType]
+                            || this.itemsFilter[listType].indexOf(itemId) != -1)) {
                         _renameFields(method, blockItem, listInfo.complexTypes ? listType : null);
-                        this.blockConfirmed.insert(blockItem);
-                    }.bind(this));
-            break;
+                        this.blockFormConfirmed.insert(blockItem);
+                    }
+                }.bind(this));
+                break;
+            case 'form_confirmed_to_confirmed':
+                var listInfo = this.listTypes[this.current.listType];
+                this.blockFormConfirmed.childElements().each(function(blockItem) {
+                    var scopeArr = blockItem.id.match(/.*\[(\w+)\]\[([^\]]+)\]$/);
+                    var listType = scopeArr[1];
+                    _renameFields(method, blockItem, listInfo.complexTypes ? listType : null);
+                    this.blockConfirmed.insert(blockItem);
+                }.bind(this));
+                break;
         }
     },
-
     /**
      * Check if qty selected correctly
      *
@@ -760,6 +731,6 @@ ProductConfigure.prototype = {
     }
 };
 
-Event.observe(window, 'load',  function() {
+Event.observe(window, 'load', function() {
     productConfigure = new ProductConfigure();
 });

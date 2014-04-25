@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_Api_Resource
 {
+
     /**
      * Attribute code for media gallery
      *
@@ -46,8 +48,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      */
     protected $_mimeTypes = array(
         'image/jpeg' => 'jpg',
-        'image/gif'  => 'gif',
-        'image/png'  => 'png'
+        'image/gif' => 'gif',
+        'image/png' => 'png'
     );
 
     public function __construct()
@@ -138,25 +140,29 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
         $tmpDirectory = Mage::getBaseDir('var') . DS . 'api' . DS . $this->_getSession()->getSessionId();
 
         if (isset($data['file']['name']) && $data['file']['name']) {
-            $fileName  = $data['file']['name'];
+            $fileName = $data['file']['name'];
         } else {
-            $fileName  = 'image';
+            $fileName = 'image';
         }
         $fileName .= '.' . $this->_mimeTypes[$data['file']['mime']];
 
         $ioAdapter = new Varien_Io_File();
-        try {
+        try
+        {
             // Create temporary directory for api
             $ioAdapter->checkAndCreateFolder($tmpDirectory);
-            $ioAdapter->open(array('path'=>$tmpDirectory));
+            $ioAdapter->open(array('path' => $tmpDirectory));
             // Write image file
             $ioAdapter->write($fileName, $fileContent, 0666);
             unset($fileContent);
 
             // try to create Image object - it fails with Exception if image is not supported
-            try {
+            try
+            {
                 new Varien_Image($tmpDirectory . DS . $fileName);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 // Remove temporary directory
                 $ioAdapter->rmdir($tmpDirectory, true);
 
@@ -165,10 +171,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
             // Adding image to gallery
             $file = $gallery->getBackend()->addImage(
-                $product,
-                $tmpDirectory . DS . $fileName,
-                null,
-                true
+                    $product, $tmpDirectory . DS . $fileName, null, true
             );
 
             // Remove temporary directory
@@ -181,9 +184,13 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('not_created', $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('not_created', Mage::helper('catalog')->__('Cannot create image.'));
         }
 
@@ -224,12 +231,14 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             unset($data['file']['content']);
 
             $ioAdapter = new Varien_Io_File();
-            try {
-                $fileName = Mage::getBaseDir('media'). DS . 'catalog' . DS . 'product' . $file;
-                $ioAdapter->open(array('path'=>dirname($fileName)));
+            try
+            {
+                $fileName = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'product' . $file;
+                $ioAdapter->open(array('path' => dirname($fileName)));
                 $ioAdapter->write(basename($fileName), $fileContent, 0666);
-
-            } catch(Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_fault('not_created', Mage::helper('catalog')->__('Can\'t create image.'));
             }
         }
@@ -240,7 +249,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             $oldTypes = array();
             foreach ($product->getMediaAttributes() as $attribute) {
                 if ($product->getData($attribute->getAttributeCode()) == $file) {
-                     $oldTypes[] = $attribute->getAttributeCode();
+                    $oldTypes[] = $attribute->getAttributeCode();
                 }
             }
 
@@ -253,9 +262,12 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             $gallery->getBackend()->setMediaAttribute($product, $data['types'], $file);
         }
 
-        try {
+        try
+        {
             $product->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('not_updated', $e->getMessage());
         }
 
@@ -281,15 +293,17 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
         $gallery->getBackend()->removeImage($product, $file);
 
-        try {
+        try
+        {
             $product->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('not_removed', $e->getMessage());
         }
 
         return true;
     }
-
 
     /**
      * Retrieve image types (image, small_image, thumbnail, etc...)
@@ -307,8 +321,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
         foreach ($attributes as $attribute) {
             /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
-            if ($attribute->isInSet($setId)
-                && $attribute->getFrontendInput() == 'media_image') {
+            if ($attribute->isInSet($setId) && $attribute->getFrontendInput() == 'media_image') {
                 if ($attribute->isScopeGlobal()) {
                     $scope = 'global';
                 } elseif ($attribute->isScopeWebsite()) {
@@ -318,8 +331,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
                 }
 
                 $result[] = array(
-                    'code'         => $attribute->getAttributeCode(),
-                    'scope'        => $scope
+                    'code' => $attribute->getAttributeCode(),
+                    'scope' => $scope
                 );
             }
         }
@@ -347,7 +360,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     protected function _getGalleryAttribute($product)
     {
         $attributes = $product->getTypeInstance(true)
-            ->getSetAttributes($product);
+                ->getSetAttributes($product);
 
         if (!isset($attributes[self::ATTRIBUTE_CODE])) {
             $this->_fault('not_media');
@@ -377,12 +390,12 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     protected function _imageToArray(&$image, $product)
     {
         $result = array(
-            'file'      => $image['file'],
-            'label'     => $image['label'],
-            'position'  => $image['position'],
-            'exclude'   => $image['disabled'],
-            'url'       => $this->_getMediaConfig()->getMediaUrl($image['file']),
-            'types'     => array()
+            'file' => $image['file'],
+            'label' => $image['label'],
+            'position' => $image['position'],
+            'exclude' => $image['disabled'],
+            'url' => $this->_getMediaConfig()->getMediaUrl($image['file']),
+            'types' => array()
         );
 
 
@@ -412,4 +425,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
         return $product;
     }
-} // Class Mage_Catalog_Model_Product_Attribute_Media_Api End
+
+}
+
+// Class Mage_Catalog_Model_Product_Attribute_Media_Api End

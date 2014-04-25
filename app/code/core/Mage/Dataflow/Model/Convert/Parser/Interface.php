@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert parser interface
  *
@@ -38,5 +38,4 @@ interface Mage_Dataflow_Model_Convert_Parser_Interface
     public function parse();
 
     public function unparse();
-
 }

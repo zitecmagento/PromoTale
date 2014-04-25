@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer Form Attribute Resource Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Customer_Model_Resource_Form_Attribute_Collection extends Mage_Eav_Model_Resource_Form_Attribute_Collection
 {
+
     /**
      * Current module pathname
      *
@@ -69,4 +70,5 @@ class Mage_Customer_Model_Resource_Form_Attribute_Collection extends Mage_Eav_Mo
     {
         return $this->getTable('customer/eav_attribute_website');
     }
+
 }

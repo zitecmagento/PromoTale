@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,15 +32,16 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Bundle
-    extends Mage_Bundle_Block_Catalog_Product_View_Type_Bundle
+class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Bundle extends Mage_Bundle_Block_Catalog_Product_View_Type_Bundle
 {
+
     /**
      * Returns string with json config for bundle product
      *
      * @return string
      */
-    public function getJsonConfig() {
+    public function getJsonConfig()
+    {
         $options = array();
         $optionsArray = $this->getOptions();
         foreach ($optionsArray as $option) {
@@ -48,11 +50,12 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Bundle
             foreach ($option->getSelections() as $selection) {
                 $options[$optionId]['selections'][$selection->getSelectionId()] = array(
                     'can_change_qty' => $selection->getSelectionCanChangeQty(),
-                    'default_qty'    => $selection->getSelectionQty()
+                    'default_qty' => $selection->getSelectionQty()
                 );
             }
         }
         $config = array('options' => $options);
         return Mage::helper('core')->jsonEncode($config);
     }
+
 }

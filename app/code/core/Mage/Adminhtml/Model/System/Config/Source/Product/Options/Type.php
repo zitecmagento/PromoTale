@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Product_Options_Type
 {
+
     const PRODUCT_OPTIONS_GROUPS_PATH = 'global/catalog/product/options/custom/groups';
 
     public function toOptionArray()
@@ -48,7 +50,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Product_Options_Type
             $typesPath = self::PRODUCT_OPTIONS_GROUPS_PATH . '/' . $group->getName() . '/types';
             foreach (Mage::getConfig()->getNode($typesPath)->children() as $type) {
                 $labelPath = self::PRODUCT_OPTIONS_GROUPS_PATH . '/' . $group->getName() . '/types/' . $type->getName()
-                    . '/label';
+                        . '/label';
                 $types[] = array(
                     'label' => $helper->__((string) Mage::getConfig()->getNode($labelPath)),
                     'value' => $type->getName()
@@ -65,4 +67,5 @@ class Mage_Adminhtml_Model_System_Config_Source_Product_Options_Type
 
         return $groups;
     }
+
 }

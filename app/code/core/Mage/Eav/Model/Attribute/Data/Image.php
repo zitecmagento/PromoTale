@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Entity Attribute Image File Data Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_File
 {
+
     /**
      * Validate file by attribute validate rules
      * Return array of errors
@@ -43,8 +44,8 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
      */
     protected function _validateByRules($value)
     {
-        $label  = Mage::helper('eav')->__($this->getAttribute()->getStoreLabel());
-        $rules  = $this->getAttribute()->getValidateRules();
+        $label = Mage::helper('eav')->__($this->getAttribute()->getStoreLabel());
+        $rules = $this->getAttribute()->getValidateRules();
 
         $imageProp = @getimagesize($value['tmp_name']);
 
@@ -55,9 +56,9 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
         }
 
         $allowImageTypes = array(
-            1   => 'gif',
-            2   => 'jpg',
-            3   => 'png',
+            1 => 'gif',
+            2 => 'jpg',
+            3 => 'png',
         );
 
         if (!isset($allowImageTypes[$imageProp[2]])) {
@@ -67,7 +68,7 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
         }
 
         // modify image name
-        $extension  = pathinfo($value['name'], PATHINFO_EXTENSION);
+        $extension = pathinfo($value['name'], PATHINFO_EXTENSION);
         if ($extension != $allowImageTypes[$imageProp[2]]) {
             $value['name'] = pathinfo($value['name'], PATHINFO_FILENAME) . '.' . $allowImageTypes[$imageProp[2]];
         }
@@ -95,4 +96,5 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
 
         return $errors;
     }
+
 }

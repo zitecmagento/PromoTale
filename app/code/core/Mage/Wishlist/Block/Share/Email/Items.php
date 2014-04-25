@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist block customer items
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
 {
+
     /**
      * Initialize template
      *
@@ -85,4 +86,5 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
         }
         return $hasDescription;
     }
+
 }

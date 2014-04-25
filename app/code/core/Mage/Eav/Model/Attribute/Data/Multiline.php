@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Entity Attribute Multiply line Data Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_Data_Text
 {
+
     /**
      * Extract data from request and return value
      *
@@ -60,8 +61,8 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
      */
     public function validateValue($value)
     {
-        $errors     = array();
-        $attribute  = $this->getAttribute();
+        $errors = array();
+        $attribute = $this->getAttribute();
 
         if ($value === false) {
             // try to load original value and validate it
@@ -154,4 +155,5 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         }
         return $output;
     }
+
 }

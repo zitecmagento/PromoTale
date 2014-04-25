@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -28,10 +29,10 @@
  *
  * PayPal Express Module
  */
-class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
-    implements Mage_Payment_Model_Recurring_Profile_MethodInterface
+class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract implements Mage_Payment_Model_Recurring_Profile_MethodInterface
 {
-    protected $_code  = Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS;
+
+    protected $_code = Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS;
     protected $_formBlockType = 'paypal/express_form';
     protected $_infoBlockType = 'paypal/payment_info';
 
@@ -45,20 +46,20 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     /**
      * Availability options
      */
-    protected $_isGateway                   = false;
-    protected $_canOrder                    = true;
-    protected $_canAuthorize                = true;
-    protected $_canCapture                  = true;
-    protected $_canCapturePartial           = true;
-    protected $_canRefund                   = true;
-    protected $_canRefundInvoicePartial     = true;
-    protected $_canVoid                     = true;
-    protected $_canUseInternal              = false;
-    protected $_canUseCheckout              = true;
-    protected $_canUseForMultishipping      = false;
-    protected $_canFetchTransactionInfo     = true;
-    protected $_canCreateBillingAgreement   = true;
-    protected $_canReviewPayment            = true;
+    protected $_isGateway = false;
+    protected $_canOrder = true;
+    protected $_canAuthorize = true;
+    protected $_canCapture = true;
+    protected $_canCapturePartial = true;
+    protected $_canRefund = true;
+    protected $_canRefundInvoicePartial = true;
+    protected $_canVoid = true;
+    protected $_canUseInternal = false;
+    protected $_canUseCheckout = true;
+    protected $_canUseForMultishipping = false;
+    protected $_canFetchTransactionInfo = true;
+    protected $_canCreateBillingAgreement = true;
+    protected $_canReviewPayment = true;
 
     /**
      * Website Payments Pro instance
@@ -106,20 +107,19 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         return $this;
     }
 
-   /**
-    * Can be used in regular checkout
-    *
-    * @return bool
-    */
-   public function canUseCheckout()
-   {
-       if (Mage::getStoreConfigFlag('payment/hosted_pro/active')
-           && !Mage::getStoreConfigFlag('payment/hosted_pro/display_ec')
-       ) {
-           return false;
-       }
-       return parent::canUseCheckout();
-   }
+    /**
+     * Can be used in regular checkout
+     *
+     * @return bool
+     */
+    public function canUseCheckout()
+    {
+        if (Mage::getStoreConfigFlag('payment/hosted_pro/active') && !Mage::getStoreConfigFlag('payment/hosted_pro/display_ec')
+        ) {
+            return false;
+        }
+        return parent::canUseCheckout();
+    }
 
     /**
      * Whether method is available for specified currency
@@ -190,7 +190,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
 
         $api = $this->_callDoAuthorize($amount, $payment, $payment->getTransactionId());
 
-        $state  = Mage_Sales_Model_Order::STATE_PROCESSING;
+        $state = Mage_Sales_Model_Order::STATE_PROCESSING;
         $status = true;
 
         $formatedPrice = $order->getBaseCurrency()->formatTxt($amount);
@@ -220,8 +220,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         $payment->setTransactionId($api->getTransactionId());
         $payment->setParentTransactionId($orderTransactionId);
 
-        $transaction = $payment->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH, null, false,
-            $message
+        $transaction = $payment->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH, null, false, $message
         );
 
         $order->setState($state, $status);
@@ -251,11 +250,10 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     public function void(Varien_Object $payment)
     {
         //Switching to order transaction if needed
-        if ($payment->getAdditionalInformation($this->_isOrderPaymentActionKey)
-            && !$payment->getVoidOnlyAuthorization()
+        if ($payment->getAdditionalInformation($this->_isOrderPaymentActionKey) && !$payment->getVoidOnlyAuthorization()
         ) {
             $orderTransaction = $payment->lookupTransaction(
-                false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER
+                    false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER
             );
             if ($orderTransaction) {
                 $payment->setParentTransactionId($orderTransaction->getTxnId());
@@ -283,8 +281,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
 
         if ($payment->getAdditionalInformation($this->_isOrderPaymentActionKey)) {
             $voided = false;
-            if (!$authorizationTransaction->getIsClosed()
-                && $this->_isTransactionExpired($authorizationTransaction, $authorizationPeriod)
+            if (!$authorizationTransaction->getIsClosed() && $this->_isTransactionExpired($authorizationTransaction, $authorizationPeriod)
             ) {
                 //Save payment state and configure payment object for voiding
                 $isCaptureFinal = $payment->getShouldCloseParentTransaction();
@@ -307,9 +304,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
                     Mage::throwException(Mage::helper('paypal')->__('The maximum number of child authorizations is reached.'));
                 }
                 $api = $this->_callDoAuthorize(
-                    $amount,
-                    $payment,
-                    $authorizationTransaction->getParentTxnId()
+                        $amount, $payment, $authorizationTransaction->getParentTxnId()
                 );
 
                 //Adding authorization transaction
@@ -326,8 +321,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
                     $message = Mage::helper('paypal')->__('Authorized amount of %s.', $formatedPrice);
                 }
 
-                $transaction = $payment->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH, null,
-                    true, $message
+                $transaction = $payment->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH, null, true, $message
                 );
 
                 $payment->setParentTransactionId($api->getTransactionId());
@@ -336,7 +330,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             //close order transaction if needed
             if ($payment->getShouldCloseParentTransaction()) {
                 $orderTransaction = $payment->lookupTransaction(
-                    false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER
+                        false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER
                 );
 
                 if ($orderTransaction) {
@@ -458,11 +452,11 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      * @param Mage_Payment_Model_Recurring_Profile $profile
      * @param Mage_Payment_Model_Info $paymentInfo
      */
-    public function submitRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile,
-        Mage_Payment_Model_Info $paymentInfo
-    ) {
+    public function submitRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile, Mage_Payment_Model_Info $paymentInfo
+    )
+    {
         $token = $paymentInfo->
-            getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_TOKEN);
+                getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_TOKEN);
         $profile->setToken($token);
         $this->_pro->submitRecurringProfile($profile, $paymentInfo);
     }
@@ -518,8 +512,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         $key = Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT;
         if (is_array($data)) {
             $this->getInfoInstance()->setAdditionalInformation($key, isset($data[$key]) ? $data[$key] : null);
-        }
-        elseif ($data instanceof Varien_Object) {
+        } elseif ($data instanceof Varien_Object) {
             $this->getInfoInstance()->setAdditionalInformation($key, $data->getData($key));
         }
         return $result;
@@ -539,16 +532,16 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         // prepare api call
         $token = $payment->getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_TOKEN);
         $api = $this->_pro->getApi()
-            ->setToken($token)
-            ->setPayerId($payment->
-                getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_PAYER_ID))
-            ->setAmount($amount)
-            ->setPaymentAction($this->_pro->getConfig()->paymentAction)
-            ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
-            ->setInvNum($order->getIncrementId())
-            ->setCurrencyCode($order->getBaseCurrencyCode())
-            ->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
-            ->setIsLineItemsEnabled($this->_pro->getConfig()->lineItemsEnabled)
+                ->setToken($token)
+                ->setPayerId($payment->
+                        getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_PAYER_ID))
+                ->setAmount($amount)
+                ->setPaymentAction($this->_pro->getConfig()->paymentAction)
+                ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
+                ->setInvNum($order->getIncrementId())
+                ->setCurrencyCode($order->getBaseCurrencyCode())
+                ->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
+                ->setIsLineItemsEnabled($this->_pro->getConfig()->lineItemsEnabled)
         ;
         if ($order->getIsVirtual()) {
             $api->setAddress($order->getBillingAddress())->setSuppressShipping(true);
@@ -573,14 +566,13 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     protected function _importToPayment($api, $payment)
     {
         $payment->setTransactionId($api->getTransactionId())->setIsTransactionClosed(0)
-            ->setAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT,
-                $api->getRedirectRequired()
-            );
+                ->setAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT, $api->getRedirectRequired()
+        );
 
         if ($api->getBillingAgreementId()) {
             $payment->setBillingAgreementData(array(
-                'billing_agreement_id'  => $api->getBillingAgreementId(),
-                'method_code'           => Mage_Paypal_Model_Config::METHOD_BILLING_AGREEMENT
+                'billing_agreement_id' => $api->getBillingAgreementId(),
+                'method_code' => Mage_Paypal_Model_Config::METHOD_BILLING_AGREEMENT
             ));
         }
 
@@ -595,15 +587,14 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      */
     public function canVoid(Varien_Object $payment)
     {
-        if ($payment instanceof Mage_Sales_Model_Order_Invoice
-            || $payment instanceof Mage_Sales_Model_Order_Creditmemo
+        if ($payment instanceof Mage_Sales_Model_Order_Invoice || $payment instanceof Mage_Sales_Model_Order_Creditmemo
         ) {
             return false;
         }
         $info = $this->getInfoInstance();
         if ($info->getAdditionalInformation($this->_isOrderPaymentActionKey)) {
             $orderTransaction = $info->lookupTransaction(
-                false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER
+                    false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER
             );
             if ($orderTransaction) {
                 $info->setParentTransactionId($orderTransaction->getTxnId());
@@ -624,8 +615,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         $this->_pro->getConfig()->setStoreId($payment->getOrder()->getStore()->getId());
 
         if ($payment->getAdditionalInformation($this->_isOrderPaymentActionKey)) {
-            $orderTransaction = $payment->lookupTransaction(false,
-                Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER
+            $orderTransaction = $payment->lookupTransaction(false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER
             );
             if ($orderTransaction->getIsClosed()) {
                 return false;
@@ -655,13 +645,12 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     protected function _callDoAuthorize($amount, $payment, $parentTransactionId)
     {
         $api = $this->_pro->resetApi()->getApi()
-            ->setAmount($amount)
-            ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode())
-            ->setTransactionId($parentTransactionId)
-            ->callDoAuthorization();
+                ->setAmount($amount)
+                ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode())
+                ->setTransactionId($parentTransactionId)
+                ->callDoAuthorization();
 
-        $payment->setAdditionalInformation($this->_authorizationCountKey,
-            $payment->getAdditionalInformation($this->_authorizationCountKey) + 1
+        $payment->setAdditionalInformation($this->_authorizationCountKey, $payment->getAdditionalInformation($this->_authorizationCountKey) + 1
         );
 
         return $api;
@@ -697,4 +686,5 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
 
         return false;
     }
+
 }

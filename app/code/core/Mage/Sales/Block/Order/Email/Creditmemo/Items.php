@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales Order Email creditmemo items
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Block_Order_Email_Creditmemo_Items extends Mage_Sales_Block_Items_Abstract
 {
+
     /**
      * Prepare item before output
      *
@@ -45,4 +46,5 @@ class Mage_Sales_Block_Order_Email_Creditmemo_Items extends Mage_Sales_Block_Ite
         $renderer->getItem()->setOrder($this->getOrder());
         $renderer->getItem()->setSource($this->getCreditmemo());
     }
+
 }

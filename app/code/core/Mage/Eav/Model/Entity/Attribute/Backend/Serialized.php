@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Serialize before saving
      *
@@ -82,14 +84,18 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
     {
         $attrCode = $this->getAttribute()->getAttributeCode();
         if ($object->getData($attrCode)) {
-            try {
+            try
+            {
                 $unserialized = unserialize($object->getData($attrCode));
                 $object->setData($attrCode, $unserialized);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $object->unsetData($attrCode);
             }
         }
 
         return $this;
     }
+
 }

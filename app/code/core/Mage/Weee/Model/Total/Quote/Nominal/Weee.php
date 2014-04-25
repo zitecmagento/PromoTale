@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Weee_Model_Total_Quote_Nominal_Weee extends Mage_Weee_Model_Total_Quote_Weee
 {
+
     /**
      * Don't add amounts to address
      *
@@ -53,4 +55,5 @@ class Mage_Weee_Model_Total_Quote_Nominal_Weee extends Mage_Weee_Model_Total_Quo
     {
         return $address->getAllNominalItems();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 abstract class Zend_Ldap_Filter_Abstract
 {
+
     /**
      * Returns a string representation of the filter.
      *
@@ -117,13 +119,15 @@ abstract class Zend_Ldap_Filter_Abstract
          */
         #require_once 'Zend/Ldap/Converter.php';
 
-        if (!is_array($values)) $values = array($values);
+        if (!is_array($values))
+            $values = array($values);
         foreach ($values as $key => $val) {
             // Escaping of filter meta characters
             $val = str_replace(array('\\', '*', '(', ')'), array('\5c', '\2a', '\28', '\29'), $val);
             // ASCII < 32 escaping
             $val = Zend_Ldap_Converter::ascToHex32($val);
-            if (null === $val) $val = '\0';  // apply escaped "null" if string is empty
+            if (null === $val)
+                $val = '\0';  // apply escaped "null" if string is empty
             $values[$key] = $val;
         }
         return (count($values) == 1) ? $values[0] : $values;
@@ -147,11 +151,13 @@ abstract class Zend_Ldap_Filter_Abstract
          */
         #require_once 'Zend/Ldap/Converter.php';
 
-        if (!is_array($values)) $values = array($values);
+        if (!is_array($values))
+            $values = array($values);
         foreach ($values as $key => $value) {
             // Translate hex code into ascii
             $values[$key] = Zend_Ldap_Converter::hex32ToAsc($value);
         }
         return (count($values) == 1) ? $values[0] : $values;
     }
+
 }

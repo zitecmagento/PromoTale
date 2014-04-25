@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Install_Block_Download extends Mage_Install_Block_Abstract
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -50,8 +52,8 @@ class Mage_Install_Block_Download extends Mage_Install_Block_Abstract
     public function getNextUrl()
     {
         return Mage::getModel('install/wizard')
-            ->getStepByName('download')
-                ->getNextUrl();
+                        ->getStepByName('download')
+                        ->getNextUrl();
     }
 
     public function hasLocalCopy()
@@ -62,5 +64,5 @@ class Mage_Install_Block_Download extends Mage_Install_Block_Abstract
         }
         return false;
     }
-}
 
+}

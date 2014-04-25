@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Configuration for Admin model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Admin_Model_Config extends Varien_Simplexml_Config
 {
+
     /**
      * adminhtml.xml merged config
      *
@@ -63,7 +64,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
              * @deprecated after 1.4.0.0-alpha2
              * support backwards compatibility with config.xml
              */
-            $aclConfig  = Mage::getConfig()->getNode('adminhtml/acl');
+            $aclConfig = Mage::getConfig()->getNode('adminhtml/acl');
             if ($aclConfig) {
                 $adminhtmlConfig->getNode()->extendChild($aclConfig, true);
             }
@@ -73,8 +74,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
             }
 
             if (Mage::app()->useCache('config')) {
-                Mage::app()->saveCache($adminhtmlConfig->getXmlString(), $this->getCacheId(),
-                    array(Mage_Core_Model_Config::CACHE_TAG));
+                Mage::app()->saveCache($adminhtmlConfig->getXmlString(), $this->getCacheId(), array(Mage_Core_Model_Config::CACHE_TAG));
             }
         }
     }
@@ -103,7 +103,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
 
         if (isset($resource->admin)) {
             $children = $resource->admin;
-        } elseif (isset($resource->children)){
+        } elseif (isset($resource->children)) {
             $children = $resource->children->children();
         }
 
@@ -183,8 +183,9 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         $moduleName = 'adminhtml';
         $menuNode = $this->getAdminhtmlConfig()->getNode('menu/' . str_replace('/', '/children/', trim($path, '/')));
         if ($menuNode->getAttribute('module')) {
-            $moduleName = (string)$menuNode->getAttribute('module');
+            $moduleName = (string) $menuNode->getAttribute('module');
         }
-        return Mage::helper($moduleName)->__((string)$menuNode->title);
+        return Mage::helper($moduleName)->__((string) $menuNode->title);
     }
+
 }

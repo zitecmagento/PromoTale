@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Auth session model
  *
@@ -36,19 +36,19 @@ class Mage_Connect_Model_Session extends Mage_Core_Model_Session_Abstract
 {
 
     /**
-    * Contructor
-    */
+     * Contructor
+     */
     public function __construct()
     {
         $this->init('adminhtml');
     }
 
     /**
-    * Retrieve parameters of extension from session.
-    * Compatible with old version extension info file.
-    *
-    * @return array
-    */
+     * Retrieve parameters of extension from session.
+     * Compatible with old version extension info file.
+     *
+     * @return array
+     */
     public function getCustomExtensionPackageFormData()
     {
         $data = $this->getData('custom_extension_package_form_data');

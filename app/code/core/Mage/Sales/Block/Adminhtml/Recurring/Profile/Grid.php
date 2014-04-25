@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Set ajax/session parameters
      */
@@ -73,9 +75,9 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', array(
-                'header'     => Mage::helper('adminhtml')->__('Store'),
-                'index'      => 'store_id',
-                'type'       => 'store',
+                'header' => Mage::helper('adminhtml')->__('Store'),
+                'index' => 'store_id',
+                'type' => 'store',
                 'store_view' => true,
                 'display_deleted' => true,
             ));
@@ -84,7 +86,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
         $this->addColumn('state', array(
             'header' => $profile->getFieldLabel('state'),
             'index' => 'state',
-            'type'  => 'options',
+            'type' => 'options',
             'options' => $profile->getAllStates(),
             'html_decorators' => array('nobr'),
             'width' => 1,
@@ -111,9 +113,9 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
             $methods[$method->getCode()] = $method->getTitle();
         }
         $this->addColumn('method_code', array(
-            'header'  => $profile->getFieldLabel('method_code'),
-            'index'   => 'method_code',
-            'type'    => 'options',
+            'header' => $profile->getFieldLabel('method_code'),
+            'index' => 'method_code',
+            'type' => 'options',
             'options' => $methods,
         ));
 
@@ -143,6 +145,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current'=>true));
+        return $this->getUrl('*/*/grid', array('_current' => true));
     }
+
 }

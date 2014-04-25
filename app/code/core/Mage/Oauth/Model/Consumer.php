@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -51,6 +52,7 @@
  */
 class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
 {
+
     /**
      * Key hash length
      */
@@ -126,4 +128,5 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
         }
         return true;
     }
+
 }

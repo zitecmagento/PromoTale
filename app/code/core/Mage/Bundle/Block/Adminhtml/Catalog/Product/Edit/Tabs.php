@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs
 {
+
     protected $_attributeTabBlock = 'bundle/adminhtml_catalog_product_edit_tab_attributes';
 
     protected function _prepareLayout()
@@ -40,10 +42,11 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tabs extends Mage_Adminht
         parent::_prepareLayout();
 
         $this->addTab('bundle_items', array(
-            'label'     => Mage::helper('bundle')->__('Bundle Items'),
-            'url'   => $this->getUrl('*/*/bundles', array('_current' => true)),
+            'label' => Mage::helper('bundle')->__('Bundle Items'),
+            'url' => $this->getUrl('*/*/bundles', array('_current' => true)),
             'class' => 'ajax',
         ));
         $this->bindShadowTabs('bundle_items', 'customer_options');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -43,7 +44,7 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
      * @var string
      */
     protected $_moduleName = null;
-    
+
     /**
      * @var string
      */
@@ -70,7 +71,7 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
     {
         return array(
             'controllerName' => $this->getControllerName()
-            );
+        );
     }
 
     /**
@@ -102,7 +103,7 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
     {
         $className = ($this->_moduleName) ? ucfirst($this->_moduleName) . '_' : '';
         $className .= ucfirst($this->_controllerName) . 'Controller';
-        
+
         $codeGenFile = new Zend_CodeGenerator_Php_File(array(
             'fileName' => $this->getPath(),
             'classes' => array(
@@ -113,11 +114,11 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
                         new Zend_CodeGenerator_Php_Method(array(
                             'name' => 'init',
                             'body' => '/* Initialize action controller here */',
-                            ))
-                        )
-                    ))
-                )
-            ));
+                                ))
+                    )
+                        ))
+            )
+        ));
 
 
         if ($className == 'ErrorController') {
@@ -167,7 +168,7 @@ if (\$this->getInvokeArg('displayExceptions') == true) {
 
 \$this->view->request   = \$errors->request;
 EOS
-                                )),
+                                    )),
                             new Zend_CodeGenerator_Php_Method(array(
                                 'name' => 'getLog',
                                 'body' => <<<EOS
@@ -178,12 +179,11 @@ if (!\$bootstrap->hasResource('Log')) {
 \$log = \$bootstrap->getResource('Log');
 return \$log;
 EOS
-                                )),
-                            )
-                        ))
-                    )
-                ));
-
+                                    )),
+                        )
+                            ))
+                )
+            ));
         }
 
         // store the generator into the registry so that the addAction command can use the same object later

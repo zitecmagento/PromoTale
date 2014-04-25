@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Qty
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Input
+class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Qty extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Input
 {
+
     /**
      * Returns whether this qty field must be inactive
      *
@@ -76,4 +77,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Qty
         $html .= 'class="input-text ' . $this->getColumn()->getInlineCss() . ($isInactive ? ' input-inactive' : '') . '" />';
         return $html;
     }
+
 }

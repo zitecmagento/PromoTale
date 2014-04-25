@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Regex.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Controller_Router_Route_Abstract */
 #require_once 'Zend/Controller/Router/Route/Abstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Abstract
 {
+
     protected $_regex = null;
     protected $_defaults = array();
     protected $_reverse = null;
@@ -54,13 +55,14 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
 
     public function __construct($route, $defaults = array(), $map = array(), $reverse = null)
     {
-        $this->_regex    = $route;
+        $this->_regex = $route;
         $this->_defaults = (array) $defaults;
-        $this->_map      = (array) $map;
-        $this->_reverse  = $reverse;
+        $this->_map = (array) $map;
+        $this->_reverse = $reverse;
     }
 
-    public function getVersion() {
+    public function getVersion()
+    {
         return 1;
     }
 
@@ -99,9 +101,9 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
 
         $this->_values = $values;
 
-        $values   = $this->_getMappedValues($values);
+        $values = $this->_getMappedValues($values);
         $defaults = $this->_getMappedValues($this->_defaults, false, true);
-        $return   = $values + $defaults;
+        $return = $values + $defaults;
 
         return $return;
     }
@@ -169,9 +171,9 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
             throw new Zend_Controller_Router_Exception('Cannot assemble. Reversed route is not specified.');
         }
 
-        $defaultValuesMapped  = $this->_getMappedValues($this->_defaults, true, false);
-        $matchedValuesMapped  = $this->_getMappedValues($this->_values, true, false);
-        $dataValuesMapped     = $this->_getMappedValues($data, true, false);
+        $defaultValuesMapped = $this->_getMappedValues($this->_defaults, true, false);
+        $matchedValuesMapped = $this->_getMappedValues($this->_values, true, false);
+        $dataValuesMapped = $this->_getMappedValues($data, true, false);
 
         // handle resets, if so requested (By null value) to do so
         if (($resetKeys = array_search(null, $dataValuesMapped, true)) !== false) {
@@ -204,7 +206,6 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
         }
 
         return $return;
-
     }
 
     /**
@@ -213,7 +214,8 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
      * @param string $name Array key of the parameter
      * @return string Previously set default
      */
-    public function getDefault($name) {
+    public function getDefault($name)
+    {
         if (isset($this->_defaults[$name])) {
             return $this->_defaults[$name];
         }
@@ -224,7 +226,8 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
      *
      * @return array Route defaults
      */
-    public function getDefaults() {
+    public function getDefaults()
+    {
         return $this->_defaults;
     }
 
@@ -264,6 +267,5 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
         }
         return $returnArray;
     }
-
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: TagResult.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Technorati_Result
  */
 #require_once 'Zend/Service/Technorati/Result.php';
-
 
 /**
  * Represents a single Technorati Tag query result object.
@@ -40,6 +38,7 @@
  */
 class Zend_Service_Technorati_TagResult extends Zend_Service_Technorati_Result
 {
+
     /**
      * Technorati weblog object corresponding to queried keyword.
      *
@@ -90,7 +89,6 @@ class Zend_Service_Technorati_TagResult extends Zend_Service_Technorati_Result
      */
     protected $_permalink;
 
-
     /**
      * Constructs a new object object from DOM Element.
      *
@@ -98,11 +96,11 @@ class Zend_Service_Technorati_TagResult extends Zend_Service_Technorati_Result
      */
     public function __construct(DomElement $dom)
     {
-        $this->_fields = array( '_permalink'    => 'permalink',
-                                '_excerpt'      => 'excerpt',
-                                '_created'      => 'created',
-                                '_updated'      => 'postupdate',
-                                '_title'        => 'title');
+        $this->_fields = array('_permalink' => 'permalink',
+            '_excerpt' => 'excerpt',
+            '_created' => 'created',
+            '_updated' => 'postupdate',
+            '_title' => 'title');
         parent::__construct($dom);
 
         // weblog object field
@@ -119,7 +117,8 @@ class Zend_Service_Technorati_TagResult extends Zend_Service_Technorati_Result
      *
      * @return  Zend_Service_Technorati_Weblog
      */
-    public function getWeblog() {
+    public function getWeblog()
+    {
         return $this->_weblog;
     }
 
@@ -128,7 +127,8 @@ class Zend_Service_Technorati_TagResult extends Zend_Service_Technorati_Result
      *
      * @return  string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->_title;
     }
 
@@ -137,7 +137,8 @@ class Zend_Service_Technorati_TagResult extends Zend_Service_Technorati_Result
      *
      * @return  string
      */
-    public function getExcerpt() {
+    public function getExcerpt()
+    {
         return $this->_excerpt;
     }
 
@@ -146,7 +147,8 @@ class Zend_Service_Technorati_TagResult extends Zend_Service_Technorati_Result
      *
      * @return  Zend_Date
      */
-    public function getCreated() {
+    public function getCreated()
+    {
         return $this->_created;
     }
 
@@ -155,7 +157,8 @@ class Zend_Service_Technorati_TagResult extends Zend_Service_Technorati_Result
      *
      * @return  Zend_Date
      */
-    public function getUpdated() {
+    public function getUpdated()
+    {
         return $this->_updated;
     }
 
@@ -164,7 +167,8 @@ class Zend_Service_Technorati_TagResult extends Zend_Service_Technorati_Result
      *
      * @return  Zend_Uri_Http
      */
-    public function getPermalink() {
+    public function getPermalink()
+    {
         return $this->_permalink;
     }
 

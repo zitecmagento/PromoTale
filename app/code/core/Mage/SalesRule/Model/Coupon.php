@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * SalesRule Coupon Model
@@ -53,6 +53,7 @@
  */
 class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
 {
+
     /**
      * Coupon's owner rule instance
      *
@@ -114,4 +115,5 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
         $this->load($couponCode, 'code');
         return $this;
     }
+
 }

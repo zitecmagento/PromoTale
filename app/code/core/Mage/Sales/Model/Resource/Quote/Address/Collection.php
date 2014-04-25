@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Quote addresses collection
  *
@@ -34,19 +34,20 @@
  */
 class Mage_Sales_Model_Resource_Quote_Address_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix    = 'sales_quote_address_collection';
+    protected $_eventPrefix = 'sales_quote_address_collection';
 
     /**
      * Event object name
      *
      * @var string
      */
-    protected $_eventObject    = 'quote_address_collection';
+    protected $_eventObject = 'quote_address_collection';
 
     /**
      * Resource initialization
@@ -79,11 +80,11 @@ class Mage_Sales_Model_Resource_Quote_Address_Collection extends Mage_Core_Model
     {
         parent::_afterLoad();
 
-        Mage::dispatchEvent($this->_eventPrefix.'_load_after', array(
+        Mage::dispatchEvent($this->_eventPrefix . '_load_after', array(
             $this->_eventObject => $this
         ));
 
         return $this;
     }
-}
 
+}

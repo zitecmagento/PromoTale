@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog category image attribute backend model
  *
@@ -47,21 +47,24 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
         if (is_array($value) && !empty($value['delete'])) {
             $object->setData($this->getAttribute()->getName(), '');
             $this->getAttribute()->getEntity()
-                ->saveAttribute($object, $this->getAttribute()->getName());
+                    ->saveAttribute($object, $this->getAttribute()->getName());
             return;
         }
 
         $path = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'category' . DS;
 
-        try {
+        try
+        {
             $uploader = new Mage_Core_Model_File_Uploader($this->getAttribute()->getName());
-            $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
+            $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
             $uploader->setAllowRenameFiles(true);
             $result = $uploader->save($path);
 
             $object->setData($this->getAttribute()->getName(), $result['file']);
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getName());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             if ($e->getCode() != Mage_Core_Model_File_Uploader::TMP_NAME_EMPTY) {
                 Mage::logException($e);
             }
@@ -69,4 +72,5 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
             return;
         }
     }
+
 }

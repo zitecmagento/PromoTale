@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 abstract class Zend_Feed_Reader_EntryAbstract
 {
+
     /**
      * Feed entry data
      *
@@ -79,8 +81,8 @@ abstract class Zend_Feed_Reader_EntryAbstract
      */
     public function __construct(DOMElement $entry, $entryKey, $type = null)
     {
-        $this->_entry       = $entry;
-        $this->_entryKey    = $entryKey;
+        $this->_entry = $entry;
+        $this->_entryKey = $entryKey;
         $this->_domDocument = $entry->ownerDocument;
         if ($type !== null) {
             $this->_data['type'] = $type;
@@ -213,7 +215,7 @@ abstract class Zend_Feed_Reader_EntryAbstract
         }
         #require_once 'Zend/Feed/Exception.php';
         throw new Zend_Feed_Exception('Method: ' . $method
-            . 'does not exist and could not be located on a registered Extension');
+        . 'does not exist and could not be located on a registered Extension');
     }
 
     /**
@@ -231,8 +233,9 @@ abstract class Zend_Feed_Reader_EntryAbstract
             }
             $className = Zend_Feed_Reader::getPluginLoader()->getClassName($extension);
             $this->_extensions[$extension] = new $className(
-                $this->getElement(), $this->_entryKey, $this->_data['type']
+                    $this->getElement(), $this->_entryKey, $this->_data['type']
             );
         }
     }
+
 }

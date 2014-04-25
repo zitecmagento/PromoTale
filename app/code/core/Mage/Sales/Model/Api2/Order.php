@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,15 +34,17 @@
  */
 class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
 {
-    /**#@+
+    /*     * #@+
      * Parameters' names in config with special ACL meaning
      */
-    const PARAM_GIFT_MESSAGE   = '_gift_message';
+
+    const PARAM_GIFT_MESSAGE = '_gift_message';
     const PARAM_ORDER_COMMENTS = '_order_comments';
     const PARAM_PAYMENT_METHOD = '_payment_method';
-    const PARAM_TAX_NAME       = '_tax_name';
-    const PARAM_TAX_RATE       = '_tax_rate';
-    /**#@-*/
+    const PARAM_TAX_NAME = '_tax_name';
+    const PARAM_TAX_RATE = '_tax_rate';
+
+    /*     * #@- */
 
     /**
      * Add gift message info to select
@@ -52,13 +55,11 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     protected function _addGiftMessageInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
     {
         $collection->getSelect()->joinLeft(
-            array('gift_message' => $collection->getTable('giftmessage/message')),
-            'main_table.gift_message_id = gift_message.gift_message_id',
-            array(
-                'gift_message_from' => 'gift_message.sender',
-                'gift_message_to'   => 'gift_message.recipient',
-                'gift_message_body' => 'gift_message.message'
-            )
+                array('gift_message' => $collection->getTable('giftmessage/message')), 'main_table.gift_message_id = gift_message.gift_message_id', array(
+            'gift_message_from' => 'gift_message.sender',
+            'gift_message_to' => 'gift_message.recipient',
+            'gift_message_body' => 'gift_message.message'
+                )
         );
 
         return $this;
@@ -73,9 +74,8 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     protected function _addPaymentMethodInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
     {
         $collection->getSelect()->joinLeft(
-            array('payment_method' => $collection->getTable('sales/order_payment')),
-            'main_table.entity_id = payment_method.parent_id',
-            array('payment_method' => 'payment_method.method')
+                array('payment_method' => $collection->getTable('sales/order_payment')), 'main_table.entity_id = payment_method.parent_id', array(
+            'payment_method' => 'payment_method.method')
         );
 
         return $this;
@@ -99,9 +99,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         }
         if ($taxInfoFields) {
             $collection->getSelect()->joinLeft(
-                array('order_tax' => $collection->getTable('sales/order_tax')),
-                'main_table.entity_id = order_tax.order_id',
-                $taxInfoFields
+                    array('order_tax' => $collection->getTable('sales/order_tax')), 'main_table.entity_id = order_tax.order_id', $taxInfoFields
             );
         }
         return $this;
@@ -315,4 +313,5 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         }
         return $ordersData;
     }
+
 }

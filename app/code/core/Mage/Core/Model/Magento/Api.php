@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Core_Model_Magento_Api extends Mage_Api_Model_Resource_Abstract
 {
+
     /**
      * Retrieve information about current Magento installation
      *
@@ -46,4 +48,5 @@ class Mage_Core_Model_Magento_Api extends Mage_Api_Model_Resource_Abstract
 
         return $result;
     }
+
 }

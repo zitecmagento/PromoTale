@@ -20,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Delicious.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Rest_Client
  */
@@ -47,7 +45,6 @@
  */
 #require_once 'Zend/Service/Delicious/PostList.php';
 
-
 /**
  * Zend_Service_Delicious is a concrete implementation of the del.icio.us web service
  *
@@ -59,27 +56,26 @@
  */
 class Zend_Service_Delicious
 {
+
     const API_URI = 'https://api.del.icio.us';
-
-    const PATH_UPDATE        = '/v1/posts/update';
-    const PATH_TAGS          = '/v1/tags/get';
-    const PATH_TAG_RENAME    = '/v1/tags/rename';
-    const PATH_BUNDLES       = '/v1/tags/bundles/all';
+    const PATH_UPDATE = '/v1/posts/update';
+    const PATH_TAGS = '/v1/tags/get';
+    const PATH_TAG_RENAME = '/v1/tags/rename';
+    const PATH_BUNDLES = '/v1/tags/bundles/all';
     const PATH_BUNDLE_DELETE = '/v1/tags/bundles/delete';
-    const PATH_BUNDLE_ADD    = '/v1/tags/bundles/set';
-    const PATH_DATES         = '/v1/posts/dates';
-    const PATH_POST_DELETE   = '/v1/posts/delete';
-    const PATH_POSTS_GET     = '/v1/posts/get';
-    const PATH_POSTS_ALL     = '/v1/posts/all';
-    const PATH_POSTS_ADD     = '/v1/posts/add';
-    const PATH_POSTS_RECENT  = '/v1/posts/recent';
-
-    const JSON_URI     = 'http://del.icio.us';
-    const JSON_POSTS   = '/feeds/json/%s/%s';
-    const JSON_TAGS    = '/feeds/json/tags/%s';
+    const PATH_BUNDLE_ADD = '/v1/tags/bundles/set';
+    const PATH_DATES = '/v1/posts/dates';
+    const PATH_POST_DELETE = '/v1/posts/delete';
+    const PATH_POSTS_GET = '/v1/posts/get';
+    const PATH_POSTS_ALL = '/v1/posts/all';
+    const PATH_POSTS_ADD = '/v1/posts/add';
+    const PATH_POSTS_RECENT = '/v1/posts/recent';
+    const JSON_URI = 'http://del.icio.us';
+    const JSON_POSTS = '/feeds/json/%s/%s';
+    const JSON_TAGS = '/feeds/json/tags/%s';
     const JSON_NETWORK = '/feeds/json/network/%s';
-    const JSON_FANS    = '/feeds/json/fans/%s';
-    const JSON_URL     = '/feeds/json/url/data';
+    const JSON_FANS = '/feeds/json/fans/%s';
+    const JSON_URL = '/feeds/json/url/data';
 
     /**
      * Zend_Service_Rest instance
@@ -133,7 +129,7 @@ class Zend_Service_Delicious
     public function setAuth($uname, $pass)
     {
         $this->_authUname = $uname;
-        $this->_authPass  = $pass;
+        $this->_authPass = $pass;
 
         return $this;
     }
@@ -447,7 +443,7 @@ class Zend_Service_Delicious
 
         $res = $this->makeRequest(self::JSON_URL, $parms, 'json');
 
-        if(isset($res[0])) {
+        if (isset($res[0])) {
             return $res[0];
         } else {
             return null;
@@ -505,7 +501,7 @@ class Zend_Service_Delicious
 
         switch ($type) {
             case 'xml':
-                $dom = new DOMDocument() ;
+                $dom = new DOMDocument();
 
                 if (!@$dom->loadXML($responseBody)) {
                     /**
@@ -613,4 +609,5 @@ class Zend_Service_Delicious
             throw new Zend_Service_Delicious_Exception('del.icio.us web service has returned something odd!');
         }
     }
+
 }

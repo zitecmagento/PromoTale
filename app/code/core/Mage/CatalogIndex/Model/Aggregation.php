@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -44,7 +45,8 @@
  */
 class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
 {
-    const CACHE_FLAG_NAME   = 'layered_navigation';
+
+    const CACHE_FLAG_NAME = 'layered_navigation';
 
     /**
      * Initialize resource model
@@ -66,14 +68,14 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      * @param   null|int|string|Mage_Core_Model_Store $store
      * @return  array|null
      */
-    public function getCacheData($key, $store=null)
+    public function getCacheData($key, $store = null)
     {
         if (!$this->_isEnabled()) {
             return null;
         }
 
-        $key    = $this->_processKey($key);
-        $store  = Mage::app()->getStore($store);
+        $key = $this->_processKey($key);
+        $store = Mage::app()->getStore($store);
         $data = $this->_getResource()->getCacheData($key, $store->getId());
         if (empty($data)) {
             return null;
@@ -89,15 +91,15 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      * @param   null|int|string|Mage_Core_Model_Store $store
      * @return  Mage_CatalogIndex_Model_Aggregation
      */
-    public function saveCacheData($data, $key, $tags, $store=null)
+    public function saveCacheData($data, $key, $tags, $store = null)
     {
         if (!$this->_isEnabled()) {
             return $this;
         }
 
-        $key    = $this->_processKey($key);
-        $tags   = $this->_processTags($tags);
-        $store  = Mage::app()->getStore($store);
+        $key = $this->_processKey($key);
+        $tags = $this->_processTags($tags);
+        $store = Mage::app()->getStore($store);
 
         $this->_getResource()->saveCacheData($data, $key, $tags, $store->getId());
         return $this;
@@ -112,7 +114,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      */
     public function clearCacheData($tags = array(), $store = null)
     {
-        $tags    = $this->_processTags($tags);
+        $tags = $this->_processTags($tags);
         if ($store !== null) {
             $store = Mage::app()->getStore($store)->getId();
         }
@@ -132,7 +134,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
         if (!empty($categoryPaths)) {
             $tags = array();
             foreach ($categoryPaths as $path) {
-                $tags[] = Mage_Catalog_Model_Category::CACHE_TAG.':'.$path;
+                $tags[] = Mage_Catalog_Model_Category::CACHE_TAG . ':' . $path;
             }
             $this->clearCacheData($tags);
         }
@@ -165,7 +167,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
         $newTags = array();
         foreach ($tags as $tag) {
             $tagInfo = explode(':', $tag);
-            if (count($tagInfo)==1) {
+            if (count($tagInfo) == 1) {
                 $newTags[] = $tagInfo[0];
             } else {
                 $tagVariants = explode('/', $tagInfo[1]);
@@ -176,4 +178,5 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
         }
         return $newTags;
     }
+
 }

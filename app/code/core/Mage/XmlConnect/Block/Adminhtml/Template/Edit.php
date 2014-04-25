@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,18 +34,19 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Template_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->_objectId    = 'id';
-        $this->_controller  = 'adminhtml_template';
-        $this->_blockGroup  = 'xmlconnect';
+        $this->_objectId = 'id';
+        $this->_controller = 'adminhtml_template';
+        $this->_blockGroup = 'xmlconnect';
         parent::__construct();
 
         $this->_updateButton('delete', 'onclick', 'deleteConfirm(\'' . $this->__('Warning: All related AirMail messages will be deleted!')
-            . '\n' . $this->__('Are you sure you want to do this?') .'\', \'' . $this->getDeleteUrl() . '\')'
+                . '\n' . $this->__('Are you sure you want to do this?') . '\', \'' . $this->getDeleteUrl() . '\')'
         );
         $this->_updateButton('save', 'label', $this->__('Save'));
         $this->_updateButton('save', 'onclick', 'if (editForm.submit()) {disableElements(\'save\')}');
@@ -59,7 +61,7 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit extends Mage_Adminhtml_Block
     public function getDeleteUrl()
     {
         return $this->getUrl('*/*/deletetemplate', array(
-            $this->_objectId => $this->getRequest()->getParam($this->_objectId)
+                    $this->_objectId => $this->getRequest()->getParam($this->_objectId)
         ));
     }
 
@@ -77,4 +79,5 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit extends Mage_Adminhtml_Block
             return $this->__('New Template');
         }
     }
+
 }

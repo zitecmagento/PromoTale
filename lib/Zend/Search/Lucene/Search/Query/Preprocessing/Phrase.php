@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Phrase.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Search_Lucene_Search_Query_Processing */
 #require_once 'Zend/Search/Lucene/Search/Query/Preprocessing.php';
 
@@ -37,6 +36,7 @@
  */
 class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_Lucene_Search_Query_Preprocessing
 {
+
     /**
      * Phrase to find.
      *
@@ -50,7 +50,6 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
      * @var string
      */
     private $_phraseEncoding;
-
 
     /**
      * Field name.
@@ -87,9 +86,9 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
      */
     public function __construct($phrase, $phraseEncoding, $fieldName)
     {
-        $this->_phrase         = $phrase;
+        $this->_phrase = $phrase;
         $this->_phraseEncoding = $phraseEncoding;
-        $this->_field          = $fieldName;
+        $this->_field = $fieldName;
     }
 
     /**
@@ -101,7 +100,6 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
     {
         $this->_slop = $slop;
     }
-
 
     /**
      * Get slop
@@ -128,7 +126,6 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
 //            #require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
 //            throw new Zend_Search_Lucene_Search_QueryParserException('Wildcards are only allowed in a single terms.');
 //        }
-
         // Split query into subqueries if field name is not specified
         if ($this->_field === null) {
             #require_once 'Zend/Search/Lucene/Search/Query/Boolean.php';
@@ -143,9 +140,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
             }
 
             foreach ($searchFields as $fieldName) {
-                $subquery = new Zend_Search_Lucene_Search_Query_Preprocessing_Phrase($this->_phrase,
-                                                                                     $this->_phraseEncoding,
-                                                                                     $fieldName);
+                $subquery = new Zend_Search_Lucene_Search_Query_Preprocessing_Phrase($this->_phrase, $this->_phraseEncoding, $fieldName);
                 $subquery->setSlop($this->getSlop());
 
                 $query->addSubquery($subquery->rewrite($index));
@@ -181,7 +176,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
 
         if (count($tokens) == 1) {
             #require_once 'Zend/Search/Lucene/Index/Term.php';
-            $term  = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
+            $term = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
             #require_once 'Zend/Search/Lucene/Search/Query/Term.php';
             $query = new Zend_Search_Lucene_Search_Query_Term($term);
             $query->setBoost($this->getBoost());
@@ -213,12 +208,8 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
     protected function _highlightMatches(Zend_Search_Lucene_Search_Highlighter_Interface $highlighter)
     {
         /** Skip fields detection. We don't need it, since we expect all fields presented in the HTML body and don't differentiate them */
-
         /** Skip exact term matching recognition, keyword fields highlighting is not supported */
-
         /** Skip wildcard queries recognition. Supported wildcards are removed by text analyzer */
-
-
         // tokenize phrase using current analyzer and process it as a phrase query
         #require_once 'Zend/Search/Lucene/Analysis/Analyzer.php';
         $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($this->_phrase, $this->_phraseEncoding);
@@ -267,4 +258,5 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
 
         return $query;
     }
+
 }

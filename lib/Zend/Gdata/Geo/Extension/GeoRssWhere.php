@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: GeoRssWhere.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Extension
  */
@@ -35,7 +34,6 @@
  * @see Zend_Gdata_Geo_Extension_GmlPoint
  */
 #require_once 'Zend/Gdata/Geo/Extension/GmlPoint.php';
-
 
 /**
  * Represents the georss:where element used by the Gdata Geo extensions.

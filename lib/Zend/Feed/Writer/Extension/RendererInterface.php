@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 interface Zend_Feed_Writer_Extension_RendererInterface
 {
+
     /**
      * Constructor
      *
@@ -34,7 +36,7 @@ interface Zend_Feed_Writer_Extension_RendererInterface
      * @return void
      */
     public function __construct($container);
-    
+
     /**
      * Set DOMDocument and DOMElement on which to operate
      * 
@@ -43,14 +45,14 @@ interface Zend_Feed_Writer_Extension_RendererInterface
      * @return void
      */
     public function setDomDocument(DOMDocument $dom, DOMElement $base);
-    
+
     /**
      * Render
      * 
      * @return void
      */
     public function render();
-    
+
     /**
      * Retrieve container
      * 

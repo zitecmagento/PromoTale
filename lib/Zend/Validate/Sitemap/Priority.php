@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Priority.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -38,12 +38,13 @@
  */
 class Zend_Validate_Sitemap_Priority extends Zend_Validate_Abstract
 {
+
     /**
      * Validation key for not valid
      *
      */
     const NOT_VALID = 'sitemapPriorityNotValid';
-    const INVALID   = 'sitemapPriorityInvalid';
+    const INVALID = 'sitemapPriorityInvalid';
 
     /**
      * Validation failure message template definitions
@@ -52,7 +53,7 @@ class Zend_Validate_Sitemap_Priority extends Zend_Validate_Abstract
      */
     protected $_messageTemplates = array(
         self::NOT_VALID => "'%value%' is no valid sitemap priority",
-        self::INVALID   => "Invalid type given. Numeric string, integer or float expected",
+        self::INVALID => "Invalid type given. Numeric string, integer or float expected",
     );
 
     /**
@@ -79,4 +80,5 @@ class Zend_Validate_Sitemap_Priority extends Zend_Validate_Abstract
 
         return true;
     }
+
 }

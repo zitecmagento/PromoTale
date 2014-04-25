@@ -73,7 +73,7 @@
                 <div class="content">
                     <h2><?php echo $this->__('New Customers') ?></h2>
                     <div class="buttons-set">
-                        <button type="button" title="<?php echo $this->__('Create an Account') ?>" class="button" onclick="window.location='<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>';"><?php echo $this->__('Create an Account') ?></button>
+                        <button type="button" title="<?php echo $this->__('Create an Account') ?>" class="button" onclick="window.location = '<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>';"><?php echo $this->__('Create an Account') ?></button>
                     </div>
                 </div>
             </div>
@@ -83,8 +83,8 @@
         <?php endif; ?>
     </form>
     <script type="text/javascript">
-    //<![CDATA[
+        //<![CDATA[
         var dataForm = new VarienForm('login-form', true);
-    //]]>
+        //]]>
     </script>
 </div>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Core_Model_Resource_Abstract
 {
+
     /**
      * Main constructor
      */
@@ -132,9 +134,9 @@ abstract class Mage_Core_Model_Resource_Abstract
      * @param bool $includeTime
      * @return string
      */
-    public function formatDate($date, $includeTime=true)
+    public function formatDate($date, $includeTime = true)
     {
-         return Varien_Date::formatDate($date, $includeTime);
+        return Varien_Date::formatDate($date, $includeTime);
     }
 
     /**
@@ -211,7 +213,7 @@ abstract class Mage_Core_Model_Resource_Abstract
                     $data[$field] = $fieldValue;
                 } else {
                     if (null !== $fieldValue) {
-                        $fieldValue   = $this->_prepareTableValueForSave($fieldValue, $fields[$field]['DATA_TYPE']);
+                        $fieldValue = $this->_prepareTableValueForSave($fieldValue, $fields[$field]['DATA_TYPE']);
                         $data[$field] = $this->_getWriteAdapter()->prepareColumnValue($fields[$field], $fieldValue);
                     } else if (!empty($fields[$field]['NULLABLE'])) {
                         $data[$field] = null;
@@ -237,4 +239,5 @@ abstract class Mage_Core_Model_Resource_Abstract
         }
         return $value;
     }
+
 }

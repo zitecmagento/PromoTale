@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,20 +19,18 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Entry.php 22662 2010-07-24 17:37:36Z mabe $
  */
- 
 /**
  * @see Zend_Feed_Writer_Extension_RendererAbstract
  */
 #require_once 'Zend/Feed/Writer/Extension/RendererAbstract.php';
- 
+
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
-    extends Zend_Feed_Writer_Extension_RendererAbstract
+class Zend_Feed_Writer_Extension_Threading_Renderer_Entry extends Zend_Feed_Writer_Extension_RendererAbstract
 {
 
     /**
@@ -42,7 +41,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
      * @var bool
      */
     protected $_called = false;
-    
+
     /**
      * Render entry
      * 
@@ -60,7 +59,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
             $this->_appendNamespaces();
         }
     }
-    
+
     /**
      * Append entry namespaces
      * 
@@ -68,10 +67,9 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
      */
     protected function _appendNamespaces()
     {
-        $this->getRootElement()->setAttribute('xmlns:thr',
-            'http://purl.org/syndication/thread/1.0');  
+        $this->getRootElement()->setAttribute('xmlns:thr', 'http://purl.org/syndication/thread/1.0');
     }
-    
+
     /**
      * Set comment link
      * 
@@ -96,7 +94,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
         $root->appendChild($clink);
         $this->_called = true;
     }
-    
+
     /**
      * Set comment feed links
      * 
@@ -113,7 +111,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
         foreach ($links as $link) {
             $flink = $this->_dom->createElement('link');
             $flink->setAttribute('rel', 'replies');
-            $flink->setAttribute('type', 'application/'. $link['type'] .'+xml');
+            $flink->setAttribute('type', 'application/' . $link['type'] . '+xml');
             $flink->setAttribute('href', $link['uri']);
             $count = $this->getDataContainer()->getCommentCount();
             if ($count !== null) {
@@ -142,4 +140,5 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
         $root->appendChild($tcount);
         $this->_called = true;
     }
+
 }

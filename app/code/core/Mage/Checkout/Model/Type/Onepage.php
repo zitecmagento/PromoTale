@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,10 +30,11 @@
  */
 class Mage_Checkout_Model_Type_Onepage
 {
+
     /**
      * Checkout types: Checkout as Guest, Register, Logged In Customer
      */
-    const METHOD_GUEST    = 'guest';
+    const METHOD_GUEST = 'guest';
     const METHOD_REGISTER = 'register';
     const METHOD_CUSTOMER = 'customer';
 
@@ -130,8 +132,8 @@ class Mage_Checkout_Model_Type_Onepage
         $checkout = $this->getCheckout();
         $customerSession = $this->getCustomerSession();
         if (is_array($checkout->getStepData())) {
-            foreach ($checkout->getStepData() as $step=>$data) {
-                if (!($step==='login' || $customerSession->isLoggedIn() && $step==='billing')) {
+            foreach ($checkout->getStepData() as $step => $data) {
+                if (!($step === 'login' || $customerSession->isLoggedIn() && $step === 'billing')) {
                     $checkout->setStepData($step, 'allow', false);
                 }
             }
@@ -147,9 +149,9 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         /*
-        * want to load the correct customer information by assigning to address
-        * instead of just loading from sales/quote_address
-        */
+         * want to load the correct customer information by assigning to address
+         * instead of just loading from sales/quote_address
+         */
         $customer = $customerSession->getCustomer();
         if ($customer) {
             $this->getQuote()->assignCustomer($customer);
@@ -213,7 +215,7 @@ class Mage_Checkout_Model_Type_Onepage
      */
     public function getAddress($addressId)
     {
-        $address = Mage::getModel('customer/address')->load((int)$addressId);
+        $address = Mage::getModel('customer/address')->load((int) $addressId);
         $address->explodeStreetAddress();
         if ($address->getRegionId()) {
             $address->setRegion($address->getRegionId());
@@ -239,8 +241,8 @@ class Mage_Checkout_Model_Type_Onepage
         /* @var $addressForm Mage_Customer_Model_Form */
         $addressForm = Mage::getModel('customer/form');
         $addressForm->setFormCode('customer_address_edit')
-            ->setEntityType('customer_address')
-            ->setIsAjaxRequest(Mage::app()->getRequest()->isAjax());
+                ->setEntityType('customer_address')
+                ->setIsAjaxRequest(Mage::app()->getRequest()->isAjax());
 
         if (!empty($customerAddressId)) {
             $customerAddress = Mage::getModel('customer/address')->load($customerAddressId);
@@ -253,7 +255,7 @@ class Mage_Checkout_Model_Type_Onepage
 
                 $address->importCustomerAddress($customerAddress)->setSaveInAddressBook(0);
                 $addressForm->setEntity($address);
-                $addressErrors  = $addressForm->validateData($address->getData());
+                $addressErrors = $addressForm->validateData($address->getData());
                 if ($addressErrors !== true) {
                     return array('error' => 1, 'message' => $addressErrors);
                 }
@@ -261,8 +263,8 @@ class Mage_Checkout_Model_Type_Onepage
         } else {
             $addressForm->setEntity($address);
             // emulate request object
-            $addressData    = $addressForm->extractData($addressForm->prepareRequest($data));
-            $addressErrors  = $addressForm->validateData($addressData);
+            $addressData = $addressForm->extractData($addressForm->prepareRequest($data));
+            $addressErrors = $addressForm->validateData($addressData);
             if ($addressErrors !== true) {
                 return array('error' => 1, 'message' => array_values($addressErrors));
             }
@@ -304,7 +306,7 @@ class Mage_Checkout_Model_Type_Onepage
             /**
              * Billing address using otions
              */
-            $usingCase = isset($data['use_for_shipping']) ? (int)$data['use_for_shipping'] : 0;
+            $usingCase = isset($data['use_for_shipping']) ? (int) $data['use_for_shipping'] : 0;
 
             switch ($usingCase) {
                 case 0:
@@ -322,17 +324,16 @@ class Mage_Checkout_Model_Type_Onepage
 
                     // don't reset original shipping data, if it was not changed by customer
                     foreach ($shipping->getData() as $shippingKey => $shippingValue) {
-                        if (!is_null($shippingValue) && !is_null($billing->getData($shippingKey))
-                            && !isset($data[$shippingKey]) && !in_array($shippingKey, $requiredBillingAttributes)
+                        if (!is_null($shippingValue) && !is_null($billing->getData($shippingKey)) && !isset($data[$shippingKey]) && !in_array($shippingKey, $requiredBillingAttributes)
                         ) {
                             $billing->unsetData($shippingKey);
                         }
                     }
                     $shipping->addData($billing->getData())
-                        ->setSameAsBilling(1)
-                        ->setSaveInAddressBook(0)
-                        ->setShippingMethod($shippingMethod)
-                        ->setCollectShippingRates(true);
+                            ->setSameAsBilling(1)
+                            ->setSaveInAddressBook(0)
+                            ->setShippingMethod($shippingMethod)
+                            ->setCollectShippingRates(true);
                     $this->getCheckout()->setStepData('shipping', 'complete', true);
                     break;
             }
@@ -347,9 +348,9 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         $this->getCheckout()
-            ->setStepData('billing', 'allow', true)
-            ->setStepData('billing', 'complete', true)
-            ->setStepData('shipping', 'allow', true);
+                ->setStepData('billing', 'allow', true)
+                ->setStepData('billing', 'complete', true)
+                ->setStepData('shipping', 'allow', true);
 
         return array();
     }
@@ -366,7 +367,7 @@ class Mage_Checkout_Model_Type_Onepage
         /** @var $customerForm Mage_Customer_Model_Form */
         $customerForm = Mage::getModel('customer/form');
         $customerForm->setFormCode('checkout_register')
-            ->setIsAjaxRequest(Mage::app()->getRequest()->isAjax());
+                ->setIsAjaxRequest(Mage::app()->getRequest()->isAjax());
 
         $quote = $this->getQuote();
         if ($quote->getCustomerId()) {
@@ -384,8 +385,8 @@ class Mage_Checkout_Model_Type_Onepage
         $customerErrors = $customerForm->validateData($customerData);
         if ($customerErrors !== true) {
             return array(
-                'error'     => -1,
-                'message'   => implode(', ', $customerErrors)
+                'error' => -1,
+                'message' => implode(', ', $customerErrors)
             );
         }
 
@@ -412,7 +413,7 @@ class Mage_Checkout_Model_Type_Onepage
         $result = $customer->validate();
         if (true !== $result && is_array($result)) {
             return array(
-                'error'   => -1,
+                'error' => -1,
                 'message' => implode(', ', $result)
             );
         }
@@ -466,13 +467,13 @@ class Mage_Checkout_Model_Type_Onepage
 
             // validate customer
             foreach (array(
-                'firstname'    => 'firstname',
-                'lastname'     => 'lastname',
-                'email'        => 'email',
-                'password'     => 'customer_password',
-                'confirmation' => 'confirm_password',
-                'taxvat'       => 'taxvat',
-                'gender'       => 'gender',
+        'firstname' => 'firstname',
+        'lastname' => 'lastname',
+        'email' => 'email',
+        'password' => 'customer_password',
+        'confirmation' => 'confirm_password',
+        'taxvat' => 'taxvat',
+        'gender' => 'gender',
             ) as $key => $dataKey) {
                 $customer->setData($key, $address->getData($dataKey));
             }
@@ -482,7 +483,7 @@ class Mage_Checkout_Model_Type_Onepage
             $validationResult = $customer->validate();
             if (true !== $validationResult && is_array($validationResult)) {
                 return array(
-                    'error'   => -1,
+                    'error' => -1,
                     'message' => implode(', ', $validationResult)
                 );
             }
@@ -490,7 +491,7 @@ class Mage_Checkout_Model_Type_Onepage
             $email = $address->getData('email');
             if (!Zend_Validate::is($email, 'EmailAddress')) {
                 return array(
-                    'error'   => -1,
+                    'error' => -1,
                     'message' => Mage::helper('checkout')->__('Invalid email address "%s"', $email)
                 );
             }
@@ -514,10 +515,10 @@ class Mage_Checkout_Model_Type_Onepage
         $address = $this->getQuote()->getShippingAddress();
 
         /* @var $addressForm Mage_Customer_Model_Form */
-        $addressForm    = Mage::getModel('customer/form');
+        $addressForm = Mage::getModel('customer/form');
         $addressForm->setFormCode('customer_address_edit')
-            ->setEntityType('customer_address')
-            ->setIsAjaxRequest(Mage::app()->getRequest()->isAjax());
+                ->setEntityType('customer_address')
+                ->setIsAjaxRequest(Mage::app()->getRequest()->isAjax());
 
         if (!empty($customerAddressId)) {
             $customerAddress = Mage::getModel('customer/address')->load($customerAddressId);
@@ -530,7 +531,7 @@ class Mage_Checkout_Model_Type_Onepage
 
                 $address->importCustomerAddress($customerAddress)->setSaveInAddressBook(0);
                 $addressForm->setEntity($address);
-                $addressErrors  = $addressForm->validateData($address->getData());
+                $addressErrors = $addressForm->validateData($address->getData());
                 if ($addressErrors !== true) {
                     return array('error' => 1, 'message' => $addressErrors);
                 }
@@ -538,8 +539,8 @@ class Mage_Checkout_Model_Type_Onepage
         } else {
             $addressForm->setEntity($address);
             // emulate request object
-            $addressData    = $addressForm->extractData($addressForm->prepareRequest($data));
-            $addressErrors  = $addressForm->validateData($addressData);
+            $addressData = $addressForm->extractData($addressForm->prepareRequest($data));
+            $addressErrors = $addressForm->validateData($addressData);
             if ($addressErrors !== true) {
                 return array('error' => 1, 'message' => $addressErrors);
             }
@@ -560,15 +561,15 @@ class Mage_Checkout_Model_Type_Onepage
         $address->implodeStreetAddress();
         $address->setCollectShippingRates(true);
 
-        if (($validateRes = $address->validate())!==true) {
+        if (($validateRes = $address->validate()) !== true) {
             return array('error' => 1, 'message' => $validateRes);
         }
 
         $this->getQuote()->collectTotals()->save();
 
         $this->getCheckout()
-            ->setStepData('shipping', 'complete', true)
-            ->setStepData('shipping_method', 'allow', true);
+                ->setStepData('shipping', 'complete', true)
+                ->setStepData('shipping_method', 'allow', true);
 
         return array();
     }
@@ -589,11 +590,11 @@ class Mage_Checkout_Model_Type_Onepage
             return array('error' => -1, 'message' => Mage::helper('checkout')->__('Invalid shipping method.'));
         }
         $this->getQuote()->getShippingAddress()
-            ->setShippingMethod($shippingMethod);
+                ->setShippingMethod($shippingMethod);
 
         $this->getCheckout()
-            ->setStepData('shipping_method', 'complete', true)
-            ->setStepData('payment', 'allow', true);
+                ->setStepData('shipping_method', 'complete', true)
+                ->setStepData('payment', 'allow', true);
 
         return array();
     }
@@ -621,11 +622,7 @@ class Mage_Checkout_Model_Type_Onepage
             $quote->getShippingAddress()->setCollectShippingRates(true);
         }
 
-        $data['checks'] = Mage_Payment_Model_Method_Abstract::CHECK_USE_CHECKOUT
-            | Mage_Payment_Model_Method_Abstract::CHECK_USE_FOR_COUNTRY
-            | Mage_Payment_Model_Method_Abstract::CHECK_USE_FOR_CURRENCY
-            | Mage_Payment_Model_Method_Abstract::CHECK_ORDER_TOTAL_MIN_MAX
-            | Mage_Payment_Model_Method_Abstract::CHECK_ZERO_TOTAL;
+        $data['checks'] = Mage_Payment_Model_Method_Abstract::CHECK_USE_CHECKOUT | Mage_Payment_Model_Method_Abstract::CHECK_USE_FOR_COUNTRY | Mage_Payment_Model_Method_Abstract::CHECK_USE_FOR_CURRENCY | Mage_Payment_Model_Method_Abstract::CHECK_ORDER_TOTAL_MIN_MAX | Mage_Payment_Model_Method_Abstract::CHECK_ZERO_TOTAL;
 
         $payment = $quote->getPayment();
         $payment->importData($data);
@@ -633,8 +630,8 @@ class Mage_Checkout_Model_Type_Onepage
         $quote->save();
 
         $this->getCheckout()
-            ->setStepData('payment', 'complete', true)
-            ->setStepData('review', 'allow', true);
+                ->setStepData('payment', 'complete', true)
+                ->setStepData('review', 'allow', true);
 
         return array();
     }
@@ -644,7 +641,7 @@ class Mage_Checkout_Model_Type_Onepage
      */
     public function validate()
     {
-        $quote  = $this->getQuote();
+        $quote = $this->getQuote();
         if ($quote->getIsMultiShipping()) {
             Mage::throwException(Mage::helper('checkout')->__('Invalid checkout type.'));
         }
@@ -663,9 +660,9 @@ class Mage_Checkout_Model_Type_Onepage
     {
         $quote = $this->getQuote();
         $quote->setCustomerId(null)
-            ->setCustomerEmail($quote->getBillingAddress()->getEmail())
-            ->setCustomerIsGuest(true)
-            ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+                ->setCustomerEmail($quote->getBillingAddress()->getEmail())
+                ->setCustomerIsGuest(true)
+                ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
         return $this;
     }
 
@@ -676,9 +673,9 @@ class Mage_Checkout_Model_Type_Onepage
      */
     protected function _prepareNewCustomerQuote()
     {
-        $quote      = $this->getQuote();
-        $billing    = $quote->getBillingAddress();
-        $shipping   = $quote->isVirtual() ? null : $quote->getShippingAddress();
+        $quote = $this->getQuote();
+        $billing = $quote->getBillingAddress();
+        $shipping = $quote->isVirtual() ? null : $quote->getShippingAddress();
 
         //$customer = Mage::getModel('customer/customer');
         $customer = $quote->getCustomer();
@@ -700,7 +697,7 @@ class Mage_Checkout_Model_Type_Onepage
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
         $quote->setCustomer($customer)
-            ->setCustomerId(true);
+                ->setCustomerId(true);
     }
 
     /**
@@ -710,9 +707,9 @@ class Mage_Checkout_Model_Type_Onepage
      */
     protected function _prepareCustomerQuote()
     {
-        $quote      = $this->getQuote();
-        $billing    = $quote->getBillingAddress();
-        $shipping   = $quote->isVirtual() ? null : $quote->getShippingAddress();
+        $quote = $this->getQuote();
+        $billing = $quote->getBillingAddress();
+        $shipping = $quote->isVirtual() ? null : $quote->getShippingAddress();
 
         $customer = $this->getCustomerSession()->getCustomer();
         if (!$billing->getCustomerId() || $billing->getSaveInAddressBook()) {
@@ -721,7 +718,7 @@ class Mage_Checkout_Model_Type_Onepage
             $billing->setCustomerAddress($customerBilling);
         }
         if ($shipping && !$shipping->getSameAsBilling() &&
-            (!$shipping->getCustomerId() || $shipping->getSaveInAddressBook())) {
+                (!$shipping->getCustomerId() || $shipping->getSaveInAddressBook())) {
             $customerShipping = $shipping->exportCustomerAddress();
             $customer->addAddress($customerShipping);
             $shipping->setCustomerAddress($customerShipping);
@@ -750,7 +747,7 @@ class Mage_Checkout_Model_Type_Onepage
             $customer->sendNewAccountEmail('confirmation', '', $this->getQuote()->getStoreId());
             $url = Mage::helper('customer')->getEmailConfirmationUrl($customer->getEmail());
             $this->getCustomerSession()->addSuccess(
-                Mage::helper('customer')->__('Account confirmation is required. Please, check your e-mail for confirmation link. To resend confirmation email please <a href="%s">click here</a>.', $url)
+                    Mage::helper('customer')->__('Account confirmation is required. Please, check your e-mail for confirmation link. To resend confirmation email please <a href="%s">click here</a>.', $url)
             );
         } else {
             $customer->sendNewAccountEmail('registered', '', $this->getQuote()->getStoreId());
@@ -785,21 +782,23 @@ class Mage_Checkout_Model_Type_Onepage
         $service->submitAll();
 
         if ($isNewCustomer) {
-            try {
+            try
+            {
                 $this->_involveNewCustomer();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::logException($e);
             }
         }
 
         $this->_checkoutSession->setLastQuoteId($this->getQuote()->getId())
-            ->setLastSuccessQuoteId($this->getQuote()->getId())
-            ->clearHelperData();
+                ->setLastSuccessQuoteId($this->getQuote()->getId())
+                ->clearHelperData();
 
         $order = $service->getOrder();
         if ($order) {
-            Mage::dispatchEvent('checkout_type_onepage_save_order_after',
-                array('order'=>$order, 'quote'=>$this->getQuote()));
+            Mage::dispatchEvent('checkout_type_onepage_save_order_after', array('order' => $order, 'quote' => $this->getQuote()));
 
             /**
              * a flag to set that there will be redirect to third party after confirmation
@@ -810,17 +809,20 @@ class Mage_Checkout_Model_Type_Onepage
              * we only want to send to customer about new order when there is no redirect to third party
              */
             if (!$redirectUrl && $order->getCanSendNewEmailFlag()) {
-                try {
+                try
+                {
                     $order->sendNewOrderEmail();
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     Mage::logException($e);
                 }
             }
 
             // add order information to the session
             $this->_checkoutSession->setLastOrderId($order->getId())
-                ->setRedirectUrl($redirectUrl)
-                ->setLastRealOrderId($order->getIncrementId());
+                    ->setRedirectUrl($redirectUrl)
+                    ->setLastRealOrderId($order->getIncrementId());
 
             // as well a billing agreement can be created
             $agreement = $order->getPayment()->getBillingAgreement();
@@ -841,8 +843,7 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         Mage::dispatchEvent(
-            'checkout_submit_all_after',
-            array('order' => $order, 'quote' => $this->getQuote(), 'recurring_profiles' => $profiles)
+                'checkout_submit_all_after', array('order' => $order, 'quote' => $this->getQuote(), 'recurring_profiles' => $profiles)
         );
 
         return $this;
@@ -866,8 +867,8 @@ class Mage_Checkout_Model_Type_Onepage
             if ($addressValidation !== true) {
                 Mage::throwException(Mage::helper('checkout')->__('Please check shipping address information.'));
             }
-            $method= $address->getShippingMethod();
-            $rate  = $address->getShippingRateByCode($method);
+            $method = $address->getShippingMethod();
+            $rate = $address->getShippingRateByCode($method);
             if (!$this->getQuote()->isVirtual() && (!$method || !$rate)) {
                 Mage::throwException(Mage::helper('checkout')->__('Please specify shipping method.'));
             }
@@ -910,7 +911,7 @@ class Mage_Checkout_Model_Type_Onepage
      */
     public function getLastOrderId()
     {
-        $lastId  = $this->getCheckout()->getLastOrderId();
+        $lastId = $this->getCheckout()->getLastOrderId();
         $orderId = false;
         if ($lastId) {
             $order = Mage::getModel('sales/order');
@@ -919,4 +920,5 @@ class Mage_Checkout_Model_Type_Onepage
         }
         return $orderId;
     }
+
 }

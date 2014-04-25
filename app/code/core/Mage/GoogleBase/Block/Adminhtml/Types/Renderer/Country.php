@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Google Base Item Type Country Renderer
  *
@@ -32,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_GoogleBase_Block_Adminhtml_Types_Renderer_Country
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_GoogleBase_Block_Adminhtml_Types_Renderer_Country extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+
     /**
      * Renders Google Base Item Id
      *
@@ -46,4 +46,5 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Renderer_Country
         $iso = $row->getData($this->getColumn()->getIndex());
         return Mage::getSingleton('googlebase/config')->getCountryInfo($iso, 'name');
     }
+
 }

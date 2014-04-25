@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Order_Review extends Mage_Checkout_Block_Onepage_Review
 {
+
     /**
      * Render order review xml
      *
@@ -71,4 +73,5 @@ class Mage_XmlConnect_Block_Checkout_Order_Review extends Mage_Checkout_Block_On
 
         return $orderXmlObj->asNiceXml();
     }
+
 }

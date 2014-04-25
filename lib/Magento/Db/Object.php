@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,25 +34,26 @@
  */
 abstract class Magento_Db_Object
 {
+
     /**
      * @var Varien_Db_Adapter_Interface
      */
-    protected $_adapter     = null;
+    protected $_adapter = null;
 
     /**
      * @var string
      */
-    protected $_objectName  = null;
+    protected $_objectName = null;
 
     /**
      * @var string
      */
-    protected $_dbType  = null;
+    protected $_dbType = null;
 
     /**
      * @var string
      */
-    protected $_schemaName  = null;
+    protected $_schemaName = null;
 
     /**
      * Constructor
@@ -61,7 +63,7 @@ abstract class Magento_Db_Object
      */
     public function __construct(Varien_Db_Adapter_Interface $adapter, $objectName, $schemaName = null)
     {
-        $this->_objectName  = $objectName;
+        $this->_objectName = $objectName;
         $this->_adapter = $adapter;
         $this->_schemaName = $schemaName;
     }
@@ -75,7 +77,6 @@ abstract class Magento_Db_Object
     {
         return $this->_dbType;
     }
-
 
     /**
      * Returns current schema name
@@ -108,8 +109,8 @@ abstract class Magento_Db_Object
      */
     public function drop()
     {
-        $query  = 'DROP ' . $this->getDbType() . ' IF EXISTS '
-            . $this->_adapter->quoteIdentifier($this->_objectName);
+        $query = 'DROP ' . $this->getDbType() . ' IF EXISTS '
+                . $this->_adapter->quoteIdentifier($this->_objectName);
         $this->_adapter->query($query);
 
         return $this;
@@ -134,4 +135,5 @@ abstract class Magento_Db_Object
     {
         return $this->_objectName;
     }
+
 }

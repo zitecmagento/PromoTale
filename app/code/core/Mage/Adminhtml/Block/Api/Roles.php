@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Api_Roles extends Mage_Adminhtml_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -48,4 +50,5 @@ class Mage_Adminhtml_Block_Api_Roles extends Mage_Adminhtml_Block_Template
     {
         return $this->getLayout()->createBlock('adminhtml/api_grid_role')->toHtml();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SEO sitemap controller
  *
@@ -39,11 +39,12 @@ class Mage_Catalog_Seo_SitemapController extends Mage_Core_Controller_Front_Acti
      *
      * @return Mage_Catalog_Seo_SitemapController
      */
-    public function preDispatch(){
+    public function preDispatch()
+    {
         parent::preDispatch();
-        if(!Mage::getStoreConfig('catalog/seo/site_map')){
-              $this->_redirect('noroute');
-              $this->setFlag('',self::FLAG_NO_DISPATCH,true);
+        if (!Mage::getStoreConfig('catalog/seo/site_map')) {
+            $this->_redirect('noroute');
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
         return $this;
     }
@@ -58,7 +59,7 @@ class Mage_Catalog_Seo_SitemapController extends Mage_Core_Controller_Front_Acti
         $update->addHandle('default');
         $this->addActionLayoutHandles();
         if (Mage::helper('catalog/map')->getIsUseCategoryTreeMode()) {
-            $update->addHandle(strtolower($this->getFullActionName()).'_tree');
+            $update->addHandle(strtolower($this->getFullActionName()) . '_tree');
         }
         $this->loadLayoutUpdates();
         $this->generateLayoutXml()->generateLayoutBlocks();

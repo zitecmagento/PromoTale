@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,13 +19,10 @@
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-
 /**
  * Zend_Exception
  */
 #require_once 'Zend/Exception.php';
-
 
 /**
  * Exception for Zend_View class.
@@ -36,6 +34,7 @@
  */
 class Zend_View_Exception extends Zend_Exception
 {
+
     protected $view = null;
 
     public function setView(Zend_View_Interface $view = null)
@@ -48,4 +47,5 @@ class Zend_View_Exception extends Zend_Exception
     {
         return $this->view;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 interface Zend_InfoCard_Xml_Assertion_Interface
 {
+
     /**
      * Get the Assertion ID of the assertion
      *

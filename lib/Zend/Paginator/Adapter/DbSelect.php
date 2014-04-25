@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DbSelect.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Paginator_Adapter_Interface
  */
@@ -42,6 +42,7 @@
  */
 class Zend_Paginator_Adapter_DbSelect implements Zend_Paginator_Adapter_Interface
 {
+
     /**
      * Name of the row count column
      *
@@ -158,7 +159,7 @@ class Zend_Paginator_Adapter_DbSelect implements Zend_Paginator_Adapter_Interfac
     {
         if ($this->_rowCount === null) {
             $this->setRowCount(
-                $this->getCountSelect()
+                    $this->getCountSelect()
             );
         }
 
@@ -190,9 +191,9 @@ class Zend_Paginator_Adapter_DbSelect implements Zend_Paginator_Adapter_Interfac
         $db = $rowCount->getAdapter();
 
         $countColumn = $db->quoteIdentifier($db->foldCase(self::ROW_COUNT_COLUMN));
-        $countPart   = 'COUNT(1) AS ';
-        $groupPart   = null;
-        $unionParts  = $rowCount->getPart(Zend_Db_Select::UNION);
+        $countPart = 'COUNT(1) AS ';
+        $groupPart = null;
+        $unionParts = $rowCount->getPart(Zend_Db_Select::UNION);
 
         /**
          * If we're dealing with a UNION query, execute the UNION as a subquery
@@ -204,9 +205,9 @@ class Zend_Paginator_Adapter_DbSelect implements Zend_Paginator_Adapter_Interfac
             $rowCount = $db->select()->from($rowCount, $expression);
         } else {
             $columnParts = $rowCount->getPart(Zend_Db_Select::COLUMNS);
-            $groupParts  = $rowCount->getPart(Zend_Db_Select::GROUP);
+            $groupParts = $rowCount->getPart(Zend_Db_Select::GROUP);
             $havingParts = $rowCount->getPart(Zend_Db_Select::HAVING);
-            $isDistinct  = $rowCount->getPart(Zend_Db_Select::DISTINCT);
+            $isDistinct = $rowCount->getPart(Zend_Db_Select::DISTINCT);
 
             /**
              * If there is more than one column AND it's a DISTINCT query, more
@@ -228,7 +229,7 @@ class Zend_Paginator_Adapter_DbSelect implements Zend_Paginator_Adapter_Interfac
                     $groupPart = $column;
                 }
             } else if (!empty($groupParts) && $groupParts[0] !== Zend_Db_Select::SQL_WILDCARD &&
-                       !($groupParts[0] instanceof Zend_Db_Expr)) {
+                    !($groupParts[0] instanceof Zend_Db_Expr)) {
                 $groupPart = $db->quoteIdentifier($groupParts[0], true);
             }
 
@@ -247,16 +248,17 @@ class Zend_Paginator_Adapter_DbSelect implements Zend_Paginator_Adapter_Interfac
             $expression = new Zend_Db_Expr($countPart . $countColumn);
 
             $rowCount->reset(Zend_Db_Select::COLUMNS)
-                     ->reset(Zend_Db_Select::ORDER)
-                     ->reset(Zend_Db_Select::LIMIT_OFFSET)
-                     ->reset(Zend_Db_Select::GROUP)
-                     ->reset(Zend_Db_Select::DISTINCT)
-                     ->reset(Zend_Db_Select::HAVING)
-                     ->columns($expression);
+                    ->reset(Zend_Db_Select::ORDER)
+                    ->reset(Zend_Db_Select::LIMIT_OFFSET)
+                    ->reset(Zend_Db_Select::GROUP)
+                    ->reset(Zend_Db_Select::DISTINCT)
+                    ->reset(Zend_Db_Select::HAVING)
+                    ->columns($expression);
         }
 
         $this->_countSelect = $rowCount;
 
         return $rowCount;
     }
+
 }

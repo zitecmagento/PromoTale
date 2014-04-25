@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Stock item resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table and initialize connection
      *
@@ -53,7 +54,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     public function loadByProductId(Mage_CatalogInventory_Model_Stock_Item $item, $productId)
     {
         $select = $this->_getLoadSelect('product_id', $productId, $item)
-            ->where('stock_id = :stock_id');
+                ->where('stock_id = :stock_id');
         $data = $this->_getReadAdapter()->fetchRow($select, array(':stock_id' => $item->getStockId()));
         if ($data) {
             $item->setData($data);
@@ -73,10 +74,8 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object)
-            ->join(array('p' => $this->getTable('catalog/product')),
-                'product_id=p.entity_id',
-                array('type_id')
-            );
+                ->join(array('p' => $this->getTable('catalog/product')), 'product_id=p.entity_id', array('type_id')
+        );
         return $select;
     }
 
@@ -89,19 +88,15 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     public function addCatalogInventoryToProductCollection($productCollection)
     {
         $adapter = $this->_getReadAdapter();
-        $isManageStock = (int)Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
+        $isManageStock = (int) Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
         $stockExpr = $adapter->getCheckSql('cisi.use_config_manage_stock = 1', $isManageStock, 'cisi.manage_stock');
         $stockExpr = $adapter->getCheckSql("({$stockExpr} = 1)", 'cisi.is_in_stock', '1');
 
         $productCollection->joinTable(
-            array('cisi' => 'cataloginventory/stock_item'),
-            'product_id=entity_id',
-            array(
-                'is_saleable' => new Zend_Db_Expr($stockExpr),
-                'inventory_in_stock' => 'is_in_stock'
-            ),
-            null,
-            'left'
+                array('cisi' => 'cataloginventory/stock_item'), 'product_id=entity_id', array(
+            'is_saleable' => new Zend_Db_Expr($stockExpr),
+            'inventory_in_stock' => 'is_in_stock'
+                ), null, 'left'
         );
         return $this;
     }
@@ -126,4 +121,5 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
         }
         return $data;
     }
+
 }

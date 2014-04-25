@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Review Product Collection
  *
@@ -34,12 +34,13 @@
  */
 class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
+
     /**
      * Entities alias
      *
      * @var array
      */
-    protected $_entitiesAlias        = array();
+    protected $_entitiesAlias = array();
 
     /**
      * Review store table
@@ -53,15 +54,14 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      *
      * @var boolean
      */
-    protected $_addStoreDataFlag     = false;
-
+    protected $_addStoreDataFlag = false;
 
     /**
      * Filter by stores for the collection
      *
      * @var array
      */
-    protected $_storesIds           = array();
+    protected $_storesIds = array();
 
     /**
      * Define module
@@ -126,11 +126,11 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $storeId = array_shift($storeId);
         }
 
-        if (!is_array($storeId)){
+        if (!is_array($storeId)) {
             $storeId = array($storeId);
         }
 
-        if (!empty($this->_storesIds)){
+        if (!empty($this->_storesIds)) {
             $this->_storesIds = array_intersect($this->_storesIds, $storeId);
         } else {
             $this->_storesIds = $storeId;
@@ -149,7 +149,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     {
         $adapter = $this->getConnection();
         $storesIds = $this->_storesIds;
-        if (is_null($select)){
+        if (is_null($select)) {
             $select = $this->getSelect();
         }
 
@@ -159,16 +159,12 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
 
         if (is_array($storesIds) && !empty($storesIds)) {
             $inCond = $adapter->prepareSqlCondition('store.store_id', array('in' => $storesIds));
-            $select->join(array('store' => $this->_reviewStoreTable),
-                'rt.review_id=store.review_id AND ' . $inCond,
-                array())
-            ->group('rt.review_id');
+            $select->join(array('store' => $this->_reviewStoreTable), 'rt.review_id=store.review_id AND ' . $inCond, array())
+                    ->group('rt.review_id');
 
             $this->_useAnalyticFunction = true;
         } else {
-            $select->join(array('store' => $this->_reviewStoreTable),
-                $adapter->quoteInto('rt.review_id=store.review_id AND store.store_id = ?', (int)$storesIds),
-                array());
+            $select->join(array('store' => $this->_reviewStoreTable), $adapter->quoteInto('rt.review_id=store.review_id AND store.store_id = ?', (int) $storesIds), array());
         }
 
         return $this;
@@ -194,7 +190,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     public function addCustomerFilter($customerId)
     {
         $this->getSelect()
-            ->where('rdt.customer_id = ?', $customerId);
+                ->where('rdt.customer_id = ?', $customerId);
         return $this;
     }
 
@@ -207,7 +203,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     public function addEntityFilter($entityId)
     {
         $this->getSelect()
-            ->where('rt.entity_pk_value = ?', $entityId);
+                ->where('rt.entity_pk_value = ?', $entityId);
         return $this;
     }
 
@@ -220,7 +216,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     public function addStatusFilter($status)
     {
         $this->getSelect()
-            ->where('rt.status_id = ?', $status);
+                ->where('rt.status_id = ?', $status);
         return $this;
     }
 
@@ -260,10 +256,10 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     {
         foreach ($this->getItems() as $item) {
             $votesCollection = Mage::getModel('rating/rating_option_vote')
-                ->getResourceCollection()
-                ->setEntityPkFilter($item->getEntityId())
-                ->setStoreFilter(Mage::app()->getStore()->getId())
-                ->load();
+                    ->getResourceCollection()
+                    ->setEntityPkFilter($item->getEntityId())
+                    ->setStoreFilter(Mage::app()->getStore()->getId())
+                    ->load();
             $item->setRatingVotes($votesCollection);
         }
         return $this;
@@ -280,15 +276,13 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
         $reviewDetailTable = Mage::getSingleton('core/resource')->getTableName('review/review_detail');
 
         $this->addAttributeToSelect('name')
-            ->addAttributeToSelect('sku');
+                ->addAttributeToSelect('sku');
 
         $this->getSelect()
-            ->join(array('rt' => $reviewTable),
-                'rt.entity_pk_value = e.entity_id',
-                array('rt.review_id', 'review_created_at'=> 'rt.created_at', 'rt.entity_pk_value', 'rt.status_id'))
-            ->join(array('rdt' => $reviewDetailTable),
-                'rdt.review_id = rt.review_id',
-                array('rdt.title','rdt.nickname', 'rdt.detail', 'rdt.customer_id', 'rdt.store_id'));
+                ->join(array('rt' => $reviewTable), 'rt.entity_pk_value = e.entity_id', array('rt.review_id', 'review_created_at' => 'rt.created_at',
+                    'rt.entity_pk_value', 'rt.status_id'))
+                ->join(array('rdt' => $reviewDetailTable), 'rdt.review_id = rt.review_id', array('rdt.title', 'rdt.nickname',
+                    'rdt.detail', 'rdt.customer_id', 'rdt.store_id'));
         return $this;
     }
 
@@ -319,8 +313,8 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     {
         $select = parent::getSelectCountSql();
         $select->reset(Zend_Db_Select::COLUMNS)
-            ->columns('COUNT(e.entity_id)')
-            ->reset(Zend_Db_Select::HAVING);
+                ->columns('COUNT(e.entity_id)')
+                ->reset(Zend_Db_Select::HAVING);
 
         return $select;
     }
@@ -334,7 +328,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      */
     public function setOrder($attribute, $dir = 'DESC')
     {
-        switch($attribute) {
+        switch ($attribute) {
             case 'rt.review_id':
             case 'rt.created_at':
             case 'rt.status_id':
@@ -365,7 +359,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      */
     public function addAttributeToFilter($attribute, $condition = null, $joinType = 'inner')
     {
-        switch($attribute) {
+        switch ($attribute) {
             case 'rt.review_id':
             case 'rt.created_at':
             case 'rt.status_id':
@@ -443,13 +437,13 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
         //$this->_getConditionSql('rdt.customer_id', array('null' => null));
         $reviewsIds = $this->getColumnValues('review_id');
         $storesToReviews = array();
-        if (count($reviewsIds)>0) {
+        if (count($reviewsIds) > 0) {
             $reviewIdCondition = $this->_getConditionSql('review_id', array('in' => $reviewsIds));
             $storeIdCondition = $this->_getConditionSql('store_id', array('gt' => 0));
             $select = $adapter->select()
-                ->from($this->_reviewStoreTable)
-                ->where($reviewIdCondition)
-                ->where($storeIdCondition);
+                    ->from($this->_reviewStoreTable)
+                    ->where($reviewIdCondition)
+                    ->where($storeIdCondition);
             $result = $adapter->fetchAll($select);
             foreach ($result as $row) {
                 if (!isset($storesToReviews[$row['review_id']])) {
@@ -465,7 +459,6 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             } else {
                 $item->setData('stores', array());
             }
-
         }
     }
 
@@ -481,4 +474,5 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
 
         return $this;
     }
+
 }

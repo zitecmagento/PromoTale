@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Customer_Address_Type
 {
+
     /**
      * Retrieve possible customer address types
      *
@@ -45,4 +47,5 @@ class Mage_Adminhtml_Model_System_Config_Source_Customer_Address_Type
             Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING => Mage::helper('adminhtml')->__('Shipping Address')
         );
     }
+
 }

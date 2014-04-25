@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Mssql.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Db_Adapter_Pdo_Abstract
  */
 #require_once 'Zend/Db/Adapter/Pdo/Abstract.php';
-
 
 /**
  * Class for connecting to Microsoft SQL Server databases and performing common operations.
@@ -38,6 +36,7 @@
  */
 class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
 {
+
     /**
      * PDO type.
      *
@@ -57,19 +56,19 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
      * @var array Associative array of datatypes to values 0, 1, or 2.
      */
     protected $_numericDataTypes = array(
-        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
+        Zend_Db::INT_TYPE => Zend_Db::INT_TYPE,
         Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
-        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
-        'INT'                => Zend_Db::INT_TYPE,
-        'SMALLINT'           => Zend_Db::INT_TYPE,
-        'TINYINT'            => Zend_Db::INT_TYPE,
-        'BIGINT'             => Zend_Db::BIGINT_TYPE,
-        'DECIMAL'            => Zend_Db::FLOAT_TYPE,
-        'FLOAT'              => Zend_Db::FLOAT_TYPE,
-        'MONEY'              => Zend_Db::FLOAT_TYPE,
-        'NUMERIC'            => Zend_Db::FLOAT_TYPE,
-        'REAL'               => Zend_Db::FLOAT_TYPE,
-        'SMALLMONEY'         => Zend_Db::FLOAT_TYPE
+        Zend_Db::FLOAT_TYPE => Zend_Db::FLOAT_TYPE,
+        'INT' => Zend_Db::INT_TYPE,
+        'SMALLINT' => Zend_Db::INT_TYPE,
+        'TINYINT' => Zend_Db::INT_TYPE,
+        'BIGINT' => Zend_Db::BIGINT_TYPE,
+        'DECIMAL' => Zend_Db::FLOAT_TYPE,
+        'FLOAT' => Zend_Db::FLOAT_TYPE,
+        'MONEY' => Zend_Db::FLOAT_TYPE,
+        'NUMERIC' => Zend_Db::FLOAT_TYPE,
+        'REAL' => Zend_Db::FLOAT_TYPE,
+        'SMALLMONEY' => Zend_Db::FLOAT_TYPE
     );
 
     /**
@@ -170,7 +169,8 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
      * It is necessary to override the abstract PDO transaction functions here, as
      * the PDO driver for MSSQL does not support transactions.
      */
-    protected function _rollBack() {
+    protected function _rollBack()
+    {
         $this->_connect();
         $this->_connection->exec('ROLLBACK TRANSACTION');
         return true;
@@ -237,14 +237,14 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
         $stmt = $this->query($sql);
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
 
-        $table_name  = 2;
+        $table_name = 2;
         $column_name = 3;
-        $type_name   = 5;
-        $precision   = 6;
-        $length      = 7;
-        $scale       = 8;
-        $nullable    = 10;
-        $column_def  = 12;
+        $type_name = 5;
+        $precision = 6;
+        $length = 7;
+        $scale = 8;
+        $nullable = 10;
+        $column_def = 12;
         $column_position = 16;
 
         /**
@@ -284,20 +284,20 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
             }
 
             $desc[$this->foldCase($row[$column_name])] = array(
-                'SCHEMA_NAME'      => null, // @todo
-                'TABLE_NAME'       => $this->foldCase($row[$table_name]),
-                'COLUMN_NAME'      => $this->foldCase($row[$column_name]),
-                'COLUMN_POSITION'  => (int) $row[$column_position],
-                'DATA_TYPE'        => $type,
-                'DEFAULT'          => $row[$column_def],
-                'NULLABLE'         => (bool) $row[$nullable],
-                'LENGTH'           => $row[$length],
-                'SCALE'            => $row[$scale],
-                'PRECISION'        => $row[$precision],
-                'UNSIGNED'         => null, // @todo
-                'PRIMARY'          => $isPrimary,
+                'SCHEMA_NAME' => null, // @todo
+                'TABLE_NAME' => $this->foldCase($row[$table_name]),
+                'COLUMN_NAME' => $this->foldCase($row[$column_name]),
+                'COLUMN_POSITION' => (int) $row[$column_position],
+                'DATA_TYPE' => $type,
+                'DEFAULT' => $row[$column_def],
+                'NULLABLE' => (bool) $row[$nullable],
+                'LENGTH' => $row[$length],
+                'SCALE' => $row[$scale],
+                'PRECISION' => $row[$precision],
+                'UNSIGNED' => null, // @todo
+                'PRIMARY' => $isPrimary,
                 'PRIMARY_POSITION' => $primaryPosition,
-                'IDENTITY'         => $identity
+                'IDENTITY' => $identity
             );
         }
         return $desc;
@@ -314,8 +314,8 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
      * @throws Zend_Db_Adapter_Exception
      * @return string
      */
-     public function limit($sql, $count, $offset = 0)
-     {
+    public function limit($sql, $count, $offset = 0)
+    {
         $count = intval($count);
         if ($count <= 0) {
             /** @see Zend_Db_Adapter_Exception */
@@ -331,10 +331,8 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
         }
 
         $sql = preg_replace(
-            '/^SELECT\s+(DISTINCT\s)?/i',
-            'SELECT $1TOP ' . ($count+$offset) . ' ',
-            $sql
-            );
+                '/^SELECT\s+(DISTINCT\s)?/i', 'SELECT $1TOP ' . ($count + $offset) . ' ', $sql
+        );
 
         if ($offset > 0) {
             $orderby = stristr($sql, 'ORDER BY');
@@ -399,7 +397,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
     public function lastInsertId($tableName = null, $primaryKey = null)
     {
         $sql = 'SELECT SCOPE_IDENTITY()';
-        return (int)$this->fetchOne($sql);
+        return (int) $this->fetchOne($sql);
     }
 
     /**
@@ -409,15 +407,19 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
      */
     public function getServerVersion()
     {
-        try {
+        try
+        {
             $stmt = $this->query("SELECT SERVERPROPERTY('productversion')");
             $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
             if (count($result)) {
                 return $result[0][0];
             }
             return null;
-        } catch (PDOException $e) {
+        }
+        catch (PDOException $e)
+        {
             return null;
         }
     }
+
 }

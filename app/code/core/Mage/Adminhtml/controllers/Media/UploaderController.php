@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -43,7 +44,7 @@ class Mage_Adminhtml_Media_UploaderController extends Mage_Adminhtml_Controller_
     {
         $this->loadLayout();
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/media_uploader')
+                $this->getLayout()->createBlock('adminhtml/media_uploader')
         );
         $this->renderLayout();
     }
@@ -52,4 +53,5 @@ class Mage_Adminhtml_Media_UploaderController extends Mage_Adminhtml_Controller_
     {
         return Mage::getSingleton('admin/session')->isAllowed('media');
     }
+
 }

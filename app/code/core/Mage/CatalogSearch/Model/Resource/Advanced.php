@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Advanced Catalog Search resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize connection and define catalog product table as main table
      *
@@ -58,9 +59,9 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
 
         // prepare event arguments
         $eventArgs = array(
-            'select'          => $select,
-            'table'           => 'price_index',
-            'store_id'        => Mage::app()->getStore()->getId(),
+            'select' => $select,
+            'table' => 'price_index',
+            'store_id' => Mage::app()->getStore()->getId(),
             'response_object' => $response
         );
 
@@ -118,11 +119,11 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         $conditions = array();
         if (strlen($value['from']) > 0) {
             $conditions[] = $adapter->quoteInto(
-                'price_index.min_price %s * %s >= ?', $value['from'], Zend_Db::FLOAT_TYPE);
+                    'price_index.min_price %s * %s >= ?', $value['from'], Zend_Db::FLOAT_TYPE);
         }
         if (strlen($value['to']) > 0) {
             $conditions[] = $adapter->quoteInto(
-                'price_index.min_price %s * %s <= ?', $value['to'], Zend_Db::FLOAT_TYPE);
+                    'price_index.min_price %s * %s <= ?', $value['to'], Zend_Db::FLOAT_TYPE);
         }
 
         if (!$conditions) {
@@ -130,8 +131,8 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         }
 
         $collection->addPriceData();
-        $select     = $collection->getSelect();
-        $response   = $this->_dispatchPreparePriceEvent($select);
+        $select = $collection->getSelect();
+        $response = $this->_dispatchPreparePriceEvent($select);
         $additional = join('', $response->getAdditionalCalculations());
 
         foreach ($conditions as $condition) {
@@ -158,8 +159,8 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         }
 
         $tableAlias = 'a_' . $attribute->getAttributeId();
-        $storeId    = Mage::app()->getStore()->getId();
-        $select     = $collection->getSelect();
+        $storeId = Mage::app()->getStore()->getId();
+        $select = $collection->getSelect();
 
         if (is_array($value)) {
             if (isset($value['from']) && isset($value['to'])) {
@@ -171,11 +172,9 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
 
         $select->distinct(true);
         $select->join(
-            array($tableAlias => $table),
-            "e.entity_id={$tableAlias}.entity_id "
+                array($tableAlias => $table), "e.entity_id={$tableAlias}.entity_id "
                 . " AND {$tableAlias}.attribute_id={$attribute->getAttributeId()}"
-                . " AND {$tableAlias}.store_id={$storeId}",
-            array()
+                . " AND {$tableAlias}.store_id={$storeId}", array()
         );
 
         if (is_array($value) && (isset($value['from']) || isset($value['to']))) {
@@ -192,4 +191,5 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
 
         return true;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_CodeGenerator_Php_Abstract
  */
@@ -38,19 +38,20 @@
  */
 abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator_Php_Abstract
 {
-
-    /**#@+
+    /*     * #@+
      * @param const string
      */
-    const VISIBILITY_PUBLIC    = 'public';
+
+    const VISIBILITY_PUBLIC = 'public';
     const VISIBILITY_PROTECTED = 'protected';
-    const VISIBILITY_PRIVATE   = 'private';
-    /**#@-*/
+    const VISIBILITY_PRIVATE = 'private';
+
+    /*     * #@- */
 
     /**
      * @var Zend_CodeGenerator_Php_Docblock
      */
-    protected $_docblock   = null;
+    protected $_docblock = null;
 
     /**
      * @var bool
@@ -60,12 +61,12 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator
     /**
      * @var bool
      */
-    protected $_isFinal    = false;
+    protected $_isFinal = false;
 
     /**
      * @var bool
      */
-    protected $_isStatic   = false;
+    protected $_isStatic = false;
 
     /**
      * @var const
@@ -219,4 +220,5 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator
     {
         return $this->_name;
     }
+
 }

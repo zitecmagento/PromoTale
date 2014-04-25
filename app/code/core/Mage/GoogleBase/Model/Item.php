@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -57,6 +58,7 @@
  */
 class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
 {
+
     const ATTRIBUTES_REGISTRY_KEY = 'gbase_attributes_registry';
     const TYPES_REGISTRY_KEY = 'gbase_types_registry';
 
@@ -94,15 +96,15 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
     public function insertItem()
     {
         $this->_checkProduct()
-            ->_prepareProductObject();
+                ->_prepareProductObject();
 
         $typeModel = $this->_getTypeModel();
         $this->getServiceItem()
-            ->setItem($this)
-            ->setObject($this->getProduct())
-            ->setAttributeValues($this->_getAttributeValues())
-            ->setItemType($typeModel->getGbaseItemtype())
-            ->insert();
+                ->setItem($this)
+                ->setObject($this->getProduct())
+                ->setAttributeValues($this->_getAttributeValues())
+                ->setItemType($typeModel->getGbaseItemtype())
+                ->insert();
         $this->setTypeId($typeModel->getTypeId());
         return $this;
     }
@@ -115,16 +117,16 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
     public function updateItem()
     {
         $this->_checkProduct()
-            ->_prepareProductObject();
+                ->_prepareProductObject();
         $this->loadByProduct($this->getProduct());
         if ($this->getId()) {
             $typeModel = $this->_getTypeModel();
             $this->getServiceItem()
-                ->setItem($this)
-                ->setObject($this->getProduct())
-                ->setAttributeValues($this->_getAttributeValues())
-                ->setItemType($typeModel->getGbaseItemtype())
-                ->update();
+                    ->setItem($this)
+                    ->setObject($this->getProduct())
+                    ->setAttributeValues($this->_getAttributeValues())
+                    ->setItemType($typeModel->getGbaseItemtype())
+                    ->update();
         }
         return $this;
     }
@@ -231,8 +233,8 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
             }
         }
         $product->setUrl($url)
-            ->setQuantity( $this->getProduct()->getStockItem()->getQty() )
-            ->setImageUrl( Mage::helper('catalog/product')->getImageUrl($product) );
+                ->setQuantity($this->getProduct()->getStockItem()->getQty())
+                ->setImageUrl(Mage::helper('catalog/product')->getImageUrl($product));
         $this->setProduct($product);
         return $this;
     }
@@ -265,8 +267,8 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
 
                 if ($name && $value && $type) {
                     $result[$name] = array(
-                        'value'     => $value,
-                        'type'      => $type
+                        'value' => $value,
+                        'type' => $type
                     );
                 }
             }
@@ -289,10 +291,10 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
         }
         if (!$this->_translations) {
             $moduleName = Mage_Catalog_Model_Entity_Attribute::MODULE_NAME;
-            $separator  = Mage_Core_Model_Translate::SCOPE_SEPARATOR;
+            $separator = Mage_Core_Model_Translate::SCOPE_SEPARATOR;
             $this->_translations = Mage::getModel('core/translate_string')
-               ->load($moduleName . $separator . $frontendLabel)
-               ->getStoreTranslations();
+                    ->load($moduleName . $separator . $frontendLabel)
+                    ->getStoreTranslations();
         }
         if (isset($this->_translations[$storeId])) {
             return $this->_translations[$storeId];
@@ -357,7 +359,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
         $result = array();
         foreach ($galleryData['images'] as $image) {
             $image['url'] = Mage::getSingleton('catalog/product_media_config')
-                ->getMediaUrl($image['file']);
+                    ->getMediaUrl($image['file']);
             $result[] = $image;
         }
         return $result;
@@ -376,11 +378,12 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
             return $registry[$attributeSetId];
         }
         $collection = Mage::getResourceModel('googlebase/attribute_collection')
-            ->addAttributeSetFilter($attributeSetId, $this->getTargetCountry())
-            ->load();
+                ->addAttributeSetFilter($attributeSetId, $this->getTargetCountry())
+                ->load();
         $registry[$attributeSetId] = $collection;
         Mage::unregister(self::ATTRIBUTES_REGISTRY_KEY);
         Mage::register(self::ATTRIBUTES_REGISTRY_KEY, $registry);
         return $collection;
     }
+
 }

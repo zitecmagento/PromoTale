@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -51,7 +52,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
         $this->_addBreadcrumb(Mage::helper('newsletter')->__('Subscribers'), Mage::helper('newsletter')->__('Subscribers'));
 
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/newsletter_subscriber','subscriber')
+                $this->getLayout()->createBlock('adminhtml/newsletter_subscriber', 'subscriber')
         );
 
         $this->renderLayout();
@@ -61,7 +62,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
     {
         $this->loadLayout();
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid')->toHtml()
+                $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid')->toHtml()
         );
     }
 
@@ -70,9 +71,9 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
      */
     public function exportCsvAction()
     {
-        $fileName   = 'subscribers.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid')
-            ->getCsvFile();
+        $fileName = 'subscribers.csv';
+        $content = $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid')
+                ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -82,9 +83,9 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
      */
     public function exportXmlAction()
     {
-        $fileName   = 'subscribers.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid')
-            ->getExcelFile();
+        $fileName = 'subscribers.xml';
+        $content = $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid')
+                ->getExcelFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -99,7 +100,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
      * @param string $content
      * @param string $contentType
      */
-    protected function _sendUploadResponse($fileName, $content, $contentType='application/octet-stream')
+    protected function _sendUploadResponse($fileName, $content, $contentType = 'application/octet-stream')
     {
         $this->_prepareDownloadResponse($fileName, $content, $contentType);
     }
@@ -108,18 +109,20 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
     {
         $subscribersIds = $this->getRequest()->getParam('subscriber');
         if (!is_array($subscribersIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('newsletter')->__('Please select subscriber(s)'));
-        }
-        else {
-            try {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('newsletter')->__('Please select subscriber(s)'));
+        } else {
+            try
+            {
                 foreach ($subscribersIds as $subscriberId) {
                     $subscriber = Mage::getModel('newsletter/subscriber')->load($subscriberId);
                     $subscriber->unsubscribe();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('Total of %d record(s) were updated', count($subscribersIds))
+                        Mage::helper('adminhtml')->__('Total of %d record(s) were updated', count($subscribersIds))
                 );
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
@@ -131,18 +134,20 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
     {
         $subscribersIds = $this->getRequest()->getParam('subscriber');
         if (!is_array($subscribersIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('newsletter')->__('Please select subscriber(s)'));
-        }
-        else {
-            try {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('newsletter')->__('Please select subscriber(s)'));
+        } else {
+            try
+            {
                 foreach ($subscribersIds as $subscriberId) {
                     $subscriber = Mage::getModel('newsletter/subscriber')->load($subscriberId);
                     $subscriber->delete();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('Total of %d record(s) were deleted', count($subscribersIds))
+                        Mage::helper('adminhtml')->__('Total of %d record(s) were deleted', count($subscribersIds))
                 );
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
@@ -154,4 +159,5 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
     {
         return Mage::getSingleton('admin/session')->isAllowed('newsletter/subscriber');
     }
+
 }

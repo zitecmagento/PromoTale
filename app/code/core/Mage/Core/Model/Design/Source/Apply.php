@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Core_Model_Design_Source_Apply extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+
     public function getAllOptions()
     {
         if (!$this->_options) {
@@ -39,11 +41,12 @@ class Mage_Core_Model_Design_Source_Apply extends Mage_Eav_Model_Entity_Attribut
                 2 => Mage::helper('core')->__('This category only')
             );
 
-            foreach ($optionArray as $k=>$label) {
-                $this->_options[] = array('value'=>$k, 'label'=>$label);
+            foreach ($optionArray as $k => $label) {
+                $this->_options[] = array('value' => $k, 'label' => $label);
             }
         }
 
         return $this->_options;
     }
+
 }

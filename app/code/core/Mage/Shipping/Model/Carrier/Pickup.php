@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,11 +24,7 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
-class Mage_Shipping_Model_Carrier_Pickup
-    extends Mage_Shipping_Model_Carrier_Abstract
-    implements Mage_Shipping_Model_Carrier_Interface
+class Mage_Shipping_Model_Carrier_Pickup extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
 
     protected $_code = 'pickup';
@@ -72,7 +69,7 @@ class Mage_Shipping_Model_Carrier_Pickup
      */
     public function getAllowedMethods()
     {
-        return array('pickup'=>Mage::helper('shipping')->__('Store Pickup'));
+        return array('pickup' => Mage::helper('shipping')->__('Store Pickup'));
     }
 
 }

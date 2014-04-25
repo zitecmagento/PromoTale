@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Page_Block_Html_Notices extends Mage_Core_Block_Template
 {
+
     /**
      * Check if noscript notice should be displayed
      *
@@ -62,4 +64,5 @@ class Mage_Page_Block_Html_Notices extends Mage_Core_Block_Template
     {
         return Mage::getUrl('privacy-policy-cookie-restriction-mode');
     }
+
 }

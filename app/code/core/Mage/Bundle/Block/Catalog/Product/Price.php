@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Bundle product price block
@@ -57,7 +57,7 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
     {
         $product = $this->getProduct();
         if ($product->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC &&
-            $product->getPriceModel()->getIsPricesCalculatedByIndex() !== false) {
+                $product->getPriceModel()->getIsPricesCalculatedByIndex() !== false) {
             return false;
         }
         return $this->helper('tax')->displayBothPrices();
@@ -71,8 +71,7 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
     protected function _toHtml()
     {
         $product = $this->getProduct();
-        if ($this->getMAPTemplate() && Mage::helper('catalog')->canApplyMsrp($product)
-                && $product->getPriceType() != Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC
+        if ($this->getMAPTemplate() && Mage::helper('catalog')->canApplyMsrp($product) && $product->getPriceType() != Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC
         ) {
             $hiddenPriceHtml = parent::_toHtml();
             if (Mage::helper('catalog')->isShowPriceOnGesture($product)) {
@@ -80,20 +79,21 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
             }
             $realPriceHtml = parent::_toHtml();
             $this->unsWithoutPrice();
-            $addToCartUrl  = $this->getLayout()->getBlock('product.info.bundle')->getAddToCartUrl($product);
+            $addToCartUrl = $this->getLayout()->getBlock('product.info.bundle')->getAddToCartUrl($product);
             $product->setAddToCartUrl($addToCartUrl);
             $html = $this->getLayout()
-                ->createBlock('catalog/product_price')
-                ->setTemplate($this->getMAPTemplate())
-                ->setRealPriceHtml($hiddenPriceHtml)
-                ->setPriceElementIdPrefix('bundle-price-')
-                ->setIdSuffix($this->getIdSuffix())
-                ->setProduct($product)
-                ->toHtml();
+                    ->createBlock('catalog/product_price')
+                    ->setTemplate($this->getMAPTemplate())
+                    ->setRealPriceHtml($hiddenPriceHtml)
+                    ->setPriceElementIdPrefix('bundle-price-')
+                    ->setIdSuffix($this->getIdSuffix())
+                    ->setProduct($product)
+                    ->toHtml();
 
             return $realPriceHtml . $html;
         }
 
         return parent::_toHtml();
     }
+
 }

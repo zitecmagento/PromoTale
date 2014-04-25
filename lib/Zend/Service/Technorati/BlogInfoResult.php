@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: BlogInfoResult.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Technorati_Utils
  */
 #require_once 'Zend/Service/Technorati/Utils.php';
-
 
 /**
  * Represents a single Technorati BlogInfo query result object.
@@ -38,6 +36,7 @@
  */
 class Zend_Service_Technorati_BlogInfoResult
 {
+
     /**
      * Technorati weblog url, if queried URL is a valid weblog.
      *
@@ -70,7 +69,6 @@ class Zend_Service_Technorati_BlogInfoResult
      */
     protected $_inboundLinks;
 
-
     /**
      * Constructs a new object object from DOM Document.
      *
@@ -95,16 +93,19 @@ class Zend_Service_Technorati_BlogInfoResult
              */
             #require_once 'Zend/Service/Technorati/Exception.php';
             throw new Zend_Service_Technorati_Exception(
-                "Your URL is not a recognized Technorati weblog");
+            "Your URL is not a recognized Technorati weblog");
         }
 
         $result = $xpath->query('//result/url/text()');
         if ($result->length == 1) {
-            try {
+            try
+            {
                 // fetched URL often doens't include schema
                 // and this issue causes the following line to fail
                 $this->_url = Zend_Service_Technorati_Utils::normalizeUriHttp($result->item(0)->data);
-            } catch(Zend_Service_Technorati_Exception $e) {
+            }
+            catch (Zend_Service_Technorati_Exception $e)
+            {
                 if ($this->getWeblog() instanceof Zend_Service_Technorati_Weblog) {
                     $this->_url = $this->getWeblog()->getUrl();
                 }
@@ -112,20 +113,21 @@ class Zend_Service_Technorati_BlogInfoResult
         }
 
         $result = $xpath->query('//result/inboundblogs/text()');
-        if ($result->length == 1) $this->_inboundBlogs = (int) $result->item(0)->data;
+        if ($result->length == 1)
+            $this->_inboundBlogs = (int) $result->item(0)->data;
 
         $result = $xpath->query('//result/inboundlinks/text()');
-        if ($result->length == 1) $this->_inboundLinks = (int) $result->item(0)->data;
-
+        if ($result->length == 1)
+            $this->_inboundLinks = (int) $result->item(0)->data;
     }
-
 
     /**
      * Returns the weblog URL.
      *
      * @return  Zend_Uri_Http
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->_url;
     }
 
@@ -134,7 +136,8 @@ class Zend_Service_Technorati_BlogInfoResult
      *
      * @return  Zend_Service_Technorati_Weblog
      */
-    public function getWeblog() {
+    public function getWeblog()
+    {
         return $this->_weblog;
     }
 

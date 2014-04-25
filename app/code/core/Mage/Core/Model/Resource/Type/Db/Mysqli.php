@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Mysqi Resource
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Type_Db_Mysqli extends Mage_Core_Model_Resource_Type_Db
 {
+
     /**
      * Get Connection
      *
@@ -42,8 +43,8 @@ class Mage_Core_Model_Resource_Type_Db_Mysqli extends Mage_Core_Model_Resource_T
      */
     public function getConnection($config)
     {
-        $configArr = (array)$config;
-        $configArr['profiler'] = !empty($configArr['profiler']) && $configArr['profiler']!=='false';
+        $configArr = (array) $config;
+        $configArr['profiler'] = !empty($configArr['profiler']) && $configArr['profiler'] !== 'false';
 
         $conn = new Varien_Db_Adapter_Mysqli($configArr);
 
@@ -53,4 +54,5 @@ class Mage_Core_Model_Resource_Type_Db_Mysqli extends Mage_Core_Model_Resource_T
 
         return $conn;
     }
+
 }

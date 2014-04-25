@@ -29,14 +29,14 @@
 // <![CDATA[
 <?php $images = $this->getImages(); ?>
 <?php if (is_array($images)) : ?>
-    <?php foreach($images as $id => $src) : ?>
-        parentForImage = $('<?php echo $id; ?>').parentNode;
-        inputField = parentForImage.removeChild($('<?php echo $id; ?>'));
-        oldInnerHTML = parentForImage.innerHTML;
-        parentForImage.innerHTML = '<div><a href="<?php echo $src; ?>" onclick="imagePreview(\'<?php echo $id; ?>_image\'); return false;">'
-            + '<img src="<?php echo $src; ?>" id="<?php echo $id; ?>_image" title="" alt="" height="22" width="22" class="small-image-preview v-middle" /></a></div>';
-        parentForImage.firstChild.appendChild(inputField);
-        parentForImage.firstChild.innerHTML = parentForImage.firstChild.innerHTML + oldInnerHTML;
+    <?php foreach ($images as $id => $src) : ?>
+            parentForImage = $('<?php echo $id; ?>').parentNode;
+            inputField = parentForImage.removeChild($('<?php echo $id; ?>'));
+            oldInnerHTML = parentForImage.innerHTML;
+            parentForImage.innerHTML = '<div><a href="<?php echo $src; ?>" onclick="imagePreview(\'<?php echo $id; ?>_image\'); return false;">'
+                    + '<img src="<?php echo $src; ?>" id="<?php echo $id; ?>_image" title="" alt="" height="22" width="22" class="small-image-preview v-middle" /></a></div>';
+            parentForImage.firstChild.appendChild(inputField);
+            parentForImage.firstChild.innerHTML = parentForImage.firstChild.innerHTML + oldInnerHTML;
     <?php endforeach; ?>
 <?php endif; ?>
 // ]]>

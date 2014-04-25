@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Free shipping model
  *
@@ -32,9 +32,7 @@
  * @package    Mage_Shipping
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Shipping_Model_Carrier_Freeshipping
-    extends Mage_Shipping_Model_Carrier_Abstract
-    implements Mage_Shipping_Model_Carrier_Interface
+class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
 
     /**
@@ -67,8 +65,7 @@ class Mage_Shipping_Model_Carrier_Freeshipping
 
         $this->_updateFreeMethodQuote($request);
 
-        if (($request->getFreeShipping())
-            || ($request->getBaseSubtotalInclTax() >=
+        if (($request->getFreeShipping()) || ($request->getBaseSubtotalInclTax() >=
                 $this->getConfigData('free_shipping_subtotal'))
         ) {
             $method = Mage::getModel('shipping/rate_result_method');

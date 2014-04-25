@@ -40,9 +40,9 @@
 </div>
 <script type="text/javascript">
 //<![CDATA[
-    function toggleRememberMepopup(e){
-        if($('remember-me-popup')){
-            $('remember-me-popup').setStyle({'top' : e.pointerY() + 'px'}).toggle();
+    function toggleRememberMepopup(e) {
+        if ($('remember-me-popup')) {
+            $('remember-me-popup').setStyle({'top': e.pointerY() + 'px'}).toggle();
         }
         Event.stop(event);
     }
@@ -50,7 +50,7 @@
     document.observe("dom:loaded", function() {
         new Insertion.Bottom($$('body')[0], $('remember-me-popup'));
 
-        $$('.remember-me-popup-close').each(function(element){
+        $$('.remember-me-popup-close').each(function(element) {
             Event.observe(element, 'click', toggleRememberMepopup);
         })
         $$('#remember-me-box a').each(function(element) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,8 +34,9 @@
  */
 abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
-    const IDX_SUFFIX= '_idx';
-    const TMP_SUFFIX= '_tmp';
+
+    const IDX_SUFFIX = '_idx';
+    const TMP_SUFFIX = '_tmp';
 
     /**
      * Flag that defines if need to use "_idx" index table suffix instead of "_tmp"
@@ -105,14 +107,17 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     public function syncData()
     {
         $this->beginTransaction();
-        try {
+        try
+        {
             /**
              * Can't use truncate because of transaction
              */
             $this->_getWriteAdapter()->delete($this->getMainTable());
             $this->insertFromTable($this->getIdxTable(), $this->getMainTable(), false);
             $this->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->rollBack();
             throw $e;
         }
@@ -167,11 +172,11 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     public function insertFromSelect($select, $destTable, array $columns, $readToIndex = true)
     {
         if ($readToIndex) {
-            $from   = $this->_getWriteAdapter();
-            $to     = $this->_getIndexAdapter();
+            $from = $this->_getWriteAdapter();
+            $to = $this->_getIndexAdapter();
         } else {
-            $from   = $this->_getIndexAdapter();
-            $to     = $this->_getWriteAdapter();
+            $from = $this->_getIndexAdapter();
+            $to = $this->_getWriteAdapter();
         }
 
         if ($from === $to) {
@@ -184,7 +189,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
             while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
                 $data[] = $row;
                 $counter++;
-                if ($counter>2000) {
+                if ($counter > 2000) {
                     $to->insertArray($destTable, $columns, $data);
                     $data = array();
                     $counter = 0;
@@ -207,7 +212,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     public function useIdxTable($value = null)
     {
         if (!is_null($value)) {
-            $this->_isNeedUseIdxTable = (bool)$value;
+            $this->_isNeedUseIdxTable = (bool) $value;
         }
         return $this->_isNeedUseIdxTable;
     }
@@ -221,7 +226,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     public function useDisableKeys($value = null)
     {
         if (!is_null($value)) {
-            $this->_isDisableKeys = (bool)$value;
+            $this->_isDisableKeys = (bool) $value;
         }
         return $this->_isDisableKeys;
     }
@@ -273,4 +278,5 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
         }
         return $this;
     }
+
 }

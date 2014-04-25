@@ -23,7 +23,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * Product view template
  *
@@ -38,7 +37,7 @@
 </script>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 <div class="product-view">
-    <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+    <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
         <?php echo $this->getBlockHtml('formkey') ?>
         <div class="no-display">
             <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
@@ -46,64 +45,64 @@
         </div>
         <div class="product-essential">
 
-                <div class="product-img-box">
-                    <?php echo $this->getChildHtml('media') ?>
-                </div>
+            <div class="product-img-box">
+                <?php echo $this->getChildHtml('media') ?>
+            </div>
 
-                <div class="product-shop">
-                    <div class="product-main-info">
-                        <div class="product-name">
-                            <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
-                        </div>
-                        <?php echo $this->getChildHtml('alert_urls') ?>
-                        <?php echo $this->getChildHtml('product_type_data') ?>
+            <div class="product-shop">
+                <div class="product-main-info">
+                    <div class="product-name">
+                        <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
                     </div>
-                    <?php echo $this->getTierPriceHtml() ?>
-                    <?php echo $this->getChildHtml('extrahint') ?>
-
-                    <?php if (!$this->hasOptions()):?>
-                        <div class="add-to-box">
-                            <?php if($_product->isSaleable()): ?>
-                                <?php echo $this->getChildHtml('addtocart') ?>
-                            <?php endif; ?>
-                        </div>
-                        <?php echo $this->getChildHtml('extra_buttons') ?>
-                    <?php else:?>
-                        <?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container1') ):?>
-                            <div class="options-container-small">
-                                <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
-                            </div>
-                        <?php endif;?>
-                    <?php endif; ?>
-
-                    <?php echo $this->getChildHtml('other');?>
+                    <?php echo $this->getChildHtml('alert_urls') ?>
+                    <?php echo $this->getChildHtml('product_type_data') ?>
                 </div>
+                <?php echo $this->getTierPriceHtml() ?>
+                <?php echo $this->getChildHtml('extrahint') ?>
+
+                <?php if (!$this->hasOptions()): ?>
+                    <div class="add-to-box">
+                        <?php if ($_product->isSaleable()): ?>
+                            <?php echo $this->getChildHtml('addtocart') ?>
+                        <?php endif; ?>
+                    </div>
+                    <?php echo $this->getChildHtml('extra_buttons') ?>
+                <?php else: ?>
+                    <?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container1')): ?>
+                        <div class="options-container-small">
+                            <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <?php echo $this->getChildHtml('other'); ?>
+            </div>
 
         </div>
 
         <div class="product-collateral">
 
-            <?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
-            <div class="box-collateral <?php echo "box-{$alias}"?>">
-                <?php if ($title = $this->getChildData($alias, 'title')):?>
-                <h2><?php echo $this->escapeHtml($title); ?></h2>
-                <?php endif;?>
-                <?php echo $html; ?>
-            </div>
-            <?php if ($alias == 'description'): ?>
-                <div class="product-add-to"><?php echo $this->getChildHtml('addto') ?></div>
-            <?php endif; ?>
-            <?php endforeach;?>
+            <?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html): ?>
+                <div class="box-collateral <?php echo "box-{$alias}" ?>">
+                    <?php if ($title = $this->getChildData($alias, 'title')): ?>
+                        <h2><?php echo $this->escapeHtml($title); ?></h2>
+                    <?php endif; ?>
+                    <?php echo $html; ?>
+                </div>
+                <?php if ($alias == 'description'): ?>
+                    <div class="product-add-to"><?php echo $this->getChildHtml('addto') ?></div>
+                <?php endif; ?>
+            <?php endforeach; ?>
 
         </div>
 
-        <div class="product-review"><?php echo $this->getReviewsSummaryHtml($_product, false, true)?></div>
+        <div class="product-review"><?php echo $this->getReviewsSummaryHtml($_product, false, true) ?></div>
 
-        <?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container2') ):?>
+        <?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container2')): ?>
             <div class="options-container-big">
                 <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
             </div>
-        <?php endif;?>
+        <?php endif; ?>
     </form>
     <?php echo $this->getChildHtml('upsell_products') ?>
     <?php echo $this->getChildHtml('productTagList') ?>
@@ -119,15 +118,15 @@
             var oldUrl = form.action;
 
             if (url) {
-               form.action = url;
+                form.action = url;
             }
             var e = null;
             try {
                 var transformValue = {};
 
-                if ( Modernizr.csstransforms3d ) {
+                if (Modernizr.csstransforms3d) {
                     transformValue[Modernizr.prefixed('transform')] = 'translate3d(-82px, -106px, 2px) scale(0) rotate(200deg)';
-                } else if ( Modernizr.csstransforms ) {
+                } else if (Modernizr.csstransforms) {
                     transformValue[Modernizr.prefixed('transform')] = 'translate(-82px, -106px) scale(0) rotate(200deg)';
                 } else {
                     this.form.submit();
@@ -137,7 +136,7 @@
                 var originalImg = $$('.product-image-wrap .product-image img')[0];
                 originalImg.up('.product-image-wrap').insert(originalImg.clone().addClassName('cloned'));
 
-                setTimeout(function () {
+                setTimeout(function() {
                     $$('.cloned')[0].setStyle(transformValue);
                 }, 1);
                 $$('.product-image-wrap .cloned')[0].observe(transEndEventName, function(e) {
@@ -157,8 +156,8 @@
         }
     }.bind(productAddToCartForm);
 
-    productAddToCartForm.submitLight = function(button, url){
-        if(this.validator) {
+    productAddToCartForm.submitLight = function(button, url) {
+        if (this.validator) {
             var nv = Validation.methods;
             delete Validation.methods['required-entry'];
             delete Validation.methods['validate-one-required'];

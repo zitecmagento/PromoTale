@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -30,12 +31,13 @@
  * @file        Poll.php
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Poll_Block_Poll extends Mage_Core_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('poll/poll.phtml');
     }
+
 }

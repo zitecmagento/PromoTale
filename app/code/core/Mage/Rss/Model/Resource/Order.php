@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Order Rss Resource Model
  *
@@ -34,14 +34,6 @@
  */
 class Mage_Rss_Model_Resource_Order
 {
-    /**
-     * Enter description here ...
-     *
-     * @deprecated after 1.4.1.0
-     *
-     * @var array
-     */
-    protected $_entityTypeIdsToTypes       = array();
 
     /**
      * Enter description here ...
@@ -50,7 +42,16 @@ class Mage_Rss_Model_Resource_Order
      *
      * @var array
      */
-    protected $_entityIdsToIncrementIds    = array();
+    protected $_entityTypeIdsToTypes = array();
+
+    /**
+     * Enter description here ...
+     *
+     * @deprecated after 1.4.1.0
+     *
+     * @var array
+     */
+    protected $_entityIdsToIncrementIds = array();
 
     /**
      * Enter description here ...
@@ -155,34 +156,35 @@ class Mage_Rss_Model_Resource_Order
         );
         $commentSelects = array();
         foreach (array('invoice', 'shipment', 'creditmemo') as $entityTypeCode) {
-            $mainTable  = $res->getTableName('sales/' . $entityTypeCode);
+            $mainTable = $res->getTableName('sales/' . $entityTypeCode);
             $slaveTable = $res->getTableName('sales/' . $entityTypeCode . '_comment');
             $select = $read->select()
-                ->from(array('main' => $mainTable), array(
-                    'entity_id' => 'order_id',
-                    'entity_type_code' => new Zend_Db_Expr("'$entityTypeCode'")
-                ))
-                ->join(array('slave' => $slaveTable), 'main.entity_id = slave.parent_id', $fields)
-                ->where('main.order_id = ?', $orderId);
+                    ->from(array('main' => $mainTable), array(
+                        'entity_id' => 'order_id',
+                        'entity_type_code' => new Zend_Db_Expr("'$entityTypeCode'")
+                    ))
+                    ->join(array('slave' => $slaveTable), 'main.entity_id = slave.parent_id', $fields)
+                    ->where('main.order_id = ?', $orderId);
             $commentSelects[] = '(' . $select . ')';
         }
         $select = $read->select()
-            ->from($res->getTableName('sales/order_status_history'), array(
-                'entity_id' => 'parent_id',
-                'entity_type_code' => new Zend_Db_Expr("'order'")
-            ) + $fields)
-            ->where('parent_id = ?', $orderId)
-            ->where('is_visible_on_front > 0');
+                ->from($res->getTableName('sales/order_status_history'), array(
+                    'entity_id' => 'parent_id',
+                    'entity_type_code' => new Zend_Db_Expr("'order'")
+                        ) + $fields)
+                ->where('parent_id = ?', $orderId)
+                ->where('is_visible_on_front > 0');
         $commentSelects[] = '(' . $select . ')';
 
         $commentSelect = $read->select()
-            ->union($commentSelects, Zend_Db_Select::SQL_UNION_ALL);
+                ->union($commentSelects, Zend_Db_Select::SQL_UNION_ALL);
 
         $select = $read->select()
-            ->from(array('orders' => $res->getTableName('sales/order')), array('increment_id'))
-            ->join(array('t' => $commentSelect),'t.entity_id = orders.entity_id')
-            ->order('orders.created_at desc');
+                ->from(array('orders' => $res->getTableName('sales/order')), array('increment_id'))
+                ->join(array('t' => $commentSelect), 't.entity_id = orders.entity_id')
+                ->order('orders.created_at desc');
 
         return $read->fetchAll($select);
     }
+
 }

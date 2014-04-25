@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -41,13 +42,12 @@
  * @package     Mage_Tag
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
 {
+
     const STATUS_DISABLED = -1;
     const STATUS_PENDING = 0;
     const STATUS_APPROVED = 1;
-
     // statuses for tag relation add
     const ADD_STATUS_SUCCESS = 'success';
     const ADD_STATUS_NEW = 'new';
@@ -88,7 +88,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     {
         parent::afterCommitCallback();
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+                $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
         return $this;
     }
@@ -267,11 +267,11 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     public function getRelatedProductIds()
     {
         return Mage::getModel('tag/tag_relation')
-            ->setTagId($this->getTagId())
-            ->setStoreId($this->getStoreId())
-            ->setStatusFilter($this->getStatusFilter())
-            ->setCustomerId(null)
-            ->getProductIds();
+                        ->setTagId($this->getTagId())
+                        ->setStoreId($this->getStoreId())
+                        ->setStatusFilter($this->getStatusFilter())
+                        ->setCustomerId(null)
+                        ->getProductIds();
     }
 
     /**
@@ -305,16 +305,16 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
         /** @var $relationModel Mage_Tag_Model_Tag_Relation */
         $relationModel = Mage::getModel('tag/tag_relation');
         $relationModel->setTagId($this->getId())
-            ->setStoreId($storeId)
-            ->setProductId($productId)
-            ->setCustomerId($customerId)
-            ->setActive(Mage_Tag_Model_Tag_Relation::STATUS_ACTIVE)
-            ->setCreatedAt($relationModel->getResource()->formatDate(time()));
+                ->setStoreId($storeId)
+                ->setProductId($productId)
+                ->setCustomerId($customerId)
+                ->setActive(Mage_Tag_Model_Tag_Relation::STATUS_ACTIVE)
+                ->setCreatedAt($relationModel->getResource()->formatDate(time()));
 
         $relationModelSaveNeed = false;
-        switch($this->getStatus()) {
+        switch ($this->getStatus()) {
             case $this->getApprovedStatus():
-                if($this->_checkLinkBetweenTagProduct($relationModel)) {
+                if ($this->_checkLinkBetweenTagProduct($relationModel)) {
                     $relation = $this->_getLinkBetweenTagCustomerProduct($relationModel);
                     if ($relation->getId()) {
                         if (!$relation->getActive()) {
@@ -344,7 +344,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
                 $result = self::ADD_STATUS_NEW;
                 break;
             case $this->getDisabledStatus():
-                if($this->_checkLinkBetweenTagCustomerProduct($relationModel)) {
+                if ($this->_checkLinkBetweenTagCustomerProduct($relationModel)) {
                     $result = self::ADD_STATUS_REJECTED;
                 } else {
                     $this->setStatus($this->getPendingStatus())->save();
@@ -395,10 +395,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     protected function _getLinkBetweenTagCustomerProduct($relationModel)
     {
         return Mage::getModel('tag/tag_relation')->loadByTagCustomer(
-            $relationModel->getProductId(),
-            $this->getId(),
-            $relationModel->getCustomerId(),
-            $relationModel->getStoreId()
+                        $relationModel->getProductId(), $this->getId(), $relationModel->getCustomerId(), $relationModel->getStoreId()
         );
     }
 

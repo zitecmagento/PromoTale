@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,10 +30,11 @@
  */
 class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstract
 {
+
     /**
      * @var string
      */
-    protected $_code  = 'googlecheckout';
+    protected $_code = 'googlecheckout';
 
     /**
      * Can be edit order (renew order)
@@ -137,4 +139,5 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
     {
         return false;
     }
+
 }

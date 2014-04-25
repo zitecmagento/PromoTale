@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_CmsController extends Mage_XmlConnect_Controller_Action
 {
+
     /**
      * Declare content type header
      *
@@ -62,23 +64,29 @@ class Mage_XmlConnect_CmsController extends Mage_XmlConnect_Controller_Action
      */
     public function sentinelSecureAction()
     {
-        try {
+        try
+        {
             $method = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance();
             if ($method->getIsCentinelValidationEnabled()) {
                 $centinel = $method->getCentinelValidator();
                 if ($centinel && $centinel->shouldAuthenticate()) {
                     /** @var $sentinelBlock Mage_Centinel_Block_Authentication */
                     $sentinelBlock = $this->getLayout()->addBlock('centinel/authentication', 'centinel.frame')
-                        ->setTemplate('xmlconnect/centinel/authentication.phtml');
+                            ->setTemplate('xmlconnect/centinel/authentication.phtml');
                     $this->getResponse()->setBody($sentinelBlock->toHtml());
                     return;
                 }
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->getResponse()->setBody($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->getResponse()->setBody($e->getMessage());
             Mage::logException($e);
         }
     }
+
 }

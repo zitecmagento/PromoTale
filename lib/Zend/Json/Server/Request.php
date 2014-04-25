@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 class Zend_Json_Server_Request
 {
+
     /**
      * Request ID
      * @var mixed
@@ -286,4 +288,5 @@ class Zend_Json_Server_Request
     {
         return $this->toJson();
     }
+
 }

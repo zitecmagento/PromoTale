@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Rename.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Interface
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Filter_File_Rename implements Zend_Filter_Interface
 {
+
     /**
      * Internal array of array(source, target, overwrite)
      */
@@ -65,12 +66,12 @@ class Zend_Filter_File_Rename implements Zend_Filter_Interface
         if (1 < func_num_args()) {
             $argv = func_get_args();
             array_shift($argv);
-            $source    = array_shift($argv);
+            $source = array_shift($argv);
             $overwrite = false;
             if (!empty($argv)) {
                 $overwrite = array_shift($argv);
             }
-            $options['source']    = $source;
+            $options['source'] = $source;
             $options['overwrite'] = $overwrite;
         }
 
@@ -123,7 +124,7 @@ class Zend_Filter_File_Rename implements Zend_Filter_Interface
             $options = array('target' => $options);
         } elseif (!is_array($options)) {
             #require_once 'Zend/Filter/Exception.php';
-            throw new Zend_Filter_Exception ('Invalid options to rename filter provided');
+            throw new Zend_Filter_Exception('Invalid options to rename filter provided');
         }
 
         $this->_convertOptions($options);
@@ -178,7 +179,7 @@ class Zend_Filter_File_Rename implements Zend_Filter_Interface
      */
     public function filter($value)
     {
-        $file   = $this->getNewName($value, true);
+        $file = $this->getNewName($value, true);
         if (is_string($file)) {
             return $file;
         }
@@ -200,7 +201,8 @@ class Zend_Filter_File_Rename implements Zend_Filter_Interface
      * @param  array $options
      * @return array
      */
-    protected function _convertOptions($options) {
+    protected function _convertOptions($options)
+    {
         $files = array();
         foreach ($options as $key => $value) {
             if (is_array($value)) {
@@ -246,12 +248,12 @@ class Zend_Filter_File_Rename implements Zend_Filter_Interface
         foreach ($this->_files as $key => $value) {
             if ($value['source'] == $files['source']) {
                 $this->_files[$key] = $files;
-                $found              = true;
+                $found = true;
             }
         }
 
         if (!$found) {
-            $count                = count($this->_files);
+            $count = count($this->_files);
             $this->_files[$count] = $files;
         }
 
@@ -271,7 +273,7 @@ class Zend_Filter_File_Rename implements Zend_Filter_Interface
         foreach ($this->_files as $value) {
             if ($value['source'] == '*') {
                 if (!isset($rename['source'])) {
-                    $rename           = $value;
+                    $rename = $value;
                     $rename['source'] = $file;
                 }
             }
@@ -301,4 +303,5 @@ class Zend_Filter_File_Rename implements Zend_Filter_Interface
 
         return $rename;
     }
+
 }

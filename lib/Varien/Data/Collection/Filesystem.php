@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -41,6 +42,7 @@
  */
 class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
 {
+
     /**
      * Target directory
      *
@@ -81,7 +83,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @var string
      */
-    protected $_allowedDirsMask  = '/^[a-z0-9\.\-\_]+$/i';
+    protected $_allowedDirsMask = '/^[a-z0-9\.\-\_]+$/i';
 
     /**
      * Filenames regex pre-filter
@@ -112,7 +114,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @var array
      */
-    protected $_collectedDirs  = array();
+    protected $_collectedDirs = array();
     protected $_collectedFiles = array();
 
     /**
@@ -124,7 +126,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      */
     public function setDirsFilter($regex)
     {
-        $this->_allowedDirsMask = (string)$regex;
+        $this->_allowedDirsMask = (string) $regex;
         return $this;
     }
 
@@ -137,7 +139,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      */
     public function setFilesFilter($regex)
     {
-        $this->_allowedFilesMask = (string)$regex;
+        $this->_allowedFilesMask = (string) $regex;
         return $this;
     }
 
@@ -150,7 +152,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      */
     public function setDisallowedFilesFilter($regex)
     {
-        $this->_disallowedFilesMask = (string)$regex;
+        $this->_disallowedFilesMask = (string) $regex;
         return $this;
     }
 
@@ -162,7 +164,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      */
     public function setCollectDirs($value)
     {
-        $this->_collectDirs = (bool)$value;
+        $this->_collectDirs = (bool) $value;
         return $this;
     }
 
@@ -174,7 +176,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      */
     public function setCollectFiles($value)
     {
-        $this->_collectFiles = (bool)$value;
+        $this->_collectFiles = (bool) $value;
         return $this;
     }
 
@@ -186,7 +188,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      */
     public function setCollectRecursively($value)
     {
-        $this->_collectRecursively = (bool)$value;
+        $this->_collectRecursively = (bool) $value;
         return $this;
     }
 
@@ -198,7 +200,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      */
     public function addTargetDir($value)
     {
-        $value = (string)$value;
+        $value = (string) $value;
         if (!is_dir($value)) {
             throw new Exception('Unable to set target directory.');
         }
@@ -215,7 +217,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      */
     public function setDirsFirst($value)
     {
-        $this->_dirsFirst = (bool)$value;
+        $this->_dirsFirst = (bool) $value;
         return $this;
     }
 
@@ -246,18 +248,14 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
                 if ($this->_collectDirs) {
                     if ($this->_dirsFirst) {
                         $this->_collectedDirs[] = $item;
-                    }
-                    else {
+                    } else {
                         $this->_collectedFiles[] = $item;
                     }
                 }
                 if ($this->_collectRecursively) {
                     $this->_collectRecursive($item);
                 }
-            }
-            elseif ($this->_collectFiles && is_file($item)
-                && (!$this->_allowedFilesMask || preg_match($this->_allowedFilesMask, basename($item)))
-                && (!$this->_disallowedFilesMask || !preg_match($this->_disallowedFilesMask, basename($item)))) {
+            } elseif ($this->_collectFiles && is_file($item) && (!$this->_allowedFilesMask || preg_match($this->_allowedFilesMask, basename($item))) && (!$this->_disallowedFilesMask || !preg_match($this->_disallowedFilesMask, basename($item)))) {
                 $this->_collectedFiles[] = $item;
             }
         }
@@ -405,10 +403,10 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     public function addCallbackFilter($field, $value, $type, $callback, $isInverted = false)
     {
         $this->_filters[$this->_filterIncrement] = array(
-            'field'       => $field,
-            'value'       => $value,
-            'is_and'      => 'and' === $type,
-            'callback'    => $callback,
+            'field' => $field,
+            'value' => $value,
+            'is_and' => 'and' === $type,
+            'callback' => $callback,
             'is_inverted' => $isInverted
         );
         $this->_filterIncrement++;
@@ -430,13 +428,12 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
             for ($i = 0; $i < $this->_filterIncrement; $i++) {
                 if (isset($this->_filterBrackets[$i])) {
                     $eval .= $this->_renderConditionBeforeFilterElement($i, $this->_filterBrackets[$i]['is_and'])
-                        . $this->_filterBrackets[$i]['value'];
-                }
-                else {
+                            . $this->_filterBrackets[$i]['value'];
+                } else {
                     $f = '$this->_filters[' . $i . ']';
                     $eval .= $this->_renderConditionBeforeFilterElement($i, $this->_filters[$i]['is_and'])
-                        . ($this->_filters[$i]['is_inverted'] ? '!' : '')
-                        . '$this->_invokeFilter(' . "{$f}['callback'], array({$f}['field'], {$f}['value'], " . '$row))';
+                            . ($this->_filters[$i]['is_inverted'] ? '!' : '')
+                            . '$this->_invokeFilter(' . "{$f}['callback'], array({$f}['field'], {$f}['value'], " . '$row))';
                 }
             }
             $this->_filterEvalRendered = $eval;
@@ -621,7 +618,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     public function filterCallbackLike($field, $filterValue, $row)
     {
         $filterValueRegex = str_replace('%', '(.*?)', preg_quote($filterValue, '/'));
-        return (bool)preg_match("/^{$filterValueRegex}$/i", $row[$field]);
+        return (bool) preg_match("/^{$filterValueRegex}$/i", $row[$field]);
     }
 
     /**
@@ -698,4 +695,5 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     {
         return $row[$field] < $filterValue;
     }
+
 }

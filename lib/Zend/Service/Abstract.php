@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,13 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Zend_Http_Client
  */
 #require_once 'Zend/Http/Client.php';
-
 
 /**
  * @category   Zend
@@ -34,13 +32,13 @@
  */
 abstract class Zend_Service_Abstract
 {
+
     /**
      * HTTP Client used to query all web services
      *
      * @var Zend_Http_Client
      */
     protected static $_httpClient = null;
-
 
     /**
      * Sets the HTTP client object to use for retrieving the feeds.  If none
@@ -52,7 +50,6 @@ abstract class Zend_Service_Abstract
     {
         self::$_httpClient = $httpClient;
     }
-
 
     /**
      * Gets the HTTP client object.
@@ -67,5 +64,5 @@ abstract class Zend_Service_Abstract
 
         return self::$_httpClient;
     }
-}
 
+}

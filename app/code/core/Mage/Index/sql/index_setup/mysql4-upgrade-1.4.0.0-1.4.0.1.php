@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,11 +24,8 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 
 $installer->getConnection()->addColumn(
-    $this->getTable('index/process'),
-    'mode',
-    "enum('real_time','manual') DEFAULT 'real_time' NOT NULL after `ended_at`"
+        $this->getTable('index/process'), 'mode', "enum('real_time','manual') DEFAULT 'real_time' NOT NULL after `ended_at`"
 );

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 class Zend_Service_ReCaptcha_Response
 {
+
     /**
      * Status
      *
@@ -156,4 +158,5 @@ class Zend_Service_ReCaptcha_Response
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+class Mage_Adminhtml_Block_Api_Editroles extends Mage_Adminhtml_Block_Widget_Tabs
+{
 
-class Mage_Adminhtml_Block_Api_Editroles extends Mage_Adminhtml_Block_Widget_Tabs {
     public function __construct()
     {
         parent::__construct();
@@ -37,28 +39,29 @@ class Mage_Adminhtml_Block_Api_Editroles extends Mage_Adminhtml_Block_Widget_Tab
     {
         $roleId = $this->getRequest()->getParam('rid', false);
         $role = Mage::getModel("api/roles")
-           ->load($roleId);
+                ->load($roleId);
 
         $this->addTab('info', array(
-            'label'     => Mage::helper('adminhtml')->__('Role Info'),
-            'title'     => Mage::helper('adminhtml')->__('Role Info'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_roleinfo')->setRole($role)->toHtml(),
-            'active'    => true
+            'label' => Mage::helper('adminhtml')->__('Role Info'),
+            'title' => Mage::helper('adminhtml')->__('Role Info'),
+            'content' => $this->getLayout()->createBlock('adminhtml/api_tab_roleinfo')->setRole($role)->toHtml(),
+            'active' => true
         ));
 
         $this->addTab('account', array(
-            'label'     => Mage::helper('adminhtml')->__('Role Resources'),
-            'title'     => Mage::helper('adminhtml')->__('Role Resources'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_rolesedit')->toHtml(),
+            'label' => Mage::helper('adminhtml')->__('Role Resources'),
+            'title' => Mage::helper('adminhtml')->__('Role Resources'),
+            'content' => $this->getLayout()->createBlock('adminhtml/api_tab_rolesedit')->toHtml(),
         ));
 
-        if( intval($roleId) > 0 ) {
+        if (intval($roleId) > 0) {
             $this->addTab('roles', array(
-                'label'     => Mage::helper('adminhtml')->__('Role Users'),
-                'title'     => Mage::helper('adminhtml')->__('Role Users'),
-                'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_rolesusers', 'role.users.grid')->toHtml(),
+                'label' => Mage::helper('adminhtml')->__('Role Users'),
+                'title' => Mage::helper('adminhtml')->__('Role Users'),
+                'content' => $this->getLayout()->createBlock('adminhtml/api_tab_rolesusers', 'role.users.grid')->toHtml(),
             ));
         }
         return parent::_beforeToHtml();
     }
+
 }

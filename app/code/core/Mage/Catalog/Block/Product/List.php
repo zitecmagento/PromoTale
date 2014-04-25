@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product list
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstract
 {
+
     /**
      * Default toolbar block name
      *
@@ -66,8 +67,8 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
             if (Mage::registry('product')) {
                 // get collection of categories this product is associated with
                 $categories = Mage::registry('product')->getCategoryCollection()
-                    ->setPage(1, 1)
-                    ->load();
+                        ->setPage(1, 1)
+                        ->load();
                 // if the product is associated with any category
                 if ($categories->count()) {
                     // show products from this category
@@ -237,7 +238,8 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
      * @param Mage_Catalog_Model_Category $category
      * @return Mage_Catalog_Block_Product_List
      */
-    public function prepareSortableFieldsByCategory($category) {
+    public function prepareSortableFieldsByCategory($category)
+    {
         if (!$this->getAvailableOrders()) {
             $this->setAvailableOrders($category->getAvailableSortByOptions());
         }
@@ -264,8 +266,8 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     public function getCacheTags()
     {
         return array_merge(
-            parent::getCacheTags(),
-            $this->getItemsTags($this->_getProductCollection())
+                parent::getCacheTags(), $this->getItemsTags($this->_getProductCollection())
         );
     }
+
 }

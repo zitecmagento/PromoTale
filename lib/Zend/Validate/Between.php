@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Between.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -32,10 +32,11 @@
  */
 class Zend_Validate_Between extends Zend_Validate_Abstract
 {
+
     /**
      * Validation failure message key for when the value is not between the min and max, inclusively
      */
-    const NOT_BETWEEN        = 'notBetween';
+    const NOT_BETWEEN = 'notBetween';
 
     /**
      * Validation failure message key for when the value is not strictly between the min and max
@@ -48,7 +49,7 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::NOT_BETWEEN        => "'%value%' is not between '%min%' and '%max%', inclusively",
+        self::NOT_BETWEEN => "'%value%' is not between '%min%' and '%max%', inclusively",
         self::NOT_BETWEEN_STRICT => "'%value%' is not strictly between '%min%' and '%max%'"
     );
 
@@ -124,8 +125,8 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
         }
 
         $this->setMin($options['min'])
-             ->setMax($options['max'])
-             ->setInclusive($options['inclusive']);
+                ->setMax($options['max'])
+                ->setInclusive($options['inclusive']);
     }
 
     /**

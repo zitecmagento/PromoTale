@@ -32,18 +32,18 @@
         </reference>
     </adminhtml_tag_edit>
     <adminhtml_tag_assigned>
-            <remove name="root" />
-            <block type="adminhtml/tag_assigned_grid" name="tag_assigned_grid" output="toHtml" />
-            <block type="adminhtml/widget_grid_serializer" name="tag_grid_serializer" output="toHtml">
-                <reference name="tag_grid_serializer">
-                    <action method="initSerializerBlock">
-                        <grid_block_name>tag_assigned_grid</grid_block_name>
-                        <data_callback>getRelatedProducts</data_callback>
-                        <hidden_input_name>tag_assigned_products</hidden_input_name>
-                        <reload_param_name>assigned_products</reload_param_name>
-                    </action>
-                </reference>
-            </block>
+        <remove name="root" />
+        <block type="adminhtml/tag_assigned_grid" name="tag_assigned_grid" output="toHtml" />
+        <block type="adminhtml/widget_grid_serializer" name="tag_grid_serializer" output="toHtml">
+            <reference name="tag_grid_serializer">
+                <action method="initSerializerBlock">
+                    <grid_block_name>tag_assigned_grid</grid_block_name>
+                    <data_callback>getRelatedProducts</data_callback>
+                    <hidden_input_name>tag_assigned_products</hidden_input_name>
+                    <reload_param_name>assigned_products</reload_param_name>
+                </action>
+            </reference>
+        </block>
     </adminhtml_tag_assigned>
     <adminhtml_tag_assignedgridonly>
         <remove name="root" />

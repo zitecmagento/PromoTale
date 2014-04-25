@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,17 +32,16 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Customer_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
 
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(array(
-            'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
-            'method'    => 'post',
-            'enctype'   => 'multipart/form-data'
+            'id' => 'edit_form',
+            'action' => $this->getData('action'),
+            'method' => 'post',
+            'enctype' => 'multipart/form-data'
         ));
 
         $customer = Mage::registry('current_customer');
@@ -57,4 +57,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Form extends Mage_Adminhtml_Block_Widge
         $this->setForm($form);
         return parent::_prepareForm();
     }
+
 }

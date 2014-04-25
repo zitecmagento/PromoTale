@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
 {
+
     /**
      * Carrier's code
      *
@@ -72,10 +72,8 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     const USA_COUNTRY_ID = 'US';
     const CANADA_COUNTRY_ID = 'CA';
     const MEXICO_COUNTRY_ID = 'MX';
-
     const HANDLING_TYPE_PERCENT = 'P';
     const HANDLING_TYPE_FIXED = 'F';
-
     const HANDLING_ACTION_PERPACKAGE = 'P';
     const HANDLING_ACTION_PERORDER = 'O';
 
@@ -97,7 +95,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (empty($this->_code)) {
             return false;
         }
-        $path = 'carriers/'.$this->_code.'/'.$field;
+        $path = 'carriers/' . $this->_code . '/' . $field;
         return Mage::getStoreConfig($path, $this->getStore());
     }
 
@@ -112,7 +110,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (empty($this->_code)) {
             return false;
         }
-        $path = 'carriers/'.$this->_code.'/'.$field;
+        $path = 'carriers/' . $this->_code . '/' . $field;
         return Mage::getStoreConfigFlag($path, $this->getStore());
     }
 
@@ -175,11 +173,11 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (empty($params)) {
             return $containersAll;
         }
-        $containersFilter   = $this->getContainerTypesFilter();
+        $containersFilter = $this->getContainerTypesFilter();
         $containersFiltered = array();
-        $method             = $params->getMethod();
-        $countryShipper     = $params->getCountryShipper();
-        $countryRecipient   = $params->getCountryRecipient();
+        $method = $params->getMethod();
+        $countryShipper = $params->getCountryShipper();
+        $countryRecipient = $params->getCountryRecipient();
 
         if (empty($containersFilter)) {
             return $containersAll;
@@ -199,8 +197,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         foreach ($containersFilter as $dataItem) {
             $containers = $dataItem['containers'];
             $filters = $dataItem['filters'];
-            if (!empty($filters[$direction]['method'])
-                && in_array($method, $filters[$direction]['method'])
+            if (!empty($filters[$direction]['method']) && in_array($method, $filters[$direction]['method'])
             ) {
                 foreach ($containers as $container) {
                     if (!empty($containersAll[$container])) {
@@ -238,35 +235,33 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     {
         $speCountriesAllow = $this->getConfigData('sallowspecific');
         /*
-        * for specific countries, the flag will be 1
-        */
-        if ($speCountriesAllow && $speCountriesAllow == 1){
-             $showMethod = $this->getConfigData('showmethod');
-             $availableCountries = array();
-             if($this->getConfigData('specificcountry')) {
-                $availableCountries = explode(',',$this->getConfigData('specificcountry'));
-             }
-             if ($availableCountries && in_array($request->getDestCountryId(), $availableCountries)) {
-                 return $this;
-             } elseif ($showMethod && (!$availableCountries || ($availableCountries
-                 && !in_array($request->getDestCountryId(), $availableCountries)))
-             ){
-                   $error = Mage::getModel('shipping/rate_result_error');
-                   $error->setCarrier($this->_code);
-                   $error->setCarrierTitle($this->getConfigData('title'));
-                   $errorMsg = $this->getConfigData('specificerrmsg');
-                   $error->setErrorMessage($errorMsg ? $errorMsg : Mage::helper('shipping')->__('The shipping module is not available for selected delivery country.'));
-                   return $error;
-             } else {
-                 /*
-                * The admin set not to show the shipping module if the devliery country is not within specific countries
-                */
+         * for specific countries, the flag will be 1
+         */
+        if ($speCountriesAllow && $speCountriesAllow == 1) {
+            $showMethod = $this->getConfigData('showmethod');
+            $availableCountries = array();
+            if ($this->getConfigData('specificcountry')) {
+                $availableCountries = explode(',', $this->getConfigData('specificcountry'));
+            }
+            if ($availableCountries && in_array($request->getDestCountryId(), $availableCountries)) {
+                return $this;
+            } elseif ($showMethod && (!$availableCountries || ($availableCountries && !in_array($request->getDestCountryId(), $availableCountries)))
+            ) {
+                $error = Mage::getModel('shipping/rate_result_error');
+                $error->setCarrier($this->_code);
+                $error->setCarrierTitle($this->getConfigData('title'));
+                $errorMsg = $this->getConfigData('specificerrmsg');
+                $error->setErrorMessage($errorMsg ? $errorMsg : Mage::helper('shipping')->__('The shipping module is not available for selected delivery country.'));
+                return $error;
+            } else {
+                /*
+                 * The admin set not to show the shipping module if the devliery country is not within specific countries
+                 */
                 return false;
-             }
+            }
         }
         return $this;
     }
-
 
     /**
      * Processing additional validation to check is carrier applicable.
@@ -287,7 +282,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     public function isActive()
     {
         $active = $this->getConfigData('active');
-        return $active==1 || $active=='true';
+        return $active == 1 || $active == 'true';
     }
 
     /**
@@ -347,7 +342,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         $freeRateId = false;
 
         if (is_object($this->_result)) {
-            foreach ($this->_result->getAllRates() as $i=>$item) {
+            foreach ($this->_result->getAllRates() as $i => $item) {
                 if ($item->getMethod() == $freeMethod) {
                     $freeRateId = $i;
                     break;
@@ -363,14 +358,13 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
             $this->_setFreeMethodRequest($freeMethod);
 
             $result = $this->_getQuotes();
-            if ($result && ($rates = $result->getAllRates()) && count($rates)>0) {
+            if ($result && ($rates = $result->getAllRates()) && count($rates) > 0) {
                 if ((count($rates) == 1) && ($rates[0] instanceof Mage_Shipping_Model_Rate_Result_Method)) {
                     $price = $rates[0]->getPrice();
                 }
                 if (count($rates) > 1) {
                     foreach ($rates as $rate) {
-                        if ($rate instanceof Mage_Shipping_Model_Rate_Result_Method
-                            && $rate->getMethod() == $freeMethod
+                        if ($rate instanceof Mage_Shipping_Model_Rate_Result_Method && $rate->getMethod() == $freeMethod
                         ) {
                             $price = $rate->getPrice();
                         }
@@ -402,11 +396,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getMethodPrice($cost, $method = '')
     {
-        return $method == $this->getConfigData($this->_freeMethod)
-            && $this->getConfigFlag('free_shipping_enable')
-            && $this->getConfigData('free_shipping_subtotal') <= $this->_rawRequest->getBaseSubtotalInclTax()
-            ? '0.00'
-            : $this->getFinalPriceWithHandlingFee($cost);
+        return $method == $this->getConfigData($this->_freeMethod) && $this->getConfigFlag('free_shipping_enable') && $this->getConfigData('free_shipping_subtotal') <= $this->_rawRequest->getBaseSubtotalInclTax() ? '0.00' : $this->getFinalPriceWithHandlingFee($cost);
     }
 
     /**
@@ -427,9 +417,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
             $handlingAction = self::HANDLING_ACTION_PERORDER;
         }
 
-        return $handlingAction == self::HANDLING_ACTION_PERPACKAGE
-            ? $this->_getPerpackagePrice($cost, $handlingType, $handlingFee)
-            : $this->_getPerorderPrice($cost, $handlingType, $handlingFee);
+        return $handlingAction == self::HANDLING_ACTION_PERPACKAGE ? $this->_getPerpackagePrice($cost, $handlingType, $handlingFee) : $this->_getPerorderPrice($cost, $handlingType, $handlingFee);
     }
 
     /**
@@ -443,7 +431,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     protected function _getPerpackagePrice($cost, $handlingType, $handlingFee)
     {
         if ($handlingType == self::HANDLING_TYPE_PERCENT) {
-            return ($cost + ($cost * $handlingFee/100)) * $this->_numBoxes;
+            return ($cost + ($cost * $handlingFee / 100)) * $this->_numBoxes;
         }
 
         return ($cost + $handlingFee) * $this->_numBoxes;
@@ -485,14 +473,14 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     public function getTotalNumOfBoxes($weight)
     {
         /*
-        reset num box first before retrieve again
-        */
+          reset num box first before retrieve again
+         */
         $this->_numBoxes = 1;
         $weight = $this->convertWeightToLbs($weight);
         $maxPackageWeight = $this->getConfigData('max_package_weight');
         if ($weight > $maxPackageWeight && $maxPackageWeight != 0) {
-            $this->_numBoxes = ceil($weight/$maxPackageWeight);
-            $weight = $weight/$this->_numBoxes;
+            $this->_numBoxes = ceil($weight / $maxPackageWeight);
+            $weight = $weight / $this->_numBoxes;
         }
         return $weight;
     }
@@ -537,8 +525,8 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     {
         if ($this->getDebugFlag()) {
             Mage::getModel('core/log_adapter', 'shipping_' . $this->getCarrierCode() . '.log')
-               ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
-               ->log($debugData);
+                    ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
+                    ->log($debugData);
         }
     }
 
@@ -582,4 +570,5 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     {
         return array();
     }
+
 }

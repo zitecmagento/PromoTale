@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 interface Zend_Loader_PluginLoader_Interface
 {
+
     /**
      * Add prefixed paths to the registry of paths
      *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Color.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * PDF provides a powerfull facilities for specifying the colors of graphics objects.
  * This class encapsulates color behaviour.
@@ -33,6 +33,7 @@
  */
 abstract class Zend_Pdf_Color
 {
+
     /**
      * Instructions, which can be directly inserted into content stream
      * to switch color.
@@ -50,4 +51,3 @@ abstract class Zend_Pdf_Color
      */
     abstract public function getComponents();
 }
-

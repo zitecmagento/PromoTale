@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Custom Category design Model
  *
@@ -34,17 +34,18 @@
  */
 class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
 {
-    const APPLY_FOR_PRODUCT     = 1;
-    const APPLY_FOR_CATEGORY    = 2;
+
+    const APPLY_FOR_PRODUCT = 1;
+    const APPLY_FOR_CATEGORY = 2;
 
     /**
      * @deprecated after 1.4.1.0
      * Category / Custom Design / Apply To constants
      */
     const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE = 1;
-    const CATEGORY_APPLY_CATEGORY_ONLY                  = 2;
-    const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_ONLY      = 3;
-    const CATEGORY_APPLY_CATEGORY_RECURSIVE             = 4;
+    const CATEGORY_APPLY_CATEGORY_ONLY = 2;
+    const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_ONLY = 3;
+    const CATEGORY_APPLY_CATEGORY_RECURSIVE = 4;
 
     /**
      * Apply design from catalog object
@@ -80,8 +81,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     protected function _apply($package, $theme)
     {
         Mage::getSingleton('core/design_package')
-            ->setPackageName($package)
-            ->setTheme($theme);
+                ->setPackageName($package)
+                ->setTheme($theme);
     }
 
     /**
@@ -96,7 +97,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             return false;
         }
         $package = $designInfo[0];
-        $theme   = $designInfo[1];
+        $theme = $designInfo[1];
         $this->_apply($package, $theme);
     }
 
@@ -131,8 +132,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                     $hasError = true;
                     break;
             }
-        }
-        else {
+        } else {
             switch ($applyForObject) {
                 case self::APPLY_FOR_CATEGORY:
                     $validApplyTo = array(
@@ -180,8 +180,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         }
 
         // define package and theme
-        $package    = $designInfo[0];
-        $theme      = $designInfo[1];
+        $package = $designInfo[0];
+        $theme = $designInfo[1];
 
         // compare dates
         if (Mage::app()->getLocale()->isStoreDateInInterval(null, $date['from'], $date['to'])) {
@@ -211,16 +211,15 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             if ($category && $category->getId()) {
                 return $this->_inheritDesign($category, $calledFrom);
             }
-        }
-        elseif ($object instanceof Mage_Catalog_Model_Category) {
+        } elseif ($object instanceof Mage_Catalog_Model_Category) {
             $category = $object->getParentCategory();
 
             $useParentSettings = $object->getCustomUseParentSettings();
             if ($useParentSettings) {
                 if ($category &&
-                    $category->getId() &&
-                    $category->getLevel() > 1 &&
-                    $category->getId() != Mage_Catalog_Model_Category::TREE_ROOT_ID) {
+                        $category->getId() &&
+                        $category->getLevel() > 1 &&
+                        $category->getId() != Mage_Catalog_Model_Category::TREE_ROOT_ID) {
                     return $this->_inheritDesign($category, $calledFrom);
                 }
             }
@@ -235,7 +234,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
 
         if (!$useParentSettings) {
             $design = $object->getCustomDesign();
-            $date   = $object->getCustomDesignDate();
+            $date = $object->getCustomDesignDate();
             $this->_isApplyDesign($design, $date);
         }
 
@@ -255,12 +254,11 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      */
     protected function _applyDesignRecursively($object, $calledFrom = 0, $pass = 0)
     {
-        $design  = $object->getCustomDesign();
-        $date    = $object->getCustomDesignDate();
+        $design = $object->getCustomDesign();
+        $date = $object->getCustomDesignDate();
         $applyTo = $object->getCustomDesignApply();
 
-        $checkAndApply = $this->_isApplyFor($calledFrom, $applyTo, $pass)
-            && $this->_isApplyDesign($design, $date);
+        $checkAndApply = $this->_isApplyFor($calledFrom, $applyTo, $pass) && $this->_isApplyDesign($design, $date);
         if ($checkAndApply) {
             return $this;
         }
@@ -271,8 +269,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         if ($object instanceof Mage_Catalog_Model_Product) {
             $category = $object->getCategory();
             $pass --;
-        }
-        elseif ($object instanceof Mage_Catalog_Model_Category) {
+        } elseif ($object instanceof Mage_Catalog_Model_Category) {
             $category = $object->getParentCategory();
         }
 
@@ -295,12 +292,11 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             $objects = &$designUpdateData;
         }
         foreach ($objects as $object) {
-            $design  = $object->getCustomDesign();
-            $date    = $object->getCustomDesignDate();
+            $design = $object->getCustomDesign();
+            $date = $object->getCustomDesignDate();
             $applyTo = $object->getCustomDesignApply();
 
-            $checkAndApply = $this->_isApplyFor($calledFrom, $applyTo, $pass)
-                && $this->_isApplyDesign($design, $date);
+            $checkAndApply = $this->_isApplyFor($calledFrom, $applyTo, $pass) && $this->_isApplyDesign($design, $date);
             if ($checkAndApply) {
                 return $this;
             }
@@ -313,7 +309,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             if ($designUpdateData instanceof Mage_Catalog_Model_Product) {
                 $_category = $designUpdateData->getCategory();
                 $_designUpdateData = array_merge(
-                    $_designUpdateData, array($_category)
+                        $_designUpdateData, array($_category)
                 );
                 $pass --;
             } elseif ($designUpdateData instanceof Mage_Catalog_Model_Category) {
@@ -321,8 +317,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             }
             if ($_category && $_category->getId()) {
                 $_designUpdateData = array_merge(
-                    $_designUpdateData,
-                    $_category->getResource()->getDesignUpdateData($_category)
+                        $_designUpdateData, $_category->getResource()->getDesignUpdateData($_category)
                 );
                 $this->_applyDesign($_designUpdateData, $calledFrom, true, $pass);
             }
@@ -356,7 +351,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                 return $this->_extractSettings($object);
             }
         } else {
-             return $this->_extractSettings($category);
+            return $this->_extractSettings($category);
         }
     }
 
@@ -373,11 +368,10 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             return $settings;
         }
         $date = $object->getCustomDesignDate();
-        if (array_key_exists('from', $date) && array_key_exists('to', $date)
-            && Mage::app()->getLocale()->isStoreDateInInterval(null, $date['from'], $date['to'])) {
-                $settings->setCustomDesign($object->getCustomDesign())
+        if (array_key_exists('from', $date) && array_key_exists('to', $date) && Mage::app()->getLocale()->isStoreDateInInterval(null, $date['from'], $date['to'])) {
+            $settings->setCustomDesign($object->getCustomDesign())
                     ->setPageLayout($object->getPageLayout())
-                    ->setLayoutUpdates((array)$object->getCustomLayoutUpdate());
+                    ->setLayoutUpdates((array) $object->getCustomLayoutUpdate());
         }
         return $settings;
     }
@@ -403,4 +397,5 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         }
         return $categorySettings;
     }
+
 }

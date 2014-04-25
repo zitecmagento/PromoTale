@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Newsletter subscriber resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * DB read connection
      *
@@ -60,7 +61,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
      *
      * @var string
      */
-    protected $_messagesScope          = 'newsletter/session';
+    protected $_messagesScope = 'newsletter/session';
 
     /**
      * Initialize resource model
@@ -94,10 +95,10 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
     public function loadByEmail($subscriberEmail)
     {
         $select = $this->_read->select()
-            ->from($this->getMainTable())
-            ->where('subscriber_email=:subscriber_email');
+                ->from($this->getMainTable())
+                ->where('subscriber_email=:subscriber_email');
 
-        $result = $this->_read->fetchRow($select, array('subscriber_email'=>$subscriberEmail));
+        $result = $this->_read->fetchRow($select, array('subscriber_email' => $subscriberEmail));
 
         if (!$result) {
             return array();
@@ -115,20 +116,20 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
     public function loadByCustomer(Mage_Customer_Model_Customer $customer)
     {
         $select = $this->_read->select()
-            ->from($this->getMainTable())
-            ->where('customer_id=:customer_id');
+                ->from($this->getMainTable())
+                ->where('customer_id=:customer_id');
 
-        $result = $this->_read->fetchRow($select, array('customer_id'=>$customer->getId()));
+        $result = $this->_read->fetchRow($select, array('customer_id' => $customer->getId()));
 
         if ($result) {
             return $result;
         }
 
         $select = $this->_read->select()
-            ->from($this->getMainTable())
-            ->where('subscriber_email=:subscriber_email');
+                ->from($this->getMainTable())
+                ->where('subscriber_email=:subscriber_email');
 
-        $result = $this->_read->fetchRow($select, array('subscriber_email'=>$customer->getEmail()));
+        $result = $this->_read->fetchRow($select, array('subscriber_email' => $customer->getEmail()));
 
         if ($result) {
             return $result;
@@ -157,7 +158,8 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
     public function received(Mage_Newsletter_Model_Subscriber $subscriber, Mage_Newsletter_Model_Queue $queue)
     {
         $this->_write->beginTransaction();
-        try {
+        try
+        {
             $data['letter_sent_at'] = Mage::getSingleton('core/date')->gmtDate();
             $this->_write->update($this->_subscriberLinkTable, $data, array(
                 'subscriber_id = ?' => $subscriber->getId(),
@@ -165,10 +167,12 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
             ));
             $this->_write->commit();
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $this->_write->rollBack();
             Mage::throwException(Mage::helper('newsletter')->__('Cannot mark as received subscriber.'));
         }
         return $this;
     }
+
 }

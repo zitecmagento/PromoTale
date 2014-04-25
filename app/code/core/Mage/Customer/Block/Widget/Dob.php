@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
 {
+
     /**
      * Date inputs
      *
@@ -43,12 +44,12 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
 
     public function isEnabled()
     {
-        return (bool)$this->_getAttribute('dob')->getIsVisible();
+        return (bool) $this->_getAttribute('dob')->getIsVisible();
     }
 
     public function isRequired()
     {
-        return (bool)$this->_getAttribute('dob')->getIsRequired();
+        return (bool) $this->_getAttribute('dob')->getIsRequired();
     }
 
     public function setDate($date)
@@ -113,7 +114,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
 
         $dateFormat = preg_replace('/[^\%\w]/', '\\1', $this->getDateFormat());
 
-        return sprintf(strtr($dateFormat, $strtr),
-            $this->_dateInputs['m'], $this->_dateInputs['d'], $this->_dateInputs['y']);
+        return sprintf(strtr($dateFormat, $strtr), $this->_dateInputs['m'], $this->_dateInputs['d'], $this->_dateInputs['y']);
     }
+
 }

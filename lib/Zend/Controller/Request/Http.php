@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Http.php 23414 2010-11-20 10:56:11Z bittarman $
  */
-
 /** @see Zend_Controller_Request_Abstract */
 #require_once 'Zend/Controller/Request/Abstract.php';
 
@@ -36,11 +36,12 @@
  */
 class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
 {
+
     /**
      * Scheme for http
      *
      */
-    const SCHEME_HTTP  = 'http';
+    const SCHEME_HTTP = 'http';
 
     /**
      * Scheme for https
@@ -113,7 +114,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
                 $uri = Zend_Uri::factory($uri);
             }
             if ($uri->valid()) {
-                $path  = $uri->getPath();
+                $path = $uri->getPath();
                 $query = $uri->getQuery();
                 if (!empty($query)) {
                     $path .= '?' . $query;
@@ -393,12 +394,9 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
             if (isset($_SERVER['HTTP_X_REWRITE_URL'])) { // check this first so IIS will catch
                 $requestUri = $_SERVER['HTTP_X_REWRITE_URL'];
             } elseif (
-                // IIS7 with URL Rewrite: make sure we get the unencoded url (double slash problem)
-                isset($_SERVER['IIS_WasUrlRewritten'])
-                && $_SERVER['IIS_WasUrlRewritten'] == '1'
-                && isset($_SERVER['UNENCODED_URL'])
-                && $_SERVER['UNENCODED_URL'] != ''
-                ) {
+            // IIS7 with URL Rewrite: make sure we get the unencoded url (double slash problem)
+                    isset($_SERVER['IIS_WasUrlRewritten']) && $_SERVER['IIS_WasUrlRewritten'] == '1' && isset($_SERVER['UNENCODED_URL']) && $_SERVER['UNENCODED_URL'] != ''
+            ) {
                 $requestUri = $_SERVER['UNENCODED_URL'];
             } elseif (isset($_SERVER['REQUEST_URI'])) {
                 $requestUri = $_SERVER['REQUEST_URI'];
@@ -484,15 +482,15 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
             } else {
                 // Backtrack up the script_filename to find the portion matching
                 // php_self
-                $path    = isset($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : '';
-                $file    = isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['SCRIPT_FILENAME'] : '';
-                $segs    = explode('/', trim($file, '/'));
-                $segs    = array_reverse($segs);
-                $index   = 0;
-                $last    = count($segs);
+                $path = isset($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : '';
+                $file = isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['SCRIPT_FILENAME'] : '';
+                $segs = explode('/', trim($file, '/'));
+                $segs = array_reverse($segs);
+                $index = 0;
+                $last = count($segs);
                 $baseUrl = '';
                 do {
-                    $seg     = $segs[$index];
+                    $seg = $segs[$index];
                     $baseUrl = '/' . $seg . $baseUrl;
                     ++$index;
                 } while (($last > $index) && (false !== ($pos = strpos($path, $baseUrl))) && (0 != $pos));
@@ -528,9 +526,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
             // If using mod_rewrite or ISAPI_Rewrite strip the script filename
             // out of baseUrl. $pos !== 0 makes sure it is not matching a value
             // from PATH_INFO or QUERY_STRING
-            if ((strlen($requestUri) >= strlen($baseUrl))
-                && ((false !== ($pos = strpos($requestUri, $baseUrl))) && ($pos !== 0)))
-            {
+            if ((strlen($requestUri) >= strlen($baseUrl)) && ((false !== ($pos = strpos($requestUri, $baseUrl))) && ($pos !== 0))) {
                 $baseUrl = substr($requestUri, 0, $pos + strlen($baseUrl));
             }
         }
@@ -563,9 +559,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
     public function setBasePath($basePath = null)
     {
         if ($basePath === null) {
-            $filename = (isset($_SERVER['SCRIPT_FILENAME']))
-                      ? basename($_SERVER['SCRIPT_FILENAME'])
-                      : '';
+            $filename = (isset($_SERVER['SCRIPT_FILENAME'])) ? basename($_SERVER['SCRIPT_FILENAME']) : '';
 
             $baseUrl = $this->getBaseUrl();
             if (empty($baseUrl)) {
@@ -622,20 +616,16 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
             if ($pos = strpos($requestUri, '?')) {
                 $requestUri = substr($requestUri, 0, $pos);
             }
-            
+
             $requestUri = urldecode($requestUri);
 
-            if (null !== $baseUrl
-                && ((!empty($baseUrl) && 0 === strpos($requestUri, $baseUrl)) 
-                    || empty($baseUrl))
-                    && false === ($pathInfo = substr($requestUri, strlen($baseUrl)))
-            ){ 
+            if (null !== $baseUrl && ((!empty($baseUrl) && 0 === strpos($requestUri, $baseUrl)) || empty($baseUrl)) && false === ($pathInfo = substr($requestUri, strlen($baseUrl)))
+            ) {
                 // If substr() returns false then PATH_INFO is set to an empty string 
                 $pathInfo = '';
-            } elseif (null === $baseUrl 
-                    || (!empty($baseUrl) && false === strpos($requestUri, $baseUrl))
-            ) { 
-                $pathInfo = $requestUri; 
+            } elseif (null === $baseUrl || (!empty($baseUrl) && false === strpos($requestUri, $baseUrl))
+            ) {
+                $pathInfo = $requestUri;
             }
         }
 
@@ -740,17 +730,13 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      */
     public function getParams()
     {
-        $return       = $this->_params;
+        $return = $this->_params;
         $paramSources = $this->getParamSources();
-        if (in_array('_GET', $paramSources)
-            && isset($_GET)
-            && is_array($_GET)
+        if (in_array('_GET', $paramSources) && isset($_GET) && is_array($_GET)
         ) {
             $return += $_GET;
         }
-        if (in_array('_POST', $paramSources)
-            && isset($_POST)
-            && is_array($_POST)
+        if (in_array('_POST', $paramSources) && isset($_POST) && is_array($_POST)
         ) {
             $return += $_POST;
         }
@@ -1030,13 +1016,12 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
         }
 
         $scheme = $this->getScheme();
-        $name   = $this->getServer('SERVER_NAME');
-        $port   = $this->getServer('SERVER_PORT');
+        $name = $this->getServer('SERVER_NAME');
+        $port = $this->getServer('SERVER_PORT');
 
-        if(null === $name) {
+        if (null === $name) {
             return '';
-        }
-        elseif (($scheme == self::SCHEME_HTTP && $port == 80) || ($scheme == self::SCHEME_HTTPS && $port == 443)) {
+        } elseif (($scheme == self::SCHEME_HTTP && $port == 80) || ($scheme == self::SCHEME_HTTPS && $port == 443)) {
             return $name;
         } else {
             return $name . ':' . $port;
@@ -1061,4 +1046,5 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
 
         return $ip;
     }
+
 }

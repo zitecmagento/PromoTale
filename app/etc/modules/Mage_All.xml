@@ -56,7 +56,7 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-               <Mage_Core/>
+                <Mage_Core/>
             </depends>
         </Mage_Admin>
         <Mage_Rule>
@@ -77,8 +77,8 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-               <Mage_Core/>
-               <Mage_Adminhtml/>
+                <Mage_Core/>
+                <Mage_Adminhtml/>
             </depends>
         </Mage_AdminNotification>
         <Mage_Cron>
@@ -253,7 +253,7 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Core/>
-        <Mage_Review/>
+                <Mage_Review/>
             </depends>
         </Mage_Rating>
         <Mage_Review>
@@ -334,28 +334,28 @@
             <depends>
                 <Mage_Catalog/>
                 <Mage_Sales/>
-             </depends>
+            </depends>
         </Mage_GiftMessage>
         <Mage_Sendfriend>
             <active>true</active>
             <codePool>core</codePool>
-             <depends>
+            <depends>
                 <Mage_Catalog/>
-             </depends>
+            </depends>
         </Mage_Sendfriend>
         <Mage_Media>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
                 <Mage_Core/>
-             </depends>
+            </depends>
         </Mage_Media>
         <Mage_Sitemap>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
                 <Mage_Catalog/>
-             </depends>
+            </depends>
         </Mage_Sitemap>
         <Mage_Contacts>
             <active>true</active>
@@ -374,13 +374,13 @@
         <Mage_Rss>
             <active>true</active>
             <codePool>core</codePool>
-             <depends>
+            <depends>
                 <Mage_Catalog/>
                 <Mage_CatalogInventory/>
                 <Mage_Sales/>
                 <Mage_SalesRule/>
                 <Mage_Wishlist/>
-             </depends>
+            </depends>
         </Mage_Rss>
         <Mage_ProductAlert>
             <active>true</active>

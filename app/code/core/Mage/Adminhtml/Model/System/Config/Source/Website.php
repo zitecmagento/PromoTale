@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Adminhtml_Model_System_Config_Source_Website
 {
+
     protected $_options;
 
     public function toOptionArray()
@@ -36,11 +36,12 @@ class Mage_Adminhtml_Model_System_Config_Source_Website
             foreach (Mage::app()->getWebsites() as $website) {
                 $id = $website->getId();
                 $name = $website->getName();
-                if ($id!=0) {
-                    $this->_options[] = array('value'=>$id, 'label'=>$name);
+                if ($id != 0) {
+                    $this->_options[] = array('value' => $id, 'label' => $name);
                 }
             }
         }
         return $this->_options;
     }
+
 }

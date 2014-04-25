@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Create.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Framework_Action_Base
  */
 #require_once 'Zend/Tool/Framework/Action/Base.php';
-
 
 /**
  * This is a convenience class.
@@ -40,5 +39,5 @@
  */
 class Zend_Tool_Framework_System_Action_Create extends Zend_Tool_Framework_Action_Base
 {
-
+    
 }

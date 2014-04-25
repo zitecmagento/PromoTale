@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product View block (to modify getTierPrices method)
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Bundle_Block_Catalog_Product_View extends Mage_Catalog_Block_Product_View
 {
+
     /**
      * Get tier prices (formatted)
      *
@@ -72,4 +73,5 @@ class Mage_Bundle_Block_Catalog_Product_View extends Mage_Catalog_Block_Product_
 
         return $res;
     }
+
 }

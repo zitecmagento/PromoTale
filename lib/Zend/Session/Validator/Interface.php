@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -48,5 +49,4 @@ interface Zend_Session_Validator_Interface
      * @return boolean
      */
     public function validate();
-
 }

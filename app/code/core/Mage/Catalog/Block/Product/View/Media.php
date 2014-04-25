@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_View_Abstract
 {
+
     /**
      * Flag, that defines whether gallery is disabled
      *
@@ -76,4 +78,5 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
     {
         $this->_isGalleryDisabled = true;
     }
+
 }

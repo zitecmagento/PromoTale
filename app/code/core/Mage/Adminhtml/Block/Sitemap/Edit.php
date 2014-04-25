@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sitemap edit form container
  *
@@ -46,9 +46,9 @@ class Mage_Adminhtml_Block_Sitemap_Edit extends Mage_Adminhtml_Block_Widget_Form
         parent::__construct();
 
         $this->_addButton('generate', array(
-            'label'   => Mage::helper('adminhtml')->__('Save & Generate'),
+            'label' => Mage::helper('adminhtml')->__('Save & Generate'),
             'onclick' => "$('generate').value=1; editForm.submit();",
-            'class'   => 'add',
+            'class' => 'add',
         ));
     }
 
@@ -61,9 +61,9 @@ class Mage_Adminhtml_Block_Sitemap_Edit extends Mage_Adminhtml_Block_Widget_Form
     {
         if (Mage::registry('sitemap_sitemap')->getId()) {
             return Mage::helper('sitemap')->__('Edit Sitemap');
-        }
-        else {
+        } else {
             return Mage::helper('sitemap')->__('New Sitemap');
         }
     }
+
 }

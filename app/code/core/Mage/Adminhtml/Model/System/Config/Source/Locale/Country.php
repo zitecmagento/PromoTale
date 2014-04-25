@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,7 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Locale country source
  *
@@ -31,8 +32,10 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Locale_Country
 {
+
     public function toOptionArray()
     {
         return Mage::app()->getLocale()->getOptionCountries();
     }
+
 }

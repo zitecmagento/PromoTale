@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Decode.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Mime
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Mime_Decode
 {
+
     /**
      * Explode MIME multipart string into seperate parts
      *
@@ -62,18 +63,18 @@ class Zend_Mime_Decode
         $start = $p + 3 + strlen($boundary);
 
         while (($p = strpos($body, '--' . $boundary . "\n", $start)) !== false) {
-            $res[] = substr($body, $start, $p-$start);
+            $res[] = substr($body, $start, $p - $start);
             $start = $p + 3 + strlen($boundary);
         }
 
         // no more parts, find end boundary
         $p = strpos($body, '--' . $boundary . '--', $start);
-        if ($p===false) {
+        if ($p === false) {
             throw new Zend_Exception('Not a valid Mime Message: End Missing');
         }
 
         // the remaining part also needs to be parsed:
-        $res[] = substr($body, $start, $p-$start);
+        $res[] = substr($body, $start, $p - $start);
         return $res;
     }
 
@@ -97,7 +98,7 @@ class Zend_Mime_Decode
         foreach ($parts as $part) {
             self::splitMessage($part, $headers, $body, $EOL);
             $result[] = array('header' => $headers,
-                              'body'   => $body    );
+                'body' => $body);
         }
         return $result;
     }
@@ -129,20 +130,20 @@ class Zend_Mime_Decode
         // default is set new line
         if (strpos($message, $EOL . $EOL)) {
             list($headers, $body) = explode($EOL . $EOL, $message, 2);
-        // next is the standard new line
+            // next is the standard new line
         } else if ($EOL != "\r\n" && strpos($message, "\r\n\r\n")) {
             list($headers, $body) = explode("\r\n\r\n", $message, 2);
-        // next is the other "standard" new line
+            // next is the other "standard" new line
         } else if ($EOL != "\n" && strpos($message, "\n\n")) {
             list($headers, $body) = explode("\n\n", $message, 2);
-        // at last resort find anything that looks like a new line
+            // at last resort find anything that looks like a new line
         } else {
             @list($headers, $body) = @preg_split("%([\r\n]+)\\1%U", $message, 2);
         }
 
         $headers = iconv_mime_decode_headers($headers, ICONV_MIME_DECODE_CONTINUE_ON_ERROR);
 
-        if ($headers === false ) {
+        if ($headers === false) {
             // an error occurs during the decoding
             return;
         }
@@ -241,4 +242,5 @@ class Zend_Mime_Decode
     {
         return iconv_mime_decode($string, ICONV_MIME_DECODE_CONTINUE_ON_ERROR);
     }
+
 }

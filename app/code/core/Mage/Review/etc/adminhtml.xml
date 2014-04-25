@@ -53,7 +53,7 @@
                     <sort_order>50</sort_order>
                 </reviews_ratings>
             </children>
-         </catalog>
+        </catalog>
         <report>
             <children>
                 <review translate="title" module="reports">
@@ -93,7 +93,7 @@
                                             </pending>
                                         </children>
                                     </reviews>
-                                 </children>
+                                </children>
                             </reviews_ratings>
                         </children>
                     </catalog>

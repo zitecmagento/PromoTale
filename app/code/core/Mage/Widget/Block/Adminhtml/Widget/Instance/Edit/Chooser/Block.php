@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,19 +32,14 @@
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
-    extends Mage_Adminhtml_Block_Widget
+class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mage_Adminhtml_Block_Widget
 {
+
     protected $_layoutHandlesXml = null;
-
     protected $_layoutHandleUpdates = array();
-
     protected $_layoutHandleUpdatesXml = null;
-
     protected $_layoutHandle = array();
-
     protected $_blocks = array();
-
     protected $_allowedBlocks = array();
 
     /**
@@ -92,7 +88,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
         if (is_string($layoutHandle)) {
             $layoutHandle = explode(',', $layoutHandle);
         }
-        $this->_layoutHandle = array_merge(array('default'), (array)$layoutHandle);
+        $this->_layoutHandle = array_merge(array('default'), (array) $layoutHandle);
         return $this;
     }
 
@@ -153,13 +149,13 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
     protected function _toHtml()
     {
         $selectBlock = $this->getLayout()->createBlock('core/html_select')
-            ->setName('block')
-            ->setClass('required-entry select')
-            ->setExtraParams('onchange="WidgetInstance.loadSelectBoxByType(\'block_template\','
-                .' this.up(\'div.group_container\'), this.value)"')
-            ->setOptions($this->getBlocks())
-            ->setValue($this->getSelected());
-        return parent::_toHtml().$selectBlock->toHtml();
+                ->setName('block')
+                ->setClass('required-entry select')
+                ->setExtraParams('onchange="WidgetInstance.loadSelectBoxByType(\'block_template\','
+                        . ' this.up(\'div.group_container\'), this.value)"')
+                ->setOptions($this->getBlocks())
+                ->setValue($this->getSelected());
+        return parent::_toHtml() . $selectBlock->toHtml();
     }
 
     /**
@@ -174,9 +170,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
             $update = Mage::getModel('core/layout')->getUpdate();
             /* @var $layoutHandles Mage_Core_Model_Layout_Element */
             $this->_layoutHandlesXml = $update->getFileLayoutUpdatesXml(
-                $this->getArea(),
-                $this->getPackage(),
-                $this->getTheme());
+                    $this->getArea(), $this->getPackage(), $this->getTheme());
             $this->_collectLayoutHandles();
             $this->_collectBlocks();
             array_unshift($this->_blocks, array(
@@ -196,7 +190,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
         foreach ($this->getLayoutHandle() as $handle) {
             $this->_mergeLayoutHandles($handle);
         }
-        $updatesStr = '<'.'?xml version="1.0"?'.'><layout>'.implode('', $this->_layoutHandleUpdates).'</layout>';
+        $updatesStr = '<' . '?xml version="1.0"?' . '><layout>' . implode('', $this->_layoutHandleUpdates) . '</layout>';
         $this->_layoutHandleUpdatesXml = simplexml_load_string($updatesStr, 'Varien_Simplexml_Element');
     }
 
@@ -210,13 +204,12 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
         foreach ($this->_layoutHandlesXml->{$handle} as $updateXml) {
             foreach ($updateXml->children() as $child) {
                 if (strtolower($child->getName()) == 'update' && isset($child['handle'])) {
-                    $this->_mergeLayoutHandles((string)$child['handle']);
+                    $this->_mergeLayoutHandles((string) $child['handle']);
                 }
             }
             $this->_layoutHandleUpdates[] = $updateXml->asNiceXml();
         }
     }
-
 
     /**
      * Filter and collect blocks into array
@@ -226,9 +219,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
         if ($blocks = $this->_layoutHandleUpdatesXml->xpath('//block/label/..')) {
             /* @var $block Mage_Core_Model_Layout_Element */
             foreach ($blocks as $block) {
-                if ((string)$block->getAttribute('name') && $this->_filterBlock($block)) {
+                if ((string) $block->getAttribute('name') && $this->_filterBlock($block)) {
                     $helper = Mage::helper(Mage_Core_Model_Layout::findTranslationModuleName($block));
-                    $this->_blocks[(string)$block->getAttribute('name')] = $helper->__((string)$block->label);
+                    $this->_blocks[(string) $block->getAttribute('name')] = $helper->__((string) $block->label);
                 }
             }
         }
@@ -246,9 +239,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
         if (!$this->getAllowedBlocks()) {
             return true;
         }
-        if (in_array((string)$block->getAttribute('name'), $this->getAllowedBlocks())) {
+        if (in_array((string) $block->getAttribute('name'), $this->getAllowedBlocks())) {
             return true;
         }
         return false;
     }
+
 }

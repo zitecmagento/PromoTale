@@ -23,7 +23,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * @see Mage_Paypal_Block_Express_Review_Details
  */
@@ -35,9 +34,9 @@
             <th><?php echo $this->__('Subtotal') ?></th>
         </tr>
     </thead>
-<?php echo $this->getChildHtml('totals'); ?>
+    <?php echo $this->getChildHtml('totals'); ?>
     <tbody>
-        <?php foreach($this->getItems() as $_item): ?>
+        <?php foreach ($this->getItems() as $_item): ?>
             <?php echo $this->getItemHtml($_item) ?>
         <?php endforeach ?>
     </tbody>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Order Downloadable Pdf Items renderer
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_Order_Pdf_Items_Abstract
 {
+
     /**
      * Downloadable links purchased model
      *
@@ -49,9 +50,9 @@ abstract class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Abstract extends Ma
     public function getLinks()
     {
         $this->_purchasedLinks = Mage::getModel('downloadable/link_purchased')
-            ->load($this->getOrder()->getId(), 'order_id');
+                ->load($this->getOrder()->getId(), 'order_id');
         $purchasedItems = Mage::getModel('downloadable/link_purchased_item')->getCollection()
-            ->addFieldToFilter('order_item_id', $this->getItem()->getOrderItem()->getId());
+                ->addFieldToFilter('order_item_id', $this->getItem()->getOrderItem()->getId());
         $this->_purchasedLinks->setPurchasedItems($purchasedItems);
 
         return $this->_purchasedLinks;
@@ -69,4 +70,5 @@ abstract class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Abstract extends Ma
         }
         return Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE);
     }
+
 }

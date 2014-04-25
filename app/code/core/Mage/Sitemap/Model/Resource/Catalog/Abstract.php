@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sitemap resource catalog collection model
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Collection Zend Db select
      *
@@ -111,28 +112,23 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
             $this->_select->where('main_table.' . $attributeCode . $conditionRule, $value);
         } else {
             $this->_select->join(
-                array('t1_' . $attributeCode => $attribute['table']),
-                'main_table.entity_id=t1_' . $attributeCode . '.entity_id AND t1_' . $attributeCode . '.store_id=0',
-                array()
-            )
-                ->where('t1_' . $attributeCode . '.attribute_id=?', $attribute['attribute_id']);
+                            array('t1_' . $attributeCode => $attribute['table']), 'main_table.entity_id=t1_' . $attributeCode . '.entity_id AND t1_' . $attributeCode . '.store_id=0', array()
+                    )
+                    ->where('t1_' . $attributeCode . '.attribute_id=?', $attribute['attribute_id']);
 
             if ($attribute['is_global']) {
                 $this->_select->where('t1_' . $attributeCode . '.value' . $conditionRule, $value);
             } else {
-                $ifCase = $this->_select->getAdapter()->getCheckSql('t2_' . $attributeCode . '.value_id > 0',
-                    't2_' . $attributeCode . '.value', 't1_' . $attributeCode . '.value'
+                $ifCase = $this->_select->getAdapter()->getCheckSql('t2_' . $attributeCode . '.value_id > 0', 't2_' . $attributeCode . '.value', 't1_' . $attributeCode . '.value'
                 );
                 $this->_select->joinLeft(
-                    array('t2_' . $attributeCode => $attribute['table']),
-                    $this->_getWriteAdapter()->quoteInto(
-                        't1_' . $attributeCode . '.entity_id = t2_' . $attributeCode . '.entity_id AND t1_'
-                            . $attributeCode . '.attribute_id = t2_' . $attributeCode . '.attribute_id AND t2_'
-                            . $attributeCode . '.store_id = ?', $storeId
-                    ),
-                    array()
-                )
-                ->where('(' . $ifCase . ')' . $conditionRule, $value);
+                                array('t2_' . $attributeCode => $attribute['table']), $this->_getWriteAdapter()->quoteInto(
+                                        't1_' . $attributeCode . '.entity_id = t2_' . $attributeCode . '.entity_id AND t1_'
+                                        . $attributeCode . '.attribute_id = t2_' . $attributeCode . '.attribute_id AND t2_'
+                                        . $attributeCode . '.store_id = ?', $storeId
+                                ), array()
+                        )
+                        ->where('(' . $ifCase . ')' . $conditionRule, $value);
             }
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 
@@ -37,7 +37,5 @@ WHERE `product_id` NOT IN (
 ");
 
 $installer->getConnection()->addConstraint(
-    'FK_SALES_QUOTE_ITEM_CATALOG_PRODUCT_ENTITY',
-    $this->getTable('sales_flat_quote_item'), 'product_id',
-    $this->getTable('catalog_product_entity'), 'entity_id'
+        'FK_SALES_QUOTE_ITEM_CATALOG_PRODUCT_ENTITY', $this->getTable('sales_flat_quote_item'), 'product_id', $this->getTable('catalog_product_entity'), 'entity_id'
 );

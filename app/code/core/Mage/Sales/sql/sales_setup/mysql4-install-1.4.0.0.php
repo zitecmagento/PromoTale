@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 $installer = $this;
 $installer->startSetup();
@@ -1279,31 +1279,31 @@ foreach ($constraints as $table => $list) {
 
 // Add eav entity types
 $installer->addEntityType('order', array(
-    'entity_model'          => 'sales/order',
-    'table'                 =>'sales/order',
-    'increment_model'       =>'eav/entity_increment_numeric',
-    'increment_per_store'   =>true
+    'entity_model' => 'sales/order',
+    'table' => 'sales/order',
+    'increment_model' => 'eav/entity_increment_numeric',
+    'increment_per_store' => true
 ));
 
 $installer->addEntityType('invoice', array(
-    'entity_model'          => 'sales/order_invoice',
-    'table'                 =>'sales/invoice',
-    'increment_model'       =>'eav/entity_increment_numeric',
-    'increment_per_store'   =>true
+    'entity_model' => 'sales/order_invoice',
+    'table' => 'sales/invoice',
+    'increment_model' => 'eav/entity_increment_numeric',
+    'increment_per_store' => true
 ));
 
 $installer->addEntityType('creditmemo', array(
-    'entity_model'          => 'sales/order_creditmemo',
-    'table'                 =>'sales/creditmemo',
-    'increment_model'       =>'eav/entity_increment_numeric',
-    'increment_per_store'   =>true
+    'entity_model' => 'sales/order_creditmemo',
+    'table' => 'sales/creditmemo',
+    'increment_model' => 'eav/entity_increment_numeric',
+    'increment_per_store' => true
 ));
 
 $installer->addEntityType('shipment', array(
-    'entity_model'          => 'sales/order_shipment',
-    'table'                 =>'sales/shipment',
-    'increment_model'       =>'eav/entity_increment_numeric',
-    'increment_per_store'   =>true
+    'entity_model' => 'sales/order_shipment',
+    'table' => 'sales/shipment',
+    'increment_model' => 'eav/entity_increment_numeric',
+    'increment_per_store' => true
 ));
 
 $installer->endSetup();

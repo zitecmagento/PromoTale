@@ -33,7 +33,7 @@ body {
     color:#2f2f2f;
     font:12px/1.55em arial, helvetica, sans-serif;
     text-align:center;
-    }
+}
 
 a { color:#1e7ec8; text-decoration:underline; }
 a:hover { color:#1e7ec8; text-decoration:underline; }
@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6, .head {
     margin-bottom:.4em;
     line-height:1.3em;
     color:#0A263C;
-    }
+}
 h2 { font-size:1.5em; }
 h3 { font-size:1.35em; }
 h4 { font-size:1.05em; }

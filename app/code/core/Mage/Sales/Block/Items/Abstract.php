@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
 {
+
     /**
      * Renderers with render type key
      * block    => the block name
@@ -63,9 +65,9 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
     public function addItemRender($type, $block, $template)
     {
         $this->_itemRenders[$type] = array(
-            'block'     => $block,
-            'template'  => $template,
-            'renderer'  => null
+            'block' => $block,
+            'template' => $template,
+            'renderer' => null
         );
 
         return $this;
@@ -85,9 +87,9 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
 
         if (is_null($this->_itemRenders[$type]['renderer'])) {
             $this->_itemRenders[$type]['renderer'] = $this->getLayout()
-                ->createBlock($this->_itemRenders[$type]['block'])
-                ->setTemplate($this->_itemRenders[$type]['template'])
-                ->setRenderedBlock($this);
+                    ->createBlock($this->_itemRenders[$type]['block'])
+                    ->setTemplate($this->_itemRenders[$type]['template'])
+                    ->setRenderedBlock($this);
         }
         return $this->_itemRenders[$type]['renderer'];
     }
@@ -132,8 +134,9 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
         $type = $this->_getItemType($item);
 
         $block = $this->getItemRenderer($type)
-            ->setItem($item);
+                ->setItem($item);
         $this->_prepareItem($block);
         return $block->toHtml();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Cart_Paypal_Mep_Totals extends Mage_Checkout_Block_Cart_Totals
 {
+
     /**
      * Render cart totals xml
      *
@@ -51,7 +53,7 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mep_Totals extends Mage_Checkout_Block_C
 
         $paypalTotals = $totalsXmlObj->addChild('paypal_totals');
         foreach ($this->getQuote()->getTotals() as $total) {
-            $code  = $total->getCode();
+            $code = $total->getCode();
             if ($code == 'giftcardaccount' || $code == 'giftwrapping') {
                 continue;
             }
@@ -63,14 +65,12 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mep_Totals extends Mage_Checkout_Block_C
                     break;
                 case 'tax':
                     $paypalTotals->addAttribute(
-                        $code,
-                        Mage::helper('xmlconnect')->formatPriceForXml($total->getValue())
+                            $code, Mage::helper('xmlconnect')->formatPriceForXml($total->getValue())
                     );
                     break;
                 case 'shipping':
                     $paypalTotals->addAttribute(
-                        $code,
-                        Mage::helper('xmlconnect')->formatPriceForXml($renderer->getShippingExcludeTax())
+                            $code, Mage::helper('xmlconnect')->formatPriceForXml($renderer->getShippingExcludeTax())
                     );
                     break;
                 default:
@@ -80,4 +80,5 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mep_Totals extends Mage_Checkout_Block_C
 
         return $totalsXmlObj->asNiceXml();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -28,13 +29,14 @@
  */
 class Zend_CodeGenerator_Php_Member_Container extends ArrayObject
 {
-
-    /**#@+
+    /*     * #@+
      * @param const string
      */
+
     const TYPE_PROPERTY = 'property';
-    const TYPE_METHOD   = 'method';
-    /**#@-*/
+    const TYPE_METHOD = 'method';
+
+    /*     * #@- */
 
     /**
      * @var const|string

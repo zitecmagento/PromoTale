@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_SalesInfo extends Mage_Adminhtml_Block_Dashboard_Sales
 {
+
     /**
      * Add sales info to xml object
      *
@@ -44,7 +46,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_SalesInfo extends Mage_A
         if (count($this->getTotals()) > 0) {
             /** @var $salesInfoField Mage_XmlConnect_Model_Simplexml_Form_Element_Custom */
             $salesInfoField = Mage::getModel('xmlconnect/simplexml_form_element_custom', array(
-                'label' => ''
+                        'label' => ''
             ));
             $salesInfoField->setId('sales_info');
             $salesInfoXmlObj = $salesInfoField->toXmlObject();
@@ -80,7 +82,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_SalesInfo extends Mage_A
                 Mage::app()->getStore($filter);
             }
             $collection = Mage::getResourceModel('reports/order_collection')
-                ->calculateSales($filter);
+                    ->calculateSales($filter);
 
             if ($filter) {
                 $collection->addFieldToFilter('store_id', $filter);
@@ -110,10 +112,10 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_SalesInfo extends Mage_A
         $this->_totals[] = array(
             'label' => $label,
             'value' => $value,
-            'store_id' => $this->getCurrentStore() ? $this->getCurrentStore()
-                : Mage_XmlConnect_Helper_AdminApplication::ALL_STORE_VIEWS
+            'store_id' => $this->getCurrentStore() ? $this->getCurrentStore() : Mage_XmlConnect_Helper_AdminApplication::ALL_STORE_VIEWS
         );
 
         return $this;
     }
+
 }

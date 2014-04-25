@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,6 +26,7 @@
  */
 class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 {
+
     /**
      * Secret key query param name
      */
@@ -48,7 +50,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      *
      * @return Mage_Core_Model_Url
      */
-    public function setRouteParams(array $data, $unsetOldParams=true)
+    public function setRouteParams(array $data, $unsetOldParams = true)
     {
         if (isset($data['_nosecret'])) {
             $this->setNoSecret(true);
@@ -67,7 +69,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      * @param array $routeParams
      * @return string
      */
-    public function getUrl($routePath=null, $routeParams=null)
+    public function getUrl($routePath = null, $routeParams = null)
     {
         $cacheSecretKey = false;
         if (is_array($routeParams) && isset($routeParams['_cache_secret_key'])) {
@@ -86,8 +88,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 
         if ($cacheSecretKey) {
             $secret = array(self::SECRET_KEY_PARAM_NAME => "\${$_controller}/{$_action}\$");
-        }
-        else {
+        } else {
             $secret = array(self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($_controller, $_action));
         }
         if (is_array($routeParams)) {
@@ -166,4 +167,5 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     {
         Mage::app()->cleanCache(array(Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FeedAbstract.php 23090 2010-10-12 17:28:16Z padraic $
  */
-
 /**
  * @see Zend_Date
  */
@@ -48,9 +48,7 @@
  * @see Zend_Feed_Writer_Renderer_Feed_Rss
  */
 #require_once 'Zend/Feed/Writer/Renderer/Feed/Rss.php';
-
 #require_once 'Zend/Validate/EmailAddress.php';
-
 
 /**
  * @category   Zend
@@ -60,13 +58,14 @@
  */
 class Zend_Feed_Writer_Feed_FeedAbstract
 {
+
     /**
      * Contains all Feed level date to append in feed output
      *
      * @var array
      */
     protected $_data = array();
-    
+
     /**
      * Holds the value "atom" or "rss" depending on the feed type set when
      * when last exported.
@@ -74,7 +73,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
      * @var string
      */
     protected $_type = null;
-    
+
     /**
      * Constructor: Primarily triggers the registration of core extensions and
      * loads those appropriate to this data container.
@@ -147,7 +146,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
      */
     public function addAuthors(array $authors)
     {
-        foreach($authors as $author) {
+        foreach ($authors as $author) {
             $this->addAuthor($author);
         }
     }
@@ -303,14 +302,13 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     public function setId($id)
     {
         if ((empty($id) || !is_string($id) || !Zend_Uri::check($id)) &&
-        !preg_match("#^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{1,31}:([a-zA-Z0-9\(\)\+\,\.\:\=\@\;\$\_\!\*\-]|%[0-9a-fA-F]{2})*#", $id)
-        && !$this->_validateTagUri($id)) {
+                !preg_match("#^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{1,31}:([a-zA-Z0-9\(\)\+\,\.\:\=\@\;\$\_\!\*\-]|%[0-9a-fA-F]{2})*#", $id) && !$this->_validateTagUri($id)) {
             #require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string and valid URI/IRI');
         }
         $this->_data['id'] = $id;
     }
-    
+
     /**
      * Validate a URI using the tag scheme (RFC 4151)
      *
@@ -338,7 +336,6 @@ class Zend_Feed_Writer_Feed_FeedAbstract
                 $nvalid = $validator->isValid('info@' . $matches['name']);
             }
             return $dvalid && $nvalid;
-
         }
         return false;
     }
@@ -353,15 +350,14 @@ class Zend_Feed_Writer_Feed_FeedAbstract
      */
     public function setImage(array $data)
     {
-        if (empty($data['uri']) || !is_string($data['uri'])
-        || !Zend_Uri::check($data['uri'])) {
+        if (empty($data['uri']) || !is_string($data['uri']) || !Zend_Uri::check($data['uri'])) {
             #require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid parameter: parameter \'uri\''
             . ' must be a non-empty string and valid URI/IRI');
         }
-        $this->_data['image'] = $data;  
+        $this->_data['image'] = $data;
     }
-    
+
     /**
      * Set a feed icon (URI at minimum). Parameter is a single array with the
      * required key 'uri'. Only 'uri' is required and used for Atom rendering.
@@ -371,13 +367,12 @@ class Zend_Feed_Writer_Feed_FeedAbstract
      */
     public function setIcon(array $data)
     {
-        if (empty($data['uri']) || !is_string($data['uri'])
-        || !Zend_Uri::check($data['uri'])) {
+        if (empty($data['uri']) || !is_string($data['uri']) || !Zend_Uri::check($data['uri'])) {
             #require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid parameter: parameter \'uri\''
             . ' must be a non-empty string and valid URI/IRI');
         }
-        $this->_data['icon'] = $data;  
+        $this->_data['icon'] = $data;
     }
 
     /**
@@ -453,7 +448,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         $this->_data['encoding'] = $encoding;
     }
-    
+
     /**
      * Set the feed's base URL
      *
@@ -468,7 +463,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         $this->_data['baseUrl'] = $url;
     }
-    
+
     /**
      * Add a Pubsubhubbub hub endpoint URL
      *
@@ -486,7 +481,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         $this->_data['hubs'][] = $url;
     }
-    
+
     /**
      * Add Pubsubhubbub hub endpoint URLs
      *
@@ -498,12 +493,12 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             $this->addHub($url);
         }
     }
-    
+
     /**
      * Add a feed category
      *
      * @param string $category
-     */ 
+     */
     public function addCategory(array $category)
     {
         if (!isset($category['term'])) {
@@ -513,9 +508,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             . ' readable category name');
         }
         if (isset($category['scheme'])) {
-            if (empty($category['scheme']) 
-                || !is_string($category['scheme'])
-                || !Zend_Uri::check($category['scheme'])
+            if (empty($category['scheme']) || !is_string($category['scheme']) || !Zend_Uri::check($category['scheme'])
             ) {
                 #require_once 'Zend/Feed/Exception.php';
                 throw new Zend_Feed_Exception('The Atom scheme or RSS domain of'
@@ -527,7 +520,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         $this->_data['categories'][] = $category;
     }
-    
+
     /**
      * Set an array of feed categories
      *
@@ -671,7 +664,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         return $this->_data['image'];
     }
-    
+
     /**
      * Get the feed icon URI
      *
@@ -749,7 +742,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         return $this->_data['encoding'];
     }
-    
+
     /**
      * Get the feed's base url
      *
@@ -762,7 +755,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         return $this->_data['baseUrl'];
     }
-    
+
     /**
      * Get the URLs used as Pubsubhubbub hubs endpoints
      *
@@ -775,7 +768,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         return $this->_data['hubs'];
     }
-    
+
     /**
      * Get the feed categories
      *
@@ -798,7 +791,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     {
         $this->_data = array();
     }
-    
+
     /**
      * Set the current feed type being exported to "rss" or "atom". This allows
      * other objects to gracefully choose whether to execute or not, depending
@@ -810,7 +803,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     {
         $this->_type = $type;
     }
-    
+
     /**
      * Retrieve the current or last feed type exported.
      *
@@ -820,7 +813,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     {
         return $this->_type;
     }
-    
+
     /**
      * Unset a specific data point
      *
@@ -832,7 +825,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             unset($this->_data[$name]);
         }
     }
-    
+
     /**
      * Method overloading: call given method on first extension implementing it
      *
@@ -844,14 +837,18 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     public function __call($method, $args)
     {
         foreach ($this->_extensions as $extension) {
-            try {
+            try
+            {
                 return call_user_func_array(array($extension, $method), $args);
-            } catch (Zend_Feed_Writer_Exception_InvalidMethodException $e) {
+            }
+            catch (Zend_Feed_Writer_Exception_InvalidMethodException $e)
+            {
+                
             }
         }
         #require_once 'Zend/Feed/Exception.php';
         throw new Zend_Feed_Exception('Method: ' . $method
-            . ' does not exist and could not be located on a registered Extension');
+        . ' does not exist and could not be located on a registered Extension');
     }
 
     /**
@@ -869,4 +866,5 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             $this->_extensions[$ext]->setEncoding($this->getEncoding());
         }
     }
+
 }

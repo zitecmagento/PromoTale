@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Store Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table and primary key
      *
@@ -51,8 +52,8 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = array(array(
-            'field' => 'code',
-            'title' => Mage::helper('core')->__('Store with the same code')
+                'field' => 'code',
+                'title' => Mage::helper('core')->__('Store with the same code')
         ));
         return $this;
     }
@@ -67,7 +68,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     {
         if (!preg_match('/^[a-z]+[a-z0-9_]*$/', $model->getCode())) {
             Mage::throwException(
-                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9) or underscore(_), the first character must be a letter'));
+                    Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9) or underscore(_), the first character must be a letter'));
         }
 
         return $this;
@@ -97,13 +98,12 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     protected function _afterDelete(Mage_Core_Model_Abstract $model)
     {
         $where = array(
-            'scope = ?'    => 'stores',
+            'scope = ?' => 'stores',
             'scope_id = ?' => $model->getStoreId()
         );
 
         $this->_getWriteAdapter()->delete(
-            $this->getTable('core/config_data'),
-            $where
+                $this->getTable('core/config_data'), $where
         );
         return $this;
     }
@@ -117,17 +117,17 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
      */
     protected function _updateGroupDefaultStore($groupId, $storeId)
     {
-        $adapter    = $this->_getWriteAdapter();
+        $adapter = $this->_getWriteAdapter();
 
-        $bindValues = array('group_id' => (int)$groupId);
+        $bindValues = array('group_id' => (int) $groupId);
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('count' => 'COUNT(*)'))
-            ->where('group_id = :group_id');
-        $count  = $adapter->fetchOne($select, $bindValues);
+                ->from($this->getMainTable(), array('count' => 'COUNT(*)'))
+                ->where('group_id = :group_id');
+        $count = $adapter->fetchOne($select, $bindValues);
 
         if ($count == 1) {
-            $bind  = array('default_store_id' => (int)$storeId);
-            $where = array('group_id = ?' => (int)$groupId);
+            $bind = array('default_store_id' => (int) $storeId);
+            $where = array('group_id = ?' => (int) $groupId);
             $adapter->update($this->getTable('core/store_group'), $bind, $where);
         }
 
@@ -145,8 +145,8 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
         if ($model->getOriginalGroupId() && $model->getGroupId() != $model->getOriginalGroupId()) {
             $adapter = $this->_getReadAdapter();
             $select = $adapter->select()
-                ->from($this->getTable('core/store_group'), 'default_store_id')
-                ->where($adapter->quoteInto('group_id=?', $model->getOriginalGroupId()));
+                    ->from($this->getTable('core/store_group'), 'default_store_id')
+                    ->where($adapter->quoteInto('group_id=?', $model->getOriginalGroupId()));
             $storeId = $adapter->fetchOne($select, 'default_store_id');
 
             if ($storeId == $model->getId()) {
@@ -172,4 +172,5 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
         $select->order('sort_order');
         return $select;
     }
+
 }

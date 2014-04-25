@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Store group collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Load default flag
      *
@@ -61,7 +62,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
      */
     public function setLoadDefault($loadDefault)
     {
-        return $this->setFlag('load_default_store_group', (bool)$loadDefault);
+        return $this->setFlag('load_default_store_group', (bool) $loadDefault);
     }
 
     /**
@@ -104,7 +105,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
         if (!$this->getLoadDefault()) {
             $this->setWithoutDefaultFilter();
         }
-        $this->addOrder('main_table.name',  self::SORT_ORDER_ASC);
+        $this->addOrder('main_table.name', self::SORT_ORDER_ASC);
         return parent::_beforeLoad();
     }
 
@@ -129,4 +130,5 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     {
         return $this->addFieldToFilter('main_table.website_id', array('in' => $website));
     }
+
 }

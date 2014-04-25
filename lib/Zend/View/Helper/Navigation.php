@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Navigation.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_View_Helper_Navigation_HelperAbstract
  */
@@ -34,9 +34,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_View_Helper_Navigation
-    extends Zend_View_Helper_Navigation_HelperAbstract
+class Zend_View_Helper_Navigation extends Zend_View_Helper_Navigation_HelperAbstract
 {
+
     /**
      * View helper namespace
      *
@@ -158,16 +158,18 @@ class Zend_View_Helper_Navigation
 
         if (!$this->view->getPluginLoader('helper')->getPaths(self::NS)) {
             $this->view->addHelperPath(
-                    str_replace('_', '/', self::NS),
-                    self::NS);
+                    str_replace('_', '/', self::NS), self::NS);
         }
 
         if ($strict) {
             $helper = $this->view->getHelper($proxy);
         } else {
-            try {
+            try
+            {
                 $helper = $this->view->getHelper($proxy);
-            } catch (Zend_Loader_PluginLoader_Exception $e) {
+            }
+            catch (Zend_Loader_PluginLoader_Exception $e)
+            {
                 return null;
             }
         }
@@ -176,9 +178,8 @@ class Zend_View_Helper_Navigation
             if ($strict) {
                 #require_once 'Zend/View/Exception.php';
                 $e = new Zend_View_Exception(sprintf(
-                        'Proxy helper "%s" is not an instance of ' .
-                        'Zend_View_Helper_Navigation_Helper',
-                        get_class($helper)));
+                                'Proxy helper "%s" is not an instance of ' .
+                                'Zend_View_Helper_Navigation_Helper', get_class($helper)));
                 $e->setView($this->view);
                 throw $e;
             }
@@ -335,4 +336,5 @@ class Zend_View_Helper_Navigation
         $helper = $this->findHelper($this->getDefaultProxy());
         return $helper->render($container);
     }
+
 }

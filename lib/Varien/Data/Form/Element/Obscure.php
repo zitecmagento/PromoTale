@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Varien_Data_Form_Element_Obscure extends Varien_Data_Form_Element_Password
 {
+
     /**
      * @var string
      */
@@ -60,6 +62,8 @@ class Varien_Data_Form_Element_Obscure extends Varien_Data_Form_Element_Password
      */
     public function getHtmlAttributes()
     {
-        return array('type', 'title', 'class', 'style', 'onclick', 'onchange', 'onkeyup', 'disabled', 'readonly', 'maxlength', 'tabindex');
+        return array('type', 'title', 'class', 'style', 'onclick', 'onchange', 'onkeyup', 'disabled', 'readonly', 'maxlength',
+            'tabindex');
     }
+
 }

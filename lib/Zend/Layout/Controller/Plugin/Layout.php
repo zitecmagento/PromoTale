@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Controller_Plugin_Abstract */
 #require_once 'Zend/Controller/Plugin/Abstract.php';
 
@@ -35,6 +35,7 @@
  */
 class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstract
 {
+
     protected $_layoutActionHelper = null;
 
     /**
@@ -111,11 +112,7 @@ class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstra
         $helper = $this->getLayoutActionHelper();
 
         // Return early if forward detected
-        if (!$request->isDispatched()
-            || $this->getResponse()->isRedirect()
-            || ($layout->getMvcSuccessfulActionOnly()
-                && (!empty($helper) && !$helper->isActionControllerSuccessful())))
-        {
+        if (!$request->isDispatched() || $this->getResponse()->isRedirect() || ($layout->getMvcSuccessfulActionOnly() && (!empty($helper) && !$helper->isActionControllerSuccessful()))) {
             return;
         }
 
@@ -124,8 +121,8 @@ class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstra
             return;
         }
 
-        $response   = $this->getResponse();
-        $content    = $response->getBody(true);
+        $response = $this->getResponse();
+        $content = $response->getBody(true);
         $contentKey = $layout->getContentKey();
 
         if (isset($content['default'])) {
@@ -139,10 +136,13 @@ class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstra
 
         $fullContent = null;
         $obStartLevel = ob_get_level();
-        try {
+        try
+        {
             $fullContent = $layout->render();
             $response->setBody($fullContent);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             while (ob_get_level() > $obStartLevel) {
                 $fullContent .= ob_get_clean();
             }
@@ -151,6 +151,6 @@ class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstra
             $response->setBody(null);
             throw $e;
         }
-
     }
+
 }

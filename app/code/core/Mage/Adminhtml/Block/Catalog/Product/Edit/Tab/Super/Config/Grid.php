@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Config attribute codes
      *
@@ -78,8 +80,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
             $existsProducts = $productIds; // Only for "Yes" Filter we will add created products
 
-            if(count($createdProducts)>0) {
-                if(!is_array($existsProducts)) {
+            if (count($createdProducts) > 0) {
+                if (!is_array($existsProducts)) {
                     $existsProducts = $createdProducts;
                 } else {
                     $existsProducts = array_merge($createdProducts);
@@ -87,15 +89,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             }
 
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', array('in'=>$existsProducts));
-            }
-            else {
-                if($productIds) {
-                    $this->getCollection()->addFieldToFilter('entity_id', array('nin'=>$productIds));
+                $this->getCollection()->addFieldToFilter('entity_id', array('in' => $existsProducts));
+            } else {
+                if ($productIds) {
+                    $this->getCollection()->addFieldToFilter('entity_id', array('nin' => $productIds));
                 }
             }
-        }
-        else {
+        } else {
             parent::_addColumnFilterToCollection($column);
         }
         return $this;
@@ -125,15 +125,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
         $product = $this->_getProduct();
         $collection = $product->getCollection()
-            ->addAttributeToSelect('name')
-            ->addAttributeToSelect('sku')
-            ->addAttributeToSelect('attribute_set_id')
-            ->addAttributeToSelect('type_id')
-            ->addAttributeToSelect('price')
-            ->addFieldToFilter('attribute_set_id',$product->getAttributeSetId())
-            ->addFieldToFilter('type_id', $allowProductTypes)
-            ->addFilterByRequiredOptions()
-            ->joinAttribute('name', 'catalog_product/name', 'entity_id', null, 'inner');
+                ->addAttributeToSelect('name')
+                ->addAttributeToSelect('sku')
+                ->addAttributeToSelect('attribute_set_id')
+                ->addAttributeToSelect('type_id')
+                ->addAttributeToSelect('price')
+                ->addFieldToFilter('attribute_set_id', $product->getAttributeSetId())
+                ->addFieldToFilter('type_id', $allowProductTypes)
+                ->addFilterByRequiredOptions()
+                ->joinAttribute('name', 'catalog_product/name', 'entity_id', null, 'inner');
 
         if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
             Mage::getModel('cataloginventory/stock_item')->addCatalogInventoryToProductCollection($collection);
@@ -141,7 +141,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
         foreach ($product->getTypeInstance(true)->getUsedProductAttributes($product) as $attribute) {
             $collection->addAttributeToSelect($attribute->getAttributeCode());
-            $collection->addAttributeToFilter($attribute->getAttributeCode(), array('notnull'=>1));
+            $collection->addAttributeToFilter($attribute->getAttributeCode(), array('notnull' => 1));
         }
 
         $this->setCollection($collection);
@@ -184,88 +184,86 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         if (!$this->isReadonly()) {
             $this->addColumn('in_products', array(
                 'header_css_class' => 'a-center',
-                'type'      => 'checkbox',
-                'name'      => 'in_products',
-                'values'    => $this->_getSelectedProducts(),
-                'align'     => 'center',
-                'index'     => 'entity_id',
-                'renderer'  => 'adminhtml/catalog_product_edit_tab_super_config_grid_renderer_checkbox',
+                'type' => 'checkbox',
+                'name' => 'in_products',
+                'values' => $this->_getSelectedProducts(),
+                'align' => 'center',
+                'index' => 'entity_id',
+                'renderer' => 'adminhtml/catalog_product_edit_tab_super_config_grid_renderer_checkbox',
                 'attributes' => $attributes
             ));
         }
 
         $this->addColumn('entity_id', array(
-            'header'    => Mage::helper('catalog')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60px',
-            'index'     => 'entity_id'
+            'header' => Mage::helper('catalog')->__('ID'),
+            'sortable' => true,
+            'width' => '60px',
+            'index' => 'entity_id'
         ));
         $this->addColumn('name', array(
-            'header'    => Mage::helper('catalog')->__('Name'),
-            'index'     => 'name'
+            'header' => Mage::helper('catalog')->__('Name'),
+            'index' => 'name'
         ));
 
 
         $sets = Mage::getModel('eav/entity_attribute_set')->getCollection()
-            ->setEntityTypeFilter($this->_getProduct()->getResource()->getTypeId())
-            ->load()
-            ->toOptionHash();
+                ->setEntityTypeFilter($this->_getProduct()->getResource()->getTypeId())
+                ->load()
+                ->toOptionHash();
 
-        $this->addColumn('set_name',
-            array(
-                'header'=> Mage::helper('catalog')->__('Attrib. Set Name'),
-                'width' => '130px',
-                'index' => 'attribute_set_id',
-                'type'  => 'options',
-                'options' => $sets,
+        $this->addColumn('set_name', array(
+            'header' => Mage::helper('catalog')->__('Attrib. Set Name'),
+            'width' => '130px',
+            'index' => 'attribute_set_id',
+            'type' => 'options',
+            'options' => $sets,
         ));
 
         $this->addColumn('sku', array(
-            'header'    => Mage::helper('catalog')->__('SKU'),
-            'width'     => '80px',
-            'index'     => 'sku'
+            'header' => Mage::helper('catalog')->__('SKU'),
+            'width' => '80px',
+            'index' => 'sku'
         ));
 
         $this->addColumn('price', array(
-            'header'    => Mage::helper('catalog')->__('Price'),
-            'type'      => 'currency',
+            'header' => Mage::helper('catalog')->__('Price'),
+            'type' => 'currency',
             'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
-            'index'     => 'price'
+            'index' => 'price'
         ));
 
         $this->addColumn('is_saleable', array(
-            'header'    => Mage::helper('catalog')->__('Inventory'),
-            'renderer'  => 'adminhtml/catalog_product_edit_tab_super_config_grid_renderer_inventory',
-            'filter'    => 'adminhtml/catalog_product_edit_tab_super_config_grid_filter_inventory',
-            'index'     => 'is_saleable'
+            'header' => Mage::helper('catalog')->__('Inventory'),
+            'renderer' => 'adminhtml/catalog_product_edit_tab_super_config_grid_renderer_inventory',
+            'filter' => 'adminhtml/catalog_product_edit_tab_super_config_grid_filter_inventory',
+            'index' => 'is_saleable'
         ));
 
         foreach ($attributes as $attribute) {
             $productAttribute = $attribute->getProductAttribute();
             $productAttribute->getSource();
             $this->addColumn($productAttribute->getAttributeCode(), array(
-                'header'    => $productAttribute->getFrontend()->getLabel(),
-                'index'     => $productAttribute->getAttributeCode(),
-                'type'      => $productAttribute->getSourceModel() ? 'options' : 'number',
-                'options'   => $productAttribute->getSourceModel() ? $this->getOptions($attribute) : ''
+                'header' => $productAttribute->getFrontend()->getLabel(),
+                'index' => $productAttribute->getAttributeCode(),
+                'type' => $productAttribute->getSourceModel() ? 'options' : 'number',
+                'options' => $productAttribute->getSourceModel() ? $this->getOptions($attribute) : ''
             ));
         }
 
-         $this->addColumn('action',
-            array(
-                'header'    => Mage::helper('catalog')->__('Action'),
-                'type'      => 'action',
-                'getter'     => 'getId',
-                'actions'   => array(
-                    array(
-                        'caption' => Mage::helper('catalog')->__('Edit'),
-                        'url'     => $this->getEditParamsForAssociated(),
-                        'field'   => 'id',
-                        'onclick'  => 'superProduct.createPopup(this.href);return false;'
-                    )
-                ),
-                'filter'    => false,
-                'sortable'  => false
+        $this->addColumn('action', array(
+            'header' => Mage::helper('catalog')->__('Action'),
+            'type' => 'action',
+            'getter' => 'getId',
+            'actions' => array(
+                array(
+                    'caption' => Mage::helper('catalog')->__('Edit'),
+                    'url' => $this->getEditParamsForAssociated(),
+                    'field' => 'id',
+                    'onclick' => 'superProduct.createPopup(this.href);return false;'
+                )
+            ),
+            'filter' => false,
+            'sortable' => false
         ));
 
         return parent::_prepareColumns();
@@ -274,11 +272,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     public function getEditParamsForAssociated()
     {
         return array(
-            'base'      =>  '*/*/edit',
-            'params'    =>  array(
+            'base' => '*/*/edit',
+            'params' => array(
                 'required' => $this->_getRequiredAttributesIds(),
-                'popup'    => 1,
-                'product'  => $this->_getProduct()->getId()
+                'popup' => 1,
+                'product' => $this->_getProduct()->getId()
             )
         );
     }
@@ -292,7 +290,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     {
         $attributesIds = array();
         foreach (
-            $this->_getProduct()
+                $this->_getProduct()
                 ->getTypeInstance(true)
                 ->getConfigurableAttributes($this->_getProduct()) as $attribute
         ) {
@@ -302,10 +300,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         return implode(',', $attributesIds);
     }
 
-    public function getOptions($attribute) {
+    public function getOptions($attribute)
+    {
         $result = array();
         foreach ($attribute->getProductAttribute()->getSource()->getAllOptions() as $option) {
-            if($option['value']!='') {
+            if ($option['value'] != '') {
                 $result[$option['value']] = $option['label'];
             }
         }
@@ -315,7 +314,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/superConfig', array('_current'=>true));
+        return $this->getUrl('*/*/superConfig', array('_current' => true));
     }
 
     /**
@@ -375,15 +374,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         foreach ($this->_collection as $item) {
             $ids[] = $item->getId();
             $needleAttributeValues = $this->_retrieveRowData($item);
-            foreach($this->_collection as $item2) {
+            foreach ($this->_collection as $item2) {
                 // Skip the data if already checked
                 if (in_array($item2->getId(), $ids)) {
-                   continue;
+                    continue;
                 }
                 $attributeValues = $this->_retrieveRowData($item2);
                 $disableMultiSelect = ($needleAttributeValues == $attributeValues);
                 if ($disableMultiSelect) {
-                   break;
+                    break;
                 }
             }
             if ($disableMultiSelect) {
@@ -401,4 +400,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -50,13 +51,13 @@ class Mage_GoogleBase_Block_Adminhtml_Items extends Mage_Adminhtml_Block_Widget_
     public function getAddButtonHtml()
     {
         $addButtonData = array(
-            'id'    => 'products_grid_button',
+            'id' => 'products_grid_button',
             'label' => $this->__('View Available Products'),
         );
         return $this->getLayout()
-            ->createBlock('adminhtml/widget_button')
-            ->setData($addButtonData)
-            ->toHtml();
+                        ->createBlock('adminhtml/widget_button')
+                        ->setData($addButtonData)
+                        ->toHtml();
     }
 
     public function getStoreSwitcherHtml()
@@ -67,13 +68,14 @@ class Mage_GoogleBase_Block_Adminhtml_Items extends Mage_Adminhtml_Block_Widget_
     public function getCaptchaHtml()
     {
         return $this->getLayout()->createBlock('googlebase/adminhtml_captcha')
-            ->setGbaseCaptchaToken($this->getGbaseCaptchaToken())
-            ->setGbaseCaptchaUrl($this->getGbaseCaptchaUrl())
-            ->toHtml();
+                        ->setGbaseCaptchaToken($this->getGbaseCaptchaToken())
+                        ->setGbaseCaptchaUrl($this->getGbaseCaptchaUrl())
+                        ->toHtml();
     }
 
     public function getStore()
     {
         return $this->_getData('store');
     }
+
 }

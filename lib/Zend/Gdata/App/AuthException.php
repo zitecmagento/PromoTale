@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: AuthException.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Exception
  */
@@ -38,4 +38,5 @@
  */
 class Zend_Gdata_App_AuthException extends Zend_Gdata_App_Exception
 {
+    
 }

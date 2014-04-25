@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Shipment_Create extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     public function __construct()
     {
         $this->_objectId = 'order_id';
@@ -65,6 +66,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create extends Mage_Adminhtml_Bl
 
     public function getBackUrl()
     {
-        return $this->getUrl('*/sales_order/view', array('order_id'=>$this->getShipment()->getOrderId()));
+        return $this->getUrl('*/sales_order/view', array('order_id' => $this->getShipment()->getOrderId()));
     }
+
 }

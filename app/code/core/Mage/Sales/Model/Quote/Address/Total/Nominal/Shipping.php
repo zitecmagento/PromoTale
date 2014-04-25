@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,12 +30,13 @@
  */
 class Mage_Sales_Model_Quote_Address_Total_Nominal_Shipping extends Mage_Sales_Model_Quote_Address_Total_Shipping
 {
+
     /**
      * Don't add/set amounts
      * @var bool
      */
     protected $_canAddAmountToAddress = false;
-    protected $_canSetAddressAmount   = false;
+    protected $_canSetAddressAmount = false;
 
     /**
      * Custom row total key
@@ -69,7 +71,6 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Shipping extends Mage_Sales_M
         $address->setCollectShippingRates(true);
         $this->_shouldGetAllItems = false;
         // now $items contains row weight information
-
         // collect shipping rates for each item individually
         foreach ($items as $item) {
             if (!$item->getProduct()->isVirtual()) {
@@ -108,4 +109,5 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Shipping extends Mage_Sales_M
         }
         return $address->getAllNominalItems();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * List of products tagged by customer Block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
 {
+
     /**
      * Tagged Product Collection
      *
@@ -67,7 +68,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     {
         if (is_null($this->_tagInfo)) {
             $this->_tagInfo = Mage::getModel('tag/tag')
-                ->load($this->getTagId());
+                    ->load($this->getTagId());
         }
         return $this->_tagInfo;
     }
@@ -111,8 +112,8 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     protected function _prepareLayout()
     {
         $toolbar = $this->getLayout()
-            ->createBlock('page/html_pager', 'customer_tag_list.toolbar')
-            ->setCollection($this->_getCollection());
+                ->createBlock('page/html_pager', 'customer_tag_list.toolbar')
+                ->setCollection($this->_getCollection());
 
         $this->setChild('toolbar', $toolbar);
         return parent::_prepareLayout();
@@ -147,18 +148,19 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     {
         if (is_null($this->_collection)) {
             $this->_collection = Mage::getModel('tag/tag')
-                ->getEntityCollection()
-                ->addTagFilter($this->getTagId())
-                ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
-                ->addStoreFilter(Mage::app()->getStore()->getId())
-                ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-                ->setActiveFilter();
+                    ->getEntityCollection()
+                    ->addTagFilter($this->getTagId())
+                    ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
+                    ->addStoreFilter(Mage::app()->getStore()->getId())
+                    ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+                    ->setActiveFilter();
 
             Mage::getSingleton('catalog/product_status')
-                ->addVisibleFilterToCollection($this->_collection);
+                    ->addVisibleFilterToCollection($this->_collection);
             Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection($this->_collection);
+                    ->addVisibleInSiteFilterToCollection($this->_collection);
         }
         return $this->_collection;
     }
+
 }

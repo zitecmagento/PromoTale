@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 require_once 'Mage/Adminhtml/controllers/Catalog/ProductController.php';
 
 /**
@@ -35,6 +35,7 @@ require_once 'Mage/Adminhtml/controllers/Catalog/ProductController.php';
  */
 class Mage_Bundle_Adminhtml_Bundle_Product_EditController extends Mage_Adminhtml_Catalog_ProductController
 {
+
     protected function _construct()
     {
         $this->setUsedModuleName('Mage_Bundle');
@@ -44,9 +45,10 @@ class Mage_Bundle_Adminhtml_Bundle_Product_EditController extends Mage_Adminhtml
     {
         $product = $this->_initProduct();
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle', 'admin.product.bundle.items')
-                ->setProductId($product->getId())
-                ->toHtml()
+                $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle', 'admin.product.bundle.items')
+                        ->setProductId($product->getId())
+                        ->toHtml()
         );
     }
+
 }

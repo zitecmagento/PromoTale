@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: StringLength.php 22668 2010-07-25 14:50:46Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
@@ -32,17 +32,18 @@
  */
 class Zend_Validate_StringLength extends Zend_Validate_Abstract
 {
-    const INVALID   = 'stringLengthInvalid';
+
+    const INVALID = 'stringLengthInvalid';
     const TOO_SHORT = 'stringLengthTooShort';
-    const TOO_LONG  = 'stringLengthTooLong';
+    const TOO_LONG = 'stringLengthTooLong';
 
     /**
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID   => "Invalid type given. String expected",
+        self::INVALID => "Invalid type given. String expected",
         self::TOO_SHORT => "'%value%' is less than %min% characters long",
-        self::TOO_LONG  => "'%value%' is more than %max% characters long",
+        self::TOO_LONG => "'%value%' is more than %max% characters long",
     );
 
     /**
@@ -87,7 +88,7 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } else if (!is_array($options)) {
-            $options     = func_get_args();
+            $options = func_get_args();
             $temp['min'] = array_shift($options);
             if (!empty($options)) {
                 $temp['max'] = array_shift($options);
@@ -139,7 +140,7 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
              */
             #require_once 'Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception("The minimum must be less than or equal to the maximum length, but $min >"
-                                            . " $this->_max");
+            . " $this->_max");
         }
         $this->_min = max(0, (integer) $min);
         return $this;
@@ -172,7 +173,7 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
              */
             #require_once 'Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception("The maximum must be greater than or equal to the minimum length, but "
-                                            . "$max < $this->_min");
+            . "$max < $this->_min");
         } else {
             $this->_max = (integer) $max;
         }
@@ -199,7 +200,7 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
     public function setEncoding($encoding = null)
     {
         if ($encoding !== null) {
-            $orig   = iconv_get_encoding('internal_encoding');
+            $orig = iconv_get_encoding('internal_encoding');
             $result = iconv_set_encoding('internal_encoding', $encoding);
             if (!$result) {
                 #require_once 'Zend/Validate/Exception.php';
@@ -250,4 +251,5 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
             return true;
         }
     }
+
 }

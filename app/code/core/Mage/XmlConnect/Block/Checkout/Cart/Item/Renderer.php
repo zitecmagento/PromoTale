@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Xmlconnect_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_Cart_Item_Renderer
 {
+
     /**
      * Get product thumbnail image
      *
@@ -45,4 +47,5 @@ class Mage_Xmlconnect_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Bl
         }
         return $this->helper('xmlconnect/catalog_product_image')->init($this->getProduct(), 'thumbnail');
     }
+
 }

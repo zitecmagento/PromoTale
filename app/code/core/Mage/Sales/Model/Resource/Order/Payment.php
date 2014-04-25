@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order payment resource
  *
@@ -34,12 +34,13 @@
  */
 class Mage_Sales_Model_Resource_Order_Payment extends Mage_Sales_Model_Resource_Order_Abstract
 {
+
     /**
      * Serializeable field: additional_information
      *
      * @var array
      */
-    protected $_serializableFields   = array(
+    protected $_serializableFields = array(
         'additional_information' => array(null, array())
     );
 
@@ -48,7 +49,7 @@ class Mage_Sales_Model_Resource_Order_Payment extends Mage_Sales_Model_Resource_
      *
      * @var string
      */
-    protected $_eventPrefix          = 'sales_order_payment_resource';
+    protected $_eventPrefix = 'sales_order_payment_resource';
 
     /**
      * Model initialization
@@ -58,4 +59,5 @@ class Mage_Sales_Model_Resource_Order_Payment extends Mage_Sales_Model_Resource_
     {
         $this->_init('sales/order_payment', 'entity_id');
     }
+
 }

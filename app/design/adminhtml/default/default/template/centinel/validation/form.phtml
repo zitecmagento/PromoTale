@@ -29,9 +29,9 @@
         <iframe frameborder="0" border="0" id="<?php echo $this->getContainerId() ?>" src="" style="display:none;"></iframe>
     </div>
 </div>
-<button onclick="cardValidator.validate()" class="scalable" type="button"><span><span><span><?php echo $this->__('Start/Reset Validation...')?></span></span></span></button>
+<button onclick="cardValidator.validate()" class="scalable" type="button"><span><span><span><?php echo $this->__('Start/Reset Validation...') ?></span></span></span></button>
 <script type="text/javascript">
 //<![CDATA[
-cardValidator = new centinelValidator('<?php echo $this->getMethodCode() ?>', '<?php echo $this->getFrameUrl() ?>', '<?php echo $this->getContainerId() ?>');
+    cardValidator = new centinelValidator('<?php echo $this->getMethodCode() ?>', '<?php echo $this->getFrameUrl() ?>', '<?php echo $this->getContainerId() ?>');
 //]]>
 </script>

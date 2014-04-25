@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,7 @@
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-final class Mage_Connect_Command_Registry
-extends Mage_Connect_Command
+final class Mage_Connect_Command_Registry extends Mage_Connect_Command
 {
 
     /**
@@ -38,31 +37,33 @@ extends Mage_Connect_Command
     public function doList($command, $options, $params)
     {
         $this->cleanupParams($params);
-        try {
+        try
+        {
             $packager = $this->getPackager();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
+            if ($ftp) {
                 list($cache, $ftpObj) = $packager->getRemoteCache($ftp);
             } else {
                 $cache = $this->getSconfig();
             }
-            if(!empty($params[0])) {
+            if (!empty($params[0])) {
                 $chanName = $conf->chanName($params[0]);
                 $data = $cache->getInstalledPackages($chanName);
             } else {
                 $data = $cache->getInstalledPackages();
             }
-            if($ftp) {
+            if ($ftp) {
                 @unlink($cache->getFilename());
             }
-            $this->ui()->output(array($command=>array('data'=>$data, 'channel-title'=>"Installed package for channel '%s' :")));
-        } catch (Exception $e) {
-            if($ftp) {
+            $this->ui()->output(array($command => array('data' => $data, 'channel-title' => "Installed package for channel '%s' :")));
+        }
+        catch (Exception $e)
+        {
+            if ($ftp) {
                 @unlink($cache->getFilename());
             }
             $this->doError($command, $e->getMessage());
         }
-
     }
 
     /**
@@ -76,9 +77,10 @@ extends Mage_Connect_Command
     {
         $this->cleanupParams($params);
         //$this->splitPackageArgs($params);
-        try {
+        try
+        {
             $channel = false;
-            if(count($params) < 2) {
+            if (count($params) < 2) {
                 throw new Exception("Argument count should be = 2");
             }
             $channel = $params[0];
@@ -86,40 +88,40 @@ extends Mage_Connect_Command
 
             $packager = $this->getPackager();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
+            if ($ftp) {
                 list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
             } else {
                 $cache = $this->getSconfig();
                 $confif = $this->config();
             }
-            if(!$cache->hasPackage($channel, $package)) {
+            if (!$cache->hasPackage($channel, $package)) {
                 return $this->ui()->output("No package found: {$channel}/{$package}");
             }
 
             $p = $cache->getPackageObject($channel, $package);
             $contents = $p->getContents();
-            if($ftp) {
+            if ($ftp) {
                 $ftpObj->close();
             }
-            if(!count($contents)) {
+            if (!count($contents)) {
                 return $this->ui()->output("No contents for package {$package}");
             }
             $title = ("Contents of '{$package}': ");
-            if($ftp) {
+            if ($ftp) {
                 @unlink($config->getFilename());
                 @unlink($cache->getFilename());
             }
 
-            $this->ui()->output(array($command=>array('data'=>$contents, 'title'=>$title)));
-
-        } catch (Exception $e) {
-            if($ftp) {
+            $this->ui()->output(array($command => array('data' => $contents, 'title' => $title)));
+        }
+        catch (Exception $e)
+        {
+            if ($ftp) {
                 @unlink($config->getFilename());
                 @unlink($cache->getFilename());
             }
             $this->doError($command, $e->getMessage());
         }
-
     }
 
     /**
@@ -135,41 +137,45 @@ extends Mage_Connect_Command
         $this->cleanupParams($params);
         //$this->splitPackageArgs($params);
 
-        try {
+        try
+        {
             $channel = false;
-            if(count($params) < 2) {
+            if (count($params) < 2) {
                 throw new Exception("Argument count should be = 2");
             }
             $channel = $params[0];
             $package = $params[1];
             $packager = $this->getPackager();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
-            if($ftp) {
+            if ($ftp) {
                 list($cache, $ftpObj) = $packager->getRemoteCache($ftp);
             } else {
                 $cache = $this->getSconfig();
             }
 
-            if(!$cache->isChannel($channel)) {
+            if (!$cache->isChannel($channel)) {
                 throw new Exception("'{$channel}' is not a valid installed channel name/uri");
             }
             $channelUri = $cache->chanUrl($channel);
             $rest = $this->rest();
             $rest->setChannel($channelUri);
             $releases = $rest->getReleases($package);
-            if(false === $releases) {
+            if (false === $releases) {
                 throw new Exception("No information found about {$channel}/{$package}");
             }
-            $data = array($command => array('releases'=>$releases));
-            if($ftp) {
+            $data = array($command => array('releases' => $releases));
+            if ($ftp) {
                 @unlink($cache->getFilename());
             }
             $this->ui()->output($data);
-        } catch (Exception $e) {
-            if($ftp) {
+        }
+        catch (Exception $e)
+        {
+            if ($ftp) {
                 @unlink($cache->getFilename());
             }
             $this->doError($command, $e->getMessage());
         }
     }
+
 }

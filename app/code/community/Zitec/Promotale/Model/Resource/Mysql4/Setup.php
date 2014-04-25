@@ -21,5 +21,7 @@
  * @package    Zitec_Promotale
  * @author     Zitec COM <magento@zitec.ro>
  */
-
-class Zitec_Promotale_Model_Resource_Mysql4_Setup extends Mage_Core_Model_Resource_Setup {}
+class Zitec_Promotale_Model_Resource_Mysql4_Setup extends Mage_Core_Model_Resource_Setup
+{
+    
+}

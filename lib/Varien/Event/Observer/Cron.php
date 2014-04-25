@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Event cron observer object
  * 
@@ -34,6 +34,7 @@
  */
 class Varien_Event_Observer_Cron extends Varien_Event_Observer
 {
+
     /**
      * Checkes the observer's cron string against event's name
      * 
@@ -45,19 +46,15 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
     public function isValidFor(Varien_Event $event)
     {
         $e = preg_split('#\s+#', $this->getCronExpr(), null, PREG_SPLIT_NO_EMPTY);
-        if (sizeof($e)!==5) {
+        if (sizeof($e) !== 5) {
             return false;
         }
-        
+
         $d = getdate($this->getNow());
-        
-        return $this->matchCronExpression($e[0], $d['minutes'])
-            && $this->matchCronExpression($e[1], $d['hours'])
-            && $this->matchCronExpression($e[2], $d['mday'])
-            && $this->matchCronExpression($e[3], $d['mon'])
-            && $this->matchCronExpression($e[4], $d['wday']);
+
+        return $this->matchCronExpression($e[0], $d['minutes']) && $this->matchCronExpression($e[1], $d['hours']) && $this->matchCronExpression($e[2], $d['mday']) && $this->matchCronExpression($e[3], $d['mon']) && $this->matchCronExpression($e[4], $d['wday']);
     }
-    
+
     public function getNow()
     {
         if (!$this->hasNow()) {
@@ -65,28 +62,28 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
         return $this->getData('now');
     }
-    
+
     public function matchCronExpression($expr, $num)
     {
         // handle ALL match
-        if ($expr==='*') {
+        if ($expr === '*') {
             return true;
         }
-        
+
         // handle multiple options
-        if (strpos($expr,',')!==false) {
-            foreach (explode(',',$expr) as $e) {
+        if (strpos($expr, ',') !== false) {
+            foreach (explode(',', $expr) as $e) {
                 if ($this->matchCronExpression($e, $num)) {
                     return true;
                 }
             }
             return false;
         }
-        
+
         // handle modulus
-        if (strpos($expr,'/')!==false) {
+        if (strpos($expr, '/') !== false) {
             $e = explode('/', $expr);
-            if (sizeof($e)!==2) {
+            if (sizeof($e) !== 2) {
                 return false;
             }
             $expr = $e[0];
@@ -97,62 +94,61 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         } else {
             $mod = 1;
         }
-        
+
         // handle range
-        if (strpos($expr,'-')!==false) {
+        if (strpos($expr, '-') !== false) {
             $e = explode('-', $expr);
-            if (sizeof($e)!==2) {
+            if (sizeof($e) !== 2) {
                 return false;
             }
-            
+
             $from = $this->getNumeric($e[0]);
             $to = $this->getNumeric($e[1]);
-            
-            return ($from!==false) && ($to!==false) 
-                && ($num>=$from) && ($num<=$to) && ($num%$mod===0);
+
+            return ($from !== false) && ($to !== false) && ($num >= $from) && ($num <= $to) && ($num % $mod === 0);
         }
-        
+
         // handle regular token
         $value = $this->getNumeric($expr);
-        return ($value!==false) && ($num==$value) && ($num%$mod===0);
+        return ($value !== false) && ($num == $value) && ($num % $mod === 0);
     }
-    
-    public function getNumeric($value) 
+
+    public function getNumeric($value)
     {
         static $data = array(
-            'jan'=>1,
-            'feb'=>2,
-            'mar'=>3,
-            'apr'=>4,
-            'may'=>5,
-            'jun'=>6,
-            'jul'=>7,
-            'aug'=>8,
-            'sep'=>9,
-            'oct'=>10,
-            'nov'=>11,
-            'dec'=>12,
-            
-            'sun'=>0,
-            'mon'=>1,
-            'tue'=>2,
-            'wed'=>3,
-            'thu'=>4,
-            'fri'=>5,
-            'sat'=>6,
+            'jan' => 1,
+            'feb' => 2,
+            'mar' => 3,
+            'apr' => 4,
+            'may' => 5,
+            'jun' => 6,
+            'jul' => 7,
+            'aug' => 8,
+            'sep' => 9,
+            'oct' => 10,
+            'nov' => 11,
+            'dec' => 12,
+            'sun' => 0,
+            'mon' => 1,
+            'tue' => 2,
+            'wed' => 3,
+            'thu' => 4,
+            'fri' => 5,
+            'sat' => 6,
         );
-        
+
         if (is_numeric($value)) {
             return $value;
         }
-        
+
         if (is_string($value)) {
-            $value = strtolower(substr($value,0,3));
+            $value = strtolower(substr($value, 0, 3));
             if (isset($data[$value])) {
                 return $data[$value];
             }
         }
-                
+
         return false;
     }
+
 }

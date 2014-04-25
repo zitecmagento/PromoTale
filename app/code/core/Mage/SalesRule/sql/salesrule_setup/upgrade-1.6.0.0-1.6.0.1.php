@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,12 +24,10 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /** @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 $connection = $installer->getConnection();
 $connection->createTable($connection->createTableByDdl(
-    $installer->getTable('salesrule/coupon_aggregated'),
-    $installer->getTable('salesrule/coupon_aggregated_updated')
+                $installer->getTable('salesrule/coupon_aggregated'), $installer->getTable('salesrule/coupon_aggregated_updated')
 ));

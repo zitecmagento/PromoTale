@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Observer
 {
+
     /**
      * Save relation of admin user to API2 role
      *
@@ -67,8 +69,7 @@ class Mage_Api2_Model_Observer
     {
         /** @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
         $attribute = $observer->getEvent()->getAttribute();
-        if ($attribute->getIsUserDefined() && $attribute->dataHasChangedFor('is_visible_on_front')
-            && !$attribute->getIsVisibleOnFront()) {
+        if ($attribute->getIsUserDefined() && $attribute->dataHasChangedFor('is_visible_on_front') && !$attribute->getIsVisibleOnFront()) {
             /** @var $collection Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection */
             $collection = Mage::getResourceModel('api2/acl_filter_attribute_collection');
             /** @var $aclFilter Mage_Api2_Model_Acl_Filter_Attribute */
@@ -83,4 +84,5 @@ class Mage_Api2_Model_Observer
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -32,15 +33,16 @@
  */
 class Zend_InfoCard_Cipher
 {
+
     /**
      * AES 256 Encryption with CBC
      */
-    const ENC_AES256CBC      = 'http://www.w3.org/2001/04/xmlenc#aes256-cbc';
+    const ENC_AES256CBC = 'http://www.w3.org/2001/04/xmlenc#aes256-cbc';
 
     /**
      * AES 128 Encryption with CBC
      */
-    const ENC_AES128CBC      = 'http://www.w3.org/2001/04/xmlenc#aes128-cbc';
+    const ENC_AES128CBC = 'http://www.w3.org/2001/04/xmlenc#aes128-cbc';
 
     /**
      * RSA Public Key Encryption with OAEP Padding
@@ -50,7 +52,7 @@ class Zend_InfoCard_Cipher
     /**
      * RSA Public Key Encryption with no padding
      */
-    const ENC_RSA            = 'http://www.w3.org/2001/04/xmlenc#rsa-1_5';
+    const ENC_RSA = 'http://www.w3.org/2001/04/xmlenc#rsa-1_5';
 
     /**
      * Constructor (disabled)
@@ -60,7 +62,9 @@ class Zend_InfoCard_Cipher
      */
     protected function __construct()
     {
+        
     }
+
     // @codeCoverageIgnoreEnd
     /**
      * Returns an instance of a cipher object supported based on the URI provided
@@ -72,7 +76,7 @@ class Zend_InfoCard_Cipher
      */
     static public function getInstanceByURI($uri)
     {
-        switch($uri) {
+        switch ($uri) {
             case self::ENC_AES256CBC:
                 include_once 'Zend/InfoCard/Cipher/Symmetric/Adapter/Aes256cbc.php';
                 return new Zend_InfoCard_Cipher_Symmetric_Adapter_Aes256cbc();
@@ -96,4 +100,5 @@ class Zend_InfoCard_Cipher
                 throw new Zend_InfoCard_Cipher_Exception("Unknown Cipher URI");
         }
     }
+
 }

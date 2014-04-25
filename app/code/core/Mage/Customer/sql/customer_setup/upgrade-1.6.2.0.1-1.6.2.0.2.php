@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
  * @var $this Mage_Catalog_Model_Resource_Setup
  * @var $conn Varien_Db_Adapter_Interface
@@ -31,11 +31,11 @@
 $conn = $this->getConnection();
 
 //get all duplicated emails
-$select  = $conn->select()
-    ->from($this->getTable('customer/entity'), array('email', 'website_id', 'cnt' => 'COUNT(*)'))
-    ->group('email')
-    ->group('website_id')
-    ->having('cnt > 1');
+$select = $conn->select()
+        ->from($this->getTable('customer/entity'), array('email', 'website_id', 'cnt' => 'COUNT(*)'))
+        ->group('email')
+        ->group('website_id')
+        ->having('cnt > 1');
 $emails = $conn->fetchAll($select);
 
 foreach ($emails as $data) {
@@ -43,26 +43,24 @@ foreach ($emails as $data) {
     $websiteId = $data['website_id'];
 
     $select = $conn->select()
-        ->from($this->getTable('customer/entity'), array('entity_id'))
-        ->where('email = ?', $email)
-        ->where('website_id = ?', $websiteId);
+            ->from($this->getTable('customer/entity'), array('entity_id'))
+            ->where('email = ?', $email)
+            ->where('website_id = ?', $websiteId);
     $activeId = $conn->fetchOne($select);
 
     //receive all other duplicated customer ids
     $select = $conn->select()
-        ->from($this->getTable('customer/entity'), array('entity_id', 'email'))
-        ->where('email = ?', $email)
-        ->where('website_id = ?', $websiteId)
-        ->where('entity_id <> ?', $activeId);
+            ->from($this->getTable('customer/entity'), array('entity_id', 'email'))
+            ->where('email = ?', $email)
+            ->where('website_id = ?', $websiteId)
+            ->where('entity_id <> ?', $activeId);
     $result = $conn->fetchAll($select);
 
     //change email to unique value
     foreach ($result as $row) {
         $changedEmail = $conn->getConcatSql(array('"(duplicate"', $row['entity_id'], '")"', '"' . $row['email'] . '"'));
         $conn->update(
-            $this->getTable('customer/entity'),
-            array('email' => $changedEmail),
-            array('entity_id =?' => $row['entity_id'])
+                $this->getTable('customer/entity'), array('email' => $changedEmail), array('entity_id =?' => $row['entity_id'])
         );
     }
 }
@@ -71,12 +69,7 @@ foreach ($emails as $data) {
  * Add unique index for customer_entity table
  */
 $conn->addIndex(
-    $this->getTable('customer/entity'),
-    $this->getIdxName(
-        'customer/entity',
-        array('email', 'website_id'),
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
-    ),
-    array('email', 'website_id'),
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        $this->getTable('customer/entity'), $this->getIdxName(
+                'customer/entity', array('email', 'website_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ), array('email', 'website_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );

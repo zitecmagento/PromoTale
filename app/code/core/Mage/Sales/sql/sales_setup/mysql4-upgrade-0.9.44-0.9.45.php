@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 $installer = $this;
 
@@ -42,7 +41,8 @@ foreach ($attributes as $attribute) {
     $installer->getConnection()->addColumn($this->getTable('sales_order'), $attribute['attribute_code'], 'decimal(12,4) NULL');
 }
 
-try {
+try
+{
     $installer->getConnection()->beginTransaction();
 
     foreach ($attributes as $attribute) {
@@ -66,8 +66,9 @@ try {
     }
 
     $installer->getConnection()->commit();
-
-} catch (Exception $e) {
+}
+catch (Exception $e)
+{
     $installer->getConnection()->rollback();
     foreach ($attributes as $attribute) {
         $installer->getConnection()->dropColumn($this->getTable('sales_order'), $attribute['attribute_code']);

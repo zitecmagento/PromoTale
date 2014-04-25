@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Style.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 #require_once 'Zend/Pdf/Canvas/Abstract.php';
 
 /**
@@ -31,6 +31,7 @@
  */
 class Zend_Pdf_Canvas extends Zend_Pdf_Canvas_Abstract
 {
+
     /**
      * Canvas procedure sets.
      *
@@ -53,10 +54,9 @@ class Zend_Pdf_Canvas extends Zend_Pdf_Canvas_Abstract
      * @var float
      */
     protected $_height;
-
-    protected $_resources = array('Font'      => array(),
-                                  'XObject'   => array(),
-                                  'ExtGState' => array());
+    protected $_resources = array('Font' => array(),
+        'XObject' => array(),
+        'ExtGState' => array());
 
     /**
      * Object constructor
@@ -66,7 +66,7 @@ class Zend_Pdf_Canvas extends Zend_Pdf_Canvas_Abstract
      */
     public function __construct($width, $height)
     {
-        $this->_width  = $width;
+        $this->_width = $width;
         $this->_height = $height;
     }
 
@@ -179,4 +179,5 @@ class Zend_Pdf_Canvas extends Zend_Pdf_Canvas_Abstract
     {
         return $this->_width;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Term.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * A Term represents a word from text.  This is the unit of search.  It is
  * composed of two elements, the text of the word, as a string, and the name of
@@ -37,6 +37,7 @@
  */
 class Zend_Search_Lucene_Index_Term
 {
+
     /**
      * Field name or field number (depending from context)
      *
@@ -51,16 +52,14 @@ class Zend_Search_Lucene_Index_Term
      */
     public $text;
 
-
     /**
      * Object constructor
      */
     public function __construct($text, $field = null)
     {
-        $this->field = ($field === null)?  Zend_Search_Lucene::getDefaultSearchField() : $field;
-        $this->text  = $text;
+        $this->field = ($field === null) ? Zend_Search_Lucene::getDefaultSearchField() : $field;
+        $this->text = $text;
     }
-
 
     /**
      * Returns term key
@@ -83,13 +82,13 @@ class Zend_Search_Lucene_Index_Term
     {
         $prefixBytes = 0;
         $prefixChars = 0;
-        while ($prefixBytes < strlen($str)  &&  $prefixChars < $length) {
+        while ($prefixBytes < strlen($str) && $prefixChars < $length) {
             $charBytes = 1;
             if ((ord($str[$prefixBytes]) & 0xC0) == 0xC0) {
                 $charBytes++;
-                if (ord($str[$prefixBytes]) & 0x20 ) {
+                if (ord($str[$prefixBytes]) & 0x20) {
                     $charBytes++;
-                    if (ord($str[$prefixBytes]) & 0x10 ) {
+                    if (ord($str[$prefixBytes]) & 0x10) {
                         $charBytes++;
                     }
                 }
@@ -121,9 +120,9 @@ class Zend_Search_Lucene_Index_Term
             $charBytes = 1;
             if ((ord($str[$bytes]) & 0xC0) == 0xC0) {
                 $charBytes++;
-                if (ord($str[$bytes]) & 0x20 ) {
+                if (ord($str[$bytes]) & 0x20) {
                     $charBytes++;
-                    if (ord($str[$bytes]) & 0x10 ) {
+                    if (ord($str[$bytes]) & 0x10) {
                         $charBytes++;
                     }
                 }
@@ -140,5 +139,5 @@ class Zend_Search_Lucene_Index_Term
 
         return $chars;
     }
-}
 
+}

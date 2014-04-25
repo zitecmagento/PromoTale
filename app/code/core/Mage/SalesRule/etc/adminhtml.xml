@@ -27,15 +27,17 @@
 -->
 <config>
     <menu>
-         <promo>
+        <promo>
             <children>
                 <quote translate="title" module="salesrule">
                     <title>Shopping Cart Price Rules</title>
                     <action>adminhtml/promo_quote/</action>
-                    <depends><module>Mage_Sales</module></depends>
+                    <depends>
+                        <module>Mage_Sales</module>
+                    </depends>
                 </quote>
             </children>
-         </promo>
+        </promo>
     </menu>
     <acl>
         <resources>
@@ -48,17 +50,17 @@
                             </quote>
                         </children>
                     </promo>
-                   <system>
-                       <children>
-                           <config>
-                               <children>
-                                   <promo translate="title" module="salesrule">
-                                       <title>Shopping Cart Price Rules</title>
-                                   </promo>
-                               </children>
-                           </config>
-                       </children>
-                   </system>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <promo translate="title" module="salesrule">
+                                        <title>Shopping Cart Price Rules</title>
+                                    </promo>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
                 </children>
             </admin>
         </resources>

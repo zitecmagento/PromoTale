@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
 {
+
     const DEFAULT_ITEM_TYPE = 'products';
     const DEFAULT_ATTRIBUTE_TYPE = 'text';
 
@@ -126,8 +128,8 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
         $entryId = $this->getEntry()->getId();
         $published = $this->gBaseDate2DateTime($this->getEntry()->getPublished()->getText());
         $this->getItem()
-            ->setGbaseItemId($entryId)
-            ->setPublished($published);
+                ->setGbaseItemId($entryId)
+                ->setPublished($published);
 
         if ($expires = $this->_getAttributeValue('expiration_date')) {
             $expires = $this->gBaseDate2DateTime($expires);
@@ -144,11 +146,10 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
     {
         $this->_checkItem();
         $service = $this->getService();
-        $entry = $service->getGbaseItemEntry( $this->getItem()->getGbaseItemId() );
+        $entry = $service->getGbaseItemEntry($this->getItem()->getGbaseItemId());
         $this->setEntry($entry);
         $this->_prepareEnrtyForSave();
         $entry = $service->updateGbaseItem($this->getEntry());
-
     }
 
     /**
@@ -161,7 +162,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
         $this->_checkItem();
 
         $service = $this->getService();
-        $entry = $service->getGbaseItemEntry( $this->getItem()->getGbaseItemId() );
+        $entry = $service->getGbaseItemEntry($this->getItem()->getGbaseItemId());
         return $service->deleteGbaseItem($entry, $this->getDryRun());
     }
 
@@ -198,7 +199,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
         $this->_checkItem();
 
         $service = $this->getService();
-        $entry = $service->getGbaseItemEntry( $this->getItem()->getGbaseItemId() );
+        $entry = $service->getGbaseItemEntry($this->getItem()->getGbaseItemId());
 
         $draftText = $yes ? 'yes' : 'no';
         $draft = $service->newDraft($draftText);
@@ -229,7 +230,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
 
                 $name = $this->_normalizeString($name);
                 $value = isset($data['value']) ? $data['value'] : '';
-                $type  = isset($data['type']) && $data['type'] ? $data['type'] : self::DEFAULT_ATTRIBUTE_TYPE;
+                $type = isset($data['type']) && $data['type'] ? $data['type'] : self::DEFAULT_ATTRIBUTE_TYPE;
 
                 $customSetter = '_setAttribute' . ucfirst($name);
                 if (method_exists($this, $customSetter)) {
@@ -254,7 +255,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
     protected function _cleanAtomAttribute($string)
     {
         return Mage::helper('core/string')
-            ->substr(preg_replace('/[\pC¢€•—™°½]|shipping/ui', '', $string), 0, 3500);
+                        ->substr(preg_replace('/[\pC¢€•—™°½]|shipping/ui', '', $string), 0, 3500);
     }
 
     /**
@@ -316,7 +317,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
         $this->_setAttributePrice(false, $price);
 
         if ($object->getQuantity()) {
-            $quantity = $object->getQuantity() ? max(1, (int)$object->getQuantity()) : 1;
+            $quantity = $object->getQuantity() ? max(1, (int) $object->getQuantity()) : 1;
             $this->_setAttribute('quantity', $quantity, 'int');
         }
 
@@ -370,9 +371,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
         if (!$this->getData('price_assigned')) {
             $targetCountry = $this->getConfig()->getTargetCountry($this->getStoreId());
             $this->_setAttribute(
-                $this->getConfig()->getCountryInfo($targetCountry, 'price_attribute_name', $this->getStoreId()),
-                sprintf('%.2f', $value),
-                'floatUnit'
+                    $this->getConfig()->getCountryInfo($targetCountry, 'price_attribute_name', $this->getStoreId()), sprintf('%.2f', $value), 'floatUnit'
             );
             $this->setData('price_assigned', true);
         }
@@ -401,9 +400,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
      */
     protected function _getItemType()
     {
-        return $this->getItemType()
-            ? $this->getItemType()
-            : $this->getConfig()->getDefaultItemType($this->getStoreId());
+        return $this->getItemType() ? $this->getItemType() : $this->getConfig()->getDefaultItemType($this->getStoreId());
     }
 
     /**
@@ -444,4 +441,5 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
     {
         return Mage::getSingleton('core/date')->date(null, $gBaseDate);
     }
+
 }

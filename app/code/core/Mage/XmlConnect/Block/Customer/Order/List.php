@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Order_List extends Mage_Core_Block_Abstract
 {
+
     /**
      * Orders count limit
      */
@@ -50,19 +52,19 @@ class Mage_XmlConnect_Block_Customer_Order_List extends Mage_Core_Block_Abstract
 
         /** @var $orders Mage_Sales_Model_Resource_Order_Collection */
         $orders = Mage::getResourceModel('sales/order_collection')->addFieldToSelect('*')->addFieldToFilter(
-            'customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId()
-        )->addFieldToFilter('state', array(
-            'in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()
-        ))->setOrder('created_at', 'desc');
+                        'customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId()
+                )->addFieldToFilter('state', array(
+                    'in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()
+                ))->setOrder('created_at', 'desc');
 
         /** @var $request Mage_Core_Controller_Request_Http */
         $request = $this->getRequest();
         /**
          * Apply offset and count
          */
-        $count = abs((int)$request->getParam('count', 0));
+        $count = abs((int) $request->getParam('count', 0));
         $count = $count ? $count : self::ORDERS_LIST_LIMIT;
-        $offset = abs((int)$request->getParam('offset', 0));
+        $offset = abs((int) $request->getParam('offset', 0));
 
 
         $ordersXmlObj->addAttribute('orders_count', $ordersXmlObj->escapeXml($orders->count()));
@@ -81,11 +83,12 @@ class Mage_XmlConnect_Block_Customer_Order_List extends Mage_Core_Block_Abstract
                     $item->addChild('ship_to', $ordersXmlObj->escapeXml($order->getShippingAddress()->getName()));
                 }
                 $item->addChild('total', $order->getOrderCurrency()->formatPrecision(
-                    $order->getGrandTotal(), 2, array(), false, false
+                                $order->getGrandTotal(), 2, array(), false, false
                 ));
                 $item->addChild('status', $order->getStatusLabel());
             }
         }
         return $ordersXmlObj->asNiceXml();
     }
+
 }

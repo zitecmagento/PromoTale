@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sitemap edit form
  *
@@ -45,15 +45,14 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
         $this->setTitle(Mage::helper('adminhtml')->__('Sitemap Information'));
     }
 
-
     protected function _prepareForm()
     {
         $model = Mage::registry('sitemap_sitemap');
 
         $form = new Varien_Data_Form(array(
-            'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
-            'method'    => 'post'
+            'id' => 'edit_form',
+            'action' => $this->getData('action'),
+            'method' => 'post'
         ));
 
         $fieldset = $form->addFieldset('add_sitemap_form', array('legend' => Mage::helper('sitemap')->__('Sitemap')));
@@ -66,43 +65,42 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
 
         $fieldset->addField('sitemap_filename', 'text', array(
             'label' => Mage::helper('sitemap')->__('Filename'),
-            'name'  => 'sitemap_filename',
+            'name' => 'sitemap_filename',
             'required' => true,
-            'note'  => Mage::helper('adminhtml')->__('example: sitemap.xml'),
+            'note' => Mage::helper('adminhtml')->__('example: sitemap.xml'),
             'value' => $model->getSitemapFilename()
         ));
 
         $fieldset->addField('sitemap_path', 'text', array(
             'label' => Mage::helper('sitemap')->__('Path'),
-            'name'  => 'sitemap_path',
+            'name' => 'sitemap_path',
             'required' => true,
-            'note'  => Mage::helper('adminhtml')->__('example: "sitemap/" or "/" for base path (path must be writeable)'),
+            'note' => Mage::helper('adminhtml')->__('example: "sitemap/" or "/" for base path (path must be writeable)'),
             'value' => $model->getSitemapPath()
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $field = $fieldset->addField('store_id', 'select', array(
-                'label'    => Mage::helper('sitemap')->__('Store View'),
-                'title'    => Mage::helper('sitemap')->__('Store View'),
-                'name'     => 'store_id',
+                'label' => Mage::helper('sitemap')->__('Store View'),
+                'title' => Mage::helper('sitemap')->__('Store View'),
+                'name' => 'store_id',
                 'required' => true,
-                'value'    => $model->getStoreId(),
-                'values'   => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
+                'value' => $model->getStoreId(),
+                'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
             ));
             $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
             $field->setRenderer($renderer);
-        }
-        else {
+        } else {
             $fieldset->addField('store_id', 'hidden', array(
-                'name'     => 'store_id',
-                'value'    => Mage::app()->getStore(true)->getId()
+                'name' => 'store_id',
+                'value' => Mage::app()->getStore(true)->getId()
             ));
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }
 
         $fieldset->addField('generate', 'hidden', array(
-            'name'     => 'generate',
-            'value'    => ''
+            'name' => 'generate',
+            'value' => ''
         ));
 
         $form->setValues($model->getData());

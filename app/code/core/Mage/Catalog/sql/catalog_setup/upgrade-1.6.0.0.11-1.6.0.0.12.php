@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,12 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_Catalog_Model_Resource_Setup */
-$installer  = $this;
+$installer = $this;
 $indexFields = array('website_id', 'customer_group_id', 'min_price');
 $installer->getConnection()->addIndex(
-    $installer->getTable('catalog/product_index_price'),
-    $installer->getIdxName('catalog/product_index_price', $indexFields),
-    $indexFields
+        $installer->getTable('catalog/product_index_price'), $installer->getIdxName('catalog/product_index_price', $indexFields), $indexFields
 );

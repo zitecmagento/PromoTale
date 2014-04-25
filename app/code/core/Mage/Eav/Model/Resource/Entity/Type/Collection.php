@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Resource Entity Type Collection Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Resource_Entity_Type_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -41,4 +42,5 @@ class Mage_Eav_Model_Resource_Entity_Type_Collection extends Mage_Core_Model_Res
     {
         $this->_init('eav/entity_type');
     }
+
 }

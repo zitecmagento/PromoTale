@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Suppress.php 22977 2010-09-19 12:44:00Z intiilapa $
  */
-
 /** Zend_Log_Filter_Interface */
 #require_once 'Zend/Log/Filter/Abstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Log_Filter_Suppress extends Zend_Log_Filter_Abstract
 {
+
     /**
      * @var boolean
      */
@@ -49,7 +50,7 @@ class Zend_Log_Filter_Suppress extends Zend_Log_Filter_Abstract
      */
     public function suppress($suppress)
     {
-        $this->_accept = (! $suppress);
+        $this->_accept = (!$suppress);
     }
 
     /**
@@ -74,4 +75,5 @@ class Zend_Log_Filter_Suppress extends Zend_Log_Filter_Abstract
     {
         return new self();
     }
+
 }

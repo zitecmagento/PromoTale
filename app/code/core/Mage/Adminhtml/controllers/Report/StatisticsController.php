@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Admin session model
      *
@@ -43,13 +45,13 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     public function _initAction()
     {
         $act = $this->getRequest()->getActionName();
-        if(!$act) {
+        if (!$act) {
             $act = 'default';
         }
 
         $this->loadLayout()
-            ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
-            ->_addBreadcrumb(Mage::helper('reports')->__('Statistics'), Mage::helper('reports')->__('Statistics'));
+                ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
+                ->_addBreadcrumb(Mage::helper('reports')->__('Statistics'), Mage::helper('reports')->__('Statistics'));
         return $this;
     }
 
@@ -93,21 +95,21 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             throw new Exception(Mage::helper('adminhtml')->__('No report code specified.'));
         }
 
-        if(!is_array($codes) && strpos($codes, ',') === false) {
+        if (!is_array($codes) && strpos($codes, ',') === false) {
             $codes = array($codes);
         } elseif (!is_array($codes)) {
             $codes = explode(',', $codes);
         }
 
         $aliases = array(
-            'sales'       => 'sales/report_order',
-            'tax'         => 'tax/report_tax',
-            'shipping'    => 'sales/report_shipping',
-            'invoiced'    => 'sales/report_invoiced',
-            'refunded'    => 'sales/report_refunded',
-            'coupons'     => 'salesrule/report_rule',
+            'sales' => 'sales/report_order',
+            'tax' => 'tax/report_tax',
+            'shipping' => 'sales/report_shipping',
+            'invoiced' => 'sales/report_invoiced',
+            'refunded' => 'sales/report_refunded',
+            'coupons' => 'salesrule/report_rule',
             'bestsellers' => 'sales/report_bestsellers',
-            'viewed'      => 'reports/report_product_viewed',
+            'viewed' => 'reports/report_product_viewed',
         );
         $out = array();
         foreach ($codes as $code) {
@@ -123,7 +125,8 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
      */
     public function refreshRecentAction()
     {
-        try {
+        try
+        {
             $collectionsNames = $this->_getCollectionNames();
             $currentDate = Mage::app()->getLocale()->date();
             $date = $currentDate->subHour(25);
@@ -131,14 +134,18 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
                 Mage::getResourceModel($collectionName)->aggregate($date);
             }
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Recent statistics have been updated.'));
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Unable to refresh recent statistics.'));
             Mage::logException($e);
         }
 
-        if($this->_getSession()->isFirstPageAfterLogin()) {
+        if ($this->_getSession()->isFirstPageAfterLogin()) {
             $this->_redirect('*/*');
         } else {
             $this->_redirectReferer('*/*');
@@ -153,20 +160,25 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
      */
     public function refreshLifetimeAction()
     {
-        try {
+        try
+        {
             $collectionsNames = $this->_getCollectionNames();
             foreach ($collectionsNames as $collectionName) {
                 Mage::getResourceModel($collectionName)->aggregate();
             }
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Lifetime statistics have been updated.'));
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Unable to refresh lifetime statistics.'));
             Mage::logException($e);
         }
 
-        if($this->_getSession()->isFirstPageAfterLogin()) {
+        if ($this->_getSession()->isFirstPageAfterLogin()) {
             $this->_redirect('*/*');
         } else {
             $this->_redirectReferer('*/*');
@@ -180,9 +192,9 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Refresh Statistics'));
 
         $this->_initAction()
-            ->_setActiveMenu('report/statistics/refreshstatistics')
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Refresh Statistics'), Mage::helper('adminhtml')->__('Refresh Statistics'))
-            ->renderLayout();
+                ->_setActiveMenu('report/statistics/refreshstatistics')
+                ->_addBreadcrumb(Mage::helper('adminhtml')->__('Refresh Statistics'), Mage::helper('adminhtml')->__('Refresh Statistics'))
+                ->renderLayout();
     }
 
     protected function _isAllowed()
@@ -202,4 +214,5 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         }
         return $this->_adminSession;
     }
+
 }

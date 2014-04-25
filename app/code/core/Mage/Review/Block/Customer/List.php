@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer Reviews list block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashboard
 {
+
     /**
      * Product reviews collection
      *
@@ -48,9 +49,9 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     {
         $this->_collection = Mage::getModel('review/review')->getProductCollection();
         $this->_collection
-            ->addStoreFilter(Mage::app()->getStore()->getId())
-            ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
-            ->setDateOrder();
+                ->addStoreFilter(Mage::app()->getStore()->getId())
+                ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
+                ->setDateOrder();
     }
 
     /**
@@ -81,7 +82,7 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     protected function _prepareLayout()
     {
         $toolbar = $this->getLayout()->createBlock('page/html_pager', 'customer_review_list.toolbar')
-            ->setCollection($this->getCollection());
+                ->setCollection($this->getCollection());
 
         $this->setChild('toolbar', $toolbar);
         return parent::_prepareLayout();
@@ -144,8 +145,9 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     protected function _beforeToHtml()
     {
         $this->_getCollection()
-            ->load()
-            ->addReviewSummary();
+                ->load()
+                ->addReviewSummary();
         return parent::_beforeToHtml();
     }
+
 }

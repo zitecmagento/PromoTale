@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CloudWatch.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Service_Amazon_Ec2_Abstract
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstract
 {
+
     /**
      * The HTTP query server
      */
@@ -110,9 +111,9 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
      * @var array
      */
     protected $_validMetrics = array('CPUUtilization', 'NetworkIn', 'NetworkOut',
-                                    'DiskWriteOps', 'DiskReadBytes', 'DiskReadOps',
-                                    'DiskWriteBytes', 'Latency', 'RequestCount',
-                                    'HealthyHostCount', 'UnHealthyHostCount');
+        'DiskWriteOps', 'DiskReadBytes', 'DiskReadOps',
+        'DiskWriteBytes', 'Latency', 'RequestCount',
+        'HealthyHostCount', 'UnHealthyHostCount');
 
     /**
      * Amazon CloudWatch not only aggregates the raw data coming in, it also computes
@@ -182,7 +183,7 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
      * @var array
      */
     protected $_validDimensionsKeys = array('ImageId', 'AvailabilityZone', 'AutoScalingGroupName',
-                                            'InstanceId', 'InstanceType', 'LoadBalancerName');
+        'InstanceId', 'InstanceType', 'LoadBalancerName');
 
     /**
      * Returns data for one or more statistics of given a metric
@@ -246,42 +247,46 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
             throw new Zend_Service_Amazon_Ec2_Exception('Invalid Metric Type: ' . $options['MeasureName']);
         }
 
-        if(!isset($options['Statistics'])) {
+        if (!isset($options['Statistics'])) {
             $options['Statistics'][] = 'Average';
-        } elseif(!is_array($options['Statistics'])) {
+        } elseif (!is_array($options['Statistics'])) {
             $options['Statistics'][] = $options['Statistics'];
         }
 
-        foreach($options['Statistics'] as $k=>$s) {
-            if(!in_array($s, $this->_validStatistics, true)) continue;
-            $options['Statistics.member.' . ($k+1)] = $s;
+        foreach ($options['Statistics'] as $k => $s) {
+            if (!in_array($s, $this->_validStatistics, true))
+                continue;
+            $options['Statistics.member.' . ($k + 1)] = $s;
             $_usedStatistics[] = $s;
         }
         unset($options['Statistics']);
 
-        if(isset($options['StartTime'])) {
-            if(!is_numeric($options['StartTime'])) $options['StartTime'] = strtotime($options['StartTime']);
+        if (isset($options['StartTime'])) {
+            if (!is_numeric($options['StartTime']))
+                $options['StartTime'] = strtotime($options['StartTime']);
             $options['StartTime'] = gmdate('c', $options['StartTime']);
         } else {
             $options['StartTime'] = gmdate('c', strtotime('-1 hour'));
         }
 
-        if(isset($options['EndTime'])) {
-            if(!is_numeric($options['EndTime'])) $options['EndTime'] = strtotime($options['EndTime']);
+        if (isset($options['EndTime'])) {
+            if (!is_numeric($options['EndTime']))
+                $options['EndTime'] = strtotime($options['EndTime']);
             $options['EndTime'] = gmdate('c', $options['EndTime']);
         } else {
             $options['EndTime'] = gmdate('c');
         }
 
-        if(isset($options['Dimensions'])) {
+        if (isset($options['Dimensions'])) {
             $x = 1;
-            foreach($options['Dimensions'] as $dimKey=>$dimVal) {
-                if(!in_array($dimKey, $this->_validDimensionsKeys, true)) continue;
+            foreach ($options['Dimensions'] as $dimKey => $dimVal) {
+                if (!in_array($dimKey, $this->_validDimensionsKeys, true))
+                    continue;
                 $options['Dimensions.member.' . $x . '.Name'] = $dimKey;
                 $options['Dimensions.member.' . $x . '.Value'] = $dimVal;
                 $x++;
             }
-            
+
             unset($options['Dimensions']);
         }
 
@@ -295,13 +300,13 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
 
         $return = array();
         $return['label'] = $xpath->evaluate('string(//ec2:GetMetricStatisticsResult/ec2:Label/text())');
-        foreach ( $nodes as $node ) {
+        foreach ($nodes as $node) {
             $item = array();
 
             $item['Timestamp'] = $xpath->evaluate('string(ec2:Timestamp/text())', $node);
             $item['Unit'] = $xpath->evaluate('string(ec2:Unit/text())', $node);
             $item['Samples'] = $xpath->evaluate('string(ec2:Samples/text())', $node);
-            foreach($_usedStatistics as $us) {
+            foreach ($_usedStatistics as $us) {
                 $item[$us] = $xpath->evaluate('string(ec2:' . $us . '/text())', $node);
             }
 
@@ -310,7 +315,6 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
         }
 
         return $return;
-
     }
 
     /**
@@ -336,7 +340,7 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
         $nodes = $xpath->query('//ec2:ListMetricsResult/ec2:Metrics/ec2:member');
 
         $return = array();
-        foreach ( $nodes as $node ) {
+        foreach ($nodes as $node) {
             $item = array();
 
             $item['MeasureName'] = $xpath->evaluate('string(ec2:MeasureName/text())', $node);
@@ -354,4 +358,5 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
 
         return $return;
     }
+
 }

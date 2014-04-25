@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,11 +32,11 @@
  */
 class Zend_XmlRpc_Client_ServerIntrospection
 {
+
     /**
      * @var Zend_XmlRpc_Client_ServerProxy
      */
     private $_system = null;
-
 
     /**
      * @param Zend_XmlRpc_Client $client
@@ -57,9 +58,12 @@ class Zend_XmlRpc_Client_ServerIntrospection
         $methods = $this->listMethods();
 
         #require_once 'Zend/XmlRpc/Client/FaultException.php';
-        try {
+        try
+        {
             $signatures = $this->getSignatureForEachMethodByMulticall($methods);
-        } catch (Zend_XmlRpc_Client_FaultException $e) {
+        }
+        catch (Zend_XmlRpc_Client_FaultException $e)
+        {
             // degrade to looping
         }
 
@@ -87,12 +91,12 @@ class Zend_XmlRpc_Client_ServerIntrospection
         $multicallParams = array();
         foreach ($methods as $method) {
             $multicallParams[] = array('methodName' => 'system.methodSignature',
-                                       'params'     => array($method));
+                'params' => array($method));
         }
 
         $serverSignatures = $this->_system->multicall($multicallParams);
 
-        if (! is_array($serverSignatures)) {
+        if (!is_array($serverSignatures)) {
             $type = gettype($serverSignatures);
             $error = "Multicall return is malformed.  Expected array, got $type";
             #require_once 'Zend/XmlRpc/Client/IntrospectException.php';

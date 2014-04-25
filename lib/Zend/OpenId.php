@@ -19,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: OpenId.php 22653 2010-07-22 18:41:39Z mabe $
  */
-
 /**
  * @see Zend_Controller_Response_Abstract
  */
@@ -40,15 +39,16 @@
  */
 class Zend_OpenId
 {
+
     /**
      * Default Diffie-Hellman key generator (1024 bit)
      */
-    const DH_P   = 'dcf93a0b883972ec0e19989ac5a2ce310e1d37717e8d9571bb7623731866e61ef75a2e27898b057f9891c2e27a639c3f29b60814581cd3b2ca3986d2683705577d45c2e7e52dc81c7a171876e5cea74b1448bfdfaf18828efd2519f14e45e3826634af1949e5b535cc829a483b8a76223e5d490a257f05bdff16f2fb22c583ab';
+    const DH_P = 'dcf93a0b883972ec0e19989ac5a2ce310e1d37717e8d9571bb7623731866e61ef75a2e27898b057f9891c2e27a639c3f29b60814581cd3b2ca3986d2683705577d45c2e7e52dc81c7a171876e5cea74b1448bfdfaf18828efd2519f14e45e3826634af1949e5b535cc829a483b8a76223e5d490a257f05bdff16f2fb22c583ab';
 
     /**
      * Default Diffie-Hellman prime number (should be 2 or 5)
      */
-    const DH_G   = '02';
+    const DH_G = '02';
 
     /**
      * OpenID 2.0 namespace. All OpenID 2.0 messages MUST contain variable
@@ -168,21 +168,21 @@ class Zend_OpenId
                 $query = $reg[6];
                 if ($url[0] == '/') {
                     return $scheme
-                        . '://'
-                        . $auth
-                        . $host
-                        . (empty($port) ? '' : (':' . $port))
-                        . $url;
+                            . '://'
+                            . $auth
+                            . $host
+                            . (empty($port) ? '' : (':' . $port))
+                            . $url;
                 } else {
                     $dir = dirname($path);
                     return $scheme
-                        . '://'
-                        . $auth
-                        . $host
-                        . (empty($port) ? '' : (':' . $port))
-                        . (strlen($dir) > 1 ? $dir : '')
-                        . '/'
-                        . $url;
+                            . '://'
+                            . $auth
+                            . $host
+                            . (empty($port) ? '' : (':' . $port))
+                            . (strlen($dir) > 1 ? $dir : '')
+                            . '/'
+                            . $url;
                 }
             }
         }
@@ -197,7 +197,7 @@ class Zend_OpenId
      */
     static public function paramsToQuery($params)
     {
-        foreach($params as $key => $value) {
+        foreach ($params as $key => $value) {
             if (isset($query)) {
                 $query .= '&' . $key . '=' . urlencode($value);
             } else {
@@ -218,7 +218,6 @@ class Zend_OpenId
     static public function normalizeUrl(&$id)
     {
         // RFC 3986, 6.2.2.  Syntax-Based Normalization
-
         // RFC 3986, 6.2.2.2 Percent-Encoding Normalization
         $i = 0;
         $n = strlen($id);
@@ -251,11 +250,11 @@ class Zend_OpenId
                 ++$i;
                 $ch = chr($c);
                 if (($ch >= 'A' && $ch <= 'Z') ||
-                    ($ch >= 'a' && $ch <= 'z') ||
-                    $ch == '-' ||
-                    $ch == '.' ||
-                    $ch == '_' ||
-                    $ch == '~') {
+                        ($ch >= 'a' && $ch <= 'z') ||
+                        $ch == '-' ||
+                        $ch == '.' ||
+                        $ch == '_' ||
+                        $ch == '~') {
                     $res .= $ch;
                 } else {
                     $res .= '%';
@@ -315,7 +314,7 @@ class Zend_OpenId
                                     $res = substr($res, 0, $pos);
                                 }
                             } else {
-                                    $res .= '/..';
+                                $res .= '/..';
                             }
                         } else if ($i != $n && $path[$i] != '/') {
                             $res .= '/.';
@@ -345,12 +344,12 @@ class Zend_OpenId
         }
 
         $id = $scheme
-            . '://'
-            . $auth
-            . $host
-            . (empty($port) ? '' : (':' . $port))
-            . $path
-            . $query;
+                . '://'
+                . $auth
+                . $host
+                . (empty($port) ? '' : (':' . $port))
+                . $path
+                . $query;
         return true;
     }
 
@@ -393,10 +392,10 @@ class Zend_OpenId
 
         // 7.2.2
         if ($id[0] == '=' ||
-            $id[0] == '@' ||
-            $id[0] == '+' ||
-            $id[0] == '$' ||
-            $id[0] == '!') {
+                $id[0] == '@' ||
+                $id[0] == '+' ||
+                $id[0] == '$' ||
+                $id[0] == '!') {
             return true;
         }
 
@@ -419,8 +418,7 @@ class Zend_OpenId
      * @param Zend_Controller_Response_Abstract $response
      * @param string $method redirection method ('GET' or 'POST')
      */
-    static public function redirect($url, $params = null,
-        Zend_Controller_Response_Abstract $response = null, $method = 'GET')
+    static public function redirect($url, $params = null, Zend_Controller_Response_Abstract $response = null, $method = 'GET')
     {
         $url = Zend_OpenId::absoluteUrl($url);
         $body = "";
@@ -433,7 +431,7 @@ class Zend_OpenId
             $body = "<html><body onLoad=\"document.forms[0].submit();\">\n";
             $body .= "<form method=\"POST\" action=\"$url\">\n";
             if (is_array($params) && count($params) > 0) {
-                foreach($params as $key => $value) {
+                foreach ($params as $key => $value) {
                     $body .= '<input type="hidden" name="' . $key . '" value="' . $value . "\">\n";
                 }
             }
@@ -450,8 +448,8 @@ class Zend_OpenId
             $response->setBody($body);
         } else if (!$response->canSendHeaders()) {
             $response->setBody("<script language=\"JavaScript\"" .
-                 " type=\"text/javascript\">window.location='$url';" .
-                 "</script>");
+                    " type=\"text/javascript\">window.location='$url';" .
+                    "</script>");
         } else {
             $response->setRedirect($url);
         }
@@ -470,7 +468,7 @@ class Zend_OpenId
     static public function randomBytes($len)
     {
         $key = '';
-        for($i=0; $i < $len; $i++) {
+        for ($i = 0; $i < $len; $i++) {
             $key .= chr(mt_rand(0, 255));
         }
         return $key;
@@ -499,13 +497,12 @@ class Zend_OpenId
             return sha1($data, true);
         } else if ($func === 'sha256') {
             if (function_exists('mhash')) {
-                return mhash(MHASH_SHA256 , $data);
+                return mhash(MHASH_SHA256, $data);
             }
         }
         #require_once "Zend/OpenId/Exception.php";
         throw new Zend_OpenId_Exception(
-            'Unsupported digest algorithm "' . $func . '".',
-            Zend_OpenId_Exception::UNSUPPORTED_DIGEST);
+        'Unsupported digest algorithm "' . $func . '".', Zend_OpenId_Exception::UNSUPPORTED_DIGEST);
     }
 
     /**
@@ -560,8 +557,7 @@ class Zend_OpenId
         }
         #require_once "Zend/OpenId/Exception.php";
         throw new Zend_OpenId_Exception(
-            'The system doesn\'t have proper big integer extension',
-            Zend_OpenId_Exception::UNSUPPORTED_LONG_MATH);
+        'The system doesn\'t have proper big integer extension', Zend_OpenId_Exception::UNSUPPORTED_LONG_MATH);
     }
 
     /**
@@ -589,8 +585,7 @@ class Zend_OpenId
             } else if ($cmp < 0) {
                 #require_once "Zend/OpenId/Exception.php";
                 throw new Zend_OpenId_Exception(
-                    'Big integer arithmetic error',
-                    Zend_OpenId_Exception::ERROR_LONG_MATH);
+                'Big integer arithmetic error', Zend_OpenId_Exception::ERROR_LONG_MATH);
             }
             $bin = "";
             while (bccomp($bn, 0) > 0) {
@@ -604,8 +599,7 @@ class Zend_OpenId
         }
         #require_once "Zend/OpenId/Exception.php";
         throw new Zend_OpenId_Exception(
-            'The system doesn\'t have proper big integer extension',
-            Zend_OpenId_Exception::UNSUPPORTED_LONG_MATH);
+        'The system doesn\'t have proper big integer extension', Zend_OpenId_Exception::UNSUPPORTED_LONG_MATH);
     }
 
     /**
@@ -624,37 +618,37 @@ class Zend_OpenId
     {
         if (function_exists('openssl_dh_compute_key')) {
             $dh_details = array(
-                    'p' => $p,
-                    'g' => $g
-                );
+                'p' => $p,
+                'g' => $g
+            );
             if ($priv_key !== null) {
                 $dh_details['priv_key'] = $priv_key;
             }
-            return openssl_pkey_new(array('dh'=>$dh_details));
+            return openssl_pkey_new(array('dh' => $dh_details));
         } else {
-            $bn_p        = self::binToBigNum($p);
-            $bn_g        = self::binToBigNum($g);
+            $bn_p = self::binToBigNum($p);
+            $bn_g = self::binToBigNum($g);
             if ($priv_key === null) {
-                $priv_key    = self::randomBytes(Zend_OpenId::strlen($p));
+                $priv_key = self::randomBytes(Zend_OpenId::strlen($p));
             }
             $bn_priv_key = self::binToBigNum($priv_key);
             if (extension_loaded('gmp')) {
-                $bn_pub_key  = gmp_powm($bn_g, $bn_priv_key, $bn_p);
+                $bn_pub_key = gmp_powm($bn_g, $bn_priv_key, $bn_p);
             } else if (extension_loaded('bcmath')) {
-                $bn_pub_key  = bcpowmod($bn_g, $bn_priv_key, $bn_p);
+                $bn_pub_key = bcpowmod($bn_g, $bn_priv_key, $bn_p);
             }
-            $pub_key     = self::bigNumToBin($bn_pub_key);
+            $pub_key = self::bigNumToBin($bn_pub_key);
 
             return array(
-                'p'        => $bn_p,
-                'g'        => $bn_g,
+                'p' => $bn_p,
+                'g' => $bn_g,
                 'priv_key' => $bn_priv_key,
-                'pub_key'  => $bn_pub_key,
-                'details'  => array(
-                    'p'        => $p,
-                    'g'        => $g,
+                'pub_key' => $bn_pub_key,
+                'details' => array(
+                    'p' => $p,
+                    'g' => $g,
                     'priv_key' => $priv_key,
-                    'pub_key'  => $pub_key));
+                    'pub_key' => $pub_key));
         }
     }
 
@@ -698,17 +692,16 @@ class Zend_OpenId
             return $ret;
         } else if (extension_loaded('gmp')) {
             $bn_pub_key = self::binToBigNum($pub_key);
-            $bn_secret  = gmp_powm($bn_pub_key, $dh['priv_key'], $dh['p']);
+            $bn_secret = gmp_powm($bn_pub_key, $dh['priv_key'], $dh['p']);
             return self::bigNumToBin($bn_secret);
         } else if (extension_loaded('bcmath')) {
             $bn_pub_key = self::binToBigNum($pub_key);
-            $bn_secret  = bcpowmod($bn_pub_key, $dh['priv_key'], $dh['p']);
+            $bn_secret = bcpowmod($bn_pub_key, $dh['priv_key'], $dh['p']);
             return self::bigNumToBin($bn_secret);
         }
         #require_once "Zend/OpenId/Exception.php";
         throw new Zend_OpenId_Exception(
-            'The system doesn\'t have proper big integer extension',
-            Zend_OpenId_Exception::UNSUPPORTED_LONG_MATH);
+        'The system doesn\'t have proper big integer extension', Zend_OpenId_Exception::UNSUPPORTED_LONG_MATH);
     }
 
     /**
@@ -743,7 +736,7 @@ class Zend_OpenId
     static public function strlen($str)
     {
         if (extension_loaded('mbstring') &&
-            (((int)ini_get('mbstring.func_overload')) & 2)) {
+                (((int) ini_get('mbstring.func_overload')) & 2)) {
             return mb_strlen($str, 'latin1');
         } else {
             return strlen($str);

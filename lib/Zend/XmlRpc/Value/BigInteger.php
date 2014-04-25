@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: BigInteger.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
-
 /**
  * Zend_XmlRpc_Value_Integer
  */
 #require_once 'Zend/XmlRpc/Value/Integer.php';
-
 
 /**
  * @category   Zend
@@ -36,6 +34,7 @@
  */
 class Zend_XmlRpc_Value_BigInteger extends Zend_XmlRpc_Value_Integer
 {
+
     /**
      * @var Zend_Crypt_Math_BigInteger
      */
@@ -62,4 +61,5 @@ class Zend_XmlRpc_Value_BigInteger extends Zend_XmlRpc_Value_Integer
     {
         return $this->_integer;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Mass processing resource model
  *
@@ -34,4 +34,5 @@
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Action extends Mage_Catalog_Model_Resource_Product_Action
 {
+    
 }

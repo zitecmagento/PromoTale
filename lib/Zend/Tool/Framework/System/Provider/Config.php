@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * @see Zend_Tool_Framework_Provider_Abstract
  */
@@ -52,6 +52,7 @@
  */
 class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Provider_Abstract
 {
+
     /**
      * @var array
      */
@@ -63,7 +64,7 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
      * @var array
      */
     protected $_specialties = array('Manifest', 'Provider');
-    
+
     /**
      * @param string $type
      */
@@ -76,14 +77,14 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
         if ($userConfig->exists()) {
             #require_once "Zend/Tool/Framework/Exception.php";
             throw new Zend_Tool_Framework_Exception(
-                "A configuration already exists, cannot create a new one.");
+            "A configuration already exists, cannot create a new one.");
         }
 
         $homeDirectory = $this->_detectHomeDirectory();
 
         $writer = new Zend_Config_Writer_Ini();
         $writer->setRenderWithoutSections();
-        $filename = $homeDirectory."/.zf.ini";
+        $filename = $homeDirectory . "/.zf.ini";
 
         $config = array(
             'php' => array(
@@ -94,7 +95,7 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
 
         $resp = $this->_registry->getResponse();
         $resp->appendContent("Successfully written Zend Tool config.");
-        $resp->appendContent("It is located at: ".$filename);
+        $resp->appendContent("It is located at: " . $filename);
     }
 
     /**
@@ -103,7 +104,7 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
     protected function _detectHomeDirectory()
     {
         $envVars = array("ZF_HOME", "HOME", "HOMEPATH");
-        foreach($envVars AS $env) {
+        foreach ($envVars AS $env) {
             $homeDirectory = getenv($env);
             if ($homeDirectory != false && file_exists($homeDirectory)) {
                 return $homeDirectory;
@@ -127,11 +128,11 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
 
         $i = 0;
         $tree = "";
-        foreach($configArray AS $k => $v) {
+        foreach ($configArray AS $k => $v) {
             $i++;
-            $tree .= $this->_printTree($k, $v, 1, count($configArray)==$i);
+            $tree .= $this->_printTree($k, $v, 1, count($configArray) == $i);
         }
-        $resp->appendContent("User Configuration: ".$userConfig->getConfigFilepath(), array("color" => "green"));
+        $resp->appendContent("User Configuration: " . $userConfig->getConfigFilepath(), array("color" => "green"));
         $resp->appendContent($tree, array("indention" => 2));
     }
 
@@ -142,7 +143,7 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
      * @param int $level
      * @return string
      */
-    protected function _printTree($key, $value, $level=1, $isLast=false)
+    protected function _printTree($key, $value, $level = 1, $isLast = false)
     {
         $this->_levelCompleted[$level] = false;
 
@@ -162,7 +163,7 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
 
         $tree = "";
         if (is_array($value)) {
-            $tree .= $prefix.$pointer.$key.PHP_EOL;
+            $tree .= $prefix . $pointer . $key . PHP_EOL;
 
             if ($isLast == true) {
                 $this->_levelCompleted[$level] = true;
@@ -171,10 +172,10 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
             $i = 0;
             foreach ($value as $k => $v) {
                 $i++;
-                $tree .= $this->_printTree($k, $v, $level+1, (count($value)==$i));
+                $tree .= $this->_printTree($k, $v, $level + 1, (count($value) == $i));
             }
         } else {
-            $tree .= $prefix.$pointer.$key.": ".trim($value).PHP_EOL;
+            $tree .= $prefix . $pointer . $key . ": " . trim($value) . PHP_EOL;
         }
 
         return $tree;
@@ -221,7 +222,7 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
         $providerClasses = $userConfig->basicloader->classes->toArray();
         if (!in_array($className, $providerClasses)) {
             if (count($providerClasses)) {
-                $pos = max(array_keys($providerClasses))+1;
+                $pos = max(array_keys($providerClasses)) + 1;
             } else {
                 $pos = 0;
             }
@@ -229,19 +230,19 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
 
             if ($userConfig->save()) {
                 $this->_registry->getResponse()->appendContent(
-                    "Provider/Manifest '".$className."' was enabled for usage with Zend Tool.",
-                    array("color" => "green", "aligncenter" => true)
+                        "Provider/Manifest '" . $className . "' was enabled for usage with Zend Tool.", array("color" => "green",
+                    "aligncenter" => true)
                 );
             } else {
                 #require_once "Zend/Tool/Framework/Exception.php";
                 throw new Zend_Tool_Framework_Exception(
-                    "Could not write user configuration to persistence."
+                "Could not write user configuration to persistence."
                 );
             }
         } else {
             #require_once "Zend/Tool/Framework/Exception.php";
             throw new Zend_Tool_Framework_Exception(
-                "Provider/Manifest '".$className."' is already enabled."
+            "Provider/Manifest '" . $className . "' is already enabled."
             );
         }
     }
@@ -288,19 +289,18 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
 
             if ($userConfig->save()) {
                 $this->_registry->getResponse()->appendContent(
-                    "Provider/Manifest '".$className."' was disabled.",
-                    array("color" => "green", "aligncenter" => true)
+                        "Provider/Manifest '" . $className . "' was disabled.", array("color" => "green", "aligncenter" => true)
                 );
             } else {
                 #require_once "Zend/Tool/Framework/Exception.php";
                 throw new Zend_Tool_Framework_Exception(
-                    "Could not write user configuration to persistence."
+                "Could not write user configuration to persistence."
                 );
             }
         } else {
             #require_once "Zend/Tool/Framework/Exception.php";
             throw new Zend_Tool_Framework_Exception(
-                "Provider/Manifest '".$className."' is not enabled."
+            "Provider/Manifest '" . $className . "' is not enabled."
             );
         }
     }
@@ -320,4 +320,5 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
 
         return $userConfig;
     }
+
 }

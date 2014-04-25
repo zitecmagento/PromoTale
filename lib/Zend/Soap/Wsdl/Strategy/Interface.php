@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 interface Zend_Soap_Wsdl_Strategy_Interface
 {
+
     /**
      * Method accepts the current WSDL context file.
      *

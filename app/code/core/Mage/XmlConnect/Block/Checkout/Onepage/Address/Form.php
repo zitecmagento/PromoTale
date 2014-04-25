@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,20 +34,21 @@
  */
 class Mage_XmlConnect_Block_Checkout_Onepage_Address_Form extends Mage_Core_Block_Abstract
 {
+
     /**
      * Render customer address form
      *
      * @return Mage_XmlConnect_Model_Simplexml_Element
      */
-    protected  function _toHtml()
+    protected function _toHtml()
     {
         $addressType = $this->getType() ? $this->getType() : 'billing';
         $isGuest = $this->getIsGuest();
 
         /** @var $formXmlObj Mage_XmlConnect_Model_Simplexml_Form */
         $formXmlObj = Mage::getModel('xmlconnect/simplexml_form', array(
-            'xml_id' => $addressType, 'action' => '', 'use_container' => true
-        ))->setFieldNameSuffix($addressType);
+                    'xml_id' => $addressType, 'action' => '', 'use_container' => true
+                ))->setFieldNameSuffix($addressType);
 
         /** @var $formFieldset Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset */
         $formFieldset = $formXmlObj->addFieldset($addressType);
@@ -101,9 +103,9 @@ class Mage_XmlConnect_Block_Checkout_Onepage_Address_Form extends Mage_Core_Bloc
 
         // Add custom address attributes
         Mage::helper('xmlconnect/customer_form_renderer')->setAttributesBlockName('customer_address')
-            ->setFormCode('customer_register_address')->setBlockEntity(Mage::getModel('sales/quote_address'))
-            ->setBlockEntityType('customer_address')
-            ->addCustomAttributes($formFieldset, $this->getLayout(), $addressType);
+                ->setFormCode('customer_register_address')->setBlockEntity(Mage::getModel('sales/quote_address'))
+                ->setBlockEntityType('customer_address')
+                ->addCustomAttributes($formFieldset, $this->getLayout(), $addressType);
 
         $formFieldset->addField('save_in_address_book', 'checkbox', array(
             'name' => 'save_in_address_book', 'label' => $this->__('Save in address book')
@@ -111,4 +113,5 @@ class Mage_XmlConnect_Block_Checkout_Onepage_Address_Form extends Mage_Core_Bloc
 
         return $formXmlObj->toXmlObject();
     }
+
 }

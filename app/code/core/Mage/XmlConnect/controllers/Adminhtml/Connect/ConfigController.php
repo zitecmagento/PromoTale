@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,25 +34,30 @@
  */
 class Mage_XmlConnect_Adminhtml_Connect_ConfigController extends Mage_XmlConnect_Controller_AdminAction
 {
+
     /**
      * Configuration action
      */
     public function indexAction()
     {
-        try {
+        try
+        {
             if (!$this->_initCookies()) {
                 return;
             }
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::logException($e);
             $this->_message(Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_USER_SPACE_DEFAULT, $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message(
-                Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT,
-                $this->__('An error occurred while loading configuration.')
+                    Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT, $this->__('An error occurred while loading configuration.')
             );
         }
     }
@@ -61,17 +67,21 @@ class Mage_XmlConnect_Adminhtml_Connect_ConfigController extends Mage_XmlConnect
      */
     public function localizationAction()
     {
-        try {
+        try
+        {
             $this->loadLayout(false);
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::logException($e);
             $this->_message(Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_USER_SPACE_DEFAULT, $e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_message(
-                Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT,
-                $this->__('An error occurred while loading localization.')
+                    Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_SERVER_SP_DEFAULT, $this->__('An error occurred while loading localization.')
             );
         }
     }
@@ -87,26 +97,23 @@ class Mage_XmlConnect_Adminhtml_Connect_ConfigController extends Mage_XmlConnect
     {
         $cookieToSetArray = array(
             array(
-                'cookieName'    => self::DEVICE_TYPE_COOKIE_NAME,
-                'paramName'     => self::DEVICE_TYPE_COOKIE_NAME,
+                'cookieName' => self::DEVICE_TYPE_COOKIE_NAME,
+                'paramName' => self::DEVICE_TYPE_COOKIE_NAME,
             ),
             array(
-                'cookieName'    => Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME,
-                'paramName'     => Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME,
+                'cookieName' => Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME,
+                'paramName' => Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME,
         ));
 
         $cookieExpireOffset = 3600 * 24 * 30;
         foreach ($cookieToSetArray as $item) {
             if ($this->getRequest()->getParam($item['paramName'], false)) {
                 Mage::getSingleton('core/cookie')->set(
-                    $item['cookieName'],
-                    $this->getRequest()->getParam($item['paramName']),
-                    $cookieExpireOffset, '/', null, null, true
+                        $item['cookieName'], $this->getRequest()->getParam($item['paramName']), $cookieExpireOffset, '/', null, null, true
                 );
             } else {
                 $this->_message(
-                    Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_CLIENT_SP_DEFAULT,
-                    $this->__('Request param %s is missed', $item['paramName'])
+                        Mage_XmlConnect_Model_Simplexml_Message_Error::ERROR_CLIENT_SP_DEFAULT, $this->__('Request param %s is missed', $item['paramName'])
                 );
                 return false;
             }
@@ -123,4 +130,5 @@ class Mage_XmlConnect_Adminhtml_Connect_ConfigController extends Mage_XmlConnect
     {
         return false;
     }
+
 }

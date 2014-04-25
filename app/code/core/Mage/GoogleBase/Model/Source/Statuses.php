@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_GoogleBase_Model_Source_Statuses
 {
+
     public function getStatuses()
     {
         return array(
@@ -41,4 +43,5 @@ class Mage_GoogleBase_Model_Source_Statuses
             '1' => Mage::helper('googlebase')->__('No')
         );
     }
+
 }

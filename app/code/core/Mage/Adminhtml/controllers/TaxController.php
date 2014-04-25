@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_TaxController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Set tax ignore notification flag and redirect back
      */
@@ -40,14 +42,18 @@ class Mage_Adminhtml_TaxController extends Mage_Adminhtml_Controller_Action
     {
         $section = $this->getRequest()->getParam('section');
         if ($section) {
-            try {
+            try
+            {
                 $path = 'tax/ignore_notification/' . $section;
                 Mage::getModel('core/config')->saveConfig($path, 1);
                 Mage::getConfig()->reinit();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
         $this->_redirectReferer();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * The greatest value which could be stored in CatalogInventory Qty field
      */
@@ -59,11 +61,11 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     protected function _initProduct()
     {
         $this->_title($this->__('Catalog'))
-             ->_title($this->__('Manage Products'));
+                ->_title($this->__('Manage Products'));
 
-        $productId  = (int) $this->getRequest()->getParam('id');
-        $product    = Mage::getModel('catalog/product')
-            ->setStoreId($this->getRequest()->getParam('store', 0));
+        $productId = (int) $this->getRequest()->getParam('id');
+        $product = Mage::getModel('catalog/product')
+                ->setStoreId($this->getRequest()->getParam('store', 0));
 
         if (!$productId) {
             if ($setId = (int) $this->getRequest()->getParam('set')) {
@@ -77,9 +79,12 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         $product->setData('_edit_mode', true);
         if ($productId) {
-            try {
+            try
+            {
                 $product->load($productId);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $product->setTypeId(Mage_Catalog_Model_Product_Type::DEFAULT_TYPE);
                 Mage::logException($e);
             }
@@ -87,15 +92,14 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         $attributes = $this->getRequest()->getParam('attributes');
         if ($attributes && $product->isConfigurable() &&
-            (!$productId || !$product->getTypeInstance()->getUsedProductAttributeIds())) {
+                (!$productId || !$product->getTypeInstance()->getUsedProductAttributeIds())) {
             $product->getTypeInstance()->setUsedProductAttributeIds(
-                explode(",", base64_decode(urldecode($attributes)))
+                    explode(",", base64_decode(urldecode($attributes)))
             );
         }
 
         // Required attributes of simple product for configurable creation
-        if ($this->getRequest()->getParam('popup')
-            && $requiredAttributes = $this->getRequest()->getParam('required')) {
+        if ($this->getRequest()->getParam('popup') && $requiredAttributes = $this->getRequest()->getParam('required')) {
             $requiredAttributes = explode(",", $requiredAttributes);
             foreach ($product->getAttributes() as $attribute) {
                 if (in_array($attribute->getId(), $requiredAttributes)) {
@@ -104,32 +108,25 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             }
         }
 
-        if ($this->getRequest()->getParam('popup')
-            && $this->getRequest()->getParam('product')
-            && !is_array($this->getRequest()->getParam('product'))
-            && $this->getRequest()->getParam('id', false) === false) {
+        if ($this->getRequest()->getParam('popup') && $this->getRequest()->getParam('product') && !is_array($this->getRequest()->getParam('product')) && $this->getRequest()->getParam('id', false) === false) {
 
             $configProduct = Mage::getModel('catalog/product')
-                ->setStoreId(0)
-                ->load($this->getRequest()->getParam('product'))
-                ->setTypeId($this->getRequest()->getParam('type'));
+                    ->setStoreId(0)
+                    ->load($this->getRequest()->getParam('product'))
+                    ->setTypeId($this->getRequest()->getParam('type'));
 
             /* @var $configProduct Mage_Catalog_Model_Product */
             $data = array();
             foreach ($configProduct->getTypeInstance()->getEditableAttributes() as $attribute) {
 
                 /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
-                if(!$attribute->getIsUnique()
-                    && $attribute->getFrontend()->getInputType()!='gallery'
-                    && $attribute->getAttributeCode() != 'required_options'
-                    && $attribute->getAttributeCode() != 'has_options'
-                    && $attribute->getAttributeCode() != $configProduct->getIdFieldName()) {
+                if (!$attribute->getIsUnique() && $attribute->getFrontend()->getInputType() != 'gallery' && $attribute->getAttributeCode() != 'required_options' && $attribute->getAttributeCode() != 'has_options' && $attribute->getAttributeCode() != $configProduct->getIdFieldName()) {
                     $data[$attribute->getAttributeCode()] = $configProduct->getData($attribute->getAttributeCode());
                 }
             }
 
             $product->addData($data)
-                ->setWebsiteIds($configProduct->getWebsiteIds());
+                    ->setWebsiteIds($configProduct->getWebsiteIds());
         }
 
         Mage::register('product', $product);
@@ -149,9 +146,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     protected function _createSerializerBlock($inputName, Mage_Adminhtml_Block_Widget_Grid $gridBlock, $productsArray)
     {
         return $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_ajax_serializer')
-            ->setGridBlock($gridBlock)
-            ->setProducts($productsArray)
-            ->setInputElementName($inputName)
+                        ->setGridBlock($gridBlock)
+                        ->setProducts($productsArray)
+                        ->setInputElementName($inputName)
         ;
     }
 
@@ -174,7 +171,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     public function indexAction()
     {
         $this->_title($this->__('Catalog'))
-             ->_title($this->__('Manage Products'));
+                ->_title($this->__('Manage Products'));
 
         $this->loadLayout();
         $this->renderLayout();
@@ -195,15 +192,13 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $this->loadLayout('popup');
         } else {
             $_additionalLayoutPart = '';
-            if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE
-                && !($product->getTypeInstance()->getUsedProductAttributeIds()))
-            {
+            if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE && !($product->getTypeInstance()->getUsedProductAttributeIds())) {
                 $_additionalLayoutPart = '_new';
             }
             $this->loadLayout(array(
                 'default',
                 strtolower($this->getFullActionName()),
-                'adminhtml_catalog_product_'.$product->getTypeId() . $_additionalLayoutPart
+                'adminhtml_catalog_product_' . $product->getTypeId() . $_additionalLayoutPart
             ));
             $this->_setActiveMenu('catalog/products');
         }
@@ -223,7 +218,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     public function editAction()
     {
-        $productId  = (int) $this->getRequest()->getParam('id');
+        $productId = (int) $this->getRequest()->getParam('id');
         $product = $this->_initProduct();
 
         if ($productId && !$product->getId()) {
@@ -237,26 +232,24 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         Mage::dispatchEvent('catalog_product_edit_action', array('product' => $product));
 
         $_additionalLayoutPart = '';
-        if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE
-            && !($product->getTypeInstance()->getUsedProductAttributeIds()))
-        {
+        if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE && !($product->getTypeInstance()->getUsedProductAttributeIds())) {
             $_additionalLayoutPart = '_new';
         }
 
         $this->loadLayout(array(
             'default',
             strtolower($this->getFullActionName()),
-            'adminhtml_catalog_product_'.$product->getTypeId() . $_additionalLayoutPart
+            'adminhtml_catalog_product_' . $product->getTypeId() . $_additionalLayoutPart
         ));
 
         $this->_setActiveMenu('catalog/products');
 
         if (!Mage::app()->isSingleStoreMode() && ($switchBlock = $this->getLayout()->getBlock('store_switcher'))) {
             $switchBlock->setDefaultStoreName($this->__('Default Values'))
-                ->setWebsiteIds($product->getWebsiteIds())
-                ->setSwitchUrl(
-                    $this->getUrl('*/*/*', array('_current'=>true, 'active_tab'=>null, 'tab' => null, 'store'=>null))
-                );
+                    ->setWebsiteIds($product->getWebsiteIds())
+                    ->setSwitchUrl(
+                            $this->getUrl('*/*/*', array('_current' => true, 'active_tab' => null, 'tab' => null, 'store' => null))
+            );
         }
 
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
@@ -281,8 +274,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         $content = $this->getLayout()->createBlock('adminhtml/catalog_helper_form_wysiwyg_content', '', array(
             'editor_element_id' => $elementId,
-            'store_id'          => $storeId,
-            'store_media_url'   => $storeMediaUrl,
+            'store_id' => $storeId,
+            'store_media_url' => $storeMediaUrl,
         ));
         $this->getResponse()->setBody($content->toHtml());
     }
@@ -304,9 +297,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getResponse()->setBody(
-            $this->getLayout()
-                ->createBlock('adminhtml/catalog_product_edit_tab_' . $this->getRequest()->getParam('gridOnlyBlock'))
-                ->toHtml()
+                $this->getLayout()
+                        ->createBlock('adminhtml/catalog_product_edit_tab_' . $this->getRequest()->getParam('gridOnlyBlock'))
+                        ->toHtml()
         );
     }
 
@@ -340,7 +333,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.related')
-            ->setProductsRelated($this->getRequest()->getPost('products_related', null));
+                ->setProductsRelated($this->getRequest()->getPost('products_related', null));
         $this->renderLayout();
     }
 
@@ -352,7 +345,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.upsell')
-            ->setProductsUpsell($this->getRequest()->getPost('products_upsell', null));
+                ->setProductsUpsell($this->getRequest()->getPost('products_upsell', null));
         $this->renderLayout();
     }
 
@@ -364,7 +357,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.crosssell')
-            ->setProductsCrossSell($this->getRequest()->getPost('products_crosssell', null));
+                ->setProductsCrossSell($this->getRequest()->getPost('products_crosssell', null));
         $this->renderLayout();
     }
 
@@ -376,7 +369,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.related')
-            ->setProductsRelated($this->getRequest()->getPost('products_related', null));
+                ->setProductsRelated($this->getRequest()->getPost('products_related', null));
         $this->renderLayout();
     }
 
@@ -388,7 +381,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.upsell')
-            ->setProductsRelated($this->getRequest()->getPost('products_upsell', null));
+                ->setProductsRelated($this->getRequest()->getPost('products_upsell', null));
         $this->renderLayout();
     }
 
@@ -400,7 +393,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.crosssell')
-            ->setProductsRelated($this->getRequest()->getPost('products_crosssell', null));
+                ->setProductsRelated($this->getRequest()->getPost('products_crosssell', null));
         $this->renderLayout();
     }
 
@@ -412,7 +405,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.super.group')
-            ->setProductsGrouped($this->getRequest()->getPost('products_grouped', null));
+                ->setProductsGrouped($this->getRequest()->getPost('products_grouped', null));
         $this->renderLayout();
     }
 
@@ -425,7 +418,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.super.group')
-            ->setProductsGrouped($this->getRequest()->getPost('products_grouped', null));
+                ->setProductsGrouped($this->getRequest()->getPost('products_grouped', null));
         $this->renderLayout();
     }
 
@@ -462,10 +455,10 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         $product = $this->_initProduct();
         $this->getResponse()->setBody(
-            $this->getLayout()
-                ->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle', 'admin.product.bundle.items')
-                ->setProductId($product->getId())
-                ->toHtml()
+                $this->getLayout()
+                        ->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle', 'admin.product.bundle.items')
+                        ->setProductId($product->getId())
+                        ->toHtml()
         );
     }
 
@@ -478,7 +471,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $response = new Varien_Object();
         $response->setError(false);
 
-        try {
+        try
+        {
             $productData = $this->getRequest()->getPost('product');
 
             if ($productData && !isset($productData['stock_data']['use_config_manage_stock'])) {
@@ -504,7 +498,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $attributes = $product->getAttributes();
             foreach ($attributes as $attrKey => $attribute) {
                 if ($attribute->getBackend()->getType() == 'datetime') {
-                    if (array_key_exists($attrKey, $productData) && $productData[$attrKey] != ''){
+                    if (array_key_exists($attrKey, $productData) && $productData[$attrKey] != '') {
                         $dateFields[] = $attrKey;
                     }
                 }
@@ -515,11 +509,11 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             /* set restrictions for date ranges */
             $resource = $product->getResource();
             $resource->getAttribute('special_from_date')
-                ->setMaxValue($product->getSpecialToDate());
+                    ->setMaxValue($product->getSpecialToDate());
             $resource->getAttribute('news_from_date')
-                ->setMaxValue($product->getNewsToDate());
+                    ->setMaxValue($product->getNewsToDate());
             $resource->getAttribute('custom_design_from')
-                ->setMaxValue($product->getCustomDesignTo());
+                    ->setMaxValue($product->getCustomDesignTo());
 
             $product->validate();
             /**
@@ -536,14 +530,19 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 //                }
 //            }
         }
-        catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
+        catch (Mage_Eav_Model_Entity_Attribute_Exception $e)
+        {
             $response->setError(true);
             $response->setAttribute($e->getAttributeCode());
             $response->setMessage($e->getMessage());
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $response->setError(true);
             $response->setMessage($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
             $this->_initLayoutMessages('adminhtml/session');
             $response->setError(true);
@@ -558,7 +557,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     protected function _initProductSave()
     {
-        $product     = $this->_initProduct();
+        $product = $this->_initProduct();
         $productData = $this->getRequest()->getPost('product');
         if ($productData) {
             $this->_filterStockData($productData['stock_data']);
@@ -590,10 +589,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         /**
          * Create Permanent Redirect for old URL key
          */
-        if ($product->getId() && isset($productData['url_key_create_redirect']))
+        if ($product->getId() && isset($productData['url_key_create_redirect'])) {
         // && $product->getOrigData('url_key') != $product->getData('url_key')
-        {
-            $product->setData('save_rewrites_history', (bool)$productData['url_key_create_redirect']);
+            $product->setData('save_rewrites_history', (bool) $productData['url_key_create_redirect']);
         }
 
         /**
@@ -617,7 +615,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         }
         if (isset($links['crosssell']) && !$product->getCrosssellReadonly()) {
             $product->setCrossSellLinkData(Mage::helper('adminhtml/js')
-                ->decodeGridSerializedInput($links['crosssell']));
+                            ->decodeGridSerializedInput($links['crosssell']));
         }
         if (isset($links['grouped']) && !$product->getGroupedReadonly()) {
             $product->setGroupedLinkData(Mage::helper('adminhtml/js')->decodeGridSerializedInput($links['grouped']));
@@ -637,20 +635,17 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         /**
          * Initialize data for configurable product
          */
-        if (($data = $this->getRequest()->getPost('configurable_products_data'))
-            && !$product->getConfigurableReadonly()
+        if (($data = $this->getRequest()->getPost('configurable_products_data')) && !$product->getConfigurableReadonly()
         ) {
             $product->setConfigurableProductsData(Mage::helper('core')->jsonDecode($data));
         }
-        if (($data = $this->getRequest()->getPost('configurable_attributes_data'))
-            && !$product->getConfigurableReadonly()
+        if (($data = $this->getRequest()->getPost('configurable_attributes_data')) && !$product->getConfigurableReadonly()
         ) {
             $product->setConfigurableAttributesData(Mage::helper('core')->jsonDecode($data));
         }
 
         $product->setCanSaveConfigurableAttributes(
-            (bool) $this->getRequest()->getPost('affect_configurable_product_attributes')
-                && !$product->getConfigurableReadonly()
+                (bool) $this->getRequest()->getPost('affect_configurable_product_attributes') && !$product->getConfigurableReadonly()
         );
 
         /**
@@ -661,13 +656,11 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         }
 
         $product->setCanSaveCustomOptions(
-            (bool)$this->getRequest()->getPost('affect_product_custom_options')
-            && !$product->getOptionsReadonly()
+                (bool) $this->getRequest()->getPost('affect_product_custom_options') && !$product->getOptionsReadonly()
         );
 
         Mage::dispatchEvent(
-            'catalog_product_prepare_save',
-            array('product' => $product, 'request' => $this->getRequest())
+                'catalog_product_prepare_save', array('product' => $product, 'request' => $this->getRequest())
         );
 
         return $product;
@@ -687,10 +680,10 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         if (!isset($stockData['use_config_manage_stock'])) {
             $stockData['use_config_manage_stock'] = 0;
         }
-        if (isset($stockData['qty']) && (float)$stockData['qty'] > self::MAX_QTY_VALUE) {
+        if (isset($stockData['qty']) && (float) $stockData['qty'] > self::MAX_QTY_VALUE) {
             $stockData['qty'] = self::MAX_QTY_VALUE;
         }
-        if (isset($stockData['min_qty']) && (int)$stockData['min_qty'] < 0) {
+        if (isset($stockData['min_qty']) && (int) $stockData['min_qty'] < 0) {
             $stockData['min_qty'] = 0;
         }
         if (!isset($stockData['is_decimal_divided']) || $stockData['is_qty_decimal'] == 0) {
@@ -703,8 +696,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $product = $this->_initProduct();
 
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_categories')
-                ->getCategoryChildrenJson($this->getRequest()->getParam('category'))
+                $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_categories')
+                        ->getCategoryChildrenJson($this->getRequest()->getParam('category'))
         );
     }
 
@@ -713,10 +706,10 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     public function saveAction()
     {
-        $storeId        = $this->getRequest()->getParam('store');
-        $redirectBack   = $this->getRequest()->getParam('back', false);
-        $productId      = $this->getRequest()->getParam('id');
-        $isEdit         = (int)($this->getRequest()->getParam('id') != null);
+        $storeId = $this->getRequest()->getParam('store');
+        $redirectBack = $this->getRequest()->getParam('back', false);
+        $productId = $this->getRequest()->getParam('id');
+        $isEdit = (int) ($this->getRequest()->getParam('id') != null);
 
         $data = $this->getRequest()->getPost();
         if ($data) {
@@ -724,20 +717,25 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
             $product = $this->_initProductSave();
 
-            try {
+            try
+            {
                 $product->save();
                 $productId = $product->getId();
 
                 if (isset($data['copy_to_stores'])) {
-                   $this->_copyAttributesBetweenStores($data['copy_to_stores'], $product);
+                    $this->_copyAttributesBetweenStores($data['copy_to_stores'], $product);
                 }
 
                 $this->_getSession()->addSuccess($this->__('The product has been saved.'));
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_getSession()->addError($e->getMessage())
-                    ->setProductData($data);
+                        ->setProductData($data);
                 $redirectBack = true;
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::logException($e);
                 $this->_getSession()->addError($e->getMessage());
                 $redirectBack = true;
@@ -746,17 +744,17 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         if ($redirectBack) {
             $this->_redirect('*/*/edit', array(
-                'id'    => $productId,
-                '_current'=>true
+                'id' => $productId,
+                '_current' => true
             ));
-        } elseif($this->getRequest()->getParam('popup')) {
+        } elseif ($this->getRequest()->getParam('popup')) {
             $this->_redirect('*/*/created', array(
-                '_current'   => true,
-                'id'         => $productId,
-                'edit'       => $isEdit
+                '_current' => true,
+                'id' => $productId,
+                'edit' => $isEdit
             ));
         } else {
-            $this->_redirect('*/*/', array('store'=>$storeId));
+            $this->_redirect('*/*/', array('store' => $storeId));
         }
     }
 
@@ -770,8 +768,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         foreach ($stores as $storeTo => $storeFrom) {
             $productInStore = Mage::getModel('catalog/product')
-                ->setStoreId($storeFrom)
-                ->load($product->getId());
+                    ->setStoreId($storeFrom)
+                    ->load($product->getId());
             Mage::dispatchEvent('product_duplicate_attributes', array(
                 'product' => $productInStore,
                 'storeTo' => $storeTo,
@@ -788,14 +786,17 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     public function duplicateAction()
     {
         $product = $this->_initProduct();
-        try {
+        try
+        {
             $newProduct = $product->duplicate();
             $this->_getSession()->addSuccess($this->__('The product has been duplicated.'));
-            $this->_redirect('*/*/edit', array('_current'=>true, 'id'=>$newProduct->getId()));
-        } catch (Exception $e) {
+            $this->_redirect('*/*/edit', array('_current' => true, 'id' => $newProduct->getId()));
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_getSession()->addError($e->getMessage());
-            $this->_redirect('*/*/edit', array('_current'=>true));
+            $this->_redirect('*/*/edit', array('_current' => true));
         }
     }
 
@@ -805,7 +806,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     protected function _decodeInput($encoded)
     {
         parse_str($encoded, $data);
-        foreach($data as $key=>$value) {
+        foreach ($data as $key => $value) {
             parse_str(base64_decode($value), $data[$key]);
         }
         return $data;
@@ -818,17 +819,20 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         if ($id = $this->getRequest()->getParam('id')) {
             $product = Mage::getModel('catalog/product')
-                ->load($id);
+                    ->load($id);
             $sku = $product->getSku();
-            try {
+            try
+            {
                 $product->delete();
                 $this->_getSession()->addSuccess($this->__('The product has been deleted.'));
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->addError($e->getMessage());
             }
         }
         $this->getResponse()
-            ->setRedirect($this->getUrl('*/*/', array('store'=>$this->getRequest()->getParam('store'))));
+                ->setRedirect($this->getUrl('*/*/', array('store' => $this->getRequest()->getParam('store'))));
     }
 
     /**
@@ -838,7 +842,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         $this->loadLayout();
         $this->getLayout()->getBlock('admin.product.tags')
-            ->setProductId($this->getRequest()->getParam('id'));
+                ->setProductId($this->getRequest()->getParam('id'));
         $this->renderLayout();
     }
 
@@ -872,12 +876,12 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     public function addAttributeAction()
     {
         $this->_getSession()->addNotice(
-            Mage::helper('catalog')->__('Please click on the Close Window button if it is not closed automatically.')
+                Mage::helper('catalog')->__('Please click on the Close Window button if it is not closed automatically.')
         );
         $this->loadLayout('popup');
         $this->_initProduct();
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_new_product_created')
+                $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_new_product_created')
         );
         $this->renderLayout();
     }
@@ -885,11 +889,11 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     public function createdAction()
     {
         $this->_getSession()->addNotice(
-            Mage::helper('catalog')->__('Please click on the Close Window button if it is not closed automatically.')
+                Mage::helper('catalog')->__('Please click on the Close Window button if it is not closed automatically.')
         );
         $this->loadLayout('popup');
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/catalog_product_created')
+                $this->getLayout()->createBlock('adminhtml/catalog_product_created')
         );
         $this->renderLayout();
     }
@@ -901,16 +905,19 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $this->_getSession()->addError($this->__('Please select product(s).'));
         } else {
             if (!empty($productIds)) {
-                try {
+                try
+                {
                     foreach ($productIds as $productId) {
                         $product = Mage::getSingleton('catalog/product')->load($productId);
                         Mage::dispatchEvent('catalog_controller_product_delete', array('product' => $product));
                         $product->delete();
                     }
                     $this->_getSession()->addSuccess(
-                        $this->__('Total of %d record(s) have been deleted.', count($productIds))
+                            $this->__('Total of %d record(s) have been deleted.', count($productIds))
                     );
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     $this->_getSession()->addError($e->getMessage());
                 }
             }
@@ -924,29 +931,35 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     public function massStatusAction()
     {
-        $productIds = (array)$this->getRequest()->getParam('product');
-        $storeId    = (int)$this->getRequest()->getParam('store', 0);
-        $status     = (int)$this->getRequest()->getParam('status');
+        $productIds = (array) $this->getRequest()->getParam('product');
+        $storeId = (int) $this->getRequest()->getParam('store', 0);
+        $status = (int) $this->getRequest()->getParam('status');
 
-        try {
+        try
+        {
             $this->_validateMassStatus($productIds, $status);
             Mage::getSingleton('catalog/product_action')
-                ->updateAttributes($productIds, array('status' => $status), $storeId);
+                    ->updateAttributes($productIds, array('status' => $status), $storeId);
 
             $this->_getSession()->addSuccess(
-                $this->__('Total of %d record(s) have been updated.', count($productIds))
+                    $this->__('Total of %d record(s) have been updated.', count($productIds))
             );
         }
-        catch (Mage_Core_Model_Exception $e) {
+        catch (Mage_Core_Model_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()
-                ->addException($e, $this->__('An error occurred while updating the product(s) status.'));
+                    ->addException($e, $this->__('An error occurred while updating the product(s) status.'));
         }
 
-        $this->_redirect('*/*/', array('store'=> $storeId));
+        $this->_redirect('*/*/', array('store' => $storeId));
     }
 
     /**
@@ -962,7 +975,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
             if (!Mage::getModel('catalog/product')->isProductsHasSku($productIds)) {
                 throw new Mage_Core_Exception(
-                    $this->__('Some of the processed products have no SKU value defined. Please fill it prior to performing operations on these products.')
+                $this->__('Some of the processed products have no SKU value defined. Please fill it prior to performing operations on these products.')
                 );
             }
         }
@@ -986,8 +999,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         /* @var $configurableProduct Mage_Catalog_Model_Product */
         $configurableProduct = Mage::getModel('catalog/product')
-            ->setStoreId(Mage_Core_Model_App::ADMIN_STORE_ID)
-            ->load($this->getRequest()->getParam('product'));
+                ->setStoreId(Mage_Core_Model_App::ADMIN_STORE_ID)
+                ->load($this->getRequest()->getParam('product'));
 
         if (!$configurableProduct->isConfigurable()) {
             // If invalid parent product
@@ -998,23 +1011,18 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         /* @var $product Mage_Catalog_Model_Product */
 
         $product = Mage::getModel('catalog/product')
-            ->setStoreId(0)
-            ->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_SIMPLE)
-            ->setAttributeSetId($configurableProduct->getAttributeSetId());
+                ->setStoreId(0)
+                ->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_SIMPLE)
+                ->setAttributeSetId($configurableProduct->getAttributeSetId());
 
 
         foreach ($product->getTypeInstance()->getEditableAttributes() as $attribute) {
-            if ($attribute->getIsUnique()
-                || $attribute->getAttributeCode() == 'url_key'
-                || $attribute->getFrontend()->getInputType() == 'gallery'
-                || $attribute->getFrontend()->getInputType() == 'media_image'
-                || !$attribute->getIsVisible()) {
+            if ($attribute->getIsUnique() || $attribute->getAttributeCode() == 'url_key' || $attribute->getFrontend()->getInputType() == 'gallery' || $attribute->getFrontend()->getInputType() == 'media_image' || !$attribute->getIsVisible()) {
                 continue;
             }
 
             $product->setData(
-                $attribute->getAttributeCode(),
-                $configurableProduct->getData($attribute->getAttributeCode())
+                    $attribute->getAttributeCode(), $configurableProduct->getData($attribute->getAttributeCode())
             );
         }
 
@@ -1028,9 +1036,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $value = $product->getAttributeText($attribute->getProductAttribute()->getAttributeCode());
             $autogenerateOptions[] = $value;
             $result['attributes'][] = array(
-                'label'         => $value,
-                'value_index'   => $product->getData($attribute->getProductAttribute()->getAttributeCode()),
-                'attribute_id'  => $attribute->getProductAttribute()->getId()
+                'label' => $value,
+                'value_index' => $product->getData($attribute->getProductAttribute()->getAttributeCode()),
+                'attribute_id' => $attribute->getProductAttribute()->getId()
             );
         }
 
@@ -1043,25 +1051,26 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         }
 
         if (is_array($product->getPricing())) {
-           $result['pricing'] = $product->getPricing();
-           $additionalPrice = 0;
-           foreach ($product->getPricing() as $pricing) {
-               if (empty($pricing['value'])) {
-                   continue;
-               }
+            $result['pricing'] = $product->getPricing();
+            $additionalPrice = 0;
+            foreach ($product->getPricing() as $pricing) {
+                if (empty($pricing['value'])) {
+                    continue;
+                }
 
-               if (!empty($pricing['is_percent'])) {
-                   $pricing['value'] = ($pricing['value']/100)*$product->getPrice();
-               }
+                if (!empty($pricing['is_percent'])) {
+                    $pricing['value'] = ($pricing['value'] / 100) * $product->getPrice();
+                }
 
-               $additionalPrice += $pricing['value'];
-           }
+                $additionalPrice += $pricing['value'];
+            }
 
-           $product->setPrice($product->getPrice() + $additionalPrice);
-           $product->unsPricing();
+            $product->setPrice($product->getPrice() + $additionalPrice);
+            $product->unsPricing();
         }
 
-        try {
+        try
+        {
             /**
              * @todo implement full validation process with errors returning which are ignoring now
              */
@@ -1079,20 +1088,23 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $result['product_id'] = $product->getId();
             $this->_getSession()->addSuccess(Mage::helper('catalog')->__('The product has been created.'));
             $this->_initLayoutMessages('adminhtml/session');
-            $result['messages']  = $this->getLayout()->getMessagesBlock()->getGroupedHtml();
-        } catch (Mage_Core_Exception $e) {
+            $result['messages'] = $this->getLayout()->getMessagesBlock()->getGroupedHtml();
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $result['error'] = array(
-                'message' =>  $e->getMessage(),
-                'fields'  => array(
-                    'sku'  =>  $product->getSku()
+                'message' => $e->getMessage(),
+                'fields' => array(
+                    'sku' => $product->getSku()
                 )
             );
-
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $result['error'] = array(
-                'message'   =>  $this->__('An error occurred while saving the product. ') . $e->getMessage()
-             );
+                'message' => $this->__('An error occurred while saving the product. ') . $e->getMessage()
+            );
         }
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
@@ -1116,7 +1128,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     public function showUpdateResultAction()
     {
         $session = Mage::getSingleton('adminhtml/session');
-        if ($session->hasCompositeProductResult() && $session->getCompositeProductResult() instanceof Varien_Object){
+        if ($session->hasCompositeProductResult() && $session->getCompositeProductResult() instanceof Varien_Object) {
             /* @var $helper Mage_Adminhtml_Helper_Catalog_Product_Composite */
             $helper = Mage::helper('adminhtml/catalog_product_composite');
             $helper->renderUpdateResult($this, $session->getCompositeProductResult());
@@ -1126,4 +1138,5 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             return false;
         }
     }
+
 }

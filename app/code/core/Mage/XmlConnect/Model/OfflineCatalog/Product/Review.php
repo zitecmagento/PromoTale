@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_OfflineCatalog_Product_Review extends Mage_XmlConnect_Model_OfflineCatalog_Abstract
 {
+
     /**
      * Review url
      */
@@ -58,4 +60,5 @@ class Mage_XmlConnect_Model_OfflineCatalog_Product_Review extends Mage_XmlConnec
     {
         return sprintf(Mage::getBaseUrl() . self::REVIEW_URL, $this->getProduct()->getId());
     }
+
 }

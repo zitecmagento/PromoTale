@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_Container
 {
+
     /**
      * Set template
      */
@@ -50,9 +52,9 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
     protected function _prepareLayout()
     {
         $this->_addButton('add_new', array(
-            'label'   => Mage::helper('catalog')->__('Add Product'),
+            'label' => Mage::helper('catalog')->__('Add Product'),
             'onclick' => "setLocation('{$this->getUrl('*/*/new')}')",
-            'class'   => 'add'
+            'class' => 'add'
         ));
 
         $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/catalog_product_grid', 'product.grid'));
@@ -87,8 +89,9 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
     public function isSingleStoreMode()
     {
         if (!Mage::app()->isSingleStoreMode()) {
-               return false;
+            return false;
         }
         return true;
     }
+
 }

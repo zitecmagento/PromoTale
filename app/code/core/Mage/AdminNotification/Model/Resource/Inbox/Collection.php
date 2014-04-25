@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * AdminNotification Inbox model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_AdminNotification_Model_Resource_Inbox_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Resource collection initialization
      *
@@ -51,7 +52,8 @@ class Mage_AdminNotification_Model_Resource_Inbox_Collection extends Mage_Core_M
     public function addRemoveFilter()
     {
         $this->getSelect()
-            ->where('is_remove=?', 0);
+                ->where('is_remove=?', 0);
         return $this;
     }
+
 }

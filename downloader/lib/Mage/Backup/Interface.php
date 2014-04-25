@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 interface Mage_Backup_Interface
 {
+
     /**
      * Create Backup
      *
@@ -47,7 +49,7 @@ interface Mage_Backup_Interface
      */
     public function rollback();
 
-     /**
+    /**
      * Set Backup Extension
      *
      * @param string $backupExtension
@@ -72,10 +74,10 @@ interface Mage_Backup_Interface
     public function setTime($time);
 
     /**
-    * Get Backup Type
-    *
-    * @return string
-    */
+     * Get Backup Type
+     *
+     * @return string
+     */
     public function getType();
 
     /**

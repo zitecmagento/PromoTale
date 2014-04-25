@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Used for "name" attribute of captcha's input field
      */
@@ -41,7 +43,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Always show captcha
      */
-    const MODE_ALWAYS     = 'always';
+    const MODE_ALWAYS = 'always';
 
     /**
      * Show captcha only after certain number of unsuccessful attempts
@@ -84,7 +86,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     public function getConfigNode($id, $store = null)
     {
         $areaCode = Mage::app()->getStore($store)->isAdmin() ? 'admin' : 'customer';
-        return Mage::getStoreConfig( $areaCode . '/captcha/' . $id, $store);
+        return Mage::getStoreConfig($areaCode . '/captcha/' . $id, $store);
     }
 
     /**
@@ -100,10 +102,10 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
         $fonts = array();
         if ($node) {
             foreach ($node->children() as $fontName => $fontNode) {
-               $fonts[$fontName] = array(
-                   'label' => (string)$fontNode->label,
-                   'path' => Mage::getBaseDir('base') . DS . $fontNode->path
-               );
+                $fonts[$fontName] = array(
+                    'label' => (string) $fontNode->label,
+                    'path' => Mage::getBaseDir('base') . DS . $fontNode->path
+                );
             }
         }
         return $fonts;
@@ -135,4 +137,5 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
         $websiteCode = Mage::app()->getWebsite($website)->getCode();
         return Mage::getBaseUrl('media') . 'captcha' . '/' . $websiteCode . '/';
     }
+
 }

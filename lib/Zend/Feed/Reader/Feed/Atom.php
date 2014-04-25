@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Atom.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /**
  * @see Zend_Feed_Reader_FeedAbstract
  */
@@ -362,7 +362,7 @@ class Zend_Feed_Reader_Feed_Atom extends Zend_Feed_Reader_FeedAbstract
 
         return $this->_data['hubs'];
     }
-    
+
     /**
      * Get all categories
      *
@@ -375,7 +375,7 @@ class Zend_Feed_Reader_Feed_Atom extends Zend_Feed_Reader_FeedAbstract
         }
 
         $categoryCollection = $this->getExtension('Atom')->getCategories();
-        
+
         if (count($categoryCollection) == 0) {
             $categoryCollection = $this->getExtension('DublinCore')->getCategories();
         }
@@ -393,11 +393,11 @@ class Zend_Feed_Reader_Feed_Atom extends Zend_Feed_Reader_FeedAbstract
     protected function _indexEntries()
     {
         if ($this->getType() == Zend_Feed_Reader::TYPE_ATOM_10 ||
-            $this->getType() == Zend_Feed_Reader::TYPE_ATOM_03) {
+                $this->getType() == Zend_Feed_Reader::TYPE_ATOM_03) {
             $entries = array();
             $entries = $this->_xpath->evaluate('//atom:entry');
 
-            foreach($entries as $index=>$entry) {
+            foreach ($entries as $index => $entry) {
                 $this->_entries[$index] = $entry;
             }
         }
@@ -418,4 +418,5 @@ class Zend_Feed_Reader_Feed_Atom extends Zend_Feed_Reader_FeedAbstract
                 $this->_xpath->registerNamespace('atom', Zend_Feed_Reader::NAMESPACE_ATOM_10);
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Price extends Mage_XmlConnect_Block_Catalog
 {
+
     /**
      * Default product price renderer block factory name
      *
@@ -95,4 +97,5 @@ class Mage_XmlConnect_Block_Catalog_Product_Price extends Mage_XmlConnect_Block_
             }
         }
     }
+
 }

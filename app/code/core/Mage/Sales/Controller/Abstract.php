@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales Controller
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Check order view availability
      *
@@ -44,9 +45,8 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
     {
         $customerId = Mage::getSingleton('customer/session')->getCustomerId();
         $availableStates = Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates();
-        if ($order->getId() && $order->getCustomerId() && ($order->getCustomerId() == $customerId)
-            && in_array($order->getState(), $availableStates, $strict = true)
-            ) {
+        if ($order->getId() && $order->getCustomerId() && ($order->getCustomerId() == $customerId) && in_array($order->getState(), $availableStates, $strict = true)
+        ) {
             return true;
         }
         return false;
@@ -148,19 +148,22 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
         $items = $order->getItemsCollection();
         foreach ($items as $item) {
-            try {
+            try
+            {
                 $cart->addOrderItem($item);
-            } catch (Mage_Core_Exception $e){
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 if (Mage::getSingleton('checkout/session')->getUseNotice(true)) {
                     Mage::getSingleton('checkout/session')->addNotice($e->getMessage());
-                }
-                else {
+                } else {
                     Mage::getSingleton('checkout/session')->addError($e->getMessage());
                 }
                 $this->_redirect('*/*/history');
-            } catch (Exception $e) {
-                Mage::getSingleton('checkout/session')->addException($e,
-                    Mage::helper('checkout')->__('Cannot add the item to shopping cart.')
+            }
+            catch (Exception $e)
+            {
+                Mage::getSingleton('checkout/session')->addException($e, Mage::helper('checkout')->__('Cannot add the item to shopping cart.')
                 );
                 $this->_redirect('checkout/cart');
             }
@@ -270,4 +273,5 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             }
         }
     }
+
 }

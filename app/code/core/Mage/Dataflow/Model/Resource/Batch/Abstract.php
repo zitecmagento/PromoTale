@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Dataflow Batch abstract resource model
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Dataflow_Model_Resource_Batch_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Retrieve Id collection
      *
@@ -48,8 +49,8 @@ abstract class Mage_Dataflow_Model_Resource_Batch_Abstract extends Mage_Core_Mod
 
         $ids = array();
         $select = $this->_getWriteAdapter()->select()
-            ->from($this->getMainTable(), array($this->getIdFieldName()))
-            ->where('batch_id = :batch_id');
+                ->from($this->getMainTable(), array($this->getIdFieldName()))
+                ->where('batch_id = :batch_id');
         $ids = $this->_getWriteAdapter()->fetchCol($select, array('batch_id' => $object->getBatchId()));
         return $ids;
     }
@@ -69,4 +70,5 @@ abstract class Mage_Dataflow_Model_Resource_Batch_Abstract extends Mage_Core_Mod
         $this->_getWriteAdapter()->delete($this->getMainTable(), array('batch_id=?' => $object->getBatchId()));
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -28,6 +29,7 @@
  */
 class Zend_Tool_Framework_Client_Response
 {
+
     /**
      * @var callback|null
      */
@@ -217,7 +219,6 @@ class Zend_Tool_Framework_Client_Response
         }
 
         return $content;
-
     }
 
 }

@@ -21,7 +21,6 @@
  * @since      Preview Release 0.2
  */
 
-
 /**
  * Zend_Session_Abstract
  *
@@ -32,6 +31,7 @@
  */
 abstract class Zend_Session_Abstract
 {
+
     /**
      * Whether or not session permits writing (modification of $_SESSION[])
      *
@@ -54,20 +54,17 @@ abstract class Zend_Session_Abstract
      */
     protected static $_expiringData = array();
 
-
     /**
      * Error message thrown when an action requires modification,
      * but current Zend_Session has been marked as read-only.
      */
     const _THROW_NOT_WRITABLE_MSG = 'Zend_Session is currently marked as read-only.';
 
-
     /**
      * Error message thrown when an action requires reading session data,
      * but current Zend_Session is not marked as readable.
      */
     const _THROW_NOT_READABLE_MSG = 'Zend_Session is not marked as readable.';
-
 
     /**
      * namespaceIsset() - check to see if a namespace or a variable within a namespace is set
@@ -92,7 +89,6 @@ abstract class Zend_Session_Abstract
             return ( isset($_SESSION[$namespace][$name]) || isset(self::$_expiringData[$namespace][$name]) );
         }
     }
-
 
     /**
      * namespaceUnset() - unset a namespace or a variable within a namespace
@@ -128,7 +124,6 @@ abstract class Zend_Session_Abstract
             unset($_SESSION[$namespace]);
         }
     }
-
 
     /**
      * namespaceGet() - Get $name variable from $namespace, returning by reference.
@@ -166,7 +161,6 @@ abstract class Zend_Session_Abstract
         }
     }
 
-
     /**
      * namespaceGetAll() - Get an array containing $namespace, including expiring data.
      *
@@ -176,10 +170,11 @@ abstract class Zend_Session_Abstract
      */
     protected static function _namespaceGetAll($namespace)
     {
-        $currentData  = (isset($_SESSION[$namespace]) && is_array($_SESSION[$namespace])) ?
-            $_SESSION[$namespace] : array();
+        $currentData = (isset($_SESSION[$namespace]) && is_array($_SESSION[$namespace])) ?
+                $_SESSION[$namespace] : array();
         $expiringData = (isset(self::$_expiringData[$namespace]) && is_array(self::$_expiringData[$namespace])) ?
-            self::$_expiringData[$namespace] : array();
+                self::$_expiringData[$namespace] : array();
         return array_merge($currentData, $expiringData);
     }
+
 }

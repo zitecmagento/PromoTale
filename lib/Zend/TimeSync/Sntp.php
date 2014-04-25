@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Sntp.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_TimeSync_Protocol
  */
@@ -34,6 +34,7 @@
  */
 class Zend_TimeSync_Sntp extends Zend_TimeSync_Protocol
 {
+
     /**
      * Port number for this timeserver
      *
@@ -79,7 +80,7 @@ class Zend_TimeSync_Sntp extends Zend_TimeSync_Protocol
      */
     protected function _read()
     {
-        $result       = fread($this->_socket, 49);
+        $result = fread($this->_socket, 49);
         $this->_delay = (($this->_delay - time()) / 2);
 
         return $result;
@@ -106,8 +107,8 @@ class Zend_TimeSync_Sntp extends Zend_TimeSync_Protocol
      */
     protected function _extract($result)
     {
-        $dec   = hexdec('7fffffff');
-        $time  = abs(($dec - hexdec(bin2hex($result))) - $dec);
+        $dec = hexdec('7fffffff');
+        $time = abs(($dec - hexdec(bin2hex($result))) - $dec);
         $time -= 2208988800;
         // Socket delay
         $time -= $this->_delay;
@@ -116,4 +117,5 @@ class Zend_TimeSync_Sntp extends Zend_TimeSync_Protocol
 
         return $time;
     }
+
 }

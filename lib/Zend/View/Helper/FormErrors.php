@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FormErrors.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Abstract class for extension
  */
 #require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to render errors for a form element
@@ -37,18 +36,20 @@
  */
 class Zend_View_Helper_FormErrors extends Zend_View_Helper_FormElement
 {
+
     /**
      * @var Zend_Form_Element
      */
     protected $_element;
 
-    /**#@+
+    /*     * #@+
      * @var string Element block start/end tags and separator
      */
-    protected $_htmlElementEnd       = '</li></ul>';
-    protected $_htmlElementStart     = '<ul%s><li>';
+    protected $_htmlElementEnd = '</li></ul>';
+    protected $_htmlElementStart = '<ul%s><li>';
     protected $_htmlElementSeparator = '</li><li>';
-    /**#@-*/
+
+    /*     * #@- */
 
     /**
      * Render form errors
@@ -72,7 +73,7 @@ class Zend_View_Helper_FormErrors extends Zend_View_Helper_FormElement
         $start = $this->getElementStart();
         if (strstr($start, '%s')) {
             $attribs = $this->_htmlAttribs($options);
-            $start   = sprintf($start, $attribs);
+            $start = sprintf($start, $attribs);
         }
 
         if ($escape) {
@@ -81,9 +82,9 @@ class Zend_View_Helper_FormErrors extends Zend_View_Helper_FormElement
             }
         }
 
-        $html  = $start
-               . implode($this->getElementSeparator(), (array) $errors)
-               . $this->getElementEnd();
+        $html = $start
+                . implode($this->getElementSeparator(), (array) $errors)
+                . $this->getElementEnd();
 
         return $html;
     }

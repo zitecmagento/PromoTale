@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: NewCallSequenced.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_VoiceButler_NewCall
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCallSequenced
-    extends Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
+class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCallSequenced extends Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
 {
+
     /**
      * array of second numbers to be called sequenced
      *
@@ -62,11 +62,11 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCallSequenced
      * @param array $bNumber
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
      */
-    /*public function setBNumber(array $bNumber)
-    {
-        $this->bNumber = $bNumber;
-        return $this;
-    }*/
+    /* public function setBNumber(array $bNumber)
+      {
+      $this->bNumber = $bNumber;
+      return $this;
+      } */
 
     /**
      * returns the max wait value
@@ -89,4 +89,5 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCallSequenced
         $this->maxWait = $maxWait;
         return $this;
     }
+
 }

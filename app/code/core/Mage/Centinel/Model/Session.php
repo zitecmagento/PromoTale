@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,6 +33,7 @@
  */
 class Mage_Centinel_Model_Session extends Mage_Core_Model_Session_Abstract
 {
+
     /**
      * constructor
      */
@@ -39,4 +41,5 @@ class Mage_Centinel_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         $this->init('centinel_validator');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -27,9 +28,9 @@
 /**
  * Total model for recurring profile trial payment
  */
-class Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Trial
-    extends Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract
+class Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Trial extends Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract
 {
+
     /**
      * Custom row total/profile keys
      *
@@ -59,4 +60,5 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Trial
     {
         $item->setData('skip_compound_row_total', true);
     }
+
 }

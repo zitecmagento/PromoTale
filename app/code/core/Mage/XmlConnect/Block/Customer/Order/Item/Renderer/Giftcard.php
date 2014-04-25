@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Giftcard
-    extends Enterprise_GiftCard_Block_Sales_Order_Item_Renderer
+class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Giftcard extends Enterprise_GiftCard_Block_Sales_Order_Item_Renderer
 {
+
     /**
      * Prepare custom option for display, returns false if there's no value
      *
@@ -76,4 +77,5 @@ class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Giftcard
         $defaultRenderer->setItem($item)->setNewApi($this->getNewApi());
         $defaultRenderer->addItemToXmlObject($orderItemXmlObj);
     }
+
 }

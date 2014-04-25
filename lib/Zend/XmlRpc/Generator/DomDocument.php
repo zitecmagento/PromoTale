@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DomDocument.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
 /**
  * @var Zend_XmlRpc_Generator_GeneratorAbstract
  */
@@ -30,6 +30,7 @@
  */
 class Zend_XmlRpc_Generator_DomDocument extends Zend_XmlRpc_Generator_GeneratorAbstract
 {
+
     /**
      * @var DOMDocument
      */
@@ -98,4 +99,5 @@ class Zend_XmlRpc_Generator_DomDocument extends Zend_XmlRpc_Generator_GeneratorA
         $this->_dom = new DOMDocument('1.0', $this->_encoding);
         $this->_currentElement = $this->_dom;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,15 +24,14 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 {
-    const VALIDATOR_KEY                         = '_session_validator_data';
-    const VALIDATOR_HTTP_USER_AGENT_KEY         = 'http_user_agent';
-    const VALIDATOR_HTTP_X_FORVARDED_FOR_KEY    = 'http_x_forwarded_for';
-    const VALIDATOR_HTTP_VIA_KEY                = 'http_via';
-    const VALIDATOR_REMOTE_ADDR_KEY             = 'remote_addr';
+
+    const VALIDATOR_KEY = '_session_validator_data';
+    const VALIDATOR_HTTP_USER_AGENT_KEY = 'http_user_agent';
+    const VALIDATOR_HTTP_X_FORVARDED_FOR_KEY = 'http_x_forwarded_for';
+    const VALIDATOR_HTTP_VIA_KEY = 'http_via';
+    const VALIDATOR_REMOTE_ADDR_KEY = 'remote_addr';
 
     /**
      * Configure and start session
@@ -39,7 +39,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * @param string $sessionName
      * @return Mage_Core_Model_Session_Abstract_Varien
      */
-    public function start($sessionName=null)
+    public function start($sessionName = null)
     {
         if (isset($_SESSION) && !$this->getSkipEmptySessionCheck()) {
             return $this;
@@ -75,7 +75,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         $cookie = $this->getCookie();
         if (Mage::app()->getStore()->isAdmin()) {
             $sessionMaxLifetime = Mage_Core_Model_Resource_Session::SEESION_MAX_COOKIE_LIFETIME;
-            $adminSessionLifetime = (int)Mage::getStoreConfig('admin/security/session_cookie_lifetime');
+            $adminSessionLifetime = (int) Mage::getStoreConfig('admin/security/session_cookie_lifetime');
             if ($adminSessionLifetime > $sessionMaxLifetime) {
                 $adminSessionLifetime = $sessionMaxLifetime;
             }
@@ -87,9 +87,9 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         // session cookie params
         $cookieParams = array(
             'lifetime' => $cookie->getLifetime(),
-            'path'     => $cookie->getPath(),
-            'domain'   => $cookie->getConfigDomain(),
-            'secure'   => $cookie->isSecure(),
+            'path' => $cookie->getPath(),
+            'domain' => $cookie->getConfigDomain(),
+            'secure' => $cookie->isSecure(),
             'httponly' => $cookie->getHttponly()
         );
 
@@ -116,21 +116,21 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         // potential custom logic for session id (ex. switching between hosts)
         $this->setSessionId();
 
-        Varien_Profiler::start(__METHOD__.'/start');
+        Varien_Profiler::start(__METHOD__ . '/start');
         $sessionCacheLimiter = Mage::getConfig()->getNode('global/session_cache_limiter');
         if ($sessionCacheLimiter) {
-            session_cache_limiter((string)$sessionCacheLimiter);
+            session_cache_limiter((string) $sessionCacheLimiter);
         }
 
         session_start();
 
         /**
-        * Renew cookie expiration time if session id did not change
-        */
+         * Renew cookie expiration time if session id did not change
+         */
         if ($cookie->get(session_name()) == $this->getSessionId()) {
             $cookie->renew(session_name());
         }
-        Varien_Profiler::stop(__METHOD__.'/start');
+        Varien_Profiler::stop(__METHOD__ . '/start');
 
         return $this;
     }
@@ -162,7 +162,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * @param string $sessionName
      * @return Mage_Core_Model_Session_Abstract_Varien
      */
-    public function init($namespace, $sessionName=null)
+    public function init($namespace, $sessionName = null)
     {
         if (!isset($_SESSION)) {
             $this->start($sessionName);
@@ -186,7 +186,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * @param bool $clear
      * @return mixed
      */
-    public function getData($key='', $clear = false)
+    public function getData($key = '', $clear = false)
     {
         $data = parent::getData($key);
         if ($clear && isset($this->_data[$key])) {
@@ -211,7 +211,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * @param string $id
      * @return Mage_Core_Model_Session_Abstract_Varien
      */
-    public function setSessionId($id=null)
+    public function setSessionId($id = null)
     {
         if (!is_null($id) && preg_match('#^[0-9a-zA-Z,-]+$#', $id)) {
             session_id($id);
@@ -343,8 +343,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     {
         if (!isset($this->_data[self::VALIDATOR_KEY])) {
             $this->_data[self::VALIDATOR_KEY] = $this->getValidatorData();
-        }
-        else {
+        } else {
             if (!$this->_validate()) {
                 $this->getCookie()->delete(session_name());
                 // throw core session exception
@@ -365,23 +364,19 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         $sessionData = $this->_data[self::VALIDATOR_KEY];
         $validatorData = $this->getValidatorData();
 
-        if ($this->useValidateRemoteAddr()
-                && $sessionData[self::VALIDATOR_REMOTE_ADDR_KEY] != $validatorData[self::VALIDATOR_REMOTE_ADDR_KEY]) {
+        if ($this->useValidateRemoteAddr() && $sessionData[self::VALIDATOR_REMOTE_ADDR_KEY] != $validatorData[self::VALIDATOR_REMOTE_ADDR_KEY]) {
             return false;
         }
-        if ($this->useValidateHttpVia()
-                && $sessionData[self::VALIDATOR_HTTP_VIA_KEY] != $validatorData[self::VALIDATOR_HTTP_VIA_KEY]) {
+        if ($this->useValidateHttpVia() && $sessionData[self::VALIDATOR_HTTP_VIA_KEY] != $validatorData[self::VALIDATOR_HTTP_VIA_KEY]) {
             return false;
         }
 
         $sessionValidateHttpXForwardedForKey = $sessionData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY];
         $validatorValidateHttpXForwardedForKey = $validatorData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY];
-        if ($this->useValidateHttpXForwardedFor()
-            && $sessionValidateHttpXForwardedForKey != $validatorValidateHttpXForwardedForKey ) {
+        if ($this->useValidateHttpXForwardedFor() && $sessionValidateHttpXForwardedForKey != $validatorValidateHttpXForwardedForKey) {
             return false;
         }
-        if ($this->useValidateHttpUserAgent()
-            && $sessionData[self::VALIDATOR_HTTP_USER_AGENT_KEY] != $validatorData[self::VALIDATOR_HTTP_USER_AGENT_KEY]
+        if ($this->useValidateHttpUserAgent() && $sessionData[self::VALIDATOR_HTTP_USER_AGENT_KEY] != $validatorData[self::VALIDATOR_HTTP_USER_AGENT_KEY]
         ) {
             $userAgentValidated = $this->getValidateHttpUserAgentSkip();
             foreach ($userAgentValidated as $agent) {
@@ -403,10 +398,10 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     public function getValidatorData()
     {
         $parts = array(
-            self::VALIDATOR_REMOTE_ADDR_KEY             => '',
-            self::VALIDATOR_HTTP_VIA_KEY                => '',
-            self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY    => '',
-            self::VALIDATOR_HTTP_USER_AGENT_KEY         => ''
+            self::VALIDATOR_REMOTE_ADDR_KEY => '',
+            self::VALIDATOR_HTTP_VIA_KEY => '',
+            self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY => '',
+            self::VALIDATOR_HTTP_USER_AGENT_KEY => ''
         );
 
         // collect ip data
@@ -414,15 +409,15 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $parts[self::VALIDATOR_REMOTE_ADDR_KEY] = Mage::helper('core/http')->getRemoteAddr();
         }
         if (isset($_ENV['HTTP_VIA'])) {
-            $parts[self::VALIDATOR_HTTP_VIA_KEY] = (string)$_ENV['HTTP_VIA'];
+            $parts[self::VALIDATOR_HTTP_VIA_KEY] = (string) $_ENV['HTTP_VIA'];
         }
         if (isset($_ENV['HTTP_X_FORWARDED_FOR'])) {
-            $parts[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] = (string)$_ENV['HTTP_X_FORWARDED_FOR'];
+            $parts[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] = (string) $_ENV['HTTP_X_FORWARDED_FOR'];
         }
 
         // collect user agent data
         if (isset($_SERVER['HTTP_USER_AGENT'])) {
-            $parts[self::VALIDATOR_HTTP_USER_AGENT_KEY] = (string)$_SERVER['HTTP_USER_AGENT'];
+            $parts[self::VALIDATOR_HTTP_USER_AGENT_KEY] = (string) $_SERVER['HTTP_USER_AGENT'];
         }
 
         return $parts;
@@ -438,4 +433,5 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         session_regenerate_id(true);
         return $this;
     }
+
 }

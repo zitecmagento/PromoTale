@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Sendmail.php 21603 2010-03-22 12:47:11Z yoshida@zend.co.jp $
  */
-
-
 /**
  * @see Zend_Mail_Transport_Abstract
  */
 #require_once 'Zend/Mail/Transport/Abstract.php';
-
 
 /**
  * Class for sending eMails via the PHP internal mail() function
@@ -38,13 +36,13 @@
  */
 class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
 {
+
     /**
      * Subject
      * @var string
      * @access public
      */
     public $subject = null;
-
 
     /**
      * Config options for sendmail parameters
@@ -74,17 +72,16 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
      */
     public function __construct($parameters = null)
     {
-        if ($parameters instanceof Zend_Config) { 
-            $parameters = $parameters->toArray(); 
+        if ($parameters instanceof Zend_Config) {
+            $parameters = $parameters->toArray();
         }
 
-        if (is_array($parameters)) { 
+        if (is_array($parameters)) {
             $parameters = implode(' ', $parameters);
         }
-        
+
         $this->parameters = $parameters;
     }
-
 
     /**
      * Send mail using PHP native mail()
@@ -100,13 +97,10 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
         if ($this->parameters === null) {
             set_error_handler(array($this, '_handleMailErrors'));
             $result = mail(
-                $this->recipients,
-                $this->_mail->getSubject(),
-                $this->body,
-                $this->header);
+                    $this->recipients, $this->_mail->getSubject(), $this->body, $this->header);
             restore_error_handler();
         } else {
-            if(!is_string($this->parameters)) {
+            if (!is_string($this->parameters)) {
                 /**
                  * @see Zend_Mail_Transport_Exception
                  * 
@@ -115,17 +109,13 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
                  */
                 #require_once 'Zend/Mail/Transport/Exception.php';
                 throw new Zend_Mail_Transport_Exception(
-                    'Parameters were set but are not a string'
+                'Parameters were set but are not a string'
                 );
             }
 
             set_error_handler(array($this, '_handleMailErrors'));
             $result = mail(
-                $this->recipients,
-                $this->_mail->getSubject(),
-                $this->body,
-                $this->header,
-                $this->parameters);
+                    $this->recipients, $this->_mail->getSubject(), $this->body, $this->header, $this->parameters);
             restore_error_handler();
         }
 
@@ -137,7 +127,6 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
             throw new Zend_Mail_Transport_Exception('Unable to send mail. ' . $this->_errstr);
         }
     }
-
 
     /**
      * Format and fix headers

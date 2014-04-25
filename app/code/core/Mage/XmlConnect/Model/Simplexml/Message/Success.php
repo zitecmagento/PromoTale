@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Simplexml_Message_Success extends Mage_XmlConnect_Model_Simplexml_Message_Abstract
 {
+
     /**
      * Get message xml
      *
@@ -47,10 +49,11 @@ class Mage_XmlConnect_Model_Simplexml_Message_Success extends Mage_XmlConnect_Mo
         $this->_getXmlObject()->addCustomChild('text', $this->_getMessageText());
         if ($this->_getChildren()) {
             $extDataXmlObj = $this->_getXmlObject()->addCustomChild('extended_data');
-            foreach($this->_getChildren() as $key => $val) {
+            foreach ($this->_getChildren() as $key => $val) {
                 $extDataXmlObj->addCustomChild('item', $val, array('name' => $key));
             }
         }
         return $this->_getXmlObject()->asNiceXml();
     }
+
 }

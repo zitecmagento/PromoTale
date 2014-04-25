@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,31 +30,32 @@
  */
 class Zend_Text_Figlet
 {
+
     /**
      * Smush2 layout modes
      */
-    const SM_EQUAL     = 0x01;
-    const SM_LOWLINE   = 0x02;
+    const SM_EQUAL = 0x01;
+    const SM_LOWLINE = 0x02;
     const SM_HIERARCHY = 0x04;
-    const SM_PAIR      = 0x08;
-    const SM_BIGX      = 0x10;
+    const SM_PAIR = 0x08;
+    const SM_BIGX = 0x10;
     const SM_HARDBLANK = 0x20;
-    const SM_KERN      = 0x40;
-    const SM_SMUSH     = 0x80;
+    const SM_KERN = 0x40;
+    const SM_SMUSH = 0x80;
 
     /**
      * Smush mode override modes
      */
-    const SMO_NO    = 0;
-    const SMO_YES   = 1;
+    const SMO_NO = 0;
+    const SMO_YES = 1;
     const SMO_FORCE = 2;
 
     /**
      * Justifications
      */
-    const JUSTIFICATION_LEFT   = 0;
+    const JUSTIFICATION_LEFT = 0;
     const JUSTIFICATION_CENTER = 1;
-    const JUSTIFICATION_RIGHT  = 2;
+    const JUSTIFICATION_RIGHT = 2;
 
     /**
      * Write directions
@@ -434,17 +436,17 @@ class Zend_Text_Figlet
             $text = iconv($encoding, 'UTF-8', $text);
         }
 
-        $this->_output     = '';
+        $this->_output = '';
         $this->_outputLine = array();
 
         $this->_clearLine();
 
-        $this->_outlineLengthLimit    = ($this->_outputWidth - 1);
+        $this->_outlineLengthLimit = ($this->_outputWidth - 1);
         $this->_inCharLineLengthLimit = ($this->_outputWidth * 4 + 100);
 
-        $wordBreakMode  = 0;
+        $wordBreakMode = 0;
         $lastCharWasEol = false;
-        $textLength     = @iconv_strlen($text, 'UTF-8');
+        $textLength = @iconv_strlen($text, 'UTF-8');
 
         if ($textLength === false) {
             #require_once 'Zend/Text/Figlet/Exception.php';
@@ -467,7 +469,7 @@ class Zend_Text_Figlet
             $lastCharWasEol = (ctype_space($char) && $char !== "\t" && $char !== ' ');
 
             if (ctype_space($char)) {
-                $char = ($char === "\t" || $char === ' ') ? ' ': "\n";
+                $char = ($char === "\t" || $char === ' ') ? ' ' : "\n";
             }
 
             // Skip unprintable characters
@@ -498,9 +500,9 @@ class Zend_Text_Figlet
                     $wordBreakMode = false;
                 } else if ($this->_addChar($char)) {
                     if ($char !== ' ') {
-                        $wordBreakMode = ($wordBreakMode >= 2) ? 3: 1;
+                        $wordBreakMode = ($wordBreakMode >= 2) ? 3 : 1;
                     } else {
-                        $wordBreakMode = ($wordBreakMode > 0) ? 2: 0;
+                        $wordBreakMode = ($wordBreakMode > 0) ? 2 : 0;
                     }
                 } else if ($this->_outlineLength === 0) {
                     for ($i = 0; $i < $this->_charHeight; $i++) {
@@ -529,7 +531,7 @@ class Zend_Text_Figlet
                     }
 
                     $wordBreakMode = ($wordBreakMode === 3) ? 1 : 0;
-                    $charNotAdded  = true;
+                    $charNotAdded = true;
                 }
             } while ($charNotAdded);
         }
@@ -561,9 +563,7 @@ class Zend_Text_Figlet
             }
 
             if ($this->_justification > 0) {
-                for ($i = 1;
-                     ((3 - $this->_justification) * $i + $length + $this->_justification - 2) < $this->_outputWidth;
-                     $i++) {
+                for ($i = 1; ((3 - $this->_justification) * $i + $length + $this->_justification - 2) < $this->_outputWidth; $i++) {
                     $this->_output .= ' ';
                 }
             }
@@ -598,7 +598,7 @@ class Zend_Text_Figlet
         $gotSpace = false;
         for ($i = ($this->_inCharLineLength - 1); $i >= 0; $i--) {
             if (!$gotSpace && $this->_inCharLine[$i] === ' ') {
-                $gotSpace  = true;
+                $gotSpace = true;
                 $lastSpace = $i;
             }
 
@@ -608,7 +608,7 @@ class Zend_Text_Figlet
         }
 
         $firstLength = ($i + 1);
-        $lastLength  = ($this->_inCharLineLength - $lastSpace - 1);
+        $lastLength = ($this->_inCharLineLength - $lastSpace - 1);
 
         $firstPart = '';
         for ($i = 0; $i < $firstLength; $i++) {
@@ -644,7 +644,7 @@ class Zend_Text_Figlet
             $this->_outputLine[$i] = '';
         }
 
-        $this->_outlineLength    = 0;
+        $this->_outlineLength = 0;
         $this->_inCharLineLength = 0;
     }
 
@@ -665,8 +665,7 @@ class Zend_Text_Figlet
 
         $smushAmount = $this->_smushAmount();
 
-        if (($this->_outlineLength + $this->_currentCharWidth - $smushAmount) > $this->_outlineLengthLimit
-            || ($this->_inCharLineLength + 1) > $this->_inCharLineLengthLimit) {
+        if (($this->_outlineLength + $this->_currentCharWidth - $smushAmount) > $this->_outlineLengthLimit || ($this->_inCharLineLength + 1) > $this->_inCharLineLengthLimit) {
             return false;
         }
 
@@ -676,7 +675,7 @@ class Zend_Text_Figlet
                 $tempLine = $this->_currentChar[$row];
 
                 for ($k = 0; $k < $smushAmount; $k++) {
-                    $position            = ($this->_currentCharWidth - $smushAmount + $k);
+                    $position = ($this->_currentCharWidth - $smushAmount + $k);
                     $tempLine[$position] = $this->_smushem($tempLine[$position], $this->_outputLine[$row][$k]);
                 }
 
@@ -701,7 +700,7 @@ class Zend_Text_Figlet
             }
         }
 
-        $this->_outlineLength                          = strlen($this->_outputLine[0]);
+        $this->_outlineLength = strlen($this->_outputLine[0]);
         $this->_inCharLine[$this->_inCharLineLength++] = $char;
 
         return true;
@@ -716,9 +715,9 @@ class Zend_Text_Figlet
     protected function _getLetter($char)
     {
         if (array_key_exists($this->_uniOrd($char), $this->_charList)) {
-            $this->_currentChar       = $this->_charList[$this->_uniOrd($char)];
+            $this->_currentChar = $this->_charList[$this->_uniOrd($char)];
             $this->_previousCharWidth = $this->_currentCharWidth;
-            $this->_currentCharWidth  = strlen($this->_currentChar[0]);
+            $this->_currentCharWidth = strlen($this->_currentChar[0]);
         } else {
             $this->_currentChar = null;
         }
@@ -737,7 +736,7 @@ class Zend_Text_Figlet
         }
 
         $maxSmush = $this->_currentCharWidth;
-        $amount   = $maxSmush;
+        $amount = $maxSmush;
 
         for ($row = 0; $row < $this->_charHeight; $row++) {
             if ($this->_rightToLeft === 1) {
@@ -977,10 +976,10 @@ class Zend_Text_Figlet
             if (!function_exists('gzcompress')) {
                 #require_once 'Zend/Text/Figlet/Exception.php';
                 throw new Zend_Text_Figlet_Exception('GZIP library is required for '
-                                                     . 'gzip compressed font files');
+                . 'gzip compressed font files');
             }
 
-            $fontFile   = 'compress.zlib://' . $fontFile;
+            $fontFile = 'compress.zlib://' . $fontFile;
             $compressed = true;
         } else {
             $compressed = false;
@@ -1002,15 +1001,7 @@ class Zend_Text_Figlet
         $magic = $this->_readMagic($fp);
 
         // Get the header
-        $numsRead = sscanf(fgets($fp, 1000),
-                           '%*c%c %d %*d %d %d %d %d %d',
-                           $this->_hardBlank,
-                           $this->_charHeight,
-                           $this->_maxLength,
-                           $smush,
-                           $cmtLines,
-                           $rightToLeft,
-                           $this->_fontSmush);
+        $numsRead = sscanf(fgets($fp, 1000), '%*c%c %d %*d %d %d %d %d %d', $this->_hardBlank, $this->_charHeight, $this->_maxLength, $smush, $cmtLines, $rightToLeft, $this->_fontSmush);
 
         if ($magic !== self::FONTFILE_MAGIC_NUMBER || $numsRead < 5) {
             #require_once 'Zend/Text/Figlet/Exception.php';
@@ -1035,7 +1026,7 @@ class Zend_Text_Figlet
 
         // Correct char height && maxlength
         $this->_charHeight = max(1, $this->_charHeight);
-        $this->_maxLength  = max(1, $this->_maxLength);
+        $this->_maxLength = max(1, $this->_maxLength);
 
         // Give ourselves some extra room
         $this->_maxLength += 100;
@@ -1090,8 +1081,8 @@ class Zend_Text_Figlet
             if (substr($uniCode, 0, 2) === '0x') {
                 $uniCode = hexdec(substr($uniCode, 2));
             } else if (substr($uniCode, 0, 1) === '0' and
-                       $uniCode !== '0' or
-                       substr($uniCode, 0, 2) === '-0') {
+                    $uniCode !== '0' or
+                    substr($uniCode, 0, 2) === '-0') {
                 $uniCode = octdec($uniCode);
             } else {
                 $uniCode = (int) $uniCode;
@@ -1222,11 +1213,12 @@ class Zend_Text_Figlet
             $ord = (($h & 0x0F) << 12 | (ord($c[1]) & 0x3F) << 6 | (ord($c[2]) & 0x3F));
         } else if ($h <= 0xF4) {
             $ord = (($h & 0x0F) << 18 | (ord($c[1]) & 0x3F) << 12 |
-                   (ord($c[2]) & 0x3F) << 6 | (ord($c[3]) & 0x3F));
+                    (ord($c[2]) & 0x3F) << 6 | (ord($c[3]) & 0x3F));
         } else {
             $ord = 0;
         }
 
         return $ord;
     }
+
 }

@@ -26,6 +26,7 @@
  */
 class Zitec_Promotale_Model_Resource_Rule extends Mage_CatalogRule_Model_Resource_Rule
 {
+
     /**
      * 
      */
@@ -34,9 +35,8 @@ class Zitec_Promotale_Model_Resource_Rule extends Mage_CatalogRule_Model_Resourc
     /**
      * 
      */
-    protected $discountPercentageForHighDiscountedProds =  array();
-    
-    
+    protected $discountPercentageForHighDiscountedProds = array();
+
     /**
      * use custom habbit for inserting in catalogrule_product
      * if there are products with discount percentage heigher then the threshold 
@@ -46,22 +46,19 @@ class Zitec_Promotale_Model_Resource_Rule extends Mage_CatalogRule_Model_Resourc
      * overwite parent methods
      * @param Mage_CatalogRule_Model_Rule $rule
      */
-    public function updateRuleProductData(Mage_CatalogRule_Model_Rule $rule) {
+    public function updateRuleProductData(Mage_CatalogRule_Model_Rule $rule)
+    {
         set_time_limit(0);
-        
+
         $ruleId = $rule->getId();
         $forceSaving = intval($rule->getForceSaving());
 
         $write = $this->_getWriteAdapter();
         $write->beginTransaction();
-
         if ($rule->getProductsFilter()) {
-            $write->delete(
-                    $this->getTable('catalogrule/rule_product'), $write->quoteInto('rule_id=?', $ruleId)
-                    . $write->quoteInto('and product_id in (?)', implode(',', $rule->getProductsFilter()))
-            );
+            $this->cleanProductData($ruleId, $rule->getProductsFilter());
         } else {
-            $write->delete($this->getTable('catalogrule/rule_product'), $write->quoteInto('rule_id=?', $ruleId));
+            $this->cleanProductData($ruleId);
         }
 
         if (!$rule->getIsActive()) {
@@ -77,6 +74,7 @@ class Zitec_Promotale_Model_Resource_Rule extends Mage_CatalogRule_Model_Resourc
             return $this;
         }
 
+        // Get matching product ids
         Varien_Profiler::start('__MATCH_PRODUCTS__');
         $productIds = $rule->getMatchingProductIds();
         Varien_Profiler::stop('__MATCH_PRODUCTS__');
@@ -96,22 +94,27 @@ class Zitec_Promotale_Model_Resource_Rule extends Mage_CatalogRule_Model_Resourc
         $dbReaderAdapt = Mage::getSingleton('core/resource')->getConnection('core_read');
         $productPriceQuery = Mage::helper('catalogrule/data')->getProductPriceQuery();
 
-        try {
+        try
+        {
             $removeAllCurrentChanges = false;
-            foreach ($productIds as $productId) {
+
+            foreach ($productIds as $productId => $validationByWebsite) {
                 foreach ($websiteIds as $websiteId) {
                     $storeIds = Mage::getModel('core/website')->load($websiteId)
-                                                                ->getStoreIds();
+                            ->getStoreIds();
                     $bind = array(
-                        ':id'        => $productId,
-                        ':store_id'  => $storeIds,
+                        ':id' => $productId,
+                        ':store_id' => implode(',', $storeIds),
                     );
                     $priceStmt = $dbReaderAdapt->query($productPriceQuery, $bind);
                     $productPrice = $priceStmt->fetch();
-                    $productPrice  = $productPrice['price'];
+                    $productPrice = $productPrice['price'];
 
                     foreach ($customerGroupIds as $customerGroupId) {
-                       $catalogRuleData = array(
+                        if (empty($validationByWebsite[$websiteId])) {
+                            continue;
+                        }
+                        $catalogRuleData = array(
                             'rule_id' => $ruleId,
                             'from_time' => $fromTime,
                             'to_time' => $toTime,
@@ -122,32 +125,30 @@ class Zitec_Promotale_Model_Resource_Rule extends Mage_CatalogRule_Model_Resourc
                             'action_amount' => $actionAmount,
                             'action_stop' => $actionStop,
                             'sort_order' => $sortOrder,
-                            'default_price'=>$productPrice,
+                            'default_price' => $productPrice,
                         );
                         $catalogRuleData['website_' . $websiteId . '_price'] = $productPrice;
 
                         $rulePrice = $this->_calcRuleProductPrice($catalogRuleData);
-                        //compute the percentage of discount from the regular price
-                        $discountPercent = round((($productPrice-$rulePrice) / $productPrice) * 100 , 1 );
-                        //get discount treshold from magento configs
+                        // Compute the percentage of discount from the regular price
+                        $discountPercent = round((($productPrice - $rulePrice) / $productPrice) * 100, 1);
+                        // Get discount treshold from config table
                         $discountThreshold = Mage::helper('catalogrule/data')->getDiscountThresholdForWebsite($storeIds);
 
-                        if ( $discountPercent > $discountThreshold ){
+                        if ($discountPercent > $discountThreshold) {
                             $this->highDiscountedProductIds[] = $productId;
-                            if ( !isset($this->discountPercentageForHighDiscountedProds[$productId]) 
-                                 || $this->discountPercentageForHighDiscountedProds[$productId] < $discountPercent
-                               ) 
-                            {
-                                $this->discountPercentageForHighDiscountedProds[$productId] = $discountPercent;                                
+                            if (!isset($this->discountPercentageForHighDiscountedProds[$productId]) || $this->discountPercentageForHighDiscountedProds[$productId] < $discountPercent) {
+                                $this->discountPercentageForHighDiscountedProds[$productId] = $discountPercent;
                             }
                             $removeAllCurrentChanges = true;
                         }
+                        // Unset data not necessary for saving.
                         unset($catalogRuleData['default_price']);
                         unset($catalogRuleData['website_' . $websiteId . '_price']);
 
                         $rows[] = $catalogRuleData;
                         if (count($rows) == 1000) {
-                            if ( $forceSaving || $removeAllCurrentChanges === false ) {
+                            if ($forceSaving || $removeAllCurrentChanges === false) {
                                 $write->insertMultiple($this->getTable('catalogrule/rule_product'), $rows);
                             }
                             $rows = array();
@@ -156,18 +157,19 @@ class Zitec_Promotale_Model_Resource_Rule extends Mage_CatalogRule_Model_Resourc
                 }
             }
             if (!empty($rows)) {
-                if ( $forceSaving || $removeAllCurrentChanges === false ) {
+                if ($forceSaving || $removeAllCurrentChanges === false) {
                     $write->insertMultiple($this->getTable('catalogrule/rule_product'), $rows);
-                    
                 }
             }
 
             if ($removeAllCurrentChanges === true && !intval($forceSaving)) {
-                $write->delete($this->getTable('catalogrule/rule_product'), $write->quoteInto('rule_id=?', $ruleId));                
+                $write->delete($this->getTable('catalogrule/rule_product'), $write->quoteInto('rule_id=?', $ruleId));
             }
 
             $write->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $write->rollback();
             throw $e;
         }
@@ -180,17 +182,20 @@ class Zitec_Promotale_Model_Resource_Rule extends Mage_CatalogRule_Model_Resourc
      * 
      * @return array
      */
-    public function getHighDiscountedProducts(){
+    public function getHighDiscountedProducts()
+    {
         return array_unique($this->highDiscountedProductIds);
     }
-    
+
     /**
      * Return an indexed array keeping the percentage for each product 
      * with higher discount percentage
      * 
      * @return array
      */
-    public function getDiscountPercentageForHighDiscountedProds(){
+    public function getDiscountPercentageForHighDiscountedProds()
+    {
         return $this->discountPercentageForHighDiscountedProds;
     }
+
 }

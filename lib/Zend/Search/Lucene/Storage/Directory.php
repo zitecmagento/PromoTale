@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Directory.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 
 /**
  * @category   Zend
@@ -53,7 +53,6 @@ abstract class Zend_Search_Lucene_Storage_Directory
      */
     abstract public function createFile($filename);
 
-
     /**
      * Removes an existing $filename in the directory.
      *
@@ -80,7 +79,6 @@ abstract class Zend_Search_Lucene_Storage_Directory
      */
     abstract public function fileExists($filename);
 
-
     /**
      * Returns the length of a $filename in the directory.
      *
@@ -89,7 +87,6 @@ abstract class Zend_Search_Lucene_Storage_Directory
      */
     abstract public function fileLength($filename);
 
-
     /**
      * Returns the UNIX timestamp $filename was last modified.
      *
@@ -97,7 +94,6 @@ abstract class Zend_Search_Lucene_Storage_Directory
      * @return integer
      */
     abstract public function fileModified($filename);
-
 
     /**
      * Renames an existing file in the directory.
@@ -108,7 +104,6 @@ abstract class Zend_Search_Lucene_Storage_Directory
      */
     abstract public function renameFile($from, $to);
 
-
     /**
      * Sets the modified time of $filename to now.
      *
@@ -116,7 +111,6 @@ abstract class Zend_Search_Lucene_Storage_Directory
      * @return void
      */
     abstract public function touchFile($filename);
-
 
     /**
      * Returns a Zend_Search_Lucene_Storage_File object for a given $filename in the directory.
@@ -131,6 +125,4 @@ abstract class Zend_Search_Lucene_Storage_Directory
      * @return Zend_Search_Lucene_Storage_File
      */
     abstract public function getFileObject($filename, $shareHandler = true);
-
 }
-

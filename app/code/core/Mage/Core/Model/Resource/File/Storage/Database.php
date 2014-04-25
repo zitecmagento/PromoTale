@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * File storage database resource resource model class
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Resource_File_Storage_Abstract
 {
+
     /**
      * Define table name and id field for resource
      */
@@ -58,37 +59,34 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
         $dirStorageTable = $this->getTable('core/directory_storage'); // For foreign key
 
         $ddlTable = $adapter->newTable($table)
-            ->addColumn('file_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-                'identity'  => true,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true
-                ), 'File Id')
-            ->addColumn('content', Varien_Db_Ddl_Table::TYPE_VARBINARY, Varien_Db_Ddl_Table::MAX_VARBINARY_SIZE, array(
-                'nullable' => false
-                ), 'File Content')
-            ->addColumn('upload_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
-                'nullable' => false,
-                'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
-                ), 'Upload Timestamp')
-            ->addColumn('filename', Varien_Db_Ddl_Table::TYPE_TEXT, 100, array(
-                'nullable' => false
-                ), 'Filename')
-            ->addColumn('directory_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-                'unsigned' => true,
-                'default' => null
-                ), 'Identifier of Directory where File is Located')
-            ->addColumn('directory', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-                'default' => null
-                ), 'Directory Path')
-            ->addIndex($adapter->getIndexName($table, array('filename', 'directory_id'),
-                Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-                array('filename', 'directory_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
-            ->addIndex($adapter->getIndexName($table, array('directory_id')), array('directory_id'))
-            ->addForeignKey($adapter->getForeignKeyName($table, 'directory_id', $dirStorageTable, 'directory_id'),
-                'directory_id', $dirStorageTable, 'directory_id',
-                Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-            ->setComment('File Storage');
+                ->addColumn('file_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+                    'identity' => true,
+                    'unsigned' => true,
+                    'nullable' => false,
+                    'primary' => true
+                        ), 'File Id')
+                ->addColumn('content', Varien_Db_Ddl_Table::TYPE_VARBINARY, Varien_Db_Ddl_Table::MAX_VARBINARY_SIZE, array(
+                    'nullable' => false
+                        ), 'File Content')
+                ->addColumn('upload_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+                    'nullable' => false,
+                    'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
+                        ), 'Upload Timestamp')
+                ->addColumn('filename', Varien_Db_Ddl_Table::TYPE_TEXT, 100, array(
+                    'nullable' => false
+                        ), 'Filename')
+                ->addColumn('directory_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+                    'unsigned' => true,
+                    'default' => null
+                        ), 'Identifier of Directory where File is Located')
+                ->addColumn('directory', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
+                    'default' => null
+                        ), 'Directory Path')
+                ->addIndex($adapter->getIndexName($table, array('filename', 'directory_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE), array(
+                    'filename', 'directory_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+                ->addIndex($adapter->getIndexName($table, array('directory_id')), array('directory_id'))
+                ->addForeignKey($adapter->getForeignKeyName($table, 'directory_id', $dirStorageTable, 'directory_id'), 'directory_id', $dirStorageTable, 'directory_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+                ->setComment('File Storage');
 
         $adapter->createTable($ddlTable);
         return $this;
@@ -133,9 +131,9 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
         $adapter = $this->_getReadAdapter();
 
         $select = $adapter->select()
-            ->from(array('e' => $this->getMainTable()))
-            ->where('filename = ?', $filename)
-            ->where($adapter->prepareSqlCondition('directory', array('seq' => $path)));
+                ->from(array('e' => $this->getMainTable()))
+                ->where('filename = ?', $filename)
+                ->where($adapter->prepareSqlCondition('directory', array('seq' => $path)));
 
         $row = $adapter->fetchRow($select);
         if ($row) {
@@ -172,12 +170,11 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
         $adapter = $this->_getReadAdapter();
 
         $select = $adapter->select()
-            ->from(
-                array('e' => $this->getMainTable()),
-                array('filename', 'content', 'directory')
-            )
-            ->order('file_id')
-            ->limit($count, $offset);
+                ->from(
+                        array('e' => $this->getMainTable()), array('filename', 'content', 'directory')
+                )
+                ->order('file_id')
+                ->limit($count, $offset);
 
         $rows = $adapter->fetchAll($select);
         return $this->_decodeAllFilesContent($rows);
@@ -196,11 +193,11 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
         $contentParam = new Varien_Db_Statement_Parameter($file['content']);
         $contentParam->setIsBlob(true);
         $data = array(
-            'content'        => $contentParam,
-            'upload_time'    => $file['update_time'],
-            'filename'       => $file['filename'],
-            'directory_id'   => $file['directory_id'],
-            'directory'      => $file['directory']
+            'content' => $contentParam,
+            'upload_time' => $file['update_time'],
+            'filename' => $file['filename'],
+            'directory_id' => $file['directory_id'],
+            'directory' => $file['directory']
         );
 
         $adapter->insertOnDuplicate($this->getMainTable(), $data, array('content', 'upload_time'));
@@ -219,10 +216,10 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
      */
     public function renameFile($oldFilename, $oldPath, $newFilename, $newPath)
     {
-        $adapter    = $this->_getWriteAdapter();
+        $adapter = $this->_getWriteAdapter();
         $dataUpdate = array('filename' => $newFilename, 'directory' => $newPath);
 
-        $dataWhere  = array('filename = ?' => $oldFilename);
+        $dataWhere = array('filename = ?' => $oldFilename);
         $dataWhere[] = new Zend_Db_Expr($adapter->prepareSqlCondition('directory', array('seq' => $oldPath)));
 
         $adapter->update($this->getMainTable(), $dataUpdate, $dataWhere);
@@ -244,9 +241,9 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
         $adapter = $this->_getReadAdapter();
 
         $select = $adapter->select()
-            ->from(array('e' => $this->getMainTable()))
-            ->where('filename = ?', $oldFilename)
-            ->where($adapter->prepareSqlCondition('directory', array('seq' => $oldPath)));
+                ->from(array('e' => $this->getMainTable()))
+                ->where('filename = ?', $oldFilename)
+                ->where($adapter->prepareSqlCondition('directory', array('seq' => $oldPath)));
 
         $data = $adapter->fetchRow($select);
         if (!$data) {
@@ -277,13 +274,13 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
         $adapter = $this->_getReadAdapter();
 
         $select = $adapter->select()
-            ->from(array('e' => $this->getMainTable()))
-            ->where('filename = ?', $filename)
-            ->where($adapter->prepareSqlCondition('directory', array('seq' => $path)))
-            ->limit(1);
+                ->from(array('e' => $this->getMainTable()))
+                ->where('filename = ?', $filename)
+                ->where($adapter->prepareSqlCondition('directory', array('seq' => $path)))
+                ->limit(1);
 
         $data = $adapter->fetchRow($select);
-        return (bool)$data;
+        return (bool) $data;
     }
 
     /**
@@ -302,7 +299,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
         $resHelper = Mage::getResourceHelper('core');
         $likeExpression = $resHelper->addLikeEscape($folderName . '/', array('position' => 'start'));
         $this->_getWriteAdapter()
-            ->delete($this->getMainTable(), new Zend_Db_Expr('filename LIKE ' . $likeExpression));
+                ->delete($this->getMainTable(), new Zend_Db_Expr('filename LIKE ' . $likeExpression));
     }
 
     /**
@@ -333,18 +330,18 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
         $adapter = $this->_getReadAdapter();
 
         $select = $adapter->select()
-            ->from(
-                array('e' => $this->getMainTable()),
-                array(
+                ->from(
+                        array('e' => $this->getMainTable()), array(
                     'filename',
                     'directory',
                     'content'
+                        )
                 )
-            )
-            ->where($adapter->prepareSqlCondition('directory', array('seq' => $directory)))
-            ->order('file_id');
+                ->where($adapter->prepareSqlCondition('directory', array('seq' => $directory)))
+                ->order('file_id');
 
         $rows = $adapter->fetchAll($select);
         return $this->_decodeAllFilesContent($rows);
     }
+
 }

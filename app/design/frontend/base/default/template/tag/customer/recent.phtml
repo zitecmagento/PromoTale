@@ -31,7 +31,7 @@
     </div>
     <ol id="my_recent_tags">
         <?php $iterator = 0; ?>
-        <?php foreach( $this->getCollection()->getItems() as $_item ): ?>
+        <?php foreach ($this->getCollection()->getItems() as $_item): ?>
             <li class="item">
                 <span class="number"><?php echo ++$iterator ?></span>
                 <div class="details">
@@ -40,9 +40,9 @@
                         <strong><?php echo $this->__('Tags:') ?></strong>
                         <?php $_i = 0; ?>
                         <ul>
-                        <?php foreach( $_item->getProductTags() as $_tag ): ?>
-                            <li><a href="<?php echo $_tag->getViewTagUrl() ?>"><?php echo $this->escapeHtml($_tag->getName()) ?></a><?php if(++$_i != sizeof($_item->getProductTags()->getItems())): ?>,<?php endif; ?></li>
-                        <?php endforeach; ?>
+                            <?php foreach ($_item->getProductTags() as $_tag): ?>
+                                <li><a href="<?php echo $_tag->getViewTagUrl() ?>"><?php echo $this->escapeHtml($_tag->getName()) ?></a><?php if (++$_i != sizeof($_item->getProductTags()->getItems())): ?>,<?php endif; ?></li>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Encrypted config field backend model
  *
@@ -40,7 +40,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Encrypted extends Mage_Core_Mod
      */
     protected function _afterLoad()
     {
-        $value = (string)$this->getValue();
+        $value = (string) $this->getValue();
         if (!empty($value) && ($decrypted = Mage::helper('core')->decrypt($value))) {
             $this->setValue($decrypted);
         }
@@ -52,7 +52,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Encrypted extends Mage_Core_Mod
      */
     protected function _beforeSave()
     {
-        $value = (string)$this->getValue();
+        $value = (string) $this->getValue();
         // don't change value, if an obscured value came
         if (preg_match('/^\*+$/', $this->getValue())) {
             $value = $this->getOldValue();
@@ -71,4 +71,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Encrypted extends Mage_Core_Mod
     {
         return Mage::helper('core')->decrypt(parent::getOldValue());
     }
+
 }

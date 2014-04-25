@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Cart_Info extends Mage_XmlConnect_Block_Cart
 {
+
     /**
      * Render cart summary xml
      *
@@ -43,13 +45,13 @@ class Mage_XmlConnect_Block_Cart_Info extends Mage_XmlConnect_Block_Cart
         /** @var $quote Mage_Sales_Model_Quote */
         $quote = $this->getQuote();
         /** @var $xmlObject Mage_XmlConnect_Model_Simplexml_Element */
-        $xmlObject  = Mage::getModel('xmlconnect/simplexml_element', '<cart></cart>');
+        $xmlObject = Mage::getModel('xmlconnect/simplexml_element', '<cart></cart>');
 
-        $xmlObject->addChild('is_virtual', (int)$this->helper('checkout/cart')->getIsVirtualQuote());
+        $xmlObject->addChild('is_virtual', (int) $this->helper('checkout/cart')->getIsVirtualQuote());
 
-        $xmlObject->addChild('summary_qty', (int)$this->helper('checkout/cart')->getSummaryCount());
+        $xmlObject->addChild('summary_qty', (int) $this->helper('checkout/cart')->getSummaryCount());
 
-        $xmlObject->addChild('virtual_qty', (int)$quote->getItemVirtualQty());
+        $xmlObject->addChild('virtual_qty', (int) $quote->getItemVirtualQty());
 
         if (strlen($quote->getCouponCode())) {
             $xmlObject->addChild('has_coupon_code', 1);
@@ -63,4 +65,5 @@ class Mage_XmlConnect_Block_Cart_Info extends Mage_XmlConnect_Block_Cart
         }
         return $xmlObject->asNiceXml();
     }
+
 }

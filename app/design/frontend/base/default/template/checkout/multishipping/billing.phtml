@@ -45,7 +45,7 @@
                         <h2><?php echo $this->__('Billing Address') ?> <span class="separator">|</span> <a href="<?php echo $this->getSelectAddressUrl() ?>"><?php echo $this->__('Change') ?></a></h2>
                     </div>
                     <div class="box-content">
-                        <?php $_address=$this->getAddress() ?>
+                        <?php $_address = $this->getAddress() ?>
                         <address><?php echo $_address->format('html') ?></address>
                     </div>
                 </div>
@@ -62,25 +62,25 @@
                         </div>
                         <!-- Payment methods forms list -->
                         <dl class="sp-methods">
-                        <?php
-                            $_methods       = $this->getMethods();
-                            $_methodsCount  = count($_methods);
-                        ?>
-                        <?php foreach ($_methods as $_method): $_code = $_method->getCode() ?>
-                            <dt>
+                            <?php
+                            $_methods = $this->getMethods();
+                            $_methodsCount = count($_methods);
+                            ?>
+                            <?php foreach ($_methods as $_method): $_code = $_method->getCode() ?>
+                                <dt>
                                 <?php if ($_methodsCount > 1): ?>
-                                <input type="radio" id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" name="payment[method]" title="<?php echo $this->escapeHtml($_method->getTitle()) ?>" onclick="payment.switchMethod('<?php echo $_code ?>')"<?php if($this->getSelectedMethodCode()==$_code): ?> checked="checked"<?php endif; ?> class="radio" />
-                                <?php else :?>
-                                <span class="no-display"><input type="radio" id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" name="payment[method]" checked="checked" class="radio" /></span>
-                                <?php endif;?>
+                                    <input type="radio" id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" name="payment[method]" title="<?php echo $this->escapeHtml($_method->getTitle()) ?>" onclick="payment.switchMethod('<?php echo $_code ?>')"<?php if ($this->getSelectedMethodCode() == $_code): ?> checked="checked"<?php endif; ?> class="radio" />
+                                <?php else : ?>
+                                    <span class="no-display"><input type="radio" id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" name="payment[method]" checked="checked" class="radio" /></span>
+                                <?php endif; ?>
                                 <label for="p_method_<?php echo $_code ?>"><?php echo $this->escapeHtml($_method->getTitle()) ?></label>
-                            </dt>
-                            <?php if($html = $this->getChildHtml('payment.method.'.$_code)) : ?>
-                            <dd>
-                                <?php echo $html; ?>
-                            </dd>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
+                                </dt>
+                                <?php if ($html = $this->getChildHtml('payment.method.' . $_code)) : ?>
+                                    <dd>
+                                        <?php echo $html; ?>
+                                    </dd>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </dl>
                         <?php echo $this->getChildHtml('checkout_billing_items') ?>
                     </div>
@@ -93,24 +93,24 @@
         </div>
     </form>
     <script type="text/javascript">
-    //<![CDATA[
+        //<![CDATA[
         var payment = new paymentForm('multishipping-billing-form');
-        function toggleToolTip(event){
-            if($('payment-tool-tip')){
+        function toggleToolTip(event) {
+            if ($('payment-tool-tip')) {
                 /*$('payment-tool-tip').setStyle({
-                    top: (Event.pointerY(event)-510)+'px',
-                    left: (Event.pointerX(event)-800)+'px'
-                })*/
+                 top: (Event.pointerY(event)-510)+'px',
+                 left: (Event.pointerX(event)-800)+'px'
+                 })*/
                 $('payment-tool-tip').toggle();
             }
             Event.stop(event);
         }
-        if($('payment-tool-tip-close')){
+        if ($('payment-tool-tip-close')) {
             Event.observe($('payment-tool-tip-close'), 'click', toggleToolTip);
         }
-        $$('.cvv-what-is-this').each(function(element){
+        $$('.cvv-what-is-this').each(function(element) {
             Event.observe(element, 'click', toggleToolTip);
         });
-    //]]>
+        //]]>
     </script>
 </div>

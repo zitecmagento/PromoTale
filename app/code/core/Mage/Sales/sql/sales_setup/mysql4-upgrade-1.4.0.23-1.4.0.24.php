@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -26,5 +27,4 @@
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 $installer = $this;
 
-$installer->getConnection()->addColumn($installer->getTable('sales/invoice'),
-    'base_total_refunded', 'decimal(12,4) default NULL');
+$installer->getConnection()->addColumn($installer->getTable('sales/invoice'), 'base_total_refunded', 'decimal(12,4) default NULL');

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model_Config_Data
 {
+
     protected function _beforeSave()
     {
         $value = $this->getValue();
@@ -38,7 +38,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
             }
         }
 
-        $value = rtrim($value,  '/');
+        $value = rtrim($value, '/');
         /**
          * If value is special ({{}}) we don't need add slash
          */
@@ -60,4 +60,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
             Mage::getModel('core/design_package')->cleanMergedJsCss();
         }
     }
+
 }

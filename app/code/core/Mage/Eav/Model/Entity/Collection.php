@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Eav_Model_Entity_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
+
     /**
      * Initialize resource
      */
@@ -34,4 +35,5 @@ class Mage_Eav_Model_Entity_Collection extends Mage_Eav_Model_Entity_Collection_
         $resources = Mage::getSingleton('core/resource');
         parent::__construct($resources->getConnection('eav_setup'));
     }
+
 }

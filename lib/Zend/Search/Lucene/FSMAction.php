@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: FSMAction.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Abstract Finite State Machine
  *
@@ -31,6 +31,7 @@
  */
 class Zend_Search_Lucene_FSMAction
 {
+
     /**
      * Object reference
      *
@@ -62,5 +63,5 @@ class Zend_Search_Lucene_FSMAction
         $methodName = $this->_method;
         $this->_object->$methodName();
     }
-}
 
+}

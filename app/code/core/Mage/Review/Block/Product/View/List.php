@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Review_Block_Product_View_List extends Mage_Review_Block_Product_View
 {
+
     protected $_forceHasOptions = false;
 
     public function getProductId()
@@ -55,8 +57,8 @@ class Mage_Review_Block_Product_View_List extends Mage_Review_Block_Product_View
     protected function _beforeToHtml()
     {
         $this->getReviewsCollection()
-            ->load()
-            ->addRateVotes();
+                ->load()
+                ->addRateVotes();
         return parent::_beforeToHtml();
     }
 
@@ -64,4 +66,5 @@ class Mage_Review_Block_Product_View_List extends Mage_Review_Block_Product_View
     {
         return Mage::getUrl('*/*/view', array('id' => $id));
     }
+
 }

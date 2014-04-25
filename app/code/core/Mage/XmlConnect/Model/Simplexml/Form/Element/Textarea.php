@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Simplexml_Form_Element_Textarea
-    extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
+class Mage_XmlConnect_Model_Simplexml_Form_Element_Textarea extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
 {
+
     /**
      * Init textarea element
      *
@@ -44,4 +45,5 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Textarea
         parent::__construct($attributes);
         $this->setType('textarea');
     }
+
 }

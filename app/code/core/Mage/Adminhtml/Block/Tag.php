@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Tag extends Mage_Adminhtml_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -45,4 +47,5 @@ class Mage_Adminhtml_Block_Tag extends Mage_Adminhtml_Block_Template
         $this->setChild('tag_frame', $this->getLayout()->createBlock('adminhtml/tag_tab_all', 'tag.frame'));
         return parent::_beforeToHtml();
     }
+
 }

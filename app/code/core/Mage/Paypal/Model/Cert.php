@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,10 +30,11 @@
  */
 class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
 {
+
     /**
      * Certificate base path
      */
-    const BASEPATH_PAYPAL_CERT  = 'cert/paypal';
+    const BASEPATH_PAYPAL_CERT = 'cert/paypal';
 
     /**
      * Initialize resource model
@@ -132,4 +134,5 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
         $this->_removeOutdatedCertFile();
         return $this;
     }
+
 }

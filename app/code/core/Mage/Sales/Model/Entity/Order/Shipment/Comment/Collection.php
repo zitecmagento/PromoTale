@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Shipment comments collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Model_Entity_Order_Shipment_Comment_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
+
     protected function _construct()
     {
         $this->_init('sales/order_shipment_comment');
@@ -45,9 +46,10 @@ class Mage_Sales_Model_Entity_Order_Shipment_Comment_Collection extends Mage_Eav
         return $this;
     }
 
-    public function setCreatedAtOrder($order='desc')
+    public function setCreatedAtOrder($order = 'desc')
     {
         $this->setOrder('created_at', $order);
         return $this;
     }
+
 }

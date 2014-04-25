@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Sales_Model_Order_Creditmemo_Total_Subtotal extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
 {
+
     /**
      * Collect Creditmemo subtotal
      *
@@ -35,9 +35,9 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Subtotal extends Mage_Sales_Model_
      */
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
-        $subtotal       = 0;
-        $baseSubtotal   = 0;
-        $subtotalInclTax= 0;
+        $subtotal = 0;
+        $baseSubtotal = 0;
+        $subtotalInclTax = 0;
         $baseSubtotalInclTax = 0;
 
         foreach ($creditmemo->getAllItems() as $item) {
@@ -47,15 +47,15 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Subtotal extends Mage_Sales_Model_
 
             $item->calcRowTotal();
 
-            $subtotal       += $item->getRowTotal();
-            $baseSubtotal   += $item->getBaseRowTotal();
+            $subtotal += $item->getRowTotal();
+            $baseSubtotal += $item->getBaseRowTotal();
             $subtotalInclTax+= $item->getRowTotalInclTax();
             $baseSubtotalInclTax += $item->getBaseRowTotalInclTax();
         }
 
         $creditmemo->setSubtotal($subtotal);
         $creditmemo->setBaseSubtotal($baseSubtotal);
-        $creditmemo->setSubtotalInclTax($subtotalInclTax );
+        $creditmemo->setSubtotalInclTax($subtotalInclTax);
         $creditmemo->setBaseSubtotalInclTax($baseSubtotalInclTax);
 
         $creditmemo->setGrandTotal($creditmemo->getGrandTotal() + $subtotal);
@@ -63,4 +63,5 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Subtotal extends Mage_Sales_Model_
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Addrow extends Varien_Data_Form_Element_Button
 {
+
     /**
      * Render Element Html
      *
@@ -41,9 +43,9 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Addrow extends Varien_
      */
     public function getElementHtml()
     {
-        $html = $this->getBeforeElementHtml() . '<button id="'.$this->getHtmlId() . '" name="' . $this->getName()
-            . '" value="'.$this->getEscapedValue() . '" ' . $this->serialize($this->getHtmlAttributes()) . ' ><span>'
-            . $this->getEscapedValue() . '</span></button>' . $this->getAfterElementHtml();
+        $html = $this->getBeforeElementHtml() . '<button id="' . $this->getHtmlId() . '" name="' . $this->getName()
+                . '" value="' . $this->getEscapedValue() . '" ' . $this->serialize($this->getHtmlAttributes()) . ' ><span>'
+                . $this->getEscapedValue() . '</span></button>' . $this->getAfterElementHtml();
         return $html;
     }
 
@@ -67,7 +69,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Addrow extends Varien_
     {
         if ($this->getLabel() !== null) {
             $html = '<label  for="' . $this->getHtmlId() . $idSuffix . '">' . $this->getLabel()
-                . ($this->getRequired() ? ' <span class="required">*</span>' : '') . '</label>';
+                    . ($this->getRequired() ? ' <span class="required">*</span>' : '') . '</label>';
         } else {
             $html = '';
         }
@@ -88,4 +90,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Addrow extends Varien_
         $jsBlock->setOptions($this->getOptions());
         return parent::toHtml() . $jsBlock->toHtml();
     }
+
 }

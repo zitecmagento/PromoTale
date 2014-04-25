@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /* @var $installer Mage_Customer_Model_Entity_Setup */
 $installer = $this;
 
@@ -33,7 +32,7 @@ $attributes = array(
 );
 
 foreach ($attributes as $attributeCode) {
-    $attribute   = Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
+    $attribute = Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
     $usedInForms = $attribute->getUsedInForms();
     if (!in_array('customer_register_address', $usedInForms)) {
         $usedInForms[] = 'customer_register_address';

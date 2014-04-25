@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_Model_Observer
 {
+
     /**
      * Retrieve oauth_token param from request
      *
@@ -54,9 +56,9 @@ class Mage_Oauth_Model_Observer
             $userType = Mage_Oauth_Model_Token::USER_TYPE_CUSTOMER;
             $url = Mage::helper('oauth')->getAuthorizeUrl($userType);
             Mage::app()->getResponse()
-                ->setRedirect($url)
-                ->sendHeaders()
-                ->sendResponse();
+                    ->setRedirect($url)
+                    ->sendHeaders()
+                    ->sendResponse();
             exit();
         }
     }
@@ -72,9 +74,9 @@ class Mage_Oauth_Model_Observer
             $userType = Mage_Oauth_Model_Token::USER_TYPE_ADMIN;
             $url = Mage::helper('oauth')->getAuthorizeUrl($userType);
             Mage::app()->getResponse()
-                ->setRedirect($url)
-                ->sendHeaders()
-                ->sendResponse();
+                    ->setRedirect($url)
+                    ->sendHeaders()
+                    ->sendResponse();
             exit();
         }
     }
@@ -94,10 +96,11 @@ class Mage_Oauth_Model_Observer
             $userType = Mage_Oauth_Model_Token::USER_TYPE_ADMIN;
             $url = Mage::helper('oauth')->getAuthorizeUrl($userType);
             Mage::app()->getResponse()
-                ->setRedirect($url)
-                ->sendHeaders()
-                ->sendResponse();
+                    ->setRedirect($url)
+                    ->sendHeaders()
+                    ->sendResponse();
             exit();
         }
     }
+
 }

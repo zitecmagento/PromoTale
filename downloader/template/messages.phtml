@@ -25,15 +25,15 @@
  */
 ?>
 <?php if ($messages = $this->get('messages')): ?>
-<ul class="msgs">
-<?php foreach ($messages as $type=>$msgs): ?>
-    <li>
-        <ul class="<?php echo $type ?>-msg">
-        <?php foreach ($msgs as $msg): ?>
-            <li><?php echo $msg ?></li>
+    <ul class="msgs">
+        <?php foreach ($messages as $type => $msgs): ?>
+            <li>
+                <ul class="<?php echo $type ?>-msg">
+                    <?php foreach ($msgs as $msg): ?>
+                        <li><?php echo $msg ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </li>
         <?php endforeach; ?>
-        </ul>
-    </li>
-<?php endforeach; ?>
-</ul>
+    </ul>
 <?php endif; ?>

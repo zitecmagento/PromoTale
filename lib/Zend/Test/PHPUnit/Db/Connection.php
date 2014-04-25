@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Connection.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection
  */
@@ -48,6 +48,7 @@
  */
 class Zend_Test_PHPUnit_Db_Connection extends PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection
 {
+
     /**
      * Zend_Db_Adapter_Abstract
      *
@@ -121,7 +122,7 @@ class Zend_Test_PHPUnit_Db_Connection extends PHPUnit_Extensions_Database_DB_Def
      */
     public function getMetaData()
     {
-        if($this->_metaData === null) {
+        if ($this->_metaData === null) {
             $this->_metaData = new Zend_Test_PHPUnit_Db_Metadata_Generic($this->getConnection(), $this->getSchema());
         }
         return $this->_metaData;
@@ -146,4 +147,5 @@ class Zend_Test_PHPUnit_Db_Connection extends PHPUnit_Extensions_Database_DB_Def
     {
         return "DELETE";
     }
+
 }

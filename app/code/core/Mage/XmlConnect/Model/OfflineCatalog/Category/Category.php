@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_OfflineCatalog_Category_Category extends Mage_XmlConnect_Model_OfflineCatalog_Abstract
 {
+
     /**
      * Category url
      */
@@ -58,4 +60,5 @@ class Mage_XmlConnect_Model_OfflineCatalog_Category_Category extends Mage_XmlCon
     {
         return sprintf(Mage::getBaseUrl() . self::CATEGORY_URL, $this->getCategoryId());
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Form Input/Output Strip HTML tags Filter
  *
@@ -34,6 +34,7 @@
  */
 class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
 {
+
     /**
      * Returns the result of filtering $value
      *
@@ -43,12 +44,12 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
     public function inputFilter($value)
     {
         $filterInput = new Zend_Filter_LocalizedToNormalized(array(
-            'date_format'   => $this->_dateFormat,
-            'locale'        => $this->_locale
+            'date_format' => $this->_dateFormat,
+            'locale' => $this->_locale
         ));
         $filterInternal = new Zend_Filter_NormalizedToLocalized(array(
-            'date_format'   => Varien_Date::DATETIME_INTERNAL_FORMAT,
-            'locale'        => $this->_locale
+            'date_format' => Varien_Date::DATETIME_INTERNAL_FORMAT,
+            'locale' => $this->_locale
         ));
 
         $value = $filterInput->filter($value);
@@ -65,16 +66,17 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
     public function outputFilter($value)
     {
         $filterInput = new Zend_Filter_LocalizedToNormalized(array(
-            'date_format'   => Varien_Date::DATETIME_INTERNAL_FORMAT,
-            'locale'        => $this->_locale
+            'date_format' => Varien_Date::DATETIME_INTERNAL_FORMAT,
+            'locale' => $this->_locale
         ));
         $filterInternal = new Zend_Filter_NormalizedToLocalized(array(
-            'date_format'   => $this->_dateFormat,
-            'locale'        => $this->_locale
+            'date_format' => $this->_dateFormat,
+            'locale' => $this->_locale
         ));
 
         $value = $filterInput->filter($value);
         $value = $filterInternal->filter($value);
         return $value;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order invoice comment collection
  *
@@ -32,22 +32,22 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection
-    extends Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
+class Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection extends Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
 {
+
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix    = 'sales_order_invoice_comment_collection';
+    protected $_eventPrefix = 'sales_order_invoice_comment_collection';
 
     /**
      * Event object
      *
      * @var string
      */
-    protected $_eventObject    = 'order_invoice_comment_collection';
+    protected $_eventObject = 'order_invoice_comment_collection';
 
     /**
      * Model initialization
@@ -69,4 +69,5 @@ class Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection
     {
         return $this->setParentFilter($invoiceId);
     }
+
 }

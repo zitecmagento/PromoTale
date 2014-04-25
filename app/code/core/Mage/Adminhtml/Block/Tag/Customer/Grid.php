@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -42,11 +43,13 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
         $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
     }
+
     /*
      * Retrieves Grid Url
      *
      * @return string
      */
+
     public function getGridUrl()
     {
         return $this->getUrl('*/*/customer', array('_current' => true));
@@ -57,11 +60,11 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
         $tagId = Mage::registry('current_tag')->getId();
         $storeId = Mage::registry('current_tag')->getStoreId();
         $collection = Mage::getModel('tag/tag')
-            ->getCustomerCollection()
-            ->addTagFilter($tagId)
-            ->setCountAttribute('tr.tag_relation_id')
-            ->addStoreFilter($storeId)
-            ->addGroupByCustomerProduct();
+                ->getCustomerCollection()
+                ->addTagFilter($tagId)
+                ->setCountAttribute('tr.tag_relation_id')
+                ->addStoreFilter($storeId)
+                ->addGroupByCustomerProduct();
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -76,36 +79,36 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
     protected function _prepareColumns()
     {
         $this->addColumn('customer_id', array(
-            'header'        => Mage::helper('tag')->__('ID'),
-            'width'         => 50,
-            'align'         => 'right',
-            'index'         => 'entity_id',
+            'header' => Mage::helper('tag')->__('ID'),
+            'width' => 50,
+            'align' => 'right',
+            'index' => 'entity_id',
         ));
 
         $this->addColumn('firstname', array(
-            'header'    => Mage::helper('tag')->__('First Name'),
-            'index'     => 'firstname',
+            'header' => Mage::helper('tag')->__('First Name'),
+            'index' => 'firstname',
         ));
 
         $this->addColumn('lastname', array(
-            'header'    => Mage::helper('tag')->__('Last Name'),
-            'index'     => 'lastname',
+            'header' => Mage::helper('tag')->__('Last Name'),
+            'index' => 'lastname',
         ));
 
         $this->addColumn('product', array(
-            'header'    => Mage::helper('tag')->__('Product Name'),
-            'filter'    => false,
-            'sortable'  => false,
-            'index'     => 'product',
+            'header' => Mage::helper('tag')->__('Product Name'),
+            'filter' => false,
+            'sortable' => false,
+            'index' => 'product',
         ));
 
         $this->addColumn('product_sku', array(
-            'header'    => Mage::helper('tag')->__('Product SKU'),
-            'filter'    => false,
-            'sortable'  => false,
-            'width'     => 50,
-            'align'     => 'right',
-            'index'     => 'product_sku',
+            'header' => Mage::helper('tag')->__('Product SKU'),
+            'filter' => false,
+            'sortable' => false,
+            'width' => 50,
+            'align' => 'right',
+            'index' => 'product_sku',
         ));
 
 

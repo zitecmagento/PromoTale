@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Gift message inline edit form
  *
@@ -36,7 +36,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
 {
 
     protected $_entity = null;
-    protected $_type   = null;
+    protected $_type = null;
     protected $_giftMessage = null;
 
     protected function _construct()
@@ -106,7 +106,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     protected function _initMessage()
     {
         $this->_giftMessage = $this->helper('giftmessage/message')->getGiftMessage(
-            $this->getEntity()->getGiftMessageId()
+                $this->getEntity()->getGiftMessageId()
         );
         return $this;
     }
@@ -145,7 +145,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      * @param mixed $entity
      * @return string
      */
-    public function getMessage($entity=null)
+    public function getMessage($entity = null)
     {
         if (is_null($this->_giftMessage)) {
             $this->_initMessage();
@@ -154,7 +154,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
         if ($entity) {
             if (!$entity->getGiftMessage()) {
                 $entity->setGiftMessage(
-                    $this->helper('giftmessage/message')->getGiftMessage($entity->getGiftMessageId())
+                        $this->helper('giftmessage/message')->getGiftMessage($entity->getGiftMessageId())
                 );
             }
             return $entity->getGiftMessage();
@@ -251,9 +251,9 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      * @param string $defaultValue
      * @return string
      */
-    public function getEscaped($value, $defaultValue='')
+    public function getEscaped($value, $defaultValue = '')
     {
-        return $this->escapeHtml(trim($value)!='' ? $value : $defaultValue);
+        return $this->escapeHtml(trim($value) != '' ? $value : $defaultValue);
     }
 
     /**
@@ -276,4 +276,5 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
         $type = substr($this->getType(), 0, 5) == 'multi' ? 'address_item' : 'item';
         return Mage::helper('giftmessage/message')->isMessagesAvailable($type, $item);
     }
+
 }

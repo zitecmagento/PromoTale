@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FormSubmit.php 23403 2010-11-19 19:23:29Z bittarman $
  */
-
-
 /**
  * Abstract class for extension
  */
 #require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to generate a "submit" button
@@ -38,6 +36,7 @@
  */
 class Zend_View_Helper_FormSubmit extends Zend_View_Helper_FormElement
 {
+
     /**
      * Generates a 'submit' button.
      *
@@ -70,18 +69,19 @@ class Zend_View_Helper_FormSubmit extends Zend_View_Helper_FormElement
         // XHTML or HTML end tag?
         $endTag = ' />';
         if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {
-            $endTag= '>';
+            $endTag = '>';
         }
 
         // Render the button.
         $xhtml = '<input type="submit"'
-               . ' name="' . $this->view->escape($name) . '"'
-               . $id
-               . ' value="' . $this->view->escape($value) . '"'
-               . $disabled
-               . $this->_htmlAttribs($attribs)
-               . $endTag;
+                . ' name="' . $this->view->escape($name) . '"'
+                . $id
+                . ' value="' . $this->view->escape($value) . '"'
+                . $disabled
+                . $this->_htmlAttribs($attribs)
+                . $endTag;
 
         return $xhtml;
     }
+
 }

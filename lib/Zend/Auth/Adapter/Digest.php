@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Digest.php 23088 2010-10-11 19:53:24Z padraic $
  */
-
-
 /**
  * @see Zend_Auth_Adapter_Interface
  */
 #require_once 'Zend/Auth/Adapter/Interface.php';
-
 
 /**
  * @category   Zend
@@ -36,6 +34,7 @@
  */
 class Zend_Auth_Adapter_Digest implements Zend_Auth_Adapter_Interface
 {
+
     /**
      * Filename against which authentication queries are performed
      *
@@ -199,17 +198,17 @@ class Zend_Auth_Adapter_Digest implements Zend_Auth_Adapter_Interface
             throw new Zend_Auth_Adapter_Exception("Cannot open '$this->_filename' for reading");
         }
 
-        $id       = "$this->_username:$this->_realm";
+        $id = "$this->_username:$this->_realm";
         $idLength = strlen($id);
 
         $result = array(
-            'code'  => Zend_Auth_Result::FAILURE,
+            'code' => Zend_Auth_Result::FAILURE,
             'identity' => array(
-                'realm'    => $this->_realm,
+                'realm' => $this->_realm,
                 'username' => $this->_username,
-                ),
+            ),
             'messages' => array()
-            );
+        );
 
         while ($line = trim(fgets($fileHandle))) {
             if (substr($line, 0, $idLength) === $id) {
@@ -227,7 +226,7 @@ class Zend_Auth_Adapter_Digest implements Zend_Auth_Adapter_Interface
         $result['messages'][] = "Username '$this->_username' and realm '$this->_realm' combination not found";
         return new Zend_Auth_Result($result['code'], $result['identity'], $result['messages']);
     }
-    
+
     /**
      * Securely compare two strings for equality while avoided C level memcmp()
      * optimisations capable of leaking timing information useful to an attacker
@@ -249,4 +248,5 @@ class Zend_Auth_Adapter_Digest implements Zend_Auth_Adapter_Interface
         }
         return $result == 0;
     }
+
 }

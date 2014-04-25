@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Reports_Model_Report extends Mage_Core_Model_Abstract
 {
+
     protected $_reportModel;
 
     public function initCollection($modelClass)
@@ -38,16 +39,17 @@ class Mage_Reports_Model_Report extends Mage_Core_Model_Abstract
     public function getReportFull($from, $to)
     {
         return $this->_reportModel
-            ->setDateRange($from, $to)
-            ->setPageSize(false)
-            ->setStoreIds($this->getStoreIds());
+                        ->setDateRange($from, $to)
+                        ->setPageSize(false)
+                        ->setStoreIds($this->getStoreIds());
     }
 
     public function getReport($from, $to)
     {
         return $this->_reportModel
-            ->setDateRange($from, $to)
-            ->setPageSize($this->getPageSize())
-            ->setStoreIds($this->getStoreIds());
+                        ->setDateRange($from, $to)
+                        ->setPageSize($this->getPageSize())
+                        ->setStoreIds($this->getStoreIds());
     }
+
 }

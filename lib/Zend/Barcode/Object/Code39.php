@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Code39.php 23398 2010-11-19 17:17:05Z mikaelkael $
  */
-
 /**
  * @see Zend_Barcode_Object_ObjectAbstract
  */
@@ -40,6 +40,7 @@
  */
 class Zend_Barcode_Object_Code39 extends Zend_Barcode_Object_ObjectAbstract
 {
+
     /**
      * Coding map
      * @var array
@@ -106,9 +107,9 @@ class Zend_Barcode_Object_Code39 extends Zend_Barcode_Object_ObjectAbstract
      */
     protected function _calculateBarcodeWidth()
     {
-        $quietZone       = $this->getQuietZone();
+        $quietZone = $this->getQuietZone();
         $characterLength = (6 * $this->_barThinWidth + 3 * $this->_barThickWidth + 1) * $this->_factor;
-        $encodedData     = strlen($this->getText()) * $characterLength - $this->_factor;
+        $encodedData = strlen($this->getText()) * $characterLength - $this->_factor;
         return $quietZone + $encodedData + $quietZone;
     }
 
@@ -152,18 +153,18 @@ class Zend_Barcode_Object_Code39 extends Zend_Barcode_Object_ObjectAbstract
      */
     protected function _prepareBarcode()
     {
-        $text         = str_split($this->getText());
+        $text = str_split($this->getText());
         $barcodeTable = array();
         foreach ($text as $char) {
             $barcodeChar = str_split($this->_codingMap[$char]);
-            $visible     = true;
+            $visible = true;
             foreach ($barcodeChar as $c) {
                 /* visible, width, top, length */
-                $width          = $c ? $this->_barThickWidth : $this->_barThinWidth;
+                $width = $c ? $this->_barThickWidth : $this->_barThinWidth;
                 $barcodeTable[] = array((int) $visible, $width, 0, 1);
-                $visible = ! $visible;
+                $visible = !$visible;
             }
-            $barcodeTable[] = array(0 , 1);
+            $barcodeTable[] = array(0, 1);
         }
         return $barcodeTable;
     }
@@ -177,12 +178,13 @@ class Zend_Barcode_Object_Code39 extends Zend_Barcode_Object_ObjectAbstract
     public function getChecksum($text)
     {
         $this->_checkText($text);
-        $text     = str_split($text);
-        $charset  = array_flip(array_keys($this->_codingMap));
+        $text = str_split($text);
+        $charset = array_flip(array_keys($this->_codingMap));
         $checksum = 0;
         foreach ($text as $character) {
             $checksum += $charset[$character];
         }
         return array_search(($checksum % 43), $charset);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Widget_Container
 {
+
     protected $_objectId = 'id';
 
     public function __construct()
@@ -43,17 +44,16 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
         $this->setTemplate('widget/view/container.phtml');
 
         $this->_addButton('back', array(
-            'label'     => Mage::helper('adminhtml')->__('Back'),
-            'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
-            'class'     => 'back',
+            'label' => Mage::helper('adminhtml')->__('Back'),
+            'onclick' => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
+            'class' => 'back',
         ));
 
         $this->_addButton('edit', array(
-            'label'     => Mage::helper('adminhtml')->__('Edit'),
-            'class'     => 'edit',
-            'onclick'   => 'window.location.href=\'' . $this->getEditUrl() . '\'',
+            'label' => Mage::helper('adminhtml')->__('Edit'),
+            'class' => 'edit',
+            'onclick' => 'window.location.href=\'' . $this->getEditUrl() . '\'',
         ));
-
     }
 
     protected function _prepareLayout()

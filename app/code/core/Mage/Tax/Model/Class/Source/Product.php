@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+
     /**
      * Get all options
      *
@@ -36,15 +36,15 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
     {
         if (is_null($this->_options)) {
             $this->_options = Mage::getResourceModel('tax/class_collection')
-                ->addFieldToFilter('class_type', Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT)
-                ->load()
-                ->toOptionArray();
+                    ->addFieldToFilter('class_type', Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT)
+                    ->load()
+                    ->toOptionArray();
         }
 
         $options = $this->_options;
-        array_unshift($options, array('value'=>'0', 'label'=>Mage::helper('tax')->__('None')));
+        array_unshift($options, array('value' => '0', 'label' => Mage::helper('tax')->__('None')));
         if ($withEmpty) {
-            array_unshift($options, array('value'=>'', 'label'=>Mage::helper('tax')->__('-- Please Select --')));
+            array_unshift($options, array('value' => '', 'label' => Mage::helper('tax')->__('-- Please Select --')));
         }
         return $options;
     }
@@ -86,22 +86,22 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $column = array(
-            'unsigned'  => true,
-            'default'   => null,
-            'extra'     => null
+            'unsigned' => true,
+            'default' => null,
+            'extra' => null
         );
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
-            $column['type']     = 'int';
-            $column['is_null']  = true;
+            $column['type'] = 'int';
+            $column['is_null'] = true;
         } else {
-            $column['type']     = Varien_Db_Ddl_Table::TYPE_INTEGER;
+            $column['type'] = Varien_Db_Ddl_Table::TYPE_INTEGER;
             $column['nullable'] = true;
-            $column['comment']  = $attributeCode . ' tax column';
+            $column['comment'] = $attributeCode . ' tax column';
         }
 
         return array($attributeCode => $column);
-   }
+    }
 
     /**
      * Retrieve Select for update attribute value in flat table
@@ -112,6 +112,7 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
     public function getFlatUpdateSelect($store)
     {
         return Mage::getResourceModel('eav/entity_attribute_option')
-            ->getFlatUpdateSelect($this->getAttribute(), $store, false);
+                        ->getFlatUpdateSelect($this->getAttribute(), $store, false);
     }
+
 }

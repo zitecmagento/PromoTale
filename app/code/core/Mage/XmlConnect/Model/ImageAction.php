@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -67,7 +68,7 @@ class Mage_XmlConnect_Model_ImageAction extends Mage_Core_Model_Abstract
      * @var array
      */
     protected $_requiredImageActionFields = array(
-        self::ACTION_TYPE_CMS => array('action_type','image_id', 'entity_action', 'entity_name'),
+        self::ACTION_TYPE_CMS => array('action_type', 'image_id', 'entity_action', 'entity_name'),
         self::ACTION_TYPE_PRODUCT => array('action_type', 'image_id', 'entity_action', 'entity_name'),
         self::ACTION_TYPE_CATEGORY => array('action_type', 'image_id', 'entity_action', 'entity_name')
     );
@@ -132,7 +133,6 @@ class Mage_XmlConnect_Model_ImageAction extends Mage_Core_Model_Abstract
         return $this->_applicationModel;
     }
 
-
     /**
      * Save image action info
      *
@@ -145,8 +145,7 @@ class Mage_XmlConnect_Model_ImageAction extends Mage_Core_Model_Abstract
         $this->_setCurrentImageActionData(null)->_validateImagePrepareActionData($imageData);
         $actionData = $this->getCurrentImageActionData();
         $configPath = $this->_createImageActionConfigPath($actionData['image_id']);
-        $this->_getApplicationModel()->getConfigModel()->saveConfig($this->_getApplicationModel()->getId(),
-            array($configPath => serialize($actionData)), $category);
+        $this->_getApplicationModel()->getConfigModel()->saveConfig($this->_getApplicationModel()->getId(), array($configPath => serialize($actionData)), $category);
         return $this;
     }
 
@@ -157,7 +156,7 @@ class Mage_XmlConnect_Model_ImageAction extends Mage_Core_Model_Abstract
      * @param array $imageData
      * @return bool
      */
-    protected  function _validateImagePrepareActionData($imageData)
+    protected function _validateImagePrepareActionData($imageData)
     {
         if (isset($imageData['action_type']) && in_array($imageData['action_type'], $this->_imageActionTypes)) {
             if ($imageData['action_type'] == self::ACTION_TYPE_CMS) {
@@ -220,9 +219,7 @@ class Mage_XmlConnect_Model_ImageAction extends Mage_Core_Model_Abstract
     public function getImageActionData($imageId)
     {
         $imageActionConfigData = $this->_getApplicationModel()->getConfigModel()->loadScalarValue(
-            $this->_getApplicationModel()->getId(),
-            self::IMAGE_ACTION_CATEGORY_DEFAULT,
-            $this->_createImageActionConfigPath($imageId)
+                $this->_getApplicationModel()->getId(), self::IMAGE_ACTION_CATEGORY_DEFAULT, $this->_createImageActionConfigPath($imageId)
         );
         $imageActionData = $imageActionConfigData ? unserialize($imageActionConfigData) : $imageActionConfigData;
         return $this->_checkImageActionData($imageActionData);
@@ -244,14 +241,14 @@ class Mage_XmlConnect_Model_ImageAction extends Mage_Core_Model_Abstract
         switch ($imageActionData['action_type']) {
             case self::ACTION_TYPE_CMS:
                 $page = Mage::getModel('cms/page')->setStoreId($storeId)
-                    ->load($imageActionData['entity_action'], 'identifier');
+                        ->load($imageActionData['entity_action'], 'identifier');
                 if (!$page->getId() && $storeId == Mage_Core_Model_App::ADMIN_STORE_ID) {
                     $this->deleteAction($imageActionData['image_id']);
                     return;
                 } elseif ($page->getId()) {
                     $imageActionData['entity_name'] = $page->getTitle();
                 }
-            break;
+                break;
             case self::ACTION_TYPE_CATEGORY:
                 $category = Mage::getModel('catalog/category')->load($imageActionData['entity_action']);
                 if (!$category->getId()) {
@@ -262,20 +259,19 @@ class Mage_XmlConnect_Model_ImageAction extends Mage_Core_Model_Abstract
                 } else {
                     $imageActionData['entity_name'] = $category->getName();
                 }
-            break;
+                break;
             case self::ACTION_TYPE_PRODUCT:
                 $product = Mage::getModel('catalog/product')->load($imageActionData['entity_action']);
                 if (!$product->getId()) {
                     $this->deleteAction($imageActionData['image_id']);
                     return;
-                } elseif ($product->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_DISABLED
-                    && Mage_Core_Model_App::ADMIN_STORE_ID != $storeId
+                } elseif ($product->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_DISABLED && Mage_Core_Model_App::ADMIN_STORE_ID != $storeId
                 ) {
                     return;
                 } else {
                     $imageActionData['entity_name'] = $product->getName();
                 }
-            break;
+                break;
             default:
                 Mage::throwException($this->__('Action type doesn\'t recognized.'));
                 break;
@@ -291,8 +287,7 @@ class Mage_XmlConnect_Model_ImageAction extends Mage_Core_Model_Abstract
      */
     public function deleteAction($imageId)
     {
-        $this->_getApplicationModel()->getConfigModel()->deleteConfig($this->_getApplicationModel()->getId(),
-            self::IMAGE_ACTION_CATEGORY_DEFAULT, $this->_createImageActionConfigPath($imageId));
+        $this->_getApplicationModel()->getConfigModel()->deleteConfig($this->_getApplicationModel()->getId(), self::IMAGE_ACTION_CATEGORY_DEFAULT, $this->_createImageActionConfigPath($imageId));
         return $this;
     }
 
@@ -318,4 +313,5 @@ class Mage_XmlConnect_Model_ImageAction extends Mage_Core_Model_Abstract
         }
         return $this;
     }
+
 }

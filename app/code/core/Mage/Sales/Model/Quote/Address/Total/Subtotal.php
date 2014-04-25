@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
+
     /**
      * Collect address subtotal
      *
@@ -53,8 +53,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
                     $virtualAmount += $item->getRowTotal();
                     $baseVirtualAmount += $item->getBaseRowTotal();
                 }
-            }
-            else {
+            } else {
                 $this->_removeItem($address, $item);
             }
         }
@@ -80,8 +79,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
     {
         if ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
             $quoteItem = $item->getAddress()->getQuote()->getItemById($item->getQuoteItemId());
-        }
-        else {
+        } else {
             $quoteItem = $item;
         }
         $product = $quoteItem->getProduct();
@@ -94,8 +92,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
             if (!$product) {
                 return false;
             }
-        }
-        else {
+        } else {
             if (!$product || !$product->isVisibleInCatalog()) {
                 return false;
             }
@@ -103,18 +100,15 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
 
         if ($quoteItem->getParentItem() && $quoteItem->isChildrenCalculated()) {
             $finalPrice = $quoteItem->getParentItem()->getProduct()->getPriceModel()->getChildFinalPrice(
-               $quoteItem->getParentItem()->getProduct(),
-               $quoteItem->getParentItem()->getQty(),
-               $quoteItem->getProduct(),
-               $quoteItem->getQty()
+                    $quoteItem->getParentItem()->getProduct(), $quoteItem->getParentItem()->getQty(), $quoteItem->getProduct(), $quoteItem->getQty()
             );
             $item->setPrice($finalPrice)
-                ->setBaseOriginalPrice($finalPrice);
+                    ->setBaseOriginalPrice($finalPrice);
             $item->calcRowTotal();
         } else if (!$quoteItem->getParentItem()) {
             $finalPrice = $product->getFinalPrice($quoteItem->getQty());
             $item->setPrice($finalPrice)
-                ->setBaseOriginalPrice($finalPrice);
+                    ->setBaseOriginalPrice($finalPrice);
             $item->calcRowTotal();
             $this->_addAmount($item->getRowTotal());
             $this->_addBaseAmount($item->getBaseRowTotal());
@@ -138,8 +132,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
             if ($address->getQuote()) {
                 $address->getQuote()->removeItem($item->getId());
             }
-        }
-        elseif ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
+        } elseif ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
             $address->removeItem($item->getId());
             if ($address->getQuote()) {
                 $address->getQuote()->removeItem($item->getQuoteItemId());
@@ -158,7 +151,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $address->addTotal(array(
-            'code'  => $this->getCode(),
+            'code' => $this->getCode(),
             'title' => Mage::helper('sales')->__('Subtotal'),
             'value' => $address->getSubtotal()
         ));
@@ -174,4 +167,5 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
     {
         return Mage::helper('sales')->__('Subtotal');
     }
+
 }

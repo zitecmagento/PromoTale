@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Entry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Feed_Reader
  */
@@ -35,9 +35,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Reader_Extension_Slash_Entry
-    extends Zend_Feed_Reader_Extension_EntryAbstract
+class Zend_Feed_Reader_Extension_Slash_Entry extends Zend_Feed_Reader_Extension_EntryAbstract
 {
+
     /**
      * Get the entry section
      *
@@ -72,7 +72,7 @@ class Zend_Feed_Reader_Extension_Slash_Entry
         }
 
         $stringParade = $this->_getData($name);
-        $hitParade    = array();
+        $hitParade = array();
 
         if (!empty($stringParade)) {
             $stringParade = explode(',', $stringParade);
@@ -141,4 +141,5 @@ class Zend_Feed_Reader_Extension_Slash_Entry
     {
         $this->_xpath->registerNamespace('slash10', 'http://purl.org/rss/1.0/modules/slash/');
     }
+
 }

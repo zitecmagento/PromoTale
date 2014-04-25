@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Model_Source_Import_Behavior
 {
+
     /**
      * Prepare and return array of import behavior.
      *
@@ -55,4 +57,5 @@ class Mage_ImportExport_Model_Source_Import_Behavior
             )
         );
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Parsed.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element/Array.php';
 #require_once 'Zend/Pdf/Element/Name.php';
@@ -42,6 +41,7 @@
  */
 abstract class Zend_Pdf_Resource_Font_Simple_Parsed extends Zend_Pdf_Resource_Font_Simple
 {
+
     /**
      * Object constructor
      *
@@ -59,22 +59,22 @@ abstract class Zend_Pdf_Resource_Font_Simple_Parsed extends Zend_Pdf_Resource_Fo
 
         $this->_fontNames = $fontParser->names;
 
-        $this->_isBold       = $fontParser->isBold;
-        $this->_isItalic     = $fontParser->isItalic;
+        $this->_isBold = $fontParser->isBold;
+        $this->_isItalic = $fontParser->isItalic;
         $this->_isMonospaced = $fontParser->isMonospaced;
 
-        $this->_underlinePosition  = $fontParser->underlinePosition;
+        $this->_underlinePosition = $fontParser->underlinePosition;
         $this->_underlineThickness = $fontParser->underlineThickness;
-        $this->_strikePosition     = $fontParser->strikePosition;
-        $this->_strikeThickness    = $fontParser->strikeThickness;
+        $this->_strikePosition = $fontParser->strikePosition;
+        $this->_strikeThickness = $fontParser->strikeThickness;
 
         $this->_unitsPerEm = $fontParser->unitsPerEm;
 
-        $this->_ascent  = $fontParser->ascent;
+        $this->_ascent = $fontParser->ascent;
         $this->_descent = $fontParser->descent;
         $this->_lineGap = $fontParser->lineGap;
 
-        $this->_glyphWidths       = $fontParser->glyphWidths;
+        $this->_glyphWidths = $fontParser->glyphWidths;
         $this->_missingGlyphWidth = $this->_glyphWidths[0];
 
 
@@ -87,7 +87,7 @@ abstract class Zend_Pdf_Resource_Font_Simple_Parsed extends Zend_Pdf_Resource_Fo
         $this->_resource->BaseFont = new Zend_Pdf_Element_Name($baseFont);
 
         $this->_resource->FirstChar = new Zend_Pdf_Element_Numeric(0);
-        $this->_resource->LastChar  = new Zend_Pdf_Element_Numeric(count($this->_glyphWidths) - 1);
+        $this->_resource->LastChar = new Zend_Pdf_Element_Numeric(count($this->_glyphWidths) - 1);
 
         /* Now convert the scalar glyph widths to Zend_Pdf_Element_Numeric objects.
          */
@@ -102,4 +102,5 @@ abstract class Zend_Pdf_Resource_Font_Simple_Parsed extends Zend_Pdf_Resource_Fo
         $widthsObject = $this->_objectFactory->newObject($widthsArrayElement);
         $this->_resource->Widths = $widthsObject;
     }
+
 }

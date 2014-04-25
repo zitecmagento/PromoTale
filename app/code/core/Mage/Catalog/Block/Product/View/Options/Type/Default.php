@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product options default type block
  *
@@ -32,8 +32,7 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Block_Product_View_Options_Type_Default
-    extends Mage_Catalog_Block_Product_View_Options_Abstract
+class Mage_Catalog_Block_Product_View_Options_Type_Default extends Mage_Catalog_Block_Product_View_Options_Abstract
 {
-
+    
 }

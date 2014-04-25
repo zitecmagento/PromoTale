@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml catalog product action attribute update helper
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_Core_Helper_Data
 {
+
     /**
      * Selected products for mass-update
      *
@@ -71,8 +72,8 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
             }
 
             $this->_products = Mage::getResourceModel('catalog/product_collection')
-                ->setStoreId($this->getSelectedStoreId())
-                ->addIdFilter($productsIds);
+                    ->setStoreId($this->getSelectedStoreId())
+                    ->addIdFilter($productsIds);
         }
 
         return $this->_products;
@@ -101,7 +102,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
      */
     public function getSelectedStoreId()
     {
-        return (int)$this->_getRequest()->getParam('store', Mage_Core_Model_App::ADMIN_STORE_ID);
+        return (int) $this->_getRequest()->getParam('store', Mage_Core_Model_App::ADMIN_STORE_ID);
     }
 
     /**
@@ -122,18 +123,18 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     public function getAttributes()
     {
         if (is_null($this->_attributes)) {
-            $this->_attributes  = Mage::getSingleton('eav/config')
-                ->getEntityType(Mage_Catalog_Model_Product::ENTITY)
-                ->getAttributeCollection()
-                ->addIsNotUniqueFilter()
-                ->setInAllAttributeSetsFilter($this->getProductsSetIds());
+            $this->_attributes = Mage::getSingleton('eav/config')
+                    ->getEntityType(Mage_Catalog_Model_Product::ENTITY)
+                    ->getAttributeCollection()
+                    ->addIsNotUniqueFilter()
+                    ->setInAllAttributeSetsFilter($this->getProductsSetIds());
 
             if ($this->_excludedAttributes) {
                 $this->_attributes->addFieldToFilter('attribute_code', array('nin' => $this->_excludedAttributes));
             }
 
             // check product type apply to limitation and remove attributes that impossible to change in mass-update
-            $productTypeIds  = $this->getProducts()->getProductTypeIds();
+            $productTypeIds = $this->getProducts()->getProductTypeIds();
             foreach ($this->_attributes as $attribute) {
                 /* @var $attribute Mage_Catalog_Model_Entity_Attribute */
                 foreach ($productTypeIds as $productTypeId) {
@@ -159,4 +160,5 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     {
         return array();
     }
+
 }

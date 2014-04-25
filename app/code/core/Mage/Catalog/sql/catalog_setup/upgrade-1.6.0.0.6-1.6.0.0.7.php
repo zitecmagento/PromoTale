@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,17 +24,14 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_Catalog_Model_Resource_Setup */
 $installer = $this;
 
 $installer->getConnection()->addColumn(
-    $installer->getTable('catalog/category_anchor_products_indexer_tmp'),
-    'position',
-    array(
-        'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-        'unsigned'  => true,
-        'nullable'  => true,
-        'comment'   => 'Position'
-    )
+        $installer->getTable('catalog/category_anchor_products_indexer_tmp'), 'position', array(
+    'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+    'unsigned' => true,
+    'nullable' => true,
+    'comment' => 'Position'
+        )
 );

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
@@ -68,96 +68,96 @@ CREATE TABLE {$this->getTable('catalog_product_bundle_option_value')} (
 ");
 
 $installer->addAttribute('catalog_product', 'price_type', array(
-        'type'              => 'int',
-        'backend'           => '',
-        'frontend'          => '',
-        'label'             => '',
-        'input'             => '',
-        'class'             => '',
-        'source'            => '',
-        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-        'visible'           => false,
-        'required'          => true,
-        'user_defined'      => false,
-        'default'           => '',
-        'searchable'        => false,
-        'filterable'        => false,
-        'comparable'        => false,
-        'visible_on_front'  => false,
-        'unique'            => false,
-        'apply_to'          => 'bundle',
-        'is_configurable'   => false
-    ));
+    'type' => 'int',
+    'backend' => '',
+    'frontend' => '',
+    'label' => '',
+    'input' => '',
+    'class' => '',
+    'source' => '',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+    'visible' => false,
+    'required' => true,
+    'user_defined' => false,
+    'default' => '',
+    'searchable' => false,
+    'filterable' => false,
+    'comparable' => false,
+    'visible_on_front' => false,
+    'unique' => false,
+    'apply_to' => 'bundle',
+    'is_configurable' => false
+));
 
 $installer->addAttribute('catalog_product', 'sku_type', array(
-        'type'              => 'int',
-        'backend'           => '',
-        'frontend'          => '',
-        'label'             => '',
-        'input'             => '',
-        'class'             => '',
-        'source'            => '',
-        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-        'visible'           => false,
-        'required'          => true,
-        'user_defined'      => false,
-        'default'           => '',
-        'searchable'        => false,
-        'filterable'        => false,
-        'comparable'        => false,
-        'visible_on_front'  => false,
-        'unique'            => false,
-        'apply_to'          => 'bundle',
-        'is_configurable'   => false
-    ));
+    'type' => 'int',
+    'backend' => '',
+    'frontend' => '',
+    'label' => '',
+    'input' => '',
+    'class' => '',
+    'source' => '',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+    'visible' => false,
+    'required' => true,
+    'user_defined' => false,
+    'default' => '',
+    'searchable' => false,
+    'filterable' => false,
+    'comparable' => false,
+    'visible_on_front' => false,
+    'unique' => false,
+    'apply_to' => 'bundle',
+    'is_configurable' => false
+));
 
 $installer->addAttribute('catalog_product', 'weight_type', array(
-        'type'              => 'int',
-        'backend'           => '',
-        'frontend'          => '',
-        'label'             => '',
-        'input'             => '',
-        'class'             => '',
-        'source'            => '',
-        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-        'visible'           => false,
-        'required'          => true,
-        'user_defined'      => false,
-        'default'           => '',
-        'searchable'        => false,
-        'filterable'        => false,
-        'comparable'        => false,
-        'visible_on_front'  => false,
-        'unique'            => false,
-        'apply_to'          => 'bundle',
-        'is_configurable'   => false
-    ));
+    'type' => 'int',
+    'backend' => '',
+    'frontend' => '',
+    'label' => '',
+    'input' => '',
+    'class' => '',
+    'source' => '',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+    'visible' => false,
+    'required' => true,
+    'user_defined' => false,
+    'default' => '',
+    'searchable' => false,
+    'filterable' => false,
+    'comparable' => false,
+    'visible_on_front' => false,
+    'unique' => false,
+    'apply_to' => 'bundle',
+    'is_configurable' => false
+));
 
 $installer->addAttribute('catalog_product', 'price_view', array(
-        'group'             => 'Prices',
-        'type'              => 'int',
-        'backend'           => '',
-        'frontend'          => '',
-        'label'             => 'Price View',
-        'input'             => 'select',
-        'class'             => '',
-        'source'            => 'bundle/product_attribute_source_price_view',
-        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-        'visible'           => true,
-        'required'          => true,
-        'user_defined'      => false,
-        'default'           => '',
-        'searchable'        => false,
-        'filterable'        => false,
-        'comparable'        => false,
-        'visible_on_front'  => false,
-        'unique'            => false,
-        'apply_to'          => 'bundle',
-        'is_configurable'   => false
-    ));
+    'group' => 'Prices',
+    'type' => 'int',
+    'backend' => '',
+    'frontend' => '',
+    'label' => 'Price View',
+    'input' => 'select',
+    'class' => '',
+    'source' => 'bundle/product_attribute_source_price_view',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+    'visible' => true,
+    'required' => true,
+    'user_defined' => false,
+    'default' => '',
+    'searchable' => false,
+    'filterable' => false,
+    'comparable' => false,
+    'visible_on_front' => false,
+    'unique' => false,
+    'apply_to' => 'bundle',
+    'is_configurable' => false
+));
 
-$fieldList = array('price','special_price','special_from_date','special_to_date',
-    'minimal_price','cost','tier_price','weight','tax_class_id');
+$fieldList = array('price', 'special_price', 'special_from_date', 'special_to_date',
+    'minimal_price', 'cost', 'tier_price', 'weight', 'tax_class_id');
 foreach ($fieldList as $field) {
     $applyTo = explode(',', $installer->getAttribute('catalog_product', $field, 'apply_to'));
     if (!in_array('bundle', $applyTo)) {

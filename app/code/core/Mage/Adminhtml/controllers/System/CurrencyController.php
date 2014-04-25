@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Init currency by currency code from request
      *
@@ -42,7 +44,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
     {
         $code = $this->getRequest()->getParam('currency');
         $currency = Mage::getModel('directory/currency')
-            ->load($code);
+                ->load($code);
 
         Mage::register('currency', $currency);
         return $this;
@@ -63,22 +65,26 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
 
     public function fetchRatesAction()
     {
-        try {
+        try
+        {
             $service = $this->getRequest()->getParam('rate_services');
             $this->_getSession()->setCurrencyRateService($service);
-            if( !$service ) {
+            if (!$service) {
                 throw new Exception(Mage::helper('adminhtml')->__('Invalid Import Service Specified'));
             }
-            try {
+            try
+            {
                 $importModel = Mage::getModel(
-                    Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray()
+                                Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray()
                 );
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::throwException(Mage::helper('adminhtml')->__('Unable to initialize import model'));
             }
             $rates = $importModel->fetchRates();
             $errors = $importModel->getMessages();
-            if( sizeof($errors) > 0 ) {
+            if (sizeof($errors) > 0) {
                 foreach ($errors as $error) {
                     Mage::getSingleton('adminhtml/session')->addWarning($error);
                 }
@@ -89,7 +95,8 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
 
             Mage::getSingleton('adminhtml/session')->setRates($rates);
         }
-        catch (Exception $e){
+        catch (Exception $e)
+        {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }
         $this->_redirect('*/*/');
@@ -98,13 +105,14 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
     public function saveRatesAction()
     {
         $data = $this->getRequest()->getParam('rate');
-        if( is_array($data) ) {
-            try {
+        if (is_array($data)) {
+            try
+            {
                 foreach ($data as $currencyCode => $rate) {
-                    foreach( $rate as $currencyTo => $value ) {
+                    foreach ($rate as $currencyTo => $value) {
                         $value = abs(Mage::getSingleton('core/locale')->getNumber($value));
                         $data[$currencyCode][$currencyTo] = $value;
-                        if( $value == 0 ) {
+                        if ($value == 0) {
                             Mage::getSingleton('adminhtml/session')->addWarning(Mage::helper('adminhtml')->__('Invalid input data for %s => %s rate', $currencyCode, $currencyTo));
                         }
                     }
@@ -112,7 +120,9 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
 
                 Mage::getModel('directory/currency')->saveRates($data);
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('All valid rates have been saved.'));
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
@@ -124,4 +134,5 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
     {
         return Mage::getSingleton('admin/session')->isAllowed('system/currency/rates');
     }
+
 }

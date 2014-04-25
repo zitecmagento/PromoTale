@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Resource_Queue_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Internal constructor
      *
@@ -67,17 +69,15 @@ class Mage_XmlConnect_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
         return $this;
     }
 
-   /**
-    * Join Template Name to collection
-    *
-    * @return Mage_XmlConnect_Model_Resource_Queue_Collection
-    */
+    /**
+     * Join Template Name to collection
+     *
+     * @return Mage_XmlConnect_Model_Resource_Queue_Collection
+     */
     protected function _joinTemplateName()
     {
         $this->getSelect()->joinLeft(
-            array('t' => $this->getTable('xmlconnect/template')),
-            't.template_id = main_table.template_id',
-            array('template_name' => 't.name')
+                array('t' => $this->getTable('xmlconnect/template')), 't.template_id = main_table.template_id', array('template_name' => 't.name')
         );
         return $this;
     }
@@ -90,9 +90,8 @@ class Mage_XmlConnect_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     protected function _joinApplicationName()
     {
         $this->getSelect()->joinLeft(
-            array('app' => $this->getTable('xmlconnect/application')),
-            'app.application_id = t.application_id',
-            array('application_name' => 'app.name')
+                array('app' => $this->getTable('xmlconnect/application')), 'app.application_id = t.application_id', array(
+            'application_name' => 'app.name')
         );
         return $this;
     }
@@ -105,9 +104,10 @@ class Mage_XmlConnect_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     public function addOnlyForSendingFilter()
     {
         $this->getSelect()->where('main_table.status in (?)', array(Mage_XmlConnect_Model_Queue::STATUS_IN_QUEUE))
-             ->where('main_table.exec_time < ?', Mage::getSingleton('core/date')->gmtDate())
-             ->order(new Zend_Db_Expr('main_table.exec_time ' . Zend_Db_Select::SQL_ASC)
+                ->where('main_table.exec_time < ?', Mage::getSingleton('core/date')->gmtDate())
+                ->order(new Zend_Db_Expr('main_table.exec_time ' . Zend_Db_Select::SQL_ASC)
         );
         return $this;
     }
+
 }

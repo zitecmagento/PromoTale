@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Redirect.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** @see PHPUnit_Framework_Constraint */
 #require_once 'PHPUnit/Framework/Constraint.php';
 
@@ -35,25 +35,27 @@
  */
 class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
 {
-    /**#@+
+    /*     * #@+
      * Assertion type constants
      */
-    const ASSERT_REDIRECT       = 'assertRedirect';
-    const ASSERT_REDIRECT_TO    = 'assertRedirectTo';
+
+    const ASSERT_REDIRECT = 'assertRedirect';
+    const ASSERT_REDIRECT_TO = 'assertRedirectTo';
     const ASSERT_REDIRECT_REGEX = 'assertRedirectRegex';
-    /**#@-*/
+
+    /*     * #@- */
 
     /**
      * Current assertion type
      * @var string
      */
-    protected $_assertType      = null;
+    protected $_assertType = null;
 
     /**
      * Available assertion types
      * @var array
      */
-    protected $_assertTypes     = array(
+    protected $_assertTypes = array(
         self::ASSERT_REDIRECT,
         self::ASSERT_REDIRECT_TO,
         self::ASSERT_REDIRECT_REGEX,
@@ -63,13 +65,13 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
      * Pattern to match against
      * @var string
      */
-    protected $_match             = null;
+    protected $_match = null;
 
     /**
      * Whether or not assertion is negated
      * @var bool
      */
-    protected $_negate            = false;
+    protected $_negate = false;
 
     /**
      * Constructor; setup constraint state
@@ -78,6 +80,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
      */
     public function __construct()
     {
+        
     }
 
     /**
@@ -118,8 +121,8 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
         $this->_assertType = $assertType;
 
         $response = $other;
-        $argv     = func_get_args();
-        $argc     = func_num_args();
+        $argv = func_get_args();
+        $argc = func_num_args();
 
         switch ($assertType) {
             case self::ASSERT_REDIRECT_TO:
@@ -128,18 +131,14 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
                     throw new Zend_Test_PHPUnit_Constraint_Exception('No redirect URL provided against which to match');
                 }
                 $this->_match = $match = $argv[2];
-                return ($this->_negate)
-                    ? $this->_notMatch($response, $match)
-                    : $this->_match($response, $match);
+                return ($this->_negate) ? $this->_notMatch($response, $match) : $this->_match($response, $match);
             case self::ASSERT_REDIRECT_REGEX:
                 if (3 > $argc) {
                     #require_once 'Zend/Test/PHPUnit/Constraint/Exception.php';
                     throw new Zend_Test_PHPUnit_Constraint_Exception('No pattern provided against which to match redirect');
                 }
                 $this->_match = $match = $argv[2];
-                return ($this->_negate)
-                    ? $this->_notRegex($response, $match)
-                    : $this->_regex($response, $match);
+                return ($this->_negate) ? $this->_notRegex($response, $match) : $this->_regex($response, $match);
             case self::ASSERT_REDIRECT:
             default:
                 return ($this->_negate) ? !$response->isRedirect() : $response->isRedirect();
@@ -213,7 +212,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
             return false;
         }
 
-        $headers  = $response->sendHeaders();
+        $headers = $response->sendHeaders();
         $redirect = $headers['location'];
         $redirect = str_replace('Location: ', '', $redirect);
 
@@ -233,7 +232,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
             return true;
         }
 
-        $headers  = $response->sendHeaders();
+        $headers = $response->sendHeaders();
         $redirect = $headers['location'];
         $redirect = str_replace('Location: ', '', $redirect);
 
@@ -253,7 +252,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
             return false;
         }
 
-        $headers  = $response->sendHeaders();
+        $headers = $response->sendHeaders();
         $redirect = $headers['location'];
         $redirect = str_replace('Location: ', '', $redirect);
 
@@ -273,10 +272,11 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
             return true;
         }
 
-        $headers  = $response->sendHeaders();
+        $headers = $response->sendHeaders();
         $redirect = $headers['location'];
         $redirect = str_replace('Location: ', '', $redirect);
 
         return !preg_match($pattern, $redirect);
     }
+
 }

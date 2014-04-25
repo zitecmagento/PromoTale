@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 interface Mage_Api2_Model_Renderer_Interface
 {
+
     /**
      * Render content in a certain format
      *

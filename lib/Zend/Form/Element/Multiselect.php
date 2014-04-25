@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Element_Select */
 #require_once 'Zend/Form/Element/Select.php';
 
@@ -34,6 +34,7 @@
  */
 class Zend_Form_Element_Multiselect extends Zend_Form_Element_Select
 {
+
     /**
      * 'multiple' attribute
      * @var string
@@ -51,4 +52,5 @@ class Zend_Form_Element_Multiselect extends Zend_Form_Element_Select
      * @var bool
      */
     protected $_isArray = true;
+
 }

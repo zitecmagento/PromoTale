@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -33,6 +34,7 @@
  */
 class Zend_Barcode_Exception extends Zend_Exception
 {
+
     /**
      * Is this exception renderable?
      * @var bool
@@ -60,4 +62,5 @@ class Zend_Barcode_Exception extends Zend_Exception
     {
         return $this->_isRenderable;
     }
+
 }

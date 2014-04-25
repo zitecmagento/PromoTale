@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 interface Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {
+
     /**
      * Retrieve value associated with this option
      *

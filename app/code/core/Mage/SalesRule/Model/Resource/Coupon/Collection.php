@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SalesRule Model Resource Coupon_Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Constructor
      *
@@ -56,7 +57,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
         if ($rule instanceof Mage_SalesRule_Model_Rule) {
             $ruleId = $rule->getId();
         } else {
-            $ruleId = (int)$rule;
+            $ruleId = (int) $rule;
         }
 
         $this->addFieldToFilter('rule_id', $ruleId);
@@ -98,8 +99,8 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
     {
         $filterValue = $column->getFilter()->getCondition();
         $collection->addFieldToFilter(
-            $this->getConnection()->getCheckSql('main_table.times_used > 0', 1, 0),
-            array('eq' => $filterValue)
+                $this->getConnection()->getCheckSql('main_table.times_used > 0', 1, 0), array('eq' => $filterValue)
         );
     }
+
 }

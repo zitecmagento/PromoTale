@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ModuleDirectory.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Filesystem_Directory
  */
@@ -80,7 +80,7 @@ class Zend_Tool_Project_Context_Zf_ModuleDirectory extends Zend_Tool_Project_Con
     {
         return array(
             'moduleName' => $this->getModuleName()
-            );
+        );
     }
 
     /**
@@ -92,6 +92,5 @@ class Zend_Tool_Project_Context_Zf_ModuleDirectory extends Zend_Tool_Project_Con
     {
         return $this->_moduleName;
     }
-
 
 }

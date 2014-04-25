@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_Template
 {
+
     protected function _prepareLayout()
     {
         $this->setTemplate('system/config/switcher.phtml');
@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
         $section = $this->getRequest()->getParam('section');
 
         $curWebsite = $this->getRequest()->getParam('website');
-        $curStore   = $this->getRequest()->getParam('store');
+        $curStore = $this->getRequest()->getParam('store');
 
         $storeModel = Mage::getSingleton('adminhtml/system_store');
         /* @var $storeModel Mage_Adminhtml_Model_System_Store */
@@ -52,10 +52,10 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
 
         $options = array();
         $options['default'] = array(
-            'label'    => Mage::helper('adminhtml')->__('Default Config'),
-            'url'      => $url->getUrl('*/*/*', array('section'=>$section)),
+            'label' => Mage::helper('adminhtml')->__('Default Config'),
+            'url' => $url->getUrl('*/*/*', array('section' => $section)),
             'selected' => !$curWebsite && !$curStore,
-            'style'    => 'background:#ccc; font-weight:bold;',
+            'style' => 'background:#ccc; font-weight:bold;',
         );
 
         foreach ($storeModel->getWebsiteCollection() as $website) {
@@ -72,32 +72,32 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                     if (!$websiteShow) {
                         $websiteShow = true;
                         $options['website_' . $website->getCode()] = array(
-                            'label'    => $website->getName(),
-                            'url'      => $url->getUrl('*/*/*', array('section'=>$section, 'website'=>$website->getCode())),
+                            'label' => $website->getName(),
+                            'url' => $url->getUrl('*/*/*', array('section' => $section, 'website' => $website->getCode())),
                             'selected' => !$curStore && $curWebsite == $website->getCode(),
-                            'style'    => 'padding-left:16px; background:#DDD; font-weight:bold;',
+                            'style' => 'padding-left:16px; background:#DDD; font-weight:bold;',
                         );
                     }
                     if (!$groupShow) {
                         $groupShow = true;
                         $options['group_' . $group->getId() . '_open'] = array(
-                            'is_group'  => true,
-                            'is_close'  => false,
-                            'label'     => $group->getName(),
-                            'style'     => 'padding-left:32px;'
+                            'is_group' => true,
+                            'is_close' => false,
+                            'label' => $group->getName(),
+                            'style' => 'padding-left:32px;'
                         );
                     }
                     $options['store_' . $store->getCode()] = array(
-                        'label'    => $store->getName(),
-                        'url'      => $url->getUrl('*/*/*', array('section'=>$section, 'website'=>$website->getCode(), 'store'=>$store->getCode())),
+                        'label' => $store->getName(),
+                        'url' => $url->getUrl('*/*/*', array('section' => $section, 'website' => $website->getCode(), 'store' => $store->getCode())),
                         'selected' => $curStore == $store->getCode(),
-                        'style'    => '',
+                        'style' => '',
                     );
                 }
                 if ($groupShow) {
                     $options['group_' . $group->getId() . '_close'] = array(
-                        'is_group'  => true,
-                        'is_close'  => true,
+                        'is_group' => true,
+                        'is_close' => true,
                     );
                 }
             }
@@ -115,4 +115,5 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
     {
         return Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml();
     }
+
 }

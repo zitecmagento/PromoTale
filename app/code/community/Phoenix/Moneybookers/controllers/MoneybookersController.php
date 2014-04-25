@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,6 +20,7 @@
  */
 class Phoenix_Moneybookers_MoneybookersController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Retrieve Moneybookers helper
      *
@@ -42,20 +44,25 @@ class Phoenix_Moneybookers_MoneybookersController extends Mage_Adminhtml_Control
      */
     public function checkemailAction()
     {
-        try {
+        try
+        {
             $params = $this->getRequest()->getParams();
             if (empty($params['email'])) {
                 Mage::throwException('Error: No parameters specified');
             }
-            $response =  $this->_getHelper()->checkEmailRequest($params);
+            $response = $this->_getHelper()->checkEmailRequest($params);
             if (empty($response)) {
                 Mage::throwException('Error: Connection to moneybookers.com failed');
             }
             $this->getResponse()->setBody($response);
             return;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $response = $e->getMessage();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $response = 'Error: System error during request';
         }
         $this->getResponse()->setBody($response);
@@ -66,22 +73,28 @@ class Phoenix_Moneybookers_MoneybookersController extends Mage_Adminhtml_Control
      */
     public function checksecretAction()
     {
-        try {
+        try
+        {
             $params = $this->getRequest()->getParams();
             if (empty($params['email']) || empty($params['secret'])) {
-                 Mage::throwException('Error: No parameters specified');
+                Mage::throwException('Error: No parameters specified');
             }
-            $response =  $this->_getHelper()->checkSecretRequest($params);
+            $response = $this->_getHelper()->checkSecretRequest($params);
             if (empty($response)) {
                 Mage::throwException('Error: Connection to moneybookers.com failed');
             }
             $this->getResponse()->setBody($response);
             return;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $response = $e->getMessage();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $response = 'Error: System error during request';
         }
         $this->getResponse()->setBody($response);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Model_System_Config_Backend_Admin_Password_Link_Expirationperiod
-    extends Mage_Core_Model_Config_Data
+class Mage_Adminhtml_Model_System_Config_Backend_Admin_Password_Link_Expirationperiod extends Mage_Core_Model_Config_Data
 {
+
     /**
      * Validate expiration period value before saving
      *
@@ -42,12 +43,13 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Password_Link_Expirationp
     protected function _beforeSave()
     {
         parent::_beforeSave();
-        $resetPasswordLinkExpirationPeriod = (int)$this->getValue();
+        $resetPasswordLinkExpirationPeriod = (int) $this->getValue();
 
         if ($resetPasswordLinkExpirationPeriod < 1) {
-            $resetPasswordLinkExpirationPeriod = (int)$this->getOldValue();
+            $resetPasswordLinkExpirationPeriod = (int) $this->getOldValue();
         }
-        $this->setValue((string)$resetPasswordLinkExpirationPeriod);
+        $this->setValue((string) $resetPasswordLinkExpirationPeriod);
         return $this;
     }
+
 }

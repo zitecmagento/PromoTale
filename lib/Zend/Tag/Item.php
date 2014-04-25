@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Item.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tag_Taggable
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Tag_Item implements Zend_Tag_Taggable
 {
+
     /**
      * Title of the tag
      *
@@ -217,4 +218,5 @@ class Zend_Tag_Item implements Zend_Tag_Taggable
         }
         return null;
     }
+
 }

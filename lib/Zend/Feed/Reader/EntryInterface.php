@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 interface Zend_Feed_Reader_EntryInterface
 {
+
     /**
      * Get the specified author
      *
@@ -133,7 +135,7 @@ interface Zend_Feed_Reader_EntryInterface
      * @return string
      */
     public function getCommentFeedLink();
-    
+
     /**
      * Get all categories
      *

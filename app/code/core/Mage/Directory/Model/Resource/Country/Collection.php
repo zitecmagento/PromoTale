@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Directory Country Resource Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Define main table
      */
@@ -62,7 +63,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      */
     public function loadByStore($store = null)
     {
-        $allowCountries = explode(',', (string)$this->_getStoreConfig('general/country/allow', $store));
+        $allowCountries = explode(',', (string) $this->_getStoreConfig('general/country/allow', $store));
         if (!empty($allowCountries)) {
             $this->addFieldToFilter("country_id", array('in' => $allowCountries));
         }
@@ -174,4 +175,5 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
 
         return $options;
     }
+
 }

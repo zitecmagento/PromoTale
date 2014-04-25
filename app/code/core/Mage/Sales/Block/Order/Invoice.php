@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Items
 {
+
     protected function _construct()
     {
         parent::_construct();
@@ -45,8 +47,7 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
             $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
         }
         $this->setChild(
-            'payment_info',
-            $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
+                'payment_info', $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
         );
     }
 
@@ -106,11 +107,14 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
         return Mage::getUrl('*/*/creditmemo', array('order_id' => $order->getId()));
     }
 
-    public function getPrintInvoiceUrl($invoice){
+    public function getPrintInvoiceUrl($invoice)
+    {
         return Mage::getUrl('*/*/printInvoice', array('invoice_id' => $invoice->getId()));
     }
 
-    public function getPrintAllInvoicesUrl($order){
+    public function getPrintAllInvoicesUrl($order)
+    {
         return Mage::getUrl('*/*/printInvoice', array('order_id' => $order->getId()));
     }
+
 }

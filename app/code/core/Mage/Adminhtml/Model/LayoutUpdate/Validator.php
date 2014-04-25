@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Validator for custom layout update
  *
@@ -36,7 +36,8 @@
  */
 class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
 {
-    const XML_INVALID                             = 'invalidXml';
+
+    const XML_INVALID = 'invalidXml';
     const PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR = 'protectedAttrHelperInActionVar';
 
     /**
@@ -73,7 +74,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
         if (!$this->_messageTemplates) {
             $this->_messageTemplates = array(
                 self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR =>
-                    Mage::helper('adminhtml')->__('Helper attributes should not be used in custom layout updates.'),
+                Mage::helper('adminhtml')->__('Helper attributes should not be used in custom layout updates.'),
                 self::XML_INVALID => Mage::helper('adminhtml')->__('XML data is invalid.'),
             );
         }
@@ -96,17 +97,20 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
     {
         if (is_string($value)) {
             $value = trim($value);
-            try {
+            try
+            {
                 //wrap XML value in the "config" tag because config cannot
                 //contain multiple root tags
                 $value = new Varien_Simplexml_Element('<config>' . $value . '</config>');
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_error(self::XML_INVALID);
                 return false;
             }
         } elseif (!($value instanceof Varien_Simplexml_Element)) {
             throw new Exception(
-                Mage::helper('adminhtml')->__('XML object is not instance of "Varien_Simplexml_Element".'));
+            Mage::helper('adminhtml')->__('XML object is not instance of "Varien_Simplexml_Element".'));
         }
 
         $this->_setValue($value);
@@ -119,4 +123,5 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
         }
         return true;
     }
+
 }

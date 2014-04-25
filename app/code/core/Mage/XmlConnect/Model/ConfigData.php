@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_ConfigData extends Mage_Core_Model_Abstract
 {
+
     /**
      * Default category
      */
@@ -319,9 +321,10 @@ class Mage_XmlConnect_Model_ConfigData extends Mage_Core_Model_Abstract
                 $path = 'staticpage/' . $id;
 
                 $this->getResource()->saveConfig(
-                    $applicationId, Mage_XmlConnect_Model_Application::STATIC_PAGE_CATEGORY, $path, serialize($page)
+                        $applicationId, Mage_XmlConnect_Model_Application::STATIC_PAGE_CATEGORY, $path, serialize($page)
                 );
             }
         }
     }
+
 }

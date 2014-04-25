@@ -24,35 +24,36 @@
  */
 var AdminOrder = new Class.create();
 AdminOrder.prototype = {
-    initialize : function(data){
-        if(!data) data = {};
-        this.loadBaseUrl    = false;
-        this.customerId     = data.customer_id ? data.customer_id : false;
-        this.storeId        = data.store_id ? data.store_id : false;
-        this.currencyId     = false;
+    initialize: function(data) {
+        if (!data)
+            data = {};
+        this.loadBaseUrl = false;
+        this.customerId = data.customer_id ? data.customer_id : false;
+        this.storeId = data.store_id ? data.store_id : false;
+        this.currencyId = false;
         this.currencySymbol = data.currency_symbol ? data.currency_symbol : '';
-        this.addresses      = data.addresses ? data.addresses : $H({});
+        this.addresses = data.addresses ? data.addresses : $H({});
         this.shippingAsBilling = data.shippingAsBilling ? data.shippingAsBilling : false;
-        this.gridProducts   = $H({});
+        this.gridProducts = $H({});
         this.gridProductsGift = $H({});
         this.billingAddressContainer = '';
-        this.shippingAddressContainer= '';
+        this.shippingAddressContainer = '';
         this.isShippingMethodReseted = data.shipping_method_reseted ? data.shipping_method_reseted : false;
         this.overlayData = $H({});
         this.giftMessageDataChanged = false;
         this.productConfigureAddFields = {};
         this.productPriceBase = {};
         this.collectElementsValue = true;
-        Event.observe(window, 'load',  (function(){
+        Event.observe(window, 'load', (function() {
             this.dataArea = new OrderFormArea('data', $(this.getAreaId('data')), this);
             this.itemsArea = Object.extend(new OrderFormArea('items', $(this.getAreaId('items')), this), {
-                addControlButton: function(button){
+                addControlButton: function(button) {
                     var controlButtonArea = $(this.node).select('.form-buttons')[0];
                     if (typeof controlButtonArea != 'undefined') {
                         var buttons = controlButtonArea.childElements();
                         for (var i = 0; i < buttons.length; i++) {
                             if (buttons[i].innerHTML.include(button.label)) {
-                                return ;
+                                return;
                             }
                         }
                         button.insertIn(controlButtonArea, 'top');
@@ -61,11 +62,11 @@ AdminOrder.prototype = {
             });
 
             var searchButton = new ControlButton(Translator.translate('Add Products')),
-                searchAreaId = this.getAreaId('search');
+                    searchAreaId = this.getAreaId('search');
             searchButton.onClick = function() {
                 $(searchAreaId).show();
                 var el = this;
-                window.setTimeout(function () {
+                window.setTimeout(function() {
                     el.remove();
                 }, 10);
             }
@@ -86,34 +87,27 @@ AdminOrder.prototype = {
             this.itemsArea.onLoad();
         }).bind(this));
     },
-
-    areasLoaded: function(){
+    areasLoaded: function() {
     },
-
-    itemsLoaded: function(){
+    itemsLoaded: function() {
     },
-
-    dataLoaded: function(){
+    dataLoaded: function() {
         this.dataShow();
     },
-
-    setLoadBaseUrl : function(url){
+    setLoadBaseUrl: function(url) {
         this.loadBaseUrl = url;
     },
-
-    setAddresses : function(addresses){
+    setAddresses: function(addresses) {
         this.addresses = addresses;
     },
-
-    setCustomerId : function(id){
+    setCustomerId: function(id) {
         this.customerId = id;
         this.loadArea('header', true);
         $(this.getAreaId('header')).callback = 'setCustomerAfter';
         $('back_order_top_button').hide();
         $('reset_order_top_button').show();
     },
-
-    setCustomerAfter : function () {
+    setCustomerAfter: function() {
         this.customerSelectorHide();
         if (this.storeId) {
             $(this.getAreaId('data')).callback = 'dataLoaded';
@@ -123,8 +117,7 @@ AdminOrder.prototype = {
             this.storeSelectorShow();
         }
     },
-
-    setStoreId : function(id){
+    setStoreId: function(id) {
         this.storeId = id;
         this.storeSelectorHide();
         this.sidebarShow();
@@ -132,58 +125,51 @@ AdminOrder.prototype = {
         this.dataShow();
         this.loadArea(['header', 'data'], true);
     },
-
-    setCurrencyId : function(id){
+    setCurrencyId: function(id) {
         this.currencyId = id;
         //this.loadArea(['sidebar', 'data'], true);
         this.loadArea(['data'], true);
     },
-
-    setCurrencySymbol : function(symbol){
+    setCurrencySymbol: function(symbol) {
         this.currencySymbol = symbol;
     },
-
-    selectAddress : function(el, container){
+    selectAddress: function(el, container) {
         id = el.value;
         if (id.length == 0) {
             id = '0';
         }
-        if(this.addresses[id]){
+        if (this.addresses[id]) {
             this.fillAddressFields(container, this.addresses[id]);
         }
-        else{
+        else {
             this.fillAddressFields(container, {});
         }
 
         var data = this.serializeData(container);
         data[el.name] = id;
-        if(this.isShippingField(container) && !this.isShippingMethodReseted){
+        if (this.isShippingField(container) && !this.isShippingMethodReseted) {
             this.resetShippingMethod(data);
         }
-        else{
+        else {
             this.saveData(data);
         }
     },
-
-    isShippingField : function(fieldId){
-        if(this.shippingAsBilling){
+    isShippingField: function(fieldId) {
+        if (this.shippingAsBilling) {
             return fieldId.include('billing');
         }
         return fieldId.include('shipping');
     },
-
-    isBillingField : function(fieldId){
+    isBillingField: function(fieldId) {
         return fieldId.include('billing');
     },
-
-    bindAddressFields : function(container) {
+    bindAddressFields: function(container) {
         var fields = $(container).select('input', 'select', 'textarea');
-        for(var i=0;i<fields.length;i++){
+        for (var i = 0; i < fields.length; i++) {
             Event.observe(fields[i], 'change', this.changeAddressField.bind(this));
         }
     },
-
-    changeAddressField : function(event){
+    changeAddressField: function(event) {
         var field = Event.element(event);
         var re = /[^\[]*\[([^\]]*)_address\]\[([^\]]*)\](\[(\d)\])?/;
         var matchRes = field.name.match(re);
@@ -196,20 +182,20 @@ AdminOrder.prototype = {
         var name = matchRes[2];
         var data;
 
-        if(this.isBillingField(field.id)){
+        if (this.isBillingField(field.id)) {
             data = this.serializeData(this.billingAddressContainer)
         }
-        else{
+        else {
             data = this.serializeData(this.shippingAddressContainer)
         }
         data = data.toObject();
 
-        if( (type == 'billing' && this.shippingAsBilling && !this.isShippingMethodReseted)
-            || (type == 'shipping' && !this.shippingAsBilling && !this.isShippingMethodReseted) ) {
+        if ((type == 'billing' && this.shippingAsBilling && !this.isShippingMethodReseted)
+                || (type == 'shipping' && !this.shippingAsBilling && !this.isShippingMethodReseted)) {
             data['reset_shipping'] = true;
         }
 
-        data['order['+type+'_address][customer_address_id]'] = $('order-'+type+'_address_customer_address_id').value;
+        data['order[' + type + '_address][customer_address_id]'] = $('order-' + type + '_address_customer_address_id').value;
 
         if (type == 'billing' && this.shippingAsBilling) {
             this.copyDataFromBillingToShipping(field);
@@ -224,8 +210,7 @@ AdminOrder.prototype = {
             }
         }
     },
-
-    copyDataFromBillingToShipping : function(field) {
+    copyDataFromBillingToShipping: function(field) {
         var shippingId = $(field).identify().replace('-billing_', '-shipping_');
         var inputField = $(shippingId);
         if (inputField) {
@@ -233,19 +218,18 @@ AdminOrder.prototype = {
             if (inputField.changeUpdater) {
                 inputField.changeUpdater();
             }
-            $(this.shippingAddressContainer).select('select').each(function(el){
+            $(this.shippingAddressContainer).select('select').each(function(el) {
                 el.disable();
             });
         }
     },
-
-    fillAddressFields : function(container, data){
+    fillAddressFields: function(container, data) {
         var regionIdElem = false;
         var regionIdElemValue = false;
 
         var fields = $(container).select('input', 'select', 'textarea');
         var re = /[^\[]*\[[^\]]*\]\[([^\]]*)\](\[(\d)\])?/;
-        for(var i=0;i<fields.length;i++){
+        for (var i = 0; i < fields.length; i++) {
             // skip input type file @Security error code: 1000
             if (fields[i].tagName.toLowerCase() == 'input' && fields[i].type.toLowerCase() == 'file') {
                 continue;
@@ -257,9 +241,9 @@ AdminOrder.prototype = {
             var name = matchRes[1];
             var index = matchRes[3];
 
-            if (index){
+            if (index) {
                 // multiply line
-                if (data[name]){
+                if (data[name]) {
                     var values = data[name].split("\n");
                     fields[i].value = values[index] ? values[index] : '';
                 } else {
@@ -280,14 +264,14 @@ AdminOrder.prototype = {
                 fields[i].setValue(data[name] ? data[name] : '');
             }
 
-            if (fields[i].changeUpdater) fields[i].changeUpdater();
-            if (name == 'region' && data['region_id'] && !data['region']){
+            if (fields[i].changeUpdater)
+                fields[i].changeUpdater();
+            if (name == 'region' && data['region_id'] && !data['region']) {
                 fields[i].value = data['region_id'];
             }
         }
     },
-
-    disableShippingAddress : function(flag) {
+    disableShippingAddress: function(flag) {
         this.shippingAsBilling = flag;
         if ($('order-shipping_address_customer_address_id')) {
             $('order-shipping_address_customer_address_id').disabled = flag;
@@ -310,8 +294,7 @@ AdminOrder.prototype = {
             }
         }
     },
-
-    turnOffShippingFields : function() {
+    turnOffShippingFields: function() {
         if ($(this.shippingAddressContainer)) {
             var dataFields = $(this.shippingAddressContainer).select('input', 'select', 'textarea', 'button');
             for (var i = 0; i < dataFields.length; i++) {
@@ -321,13 +304,12 @@ AdminOrder.prototype = {
             }
         }
     },
-
-    setShippingAsBilling : function(flag){
+    setShippingAsBilling: function(flag) {
         this.disableShippingAddress(flag);
-        if(flag){
+        if (flag) {
             var data = this.serializeData(this.billingAddressContainer);
         }
-        else{
+        else {
             var data = this.serializeData(this.shippingAddressContainer);
         }
         data = data.toObject();
@@ -335,34 +317,29 @@ AdminOrder.prototype = {
         data['reset_shipping'] = 1;
         this.loadArea(['shipping_method', 'billing_method', 'shipping_address', 'totals', 'giftmessage'], true, data);
     },
-
-    resetShippingMethod : function(data){
+    resetShippingMethod: function(data) {
         data['reset_shipping'] = 1;
         this.isShippingMethodReseted = true;
         this.loadArea(['shipping_method', 'billing_method', 'totals', 'giftmessage', 'items'], true, data);
     },
-
-    loadShippingRates : function(){
+    loadShippingRates: function() {
         this.isShippingMethodReseted = false;
         this.loadArea(['shipping_method', 'totals'], true, {collect_shipping_rates: 1});
     },
-
-    setShippingMethod : function(method){
+    setShippingMethod: function(method) {
         var data = {};
         data['order[shipping_method]'] = method;
         this.loadArea(['shipping_method', 'totals', 'billing_method'], true, data);
     },
-
-    switchPaymentMethod : function(method){
+    switchPaymentMethod: function(method) {
         this.setPaymentMethod(method);
         var data = {};
         data['order[payment_method]'] = method;
         this.loadArea(['card_validation'], true, data);
     },
-
-    setPaymentMethod : function(method){
-        if (this.paymentMethod && $('payment_form_'+this.paymentMethod)) {
-            var form = 'payment_form_'+this.paymentMethod;
+    setPaymentMethod: function(method) {
+        if (this.paymentMethod && $('payment_form_' + this.paymentMethod)) {
+            var form = 'payment_form_' + this.paymentMethod;
             [form + '_before', form, form + '_after'].each(function(el) {
                 var block = $(el);
                 if (block) {
@@ -374,47 +351,46 @@ AdminOrder.prototype = {
             });
         }
 
-        if(!this.paymentMethod || method){
-            $('order-billing_method_form').select('input', 'select', 'textarea').each(function(elem){
-                if(elem.type != 'radio') elem.disabled = true;
+        if (!this.paymentMethod || method) {
+            $('order-billing_method_form').select('input', 'select', 'textarea').each(function(elem) {
+                if (elem.type != 'radio')
+                    elem.disabled = true;
             })
         }
 
-        if ($('payment_form_'+method)){
+        if ($('payment_form_' + method)) {
             this.paymentMethod = method;
-            var form = 'payment_form_'+method;
+            var form = 'payment_form_' + method;
             [form + '_before', form, form + '_after'].each(function(el) {
                 var block = $(el);
                 if (block) {
-                   block.show();
-                   block.select('input', 'select', 'textarea').each(function(field) {
-                       field.disabled = false;
-                       if (!el.include('_before') && !el.include('_after') && !field.bindChange) {
-                           field.bindChange = true;
-                           field.paymentContainer = form; /** @deprecated after 1.4.0.0-rc1 */
-                           field.method = method;
-                           field.observe('change', this.changePaymentData.bind(this))
+                    block.show();
+                    block.select('input', 'select', 'textarea').each(function(field) {
+                        field.disabled = false;
+                        if (!el.include('_before') && !el.include('_after') && !field.bindChange) {
+                            field.bindChange = true;
+                            field.paymentContainer = form; /** @deprecated after 1.4.0.0-rc1 */
+                            field.method = method;
+                            field.observe('change', this.changePaymentData.bind(this))
                         }
-                    },this);
+                    }, this);
                 }
-            },this);
+            }, this);
         }
     },
-
-    changePaymentData : function(event){
+    changePaymentData: function(event) {
         var elem = Event.element(event);
-        if(elem && elem.method){
+        if (elem && elem.method) {
             var data = this.getPaymentData(elem.method);
             if (data) {
-                 this.loadArea(['card_validation'], true, data);
+                this.loadArea(['card_validation'], true, data);
             } else {
                 return;
             }
         }
     },
-
-    getPaymentData : function(currentMethod){
-        if (typeof(currentMethod) == 'undefined') {
+    getPaymentData: function(currentMethod) {
+        if (typeof (currentMethod) == 'undefined') {
             if (this.paymentMethod) {
                 currentMethod = this.paymentMethod;
             } else {
@@ -423,7 +399,7 @@ AdminOrder.prototype = {
         }
         var data = {};
         var fields = $('payment_form_' + currentMethod).select('input', 'select');
-        for(var i=0;i<fields.length;i++){
+        for (var i = 0; i < fields.length; i++) {
             data[fields[i].name] = fields[i].getValue();
         }
         if ((typeof data['payment[cc_type]']) != 'undefined' && (!data['payment[cc_type]'] || !data['payment[cc_number]'])) {
@@ -431,32 +407,26 @@ AdminOrder.prototype = {
         }
         return data;
     },
-
-    applyCoupon : function(code){
-        this.loadArea(['items', 'shipping_method', 'totals', 'billing_method'], true, {'order[coupon][code]':code, reset_shipping: true});
+    applyCoupon: function(code) {
+        this.loadArea(['items', 'shipping_method', 'totals', 'billing_method'], true, {'order[coupon][code]': code, reset_shipping: true});
     },
-
-    addProduct : function(id){
-        this.loadArea(['items', 'shipping_method', 'totals', 'billing_method'], true, {add_product:id, reset_shipping: true});
+    addProduct: function(id) {
+        this.loadArea(['items', 'shipping_method', 'totals', 'billing_method'], true, {add_product: id, reset_shipping: true});
     },
-
-    removeQuoteItem : function(id){
+    removeQuoteItem: function(id) {
         this.loadArea(['items', 'shipping_method', 'totals', 'billing_method'], true,
-            {remove_item:id, from:'quote',reset_shipping: true});
+                {remove_item: id, from: 'quote', reset_shipping: true});
     },
-
-    moveQuoteItem : function(id, to){
-        this.loadArea(['sidebar_'+to, 'items', 'shipping_method', 'totals', 'billing_method'], this.getAreaId('items'),
-            {move_item:id, to:to, reset_shipping: true});
+    moveQuoteItem: function(id, to) {
+        this.loadArea(['sidebar_' + to, 'items', 'shipping_method', 'totals', 'billing_method'], this.getAreaId('items'),
+                {move_item: id, to: to, reset_shipping: true});
     },
-
-    productGridShow : function(buttonElement){
+    productGridShow: function(buttonElement) {
         this.productGridShowButton = buttonElement;
         Element.hide(buttonElement);
         this.showArea('search');
     },
-
-    productGridRowInit : function(grid, row){
+    productGridRowInit: function(grid, row) {
         var checkbox = $(row).select('.checkbox')[0];
         var inputs = $(row).select('.input-text');
         if (checkbox && inputs.length > 0) {
@@ -479,24 +449,22 @@ AdminOrder.prototype = {
 
                 input.disabled = !checkbox.checked || input.hasClassName('input-inactive');
 
-                Event.observe(input,'keyup', this.productGridRowInputChange.bind(this));
-                Event.observe(input,'change',this.productGridRowInputChange.bind(this));
+                Event.observe(input, 'keyup', this.productGridRowInputChange.bind(this));
+                Event.observe(input, 'change', this.productGridRowInputChange.bind(this));
             }
         }
     },
-
-    productGridRowInputChange : function(event){
+    productGridRowInputChange: function(event) {
         var element = Event.element(event);
-        if (element && element.checkboxElement && element.checkboxElement.checked){
-            if (element.name!='giftmessage' || element.checked) {
+        if (element && element.checkboxElement && element.checkboxElement.checked) {
+            if (element.name != 'giftmessage' || element.checked) {
                 this.gridProducts.get(element.checkboxElement.value)[element.name] = element.value;
-            } else if (element.name=='giftmessage' && this.gridProducts.get(element.checkboxElement.value)[element.name]) {
+            } else if (element.name == 'giftmessage' && this.gridProducts.get(element.checkboxElement.value)[element.name]) {
                 delete(this.gridProducts.get(element.checkboxElement.value)[element.name]);
             }
         }
     },
-
-    productGridRowClick : function(grid, event){
+    productGridRowClick: function(grid, event) {
         var trElement = Event.findElement(event, 'tr');
         var qtyElement = trElement.select('input[name="qty"]')[0];
         var eventElement = Event.element(event);
@@ -511,10 +479,10 @@ AdminOrder.prototype = {
                 if (confLink.readAttribute('disabled')) {
                     var checked = isInputCheckbox ? checkbox.checked : !checkbox.checked;
                     grid.setCheckboxChecked(checkbox, checked);
-                // processing composite product
+                    // processing composite product
                 } else if (isInputCheckbox && !checkbox.checked) {
                     grid.setCheckboxChecked(checkbox, false);
-                // processing composite product
+                    // processing composite product
                 } else if (!isInputCheckbox || (isInputCheckbox && checkbox.checked)) {
                     var listType = confLink.readAttribute('list_type');
                     var productId = confLink.readAttribute('product_id');
@@ -523,7 +491,7 @@ AdminOrder.prototype = {
                         if (!priceBase) {
                             this.productPriceBase[productId] = 0;
                         } else {
-                            this.productPriceBase[productId] = parseFloat(priceBase[1].replace(/,/g,''));
+                            this.productPriceBase[productId] = parseFloat(priceBase[1].replace(/,/g, ''));
                         }
                     }
                     productConfigure.setConfirmCallback(listType, function() {
@@ -555,15 +523,14 @@ AdminOrder.prototype = {
             }
         }
     },
-
     /**
      * Calc product price through its options
      */
-    _calcProductPrice: function () {
+    _calcProductPrice: function() {
         var productPrice = 0;
-        var getPriceFields = function (elms) {
+        var getPriceFields = function(elms) {
             var productPrice = 0;
-            var getPrice = function (elm) {
+            var getPrice = function(elm) {
                 var optQty = 1;
                 if (elm.hasAttribute('qtyId')) {
                     if (!$(elm.getAttribute('qtyId')).value) {
@@ -577,9 +544,9 @@ AdminOrder.prototype = {
                 }
                 return 0;
             };
-            for(var i = 0; i < elms.length; i++) {
+            for (var i = 0; i < elms.length; i++) {
                 if (elms[i].type == 'select-one' || elms[i].type == 'select-multiple') {
-                    for(var ii = 0; ii < elms[i].options.length; ii++) {
+                    for (var ii = 0; ii < elms[i].options.length; ii++) {
                         if (elms[i].options[ii].selected) {
                             productPrice += getPrice(elms[i].options[ii]);
                         }
@@ -587,8 +554,8 @@ AdminOrder.prototype = {
                 }
                 else if (((elms[i].type == 'checkbox' || elms[i].type == 'radio') && elms[i].checked)
                         || ((elms[i].type == 'file' || elms[i].type == 'text' || elms[i].type == 'textarea' || elms[i].type == 'hidden')
-                            && Form.Element.getValue(elms[i]))
-                ) {
+                                && Form.Element.getValue(elms[i]))
+                        ) {
                     productPrice += getPrice(elms[i]);
                 }
             }
@@ -599,10 +566,9 @@ AdminOrder.prototype = {
         productPrice += getPriceFields($(productConfigure.confirmedCurrentId).getElementsByTagName('textarea'));
         return productPrice;
     },
-
-    productGridCheckboxCheck : function(grid, element, checked){
+    productGridCheckboxCheck: function(grid, element, checked) {
         if (checked) {
-            if(element.inputElements) {
+            if (element.inputElements) {
                 this.gridProducts.set(element.value, {});
                 var product = this.gridProducts.get(element.value);
                 for (var i = 0; i < element.inputElements.length; i++) {
@@ -622,31 +588,31 @@ AdminOrder.prototype = {
                 }
             }
         } else {
-            if(element.inputElements){
-                for(var i = 0; i < element.inputElements.length; i++) {
+            if (element.inputElements) {
+                for (var i = 0; i < element.inputElements.length; i++) {
                     element.inputElements[i].disabled = true;
                 }
             }
             this.gridProducts.unset(element.value);
         }
-        grid.reloadParams = {'products[]':this.gridProducts.keys()};
+        grid.reloadParams = {'products[]': this.gridProducts.keys()};
     },
-
     /**
      * Submit configured products to quote
      */
-    productGridAddSelected : function(){
-        if(this.productGridShowButton) Element.show(this.productGridShowButton);
-        var area = ['search', 'items', 'shipping_method', 'totals', 'giftmessage','billing_method'];
+    productGridAddSelected: function() {
+        if (this.productGridShowButton)
+            Element.show(this.productGridShowButton);
+        var area = ['search', 'items', 'shipping_method', 'totals', 'giftmessage', 'billing_method'];
         // prepare additional fields and filtered items of products
         var fieldsPrepare = {};
         var itemsFilter = [];
         var products = this.gridProducts.toObject();
         for (var productId in products) {
             itemsFilter.push(productId);
-            var paramKey = 'item['+productId+']';
+            var paramKey = 'item[' + productId + ']';
             for (var productParamKey in products[productId]) {
-                paramKey += '['+productParamKey+']';
+                paramKey += '[' + productParamKey + ']';
                 fieldsPrepare[paramKey] = products[productId][productParamKey];
             }
         }
@@ -655,54 +621,45 @@ AdminOrder.prototype = {
         this.hideArea('search');
         this.gridProducts = $H({});
     },
-
-    selectCustomer : function(grid, event){
+    selectCustomer: function(grid, event) {
         var element = Event.findElement(event, 'tr');
-        if (element.title){
+        if (element.title) {
             this.setCustomerId(element.title);
         }
     },
-
-    customerSelectorHide : function(){
+    customerSelectorHide: function() {
         this.hideArea('customer-selector');
     },
-
-    customerSelectorShow : function(){
+    customerSelectorShow: function() {
         this.showArea('customer-selector');
     },
-
-    storeSelectorHide : function(){
+    storeSelectorHide: function() {
         this.hideArea('store-selector');
     },
-
-    storeSelectorShow : function(){
+    storeSelectorShow: function() {
         this.showArea('store-selector');
     },
-
-    dataHide : function(){
+    dataHide: function() {
         this.hideArea('data');
     },
-
-    dataShow : function(){
+    dataShow: function() {
         if ($('submit_order_top_button')) {
             $('submit_order_top_button').show();
         }
         this.showArea('data');
     },
-
-    clearShoppingCart : function(confirmMessage){
+    clearShoppingCart: function(confirmMessage) {
         if (confirm(confirmMessage)) {
             this.collectElementsValue = false;
             order.sidebarApplyChanges({'sidebar[empty_customer_cart]': 1});
         }
     },
-
-    sidebarApplyChanges : function(auxiliaryParams) {
+    sidebarApplyChanges: function(auxiliaryParams) {
         if ($(this.getAreaId('sidebar'))) {
             var data = {};
             if (this.collectElementsValue) {
                 var elems = $(this.getAreaId('sidebar')).select('input');
-                for (var i=0; i < elems.length; i++) {
+                for (var i = 0; i < elems.length; i++) {
                     if (elems[i].getValue()) {
                         data[elems[i].name] = elems[i].getValue();
                     }
@@ -714,32 +671,29 @@ AdminOrder.prototype = {
                 }
             }
             data.reset_shipping = true;
-            this.loadArea(['sidebar', 'items', 'shipping_method', 'billing_method','totals', 'giftmessage'], true, data);
+            this.loadArea(['sidebar', 'items', 'shipping_method', 'billing_method', 'totals', 'giftmessage'], true, data);
         }
     },
-
-    sidebarHide : function(){
-        if(this.storeId === false && $('page:left') && $('page:container')){
+    sidebarHide: function() {
+        if (this.storeId === false && $('page:left') && $('page:container')) {
             $('page:left').hide();
             $('page:container').removeClassName('container');
             $('page:container').addClassName('container-collapsed');
         }
     },
-
-    sidebarShow : function(){
-        if($('page:left') && $('page:container')){
+    sidebarShow: function() {
+        if ($('page:left') && $('page:container')) {
             $('page:left').show();
             $('page:container').removeClassName('container-collapsed');
             $('page:container').addClassName('container');
         }
     },
-
     /**
      * Show configuration of product and add handlers on submit form
      *
      * @param productId
      */
-    sidebarConfigureProduct: function (listType, productId, itemId) {
+    sidebarConfigureProduct: function(listType, productId, itemId) {
         // create additional fields
         var params = {};
         params.reset_shipping = true;
@@ -748,7 +702,7 @@ AdminOrder.prototype = {
         for (var i in params) {
             if (params[i] === null) {
                 unset(params[i]);
-            } else if (typeof(params[i]) == 'boolean') {
+            } else if (typeof (params[i]) == 'boolean') {
                 params[i] = params[i] ? 1 : 0;
             }
         }
@@ -765,25 +719,23 @@ AdminOrder.prototype = {
             if (!response.ok) {
                 return;
             }
-            this.loadArea(['items', 'shipping_method', 'billing_method','totals', 'giftmessage'], true);
+            this.loadArea(['items', 'shipping_method', 'billing_method', 'totals', 'giftmessage'], true);
         }.bind(this));
         // show item configuration
         itemId = itemId ? itemId : productId;
         productConfigure.showItemConfiguration(listType, itemId);
         return false;
     },
-
-    removeSidebarItem : function(id, from){
-        this.loadArea(['sidebar_'+from], 'sidebar_data_'+from, {remove_item:id, from:from});
+    removeSidebarItem: function(id, from) {
+        this.loadArea(['sidebar_' + from], 'sidebar_data_' + from, {remove_item: id, from: from});
     },
-
-    itemsUpdate : function(){
-        var area = ['sidebar', 'items', 'shipping_method', 'billing_method','totals', 'giftmessage'];
+    itemsUpdate: function() {
+        var area = ['sidebar', 'items', 'shipping_method', 'billing_method', 'totals', 'giftmessage'];
         // prepare additional fields
         var fieldsPrepare = {update_items: 1};
         var info = $('order-items_grid').select('input', 'select', 'textarea');
-        for(var i=0; i<info.length; i++){
-            if(!info[i].disabled && (info[i].type != 'checkbox' || info[i].checked)) {
+        for (var i = 0; i < info.length; i++) {
+            if (!info[i].disabled && (info[i].type != 'checkbox' || info[i].checked)) {
                 fieldsPrepare[info[i].name] = info[i].getValue();
             }
         }
@@ -791,22 +743,19 @@ AdminOrder.prototype = {
         this.productConfigureSubmit('quote_items', area, fieldsPrepare);
         this.orderItemChanged = false;
     },
-
-    itemsOnchangeBind : function(){
+    itemsOnchangeBind: function() {
         var elems = $('order-items_grid').select('input', 'select', 'textarea');
-        for(var i=0; i<elems.length; i++){
-            if(!elems[i].bindOnchange){
+        for (var i = 0; i < elems.length; i++) {
+            if (!elems[i].bindOnchange) {
                 elems[i].bindOnchange = true;
                 elems[i].observe('change', this.itemChange.bind(this))
             }
         }
     },
-
-    itemChange : function(event){
+    itemChange: function(event) {
         this.giftmessageOnItemChange(event);
         this.orderItemChanged = true;
     },
-
     /**
      * Submit batch of configured products
      *
@@ -815,7 +764,7 @@ AdminOrder.prototype = {
      * @param fieldsPrepare
      * @param itemsFilter
      */
-    productConfigureSubmit : function(listType, area, fieldsPrepare, itemsFilter) {
+    productConfigureSubmit: function(listType, area, fieldsPrepare, itemsFilter) {
         // prepare loading areas and build url
         area = this.prepareArea(area);
         this.loadingAreas = area;
@@ -840,29 +789,28 @@ AdminOrder.prototype = {
 
         // prepare and do submit
         productConfigure.addListType(listType, {urlSubmit: url});
-        productConfigure.setOnLoadIFrameCallback(listType, function(response){
+        productConfigure.setOnLoadIFrameCallback(listType, function(response) {
             this.loadAreaResponseHandler(response);
         }.bind(this));
         productConfigure.submit(listType);
         // clean
         this.productConfigureAddFields = {};
     },
-
     /**
      * Show configuration of quote item
      *
      * @param itemId
      */
-    showQuoteItemConfiguration: function(itemId){
+    showQuoteItemConfiguration: function(itemId) {
         var listType = 'quote_items';
-        var qtyElement = $('order-items_grid').select('input[name="item\['+itemId+'\]\[qty\]"]')[0];
+        var qtyElement = $('order-items_grid').select('input[name="item\[' + itemId + '\]\[qty\]"]')[0];
         productConfigure.setConfirmCallback(listType, function() {
             // sync qty of popup and qty of grid
             var confirmedCurrentQty = productConfigure.getCurrentConfirmedQtyElement();
             if (qtyElement && confirmedCurrentQty && !isNaN(confirmedCurrentQty.value)) {
                 qtyElement.value = confirmedCurrentQty.value;
             }
-            this.productConfigureAddFields['item['+itemId+'][configured]'] = 1;
+            this.productConfigureAddFields['item[' + itemId + '][configured]'] = 1;
 
         }.bind(this));
         productConfigure.setShowWindowCallback(listType, function() {
@@ -874,61 +822,54 @@ AdminOrder.prototype = {
         }.bind(this));
         productConfigure.showItemConfiguration(listType, itemId);
     },
-
-    accountFieldsBind : function(container){
-        if($(container)){
+    accountFieldsBind: function(container) {
+        if ($(container)) {
             var fields = $(container).select('input', 'select', 'textarea');
-            for(var i=0; i<fields.length; i++){
-                if(fields[i].id == 'group_id'){
+            for (var i = 0; i < fields.length; i++) {
+                if (fields[i].id == 'group_id') {
                     fields[i].observe('change', this.accountGroupChange.bind(this))
                 }
-                else{
+                else {
                     fields[i].observe('change', this.accountFieldChange.bind(this))
                 }
             }
         }
     },
-
-    accountGroupChange : function(){
+    accountGroupChange: function() {
         this.loadArea(['data'], true, this.serializeData('order-form_account').toObject());
     },
-
-    accountFieldChange : function(){
+    accountFieldChange: function() {
         this.saveData(this.serializeData('order-form_account'));
     },
-
-    commentFieldsBind : function(container){
-        if($(container)){
+    commentFieldsBind: function(container) {
+        if ($(container)) {
             var fields = $(container).select('input', 'textarea');
-            for(var i=0; i<fields.length; i++)
+            for (var i = 0; i < fields.length; i++)
                 fields[i].observe('change', this.commentFieldChange.bind(this))
         }
     },
-
-    commentFieldChange : function(){
+    commentFieldChange: function() {
         this.saveData(this.serializeData('order-comment'));
     },
-
-    giftmessageFieldsBind : function(container){
-        if($(container)){
+    giftmessageFieldsBind: function(container) {
+        if ($(container)) {
             var fields = $(container).select('input', 'textarea');
-            for(var i=0; i<fields.length; i++)
+            for (var i = 0; i < fields.length; i++)
                 fields[i].observe('change', this.giftmessageFieldChange.bind(this))
         }
     },
-
-    giftmessageFieldChange : function(){
+    giftmessageFieldChange: function() {
         this.giftMessageDataChanged = true;
     },
-
-    giftmessageOnItemChange : function(event) {
+    giftmessageOnItemChange: function(event) {
         var element = Event.element(event);
-        if(element.name.indexOf("giftmessage") != -1 && element.type == "checkbox" && !element.checked) {
+        if (element.name.indexOf("giftmessage") != -1 && element.type == "checkbox" && !element.checked) {
             var messages = $("order-giftmessage").select('textarea');
             var name;
-            for(var i=0; i<messages.length; i++) {
+            for (var i = 0; i < messages.length; i++) {
                 name = messages[i].id.split("_");
-                if(name.length < 2) continue;
+                if (name.length < 2)
+                    continue;
                 if (element.name.indexOf("[" + name[1] + "]") != -1 && messages[i].value != "") {
                     alert("First, clean the Message field in Gift Message form");
                     element.checked = true;
@@ -936,21 +877,22 @@ AdminOrder.prototype = {
             }
         }
     },
-
-    loadArea : function(area, indicator, params){
+    loadArea: function(area, indicator, params) {
         var url = this.loadBaseUrl;
         if (area) {
             area = this.prepareArea(area);
             url += 'block/' + area;
         }
-        if (indicator === true) indicator = 'html-body';
+        if (indicator === true)
+            indicator = 'html-body';
         params = this.prepareParams(params);
         params.json = true;
-        if (!this.loadingAreas) this.loadingAreas = [];
+        if (!this.loadingAreas)
+            this.loadingAreas = [];
         if (indicator) {
             this.loadingAreas = area;
             new Ajax.Request(url, {
-                parameters:params,
+                parameters: params,
                 loaderArea: indicator,
                 onSuccess: function(transport) {
                     var response = transport.responseText.evalJSON();
@@ -959,33 +901,32 @@ AdminOrder.prototype = {
             });
         }
         else {
-            new Ajax.Request(url, {parameters:params,loaderArea: indicator});
+            new Ajax.Request(url, {parameters: params, loaderArea: indicator});
         }
         if (typeof productConfigure != 'undefined' && area instanceof Array && area.indexOf('items') != -1) {
             productConfigure.clean('quote_items');
         }
     },
-
-    loadAreaResponseHandler : function (response){
+    loadAreaResponseHandler: function(response) {
         if (response.error) {
             alert(response.message);
         }
-        if(response.ajaxExpired && response.ajaxRedirect) {
+        if (response.ajaxExpired && response.ajaxRedirect) {
             setLocation(response.ajaxRedirect);
         }
-        if(!this.loadingAreas){
+        if (!this.loadingAreas) {
             this.loadingAreas = [];
         }
-        if(typeof this.loadingAreas == 'string'){
+        if (typeof this.loadingAreas == 'string') {
             this.loadingAreas = [this.loadingAreas];
         }
-        if(this.loadingAreas.indexOf('message') == -1) {
+        if (this.loadingAreas.indexOf('message') == -1) {
             this.loadingAreas.push('message');
         }
 
-        for(var i=0; i<this.loadingAreas.length; i++){
+        for (var i = 0; i < this.loadingAreas.length; i++) {
             var id = this.loadingAreas[i];
-            if($(this.getAreaId(id))){
+            if ($(this.getAreaId(id))) {
                 if ('message' != id || response[id]) {
                     var wrapper = new Element('div');
                     wrapper.update(response[id] ? response[id] : '');
@@ -997,46 +938,39 @@ AdminOrder.prototype = {
             }
         }
     },
-
-    prepareArea : function(area){
+    prepareArea: function(area) {
         if (this.giftMessageDataChanged) {
             return area.without('giftmessage');
         }
         return area;
     },
-
-    saveData : function(data){
+    saveData: function(data) {
         this.loadArea(false, false, data);
     },
-
-    showArea : function(area){
+    showArea: function(area) {
         var id = this.getAreaId(area);
-        if($(id)) {
+        if ($(id)) {
             $(id).show();
             this.areaOverlay();
         }
     },
-
-    hideArea : function(area){
+    hideArea: function(area) {
         var id = this.getAreaId(area);
-        if($(id)) {
+        if ($(id)) {
             $(id).hide();
             this.areaOverlay();
         }
     },
-
-    areaOverlay : function()
+    areaOverlay: function()
     {
-        $H(order.overlayData).each(function(e){
+        $H(order.overlayData).each(function(e) {
             e.value.fx();
         });
     },
-
-    getAreaId : function(area){
-        return 'order-'+area;
+    getAreaId: function(area) {
+        return 'order-' + area;
     },
-
-    prepareParams : function(params){
+    prepareParams: function(params) {
         if (!params) {
             params = {};
         }
@@ -1060,28 +994,27 @@ AdminOrder.prototype = {
         }
         return params;
     },
-
-    serializeData : function(container){
+    serializeData: function(container) {
         var fields = $(container).select('input', 'select', 'textarea');
         var data = Form.serializeElements(fields, true);
 
         return $H(data);
     },
-
     toggleCustomPrice: function(checkbox, elemId, tierBlock) {
         if (checkbox.checked) {
             $(elemId).disabled = false;
             $(elemId).show();
-            if($(tierBlock)) $(tierBlock).hide();
+            if ($(tierBlock))
+                $(tierBlock).hide();
         }
         else {
             $(elemId).disabled = true;
             $(elemId).hide();
-            if($(tierBlock)) $(tierBlock).show();
+            if ($(tierBlock))
+                $(tierBlock).show();
         }
     },
-
-    submit : function()
+    submit: function()
     {
         if (this.orderItemChanged) {
             if (confirm('You have item changes')) {
@@ -1097,10 +1030,11 @@ AdminOrder.prototype = {
             }
         }
     },
-
-    overlay : function(elId, show, observe)
+    overlay: function(elId, show, observe)
     {
-        if (typeof(show) == 'undefined') { show = true; }
+        if (typeof (show) == 'undefined') {
+            show = true;
+        }
 
         var orderObj = this;
         var obj = this.overlayData.get(elId)
@@ -1125,8 +1059,7 @@ AdminOrder.prototype = {
 
         this.processOverlay(elId, show);
     },
-
-    processOverlay : function(elId, show)
+    processOverlay: function(elId, show)
     {
         var el = $(elId);
 
@@ -1143,7 +1076,7 @@ AdminOrder.prototype = {
         }
 
         if (Prototype.Browser.IE) {
-            parentEl.select('select').each(function (elem) {
+            parentEl.select('select').each(function(elem) {
                 if (show) {
                     elem.needShowOnSuccess = false;
                     elem.style.visibility = '';
@@ -1166,7 +1099,6 @@ AdminOrder.prototype = {
             left: 0
         });
     },
-
     validateVat: function(parameters)
     {
         var params = {
@@ -1214,7 +1146,6 @@ AdminOrder.prototype = {
             }.bind(this)
         });
     },
-
     processCustomerGroupChange: function(groupIdHtmlId, message, groupId)
     {
         var currentCustomerGroupId = $(groupIdHtmlId).value;
@@ -1237,8 +1168,7 @@ OrderFormArea.prototype = {
     _node: null,
     _parent: null,
     _callbackName: null,
-
-    initialize: function(name, node, parent){
+    initialize: function(name, node, parent) {
         this._name = name;
         this._parent = parent;
         this._callbackName = node.callback;
@@ -1246,22 +1176,20 @@ OrderFormArea.prototype = {
             this._callbackName = name + 'Loaded';
             node.callback = this._callbackName;
         }
-        parent[this._callbackName] = parent[this._callbackName].wrap((function (proceed){
+        parent[this._callbackName] = parent[this._callbackName].wrap((function(proceed) {
             proceed();
             this.onLoad();
         }).bind(this));
 
         this.setNode(node);
     },
-
-    setNode: function(node){
+    setNode: function(node) {
         if (!node.callback) {
             node.callback = this._callbackName;
         }
         this.node = node;
     },
-
-    onLoad: function(){
+    onLoad: function() {
     }
 };
 
@@ -1269,21 +1197,18 @@ var ControlButton = Class.create();
 ControlButton.prototype = {
     _label: '',
     _node: null,
-
-    initialize: function(label){
+    initialize: function(label) {
         this._label = label;
         this._node = new Element('button', {
             'class': 'scalable add',
-            'type':  'button'
+            'type': 'button'
         });
     },
-
-    onClick: function(){
+    onClick: function() {
     },
-
-    insertIn: function(element, position){
+    insertIn: function(element, position) {
         var node = Object.extend(this._node),
-            content = {};
+                content = {};
         node.observe('click', this.onClick);
         node.update('<span>' + this._label + '</span>');
         content[position] = node;

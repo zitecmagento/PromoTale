@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,4 +34,5 @@
  */
 class Mage_ImportExport_Model_Mysql4_Import_Data extends Mage_ImportExport_Model_Resource_Import_Data
 {
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Helper_Product_Url_Rewrite
-    implements Mage_Catalog_Helper_Product_Url_Rewrite_Interface
+class Mage_Catalog_Helper_Product_Url_Rewrite implements Mage_Catalog_Helper_Product_Url_Rewrite_Interface
 {
+
     /**
      * Adapter instance
      *
@@ -57,7 +58,7 @@ class Mage_Catalog_Helper_Product_Url_Rewrite
     {
         $this->_resource = Mage::getSingleton('core/resource');
         $this->_connection = !empty($args['connection']) ? $args['connection'] : $this->_resource
-            ->getConnection(Mage_Core_Model_Resource::DEFAULT_READ_RESOURCE);
+                        ->getConnection(Mage_Core_Model_Resource::DEFAULT_READ_RESOURCE);
     }
 
     /**
@@ -71,12 +72,12 @@ class Mage_Catalog_Helper_Product_Url_Rewrite
     public function getTableSelect(array $productIds, $categoryId, $storeId)
     {
         $select = $this->_connection->select()
-            ->from($this->_resource->getTableName('core/url_rewrite'), array('product_id', 'request_path'))
-            ->where('store_id = ?', (int)$storeId)
-            ->where('is_system = ?', 1)
-            ->where('category_id = ? OR category_id IS NULL', (int)$categoryId)
-            ->where('product_id IN(?)', $productIds)
-            ->order('category_id ' . Varien_Data_Collection::SORT_ORDER_DESC);
+                ->from($this->_resource->getTableName('core/url_rewrite'), array('product_id', 'request_path'))
+                ->where('store_id = ?', (int) $storeId)
+                ->where('is_system = ?', 1)
+                ->where('category_id = ? OR category_id IS NULL', (int) $categoryId)
+                ->where('product_id IN(?)', $productIds)
+                ->order('category_id ' . Varien_Data_Collection::SORT_ORDER_DESC);
         return $select;
     }
 
@@ -90,12 +91,10 @@ class Mage_Catalog_Helper_Product_Url_Rewrite
     public function joinTableToSelect(Varien_Db_Select $select, $storeId)
     {
         $select->joinLeft(
-            array('url_rewrite' => $this->_resource->getTableName('core/url_rewrite')),
-            'url_rewrite.product_id = main_table.entity_id AND url_rewrite.is_system = 1 AND ' .
-                $this->_connection->quoteInto('url_rewrite.category_id IS NULL AND url_rewrite.store_id = ? AND ',
-                    (int)$storeId) .
-                $this->_connection->prepareSqlCondition('url_rewrite.id_path', array('like' => 'product/%')),
-            array('request_path' => 'url_rewrite.request_path'));
+                array('url_rewrite' => $this->_resource->getTableName('core/url_rewrite')), 'url_rewrite.product_id = main_table.entity_id AND url_rewrite.is_system = 1 AND ' .
+                $this->_connection->quoteInto('url_rewrite.category_id IS NULL AND url_rewrite.store_id = ? AND ', (int) $storeId) .
+                $this->_connection->prepareSqlCondition('url_rewrite.id_path', array('like' => 'product/%')), array('request_path' => 'url_rewrite.request_path'));
         return $this;
     }
+
 }

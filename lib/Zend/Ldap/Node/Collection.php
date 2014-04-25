@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Collection.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Ldap_Collection
  */
 #require_once 'Zend/Ldap/Collection.php';
-
 
 /**
  * Zend_Ldap_Node_Collection provides a collecion of nodes.
@@ -37,6 +36,7 @@
  */
 class Zend_Ldap_Node_Collection extends Zend_Ldap_Collection
 {
+
     /**
      * Creates the data structure for the given entry data
      *
@@ -64,4 +64,5 @@ class Zend_Ldap_Node_Collection extends Zend_Ldap_Collection
     {
         return $this->_iterator->key();
     }
+
 }

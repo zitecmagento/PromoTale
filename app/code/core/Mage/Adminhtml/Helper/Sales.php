@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Display price attribute value in base order currency and in place order currency
      *
@@ -38,11 +39,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     public function displayPriceAttribute($dataObject, $code, $strong = false, $separator = '<br/>')
     {
         return $this->displayPrices(
-            $dataObject,
-            $dataObject->getData('base_'.$code),
-            $dataObject->getData($code),
-            $strong,
-            $separator
+                        $dataObject, $dataObject->getData('base_' . $code), $dataObject->getData($code), $strong, $separator
         );
     }
 
@@ -64,21 +61,21 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
         } else {
             $order = $dataObject->getOrder();
         }
-        
+
         if ($order && $order->isCurrencyDifferent()) {
             $res = '<strong>';
             $res.= $order->formatBasePrice($basePrice);
-            $res.= '</strong>'.$separator;
-            $res.= '['.$order->formatPrice($price).']';
+            $res.= '</strong>' . $separator;
+            $res.= '[' . $order->formatPrice($price) . ']';
         } elseif ($order) {
             $res = $order->formatPrice($price);
             if ($strong) {
-                $res = '<strong>'.$res.'</strong>';
+                $res = '<strong>' . $res . '</strong>';
             }
         } else {
             $res = Mage::app()->getStore()->formatPrice($price);
             if ($strong) {
-                $res = '<strong>'.$res.'</strong>';
+                $res = '<strong>' . $res . '</strong>';
             }
         }
         return $res;
@@ -90,11 +87,11 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
      * @param Mage_Core_Model_Mysql4_Collection_Abstract $collection
      * @return Mage_Core_Model_Mysql4_Collection_Abstract
      */
-    public function applySalableProductTypesFilter($collection) 
+    public function applySalableProductTypesFilter($collection)
     {
         $productTypes = Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray();
         $productTypes = array_keys($productTypes);
-        foreach($collection->getItems() as $key => $item) {
+        foreach ($collection->getItems() as $key => $item) {
             if ($item instanceof Mage_Catalog_Model_Product) {
                 $type = $item->getTypeId();
             } else if ($item instanceof Mage_Sales_Model_Order_Item) {
@@ -110,4 +107,5 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
         }
         return $collection;
     }
+
 }

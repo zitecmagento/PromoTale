@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,9 +30,9 @@
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract
-    implements Mage_Payment_Model_Billing_Agreement_MethodInterface
+class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract implements Mage_Payment_Model_Billing_Agreement_MethodInterface
 {
+
     /**
      * Method code
      *
@@ -43,16 +44,16 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * Method instance settings
      *
      */
-    protected $_canAuthorize            = true;
-    protected $_canCapture              = true;
-    protected $_canCapturePartial       = true;
-    protected $_canRefund               = true;
+    protected $_canAuthorize = true;
+    protected $_canCapture = true;
+    protected $_canCapturePartial = true;
+    protected $_canRefund = true;
     protected $_canRefundInvoicePartial = true;
-    protected $_canVoid                 = true;
-    protected $_canUseCheckout          = false;
-    protected $_canUseInternal          = false;
+    protected $_canVoid = true;
+    protected $_canUseCheckout = false;
+    protected $_canUseInternal = false;
     protected $_canFetchTransactionInfo = true;
-    protected $_canReviewPayment        = true;
+    protected $_canReviewPayment = true;
 
     /**
      * Website Payments Pro instance
@@ -102,13 +103,13 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     public function initBillingAgreementToken(Mage_Payment_Model_Billing_AgreementAbstract $agreement)
     {
         $api = $this->_pro->getApi()
-            ->setReturnUrl($agreement->getReturnUrl())
-            ->setCancelUrl($agreement->getCancelUrl())
-            ->setBillingType($this->_pro->getApi()->getBillingAgreementType());
+                ->setReturnUrl($agreement->getReturnUrl())
+                ->setCancelUrl($agreement->getCancelUrl())
+                ->setBillingType($this->_pro->getApi()->getBillingAgreementType());
 
         $api->callSetCustomerBillingAgreement();
         $agreement->setRedirectUrl(
-            $this->_pro->getConfig()->getStartBillingAgreementUrl($api->getToken())
+                $this->_pro->getConfig()->getStartBillingAgreementUrl($api->getToken())
         );
         return $this;
     }
@@ -122,13 +123,13 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     public function getBillingAgreementTokenInfo(Mage_Payment_Model_Billing_AgreementAbstract $agreement)
     {
         $api = $this->_pro->getApi()
-            ->setToken($agreement->getToken());
+                ->setToken($agreement->getToken());
         $api->callGetBillingAgreementCustomerDetails();
         $responseData = array(
-            'token'         => $api->getData('token'),
-            'email'         => $api->getData('email'),
-            'payer_id'      => $api->getData('payer_id'),
-            'payer_status'  => $api->getData('payer_status')
+            'token' => $api->getData('token'),
+            'email' => $api->getData('email'),
+            'payer_id' => $api->getData('payer_id'),
+            'payer_status' => $api->getData('payer_status')
         );
         $agreement->addData($responseData);
         return $responseData;
@@ -143,7 +144,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     public function placeBillingAgreement(Mage_Payment_Model_Billing_AgreementAbstract $agreement)
     {
         $api = $this->_pro->getApi()
-            ->setToken($agreement->getToken());
+                ->setToken($agreement->getToken());
         $api->callCreateBillingAgreement();
         $agreement->setBillingAgreementId($api->getData('billing_agreement_id'));
         return $this;
@@ -159,14 +160,16 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     {
         $targetStatus = $agreement->getStatus();
         $api = $this->_pro->getApi()
-            ->setReferenceId($agreement->getReferenceId())
-            ->setBillingAgreementStatus($targetStatus);
-        try {
+                ->setReferenceId($agreement->getReferenceId())
+                ->setBillingAgreementStatus($targetStatus);
+        try
+        {
             $api->callUpdateBillingAgreement();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             // when BA was already canceled, just pretend that the operation succeeded
-            if (!(Mage_Sales_Model_Billing_Agreement::STATUS_CANCELED == $targetStatus
-                && $api->getIsBillingAgreementAlreadyCancelled())) {
+            if (!(Mage_Sales_Model_Billing_Agreement::STATUS_CANCELED == $targetStatus && $api->getIsBillingAgreementAlreadyCancelled())) {
                 throw $e;
             }
         }
@@ -295,21 +298,21 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     {
         $order = $payment->getOrder();
         $billingAgreement = Mage::getModel('sales/billing_agreement')->load(
-            $payment->getAdditionalInformation(
-                Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract::TRANSPORT_BILLING_AGREEMENT_ID
-            )
+                $payment->getAdditionalInformation(
+                        Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract::TRANSPORT_BILLING_AGREEMENT_ID
+                )
         );
 
         $proConfig = $this->_pro->getConfig();
         $api = $this->_pro->getApi()
-            ->setReferenceId($billingAgreement->getReferenceId())
-            ->setPaymentAction($proConfig->paymentAction)
-            ->setAmount($amount)
-            ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode())
-            ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
-            ->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
-            ->setIsLineItemsEnabled($proConfig->lineItemsEnabled)
-            ->setInvNum($order->getIncrementId())
+                ->setReferenceId($billingAgreement->getReferenceId())
+                ->setPaymentAction($proConfig->paymentAction)
+                ->setAmount($amount)
+                ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode())
+                ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
+                ->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
+                ->setIsLineItemsEnabled($proConfig->lineItemsEnabled)
+                ->setInvNum($order->getIncrementId())
         ;
 
         // call api and import transaction and other payment information
@@ -319,7 +322,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         $this->_pro->importPaymentInfo($api, $payment);
 
         $payment->setTransactionId($api->getTransactionId())
-            ->setIsTransactionClosed(0);
+                ->setIsTransactionClosed(0);
 
         if ($api->getBillingAgreementId()) {
             $order->addRelatedObject($billingAgreement);
@@ -329,7 +332,6 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
 
         return $this;
     }
-
 
     protected function _isAvailable($quote)
     {

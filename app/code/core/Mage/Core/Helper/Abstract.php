@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 abstract class Mage_Core_Helper_Abstract
 {
+
     /**
      * Helper module name
      *
@@ -84,7 +86,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param   array $tags
      * @return  Mage_Core_Helper_Abstract
      */
-    protected function _saveCache($data, $id, $tags=array(), $lifeTime=false)
+    protected function _saveCache($data, $id, $tags = array(), $lifeTime = false)
     {
         Mage::app()->saveCache($data, $id, $tags, $lifeTime);
         return $this;
@@ -108,7 +110,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param   array $tags
      * @return  Mage_Core_Helper_Abstract
      */
-    protected function _cleanCache($tags=array())
+    protected function _cleanCache($tags = array())
     {
         Mage::app()->cleanCache($tags);
         return $this;
@@ -167,7 +169,7 @@ abstract class Mage_Core_Helper_Abstract
         }
 
         $isActive = Mage::getConfig()->getNode('modules/' . $moduleName . '/active');
-        if (!$isActive || !in_array((string)$isActive, array('true', '1'))) {
+        if (!$isActive || !in_array((string) $isActive, array('true', '1'))) {
             return false;
         }
         return true;
@@ -227,7 +229,7 @@ abstract class Mage_Core_Helper_Abstract
         return $result;
     }
 
-     /**
+    /**
      * Remove html tags, but leave "<" and ">" signs
      *
      * @param   string $html
@@ -236,7 +238,7 @@ abstract class Mage_Core_Helper_Abstract
     public function removeTags($html)
     {
         $html = preg_replace("# <(?![/a-z]) | (?<=\s)>(?![a-z]) #exi", "htmlentities('$0')", $html);
-        $html =  strip_tags($html);
+        $html = strip_tags($html);
         return htmlspecialchars_decode($html);
     }
 
@@ -281,16 +283,16 @@ abstract class Mage_Core_Helper_Abstract
      * @param string $quote
      * @return mixed
      */
-    public function jsQuoteEscape($data, $quote='\'')
+    public function jsQuoteEscape($data, $quote = '\'')
     {
         if (is_array($data)) {
             $result = array();
             foreach ($data as $item) {
-                $result[] = str_replace($quote, '\\'.$quote, $item);
+                $result[] = str_replace($quote, '\\' . $quote, $item);
             }
             return $result;
         }
-        return str_replace($quote, '\\'.$quote, $data);
+        return str_replace($quote, '\\' . $quote, $data);
     }
 
     /**
@@ -384,4 +386,5 @@ abstract class Mage_Core_Helper_Abstract
         }
         return $arr;
     }
+
 }

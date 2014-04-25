@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Value.php 22791 2010-08-04 16:11:47Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Ebay_Finding_Aspect_Histogram_Value extends Zend_Service_Ebay_Finding_Abstract
 {
+
     /**
      * Number of items that share the characteristic the respective aspect
      * value.
@@ -53,4 +54,5 @@ class Zend_Service_Ebay_Finding_Aspect_Histogram_Value extends Zend_Service_Ebay
 
         $this->count = $this->_query(".//$ns:count[1]", 'integer');
     }
+
 }

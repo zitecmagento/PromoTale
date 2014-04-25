@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Feed.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Feed
  */
@@ -39,6 +38,7 @@
  */
 class Zend_Gdata_Gbase_Feed extends Zend_Gdata_Feed
 {
+
     /**
      * The classname for the feed.
      *
@@ -57,4 +57,5 @@ class Zend_Gdata_Gbase_Feed extends Zend_Gdata_Feed
         $this->registerAllNamespaces(Zend_Gdata_Gbase::$namespaces);
         parent::__construct($element);
     }
+
 }

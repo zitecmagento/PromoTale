@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Poll_Answer_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
 
@@ -42,13 +42,14 @@ class Mage_Adminhtml_Block_Poll_Answer_Edit extends Mage_Adminhtml_Block_Widget_
         $this->_objectId = 'id';
         $this->_controller = 'poll_answer';
 
-        if( $this->getRequest()->getParam($this->_objectId) ) {
+        if ($this->getRequest()->getParam($this->_objectId)) {
             $answerData = Mage::getModel('poll/poll_answer')
-                ->load($this->getRequest()->getParam($this->_objectId));
+                    ->load($this->getRequest()->getParam($this->_objectId));
             Mage::register('answer_data', $answerData);
         }
 
-        $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/poll/edit', array('id' => $answerData->getPollId(), 'tab' => 'answers_section')) . '\');');
+        $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/poll/edit', array('id' => $answerData->getPollId(),
+                    'tab' => 'answers_section')) . '\');');
         $this->_updateButton('save', 'label', Mage::helper('poll')->__('Save Answer'));
         $this->_updateButton('delete', 'label', Mage::helper('poll')->__('Delete Answer'));
     }

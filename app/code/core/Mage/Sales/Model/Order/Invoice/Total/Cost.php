@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Sales_Model_Order_Invoice_Total_Cost extends Mage_Sales_Model_Order_Invoice_Total_Abstract
 {
+
     /**
      * Collect total cost of invoiced items
      *
@@ -37,11 +37,12 @@ class Mage_Sales_Model_Order_Invoice_Total_Cost extends Mage_Sales_Model_Order_I
     {
         $baseInvoiceTotalCost = 0;
         foreach ($invoice->getAllItems() as $item) {
-            if (!$item->getHasChildren()){
-                $baseInvoiceTotalCost += $item->getBaseCost()*$item->getQty();
+            if (!$item->getHasChildren()) {
+                $baseInvoiceTotalCost += $item->getBaseCost() * $item->getQty();
             }
         }
         $invoice->setBaseCost($baseInvoiceTotalCost);
         return $this;
     }
+
 }

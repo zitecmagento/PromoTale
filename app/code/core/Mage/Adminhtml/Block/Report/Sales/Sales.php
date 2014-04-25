@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Report_Sales_Sales extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
 
@@ -43,8 +43,8 @@ class Mage_Adminhtml_Block_Report_Sales_Sales extends Mage_Adminhtml_Block_Widge
         $this->setTemplate('report/grid/container.phtml');
         $this->_removeButton('add');
         $this->addButton('filter_form_submit', array(
-            'label'     => Mage::helper('reports')->__('Show Report'),
-            'onclick'   => 'filterFormSubmit()'
+            'label' => Mage::helper('reports')->__('Show Report'),
+            'onclick' => 'filterFormSubmit()'
         ));
     }
 
@@ -53,4 +53,5 @@ class Mage_Adminhtml_Block_Report_Sales_Sales extends Mage_Adminhtml_Block_Widge
         $this->getRequest()->setParam('filter', null);
         return $this->getUrl('*/*/sales', array('_current' => true));
     }
+
 }

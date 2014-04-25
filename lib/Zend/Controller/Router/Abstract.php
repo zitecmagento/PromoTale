@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /** Zend_Controller_Router_Interface */
 #require_once 'Zend/Controller/Router/Interface.php';
 
@@ -36,6 +35,7 @@
  */
 abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router_Interface
 {
+
     /**
      * Front controller instance
      * @var Zend_Controller_Front
@@ -94,7 +94,7 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
      */
     public function getParam($name)
     {
-        if(isset($this->_invokeParams[$name])) {
+        if (isset($this->_invokeParams[$name])) {
             return $this->_invokeParams[$name];
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 class Zend_Amf_Value_ByteArray
 {
+
     /**
      * @var string ByteString Data
      */
@@ -55,4 +57,5 @@ class Zend_Amf_Value_ByteArray
     {
         return $this->_data;
     }
+
 }

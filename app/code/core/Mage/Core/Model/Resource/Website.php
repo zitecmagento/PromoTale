@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Website Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table
      *
@@ -51,8 +52,8 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = array(array(
-            'field' => 'code',
-            'title' => Mage::helper('core')->__('Website with the same code')
+                'field' => 'code',
+                'title' => Mage::helper('core')->__('Website with the same code')
         ));
         return $this;
     }
@@ -97,14 +98,13 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
     protected function _afterDelete(Mage_Core_Model_Abstract $model)
     {
         $where = array(
-            'scope = ?'    => 'websites',
+            'scope = ?' => 'websites',
             'scope_id = ?' => $model->getWebsiteId()
         );
 
         $this->_getWriteAdapter()->delete($this->getTable('core/config_data'), $where);
 
         return $this;
-
     }
 
     /**
@@ -116,21 +116,19 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
      */
     public function getDefaultStoresSelect($withDefault = false)
     {
-        $ifNull  = $this->_getReadAdapter()
-            ->getCheckSql('store_group_table.default_store_id IS NULL', '0', 'store_group_table.default_store_id');
+        $ifNull = $this->_getReadAdapter()
+                ->getCheckSql('store_group_table.default_store_id IS NULL', '0', 'store_group_table.default_store_id');
         $select = $this->_getReadAdapter()->select()
-            ->from(
-                array('website_table' => $this->getTable('core/website')),
-                array('website_id'))
-            ->joinLeft(
-                array('store_group_table' => $this->getTable('core/store_group')),
-                'website_table.website_id=store_group_table.website_id'
-                    . ' AND website_table.default_group_id = store_group_table.group_id',
-                array('store_id' => $ifNull)
-            );
+                ->from(
+                        array('website_table' => $this->getTable('core/website')), array('website_id'))
+                ->joinLeft(
+                array('store_group_table' => $this->getTable('core/store_group')), 'website_table.website_id=store_group_table.website_id'
+                . ' AND website_table.default_group_id = store_group_table.group_id', array('store_id' => $ifNull)
+        );
         if (!$withDefault) {
             $select->where('website_table.website_id <> ?', 0);
         }
         return $select;
     }
+
 }

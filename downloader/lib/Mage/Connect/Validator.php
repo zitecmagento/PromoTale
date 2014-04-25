@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,13 @@
  */
 class Mage_Connect_Validator
 {
+
     /**
      * Array of stability variants
      *
      * @var array
      */
-    protected static $_stability = array(0=>'devel',1=>'alpha',2=>'beta',3=>'stable');
+    protected static $_stability = array(0 => 'devel', 1 => 'alpha', 2 => 'beta', 3 => 'stable');
 
     /**
      * Get array of Stability variants
@@ -65,7 +67,7 @@ class Mage_Connect_Validator
     public function compareStabilities($s1, $s2)
     {
         $list = $this->getStabilities();
-        $tmp = array_combine(array_values($list),array_keys($list));
+        $tmp = array_combine(array_values($list), array_keys($list));
 
         if (!isset($tmp[$s1], $tmp[$s2])) {
             throw new Exception("Invalid stability in compareStabilities argument");
@@ -88,7 +90,7 @@ class Mage_Connect_Validator
      */
     public function __construct()
     {
-
+        
     }
 
     /**
@@ -104,22 +106,22 @@ class Mage_Connect_Validator
     }
 
     /**
-    * Validate channel name and url
-    *
-    * @param mixed $str
-    * @return bool
-    */
+     * Validate channel name and url
+     *
+     * @param mixed $str
+     * @return bool
+     */
     public function validateChannelNameOrUri($str)
     {
         return ( $this->validateUrl($str) || $this->validatePackageName($str));
     }
 
     /**
-    * Validate License url
-    *
-    * @param mixed $str
-    * @return boolean
-    */
+     * Validate License url
+     *
+     * @param mixed $str
+     * @return boolean
+     */
     public function validateLicenseUrl($str)
     {
         if ($str) {
@@ -151,8 +153,8 @@ class Mage_Connect_Validator
              * @var $max string Maximum version number
              * @var $min string Minimum version number
              */
-            foreach (array('name','channel','min','max') as $fld) {
-                 $$fld = trim($v[$fld]);
+            foreach (array('name', 'channel', 'min', 'max') as $fld) {
+                $$fld = trim($v[$fld]);
             }
             $count++;
 
@@ -194,23 +196,23 @@ class Mage_Connect_Validator
         }
         $count = 0;
         foreach ($authors as $v) {
-           $count++;
-           array_map('trim', $v);
-           $name = $v['name'];
-           $login = $v['user'];
-           $email = $v['email'];
-           $res = $this->validateMaxLen($name, 256) && strlen($name);
-           if (!$res) {
-              $this->addError("Invalid or empty name for author #{$count}");
-           }
-           $res = $this->validateAuthorName($login) && strlen($login);
-           if (!$res) {
-                 $this->addError("Invalid or empty login for author #{$count}");
-           }
-           $res = $this->validateEmail($email);
-           if (!$res) {
-                 $this->addError("Invalid or empty email for author #{$count}");
-           }
+            $count++;
+            array_map('trim', $v);
+            $name = $v['name'];
+            $login = $v['user'];
+            $email = $v['email'];
+            $res = $this->validateMaxLen($name, 256) && strlen($name);
+            if (!$res) {
+                $this->addError("Invalid or empty name for author #{$count}");
+            }
+            $res = $this->validateAuthorName($login) && strlen($login);
+            if (!$res) {
+                $this->addError("Invalid or empty login for author #{$count}");
+            }
+            $res = $this->validateEmail($email);
+            if (!$res) {
+                $this->addError("Invalid or empty email for author #{$count}");
+            }
         }
         return !$this->hasErrors();
     }
@@ -288,8 +290,8 @@ class Mage_Connect_Validator
     public function validateUrl($str)
     {
         $regex = "@([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}|"
-        ."(((news|telnet|nttp|file|http|ftp|https)://)|(www|ftp)"
-        ."[-A-Za-z0-9]*\\.)[-A-Za-z0-9\\.]+)(:[0-9]*)?@i";
+                . "(((news|telnet|nttp|file|http|ftp|https)://)|(www|ftp)"
+                . "[-A-Za-z0-9]*\\.)[-A-Za-z0-9\\.]+)(:[0-9]*)?@i";
         return preg_match($regex, $str);
     }
 
@@ -478,4 +480,5 @@ class Mage_Connect_Validator
         }
         return true;
     }
+
 }

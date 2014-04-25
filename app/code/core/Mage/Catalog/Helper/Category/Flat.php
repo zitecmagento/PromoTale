@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Helper_Category_Flat extends Mage_Catalog_Helper_Flat_Abstract
 {
+
     /**
      * Catalog Category Flat Is Enabled Config
      */
@@ -91,4 +93,5 @@ class Mage_Catalog_Helper_Category_Flat extends Mage_Catalog_Helper_Flat_Abstrac
     {
         return $this->isBuilt();
     }
+
 }

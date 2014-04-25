@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,15 +32,13 @@
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
 {
 
     protected $_links = array();
-
     protected $_activeLink = false;
 
-    public function addLink($name, $path, $label, $urlParams=array())
+    public function addLink($name, $path, $label, $urlParams = array())
     {
         $this->_links[$name] = new Varien_Object(array(
             'name' => $name,
@@ -78,7 +77,7 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
         switch (sizeof(explode('/', $path))) {
             case 1:
                 $path .= '/index';
-                // no break
+            // no break
 
             case 2:
                 $path .= '/index';

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Json.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Controller_Action_Helper_Abstract
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Controller_Action_Helper_Json extends Zend_Controller_Action_Helper_Abstract
 {
+
     /**
      * Suppress exit when sendJson() called
      * @var boolean
@@ -127,4 +128,5 @@ class Zend_Controller_Action_Helper_Json extends Zend_Controller_Action_Helper_A
         }
         return $this->encodeJson($data, $keepLayouts);
     }
+
 }

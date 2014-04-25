@@ -27,7 +27,7 @@
 
 <?php $_item = $this->getItem() ?>
 <?php if ($_item): ?>
-    <?php $_childHtml = trim($this->getChildHtml('', false));?>
+    <?php $_childHtml = trim($this->getChildHtml('', false)); ?>
     <?php if ($_childHtml): ?>
         <tr class="border">
             <td class="first">
@@ -50,4 +50,5 @@
             <td class="last"></td>
         </tr>
     <?php endif ?>
-<?php endif ?>
+    <?php
+ endif ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 interface Zend_Loader_Autoloader_Interface
 {
+
     /**
      * Autoload a class
      *

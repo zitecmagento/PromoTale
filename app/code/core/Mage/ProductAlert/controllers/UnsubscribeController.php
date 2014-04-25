@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * ProductAlert unsubscribe controller
  *
@@ -34,13 +34,14 @@
  */
 class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front_Action
 {
+
     public function preDispatch()
     {
         parent::preDispatch();
 
         if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
-            if(!Mage::getSingleton('customer/session')->getBeforeUrl()) {
+            if (!Mage::getSingleton('customer/session')->getBeforeUrl()) {
                 Mage::getSingleton('customer/session')->setBeforeUrl($this->_getRefererUrl());
             }
         }
@@ -48,13 +49,13 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
 
     public function priceAction()
     {
-        $productId  = (int) $this->getRequest()->getParam('product');
+        $productId = (int) $this->getRequest()->getParam('product');
 
         if (!$productId) {
             $this->_redirect('');
             return;
         }
-        $session    = Mage::getSingleton('catalog/session');
+        $session = Mage::getSingleton('catalog/session');
 
         /* @var $session Mage_Catalog_Model_Session */
         $product = Mage::getModel('catalog/product')->load($productId);
@@ -62,22 +63,24 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
             /* @var $product Mage_Catalog_Model_Product */
             Mage::getSingleton('customer/session')->addError($this->__('The product is not found.'));
             $this->_redirect('customer/account/');
-            return ;
+            return;
         }
 
-        try {
-            $model  = Mage::getModel('productalert/price')
-                ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
-                ->setProductId($product->getId())
-                ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
-                ->loadByParam();
+        try
+        {
+            $model = Mage::getModel('productalert/price')
+                    ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
+                    ->setProductId($product->getId())
+                    ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+                    ->loadByParam();
             if ($model->getId()) {
                 $model->delete();
             }
 
             $session->addSuccess($this->__('The alert subscription has been deleted.'));
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirectUrl($product->getProductUrl());
@@ -88,14 +91,15 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         $session = Mage::getSingleton('customer/session');
         /* @var $session Mage_Customer_Model_Session */
 
-        try {
+        try
+        {
             Mage::getModel('productalert/price')->deleteCustomer(
-                $session->getCustomerId(),
-                Mage::app()->getStore()->getWebsiteId()
+                    $session->getCustomerId(), Mage::app()->getStore()->getWebsiteId()
             );
             $session->addSuccess($this->__('You will no longer receive price alerts for this product.'));
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirect('customer/account/');
@@ -103,7 +107,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
 
     public function stockAction()
     {
-        $productId  = (int) $this->getRequest()->getParam('product');
+        $productId = (int) $this->getRequest()->getParam('product');
 
         if (!$productId) {
             $this->_redirect('');
@@ -117,21 +121,23 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         if (!$product->getId() || !$product->isVisibleInCatalog()) {
             Mage::getSingleton('customer/session')->addError($this->__('The product was not found.'));
             $this->_redirect('customer/account/');
-            return ;
+            return;
         }
 
-        try {
-            $model  = Mage::getModel('productalert/stock')
-                ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
-                ->setProductId($product->getId())
-                ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
-                ->loadByParam();
+        try
+        {
+            $model = Mage::getModel('productalert/stock')
+                    ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
+                    ->setProductId($product->getId())
+                    ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+                    ->loadByParam();
             if ($model->getId()) {
                 $model->delete();
             }
             $session->addSuccess($this->__('You will no longer receive stock alerts for this product.'));
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirectUrl($product->getProductUrl());
@@ -142,16 +148,18 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         $session = Mage::getSingleton('customer/session');
         /* @var $session Mage_Customer_Model_Session */
 
-        try {
+        try
+        {
             Mage::getModel('productalert/stock')->deleteCustomer(
-                $session->getCustomerId(),
-                Mage::app()->getStore()->getWebsiteId()
+                    $session->getCustomerId(), Mage::app()->getStore()->getWebsiteId()
             );
             $session->addSuccess($this->__('You will no longer receive stock alerts.'));
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirect('customer/account/');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * {license_notice}
  *
@@ -13,6 +14,7 @@
  */
 class Magento_Profiler
 {
+
     /**
      * Separator literal to assemble timer identifier from timer names
      */
@@ -21,9 +23,9 @@ class Magento_Profiler
     /**
      * FETCH_* constants represent keys to retrieve profiling results
      */
-    const FETCH_TIME    = 'sum';
-    const FETCH_COUNT   = 'count';
-    const FETCH_AVG     = 'avg';
+    const FETCH_TIME = 'sum';
+    const FETCH_COUNT = 'count';
+    const FETCH_AVG = 'avg';
     const FETCH_REALMEM = 'realmem';
     const FETCH_EMALLOC = 'emalloc';
 
@@ -126,9 +128,9 @@ class Magento_Profiler
         }
         $timerId = self::_getTimerId($timerName);
         self::$_timers[$timerId] = array(
-            'start'             => false,
-            self::FETCH_TIME    => 0,
-            self::FETCH_COUNT   => 0,
+            'start' => false,
+            self::FETCH_TIME => 0,
+            self::FETCH_COUNT => 0,
             self::FETCH_REALMEM => 0,
             self::FETCH_EMALLOC => 0,
         );
@@ -162,7 +164,7 @@ class Magento_Profiler
         self::$_timers[$timerId]['realmem_start'] = memory_get_usage(true);
         self::$_timers[$timerId]['emalloc_start'] = memory_get_usage();
         self::$_timers[$timerId]['start'] = microtime(true);
-        self::$_timers[$timerId][self::FETCH_COUNT]++;
+        self::$_timers[$timerId][self::FETCH_COUNT] ++;
     }
 
     /**
@@ -270,4 +272,5 @@ class Magento_Profiler
             $output->display();
         }
     }
+
 }

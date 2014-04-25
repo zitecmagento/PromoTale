@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Index_Block_Adminhtml_Process_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
 
@@ -37,8 +37,8 @@ class Mage_Index_Block_Adminhtml_Process_Edit extends Mage_Adminhtml_Block_Widge
 
         $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Process'));
         $this->_addButton('reindex', array(
-            'label'     => Mage::helper('index')->__('Reindex Data'),
-            'onclick'   => "setLocation('{$this->getRunUrl()}')"
+            'label' => Mage::helper('index')->__('Reindex Data'),
+            'onclick' => "setLocation('{$this->getRunUrl()}')"
         ));
         $this->_removeButton('reset');
         $this->_removeButton('delete');
@@ -62,7 +62,7 @@ class Mage_Index_Block_Adminhtml_Process_Edit extends Mage_Adminhtml_Block_Widge
     public function getRunUrl()
     {
         return $this->getUrl('adminhtml/process/reindexProcess', array(
-            'process' => Mage::registry('current_index_process')->getId()
+                    'process' => Mage::registry('current_index_process')->getId()
         ));
     }
 
@@ -78,4 +78,5 @@ class Mage_Index_Block_Adminhtml_Process_Edit extends Mage_Adminhtml_Block_Widge
             return Mage::helper('index')->__("'%s' Index Process Information", $process->getIndexer()->getName());
         }
     }
+
 }

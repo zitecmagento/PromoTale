@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Varien_Object_Mapper
 {
+
     /**
      * Convert data from source to target item using map array
      *
@@ -63,14 +65,14 @@ class Varien_Object_Mapper
             list($from, $get) = $from;
         }
         $fromIsArray = is_array($from);
-        $fromIsVO    = $from instanceof Varien_Object;
+        $fromIsVO = $from instanceof Varien_Object;
 
         $set = 'setData';
         if (is_array($to) && isset($to[0]) && is_object($to[0]) && isset($to[1]) && is_string($to[1]) && is_callable($to)) {
             list($to, $set) = $to;
         }
         $toIsArray = is_array($to);
-        $toIsVO    = $to instanceof Varien_Object;
+        $toIsVO = $to instanceof Varien_Object;
 
         foreach ($map as $keyFrom => $keyTo) {
             if (!is_string($keyFrom)) {
@@ -117,4 +119,5 @@ class Varien_Object_Mapper
         }
         return $to;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,11 +26,12 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Tax_Apply_On
 {
+
     public function toOptionArray()
     {
         return array(
-            array('value'=>0, 'label'=>Mage::helper('tax')->__('Custom price if available')),
-            array('value'=>1, 'label'=>Mage::helper('tax')->__('Original price only')),
+            array('value' => 0, 'label' => Mage::helper('tax')->__('Custom price if available')),
+            array('value' => 1, 'label' => Mage::helper('tax')->__('Original price only')),
         );
     }
 

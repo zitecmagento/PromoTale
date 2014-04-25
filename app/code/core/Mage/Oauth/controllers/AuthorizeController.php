@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Session name
      *
@@ -54,14 +56,21 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
         $session = Mage::getSingleton($this->_sessionName);
 
         $isException = false;
-        try {
+        try
+        {
             $server->checkAuthorizeRequest();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $session->addError($e->getMessage());
-        } catch (Mage_Oauth_Exception $e) {
+        }
+        catch (Mage_Oauth_Exception $e)
+        {
             $isException = true;
             $session->addException($e, $this->__('An error occurred. Your authorization request is invalid.'));
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $isException = true;
             $session->addException($e, $this->__('An error occurred.'));
         }
@@ -87,8 +96,8 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
                 ->setBeforeAuthUrl($helper->getCurrentUrl());
 
         $block->setIsSimple($simple)
-            ->setToken($this->getRequest()->getQuery('oauth_token'))
-            ->setHasException($isException);
+                ->setToken($this->getRequest()->getQuery('oauth_token'))
+                ->setHasException($isException);
         return $this;
     }
 
@@ -118,7 +127,8 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
         $block = $this->getLayout()->getBlock('oauth.authorize.confirm');
         $block->setIsSimple($simple);
 
-        try {
+        try
+        {
             /** @var $server Mage_Oauth_Model_Server */
             $server = Mage::getModel('oauth/server');
 
@@ -132,11 +142,17 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
                 $block->setVerifier($token->getVerifier());
                 $session->addSuccess($this->__('Authorization confirmed.'));
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $session->addError($e->getMessage());
-        } catch (Mage_Oauth_Exception $e) {
+        }
+        catch (Mage_Oauth_Exception $e)
+        {
             $session->addException($e, $this->__('An error occurred. Your authorization request is invalid.'));
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $session->addException($e, $this->__('An error occurred on confirm authorize.'));
         }
 
@@ -158,7 +174,8 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
         /** @var $session Mage_Customer_Model_Session */
         $session = Mage::getSingleton($this->_sessionName);
-        try {
+        try
+        {
             /** @var $server Mage_Oauth_Model_Server */
             $server = Mage::getModel('oauth/server');
 
@@ -177,9 +194,13 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
             } else {
                 $session->addNotice($this->__('The application access request is rejected.'));
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $session->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $session->addException($e, $this->__('An error occurred on reject authorize.'));
         }
 
@@ -244,4 +265,5 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
     {
         $this->_initRejectPage(true);
     }
+
 }

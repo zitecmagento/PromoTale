@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 $installer = $this;
 
@@ -59,11 +59,7 @@ foreach ($frequencies as $frequency) {
 
     foreach ($foreignKeys as $fkInfo) {
         $connection->addConstraint(
-            sprintf($fkInfo['name'], strtoupper($frequency)),
-            $tableName,
-            $fkInfo['column'],
-            $installer->getTable($fkInfo['refTable']),
-            $fkInfo['refColumn']
+                sprintf($fkInfo['name'], strtoupper($frequency)), $tableName, $fkInfo['column'], $installer->getTable($fkInfo['refTable']), $fkInfo['refColumn']
         );
     }
 

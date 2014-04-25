@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order collection
  *
@@ -34,19 +34,20 @@
  */
 class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resource_Collection_Abstract
 {
+
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix    = 'sales_order_collection';
+    protected $_eventPrefix = 'sales_order_collection';
 
     /**
      * Event object
      *
      * @var string
      */
-    protected $_eventObject    = 'order_collection';
+    protected $_eventObject = 'order_collection';
 
     /**
      * Model initialization
@@ -56,9 +57,9 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     {
         $this->_init('sales/order');
         $this
-            ->addFilterToMap('entity_id', 'main_table.entity_id')
-            ->addFilterToMap('customer_id', 'main_table.customer_id')
-            ->addFilterToMap('quote_address_id', 'main_table.quote_address_id');
+                ->addFilterToMap('entity_id', 'main_table.entity_id')
+                ->addFilterToMap('customer_id', 'main_table.customer_id')
+                ->addFilterToMap('quote_address_id', 'main_table.quote_address_id');
     }
 
     /**
@@ -70,7 +71,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     {
         if (is_null($this->_fieldsToSelect)) {
             // If we select all fields from table, we need to add column alias
-            $this->getSelect()->columns(array('items_count'=>'total_item_count'));
+            $this->getSelect()->columns(array('items_count' => 'total_item_count'));
         } else {
             $this->addFieldToSelect('total_item_count', 'items_count');
         }
@@ -117,40 +118,35 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
         $joinTable = $this->getTable('sales/order_address');
 
         $this
-            ->addFilterToMap('billing_firstname', $billingAliasName . '.firstname')
-            ->addFilterToMap('billing_lastname', $billingAliasName . '.lastname')
-            ->addFilterToMap('billing_telephone', $billingAliasName . '.telephone')
-            ->addFilterToMap('billing_postcode', $billingAliasName . '.postcode')
-
-            ->addFilterToMap('shipping_firstname', $shippingAliasName . '.firstname')
-            ->addFilterToMap('shipping_lastname', $shippingAliasName . '.lastname')
-            ->addFilterToMap('shipping_telephone', $shippingAliasName . '.telephone')
-            ->addFilterToMap('shipping_postcode', $shippingAliasName . '.postcode');
+                ->addFilterToMap('billing_firstname', $billingAliasName . '.firstname')
+                ->addFilterToMap('billing_lastname', $billingAliasName . '.lastname')
+                ->addFilterToMap('billing_telephone', $billingAliasName . '.telephone')
+                ->addFilterToMap('billing_postcode', $billingAliasName . '.postcode')
+                ->addFilterToMap('shipping_firstname', $shippingAliasName . '.firstname')
+                ->addFilterToMap('shipping_lastname', $shippingAliasName . '.lastname')
+                ->addFilterToMap('shipping_telephone', $shippingAliasName . '.telephone')
+                ->addFilterToMap('shipping_postcode', $shippingAliasName . '.postcode');
 
         $this
-            ->getSelect()
-            ->joinLeft(
-                array($billingAliasName => $joinTable),
-                "(main_table.entity_id = {$billingAliasName}.parent_id"
-                    . " AND {$billingAliasName}.address_type = 'billing')",
-                array(
+                ->getSelect()
+                ->joinLeft(
+                        array($billingAliasName => $joinTable), "(main_table.entity_id = {$billingAliasName}.parent_id"
+                        . " AND {$billingAliasName}.address_type = 'billing')", array(
                     $billingAliasName . '.firstname',
                     $billingAliasName . '.lastname',
                     $billingAliasName . '.telephone',
                     $billingAliasName . '.postcode'
+                        )
                 )
-            )
-            ->joinLeft(
-                array($shippingAliasName => $joinTable),
-                "(main_table.entity_id = {$shippingAliasName}.parent_id"
-                    . " AND {$shippingAliasName}.address_type = 'shipping')",
-                array(
+                ->joinLeft(
+                        array($shippingAliasName => $joinTable), "(main_table.entity_id = {$shippingAliasName}.parent_id"
+                        . " AND {$shippingAliasName}.address_type = 'shipping')", array(
                     $shippingAliasName . '.firstname',
                     $shippingAliasName . '.lastname',
                     $shippingAliasName . '.telephone',
                     $shippingAliasName . '.postcode'
-                )
-            );
+                        )
+        );
         Mage::getResourceHelper('core')->prepareColumnsList($this->getSelect());
         return $this;
     }
@@ -214,11 +210,9 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     {
         $agreements = (is_array($agreements)) ? $agreements : array($agreements);
         $this->getSelect()
-            ->joinInner(
-                array('sbao' => $this->getTable('sales/billing_agreement_order')),
-                'main_table.entity_id = sbao.order_id',
-                array())
-            ->where('sbao.agreement_id IN(?)', $agreements);
+                ->joinInner(
+                        array('sbao' => $this->getTable('sales/billing_agreement_order')), 'main_table.entity_id = sbao.order_id', array())
+                ->where('sbao.agreement_id IN(?)', $agreements);
         return $this;
     }
 
@@ -232,11 +226,10 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     {
         $ids = (is_array($ids)) ? $ids : array($ids);
         $this->getSelect()
-            ->joinInner(
-                array('srpo' => $this->getTable('sales/recurring_profile_order')),
-                'main_table.entity_id = srpo.order_id',
-                array())
-            ->where('srpo.profile_id IN(?)', $ids);
+                ->joinInner(
+                        array('srpo' => $this->getTable('sales/recurring_profile_order')), 'main_table.entity_id = srpo.order_id', array())
+                ->where('srpo.profile_id IN(?)', $ids);
         return $this;
     }
+
 }

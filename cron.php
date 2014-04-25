@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 // Change current directory to the directory of current script
 chdir(dirname(__FILE__));
 
@@ -47,7 +47,8 @@ $disabledFuncs = explode(',', ini_get('disable_functions'));
 $isShellDisabled = is_array($disabledFuncs) ? in_array('shell_exec', $disabledFuncs) : true;
 $isShellDisabled = (stripos(PHP_OS, 'win') === false) ? $isShellDisabled : true;
 
-try {
+try
+{
     if (stripos(PHP_OS, 'win') === false) {
         $options = getopt('m::');
         if (isset($options['m'])) {
@@ -75,7 +76,9 @@ try {
     } else {
         Mage::dispatchEvent($cronMode);
     }
-} catch (Exception $e) {
+}
+catch (Exception $e)
+{
     Mage::printException($e);
     exit(1);
 }

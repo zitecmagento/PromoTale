@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * Set grid params
      *
@@ -54,8 +56,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
      */
     protected function _prepareCollection()
     {
-        $collection = ($this->getCollection())
-            ? $this->getCollection() : Mage::getResourceModel('sales/order_payment_transaction_collection');
+        $collection = ($this->getCollection()) ? $this->getCollection() : Mage::getResourceModel('sales/order_payment_transaction_collection');
         $order = Mage::registry('current_order');
         if ($order) {
             $collection->addOrderIdFilter($order->getId());
@@ -74,63 +75,63 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
     protected function _prepareColumns()
     {
         $this->addColumn('transaction_id', array(
-            'header'    => Mage::helper('sales')->__('ID #'),
-            'index'     => 'transaction_id',
-            'type'      => 'number'
+            'header' => Mage::helper('sales')->__('ID #'),
+            'index' => 'transaction_id',
+            'type' => 'number'
         ));
 
         $this->addColumn('increment_id', array(
-            'header'    => Mage::helper('sales')->__('Order ID'),
-            'index'     => 'increment_id',
-            'type'      => 'text'
+            'header' => Mage::helper('sales')->__('Order ID'),
+            'index' => 'increment_id',
+            'type' => 'text'
         ));
 
         $this->addColumn('txn_id', array(
-            'header'    => Mage::helper('sales')->__('Transaction ID'),
-            'index'     => 'txn_id',
-            'type'      => 'text'
+            'header' => Mage::helper('sales')->__('Transaction ID'),
+            'index' => 'txn_id',
+            'type' => 'text'
         ));
 
         $this->addColumn('parent_txn_id', array(
-            'header'    => Mage::helper('sales')->__('Parent Transaction ID'),
-            'index'     => 'parent_txn_id',
-            'type'      => 'text'
+            'header' => Mage::helper('sales')->__('Parent Transaction ID'),
+            'index' => 'parent_txn_id',
+            'type' => 'text'
         ));
 
         $this->addColumn('method', array(
-            'header'    => Mage::helper('sales')->__('Payment Method Name'),
-            'index'     => 'method',
-            'type'      => 'options',
-            'options'       => Mage::helper('payment')->getPaymentMethodList(true),
+            'header' => Mage::helper('sales')->__('Payment Method Name'),
+            'index' => 'method',
+            'type' => 'options',
+            'options' => Mage::helper('payment')->getPaymentMethodList(true),
             'option_groups' => Mage::helper('payment')->getPaymentMethodList(true, true, true),
         ));
 
         $this->addColumn('txn_type', array(
-            'header'    => Mage::helper('sales')->__('Transaction Type'),
-            'index'     => 'txn_type',
-            'type'      => 'options',
-            'options'   => Mage::getSingleton('sales/order_payment_transaction')->getTransactionTypes()
+            'header' => Mage::helper('sales')->__('Transaction Type'),
+            'index' => 'txn_type',
+            'type' => 'options',
+            'options' => Mage::getSingleton('sales/order_payment_transaction')->getTransactionTypes()
         ));
 
         $this->addColumn('is_closed', array(
-            'header'    => Mage::helper('sales')->__('Is Closed'),
-            'index'     => 'is_closed',
-            'width'     => 1,
-            'type'      => 'options',
-            'align'     => 'center',
-            'options'   => array(
-                1  => Mage::helper('sales')->__('Yes'),
-                0  => Mage::helper('sales')->__('No'),
+            'header' => Mage::helper('sales')->__('Is Closed'),
+            'index' => 'is_closed',
+            'width' => 1,
+            'type' => 'options',
+            'align' => 'center',
+            'options' => array(
+                1 => Mage::helper('sales')->__('Yes'),
+                0 => Mage::helper('sales')->__('No'),
             )
         ));
 
         $this->addColumn('created_at', array(
-            'header'    => Mage::helper('sales')->__('Created At'),
-            'index'     => 'created_at',
-            'width'     => 1,
-            'type'      => 'datetime',
-            'align'     => 'center',
-            'default'   => $this->__('N/A'),
+            'header' => Mage::helper('sales')->__('Created At'),
+            'index' => 'created_at',
+            'width' => 1,
+            'type' => 'datetime',
+            'align' => 'center',
+            'default' => $this->__('N/A'),
             'html_decorators' => array('nobr')
         ));
 
@@ -156,4 +157,5 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
     {
         return $this->getUrl('*/*/view', array('txn_id' => $item->getId()));
     }
+
 }

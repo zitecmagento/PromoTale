@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 require_once 'Mage/Compiler/controllers/Adminhtml/Compiler/ProcessController.php';
 
 /**
@@ -36,5 +36,5 @@ require_once 'Mage/Compiler/controllers/Adminhtml/Compiler/ProcessController.php
  */
 class Mage_Compiler_ProcessController extends Mage_Compiler_Adminhtml_Compiler_ProcessController
 {
-
+    
 }

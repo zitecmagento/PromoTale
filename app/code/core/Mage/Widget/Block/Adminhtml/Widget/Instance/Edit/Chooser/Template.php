@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Template
-    extends Mage_Adminhtml_Block_Widget
+class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Template extends Mage_Adminhtml_Block_Widget
 {
+
     /**
      * Prepare html output
      *
@@ -49,11 +50,12 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Template
             $html .= $widgetTemplate['label'];
         } else {
             $html = $this->getLayout()->createBlock('core/html_select')
-                ->setName('template')
-                ->setClass('select')
-                ->setOptions($this->getWidgetTemplates())
-                ->setValue($this->getSelected())->toHtml();
+                            ->setName('template')
+                            ->setClass('select')
+                            ->setOptions($this->getWidgetTemplates())
+                            ->setValue($this->getSelected())->toHtml();
         }
-        return parent::_toHtml().$html;
+        return parent::_toHtml() . $html;
     }
+
 }

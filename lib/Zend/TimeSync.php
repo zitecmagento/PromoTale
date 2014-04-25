@@ -19,7 +19,6 @@
  * @version    $Id: TimeSync.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * Zend_Date
  */
@@ -33,6 +32,7 @@
  */
 class Zend_TimeSync implements IteratorAggregate
 {
+
     /**
      * Set the default timeserver protocol to "Ntp". This will be called
      * when no protocol is specified
@@ -242,9 +242,12 @@ class Zend_TimeSync implements IteratorAggregate
         #require_once 'Zend/TimeSync/Exception.php';
         foreach ($this->_timeservers as $alias => $server) {
             $this->_current = $server;
-            try {
+            try
+            {
                 return $server->getDate($locale);
-            } catch (Zend_TimeSync_Exception $e) {
+            }
+            catch (Zend_TimeSync_Exception $e)
+            {
                 if (!isset($masterException)) {
                     $masterException = new Zend_TimeSync_Exception('all timeservers are bogus');
                 }
@@ -301,4 +304,5 @@ class Zend_TimeSync implements IteratorAggregate
 
         $this->_timeservers[$alias] = $timeServerObj;
     }
+
 }

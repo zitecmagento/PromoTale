@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Bz2.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Compress_CompressAbstract
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Filter_Compress_Bz2 extends Zend_Filter_Compress_CompressAbstract
 {
+
     /**
      * Compression Options
      * array(
@@ -45,7 +46,7 @@ class Zend_Filter_Compress_Bz2 extends Zend_Filter_Compress_CompressAbstract
      */
     protected $_options = array(
         'blocksize' => 4,
-        'archive'   => null,
+        'archive' => null,
     );
 
     /**
@@ -185,4 +186,5 @@ class Zend_Filter_Compress_Bz2 extends Zend_Filter_Compress_CompressAbstract
     {
         return 'Bz2';
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog bundle product info block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Block_Product_View_Abstract
 {
+
     /**
      * Renderers for bundle product options
      *
@@ -46,7 +47,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
      *
      * @var array
      */
-    protected $_options         = null;
+    protected $_options = null;
 
     /**
      * Default MAP renderer type
@@ -60,7 +61,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
      *
      * @var string
      */
-    protected $_tierPriceDefaultTemplate  = 'bundle/catalog/product/view/option_tierprices.phtml';
+    protected $_tierPriceDefaultTemplate = 'bundle/catalog/product/view/option_tierprices.phtml';
 
     /**
      * Return an array of bundle product options
@@ -77,12 +78,10 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             $optionCollection = $typeInstance->getOptionsCollection($product);
 
             $selectionCollection = $typeInstance->getSelectionsCollection(
-                $typeInstance->getOptionsIds($product),
-                $product
+                    $typeInstance->getOptionsIds($product), $product
             );
 
-            $this->_options = $optionCollection->appendSelections($selectionCollection, false,
-                Mage::helper('catalog/product')->getSkipSaleableCheck()
+            $this->_options = $optionCollection->appendSelections($selectionCollection, false, Mage::helper('catalog/product')->getSkipSaleableCheck()
             );
         }
 
@@ -112,18 +111,18 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
     {
         Mage::app()->getLocale()->getJsPriceFormat();
         $optionsArray = $this->getOptions();
-        $options      = array();
-        $selected     = array();
+        $options = array();
+        $selected = array();
         $currentProduct = $this->getProduct();
         /* @var $coreHelper Mage_Core_Helper_Data */
-        $coreHelper   = Mage::helper('core');
+        $coreHelper = Mage::helper('core');
         /* @var $bundlePriceModel Mage_Bundle_Model_Product_Price */
         $bundlePriceModel = Mage::getModel('bundle/product_price');
 
         $preConfiguredFlag = $currentProduct->hasPreconfiguredValues();
         if ($preConfiguredFlag) {
             $preConfiguredValues = $currentProduct->getPreconfiguredValues();
-            $defaultValues       = array();
+            $defaultValues = array();
         }
 
         $position = 0;
@@ -134,11 +133,11 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             }
 
             $optionId = $_option->getId();
-            $option = array (
+            $option = array(
                 'selections' => array(),
-                'title'      => $_option->getTitle(),
-                'isMulti'    => in_array($_option->getType(), array('multi', 'checkbox')),
-                'position'   => $position++
+                'title' => $_option->getTitle(),
+                'isMulti' => in_array($_option->getType(), array('multi', 'checkbox')),
+                'position' => $position++
             );
 
             $selectionCount = count($_option->getSelections());
@@ -151,20 +150,15 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 // recalculate currency
                 $tierPrices = $_selection->getTierPrice();
                 foreach ($tierPrices as &$tierPriceInfo) {
-                    $tierPriceInfo['price'] =
-                        $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['price']);
-                    $tierPriceInfo['website_price'] =
-                        $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['website_price']);
+                    $tierPriceInfo['price'] = $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['price']);
+                    $tierPriceInfo['website_price'] = $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['website_price']);
                     $tierPriceInfo['price'] = $coreHelper->currency($tierPriceInfo['price'], false, false);
-                    $tierPriceInfo['priceInclTax'] = $taxHelper->getPrice($_selection, $tierPriceInfo['price'], true,
-                        null, null, null, null, null, false);
-                    $tierPriceInfo['priceExclTax'] = $taxHelper->getPrice($_selection, $tierPriceInfo['price'], false,
-                        null, null, null, null, null, false);
+                    $tierPriceInfo['priceInclTax'] = $taxHelper->getPrice($_selection, $tierPriceInfo['price'], true, null, null, null, null, null, false);
+                    $tierPriceInfo['priceExclTax'] = $taxHelper->getPrice($_selection, $tierPriceInfo['price'], false, null, null, null, null, null, false);
                 }
                 unset($tierPriceInfo); // break the reference with the last element
 
-                $itemPrice = $bundlePriceModel->getSelectionFinalTotalPrice($currentProduct, $_selection,
-                    $currentProduct->getQty(), $_selection->getQty(), false, false
+                $itemPrice = $bundlePriceModel->getSelectionFinalTotalPrice($currentProduct, $_selection, $currentProduct->getQty(), $_selection->getQty(), false, false
                 );
 
                 $canApplyMAP = false;
@@ -172,32 +166,28 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 /* @var $taxHelper Mage_Tax_Helper_Data */
                 $taxHelper = Mage::helper('tax');
 
-                $_priceInclTax = $taxHelper->getPrice($_selection, $itemPrice, true,
-                    null, null, null, null, null, false);
-                $_priceExclTax = $taxHelper->getPrice($_selection, $itemPrice, false,
-                    null, null, null, null, null, false);
+                $_priceInclTax = $taxHelper->getPrice($_selection, $itemPrice, true, null, null, null, null, null, false);
+                $_priceExclTax = $taxHelper->getPrice($_selection, $itemPrice, false, null, null, null, null, null, false);
 
                 if ($currentProduct->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
-                    $_priceInclTax = $taxHelper->getPrice($currentProduct, $itemPrice, true,
-                        null, null, null, null, null, false);
-                    $_priceExclTax = $taxHelper->getPrice($currentProduct, $itemPrice, false,
-                        null, null, null, null, null, false);
+                    $_priceInclTax = $taxHelper->getPrice($currentProduct, $itemPrice, true, null, null, null, null, null, false);
+                    $_priceExclTax = $taxHelper->getPrice($currentProduct, $itemPrice, false, null, null, null, null, null, false);
                 }
 
-                $selection = array (
-                    'qty'              => $_qty,
-                    'customQty'        => $_selection->getSelectionCanChangeQty(),
-                    'price'            => $coreHelper->currency($_selection->getFinalPrice(), false, false),
-                    'priceInclTax'     => $coreHelper->currency($_priceInclTax, false, false),
-                    'priceExclTax'     => $coreHelper->currency($_priceExclTax, false, false),
-                    'priceValue'       => $coreHelper->currency($_selection->getSelectionPriceValue(), false, false),
-                    'priceType'        => $_selection->getSelectionPriceType(),
-                    'tierPrice'        => $tierPrices,
-                    'name'             => $_selection->getName(),
-                    'plusDisposition'  => 0,
+                $selection = array(
+                    'qty' => $_qty,
+                    'customQty' => $_selection->getSelectionCanChangeQty(),
+                    'price' => $coreHelper->currency($_selection->getFinalPrice(), false, false),
+                    'priceInclTax' => $coreHelper->currency($_priceInclTax, false, false),
+                    'priceExclTax' => $coreHelper->currency($_priceExclTax, false, false),
+                    'priceValue' => $coreHelper->currency($_selection->getSelectionPriceValue(), false, false),
+                    'priceType' => $_selection->getSelectionPriceType(),
+                    'tierPrice' => $tierPrices,
+                    'name' => $_selection->getName(),
+                    'plusDisposition' => 0,
                     'minusDisposition' => 0,
-                    'canApplyMAP'      => $canApplyMAP,
-                    'tierPriceHtml'    => $this->getTierPriceHtml($_selection, $currentProduct),
+                    'canApplyMAP' => $canApplyMAP,
+                    'tierPriceHtml' => $this->getTierPriceHtml($_selection, $currentProduct),
                 );
 
                 $responseObject = new Varien_Object();
@@ -210,8 +200,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 }
                 $option['selections'][$selectionId] = $selection;
 
-                if (($_selection->getIsDefault() || ($selectionCount == 1 && $_option->getRequired()))
-                    && $_selection->isSalable()
+                if (($_selection->getIsDefault() || ($selectionCount == 1 && $_option->getRequired())) && $_selection->isSalable()
                 ) {
                     $selected[$optionId][] = $selectionId;
                 }
@@ -228,15 +217,15 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
         }
 
         $config = array(
-            'options'       => $options,
-            'selected'      => $selected,
-            'bundleId'      => $currentProduct->getId(),
-            'priceFormat'   => Mage::app()->getLocale()->getJsPriceFormat(),
-            'basePrice'     => $coreHelper->currency($currentProduct->getPrice(), false, false),
-            'priceType'     => $currentProduct->getPriceType(),
-            'specialPrice'  => $currentProduct->getSpecialPrice(),
-            'includeTax'    => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false',
-            'isFixedPrice'  => $this->getProduct()->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED,
+            'options' => $options,
+            'selected' => $selected,
+            'bundleId' => $currentProduct->getId(),
+            'priceFormat' => Mage::app()->getLocale()->getJsPriceFormat(),
+            'basePrice' => $coreHelper->currency($currentProduct->getPrice(), false, false),
+            'priceType' => $currentProduct->getPriceType(),
+            'specialPrice' => $currentProduct->getSpecialPrice(),
+            'includeTax' => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false',
+            'isFixedPrice' => $this->getProduct()->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED,
             'isMAPAppliedDirectly' => Mage::helper('catalog')->canApplyMsrp($this->getProduct(), null, false)
         );
 
@@ -270,6 +259,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             return $this->__('There is no defined renderer for "%s" option type.', $option->getType());
         }
         return $this->getLayout()->createBlock($this->_optionRenderers[$option->getType()])
-            ->setOption($option)->toHtml();
+                        ->setOption($option)->toHtml();
     }
+
 }

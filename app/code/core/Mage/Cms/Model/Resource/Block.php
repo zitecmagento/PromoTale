@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CMS block model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize resource model
      *
@@ -52,7 +53,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
         $condition = array(
-            'block_id = ?'     => (int) $object->getId(),
+            'block_id = ?' => (int) $object->getId(),
         );
 
         $this->_getWriteAdapter()->delete($this->getTable('cms/block_store'), $condition);
@@ -72,7 +73,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
             Mage::throwException(Mage::helper('cms')->__('A block identifier with the same properties already exists in the selected store.'));
         }
 
-        if (! $object->getId()) {
+        if (!$object->getId()) {
             $object->setCreationTime(Mage::getSingleton('core/date')->gmtDate());
         }
         $object->setUpdateTime(Mage::getSingleton('core/date')->gmtDate());
@@ -88,15 +89,15 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $oldStores = $this->lookupStoreIds($object->getId());
-        $newStores = (array)$object->getStores();
+        $newStores = (array) $object->getStores();
 
-        $table  = $this->getTable('cms/block_store');
+        $table = $this->getTable('cms/block_store');
         $insert = array_diff($newStores, $oldStores);
         $delete = array_diff($oldStores, $newStores);
 
         if ($delete) {
             $where = array(
-                'block_id = ?'     => (int) $object->getId(),
+                'block_id = ?' => (int) $object->getId(),
                 'store_id IN (?)' => $delete
             );
 
@@ -108,7 +109,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 
             foreach ($insert as $storeId) {
                 $data[] = array(
-                    'block_id'  => (int) $object->getId(),
+                    'block_id' => (int) $object->getId(),
                     'store_id' => (int) $storeId
                 );
             }
@@ -117,7 +118,6 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         }
 
         return parent::_afterSave($object);
-
     }
 
     /**
@@ -173,13 +173,12 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
             );
 
             $select->join(
-                array('cbs' => $this->getTable('cms/block_store')),
-                $this->getMainTable().'.block_id = cbs.block_id',
-                array('store_id')
-            )->where('is_active = ?', 1)
-            ->where('cbs.store_id in (?) ', $stores)
-            ->order('store_id DESC')
-            ->limit(1);
+                            array('cbs' => $this->getTable('cms/block_store')), $this->getMainTable() . '.block_id = cbs.block_id', array(
+                        'store_id')
+                    )->where('is_active = ?', 1)
+                    ->where('cbs.store_id in (?) ', $stores)
+                    ->order('store_id DESC')
+                    ->limit(1);
         }
 
         return $select;
@@ -196,17 +195,15 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         if (Mage::app()->isSingleStoreMode()) {
             $stores = array(Mage_Core_Model_App::ADMIN_STORE_ID);
         } else {
-            $stores = (array)$object->getData('stores');
+            $stores = (array) $object->getData('stores');
         }
 
         $select = $this->_getReadAdapter()->select()
-            ->from(array('cb' => $this->getMainTable()))
-            ->join(
-                array('cbs' => $this->getTable('cms/block_store')),
-                'cb.block_id = cbs.block_id',
-                array()
-            )->where('cb.identifier = ?', $object->getData('identifier'))
-            ->where('cbs.store_id IN (?)', $stores);
+                ->from(array('cb' => $this->getMainTable()))
+                ->join(
+                        array('cbs' => $this->getTable('cms/block_store')), 'cb.block_id = cbs.block_id', array()
+                )->where('cb.identifier = ?', $object->getData('identifier'))
+                ->where('cbs.store_id IN (?)', $stores);
 
         if ($object->getId()) {
             $select->where('cb.block_id <> ?', $object->getId());
@@ -229,9 +226,9 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     {
         $adapter = $this->_getReadAdapter();
 
-        $select  = $adapter->select()
-            ->from($this->getTable('cms/block_store'), 'store_id')
-            ->where('block_id = :block_id');
+        $select = $adapter->select()
+                ->from($this->getTable('cms/block_store'), 'store_id')
+                ->where('block_id = :block_id');
 
         $binds = array(
             ':block_id' => (int) $id
@@ -239,4 +236,5 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 
         return $adapter->fetchCol($select, $binds);
     }
+
 }

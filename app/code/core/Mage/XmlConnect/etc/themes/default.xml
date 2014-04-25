@@ -28,10 +28,10 @@
 
 <theme>
     <manifest translate="label" module="xmlconnect">
-            <name>default</name>
-            <label>Default Theme</label>
-            <version>1.0</version>
-            <requires>1.4.0.2</requires>
+        <name>default</name>
+        <label>Default Theme</label>
+        <version>1.0</version>
+        <requires>1.4.0.2</requires>
     </manifest>
     <configuration>
         <native>

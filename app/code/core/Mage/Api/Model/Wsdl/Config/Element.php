@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wsdl element model
  *
@@ -33,7 +33,8 @@
  */
 class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
 {
-    public function extend($source, $overwrite=false)
+
+    public function extend($source, $overwrite = false)
     {
         if (!$source instanceof Varien_Simplexml_Element) {
             return $this;
@@ -55,7 +56,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * @param boolean $overwrite
      * @return Varien_Simplexml_Element
      */
-    public function extendChild($source, $overwrite=false, $elmNamespace = '')
+    public function extendChild($source, $overwrite = false, $elmNamespace = '')
     {
         // this will be our new target node
         $targetChild = null;
@@ -257,9 +258,10 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      *
      * @return string
      */
-    public function getAttribute($name, $namespace = ''){
+    public function getAttribute($name, $namespace = '')
+    {
         $attrs = $this->attributes($namespace);
-        return isset($attrs[$name]) ? (string)$attrs[$name] : null;
+        return isset($attrs[$name]) ? (string) $attrs[$name] : null;
     }
 
 }

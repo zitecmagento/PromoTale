@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tag relation model
  *
@@ -49,10 +49,11 @@
  */
 class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
 {
+
     /**
      * Relation statuses
      */
-    const STATUS_ACTIVE     = 1;
+    const STATUS_ACTIVE = 1;
     const STATUS_NOT_ACTIVE = 0;
 
     /**
@@ -89,7 +90,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
     {
         parent::afterCommitCallback();
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+                $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
         return $this;
     }
@@ -103,12 +104,12 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      * @param int $storeId
      * @return Mage_Tag_Model_Tag_Relation
      */
-    public function loadByTagCustomer($productId=null, $tagId, $customerId, $storeId=null)
+    public function loadByTagCustomer($productId = null, $tagId, $customerId, $storeId = null)
     {
         $this->setProductId($productId);
         $this->setTagId($tagId);
         $this->setCustomerId($customerId);
-        if(!is_null($storeId)) {
+        if (!is_null($storeId)) {
             $this->setStoreId($storeId);
         }
         $this->_getResource()->loadByTagCustomer($this);
@@ -150,7 +151,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      */
     public function deactivate()
     {
-        $this->_getResource()->deactivate($this->getTagId(),  $this->getCustomerId());
+        $this->_getResource()->deactivate($this->getTagId(), $this->getCustomerId());
         return $this;
     }
 
@@ -170,4 +171,5 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
         $this->_getResource()->addRelations($this);
         return $this;
     }
+
 }

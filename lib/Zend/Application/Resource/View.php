@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: View.php 22965 2010-09-18 17:45:51Z intiilapa $
  */
-
 /**
  * @see Zend_Application_Resource_ResourceAbstract
  */
 #require_once 'Zend/Application/Resource/ResourceAbstract.php';
-
 
 /**
  * Resource for settings view options
@@ -38,6 +37,7 @@
  */
 class Zend_Application_Resource_View extends Zend_Application_Resource_ResourceAbstract
 {
+
     /**
      * @var Zend_View_Interface
      */
@@ -81,4 +81,5 @@ class Zend_Application_Resource_View extends Zend_Application_Resource_ResourceA
         }
         return $this->_view;
     }
+
 }

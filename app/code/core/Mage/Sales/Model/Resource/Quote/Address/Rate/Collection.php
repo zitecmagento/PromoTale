@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Quote addresses shiping rates collection
  *
@@ -34,12 +34,13 @@
  */
 class Mage_Sales_Model_Resource_Quote_Address_Rate_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Whether to load fixed items only
      *
      * @var bool
      */
-    protected $_allowFixedOnly   = false;
+    protected $_allowFixedOnly = false;
 
     /**
      * Resource initialization
@@ -75,7 +76,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Rate_Collection extends Mage_Core_
      */
     public function setFixedOnlyFilter($value)
     {
-        $this->_allowFixedOnly = (bool)$value;
+        $this->_allowFixedOnly = (bool) $value;
         return $this;
     }
 
@@ -92,4 +93,5 @@ class Mage_Sales_Model_Resource_Quote_Address_Rate_Collection extends Mage_Core_
         }
         return parent::addItem($rate);
     }
+
 }

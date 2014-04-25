@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Template Filter Model
  *
@@ -35,6 +35,7 @@
  */
 class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
 {
+
     /**
      * Use absolute links flag
      *
@@ -134,12 +135,12 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
             $path = '';
             $params['_direct'] = $params['direct_url'];
             unset($params['direct_url']);
-        }
-        else {
+        } else {
             $path = isset($params['url']) ? $params['url'] : '';
             unset($params['url']);
         }
 
         return Mage::app()->getStore(Mage::getDesign()->getStore())->getUrl($path, $params);
     }
+
 }

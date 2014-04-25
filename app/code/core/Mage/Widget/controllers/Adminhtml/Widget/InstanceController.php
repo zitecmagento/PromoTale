@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Session getter
      *
@@ -51,11 +53,9 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('cms/widgets')
-            ->_addBreadcrumb(Mage::helper('widget')->__('CMS'),
-                Mage::helper('widget')->__('CMS'))
-            ->_addBreadcrumb(Mage::helper('widget')->__('Manage Widget Instances'),
-                Mage::helper('widget')->__('Manage Widget Instances'));
+                ->_setActiveMenu('cms/widgets')
+                ->_addBreadcrumb(Mage::helper('widget')->__('CMS'), Mage::helper('widget')->__('CMS'))
+                ->_addBreadcrumb(Mage::helper('widget')->__('Manage Widget Instances'), Mage::helper('widget')->__('Manage Widget Instances'));
         return $this;
     }
 
@@ -72,9 +72,9 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         $widgetInstance = Mage::getModel('widget/widget_instance');
 
         $instanceId = $this->getRequest()->getParam('instance_id', null);
-        $type       = $this->getRequest()->getParam('type', null);
-        $package    = $this->getRequest()->getParam('package', null);
-        $theme      = $this->getRequest()->getParam('theme', null);
+        $type = $this->getRequest()->getParam('type', null);
+        $package = $this->getRequest()->getParam('package', null);
+        $theme = $this->getRequest()->getParam('theme', null);
 
         if ($instanceId) {
             $widgetInstance->load($instanceId);
@@ -85,7 +85,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         } else {
             $packageTheme = $package . '/' . $theme == '/' ? null : $package . '/' . $theme;
             $widgetInstance->setType($type)
-                ->setPackageTheme($packageTheme);
+                    ->setPackageTheme($packageTheme);
         }
         Mage::register('current_widget_instance', $widgetInstance);
         return $widgetInstance;
@@ -100,7 +100,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         $this->_title($this->__('CMS'))->_title($this->__('Widgets'));
 
         $this->_initAction()
-            ->renderLayout();
+                ->renderLayout();
     }
 
     /**
@@ -172,14 +172,15 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             return;
         }
         $widgetInstance->setTitle($this->getRequest()->getPost('title'))
-            ->setStoreIds($this->getRequest()->getPost('store_ids', array(0)))
-            ->setSortOrder($this->getRequest()->getPost('sort_order', 0))
-            ->setPageGroups($this->getRequest()->getPost('widget_instance'))
-            ->setWidgetParameters($this->getRequest()->getPost('parameters'));
-        try {
+                ->setStoreIds($this->getRequest()->getPost('store_ids', array(0)))
+                ->setSortOrder($this->getRequest()->getPost('sort_order', 0))
+                ->setPageGroups($this->getRequest()->getPost('widget_instance'))
+                ->setWidgetParameters($this->getRequest()->getPost('parameters'));
+        try
+        {
             $widgetInstance->save();
             $this->_getSession()->addSuccess(
-                Mage::helper('widget')->__('The widget instance has been saved.')
+                    Mage::helper('widget')->__('The widget instance has been saved.')
             );
             if ($this->getRequest()->getParam('back', false)) {
                 $this->_redirect('*/*/edit', array(
@@ -190,9 +191,13 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 $this->_redirect('*/*/');
             }
             return;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_getSession()->addError($this->__('An error occurred during saving a widget: %s', $e->getMessage()));
         }
@@ -207,12 +212,15 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     {
         $widgetInstance = $this->_initWidgetInstance();
         if ($widgetInstance) {
-            try {
+            try
+            {
                 $widgetInstance->delete();
                 $this->_getSession()->addSuccess(
-                    Mage::helper('widget')->__('The widget instance has been deleted.')
+                        Mage::helper('widget')->__('The widget instance has been deleted.')
                 );
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->addError($e->getMessage());
             }
         }
@@ -229,11 +237,11 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         $selected = $this->getRequest()->getParam('selected', '');
         $isAnchorOnly = $this->getRequest()->getParam('is_anchor_only', 0);
         $chooser = $this->getLayout()
-            ->createBlock('adminhtml/catalog_category_widget_chooser')
-            ->setUseMassaction(true)
-            ->setId(Mage::helper('core')->uniqHash('categories'))
-            ->setIsAnchorOnly($isAnchorOnly)
-            ->setSelectedCategories(explode(',', $selected));
+                ->createBlock('adminhtml/catalog_category_widget_chooser')
+                ->setUseMassaction(true)
+                ->setId(Mage::helper('core')->uniqHash('categories'))
+                ->setIsAnchorOnly($isAnchorOnly)
+                ->setSelectedCategories(explode(',', $selected));
         $this->setBody($chooser->toHtml());
     }
 
@@ -246,15 +254,15 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         $selected = $this->getRequest()->getParam('selected', '');
         $productTypeId = $this->getRequest()->getParam('product_type_id', '');
         $chooser = $this->getLayout()
-            ->createBlock('adminhtml/catalog_product_widget_chooser')
-            ->setName(Mage::helper('core')->uniqHash('products_grid_'))
-            ->setUseMassaction(true)
-            ->setProductTypeId($productTypeId)
-            ->setSelectedProducts(explode(',', $selected));
+                ->createBlock('adminhtml/catalog_product_widget_chooser')
+                ->setName(Mage::helper('core')->uniqHash('products_grid_'))
+                ->setUseMassaction(true)
+                ->setProductTypeId($productTypeId)
+                ->setSelectedProducts(explode(',', $selected));
         /* @var $serializer Mage_Adminhtml_Block_Widget_Grid_Serializer */
         $serializer = $this->getLayout()->createBlock('adminhtml/widget_grid_serializer');
         $serializer->initSerializerBlock($chooser, 'getSelectedProducts', 'selected_products', 'selected_products');
-        $this->setBody($chooser->toHtml().$serializer->toHtml());
+        $this->setBody($chooser->toHtml() . $serializer->toHtml());
     }
 
     /**
@@ -268,13 +276,13 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         $layout = $this->getRequest()->getParam('layout');
         $selected = $this->getRequest()->getParam('selected', null);
         $blocksChooser = $this->getLayout()
-            ->createBlock('widget/adminhtml_widget_instance_edit_chooser_block')
-            ->setArea($widgetInstance->getArea())
-            ->setPackage($widgetInstance->getPackage())
-            ->setTheme($widgetInstance->getTheme())
-            ->setLayoutHandle($layout)
-            ->setSelected($selected)
-            ->setAllowedBlocks($widgetInstance->getWidgetSupportedBlocks());
+                ->createBlock('widget/adminhtml_widget_instance_edit_chooser_block')
+                ->setArea($widgetInstance->getArea())
+                ->setPackage($widgetInstance->getPackage())
+                ->setTheme($widgetInstance->getTheme())
+                ->setLayoutHandle($layout)
+                ->setSelected($selected)
+                ->setAllowedBlocks($widgetInstance->getWidgetSupportedBlocks());
         $this->setBody($blocksChooser->toHtml());
     }
 
@@ -289,9 +297,9 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         $block = $this->getRequest()->getParam('block');
         $selected = $this->getRequest()->getParam('selected', null);
         $templateChooser = $this->getLayout()
-            ->createBlock('widget/adminhtml_widget_instance_edit_chooser_template')
-            ->setSelected($selected)
-            ->setWidgetTemplates($widgetInstance->getWidgetSupportedTemplatesByBlock($block));
+                ->createBlock('widget/adminhtml_widget_instance_edit_chooser_template')
+                ->setSelected($selected)
+                ->setWidgetTemplates($widgetInstance->getWidgetSupportedTemplatesByBlock($block));
         $this->setBody($templateChooser->toHtml());
     }
 
@@ -304,4 +312,5 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     {
         return Mage::getSingleton('admin/session')->isAllowed('cms/widget_instance');
     }
+
 }

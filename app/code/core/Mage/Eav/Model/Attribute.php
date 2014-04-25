@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -193,4 +194,5 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     {
         return $this->_getScopeValue('multiline_count');
     }
+
 }

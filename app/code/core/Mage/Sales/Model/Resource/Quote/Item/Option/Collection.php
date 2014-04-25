@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Item option collection
  *
@@ -34,19 +34,20 @@
  */
 class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Array of option ids grouped by item id
      *
      * @var array
      */
-    protected $_optionsByItem        = array();
+    protected $_optionsByItem = array();
 
     /**
      * Array of option ids grouped by product id
      *
      * @var array
      */
-    protected $_optionsByProduct     = array();
+    protected $_optionsByProduct = array();
 
     /**
      * Define resource model for collection
@@ -67,9 +68,9 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
         parent::_afterLoad();
 
         foreach ($this as $option) {
-            $optionId   = $option->getId();
-            $itemId     = $option->getItemId();
-            $productId  = $option->getProductId();
+            $optionId = $option->getId();
+            $itemId = $option->getItemId();
+            $productId = $option->getProductId();
             if (isset($this->_optionsByItem[$itemId])) {
                 $this->_optionsByItem[$itemId][] = $optionId;
             } else {
@@ -116,7 +117,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     public function getProductIds()
     {
         $this->load();
-        
+
         return array_keys($this->_optionsByProduct);
     }
 
@@ -171,4 +172,5 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
 
         return $options;
     }
+
 }

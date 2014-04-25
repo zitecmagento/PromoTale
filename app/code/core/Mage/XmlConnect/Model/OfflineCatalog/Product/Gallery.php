@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_OfflineCatalog_Product_Gallery extends Mage_XmlConnect_Model_OfflineCatalog_Abstract
 {
+
     /**
      * Gallery url
      */
@@ -58,4 +60,5 @@ class Mage_XmlConnect_Model_OfflineCatalog_Product_Gallery extends Mage_XmlConne
     {
         return sprintf(Mage::getBaseUrl() . self::GALLERY_URL, $this->getProduct()->getId());
     }
+
 }

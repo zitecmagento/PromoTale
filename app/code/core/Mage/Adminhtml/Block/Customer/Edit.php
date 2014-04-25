@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,18 +34,19 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     public function __construct()
     {
         $this->_objectId = 'id';
         $this->_controller = 'customer';
 
         if ($this->getCustomerId() &&
-            Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/create')) {
+                Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/create')) {
             $this->_addButton('order', array(
                 'label' => Mage::helper('customer')->__('Create Order'),
                 'onclick' => 'setLocation(\'' . $this->getCreateOrderUrl() . '\')',
                 'class' => 'add',
-            ), 0);
+                    ), 0);
         }
 
         parent::__construct();
@@ -76,8 +78,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
     {
         if (Mage::registry('current_customer')->getId()) {
             return $this->escapeHtml(Mage::registry('current_customer')->getName());
-        }
-        else {
+        } else {
             return Mage::helper('customer')->__('New Customer');
         }
     }
@@ -96,17 +97,17 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
 
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', array('_current'=>true));
+        return $this->getUrl('*/*/validate', array('_current' => true));
     }
 
     protected function _prepareLayout()
     {
         if (!Mage::registry('current_customer')->isReadonly()) {
             $this->_addButton('save_and_continue', array(
-                'label'     => Mage::helper('customer')->__('Save and Continue Edit'),
-                'onclick'   => 'saveAndContinueEdit(\''.$this->_getSaveAndContinueUrl().'\')',
-                'class'     => 'save'
-            ), 10);
+                'label' => Mage::helper('customer')->__('Save and Continue Edit'),
+                'onclick' => 'saveAndContinueEdit(\'' . $this->_getSaveAndContinueUrl() . '\')',
+                'class' => 'save'
+                    ), 10);
         }
 
         return parent::_prepareLayout();
@@ -115,9 +116,10 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
     protected function _getSaveAndContinueUrl()
     {
         return $this->getUrl('*/*/save', array(
-            '_current'  => true,
-            'back'      => 'edit',
-            'tab'       => '{{tab_id}}'
+                    '_current' => true,
+                    'back' => 'edit',
+                    'tab' => '{{tab_id}}'
         ));
     }
+
 }

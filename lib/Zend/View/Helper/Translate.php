@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Translate.php 20140 2010-01-08 05:21:04Z thomas $
  */
-
 /** Zend_Locale */
 #require_once 'Zend/Locale.php';
 
@@ -36,6 +36,7 @@
  */
 class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
 {
+
     /**
      * Translation object
      *
@@ -72,10 +73,10 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
         }
 
         $translate = $this->getTranslator();
-        $options   = func_get_args();
+        $options = func_get_args();
 
         array_shift($options);
-        $count  = count($options);
+        $count = count($options);
         $locale = null;
         if ($count > 0) {
             if (Zend_Locale::isLocale($options[($count - 1)], null, false) !== false) {
@@ -177,4 +178,5 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
 
         return $translate->getLocale();
     }
+
 }

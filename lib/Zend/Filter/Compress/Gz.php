@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Gz.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Compress_CompressAbstract
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Filter_Compress_Gz extends Zend_Filter_Compress_CompressAbstract
 {
+
     /**
      * Compression Options
      * array(
@@ -45,8 +46,8 @@ class Zend_Filter_Compress_Gz extends Zend_Filter_Compress_CompressAbstract
      * @var array
      */
     protected $_options = array(
-        'level'   => 9,
-        'mode'    => 'compress',
+        'level' => 9,
+        'mode' => 'compress',
         'archive' => null,
     );
 
@@ -181,7 +182,7 @@ class Zend_Filter_Compress_Gz extends Zend_Filter_Compress_CompressAbstract
     public function decompress($content)
     {
         $archive = $this->getArchive();
-        $mode    = $this->getMode();
+        $mode = $this->getMode();
         if (file_exists($content)) {
             $archive = $content;
         }
@@ -195,11 +196,11 @@ class Zend_Filter_Compress_Gz extends Zend_Filter_Compress_CompressAbstract
 
             fseek($handler, -4, SEEK_END);
             $packet = fread($handler, 4);
-            $bytes  = unpack("V", $packet);
-            $size   = end($bytes);
+            $bytes = unpack("V", $packet);
+            $size = end($bytes);
             fclose($handler);
 
-            $file       = gzopen($archive, 'r');
+            $file = gzopen($archive, 'r');
             $compressed = gzread($file, $size);
             gzclose($file);
         } else if ($mode == 'deflate') {
@@ -225,4 +226,5 @@ class Zend_Filter_Compress_Gz extends Zend_Filter_Compress_CompressAbstract
     {
         return 'Gz';
     }
+
 }

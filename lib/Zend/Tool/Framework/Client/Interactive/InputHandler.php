@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -32,7 +33,6 @@ class Zend_Tool_Framework_Client_Interactive_InputHandler
      * @var Zend_Tool_Framework_Client_Interactive_InputInterface
      */
     protected $_client = null;
-
     protected $_inputRequest = null;
 
     public function setClient(Zend_Tool_Framework_Client_Interactive_InputInterface $client)
@@ -69,6 +69,5 @@ class Zend_Tool_Framework_Client_Interactive_InputHandler
 
         return $inputResponse;
     }
-
 
 }

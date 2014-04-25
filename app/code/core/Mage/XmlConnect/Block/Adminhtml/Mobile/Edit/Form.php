@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Prepare form before rendering HTML
      * Setting Form Fieldsets and fields
@@ -42,14 +44,14 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Form extends Mage_Adminhtml_Bl
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(array('id' => 'edit_form',
-            'action'  => Mage::getSingleton('adminhtml/session')->getNewApplication()
-                ? $this->getUrl('*/mobile/edit', array('_current'  => true))
-                : $this->getUrl('*/mobile/save'),
-            'method'  => 'post',
+            'action' => Mage::getSingleton('adminhtml/session')->getNewApplication() ? $this->getUrl('*/mobile/edit', array(
+                        '_current' => true)) : $this->getUrl('*/mobile/save'),
+            'method' => 'post',
             'enctype' => 'multipart/form-data'
-         ));
+        ));
         $form->setUseContainer(true);
         $this->setForm($form);
         return parent::_prepareForm();
     }
+
 }

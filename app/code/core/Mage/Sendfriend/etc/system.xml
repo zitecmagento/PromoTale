@@ -26,7 +26,7 @@
  */
 -->
 <config>
-   <sections>
+    <sections>
         <sendfriend translate="label" module="sendfriend">
             <label>Email to a Friend</label>
             <tab>catalog</tab>

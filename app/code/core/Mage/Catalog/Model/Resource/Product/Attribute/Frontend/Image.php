@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product image attribute frontend
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Attribute_Frontend_Image
-    extends Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
+class Mage_Catalog_Model_Resource_Product_Attribute_Frontend_Image extends Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
 {
+
     const IMAGE_PATH_SEGMENT = 'catalog/product/';
 
     /**
@@ -45,11 +45,12 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Frontend_Image
      */
     public function getUrl($object)
     {
-        $url   = false;
+        $url = false;
         $image = $object->getData($this->getAttribute()->getAttributeCode());
         if ($image) {
             $url = Mage::getBaseUrl('media') . self::IMAGE_PATH_SEGMENT . $image;
         }
         return $url;
     }
+
 }

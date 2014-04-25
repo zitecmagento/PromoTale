@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist customer sharing block
  *
@@ -34,12 +34,13 @@
  */
 class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
 {
+
     /**
      * Entered Data cache
      *
      * @param array
      */
-    protected  $_enteredData = null;
+    protected $_enteredData = null;
 
     /**
      * Prepare Global Layout
@@ -74,13 +75,12 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     {
         if (is_null($this->_enteredData)) {
             $this->_enteredData = Mage::getSingleton('wishlist/session')
-                ->getData('sharing_form', true);
+                    ->getData('sharing_form', true);
         }
 
         if (!$this->_enteredData || !isset($this->_enteredData[$key])) {
             return null;
-        }
-        else {
+        } else {
             return $this->escapeHtml($this->_enteredData[$key]);
         }
     }
@@ -94,4 +94,5 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     {
         return $this->getUrl('*/*/index');
     }
+
 }

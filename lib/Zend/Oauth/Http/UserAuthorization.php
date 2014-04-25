@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: UserAuthorization.php 20217 2010-01-12 16:01:57Z matthew $
  */
-
 /** Zend_Oauth_Http */
 #require_once 'Zend/Oauth/Http.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Oauth_Http_UserAuthorization extends Zend_Oauth_Http
 {
+
     /**
      * Generate a redirect URL from the allowable parameters and configured
      * values.
@@ -42,10 +43,10 @@ class Zend_Oauth_Http_UserAuthorization extends Zend_Oauth_Http
     public function getUrl()
     {
         $params = $this->assembleParams();
-        $uri    = Zend_Uri_Http::fromString($this->_consumer->getUserAuthorizationUrl());
+        $uri = Zend_Uri_Http::fromString($this->_consumer->getUserAuthorizationUrl());
 
         $uri->setQuery(
-            $this->_httpUtility->toEncodedQueryString($params)
+                $this->_httpUtility->toEncodedQueryString($params)
         );
 
         return $uri->getUri();
@@ -75,4 +76,5 @@ class Zend_Oauth_Http_UserAuthorization extends Zend_Oauth_Http
 
         return $params;
     }
+
 }

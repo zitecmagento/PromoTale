@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: PhotoQuery.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Gapps_Picasa_AlbumQuery
  */
@@ -58,10 +57,10 @@ class Zend_Gdata_Photos_PhotoQuery extends Zend_Gdata_Photos_AlbumQuery
      * @param string $value The ID of the photo to retrieve, or null to
      *          clear.
      */
-     public function setPhotoId($value)
-     {
-         $this->_photoId = $value;
-     }
+    public function setPhotoId($value)
+    {
+        $this->_photoId = $value;
+    }
 
     /**
      * Get the photo ID which is to be returned.
@@ -89,7 +88,7 @@ class Zend_Gdata_Photos_PhotoQuery extends Zend_Gdata_Photos_AlbumQuery
         } else {
             #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                    'PhotoId cannot be null');
+            'PhotoId cannot be null');
         }
         $uri .= $incomingUri;
         return parent::getQueryUrl($uri);

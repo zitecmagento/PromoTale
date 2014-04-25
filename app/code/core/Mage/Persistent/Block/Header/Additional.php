@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Persistent
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Persistent_Block_Header_Additional extends Mage_Core_Block_Html_Link
 {
+
     /**
      * Render additional header html
      *
@@ -48,4 +49,5 @@ class Mage_Persistent_Block_Header_Additional extends Mage_Core_Block_Html_Link
 
         return parent::_toHtml();
     }
+
 }

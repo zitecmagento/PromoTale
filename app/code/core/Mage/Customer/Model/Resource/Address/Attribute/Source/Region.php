@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer region attribute source
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Customer_Model_Resource_Address_Attribute_Source_Region extends Mage_Eav_Model_Entity_Attribute_Source_Table
 {
+
     /**
      * Retreive all region options
      *
@@ -46,4 +47,5 @@ class Mage_Customer_Model_Resource_Address_Attribute_Source_Region extends Mage_
         }
         return $this->_options;
     }
+
 }

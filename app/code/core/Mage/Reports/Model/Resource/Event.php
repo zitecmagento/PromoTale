@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report events resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize main table and identifier field.
      * Set main entity table name and primary key field name.
@@ -57,13 +58,11 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
     public function updateCustomerType(Mage_Reports_Model_Event $model, $visitorId, $customerId, $types = array())
     {
         if ($types) {
-            $this->_getWriteAdapter()->update($this->getMainTable(),
-                array('subject_id' => (int)$customerId, 'subtype' => 0),
-                array(
-                    'subject_id = ?'      => (int)$visitorId,
-                    'subtype = ?'         => 1,
-                    'event_type_id IN(?)' => $types
-                )
+            $this->_getWriteAdapter()->update($this->getMainTable(), array('subject_id' => (int) $customerId, 'subtype' => 0), array(
+                'subject_id = ?' => (int) $visitorId,
+                'subtype = ?' => 1,
+                'event_type_id IN(?)' => $types
+                    )
             );
         }
         return $this;
@@ -81,34 +80,30 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
      * @param array $skipIds
      * @return Mage_Reports_Model_Resource_Event
      */
-    public function applyLogToCollection(Varien_Data_Collection_Db $collection, $eventTypeId, $eventSubjectId, $subtype,
-        $skipIds = array())
+    public function applyLogToCollection(Varien_Data_Collection_Db $collection, $eventTypeId, $eventSubjectId, $subtype, $skipIds = array())
     {
         $idFieldName = $collection->getResource()->getIdFieldName();
 
         $derivedSelect = $this->getReadConnection()->select()
-            ->from(
-                $this->getTable('reports/event'),
-                array('event_id' => new Zend_Db_Expr('MAX(event_id)'), 'object_id'))
-            ->where('event_type_id = ?', (int)$eventTypeId)
-            ->where('subject_id = ?', (int)$eventSubjectId)
-            ->where('subtype = ?', (int)$subtype)
-            ->where('store_id IN(?)', $this->getCurrentStoreIds())
-            ->group('object_id');
+                ->from(
+                        $this->getTable('reports/event'), array('event_id' => new Zend_Db_Expr('MAX(event_id)'), 'object_id'))
+                ->where('event_type_id = ?', (int) $eventTypeId)
+                ->where('subject_id = ?', (int) $eventSubjectId)
+                ->where('subtype = ?', (int) $subtype)
+                ->where('store_id IN(?)', $this->getCurrentStoreIds())
+                ->group('object_id');
 
         if ($skipIds) {
             if (!is_array($skipIds)) {
-                $skipIds = array((int)$skipIds);
+                $skipIds = array((int) $skipIds);
             }
             $derivedSelect->where('object_id NOT IN(?)', $skipIds);
         }
 
         $collection->getSelect()
-            ->joinInner(
-                array('evt' => new Zend_Db_Expr("({$derivedSelect})")),
-                "{$idFieldName} = evt.object_id",
-                array())
-            ->order('evt.event_id ' . Varien_Db_Select::SQL_DESC);
+                ->joinInner(
+                        array('evt' => new Zend_Db_Expr("({$derivedSelect})")), "{$idFieldName} = evt.object_id", array())
+                ->order('evt.event_id ' . Varien_Db_Select::SQL_DESC);
 
         return $this;
     }
@@ -149,7 +144,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
             }
         }
         foreach ($stores as $key => $store) {
-            $stores[$key] = (int)$store;
+            $stores[$key] = (int) $store;
         }
 
         return $stores;
@@ -165,14 +160,12 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
     {
         while (true) {
             $select = $this->_getReadAdapter()->select()
-                ->from(array('event_table' => $this->getMainTable()), array('event_id'))
-                ->joinLeft(
-                    array('visitor_table' => $this->getTable('log/visitor')),
-                    'event_table.subject_id = visitor_table.visitor_id',
-                    array())
-                ->where('visitor_table.visitor_id IS NULL')
-                ->where('event_table.subtype = ?', 1)
-                ->limit(1000);
+                    ->from(array('event_table' => $this->getMainTable()), array('event_id'))
+                    ->joinLeft(
+                            array('visitor_table' => $this->getTable('log/visitor')), 'event_table.subject_id = visitor_table.visitor_id', array())
+                    ->where('visitor_table.visitor_id IS NULL')
+                    ->where('event_table.subtype = ?', 1)
+                    ->limit(1000);
             $eventIds = $this->_getReadAdapter()->fetchCol($select);
 
             if (!$eventIds) {
@@ -183,5 +176,5 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
         }
         return $this;
     }
-}
 
+}

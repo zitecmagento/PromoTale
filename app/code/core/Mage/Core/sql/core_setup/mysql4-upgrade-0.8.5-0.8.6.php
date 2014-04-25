@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /**
  * Add default website
  *
@@ -39,17 +38,15 @@ $installer->startSetup();
 
 $installer->getConnection()->addColumn($installer->getTable('core_website'), 'is_default', 'tinyint(1) unsigned default 0');
 $select = $installer->getConnection()->select()
-    ->from($installer->getTable('core_website'))
-    ->where('website_id > ?', 0)
-    ->order('website_id')
-    ->limit(1);
+        ->from($installer->getTable('core_website'))
+        ->where('website_id > ?', 0)
+        ->order('website_id')
+        ->limit(1);
 $row = $installer->getConnection()->fetchRow($select);
 
 if ($row) {
     $whereBind = $installer->getConnection()->quoteInto('website_id=?', $row['website_id']);
-    $installer->getConnection()->update($installer->getTable('core_website'),
-        array('is_default' => 1),
-        $whereBind
+    $installer->getConnection()->update($installer->getTable('core_website'), array('is_default' => 1), $whereBind
     );
 }
 

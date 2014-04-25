@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Language Resource collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Language_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Define resource model
      *
@@ -50,7 +51,7 @@ class Mage_Core_Model_Resource_Language_Collection extends Mage_Core_Model_Resou
      */
     public function toOptionArray()
     {
-        return $this->_toOptionArray('language_code', 'language_title', array('title'=>'language_title'));
+        return $this->_toOptionArray('language_code', 'language_title', array('title' => 'language_title'));
     }
 
     /**
@@ -62,4 +63,5 @@ class Mage_Core_Model_Resource_Language_Collection extends Mage_Core_Model_Resou
     {
         return $this->_toOptionHash('language_code', 'language_title');
     }
+
 }

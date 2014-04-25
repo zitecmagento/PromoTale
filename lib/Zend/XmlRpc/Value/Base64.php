@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Base64.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Zend_XmlRpc_Value_Scalar
  */
 #require_once 'Zend/XmlRpc/Value/Scalar.php';
-
 
 /**
  * @category   Zend
@@ -48,7 +46,7 @@ class Zend_XmlRpc_Value_Base64 extends Zend_XmlRpc_Value_Scalar
     {
         $this->_type = self::XMLRPC_TYPE_BASE64;
 
-        $value = (string)$value;    // Make sure this value is string
+        $value = (string) $value;    // Make sure this value is string
         if (!$alreadyEncoded) {
             $value = base64_encode($value);     // We encode it in base64
         }
@@ -65,4 +63,5 @@ class Zend_XmlRpc_Value_Base64 extends Zend_XmlRpc_Value_Scalar
     {
         return base64_decode($this->_value);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_Connect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+abstract class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * TODO
      */
@@ -70,7 +70,7 @@ abstract class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
     /**
      * TODO
      */
-    public function getValue($key, $default='')
+    public function getValue($key, $default = '')
     {
         $value = $this->getData($key);
         return htmlspecialchars($value ? $value : $default);
@@ -81,7 +81,7 @@ abstract class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
      */
     public function getSelected($key, $value)
     {
-        return $this->getData($key)==$value ? 'selected="selected"' : '';
+        return $this->getData($key) == $value ? 'selected="selected"' : '';
     }
 
     /**
@@ -95,15 +95,15 @@ abstract class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
     /**
      * TODO
      */
-    public function getAddRowButtonHtml($container, $template, $title='Add')
+    public function getAddRowButtonHtml($container, $template, $title = 'Add')
     {
         if (!isset($this->_addRowButtonHtml[$container])) {
             $this->_addRowButtonHtml[$container] = $this->getLayout()
-                ->createBlock('adminhtml/widget_button')
+                    ->createBlock('adminhtml/widget_button')
                     ->setType('button')
                     ->setClass('add')
                     ->setLabel($this->__($title))
-                    ->setOnClick("addRow('".$container."', '".$template."')")
+                    ->setOnClick("addRow('" . $container . "', '" . $template . "')")
                     ->toHtml();
         }
         return $this->_addRowButtonHtml[$container];
@@ -112,33 +112,32 @@ abstract class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
     /**
      * TODO
      */
-    public function getRemoveRowButtonHtml($selector='span')
+    public function getRemoveRowButtonHtml($selector = 'span')
     {
         if (!$this->_removeRowButtonHtml) {
             $this->_removeRowButtonHtml = $this->getLayout()
-                ->createBlock('adminhtml/widget_button')
+                    ->createBlock('adminhtml/widget_button')
                     ->setType('button')
                     ->setClass('delete')
                     ->setLabel($this->__('Remove'))
-                    ->setOnClick("removeRow(this, '".$selector."')")
+                    ->setOnClick("removeRow(this, '" . $selector . "')")
                     ->toHtml();
         }
         return $this->_removeRowButtonHtml;
     }
 
-    public function getAddFileDepsRowButtonHtml($selector='span', $filesClass='files')
+    public function getAddFileDepsRowButtonHtml($selector = 'span', $filesClass = 'files')
     {
         if (!$this->_addFileDepButtonHtml) {
             $this->_addFileDepButtonHtml = $this->getLayout()
-                ->createBlock('adminhtml/widget_button')
+                    ->createBlock('adminhtml/widget_button')
                     ->setType('button')
                     ->setClass('add')
                     ->setLabel($this->__('Add files'))
-                    ->setOnClick("showHideFiles(this, '".$selector."', '".$filesClass."')")
+                    ->setOnClick("showHideFiles(this, '" . $selector . "', '" . $filesClass . "')")
                     ->toHtml();
         }
         return $this->_addFileDepButtonHtml;
-
     }
 
     /**
@@ -170,4 +169,5 @@ abstract class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
     {
         return false;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
 {
+
     /**
      * Returns flag is transaction now?
      *
@@ -40,7 +42,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
      */
     public function isTransaction()
     {
-        return (bool)$this->_transactionLevel;
+        return (bool) $this->_transactionLevel;
     }
 
     /**
@@ -53,16 +55,16 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
      * @param int $step
      * @return int
      */
-    public function insertBatchFromSelect(Varien_Db_Select $select, $table, array $fields = array(),
-                                          $mode = false, $step = 10000
-    ) {
+    public function insertBatchFromSelect(Varien_Db_Select $select, $table, array $fields = array(), $mode = false, $step = 10000
+    )
+    {
         $limitOffset = 0;
         $totalAffectedRows = 0;
 
         do {
             $select->limit($step, $limitOffset);
             $result = $this->query(
-                $this->insertFromSelect($select, $table, $fields, $mode)
+                    $this->insertFromSelect($select, $table, $fields, $mode)
             );
 
             $affectedRows = $result->rowCount();
@@ -101,4 +103,5 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
 
         return $bunches;
     }
+
 }

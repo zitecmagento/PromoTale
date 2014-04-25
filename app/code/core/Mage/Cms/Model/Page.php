@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Cms Page Model
@@ -71,6 +71,7 @@
  */
 class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 {
+
     const NOROUTE_PAGE_ID = 'no-route';
 
     /**
@@ -78,9 +79,9 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      */
     const STATUS_ENABLED = 1;
     const STATUS_DISABLED = 0;
+    const CACHE_TAG = 'cms_page';
 
-    const CACHE_TAG              = 'cms_page';
-    protected $_cacheTag         = 'cms_page';
+    protected $_cacheTag = 'cms_page';
 
     /**
      * Prefix of model events names
@@ -105,7 +106,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      * @param string $field
      * @return Mage_Cms_Model_Page
      */
-    public function load($id, $field=null)
+    public function load($id, $field = null)
     {
         if (is_null($id)) {
             return $this->noRoutePage();
@@ -153,4 +154,5 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 
         return $statuses->getData();
     }
+
 }

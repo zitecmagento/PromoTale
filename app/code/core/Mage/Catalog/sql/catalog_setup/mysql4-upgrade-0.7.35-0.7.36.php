@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,39 +24,42 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
 $installer->startSetup();
-try {
+try
+{
     $installer->run("
         ALTER TABLE `{$installer->getTable('catalog_category_entity')}` ADD `level` INT NOT NULL;
         ALTER TABLE `{$installer->getTable('catalog_category_entity')}` ADD INDEX `IDX_LEVEL` ( `level` );
     ");
-} catch (Exception $e) {
+}
+catch (Exception $e)
+{
+    
 }
 
 $installer->rebuildCategoryLevels();
 
 $installer->addAttribute('catalog_category', 'level', array(
-                        'type'              => 'static',
-                        'backend'           => '',
-                        'frontend'          => '',
-                        'label'             => 'Level',
-                        'input'             => '',
-                        'class'             => '',
-                        'source'            => '',
-                        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-                        'visible'           => false,
-                        'required'          => false,
-                        'user_defined'      => false,
-                        'default'           => '',
-                        'searchable'        => false,
-                        'filterable'        => false,
-                        'comparable'        => false,
-                        'visible_on_front'  => false,
-                        'unique'            => false,
-                    ));
+    'type' => 'static',
+    'backend' => '',
+    'frontend' => '',
+    'label' => 'Level',
+    'input' => '',
+    'class' => '',
+    'source' => '',
+    'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+    'visible' => false,
+    'required' => false,
+    'user_defined' => false,
+    'default' => '',
+    'searchable' => false,
+    'filterable' => false,
+    'comparable' => false,
+    'visible_on_front' => false,
+    'unique' => false,
+));
 
 $installer->endSetup();

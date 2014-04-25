@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Form_Renderer_Select extends Enterprise_Customer_Block_Form_Renderer_Select
 {
+
     /**
      * Field type
      *
@@ -50,16 +52,17 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Select extends Enterprise_Cus
     {
         $attributes = array(
             'label' => $this->getLabel(),
-            'name'  => $this->getFieldName(),
+            'name' => $this->getFieldName(),
             'value' => $this->getValue(),
             'options' => $this->getOptions()
         );
 
         $attributes += Mage::helper('xmlconnect/customer_form_renderer')
-            ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
+                ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
 
         $fieldsetXmlObj->addField($this->getHtmlId(), $this->_filedType, $attributes);
 
         return $this;
     }
+
 }

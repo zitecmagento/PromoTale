@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Royalmail.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Barcode_Object_ObjectAbstract
  */
@@ -57,7 +57,6 @@ class Zend_Barcode_Object_Royalmail extends Zend_Barcode_Object_ObjectAbstract
         'O' => '1302', 'P' => '1212', 'Q' => '1203', 'R' => '0312', 'S' => '0303', 'T' => '0213',
         'U' => '1122', 'V' => '1032', 'W' => '1023', 'X' => '0132', 'Y' => '0123', 'Z' => '0033'
     );
-
     protected $_rows = array(
         '0' => 1, '1' => 1, '2' => 1, '3' => 1, '4' => 1, '5' => 1,
         '6' => 2, '7' => 2, '8' => 2, '9' => 2, 'A' => 2, 'B' => 2,
@@ -66,7 +65,6 @@ class Zend_Barcode_Object_Royalmail extends Zend_Barcode_Object_ObjectAbstract
         'O' => 5, 'P' => 5, 'Q' => 5, 'R' => 5, 'S' => 5, 'T' => 5,
         'U' => 0, 'V' => 0, 'W' => 0, 'X' => 0, 'Y' => 0, 'Z' => 0,
     );
-
     protected $_columns = array(
         '0' => 1, '1' => 2, '2' => 3, '3' => 4, '4' => 5, '5' => 0,
         '6' => 1, '7' => 2, '8' => 3, '9' => 4, 'A' => 5, 'B' => 0,
@@ -95,10 +93,10 @@ class Zend_Barcode_Object_Royalmail extends Zend_Barcode_Object_ObjectAbstract
      */
     protected function _calculateBarcodeWidth()
     {
-        $quietZone       = $this->getQuietZone();
-        $startCharacter  = (2 * $this->_barThinWidth) * $this->_factor;
-        $stopCharacter   = (1 * $this->_barThinWidth) * $this->_factor;
-        $encodedData     = (8 * $this->_barThinWidth) * $this->_factor * strlen($this->getText());
+        $quietZone = $this->getQuietZone();
+        $startCharacter = (2 * $this->_barThinWidth) * $this->_factor;
+        $stopCharacter = (1 * $this->_barThinWidth) * $this->_factor;
+        $encodedData = (8 * $this->_barThinWidth) * $this->_factor * strlen($this->getText());
         return $quietZone + $startCharacter + $encodedData + $stopCharacter + $quietZone;
     }
 
@@ -107,7 +105,9 @@ class Zend_Barcode_Object_Royalmail extends Zend_Barcode_Object_ObjectAbstract
      * @return void
      */
     protected function _checkParams()
-    {}
+    {
+        
+    }
 
     /**
      * Prepare array to draw barcode
@@ -118,21 +118,21 @@ class Zend_Barcode_Object_Royalmail extends Zend_Barcode_Object_ObjectAbstract
         $barcodeTable = array();
 
         // Start character (1)
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 5/8);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , 1);
+        $barcodeTable[] = array(1, $this->_barThinWidth, 0, 5 / 8);
+        $barcodeTable[] = array(0, $this->_barThinWidth, 0, 1);
 
         // Text to encode
         $textTable = str_split($this->getText());
         foreach ($textTable as $char) {
             $bars = str_split($this->_codingMap[$char]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array(1 , $this->_barThinWidth , ($b > 1 ? 3/8 : 0) , ($b % 2 ? 5/8 : 1));
-                $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , 1);
+                $barcodeTable[] = array(1, $this->_barThinWidth, ($b > 1 ? 3 / 8 : 0), ($b % 2 ? 5 / 8 : 1));
+                $barcodeTable[] = array(0, $this->_barThinWidth, 0, 1);
             }
         }
 
         // Stop character (1)
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 1);
+        $barcodeTable[] = array(1, $this->_barThinWidth, 0, 1);
         return $barcodeTable;
     }
 
@@ -145,10 +145,10 @@ class Zend_Barcode_Object_Royalmail extends Zend_Barcode_Object_ObjectAbstract
     public function getChecksum($text)
     {
         $this->_checkText($text);
-        $values   = str_split($text);
+        $values = str_split($text);
         $rowvalue = 0;
         $colvalue = 0;
-        foreach($values as $row) {
+        foreach ($values as $row) {
             $rowvalue += $this->_rows[$row];
             $colvalue += $this->_columns[$row];
         }
@@ -160,4 +160,5 @@ class Zend_Barcode_Object_Royalmail extends Zend_Barcode_Object_ObjectAbstract
         $colchkvalue = array_keys($this->_columns, $colvalue);
         return current(array_intersect($rowchkvalue, $colchkvalue));
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Element */
 #require_once 'Zend/Form/Element.php';
 
@@ -34,6 +34,7 @@
  */
 abstract class Zend_Dojo_Form_Element_Dijit extends Zend_Form_Element
 {
+
     /**
      * Dijit parameters
      * @var array
@@ -162,10 +163,10 @@ abstract class Zend_Dojo_Form_Element_Dijit extends Zend_Form_Element
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('DijitElement')
-                 ->addDecorator('Errors')
-                 ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
-                 ->addDecorator('HtmlTag', array('tag' => 'dd'))
-                 ->addDecorator('Label', array('tag' => 'dt'));
+                    ->addDecorator('Errors')
+                    ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
+                    ->addDecorator('HtmlTag', array('tag' => 'dd'))
+                    ->addDecorator('Label', array('tag' => 'dt'));
         }
     }
 
@@ -186,4 +187,5 @@ abstract class Zend_Dojo_Form_Element_Dijit extends Zend_Form_Element
         }
         return parent::setView($view);
     }
+
 }

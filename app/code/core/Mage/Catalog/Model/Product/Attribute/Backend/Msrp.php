@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Attribute_Backend_Msrp extends Mage_Catalog_Model_Product_Attribute_Backend_Boolean
 {
+
     /**
      * Disable MAP if it's bundle with dynamic price type
      *
@@ -41,9 +43,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Msrp extends Mage_Catalog_Mod
      */
     public function beforeSave($product)
     {
-        if (!($product instanceof Mage_Catalog_Model_Product)
-            || $product->getTypeId() != Mage_Catalog_Model_Product_Type::TYPE_BUNDLE
-            || $product->getPriceType() != Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC
+        if (!($product instanceof Mage_Catalog_Model_Product) || $product->getTypeId() != Mage_Catalog_Model_Product_Type::TYPE_BUNDLE || $product->getPriceType() != Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC
         ) {
             return parent::beforeSave($product);
         }
@@ -59,4 +59,5 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Msrp extends Mage_Catalog_Mod
         }
         return $this;
     }
+
 }

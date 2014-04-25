@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_OfflineCatalog
-    extends Mage_Adminhtml_Block_Template
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_OfflineCatalog extends Mage_Adminhtml_Block_Template implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Set design tab template
      * Set to show global icon
@@ -65,10 +65,10 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_OfflineCatalog
     protected function _addGenerateButton()
     {
         $generateButton = $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-            'label'     => $this->__('Generate Offline Catalog'),
-            'onclick'   => 'generateOfflineCatalog(); return false;',
-            'class'     => 'save'
-        ))->setName('generate_offline_catalog_button');
+                    'label' => $this->__('Generate Offline Catalog'),
+                    'onclick' => 'generateOfflineCatalog(); return false;',
+                    'class' => 'save'
+                ))->setName('generate_offline_catalog_button');
         $this->setChild('offline_catalog', $generateButton);
         return $this;
     }
@@ -112,4 +112,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_OfflineCatalog
     {
         return false;
     }
+
 }

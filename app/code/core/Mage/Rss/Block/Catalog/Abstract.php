@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -25,6 +26,7 @@
  */
 class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
 {
+
     /**
      * Stored price block instances
      * @var array
@@ -101,7 +103,7 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
      * @param string $idSuffix Suffix for HTML containers
      * @return string
      */
-    public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix='')
+    public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
     {
         $type_id = $product->getTypeId();
         if (Mage::helper('catalog')->canApplyMsrp($product)) {
@@ -109,12 +111,12 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
         }
 
         return $this->_getPriceBlock($type_id)
-            ->setTemplate($this->_getPriceBlockTemplate($type_id))
-            ->setProduct($product)
-            ->setDisplayMinimalPrice($displayMinimalPrice)
-            ->setIdSuffix($idSuffix)
-            ->setUseLinkForAsLowAs($this->_useLinkForAsLowAs)
-            ->toHtml();
+                        ->setTemplate($this->_getPriceBlockTemplate($type_id))
+                        ->setProduct($product)
+                        ->setDisplayMinimalPrice($displayMinimalPrice)
+                        ->setIdSuffix($idSuffix)
+                        ->setUseLinkForAsLowAs($this->_useLinkForAsLowAs)
+                        ->toHtml();
     }
 
     /**
@@ -133,4 +135,5 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
             );
         }
     }
+
 }

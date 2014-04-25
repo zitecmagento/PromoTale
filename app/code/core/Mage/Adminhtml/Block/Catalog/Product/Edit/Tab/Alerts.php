@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product alerts tab
  *
@@ -32,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts extends Mage_Adminhtml_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts extends Mage_Adminhtm
     protected function _prepareLayout()
     {
         $accordion = $this->getLayout()->createBlock('adminhtml/widget_accordion')
-            ->setId('productAlerts');
+                ->setId('productAlerts');
         /* @var $accordion Mage_Adminhtml_Block_Widget_Accordion */
 
         $alertPriceAllow = Mage::getStoreConfig('catalog/productalert/allow_price');
@@ -52,16 +52,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts extends Mage_Adminhtm
 
         if ($alertPriceAllow) {
             $accordion->addItem('price', array(
-                'title'     => Mage::helper('adminhtml')->__('Price alert subscription was saved.'),
-                'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_alerts_price')->toHtml() . '<br />',
-                'open'      => true
+                'title' => Mage::helper('adminhtml')->__('Price alert subscription was saved.'),
+                'content' => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_alerts_price')->toHtml() . '<br />',
+                'open' => true
             ));
         }
         if ($alertStockAllow) {
             $accordion->addItem('stock', array(
-                'title'     => Mage::helper('adminhtml')->__('Stock notification was saved.'),
-                'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_alerts_stock'),
-                'open'      => true
+                'title' => Mage::helper('adminhtml')->__('Stock notification was saved.'),
+                'content' => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_alerts_stock'),
+                'open' => true
             ));
         }
 
@@ -74,4 +74,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts extends Mage_Adminhtm
     {
         return $this->getChildHtml('accordion');
     }
+
 }

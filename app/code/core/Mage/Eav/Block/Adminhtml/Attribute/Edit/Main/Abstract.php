@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product attribute add/edit form main tab
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mage_Adminhtml_Block_Widget_Form
 {
+
     protected $_attribute = null;
 
     public function setAttributeObject($attribute)
@@ -65,8 +66,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             'method' => 'post'
         ));
 
-        $fieldset = $form->addFieldset('base_fieldset',
-            array('legend'=>Mage::helper('eav')->__('Attribute Properties'))
+        $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('eav')->__('Attribute Properties'))
         );
         if ($attributeObject->getAttributeId()) {
             $fieldset->addField('attribute_id', 'hidden', array(
@@ -78,13 +78,12 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 
         $yesno = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
 
-        $validateClass = sprintf('validate-code validate-length maximum-length-%d',
-            Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH);
+        $validateClass = sprintf('validate-code validate-length maximum-length-%d', Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH);
         $fieldset->addField('attribute_code', 'text', array(
-            'name'  => 'attribute_code',
+            'name' => 'attribute_code',
             'label' => Mage::helper('eav')->__('Attribute Code'),
             'title' => Mage::helper('eav')->__('Attribute Code'),
-            'note'  => Mage::helper('eav')->__('For internal use. Must be unique with no spaces. Maximum length of attribute code must be less then %s symbols', Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH),
+            'note' => Mage::helper('eav')->__('For internal use. Must be unique with no spaces. Maximum length of attribute code must be less then %s symbols', Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH),
             'class' => $validateClass,
             'required' => true,
         ));
@@ -96,7 +95,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             'label' => Mage::helper('eav')->__('Catalog Input Type for Store Owner'),
             'title' => Mage::helper('eav')->__('Catalog Input Type for Store Owner'),
             'value' => 'text',
-            'values'=> $inputTypes
+            'values' => $inputTypes
         ));
 
         $fieldset->addField('default_value_text', 'text', array(
@@ -116,12 +115,12 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 
         $dateFormatIso = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
         $fieldset->addField('default_value_date', 'date', array(
-            'name'   => 'default_value_date',
-            'label'  => Mage::helper('eav')->__('Default Value'),
-            'title'  => Mage::helper('eav')->__('Default Value'),
-            'image'  => $this->getSkinUrl('images/grid-cal.gif'),
-            'value'  => $attributeObject->getDefaultValue(),
-            'format'       => $dateFormatIso
+            'name' => 'default_value_date',
+            'label' => Mage::helper('eav')->__('Default Value'),
+            'title' => Mage::helper('eav')->__('Default Value'),
+            'image' => $this->getSkinUrl('images/grid-cal.gif'),
+            'value' => $attributeObject->getDefaultValue(),
+            'format' => $dateFormatIso
         ));
 
         $fieldset->addField('default_value_textarea', 'textarea', array(
@@ -135,7 +134,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             'name' => 'is_unique',
             'label' => Mage::helper('eav')->__('Unique Value'),
             'title' => Mage::helper('eav')->__('Unique Value (not shared with other products)'),
-            'note'  => Mage::helper('eav')->__('Not shared with other products'),
+            'note' => Mage::helper('eav')->__('Not shared with other products'),
             'values' => $yesno,
         ));
 
@@ -147,10 +146,10 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
         ));
 
         $fieldset->addField('frontend_class', 'select', array(
-            'name'  => 'frontend_class',
+            'name' => 'frontend_class',
             'label' => Mage::helper('eav')->__('Input Validation for Store Owner'),
             'title' => Mage::helper('eav')->__('Input Validation for Store Owner'),
-            'values'=> Mage::helper('eav')->getFrontendClasses($attributeObject->getEntityType()->getEntityTypeCode())
+            'values' => Mage::helper('eav')->getFrontendClasses($attributeObject->getEntityType()->getEntityTypeCode())
         ));
 
         if ($attributeObject->getId()) {
@@ -175,7 +174,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     {
         Mage::dispatchEvent('adminhtml_block_eav_attribute_edit_form_init', array('form' => $this->getForm()));
         $this->getForm()
-            ->addValues($this->getAttributeObject()->getData());
+                ->addValues($this->getAttributeObject()->getData());
         return parent::_initFormValues();
     }
 
@@ -191,7 +190,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
         if ($attributeObject->getId()) {
             $form = $this->getForm();
             $disableAttributeFields = Mage::helper('eav')
-                ->getAttributeLockedFields($attributeObject->getEntityType()->getEntityTypeCode());
+                    ->getAttributeLockedFields($attributeObject->getEntityType()->getEntityTypeCode());
             if (isset($disableAttributeFields[$attributeObject->getAttributeCode()])) {
                 foreach ($disableAttributeFields[$attributeObject->getAttributeCode()] as $field) {
                     if ($elm = $form->getElement($field)) {
@@ -214,8 +213,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     protected function _afterToHtml($html)
     {
         $jsScripts = $this->getLayout()
-            ->createBlock('eav/adminhtml_attribute_edit_js')->toHtml();
-        return $html.$jsScripts;
+                        ->createBlock('eav/adminhtml_attribute_edit_js')->toHtml();
+        return $html . $jsScripts;
     }
 
 }

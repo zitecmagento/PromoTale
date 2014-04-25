@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * HTML select element block
  *
@@ -37,16 +37,16 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
 
     protected function _toHtml()
     {
-        $displayFormat = Varien_Date::convertZendToStrFtime($this->getFormat(), true, (bool)$this->getTime());
+        $displayFormat = Varien_Date::convertZendToStrFtime($this->getFormat(), true, (bool) $this->getTime());
 
-        $html  = '<input type="text" name="' . $this->getName() . '" id="' . $this->getId() . '" ';
+        $html = '<input type="text" name="' . $this->getName() . '" id="' . $this->getId() . '" ';
         $html .= 'value="' . $this->escapeHtml($this->getValue()) . '" class="' . $this->getClass() . '" ' . $this->getExtraParams() . '/> ';
 
         $html .= '<img src="' . $this->getImage() . '" alt="' . $this->helper('core')->__('Select Date') . '" class="v-middle" ';
         $html .= 'title="' . $this->helper('core')->__('Select Date') . '" id="' . $this->getId() . '_trig" />';
 
         $html .=
-        '<script type="text/javascript">
+                '<script type="text/javascript">
         //<![CDATA[
             var calendarSetupObject = {
                 inputField  : "' . $this->getId() . '",
@@ -73,9 +73,10 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
         return $html;
     }
 
-    public function getEscapedValue($index=null) {
+    public function getEscapedValue($index = null)
+    {
 
-        if($this->getFormat() && $this->getValue()) {
+        if ($this->getFormat() && $this->getValue()) {
             return strftime($this->getFormat(), strtotime($this->getValue()));
         }
 

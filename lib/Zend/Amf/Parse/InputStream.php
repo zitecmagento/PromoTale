@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: InputStream.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Amf_Util_BinaryStream */
 #require_once 'Zend/Amf/Util/BinaryStream.php';
 
@@ -36,4 +36,5 @@
  */
 class Zend_Amf_Parse_InputStream extends Zend_Amf_Util_BinaryStream
 {
+    
 }

@@ -24,12 +24,12 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if( $this->getGbaseCaptchaToken() && $this->getGbaseCaptchaUrl()): ?>
-<ul class="messages">
-    <li class="error-msg">
-        <ul>
-            <li><img src="<?php echo $this->getGbaseCaptchaUrl() ?>"> <input type="text" id="user_confirm"> <?php echo $this->getConfirmButtonHtml() ?></li>
-        </ul>
-    </li>
-</ul>
+<?php if ($this->getGbaseCaptchaToken() && $this->getGbaseCaptchaUrl()): ?>
+    <ul class="messages">
+        <li class="error-msg">
+            <ul>
+                <li><img src="<?php echo $this->getGbaseCaptchaUrl() ?>"> <input type="text" id="user_confirm"> <?php echo $this->getConfirmButtonHtml() ?></li>
+            </ul>
+        </li>
+    </ul>
 <?php endif; ?>

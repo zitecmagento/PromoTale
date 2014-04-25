@@ -26,12 +26,12 @@
 ?>
 
 <b><?php echo Mage::helper('moneybookers')->__('Loading secure payment page (SSL)'); ?></b>
-<form name="moneybookers" id="moneybookers_place_form" action="<?php echo $this->getFormAction();?>" method="POST">
-<?php if (is_array($this->getFormData())): ?>
-    <?php foreach ($this->getFormData() as $name => $value): ?>
-        <input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/>
-    <?php endforeach; ?>
-<?php endif; ?>
+<form name="moneybookers" id="moneybookers_place_form" action="<?php echo $this->getFormAction(); ?>" method="POST">
+    <?php if (is_array($this->getFormData())): ?>
+        <?php foreach ($this->getFormData() as $name => $value): ?>
+            <input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </form>
 
 <script type="text/javascript">

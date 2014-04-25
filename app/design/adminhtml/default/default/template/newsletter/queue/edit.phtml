@@ -32,11 +32,11 @@
             <td class="form-buttons">
                 <?php echo $this->getBackButtonHtml() ?>
                 <?php echo $this->getPreviewButtonHtml(); ?>
-                <?php if(!$this->getIsPreview()): ?>
+                <?php if (!$this->getIsPreview()): ?>
                     <?php echo $this->getResetButtonHtml() ?>
                     <?php echo $this->getSaveButtonHtml() ?>
                 <?php endif ?>
-                <?php if($this->getCanResume()): ?>
+                <?php if ($this->getCanResume()): ?>
                     <?php echo $this->getResumeButtonHtml() ?>
                 <?php endif ?>
             </td>
@@ -44,16 +44,16 @@
     </table>
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="queue_edit_form">
-    <?php echo $this->getBlockHtml('formkey')?>
+    <?php echo $this->getBlockHtml('formkey') ?>
     <div class="no-display">
         <input type="hidden" name="_resume" id="_resume_flag" value="" />
     </div>
     <?php echo $this->getChildHtml('form') ?>
 </form>
 <form action="<?php echo $this->getPreviewUrl() ?>" method="post" id="newsletter_queue_preview_form" target="_blank">
-    <?php echo $this->getBlockHtml('formkey')?>
+    <?php echo $this->getBlockHtml('formkey') ?>
     <div class="no-display">
-        <input type="hidden" id="preview_type" name="type" value="<?php echo $this->getIsTextType()?1:2 ?>" />
+        <input type="hidden" id="preview_type" name="type" value="<?php echo $this->getIsTextType() ? 1 : 2 ?>" />
         <input type="hidden" id="preview_text" name="text" value="" />
         <input type="hidden" id="preview_styles" name="styles" value="" />
         <input type="hidden" id="preview_id" name="id" value="" />
@@ -61,39 +61,39 @@
 </form>
 <script type="text/javascript">
 //<![CDATA[
-var queueForm = new varienForm('queue_edit_form');
-var newsletterPreviewForm = new varienForm('newsletter_queue_preview_form');
+    var queueForm = new varienForm('queue_edit_form');
+    var newsletterPreviewForm = new varienForm('newsletter_queue_preview_form');
 
-var queueControl = {
-    id: 'text',
-    save: function() {
-        $('_resume_flag').value = '';
-        queueForm.submit();
-    },
-    preview: function() {
-        if (this.isEditor() && tinyMCE.get(this.id)) {
-            tinyMCE.triggerSave();
-            $('preview_text').value = $(this.id).value;
-            tinyMCE.triggerSave();
-        } else {
-            $('preview_text').value = $(this.id).value;
+    var queueControl = {
+        id: 'text',
+        save: function() {
+            $('_resume_flag').value = '';
+            queueForm.submit();
+        },
+        preview: function() {
+            if (this.isEditor() && tinyMCE.get(this.id)) {
+                tinyMCE.triggerSave();
+                $('preview_text').value = $(this.id).value;
+                tinyMCE.triggerSave();
+            } else {
+                $('preview_text').value = $(this.id).value;
+            }
+            if ($('styles') != undefined) {
+                $('preview_styles').value = $('styles').value;
+            }
+            if ($('id') != undefined) {
+                $('preview_id').value = $('id').value;
+            }
+            newsletterPreviewForm.submit();
+            return false;
+        },
+        isEditor: function() {
+            return (typeof tinyMceEditors != 'undefined' && tinyMceEditors.get(this.id) != undefined)
+        },
+        resume: function() {
+            $('_resume_flag').value = '1';
+            queueForm.submit();
         }
-        if ($('styles') != undefined) {
-            $('preview_styles').value = $('styles').value;
-        }
-        if ($('id') != undefined) {
-            $('preview_id').value = $('id').value;
-        }
-        newsletterPreviewForm.submit();
-        return false;
-    },
-    isEditor: function() {
-        return (typeof tinyMceEditors != 'undefined' && tinyMceEditors.get(this.id) != undefined)
-    },
-    resume: function() {
-        $('_resume_flag').value = '1';
-        queueForm.submit();
-    }
-};
+    };
 //]]>
 </script>

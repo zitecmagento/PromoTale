@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Alpha.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Interface
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Filter_Alpha implements Zend_Filter_Interface
 {
+
     /**
      * Whether to allow white space characters; off by default
      *
@@ -48,7 +49,7 @@ class Zend_Filter_Alpha implements Zend_Filter_Interface
      * Is PCRE is compiled with UTF-8 and Unicode support
      *
      * @var mixed
-     **/
+     * */
     protected static $_unicodeEnabled;
 
     /**
@@ -90,11 +91,9 @@ class Zend_Filter_Alpha implements Zend_Filter_Interface
 
         if (null === self::$_meansEnglishAlphabet) {
             $this->_locale = new Zend_Locale('auto');
-            self::$_meansEnglishAlphabet = in_array($this->_locale->getLanguage(),
-                                                    array('ja', 'ko', 'zh')
-                                                    );
+            self::$_meansEnglishAlphabet = in_array($this->_locale->getLanguage(), array('ja', 'ko', 'zh')
+            );
         }
-
     }
 
     /**
@@ -135,7 +134,7 @@ class Zend_Filter_Alpha implements Zend_Filter_Interface
             $pattern = '/[^a-zA-Z' . $whiteSpace . ']/';
         } else if (self::$_meansEnglishAlphabet) {
             //The Alphabet means english alphabet.
-            $pattern = '/[^a-zA-Z'  . $whiteSpace . ']/u';
+            $pattern = '/[^a-zA-Z' . $whiteSpace . ']/u';
         } else {
             //The Alphabet means each language's alphabet.
             $pattern = '/[^\p{L}' . $whiteSpace . ']/u';
@@ -143,4 +142,5 @@ class Zend_Filter_Alpha implements Zend_Filter_Interface
 
         return preg_replace($pattern, '', (string) $value);
     }
+
 }

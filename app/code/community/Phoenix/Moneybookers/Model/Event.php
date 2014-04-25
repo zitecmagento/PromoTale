@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,6 +24,7 @@
  */
 class Phoenix_Moneybookers_Model_Event
 {
+
     const MONEYBOOKERS_STATUS_FAIL = -2;
     const MONEYBOOKERS_STATUS_CANCEL = -1;
     const MONEYBOOKERS_STATUS_PENDING = 0;
@@ -31,6 +33,7 @@ class Phoenix_Moneybookers_Model_Event
     /*
      * @param Mage_Sales_Model_Order
      */
+
     protected $_order = null;
 
     /**
@@ -80,10 +83,11 @@ class Phoenix_Moneybookers_Model_Event
      */
     public function processStatusEvent()
     {
-        try {
+        try
+        {
             $params = $this->_validateEventData();
             $msg = '';
-            switch($params['status']) {
+            switch ($params['status']) {
                 case self::MONEYBOOKERS_STATUS_FAIL: //fail
                     $msg = Mage::helper('moneybookers')->__('Payment failed.');
                     $this->_processCancel($msg);
@@ -102,9 +106,13 @@ class Phoenix_Moneybookers_Model_Event
                     break;
             }
             return $msg;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             return $e->getMessage();
-        } catch(Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
         }
         return;
@@ -113,14 +121,20 @@ class Phoenix_Moneybookers_Model_Event
     /**
      * Process cancelation
      */
-    public function cancelEvent() {
-        try {
+    public function cancelEvent()
+    {
+        try
+        {
             $this->_validateEventData(false);
             $this->_processCancel('Payment was canceled.');
             return Mage::helper('moneybookers')->__('The order has been canceled.');
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             return $e->getMessage();
-        } catch(Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
         }
         return '';
@@ -132,7 +146,8 @@ class Phoenix_Moneybookers_Model_Event
      *
      * @return int
      */
-    public function successEvent(){
+    public function successEvent()
+    {
         $this->_validateEventData(false);
         return $this->_order->getQuoteId();
     }
@@ -203,8 +218,7 @@ class Phoenix_Moneybookers_Model_Event
         }
 
         // check order ID
-        if (empty($params['transaction_id'])
-            || ($fullCheck == false && $this->_getCheckout()->getMoneybookersRealOrderId() != $params['transaction_id'])
+        if (empty($params['transaction_id']) || ($fullCheck == false && $this->_getCheckout()->getMoneybookersRealOrderId() != $params['transaction_id'])
         ) {
             Mage::throwException('Missing or invalid order ID.');
         }
@@ -234,13 +248,11 @@ class Phoenix_Moneybookers_Model_Event
             $md5String = '';
             foreach ($checkParams as $key) {
                 if ($key == 'merchant_id') {
-                    $md5String .= Mage::getStoreConfig(Phoenix_Moneybookers_Helper_Data::XML_PATH_CUSTOMER_ID,
-                        $this->_order->getStoreId()
+                    $md5String .= Mage::getStoreConfig(Phoenix_Moneybookers_Helper_Data::XML_PATH_CUSTOMER_ID, $this->_order->getStoreId()
                     );
                 } elseif ($key == 'secret') {
                     $secretKey = Mage::getStoreConfig(
-                        Phoenix_Moneybookers_Helper_Data::XML_PATH_SECRET_KEY,
-                        $this->_order->getStoreId()
+                                    Phoenix_Moneybookers_Helper_Data::XML_PATH_SECRET_KEY, $this->_order->getStoreId()
                     );
 
                     if (empty($secretKey)) {
@@ -267,4 +279,5 @@ class Phoenix_Moneybookers_Model_Event
         }
         return $params;
     }
+
 }

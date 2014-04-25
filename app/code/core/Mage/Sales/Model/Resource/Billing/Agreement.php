@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Billing agreement resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Model_Resource_Billing_Agreement extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      *
@@ -53,11 +54,12 @@ class Mage_Sales_Model_Resource_Billing_Agreement extends Mage_Core_Model_Resour
     public function addOrderRelation($agreementId, $orderId)
     {
         $this->_getWriteAdapter()->insert(
-            $this->getTable('sales/billing_agreement_order'), array(
-                'agreement_id'  => $agreementId,
-                'order_id'      => $orderId
-            )
+                $this->getTable('sales/billing_agreement_order'), array(
+            'agreement_id' => $agreementId,
+            'order_id' => $orderId
+                )
         );
         return $this;
     }
+
 }

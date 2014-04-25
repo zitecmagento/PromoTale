@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Log Online visitors collection
  *
@@ -34,12 +34,13 @@
  */
 class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * joined fields array
      *
      * @var array
      */
-    protected $_fields   = array();
+    protected $_fields = array();
 
     /**
      * Initialize collection model
@@ -57,12 +58,12 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
      */
     public function addCustomerData()
     {
-        $customer   = Mage::getModel('customer/customer');
+        $customer = Mage::getModel('customer/customer');
         // alias => attribute_code
         $attributes = array(
-            'customer_lastname'     => 'lastname',
-            'customer_firstname'    => 'firstname',
-            'customer_email'        => 'email'
+            'customer_lastname' => 'lastname',
+            'customer_firstname' => 'firstname',
+            'customer_email' => 'email'
         );
 
         foreach ($attributes as $alias => $attributeCode) {
@@ -73,25 +74,21 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
                 $tableAlias = 'customer_' . $attribute->getAttributeCode();
 
                 $this->getSelect()->joinLeft(
-                    array($tableAlias => $attribute->getBackend()->getTable()),
-                    sprintf('%s.entity_id=main_table.customer_id', $tableAlias),
-                    array($alias => $attribute->getAttributeCode())
+                        array($tableAlias => $attribute->getBackend()->getTable()), sprintf('%s.entity_id=main_table.customer_id', $tableAlias), array(
+                    $alias => $attribute->getAttributeCode())
                 );
 
                 $this->_fields[$alias] = sprintf('%s.%s', $tableAlias, $attribute->getAttributeCode());
-            }
-            else {
+            } else {
                 $tableAlias = 'customer_' . $attribute->getAttributeCode();
 
-                $joinConds  = array(
+                $joinConds = array(
                     sprintf('%s.entity_id=main_table.customer_id', $tableAlias),
                     $this->getConnection()->quoteInto($tableAlias . '.attribute_id=?', $attribute->getAttributeId())
                 );
 
                 $this->getSelect()->joinLeft(
-                    array($tableAlias => $attribute->getBackend()->getTable()),
-                    join(' AND ', $joinConds),
-                    array($alias => 'value')
+                        array($tableAlias => $attribute->getBackend()->getTable()), join(' AND ', $joinConds), array($alias => 'value')
                 );
 
                 $this->_fields[$alias] = sprintf('%s.value', $tableAlias);
@@ -112,7 +109,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
     {
         if ($this->getFlag('has_customer_data')) {
             $this->getSelect()
-                ->where('customer_email.website_id IN (?)', $websiteIds);
+                    ->where('customer_email.website_id IN (?)', $websiteIds);
         }
         return $this;
     }
@@ -139,4 +136,5 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
 
         return parent::addFieldToFilter($field, $condition);
     }
+
 }

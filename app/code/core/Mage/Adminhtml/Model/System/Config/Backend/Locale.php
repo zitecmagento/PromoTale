@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Config locale allowed currencies backend
  *
@@ -43,10 +43,10 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
     protected function _afterSave()
     {
         $collection = Mage::getModel('core/config_data')
-            ->getCollection()
-            ->addPathFilter('currency/options');
+                ->getCollection()
+                ->addPathFilter('currency/options');
 
-        $values     = explode(',', $this->getValue());
+        $values = explode(',', $this->getValue());
         $exceptions = array();
 
         foreach ($collection as $data) {
@@ -58,8 +58,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
                     $currencyName = Mage::app()->getLocale()->currency($data->getValue())->getName();
                     if ($match[1] == 'base') {
                         $fieldName = Mage::helper('adminhtml')->__('Base currency');
-                    }
-                    else {
+                    } else {
                         $fieldName = Mage::helper('adminhtml')->__('Display default currency');
                     }
 

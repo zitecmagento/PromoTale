@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,13 +34,14 @@
  */
 class Magento_Db_Object_View extends Magento_Db_Object implements Magento_Db_Object_Interface
 {
-    const ALGORITHM_MERGE       = 'MERGE';
-    const ALGORITHM_TEMPTABLE   = 'TEMPTABLE';
+
+    const ALGORITHM_MERGE = 'MERGE';
+    const ALGORITHM_TEMPTABLE = 'TEMPTABLE';
 
     /**
      * @var string
      */
-    protected $_dbType  = 'VIEW';
+    protected $_dbType = 'VIEW';
 
     /**
      * Create view from source
@@ -51,7 +53,7 @@ class Magento_Db_Object_View extends Magento_Db_Object implements Magento_Db_Obj
     public function createFromSource(Zend_Db_Select $source, $algorithm = self::ALGORITHM_MERGE)
     {
         $this->_adapter->query(
-            'CREATE ALGORITHM = ' . $algorithm . ' ' . $this->getDbType() . ' '
+                'CREATE ALGORITHM = ' . $algorithm . ' ' . $this->getDbType() . ' '
                 . $this->getObjectName() . ' AS ' . $source
         );
         return $this;
@@ -76,4 +78,5 @@ class Magento_Db_Object_View extends Magento_Db_Object implements Magento_Db_Obj
     {
         return $this->_adapter->isTableExists($this->_objectName, $this->_schemaName);
     }
+
 }

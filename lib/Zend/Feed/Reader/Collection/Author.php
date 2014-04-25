@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Author.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
- 
 /**
  * @see Zend_Feed_Reader_Collection_CollectionAbstract
  */
@@ -30,8 +30,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Reader_Collection_Author
-extends Zend_Feed_Reader_Collection_CollectionAbstract
+class Zend_Feed_Reader_Collection_Author extends Zend_Feed_Reader_Collection_CollectionAbstract
 {
 
     /**
@@ -40,7 +39,8 @@ extends Zend_Feed_Reader_Collection_CollectionAbstract
      *
      * @return array
      */
-    public function getValues() {
+    public function getValues()
+    {
         $authors = array();
         foreach ($this->getIterator() as $element) {
             $authors[] = $element['name'];

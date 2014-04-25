@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Base html block
  *
@@ -40,13 +40,13 @@ class Mage_Core_Block_Text_Tag_Css_Admin extends Mage_Core_Block_Text_Tag_Css
         $this->setAttribute('theme', $theme);
     }
 
-    function setHref($href, $type=null)
+    function setHref($href, $type = null)
     {
-        $type = (string)$type;
+        $type = (string) $type;
         if (empty($type)) {
             $type = 'skin';
         }
-        $url = Mage::getBaseUrl($type).$href.$this->getTheme().'.css';
+        $url = Mage::getBaseUrl($type) . $href . $this->getTheme() . '.css';
         return $this->setTagParam('href', $url);
     }
 

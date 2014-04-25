@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HtmlElement.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_View_Helper_Abstract
  */
@@ -34,6 +34,7 @@
  */
 abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
 {
+
     /**
      * EOL character
      */
@@ -115,7 +116,6 @@ abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
             } else {
                 $xhtml .= " $key=\"$val\"";
             }
-
         }
         return $xhtml;
     }
@@ -138,4 +138,5 @@ abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
         }
         return $value;
     }
+
 }

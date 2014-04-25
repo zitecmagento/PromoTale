@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Connect_Command
 {
+
     /**
      * All commands list
      * @var array
@@ -49,11 +49,9 @@ class Mage_Connect_Command
     protected static $_validator = null;
     protected static $_rest = null;
     protected static $_sconfig = null;
-
     protected $_data;
     protected $_class;
     protected static $_packager = null;
-
     protected static $_return = array();
 
     /**
@@ -63,12 +61,11 @@ class Mage_Connect_Command
     public function __construct()
     {
         $class = $this->_class = get_class($this);
-        if(__CLASS__ == $class) {
+        if (__CLASS__ == $class) {
             throw new Exception("You shouldn't instantiate {$class} directly!");
         }
         $this->commandsInfo = self::$_commandsByClass[$class];
     }
-
 
     /**
      * Get command info (static)
@@ -78,7 +75,7 @@ class Mage_Connect_Command
     public static function commandInfo($name)
     {
         $name = strtolower($name);
-        if(!isset(self::$_commandsAll[$name])) {
+        if (!isset(self::$_commandsAll[$name])) {
             return false;
         }
         return self::$_commandsAll[$name];
@@ -89,10 +86,9 @@ class Mage_Connect_Command
      * @param string $name
      * @return array/bool
      */
-
     public function getCommandInfo($name)
     {
-        if(!isset(self::$_commandsByClass[$this->_class][$name])) {
+        if (!isset(self::$_commandsByClass[$this->_class][$name])) {
             return false;
         }
         return self::$_commandsByClass[$this->_class][$name];
@@ -110,8 +106,8 @@ class Mage_Connect_Command
     {
         $data = $this->getCommandInfo($command);
         $method = $data['function'];
-        if(! method_exists($this, $method)) {
-            throw new Exception("$method does't exist in class ".$this->_class);
+        if (!method_exists($this, $method)) {
+            throw new Exception("$method does't exist in class " . $this->_class);
         }
         return $this->$method($command, $options, $params);
     }
@@ -127,19 +123,18 @@ class Mage_Connect_Command
      */
     public static function getInstance($commandName)
     {
-        if(!isset(self::$_commandsAll[$commandName])) {
+        if (!isset(self::$_commandsAll[$commandName])) {
             throw new UnexpectedValueException("Cannot find command $commandName");
         }
         $currentCommand = self::$_commandsAll[$commandName];
         return new $currentCommand['class']();
     }
 
-    
     public static function setSconfig($obj)
     {
         self::$_sconfig = $obj;
     }
-    
+
     /**
      * 
      * @return Mage_Connect_Singleconfig
@@ -148,8 +143,7 @@ class Mage_Connect_Command
     {
         return self::$_sconfig;
     }
-    
-    
+
     /**
      * Sets frontend object for all commands
      *
@@ -161,7 +155,6 @@ class Mage_Connect_Command
         self::$_frontend = $obj;
     }
 
-
     /**
      * Set config object for all commands
      * @param Mage_Connect_Config $obj
@@ -172,7 +165,6 @@ class Mage_Connect_Command
         self::$_config = $obj;
     }
 
-  
     /**
      * Non-static getter for config
      * @return Mage_Connect_Config
@@ -191,14 +183,13 @@ class Mage_Connect_Command
         return self::$_frontend;
     }
 
-
     /**
      * Get validator object
      * @return Mage_Connect_Validator
      */
     public function validator()
     {
-        if(is_null(self::$_validator)) {
+        if (is_null(self::$_validator)) {
             self::$_validator = new Mage_Connect_Validator();
         }
         return self::$_validator;
@@ -210,12 +201,11 @@ class Mage_Connect_Command
      */
     public function rest()
     {
-        if(is_null(self::$_rest)) {
+        if (is_null(self::$_rest)) {
             self::$_rest = new Mage_Connect_Rest(self::config()->protocol);
         }
         return self::$_rest;
     }
-
 
     /**
      * Get commands list sorted
@@ -223,13 +213,12 @@ class Mage_Connect_Command
      */
     public static function getCommands()
     {
-        if(!count(self::$_commandsAll)) {
+        if (!count(self::$_commandsAll)) {
             self::registerCommands();
         }
         ksort(self::$_commandsAll);
         return self::$_commandsAll;
     }
-
 
     /**
      * Get Getopt args from command definitions
@@ -273,22 +262,22 @@ class Mage_Connect_Command
      */
     public static function registerCommands()
     {
-        $pathCommands = dirname(__FILE__).DIRECTORY_SEPARATOR.basename(__FILE__, ".php");
+        $pathCommands = dirname(__FILE__) . DIRECTORY_SEPARATOR . basename(__FILE__, ".php");
         $f = new DirectoryIterator($pathCommands);
-        foreach($f as $file) {
-            if (! $file->isFile()) {
+        foreach ($f as $file) {
+            if (!$file->isFile()) {
                 continue;
             }
             $pattern = preg_match("/(.*)_Header\.php/imsu", $file->getFilename(), $matches);
-            if(! $pattern) {
+            if (!$pattern) {
                 continue;
             }
             include($file->getPathname());
-            if(! isset($commands)) {
+            if (!isset($commands)) {
                 continue;
             }
-            $class = __CLASS__."_".$matches[1];
-            foreach ($commands as $k=>$v) {
+            $class = __CLASS__ . "_" . $matches[1];
+            foreach ($commands as $k => $v) {
                 $commands[$k]['class'] = $class;
                 self::$_commandsAll[$k] = $commands[$k];
             }
@@ -300,7 +289,6 @@ class Mage_Connect_Command
     {
         return $this->ui()->doError($command, $message);
     }
-
 
     /**
      * Set command return
@@ -321,9 +309,9 @@ class Mage_Connect_Command
      */
     public static function getReturn($key, $clear = true)
     {
-        if(isset(self::$_return[$key])) {
+        if (isset(self::$_return[$key])) {
             $out = self::$_return[$key];
-            if($clear) {
+            if ($clear) {
                 unset(self::$_return[$key]);
             }
             return $out;
@@ -339,13 +327,13 @@ class Mage_Connect_Command
     public function cleanupParams(array & $params)
     {
         $newParams = array();
-        if(!count($params)) {
+        if (!count($params)) {
             return;
         }
-        foreach($params as $k=>$v) {
-            if(is_string($v)) {
+        foreach ($params as $k => $v) {
+            if (is_string($v)) {
                 $v = trim($v);
-                if(!strlen($v)) {
+                if (!strlen($v)) {
                     continue;
                 }
             }
@@ -362,29 +350,28 @@ class Mage_Connect_Command
      */
     public function splitPackageArgs(array & $params)
     {
-        if(!count($params) || !isset($params[0])) {
+        if (!count($params) || !isset($params[0])) {
             return;
         }
-        if($this->validator()->validateUrl($params[0])) {
+        if ($this->validator()->validateUrl($params[0])) {
             return;
         }
-        if(preg_match("@([a-zA-Z0-9_]+)/([a-zA-Z0-9_]+)@ims", $params[0], $subs)) {
-           $params[0] = $subs[2];
-           array_unshift($params, $subs[1]);
+        if (preg_match("@([a-zA-Z0-9_]+)/([a-zA-Z0-9_]+)@ims", $params[0], $subs)) {
+            $params[0] = $subs[2];
+            array_unshift($params, $subs[1]);
         }
     }
 
-    
     /**
      * Get packager instance
      * @return Mage_Connect_Pacakger
      */
-    public function getPackager() 
+    public function getPackager()
     {
-        if(!self::$_packager) {
+        if (!self::$_packager) {
             self::$_packager = new Mage_Connect_Packager();
         }
-        return self::$_packager;    
+        return self::$_packager;
     }
-    
+
 }

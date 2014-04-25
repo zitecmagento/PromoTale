@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
-        extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
+class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
 {
+
     /**
      * Add custom css class
      *
@@ -43,7 +44,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
     protected function _getFrontendClass($element)
     {
         return parent::_getFrontendClass($element) . ' with-button '
-            . ($this->_isPaymentEnabled($element) ? ' enabled' : '');
+                . ($this->_isPaymentEnabled($element) ? ' enabled' : '');
     }
 
     /**
@@ -61,9 +62,9 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
             return false;
         }
 
-        $isPaymentEnabled = (string)Mage::getSingleton('adminhtml/config_data')->getConfigDataValue($activityPath);
+        $isPaymentEnabled = (string) Mage::getSingleton('adminhtml/config_data')->getConfigDataValue($activityPath);
 
-        return (bool)$isPaymentEnabled;
+        return (bool) $isPaymentEnabled;
     }
 
     /**
@@ -79,11 +80,11 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
         $groupConfig = $this->getGroup($element)->asArray();
         if (!empty($groupConfig['learn_more_link'])) {
             $html .= '<a class="link-more" href="' . $groupConfig['learn_more_link'] . '" target="_blank">'
-                . $this->__('Learn More') . '</a>';
+                    . $this->__('Learn More') . '</a>';
         }
         if (!empty($groupConfig['demo_link'])) {
             $html .= '<a class="link-demo" href="' . $groupConfig['demo_link'] . '" target="_blank">'
-                . $this->__('View Demo') . '</a>';
+                    . $this->__('View Demo') . '</a>';
         }
         $html .= '</strong>';
 
@@ -93,13 +94,13 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
         $html .= '</div>';
 
         $html .= '<div class="button-container"><button type="button"'
-            . ($this->_isPaymentEnabled($element) ? '' : ' disabled="disabled"') . ' class="button'
-            . (empty($groupConfig['paypal_ec_separate']) ? '' : ' paypal-ec-separate')
-            . ($this->_isPaymentEnabled($element) ? '' : ' disabled') . '" id="' . $element->getHtmlId()
-            . '-head" onclick="paypalToggleSolution.call(this, \'' . $element->getHtmlId() . '\', \''
-            . $this->getUrl('*/*/state') . '\'); return false;"><span class="state-closed">'
-            . $this->__('Configure') . '</span><span class="state-opened">'
-            . $this->__('Close') . '</span></button></div></div>';
+                . ($this->_isPaymentEnabled($element) ? '' : ' disabled="disabled"') . ' class="button'
+                . (empty($groupConfig['paypal_ec_separate']) ? '' : ' paypal-ec-separate')
+                . ($this->_isPaymentEnabled($element) ? '' : ' disabled') . '" id="' . $element->getHtmlId()
+                . '-head" onclick="paypalToggleSolution.call(this, \'' . $element->getHtmlId() . '\', \''
+                . $this->getUrl('*/*/state') . '\'); return false;"><span class="state-closed">'
+                . $this->__('Configure') . '</span><span class="state-opened">'
+                . $this->__('Close') . '</span></button></div></div>';
 
         return $html;
     }
@@ -125,4 +126,5 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
     {
         return false;
     }
+
 }

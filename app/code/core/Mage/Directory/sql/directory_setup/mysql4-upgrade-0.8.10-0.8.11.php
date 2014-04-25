@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,12 +24,11 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 
 /* @var $connection Varien_Db_Adapter_Pdo_Mysql */
-$connection  = $installer->getConnection();
+$connection = $installer->getConnection();
 
 $regionTable = $installer->getTable('directory/country_region');
 
@@ -54,7 +54,6 @@ $regionsToIns = array(
     array('FI', 'Itä-Uusimaa', 'Itä-Uusimaa'),
     array('FI', 'Kymenlaakso', 'Kymenlaakso'),
     array('FI', 'Ahvenanmaa', 'Ahvenanmaa'),
-
     //ISO-3166-2:EE
     array('EE', 'EE-37', 'Harjumaa'),
     array('EE', 'EE-39', 'Hiiumaa'),
@@ -71,9 +70,8 @@ $regionsToIns = array(
     array('EE', 'EE-82', 'Valgamaa'),
     array('EE', 'EE-84', 'Viljandimaa'),
     array('EE', 'EE-86', 'Võrumaa'),
-
     //After reform of 2009 July
-    array('LV', 'LV-DGV', 'Daugavpils'),//now become good
+    array('LV', 'LV-DGV', 'Daugavpils'), //now become good
     array('LV', 'LV-JEL', 'Jelgava'),
     array('LV', 'Jēkabpils', 'Jēkabpils'),
     array('LV', 'LV-JUR', 'Jūrmala'),
@@ -193,7 +191,6 @@ $regionsToIns = array(
     array('LV', 'Ērgļu novads', 'Ērgļu novads'),
     array('LV', 'Ķeguma novads', 'Ķeguma novads'),
     array('LV', 'Ķekavas novads', 'Ķekavas novads'),
-    
     //ISO-3166-2:LT
     array('LT', 'LT-AL', 'Alytaus Apskritis'),
     array('LT', 'LT-KU', 'Kauno Apskritis'),
@@ -208,12 +205,13 @@ $regionsToIns = array(
 );
 
 foreach ($regionsToIns as $row) {
-    if (! ($connection->fetchOne("SELECT 1 FROM `{$regionTable}` WHERE `country_id` = :country_id && `code` = :code", array('country_id' => $row[0], 'code' => $row[1])))) {
+    if (!($connection->fetchOne("SELECT 1 FROM `{$regionTable}` WHERE `country_id` = :country_id && `code` = :code", array(
+                'country_id' => $row[0], 'code' => $row[1])))) {
         $connection->insert($regionTable, array(
-            'country_id'   => $row[0],
-            'code'         => $row[1],
+            'country_id' => $row[0],
+            'code' => $row[1],
             'default_name' => $row[2]
         ));
-    } 
+    }
 }
 

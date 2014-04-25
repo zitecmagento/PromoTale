@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Named.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element.php';
 #require_once 'Zend/Pdf/Element/String.php';
@@ -44,6 +44,7 @@
  */
 class Zend_Pdf_Destination_Named extends Zend_Pdf_Destination
 {
+
     /**
      * Destination name
      *
@@ -59,7 +60,7 @@ class Zend_Pdf_Destination_Named extends Zend_Pdf_Destination
      */
     public function __construct(Zend_Pdf_Element $resource)
     {
-        if ($resource->getType() != Zend_Pdf_Element::TYPE_NAME  &&  $resource->getType() != Zend_Pdf_Element::TYPE_STRING) {
+        if ($resource->getType() != Zend_Pdf_Element::TYPE_NAME && $resource->getType() != Zend_Pdf_Element::TYPE_STRING) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Named destination resource must be a PDF name or a PDF string.');
         }
@@ -98,4 +99,5 @@ class Zend_Pdf_Destination_Named extends Zend_Pdf_Destination
     {
         return $this->_nameElement;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Action.php 22792 2010-08-05 18:30:27Z matthew $
  */
-
 /**
  * @see Zend_Controller_Action_HelperBroker
  */
@@ -42,6 +42,7 @@
  */
 abstract class Zend_Controller_Action implements Zend_Controller_Action_Interface
 {
+
     /**
      * @var array of existing class methods
      */
@@ -127,8 +128,8 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
     public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = array())
     {
         $this->setRequest($request)
-             ->setResponse($response)
-             ->_setInvokeArgs($invokeArgs);
+                ->setResponse($response)
+                ->_setInvokeArgs($invokeArgs);
         $this->_helper = new Zend_Controller_Action_HelperBroker($this);
         $this->init();
     }
@@ -142,6 +143,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
      */
     public function init()
     {
+        
     }
 
     /**
@@ -172,8 +174,8 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
         }
 
         $request = $this->getRequest();
-        $module  = $request->getModuleName();
-        $dirs    = $this->getFrontController()->getControllerDirectory();
+        $module = $request->getModuleName();
+        $dirs = $this->getFrontController()->getControllerDirectory();
         if (empty($module) || !isset($dirs[$module])) {
             $module = $this->getFrontController()->getDispatcher()->getDefaultModule();
         }
@@ -212,12 +214,11 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
             return $this->_helper->viewRenderer->render($action, $name, $noController);
         }
 
-        $view   = $this->initView();
+        $view = $this->initView();
         $script = $this->getViewScript($action, $noController);
 
         $this->getResponse()->appendBody(
-            $view->render($script),
-            $name
+                $view->render($script), $name
         );
     }
 
@@ -245,8 +246,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
 
         $view = $this->initView();
         $this->getResponse()->appendBody(
-            $view->render($script),
-            $name
+                $view->render($script), $name
         );
     }
 
@@ -447,6 +447,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
      */
     public function preDispatch()
     {
+        
     }
 
     /**
@@ -464,6 +465,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
      */
     public function postDispatch()
     {
+        
     }
 
     /**
@@ -580,7 +582,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
     protected function _getParam($paramName, $default = null)
     {
         $value = $this->getRequest()->getParam($paramName);
-		 if ((null === $value || '' === $value) && (null !== $default)) {
+        if ((null === $value || '' === $value) && (null !== $default)) {
             $value = $default;
         }
 
@@ -623,7 +625,6 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
     {
         return $this->getRequest()->getParams();
     }
-
 
     /**
      * Forward to another controller/action.
@@ -685,4 +686,5 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
     {
         $this->_helper->redirector->gotoUrl($url, $options);
     }
+
 }

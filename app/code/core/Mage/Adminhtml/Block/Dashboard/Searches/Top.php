@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+
     protected $_collection;
 
     public function __construct()
@@ -48,20 +49,20 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
             return parent::_prepareCollection();
         }
         $this->_collection = Mage::getModel('catalogsearch/query')
-            ->getResourceCollection();
+                ->getResourceCollection();
 
         if ($this->getRequest()->getParam('store')) {
             $storeIds = $this->getRequest()->getParam('store');
-        } else if ($this->getRequest()->getParam('website')){
+        } else if ($this->getRequest()->getParam('website')) {
             $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
-        } else if ($this->getRequest()->getParam('group')){
+        } else if ($this->getRequest()->getParam('group')) {
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
         } else {
             $storeIds = '';
         }
 
         $this->_collection
-            ->setPopularQueryFilter($storeIds);
+                ->setPopularQueryFilter($storeIds);
 
         $this->setCollection($this->_collection);
 
@@ -71,24 +72,24 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
     protected function _prepareColumns()
     {
         $this->addColumn('search_query', array(
-            'header'    => $this->__('Search Term'),
-            'sortable'  => false,
-            'index'     => 'name',
-            'renderer'  => 'adminhtml/dashboard_searches_renderer_searchquery',
+            'header' => $this->__('Search Term'),
+            'sortable' => false,
+            'index' => 'name',
+            'renderer' => 'adminhtml/dashboard_searches_renderer_searchquery',
         ));
 
         $this->addColumn('num_results', array(
-            'header'    => $this->__('Results'),
-            'sortable'  => false,
-            'index'     => 'num_results',
-            'type'      => 'number'
+            'header' => $this->__('Results'),
+            'sortable' => false,
+            'index' => 'num_results',
+            'type' => 'number'
         ));
 
         $this->addColumn('popularity', array(
-            'header'    => $this->__('Number of Uses'),
-            'sortable'  => false,
-            'index'     => 'popularity',
-            'type'      => 'number'
+            'header' => $this->__('Number of Uses'),
+            'sortable' => false,
+            'index' => 'popularity',
+            'type' => 'number'
         ));
 
         $this->setFilterVisibility(false);
@@ -99,6 +100,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/catalog_search/edit', array('id'=>$row->getId()));
+        return $this->getUrl('*/catalog_search/edit', array('id' => $row->getId()));
     }
+
 }

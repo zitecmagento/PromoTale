@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Connect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_HTTP_Client_Curl
-implements Mage_HTTP_IClient
+class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 {
+
     /**
      * Session Cookie storage, magento_root/var directory used
      * @var string
@@ -63,7 +64,6 @@ implements Mage_HTTP_IClient
      * @var array
      */
     protected $_headers = array();
-
 
     /**
      * Fields for POST method - hash
@@ -95,7 +95,6 @@ implements Mage_HTTP_IClient
      */
     protected $_responseStatus = 0;
 
-
     /**
      * Request timeout
      * @var intunknown_type
@@ -113,7 +112,6 @@ implements Mage_HTTP_IClient
      * @var object
      */
     protected $_ch;
-
 
     /**
      * User ovverides options hash
@@ -145,7 +143,7 @@ implements Mage_HTTP_IClient
      */
     public function __construct()
     {
-
+        
     }
 
     /**
@@ -167,7 +165,6 @@ implements Mage_HTTP_IClient
     public function setHeaders($headers)
     {
         $this->_headers = $headers;
-
     }
 
     /**
@@ -189,7 +186,6 @@ implements Mage_HTTP_IClient
     public function removeHeader($name)
     {
         unset($this->_headers[$name]);
-
     }
 
     /**
@@ -246,7 +242,6 @@ implements Mage_HTTP_IClient
         $this->setCookies(array());
     }
 
-
     /**
      * Make GET request
      *
@@ -266,7 +261,6 @@ implements Mage_HTTP_IClient
         $this->makeRequest("POST", $uri, $params);
     }
 
-
     /**
      * Get response headers
      *
@@ -276,7 +270,6 @@ implements Mage_HTTP_IClient
     {
         return $this->_responseHeaders;
     }
-
 
     /**
      * Get response body
@@ -295,25 +288,24 @@ implements Mage_HTTP_IClient
      */
     public function getCookies()
     {
-        if(empty($this->_responseHeaders['Set-Cookie'])) {
+        if (empty($this->_responseHeaders['Set-Cookie'])) {
             return array();
         }
         $out = array();
-        foreach( $this->_responseHeaders['Set-Cookie'] as $row) {
+        foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode("; ", $row);
             $c = count($values);
-            if(!$c) {
+            if (!$c) {
                 continue;
             }
             list($key, $val) = explode("=", $values[0]);
-            if(is_null($val)) {
+            if (is_null($val)) {
                 continue;
             }
             $out[trim($key)] = trim($val);
         }
         return $out;
     }
-
 
     /**
      * Get cookies array with details
@@ -322,27 +314,27 @@ implements Mage_HTTP_IClient
      */
     public function getCookiesFull()
     {
-        if(empty($this->_responseHeaders['Set-Cookie'])) {
+        if (empty($this->_responseHeaders['Set-Cookie'])) {
             return array();
         }
         $out = array();
-        foreach( $this->_responseHeaders['Set-Cookie'] as $row) {
+        foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode("; ", $row);
             $c = count($values);
-            if(!$c) {
+            if (!$c) {
                 continue;
             }
             list($key, $val) = explode("=", $values[0]);
-            if(is_null($val)) {
+            if (is_null($val)) {
                 continue;
             }
-            $out[trim($key)] = array('value'=>trim($val));
+            $out[trim($key)] = array('value' => trim($val));
             array_shift($values);
             $c--;
-            if(!$c) {
+            if (!$c) {
                 continue;
             }
-            for($i = 0; $i<$c; $i++) {
+            for ($i = 0; $i < $c; $i++) {
                 list($subkey, $val) = explode("=", $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
@@ -386,7 +378,7 @@ implements Mage_HTTP_IClient
             $method = 'POST';
         }
 
-        if($method == 'POST') {
+        if ($method == 'POST') {
             $this->curlOption(CURLOPT_POST, 1);
             $postFields = is_array($params) ? $params : array();
             if ($isAuthorizationRequired) {
@@ -397,42 +389,42 @@ implements Mage_HTTP_IClient
             if (!empty($postFields)) {
                 $this->curlOption(CURLOPT_POSTFIELDS, $postFields);
             }
-        } elseif($method == "GET") {
+        } elseif ($method == "GET") {
             $this->curlOption(CURLOPT_HTTPGET, 1);
         } else {
             $this->curlOption(CURLOPT_CUSTOMREQUEST, $method);
         }
 
-        if(count($this->_headers)) {
+        if (count($this->_headers)) {
             $heads = array();
-            foreach($this->_headers as $k=>$v) {
-                $heads[] = $k.': '.$v;
+            foreach ($this->_headers as $k => $v) {
+                $heads[] = $k . ': ' . $v;
             }
             $this->curlOption(CURLOPT_HTTPHEADER, $heads);
         }
 
-        if(count($this->_cookies)) {
+        if (count($this->_cookies)) {
             $cookies = array();
-            foreach($this->_cookies as $k=>$v) {
+            foreach ($this->_cookies as $k => $v) {
                 $cookies[] = "$k=$v";
             }
             $this->curlOption(CURLOPT_COOKIE, implode(";", $cookies));
         }
 
-        if($this->_timeout) {
+        if ($this->_timeout) {
             $this->curlOption(CURLOPT_TIMEOUT, $this->_timeout);
         }
 
-        if($this->_port != 80) {
+        if ($this->_port != 80) {
             $this->curlOption(CURLOPT_PORT, $this->_port);
         }
 
         $this->curlOption(CURLOPT_RETURNTRANSFER, 1);
         $this->curlOption(CURLOPT_FOLLOWLOCATION, 1);
-        $this->curlOption(CURLOPT_HEADERFUNCTION, array($this,'parseHeaders'));
+        $this->curlOption(CURLOPT_HEADERFUNCTION, array($this, 'parseHeaders'));
 
-        if(count($this->_curlUserOptions)) {
-            foreach($this->_curlUserOptions as $k=>$v) {
+        if (count($this->_curlUserOptions)) {
+            foreach ($this->_curlUserOptions as $k => $v) {
                 $this->curlOption($k, $v);
             }
         }
@@ -440,10 +432,10 @@ implements Mage_HTTP_IClient
         $this->_responseHeaders = array();
         $this->_responseBody = curl_exec($this->_ch);
         $err = curl_errno($this->_ch);
-        if($err) {
+        if ($err) {
             $this->doError(curl_error($this->_ch));
         }
-        if(!$this->getStatus()) {
+        if (!$this->getStatus()) {
             return $this->doError("Invalid response headers returned from server.");
         }
         curl_close($this->_ch);
@@ -451,7 +443,7 @@ implements Mage_HTTP_IClient
             if (!$isAuthorizationRequired) {
                 $isAuthorizationRequired++;
                 $this->makeRequest($method, $uri, $params);
-                $isAuthorizationRequired=0;
+                $isAuthorizationRequired = 0;
             } else {
                 return $this->doError(sprintf('Access denied for %s@%s', $_SESSION['auth']['login'], $uri));
             }
@@ -481,7 +473,6 @@ implements Mage_HTTP_IClient
         throw new Exception($string);
     }
 
-
     /**
      * Parse headers - CURL callback functin
      *
@@ -491,21 +482,21 @@ implements Mage_HTTP_IClient
      */
     protected function parseHeaders($ch, $data)
     {
-        if(preg_match('/^HTTP\/[\d\.x]+ (\d+)/', $data, $m)) {
+        if (preg_match('/^HTTP\/[\d\.x]+ (\d+)/', $data, $m)) {
             if (isset($m[1])) {
-                $this->_responseStatus = (int)$m[1];
+                $this->_responseStatus = (int) $m[1];
             }
         } else {
             $name = $value = '';
             $out = explode(": ", trim($data), 2);
-            if(count($out) == 2) {
+            if (count($out) == 2) {
                 $name = $out[0];
                 $value = $out[1];
             }
 
-            if(strlen($name)) {
-                if("Set-Cookie" == $name) {
-                    if(!isset($this->_responseHeaders[$name])) {
+            if (strlen($name)) {
+                if ("Set-Cookie" == $name) {
+                    if (!isset($this->_responseHeaders[$name])) {
                         $this->_responseHeaders[$name] = array();
                     }
                     $this->_responseHeaders[$name][] = $value;
@@ -553,4 +544,5 @@ implements Mage_HTTP_IClient
     {
         $this->_curlUserOptions[$name] = $value;
     }
+
 }

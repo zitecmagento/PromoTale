@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,11 +30,12 @@
  */
 class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     public function getStatusesArray()
     {
         return array(
             Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('tag')->__('Disabled'),
-            Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('tag')->__('Pending'),
+            Mage_Tag_Model_Tag::STATUS_PENDING => Mage::helper('tag')->__('Pending'),
             Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('tag')->__('Approved')
         );
     }

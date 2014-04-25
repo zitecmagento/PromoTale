@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Create_Store extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
 
@@ -45,4 +45,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Store extends Mage_Adminhtml_Block
     {
         return Mage::helper('sales')->__('Please Select a Store');
     }
+
 }

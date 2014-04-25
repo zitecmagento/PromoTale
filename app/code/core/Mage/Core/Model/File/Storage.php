@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * File storage model class
  *
@@ -34,20 +34,20 @@
  */
 class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
 {
+
     /**
      * Storage systems ids
      */
-    const STORAGE_MEDIA_FILE_SYSTEM         = 0;
-    const STORAGE_MEDIA_DATABASE            = 1;
+    const STORAGE_MEDIA_FILE_SYSTEM = 0;
+    const STORAGE_MEDIA_DATABASE = 1;
 
     /**
      * Config pathes for storing storage configuration
      */
-    const XML_PATH_STORAGE_MEDIA            = 'default/system/media_storage_configuration/media_storage';
-    const XML_PATH_STORAGE_MEDIA_DATABASE   = 'default/system/media_storage_configuration/media_database';
+    const XML_PATH_STORAGE_MEDIA = 'default/system/media_storage_configuration/media_storage';
+    const XML_PATH_STORAGE_MEDIA_DATABASE = 'default/system/media_storage_configuration/media_database';
     const XML_PATH_MEDIA_RESOURCE_WHITELIST = 'default/system/media_storage_configuration/allowed_resources';
-    const XML_PATH_MEDIA_UPDATE_TIME        = 'system/media_storage_configuration/configuration_update_time';
-
+    const XML_PATH_MEDIA_UPDATE_TIME = 'system/media_storage_configuration/configuration_update_time';
 
     /**
      * Prefix of model events names
@@ -63,9 +63,9 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      * @param  Mage_Core_Model_Abstract $destinationModel
      * @return bool
      */
-    protected function _synchronizeHasErrors(Mage_Core_Model_Abstract $sourceModel,
-        Mage_Core_Model_Abstract $destinationModel
-    ) {
+    protected function _synchronizeHasErrors(Mage_Core_Model_Abstract $sourceModel, Mage_Core_Model_Abstract $destinationModel
+    )
+    {
         if (!$sourceModel || !$destinationModel) {
             return true;
         }
@@ -134,22 +134,21 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     public function synchronize($storage)
     {
         if (is_array($storage) && isset($storage['type'])) {
-            $storageDest    = (int) $storage['type'];
-            $connection     = (isset($storage['connection'])) ? $storage['connection'] : null;
-            $helper         = Mage::helper('core/file_storage');
+            $storageDest = (int) $storage['type'];
+            $connection = (isset($storage['connection'])) ? $storage['connection'] : null;
+            $helper = Mage::helper('core/file_storage');
 
             // if unable to sync to internal storage from itself
             if ($storageDest == $helper->getCurrentStorageCode() && $helper->isInternalStorage()) {
                 return $this;
             }
 
-            $sourceModel        = $this->getStorageModel();
-            $destinationModel   = $this->getStorageModel(
-                $storageDest,
-                array(
-                    'connection'    => $connection,
-                    'init'          => true
-                )
+            $sourceModel = $this->getStorageModel();
+            $destinationModel = $this->getStorageModel(
+                    $storageDest, array(
+                'connection' => $connection,
+                'init' => true
+                    )
             );
 
             if (!$sourceModel || !$destinationModel) {
@@ -159,12 +158,12 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
             $hasErrors = false;
             $flag = $this->getSyncFlag();
             $flagData = array(
-                'source'                        => $sourceModel->getStorageName(),
-                'destination'                   => $destinationModel->getStorageName(),
-                'destination_storage_type'      => $storageDest,
-                'destination_connection_name'   => (string) $destinationModel->getConfigConnectionName(),
-                'has_errors'                    => false,
-                'timeout_reached'               => false
+                'source' => $sourceModel->getStorageName(),
+                'destination' => $destinationModel->getStorageName(),
+                'destination_storage_type' => $storageDest,
+                'destination_connection_name' => (string) $destinationModel->getConfigConnectionName(),
+                'has_errors' => false,
+                'timeout_reached' => false
             );
             $flag->setFlagData($flagData);
 
@@ -181,7 +180,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
                 }
 
                 $flag->setFlagData($flagData)
-                    ->save();
+                        ->save();
 
                 $destinationModel->importDirectories($dirs);
                 $offset += count($dirs);
@@ -199,7 +198,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
                 }
 
                 $flag->setFlagData($flagData)
-                    ->save();
+                        ->save();
 
                 $destinationModel->importFiles($files);
                 $offset += count($files);
@@ -229,4 +228,5 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
 
         return $config;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,13 +19,12 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: RendererAbstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
- 
 /** @see Zend_Feed_Writer */
 #require_once 'Zend/Feed/Writer.php';
 
 /** @see Zend_Version */
 #require_once 'Zend/Version.php';
- 
+
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
@@ -33,12 +33,13 @@
  */
 class Zend_Feed_Writer_Renderer_RendererAbstract
 {
+
     /**
      * Extensions
      * @var array
      */
     protected $_extensions = array();
-    
+
     /**
      * @var mixed
      */
@@ -58,14 +59,14 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
      * @var array
      */
     protected $_exceptions = array();
-    
+
     /**
      * Encoding of all text values
      *
      * @var string
      */
     protected $_encoding = 'UTF-8';
-    
+
     /**
      * Holds the value "atom" or "rss" depending on the feed type set when
      * when last exported.
@@ -73,7 +74,7 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
      * @var string
      */
     protected $_type = null;
-    
+
     /**
      * @var DOMElement
      */
@@ -91,7 +92,7 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
         $this->setType($container->getType());
         $this->_loadExtensions();
     }
-    
+
     /**
      * Save XML to string
      * 
@@ -131,7 +132,7 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
     {
         return $this->_container;
     }
-    
+
     /**
      * Set feed encoding
      * 
@@ -143,7 +144,7 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
         $this->_encoding = $enc;
         return $this;
     }
-    
+
     /**
      * Get feed encoding
      * 
@@ -179,7 +180,7 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
     {
         return $this->_exceptions;
     }
-    
+
     /**
      * Set the current feed type being exported to "rss" or "atom". This allows
      * other objects to gracefully choose whether to execute or not, depending
@@ -191,7 +192,7 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
     {
         $this->_type = $type;
     }
-    
+
     /**
      * Retrieve the current or last feed type exported.
      *
@@ -201,7 +202,7 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
     {
         return $this->_type;
     }
-    
+
     /**
      * Sets the absolute root element for the XML feed being generated. This
      * helps simplify the appending of namespace declarations, but also ensures
@@ -214,7 +215,7 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
     {
         $this->_rootElement = $root;
     }
-    
+
     /**
      * Retrieve the absolute root element for the XML feed being generated.
      *
@@ -224,7 +225,7 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
     {
         return $this->_rootElement;
     }
-    
+
     /**
      * Load extensions from Zend_Feed_Writer
      *
@@ -242,9 +243,10 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
         foreach ($exts as $extension) {
             $className = Zend_Feed_Writer::getPluginLoader()->getClassName($extension);
             $this->_extensions[$extension] = new $className(
-                $this->getDataContainer()
+                    $this->getDataContainer()
             );
             $this->_extensions[$extension]->setEncoding($this->getEncoding());
         }
     }
+
 }

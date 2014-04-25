@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Storecredit extends Mage_Core_Block_Abstract
 {
+
     /**
      * Render customer store credits xml
      *
@@ -44,7 +46,7 @@ class Mage_XmlConnect_Block_Customer_Storecredit extends Mage_Core_Block_Abstrac
         $xmlModel = Mage::getModel('xmlconnect/simplexml_element', '<store_credits_info></store_credits_info>');
 
         $accountBalance = $this->getLayout()
-            ->addBlock('enterprise_customerbalance/account_balance', 'account_balance');
+                ->addBlock('enterprise_customerbalance/account_balance', 'account_balance');
 
         $xmlModel->addCustomChild('balance', null, array(
             'label' => $this->__('Your current balance is:'),
@@ -53,7 +55,7 @@ class Mage_XmlConnect_Block_Customer_Storecredit extends Mage_Core_Block_Abstrac
         ));
 
         $accountHistory = $this->getLayout()
-            ->addBlock('enterprise_customerbalance/account_history', 'account_history');
+                ->addBlock('enterprise_customerbalance/account_history', 'account_history');
 
         if ($accountHistory->canShow() && $accountHistory->getEvents() && count($accountHistory->getEvents())) {
             $balanceHistory = $xmlModel->addCustomChild('balance_history', null, array(
@@ -86,4 +88,5 @@ class Mage_XmlConnect_Block_Customer_Storecredit extends Mage_Core_Block_Abstrac
 
         return $xmlModel->asNiceXml();
     }
+
 }

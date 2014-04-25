@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Config form fieldset renderer
  *
@@ -32,9 +32,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_System_Config_Form_Fieldset
-    extends Mage_Adminhtml_Block_Abstract
-    implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
 
     /**
@@ -73,8 +71,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset
 
         $html .= $this->_getHeaderTitleHtml($element);
 
-        $html .= '<input id="'.$element->getHtmlId() . '-state" name="config_state[' . $element->getId()
-            . ']" type="hidden" value="' . (int)$this->_getCollapseState($element) . '" />';
+        $html .= '<input id="' . $element->getHtmlId() . '-state" name="config_state[' . $element->getId()
+                . ']" type="hidden" value="' . (int) $this->_getCollapseState($element) . '" />';
         $html .= '<fieldset class="' . $this->_getFieldsetCss($element) . '" id="' . $element->getHtmlId() . '">';
         $html .= '<legend>' . $element->getLegend() . '</legend>';
 
@@ -98,7 +96,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset
      */
     protected function _getFrontendClass($element)
     {
-        $frontendClass = (string)$this->getGroup($element)->frontend_class;
+        $frontendClass = (string) $this->getGroup($element)->frontend_class;
         return 'section-config' . (empty($frontendClass) ? '' : (' ' . $frontendClass));
     }
 
@@ -129,8 +127,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset
     protected function _getHeaderTitleHtml($element)
     {
         return '<div class="entry-edit-head collapseable" ><a id="' . $element->getHtmlId()
-            . '-head" href="#" onclick="Fieldset.toggleCollapse(\'' . $element->getHtmlId() . '\', \''
-            . $this->getUrl('*/*/state') . '\'); return false;">' . $element->getLegend() . '</a></div>';
+                . '-head" href="#" onclick="Fieldset.toggleCollapse(\'' . $element->getHtmlId() . '\', \''
+                . $this->getUrl('*/*/state') . '\'); return false;">' . $element->getLegend() . '</a></div>';
     }
 
     /**
@@ -141,9 +139,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset
      */
     protected function _getHeaderCommentHtml($element)
     {
-        return $element->getComment()
-            ? '<div class="comment">' . $element->getComment() . '</div>'
-            : '';
+        return $element->getComment() ? '<div class="comment">' . $element->getComment() . '</div>' : '';
     }
 
     /**
@@ -154,7 +150,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset
      */
     protected function _getFieldsetCss($element = null)
     {
-        $configCss = (string)$this->getGroup($element)->fieldset_css;
+        $configCss = (string) $this->getGroup($element)->fieldset_css;
         return 'config collapseable' . ($configCss ? ' ' . $configCss : '');
     }
 
@@ -212,4 +208,5 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset
         }
         return false;
     }
+
 }

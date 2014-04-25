@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Abstract
 {
+
     protected $_resourceSuffix = '_v2';
 
     /**
@@ -41,8 +43,7 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
      * @param string $function
      * @param array $args
      */
-
-    public function __call ($function, $args)
+    public function __call($function, $args)
     {
         $args = $args[0];
 
@@ -52,12 +53,12 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
         $helper->wsiArrayUnpacker($args);
         $args = get_object_vars($args);
 
-        if(isset($args['sessionId'])){
+        if (isset($args['sessionId'])) {
             $sessionId = $args['sessionId'];
             unset($args['sessionId']);
         } else {
             // Was left for backward compatibility.
-            $sessionId = array_shift( $args );
+            $sessionId = array_shift($args);
         }
 
         $apiKey = '';
@@ -66,7 +67,7 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
             $prefix = $prefix->asArray();
             if (false !== strpos($function, $prefix)) {
                 $method = substr($function, strlen($prefix));
-                $apiKey = $resource . '.' . strtolower($method[0]).substr($method, 1);
+                $apiKey = $resource . '.' . strtolower($method[0]) . substr($method, 1);
             }
         }
 
@@ -109,7 +110,8 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
      * @param String $apiPath
      * @return Array
      */
-    protected function _getResourceName($apiPath){
+    protected function _getResourceName($apiPath)
+    {
 
         list($resourceName, $methodName) = explode('.', $apiPath);
 
@@ -118,7 +120,7 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
         }
 
         $resourcesAlias = $this->_getConfig()->getResourcesAlias();
-        $resources      = $this->_getConfig()->getResources();
+        $resources = $this->_getConfig()->getResources();
         if (isset($resourcesAlias->$resourceName)) {
             $resourceName = (string) $resourcesAlias->$resourceName;
         }
@@ -141,7 +143,8 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
      * @param String $methodName
      * @return Array of ReflectionParameter
      */
-    public function getMethodParams($modelName, $methodName) {
+    public function getMethodParams($modelName, $methodName)
+    {
 
         $method = new ReflectionMethod($modelName, $methodName);
 
@@ -155,17 +158,18 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
      * @param Array $args
      * @return Array
      */
-    public function prepareArgs($params, $args) {
+    public function prepareArgs($params, $args)
+    {
 
         $callArgs = array();
 
         /** @var $parameter ReflectionParameter */
-        foreach($params AS $parameter){
+        foreach ($params AS $parameter) {
             $pName = $parameter->getName();
-            if( isset( $args[$pName] ) ){
+            if (isset($args[$pName])) {
                 $callArgs[$pName] = $args[$pName];
             } else {
-                if($parameter->isOptional()){
+                if ($parameter->isOptional()) {
                     $callArgs[$pName] = $parameter->getDefaultValue();
                 } else {
                     Mage::logException(new Exception("Required parameter \"$pName\" is missing.", 0));
@@ -188,4 +192,5 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
         $stdObject->result = parent::endSession($request->sessionId);
         return $stdObject;
     }
+
 }

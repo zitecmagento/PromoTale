@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Entity Attribute Select Data Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data_Abstract
 {
+
     /**
      * Extract data from request and return value
      *
@@ -54,9 +55,9 @@ class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data
      */
     public function validateValue($value)
     {
-        $errors     = array();
-        $attribute  = $this->getAttribute();
-        $label      = Mage::helper('eav')->__($attribute->getStoreLabel());
+        $errors = array();
+        $attribute = $this->getAttribute();
+        $label = Mage::helper('eav')->__($attribute->getStoreLabel());
 
         if ($value === false) {
             // try to load original value and validate it
@@ -137,4 +138,5 @@ class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data
 
         return $output;
     }
+
 }

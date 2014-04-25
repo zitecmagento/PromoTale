@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
@@ -35,9 +34,6 @@ $tableCustomer = $installer->getTable('customer_entity');
 
 $installer->run("UPDATE {$tableReviewDetail} SET customer_id=NULL WHERE customer_id NOT IN (SELECT entity_id FROM {$tableCustomer})");
 
-$installer->getConnection()->addConstraint('FK_REVIEW_DETAIL_CUSTOMER',
-    $tableReviewDetail, 'customer_id',
-    $tableCustomer, 'entity_id',
-    'SET NULL', 'CASCADE', true);
+$installer->getConnection()->addConstraint('FK_REVIEW_DETAIL_CUSTOMER', $tableReviewDetail, 'customer_id', $tableCustomer, 'entity_id', 'SET NULL', 'CASCADE', true);
 
 $installer->endSetup();

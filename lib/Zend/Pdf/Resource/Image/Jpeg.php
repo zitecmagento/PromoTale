@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Jpeg.php 23395 2010-11-19 15:30:47Z alexander $
  */
-
-
 /** Internally used classes */
 #require_once 'Zend/Pdf/Element/Name.php';
 #require_once 'Zend/Pdf/Element/Numeric.php';
@@ -56,8 +55,8 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
         }
 
         $gd_options = gd_info();
-        if ( (!isset($gd_options['JPG Support'])  || $gd_options['JPG Support']  != true)  &&
-             (!isset($gd_options['JPEG Support']) || $gd_options['JPEG Support'] != true)  ) {
+        if ((!isset($gd_options['JPG Support']) || $gd_options['JPG Support'] != true) &&
+                (!isset($gd_options['JPEG Support']) || $gd_options['JPEG Support'] != true)) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('JPG support is not configured properly.');
         }
@@ -86,19 +85,19 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
         }
 
         $imageDictionary = $this->_resource->dictionary;
-        $imageDictionary->Width            = new Zend_Pdf_Element_Numeric($imageInfo[0]);
-        $imageDictionary->Height           = new Zend_Pdf_Element_Numeric($imageInfo[1]);
-        $imageDictionary->ColorSpace       = new Zend_Pdf_Element_Name($colorSpace);
+        $imageDictionary->Width = new Zend_Pdf_Element_Numeric($imageInfo[0]);
+        $imageDictionary->Height = new Zend_Pdf_Element_Numeric($imageInfo[1]);
+        $imageDictionary->ColorSpace = new Zend_Pdf_Element_Name($colorSpace);
         $imageDictionary->BitsPerComponent = new Zend_Pdf_Element_Numeric($imageInfo['bits']);
         if ($imageInfo[2] == IMAGETYPE_JPEG) {
-            $imageDictionary->Filter       = new Zend_Pdf_Element_Name('DCTDecode');
-        } else if ($imageInfo[2] == IMAGETYPE_JPEG2000){
-            $imageDictionary->Filter       = new Zend_Pdf_Element_Name('JPXDecode');
+            $imageDictionary->Filter = new Zend_Pdf_Element_Name('DCTDecode');
+        } else if ($imageInfo[2] == IMAGETYPE_JPEG2000) {
+            $imageDictionary->Filter = new Zend_Pdf_Element_Name('JPXDecode');
         }
 
-        if (($imageFile = @fopen($imageFileName, 'rb')) === false ) {
+        if (($imageFile = @fopen($imageFileName, 'rb')) === false) {
             #require_once 'Zend/Pdf/Exception.php';
-            throw new Zend_Pdf_Exception( "Can not open '$imageFileName' file for reading." );
+            throw new Zend_Pdf_Exception("Can not open '$imageFileName' file for reading.");
         }
         $byteCount = filesize($imageFileName);
         $this->_resource->value = '';
@@ -107,7 +106,7 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
             $nextBlock = fread($imageFile, $byteCount);
             if ($nextBlock === false) {
                 #require_once 'Zend/Pdf/Exception.php';
-                throw new Zend_Pdf_Exception( "Error occured while '$imageFileName' file reading." );
+                throw new Zend_Pdf_Exception("Error occured while '$imageFileName' file reading.");
             }
 
             $this->_resource->value .= $nextBlock;
@@ -115,12 +114,12 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
         }
         if ($byteCount != 0) {
             #require_once 'Zend/Pdf/Exception.php';
-            throw new Zend_Pdf_Exception( "Error occured while '$imageFileName' file reading." );
+            throw new Zend_Pdf_Exception("Error occured while '$imageFileName' file reading.");
         }
         fclose($imageFile);
         $this->_resource->skipFilters();
 
-        $this->_width  = $imageInfo[0];
+        $this->_width = $imageInfo[0];
         $this->_height = $imageInfo[1];
         $this->_imageProperties = array();
         $this->_imageProperties['bitDepth'] = $imageInfo['bits'];
@@ -131,22 +130,25 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
     /**
      * Image width
      */
-    public function getPixelWidth() {
+    public function getPixelWidth()
+    {
         return $this->_width;
     }
 
     /**
      * Image height
      */
-    public function getPixelHeight() {
+    public function getPixelHeight()
+    {
         return $this->_height;
     }
 
     /**
      * Image properties
      */
-    public function getProperties() {
+    public function getProperties()
+    {
         return $this->_imageProperties;
     }
-}
 
+}

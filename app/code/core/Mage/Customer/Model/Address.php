@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
 {
+
     protected $_customer;
 
     protected function _construct()
@@ -75,7 +77,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
         }
         if (empty($this->_customer)) {
             $this->_customer = Mage::getModel('customer/customer')
-                ->load($this->getCustomerId());
+                    ->load($this->getCustomerId());
         }
         return $this->_customer;
     }
@@ -114,8 +116,8 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
         $attributes = $this->getData('attributes');
         if (is_null($attributes)) {
             $attributes = $this->_getResource()
-                ->loadAllAttributes($this)
-                ->getSortedAttributes();
+                    ->loadAllAttributes($this)
+                    ->getSortedAttributes();
             $this->setData('attributes', $attributes);
         }
         return $attributes;
@@ -158,7 +160,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      */
     public function getRegionId()
     {
-        return (int)$this->getData('region_id');
+        return (int) $this->getData('region_id');
     }
 
     /**
@@ -169,7 +171,8 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      */
     public function setRegionId($regionId)
     {
-        $this->setData('region_id', (int)$regionId);
+        $this->setData('region_id', (int) $regionId);
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_General
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_General extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Prepare form before rendering HTML
      * Setting Form Fieldsets and fields
@@ -51,18 +51,18 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_General
 
         if ($model->getId()) {
             $fieldset->addField('application_id', 'hidden', array(
-                'name'  => 'application_id',
+                'name' => 'application_id',
                 'value' => $model->getId()
             ));
         }
 
         $fieldset->addField('name', 'text', array(
-            'name'      => 'name',
-            'label'     => $this->__('App Name'),
-            'title'     => $this->__('App Name'),
+            'name' => 'name',
+            'label' => $this->__('App Name'),
+            'title' => $this->__('App Name'),
             'maxlength' => '250',
-            'value'     => $model->getName(),
-            'required'  => true,
+            'value' => $model->getName(),
+            'required' => true,
         ));
 
         if ($model->getId()) {
@@ -78,16 +78,16 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_General
          */
         if (!Mage::app()->isSingleStoreMode()) {
             $storeElement = $fieldset->addField('store_id', 'select', array(
-                'name'      => 'store_id',
-                'label'     => $this->__('Store View'),
-                'title'     => $this->__('Store View'),
-                'required'  => true,
-                'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, false),
+                'name' => 'store_id',
+                'label' => $this->__('Store View'),
+                'title' => $this->__('Store View'),
+                'required' => true,
+                'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, false),
             ));
         } else {
             $storeElement = $fieldset->addField('store_id', 'hidden', array(
-                'name'      => 'store_id',
-                'value'     => Mage::app()->getStore(true)->getId()
+                'name' => 'store_id',
+                'value' => Mage::app()->getStore(true)->getId()
             ));
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }
@@ -100,26 +100,26 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_General
         }
 
         $fieldset->addField('showdev', 'select', array(
-            'name'      => 'showdev',
-            'label'     => $this->__('Device Type'),
-            'title'     => $this->__('Device Type'),
-            'values'    => array($model->getType() => $model->getDevtype()),
-            'disabled'  => true,
+            'name' => 'showdev',
+            'label' => $this->__('Device Type'),
+            'title' => $this->__('Device Type'),
+            'values' => array($model->getType() => $model->getDevtype()),
+            'disabled' => true,
         ));
 
         $fieldset->addField('devtype', 'hidden', array(
-            'name'  => 'devtype',
+            'name' => 'devtype',
             'value' => $model->getType(),
         ));
 
         $yesNoValues = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
 
         $fieldset->addField('browsing_mode', 'select', array(
-            'label'     => $this->__('Catalog Only App?'),
-            'name'      => 'browsing_mode',
-            'note'      => $this->__('A Catalog Only App will not support functions such as add to cart, add to wishlist, or login.'),
-            'value'     => $model->getBrowsingMode(),
-            'values'    => $yesNoValues
+            'label' => $this->__('Catalog Only App?'),
+            'name' => 'browsing_mode',
+            'note' => $this->__('A Catalog Only App will not support functions such as add to cart, add to wishlist, or login.'),
+            'value' => $model->getBrowsingMode(),
+            'values' => $yesNoValues
         ));
 
         $this->setForm($form);
@@ -153,7 +153,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_General
      */
     public function canShowTab()
     {
-        return (bool)!Mage::getSingleton('adminhtml/session')->getNewApplication();
+        return (bool) !Mage::getSingleton('adminhtml/session')->getNewApplication();
     }
 
     /**
@@ -165,4 +165,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_General
     {
         return false;
     }
+
 }

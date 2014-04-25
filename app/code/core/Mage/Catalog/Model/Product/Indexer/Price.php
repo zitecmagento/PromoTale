@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,6 +24,7 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 /**
  * Enter description here ...
  *
@@ -52,6 +54,7 @@
  */
 class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_Abstract
 {
+
     /**
      * Data key for matching result to be saved in
      */
@@ -84,7 +87,6 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
             Mage_Index_Model_Event::TYPE_SAVE
         )
     );
-
     protected $_relatedConfigSettings = array(
         Mage_Catalog_Helper_Data::XML_PATH_PRICE_SCOPE,
         Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK
@@ -147,7 +149,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
-        $data       = $event->getNewData();
+        $data = $event->getNewData();
         if (isset($data[self::EVENT_MATCH_RESULT_KEY])) {
             return $data[self::EVENT_MATCH_RESULT_KEY];
         }
@@ -194,12 +196,9 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
     protected function _registerCatalogProductSaveEvent(Mage_Index_Model_Event $event)
     {
         /* @var $product Mage_Catalog_Model_Product */
-        $product      = $event->getDataObject();
-        $attributes   = $this->_getDependentAttributes();
-        $reindexPrice = $product->getIsRelationsChanged() || $product->getIsCustomOptionChanged()
-            || $product->dataHasChangedFor('tier_price_changed')
-            || $product->getIsChangedWebsites()
-            || $product->getForceReindexRequired();
+        $product = $event->getDataObject();
+        $attributes = $this->_getDependentAttributes();
+        $reindexPrice = $product->getIsRelationsChanged() || $product->getIsCustomOptionChanged() || $product->dataHasChangedFor('tier_price_changed') || $product->getIsChangedWebsites() || $product->getForceReindexRequired();
 
         foreach ($attributes as $attributeCode) {
             $reindexPrice = $reindexPrice || $product->dataHasChangedFor($attributeCode);
@@ -215,7 +214,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
     {
         /* @var $actionObject Varien_Object */
         $actionObject = $event->getDataObject();
-        $attributes   = $this->_getDependentAttributes();
+        $attributes = $this->_getDependentAttributes();
         $reindexPrice = false;
 
         // check if attributes changed
@@ -300,4 +299,5 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
             $this->callEventHandler($event);
         }
     }
+
 }

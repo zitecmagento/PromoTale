@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,17 +25,16 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- *Quote address attribute backend parent resource model
+ * Quote address attribute backend parent resource model
  *
  * @category    Mage
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Parent
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Parent extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Save items collection and shipping rates collection
      *
@@ -44,10 +44,11 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Parent
     public function afterSave($object)
     {
         parent::afterSave($object);
-        
+
         $object->getItemsCollection()->save();
         $object->getShippingRatesCollection()->save();
-        
+
         return $this;
     }
+
 }

@@ -30,8 +30,12 @@
     <catalog_product_view>
         <reference name="product.info">
             <block type="payment/catalog_product_view_profile" name="product.info.additional.recurring.schedule" as="recurring_info" template="payment/catalog/product/view/profile/schedule.phtml">
-                <action method="addToParentGroup"><group>detailed_info</group></action>
-                <action method="setTitle" translate="value"><value>Recurring Profile</value></action>
+                <action method="addToParentGroup">
+                    <group>detailed_info</group>
+                </action>
+                <action method="setTitle" translate="value">
+                    <value>Recurring Profile</value>
+                </action>
             </block>
         </reference>
         <reference name="product.info.options.wrapper">

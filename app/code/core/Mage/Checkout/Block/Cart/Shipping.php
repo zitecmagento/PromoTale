@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstract
 {
+
     /**
      * Available Carriers Instances
      * @var null|array
@@ -81,7 +81,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getCarrierName($carrierCode)
     {
-        if ($name = Mage::getStoreConfig('carriers/'.$carrierCode.'/title')) {
+        if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title')) {
             return $name;
         }
         return $carrierCode;
@@ -154,8 +154,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getCityActive()
     {
-        return (bool)Mage::getStoreConfig('carriers/dhl/active')
-            || (bool)Mage::getStoreConfig('carriers/dhlint/active');
+        return (bool) Mage::getStoreConfig('carriers/dhl/active') || (bool) Mage::getStoreConfig('carriers/dhlint/active');
     }
 
     /**
@@ -165,9 +164,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getStateActive()
     {
-        return (bool)Mage::getStoreConfig('carriers/dhl/active')
-            || (bool)Mage::getStoreConfig('carriers/tablerate/active')
-            || (bool)Mage::getStoreConfig('carriers/dhlint/active');
+        return (bool) Mage::getStoreConfig('carriers/dhl/active') || (bool) Mage::getStoreConfig('carriers/tablerate/active') || (bool) Mage::getStoreConfig('carriers/dhlint/active');
     }
 
     /**
@@ -191,10 +188,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
     public function getShippingPrice($price, $flag)
     {
         return $this->formatPrice($this->helper('tax')->getShippingPrice(
-            $price,
-            $flag,
-            $this->getAddress(),
-            $this->getQuote()->getCustomerTaxClassId()
+                                $price, $flag, $this->getAddress(), $this->getQuote()->getCustomerTaxClassId()
         ));
     }
 
@@ -263,4 +257,5 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
         }
         return false;
     }
+
 }

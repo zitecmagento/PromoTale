@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -60,12 +61,15 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         $filters = $apiHelper->parseFilters($filters, $this->_attributesMap['creditmemo']);
         /** @var $creditmemoModel Mage_Sales_Model_Order_Creditmemo */
         $creditmemoModel = Mage::getModel('sales/order_creditmemo');
-        try {
+        try
+        {
             $creditMemoCollection = $creditmemoModel->getFilteredCollectionItems($filters);
             foreach ($creditMemoCollection as $creditmemo) {
                 $creditmemos[] = $this->_getAttributes($creditmemo, 'creditmemo');
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('invalid_filter', $e->getMessage());
         }
         return $creditmemos;
@@ -130,8 +134,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      * @param string $refundToStoreCreditAmount
      * @return string $creditmemoIncrementId
      */
-    public function create($orderIncrementId, $creditmemoData = null, $comment = null, $notifyCustomer = false,
-        $includeComment = false, $refundToStoreCreditAmount = null)
+    public function create($orderIncrementId, $creditmemoData = null, $comment = null, $notifyCustomer = false, $includeComment = false, $refundToStoreCreditAmount = null)
     {
         /** @var $order Mage_Sales_Model_Order */
         $order = Mage::getModel('sales/order')->load($orderIncrementId, 'increment_id');
@@ -155,14 +158,13 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                 $this->_fault('cannot_refund_to_storecredit');
             }
             $refundToStoreCreditAmount = max(
-                0,
-                min($creditmemo->getBaseCustomerBalanceReturnMax(), $refundToStoreCreditAmount)
+                    0, min($creditmemo->getBaseCustomerBalanceReturnMax(), $refundToStoreCreditAmount)
             );
             if ($refundToStoreCreditAmount) {
                 $refundToStoreCreditAmount = $creditmemo->getStore()->roundPrice($refundToStoreCreditAmount);
                 $creditmemo->setBaseCustomerBalanceTotalRefunded($refundToStoreCreditAmount);
                 $refundToStoreCreditAmount = $creditmemo->getStore()->roundPrice(
-                    $refundToStoreCreditAmount*$order->getStoreToOrderRate()
+                        $refundToStoreCreditAmount * $order->getStoreToOrderRate()
                 );
                 // this field can be used by customer balance observer
                 $creditmemo->setBsCustomerBalTotalRefunded($refundToStoreCreditAmount);
@@ -175,14 +177,17 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         if (!empty($comment)) {
             $creditmemo->addComment($comment, $notifyCustomer);
         }
-        try {
+        try
+        {
             Mage::getModel('core/resource_transaction')
-                ->addObject($creditmemo)
-                ->addObject($order)
-                ->save();
+                    ->addObject($creditmemo)
+                    ->addObject($order)
+                    ->save();
             // send email notification
             $creditmemo->sendEmail($notifyCustomer, ($includeComment ? $comment : ''));
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
         return $creditmemo->getIncrementId();
@@ -200,10 +205,13 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
     public function addComment($creditmemoIncrementId, $comment, $notifyCustomer = false, $includeComment = false)
     {
         $creditmemo = $this->_getCreditmemo($creditmemoIncrementId);
-        try {
+        try
+        {
             $creditmemo->addComment($comment, $notifyCustomer)->save();
             $creditmemo->sendUpdateEmail($notifyCustomer, ($includeComment ? $comment : ''));
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -223,9 +231,12 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         if (!$creditmemo->canCancel()) {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Credit memo cannot be canceled.'));
         }
-        try {
+        try
+        {
             $creditmemo->cancel()->save();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Credit memo canceling problem.'));
         }
 

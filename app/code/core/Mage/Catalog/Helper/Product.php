@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,10 @@
  */
 class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
 {
-    const XML_PATH_PRODUCT_URL_SUFFIX           = 'catalog/seo/product_url_suffix';
-    const XML_PATH_PRODUCT_URL_USE_CATEGORY     = 'catalog/seo/product_use_categories';
-    const XML_PATH_USE_PRODUCT_CANONICAL_TAG    = 'catalog/seo/product_canonical_tag';
+
+    const XML_PATH_PRODUCT_URL_SUFFIX = 'catalog/seo/product_url_suffix';
+    const XML_PATH_PRODUCT_URL_USE_CATEGORY = 'catalog/seo/product_use_categories';
+    const XML_PATH_USE_PRODUCT_CANONICAL_TAG = 'catalog/seo/product_canonical_tag';
 
     /**
      * Flag that shows if Magento has to check product to be saleable (enabled and/or inStock)
@@ -48,9 +50,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * @var array
      */
     protected $_productUrlSuffix = array();
-
     protected $_statuses;
-
     protected $_priceBlock;
 
     /**
@@ -63,8 +63,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     {
         if ($product instanceof Mage_Catalog_Model_Product) {
             return $product->getProductUrl();
-        }
-        elseif (is_numeric($product)) {
+        } elseif (is_numeric($product)) {
             return Mage::getModel('catalog/product')->load($product)->getProductUrl();
         }
         return false;
@@ -102,8 +101,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         $url = false;
         if (!$product->getImage()) {
             $url = Mage::getDesign()->getSkinUrl('images/no_image.jpg');
-        }
-        elseif ($attribute = $product->getResource()->getAttribute('image')) {
+        } elseif ($attribute = $product->getResource()->getAttribute('image')) {
             $url = $attribute->getFrontend()->getUrl($product);
         }
         return $url;
@@ -119,8 +117,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         $url = false;
         if (!$product->getSmallImage()) {
             $url = Mage::getDesign()->getSkinUrl('images/no_image.jpg');
-        }
-        elseif ($attribute = $product->getResource()->getAttribute('small_image')) {
+        } elseif ($attribute = $product->getResource()->getAttribute('small_image')) {
             $url = $attribute->getFrontend()->getUrl($product);
         }
         return $url;
@@ -143,15 +140,15 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             $categoryId = $category->getId();
         }
         return $this->_getUrl('sendfriend/product/send', array(
-            'id' => $product->getId(),
-            'cat_id' => $categoryId
+                    'id' => $product->getId(),
+                    'cat_id' => $categoryId
         ));
     }
 
     public function getStatuses()
     {
-        if(is_null($this->_statuses)) {
-            $this->_statuses = array();//Mage::getModel('catalog/product_status')->getResourceCollection()->load();
+        if (is_null($this->_statuses)) {
+            $this->_statuses = array(); //Mage::getModel('catalog/product_status')->getResourceCollection()->load();
         }
 
         return $this->_statuses;
@@ -218,14 +215,14 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     public function getAttributeInputTypes($inputType = null)
     {
         /**
-        * @todo specify there all relations for properties depending on input type
-        */
+         * @todo specify there all relations for properties depending on input type
+         */
         $inputTypes = array(
-            'multiselect'   => array(
-                'backend_model'     => 'eav/entity_attribute_backend_array'
+            'multiselect' => array(
+                'backend_model' => 'eav/entity_attribute_backend_array'
             ),
-            'boolean'       => array(
-                'source_model'      => 'eav/entity_attribute_source_boolean'
+            'boolean' => array(
+                'source_model' => 'eav/entity_attribute_source_boolean'
             )
         );
 
@@ -297,8 +294,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         }
 
         $product = Mage::getModel('catalog/product')
-            ->setStoreId(Mage::app()->getStore()->getId())
-            ->load($productId);
+                ->setStoreId(Mage::app()->getStore()->getId())
+                ->load($productId);
 
         if (!$this->canShow($product)) {
             return false;
@@ -328,14 +325,16 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         Mage::register('current_product', $product);
         Mage::register('product', $product);
 
-        try {
+        try
+        {
             Mage::dispatchEvent('catalog_controller_product_init', array('product' => $product));
-            Mage::dispatchEvent('catalog_controller_product_init_after',
-                            array('product' => $product,
-                                'controller_action' => $controller
-                            )
+            Mage::dispatchEvent('catalog_controller_product_init_after', array('product' => $product,
+                'controller_action' => $controller
+                    )
             );
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::logException($e);
             return false;
         }
@@ -468,4 +467,5 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     {
         return $this->_skipSaleableCheck;
     }
+
 }

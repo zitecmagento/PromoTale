@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Simplexml_Form_Element_Multiselect
-    extends Mage_XmlConnect_Model_Simplexml_Form_Element_Select
+class Mage_XmlConnect_Model_Simplexml_Form_Element_Multiselect extends Mage_XmlConnect_Model_Simplexml_Form_Element_Select
 {
+
     /**
      * Init text element
      *
@@ -74,4 +75,5 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Multiselect
 
         return $this;
     }
+
 }

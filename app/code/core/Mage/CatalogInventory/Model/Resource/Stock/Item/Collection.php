@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Stock item collection resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Initialize resource model
      *
@@ -93,11 +94,9 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     {
         $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
         $this->getSelect()->joinLeft(
-            array('status_table' => $this->getTable('cataloginventory/stock_status')),
-                'main_table.product_id=status_table.product_id'
+                array('status_table' => $this->getTable('cataloginventory/stock_status')), 'main_table.product_id=status_table.product_id'
                 . ' AND main_table.stock_id=status_table.stock_id'
-                . $this->getConnection()->quoteInto(' AND status_table.website_id=?', $websiteId),
-            array('stock_status')
+                . $this->getConnection()->quoteInto(' AND status_table.website_id=?', $websiteId), array('stock_status')
         );
 
         return $this;
@@ -130,16 +129,16 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     public function addQtyFilter($comparsionMethod, $qty)
     {
         $methods = array(
-            '<'  => 'lt',
-            '>'  => 'gt',
-            '='  => 'eq',
+            '<' => 'lt',
+            '>' => 'gt',
+            '=' => 'eq',
             '<=' => 'lteq',
             '>=' => 'gteq',
             '<>' => 'neq'
         );
         if (!isset($methods[$comparsionMethod])) {
             Mage::throwException(
-                Mage::helper('cataloginventory')->__('%s is not a correct comparsion method.', $comparsionMethod)
+                    Mage::helper('cataloginventory')->__('%s is not a correct comparsion method.', $comparsionMethod)
             );
         }
 
@@ -154,10 +153,10 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     protected function _initSelect()
     {
         return parent::_initSelect()->getSelect()
-            ->join(
-                array('cp_table' => $this->getTable('catalog/product')),
-                'main_table.product_id = cp_table.entity_id',
-                array('type_id')
-            );
+                        ->join(
+                                array('cp_table' => $this->getTable('catalog/product')), 'main_table.product_id = cp_table.entity_id', array(
+                            'type_id')
+        );
     }
+
 }

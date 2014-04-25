@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
 
@@ -52,11 +52,10 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
         $model = Mage::registry('tag_tag');
 
         $form = new Varien_Data_Form(
-            array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post')
+                array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post')
         );
 
-        $fieldset = $form->addFieldset('base_fieldset',
-            array('legend'=>Mage::helper('tag')->__('General Information')));
+        $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('tag')->__('General Information')));
 
         if ($model->getTagId()) {
             $fieldset->addField('tag_id', 'hidden', array(
@@ -65,13 +64,13 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
         }
 
         $fieldset->addField('form_key', 'hidden', array(
-            'name'  => 'form_key',
+            'name' => 'form_key',
             'value' => Mage::getSingleton('core/session')->getFormKey(),
         ));
 
         $fieldset->addField('store_id', 'hidden', array(
-            'name'  => 'store_id',
-            'value' => (int)$this->getRequest()->getParam('store')
+            'name' => 'store_id',
+            'value' => (int) $this->getRequest()->getParam('store')
         ));
 
         $fieldset->addField('name', 'text', array(
@@ -89,7 +88,7 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
             'required' => true,
             'options' => array(
                 Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('tag')->__('Disabled'),
-                Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('tag')->__('Pending'),
+                Mage_Tag_Model_Tag::STATUS_PENDING => Mage::helper('tag')->__('Pending'),
                 Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('tag')->__('Approved'),
             ),
             'after_element_html' => ' ' . Mage::helper('adminhtml')->__('[GLOBAL]'),
@@ -102,11 +101,11 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
             'after_element_html' => ' ' . Mage::helper('tag')->__('[STORE VIEW]'),
         ));
 
-        if (!$model->getId() && !Mage::getSingleton('adminhtml/session')->getTagData() ) {
+        if (!$model->getId() && !Mage::getSingleton('adminhtml/session')->getTagData()) {
             $model->setStatus(Mage_Tag_Model_Tag::STATUS_APPROVED);
         }
 
-        if ( Mage::getSingleton('adminhtml/session')->getTagData() ) {
+        if (Mage::getSingleton('adminhtml/session')->getTagData()) {
             $form->addValues(Mage::getSingleton('adminhtml/session')->getTagData());
             Mage::getSingleton('adminhtml/session')->setTagData(null);
         } else {
@@ -116,4 +115,5 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
         $this->setForm($form);
         return parent::_prepareForm();
     }
+
 }

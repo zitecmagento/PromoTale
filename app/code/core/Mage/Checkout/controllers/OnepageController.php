@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,15 +34,16 @@
  */
 class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 {
+
     /**
      * List of functions for section update
      *
      * @var array
      */
     protected $_sectionUpdateFunctions = array(
-        'payment-method'  => '_getPaymentMethodsHtml',
+        'payment-method' => '_getPaymentMethodsHtml',
         'shipping-method' => '_getShippingMethodsHtml',
-        'review'          => '_getReviewHtml',
+        'review' => '_getReviewHtml',
     );
 
     /**
@@ -67,7 +69,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
         if (!$this->_canShowForUnregisteredUsers()) {
             $this->norouteAction();
-            $this->setFlag('',self::FLAG_NO_DISPATCH,true);
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return;
         }
 
@@ -82,9 +84,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     protected function _ajaxRedirectResponse()
     {
         $this->getResponse()
-            ->setHeader('HTTP/1.1', '403 Session Expired')
-            ->setHeader('Login-Required', 'true')
-            ->sendResponse();
+                ->setHeader('HTTP/1.1', '403 Session Expired')
+                ->setHeader('Login-Required', 'true')
+                ->sendResponse();
         return $this;
     }
 
@@ -95,16 +97,13 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     protected function _expireAjax()
     {
-        if (!$this->getOnepage()->getQuote()->hasItems()
-            || $this->getOnepage()->getQuote()->getHasError()
-            || $this->getOnepage()->getQuote()->getIsMultiShipping()
+        if (!$this->getOnepage()->getQuote()->hasItems() || $this->getOnepage()->getQuote()->getHasError() || $this->getOnepage()->getQuote()->getIsMultiShipping()
         ) {
             $this->_ajaxRedirectResponse();
             return true;
         }
         $action = $this->getRequest()->getActionName();
-        if (Mage::getSingleton('checkout/session')->getCartWasUpdated(true)
-            && !in_array($action, array('index', 'progress'))
+        if (Mage::getSingleton('checkout/session')->getCartWasUpdated(true) && !in_array($action, array('index', 'progress'))
         ) {
             $this->_ajaxRedirectResponse();
             return true;
@@ -199,8 +198,8 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         }
         if (!$quote->validateMinimumAmount()) {
             $error = Mage::getStoreConfig('sales/minimum_order/error_message') ?
-                Mage::getStoreConfig('sales/minimum_order/error_message') :
-                Mage::helper('checkout')->__('Subtotal must exceed minimum order amount');
+                    Mage::getStoreConfig('sales/minimum_order/error_message') :
+                    Mage::helper('checkout')->__('Subtotal must exceed minimum order amount');
 
             Mage::getSingleton('checkout/session')->addError($error);
             $this->_redirect('checkout/cart');
@@ -236,7 +235,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
         $layout = $this->getLayout();
         $update = $layout->getUpdate();
-        /* Load the block belonging to the current step*/
+        /* Load the block belonging to the current step */
         $update->load('checkout_onepage_progress_' . $prevStep);
         $layout->generateXml();
         $layout->generateBlocks();
@@ -312,7 +311,6 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->renderLayout();
     }
 
-
     /**
      * Get additional info action
      */
@@ -337,7 +335,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 $this->getResponse()->setHeader('Content-type', 'application/x-json');
                 $this->getResponse()->setBody($address->toJson());
             } else {
-                $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
+                $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
             }
         }
     }
@@ -437,10 +435,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             // $result will contain error data if shipping method is empty
             if (!$result) {
                 Mage::dispatchEvent(
-                    'checkout_controller_onepage_save_shipping_method',
-                     array(
-                          'request' => $this->getRequest(),
-                          'quote'   => $this->getOnepage()->getQuote()));
+                        'checkout_controller_onepage_save_shipping_method', array(
+                    'request' => $this->getRequest(),
+                    'quote' => $this->getOnepage()->getQuote()));
                 $this->getOnepage()->getQuote()->collectTotals();
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
 
@@ -465,7 +462,8 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         if ($this->_expireAjax()) {
             return;
         }
-        try {
+        try
+        {
             if (!$this->getRequest()->isPost()) {
                 $this->_ajaxRedirectResponse();
                 return;
@@ -487,14 +485,20 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             if ($redirectUrl) {
                 $result['redirect'] = $redirectUrl;
             }
-        } catch (Mage_Payment_Exception $e) {
+        }
+        catch (Mage_Payment_Exception $e)
+        {
             if ($e->getFields()) {
                 $result['fields'] = $e->getFields();
             }
             $result['error'] = $e->getMessage();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $result['error'] = $e->getMessage();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $result['error'] = $this->__('Unable to set Payment Method.');
         }
@@ -552,7 +556,8 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         }
 
         $result = array();
-        try {
+        try
+        {
             $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
             if ($requiredAgreements) {
                 $postedAgreements = array_keys($this->getRequest()->getPost('agreement', array()));
@@ -568,11 +573,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
             $data = $this->getRequest()->getPost('payment', array());
             if ($data) {
-                $data['checks'] = Mage_Payment_Model_Method_Abstract::CHECK_USE_CHECKOUT
-                    | Mage_Payment_Model_Method_Abstract::CHECK_USE_FOR_COUNTRY
-                    | Mage_Payment_Model_Method_Abstract::CHECK_USE_FOR_CURRENCY
-                    | Mage_Payment_Model_Method_Abstract::CHECK_ORDER_TOTAL_MIN_MAX
-                    | Mage_Payment_Model_Method_Abstract::CHECK_ZERO_TOTAL;
+                $data['checks'] = Mage_Payment_Model_Method_Abstract::CHECK_USE_CHECKOUT | Mage_Payment_Model_Method_Abstract::CHECK_USE_FOR_COUNTRY | Mage_Payment_Model_Method_Abstract::CHECK_USE_FOR_CURRENCY | Mage_Payment_Model_Method_Abstract::CHECK_ORDER_TOTAL_MIN_MAX | Mage_Payment_Model_Method_Abstract::CHECK_ZERO_TOTAL;
                 $this->getOnepage()->getQuote()->getPayment()->importData($data);
             }
 
@@ -580,8 +581,10 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
             $redirectUrl = $this->getOnepage()->getCheckout()->getRedirectUrl();
             $result['success'] = true;
-            $result['error']   = false;
-        } catch (Mage_Payment_Model_Info_Exception $e) {
+            $result['error'] = false;
+        }
+        catch (Mage_Payment_Model_Info_Exception $e)
+        {
             $message = $e->getMessage();
             if (!empty($message)) {
                 $result['error_messages'] = $message;
@@ -591,7 +594,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 'name' => 'payment-method',
                 'html' => $this->_getPaymentMethodsHtml()
             );
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             Mage::logException($e);
             Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $e->getMessage());
             $result['success'] = false;
@@ -614,11 +619,13 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 }
                 $this->getOnepage()->getCheckout()->setUpdateSection(null);
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $e->getMessage());
-            $result['success']  = false;
-            $result['error']    = true;
+            $result['success'] = false;
+            $result['error'] = true;
             $result['error_messages'] = $this->__('There was an error processing your order. Please contact us or try again later.');
         }
         $this->getOnepage()->getQuote()->save();
@@ -652,9 +659,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     protected function _canShowForUnregisteredUsers()
     {
-        return Mage::getSingleton('customer/session')->isLoggedIn()
-            || $this->getRequest()->getActionName() == 'index'
-            || Mage::helper('checkout')->isAllowedGuestCheckout($this->getOnepage()->getQuote())
-            || !Mage::helper('checkout')->isCustomerMustBeLogged();
+        return Mage::getSingleton('customer/session')->isLoggedIn() || $this->getRequest()->getActionName() == 'index' || Mage::helper('checkout')->isAllowedGuestCheckout($this->getOnepage()->getQuote()) || !Mage::helper('checkout')->isCustomerMustBeLogged();
     }
+
 }

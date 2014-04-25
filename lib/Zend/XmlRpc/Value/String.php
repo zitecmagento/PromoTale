@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: String.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Zend_XmlRpc_Value_Scalar
  */
@@ -45,7 +44,7 @@ class Zend_XmlRpc_Value_String extends Zend_XmlRpc_Value_Scalar
         $this->_type = self::XMLRPC_TYPE_STRING;
 
         // Make sure this value is string and all XML characters are encoded
-        $this->_value = (string)$value;
+        $this->_value = (string) $value;
     }
 
     /**
@@ -55,6 +54,7 @@ class Zend_XmlRpc_Value_String extends Zend_XmlRpc_Value_Scalar
      */
     public function getValue()
     {
-        return (string)$this->_value;
+        return (string) $this->_value;
     }
+
 }

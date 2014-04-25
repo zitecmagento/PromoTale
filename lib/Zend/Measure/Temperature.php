@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Temperature.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Implement needed classes
  */
@@ -36,13 +36,13 @@
  */
 class Zend_Measure_Temperature extends Zend_Measure_Abstract
 {
-    const STANDARD = 'KELVIN';
 
-    const CELSIUS    = 'CELSIUS';
+    const STANDARD = 'KELVIN';
+    const CELSIUS = 'CELSIUS';
     const FAHRENHEIT = 'FAHRENHEIT';
-    const RANKINE    = 'RANKINE';
-    const REAUMUR    = 'REAUMUR';
-    const KELVIN     = 'KELVIN';
+    const RANKINE = 'RANKINE';
+    const REAUMUR = 'REAUMUR';
+    const KELVIN = 'KELVIN';
 
     /**
      * Calculations for all temperature units
@@ -50,11 +50,12 @@ class Zend_Measure_Temperature extends Zend_Measure_Abstract
      * @var array
      */
     protected $_units = array(
-        'CELSIUS'    => array(array('' => '1', '+' => '273.15'),'°C'),
-        'FAHRENHEIT' => array(array('' => '1', '-' => '32', '/' => '1.8', '+' => '273.15'),'°F'),
-        'RANKINE'    => array(array('' => '1', '/' => '1.8'),'°R'),
-        'REAUMUR'    => array(array('' => '1', '*' => '1.25', '+' => '273.15'),'°r'),
-        'KELVIN'     => array(1,'°K'),
-        'STANDARD'   => 'KELVIN'
+        'CELSIUS' => array(array('' => '1', '+' => '273.15'), '°C'),
+        'FAHRENHEIT' => array(array('' => '1', '-' => '32', '/' => '1.8', '+' => '273.15'), '°F'),
+        'RANKINE' => array(array('' => '1', '/' => '1.8'), '°R'),
+        'REAUMUR' => array(array('' => '1', '*' => '1.25', '+' => '273.15'), '°r'),
+        'KELVIN' => array(1, '°K'),
+        'STANDARD' => 'KELVIN'
     );
+
 }

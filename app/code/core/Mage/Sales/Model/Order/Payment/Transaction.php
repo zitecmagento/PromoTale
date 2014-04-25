@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -50,16 +51,17 @@
  */
 class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstract
 {
+
     /**
      * Supported transaction types
      * @var string
      */
     const TYPE_PAYMENT = 'payment';
-    const TYPE_ORDER   = 'order';
-    const TYPE_AUTH    = 'authorization';
+    const TYPE_ORDER = 'order';
+    const TYPE_AUTH = 'authorization';
     const TYPE_CAPTURE = 'capture';
-    const TYPE_VOID    = 'void';
-    const TYPE_REFUND  = 'refund';
+    const TYPE_VOID = 'void';
+    const TYPE_REFUND = 'refund';
 
     /**
      * Raw details key in additional info
@@ -72,7 +74,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * @var Mage_Sales_Model_Order_Payment
      */
     protected $_paymentObject = null;
-
 
     /**
      * Order instance
@@ -189,7 +190,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         if (empty($txnId)) {
             if ('' == $this->getTxnId()) {
                 Mage::throwException(
-                    Mage::helper('sales')->__('Parent transaction ID must have a transaction ID.')
+                        Mage::helper('sales')->__('Parent transaction ID must have a transaction ID.')
                 );
             }
         } else {
@@ -228,13 +229,13 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 $this->_parentTransaction = new $class;
                 if ($shouldLoad) {
                     $this->_parentTransaction
-                        ->setOrderPaymentObject($this->_paymentObject)
-                        ->load($parentId);
+                            ->setOrderPaymentObject($this->_paymentObject)
+                            ->load($parentId);
                     if (!$this->_parentTransaction->getId()) {
                         $this->_parentTransaction = false;
                     } else {
                         $this->_parentTransaction
-                            ->hasChildTransaction(true);
+                                ->hasChildTransaction(true);
                     }
                 }
             }
@@ -313,9 +314,12 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     public function closeAuthorization($shouldSave = true, $dryRun = false)
     {
-        try {
+        try
+        {
             $this->_verifyThisTransactionExists();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             if ($dryRun) {
                 return false;
             }
@@ -324,7 +328,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         $authTransaction = false;
         switch ($this->getTxnType()) {
             case self::TYPE_VOID:
-                // break intentionally omitted
+            // break intentionally omitted
             case self::TYPE_CAPTURE:
                 $authTransaction = $this->getParentTransaction();
                 break;
@@ -373,13 +377,16 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     public function canVoidAuthorizationCompletely()
     {
-        try {
+        try
+        {
             $authTransaction = $this->closeAuthorization('', true);
             if ($authTransaction->hasChildTransaction() || $this->_children) {
                 return false;
             }
             return true;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             // jam all logical exceptions, fallback to false
         }
         return false;
@@ -393,10 +400,9 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     public function hasChildTransaction($whetherHasChild = null)
     {
         if (null !== $whetherHasChild) {
-            $this->_hasChild = (bool)$whetherHasChild;
+            $this->_hasChild = (bool) $whetherHasChild;
             return $this;
-        }
-        elseif (null === $this->_hasChild) {
+        } elseif (null === $this->_hasChild) {
             if ($this->getChildTransactions()) {
                 $this->_hasChild = true;
             } else {
@@ -427,7 +433,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     {
         $this->_beforeLoadByTxnId($txnId);
         $this->getResource()->loadObjectByTxnId(
-            $this, $this->getOrderId(), $this->_paymentObject->getId(), $txnId
+                $this, $this->getOrderId(), $this->_paymentObject->getId(), $txnId
         );
         $this->_afterLoadByTxnId();
         return $this;
@@ -443,7 +449,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         Mage::dispatchEvent($this->_eventPrefix . '_load_by_txn_id_after', $this->_getEventData());
         return $this;
     }
-
 
     /**
      * Additional information setter
@@ -522,12 +527,15 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             $this->save();
         }
         if ($this->_transactionsAutoLinking && self::TYPE_AUTH === $this->getTxnType()) {
-            try {
+            try
+            {
                 $paymentTransaction = $this->getParentTransaction();
                 if ($paymentTransaction) {
                     $paymentTransaction->close($shouldSave);
                 }
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 if (!$this->_isFailsafe) {
                     throw $e;
                 }
@@ -566,9 +574,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             return $orderId;
         }
         if ($this->_paymentObject) {
-            return $this->_paymentObject->getOrder()
-                ? $this->_paymentObject->getOrder()->getId()
-                : $this->_paymentObject->getParentId();
+            return $this->_paymentObject->getOrder() ? $this->_paymentObject->getOrder()->getId() : $this->_paymentObject->getParentId();
         }
     }
 
@@ -622,7 +628,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         if (null === $setFailsafe) {
             return $this->_isFailsafe;
         }
-        $this->_isFailsafe = (bool)$setFailsafe;
+        $this->_isFailsafe = (bool) $setFailsafe;
         return $this;
     }
 
@@ -677,9 +683,9 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
         // prepare children collection
         $children = $this->getResourceCollection()
-            ->setOrderFilter($orderFilter)
-            ->addPaymentIdFilter($paymentId)
-            ->addParentIdFilter($this->getId());
+                ->setOrderFilter($orderFilter)
+                ->addPaymentIdFilter($paymentId)
+                ->addParentIdFilter($this->getId());
 
         // set basic children array and attempt to map them per txn_id, if all of them have txn_id
         $this->_children = array();
@@ -711,8 +717,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     protected function _isVoided()
     {
         $this->_verifyThisTransactionExists();
-        return self::TYPE_AUTH === $this->getTxnType()
-            && (bool)count($this->getChildTransactions(self::TYPE_VOID));
+        return self::TYPE_AUTH === $this->getTxnType() && (bool) count($this->getChildTransactions(self::TYPE_VOID));
     }
 
     /**
@@ -732,11 +737,11 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     public function getTransactionTypes()
     {
         return array(
-            Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER    => Mage::helper('sales')->__('Order'),
-            Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH    => Mage::helper('sales')->__('Authorization'),
+            Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER => Mage::helper('sales')->__('Order'),
+            Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH => Mage::helper('sales')->__('Authorization'),
             Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE => Mage::helper('sales')->__('Capture'),
-            Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID    => Mage::helper('sales')->__('Void'),
-            Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND  => Mage::helper('sales')->__('Refund')
+            Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID => Mage::helper('sales')->__('Void'),
+            Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND => Mage::helper('sales')->__('Refund')
         );
     }
 
@@ -748,7 +753,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     public function getOrderWebsiteId()
     {
         if (is_null($this->_orderWebsiteId)) {
-            $this->_orderWebsiteId = (int)$this->getResource()->getOrderWebsiteId($this->getOrderId());
+            $this->_orderWebsiteId = (int) $this->getResource()->getOrderWebsiteId($this->getOrderId());
         }
         return $this->_orderWebsiteId;
     }
@@ -817,4 +822,5 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         }
         $this->_verifyTxnType();
     }
+
 }

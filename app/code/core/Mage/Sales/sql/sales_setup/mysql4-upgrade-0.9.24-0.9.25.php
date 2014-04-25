@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,12 +24,11 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'shipping_tax_refunded', 'decimal(12,4) NULL');
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'base_shipping_tax_refunded', 'decimal(12,4) NULL');
 
-$installer->addAttribute('order', 'shipping_tax_refunded', array('type'=>'static'));
-$installer->addAttribute('order', 'base_shipping_tax_refunded', array('type'=>'static'));
+$installer->addAttribute('order', 'shipping_tax_refunded', array('type' => 'static'));
+$installer->addAttribute('order', 'base_shipping_tax_refunded', array('type' => 'static'));

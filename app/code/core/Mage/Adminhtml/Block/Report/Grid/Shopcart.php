@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Report_Grid_Shopcart extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     /**
      * stores current currency code
      */
@@ -41,7 +43,7 @@ class Mage_Adminhtml_Block_Report_Grid_Shopcart extends Mage_Adminhtml_Block_Wid
     /**
      * ids of current stores
      */
-    protected $_storeIds            = array();
+    protected $_storeIds = array();
 
     /**
      * storeIds setter
@@ -64,9 +66,7 @@ class Mage_Adminhtml_Block_Report_Grid_Shopcart extends Mage_Adminhtml_Block_Wid
     {
         if (is_null($this->_currentCurrencyCode)) {
             reset($this->_storeIds);
-            $this->_currentCurrencyCode = (count($this->_storeIds) > 0)
-                ? Mage::app()->getStore(current($this->_storeIds))->getBaseCurrencyCode()
-                : Mage::app()->getStore()->getBaseCurrencyCode();
+            $this->_currentCurrencyCode = (count($this->_storeIds) > 0) ? Mage::app()->getStore(current($this->_storeIds))->getBaseCurrencyCode() : Mage::app()->getStore()->getBaseCurrencyCode();
         }
         return $this->_currentCurrencyCode;
     }
@@ -81,4 +81,5 @@ class Mage_Adminhtml_Block_Report_Grid_Shopcart extends Mage_Adminhtml_Block_Wid
     {
         return Mage::app()->getStore()->getBaseCurrency()->getRate($toCurrency);
     }
+
 }

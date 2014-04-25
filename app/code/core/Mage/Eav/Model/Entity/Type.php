@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Entity type model
@@ -60,6 +60,7 @@
  */
 class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
 {
+
     /**
      * Collection of attributes
      *
@@ -72,7 +73,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_attributesBySet             = array();
+    protected $_attributesBySet = array();
 
     /**
      * Collection of sets
@@ -113,14 +114,14 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
         if ($setId === null) {
             if ($this->_attributes === null) {
                 $this->_attributes = $this->_getAttributeCollection()
-                    ->setEntityTypeFilter($this);
+                        ->setEntityTypeFilter($this);
             }
             $collection = $this->_attributes;
         } else {
             if (!isset($this->_attributesBySet[$setId])) {
                 $this->_attributesBySet[$setId] = $this->_getAttributeCollection()
-                    ->setEntityTypeFilter($this)
-                    ->setAttributeSetFilter($setId);
+                        ->setEntityTypeFilter($this)
+                        ->setAttributeSetFilter($setId);
             }
             $collection = $this->_attributesBySet[$setId];
         }
@@ -153,7 +154,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     {
         if (empty($this->_sets)) {
             $this->_sets = Mage::getModel('eav/entity_attribute_set')->getResourceCollection()
-                ->setEntityTypeFilter($this->getId());
+                    ->setEntityTypeFilter($this->getId());
         }
         return $this->_sets;
     }
@@ -181,23 +182,23 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
         $this->_getResource()->beginTransaction();
 
         $entityStoreConfig = Mage::getModel('eav/entity_store')
-            ->loadByEntityStore($this->getId(), $storeId);
+                ->loadByEntityStore($this->getId(), $storeId);
 
         if (!$entityStoreConfig->getId()) {
             $entityStoreConfig
-                ->setEntityTypeId($this->getId())
-                ->setStoreId($storeId)
-                ->setIncrementPrefix($storeId)
-                ->save();
+                    ->setEntityTypeId($this->getId())
+                    ->setStoreId($storeId)
+                    ->setIncrementPrefix($storeId)
+                    ->save();
         }
 
         $incrementInstance = Mage::getModel($this->getIncrementModel())
-            ->setPrefix($entityStoreConfig->getIncrementPrefix())
-            ->setPadLength($this->getIncrementPadLength())
-            ->setPadChar($this->getIncrementPadChar())
-            ->setLastId($entityStoreConfig->getIncrementLastId())
-            ->setEntityTypeId($entityStoreConfig->getEntityTypeId())
-            ->setStoreId($entityStoreConfig->getStoreId());
+                ->setPrefix($entityStoreConfig->getIncrementPrefix())
+                ->setPadLength($this->getIncrementPadLength())
+                ->setPadChar($this->getIncrementPadChar())
+                ->setLastId($entityStoreConfig->getIncrementLastId())
+                ->setEntityTypeId($entityStoreConfig->getEntityTypeId())
+                ->setStoreId($entityStoreConfig->getStoreId());
 
         /**
          * do read lock on eav/entity_store to solve potential timing issues
@@ -263,7 +264,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
 
         return $tablePrefix;
     }
-    
+
     /**
      * Get default attribute set identifier for etity type
      *
@@ -341,4 +342,5 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
         }
         return 'eav/entity_attribute_collection';
     }
+
 }

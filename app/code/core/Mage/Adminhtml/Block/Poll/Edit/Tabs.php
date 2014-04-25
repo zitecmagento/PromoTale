@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -45,20 +46,21 @@ class Mage_Adminhtml_Block_Poll_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Ta
     protected function _beforeToHtml()
     {
         $this->addTab('form_section', array(
-            'label'     => Mage::helper('poll')->__('Poll Information'),
-            'title'     => Mage::helper('poll')->__('Poll Information'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/poll_edit_tab_form')->toHtml(),
+            'label' => Mage::helper('poll')->__('Poll Information'),
+            'title' => Mage::helper('poll')->__('Poll Information'),
+            'content' => $this->getLayout()->createBlock('adminhtml/poll_edit_tab_form')->toHtml(),
         ))
         ;
 
         $this->addTab('answers_section', array(
-                'label'     => Mage::helper('poll')->__('Poll Answers'),
-                'title'     => Mage::helper('poll')->__('Poll Answers'),
-                'content'   => $this->getLayout()->createBlock('adminhtml/poll_edit_tab_answers')
-                                ->append($this->getLayout()->createBlock('adminhtml/poll_edit_tab_answers_list'))
-                                ->toHtml(),
-                'active'    => ( $this->getRequest()->getParam('tab') == 'answers_section' ) ? true : false,
-            ));
+            'label' => Mage::helper('poll')->__('Poll Answers'),
+            'title' => Mage::helper('poll')->__('Poll Answers'),
+            'content' => $this->getLayout()->createBlock('adminhtml/poll_edit_tab_answers')
+                    ->append($this->getLayout()->createBlock('adminhtml/poll_edit_tab_answers_list'))
+                    ->toHtml(),
+            'active' => ( $this->getRequest()->getParam('tab') == 'answers_section' ) ? true : false,
+        ));
         return parent::_beforeToHtml();
     }
+
 }

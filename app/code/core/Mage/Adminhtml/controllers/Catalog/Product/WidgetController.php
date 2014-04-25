@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product widgets controller for CMS WYSIWYG
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Catalog_Product_WidgetController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Chooser Source action
      */
@@ -44,27 +45,28 @@ class Mage_Adminhtml_Catalog_Product_WidgetController extends Mage_Adminhtml_Con
         $productTypeId = $this->getRequest()->getParam('product_type_id', null);
 
         $productsGrid = $this->getLayout()->createBlock('adminhtml/catalog_product_widget_chooser', '', array(
-            'id'                => $uniqId,
+            'id' => $uniqId,
             'use_massaction' => $massAction,
             'product_type_id' => $productTypeId,
-            'category_id'       => $this->getRequest()->getParam('category_id')
+            'category_id' => $this->getRequest()->getParam('category_id')
         ));
 
         $html = $productsGrid->toHtml();
 
         if (!$this->getRequest()->getParam('products_grid')) {
             $categoriesTree = $this->getLayout()->createBlock('adminhtml/catalog_category_widget_chooser', '', array(
-                'id'                  => $uniqId.'Tree',
+                'id' => $uniqId . 'Tree',
                 'node_click_listener' => $productsGrid->getCategoryClickListenerJs(),
-                'with_empty_node'     => true
+                'with_empty_node' => true
             ));
 
             $html = $this->getLayout()->createBlock('adminhtml/catalog_product_widget_chooser_container')
-                ->setTreeHtml($categoriesTree->toHtml())
-                ->setGridHtml($html)
-                ->toHtml();
+                    ->setTreeHtml($categoriesTree->toHtml())
+                    ->setGridHtml($html)
+                    ->toHtml();
         }
 
         $this->getResponse()->setBody($html);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Type Price Indexer interface
  *
@@ -33,6 +33,7 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Interface
-    extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
+extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
 {
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,15 +34,16 @@
  */
 class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
 {
+
     protected function _construct()
     {
         /*
-        * setting cache to save the rss for 10 minutes
-        */
+         * setting cache to save the rss for 10 minutes
+         */
         $this->setCacheKey('rss_catalog_category_'
-            . $this->getRequest()->getParam('cid') . '_'
-            . $this->getRequest()->getParam('store_id') . '_'
-            . Mage::getModel('customer/session')->getId()
+                . $this->getRequest()->getParam('cid') . '_'
+                . $this->getRequest()->getParam('store_id') . '_'
+                . Mage::getModel('customer/session')->getId()
         );
         $this->setCacheLifetime(600);
     }
@@ -60,20 +62,20 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 $newurl = $category->getUrl();
                 $title = $category->getName();
                 $data = array('title' => $title,
-                        'description' => $title,
-                        'link'        => $newurl,
-                        'charset'     => 'UTF-8',
-                        );
+                    'description' => $title,
+                    'link' => $newurl,
+                    'charset' => 'UTF-8',
+                );
 
                 $rssObj->_addHeader($data);
 
                 $_collection = $category->getCollection();
                 $_collection->addAttributeToSelect('url_key')
-                    ->addAttributeToSelect('name')
-                    ->addAttributeToSelect('is_anchor')
-                    ->addAttributeToFilter('is_active',1)
-                    ->addIdFilter($category->getChildren())
-                    ->load()
+                        ->addAttributeToSelect('name')
+                        ->addAttributeToSelect('is_anchor')
+                        ->addAttributeToFilter('is_active', 1)
+                        ->addIdFilter($category->getChildren())
+                        ->load()
                 ;
                 $productCollection = Mage::getModel('catalog/product')->getCollection();
 
@@ -83,17 +85,17 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
 
                 $category->getProductCollection()->setStoreId($storeId);
                 /*
-                only load latest 50 products
-                */
+                  only load latest 50 products
+                 */
                 $_productCollection = $currentCategory
-                    ->getProductCollection()
-                    ->addAttributeToSort('updated_at','desc')
-                    ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
-                    ->setCurPage(1)
-                    ->setPageSize(50)
+                        ->getProductCollection()
+                        ->addAttributeToSort('updated_at', 'desc')
+                        ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
+                        ->setCurPage(1)
+                        ->setPageSize(50)
                 ;
 
-                if ($_productCollection->getSize()>0) {
+                if ($_productCollection->getSize() > 0) {
                     $args = array('rssObj' => $rssObj);
                     foreach ($_productCollection as $_product) {
                         $args['product'] = $_product;
@@ -123,23 +125,24 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         }
 
         $description = '<table><tr>'
-                     . '<td><a href="'.$product->getProductUrl().'"><img src="'
-                     . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
-                     . '" border="0" align="left" height="75" width="75"></a></td>'
-                     . '<td  style="text-decoration:none;">' . $product->getDescription();
+                . '<td><a href="' . $product->getProductUrl() . '"><img src="'
+                . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
+                . '" border="0" align="left" height="75" width="75"></a></td>'
+                . '<td  style="text-decoration:none;">' . $product->getDescription();
 
         if ($product->getAllowedPriceInRss()) {
-            $description.= $this->getPriceHtml($product,true);
+            $description.= $this->getPriceHtml($product, true);
         }
 
         $description .= '</td></tr></table>';
         $rssObj = $args['rssObj'];
         $data = array(
-                'title'         => $product->getName(),
-                'link'          => $product->getProductUrl(),
-                'description'   => $description,
-            );
+            'title' => $product->getName(),
+            'link' => $product->getProductUrl(),
+            'description' => $description,
+        );
 
         $rssObj->_addEntry($data);
     }
+
 }

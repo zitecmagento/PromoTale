@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package Mage_Adminhtml
  * @author Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Prepare content for tab
      *
@@ -83,8 +83,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
 
         $form->setHtmlIdPrefix('rule_');
 
-        $fieldset = $form->addFieldset('base_fieldset',
-            array('legend '=> Mage::helper('catalogrule')->__('General Information'))
+        $fieldset = $form->addFieldset('base_fieldset', array('legend ' => Mage::helper('catalogrule')->__('General Information'))
         );
 
         $fieldset->addField('auto_apply', 'hidden', array(
@@ -112,11 +111,11 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
         ));
 
         $fieldset->addField('is_active', 'select', array(
-            'label'     => Mage::helper('catalogrule')->__('Status'),
-            'title'     => Mage::helper('catalogrule')->__('Status'),
-            'name'      => 'is_active',
+            'label' => Mage::helper('catalogrule')->__('Status'),
+            'title' => Mage::helper('catalogrule')->__('Status'),
+            'name' => 'is_active',
             'required' => true,
-            'options'    => array(
+            'options' => array(
                 '1' => Mage::helper('catalogrule')->__('Active'),
                 '0' => Mage::helper('catalogrule')->__('Inactive'),
             ),
@@ -125,46 +124,46 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
         if (Mage::app()->isSingleStoreMode()) {
             $websiteId = Mage::app()->getStore(true)->getWebsiteId();
             $fieldset->addField('website_ids', 'hidden', array(
-                'name'     => 'website_ids[]',
-                'value'    => $websiteId
+                'name' => 'website_ids[]',
+                'value' => $websiteId
             ));
             $model->setWebsiteIds($websiteId);
         } else {
             $field = $fieldset->addField('website_ids', 'multiselect', array(
-                'name'     => 'website_ids[]',
-                'label'     => Mage::helper('catalogrule')->__('Websites'),
-                'title'     => Mage::helper('catalogrule')->__('Websites'),
+                'name' => 'website_ids[]',
+                'label' => Mage::helper('catalogrule')->__('Websites'),
+                'title' => Mage::helper('catalogrule')->__('Websites'),
                 'required' => true,
-                'values'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm()
+                'values' => Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm()
             ));
             $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
             $field->setRenderer($renderer);
         }
 
         $fieldset->addField('customer_group_ids', 'multiselect', array(
-            'name'      => 'customer_group_ids[]',
-            'label'     => Mage::helper('catalogrule')->__('Customer Groups'),
-            'title'     => Mage::helper('catalogrule')->__('Customer Groups'),
-            'required'  => true,
-            'values'    => Mage::getResourceModel('customer/group_collection')->toOptionArray()
+            'name' => 'customer_group_ids[]',
+            'label' => Mage::helper('catalogrule')->__('Customer Groups'),
+            'title' => Mage::helper('catalogrule')->__('Customer Groups'),
+            'required' => true,
+            'values' => Mage::getResourceModel('customer/group_collection')->toOptionArray()
         ));
 
         $dateFormatIso = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
         $fieldset->addField('from_date', 'date', array(
-            'name'   => 'from_date',
-            'label'  => Mage::helper('catalogrule')->__('From Date'),
-            'title'  => Mage::helper('catalogrule')->__('From Date'),
-            'image'  => $this->getSkinUrl('images/grid-cal.gif'),
+            'name' => 'from_date',
+            'label' => Mage::helper('catalogrule')->__('From Date'),
+            'title' => Mage::helper('catalogrule')->__('From Date'),
+            'image' => $this->getSkinUrl('images/grid-cal.gif'),
             'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
-            'format'       => $dateFormatIso
+            'format' => $dateFormatIso
         ));
         $fieldset->addField('to_date', 'date', array(
-            'name'   => 'to_date',
-            'label'  => Mage::helper('catalogrule')->__('To Date'),
-            'title'  => Mage::helper('catalogrule')->__('To Date'),
-            'image'  => $this->getSkinUrl('images/grid-cal.gif'),
+            'name' => 'to_date',
+            'label' => Mage::helper('catalogrule')->__('To Date'),
+            'title' => Mage::helper('catalogrule')->__('To Date'),
+            'image' => $this->getSkinUrl('images/grid-cal.gif'),
             'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
-            'format'       => $dateFormatIso
+            'format' => $dateFormatIso
         ));
 
         $fieldset->addField('sort_order', 'text', array(
@@ -188,4 +187,5 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
 
         return parent::_prepareForm();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_System_Account_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -48,4 +49,5 @@ class Mage_Adminhtml_Block_System_Account_Edit extends Mage_Adminhtml_Block_Widg
     {
         return Mage::helper('adminhtml')->__('My Account');
     }
+
 }

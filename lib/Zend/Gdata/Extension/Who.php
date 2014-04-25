@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Who.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Extension
  */
@@ -70,8 +69,7 @@ class Zend_Gdata_Extension_Who extends Zend_Gdata_Extension
      * @param Zend_Gdata_Extension_AttendeeType $attendeeType (optional) The type of the attendee.
      * @param string $entryLink URL pointing to an associated entry (Contact kind) describing this person.
      */
-    public function __construct($email = null, $rel = null, $valueString = null,
-        $attendeeStatus = null, $attendeeType = null, $entryLink = null)
+    public function __construct($email = null, $rel = null, $valueString = null, $attendeeStatus = null, $attendeeType = null, $entryLink = null)
     {
         parent::__construct();
         $this->_email = $email;
@@ -126,17 +124,17 @@ class Zend_Gdata_Extension_Who extends Zend_Gdata_Extension
     protected function takeAttributeFromDOM($attribute)
     {
         switch ($attribute->localName) {
-        case 'email':
-            $this->_email = $attribute->nodeValue;
-            break;
-        case 'rel':
-            $this->_rel = $attribute->nodeValue;
-            break;
-        case 'valueString':
-            $this->_valueString = $attribute->nodeValue;
-            break;
-        default:
-            parent::takeAttributeFromDOM($attribute);
+            case 'email':
+                $this->_email = $attribute->nodeValue;
+                break;
+            case 'rel':
+                $this->_rel = $attribute->nodeValue;
+                break;
+            case 'valueString':
+                $this->_valueString = $attribute->nodeValue;
+                break;
+            default:
+                parent::takeAttributeFromDOM($attribute);
         }
     }
 
@@ -150,24 +148,24 @@ class Zend_Gdata_Extension_Who extends Zend_Gdata_Extension
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-        case $this->lookupNamespace('gd') . ':' . 'attendeeStatus':
-            $attendeeStatus = new Zend_Gdata_Extension_AttendeeStatus();
-            $attendeeStatus->transferFromDOM($child);
-            $this->_attendeeStatus = $attendeeStatus;
-            break;
-        case $this->lookupNamespace('gd') . ':' . 'attendeeType':
-            $attendeeType = new Zend_Gdata_Extension_AttendeeType();
-            $attendeeType->transferFromDOM($child);
-            $this->_attendeeType = $attendeeType;
-            break;
-        case $this->lookupNamespace('gd') . ':' . 'entryLink':
-            $entryLink = new Zend_Gdata_Extension_EntryLink();
-            $entryLink->transferFromDOM($child);
-            $this->_entryLink = $entryLink;
-            break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            case $this->lookupNamespace('gd') . ':' . 'attendeeStatus':
+                $attendeeStatus = new Zend_Gdata_Extension_AttendeeStatus();
+                $attendeeStatus->transferFromDOM($child);
+                $this->_attendeeStatus = $attendeeStatus;
+                break;
+            case $this->lookupNamespace('gd') . ':' . 'attendeeType':
+                $attendeeType = new Zend_Gdata_Extension_AttendeeType();
+                $attendeeType->transferFromDOM($child);
+                $this->_attendeeType = $attendeeType;
+                break;
+            case $this->lookupNamespace('gd') . ':' . 'entryLink':
+                $entryLink = new Zend_Gdata_Extension_EntryLink();
+                $entryLink->transferFromDOM($child);
+                $this->_entryLink = $entryLink;
+                break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 
@@ -180,8 +178,7 @@ class Zend_Gdata_Extension_Who extends Zend_Gdata_Extension
     {
         if ($this->_valueString != null) {
             return $this->_valueString;
-        }
-        else {
+        } else {
             return parent::__toString();
         }
     }

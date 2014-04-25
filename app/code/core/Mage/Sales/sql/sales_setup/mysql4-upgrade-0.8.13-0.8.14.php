@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 
@@ -200,13 +200,10 @@ $attributeIds = array();
 foreach ($attributes as $code => $params) {
     $attributes[$code] = $installer->getAttribute($orderEntityTypeId, $code);
     if ($attributes[$code]['backend_type'] != 'static') {
-        $select->joinLeft(array("_table_{$code}" => "{$this->getTable('sales_order_entity')}_{$attributes[$code]['backend_type']}"),
-                "_table_{$code}.attribute_id = {$attributes[$code]['attribute_id']} AND _table_{$code}.entity_id = e.entity_id",
-                array($code => 'value'));
+        $select->joinLeft(array("_table_{$code}" => "{$this->getTable('sales_order_entity')}_{$attributes[$code]['backend_type']}"), "_table_{$code}.attribute_id = {$attributes[$code]['attribute_id']} AND _table_{$code}.entity_id = e.entity_id", array(
+            $code => 'value'));
         $select->join(
-            array("_eav_atr_{$code}" => $this->getTable('eav/attribute')),
-            "_eav_atr_{$code}.attribute_id = {$attributes[$code]['attribute_id']}",
-            array()
+                array("_eav_atr_{$code}" => $this->getTable('eav/attribute')), "_eav_atr_{$code}.attribute_id = {$attributes[$code]['attribute_id']}", array()
         );
         $attributeIds[] = $attributes[$code]['attribute_id'];
     }
@@ -234,7 +231,7 @@ foreach ($orders as $order) {
     foreach ($tables as $table) {
         $delete = array();
         $attrs = $installer->getConnection()->fetchAll("SELECT tt.* FROM {$this->getTable('sales_order_entity')}_{$table} tt JOIN eav_attribute on eav_attribute.attribute_id = tt.attribute_id  WHERE entity_id={$old_entity_id}");
-        foreach($attrs as $attr ) {
+        foreach ($attrs as $attr) {
             if (!in_array($attr['attribute_id'], $attributeIds)) {
                 unset($attr['value_id']);
                 $attr['entity_id'] = $new_entity_id;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Review_Form extends Mage_Core_Block_Abstract
 {
+
     /**
      * Collection of ratings
      *
@@ -65,8 +67,8 @@ class Mage_XmlConnect_Block_Review_Form extends Mage_Core_Block_Abstract
 
             foreach ($this->getRatings() as $rating) {
                 $ratingField = $ratingsFieldset->addField('ratings[' . $rating->getId() . ']', 'radio', array(
-                    'label'     => $rating->getRatingCode(),
-                    'required'  => 'true'
+                    'label' => $rating->getRatingCode(),
+                    'required' => 'true'
                 ));
 
                 foreach ($rating->getOptions() as $option) {
@@ -77,17 +79,17 @@ class Mage_XmlConnect_Block_Review_Form extends Mage_Core_Block_Abstract
 
         $reviewFieldset = $xmlReview->addCustomChild('fieldset');
         $reviewFieldset->addField('nickname', 'text', array(
-            'label'     => $this->__('Nickname'),
-            'required'  => 'true',
-            'value'     => $nickname
+            'label' => $this->__('Nickname'),
+            'required' => 'true',
+            'value' => $nickname
         ));
         $reviewFieldset->addField('title', 'text', array(
-            'label'     => $this->__('Summary of Your Review'),
-            'required'  => 'true'
+            'label' => $this->__('Summary of Your Review'),
+            'required' => 'true'
         ));
         $reviewFieldset->addField('detail', 'textarea', array(
-            'label'     => $this->__('Review'),
-            'required'  => 'true'
+            'label' => $this->__('Review'),
+            'required' => 'true'
         ));
 
         return $xmlReview->asNiceXml();
@@ -102,8 +104,8 @@ class Mage_XmlConnect_Block_Review_Form extends Mage_Core_Block_Abstract
     {
         if (is_null($this->_ratings)) {
             $this->_ratings = Mage::getModel('rating/rating')->getResourceCollection()->addEntityFilter('product')
-                ->setPositionOrder()->addRatingPerStoreName(Mage::app()->getStore()->getId())
-                ->setStoreFilter(Mage::app()->getStore()->getId())->load()->addOptionToItems();
+                            ->setPositionOrder()->addRatingPerStoreName(Mage::app()->getStore()->getId())
+                            ->setStoreFilter(Mage::app()->getStore()->getId())->load()->addOptionToItems();
 
             if (!$this->_ratings->getSize()) {
                 $this->_ratings = false;
@@ -111,4 +113,5 @@ class Mage_XmlConnect_Block_Review_Form extends Mage_Core_Block_Abstract
         }
         return $this->_ratings;
     }
+
 }

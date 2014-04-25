@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,18 +24,17 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
-class Varien_Image_Adapter 
+class Varien_Image_Adapter
 {
-    const ADAPTER_GD    = 'GD';
-    const ADAPTER_GD2   = 'GD2';
-    const ADAPTER_IM    = 'IMAGEMAGIC';
-    const ADAPTER_IME   = 'IMAGEMAGIC_EXTERNAL';
+
+    const ADAPTER_GD = 'GD';
+    const ADAPTER_GD2 = 'GD2';
+    const ADAPTER_IM = 'IMAGEMAGIC';
+    const ADAPTER_IME = 'IMAGEMAGIC_EXTERNAL';
 
     public static function factory($adapter)
     {
-        switch( $adapter ) {
+        switch ($adapter) {
             case self::ADAPTER_GD:
                 return new Varien_Image_Adapter_Gd();
                 break;
@@ -56,4 +56,5 @@ class Varien_Image_Adapter
                 break;
         }
     }
+
 }

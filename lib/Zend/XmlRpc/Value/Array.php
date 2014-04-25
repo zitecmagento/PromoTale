@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Array.php 22024 2010-04-27 18:08:24Z matthew $
  */
-
-
 /**
  * Zend_XmlRpc_Value_Collection
  */
 #require_once 'Zend/XmlRpc/Value/Collection.php';
-
 
 /**
  * @category   Zend
@@ -36,6 +34,7 @@
  */
 class Zend_XmlRpc_Value_Array extends Zend_XmlRpc_Value_Collection
 {
+
     /**
      * Set the value of an array native type
      *
@@ -47,7 +46,6 @@ class Zend_XmlRpc_Value_Array extends Zend_XmlRpc_Value_Collection
         parent::__construct($value);
     }
 
-
     /**
      * Generate the XML code that represent an array native MXL-RPC value
      *
@@ -57,8 +55,8 @@ class Zend_XmlRpc_Value_Array extends Zend_XmlRpc_Value_Collection
     {
         $generator = $this->getGenerator();
         $generator->openElement('value')
-                  ->openElement('array')
-                  ->openElement('data');
+                ->openElement('array')
+                ->openElement('data');
 
         if (is_array($this->_value)) {
             foreach ($this->_value as $val) {
@@ -66,8 +64,8 @@ class Zend_XmlRpc_Value_Array extends Zend_XmlRpc_Value_Collection
             }
         }
         $generator->closeElement('data')
-                  ->closeElement('array')
-                  ->closeElement('value');
+                ->closeElement('array')
+                ->closeElement('value');
     }
-}
 
+}

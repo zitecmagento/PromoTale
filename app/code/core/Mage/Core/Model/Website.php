@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -42,11 +43,12 @@
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 {
-    const ENTITY    = 'core_website';
+
+    const ENTITY = 'core_website';
     const CACHE_TAG = 'website';
+
     protected $_cacheTag = true;
 
     /**
@@ -178,18 +180,18 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             return $this;
         }
         if (is_numeric($code)) {
-            foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode=>$website) {
-                if ((int)$website->system->website->id==$code) {
+            foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode => $website) {
+                if ((int) $website->system->website->id == $code) {
                     $code = $websiteCode;
                     break;
                 }
             }
         } else {
-            $website = Mage::getConfig()->getNode('websites/'.$code);
+            $website = Mage::getConfig()->getNode('websites/' . $code);
         }
         if (!empty($website)) {
             $this->setCode($code);
-            $id = (int)$website->system->website->id;
+            $id = (int) $website->system->website->id;
             $this->setId($id)->setStoreId($id);
         }
         return $this;
@@ -201,21 +203,22 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * @param string $path
      * @return mixed
      */
-    public function getConfig($path) {
+    public function getConfig($path)
+    {
         if (!isset($this->_configCache[$path])) {
 
-            $config = Mage::getConfig()->getNode('websites/'.$this->getCode().'/'.$path);
+            $config = Mage::getConfig()->getNode('websites/' . $this->getCode() . '/' . $path);
             if (!$config) {
                 return false;
                 #throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid website\'s configuration path: %s', $path));
             }
             if ($config->hasChildren()) {
                 $value = array();
-                foreach ($config->children() as $k=>$v) {
+                foreach ($config->children() as $k => $v) {
                     $value[$k] = $v;
                 }
             } else {
-                $value = (string)$config;
+                $value = (string) $config;
             }
             $this->_configCache[$path] = $value;
         }
@@ -268,8 +271,8 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     public function getGroupCollection()
     {
         return Mage::getModel('core/store_group')
-            ->getCollection()
-            ->addWebsiteFilter($this->getId());
+                        ->getCollection()
+                        ->addWebsiteFilter($this->getId());
     }
 
     /**
@@ -374,8 +377,8 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     public function getStoreCollection()
     {
         return Mage::getModel('core/store')
-            ->getCollection()
-            ->addWebsiteFilter($this->getId());
+                        ->getCollection()
+                        ->addWebsiteFilter($this->getId());
     }
 
     /**
@@ -441,8 +444,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             return false;
         }
         if (is_null($this->_isCanDelete)) {
-            $this->_isCanDelete = (Mage::getModel('core/website')->getCollection()->getSize() > 2)
-                && !$this->getIsDefault();
+            $this->_isCanDelete = (Mage::getModel('core/website')->getCollection()->getSize() > 2) && !$this->getIsDefault();
         }
         return $this->_isCanDelete;
     }
@@ -494,8 +496,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      */
     public function getBaseCurrencyCode()
     {
-        if ($this->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE)
-            == Mage_Core_Model_Store::PRICE_SCOPE_GLOBAL
+        if ($this->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE) == Mage_Core_Model_Store::PRICE_SCOPE_GLOBAL
         ) {
             return Mage::app()->getBaseCurrencyCode();
         } else {
@@ -551,8 +552,9 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     public function isReadOnly($value = null)
     {
         if (null !== $value) {
-            $this->_isReadOnly = (bool)$value;
+            $this->_isReadOnly = (bool) $value;
         }
         return $this->_isReadOnly;
     }
+
 }

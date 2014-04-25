@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 class Zend_Reflection_Parameter extends ReflectionParameter
 {
+
     /**
      * @var bool
      */
@@ -40,7 +42,7 @@ class Zend_Reflection_Parameter extends ReflectionParameter
      */
     public function getDeclaringClass($reflectionClass = 'Zend_Reflection_Class')
     {
-        $phpReflection  = parent::getDeclaringClass();
+        $phpReflection = parent::getDeclaringClass();
         $zendReflection = new $reflectionClass($phpReflection->getName());
         if (!$zendReflection instanceof Zend_Reflection_Class) {
             #require_once 'Zend/Reflection/Exception.php';
@@ -58,8 +60,8 @@ class Zend_Reflection_Parameter extends ReflectionParameter
      */
     public function getClass($reflectionClass = 'Zend_Reflection_Class')
     {
-        $phpReflection  = parent::getClass();
-        if($phpReflection == null) {
+        $phpReflection = parent::getClass();
+        if ($phpReflection == null) {
             return null;
         }
 
@@ -115,9 +117,9 @@ class Zend_Reflection_Parameter extends ReflectionParameter
             if (isset($params[$this->getPosition()])) {
                 return $params[$this->getPosition()]->getType();
             }
-
         }
 
         return null;
     }
+
 }

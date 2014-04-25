@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 class Zend_Service_DeveloperGarden_SecurityTokenServer_Cache
 {
+
     /**
      * array with stored tokens
      *
@@ -61,7 +63,9 @@ class Zend_Service_DeveloperGarden_SecurityTokenServer_Cache
      */
     protected function __construct()
     {
+        
     }
+
 // @codeCoverageIgnoreEnd
 
     /**
@@ -76,7 +80,7 @@ class Zend_Service_DeveloperGarden_SecurityTokenServer_Cache
         if (!array_key_exists($tokenId, self::$_storedToken)) {
             #require_once 'Zend/Service/DeveloperGarden/Exception.php';
             throw new Zend_Service_DeveloperGarden_Exception(
-                'tokenID ' . $tokenId . ' unknown.'
+            'tokenID ' . $tokenId . ' unknown.'
             );
         }
 
@@ -99,13 +103,13 @@ class Zend_Service_DeveloperGarden_SecurityTokenServer_Cache
      * @param Zend_Service_DeveloperGarden_Response_SecurityTokenServer_Interface $tokenValue
      * @return void
      */
-    public static function setTokenToCache($tokenId,
-        Zend_Service_DeveloperGarden_Response_SecurityTokenServer_Interface $tokenValue
-    ) {
+    public static function setTokenToCache($tokenId, Zend_Service_DeveloperGarden_Response_SecurityTokenServer_Interface $tokenValue
+    )
+    {
         if (!array_key_exists($tokenId, self::$_storedToken)) {
             #require_once 'Zend/Service/DeveloperGarden/Exception.php';
             throw new Zend_Service_DeveloperGarden_Exception(
-                'tokenID ' . $tokenId . ' unknown.'
+            'tokenID ' . $tokenId . ' unknown.'
             );
         }
 
@@ -204,4 +208,5 @@ class Zend_Service_DeveloperGarden_SecurityTokenServer_Cache
     {
         self::$_wsdlCache = $cache;
     }
+
 }

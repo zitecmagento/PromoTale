@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,10 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /*
  * Class Mage_Shipping_Model_Carrier_Tablerate
  */
-class Mage_Shipping_Model_Carrier_Tablerate
-    extends Mage_Shipping_Model_Carrier_Abstract
-    implements Mage_Shipping_Model_Carrier_Interface
+class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
 
     /**
@@ -63,6 +61,7 @@ class Mage_Shipping_Model_Carrier_Tablerate
     /*
      * Constructor
      */
+
     public function __construct()
     {
         parent::__construct();
@@ -237,19 +236,16 @@ class Mage_Shipping_Model_Carrier_Tablerate
     public function getCode($type, $code = '')
     {
         $codes = array(
-
             'condition_name' => array(
                 'package_weight' => Mage::helper('shipping')->__('Weight vs. Destination'),
                 'package_value' => Mage::helper('shipping')->__('Price vs. Destination'),
                 'package_qty' => Mage::helper('shipping')->__('# of Items vs. Destination'),
             ),
-
             'condition_name_short' => array(
                 'package_weight' => Mage::helper('shipping')->__('Weight (and above)'),
                 'package_value' => Mage::helper('shipping')->__('Order Subtotal (and above)'),
                 'package_qty' => Mage::helper('shipping')->__('# of Items (and above)'),
             ),
-
         );
 
         if (!isset($codes[$type])) {

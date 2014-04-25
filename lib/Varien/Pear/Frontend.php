@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Varien_Pear
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Varien_Pear_Frontend extends PEAR_Frontend
 {
+
     protected $_logStream = null;
     protected $_outStream = null;
     protected $_log = array();
@@ -57,7 +58,7 @@ class Varien_Pear_Frontend extends PEAR_Frontend
 
     public function log($msg, $append_crlf = true)
     {
-        if (is_null($msg) || false===$msg or ''===$msg) {
+        if (is_null($msg) || false === $msg or '' === $msg) {
             return;
         }
 
@@ -67,28 +68,27 @@ class Varien_Pear_Frontend extends PEAR_Frontend
 
         $this->_log[] = $msg;
 
-        if ('stdout'===$this->_logStream) {
-            if ($msg==='.') {
+        if ('stdout' === $this->_logStream) {
+            if ($msg === '.') {
                 echo ' ';
             }
             echo $msg;
-        }
-        elseif (is_resource($this->_logStream)) {
+        } elseif (is_resource($this->_logStream)) {
             fwrite($this->_logStream, $msg);
         }
     }
 
     public function outputData($data, $command = '_default')
     {
-        $this->_out[] = array('output'=>$data, 'command'=>$command);
+        $this->_out[] = array('output' => $data, 'command' => $command);
 
-        if ('stdout'===$this->_logStream) {
+        if ('stdout' === $this->_logStream) {
             if (is_string($data)) {
-                echo $data."\r\n";
+                echo $data . "\r\n";
             } elseif (is_array($data) && !empty($data['message']) && is_string($data['message'])) {
-                echo $data['message']."\r\n";
+                echo $data['message'] . "\r\n";
             } elseif (is_array($data) && !empty($data['data']) && is_string($data['data'])) {
-                echo $data['data']."\r\n";
+                echo $data['data'] . "\r\n";
             } else {
                 print_r($data);
             }
@@ -97,7 +97,7 @@ class Varien_Pear_Frontend extends PEAR_Frontend
 
     public function userConfirm()
     {
-
+        
     }
 
     public function clear()
@@ -124,4 +124,5 @@ class Varien_Pear_Frontend extends PEAR_Frontend
     {
         return $this->_out;
     }
+
 }

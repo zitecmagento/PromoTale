@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Api2
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission
-    implements Mage_Api2_Model_Acl_PermissionInterface
+class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission implements Mage_Api2_Model_Acl_PermissionInterface
 {
+
     /**
      * Resources permissions
      *
@@ -84,19 +85,17 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission
 
             /** @var $node Varien_Simplexml_Element */
             foreach ($config->getResources() as $resourceType => $node) {
-                $resourceId = (string)$resourceType;
-                $allowedRoles = (array)$node->privileges;
+                $resourceId = (string) $resourceType;
+                $allowedRoles = (array) $node->privileges;
                 $allowedPrivileges = array();
                 if (isset($allowedRoles[$roleConfigNodeName])) {
                     $allowedPrivileges = $allowedRoles[$roleConfigNodeName];
                 }
                 foreach ($privileges as $privilege) {
-                    if (empty($allowedPrivileges[$privilege])
-                        && isset($rulesPairs[$resourceId][$roleConfigNodeName]['privileges'][$privilege])
+                    if (empty($allowedPrivileges[$privilege]) && isset($rulesPairs[$resourceId][$roleConfigNodeName]['privileges'][$privilege])
                     ) {
                         unset($rulesPairs[$resourceId][$roleConfigNodeName]['privileges'][$privilege]);
-                    } elseif (!empty($allowedPrivileges[$privilege])
-                        && !isset($rulesPairs[$resourceId][$roleConfigNodeName]['privileges'][$privilege])
+                    } elseif (!empty($allowedPrivileges[$privilege]) && !isset($rulesPairs[$resourceId][$roleConfigNodeName]['privileges'][$privilege])
                     ) {
                         $deniedType = Mage_Api2_Model_Acl_Global_Rule_Permission::TYPE_DENY;
                         $rulesPairs[$resourceId]['privileges'][$roleConfigNodeName][$privilege] = $deniedType;
@@ -119,4 +118,5 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission
             $this->_role = $role;
         }
     }
+
 }

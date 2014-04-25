@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
 {
+
     /**
      * Position of "OR" label against shortcut
      */
@@ -68,8 +70,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
         $result = parent::_beforeToHtml();
         $config = Mage::getModel('paypal/config', array($this->_paymentMethodCode));
         $isInCatalog = $this->getIsInCatalogProduct();
-        $quote = ($isInCatalog || '' == $this->getIsQuoteAllowed())
-            ? null : Mage::getSingleton('checkout/session')->getQuote();
+        $quote = ($isInCatalog || '' == $this->getIsQuoteAllowed()) ? null : Mage::getSingleton('checkout/session')->getQuote();
 
         // check visibility on cart or product page
         $context = $isInCatalog ? 'visible_on_product' : 'visible_on_cart';
@@ -83,7 +84,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
             /** @var $currentProduct Mage_Catalog_Model_Product */
             $currentProduct = Mage::registry('current_product');
             if (!is_null($currentProduct)) {
-                $productPrice = (float)$currentProduct->getFinalPrice();
+                $productPrice = (float) $currentProduct->getFinalPrice();
                 if (empty($productPrice) && !$currentProduct->isGrouped()) {
                     $this->_shouldRender = false;
                     return $result;
@@ -91,8 +92,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
             }
         }
         // validate minimum quote amount and validate quote for zero grandtotal
-        if (null !== $quote && (!$quote->validateMinimumAmount()
-            || (!$quote->getGrandTotal() && !$quote->hasNominalItems()))) {
+        if (null !== $quote && (!$quote->validateMinimumAmount() || (!$quote->getGrandTotal() && !$quote->hasNominalItems()))) {
             $this->_shouldRender = false;
             return $result;
         }
@@ -106,7 +106,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
 
         // set misc data
         $this->setShortcutHtmlId($this->helper('core')->uniqHash('ec_shortcut_'))
-            ->setCheckoutUrl($this->getUrl($this->_startAction))
+                ->setCheckoutUrl($this->getUrl($this->_startAction))
         ;
 
         // use static image if in catalog
@@ -114,16 +114,15 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
             $this->setImageUrl($config->getExpressCheckoutShortcutImageUrl(Mage::app()->getLocale()->getLocaleCode()));
         } else {
             $this->setImageUrl(Mage::getModel($this->_checkoutType, array(
-                'quote'  => $quote,
-                'config' => $config,
-            ))->getCheckoutShortcutImageUrl());
+                        'quote' => $quote,
+                        'config' => $config,
+                    ))->getCheckoutShortcutImageUrl());
         }
 
         // ask whether to create a billing agreement
         $customerId = Mage::getSingleton('customer/session')->getCustomerId(); // potential issue for caching
         if (Mage::helper('paypal')->shouldAskToCreateBillingAgreement($config, $customerId)) {
-            $this->setConfirmationUrl($this->getUrl($this->_startAction,
-                array(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT => 1)
+            $this->setConfirmationUrl($this->getUrl($this->_startAction, array(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT => 1)
             ));
             $this->setConfirmationMessage(Mage::helper('paypal')->__('Would you like to sign a billing agreement to streamline further purchases with PayPal?'));
         }
@@ -151,9 +150,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
      */
     public function isOrPositionBefore()
     {
-        return ($this->getIsInCatalogProduct() && !$this->getShowOrPosition())
-            || ($this->getShowOrPosition() && $this->getShowOrPosition() == self::POSITION_BEFORE);
-
+        return ($this->getIsInCatalogProduct() && !$this->getShowOrPosition()) || ($this->getShowOrPosition() && $this->getShowOrPosition() == self::POSITION_BEFORE);
     }
 
     /**
@@ -163,7 +160,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
      */
     public function isOrPositionAfter()
     {
-        return (!$this->getIsInCatalogProduct() && !$this->getShowOrPosition())
-            || ($this->getShowOrPosition() && $this->getShowOrPosition() == self::POSITION_AFTER);
+        return (!$this->getIsInCatalogProduct() && !$this->getShowOrPosition()) || ($this->getShowOrPosition() && $this->getShowOrPosition() == self::POSITION_AFTER);
     }
+
 }

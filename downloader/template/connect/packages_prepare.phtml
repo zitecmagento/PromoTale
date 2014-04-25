@@ -25,54 +25,54 @@
  */
 ?>
 <?php
-    $packages = $this->get('packages');
-    $errors = $this->get('errors');
-    $cnt = count($packages);
-    if($cnt):
-?>
-Extension dependencies
-<form action="<?php
-    echo $this->url('connectInstallPackagePost')?>" method="post" target="connect_iframe" onsubmit="onSubmit(this)">
-    <input type="hidden" name="install_package_id" value="<?php echo $this->get('package_id'); ?>">
-    <table cellspacing="0" cellpadding="0" width="100%">
-        <col width="150" />
-        <col width="250" />
-        <col width="150" />
-        <col width="100" />
-        <thead>
-            <tr>
-                <th class="first">Channel</th>
-                <th class="first">Package Name</th>
-                <th>Version</th>
-                <th class="last">Status</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($packages as $pkg): ?>
-            <tr class="<?php echo $pkg['status']?>">
-                <td class="first"><?php echo $pkg['channel']?></td>
-                <td><?php echo $pkg['name']?></td>
-                <td><?php echo $pkg['version'] . (!empty($pkg['stability']) ? ' (' . $pkg['stability'] . ')' : '')?></td>
-                <td class="last"><?php echo $pkg['message']?></td>
-            </tr>
-        <?php endforeach;?>
-        </tbody>
-    </table>
-    <div class="form-btn-set">
-        <button class="f-right" type="submit">Proceed</button>
-        <button class="f-right" style="margin-right:10px;" onclick="$('prepare_package_result').update();" type="reset">Cancel installation</button>
-    </div>
-</form>
-<?php
+$packages = $this->get('packages');
+$errors = $this->get('errors');
+$cnt = count($packages);
+if ($cnt):
+    ?>
+    Extension dependencies
+    <form action="<?php echo $this->url('connectInstallPackagePost') ?>" method="post" target="connect_iframe" onsubmit="onSubmit(this)">
+        <input type="hidden" name="install_package_id" value="<?php echo $this->get('package_id'); ?>">
+        <table cellspacing="0" cellpadding="0" width="100%">
+            <col width="150" />
+            <col width="250" />
+            <col width="150" />
+            <col width="100" />
+            <thead>
+                <tr>
+                    <th class="first">Channel</th>
+                    <th class="first">Package Name</th>
+                    <th>Version</th>
+                    <th class="last">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($packages as $pkg): ?>
+                    <tr class="<?php echo $pkg['status'] ?>">
+                        <td class="first"><?php echo $pkg['channel'] ?></td>
+                        <td><?php echo $pkg['name'] ?></td>
+                        <td><?php echo $pkg['version'] . (!empty($pkg['stability']) ? ' (' . $pkg['stability'] . ')' : '') ?></td>
+                        <td class="last"><?php echo $pkg['message'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <div class="form-btn-set">
+            <button class="f-right" type="submit">Proceed</button>
+            <button class="f-right" style="margin-right:10px;" onclick="$('prepare_package_result').update();" type="reset">Cancel installation</button>
+        </div>
+    </form>
+    <?php
 endif;
 if (!$cnt || !empty($errors['error'])):
-    $_errors = array('error'=>array('Extension key is not valid.'));
-    if(!empty($errors) && is_array($errors)) $_errors = $errors;
+    $_errors = array('error' => array('Extension key is not valid.'));
+    if (!empty($errors) && is_array($errors))
+        $_errors = $errors;
     $this->set('messages', $_errors)
-?>
-<div id="packages_failure">
-    <?php echo $this->template('messages.phtml') ?>
-</div>
-<?php
+    ?>
+    <div id="packages_failure">
+        <?php echo $this->template('messages.phtml') ?>
+    </div>
+    <?php
 endif;
 ?>

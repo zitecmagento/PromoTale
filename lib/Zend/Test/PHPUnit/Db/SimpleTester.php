@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SimpleTester.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see PHPUnit_Extensions_Database_DefaultTester
  */
@@ -62,6 +62,7 @@
  */
 class Zend_Test_PHPUnit_Db_SimpleTester extends PHPUnit_Extensions_Database_DefaultTester
 {
+
     /**
      * Creates a new default database tester using the given connection.
      *
@@ -69,9 +70,9 @@ class Zend_Test_PHPUnit_Db_SimpleTester extends PHPUnit_Extensions_Database_Defa
      */
     public function __construct(PHPUnit_Extensions_Database_DB_IDatabaseConnection $connection)
     {
-        if(!($connection instanceof Zend_Test_PHPUnit_Db_Connection)) {
+        if (!($connection instanceof Zend_Test_PHPUnit_Db_Connection)) {
             #require_once "Zend/Test/PHPUnit/Db/Exception.php";
-            throw new Zend_Test_PHPUnit_Db_Exception("Not a valid Zend_Test_PHPUnit_Db_Connection instance, ".get_class($connection)." given!");
+            throw new Zend_Test_PHPUnit_Db_Exception("Not a valid Zend_Test_PHPUnit_Db_Connection instance, " . get_class($connection) . " given!");
         }
 
         $this->connection = $connection;
@@ -92,4 +93,5 @@ class Zend_Test_PHPUnit_Db_SimpleTester extends PHPUnit_Extensions_Database_Defa
         $this->setDataSet($dataSet);
         $this->onSetUp();
     }
+
 }

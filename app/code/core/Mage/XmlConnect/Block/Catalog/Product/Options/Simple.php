@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Options_Simple extends Mage_XmlConnect_Block_Catalog_Product_Options
 {
+
     /**
      * Generate simple product options xml
      *
@@ -45,4 +47,5 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Simple extends Mage_XmlConne
         $xmlModel = $this->getProductCustomOptionsXmlObject($product);
         return $isObject ? $xmlModel : $xmlModel->asNiceXml();
     }
+
 }

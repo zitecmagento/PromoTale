@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Catalog_Search_Suggest extends Mage_CatalogSearch_Block_Autocomplete
 {
+
     /**
      * Suggest item separator
      */
@@ -60,11 +62,12 @@ class Mage_XmlConnect_Block_Catalog_Search_Suggest extends Mage_CatalogSearch_Bl
         $items = '';
         foreach ($suggestData as $item) {
             $items .= $suggestXmlObj->escapeXml($item['title']) . self::SUGGEST_ITEM_SEPARATOR
-                . (int)$item['num_of_results'] . self::SUGGEST_ITEM_SEPARATOR;
+                    . (int) $item['num_of_results'] . self::SUGGEST_ITEM_SEPARATOR;
         }
 
         $suggestXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<suggestions>' . $items . '</suggestions>');
 
         return $suggestXmlObj->asNiceXml();
     }
+
 }

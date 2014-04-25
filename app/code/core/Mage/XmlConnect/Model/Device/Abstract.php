@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_XmlConnect_Model_Device_Abstract extends Mage_Core_Model_Abstract
 {
+
     /**
      * Icon image type
      */
@@ -67,9 +69,9 @@ abstract class Mage_XmlConnect_Model_Device_Abstract extends Mage_Core_Model_Abs
      */
     protected $_defaultSizeConfiguration = array(
         'content' => array(
-            'product_small'         => 70,
-            'product_big'           => 130,
-            'category'              => 80,
+            'product_small' => 70,
+            'product_big' => 130,
+            'category' => 80,
             'product_gallery_small' => 40
         ),
         'tabBar' => array(
@@ -148,7 +150,7 @@ abstract class Mage_XmlConnect_Model_Device_Abstract extends Mage_Core_Model_Abs
             return array_replace_recursive($this->_getDefaultSizeConfiguration(), $this->_getImageSizeConfiguration());
         } else {
             return $this->_arrayReplaceRecursive(
-                $this->_getDefaultSizeConfiguration(), $this->_getImageSizeConfiguration()
+                            $this->_getDefaultSizeConfiguration(), $this->_getImageSizeConfiguration()
             );
         }
     }
@@ -176,4 +178,5 @@ abstract class Mage_XmlConnect_Model_Device_Abstract extends Mage_Core_Model_Abs
         }
         return $base;
     }
+
 }

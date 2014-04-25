@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Report_Shopcart_Customer extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     public function __construct()
     {
         $this->_controller = 'report_shopcart_customer';
@@ -41,4 +42,5 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer extends Mage_Adminhtml_Block
         parent::__construct();
         $this->_removeButton('add');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Links block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Block_Guest_Links extends Mage_Page_Block_Template_Links_Block
 {
+
     /**
      * Set link title, label and url
      */
@@ -42,9 +43,10 @@ class Mage_Sales_Block_Guest_Links extends Mage_Page_Block_Template_Links_Block
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             parent::__construct();
 
-            $this->_label       = $this->__('Orders and Returns');
-            $this->_title       = $this->__('Orders and Returns');
-            $this->_url         = $this->getUrl('sales/guest/form');
+            $this->_label = $this->__('Orders and Returns');
+            $this->_title = $this->__('Orders and Returns');
+            $this->_url = $this->getUrl('sales/guest/form');
         }
     }
+
 }

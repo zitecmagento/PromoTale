@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Connect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Release
-    extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
+class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Release extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
 {
+
     /**
      * Prepare Release Info Form before rendering HTML
      *
@@ -47,27 +48,27 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Release
         $form->setHtmlIdPrefix('_release');
 
         $fieldset = $form->addFieldset('release_fieldset', array(
-            'legend'    => Mage::helper('adminhtml')->__('Release')
+            'legend' => Mage::helper('adminhtml')->__('Release')
         ));
 
         $stabilityOptions = Mage::getModel('connect/extension')->getStabilityOptions();
         $fieldset->addField('version', 'text', array(
-            'name'      => 'version',
-            'label'     => Mage::helper('adminhtml')->__('Release Version'),
-            'required'  => true,
+            'name' => 'version',
+            'label' => Mage::helper('adminhtml')->__('Release Version'),
+            'required' => true,
         ));
 
         $fieldset->addField('stability', 'select', array(
-            'name'      => 'stability',
-            'label'     => Mage::helper('adminhtml')->__('Release Stability'),
-            'options'   => $stabilityOptions,
+            'name' => 'stability',
+            'label' => Mage::helper('adminhtml')->__('Release Stability'),
+            'options' => $stabilityOptions,
         ));
 
         $fieldset->addField('notes', 'textarea', array(
-            'name'      => 'notes',
-            'label'     => Mage::helper('adminhtml')->__('Notes'),
-            'style'     => 'height:300px;',
-            'required'  => true,
+            'name' => 'notes',
+            'label' => Mage::helper('adminhtml')->__('Notes'),
+            'style' => 'height:300px;',
+            'required' => true,
         ));
 
         $form->setValues($this->getData());
@@ -95,4 +96,5 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Release
     {
         return Mage::helper('connect')->__('Release Info');
     }
+
 }

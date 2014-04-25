@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,7 +32,6 @@
  * @package    Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_Model_Entity_Order_Item extends Mage_Eav_Model_Entity_Abstract
 {
 
@@ -39,8 +39,7 @@ class Mage_Sales_Model_Entity_Order_Item extends Mage_Eav_Model_Entity_Abstract
     {
         $resource = Mage::getSingleton('core/resource');
         $this->setType('order_item')->setConnection(
-            $resource->getConnection('sales_read'),
-            $resource->getConnection('sales_write')
+                $resource->getConnection('sales_read'), $resource->getConnection('sales_write')
         );
     }
 

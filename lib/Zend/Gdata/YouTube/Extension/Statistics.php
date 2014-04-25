@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Statistics.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Extension
  */
@@ -98,9 +97,7 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
      * @param string $lastWebAccess(optional) The lastWebAccess value
      * @param string $favoriteCount(optional) The favoriteCount value
      */
-    public function __construct($viewCount = null, $videoWatchCount = null,
-        $subscriberCount = null, $lastWebAccess = null,
-        $favoriteCount = null)
+    public function __construct($viewCount = null, $videoWatchCount = null, $subscriberCount = null, $lastWebAccess = null, $favoriteCount = null)
     {
         $this->registerAllNamespaces(Zend_Gdata_YouTube::$namespaces);
         parent::__construct();
@@ -131,16 +128,13 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
             $element->setAttribute('viewCount', $this->_viewCount);
         }
         if ($this->_subscriberCount !== null) {
-            $element->setAttribute('subscriberCount',
-                $this->_subscriberCount);
+            $element->setAttribute('subscriberCount', $this->_subscriberCount);
         }
         if ($this->_lastWebAccess !== null) {
-            $element->setAttribute('lastWebAccess',
-                $this->_lastWebAccess);
+            $element->setAttribute('lastWebAccess', $this->_lastWebAccess);
         }
         if ($this->_favoriteCount !== null) {
-            $element->setAttribute('favoriteCount',
-                $this->_favoriteCount);
+            $element->setAttribute('favoriteCount', $this->_favoriteCount);
         }
         return $element;
     }
@@ -156,23 +150,23 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
     protected function takeAttributeFromDOM($attribute)
     {
         switch ($attribute->localName) {
-        case 'videoWatchCount':
-            $this->_videoWatchCount = $attribute->nodeValue;
-            break;
-        case 'viewCount':
-            $this->_viewCount = $attribute->nodeValue;
-            break;
-        case 'subscriberCount':
-            $this->_subscriberCount = $attribute->nodeValue;
-            break;
-        case 'lastWebAccess':
-            $this->_lastWebAccess = $attribute->nodeValue;
-            break;
-        case 'favoriteCount':
-            $this->_favoriteCount = $attribute->nodeValue;
-            break;
-        default:
-            parent::takeAttributeFromDOM($attribute);
+            case 'videoWatchCount':
+                $this->_videoWatchCount = $attribute->nodeValue;
+                break;
+            case 'viewCount':
+                $this->_viewCount = $attribute->nodeValue;
+                break;
+            case 'subscriberCount':
+                $this->_subscriberCount = $attribute->nodeValue;
+                break;
+            case 'lastWebAccess':
+                $this->_lastWebAccess = $attribute->nodeValue;
+                break;
+            case 'favoriteCount':
+                $this->_favoriteCount = $attribute->nodeValue;
+                break;
+            default:
+                parent::takeAttributeFromDOM($attribute);
         }
     }
 
@@ -300,10 +294,10 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
     public function __toString()
     {
         return 'View Count=' . $this->_viewCount .
-            ' VideoWatchCount=' . $this->_videoWatchCount .
-            ' SubscriberCount=' . $this->_subscriberCount .
-            ' LastWebAccess=' . $this->_lastWebAccess .
-            ' FavoriteCount=' . $this->_favoriteCount;
+                ' VideoWatchCount=' . $this->_videoWatchCount .
+                ' SubscriberCount=' . $this->_subscriberCount .
+                ' LastWebAccess=' . $this->_lastWebAccess .
+                ' FavoriteCount=' . $this->_favoriteCount;
     }
 
 }

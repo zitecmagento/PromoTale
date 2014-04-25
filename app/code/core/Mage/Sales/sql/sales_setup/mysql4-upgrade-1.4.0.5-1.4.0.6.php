@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,15 +24,12 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 $installer = $this;
 
-$installer->getConnection()->addColumn($installer->getTable('sales/shipping_aggregated_order'),
-    'total_shipping_actual', "decimal(12,4) NOT NULL default '0.0000'");
+$installer->getConnection()->addColumn($installer->getTable('sales/shipping_aggregated_order'), 'total_shipping_actual', "decimal(12,4) NOT NULL default '0.0000'");
 
-$installer->getConnection()->addColumn($installer->getTable('sales/shipping_aggregated'),
-    'total_shipping_actual', "decimal(12,4) NOT NULL default '0.0000'");
+$installer->getConnection()->addColumn($installer->getTable('sales/shipping_aggregated'), 'total_shipping_actual', "decimal(12,4) NOT NULL default '0.0000'");
 
 $installer->run("
 DROP TABLE `{$installer->getTable('sales/order_aggregated_created')}`;

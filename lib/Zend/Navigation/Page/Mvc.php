@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Mvc.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Navigation_Page
  */
@@ -49,6 +49,7 @@
  */
 class Zend_Navigation_Page_Mvc extends Zend_Navigation_Page
 {
+
     /**
      * Action name to use when assembling URL
      *
@@ -157,7 +158,7 @@ class Zend_Navigation_Page_Mvc extends Zend_Navigation_Page
             }
 
             if (count(array_intersect_assoc($reqParams, $myParams)) ==
-                count($myParams)) {
+                    count($myParams)) {
                 $this->_active = true;
                 return true;
             }
@@ -181,8 +182,7 @@ class Zend_Navigation_Page_Mvc extends Zend_Navigation_Page
         }
 
         if (null === self::$_urlHelper) {
-            self::$_urlHelper =
-                Zend_Controller_Action_HelperBroker::getStaticHelper('Url');
+            self::$_urlHelper = Zend_Controller_Action_HelperBroker::getStaticHelper('Url');
         }
 
         $params = $this->getParams();
@@ -199,9 +199,7 @@ class Zend_Navigation_Page_Mvc extends Zend_Navigation_Page
             $params['action'] = $param;
         }
 
-        $url = self::$_urlHelper->url($params,
-                                      $this->getRoute(),
-                                      $this->getResetParams());
+        $url = self::$_urlHelper->url($params, $this->getRoute(), $this->getResetParams());
 
         return $this->_hrefCache = $url;
     }
@@ -220,7 +218,7 @@ class Zend_Navigation_Page_Mvc extends Zend_Navigation_Page
         if (null !== $action && !is_string($action)) {
             #require_once 'Zend/Navigation/Exception.php';
             throw new Zend_Navigation_Exception(
-                    'Invalid argument: $action must be a string or null');
+            'Invalid argument: $action must be a string or null');
         }
 
         $this->_action = $action;
@@ -254,7 +252,7 @@ class Zend_Navigation_Page_Mvc extends Zend_Navigation_Page
         if (null !== $controller && !is_string($controller)) {
             #require_once 'Zend/Navigation/Exception.php';
             throw new Zend_Navigation_Exception(
-                    'Invalid argument: $controller must be a string or null');
+            'Invalid argument: $controller must be a string or null');
         }
 
         $this->_controller = $controller;
@@ -288,7 +286,7 @@ class Zend_Navigation_Page_Mvc extends Zend_Navigation_Page
         if (null !== $module && !is_string($module)) {
             #require_once 'Zend/Navigation/Exception.php';
             throw new Zend_Navigation_Exception(
-                    'Invalid argument: $module must be a string or null');
+            'Invalid argument: $module must be a string or null');
         }
 
         $this->_module = $module;
@@ -356,7 +354,7 @@ class Zend_Navigation_Page_Mvc extends Zend_Navigation_Page
         if (null !== $route && (!is_string($route) || strlen($route) < 1)) {
             #require_once 'Zend/Navigation/Exception.php';
             throw new Zend_Navigation_Exception(
-                 'Invalid argument: $route must be a non-empty string or null');
+            'Invalid argument: $route must be a non-empty string or null');
         }
 
         $this->_route = $route;
@@ -427,14 +425,14 @@ class Zend_Navigation_Page_Mvc extends Zend_Navigation_Page
     public function toArray()
     {
         return array_merge(
-            parent::toArray(),
-            array(
-                'action'       => $this->getAction(),
-                'controller'   => $this->getController(),
-                'module'       => $this->getModule(),
-                'params'       => $this->getParams(),
-                'route'        => $this->getRoute(),
-                'reset_params' => $this->getResetParams()
-            ));
+                parent::toArray(), array(
+            'action' => $this->getAction(),
+            'controller' => $this->getController(),
+            'module' => $this->getModule(),
+            'params' => $this->getParams(),
+            'route' => $this->getRoute(),
+            'reset_params' => $this->getResetParams()
+        ));
     }
+
 }

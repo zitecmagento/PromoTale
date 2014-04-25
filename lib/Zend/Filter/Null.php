@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Null.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Interface
  */
@@ -32,20 +32,21 @@
  */
 class Zend_Filter_Null implements Zend_Filter_Interface
 {
-    const BOOLEAN      = 1;
-    const INTEGER      = 2;
-    const EMPTY_ARRAY  = 4;
-    const STRING       = 8;
-    const ZERO         = 16;
-    const ALL          = 31;
+
+    const BOOLEAN = 1;
+    const INTEGER = 2;
+    const EMPTY_ARRAY = 4;
+    const STRING = 8;
+    const ZERO = 16;
+    const ALL = 31;
 
     protected $_constants = array(
-        self::BOOLEAN     => 'boolean',
-        self::INTEGER     => 'integer',
+        self::BOOLEAN => 'boolean',
+        self::INTEGER => 'integer',
         self::EMPTY_ARRAY => 'array',
-        self::STRING      => 'string',
-        self::ZERO        => 'zero',
-        self::ALL         => 'all'
+        self::STRING => 'string',
+        self::ZERO => 'zero',
+        self::ALL => 'all'
     );
 
     /**
@@ -66,7 +67,7 @@ class Zend_Filter_Null implements Zend_Filter_Interface
             $options = $options->toArray();
         } else if (!is_array($options)) {
             $options = func_get_args();
-            $temp    = array();
+            $temp = array();
             if (!empty($options)) {
                 $temp = array_shift($options);
             }
@@ -101,7 +102,7 @@ class Zend_Filter_Null implements Zend_Filter_Interface
     {
         if (is_array($type)) {
             $detected = 0;
-            foreach($type as $value) {
+            foreach ($type as $value) {
                 if (is_int($value)) {
                     $detected += $value;
                 } else if (in_array($value, $this->_constants)) {
@@ -180,4 +181,5 @@ class Zend_Filter_Null implements Zend_Filter_Interface
 
         return $value;
     }
+
 }

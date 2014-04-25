@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Block_Order_Creditmemo_Items extends Mage_Sales_Block_Items_Abstract
 {
+
     /**
      * Retrieve current order model instance
      *
@@ -82,9 +84,10 @@ class Mage_Sales_Block_Order_Creditmemo_Items extends Mage_Sales_Block_Items_Abs
         $comments = $this->getChild('creditmemo_comments');
         if ($comments) {
             $comments->setEntity($creditmemo)
-                ->setTitle(Mage::helper('sales')->__('About Your Refund'));
+                    ->setTitle(Mage::helper('sales')->__('About Your Refund'));
             $html = $comments->toHtml();
         }
         return $html;
     }
+
 }

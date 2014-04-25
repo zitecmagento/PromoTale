@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Phrase.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Search_Lucene_Search_QueryEntry */
 #require_once 'Zend/Search/Lucene/Search/QueryEntry.php';
 
@@ -32,6 +32,7 @@
  */
 class Zend_Search_Lucene_Search_QueryEntry_Phrase extends Zend_Search_Lucene_Search_QueryEntry
 {
+
     /**
      * Phrase value
      *
@@ -45,7 +46,6 @@ class Zend_Search_Lucene_Search_QueryEntry_Phrase extends Zend_Search_Lucene_Sea
      * @var string|null
      */
     private $_field;
-
 
     /**
      * Proximity phrase query
@@ -61,7 +61,6 @@ class Zend_Search_Lucene_Search_QueryEntry_Phrase extends Zend_Search_Lucene_Sea
      */
     private $_wordsDistance = 0;
 
-
     /**
      * Object constractor
      *
@@ -71,7 +70,7 @@ class Zend_Search_Lucene_Search_QueryEntry_Phrase extends Zend_Search_Lucene_Sea
     public function __construct($phrase, $field)
     {
         $this->_phrase = $phrase;
-        $this->_field  = $field;
+        $this->_field = $field;
     }
 
     /**
@@ -99,11 +98,9 @@ class Zend_Search_Lucene_Search_QueryEntry_Phrase extends Zend_Search_Lucene_Sea
     {
         /** Zend_Search_Lucene_Search_Query_Preprocessing_Phrase */
         #require_once 'Zend/Search/Lucene/Search/Query/Preprocessing/Phrase.php';
-        $query = new Zend_Search_Lucene_Search_Query_Preprocessing_Phrase($this->_phrase,
-                                                                          $encoding,
-                                                                          ($this->_field !== null)?
-                                                                              iconv($encoding, 'UTF-8', $this->_field) :
-                                                                              null);
+        $query = new Zend_Search_Lucene_Search_Query_Preprocessing_Phrase($this->_phrase, $encoding, ($this->_field !== null) ?
+                        iconv($encoding, 'UTF-8', $this->_field) :
+                        null);
 
         if ($this->_proximityQuery) {
             $query->setSlop($this->_wordsDistance);
@@ -113,4 +110,5 @@ class Zend_Search_Lucene_Search_QueryEntry_Phrase extends Zend_Search_Lucene_Sea
 
         return $query;
     }
+
 }

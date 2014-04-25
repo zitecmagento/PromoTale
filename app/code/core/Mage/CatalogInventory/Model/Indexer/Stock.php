@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogInventory Stock Status Indexer Model
  *
@@ -47,6 +47,7 @@
  */
 class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer_Abstract
 {
+
     /**
      * Data key for matching result to be saved in
      */
@@ -136,7 +137,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
-        $data       = $event->getNewData();
+        $data = $event->getNewData();
         if (isset($data[self::EVENT_MATCH_RESULT_KEY])) {
             return $data[self::EVENT_MATCH_RESULT_KEY];
         }
@@ -206,9 +207,9 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
                     $configData = $event->getDataObject();
                     if ($configData->getPath() == Mage_CatalogInventory_Helper_Data::XML_PATH_SHOW_OUT_OF_STOCK) {
                         Mage::getSingleton('index/indexer')->getProcessByCode('catalog_product_price')
-                            ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
+                                ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
                         Mage::getSingleton('index/indexer')->getProcessByCode('catalog_product_attribute')
-                            ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
+                                ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
                     }
                 }
                 break;
@@ -262,7 +263,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
     protected function _registerStockItemSaveEvent(Mage_Index_Model_Event $event)
     {
         /* @var $object Mage_CatalogInventory_Model_Stock_Item */
-        $object      = $event->getDataObject();
+        $object = $event->getDataObject();
 
         $event->addNewData('reindex_stock', 1);
         $event->addNewData('product_id', $object->getProductId());
@@ -274,7 +275,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
             $massObject->setAttributesData(array('force_reindex_required' => 1));
             $massObject->setProductIds(array($object->getProductId()));
             Mage::getSingleton('index/indexer')->logEvent(
-                $massObject, Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
+                    $massObject, Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
             );
         }
 
@@ -310,7 +311,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
     {
         /* @var $actionObject Varien_Object */
         $actionObject = $event->getDataObject();
-        $attributes   = array(
+        $attributes = array(
             'status'
         );
         $reindexStock = false;
@@ -354,4 +355,5 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
             $this->callEventHandler($event);
         }
     }
+
 }

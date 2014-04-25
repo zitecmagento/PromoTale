@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Sales_Model_Config
 {
+
     const XML_PATH_ORDER_STATES = 'global/sales/order/states';
 
     public function getQuoteRuleConditionInstance($type)
@@ -50,7 +50,7 @@ class Mage_Sales_Model_Config
     {
         $states = Mage::getConfig()->getNode(self::XML_PATH_ORDER_STATES);
         if (!isset($states->$state) || !isset($states->$state->statuses)) {
-           return array();
+            return array();
         }
 
         $statuses = array();
@@ -60,4 +60,5 @@ class Mage_Sales_Model_Config
         }
         return $statuses;
     }
+
 }

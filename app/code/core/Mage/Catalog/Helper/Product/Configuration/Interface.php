@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 interface Mage_Catalog_Helper_Product_Configuration_Interface
 {
+
     /**
      * Retrieves product options list
      *

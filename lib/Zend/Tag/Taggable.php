@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -28,6 +29,7 @@
  */
 interface Zend_Tag_Taggable
 {
+
     /**
      * Get the title of the tag
      *

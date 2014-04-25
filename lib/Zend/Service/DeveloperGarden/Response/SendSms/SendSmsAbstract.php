@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SendSmsAbstract.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Response_ResponseAbstract
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Service_DeveloperGarden_Response_SendSms_SendSmsAbstract
-    extends Zend_Service_DeveloperGarden_Response_ResponseAbstract
+abstract class Zend_Service_DeveloperGarden_Response_SendSms_SendSmsAbstract extends Zend_Service_DeveloperGarden_Response_ResponseAbstract
 {
+
     /**
      * the return from the sms request
      *
@@ -54,8 +54,7 @@ abstract class Zend_Service_DeveloperGarden_Response_SendSms_SendSmsAbstract
         if ($this->hasError()) {
             #require_once 'Zend/Service/DeveloperGarden/Response/Exception.php';
             throw new Zend_Service_DeveloperGarden_Response_Exception(
-                $this->getErrorMessage(),
-                $this->getErrorCode()
+            $this->getErrorMessage(), $this->getErrorCode()
             );
         }
 
@@ -97,8 +96,7 @@ abstract class Zend_Service_DeveloperGarden_Response_SendSms_SendSmsAbstract
      */
     public function isValid()
     {
-        return ($this->return === null
-                || $this->return->status == '0000');
+        return ($this->return === null || $this->return->status == '0000');
     }
 
     /**
@@ -109,11 +107,11 @@ abstract class Zend_Service_DeveloperGarden_Response_SendSms_SendSmsAbstract
     public function hasError()
     {
         $retValue = false;
-        if ($this->return instanceof stdClass
-            && $this->return->status != '0000'
+        if ($this->return instanceof stdClass && $this->return->status != '0000'
         ) {
             $retValue = true;
         }
         return $retValue;
     }
+
 }

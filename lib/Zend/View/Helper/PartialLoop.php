@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: PartialLoop.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_Partial */
 #require_once 'Zend/View/Helper/Partial.php';
 
@@ -62,13 +62,11 @@ class Zend_View_Helper_PartialLoop extends Zend_View_Helper_Partial
         }
 
         if ((null === $model) && (null !== $module)) {
-            $model  = $module;
+            $model = $module;
             $module = null;
         }
 
-        if (!is_array($model)
-            && (!$model instanceof Traversable)
-            && (is_object($model) && !method_exists($model, 'toArray'))
+        if (!is_array($model) && (!$model instanceof Traversable) && (is_object($model) && !method_exists($model, 'toArray'))
         ) {
             #require_once 'Zend/View/Helper/Partial/Exception.php';
             $e = new Zend_View_Helper_Partial_Exception('PartialLoop helper requires iterable data');
@@ -76,9 +74,7 @@ class Zend_View_Helper_PartialLoop extends Zend_View_Helper_Partial
             throw $e;
         }
 
-        if (is_object($model)
-            && (!$model instanceof Traversable)
-            && method_exists($model, 'toArray')
+        if (is_object($model) && (!$model instanceof Traversable) && method_exists($model, 'toArray')
         ) {
             $model = $model->toArray();
         }
@@ -95,4 +91,5 @@ class Zend_View_Helper_PartialLoop extends Zend_View_Helper_Partial
 
         return $content;
     }
+
 }

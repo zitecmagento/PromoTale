@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Eav Attributes abstract indexer resource model
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
-    extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
+abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
 {
+
     /**
      * Rebuild all index data
      *
@@ -45,7 +45,8 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
     {
         $this->useIdxTable(true);
         $this->beginTransaction();
-        try {
+        try
+        {
             $this->clearTemporaryIndexTable();
             $this->_prepareIndex();
             $this->_prepareRelationIndex();
@@ -53,7 +54,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
 
             $this->syncData();
             $this->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->rollBack();
             throw $e;
         }
@@ -83,7 +86,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
         if ($parentIds) {
             $processIds = array_unique(array_merge($processIds, $parentIds));
         }
-        $childIds  = $this->getRelationsByParent($processIds);
+        $childIds = $this->getRelationsByParent($processIds);
         if ($childIds) {
             $processIds = array_unique(array_merge($processIds, $childIds));
         }
@@ -93,7 +96,8 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
         $this->_removeNotVisibleEntityFromIndex();
 
         $adapter->beginTransaction();
-        try {
+        try
+        {
             // remove old index
             $where = $adapter->quoteInto('entity_id IN(?)', $processIds);
             $adapter->delete($this->getMainTable(), $where);
@@ -104,7 +108,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
             $this->useDisableKeys(true);
 
             $adapter->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $adapter->rollBack();
             throw $e;
         }
@@ -153,19 +159,15 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      */
     protected function _removeNotVisibleEntityFromIndex()
     {
-        $write      = $this->_getWriteAdapter();
-        $idxTable   = $this->getIdxTable();
+        $write = $this->_getWriteAdapter();
+        $idxTable = $this->getIdxTable();
 
         $select = $write->select()
-            ->from($idxTable, null);
+                ->from($idxTable, null);
 
-        $condition = $write->quoteInto('=?',Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE);
+        $condition = $write->quoteInto('=?', Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE);
         $this->_addAttributeToSelect(
-            $select,
-            'visibility',
-            $idxTable . '.entity_id',
-            $idxTable . '.store_id',
-            $condition
+                $select, 'visibility', $idxTable . '.entity_id', $idxTable . '.store_id', $condition
         );
 
         $query = $select->deleteFromSelect($idxTable);
@@ -182,22 +184,19 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      */
     protected function _prepareRelationIndex($parentIds = null)
     {
-        $write      = $this->_getWriteAdapter();
-        $idxTable   = $this->getIdxTable();
+        $write = $this->_getWriteAdapter();
+        $idxTable = $this->getIdxTable();
 
         $select = $write->select()
-            ->from(array('l' => $this->getTable('catalog/product_relation')), 'parent_id')
-            ->join(
-                array('cs' => $this->getTable('core/store')),
-                '',
-                array())
-            ->join(
-                array('i' => $idxTable),
-                'l.child_id = i.entity_id AND cs.store_id = i.store_id',
-                array('attribute_id', 'store_id', 'value'))
-            ->group(array(
-                'l.parent_id', 'i.attribute_id', 'i.store_id', 'i.value'
-            ));
+                ->from(array('l' => $this->getTable('catalog/product_relation')), 'parent_id')
+                ->join(
+                        array('cs' => $this->getTable('core/store')), '', array())
+                ->join(
+                        array('i' => $idxTable), 'l.child_id = i.entity_id AND cs.store_id = i.store_id', array('attribute_id',
+                    'store_id', 'value'))
+                ->group(array(
+            'l.parent_id', 'i.attribute_id', 'i.store_id', 'i.value'
+        ));
         if (!is_null($parentIds)) {
             $select->where('l.parent_id IN(?)', $parentIds);
         }
@@ -206,10 +205,10 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
          * Add additional external limitation
          */
         Mage::dispatchEvent('prepare_catalog_product_index_select', array(
-            'select'        => $select,
-            'entity_field'  => new Zend_Db_Expr('l.parent_id'),
+            'select' => $select,
+            'entity_field' => new Zend_Db_Expr('l.parent_id'),
             'website_field' => new Zend_Db_Expr('cs.website_id'),
-            'store_field'   => new Zend_Db_Expr('cs.store_id')
+            'store_field' => new Zend_Db_Expr('cs.store_id')
         ));
 
         $query = $write->insertFromSelect($select, $idxTable, array(), Varien_Db_Adapter_Interface::INSERT_IGNORE);
@@ -245,11 +244,14 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
     {
         $adapter = $this->_getWriteAdapter();
         $adapter->beginTransaction();
-        try {
+        try
+        {
             $where = $adapter->quoteInto('attribute_id = ?', $attributeId);
             $adapter->delete($this->getMainTable(), $where);
             $adapter->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $adapter->rollback();
             throw $e;
         }
@@ -268,7 +270,8 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
     {
         $adapter = $this->_getWriteAdapter();
         $adapter->beginTransaction();
-        try {
+        try
+        {
             // remove index by attribute
             $where = $adapter->quoteInto('attribute_id = ?', $attributeId);
             $adapter->delete($this->getMainTable(), $where);
@@ -277,11 +280,14 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
             $this->insertFromTable($this->getIdxTable(), $this->getMainTable());
 
             $adapter->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $adapter->rollback();
             throw $e;
         }
 
         return $this;
     }
+
 }

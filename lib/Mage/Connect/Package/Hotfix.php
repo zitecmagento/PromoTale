@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,14 +25,13 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
- /**
+/**
  * Class to work with Magento Connect Hotfix
  *
  * @category    Mage
  * @package     Mage_Connect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Connect_Package_Hotfix extends Mage_Connect_Package
 {
 
@@ -41,7 +41,7 @@ class Mage_Connect_Package_Hotfix extends Mage_Connect_Package
      * @param null|string $definition optional package definition xml
      * @return Mage_Connect_Package
      */
-    protected function _init($definition=null)
+    protected function _init($definition = null)
     {
 
         if (!is_null($definition)) {
@@ -73,10 +73,10 @@ END;
     }
 
     /**
-    * Add content to node <replace/>
-    *
-    * @return Mage_Connect_Package_Hotfix
-    */
+     * Add content to node <replace/>
+     *
+     * @return Mage_Connect_Package_Hotfix
+     */
     public function addReplace($path, $targetName)
     {
         $found = false;
@@ -87,7 +87,7 @@ END;
             $parent = $this->_getNode('dir', $parent, $directory);
         }
         $fileName = basename($path);
-        if ($fileName!='') {
+        if ($fileName != '') {
             $fileNode = $parent->addChild('file');
             $fileNode->addAttribute('name', $fileName);
         }
@@ -105,11 +105,11 @@ END;
      * @param string $include Include
      * @return Mage_Connect_Package
      */
-    public function addReplaceDir($targetName, $targetDir, $path, $exclude=null, $include=null)
+    public function addReplaceDir($targetName, $targetDir, $path, $exclude = null, $include = null)
     {
         $targetDirLen = strlen($targetDir);
         //get all subdirectories and files.
-        $entries = @glob($targetDir.$path.DS."*");
+        $entries = @glob($targetDir . $path . DS . "*");
         if (!empty($entries)) {
             foreach ($entries as $entry) {
                 $filePath = substr($entry, $targetDirLen);
@@ -121,7 +121,7 @@ END;
                 }
                 if (is_dir($entry)) {
                     $baseName = basename($entry);
-                    if ('.'===$baseName || '..'===$baseName) {
+                    if ('.' === $baseName || '..' === $baseName) {
                         continue;
                     }
                     //for subdirectory call method recursively

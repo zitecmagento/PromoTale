@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -32,4 +33,5 @@
  */
 class Zend_Amf_Value_Messaging_ArrayCollection
 {
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Yaml.php 23294 2010-11-05 00:27:34Z ramon $
  */
-
 /**
  * @see Zend_Config
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Config_Yaml extends Zend_Config
 {
+
     /**
      * Attribute name that indicates what section a config extends from
      */
@@ -135,7 +136,7 @@ class Zend_Config_Yaml extends Zend_Config
             throw new Zend_Config_Exception('Filename is not set');
         }
 
-        $ignoreConstants    = $staticIgnoreConstants = self::ignoreConstants();
+        $ignoreConstants = $staticIgnoreConstants = self::ignoreConstants();
         $allowModifications = false;
         if (is_bool($options)) {
             $allowModifications = $options;
@@ -241,7 +242,7 @@ class Zend_Config_Yaml extends Zend_Config
             throw new Zend_Config_Exception(sprintf('Section "%s" cannot be found', $section));
         }
 
-        $thisSection  = $data[$section];
+        $thisSection = $data[$section];
 
         if (is_array($thisSection) && isset($thisSection[self::EXTENDS_NAME])) {
             $this->_assertValidExtend($section, $thisSection[self::EXTENDS_NAME]);
@@ -281,10 +282,10 @@ class Zend_Config_Yaml extends Zend_Config
      */
     protected static function _decodeYaml($currentIndent, &$lines)
     {
-        $config   = array();
+        $config = array();
         $inIndent = false;
         while (list($n, $line) = each($lines)) {
-            $lineno = $n+1;
+            $lineno = $n + 1;
             if (strlen($line) == 0) {
                 continue;
             }
@@ -308,7 +309,7 @@ class Zend_Config_Yaml extends Zend_Config
 
             if (!$inIndent) {
                 $currentIndent = $indent;
-                $inIndent      = true;
+                $inIndent = true;
             }
 
             if (preg_match("/(\w+):\s*(.*)/", $line, $m)) {
@@ -344,8 +345,7 @@ class Zend_Config_Yaml extends Zend_Config
             } else {
                 #require_once 'Zend/Config/Exception.php';
                 throw new Zend_Config_Exception(sprintf(
-                    'Error parsing YAML at line %d - unsupported syntax: "%s"',
-                    $lineno, $line
+                        'Error parsing YAML at line %d - unsupported syntax: "%s"', $lineno, $line
                 ));
             }
         }
@@ -379,4 +379,5 @@ class Zend_Config_Yaml extends Zend_Config
         rsort($constants, SORT_STRING);
         return $constants;
     }
+
 }

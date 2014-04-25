@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,7 +34,8 @@
  */
 class Varien_Data_Form_Element_Link extends Varien_Data_Form_Element_Abstract
 {
-    public function __construct($attributes=array())
+
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setType('link');
@@ -47,7 +49,7 @@ class Varien_Data_Form_Element_Link extends Varien_Data_Form_Element_Abstract
     public function getElementHtml()
     {
         $html = $this->getBeforeElementHtml();
-        $html .= '<a id="'.$this->getHtmlId().'" '.$this->serialize($this->getHtmlAttributes()).'>'. $this->getEscapedValue() . "</a>\n";
+        $html .= '<a id="' . $this->getHtmlId() . '" ' . $this->serialize($this->getHtmlAttributes()) . '>' . $this->getEscapedValue() . "</a>\n";
         $html .= $this->getAfterElementHtml();
         return $html;
     }
@@ -65,4 +67,5 @@ class Varien_Data_Form_Element_Link extends Varien_Data_Form_Element_Abstract
             'onfocus', 'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover',
             'onmouseup', 'onkeydown', 'onkeypress', 'onkeyup');
     }
+
 }

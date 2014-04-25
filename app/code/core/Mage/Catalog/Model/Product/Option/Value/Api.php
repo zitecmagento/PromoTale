@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api_Resource
 {
+
     /**
      * Retrieve values from specified option
      *
@@ -46,7 +48,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         $option = $this->_prepareOption($optionId, $store);
         $productOptionValues = $option->getValuesCollection();
         $result = array();
-        foreach($productOptionValues as $value){
+        foreach ($productOptionValues as $value) {
             $result[] = array(
                 'value_id' => $value->getId(),
                 'title' => $value->getTitle(),
@@ -76,9 +78,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         $storeId = $this->_getStoreId($store);
         $productOptionValues = $productOptionValue
                 ->getValuesByOption(
-                    array($valueId),
-                    $productOptionValue->getOptionId(),
-                    $storeId
+                        array($valueId), $productOptionValue->getOptionId(), $storeId
                 )
                 ->addTitleToResult($storeId)
                 ->addPriceToResult($storeId);
@@ -116,9 +116,12 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
             }
         }
         $optionValueModel->setValues($data);
-        try {
+        try
+        {
             $optionValueModel->saveValues();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('add_option_value_error', $e->getMessage());
         }
         return true;
@@ -158,9 +161,12 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         $productOptionValue->addValue($data);
         $productOptionValue->setData($data);
 
-        try {
+        try
+        {
             $productOptionValue->save()->saveValues();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_fault('update_option_value_error', $e->getMessage());
         }
 
@@ -182,13 +188,16 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         }
 
         // check values count
-        if(count($this->items($optionValue->getOptionId())) <= 1){
+        if (count($this->items($optionValue->getOptionId())) <= 1) {
             $this->_fault('cant_delete_last_value');
         }
 
-        try {
+        try
+        {
             $optionValue->delete();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('not_deleted', $e->getMessage());
         }
 

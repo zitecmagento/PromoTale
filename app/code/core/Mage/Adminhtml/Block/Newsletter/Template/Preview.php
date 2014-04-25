@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -39,7 +40,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview extends Mage_Adminhtml_Bl
         /* @var $template Mage_Newsletter_Model_Template */
         $template = Mage::getModel('newsletter/template');
 
-        if($id = (int)$this->getRequest()->getParam('id')) {
+        if ($id = (int) $this->getRequest()->getParam('id')) {
             $template->load($id);
         } else {
             $template->setTemplateType($this->getRequest()->getParam('type'));
@@ -47,8 +48,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview extends Mage_Adminhtml_Bl
             $template->setTemplateStyles($this->getRequest()->getParam('styles'));
         }
 
-        $storeId = (int)$this->getRequest()->getParam('store_id');
-        if(!$storeId) {
+        $storeId = (int) $this->getRequest()->getParam('store_id');
+        if (!$storeId) {
             $storeId = Mage::app()->getDefaultStoreView()->getId();
         }
 
@@ -56,7 +57,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview extends Mage_Adminhtml_Bl
         $vars = array();
 
         $vars['subscriber'] = Mage::getModel('newsletter/subscriber');
-        if($this->getRequest()->getParam('subscriber')) {
+        if ($this->getRequest()->getParam('subscriber')) {
             $vars['subscriber']->load($this->getRequest()->getParam('subscriber'));
         }
 
@@ -64,7 +65,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview extends Mage_Adminhtml_Bl
         $templateProcessed = $template->getProcessedTemplate($vars, true);
         $template->revertDesign();
 
-        if($template->isPlain()) {
+        if ($template->isPlain()) {
             $templateProcessed = "<pre>" . htmlspecialchars($templateProcessed) . "</pre>";
         }
 

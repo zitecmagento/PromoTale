@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Paypal_Model_System_Config_Backend_Cron extends Mage_Core_Model_Config_Data
 {
+
     const CRON_STRING_PATH = 'crontab/jobs/paypal_fetch_settlement_reports/schedule/cron_expr';
     const CRON_MODEL_PATH_INTERVAL = 'paypal/fetch_reports/schedule';
 
@@ -43,11 +44,12 @@ class Mage_Paypal_Model_System_Config_Backend_Cron extends Mage_Core_Model_Confi
         }
 
         Mage::getModel('core/config_data')
-            ->load(self::CRON_STRING_PATH, 'path')
-            ->setValue($cronExprString)
-            ->setPath(self::CRON_STRING_PATH)
-            ->save();
+                ->load(self::CRON_STRING_PATH, 'path')
+                ->setValue($cronExprString)
+                ->setPath(self::CRON_STRING_PATH)
+                ->save();
 
         return parent::_afterSave();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_TokenController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Dispatch event before action
      *
@@ -58,4 +60,5 @@ class Mage_Oauth_TokenController extends Mage_Core_Controller_Front_Action
 
         $server->accessToken();
     }
+
 }

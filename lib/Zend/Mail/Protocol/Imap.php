@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Imap.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -30,6 +30,7 @@
  */
 class Zend_Mail_Protocol_Imap
 {
+
     /**
      * Default timeout in seconds for initiating session
      */
@@ -89,7 +90,7 @@ class Zend_Mail_Protocol_Imap
             $port = $ssl === 'SSL' ? 993 : 143;
         }
 
-        $errno  =  0;
+        $errno = 0;
         $errstr = '';
         $this->_socket = @fsockopen($host, $port, $errno, $errstr, self::TIMEOUT_CONNECTION);
         if (!$this->_socket) {
@@ -98,7 +99,7 @@ class Zend_Mail_Protocol_Imap
              */
             #require_once 'Zend/Mail/Protocol/Exception.php';
             throw new Zend_Mail_Protocol_Exception('cannot connect to host; error = ' . $errstr .
-                                                   ' (errno = ' . $errno . ' )');
+            ' (errno = ' . $errno . ' )');
         }
 
         if (!$this->_assumedNextLine('* OK')) {
@@ -186,19 +187,19 @@ class Zend_Mail_Protocol_Imap
         $stack = array();
 
         /*
-            We start to decode the response here. The unterstood tokens are:
-                literal
-                "literal" or also "lit\\er\"al"
-                {bytes}<NL>literal
-                (literals*)
-            All tokens are returned in an array. Literals in braces (the last unterstood
-            token in the list) are returned as an array of tokens. I.e. the following response:
-                "foo" baz {3}<NL>bar ("f\\\"oo" bar)
-            would be returned as:
-                array('foo', 'baz', 'bar', array('f\\\"oo', 'bar'));
+          We start to decode the response here. The unterstood tokens are:
+          literal
+          "literal" or also "lit\\er\"al"
+          {bytes}<NL>literal
+          (literals*)
+          All tokens are returned in an array. Literals in braces (the last unterstood
+          token in the list) are returned as an array of tokens. I.e. the following response:
+          "foo" baz {3}<NL>bar ("f\\\"oo" bar)
+          would be returned as:
+          array('foo', 'baz', 'bar', array('f\\\"oo', 'bar'));
 
-            // TODO: add handling of '[' and ']' to parser for easier handling of response text
-        */
+          // TODO: add handling of '[' and ']' to parser for easier handling of response text
+         */
         //  replace any trailling <NL> including spaces with a single space
         $line = rtrim($line) . ' ';
         while (($pos = strpos($line, ' ')) !== false) {
@@ -318,7 +319,7 @@ class Zend_Mail_Protocol_Imap
         // last line has response code
         if ($tokens[0] == 'OK') {
             return $lines ? $lines : true;
-        } else if ($tokens[0] == 'NO'){
+        } else if ($tokens[0] == 'NO') {
             return false;
         }
         return null;
@@ -455,9 +456,12 @@ class Zend_Mail_Protocol_Imap
     {
         $result = false;
         if ($this->_socket) {
-            try {
+            try
+            {
                 $result = $this->requestAndResponse('LOGOUT', array(), true);
-            } catch (Zend_Mail_Protocol_Exception $e) {
+            }
+            catch (Zend_Mail_Protocol_Exception $e)
+            {
                 // ignoring exception
             }
             fclose($this->_socket);
@@ -465,7 +469,6 @@ class Zend_Mail_Protocol_Imap
         }
         return $result;
     }
-
 
     /**
      * Get capabilities from IMAP server
@@ -515,10 +518,10 @@ class Zend_Mail_Protocol_Imap
                     $result[strtolower($tokens[1])] = $tokens[0];
                     break;
                 case '[UIDVALIDITY':
-                    $result['uidvalidity'] = (int)$tokens[2];
+                    $result['uidvalidity'] = (int) $tokens[2];
                     break;
                 default:
-                    // ignore
+                // ignore
             }
         }
 
@@ -571,14 +574,14 @@ class Zend_Mail_Protocol_Imap
         if (is_array($from)) {
             $set = implode(',', $from);
         } else if ($to === null) {
-            $set = (int)$from;
+            $set = (int) $from;
         } else if ($to === INF) {
-            $set = (int)$from . ':*';
+            $set = (int) $from . ':*';
         } else {
-            $set = (int)$from . ':' . (int)$to;
+            $set = (int) $from . ':' . (int) $to;
         }
 
-        $items = (array)$items;
+        $items = (array) $items;
         $itemList = $this->escapeList($items);
 
         $this->sendRequest('FETCH', array($set, $itemList), $tag);
@@ -687,9 +690,9 @@ class Zend_Mail_Protocol_Imap
         }
 
         $flags = $this->escapeList($flags);
-        $set = (int)$from;
+        $set = (int) $from;
         if ($to != null) {
-            $set .= ':' . ($to == INF ? '*' : (int)$to);
+            $set .= ':' . ($to == INF ? '*' : (int) $to);
         }
 
         $result = $this->requestAndResponse('STORE', array($set, $item, $flags), $silent);
@@ -746,9 +749,9 @@ class Zend_Mail_Protocol_Imap
      */
     public function copy($folder, $from, $to = null)
     {
-        $set = (int)$from;
+        $set = (int) $from;
         if ($to != null) {
-            $set .= ':' . ($to == INF ? '*' : (int)$to);
+            $set .= ':' . ($to == INF ? '*' : (int) $to);
         }
 
         return $this->requestAndResponse('COPY', array($set, $this->escapeString($folder)), true);

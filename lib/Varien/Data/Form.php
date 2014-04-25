@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Varien_Data_Form extends Varien_Data_Form_Abstract
 {
+
     /**
      * All form elements collection
      *
@@ -46,7 +48,6 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      * @var array
      */
     protected $_elementsIndex;
-
     static protected $_defaultElementRenderer;
     static protected $_defaultFieldsetRenderer;
     static protected $_defaultFieldsetElementRenderer;
@@ -102,7 +103,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      * @param   Varien_Data_Form_Element_Abstract $element
      * @return  Varien_Data_Form
      */
-    public function addElement(Varien_Data_Form_Element_Abstract $element, $after=false)
+    public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
     {
         $this->checkElementId($element->getId());
         parent::addElement($element, $after);
@@ -131,7 +132,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     public function checkElementId($elementId)
     {
         if ($this->_elementIdExists($elementId)) {
-            throw new Exception('Element with id "'.$elementId.'" already exists');
+            throw new Exception('Element with id "' . $elementId . '" already exists');
         }
         return true;
     }
@@ -154,8 +155,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         foreach ($this->_allElements as $element) {
             if (isset($values[$element->getId()])) {
                 $element->setValue($values[$element->getId()]);
-            }
-            else {
+            } else {
                 $element->setValue(null);
             }
         }
@@ -167,7 +167,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if (!is_array($values)) {
             return $this;
         }
-        foreach ($values as $elementId=>$value) {
+        foreach ($values as $elementId => $value) {
             if ($element = $this->getElement($elementId)) {
                 $element->setValue($value);
             }
@@ -199,9 +199,9 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         }
         $vars = explode('[', $name);
         $newName = $suffix;
-        foreach ($vars as $index=>$value) {
-            $newName.= '['.$value;
-            if ($index==0) {
+        foreach ($vars as $index => $value) {
+            $newName.= '[' . $value;
+            if ($index == 0) {
                 $newName.= ']';
             }
         }
@@ -232,10 +232,10 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         Varien_Profiler::start('form/toHtml');
         $html = '';
         if ($useContainer = $this->getUseContainer()) {
-            $html .= '<form '.$this->serialize($this->getHtmlAttributes()).'>';
+            $html .= '<form ' . $this->serialize($this->getHtmlAttributes()) . '>';
             $html .= '<div>';
             if (strtolower($this->getData('method')) == 'post') {
-                $html .= '<input name="form_key" type="hidden" value="'.Mage::getSingleton('core/session')->getFormKey().'" />';
+                $html .= '<input name="form_key" type="hidden" value="' . Mage::getSingleton('core/session')->getFormKey() . '" />';
             }
             $html .= '</div>';
         }
@@ -255,4 +255,5 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     {
         return $this->toHtml();
     }
+
 }

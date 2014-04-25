@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Api2_Model_Auth_User_Abstract
 {
+
     /**
      * Customer/Admin identifier
      *
@@ -93,4 +95,5 @@ abstract class Mage_Api2_Model_Auth_User_Abstract
 
         return $this;
     }
+
 }

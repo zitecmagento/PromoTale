@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Adminhtml_Search_Category extends Varien_Object
 {
+
     /**
      * Load search results
      *
@@ -49,22 +51,23 @@ class Mage_XmlConnect_Model_Adminhtml_Search_Category extends Varien_Object
         /** @var $collection Mage_XmlConnect_Model_Resource_CategorySearch_Collection */
         $collection = Mage::getResourceModel('xmlconnect/categorySearch_collection');
         $collection->addAttributeToSelect('name')->addAttributeToSelect('description')
-            ->addSearchFilter($this->getQuery())->setCurPage($this->getStart())->setPageSize($this->getLimit())->load();
+                ->addSearchFilter($this->getQuery())->setCurPage($this->getStart())->setPageSize($this->getLimit())->load();
 
         foreach ($collection as $category) {
             $description = Mage::helper('core')->stripTags($category->getDescription());
             $arr[] = array(
-                'id'          => 'category/1' . $category->getEntityId(),
-                'item_id'     => $category->getId(),
-                'type'        => Mage_XmlConnect_Model_ImageAction::ACTION_TYPE_CATEGORY,
-                'label'       => Mage::helper('adminhtml')->__('Category'),
-                'name'        => $category->getName(),
-                'image'       => null,
+                'id' => 'category/1' . $category->getEntityId(),
+                'item_id' => $category->getId(),
+                'type' => Mage_XmlConnect_Model_ImageAction::ACTION_TYPE_CATEGORY,
+                'label' => Mage::helper('adminhtml')->__('Category'),
+                'name' => $category->getName(),
+                'image' => null,
                 'description' => Mage::helper('core/string')->substr($description, 0, 30),
-                'url'         => Mage::helper('adminhtml')->getUrl('*/catalog_category/index'),
+                'url' => Mage::helper('adminhtml')->getUrl('*/catalog_category/index'),
             );
         }
         $this->setResults($arr);
         return $this;
     }
+
 }

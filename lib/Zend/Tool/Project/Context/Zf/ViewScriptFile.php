@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ViewScriptFile.php 23343 2010-11-15 15:33:22Z ramon $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Filesystem_File
  */
@@ -39,7 +39,6 @@
  * @see Zend_Filter_StringToLower
  */
 #require_once 'Zend/Filter/StringToLower.php';
-
 
 /**
  * This class is the front most class for utilizing Zend_Tool_Project
@@ -164,7 +163,7 @@ class Zend_Tool_Project_Context_Zf_ViewScriptFile extends Zend_Tool_Project_Cont
 EOS;
         } elseif ($this->_forActionName == 'index' && $this->_resource->getParentResource()->getAttribute('forControllerName') == 'Index') {
 
-            $contents =<<<EOS
+            $contents = <<<EOS
 <style>
     a:link,
     a:visited
@@ -209,10 +208,9 @@ EOS;
     </div>
 </div>
 EOS;
-
         } else {
             $contents = '<br /><br /><center>View script for controller <b>' . $this->_resource->getParentResource()->getAttribute('forControllerName') . '</b>'
-                . ' and script/action name <b>' . $this->_forActionName . '</b></center>';
+                    . ' and script/action name <b>' . $this->_forActionName . '</b></center>';
         }
         return $contents;
     }
@@ -221,7 +219,7 @@ EOS;
     {
         $filter = new Zend_Filter();
         $filter->addFilter(new Zend_Filter_Word_CamelCaseToDash())
-            ->addFilter(new Zend_Filter_StringToLower());
+                ->addFilter(new Zend_Filter_StringToLower());
         return $filter->filter($actionName);
     }
 

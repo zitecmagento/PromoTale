@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Abstract storage resource model
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Core_Model_Resource_File_Storage_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * File storage connection name
      *
@@ -89,4 +90,5 @@ abstract class Mage_Core_Model_Resource_File_Storage_Abstract extends Mage_Core_
 
         return $this->_connections[$connectionName];
     }
+
 }

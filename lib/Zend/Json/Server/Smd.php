@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,9 +30,10 @@
  */
 class Zend_Json_Server_Smd
 {
+
     const ENV_JSONRPC_1 = 'JSON-RPC-1.0';
     const ENV_JSONRPC_2 = 'JSON-RPC-2.0';
-    const SMD_VERSION   = '2.0';
+    const SMD_VERSION = '2.0';
 
     /**
      * Content type
@@ -391,14 +393,14 @@ class Zend_Json_Server_Smd
             return $this->toDojoArray();
         }
 
-        $transport   = $this->getTransport();
-        $envelope    = $this->getEnvelope();
+        $transport = $this->getTransport();
+        $envelope = $this->getEnvelope();
         $contentType = $this->getContentType();
-        $SMDVersion  = self::SMD_VERSION;
+        $SMDVersion = self::SMD_VERSION;
         $service = compact('transport', 'envelope', 'contentType', 'SMDVersion');
 
         if (null !== ($target = $this->getTarget())) {
-            $service['target']     = $target;
+            $service['target'] = $target;
         }
         if (null !== ($id = $this->getId())) {
             $service['id'] = $id;
@@ -424,7 +426,7 @@ class Zend_Json_Server_Smd
      */
     public function toDojoArray()
     {
-        $SMDVersion  = '.1';
+        $SMDVersion = '.1';
         $serviceType = 'JSON-RPC';
         $service = compact('SMDVersion', 'serviceType');
 
@@ -435,7 +437,7 @@ class Zend_Json_Server_Smd
             $service['methods'] = array();
             foreach ($services as $name => $svc) {
                 $method = array(
-                    'name'       => $name,
+                    'name' => $name,
                     'serviceURL' => $target,
                 );
                 $params = array();
@@ -476,5 +478,5 @@ class Zend_Json_Server_Smd
     {
         return $this->toJson();
     }
-}
 
+}

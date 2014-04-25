@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * breadcrumbs links
      *
@@ -46,7 +48,7 @@ class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Templ
         $this->addLink(Mage::helper('adminhtml')->__('Home'), Mage::helper('adminhtml')->__('Home'), $this->getUrl('*'));
     }
 
-    public function addLink($label, $title=null, $url=null)
+    public function addLink($label, $title = null, $url = null)
     {
         if (empty($title)) {
             $title = $label;
@@ -54,7 +56,7 @@ class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Templ
         $this->_links[] = array(
             'label' => $label,
             'title' => $title,
-            'url'   => $url
+            'url' => $url
         );
         return $this;
     }
@@ -65,4 +67,5 @@ class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Templ
         // $this->assign('links', $this->_links);
         return parent::_beforeToHtml();
     }
+
 }

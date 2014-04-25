@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_XmlConnect_Model_Simplexml_Message_Abstract extends Varien_Object
 {
+
     /**
      * Simple Xml object
      *
@@ -139,4 +141,5 @@ abstract class Mage_XmlConnect_Model_Simplexml_Message_Abstract extends Varien_O
     {
         return $this->_messageModel->getChildren();
     }
+
 }

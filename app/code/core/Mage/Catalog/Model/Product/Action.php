@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Mass Action processing model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
 {
+
     /**
      * Initialize resource model
      *
@@ -65,20 +66,20 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
     {
         Mage::dispatchEvent('catalog_product_attribute_update_before', array(
             'attributes_data' => &$attrData,
-            'product_ids'   => &$productIds,
-            'store_id'      => &$storeId
+            'product_ids' => &$productIds,
+            'store_id' => &$storeId
         ));
 
         $this->_getResource()->updateAttributes($productIds, $attrData, $storeId);
         $this->setData(array(
-            'product_ids'       => array_unique($productIds),
-            'attributes_data'   => $attrData,
-            'store_id'          => $storeId
+            'product_ids' => array_unique($productIds),
+            'attributes_data' => $attrData,
+            'store_id' => $storeId
         ));
 
         // register mass action indexer event
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
+                $this, Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
         );
         return $this;
     }
@@ -97,9 +98,9 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
     public function updateWebsites($productIds, $websiteIds, $type)
     {
         Mage::dispatchEvent('catalog_product_website_update_before', array(
-            'website_ids'   => $websiteIds,
-            'product_ids'   => $productIds,
-            'action'        => $type
+            'website_ids' => $websiteIds,
+            'product_ids' => $productIds,
+            'action' => $type
         ));
 
         if ($type == 'add') {
@@ -116,14 +117,15 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
 
         // register mass action indexer event
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
+                $this, Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
         );
 
         // add back compatibility system event
         Mage::dispatchEvent('catalog_product_website_update', array(
-            'website_ids'   => $websiteIds,
-            'product_ids'   => $productIds,
-            'action'        => $type
+            'website_ids' => $websiteIds,
+            'product_ids' => $productIds,
+            'action' => $type
         ));
     }
+
 }

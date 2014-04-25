@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Shopingcart Products Report collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Reports_Model_Resource_Shopcart_Product_Collection extends Mage_Reports_Model_Resource_Product_Collection
 {
+
     /**
      * Join fields
      *
@@ -43,8 +44,8 @@ class Mage_Reports_Model_Resource_Shopcart_Product_Collection extends Mage_Repor
     {
         parent::_joinFields();
         $this->addAttributeToSelect('price')
-            ->addCartsCount()
-            ->addOrdersCount();
+                ->addCartsCount()
+                ->addOrdersCount();
 
         return $this;
     }
@@ -61,4 +62,5 @@ class Mage_Reports_Model_Resource_Shopcart_Product_Collection extends Mage_Repor
         $this->getSelect()->reset();
         return $this;
     }
+
 }

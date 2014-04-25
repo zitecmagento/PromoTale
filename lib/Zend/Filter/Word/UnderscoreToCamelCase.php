@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: UnderscoreToCamelCase.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Interface
  */
@@ -32,6 +32,7 @@
  */
 class Zend_Filter_Word_UnderscoreToCamelCase extends Zend_Filter_Word_SeparatorToCamelCase
 {
+
     /**
      * Constructor
      *
@@ -41,4 +42,5 @@ class Zend_Filter_Word_UnderscoreToCamelCase extends Zend_Filter_Word_SeparatorT
     {
         parent::__construct('_');
     }
+
 }

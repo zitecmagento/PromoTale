@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_Filter_Abstract
 {
+
     /**
      * Active Category Id
      *
@@ -94,15 +96,15 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
         Mage::register('current_category_filter', $this->getCategory(), true);
 
         $this->_appliedCategory = Mage::getModel('catalog/category')
-            ->setStoreId(Mage::app()->getStore()->getId())
-            ->load($filter);
+                ->setStoreId(Mage::app()->getStore()->getId())
+                ->load($filter);
 
         if ($this->_isValidCategory($this->_appliedCategory)) {
             $this->getLayer()->getProductCollection()
-                ->addCategoryFilter($this->_appliedCategory);
+                    ->addCategoryFilter($this->_appliedCategory);
 
             $this->getLayer()->getState()->addFilter(
-                $this->_createItem($this->_appliedCategory->getName(), $filter)
+                    $this->_createItem($this->_appliedCategory->getName(), $filter)
             );
         }
 
@@ -139,7 +141,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
     {
         if (!is_null($this->_categoryId)) {
             $category = Mage::getModel('catalog/category')
-                ->load($this->_categoryId);
+                    ->load($this->_categoryId);
             if ($category->getId()) {
                 return $category;
             }
@@ -154,16 +156,16 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
      */
     protected function _getItemsData()
     {
-        $key = $this->getLayer()->getStateKey().'_SUBCATEGORIES';
+        $key = $this->getLayer()->getStateKey() . '_SUBCATEGORIES';
         $data = $this->getLayer()->getAggregator()->getCacheData($key);
 
         if ($data === null) {
-            $categoty   = $this->getCategory();
+            $categoty = $this->getCategory();
             /** @var $categoty Mage_Catalog_Model_Categeory */
             $categories = $categoty->getChildrenCategories();
 
             $this->getLayer()->getProductCollection()
-                ->addCountToCategories($categories);
+                    ->addCountToCategories($categories);
 
             $data = array();
             foreach ($categories as $category) {
@@ -180,4 +182,5 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
         }
         return $data;
     }
+
 }

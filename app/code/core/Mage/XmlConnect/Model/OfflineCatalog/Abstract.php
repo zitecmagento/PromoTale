@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_XmlConnect_Model_OfflineCatalog_Abstract extends Mage_Core_Model_Abstract
 {
+
     /**
      * Return layout block
      *
@@ -63,4 +65,5 @@ abstract class Mage_XmlConnect_Model_OfflineCatalog_Abstract extends Mage_Core_M
         $exportHelper->addOfflineCatalogData($this->_getActionUrl(), $currentBlock->toHtml());
         return $this;
     }
+
 }

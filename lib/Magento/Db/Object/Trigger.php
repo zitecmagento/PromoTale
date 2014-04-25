@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,10 +34,11 @@
  */
 class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_Object_Interface
 {
+
     /**
      * @var string
      */
-    protected $_dbType  = 'TRIGGER';
+    protected $_dbType = 'TRIGGER';
 
     /**
      * @var array
@@ -79,16 +81,16 @@ class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_
             'CREATED',
         );
         $sql = 'SELECT ' . implode(', ', $columns)
-            . ' FROM ' . $this->_adapter->quoteIdentifier(array('INFORMATION_SCHEMA','TRIGGERS'))
-            . ' WHERE ';
+                . ' FROM ' . $this->_adapter->quoteIdentifier(array('INFORMATION_SCHEMA', 'TRIGGERS'))
+                . ' WHERE ';
 
         $schema = $this->getSchemaName();
         if ($schema) {
             $sql .= $this->_adapter->quoteIdentifier('EVENT_OBJECT_SCHEMA')
-                . ' = ' . $this->_adapter->quote($schema);
+                    . ' = ' . $this->_adapter->quote($schema);
         } else {
             $sql .= $this->_adapter->quoteIdentifier('EVENT_OBJECT_SCHEMA')
-                . ' != ' . $this->_adapter->quote('INFORMATION_SCHEMA');
+                    . ' != ' . $this->_adapter->quote('INFORMATION_SCHEMA');
         }
 
         $results = $this->_adapter->query($sql);
@@ -105,5 +107,5 @@ class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_
 
         return $data;
     }
-}
 
+}

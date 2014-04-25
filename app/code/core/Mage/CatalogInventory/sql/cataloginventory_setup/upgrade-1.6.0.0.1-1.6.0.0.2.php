@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_Eav_Model_Entity_Setup */
 $installer = $this;
 
@@ -31,15 +31,13 @@ $installer = $this;
  * Add new field to 'cataloginventory/stock_item'
  */
 $installer->getConnection()
-    ->addColumn(
-        $installer->getTable('cataloginventory/stock_item'),
-        'is_decimal_divided',
-        array(
+        ->addColumn(
+                $installer->getTable('cataloginventory/stock_item'), 'is_decimal_divided', array(
             'TYPE' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
             'LENGTH' => 5,
             'UNSIGNED' => true,
             'NULLABLE' => false,
             'DEFAULT' => 0,
             'COMMENT' => 'Is Divided into Multiple Boxes for Shipping'
-        )
-    );
+                )
+);

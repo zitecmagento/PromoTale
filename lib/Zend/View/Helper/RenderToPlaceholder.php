@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: RenderToPlaceholder.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_Abstract.php */
 #require_once 'Zend/View/Helper/Abstract.php';
 
@@ -32,7 +32,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_View_Helper_RenderToPlaceholder extends Zend_View_Helper_Abstract
 {
 
@@ -50,4 +49,5 @@ class Zend_View_Helper_RenderToPlaceholder extends Zend_View_Helper_Abstract
         echo $this->view->render($script);
         $this->view->placeholder($placeholder)->captureEnd();
     }
+
 }

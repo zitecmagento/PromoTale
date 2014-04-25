@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Layer_State extends Varien_Object
 {
+
     /**
      * Add filter item to layer state
      *
@@ -76,4 +78,5 @@ class Mage_Catalog_Model_Layer_State extends Varien_Object
         }
         return $filters;
     }
+
 }

@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: UserQuery.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Gapps_Query
  */
@@ -61,8 +60,7 @@ class Zend_Gdata_Gapps_UserQuery extends Zend_Gdata_Gapps_Query
      * @param string $startUsername (optional) Value for the
      *          startUsername property.
      */
-    public function __construct($domain = null, $username = null,
-            $startUsername = null)
+    public function __construct($domain = null, $username = null, $startUsername = null)
     {
         parent::__construct($domain);
         $this->setUsername($username);

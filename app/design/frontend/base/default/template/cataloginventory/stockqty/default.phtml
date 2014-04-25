@@ -23,13 +23,13 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * @see Mage_CatalogInventory_Block_Stockqty_Default
  */
 ?>
-<?php if($this->isMsgVisible()): ?>
+<?php if ($this->isMsgVisible()): ?>
     <p class="availability-only">
         <span title="<?php echo $this->__('Only %s left', ($this->getStockQty())) ?>"><?php echo $this->__('Only %s left', "<strong>{$this->getStockQty()}</strong>") ?></span>
     </p>
-<?php endif ?>
+    <?php
+ endif ?>

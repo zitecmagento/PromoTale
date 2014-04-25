@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Prepare form before rendering HTML
      *
@@ -50,4 +52,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Form extends Mage_Adminh
         $this->setForm($form);
         return parent::_prepareForm();
     }
+
 }

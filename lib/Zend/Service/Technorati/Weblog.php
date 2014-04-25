@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Weblog.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Service_Technorati_Author
  */
@@ -30,7 +29,6 @@
  * @see Zend_Service_Technorati_Utils
  */
 #require_once 'Zend/Service/Technorati/Utils.php';
-
 
 /**
  * Represents a Weblog object successful recognized by Technorati.
@@ -43,6 +41,7 @@
  */
 class Zend_Service_Technorati_Weblog
 {
+
     /**
      * Blog name as written in the feed.
      *
@@ -148,7 +147,6 @@ class Zend_Service_Technorati_Weblog
      */
     protected $_authors = array();
 
-
     /**
      * Constructs a new object from DOM Element.
      *
@@ -159,27 +157,34 @@ class Zend_Service_Technorati_Weblog
         $xpath = new DOMXPath($dom->ownerDocument);
 
         $result = $xpath->query('./name/text()', $dom);
-        if ($result->length == 1) $this->setName($result->item(0)->data);
+        if ($result->length == 1)
+            $this->setName($result->item(0)->data);
 
         $result = $xpath->query('./url/text()', $dom);
-        if ($result->length == 1) $this->setUrl($result->item(0)->data);
+        if ($result->length == 1)
+            $this->setUrl($result->item(0)->data);
 
         $result = $xpath->query('./inboundblogs/text()', $dom);
-        if ($result->length == 1) $this->setInboundBlogs($result->item(0)->data);
+        if ($result->length == 1)
+            $this->setInboundBlogs($result->item(0)->data);
 
         $result = $xpath->query('./inboundlinks/text()', $dom);
-        if ($result->length == 1) $this->setInboundLinks($result->item(0)->data);
+        if ($result->length == 1)
+            $this->setInboundLinks($result->item(0)->data);
 
         $result = $xpath->query('./lastupdate/text()', $dom);
-        if ($result->length == 1) $this->setLastUpdate($result->item(0)->data);
+        if ($result->length == 1)
+            $this->setLastUpdate($result->item(0)->data);
 
         /* The following elements need more attention */
 
         $result = $xpath->query('./rssurl/text()', $dom);
-        if ($result->length == 1) $this->setRssUrl($result->item(0)->data);
+        if ($result->length == 1)
+            $this->setRssUrl($result->item(0)->data);
 
         $result = $xpath->query('./atomurl/text()', $dom);
-        if ($result->length == 1) $this->setAtomUrl($result->item(0)->data);
+        if ($result->length == 1)
+            $this->setAtomUrl($result->item(0)->data);
 
         $result = $xpath->query('./author', $dom);
         if ($result->length >= 1) {
@@ -194,20 +199,22 @@ class Zend_Service_Technorati_Weblog
          * I can't find any official documentation about the following properties
          * however they are included in response DTD and/or test responses.
          */
-
         $result = $xpath->query('./rank/text()', $dom);
-        if ($result->length == 1) $this->setRank($result->item(0)->data);
+        if ($result->length == 1)
+            $this->setRank($result->item(0)->data);
 
         $result = $xpath->query('./lat/text()', $dom);
-        if ($result->length == 1) $this->setLat($result->item(0)->data);
+        if ($result->length == 1)
+            $this->setLat($result->item(0)->data);
 
         $result = $xpath->query('./lon/text()', $dom);
-        if ($result->length == 1) $this->setLon($result->item(0)->data);
+        if ($result->length == 1)
+            $this->setLon($result->item(0)->data);
 
         $result = $xpath->query('./hasphoto/text()', $dom);
-        if ($result->length == 1) $this->setHasPhoto($result->item(0)->data);
+        if ($result->length == 1)
+            $this->setHasPhoto($result->item(0)->data);
     }
-
 
     /**
      * Returns weblog name.
@@ -300,7 +307,8 @@ class Zend_Service_Technorati_Weblog
      *
      * @return  float   weblog latitude coordinate
      */
-    public function getLat() {
+    public function getLat()
+    {
         return $this->_lat;
     }
 
@@ -338,7 +346,6 @@ class Zend_Service_Technorati_Weblog
     {
         return (array) $this->_authors;
     }
-
 
     /**
      * Sets weblog name.

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Basic.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /**
  * @see Zend_Tool_Framework_Metadata_Interface
  */
@@ -36,29 +36,30 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_Metadata_Basic 
-    implements Zend_Tool_Framework_Metadata_Interface, Zend_Tool_Framework_Metadata_Attributable
+class Zend_Tool_Framework_Metadata_Basic implements Zend_Tool_Framework_Metadata_Interface, Zend_Tool_Framework_Metadata_Attributable
 {
-
-    /**#@+
+    /*     * #@+
      * Search constants
      */
-    const ATTRIBUTES_ALL        = 'attributesAll';
-    const ATTRIBUTES_NO_PARENT  = 'attributesParent';
-    /**#@-*/
 
-    /**#@+
+    const ATTRIBUTES_ALL = 'attributesAll';
+    const ATTRIBUTES_NO_PARENT = 'attributesParent';
+
+    /*     * #@- */
+
+    /*     * #@+
      * @var string
      */
-    protected $_type        = 'Basic';
-    protected $_name        = null;
-    protected $_value       = null;
-    /**#@-*/
+
+    protected $_type = 'Basic';
+    protected $_name = null;
+    protected $_value = null;
+    /*     * #@- */
 
     /**
      * @var mixed
      */
-    protected $_reference   = null;
+    protected $_reference = null;
 
     /**
      * Constructor - allows for the setting of options
@@ -206,7 +207,6 @@ class Zend_Tool_Framework_Metadata_Basic
                 if ($varValue === null) {
                     $varValue = '(null)';
                 }
-
             }
 
             $metadataPairValues[ltrim($varName, '_')] = $varValue;
@@ -224,4 +224,5 @@ class Zend_Tool_Framework_Metadata_Basic
     {
         return 'Type: ' . $this->_type . ', Name: ' . $this->_name . ', Value: ' . (is_array($this->_value) ? http_build_query($this->_value) : (string) $this->_value);
     }
+
 }

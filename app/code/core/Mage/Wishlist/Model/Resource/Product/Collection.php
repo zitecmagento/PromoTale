@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist Product collection
  * Deprecated because after Magento 1.4.2.0 it's impossible
@@ -37,18 +37,19 @@
  */
 class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
+
     /**
      * Add days in whishlist filter of product collection
      *
      * @var boolean
      */
-    protected $_addDaysInWishlist  = false;
+    protected $_addDaysInWishlist = false;
 
     /**
      * Wishlist item table alias
      * @var string
      */
-    protected $_wishlistItemTableAlias         = 't_wi';
+    protected $_wishlistItemTableAlias = 't_wi';
 
     /**
      * Get add days in whishlist filter of product collection flag
@@ -81,23 +82,20 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     public function addWishlistFilter(Mage_Wishlist_Model_Wishlist $wishlist)
     {
         $this->joinTable(
-            array($this->_wishlistItemTableAlias => 'wishlist/item'),
-            'product_id=entity_id',
-            array(
-                'product_id'                => 'product_id',
-                'wishlist_item_description' => 'description',
-                'item_store_id'             => 'store_id',
-                'added_at'                  => 'added_at',
-                'wishlist_id'               => 'wishlist_id',
-                'wishlist_item_id'          => 'wishlist_item_id',
-            ),
-            array(
-                'wishlist_id'               => $wishlist->getId(),
-                'store_id'                  => array('in' => $wishlist->getSharedStoreIds())
-            )
+                array($this->_wishlistItemTableAlias => 'wishlist/item'), 'product_id=entity_id', array(
+            'product_id' => 'product_id',
+            'wishlist_item_description' => 'description',
+            'item_store_id' => 'store_id',
+            'added_at' => 'added_at',
+            'wishlist_id' => 'wishlist_id',
+            'wishlist_item_id' => 'wishlist_item_id',
+                ), array(
+            'wishlist_id' => $wishlist->getId(),
+            'store_id' => array('in' => $wishlist->getSharedStoreIds())
+                )
         );
 
-        $this->_productLimitationFilters['store_table']  = $this->_wishlistItemTableAlias;
+        $this->_productLimitationFilters['store_table'] = $this->_wishlistItemTableAlias;
 
         $this->setFlag('url_data_object', true);
         $this->setFlag('do_not_use_category_id', true);
@@ -147,10 +145,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
         $nowDate = $adapter->formatDate(Mage::getSingleton('core/date')->date());
 
         $this->joinField('store_name', 'core/store', 'name', 'store_id=item_store_id');
-        $this->joinField('days_in_wishlist',
-            'wishlist/item',
-            $resourceHelper->getDateDiff($this->_wishlistItemTableAlias . '.added_at', $nowDate),
-            'wishlist_item_id=wishlist_item_id'
+        $this->joinField('days_in_wishlist', 'wishlist/item', $resourceHelper->getDateDiff($this->_wishlistItemTableAlias . '.added_at', $nowDate), 'wishlist_item_id=wishlist_item_id'
         );
 
         return $this;
@@ -180,4 +175,5 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     {
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Enter description here ...
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogIndex_Model_Resource_Data_Configurable extends Mage_CatalogIndex_Model_Resource_Data_Abstract
 {
+
     /**
      * Prepare select statement before 'fetchLinkInformation' function result fetch
      *
@@ -48,4 +49,5 @@ class Mage_CatalogIndex_Model_Resource_Data_Configurable extends Mage_CatalogInd
     {
         $this->_addAttributeFilter($this->_getLinkSelect(), 'required_options', 'l', $idField, $store, 0);
     }
+
 }

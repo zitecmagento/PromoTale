@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Container.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Memory_Container_Interface */
 #require_once 'Zend/Memory/Container/Interface.php';
 
@@ -32,4 +32,5 @@
  */
 abstract class Zend_Memory_Container implements Zend_Memory_Container_Interface
 {
+    
 }

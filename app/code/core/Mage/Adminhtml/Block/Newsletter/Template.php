@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,15 +32,14 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Newsletter_Template extends Mage_Adminhtml_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('newsletter/template/list.phtml');
     }
-
 
     protected function _prepareLayout()
     {
@@ -56,4 +56,5 @@ class Mage_Adminhtml_Block_Newsletter_Template extends Mage_Adminhtml_Block_Temp
     {
         return Mage::helper('newsletter')->__('Newsletter Templates');
     }
+
 }

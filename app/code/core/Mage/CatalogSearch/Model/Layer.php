@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
 {
+
     const XML_PATH_DISPLAY_LAYER_COUNT = 'catalog/search/use_layered_navigation_count';
 
     /**
@@ -54,14 +55,14 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     public function prepareProductCollection($collection)
     {
         $collection
-            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->addSearchFilter(Mage::helper('catalogsearch')->getQuery()->getQueryText())
-            ->setStore(Mage::app()->getStore())
-            ->addMinimalPrice()
-            ->addFinalPrice()
-            ->addTaxPercents()
-            ->addStoreFilter()
-            ->addUrlRewrite();
+                ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+                ->addSearchFilter(Mage::helper('catalogsearch')->getQuery()->getQueryText())
+                ->setStore(Mage::app()->getStore())
+                ->addMinimalPrice()
+                ->addFinalPrice()
+                ->addTaxPercents()
+                ->addStoreFilter()
+                ->addUrlRewrite();
 
         Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($collection);
@@ -78,7 +79,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     {
         if ($this->_stateKey === null) {
             $this->_stateKey = 'Q_' . Mage::helper('catalogsearch')->getQuery()->getId()
-                . '_'. parent::getStateKey();
+                    . '_' . parent::getStateKey();
         }
         return $this->_stateKey;
     }
@@ -105,7 +106,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     protected function _prepareAttributeCollection($collection)
     {
         $collection->addIsFilterableInSearchFilter()
-            ->addVisibleFilter();
+                ->addVisibleFilter();
         return $collection;
     }
 
@@ -121,4 +122,5 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
         $attribute->setIsFilterable(Mage_Catalog_Model_Layer_Filter_Attribute::OPTIONS_ONLY_WITH_RESULTS);
         return $attribute;
     }
+
 }

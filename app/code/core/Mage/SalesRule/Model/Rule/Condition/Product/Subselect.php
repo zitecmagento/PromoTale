@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,19 +24,17 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
-class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
-    extends Mage_SalesRule_Model_Rule_Condition_Product_Combine
+class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRule_Model_Rule_Condition_Product_Combine
 {
+
     public function __construct()
     {
         parent::__construct();
         $this->setType('salesrule/rule_condition_product_subselect')
-            ->setValue(null);
+                ->setValue(null);
     }
 
-    public function loadArray($arr, $key='conditions')
+    public function loadArray($arr, $key = 'conditions')
     {
         $this->setAttribute($arr['attribute']);
         $this->setOperator($arr['operator']);
@@ -43,19 +42,19 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
         return $this;
     }
 
-    public function asXml($containerKey='conditions', $itemKey='condition')
+    public function asXml($containerKey = 'conditions', $itemKey = 'condition')
     {
-        $xml = '<attribute>'.$this->getAttribute().'</attribute>'
-            . '<operator>'.$this->getOperator().'</operator>'
-            . parent::asXml($containerKey, $itemKey);
+        $xml = '<attribute>' . $this->getAttribute() . '</attribute>'
+                . '<operator>' . $this->getOperator() . '</operator>'
+                . parent::asXml($containerKey, $itemKey);
         return $xml;
     }
 
     public function loadAttributeOptions()
     {
         $this->setAttributeOption(array(
-            'qty'  => Mage::helper('salesrule')->__('total quantity'),
-            'base_row_total'  => Mage::helper('salesrule')->__('total amount'),
+            'qty' => Mage::helper('salesrule')->__('total quantity'),
+            'base_row_total' => Mage::helper('salesrule')->__('total amount'),
         ));
         return $this;
     }
@@ -68,13 +67,13 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
     public function loadOperatorOptions()
     {
         $this->setOperatorOption(array(
-            '=='  => Mage::helper('rule')->__('is'),
-            '!='  => Mage::helper('rule')->__('is not'),
-            '>='  => Mage::helper('rule')->__('equals or greater than'),
-            '<='  => Mage::helper('rule')->__('equals or less than'),
-            '>'   => Mage::helper('rule')->__('greater than'),
-            '<'   => Mage::helper('rule')->__('less than'),
-            '()'  => Mage::helper('rule')->__('is one of'),
+            '==' => Mage::helper('rule')->__('is'),
+            '!=' => Mage::helper('rule')->__('is not'),
+            '>=' => Mage::helper('rule')->__('equals or greater than'),
+            '<=' => Mage::helper('rule')->__('equals or less than'),
+            '>' => Mage::helper('rule')->__('greater than'),
+            '<' => Mage::helper('rule')->__('less than'),
+            '()' => Mage::helper('rule')->__('is one of'),
             '!()' => Mage::helper('rule')->__('is not one of'),
         ));
         return $this;
@@ -87,8 +86,8 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
 
     public function asHtml()
     {
-        $html = $this->getTypeElement()->getHtml().
-        Mage::helper('salesrule')->__("If %s %s %s for a subselection of items in cart matching %s of these conditions:", $this->getAttributeElement()->getHtml(), $this->getOperatorElement()->getHtml(), $this->getValueElement()->getHtml(), $this->getAggregatorElement()->getHtml());
+        $html = $this->getTypeElement()->getHtml() .
+                Mage::helper('salesrule')->__("If %s %s %s for a subselection of items in cart matching %s of these conditions:", $this->getAttributeElement()->getHtml(), $this->getOperatorElement()->getHtml(), $this->getValueElement()->getHtml(), $this->getAggregatorElement()->getHtml());
         if ($this->getId() != '1') {
             $html .= $this->getRemoveLinkHtml();
         }
@@ -122,4 +121,5 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
 
         return $this->validateAttribute($total);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Resource model for admin ACL
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize resource connections
      *
@@ -56,20 +57,19 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
         Mage::getSingleton('api/config')->loadAclResources($acl);
 
         $rolesArr = $adapter->fetchAll(
-            $adapter->select()
-                ->from($this->getTable('api/role'))
-                ->order(array('tree_level', 'role_type'))
+                $adapter->select()
+                        ->from($this->getTable('api/role'))
+                        ->order(array('tree_level', 'role_type'))
         );
         $this->loadRoles($acl, $rolesArr);
 
-        $rulesArr =  $adapter->fetchAll(
-            $adapter->select()
-                ->from(array('r'=>$this->getTable('api/rule')))
-                ->joinLeft(
-                    array('a'=>$this->getTable('api/assert')),
-                    'a.assert_id=r.assert_id',
-                    array('assert_type', 'assert_data')
-                ));
+        $rulesArr = $adapter->fetchAll(
+                $adapter->select()
+                        ->from(array('r' => $this->getTable('api/rule')))
+                        ->joinLeft(
+                                array('a' => $this->getTable('api/assert')), 'a.assert_id=r.assert_id', array('assert_type',
+                            'assert_data')
+        ));
         $this->loadRules($acl, $rulesArr);
         return $acl;
     }
@@ -84,15 +84,15 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     public function loadRoles(Mage_Api_Model_Acl $acl, array $rolesArr)
     {
         foreach ($rolesArr as $role) {
-            $parent = $role['parent_id']>0 ? Mage_Api_Model_Acl::ROLE_TYPE_GROUP.$role['parent_id'] : null;
+            $parent = $role['parent_id'] > 0 ? Mage_Api_Model_Acl::ROLE_TYPE_GROUP . $role['parent_id'] : null;
             switch ($role['role_type']) {
                 case Mage_Api_Model_Acl::ROLE_TYPE_GROUP:
-                    $roleId = $role['role_type'].$role['role_id'];
+                    $roleId = $role['role_type'] . $role['role_id'];
                     $acl->addRole(Mage::getModel('api/acl_role_group', $roleId), $parent);
                     break;
 
                 case Mage_Api_Model_Acl::ROLE_TYPE_USER:
-                    $roleId = $role['role_type'].$role['user_id'];
+                    $roleId = $role['role_type'] . $role['user_id'];
                     if (!$acl->hasRole($roleId)) {
                         $acl->addRole(Mage::getModel('api/acl_role_user', $roleId), $parent);
                     } else {
@@ -115,43 +115,47 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     public function loadRules(Mage_Api_Model_Acl $acl, array $rulesArr)
     {
         foreach ($rulesArr as $rule) {
-            $role = $rule['role_type'].$rule['role_id'];
+            $role = $rule['role_type'] . $rule['role_id'];
             $resource = $rule['resource_id'];
             $privileges = !empty($rule['api_privileges']) ? explode(',', $rule['api_privileges']) : null;
 
             $assert = null;
-            if (0!=$rule['assert_id']) {
+            if (0 != $rule['assert_id']) {
                 $assertClass = Mage::getSingleton('api/config')->getAclAssert($rule['assert_type'])->getClassName();
                 $assert = new $assertClass(unserialize($rule['assert_data']));
             }
-            try {
+            try
+            {
                 if ($rule['api_permission'] == 'allow') {
                     $acl->allow($role, $resource, $privileges, $assert);
                 } else if ($rule['api_permission'] == 'deny') {
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 //$m = $e->getMessage();
                 //if ( eregi("^Resource '(.*)' not found", $m) ) {
-                    // Deleting non existent resource rule from rules table
-                    //$cond = $this->_write->quoteInto('resource_id = ?', $resource);
-                    //$this->_write->delete(Mage::getSingleton('core/resource')->getTableName('admin/rule'), $cond);
+                // Deleting non existent resource rule from rules table
+                //$cond = $this->_write->quoteInto('resource_id = ?', $resource);
+                //$this->_write->delete(Mage::getSingleton('core/resource')->getTableName('admin/rule'), $cond);
                 //} else {
-                    //TODO: We need to log such exceptions to somewhere like a system/errors.log
+                //TODO: We need to log such exceptions to somewhere like a system/errors.log
                 //}
             }
             /*
-            switch ($rule['api_permission']) {
-                case Mage_Api_Model_Acl::RULE_PERM_ALLOW:
-                    $acl->allow($role, $resource, $privileges, $assert);
-                    break;
+              switch ($rule['api_permission']) {
+              case Mage_Api_Model_Acl::RULE_PERM_ALLOW:
+              $acl->allow($role, $resource, $privileges, $assert);
+              break;
 
-                case Mage_Api_Model_Acl::RULE_PERM_DENY:
-                    $acl->deny($role, $resource, $privileges, $assert);
-                    break;
-            }
-            */
+              case Mage_Api_Model_Acl::RULE_PERM_DENY:
+              $acl->deny($role, $resource, $privileges, $assert);
+              break;
+              }
+             */
         }
         return $this;
     }
+
 }

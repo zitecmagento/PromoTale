@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file contains the code for converting values between SOAP and PHP.
  *
@@ -21,7 +22,6 @@
  * @license    http://www.php.net/license/2_02.txt  PHP License 2.02
  * @link       http://pear.php.net/package/SOAP
  */
-
 require_once 'SOAP/Base.php';
 
 /**
@@ -39,6 +39,7 @@ require_once 'SOAP/Base.php';
  */
 class SOAP_Value
 {
+
     /**
      * The actual value.
      *
@@ -132,8 +133,7 @@ class SOAP_Value
      *                           - 'no_type_prefix': supress adding of the
      *                             namespace prefix
      */
-    function SOAP_Value($name = '', $type = false, $value = null,
-                        $attributes = array(), $options = array())
+    function SOAP_Value($name = '', $type = false, $value = null, $attributes = array(), $options = array())
     {
         $this->nqn = new QName($name);
         $this->name = $this->nqn->name;
@@ -158,12 +158,7 @@ class SOAP_Value
      */
     function serialize(&$serializer)
     {
-        return $serializer->_serializeValue($this->value,
-                                            $this->nqn,
-                                            $this->tqn,
-                                            $this->options,
-                                            $this->attributes,
-                                            $this->arrayType);
+        return $serializer->_serializeValue($this->value, $this->nqn, $this->tqn, $this->options, $this->attributes, $this->arrayType);
     }
 
 }
@@ -183,6 +178,7 @@ class SOAP_Value
  */
 class SOAP_Header extends SOAP_Value
 {
+
     /**
      * Constructor
      *
@@ -193,8 +189,7 @@ class SOAP_Header extends SOAP_Value
      * @param integer $mustunderstand  Zero or one.
      * @param mixed $attributes        Attributes.
      */
-    function SOAP_Header($name = '', $type, $value, $mustunderstand = 0,
-                         $attributes = array())
+    function SOAP_Header($name = '', $type, $value, $mustunderstand = 0, $attributes = array())
     {
         if (!is_array($attributes)) {
             $actor = $attributes;
@@ -204,11 +199,11 @@ class SOAP_Header extends SOAP_Value
         parent::SOAP_Value($name, $type, $value, $attributes);
 
         if (isset($actor)) {
-            $this->attributes[SOAP_BASE::SOAPENVPrefix().':actor'] = $actor;
-        } elseif (!isset($this->attributes[SOAP_BASE::SOAPENVPrefix().':actor'])) {
-            $this->attributes[SOAP_BASE::SOAPENVPrefix().':actor'] = 'http://schemas.xmlsoap.org/soap/actor/next';
+            $this->attributes[SOAP_BASE::SOAPENVPrefix() . ':actor'] = $actor;
+        } elseif (!isset($this->attributes[SOAP_BASE::SOAPENVPrefix() . ':actor'])) {
+            $this->attributes[SOAP_BASE::SOAPENVPrefix() . ':actor'] = 'http://schemas.xmlsoap.org/soap/actor/next';
         }
-        $this->attributes[SOAP_BASE::SOAPENVPrefix().':mustUnderstand'] = (int)$mustunderstand;
+        $this->attributes[SOAP_BASE::SOAPENVPrefix() . ':mustUnderstand'] = (int) $mustunderstand;
     }
 
 }
@@ -223,6 +218,7 @@ class SOAP_Header extends SOAP_Value
  */
 class SOAP_Attachment extends SOAP_Value
 {
+
     /**
      * Constructor.
      *
@@ -233,8 +229,7 @@ class SOAP_Attachment extends SOAP_Value
      * @param string $file      The attachment data.
      * @param array $attributes Attributes.
      */
-    function SOAP_Attachment($name = '', $type = 'application/octet-stream',
-                             $filename, $file = null, $attributes = null)
+    function SOAP_Attachment($name = '', $type = 'application/octet-stream', $filename, $file = null, $attributes = null)
     {
         parent::SOAP_Value($name, null, null);
 
@@ -251,10 +246,10 @@ class SOAP_Attachment extends SOAP_Value
         $this->attributes['href'] = 'cid:' . $cid;
 
         $this->options['attachment'] = array('body' => $filedata,
-                                             'disposition' => $filename,
-                                             'content_type' => $type,
-                                             'encoding' => 'base64',
-                                             'cid' => $cid);
+            'disposition' => $filename,
+            'content_type' => $type,
+            'encoding' => 'base64',
+            'cid' => $cid);
     }
 
     /**

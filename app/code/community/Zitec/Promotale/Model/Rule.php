@@ -25,48 +25,49 @@
  */
 class Zitec_Promotale_Model_Rule extends Mage_CatalogRule_Model_Rule
 {
-    
+
     /**
-     * Prepare the force_saving param from the form to save to the rule.
+     * Prepare the force_saving param from the form to save to the rule
      */
-    public function loadPost(array $rule){
+    public function loadPost(array $rule)
+    {
         if (isset($rule['force_saving'])) {
-            $rule['force_saving'] = 1;            
+            $rule['force_saving'] = 1;
         } else {
-            $rule['force_saving'] = 0;              
-        }        
+            $rule['force_saving'] = 0;
+        }
+
         return parent::loadPost($rule);
     }
-    
-    
+
     /**
-     * after save we have to proceed other stuff then general flow
-     * save the products with high discount - if exists
-     * send email notification if exists products with high discount
+     * Processing object after save data:
+     * - save products ids with high discount (if exists)
+     * - send email notification if there exists products with high discount
+     *
+     * @return Zitec_Promotale_Model_Rule
      */
-    public function _afterSave(){
+    public function _afterSave()
+    {
         $updatingResults = $this->_getResource()->updateRuleProductData($this);
-var_dump($updatingResults);exit;
-//        $highDiscountedProducts = $updatingResults->getHighDiscountedProducts();
-//        $discountPercentageForProds = $updatingResults->getDiscountPercentageForHighDiscountedProds();
-//        Mage::helper('catalogrule/data')->sendCatalogRuleEmailAlert($this,$highDiscountedProducts, $discountPercentageForProds);
-//        Mage::helper('catalogrule/data')->saveHighDiscountedProductsList($this, $highDiscountedProducts);
-//
-//        $this->cleanModelCache();
-//        Mage::dispatchEvent('model_save_after', array('object'=>$this));
-//        Mage::dispatchEvent($this->_eventPrefix.'_save_after', $this->_getEventData());
 
-        return $this;
-        
+        $highDiscountedProducts = $updatingResults->getHighDiscountedProducts();
+        $discountPercentageForProds = $updatingResults->getDiscountPercentageForHighDiscountedProds();
+
+        Mage::helper('catalogrule/data')->sendCatalogRuleEmailAlert($this, $highDiscountedProducts, $discountPercentageForProds);
+        Mage::helper('catalogrule/data')->saveHighDiscountedProductsList($this, $highDiscountedProducts);
+
+        parent::_afterSave();
     }
 
     /**
+     * Returns forced saving status
      * 
-     * @return if was forced saving
+     * @return boolean
      */
-    public function isForceSavingEnabled(){
-        return $this->getForceSaving();
+    public function isForceSavingEnabled()
+    {
+        return (bool) $this->getForceSaving();
     }
-    
-    
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HtaccessFile.php 20897 2010-02-04 06:31:52Z ralph $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Filesystem_File
  */

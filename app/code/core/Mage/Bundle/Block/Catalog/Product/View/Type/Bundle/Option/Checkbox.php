@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bundle option checkbox type renderer
  *
@@ -32,9 +32,9 @@
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Checkbox
-    extends Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option
+class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Checkbox extends Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option
 {
+
     /**
      * Set template
      *
@@ -44,4 +44,5 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Checkbox
     {
         $this->setTemplate('bundle/catalog/product/view/type/bundle/option/checkbox.phtml');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,9 +30,9 @@
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Core_Block_Text_List extends Mage_Core_Block_Text
 {
+
     protected function _toHtml()
     {
         $this->setText('');
@@ -44,4 +45,5 @@ class Mage_Core_Block_Text_List extends Mage_Core_Block_Text
         }
         return parent::_toHtml();
     }
+
 }

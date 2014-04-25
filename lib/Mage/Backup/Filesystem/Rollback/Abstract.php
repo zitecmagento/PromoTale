@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Backup_Filesystem_Rollback_Abstract
 {
+
     /**
      * Snapshot object
      *

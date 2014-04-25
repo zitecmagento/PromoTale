@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,13 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Payment_Block_Form_Purchaseorder extends Mage_Payment_Block_Form
 {
+
     protected function _construct()
     {
         parent::_construct();
         $this->setTemplate('payment/form/purchaseorder.phtml');
     }
+
 }

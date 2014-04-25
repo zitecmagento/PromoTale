@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Param.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_CodeGenerator_Php_Docblock_Tag
  */
@@ -119,9 +119,9 @@ class Zend_CodeGenerator_Php_Docblock_Tag_Param extends Zend_CodeGenerator_Php_D
     public function generate()
     {
         $output = '@param '
-            . (($this->_datatype  != null) ? $this->_datatype : 'unknown')
-            . (($this->_paramName != null) ? ' $' . $this->_paramName : '')
-            . (($this->_description != null) ? ' ' . $this->_description : '');
+                . (($this->_datatype != null) ? $this->_datatype : 'unknown')
+                . (($this->_paramName != null) ? ' $' . $this->_paramName : '')
+                . (($this->_description != null) ? ' ' . $this->_description : '');
         return $output;
     }
 

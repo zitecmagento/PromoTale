@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,9 +34,11 @@
  */
 class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
 {
+
     protected $_mapAttributes = array(
         'customer_id' => 'entity_id'
     );
+
     /**
      * Prepare data to insert/update.
      * Creating array for stdClass Object
@@ -45,9 +48,8 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      */
     protected function _prepareData($data)
     {
-       foreach ($this->_mapAttributes as $attributeAlias=>$attributeCode) {
-            if(isset($data[$attributeAlias]))
-            {
+        foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
+            if (isset($data[$attributeAlias])) {
                 $data[$attributeCode] = $data[$attributeAlias];
                 unset($data[$attributeAlias]);
             }
@@ -64,11 +66,14 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     public function create($customerData)
     {
         $customerData = $this->_prepareData($customerData);
-        try {
+        try
+        {
             $customer = Mage::getModel('customer/customer')
-                ->setData($customerData)
-                ->save();
-        } catch (Mage_Core_Exception $e) {
+                    ->setData($customerData)
+                    ->save();
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
         return $customer->getId();
@@ -95,11 +100,11 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
 
         $result = array();
 
-        foreach ($this->_mapAttributes as $attributeAlias=>$attributeCode) {
+        foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
             $result[$attributeAlias] = $customer->getData($attributeCode);
         }
 
-        foreach ($this->getAllowedAttributes($customer, $attributes) as $attributeCode=>$attribute) {
+        foreach ($this->getAllowedAttributes($customer, $attributes) as $attributeCode => $attribute) {
             $result[$attributeCode] = $customer->getData($attributeCode);
         }
 
@@ -118,17 +123,20 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         /** @var $apiHelper Mage_Api_Helper_Data */
         $apiHelper = Mage::helper('api');
         $filters = $apiHelper->parseFilters($filters, $this->_mapAttributes);
-        try {
+        try
+        {
             foreach ($filters as $field => $value) {
                 $collection->addFieldToFilter($field, $value);
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('filters_invalid', $e->getMessage());
         }
         $result = array();
         foreach ($collection as $customer) {
             $data = $customer->toArray();
-            $row  = array();
+            $row = array();
             foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
                 $row[$attributeAlias] = (isset($data[$attributeCode]) ? $data[$attributeCode] : null);
             }
@@ -160,7 +168,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $this->_fault('not_exists');
         }
 
-        foreach ($this->getAllowedAttributes($customer) as $attributeCode=>$attribute) {
+        foreach ($this->getAllowedAttributes($customer) as $attributeCode => $attribute) {
             if (isset($customerData[$attributeCode])) {
                 $customer->setData($attributeCode, $customerData[$attributeCode]);
             }
@@ -184,13 +192,18 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $this->_fault('not_exists');
         }
 
-        try {
+        try
+        {
             $customer->delete();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('not_deleted', $e->getMessage());
         }
 
         return true;
     }
 
-} // Class Mage_Customer_Model_Customer_Api End
+}
+
+// Class Mage_Customer_Model_Customer_Api End

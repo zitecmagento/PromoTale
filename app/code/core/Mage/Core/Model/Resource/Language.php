@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Language resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Language extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table
      *
@@ -42,4 +43,5 @@ class Mage_Core_Model_Resource_Language extends Mage_Core_Model_Resource_Db_Abst
     {
         $this->_init('core/language', 'language_code');
     }
+
 }

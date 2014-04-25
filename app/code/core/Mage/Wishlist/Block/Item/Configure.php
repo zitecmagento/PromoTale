@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_Wishlist_Block_Item_Configure extends Mage_Core_Block_Template
 {
+
     /**
      * Returns product being edited
      *
@@ -70,4 +72,5 @@ class Mage_Wishlist_Block_Item_Configure extends Mage_Core_Block_Template
 
         return parent::_prepareLayout();
     }
+
 }

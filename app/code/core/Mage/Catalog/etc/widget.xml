@@ -61,7 +61,11 @@
                 <value>5</value>
                 <label>Number of Products per Page</label>
                 <type>text</type>
-                <depends><show_pager><value>1</value></show_pager></depends>
+                <depends>
+                    <show_pager>
+                        <value>1</value>
+                    </show_pager>
+                </depends>
             </products_per_page>
             <products_count translate="label">
                 <required>1</required>

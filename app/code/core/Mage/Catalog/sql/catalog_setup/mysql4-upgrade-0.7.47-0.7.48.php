@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $installer->startSetup();
@@ -34,7 +34,7 @@ $installer->run("
 
 $installer->addAttribute('catalog_product', 'has_options', array(
     'type' => 'static',
-    'visible'=>false,
+    'visible' => false,
     'default' => false
 ));
 $installer->run("

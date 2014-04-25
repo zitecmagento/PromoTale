@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Tag
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
 {
+
     protected $_tags;
     protected $_minPopularity;
     protected $_maxPopularity;
@@ -44,17 +45,17 @@ class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
             $this->_tags = array();
 
             $tags = Mage::getResourceModel('tag/tag_collection')
-                ->addPopularity(null, Mage::app()->getStore()->getId())
-                ->setOrder('popularity', 'DESC')
-                ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
-                ->setActiveFilter()
-                ->load()
-                ->getItems();
+                    ->addPopularity(null, Mage::app()->getStore()->getId())
+                    ->setOrder('popularity', 'DESC')
+                    ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
+                    ->setActiveFilter()
+                    ->load()
+                    ->getItems();
         } else {
             return;
         }
 
-        if( isset($tags) && count($tags) == 0 ) {
+        if (isset($tags) && count($tags) == 0) {
             return;
         }
 
@@ -64,7 +65,7 @@ class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
         $range = ( $range == 0 ) ? 1 : $range;
 
         foreach ($tags as $tag) {
-            $tag->setRatio(($tag->getPopularity()-$this->_minPopularity)/$range);
+            $tag->setRatio(($tag->getPopularity() - $this->_minPopularity) / $range);
             $this->_tags[$tag->getName()] = $tag;
         }
         ksort($this->_tags);
@@ -85,4 +86,5 @@ class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
     {
         return $this->_minPopularity;
     }
+
 }

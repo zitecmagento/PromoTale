@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -47,15 +48,15 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
     protected function _preparePage()
     {
         $this->getCollection()
-            ->setPageSize(5)
-            ->setCurPage(1);
+                ->setPageSize(5)
+                ->setCurPage(1);
     }
 
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_grid_collection')
-            ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId())
-            ->setIsCustomerMode(true);
+                ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId())
+                ->setIsCustomerMode(true);
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -64,50 +65,50 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
     {
 
         $this->addColumn('increment_id', array(
-            'header'    => Mage::helper('customer')->__('Order #'),
-            'align'     => 'center',
-            'index'     => 'increment_id',
-            'width'     => '100px',
+            'header' => Mage::helper('customer')->__('Order #'),
+            'align' => 'center',
+            'index' => 'increment_id',
+            'width' => '100px',
         ));
 
         $this->addColumn('created_at', array(
-            'header'    => Mage::helper('customer')->__('Purchased On'),
-            'index'     => 'created_at',
-            'type'      => 'datetime',
+            'header' => Mage::helper('customer')->__('Purchased On'),
+            'index' => 'created_at',
+            'type' => 'datetime',
         ));
 
         $this->addColumn('billing_name', array(
-            'header'    => Mage::helper('customer')->__('Bill to Name'),
-            'index'     => 'billing_name',
+            'header' => Mage::helper('customer')->__('Bill to Name'),
+            'index' => 'billing_name',
         ));
 
         $this->addColumn('shipping_name', array(
-            'header'    => Mage::helper('customer')->__('Shipped to Name'),
-            'index'     => 'shipping_name',
+            'header' => Mage::helper('customer')->__('Shipped to Name'),
+            'index' => 'shipping_name',
         ));
 
         $this->addColumn('grand_total', array(
-            'header'    => Mage::helper('customer')->__('Order Total'),
-            'index'     => 'grand_total',
-            'type'      => 'currency',
-            'currency'  => 'order_currency_code',
+            'header' => Mage::helper('customer')->__('Order Total'),
+            'index' => 'grand_total',
+            'type' => 'currency',
+            'currency' => 'order_currency_code',
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', array(
-                'header'    => Mage::helper('customer')->__('Bought From'),
-                'index'     => 'store_id',
-                'type'      => 'store',
+                'header' => Mage::helper('customer')->__('Bought From'),
+                'index' => 'store_id',
+                'type' => 'store',
                 'store_view' => true,
             ));
         }
 
         $this->addColumn('action', array(
-            'header'    =>  ' ',
-            'filter'    =>  false,
-            'sortable'  =>  false,
-            'width'     => '100px',
-            'renderer'  =>  'adminhtml/sales_reorder_renderer_action'
+            'header' => ' ',
+            'filter' => false,
+            'sortable' => false,
+            'width' => '100px',
+            'renderer' => 'adminhtml/sales_reorder_renderer_action'
         ));
 
         return parent::_prepareColumns();

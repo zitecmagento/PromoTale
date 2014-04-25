@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 interface Zend_Service_ShortUrl_Shortener
 {
+
     /**
      * This function shortens long url
      * 
@@ -34,7 +36,7 @@ interface Zend_Service_ShortUrl_Shortener
      * @return string Shortened Url
      */
     public function shorten($shortenedUrl);
-    
+
     /**
      * Reveals target for short URL
      *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -50,13 +51,13 @@
  */
 class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
 {
+
     /**
      * Filters
      *
      * @var array
      */
     protected $_filters;
-
 
     protected function _construct()
     {
@@ -95,9 +96,9 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     }
 
     protected function _buildResourcesArray(
-        Varien_Simplexml_Element $resource = null, $parentName = null, $level = 0, $represent2Darray = null,
-        $rawNodes = false, $module = 'adminhtml'
-    ) {
+    Varien_Simplexml_Element $resource = null, $parentName = null, $level = 0, $represent2Darray = null, $rawNodes = false, $module = 'adminhtml'
+    )
+    {
         static $result;
 
         if (is_null($resource)) {
@@ -106,24 +107,23 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
             $level = -1;
         } else {
             $resourceName = $parentName;
-            if ($resource->getName()!='title' && $resource->getName()!='sort_order'
-                && $resource->getName() != 'children'
+            if ($resource->getName() != 'title' && $resource->getName() != 'sort_order' && $resource->getName() != 'children'
             ) {
-                $resourceName = (is_null($parentName) ? '' : $parentName.'/').$resource->getName();
+                $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
 
                 //assigning module for its' children nodes
                 if ($resource->getAttribute('module')) {
-                    $module = (string)$resource->getAttribute('module');
+                    $module = (string) $resource->getAttribute('module');
                 }
 
                 if ($rawNodes) {
                     $resource->addAttribute("aclpath", $resourceName);
                 }
 
-                $resource->title = Mage::helper($module)->__((string)$resource->title);
+                $resource->title = Mage::helper($module)->__((string) $resource->title);
 
-                if ( is_null($represent2Darray) ) {
-                    $result[$resourceName]['name']  = (string)$resource->title;
+                if (is_null($represent2Darray)) {
+                    $result[$resourceName]['name'] = (string) $resource->title;
                     $result[$resourceName]['level'] = $level;
                 } else {
                     $result[] = $resourceName;
@@ -140,7 +140,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
             }
         }
         foreach ($children as $child) {
-            $this->_buildResourcesArray($child, $resourceName, $level+1, $represent2Darray, $rawNodes, $module);
+            $this->_buildResourcesArray($child, $resourceName, $level + 1, $represent2Darray, $rawNodes, $module);
         }
         if ($rawNodes) {
             return $resource;
@@ -178,4 +178,5 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
         $this->setData($filter->filter($data));
         return $this;
     }
+
 }

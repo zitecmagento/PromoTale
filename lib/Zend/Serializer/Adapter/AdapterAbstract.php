@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: AdapterAbstract.php 20574 2010-01-24 17:39:14Z mabe $
  */
-
 /** @see Zend_Serializer_Adapter_AdapterInterface */
 #require_once 'Zend/Serializer/Adapter/AdapterInterface.php';
 
@@ -32,6 +32,7 @@
  */
 abstract class Zend_Serializer_Adapter_AdapterAbstract implements Zend_Serializer_Adapter_AdapterInterface
 {
+
     /**
      * Serializer options
      *
@@ -44,7 +45,7 @@ abstract class Zend_Serializer_Adapter_AdapterAbstract implements Zend_Serialize
      *
      * @param array|Zend_Config $opts Serializer options
      */
-    public function __construct($opts = array()) 
+    public function __construct($opts = array())
     {
         $this->setOptions($opts);
     }
@@ -55,7 +56,7 @@ abstract class Zend_Serializer_Adapter_AdapterAbstract implements Zend_Serialize
      * @param  array|Zend_Config $opts Serializer options
      * @return Zend_Serializer_Adapter_AdapterAbstract
      */
-    public function setOptions($opts) 
+    public function setOptions($opts)
     {
         if ($opts instanceof Zend_Config) {
             $opts = $opts->toArray();
@@ -76,7 +77,7 @@ abstract class Zend_Serializer_Adapter_AdapterAbstract implements Zend_Serialize
      * @param  mixed $value Option value
      * @return Zend_Serializer_Adapter_AdapterAbstract
      */
-    public function setOption($name, $value) 
+    public function setOption($name, $value)
     {
         $this->_options[(string) $name] = $value;
         return $this;
@@ -87,7 +88,7 @@ abstract class Zend_Serializer_Adapter_AdapterAbstract implements Zend_Serialize
      *
      * @return array
      */
-    public function getOptions() 
+    public function getOptions()
     {
         return $this->_options;
     }
@@ -99,14 +100,15 @@ abstract class Zend_Serializer_Adapter_AdapterAbstract implements Zend_Serialize
      * @return mixed
      * @throws Zend_Serializer_Exception
      */
-    public function getOption($name) 
+    public function getOption($name)
     {
         $name = (string) $name;
         if (!array_key_exists($name, $this->_options)) {
             #require_once 'Zend/Serializer/Exception.php';
-            throw new Zend_Serializer_Exception('Unknown option name "'.$name.'"');
+            throw new Zend_Serializer_Exception('Unknown option name "' . $name . '"');
         }
 
         return $this->_options[$name];
     }
+
 }

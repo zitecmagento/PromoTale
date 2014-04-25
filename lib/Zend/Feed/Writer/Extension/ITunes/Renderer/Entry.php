@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,21 +19,20 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Entry.php 22662 2010-07-24 17:37:36Z mabe $
  */
- 
 /**
  * @see Zend_Feed_Writer_Extension_RendererAbstract
  */
 #require_once 'Zend/Feed/Writer/Extension/RendererAbstract.php';
- 
+
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Writer_Extension_ITunes_Renderer_Entry
-    extends Zend_Feed_Writer_Extension_RendererAbstract
+class Zend_Feed_Writer_Extension_ITunes_Renderer_Entry extends Zend_Feed_Writer_Extension_RendererAbstract
 {
+
     /**
      * Set to TRUE if a rendering method actually renders something. This
      * is used to prevent premature appending of a XML namespace declaration
@@ -41,7 +41,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Entry
      * @var bool
      */
     protected $_called = false;
-    
+
     /**
      * Render entry
      * 
@@ -60,7 +60,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Entry
             $this->_appendNamespaces();
         }
     }
-    
+
     /**
      * Append namespaces to entry root
      * 
@@ -68,8 +68,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Entry
      */
     protected function _appendNamespaces()
     {
-        $this->getRootElement()->setAttribute('xmlns:itunes',
-            'http://www.itunes.com/dtds/podcast-1.0.dtd');  
+        $this->getRootElement()->setAttribute('xmlns:itunes', 'http://www.itunes.com/dtds/podcast-1.0.dtd');
     }
 
     /**
@@ -93,7 +92,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Entry
             $this->_called = true;
         }
     }
-    
+
     /**
      * Set itunes block
      * 
@@ -113,7 +112,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Entry
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set entry duration
      * 
@@ -133,7 +132,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Entry
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set explicit flag
      * 
@@ -153,7 +152,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Entry
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set entry keywords
      * 
@@ -173,7 +172,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Entry
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set entry subtitle
      * 
@@ -193,7 +192,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Entry
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set entry summary
      * 
@@ -213,4 +212,5 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Entry
         $root->appendChild($el);
         $this->_called = true;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Dojo_Form_Element_Dijit */
 #require_once 'Zend/Dojo/Form/Element/Dijit.php';
 
@@ -36,6 +36,7 @@
  */
 abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_Dijit
 {
+
     /**
      * Array of options for multi-item
      * @var array
@@ -105,7 +106,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
      */
     public function addMultiOption($option, $value = '')
     {
-        $option  = (string) $option;
+        $option = (string) $option;
         $this->_getMultiOptions();
         if (!$this->_translateOption($option, $value)) {
             $this->options[$option] = $value;
@@ -123,9 +124,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
     public function addMultiOptions(array $options)
     {
         foreach ($options as $option => $value) {
-            if (is_array($value)
-                && array_key_exists('key', $value)
-                && array_key_exists('value', $value)
+            if (is_array($value) && array_key_exists('key', $value) && array_key_exists('value', $value)
             ) {
                 $this->addMultiOption($value['key'], $value['value']);
             } else {
@@ -155,7 +154,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
      */
     public function getMultiOption($option)
     {
-        $option  = (string) $option;
+        $option = (string) $option;
         $this->_getMultiOptions();
         if (isset($this->options[$option])) {
             $this->_translateOption($option, $this->options[$option]);
@@ -187,7 +186,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
      */
     public function removeMultiOption($option)
     {
-        $option  = (string) $option;
+        $option = (string) $option;
         $this->_getMultiOptions();
         if (isset($this->options[$option])) {
             unset($this->options[$option]);
@@ -249,9 +248,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
             if (!$this->getValidator('InArray')) {
                 $options = $this->getMultiOptions();
                 $this->addValidator(
-                    'InArray',
-                    true,
-                    array(array_keys($options))
+                        'InArray', true, array(array_keys($options))
                 );
             }
         }
@@ -300,4 +297,5 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
             return $value;
         }
     }
+
 }

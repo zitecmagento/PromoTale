@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 
@@ -34,9 +34,5 @@ ALTER TABLE `{$installer->getTable('sales_flat_quote_address_item')}`
 ");
 
 $installer->getConnection()->addConstraint(
-    'SALES_FLAT_QUOTE_ADDRESS_ITEM_PARENT',
-    $installer->getTable('sales_flat_quote_address_item'),
-    'parent_item_id',
-    $installer->getTable('sales_flat_quote_address_item'),
-    'address_item_id'
+        'SALES_FLAT_QUOTE_ADDRESS_ITEM_PARENT', $installer->getTable('sales_flat_quote_address_item'), 'parent_item_id', $installer->getTable('sales_flat_quote_address_item'), 'address_item_id'
 );

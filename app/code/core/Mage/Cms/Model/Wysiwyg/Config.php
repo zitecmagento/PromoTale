@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
 {
+
     /**
      * Wysiwyg behaviour
      */
@@ -62,31 +64,31 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
         $config = new Varien_Object();
 
         $config->setData(array(
-            'enabled'                       => $this->isEnabled(),
-            'hidden'                        => $this->isHidden(),
-            'use_container'                 => false,
-            'add_variables'                 => true,
-            'add_widgets'                   => true,
-            'no_display'                    => false,
-            'translator'                    => Mage::helper('cms'),
-            'encode_directives'             => true,
-            'directives_url'                => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg/directive'),
-            'popup_css'                     =>
-                Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/dialog.css',
-            'content_css'                   =>
-                Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/content.css',
-            'width'                         => '100%',
-            'plugins'                       => array()
+            'enabled' => $this->isEnabled(),
+            'hidden' => $this->isHidden(),
+            'use_container' => false,
+            'add_variables' => true,
+            'add_widgets' => true,
+            'no_display' => false,
+            'translator' => Mage::helper('cms'),
+            'encode_directives' => true,
+            'directives_url' => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg/directive'),
+            'popup_css' =>
+            Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/dialog.css',
+            'content_css' =>
+            Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/content.css',
+            'width' => '100%',
+            'plugins' => array()
         ));
 
         $config->setData('directives_url_quoted', preg_quote($config->getData('directives_url')));
 
         if (Mage::getSingleton('admin/session')->isAllowed('cms/media_gallery')) {
             $config->addData(array(
-                'add_images'               => true,
+                'add_images' => true,
                 'files_browser_window_url' => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg_images/index'),
                 'files_browser_window_width' => (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_width'),
-                'files_browser_window_height'=> (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_height'),
+                'files_browser_window_height' => (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_height'),
             ));
         }
 
@@ -134,4 +136,5 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
     {
         return Mage::getStoreConfig('cms/wysiwyg/enabled') == self::WYSIWYG_HIDDEN;
     }
+
 }

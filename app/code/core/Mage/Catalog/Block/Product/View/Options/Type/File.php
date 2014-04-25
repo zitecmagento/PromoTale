@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product options text type block
  *
@@ -32,9 +32,9 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Block_Product_View_Options_Type_File
-    extends Mage_Catalog_Block_Product_View_Options_Abstract
+class Mage_Catalog_Block_Product_View_Options_Type_File extends Mage_Catalog_Block_Product_View_Options_Abstract
 {
+
     /**
      * Returns info of file
      *
@@ -50,4 +50,5 @@ class Mage_Catalog_Block_Product_View_Options_Type_File
         }
         return $info;
     }
+
 }

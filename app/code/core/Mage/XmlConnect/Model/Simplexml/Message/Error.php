@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Simplexml_Message_Error extends Mage_XmlConnect_Model_Simplexml_Message_Abstract
 {
+
     /**
      * User space default error type
      */
@@ -112,14 +114,15 @@ class Mage_XmlConnect_Model_Simplexml_Message_Error extends Mage_XmlConnect_Mode
      *
      * @return string
      */
-    protected  function _getCustomMessageByCode()
+    protected function _getCustomMessageByCode()
     {
         $messages = $this->_getCustomMessageList();
-        if (!array_key_exists($this->_getMessageCode(), $messages)){
+        if (!array_key_exists($this->_getMessageCode(), $messages)) {
             $this->_setMessageCode(self::ERROR_SERVER_SP_DEFAULT);
             return Mage::helper('xmlconnect')->__('Error message text is missed.');
         } else {
             return $messages[$this->_getMessageCode()];
         }
     }
+
 }

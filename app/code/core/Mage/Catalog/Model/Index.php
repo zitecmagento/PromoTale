@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Category/Product Index
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Index
 {
+
     /**
      * Rebuild indexes
      *
@@ -42,11 +43,12 @@ class Mage_Catalog_Model_Index
     public function rebuild()
     {
         Mage::getResourceSingleton('catalog/category')
-            ->refreshProductIndex();
+                ->refreshProductIndex();
         foreach (Mage::app()->getStores() as $store) {
             Mage::getResourceSingleton('catalog/product')
-                ->refreshEnabledIndex($store);
+                    ->refreshEnabledIndex($store);
         }
         return $this;
     }
+
 }

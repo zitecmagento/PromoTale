@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_PageCache>
-             <version>1.6.0.0</version>
+            <version>1.6.0.0</version>
         </Mage_PageCache>
     </modules>
     <global>
@@ -96,10 +96,14 @@
             <allowed_requests>
                 <cms/>
                 <catalog>
-                    <category><view/></category>
+                    <category>
+                        <view/>
+                    </category>
                 </catalog>
                 <catalog>
-                    <product><view/></product>
+                    <product>
+                        <view/>
+                    </product>
                 </catalog>
             </allowed_requests>
         </cache>

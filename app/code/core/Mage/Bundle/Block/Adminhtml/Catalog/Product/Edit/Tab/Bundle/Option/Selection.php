@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection extends Mage_Adminhtml_Block_Widget
 {
+
     /**
      * Initialize bundle option selection block
      */
@@ -70,13 +72,12 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
      */
     protected function _prepareLayout()
     {
-        $this->setChild('selection_delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label' => Mage::helper('catalog')->__('Delete'),
-                    'class' => 'delete icon-btn',
-                    'on_click' => 'bSelection.remove(event)'
-                ))
+        $this->setChild('selection_delete_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('catalog')->__('Delete'),
+                            'class' => 'delete icon-btn',
+                            'on_click' => 'bSelection.remove(event)'
+                        ))
         );
         return parent::_prepareLayout();
     }
@@ -99,12 +100,12 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
     public function getPriceTypeSelectHtml()
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
-            ->setData(array(
-                'id'    => $this->getFieldId() . '_{{index}}_price_type',
-                'class' => 'select select-product-option-type required-option-select'
-            ))
-            ->setName($this->getFieldName() . '[{{parentIndex}}][{{index}}][selection_price_type]')
-            ->setOptions(Mage::getSingleton('bundle/source_option_selection_price_type')->toOptionArray());
+                ->setData(array(
+                    'id' => $this->getFieldId() . '_{{index}}_price_type',
+                    'class' => 'select select-product-option-type required-option-select'
+                ))
+                ->setName($this->getFieldName() . '[{{parentIndex}}][{{index}}][selection_price_type]')
+                ->setOptions(Mage::getSingleton('bundle/source_option_selection_price_type')->toOptionArray());
         if ($this->getCanEditPrice() === false) {
             $select->setExtraParams('disabled="disabled"');
         }
@@ -119,12 +120,12 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
     public function getQtyTypeSelectHtml()
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
-            ->setData(array(
-                'id' => $this->getFieldId().'_{{index}}_can_change_qty',
-                'class' => 'select'
-            ))
-            ->setName($this->getFieldName().'[{{parentIndex}}][{{index}}][selection_can_change_qty]')
-            ->setOptions(Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray());
+                ->setData(array(
+                    'id' => $this->getFieldId() . '_{{index}}_can_change_qty',
+                    'class' => 'select'
+                ))
+                ->setName($this->getFieldName() . '[{{parentIndex}}][{{index}}][selection_can_change_qty]')
+                ->setOptions(Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray());
 
         return $select->getHtml();
     }
@@ -164,9 +165,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
             $label = Mage::helper('bundle')->__('Use Default Value');
             $disabled = ($this->getCanEditPrice() === false) ? ' disabled="disabled"' : '';
             $checkboxHtml = '<input type="checkbox" id="' . $id . '" class="' . $class . '" name="' . $name
-                . '"' . $disabled . ' value="1" />';
+                    . '"' . $disabled . ' value="1" />';
             $checkboxHtml .= '<label class="normal" for="' . $id . '">' . $label . '</label>';
         }
         return $checkboxHtml;
     }
+
 }

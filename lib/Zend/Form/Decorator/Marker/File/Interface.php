@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,4 +31,5 @@
  */
 interface Zend_Form_Decorator_Marker_File_Interface
 {
+    
 }

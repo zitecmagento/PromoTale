@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Mode
 {
+
     public function toOptionArray()
     {
         return array(
@@ -41,4 +43,5 @@ class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Mode
             array('value' => '0', 'label' => Mage::helper('usa')->__('Development')),
         );
     }
+
 }

@@ -49,7 +49,9 @@
                         <type translate="label">
                             <label>Backup Type</label>
                             <frontend_type>select</frontend_type>
-                            <depends><enabled>1</enabled></depends>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
                             <source_model>backup/config_source_type</source_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -59,7 +61,9 @@
                         <time translate="label">
                             <label>Start Time</label>
                             <frontend_type>time</frontend_type>
-                            <depends><enabled>1</enabled></depends>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -68,7 +72,9 @@
                         <frequency translate="label">
                             <label>Frequency</label>
                             <frontend_type>select</frontend_type>
-                            <depends><enabled>1</enabled></depends>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
                             <source_model>adminhtml/system_config_source_cron_frequency</source_model>
                             <backend_model>backup/config_backend_cron</backend_model>
                             <sort_order>40</sort_order>
@@ -80,7 +86,9 @@
                             <label>Maintenance Mode</label>
                             <comment>Put store on the maintenance mode while backup's creation</comment>
                             <frontend_type>select</frontend_type>
-                            <depends><enabled>1</enabled></depends>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>

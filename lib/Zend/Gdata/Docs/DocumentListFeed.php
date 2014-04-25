@@ -20,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DocumentListFeed.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Feed
  */
 #require_once 'Zend/Gdata/Feed.php';
-
 
 /**
  * Data model for a Google Documents List feed of documents

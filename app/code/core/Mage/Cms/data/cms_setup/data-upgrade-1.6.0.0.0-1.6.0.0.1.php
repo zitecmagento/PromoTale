@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 $pageContent = <<<EOD
 <p style="color: #ff0000; font-weight: bold; font-size: 13px">
     Please replace this text with you Privacy Policy.
@@ -245,27 +244,27 @@ $pageContent = <<<EOD
 EOD;
 
 $privacyPageData = array(
-    'title'           => 'Privacy Policy',
+    'title' => 'Privacy Policy',
     'content_heading' => 'Privacy Policy',
-    'root_template'   => 'one_column',
-    'identifier'      => 'privacy-policy-cookie-restriction-mode',
-    'content'         => $pageContent,
-    'is_active'       => 1,
-    'stores'          => array(0),
-    'sort_order'      => 0
+    'root_template' => 'one_column',
+    'identifier' => 'privacy-policy-cookie-restriction-mode',
+    'content' => $pageContent,
+    'is_active' => 1,
+    'stores' => array(0),
+    'sort_order' => 0
 );
 
 Mage::getModel('cms/page')->setData($privacyPageData)->save();
 
-$footerLinksBlock = Mage::getModel('cms/block')->load('footer_links','identifier');
+$footerLinksBlock = Mage::getModel('cms/block')->load('footer_links', 'identifier');
 
 if ($footerLinksBlock->getId()) {
     $content = $footerLinksBlock->getContent();
-    if (preg_match('/<ul>(.*?)<\\/ul>/ims',$content, $matches)) {
-        $content = preg_replace('/<li class="last">/ims', '<li>',$content);
+    if (preg_match('/<ul>(.*?)<\\/ul>/ims', $content, $matches)) {
+        $content = preg_replace('/<li class="last">/ims', '<li>', $content);
         $replacment = '<li class="last privacy">'
-            . "<a href=\"{{store direct_url=\"privacy-policy-cookie-restriction-mode\"}}\">"
-            . "Privacy Policy</a></li>\r\n</ul>";
+                . "<a href=\"{{store direct_url=\"privacy-policy-cookie-restriction-mode\"}}\">"
+                . "Privacy Policy</a></li>\r\n</ul>";
         $content = preg_replace('/<\\/ul>/ims', $replacment, $content);
         $footerLinksBlock->setContent($content)->save();
     }

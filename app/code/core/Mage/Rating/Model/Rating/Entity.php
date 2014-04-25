@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -36,9 +37,9 @@
  * @package     Mage_Rating
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Rating_Model_Rating_Entity extends Mage_Core_Model_Abstract
 {
+
     protected function _construct()
     {
         $this->_init('rating/rating_entity');
@@ -48,4 +49,5 @@ class Mage_Rating_Model_Rating_Entity extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()->getIdByCode($entityCode);
     }
+
 }

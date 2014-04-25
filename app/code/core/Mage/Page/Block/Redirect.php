@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer Redirect Page
  *
@@ -45,7 +45,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
      *
      *  @return	  string URL
      */
-    public function getTargetURL ()
+    public function getTargetURL()
     {
         return '';
     }
@@ -55,7 +55,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
      *
      *  @return	  string Output message
      */
-    public function getMessage ()
+    public function getMessage()
     {
         return '';
     }
@@ -65,7 +65,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
      *
      *  @return	  string
      */
-    public function getRedirectOutput ()
+    public function getRedirectOutput()
     {
         if ($this->isHtmlFormRedirect()) {
             return $this->getHtmlFormRedirect();
@@ -79,9 +79,9 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
      *
      *  @return	  string
      */
-    public function getJsRedirect ()
+    public function getJsRedirect()
     {
-        $js  = '<script type="text/javascript">';
+        $js = '<script type="text/javascript">';
         $js .= 'document.location.href="' . $this->getTargetURL() . '";';
         $js .= '</script>';
         return $js;
@@ -92,14 +92,14 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
      *
      *  @return	  string
      */
-    public function getHtmlFormRedirect ()
+    public function getHtmlFormRedirect()
     {
         $form = new Varien_Data_Form();
         $form->setAction($this->getTargetURL())
-            ->setId($this->getFormId())
-            ->setName($this->getFormId())
-            ->setMethod($this->getMethod())
-            ->setUseContainer(true);
+                ->setId($this->getFormId())
+                ->setName($this->getFormId())
+                ->setMethod($this->getMethod())
+                ->setUseContainer(true);
         foreach ($this->_getFormFields() as $field => $value) {
             $form->addField($field, 'hidden', array('name' => $field, 'value' => $value));
         }
@@ -113,7 +113,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
      *
      *  @return	  boolean
      */
-    public function isHtmlFormRedirect ()
+    public function isHtmlFormRedirect()
     {
         return is_array($this->_getFormFields()) && count($this->_getFormFields()) > 0;
     }
@@ -133,7 +133,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
      *
      *  @return	  string Method
      */
-    public function getFormMethod ()
+    public function getFormMethod()
     {
         return 'POST';
     }

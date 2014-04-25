@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Urlrewrite extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     /**
      * Part for generating apropriate grid block name
      *
@@ -62,4 +64,5 @@ class Mage_Adminhtml_Block_Urlrewrite extends Mage_Adminhtml_Block_Widget_Grid_C
         $modes = array_keys(Mage::getBlockSingleton('adminhtml/urlrewrite_selector')->getModes());
         return $this->getUrl('*/*/edit') . array_shift($modes);
     }
+
 }

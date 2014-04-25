@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product custom option resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table and initialize connection
      *
@@ -65,8 +66,8 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
      */
     protected function _saveValuePrices(Mage_Core_Model_Abstract $object)
     {
-        $priceTable   = $this->getTable('catalog/product_option_price');
-        $readAdapter  = $this->_getReadAdapter();
+        $priceTable = $this->getTable('catalog/product_option_price');
+        $readAdapter = $this->_getReadAdapter();
         $writeAdapter = $this->_getWriteAdapter();
 
         /*
@@ -74,52 +75,43 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
          * If there is not price skip saving price
          */
 
-        if ($object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_FIELD
-            || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_AREA
-            || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_FILE
-            || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE
-            || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME
-            || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME
+        if ($object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_FIELD || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_AREA || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_FILE || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME
         ) {
             //save for store_id = 0
             if (!$object->getData('scope', 'price')) {
                 $statement = $readAdapter->select()
-                    ->from($priceTable, 'option_id')
-                    ->where('option_id = ?', $object->getId())
-                    ->where('store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
+                        ->from($priceTable, 'option_id')
+                        ->where('option_id = ?', $object->getId())
+                        ->where('store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
                 $optionId = $readAdapter->fetchOne($statement);
 
                 if ($optionId) {
                     if ($object->getStoreId() == '0') {
                         $data = $this->_prepareDataForTable(
-                            new Varien_Object(
+                                new Varien_Object(
                                 array(
-                                    'price'      => $object->getPrice(),
-                                    'price_type' => $object->getPriceType())
-                            ),
-                            $priceTable
+                            'price' => $object->getPrice(),
+                            'price_type' => $object->getPriceType())
+                                ), $priceTable
                         );
 
                         $writeAdapter->update(
-                            $priceTable,
-                            $data,
-                            array(
-                                'option_id = ?' => $object->getId(),
-                                'store_id  = ?' => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
-                            )
+                                $priceTable, $data, array(
+                            'option_id = ?' => $object->getId(),
+                            'store_id  = ?' => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
+                                )
                         );
                     }
                 } else {
                     $data = $this->_prepareDataForTable(
-                         new Varien_Object(
+                            new Varien_Object(
                             array(
-                                'option_id'  => $object->getId(),
-                                'store_id'   => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
-                                'price'      => $object->getPrice(),
-                                'price_type' => $object->getPriceType()
+                        'option_id' => $object->getId(),
+                        'store_id' => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
+                        'price' => $object->getPrice(),
+                        'price_type' => $object->getPriceType()
                             )
-                        ),
-                        $priceTable
+                            ), $priceTable
                     );
                     $writeAdapter->insert($priceTable, $data);
                 }
@@ -127,8 +119,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
 
             $scope = (int) Mage::app()->getStore()->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE);
 
-            if ($object->getStoreId() != '0' && $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE
-                && !$object->getData('scope', 'price')) {
+            if ($object->getStoreId() != '0' && $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE && !$object->getData('scope', 'price')) {
 
                 $baseCurrency = Mage::app()->getBaseCurrencyCode();
 
@@ -139,7 +130,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                             $storeCurrency = Mage::app()->getStore($storeId)->getBaseCurrencyCode();
                             $rate = Mage::getModel('directory/currency')->load($baseCurrency)->getRate($storeCurrency);
                             if (!$rate) {
-                                $rate=1;
+                                $rate = 1;
                             }
                             $newPrice = $object->getPrice() * $rate;
                         } else {
@@ -147,40 +138,36 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                         }
 
                         $statement = $readAdapter->select()
-                            ->from($priceTable)
-                            ->where('option_id = ?', $object->getId())
-                            ->where('store_id  = ?', $storeId);
+                                ->from($priceTable)
+                                ->where('option_id = ?', $object->getId())
+                                ->where('store_id  = ?', $storeId);
 
                         if ($readAdapter->fetchOne($statement)) {
                             $data = $this->_prepareDataForTable(
-                                new Varien_Object(
+                                    new Varien_Object(
                                     array(
-                                        'price'      => $newPrice,
-                                        'price_type' => $object->getPriceType()
+                                'price' => $newPrice,
+                                'price_type' => $object->getPriceType()
                                     )
-                                ),
-                                $priceTable
+                                    ), $priceTable
                             );
 
                             $writeAdapter->update(
-                                $priceTable,
-                                $data,
-                                array(
-                                    'option_id = ?' => $object->getId(),
-                                    'store_id  = ?' => $storeId
-                                )
+                                    $priceTable, $data, array(
+                                'option_id = ?' => $object->getId(),
+                                'store_id  = ?' => $storeId
+                                    )
                             );
                         } else {
                             $data = $this->_prepareDataForTable(
-                                new Varien_Object(
+                                    new Varien_Object(
                                     array(
-                                        'option_id'  => $object->getId(),
-                                        'store_id'   => $storeId,
-                                        'price'      => $newPrice,
-                                        'price_type' => $object->getPriceType()
+                                'option_id' => $object->getId(),
+                                'store_id' => $storeId,
+                                'price' => $newPrice,
+                                'price_type' => $object->getPriceType()
                                     )
-                                ),
-                                $priceTable
+                                    ), $priceTable
                             );
                             $writeAdapter->insert($priceTable, $data);
                         }
@@ -188,11 +175,10 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                 }
             } elseif ($scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE && $object->getData('scope', 'price')) {
                 $writeAdapter->delete(
-                    $priceTable,
-                    array(
-                        'option_id = ?' => $object->getId(),
-                        'store_id  = ?' => $object->getStoreId()
-                    )
+                        $priceTable, array(
+                    'option_id = ?' => $object->getId(),
+                    'store_id  = ?' => $object->getStoreId()
+                        )
                 );
             }
         }
@@ -208,47 +194,43 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
      */
     protected function _saveValueTitles(Mage_Core_Model_Abstract $object)
     {
-        $readAdapter  = $this->_getReadAdapter();
+        $readAdapter = $this->_getReadAdapter();
         $writeAdapter = $this->_getWriteAdapter();
         $titleTable = $this->getTable('catalog/product_option_title');
 
         //title
         if (!$object->getData('scope', 'title')) {
             $statement = $readAdapter->select()
-                ->from($titleTable)
-                ->where('option_id = ?', $object->getId())
-                ->where('store_id  = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
+                    ->from($titleTable)
+                    ->where('option_id = ?', $object->getId())
+                    ->where('store_id  = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
 
             if ($readAdapter->fetchOne($statement)) {
                 if ($object->getStoreId() == '0') {
                     $data = $this->_prepareDataForTable(
-                        new Varien_Object(
+                            new Varien_Object(
                             array(
-                                'title' => $object->getTitle()
+                        'title' => $object->getTitle()
                             )
-                        ),
-                        $titleTable
+                            ), $titleTable
                     );
 
                     $writeAdapter->update(
-                        $titleTable,
-                        $data,
-                        array(
-                            'option_id = ?' => $object->getId(),
-                            'store_id  = ?' => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID
-                        )
+                            $titleTable, $data, array(
+                        'option_id = ?' => $object->getId(),
+                        'store_id  = ?' => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID
+                            )
                     );
                 }
             } else {
                 $data = $this->_prepareDataForTable(
-                    new Varien_Object(
+                        new Varien_Object(
                         array(
-                            'option_id' => $object->getId(),
-                            'store_id'  => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
-                            'title'     => $object->getTitle()
+                    'option_id' => $object->getId(),
+                    'store_id' => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
+                    'title' => $object->getTitle()
                         )
-                    ),
-                    $titleTable
+                        ), $titleTable
                 );
 
                 $writeAdapter->insert($titleTable, $data);
@@ -257,48 +239,43 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
 
         if ($object->getStoreId() != '0' && !$object->getData('scope', 'title')) {
             $statement = $readAdapter->select()
-                ->from($titleTable)
-                ->where('option_id = ?', $object->getId())
-                ->where('store_id  = ?', $object->getStoreId());
+                    ->from($titleTable)
+                    ->where('option_id = ?', $object->getId())
+                    ->where('store_id  = ?', $object->getStoreId());
 
             if ($readAdapter->fetchOne($statement)) {
                 $data = $this->_prepareDataForTable(
-                    new Varien_Object(
+                        new Varien_Object(
                         array(
-                            'title' => $object->getTitle()
+                    'title' => $object->getTitle()
                         )
-                    ),
-                    $titleTable
+                        ), $titleTable
                 );
 
                 $writeAdapter->update(
-                    $titleTable,
-                    $data,
-                    array(
-                        'option_id = ?' => $object->getId(),
-                        'store_id  = ?' => $object->getStoreId()
-                    )
+                        $titleTable, $data, array(
+                    'option_id = ?' => $object->getId(),
+                    'store_id  = ?' => $object->getStoreId()
+                        )
                 );
             } else {
                 $data = $this->_prepareDataForTable(
-                    new Varien_Object(
+                        new Varien_Object(
                         array(
-                            'option_id' => $object->getId(),
-                            'store_id'  => $object->getStoreId(),
-                            'title'     => $object->getTitle()
+                    'option_id' => $object->getId(),
+                    'store_id' => $object->getStoreId(),
+                    'title' => $object->getTitle()
                         )
-                    ),
-                    $titleTable
+                        ), $titleTable
                 );
                 $writeAdapter->insert($titleTable, $data);
             }
         } elseif ($object->getData('scope', 'title')) {
             $writeAdapter->delete(
-                $titleTable,
-                array(
-                    'option_id = ?' => $object->getId(),
-                    'store_id  = ?' => $object->getStoreId()
-                )
+                    $titleTable, array(
+                'option_id = ?' => $object->getId(),
+                'store_id  = ?' => $object->getStoreId()
+                    )
             );
         }
     }
@@ -312,10 +289,9 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     public function deletePrices($optionId)
     {
         $this->_getWriteAdapter()->delete(
-            $this->getTable('catalog/product_option_price'),
-            array(
-                'option_id = ?' => $optionId
-            )
+                $this->getTable('catalog/product_option_price'), array(
+            'option_id = ?' => $optionId
+                )
         );
 
         return $this;
@@ -330,10 +306,9 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     public function deleteTitles($optionId)
     {
         $this->_getWriteAdapter()->delete(
-            $this->getTable('catalog/product_option_title'),
-            array(
-                'option_id = ?' => $optionId
-            )
+                $this->getTable('catalog/product_option_title'), array(
+            'option_id = ?' => $optionId
+                )
         );
 
         return $this;
@@ -349,16 +324,16 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
      */
     public function duplicate(Mage_Catalog_Model_Product_Option $object, $oldProductId, $newProductId)
     {
-        $write  = $this->_getWriteAdapter();
-        $read   = $this->_getReadAdapter();
+        $write = $this->_getWriteAdapter();
+        $read = $this->_getReadAdapter();
 
         $optionsCond = array();
         $optionsData = array();
 
         // read and prepare original product options
         $select = $read->select()
-            ->from($this->getTable('catalog/product_option'))
-            ->where('product_id = ?', $oldProductId);
+                ->from($this->getTable('catalog/product_option'))
+                ->where('product_id = ?', $oldProductId);
 
         $query = $read->query($select);
 
@@ -380,14 +355,11 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
             $table = $this->getTable('catalog/product_option_title');
 
             $select = $this->_getReadAdapter()->select()
-                ->from($table, array(new Zend_Db_Expr($newOptionId), 'store_id', 'title'))
-                ->where('option_id = ?', $oldOptionId);
+                    ->from($table, array(new Zend_Db_Expr($newOptionId), 'store_id', 'title'))
+                    ->where('option_id = ?', $oldOptionId);
 
             $insertSelect = $write->insertFromSelect(
-                $select,
-                $table,
-                array('option_id', 'store_id', 'title'),
-                Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE
+                    $select, $table, array('option_id', 'store_id', 'title'), Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE
             );
             $write->query($insertSelect);
 
@@ -395,18 +367,16 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
             $table = $this->getTable('catalog/product_option_price');
 
             $select = $read->select()
-                ->from($table, array(new Zend_Db_Expr($newOptionId), 'store_id', 'price', 'price_type'))
-                ->where('option_id = ?', $oldOptionId);
+                    ->from($table, array(new Zend_Db_Expr($newOptionId), 'store_id', 'price', 'price_type'))
+                    ->where('option_id = ?', $oldOptionId);
 
             $insertSelect = $write->insertFromSelect(
-                $select, $table,
-                array(
-                    'option_id',
-                    'store_id',
-                    'price',
-                    'price_type'
-                ),
-                Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE
+                    $select, $table, array(
+                'option_id',
+                'store_id',
+                'price',
+                'price_type'
+                    ), Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE
             );
             $write->query($insertSelect);
 
@@ -430,40 +400,33 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
         $adapter = $this->_getReadAdapter();
 
         $titleCheckSql = $adapter->getCheckSql(
-            'option_title_store.title IS NULL',
-            'option_title_default.title',
-            'option_title_store.title'
+                'option_title_store.title IS NULL', 'option_title_default.title', 'option_title_store.title'
         );
 
 
         // retrieve options title
 
         $defaultOptionJoin = implode(
-            ' AND ',
-            array('option_title_default.option_id=product_option.option_id',
+                ' AND ', array('option_title_default.option_id=product_option.option_id',
             $adapter->quoteInto('option_title_default.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID))
         );
 
         $storeOptionJoin = implode(
-            ' AND ',
-            array(
-                'option_title_store.option_id=product_option.option_id',
-                $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId))
+                ' AND ', array(
+            'option_title_store.option_id=product_option.option_id',
+            $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId))
         );
 
         $select = $adapter->select()
-            ->from(array('product_option' => $this->getMainTable()), null)
-            ->join(
-                array('option_title_default' => $this->getTable('catalog/product_option_title')),
-                $defaultOptionJoin,
-                array()
-            )
-            ->joinLeft(
-                array('option_title_store' => $this->getTable('catalog/product_option_title')),
-                $storeOptionJoin,
-                array('title' => $titleCheckSql)
-            )
-            ->where('product_option.product_id = ?', $productId);
+                ->from(array('product_option' => $this->getMainTable()), null)
+                ->join(
+                        array('option_title_default' => $this->getTable('catalog/product_option_title')), $defaultOptionJoin, array()
+                )
+                ->joinLeft(
+                        array('option_title_store' => $this->getTable('catalog/product_option_title')), $storeOptionJoin, array(
+                    'title' => $titleCheckSql)
+                )
+                ->where('product_option.product_id = ?', $productId);
 
         if ($titles = $adapter->fetchCol($select)) {
             $searchData = array_merge($searchData, $titles);
@@ -472,35 +435,30 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
         //select option type titles
 
         $defaultOptionJoin = implode(
-            ' AND ', array(
-                'option_title_default.option_type_id=option_type.option_type_id',
-                $adapter->quoteInto('option_title_default.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID))
+                ' AND ', array(
+            'option_title_default.option_type_id=option_type.option_type_id',
+            $adapter->quoteInto('option_title_default.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID))
         );
 
         $storeOptionJoin = implode(
-            ' AND ', array(
-                'option_title_store.option_type_id = option_type.option_type_id',
-                 $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId))
+                ' AND ', array(
+            'option_title_store.option_type_id = option_type.option_type_id',
+            $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId))
         );
 
         $select = $adapter->select()
-            ->from(array('product_option' => $this->getMainTable()), null)
-            ->join(
-                array('option_type' => $this->getTable('catalog/product_option_type_value')),
-                'option_type.option_id=product_option.option_id',
-                array()
-            )
-            ->join(
-                array('option_title_default' => $this->getTable('catalog/product_option_type_title')),
-                $defaultOptionJoin,
-                array()
-            )
-            ->joinLeft(
-                array('option_title_store' => $this->getTable('catalog/product_option_type_title')),
-                $storeOptionJoin,
-                array('title' => $titleCheckSql)
-            )
-            ->where('product_option.product_id = ?', $productId);
+                ->from(array('product_option' => $this->getMainTable()), null)
+                ->join(
+                        array('option_type' => $this->getTable('catalog/product_option_type_value')), 'option_type.option_id=product_option.option_id', array()
+                )
+                ->join(
+                        array('option_title_default' => $this->getTable('catalog/product_option_type_title')), $defaultOptionJoin, array()
+                )
+                ->joinLeft(
+                        array('option_title_store' => $this->getTable('catalog/product_option_type_title')), $storeOptionJoin, array(
+                    'title' => $titleCheckSql)
+                )
+                ->where('product_option.product_id = ?', $productId);
 
         if ($titles = $adapter->fetchCol($select)) {
             $searchData = array_merge($searchData, $titles);
@@ -508,4 +466,5 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
 
         return $searchData;
     }
+
 }

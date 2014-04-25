@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Payment_Block_Form extends Mage_Core_Block_Template
 {
+
     /**
      * Retrieve payment method model
      *
@@ -74,4 +76,5 @@ class Mage_Payment_Block_Form extends Mage_Core_Block_Template
     {
         return $this->getMethod()->canCreateBillingAgreement();
     }
+
 }

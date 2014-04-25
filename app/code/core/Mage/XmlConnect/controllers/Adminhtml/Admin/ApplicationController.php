@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,14 @@
  */
 class Mage_XmlConnect_Adminhtml_Admin_ApplicationController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Admin application settings action
      */
     public function indexAction()
     {
-        try {
+        try
+        {
             $isActive = $this->getRequest()->getParam('is_active', false);
             if (false !== $isActive) {
                 Mage::getSingleton('xmlconnect/configuration')->saveIsActiveAdminApp($isActive);
@@ -47,10 +50,14 @@ class Mage_XmlConnect_Adminhtml_Admin_ApplicationController extends Mage_Adminht
             $this->loadLayout();
             $this->_setActiveMenu('xmlconnect/mobile_admin_app');
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
             $this->_redirect('*/*/');
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $this->_getSession()->addException($e, $this->__('Can\'t load admin application settings.'));
             $this->_redirect('*/*/');
@@ -66,4 +73,5 @@ class Mage_XmlConnect_Adminhtml_Admin_ApplicationController extends Mage_Adminht
     {
         return Mage::getSingleton('admin/session')->isAllowed('xmlconnect/admin_connect');
     }
+
 }

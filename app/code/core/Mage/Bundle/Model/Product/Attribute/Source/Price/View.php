@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bundle Price View Attribute Renderer
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+
     /**
      * Get all options
      *
@@ -45,11 +46,11 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
             $this->_options = array(
                 array(
                     'label' => Mage::helper('bundle')->__('As Low as'),
-                    'value' =>  1
+                    'value' => 1
                 ),
                 array(
                     'label' => Mage::helper('bundle')->__('Price Range'),
-                    'value' =>  0
+                    'value' => 0
                 ),
             );
         }
@@ -82,22 +83,22 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $column = array(
-            'unsigned'  => false,
-            'default'   => null,
-            'extra'     => null
+            'unsigned' => false,
+            'default' => null,
+            'extra' => null
         );
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
-            $column['type']     = 'int';
-            $column['is_null']  = true;
+            $column['type'] = 'int';
+            $column['is_null'] = true;
         } else {
-            $column['type']     = Varien_Db_Ddl_Table::TYPE_INTEGER;
+            $column['type'] = Varien_Db_Ddl_Table::TYPE_INTEGER;
             $column['nullable'] = true;
-            $column['comment']  = 'Bundle Price View ' . $attributeCode . ' column';
+            $column['comment'] = 'Bundle Price View ' . $attributeCode . ' column';
         }
 
         return array($attributeCode => $column);
-   }
+    }
 
     /**
      * Retrieve Select for update Attribute value in flat table
@@ -108,6 +109,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
     public function getFlatUpdateSelect($store)
     {
         return Mage::getResourceModel('eav/entity_attribute_option')
-            ->getFlatUpdateSelect($this->getAttribute(), $store, false);
+                        ->getFlatUpdateSelect($this->getAttribute(), $store, false);
     }
+
 }

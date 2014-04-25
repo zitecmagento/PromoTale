@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Init titles
      *
@@ -87,7 +89,8 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
             return;
         }
 
-        try {
+        try
+        {
             /** @var $collection Mage_Oauth_Model_Resource_Token_Collection */
             $collection = Mage::getModel('oauth/token')->getCollection();
             $collection->joinConsumerAsApplication()
@@ -108,9 +111,13 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
                 $message = $this->__('Selected entries enabled.');
             }
             $this->_getSession()->addSuccess($message);
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($this->__('An error occurred on update revoke status.'));
             Mage::logException($e);
         }
@@ -131,7 +138,8 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
             return;
         }
 
-        try {
+        try
+        {
             /** @var $collection Mage_Oauth_Model_Resource_Token_Collection */
             $collection = Mage::getModel('oauth/token')->getCollection();
             $collection->joinConsumerAsApplication()
@@ -145,9 +153,13 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
                 $this->_sendTokenStatusChangeNotification($item, $this->__('deleted'));
             }
             $this->_getSession()->addSuccess($this->__('Selected entries has been deleted.'));
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError($this->__('An error occurred on delete action.'));
             Mage::logException($e);
         }
@@ -185,7 +197,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
                 return;
             }
             $email = $admin->getEmail();
-            $name  = $admin->getName(' ');
+            $name = $admin->getName(' ');
         } else {
             /** @var $customer Mage_Customer_Model_Customer */
             $customer = Mage::getModel('customer/customer');
@@ -193,11 +205,12 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
             $customer->load($token->getCustomerId());
 
             $email = $customer->getEmail();
-            $name  = $customer->getName();
+            $name = $customer->getName();
         }
         /** @var $helper Mage_Oauth_Helper_Data */
         $helper = Mage::helper('oauth');
 
         $helper->sendNotificationOnTokenStatusChange($email, $name, $token->getConsumer()->getName(), $newStatus);
     }
+
 }

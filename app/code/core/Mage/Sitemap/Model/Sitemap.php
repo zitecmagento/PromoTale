@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sitemap model
  *
@@ -47,6 +47,7 @@
  */
 class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
 {
+
     /**
      * Real file path
      *
@@ -107,7 +108,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
     {
         if (is_null($this->_filePath)) {
             $this->_filePath = str_replace('//', '/', Mage::getBaseDir() .
-                $this->getSitemapPath());
+                    $this->getSitemapPath());
         }
         return $this->_filePath;
     }
@@ -143,22 +144,18 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         $io->streamWrite('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
 
         $storeId = $this->getStoreId();
-        $date    = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
+        $date = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
         $baseUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
 
         /**
          * Generate categories sitemap
          */
-        $changefreq = (string)Mage::getStoreConfig('sitemap/category/changefreq', $storeId);
-        $priority   = (string)Mage::getStoreConfig('sitemap/category/priority', $storeId);
+        $changefreq = (string) Mage::getStoreConfig('sitemap/category/changefreq', $storeId);
+        $priority = (string) Mage::getStoreConfig('sitemap/category/priority', $storeId);
         $collection = Mage::getResourceModel('sitemap/catalog_category')->getCollection($storeId);
         foreach ($collection as $item) {
             $xml = sprintf(
-                '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
-                htmlspecialchars($baseUrl . $item->getUrl()),
-                $date,
-                $changefreq,
-                $priority
+                    '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>', htmlspecialchars($baseUrl . $item->getUrl()), $date, $changefreq, $priority
             );
             $io->streamWrite($xml);
         }
@@ -167,16 +164,12 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         /**
          * Generate products sitemap
          */
-        $changefreq = (string)Mage::getStoreConfig('sitemap/product/changefreq', $storeId);
-        $priority   = (string)Mage::getStoreConfig('sitemap/product/priority', $storeId);
+        $changefreq = (string) Mage::getStoreConfig('sitemap/product/changefreq', $storeId);
+        $priority = (string) Mage::getStoreConfig('sitemap/product/priority', $storeId);
         $collection = Mage::getResourceModel('sitemap/catalog_product')->getCollection($storeId);
         foreach ($collection as $item) {
             $xml = sprintf(
-                '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
-                htmlspecialchars($baseUrl . $item->getUrl()),
-                $date,
-                $changefreq,
-                $priority
+                    '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>', htmlspecialchars($baseUrl . $item->getUrl()), $date, $changefreq, $priority
             );
             $io->streamWrite($xml);
         }
@@ -185,16 +178,12 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         /**
          * Generate cms pages sitemap
          */
-        $changefreq = (string)Mage::getStoreConfig('sitemap/page/changefreq', $storeId);
-        $priority   = (string)Mage::getStoreConfig('sitemap/page/priority', $storeId);
+        $changefreq = (string) Mage::getStoreConfig('sitemap/page/changefreq', $storeId);
+        $priority = (string) Mage::getStoreConfig('sitemap/page/priority', $storeId);
         $collection = Mage::getResourceModel('sitemap/cms_page')->getCollection($storeId);
         foreach ($collection as $item) {
             $xml = sprintf(
-                '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
-                htmlspecialchars($baseUrl . $item->getUrl()),
-                $date,
-                $changefreq,
-                $priority
+                    '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>', htmlspecialchars($baseUrl . $item->getUrl()), $date, $changefreq, $priority
             );
             $io->streamWrite($xml);
         }
@@ -208,4 +197,5 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,12 +32,13 @@
  */
 class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
 {
+
     /**
      * VAT Validation parameters XML paths
      */
     const XML_PATH_VIV_DISABLE_AUTO_ASSIGN_DEFAULT = 'customer/create_account/viv_disable_auto_group_assign_default';
-    const XML_PATH_VIV_ON_EACH_TRANSACTION         = 'customer/create_account/viv_on_each_transaction';
-    const XML_PATH_VAT_VALIDATION_ENABLED          = 'customer/create_account/auto_group_assign';
+    const XML_PATH_VIV_ON_EACH_TRANSACTION = 'customer/create_account/viv_on_each_transaction';
+    const XML_PATH_VAT_VALIDATION_ENABLED = 'customer/create_account/auto_group_assign';
     const XML_PATH_VIV_TAX_CALCULATION_ADDRESS_TYPE = 'customer/create_account/tax_calculation_address_type';
     const XML_PATH_VAT_FRONTEND_VISIBILITY = 'customer/create_account/vat_frontend_visibility';
 
@@ -52,42 +54,42 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_config          = array();
+    protected $_config = array();
 
     /**
      * Customer Number of Lines in a Street Address per website
      *
      * @var array
      */
-    protected $_streetLines     = array();
-    protected $_formatTemplate  = array();
+    protected $_streetLines = array();
+    protected $_formatTemplate = array();
 
     /**
      * Addresses url
      */
     public function getBookUrl()
     {
-
+        
     }
 
     public function getEditUrl()
     {
-
+        
     }
 
     public function getDeleteUrl()
     {
-
+        
     }
 
     public function getCreateUrl()
     {
-
+        
     }
 
     public function getRenderer($renderer)
     {
-        if(is_string($renderer) && $className = Mage::getConfig()->getBlockClassName($renderer)) {
+        if (is_string($renderer) && $className = Mage::getConfig()->getBlockClassName($renderer)) {
             return new $className();
         } else {
             return $renderer;
@@ -108,7 +110,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
         if (!isset($this->_config[$websiteId])) {
             $this->_config[$websiteId] = Mage::getStoreConfig('customer/address', $store);
         }
-        return isset($this->_config[$websiteId][$key]) ? (string)$this->_config[$websiteId][$key] : null;
+        return isset($this->_config[$websiteId][$key]) ? (string) $this->_config[$websiteId][$key] : null;
     }
 
     /**
@@ -122,8 +124,8 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
         $websiteId = Mage::app()->getStore($store)->getWebsiteId();
         if (!isset($this->_streetLines[$websiteId])) {
             $attribute = Mage::getSingleton('eav/config')->getAttribute('customer_address', 'street');
-            $lines = (int)$attribute->getMultilineCount();
-            if($lines <= 0) {
+            $lines = (int) $attribute->getMultilineCount();
+            if ($lines <= 0) {
                 $lines = 2;
             }
             $this->_streetLines[$websiteId] = min(20, $lines);
@@ -146,7 +148,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function canShowConfig($key)
     {
-        return (bool)$this->getConfig($key);
+        return (bool) $this->getConfig($key);
     }
 
     /**
@@ -176,8 +178,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     public function getAttributeValidationClass($attributeCode)
     {
         /** @var $attribute Mage_Customer_Model_Attribute */
-        $attribute = isset($this->_attributes[$attributeCode]) ? $this->_attributes[$attributeCode]
-            : Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
+        $attribute = isset($this->_attributes[$attributeCode]) ? $this->_attributes[$attributeCode] : Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
         $class = $attribute ? $attribute->getFrontend()->getClass() : '';
 
         if (in_array($attributeCode, array('firstname', 'middlename', 'lastname', 'prefix', 'suffix', 'taxvat'))) {
@@ -187,8 +188,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
 
             /** @var $customerAttribute Mage_Customer_Model_Attribute */
             $customerAttribute = Mage::getSingleton('eav/config')->getAttribute('customer', $attributeCode);
-            $class .= $customerAttribute && $customerAttribute->getIsVisible()
-                ? $customerAttribute->getFrontend()->getClass() : '';
+            $class .= $customerAttribute && $customerAttribute->getIsVisible() ? $customerAttribute->getFrontend()->getClass() : '';
             $class = implode(' ', array_unique(array_filter(explode(' ', $class))));
         }
 
@@ -214,7 +214,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     {
         $lines = array();
         if (!empty($origStreets) && $toCount > 0) {
-            $countArgs = (int)floor(count($origStreets)/$toCount);
+            $countArgs = (int) floor(count($origStreets) / $toCount);
             $modulo = count($origStreets) % $toCount;
             $offset = 0;
             $neededLinesCount = 0;
@@ -243,7 +243,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function isVatValidationEnabled($store = null)
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_VAT_VALIDATION_ENABLED, $store);
+        return (bool) Mage::getStoreConfig(self::XML_PATH_VAT_VALIDATION_ENABLED, $store);
     }
 
     /**
@@ -253,7 +253,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function getDisableAutoGroupAssignDefaultValue()
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_VIV_DISABLE_AUTO_ASSIGN_DEFAULT);
+        return (bool) Mage::getStoreConfig(self::XML_PATH_VIV_DISABLE_AUTO_ASSIGN_DEFAULT);
     }
 
     /**
@@ -264,7 +264,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function getValidateOnEachTransaction($store = null)
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_VIV_ON_EACH_TRANSACTION, $store);
+        return (bool) Mage::getStoreConfig(self::XML_PATH_VIV_ON_EACH_TRANSACTION, $store);
     }
 
     /**
@@ -275,7 +275,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function getTaxCalculationAddressType($store = null)
     {
-        return (string)Mage::getStoreConfig(self::XML_PATH_VIV_TAX_CALCULATION_ADDRESS_TYPE, $store);
+        return (string) Mage::getStoreConfig(self::XML_PATH_VIV_TAX_CALCULATION_ADDRESS_TYPE, $store);
     }
 
     /**
@@ -285,6 +285,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function isVatAttributeVisible()
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_VAT_FRONTEND_VISIBILITY);
+        return (bool) Mage::getStoreConfig(self::XML_PATH_VAT_FRONTEND_VISIBILITY);
     }
+
 }

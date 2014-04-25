@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,13 +32,10 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Customer_Edit_Tab_View
- extends Mage_Adminhtml_Block_Template
- implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_Template implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
 
     protected $_customer;
-
     protected $_customerLog;
 
     public function getCustomer()
@@ -52,8 +50,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
     {
         if ($groupId = $this->getCustomer()->getGroupId()) {
             return Mage::getModel('customer/group')
-                ->load($groupId)
-                ->getCustomerGroupCode();
+                            ->load($groupId)
+                            ->getCustomerGroupCode();
         }
     }
 
@@ -66,7 +64,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
     {
         if (!$this->_customerLog) {
             $this->_customerLog = Mage::getModel('log/customer')
-                ->loadByCustomer($this->getCustomer()->getId());
+                    ->loadByCustomer($this->getCustomer()->getId());
         }
         return $this->_customerLog;
     }
@@ -78,16 +76,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
      */
     public function getCreateDate()
     {
-        return $this->_getCoreHelper()->formatDate($this->getCustomer()->getCreatedAt(),
-            Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
+        return $this->_getCoreHelper()->formatDate($this->getCustomer()->getCreatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
     }
 
     public function getStoreCreateDate()
     {
         $date = Mage::app()->getLocale()->storeDate(
-            $this->getCustomer()->getStoreId(),
-            $this->getCustomer()->getCreatedAtTimestamp(),
-            true
+                $this->getCustomer()->getStoreId(), $this->getCustomer()->getCreatedAtTimestamp(), true
         );
         return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
     }
@@ -95,7 +90,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
     public function getStoreCreateDateTimezone()
     {
         return Mage::app()->getStore($this->getCustomer()->getStoreId())
-            ->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
+                        ->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
     }
 
     /**
@@ -116,9 +111,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
     {
         if ($date = $this->getCustomerLog()->getLoginAtTimestamp()) {
             $date = Mage::app()->getLocale()->storeDate(
-                $this->getCustomer()->getStoreId(),
-                $date,
-                true
+                    $this->getCustomer()->getStoreId(), $date, true
             );
             return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
         }
@@ -128,14 +121,14 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
     public function getStoreLastLoginDateTimezone()
     {
         return Mage::app()->getStore($this->getCustomer()->getStoreId())
-            ->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
+                        ->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
     }
 
     public function getCurrentStatus()
     {
         $log = $this->getCustomerLog();
         if ($log->getLogoutAt() ||
-            strtotime(now())-strtotime($log->getLastVisitAt())>Mage_Log_Model_Visitor::getOnlineMinutesInterval()*60) {
+                strtotime(now()) - strtotime($log->getLastVisitAt()) > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60) {
             return Mage::helper('customer')->__('Offline');
         }
         return Mage::helper('customer')->__('Online');
@@ -168,8 +161,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
         $html = '';
         if ($address = $this->getCustomer()->getPrimaryBillingAddress()) {
             $html = $address->format('html');
-        }
-        else {
+        } else {
             $html = Mage::helper('customer')->__('The customer does not have default billing address.');
         }
         return $html;
@@ -220,4 +212,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
     {
         return Mage::helper('core');
     }
+
 }

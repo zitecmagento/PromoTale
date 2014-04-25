@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,15 +32,15 @@
  */
 class Mage_Core_Model_App_Area
 {
-    const AREA_GLOBAL   = 'global';
-    const AREA_FRONTEND = 'frontend';
-    const AREA_ADMIN    = 'admin';
-    const AREA_ADMINHTML = 'adminhtml';
 
-    const PART_CONFIG   = 'config';
-    const PART_EVENTS   = 'events';
+    const AREA_GLOBAL = 'global';
+    const AREA_FRONTEND = 'frontend';
+    const AREA_ADMIN = 'admin';
+    const AREA_ADMINHTML = 'adminhtml';
+    const PART_CONFIG = 'config';
+    const PART_EVENTS = 'events';
     const PART_TRANSLATE = 'translate';
-    const PART_DESIGN   = 'design';
+    const PART_DESIGN = 'design';
 
     /**
      * Array of area loaded parts
@@ -84,15 +85,14 @@ class Mage_Core_Model_App_Area
      * @param   string|null $part
      * @return  Mage_Core_Model_App_Area
      */
-    public function load($part=null)
+    public function load($part = null)
     {
         if (is_null($part)) {
             $this->_loadPart(self::PART_CONFIG)
-                ->_loadPart(self::PART_EVENTS)
-                ->_loadPart(self::PART_DESIGN)
-                ->_loadPart(self::PART_TRANSLATE);
-        }
-        else {
+                    ->_loadPart(self::PART_EVENTS)
+                    ->_loadPart(self::PART_DESIGN)
+                    ->_loadPart(self::PART_TRANSLATE);
+        } else {
             $this->_loadPart($part);
         }
         return $this;
@@ -109,7 +109,7 @@ class Mage_Core_Model_App_Area
         if (isset($this->_loadedParts[$part])) {
             return $this;
         }
-        Varien_Profiler::start('mage::dispatch::controller::action::predispatch::load_area::'.$this->_code.'::'.$part);
+        Varien_Profiler::start('mage::dispatch::controller::action::predispatch::load_area::' . $this->_code . '::' . $part);
         switch ($part) {
             case self::PART_CONFIG:
                 $this->_initConfig();
@@ -125,13 +125,13 @@ class Mage_Core_Model_App_Area
                 break;
         }
         $this->_loadedParts[$part] = true;
-        Varien_Profiler::stop('mage::dispatch::controller::action::predispatch::load_area::'.$this->_code.'::'.$part);
+        Varien_Profiler::stop('mage::dispatch::controller::action::predispatch::load_area::' . $this->_code . '::' . $part);
         return $this;
     }
 
     protected function _initConfig()
     {
-
+        
     }
 
     protected function _initEvents()
@@ -159,11 +159,12 @@ class Mage_Core_Model_App_Area
         $currentStore = Mage::app()->getStore()->getStoreId();
 
         $designChange = Mage::getSingleton('core/design')
-            ->loadChange($currentStore);
+                ->loadChange($currentStore);
 
         if ($designChange->getData()) {
             $designPackage->setPackageName($designChange->getPackage())
-                ->setTheme($designChange->getTheme());
+                    ->setTheme($designChange->getTheme());
         }
     }
+
 }

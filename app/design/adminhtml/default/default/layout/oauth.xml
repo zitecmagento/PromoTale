@@ -77,40 +77,133 @@
             </action>
         </reference>
         <reference name="head">
-            <action method="removeItem"><type>js</type><name>scriptaculous/controls.js</name></action>
-            <action method="removeItem"><type>js</type><name>prototype/window.js</name></action>
-            <action method="removeItem"><type>js</type><name>scriptaculous/builder.js</name></action>
-            <action method="removeItem"><type>js</type><name>scriptaculous/dragdrop.js</name></action>
-            <action method="removeItem"><type>js</type><name>scriptaculous/controls.js</name></action>
-            <action method="removeItem"><type>js</type><name>scriptaculous/slider.js</name></action>
-            <action method="removeItem"><type>js</type><name>lib/ccard.js</name></action>
-            <action method="removeItem"><type>js</type><name>varien/js.js</name></action>
-            <action method="removeItem"><type>js</type><name>mage/adminhtml/hash.js</name></action>
-            <action method="removeItem"><type>js</type><name>mage/adminhtml/events.js</name></action>
-            <action method="removeItem"><type>js</type><name>mage/adminhtml/loader.js</name></action>
-            <action method="removeItem"><type>js</type><name>mage/adminhtml/grid.js</name></action>
-            <action method="removeItem"><type>js</type><name>mage/adminhtml/tabs.js</name></action>
-            <action method="removeItem"><type>js</type><name>mage/adminhtml/accordion.js</name></action>
-<!--            <action method="removeItem"><type>js</type><name>mage/adminhtml/tools.js</name></action>-->
-            <action method="removeItem"><type>js</type><name>mage/adminhtml/uploader.js</name></action>
-            <action method="removeItem"><type>js</type><name>mage/adminhtml/product.js</name></action>
-            <action method="removeItem"><type>js</type><name>mage/adminhtml/rules.js</name></action>
-            <action method="removeItem"><type>js</type><name>mage/adminhtml/wysiwyg/tiny_mce/setup.js</name></action>
-            <action method="removeItem"><type>js</type><name>lib/ds-sleight.js</name></action>
-            <action method="removeItem"><type>js</type><name>varien/iehover-fix.js</name></action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/controls.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>prototype/window.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/builder.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/dragdrop.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/controls.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/slider.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lib/ccard.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>varien/js.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mage/adminhtml/hash.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mage/adminhtml/events.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mage/adminhtml/loader.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mage/adminhtml/grid.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mage/adminhtml/tabs.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mage/adminhtml/accordion.js</name>
+            </action>
+            <!--            <action method="removeItem"><type>js</type><name>mage/adminhtml/tools.js</name></action>-->
+            <action method="removeItem">
+                <type>js</type>
+                <name>mage/adminhtml/uploader.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mage/adminhtml/product.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mage/adminhtml/rules.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mage/adminhtml/wysiwyg/tiny_mce/setup.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lib/ds-sleight.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>varien/iehover-fix.js</name>
+            </action>
 
-            <action method="removeItem"><type>css</type><name>print.css</name></action>
-            <action method="removeItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name></action>
-            <action method="removeItem"><type>js_css</type><name>extjs/resources/css/ext-all.css</name></action>
-            <action method="removeItem"><type>js_css</type><name>extjs/resources/css/ytheme-magento.css</name></action>
-            <action method="removeItem"><type>skin_css</type><name>menu.css</name></action>
+            <action method="removeItem">
+                <type>css</type>
+                <name>print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>js_css</type>
+                <name>calendar/calendar-win2k-1.css</name>
+            </action>
+            <action method="removeItem">
+                <type>js_css</type>
+                <name>extjs/resources/css/ext-all.css</name>
+            </action>
+            <action method="removeItem">
+                <type>js_css</type>
+                <name>extjs/resources/css/ytheme-magento.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>menu.css</name>
+            </action>
 
-            <action method="removeItem"><type>js</type><name>calendar/calendar.js</name></action>
-            <action method="removeItem"><type>js</type><name>calendar/calendar-setup.js</name></action>
-            <action method="removeItem"><type>js</type><name>extjs/fix-defer-before.js</name></action>
-            <action method="removeItem"><type>js</type><name>extjs/ext-tree.js</name></action>
-            <action method="removeItem"><type>js</type><name>extjs/fix-defer.js</name></action>
-            <action method="removeItem"><type>js</type><name>extjs/ext-tree-checkbox.js</name></action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>calendar/calendar.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>calendar/calendar-setup.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>extjs/fix-defer-before.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>extjs/ext-tree.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>extjs/fix-defer.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>extjs/ext-tree-checkbox.js</name>
+            </action>
         </reference>
     </oauth_root_handle>
 
@@ -118,7 +211,9 @@
         <remove name="js_cookie" />
         <block type="adminhtml/page" name="root" output="toHtml" template="empty.phtml">
             <block type="adminhtml/page_head" name="head" as="head" template="oauth/authorize/head-simple.phtml">
-                <action method="addCss"><name>oauth-simple.css</name></action>
+                <action method="addCss">
+                    <name>oauth-simple.css</name>
+                </action>
             </block>
             <block type="core/text_list" name="content"/>
         </block>

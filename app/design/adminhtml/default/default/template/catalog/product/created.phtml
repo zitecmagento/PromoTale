@@ -25,35 +25,35 @@
  */
 ?>
 <script type="text/javascript">
-var added = false;
-function addProduct(closeAfter) {
-    if(window.opener!=null && !added) {
-        <?php if($this->isEdit()): ?>
-        window.opener.superProduct.updateProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
-        <?php else: ?>
-        window.opener.superProduct.addNewProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
-        window.opener.superProduct.showNoticeMessage();
-        <?php endif; ?>
-        added = true;
+    var added = false;
+    function addProduct(closeAfter) {
+        if (window.opener != null && !added) {
+<?php if ($this->isEdit()): ?>
+                window.opener.superProduct.updateProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
+<?php else: ?>
+                window.opener.superProduct.addNewProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
+                window.opener.superProduct.showNoticeMessage();
+<?php endif; ?>
+            added = true;
+        }
+
+        if (closeAfter)
+        {
+            closeWindow();
+        }
     }
 
-    if(closeAfter)
+    function closeWindow()
     {
-        closeWindow();
+        if (window.opener) {
+            window.opener.focus();
+        }
+        window.close();
     }
-}
 
-function closeWindow()
-{
-    if (window.opener) {
-        window.opener.focus();
-    }
-    window.close();
-}
-
-addProduct(false);
-setTimeout(closeWindow, 3000);
+    addProduct(false);
+    setTimeout(closeWindow, 3000);
 </script>
 <div class="a-center">
-<?php echo $this->getCloseButtonHtml() ?>
+    <?php echo $this->getCloseButtonHtml() ?>
 </div>

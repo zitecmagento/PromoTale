@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,7 @@
  */
 interface Zend_InfoCard_Xml_Element_Interface
 {
+
     /**
      * Return the data within the object as an XML document
      */

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Request.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** @see Zend_Amf_Parse_InputStream */
 #require_once 'Zend/Amf/Parse/InputStream.php';
 
@@ -45,6 +45,7 @@
  */
 class Zend_Amf_Request
 {
+
     /**
      * @var int AMF client type (AMF0, AMF3)
      */
@@ -89,7 +90,7 @@ class Zend_Amf_Request
      */
     public function initialize($request)
     {
-        $this->_inputStream  = new Zend_Amf_Parse_InputStream($request);
+        $this->_inputStream = new Zend_Amf_Parse_InputStream($request);
         $this->_deserializer = new Zend_Amf_Parse_Amf0_Deserializer($this->_inputStream);
         $this->readMessage($this->_inputStream);
         return $this;
@@ -104,17 +105,15 @@ class Zend_Amf_Request
     public function readMessage(Zend_Amf_Parse_InputStream $stream)
     {
         $clientVersion = $stream->readUnsignedShort();
-        if (($clientVersion != Zend_Amf_Constants::AMF0_OBJECT_ENCODING)
-            && ($clientVersion != Zend_Amf_Constants::AMF3_OBJECT_ENCODING)
-            && ($clientVersion != Zend_Amf_Constants::FMS_OBJECT_ENCODING)
+        if (($clientVersion != Zend_Amf_Constants::AMF0_OBJECT_ENCODING) && ($clientVersion != Zend_Amf_Constants::AMF3_OBJECT_ENCODING) && ($clientVersion != Zend_Amf_Constants::FMS_OBJECT_ENCODING)
         ) {
             #require_once 'Zend/Amf/Exception.php';
             throw new Zend_Amf_Exception('Unknown Player Version ' . $clientVersion);
         }
 
-        $this->_bodies  = array();
+        $this->_bodies = array();
         $this->_headers = array();
-        $headerCount    = $stream->readInt();
+        $headerCount = $stream->readInt();
 
         // Iterate through the AMF envelope header
         while ($headerCount--) {
@@ -143,15 +142,18 @@ class Zend_Amf_Request
      */
     public function readHeader()
     {
-        $name     = $this->_inputStream->readUTF();
-        $mustRead = (bool)$this->_inputStream->readByte();
-        $length   = $this->_inputStream->readLong();
+        $name = $this->_inputStream->readUTF();
+        $mustRead = (bool) $this->_inputStream->readByte();
+        $length = $this->_inputStream->readLong();
 
-        try {
+        try
+        {
             $data = $this->_deserializer->readTypeMarker();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             #require_once 'Zend/Amf/Exception.php';
-            throw new Zend_Amf_Exception('Unable to parse ' . $name . ' header data: ' . $e->getMessage() . ' '. $e->getLine(), 0, $e);
+            throw new Zend_Amf_Exception('Unable to parse ' . $name . ' header data: ' . $e->getMessage() . ' ' . $e->getLine(), 0, $e);
         }
 
         $header = new Zend_Amf_Value_MessageHeader($name, $mustRead, $data, $length);
@@ -165,13 +167,16 @@ class Zend_Amf_Request
      */
     public function readBody()
     {
-        $targetURI   = $this->_inputStream->readUTF();
+        $targetURI = $this->_inputStream->readUTF();
         $responseURI = $this->_inputStream->readUTF();
-        $length      = $this->_inputStream->readLong();
+        $length = $this->_inputStream->readLong();
 
-        try {
+        try
+        {
             $data = $this->_deserializer->readTypeMarker();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             #require_once 'Zend/Amf/Exception.php';
             throw new Zend_Amf_Exception('Unable to parse ' . $targetURI . ' body data ' . $e->getMessage(), 0, $e);
         }
@@ -183,7 +188,7 @@ class Zend_Amf_Request
              * an AMF0 array called Content. The following code gets the object
              * out of the content array and sets it as the message data.
              */
-            if(is_array($data) && $data[0] instanceof Zend_Amf_Value_Messaging_AbstractMessage){
+            if (is_array($data) && $data[0] instanceof Zend_Amf_Value_Messaging_AbstractMessage) {
                 $data = $data[0];
             }
 
@@ -248,4 +253,5 @@ class Zend_Amf_Request
         $this->_objectEncoding = $int;
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_OfflineCatalog_Config extends Mage_XmlConnect_Model_OfflineCatalog_Abstract
 {
+
     /**
      * Config url
      */
@@ -49,7 +51,7 @@ class Mage_XmlConnect_Model_OfflineCatalog_Config extends Mage_XmlConnect_Model_
         $exportHelper = Mage::helper('xmlconnect/offlineCatalog');
         Mage::app()->getRequest()->setParam('app_code', $exportHelper->getCurrentDeviceModel()->getCode());
         $exportHelper->addOfflineCatalogData(
-            $this->_getActionUrl(), $this->getLayoutBlock($exportHelper)->toHtml()
+                $this->_getActionUrl(), $this->getLayoutBlock($exportHelper)->toHtml()
         );
         return $this;
     }
@@ -74,4 +76,5 @@ class Mage_XmlConnect_Model_OfflineCatalog_Config extends Mage_XmlConnect_Model_
     {
         return self::CONFIG_URL;
     }
+
 }

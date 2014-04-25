@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Log Prepare Online visitors resource 
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize connection and define resource
      *
@@ -55,12 +56,13 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             return $this;
         }
 
-        $readAdapter    = $this->_getReadAdapter();
-        $writeAdapter   = $this->_getWriteAdapter();
+        $readAdapter = $this->_getReadAdapter();
+        $writeAdapter = $this->_getWriteAdapter();
 
         $writeAdapter->beginTransaction();
 
-        try{
+        try
+        {
             $writeAdapter->delete($this->getMainTable());
 
             $visitors = array();
@@ -71,17 +73,16 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $lastDate = Mage::getModel('core/date')->gmtTimestamp() - $object->getOnlineInterval() * 60;
 
             $select = $readAdapter->select()
-                ->from(
-                    $this->getTable('log/visitor'),
-                    array('visitor_id', 'first_visit_at', 'last_visit_at', 'last_url_id'))
-                ->where('last_visit_at >= ?', $readAdapter->formatDate($lastDate));
+                    ->from(
+                            $this->getTable('log/visitor'), array('visitor_id', 'first_visit_at', 'last_visit_at', 'last_url_id'))
+                    ->where('last_visit_at >= ?', $readAdapter->formatDate($lastDate));
 
             $query = $readAdapter->query($select);
             while ($row = $query->fetch()) {
                 $visitors[$row['visitor_id']] = $row;
                 $lastUrls[$row['last_url_id']] = $row['visitor_id'];
                 $visitors[$row['visitor_id']]['visitor_type'] = Mage_Log_Model_Visitor::VISITOR_TYPE_VISITOR;
-                $visitors[$row['visitor_id']]['customer_id']  = null;
+                $visitors[$row['visitor_id']]['customer_id'] = null;
             }
 
             if (!$visitors) {
@@ -91,10 +92,9 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
 
             // retrieve visitor remote addr
             $select = $readAdapter->select()
-                ->from(
-                    $this->getTable('log/visitor_info'),
-                    array('visitor_id', 'remote_addr'))
-                ->where('visitor_id IN(?)', array_keys($visitors));
+                    ->from(
+                            $this->getTable('log/visitor_info'), array('visitor_id', 'remote_addr'))
+                    ->where('visitor_id IN(?)', array_keys($visitors));
 
             $query = $readAdapter->query($select);
             while ($row = $query->fetch()) {
@@ -103,10 +103,9 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
 
             // retrieve visitor last URLs
             $select = $readAdapter->select()
-                ->from(
-                    $this->getTable('log/url_info_table'),
-                    array('url_id', 'url'))
-                ->where('url_id IN(?)', array_keys($lastUrls));
+                    ->from(
+                            $this->getTable('log/url_info_table'), array('url_id', 'url'))
+                    ->where('url_id IN(?)', array_keys($lastUrls));
 
             $query = $readAdapter->query($select);
             while ($row = $query->fetch()) {
@@ -116,15 +115,14 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
 
             // retrieve customers
             $select = $readAdapter->select()
-                ->from(
-                    $this->getTable('log/customer'),
-                    array('visitor_id', 'customer_id'))
-                ->where('visitor_id IN(?)', array_keys($visitors));
+                    ->from(
+                            $this->getTable('log/customer'), array('visitor_id', 'customer_id'))
+                    ->where('visitor_id IN(?)', array_keys($visitors));
 
             $query = $readAdapter->query($select);
             while ($row = $query->fetch()) {
                 $visitors[$row['visitor_id']]['visitor_type'] = Mage_Log_Model_Visitor::VISITOR_TYPE_CUSTOMER;
-                $visitors[$row['visitor_id']]['customer_id']  = $row['customer_id'];
+                $visitors[$row['visitor_id']]['customer_id'] = $row['customer_id'];
             }
 
             foreach ($visitors as $visitorData) {
@@ -134,7 +132,9 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             }
 
             $writeAdapter->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $writeAdapter->rollBack();
             throw $e;
         }
@@ -143,4 +143,5 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
 
         return $this;
     }
+
 }

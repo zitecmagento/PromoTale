@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -17,7 +18,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Decorator_Abstract */
 #require_once 'Zend/Form/Decorator/Abstract.php';
 
@@ -43,6 +43,7 @@
  */
 class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
 {
+
     /**
      * Element types that represent buttons
      * @var array
@@ -124,8 +125,8 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
 
         if (null !== ($belongsTo = $element->getBelongsTo())) {
             $name = $belongsTo . '['
-                  . $name
-                  . ']';
+                    . $name
+                    . ']';
         }
 
         if ($element->isArray()) {
@@ -230,15 +231,15 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
             $element->getMultiOptions();
         }
 
-        $helper        = $this->getHelper();
-        $separator     = $this->getSeparator();
-        $value         = $this->getValue($element);
-        $attribs       = $this->getElementAttribs();
-        $name          = $element->getFullyQualifiedName();
-        $id            = $element->getId();
+        $helper = $this->getHelper();
+        $separator = $this->getSeparator();
+        $value = $this->getValue($element);
+        $attribs = $this->getElementAttribs();
+        $name = $element->getFullyQualifiedName();
+        $id = $element->getId();
         $attribs['id'] = $id;
 
-        $helperObject  = $view->getHelper($helper);
+        $helperObject = $view->getHelper($helper);
         if (method_exists($helperObject, 'setTranslator')) {
             $helperObject->setTranslator($element->getTranslator());
         }
@@ -253,4 +254,5 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
                 return $elementContent;
         }
     }
+
 }

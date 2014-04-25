@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Attribute extends Mage_Eav_Model_Attribute
 {
+
     /**
      * Name of the module
      */
@@ -59,4 +61,5 @@ class Mage_Customer_Model_Attribute extends Mage_Eav_Model_Attribute
     {
         $this->_init('customer/attribute');
     }
+
 }

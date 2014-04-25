@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SEO tree Categories Sitemap block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Seo_Sitemap_Category
 {
+
     CONST XML_PATH_LINES_PER_PAGE = 'catalog/sitemap/lines_perpage';
 
     protected $_storeRootCategoryPath = '';
@@ -43,6 +44,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     protected $_to = 0;
     protected $_currentPage = 0;
     protected $_categoriesToPages = array();
+
     /**
      * Initialize categories collection
      *
@@ -53,8 +55,8 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
         $helper = Mage::helper('catalog/category');
         /* @var $helper Mage_Catalog_Helper_Category */
         $parent = Mage::getModel('catalog/category')
-            ->setStoreId(Mage::app()->getStore()->getId())
-            ->load(Mage::app()->getStore()->getRootCategoryId());
+                ->setStoreId(Mage::app()->getStore()->getId())
+                ->load(Mage::app()->getStore()->getRootCategoryId());
         $this->_storeRootCategoryPath = $parent->getPath();
         $this->_storeRootCategoryLevel = $parent->getLevel();
         $this->prepareCategoriesToPages();
@@ -96,17 +98,17 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     {
         $linesPerPage = Mage::getStoreConfig(self::XML_PATH_LINES_PER_PAGE);
         $tmpCollection = Mage::getModel('catalog/category')->getCollection()
-            ->addIsActiveFilter()
-            ->addPathsFilter($this->_storeRootCategoryPath . '/')
-            ->addLevelFilter($this->_storeRootCategoryLevel + 1)
-            ->addOrderField('path');
+                ->addIsActiveFilter()
+                ->addPathsFilter($this->_storeRootCategoryPath . '/')
+                ->addLevelFilter($this->_storeRootCategoryLevel + 1)
+                ->addOrderField('path');
         $count = 0;
         $page = 1;
         $categories = array();
         foreach ($tmpCollection as $item) {
-            $children = $item->getChildrenCount()+1;
+            $children = $item->getChildrenCount() + 1;
             $this->_total += $children;
-            if (($children+$count) >= $linesPerPage) {
+            if (($children + $count) >= $linesPerPage) {
                 $categories[$page][$item->getId()] = array(
                     'path' => $item->getPath(),
                     'children_count' => $this->_total
@@ -133,10 +135,10 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     public function getTreeCollection()
     {
         $collection = Mage::getModel('catalog/category')->getCollection()
-            ->addNameToResult()
-            ->addUrlRewriteToResult()
-            ->addIsActiveFilter()
-            ->addOrderField('path');
+                ->addNameToResult()
+                ->addUrlRewriteToResult()
+                ->addIsActiveFilter()
+                ->addOrderField('path');
         return $collection;
     }
 
@@ -150,7 +152,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
         $_to = 0;
         $pathFilter = array();
         if (isset($this->_categoriesToPages[$this->_currentPage])) {
-            foreach ($this->_categoriesToPages[$this->_currentPage] as $_categoryId=>$_categoryInfo) {
+            foreach ($this->_categoriesToPages[$this->_currentPage] as $_categoryId => $_categoryInfo) {
                 $pathFilter[] = $_categoryInfo['path'];
                 $_to = max($_to, $_categoryInfo['children_count']);
             }

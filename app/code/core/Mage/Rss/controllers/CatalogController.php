@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,12 +32,12 @@
  * @package    Mage_Rss
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Rss_CatalogController extends Mage_Core_Controller_Front_Action
 {
+
     protected function isFeedEnable($code)
     {
-        return Mage::getStoreConfig('rss/catalog/'.$code);
+        return Mage::getStoreConfig('rss/catalog/' . $code);
     }
 
     protected function checkFeedEnable($code)
@@ -45,9 +46,9 @@ class Mage_Rss_CatalogController extends Mage_Core_Controller_Front_Action
             $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
             return true;
         } else {
-            $this->getResponse()->setHeader('HTTP/1.1','404 Not Found');
-            $this->getResponse()->setHeader('Status','404 File not found');
-            $this->_forward('nofeed','index','rss');
+            $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
+            $this->getResponse()->setHeader('Status', '404 File not found');
+            $this->_forward('nofeed', 'index', 'rss');
             return false;
         }
     }
@@ -79,7 +80,7 @@ class Mage_Rss_CatalogController extends Mage_Core_Controller_Front_Action
             $tagName = urldecode($this->getRequest()->getParam('tagName'));
             $tagModel = Mage::getModel('tag/tag');
             $tagModel->loadByName($tagName);
-            if ($tagModel->getId() && $tagModel->getStatus()==$tagModel->getApprovedStatus()) {
+            if ($tagModel->getId() && $tagModel->getStatus() == $tagModel->getApprovedStatus()) {
                 Mage::register('tag_model', $tagModel);
                 $this->loadLayout(false);
                 $this->renderLayout();
@@ -128,4 +129,5 @@ class Mage_Rss_CatalogController extends Mage_Core_Controller_Front_Action
         }
         return parent::preDispatch();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: LocateIPResponse.php 20166 2010-01-09 19:00:17Z bkarwin $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Response_BaseType
  */
@@ -33,9 +33,9 @@
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponse
-    extends Zend_Service_DeveloperGarden_Response_BaseType
+class Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponse extends Zend_Service_DeveloperGarden_Response_BaseType
 {
+
     /**
      * internal data object array of
      * elements
@@ -50,14 +50,14 @@ class Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponse
      * @param Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponseType $response
      */
     public function __construct(
-        Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponseType $response
-    ) {
+    Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponseType $response
+    )
+    {
         if ($response->ipAddressLocation instanceof Zend_Service_DeveloperGarden_Response_IpLocation_IPAddressLocationType) {
             if (is_array($response->ipAddressLocation)) {
                 foreach ($response->ipAddressLocation as $location) {
                     $this->ipAddressLocation[] = $location;
                 }
-
             } else {
                 $this->ipAddressLocation[] = $response->ipAddressLocation;
             }
@@ -65,9 +65,9 @@ class Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponse
             $this->ipAddressLocation = $response->ipAddressLocation;
         }
 
-        $this->errorCode     = $response->getErrorCode();
-        $this->errorMessage  = $response->getErrorMessage();
-        $this->statusCode    = $response->getStatusCode();
+        $this->errorCode = $response->getErrorCode();
+        $this->errorMessage = $response->getErrorMessage();
+        $this->statusCode = $response->getStatusCode();
         $this->statusMessage = $response->getStatusMessage();
     }
 
@@ -95,4 +95,5 @@ class Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponse
     {
         return $this->ipAddressLocation;
     }
+
 }

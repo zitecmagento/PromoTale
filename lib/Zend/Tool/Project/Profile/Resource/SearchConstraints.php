@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -78,10 +79,10 @@ class Zend_Tool_Project_Profile_Resource_SearchConstraints
     public function addConstraint($constraint)
     {
         if (is_string($constraint)) {
-            $name   = $constraint;
+            $name = $constraint;
             $params = array();
         } elseif (is_array($constraint)) {
-            $name   = $constraint['name'];
+            $name = $constraint['name'];
             $params = $constraint['params'];
         }
 

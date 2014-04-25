@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Decorator_Abstract */
 #require_once 'Zend/Form/Decorator/Abstract.php';
 
@@ -37,6 +37,7 @@
  */
 class Zend_Form_Decorator_DtDdWrapper extends Zend_Form_Decorator_Abstract
 {
+
     /**
      * Default placement: surround content
      * @var string
@@ -58,13 +59,14 @@ class Zend_Form_Decorator_DtDdWrapper extends Zend_Form_Decorator_Abstract
     public function render($content)
     {
         $elementName = $this->getElement()->getName();
-        
+
         $dtLabel = $this->getOption('dtLabel');
-        if( null === $dtLabel ) {
+        if (null === $dtLabel) {
             $dtLabel = '&#160;';
         }
 
         return '<dt id="' . $elementName . '-label">' . $dtLabel . '</dt>' .
-               '<dd id="' . $elementName . '-element">' . $content . '</dd>';
+                '<dd id="' . $elementName . '-element">' . $content . '</dd>';
     }
+
 }

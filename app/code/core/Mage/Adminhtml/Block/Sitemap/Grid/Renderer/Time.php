@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -41,7 +42,7 @@ class Mage_Adminhtml_Block_Sitemap_Grid_Renderer_Time extends Mage_Adminhtml_Blo
      */
     public function render(Varien_Object $row)
     {
-        $time =  date('Y-m-d H:i:s', strtotime($row->getSitemapTime()) + Mage::getSingleton('core/date')->getGmtOffset());
+        $time = date('Y-m-d H:i:s', strtotime($row->getSitemapTime()) + Mage::getSingleton('core/date')->getGmtOffset());
 
         return $time;
     }

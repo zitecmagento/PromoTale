@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Message.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Zend_Mime
  */
@@ -29,7 +28,6 @@
  * Zend_Mime_Part
  */
 #require_once 'Zend/Mime/Part.php';
-
 
 /**
  * @category   Zend
@@ -134,7 +132,7 @@ class Zend_Mime_Message
      */
     public function generateMessage($EOL = Zend_Mime::LINEEND)
     {
-        if (! $this->isMultiPart()) {
+        if (!$this->isMultiPart()) {
             $body = array_shift($this->_parts);
             $body = $body->getContent($EOL);
         } else {
@@ -142,13 +140,13 @@ class Zend_Mime_Message
 
             $boundaryLine = $mime->boundaryLine($EOL);
             $body = 'This is a message in Mime Format.  If you see this, '
-                  . "your mail reader does not support this format." . $EOL;
+                    . "your mail reader does not support this format." . $EOL;
 
             foreach (array_keys($this->_parts) as $p) {
                 $body .= $boundaryLine
-                       . $this->getPartHeaders($p, $EOL)
-                       . $EOL
-                       . $this->getPartContent($p, $EOL);
+                        . $this->getPartHeaders($p, $EOL)
+                        . $EOL
+                        . $this->getPartContent($p, $EOL);
             }
 
             $body .= $mime->mimeEnd($EOL);
@@ -206,7 +204,7 @@ class Zend_Mime_Message
         // find every mime part limiter and cut out the
         // string before it.
         // the part before the first boundary string is discarded:
-        $p = strpos($body, '--'.$boundary."\n", $start);
+        $p = strpos($body, '--' . $boundary . "\n", $start);
         if ($p === false) {
             // no parts found!
             return array();
@@ -216,18 +214,18 @@ class Zend_Mime_Message
         $start = $p + 3 + strlen($boundary);
 
         while (($p = strpos($body, '--' . $boundary . "\n", $start)) !== false) {
-            $res[] = substr($body, $start, $p-$start);
+            $res[] = substr($body, $start, $p - $start);
             $start = $p + 3 + strlen($boundary);
         }
 
         // no more parts, find end boundary
         $p = strpos($body, '--' . $boundary . '--', $start);
-        if ($p===false) {
+        if ($p === false) {
             throw new Zend_Exception('Not a valid Mime Message: End Missing');
         }
 
         // the remaining part also needs to be parsed:
-        $res[] = substr($body, $start, $p-$start);
+        $res[] = substr($body, $start, $p - $start);
         return $res;
     }
 
@@ -253,7 +251,7 @@ class Zend_Mime_Message
                 /**
                  * @todo check for characterset and filename
                  */
-                switch(strtolower($key)) {
+                switch (strtolower($key)) {
                     case 'content-type':
                         $newPart->type = $value;
                         break;
@@ -261,7 +259,7 @@ class Zend_Mime_Message
                         $newPart->encoding = $value;
                         break;
                     case 'content-id':
-                        $newPart->id = trim($value,'<>');
+                        $newPart->id = trim($value, '<>');
                         break;
                     case 'content-disposition':
                         $newPart->disposition = $value;
@@ -283,4 +281,5 @@ class Zend_Mime_Message
         }
         return $res;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sign up for an alert when the product price changes grid
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -55,8 +56,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         }
         if (Mage::helper('catalog')->isModuleEnabled('Mage_ProductAlert')) {
             $collection = Mage::getModel('productalert/price')
-                ->getCustomerCollection()
-                ->join($productId, $websiteId);
+                    ->getCustomerCollection()
+                    ->join($productId, $websiteId);
             $this->setCollection($collection);
         }
         return parent::_prepareCollection();
@@ -65,43 +66,43 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
     protected function _prepareColumns()
     {
         $this->addColumn('firstname', array(
-            'header'    => Mage::helper('catalog')->__('First Name'),
-            'index'     => 'firstname',
+            'header' => Mage::helper('catalog')->__('First Name'),
+            'index' => 'firstname',
         ));
 
         $this->addColumn('lastname', array(
-            'header'    => Mage::helper('catalog')->__('Last Name'),
-            'index'     => 'lastname',
+            'header' => Mage::helper('catalog')->__('Last Name'),
+            'index' => 'lastname',
         ));
 
         $this->addColumn('email', array(
-            'header'    => Mage::helper('catalog')->__('Email'),
-            'index'     => 'email',
+            'header' => Mage::helper('catalog')->__('Email'),
+            'index' => 'email',
         ));
 
         $this->addColumn('price', array(
-            'header'    => Mage::helper('catalog')->__('Price'),
-            'index'     => 'price',
-            'type'      => 'currency',
+            'header' => Mage::helper('catalog')->__('Price'),
+            'index' => 'price',
+            'type' => 'currency',
             'currency_code'
-                        => Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE)
+            => Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE)
         ));
 
         $this->addColumn('add_date', array(
-            'header'    => Mage::helper('catalog')->__('Date Subscribed'),
-            'index'     => 'add_date',
-            'type'      => 'date'
+            'header' => Mage::helper('catalog')->__('Date Subscribed'),
+            'index' => 'add_date',
+            'type' => 'date'
         ));
 
         $this->addColumn('last_send_date', array(
-            'header'    => Mage::helper('catalog')->__('Last Notification'),
-            'index'     => 'last_send_date',
-            'type'      => 'date'
+            'header' => Mage::helper('catalog')->__('Last Notification'),
+            'index' => 'last_send_date',
+            'type' => 'date'
         ));
 
         $this->addColumn('send_count', array(
-            'header'    => Mage::helper('catalog')->__('Send Count'),
-            'index'     => 'send_count',
+            'header' => Mage::helper('catalog')->__('Send Count'),
+            'index' => 'send_count',
         ));
 
         return parent::_prepareColumns();
@@ -110,13 +111,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
     public function getGridUrl()
     {
         $productId = $this->getRequest()->getParam('id');
-        $storeId   = $this->getRequest()->getParam('store', 0);
+        $storeId = $this->getRequest()->getParam('store', 0);
         if ($storeId) {
             $storeId = Mage::app()->getStore($storeId)->getId();
         }
         return $this->getUrl('*/catalog_product/alertsPriceGrid', array(
-            'id'    => $productId,
-            'store' => $storeId
+                    'id' => $productId,
+                    'store' => $storeId
         ));
     }
+
 }

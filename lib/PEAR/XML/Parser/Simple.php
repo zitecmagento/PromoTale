@@ -46,7 +46,6 @@
  * @version   CVS: $Id: Simple.php,v 1.7 2008/08/24 21:48:21 ashnazg Exp $
  * @link      http://pear.php.net/package/XML_Parser
  */
-
 /**
  * built on XML_Parser
  */
@@ -95,6 +94,7 @@ require_once 'XML/Parser.php';
  */
 class XML_Parser_Simple extends XML_Parser
 {
+
     /**
      * element stack
      *
@@ -125,13 +125,13 @@ class XML_Parser_Simple extends XML_Parser
      * @var  array
      */
     var $handler = array(
-        'default_handler'                   => 'defaultHandler',
-        'processing_instruction_handler'    => 'piHandler',
-        'unparsed_entity_decl_handler'      => 'unparsedHandler',
-        'notation_decl_handler'             => 'notationHandler',
-        'external_entity_ref_handler'       => 'entityrefHandler'
+        'default_handler' => 'defaultHandler',
+        'processing_instruction_handler' => 'piHandler',
+        'unparsed_entity_decl_handler' => 'unparsedHandler',
+        'notation_decl_handler' => 'notationHandler',
+        'external_entity_ref_handler' => 'entityrefHandler'
     );
-    
+
     /**
      * Creates an XML parser.
      *
@@ -163,15 +163,13 @@ class XML_Parser_Simple extends XML_Parser
         }
 
         if ($this->mode != 'func' && $this->mode != 'event') {
-            return $this->raiseError('Unsupported mode given', 
-                XML_PARSER_ERROR_UNSUPPORTED_MODE);
+            return $this->raiseError('Unsupported mode given', XML_PARSER_ERROR_UNSUPPORTED_MODE);
         }
         xml_set_object($this->parser, $this->_handlerObj);
 
-        xml_set_element_handler($this->parser, array(&$this, 'startHandler'), 
-            array(&$this, 'endHandler'));
+        xml_set_element_handler($this->parser, array(&$this, 'startHandler'), array(&$this, 'endHandler'));
         xml_set_character_data_handler($this->parser, array(&$this, 'cdataHandler'));
-        
+
         /**
          * set additional handlers for character data, entities, etc.
          */
@@ -195,9 +193,9 @@ class XML_Parser_Simple extends XML_Parser
     function reset()
     {
         $this->_elStack = array();
-        $this->_data    = array();
-        $this->_depth   = 0;
-        
+        $this->_data = array();
+        $this->_depth = 0;
+
         $result = $this->_create();
         if ($this->isError($result)) {
             return $result;
@@ -221,7 +219,7 @@ class XML_Parser_Simple extends XML_Parser
     function startHandler($xp, $elem, &$attribs)
     {
         array_push($this->_elStack, array(
-            'name'    => $elem,
+            'name' => $elem,
             'attribs' => $attribs
         ));
         $this->_depth++;
@@ -242,24 +240,23 @@ class XML_Parser_Simple extends XML_Parser
      */
     function endHandler($xp, $elem)
     {
-        $el   = array_pop($this->_elStack);
+        $el = array_pop($this->_elStack);
         $data = $this->_data[$this->_depth];
         $this->_depth--;
 
         switch ($this->mode) {
-        case 'event':
-            $this->_handlerObj->handleElement($el['name'], $el['attribs'], $data);
-            break;
-        case 'func':
-            $func = 'handleElement_' . $elem;
-            if (strchr($func, '.')) {
-                $func = str_replace('.', '_', $func);
-            }
-            if (method_exists($this->_handlerObj, $func)) {
-                call_user_func(array(&$this->_handlerObj, $func), 
-                    $el['name'], $el['attribs'], $data);
-            }
-            break;
+            case 'event':
+                $this->_handlerObj->handleElement($el['name'], $el['attribs'], $data);
+                break;
+            case 'func':
+                $func = 'handleElement_' . $elem;
+                if (strchr($func, '.')) {
+                    $func = str_replace('.', '_', $func);
+                }
+                if (method_exists($this->_handlerObj, $func)) {
+                    call_user_func(array(&$this->_handlerObj, $func), $el['name'], $el['attribs'], $data);
+                }
+                break;
         }
     }
 
@@ -293,6 +290,7 @@ class XML_Parser_Simple extends XML_Parser
      */
     function handleElement($name, $attribs, $data)
     {
+        
     }
 
     /**
@@ -322,5 +320,7 @@ class XML_Parser_Simple extends XML_Parser
     {
         $this->_data[$this->_depth] .= $data;
     }
+
 }
+
 ?>

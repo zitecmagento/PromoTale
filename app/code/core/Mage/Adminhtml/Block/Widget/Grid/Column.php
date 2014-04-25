@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,13 +34,14 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widget
 {
+
     protected $_grid;
     protected $_renderer;
     protected $_filter;
     protected $_type;
-    protected $_cssClass=null;
+    protected $_cssClass = null;
 
-    public function __construct($data=array())
+    public function __construct($data = array())
     {
         parent::__construct($data);
     }
@@ -76,11 +78,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     {
         if (is_null($this->_cssClass)) {
             if ($this->getAlign()) {
-                $this->_cssClass .= 'a-'.$this->getAlign();
+                $this->_cssClass .= 'a-' . $this->getAlign();
             }
             // Add a custom css class for column
             if ($this->hasData('column_css_class')) {
-                $this->_cssClass .= ' '. $this->getData('column_css_class');
+                $this->_cssClass .= ' ' . $this->getData('column_css_class');
             }
             if ($this->getEditable()) {
                 $this->_cssClass .= ' editable';
@@ -98,7 +100,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     public function getHeaderCssClass()
     {
         $class = $this->getData('header_css_class');
-        if (($this->getSortable()===false) || ($this->getGrid()->getSortable()===false)) {
+        if (($this->getSortable() === false) || ($this->getGrid()->getSortable() === false)) {
             $class .= ' no-link';
         }
         if ($this->isLast()) {
@@ -111,7 +113,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     {
         $str = '';
         if ($class = $this->getHeaderCssClass()) {
-            $str.= ' class="'.$class.'"';
+            $str.= ' class="' . $class . '"';
         }
 
         return $str;
@@ -288,7 +290,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
                 $rendererClass = $this->_getRendererByType();
             }
             $this->_renderer = $this->getLayout()->createBlock($rendererClass)
-                ->setColumn($this);
+                    ->setColumn($this);
         }
         return $this->_renderer;
     }
@@ -367,7 +369,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
                 }
             }
             $this->_filter = $this->getLayout()->createBlock($filterClass)
-                ->setColumn($this);
+                    ->setColumn($this);
         }
 
         return $this->_filter;
@@ -395,4 +397,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         }
         return $this->getHeader();
     }
+
 }

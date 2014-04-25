@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -32,6 +33,7 @@
  */
 interface Zend_InfoCard_Adapter_Interface
 {
+
     /**
      * Store the assertion's claims in persistent storage
      *

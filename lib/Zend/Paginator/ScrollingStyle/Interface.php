@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 interface Zend_Paginator_ScrollingStyle_Interface
 {
+
     /**
      * Returns an array of "local" pages given a page number and range.
      *

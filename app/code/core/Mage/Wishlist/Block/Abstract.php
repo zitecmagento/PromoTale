@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist Product Items abstract Block
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_Abstract
 {
+
     /**
      * Wishlist Product Items Collection
      *
@@ -204,7 +205,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         return $this->_getHelper()->getAddUrl($product);
     }
 
-     /**
+    /**
      * Returns item configure url in wishlist
      *
      * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $product
@@ -222,7 +223,6 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
 
         return $this->getUrl('wishlist/index/configure/', $params);
     }
-
 
     /**
      * Retrieve Escaped Description for Wishlist Item
@@ -344,7 +344,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
             $blockType = $this->_itemPriceBlockTypes[$productType]['block'];
             $template = $this->_itemPriceBlockTypes[$productType]['template'];
             $block = $this->getLayout()->createBlock($blockType)
-                ->setTemplate($template);
+                    ->setTemplate($template);
             $this->_cachedItemPriceBlocks[$productType] = $block;
         }
         return $this->_cachedItemPriceBlocks[$productType];
@@ -366,21 +366,21 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         $type_id = $product->getTypeId();
         if (Mage::helper('catalog')->canApplyMsrp($product)) {
             $realPriceHtml = $this->_preparePriceRenderer($type_id)
-                ->setProduct($product)
-                ->setDisplayMinimalPrice($displayMinimalPrice)
-                ->setIdSuffix($idSuffix)
-                ->setIsEmulateMode(true)
-                ->toHtml();
+                    ->setProduct($product)
+                    ->setDisplayMinimalPrice($displayMinimalPrice)
+                    ->setIdSuffix($idSuffix)
+                    ->setIsEmulateMode(true)
+                    ->toHtml();
             $product->setAddToCartUrl($this->getAddToCartUrl($product));
             $product->setRealPriceHtml($realPriceHtml);
             $type_id = $this->_mapRenderer;
         }
 
         return $this->_preparePriceRenderer($type_id)
-            ->setProduct($product)
-            ->setDisplayMinimalPrice($displayMinimalPrice)
-            ->setIdSuffix($idSuffix)
-            ->toHtml();
+                        ->setProduct($product)
+                        ->setDisplayMinimalPrice($displayMinimalPrice)
+                        ->setIdSuffix($idSuffix)
+                        ->toHtml();
     }
 
     /**
@@ -402,10 +402,11 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
             $config = $buyRequest->getSuperProductConfig();
             if ($config && !empty($config['product_id'])) {
                 $product = Mage::getModel('catalog/product')
-                    ->setStoreId(Mage::app()->getStore()->getStoreId())
-                    ->load($config['product_id']);
+                        ->setStoreId(Mage::app()->getStore()->getStoreId())
+                        ->load($config['product_id']);
             }
         }
         return parent::getProductUrl($product, $additional);
     }
+
 }

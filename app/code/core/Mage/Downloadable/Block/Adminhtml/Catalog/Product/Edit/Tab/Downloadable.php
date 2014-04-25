@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,8 +32,7 @@
  * @package     Mage_Downloadable
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable
-    extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
 
     /**
@@ -41,7 +41,6 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable
      * @var Mage_Catalog_Model_Product
      */
     protected $_product = null;
-
     protected $_config = null;
 
     /**
@@ -143,21 +142,20 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable
     protected function _toHtml()
     {
         $accordion = $this->getLayout()->createBlock('adminhtml/widget_accordion')
-            ->setId('downloadableInfo');
+                ->setId('downloadableInfo');
 
         $accordion->addItem('samples', array(
-            'title'   => Mage::helper('adminhtml')->__('Samples'),
+            'title' => Mage::helper('adminhtml')->__('Samples'),
             'content' => $this->getLayout()
-                ->createBlock('downloadable/adminhtml_catalog_product_edit_tab_downloadable_samples')->toHtml(),
-            'open'    => false,
+                    ->createBlock('downloadable/adminhtml_catalog_product_edit_tab_downloadable_samples')->toHtml(),
+            'open' => false,
         ));
 
         $accordion->addItem('links', array(
-            'title'   => Mage::helper('adminhtml')->__('Links'),
+            'title' => Mage::helper('adminhtml')->__('Links'),
             'content' => $this->getLayout()->createBlock(
-                'downloadable/adminhtml_catalog_product_edit_tab_downloadable_links',
-                'catalog.product.edit.tab.downloadable.links')->toHtml(),
-            'open'    => true,
+                    'downloadable/adminhtml_catalog_product_edit_tab_downloadable_links', 'catalog.product.edit.tab.downloadable.links')->toHtml(),
+            'open' => true,
         ));
 
         $this->setChild('accordion', $accordion);

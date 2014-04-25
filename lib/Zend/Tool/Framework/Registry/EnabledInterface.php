@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -36,5 +37,4 @@ interface Zend_Tool_Framework_Registry_EnabledInterface
 {
 
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry);
-
 }

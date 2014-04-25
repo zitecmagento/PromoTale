@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Resource_Import_Data
-    extends Mage_Core_Model_Resource_Db_Abstract
-    implements IteratorAggregate
+class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resource_Db_Abstract implements IteratorAggregate
 {
+
     /**
      * @var IteratorIterator
      */
@@ -57,8 +57,8 @@ class Mage_ImportExport_Model_Resource_Import_Data
     {
         $adapter = $this->_getWriteAdapter();
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('data'))
-            ->order('id ASC');
+                ->from($this->getMainTable(), array('data'))
+                ->order('id ASC');
         $stmt = $adapter->query($select);
 
         $stmt->setFetchMode(Zend_Db::FETCH_NUM);
@@ -93,8 +93,8 @@ class Mage_ImportExport_Model_Resource_Import_Data
     {
         $adapter = $this->_getReadAdapter();
         $behaviors = array_unique($adapter->fetchCol(
-            $adapter->select()
-                ->from($this->getMainTable(), array('behavior'))
+                        $adapter->select()
+                                ->from($this->getMainTable(), array('behavior'))
         ));
         if (count($behaviors) != 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: behaviors are mixed'));
@@ -112,8 +112,8 @@ class Mage_ImportExport_Model_Resource_Import_Data
     {
         $adapter = $this->_getReadAdapter();
         $entityCodes = array_unique($adapter->fetchCol(
-            $adapter->select()
-                ->from($this->getMainTable(), array('entity'))
+                        $adapter->select()
+                                ->from($this->getMainTable(), array('entity'))
         ));
         if (count($entityCodes) != 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: entity codes are mixed'));
@@ -154,8 +154,8 @@ class Mage_ImportExport_Model_Resource_Import_Data
     public function saveBunch($entity, $behavior, array $data)
     {
         return $this->_getWriteAdapter()->insert(
-            $this->getMainTable(),
-            array('behavior' => $behavior, 'entity' => $entity, 'data' => Mage::helper('core')->jsonEncode($data))
+                        $this->getMainTable(), array('behavior' => $behavior, 'entity' => $entity, 'data' => Mage::helper('core')->jsonEncode($data))
         );
     }
+
 }

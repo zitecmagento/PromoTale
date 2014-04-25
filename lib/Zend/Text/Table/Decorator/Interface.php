@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 interface Zend_Text_Table_Decorator_Interface
 {
+
     /**
      * Get a single character for the top left corner
      *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Project.php 20898 2010-02-04 07:03:46Z ralph $
  */
-
 /**
  * @see Zend_Tool_Project_Provider_Abstract
  */
@@ -31,9 +31,8 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Project_Provider_Project
-    extends Zend_Tool_Project_Provider_Abstract
-    //implements Zend_Tool_Framework_Provider_DocblockManifestInterface
+class Zend_Tool_Project_Provider_Project extends Zend_Tool_Project_Provider_Abstract
+//implements Zend_Tool_Framework_Provider_DocblockManifestInterface
 {
 
     protected $_specialties = array('Info');
@@ -86,17 +85,17 @@ class Zend_Tool_Project_Provider_Project
         $newProfile = new Zend_Tool_Project_Profile(array(
             'projectDirectory' => $path,
             'profileData' => $profileData
-            ));
+        ));
 
         $newProfile->loadFromData();
 
         $response = $this->_registry->getResponse();
-        
+
         $response->appendContent('Creating project at ' . $path);
         $response->appendContent('Note: ', array('separator' => false, 'color' => 'yellow'));
         $response->appendContent(
-            'This command created a web project, '
-            . 'for more information setting up your VHOST, please see docs/README');
+                'This command created a web project, '
+                . 'for more information setting up your VHOST, please see docs/README');
 
         foreach ($newProfile->getIterator() as $resource) {
             $resource->create();
@@ -191,7 +190,7 @@ class Zend_Tool_Project_Provider_Project
 EOS;
         return $data;
     }
-    
+
     public static function getDefaultReadmeContents($caller = null)
     {
         $projectDirResource = $caller->getResource()->getProfile()->search('projectDirectory');
@@ -201,7 +200,7 @@ EOS;
         } else {
             $path = '/path/to/public';
         }
-        
+
         return <<< EOS
 README
 ======
@@ -236,4 +235,5 @@ The following is a sample VHOST you might want to consider for your project.
 
 EOS;
     }
+
 }

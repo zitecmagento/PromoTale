@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HtmlList.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Zend_View_Helper_FormELement
  */
@@ -67,7 +66,7 @@ class Zend_View_Helper_HtmlList extends Zend_View_Helper_FormElement
             } else {
                 if (6 < strlen($list)) {
                     $list = substr($list, 0, strlen($list) - 6)
-                     . $this->htmlList($item, $ordered, $attribs, $escape) . '</li>' . self::EOL;
+                            . $this->htmlList($item, $ordered, $attribs, $escape) . '</li>' . self::EOL;
                 } else {
                     $list .= '<li>' . $this->htmlList($item, $ordered, $attribs, $escape) . '</li>' . self::EOL;
                 }
@@ -87,4 +86,5 @@ class Zend_View_Helper_HtmlList extends Zend_View_Helper_FormElement
 
         return '<' . $tag . $attribs . '>' . self::EOL . $list . '</' . $tag . '>' . self::EOL;
     }
+
 }

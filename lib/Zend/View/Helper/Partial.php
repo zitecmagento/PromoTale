@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Partial.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_Abstract.php */
 #require_once 'Zend/View/Helper/Abstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_View_Helper_Partial extends Zend_View_Helper_Abstract
 {
+
     /**
      * Variable to which object will be assigned
      * @var string
@@ -82,9 +83,7 @@ class Zend_View_Helper_Partial extends Zend_View_Helper_Abstract
             }
             $viewsDir = dirname($moduleDir) . '/views';
             $view->addBasePath($viewsDir);
-        } elseif ((null == $model) && (null !== $module)
-            && (is_array($module) || is_object($module)))
-        {
+        } elseif ((null == $model) && (null !== $module) && (is_array($module) || is_object($module))) {
             $model = $module;
         }
 
@@ -146,4 +145,5 @@ class Zend_View_Helper_Partial extends Zend_View_Helper_Abstract
     {
         return $this->_objectKey;
     }
+
 }

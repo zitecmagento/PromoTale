@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
 {
+
     /**
      * @var integer
      */
@@ -92,12 +94,12 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
     public function __construct($minute, $hour, $dayOfMonth, $month, $year, $recurring = 0, $notify = 0)
     {
         $this->setMinute($minute)
-             ->setHour($hour)
-             ->setDayOfMonth($dayOfMonth)
-             ->setMonth($month)
-             ->setYear($year)
-             ->setRecurring($recurring)
-             ->setNotify($notify);
+                ->setHour($hour)
+                ->setDayOfMonth($dayOfMonth)
+                ->setMonth($month)
+                ->setYear($year)
+                ->setRecurring($recurring)
+                ->setNotify($notify);
     }
 
     /**
@@ -231,7 +233,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
         if (!array_key_exists($recurring, $this->_recurringValues)) {
             #require_once 'Zend/Service/DeveloperGarden/ConferenceCall/Exception.php';
             throw new Zend_Service_DeveloperGarden_ConferenceCall_Exception(
-                'Unknown ConferenceCall recurring mode.'
+            'Unknown ConferenceCall recurring mode.'
             );
         }
         $this->recurring = $recurring;
@@ -259,4 +261,5 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
         $this->notify = $notify;
         return $this;
     }
+
 }

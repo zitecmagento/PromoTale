@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Tag_Pending extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Constructor
      *
@@ -64,4 +66,5 @@ class Mage_Adminhtml_Block_Tag_Pending extends Mage_Adminhtml_Block_Template
     {
         return Mage::helper('tag')->__('Pending Tags');
     }
+
 }

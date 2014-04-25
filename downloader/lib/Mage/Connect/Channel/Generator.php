@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,13 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Connect_Channel_Generator extends Mage_Xml_Generator
 {
-    protected $_file      = 'channel.xml';
+
+    protected $_file = 'channel.xml';
     protected $_generator = null;
 
-    public function __construct($file='')
+    public function __construct($file = '')
     {
         if ($file) {
             $this->_file = $file;
@@ -56,8 +57,9 @@ class Mage_Connect_Channel_Generator extends Mage_Xml_Generator
     public function save($content)
     {
         $xmlContent = $this->getGenerator()
-        ->arrayToXml($content)
-        ->save($this->getFile());
+                ->arrayToXml($content)
+                ->save($this->getFile());
         return $this;
     }
+
 }

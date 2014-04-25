@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bundle Selection Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table and id field
      *
@@ -59,19 +60,19 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
         $select->reset();
 
         $attrPriceId = Mage::getSingleton('eav/entity_attribute')
-            ->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'price');
+                ->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'price');
         $attrTierPriceId = Mage::getSingleton('eav/entity_attribute')
-            ->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'tier_price');
+                ->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'tier_price');
 
         $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
 
         $select->from(array("price_index" => $this->getTable('catalogindex/price')), array('price' => 'SUM(value)'))
-            ->where('entity_id = :product_id')
-            ->where('website_id = :website_id')
-            ->where('customer_group_id = :customer_group')
-            ->where('attribute_id = :price_attribute OR attribute_id = :tier_price_attribute')
-            ->where('qty <= :qty')
-            ->group('entity_id');
+                ->where('entity_id = :product_id')
+                ->where('website_id = :website_id')
+                ->where('customer_group_id = :customer_group')
+                ->where('attribute_id = :price_attribute OR attribute_id = :tier_price_attribute')
+                ->where('qty <= :qty')
+                ->group('entity_id');
 
         $bind = array(
             'product_id' => $productId,
@@ -79,7 +80,7 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
             'customer_group' => $groupId,
             'price_attribute' => $attrPriceId,
             'tier_price_attribute' => $attrTierPriceId,
-            'qty'   => $qty
+            'qty' => $qty
         );
 
         $price = $adapter->fetchCol($select, $bind);
@@ -106,21 +107,17 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
         $notRequired = array();
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from(
-                array('tbl_selection' => $this->getMainTable()),
-                array('product_id', 'parent_product_id', 'option_id')
-            )
-            ->join(
-                array('e' => $this->getTable('catalog/product')),
-                'e.entity_id = tbl_selection.product_id AND e.required_options=0',
-                array()
-            )
-            ->join(
-                array('tbl_option' => $this->getTable('bundle/option')),
-                'tbl_option.option_id = tbl_selection.option_id',
-                array('required')
-            )
-            ->where('tbl_selection.parent_product_id = :parent_id');
+                ->from(
+                        array('tbl_selection' => $this->getMainTable()), array('product_id', 'parent_product_id', 'option_id')
+                )
+                ->join(
+                        array('e' => $this->getTable('catalog/product')), 'e.entity_id = tbl_selection.product_id AND e.required_options=0', array()
+                )
+                ->join(
+                        array('tbl_option' => $this->getTable('bundle/option')), 'tbl_option.option_id = tbl_selection.option_id', array(
+                    'required')
+                )
+                ->where('tbl_selection.parent_product_id = :parent_id');
         foreach ($adapter->fetchAll($select, array('parent_id' => $parentId)) as $row) {
             if ($row['required']) {
                 $childrenIds[$row['option_id']][$row['product_id']] = $row['product_id'];
@@ -156,10 +153,10 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
     public function getParentIdsByChild($childId)
     {
         $adapter = $this->_getReadAdapter();
-        $select  = $adapter->select()
-            ->distinct(true)
-            ->from($this->getMainTable(), 'parent_product_id')
-            ->where('product_id IN(?)', $childId);
+        $select = $adapter->select()
+                ->distinct(true)
+                ->from($this->getMainTable(), 'parent_product_id')
+                ->where('product_id IN(?)', $childId);
 
         return $adapter->fetchCol($select);
     }
@@ -173,24 +170,22 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
     {
         $write = $this->_getWriteAdapter();
         if ($item->getDefaultPriceScope()) {
-            $write->delete($this->getTable('bundle/selection_price'),
-                array(
-                    'selection_id = ?' => $item->getSelectionId(),
-                    'website_id = ?'   => $item->getWebsiteId()
-                )
+            $write->delete($this->getTable('bundle/selection_price'), array(
+                'selection_id = ?' => $item->getSelectionId(),
+                'website_id = ?' => $item->getWebsiteId()
+                    )
             );
         } else {
-             $values = array(
+            $values = array(
                 'selection_id' => $item->getSelectionId(),
-                'website_id'   => $item->getWebsiteId(),
+                'website_id' => $item->getWebsiteId(),
                 'selection_price_type' => $item->getSelectionPriceType(),
                 'selection_price_value' => $item->getSelectionPriceValue()
             );
             $write->insertOnDuplicate(
-                $this->getTable('bundle/selection_price'),
-                $values,
-                array('selection_price_type', 'selection_price_value')
+                    $this->getTable('bundle/selection_price'), $values, array('selection_price_type', 'selection_price_value')
             );
         }
     }
+
 }

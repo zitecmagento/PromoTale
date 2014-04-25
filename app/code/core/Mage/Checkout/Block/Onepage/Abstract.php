@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Template
 {
+
     protected $_customer;
     protected $_checkout;
     protected $_quote;
@@ -86,7 +88,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     {
         if (!$this->_countryCollection) {
             $this->_countryCollection = Mage::getSingleton('directory/country')->getResourceCollection()
-                ->loadByStore();
+                    ->loadByStore();
         }
         return $this->_countryCollection;
     }
@@ -95,8 +97,8 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     {
         if (!$this->_regionCollection) {
             $this->_regionCollection = Mage::getModel('directory/region')->getResourceCollection()
-                ->addCountryFilter($this->getAddress()->getCountryId())
-                ->load();
+                    ->addCountryFilter($this->getAddress()->getCountryId())
+                    ->load();
         }
         return $this->_regionCollection;
     }
@@ -106,7 +108,8 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         return count($this->getCustomer()->getAddresses());
     }
 
-/* */
+    /* */
+
     public function getAddressesHtmlSelect($type)
     {
         if ($this->isCustomerLoggedIn()) {
@@ -120,7 +123,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
 
             $addressId = $this->getAddress()->getCustomerAddressId();
             if (empty($addressId)) {
-                if ($type=='billing') {
+                if ($type == 'billing') {
                     $address = $this->getCustomer()->getPrimaryBillingAddress();
                 } else {
                     $address = $this->getCustomer()->getPrimaryShippingAddress();
@@ -131,12 +134,12 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
             }
 
             $select = $this->getLayout()->createBlock('core/html_select')
-                ->setName($type.'_address_id')
-                ->setId($type.'-address-select')
-                ->setClass('address-select')
-                ->setExtraParams('onchange="'.$type.'.newAddress(!this.value)"')
-                ->setValue($addressId)
-                ->setOptions($options);
+                    ->setName($type . '_address_id')
+                    ->setId($type . '-address-select')
+                    ->setClass('address-select')
+                    ->setExtraParams('onchange="' . $type . '.newAddress(!this.value)"')
+                    ->setValue($addressId)
+                    ->setOptions($options);
 
             $select->addOption('', Mage::helper('checkout')->__('New Address'));
 
@@ -152,12 +155,12 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
             $countryId = Mage::helper('core')->getDefaultCountry();
         }
         $select = $this->getLayout()->createBlock('core/html_select')
-            ->setName($type.'[country_id]')
-            ->setId($type.':country_id')
-            ->setTitle(Mage::helper('checkout')->__('Country'))
-            ->setClass('validate-select')
-            ->setValue($countryId)
-            ->setOptions($this->getCountryOptions());
+                ->setName($type . '[country_id]')
+                ->setId($type . ':country_id')
+                ->setTitle(Mage::helper('checkout')->__('Country'))
+                ->setClass('validate-select')
+                ->setValue($countryId)
+                ->setOptions($this->getCountryOptions());
         if ($type === 'shipping') {
             $select->setExtraParams('onchange="if(window.shipping)shipping.setSameAsBilling(false);"');
         }
@@ -165,27 +168,26 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         return $select->getHtml();
     }
 
-
     public function getRegionHtmlSelect($type)
     {
         $select = $this->getLayout()->createBlock('core/html_select')
-            ->setName($type.'[region]')
-            ->setId($type.':region')
-            ->setTitle(Mage::helper('checkout')->__('State/Province'))
-            ->setClass('required-entry validate-state')
-            ->setValue($this->getAddress()->getRegionId())
-            ->setOptions($this->getRegionCollection()->toOptionArray());
+                ->setName($type . '[region]')
+                ->setId($type . ':region')
+                ->setTitle(Mage::helper('checkout')->__('State/Province'))
+                ->setClass('required-entry validate-state')
+                ->setValue($this->getAddress()->getRegionId())
+                ->setOptions($this->getRegionCollection()->toOptionArray());
 
         return $select->getHtml();
     }
 
     public function getCountryOptions()
     {
-        $options    = false;
-        $useCache   = Mage::app()->useCache('config');
+        $options = false;
+        $useCache = Mage::app()->useCache('config');
         if ($useCache) {
-            $cacheId    = 'DIRECTORY_COUNTRY_SELECT_STORE_' . Mage::app()->getStore()->getCode();
-            $cacheTags  = array('config');
+            $cacheId = 'DIRECTORY_COUNTRY_SELECT_STORE_' . Mage::app()->getStore()->getCode();
+            $cacheTags = array('config');
             if ($optionsCache = Mage::app()->loadCache($cacheId)) {
                 $options = unserialize($optionsCache);
             }
@@ -210,7 +212,6 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         return array('login', 'billing', 'shipping', 'shipping_method', 'payment', 'review');
     }
 
-
     /**
      * Retrieve is allow and show block
      *
@@ -220,5 +221,6 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     {
         return true;
     }
-/* */
+
+    /* */
 }

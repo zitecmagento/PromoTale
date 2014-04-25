@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core layout update resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table
      *
@@ -53,10 +54,10 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
     public function fetchUpdatesByHandle($handle, $params = array())
     {
         $bind = array(
-            'store_id'  => Mage::app()->getStore()->getId(),
-            'area'      => Mage::getSingleton('core/design_package')->getArea(),
-            'package'   => Mage::getSingleton('core/design_package')->getPackageName(),
-            'theme'     => Mage::getSingleton('core/design_package')->getTheme('layout')
+            'store_id' => Mage::app()->getStore()->getId(),
+            'area' => Mage::getSingleton('core/design_package')->getArea(),
+            'package' => Mage::getSingleton('core/design_package')->getPackageName(),
+            'theme' => Mage::getSingleton('core/design_package')->getTheme('layout')
         );
 
         foreach ($params as $key => $value) {
@@ -70,19 +71,18 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
         $readAdapter = $this->_getReadAdapter();
         if ($readAdapter) {
             $select = $readAdapter->select()
-                ->from(array('layout_update' => $this->getMainTable()), array('xml'))
-                ->join(array('link'=>$this->getTable('core/layout_link')), 
-                        'link.layout_update_id=layout_update.layout_update_id',
-                        '')
-                ->where('link.store_id IN (0, :store_id)')
-                ->where('link.area = :area')
-                ->where('link.package = :package')
-                ->where('link.theme = :theme')
-                ->where('layout_update.handle = :layout_update_handle')
-                ->order('layout_update.sort_order ' . Varien_Db_Select::SQL_ASC);
+                    ->from(array('layout_update' => $this->getMainTable()), array('xml'))
+                    ->join(array('link' => $this->getTable('core/layout_link')), 'link.layout_update_id=layout_update.layout_update_id', '')
+                    ->where('link.store_id IN (0, :store_id)')
+                    ->where('link.area = :area')
+                    ->where('link.package = :package')
+                    ->where('link.theme = :theme')
+                    ->where('layout_update.handle = :layout_update_handle')
+                    ->order('layout_update.sort_order ' . Varien_Db_Select::SQL_ASC);
 
             $result = join('', $readAdapter->fetchCol($select, $bind));
         }
         return $result;
     }
+
 }

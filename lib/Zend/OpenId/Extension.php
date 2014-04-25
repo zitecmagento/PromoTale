@@ -53,8 +53,8 @@ abstract class Zend_OpenId_Extension
                     }
                 }
             } else if (!is_object($extensions) ||
-                       !($extensions instanceof Zend_OpenId_Extension) ||
-                       !$extensions->$func($params)) {
+                    !($extensions instanceof Zend_OpenId_Extension) ||
+                    !$extensions->$func($params)) {
                 return false;
             }
         }
@@ -134,4 +134,5 @@ abstract class Zend_OpenId_Extension
     {
         return true;
     }
+
 }

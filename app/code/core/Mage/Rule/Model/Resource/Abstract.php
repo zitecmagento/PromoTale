@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Store associated with rule entities information map
      *
@@ -93,18 +95,13 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     {
         $select = $this->_getReadAdapter()->select();
         $select->from(
-                array('p' => $this->getTable('catalog/product')),
-                array(new Zend_Db_Expr('DISTINCT p.entity_id'))
-            )
-            ->joinInner(
-                array('cpf' => $this->getTable('catalog/product_flat') . '_' . $storeId),
-                'cpf.entity_id = p.entity_id',
-                array()
-            )->joinLeft(
-                array('ccp' => $this->getTable('catalog/category_product')),
-                'ccp.product_id = p.entity_id',
-                array()
-            );
+                        array('p' => $this->getTable('catalog/product')), array(new Zend_Db_Expr('DISTINCT p.entity_id'))
+                )
+                ->joinInner(
+                        array('cpf' => $this->getTable('catalog/product_flat') . '_' . $storeId), 'cpf.entity_id = p.entity_id', array()
+                )->joinLeft(
+                array('ccp' => $this->getTable('catalog/category_product')), 'ccp.product_id = p.entity_id', array()
+        );
 
         $where = $condition->prepareConditionSql();
         if (!empty($where)) {
@@ -130,7 +127,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         if (empty($ruleIds) || empty($entityIds)) {
             return $this;
         }
-        $adapter    = $this->_getWriteAdapter();
+        $adapter = $this->_getWriteAdapter();
         $entityInfo = $this->_getAssociatedEntityInfo($entityType);
 
         if (!is_array($ruleIds)) {
@@ -140,12 +137,13 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
             $entityIds = array((int) $entityIds);
         }
 
-        $data  = array();
+        $data = array();
         $count = 0;
 
         $adapter->beginTransaction();
 
-        try {
+        try
+        {
             foreach ($ruleIds as $ruleId) {
                 foreach ($entityIds as $entityId) {
                     $data[] = array(
@@ -155,9 +153,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
                     $count++;
                     if (($count % 1000) == 0) {
                         $adapter->insertOnDuplicate(
-                            $this->getTable($entityInfo['associations_table']),
-                            $data,
-                            array($entityInfo['rule_id_field'])
+                                $this->getTable($entityInfo['associations_table']), $data, array($entityInfo['rule_id_field'])
                         );
                         $data = array();
                     }
@@ -165,22 +161,20 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
             }
             if (!empty($data)) {
                 $adapter->insertOnDuplicate(
-                    $this->getTable($entityInfo['associations_table']),
-                    $data,
-                    array($entityInfo['rule_id_field'])
+                        $this->getTable($entityInfo['associations_table']), $data, array($entityInfo['rule_id_field'])
                 );
             }
 
             if ($deleteOldResults) {
-                $adapter->delete($this->getTable($entityInfo['associations_table']),
-                    $adapter->quoteInto($entityInfo['rule_id_field']   . ' IN (?) AND ', $ruleIds) .
-                    $adapter->quoteInto($entityInfo['entity_id_field'] . ' NOT IN (?)',  $entityIds)
+                $adapter->delete($this->getTable($entityInfo['associations_table']), $adapter->quoteInto($entityInfo['rule_id_field'] . ' IN (?) AND ', $ruleIds) .
+                        $adapter->quoteInto($entityInfo['entity_id_field'] . ' NOT IN (?)', $entityIds)
                 );
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $adapter->rollback();
             throw $e;
-
         }
 
         $adapter->commit();
@@ -200,7 +194,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     public function unbindRuleFromEntity($ruleIds = array(), $entityIds = array(), $entityType)
     {
         $writeAdapter = $this->_getWriteAdapter();
-        $entityInfo   = $this->_getAssociatedEntityInfo($entityType);
+        $entityInfo = $this->_getAssociatedEntityInfo($entityType);
 
         if (!is_array($entityIds)) {
             $entityIds = array((int) $entityIds);
@@ -235,8 +229,8 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         $entityInfo = $this->_getAssociatedEntityInfo($entityType);
 
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable($entityInfo['associations_table']), array($entityInfo['entity_id_field']))
-            ->where($entityInfo['rule_id_field'] . ' = ?', $ruleId);
+                ->from($this->getTable($entityInfo['associations_table']), array($entityInfo['entity_id_field']))
+                ->where($entityInfo['rule_id_field'] . ' = ?', $ruleId);
 
         return $this->_getReadAdapter()->fetchCol($select);
     }
@@ -278,9 +272,9 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         }
 
         $e = Mage::exception(
-            'Mage_Core',
-            Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType)
+                        'Mage_Core', Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType)
         );
         throw $e;
     }
+
 }

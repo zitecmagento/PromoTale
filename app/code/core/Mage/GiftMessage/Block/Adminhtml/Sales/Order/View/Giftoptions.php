@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Giftoptions extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Get order item object from parent block
      *
@@ -42,4 +44,5 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Giftoptions extends Mage
     {
         return $this->getParentBlock()->getData('item');
     }
+
 }

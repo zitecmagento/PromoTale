@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Style.php 22908 2010-08-25 20:52:47Z alexander $
  */
 
-
 /**
  * Style object.
  * Style object doesn't directly correspond to any PDF file object.
@@ -32,6 +32,7 @@
  */
 class Zend_Pdf_Style
 {
+
     /**
      * Fill color.
      * Used to fill geometric shapes or text.
@@ -46,7 +47,6 @@ class Zend_Pdf_Style
      *
      * @var Zend_Pdf_Color|null
      */
-
     private $_color;
 
     /**
@@ -86,8 +86,6 @@ class Zend_Pdf_Style
      */
     private $_fontSize;
 
-
-
     /**
      * Create style.
      *
@@ -96,16 +94,15 @@ class Zend_Pdf_Style
     public function __construct($anotherStyle = null)
     {
         if ($anotherStyle !== null) {
-            $this->_fillColor          = $anotherStyle->_fillColor;
-            $this->_color              = $anotherStyle->_color;
-            $this->_lineWidth          = $anotherStyle->_lineWidth;
+            $this->_fillColor = $anotherStyle->_fillColor;
+            $this->_color = $anotherStyle->_color;
+            $this->_lineWidth = $anotherStyle->_lineWidth;
             $this->_lineDashingPattern = $anotherStyle->_lineDashingPattern;
-            $this->_lineDashingPhase   = $anotherStyle->_lineDashingPhase;
-            $this->_font               = $anotherStyle->_font;
-            $this->_fontSize           = $anotherStyle->_fontSize;
+            $this->_lineDashingPhase = $anotherStyle->_lineDashingPhase;
+            $this->_font = $anotherStyle->_font;
+            $this->_fontSize = $anotherStyle->_fontSize;
         }
     }
-
 
     /**
      * Set fill color.
@@ -138,7 +135,6 @@ class Zend_Pdf_Style
         $this->_lineWidth = new Zend_Pdf_Element_Numeric($width);
     }
 
-
     /**
      * Set line dashing pattern
      *
@@ -150,14 +146,13 @@ class Zend_Pdf_Style
         #require_once 'Zend/Pdf/Page.php';
         if ($pattern === Zend_Pdf_Page::LINE_DASHING_SOLID) {
             $pattern = array();
-            $phase   = 0;
+            $phase = 0;
         }
 
         #require_once 'Zend/Pdf/Element/Numeric.php';
         $this->_lineDashingPattern = $pattern;
-        $this->_lineDashingPhase   = new Zend_Pdf_Element_Numeric($phase);
+        $this->_lineDashingPhase = new Zend_Pdf_Element_Numeric($phase);
     }
-
 
     /**
      * Set current font.
@@ -221,7 +216,6 @@ class Zend_Pdf_Style
         return $this->_lineDashingPattern;
     }
 
-
     /**
      * Get current font.
      *
@@ -251,7 +245,6 @@ class Zend_Pdf_Style
     {
         return $this->_lineDashingPhase->value;
     }
-
 
     /**
      * Dump style to a string, which can be directly inserted into content stream
@@ -285,7 +278,7 @@ class Zend_Pdf_Style
             }
 
             $instructions .= $dashPattern->toString() . ' '
-                           . $this->_lineDashingPhase->toString() . " d\n";
+                    . $this->_lineDashingPhase->toString() . " d\n";
         }
 
         return $instructions;

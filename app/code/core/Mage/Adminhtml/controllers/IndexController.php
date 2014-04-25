@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Render specified template
      *
@@ -127,7 +129,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 $query = $this->getRequest()->getParam('query', '');
                 foreach ($searchModules->children() as $searchConfig) {
 
-                    if ($searchConfig->acl && !Mage::getSingleton('admin/session')->isAllowed($searchConfig->acl)){
+                    if ($searchConfig->acl && !Mage::getSingleton('admin/session')->isAllowed($searchConfig->acl)) {
                         continue;
                     }
 
@@ -138,10 +140,10 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                     }
                     $searchInstance = new $className();
                     $results = $searchInstance->setStart($start)
-                        ->setLimit($limit)
-                        ->setQuery($query)
-                        ->load()
-                        ->getResults();
+                            ->setLimit($limit)
+                            ->setQuery($query)
+                            ->load()
+                            ->getResults();
                     $items = array_merge_recursive($items, $results);
                 }
                 $totalCount = sizeof($items);
@@ -149,8 +151,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         }
 
         $block = $this->getLayout()->createBlock('adminhtml/template')
-            ->setTemplate('system/autocomplete.phtml')
-            ->assign('items', $items);
+                ->setTemplate('system/autocomplete.phtml')
+                ->assign('items', $items);
 
         $this->getResponse()->setBody($block->toHtml());
     }
@@ -197,8 +199,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     protected function _getDeniedJson()
     {
         return Mage::helper('core')->jsonEncode(array(
-            'ajaxExpired' => 1,
-            'ajaxRedirect' => $this->getUrl('*/index/login')
+                    'ajaxExpired' => 1,
+                    'ajaxRedirect' => $this->getUrl('*/index/login')
         ));
     }
 
@@ -216,7 +218,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     protected function _getDeniedIframe()
     {
         return '<script type="text/javascript">parent.window.location = \''
-            . $this->getUrl('*/index/login') . '\';</script>';
+                . $this->getUrl('*/index/login') . '\';</script>';
     }
 
     /**
@@ -248,7 +250,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                     }
                 }
                 $this->_getSession()
-                    ->addSuccess(Mage::helper('adminhtml')->__('If there is an account associated with %s you will receive an email with a link to reset your password.', Mage::helper('adminhtml')->escapeHtml($email)));
+                        ->addSuccess(Mage::helper('adminhtml')->__('If there is an account associated with %s you will receive an email with a link to reset your password.', Mage::helper('adminhtml')->escapeHtml($email)));
                 $this->_redirect('*/*/login');
                 return;
             } else {
@@ -270,14 +272,17 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     {
         $resetPasswordLinkToken = (string) $this->getRequest()->getQuery('token');
         $userId = (int) $this->getRequest()->getQuery('id');
-        try {
+        try
+        {
             $this->_validateResetPasswordLinkToken($userId, $resetPasswordLinkToken);
             $data = array(
                 'userId' => $userId,
                 'resetPasswordLinkToken' => $resetPasswordLinkToken
             );
             $this->_outTemplate('resetforgottenpassword', $data);
-        } catch (Exception $exception) {
+        }
+        catch (Exception $exception)
+        {
             $this->_getSession()->addError(Mage::helper('adminhtml')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/forgotpassword', array('_nosecret' => true));
         }
@@ -295,9 +300,12 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         $password = (string) $this->getRequest()->getPost('password');
         $passwordConfirmation = (string) $this->getRequest()->getPost('confirmation');
 
-        try {
+        try
+        {
             $this->_validateResetPasswordLinkToken($userId, $resetPasswordLinkToken);
-        } catch (Exception $exception) {
+        }
+        catch (Exception $exception)
+        {
             $this->_getSession()->addError(Mage::helper('adminhtml')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/');
             return;
@@ -329,7 +337,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             return;
         }
 
-        try {
+        try
+        {
             // Empty current reset password token i.e. invalidate it
             $user->setRpToken(null);
             $user->setRpTokenCreatedAt(null);
@@ -337,7 +346,9 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $user->save();
             $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Your password has been updated.'));
             $this->_redirect('*/*/login');
-        } catch (Exception $exception) {
+        }
+        catch (Exception $exception)
+        {
             $this->_getSession()->addError($exception->getMessage());
             $data = array(
                 'userId' => $userId,
@@ -357,11 +368,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      */
     protected function _validateResetPasswordLinkToken($userId, $resetPasswordLinkToken)
     {
-        if (!is_int($userId)
-            || !is_string($resetPasswordLinkToken)
-            || empty($resetPasswordLinkToken)
-            || empty($userId)
-            || $userId < 0
+        if (!is_int($userId) || !is_string($resetPasswordLinkToken) || empty($resetPasswordLinkToken) || empty($userId) || $userId < 0
         ) {
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Invalid password reset token.'));
         }
@@ -387,4 +394,5 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     {
         return true;
     }
+
 }

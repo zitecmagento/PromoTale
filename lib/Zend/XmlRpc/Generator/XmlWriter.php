@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: XmlWriter.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
 /**
  * @var Zend_XmlRpc_Generator_GeneratorAbstract
  */
@@ -30,6 +30,7 @@
  */
 class Zend_XmlRpc_Generator_XmlWriter extends Zend_XmlRpc_Generator_GeneratorAbstract
 {
+
     /**
      * XMLWriter instance
      *
@@ -48,7 +49,6 @@ class Zend_XmlRpc_Generator_XmlWriter extends Zend_XmlRpc_Generator_GeneratorAbs
         $this->_xmlWriter->openMemory();
         $this->_xmlWriter->startDocument('1.0', $this->_encoding);
     }
-
 
     /**
      * Open a new XML element
@@ -89,4 +89,5 @@ class Zend_XmlRpc_Generator_XmlWriter extends Zend_XmlRpc_Generator_GeneratorAbs
     {
         return $this->_xmlWriter->flush(false);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Folder.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -30,6 +30,7 @@
  */
 class Zend_Mail_Storage_Folder implements RecursiveIterator
 {
+
     /**
      * subfolders of folder array(localName => Zend_Mail_Storage_Folder folder)
      * @var array
@@ -64,10 +65,10 @@ class Zend_Mail_Storage_Folder implements RecursiveIterator
      */
     public function __construct($localName, $globalName = '', $selectable = true, array $folders = array())
     {
-        $this->_localName  = $localName;
+        $this->_localName = $localName;
         $this->_globalName = $globalName ? $globalName : $localName;
         $this->_selectable = $selectable;
-        $this->_folders    = $folders;
+        $this->_folders = $folders;
     }
 
     /**
@@ -191,7 +192,7 @@ class Zend_Mail_Storage_Folder implements RecursiveIterator
      */
     public function __toString()
     {
-        return (string)$this->getGlobalName();
+        return (string) $this->getGlobalName();
     }
 
     /**
@@ -233,4 +234,5 @@ class Zend_Mail_Storage_Folder implements RecursiveIterator
     {
         return empty($this->_folders);
     }
+
 }

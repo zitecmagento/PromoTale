@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,9 +34,10 @@
  */
 class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_CATEGORY_URL_SUFFIX          = 'catalog/seo/category_url_suffix';
-    const XML_PATH_USE_CATEGORY_CANONICAL_TAG   = 'catalog/seo/category_canonical_tag';
-    const XML_PATH_CATEGORY_ROOT_ID             = 'catalog/category/root_id';
+
+    const XML_PATH_CATEGORY_URL_SUFFIX = 'catalog/seo/category_url_suffix';
+    const XML_PATH_USE_CATEGORY_CANONICAL_TAG = 'catalog/seo/category_canonical_tag';
+    const XML_PATH_CATEGORY_ROOT_ID = 'catalog/category/root_id';
 
     /**
      * Store categories cache
@@ -58,10 +60,10 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      * @param   boolean $asCollection
      * @return  Varien_Data_Tree_Node_Collection|Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection|array
      */
-    public function getStoreCategories($sorted=false, $asCollection=false, $toLoad=true)
+    public function getStoreCategories($sorted = false, $asCollection = false, $toLoad = true)
     {
-        $parent     = Mage::app()->getStore()->getRootCategoryId();
-        $cacheKey   = sprintf('%d-%d-%d-%d', $parent, $sorted, $asCollection, $toLoad);
+        $parent = Mage::app()->getStore()->getRootCategoryId();
+        $cacheKey = sprintf('%d-%d-%d-%d', $parent, $sorted, $asCollection, $toLoad);
         if (isset($this->_storeCategories[$cacheKey])) {
             return $this->_storeCategories[$cacheKey];
         }
@@ -78,7 +80,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
             return array();
         }
 
-        $recursionLevel  = max(0, (int) Mage::app()->getStore()->getConfig('catalog/navigation/max_depth'));
+        $recursionLevel = max(0, (int) Mage::app()->getStore()->getConfig('catalog/navigation/max_depth'));
         $storeCategories = $category->getCategories($parent, $recursionLevel, $sorted, $asCollection, $toLoad);
 
         $this->_storeCategories[$cacheKey] = $storeCategories;
@@ -97,8 +99,8 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
             return $category->getUrl();
         }
         return Mage::getModel('catalog/category')
-            ->setData($category->getData())
-            ->getUrl();
+                        ->setData($category->getData())
+                        ->getUrl();
     }
 
     /**
@@ -127,7 +129,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         return true;
     }
 
-/**
+    /**
      * Retrieve category rewrite sufix for store
      *
      * @param int $storeId
@@ -161,12 +163,11 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         }
 
         if ($slash) {
-            $regexp     = '#('.preg_quote($this->getCategoryUrlSuffix($storeId), '#').')/$#i';
-            $replace    = '/';
-        }
-        else {
-            $regexp     = '#('.preg_quote($this->getCategoryUrlSuffix($storeId), '#').')$#i';
-            $replace    = '';
+            $regexp = '#(' . preg_quote($this->getCategoryUrlSuffix($storeId), '#') . ')/$#i';
+            $replace = '/';
+        } else {
+            $regexp = '#(' . preg_quote($this->getCategoryUrlSuffix($storeId), '#') . ')$#i';
+            $replace = '';
         }
 
         return preg_replace($regexp, $replace, $urlPath);
@@ -182,4 +183,5 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfig(self::XML_PATH_USE_CATEGORY_CANONICAL_TAG, $store);
     }
+
 }

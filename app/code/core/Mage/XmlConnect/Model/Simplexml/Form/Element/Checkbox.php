@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Simplexml_Form_Element_Checkbox
-    extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
+class Mage_XmlConnect_Model_Simplexml_Form_Element_Checkbox extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
 {
+
     /**
      * Init checkbox element
      *
@@ -53,7 +54,8 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Checkbox
      */
     protected function _addValue(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
-        $xmlObj->addAttribute('value', (int)$this->getValue());
+        $xmlObj->addAttribute('value', (int) $this->getValue());
         return $this;
     }
+
 }

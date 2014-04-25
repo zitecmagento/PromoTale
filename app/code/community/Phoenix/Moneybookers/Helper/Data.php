@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,21 +20,22 @@
  */
 class Phoenix_Moneybookers_Helper_Data extends Mage_Payment_Helper_Data
 {
-    const XML_PATH_EMAIL        = 'moneybookers/settings/moneybookers_email';
-    const XML_PATH_CUSTOMER_ID  = 'moneybookers/settings/customer_id';
-    const XML_PATH_SECRET_KEY   = 'moneybookers/settings/secret_key';
+
+    const XML_PATH_EMAIL = 'moneybookers/settings/moneybookers_email';
+    const XML_PATH_CUSTOMER_ID = 'moneybookers/settings/customer_id';
+    const XML_PATH_SECRET_KEY = 'moneybookers/settings/secret_key';
 
     /**
      * Internal parameters for validation
      */
-    protected $_moneybookersServer           = 'https://www.moneybookers.com';
-    protected $_checkEmailUrl                = '/app/email_check.pl';
-    protected $_checkEmailCustId             = '6999315';
-    protected $_checkEmailPassword           = 'a4ce5a98a8950c04a3d34a2e2cb8c89f';
-    protected $_checkSecretUrl               = '/app/secret_word_check.pl';
-    protected $_activationEmailTo            = 'ecommerce@moneybookers.com';
-    protected $_activationEmailSubject       = 'Magento Moneybookers Activation';
-    protected $_moneybookersMasterCustId     = '7283403';
+    protected $_moneybookersServer = 'https://www.moneybookers.com';
+    protected $_checkEmailUrl = '/app/email_check.pl';
+    protected $_checkEmailCustId = '6999315';
+    protected $_checkEmailPassword = 'a4ce5a98a8950c04a3d34a2e2cb8c89f';
+    protected $_checkSecretUrl = '/app/secret_word_check.pl';
+    protected $_activationEmailTo = 'ecommerce@moneybookers.com';
+    protected $_activationEmailSubject = 'Magento Moneybookers Activation';
+    protected $_moneybookersMasterCustId = '7283403';
     protected $_moneybookersMasterSecretHash = 'c18524b6b1082653039078a4700367f0';
 
     /**
@@ -48,20 +50,16 @@ class Phoenix_Moneybookers_Helper_Data extends Mage_Payment_Helper_Data
         $translate->setTranslateInline(false);
 
         Mage::getModel('core/email_template')
-            ->setDesignConfig(array('area' => 'frontend', 'store' => $storeId))
-            ->sendTransactional(
-                'moneybookers_activateemail',
-                Mage::getStoreConfig(Mage_Sales_Model_Order::XML_PATH_EMAIL_IDENTITY, $storeId),
-                $this->_activationEmailTo,
-                null,
-                array(
-                    'subject'     => $this->_activationEmailSubject,
-                    'email_addr'  => Mage::getStoreConfig(self::XML_PATH_EMAIL),
-                    'url'         => Mage::getBaseUrl(),
+                ->setDesignConfig(array('area' => 'frontend', 'store' => $storeId))
+                ->sendTransactional(
+                        'moneybookers_activateemail', Mage::getStoreConfig(Mage_Sales_Model_Order::XML_PATH_EMAIL_IDENTITY, $storeId), $this->_activationEmailTo, null, array(
+                    'subject' => $this->_activationEmailSubject,
+                    'email_addr' => Mage::getStoreConfig(self::XML_PATH_EMAIL),
+                    'url' => Mage::getBaseUrl(),
                     'customer_id' => Mage::getStoreConfig(self::XML_PATH_CUSTOMER_ID),
-                    'language'    => Mage::getModel('core/locale')->getDefaultLocale()
-                )
-            );
+                    'language' => Mage::getModel('core/locale')->getDefaultLocale()
+                        )
+        );
 
         $translate->setTranslateInline(true);
     }
@@ -72,15 +70,19 @@ class Phoenix_Moneybookers_Helper_Data extends Mage_Payment_Helper_Data
      * @param array $params
      * @return array
      */
-    public function checkEmailRequest(Array $params) {
+    public function checkEmailRequest(Array $params)
+    {
         $response = null;
-        try {
+        try
+        {
             $response = $this->_getHttpsPage($this->_moneybookersServer . $this->_checkEmailUrl, array(
-                'email'    => $params['email'],
-                'cust_id'  => $this->_checkEmailCustId,
+                'email' => $params['email'],
+                'cust_id' => $this->_checkEmailCustId,
                 'password' => $this->_checkEmailPassword)
             );
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::log($e->getMessage());
             return null;
         }
@@ -95,13 +97,16 @@ class Phoenix_Moneybookers_Helper_Data extends Mage_Payment_Helper_Data
     public function checkSecretRequest(Array $params)
     {
         $response = null;
-        try {
+        try
+        {
             $response = $this->_getHttpsPage($this->_moneybookersServer . $this->_checkSecretUrl, array(
-                'email'   => $params['email'],
-                'secret'  => md5(md5($params['secret']) . $this->_moneybookersMasterSecretHash),
+                'email' => $params['email'],
+                'secret' => md5(md5($params['secret']) . $this->_moneybookersMasterSecretHash),
                 'cust_id' => $this->_moneybookersMasterCustId)
             );
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::log($e->getMessage());
             return null;
         }
@@ -115,10 +120,10 @@ class Phoenix_Moneybookers_Helper_Data extends Mage_Payment_Helper_Data
     {
         $client = new Varien_Http_Client();
         $client->setUri($host)
-            ->setConfig(array('timeout' => 30))
-            ->setHeaders('accept-encoding', '')
-            ->setParameterGet($parameter)
-            ->setMethod(Zend_Http_Client::GET);
+                ->setConfig(array('timeout' => 30))
+                ->setHeaders('accept-encoding', '')
+                ->setParameterGet($parameter)
+                ->setMethod(Zend_Http_Client::GET);
         $request = $client->request();
         // Workaround for pseudo chunked messages which are yet too short, so
         // only an exception is is thrown instead of returning raw body
@@ -127,4 +132,5 @@ class Phoenix_Moneybookers_Helper_Data extends Mage_Payment_Helper_Data
 
         return $request->getBody();
     }
+
 }

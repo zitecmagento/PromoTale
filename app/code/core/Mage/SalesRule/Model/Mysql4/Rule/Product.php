@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SalesRule Mysql4 Rule Product Resource Model
  *
@@ -34,4 +34,5 @@
  */
 class Mage_SalesRule_Model_Mysql4_Rule_Product extends Mage_SalesRule_Model_Resource_Rule_Product
 {
+    
 }

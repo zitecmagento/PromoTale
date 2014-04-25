@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Form_Renderer_Multiline extends Enterprise_Customer_Block_Form_Renderer_Multiline
 {
+
     /**
      * Field type
      *
@@ -50,17 +52,17 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Multiline extends Enterprise_
     {
         $attributes = array(
             'label' => $this->getLabel(),
-            'name'  => $this->getFieldName(),
-            'line_count'  => $this->getLineCount(),
+            'name' => $this->getFieldName(),
+            'line_count' => $this->getLineCount(),
             'attribute_code' => $this->getAttributeObject()->getAttributeCode(),
             'value' => $this->getValues()
         );
 
         $attributes += Mage::helper('xmlconnect/customer_form_renderer')
-            ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
+                ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
 
         $fieldXmlObj = $fieldsetXmlObj->addField(
-            $this->_filedType . '_' . $this->getHtmlId(), $this->_filedType, $attributes
+                $this->_filedType . '_' . $this->getHtmlId(), $this->_filedType, $attributes
         );
 
         $validateRules = $this->getAttributeObject()->getValidateRules();
@@ -85,4 +87,5 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Multiline extends Enterprise_
 
         return $this;
     }
+
 }

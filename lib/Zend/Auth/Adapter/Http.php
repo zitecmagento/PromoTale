@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Http.php 23088 2010-10-11 19:53:24Z padraic $
  */
-
-
 /**
  * @see Zend_Auth_Adapter_Interface
  */
 #require_once 'Zend/Auth/Adapter/Interface.php';
-
 
 /**
  * HTTP Authentication Adapter
@@ -43,6 +41,7 @@
  */
 class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
 {
+
     /**
      * Reference to the HTTP Request object
      *
@@ -172,10 +171,10 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
              * @see Zend_Auth_Adapter_Exception
              */
             #require_once 'Zend/Auth/Adapter/Exception.php';
-            throw new Zend_Auth_Adapter_Exception(__CLASS__  . ' requires the \'hash\' extension');
+            throw new Zend_Auth_Adapter_Exception(__CLASS__ . ' requires the \'hash\' extension');
         }
 
-        $this->_request  = null;
+        $this->_request = null;
         $this->_response = null;
         $this->_ieNoOpaque = false;
 
@@ -196,47 +195,47 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
              */
             #require_once 'Zend/Auth/Adapter/Exception.php';
             throw new Zend_Auth_Adapter_Exception('No supported schemes given in \'accept_schemes\'. Valid values: '
-                                                . implode(', ', $this->_supportedSchemes));
+            . implode(', ', $this->_supportedSchemes));
         }
 
         // Double-quotes are used to delimit the realm string in the HTTP header,
         // and colons are field delimiters in the password file.
         if (empty($config['realm']) ||
-            !ctype_print($config['realm']) ||
-            strpos($config['realm'], ':') !== false ||
-            strpos($config['realm'], '"') !== false) {
+                !ctype_print($config['realm']) ||
+                strpos($config['realm'], ':') !== false ||
+                strpos($config['realm'], '"') !== false) {
             /**
              * @see Zend_Auth_Adapter_Exception
              */
             #require_once 'Zend/Auth/Adapter/Exception.php';
             throw new Zend_Auth_Adapter_Exception('Config key \'realm\' is required, and must contain only printable '
-                                                . 'characters, excluding quotation marks and colons');
+            . 'characters, excluding quotation marks and colons');
         } else {
             $this->_realm = $config['realm'];
         }
 
         if (in_array('digest', $this->_acceptSchemes)) {
             if (empty($config['digest_domains']) ||
-                !ctype_print($config['digest_domains']) ||
-                strpos($config['digest_domains'], '"') !== false) {
+                    !ctype_print($config['digest_domains']) ||
+                    strpos($config['digest_domains'], '"') !== false) {
                 /**
                  * @see Zend_Auth_Adapter_Exception
                  */
                 #require_once 'Zend/Auth/Adapter/Exception.php';
                 throw new Zend_Auth_Adapter_Exception('Config key \'digest_domains\' is required, and must contain '
-                                                    . 'only printable characters, excluding quotation marks');
+                . 'only printable characters, excluding quotation marks');
             } else {
                 $this->_domains = $config['digest_domains'];
             }
 
             if (empty($config['nonce_timeout']) ||
-                !is_numeric($config['nonce_timeout'])) {
+                    !is_numeric($config['nonce_timeout'])) {
                 /**
                  * @see Zend_Auth_Adapter_Exception
                  */
                 #require_once 'Zend/Auth/Adapter/Exception.php';
                 throw new Zend_Auth_Adapter_Exception('Config key \'nonce_timeout\' is required, and must be an '
-                                                    . 'integer');
+                . 'integer');
             } else {
                 $this->_nonceTimeout = (int) $config['nonce_timeout'];
             }
@@ -364,13 +363,13 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
     public function authenticate()
     {
         if (empty($this->_request) ||
-            empty($this->_response)) {
+                empty($this->_response)) {
             /**
              * @see Zend_Auth_Adapter_Exception
              */
             #require_once 'Zend/Auth/Adapter/Exception.php';
             throw new Zend_Auth_Adapter_Exception('Request and Response objects must be set before calling '
-                                                . 'authenticate()');
+            . 'authenticate()');
         }
 
         if ($this->_imaProxy) {
@@ -392,9 +391,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         if (!in_array($clientScheme, $this->_supportedSchemes)) {
             $this->_response->setHttpResponseCode(400);
             return new Zend_Auth_Result(
-                Zend_Auth_Result::FAILURE_UNCATEGORIZED,
-                array(),
-                array('Client requested an incorrect or unsupported authentication scheme')
+                    Zend_Auth_Result::FAILURE_UNCATEGORIZED, array(), array('Client requested an incorrect or unsupported authentication scheme')
             );
         }
 
@@ -410,7 +407,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
                 break;
             case 'digest':
                 $result = $this->_digestAuth($authHeader);
-            break;
+                break;
             default:
                 /**
                  * @see Zend_Auth_Adapter_Exception
@@ -450,9 +447,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
             $this->_response->setHeader($headerName, $this->_digestHeader());
         }
         return new Zend_Auth_Result(
-            Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID,
-            array(),
-            array('Invalid or absent credentials; challenging client')
+                Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID, array(), array('Invalid or absent credentials; challenging client')
         );
     }
 
@@ -480,11 +475,11 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
     protected function _digestHeader()
     {
         $wwwauth = 'Digest realm="' . $this->_realm . '", '
-                 . 'domain="' . $this->_domains . '", '
-                 . 'nonce="' . $this->_calcNonce() . '", '
-                 . ($this->_useOpaque ? 'opaque="' . $this->_calcOpaque() . '", ' : '')
-                 . 'algorithm="' . $this->_algo . '", '
-                 . 'qop="' . implode(',', $this->_supportedQops) . '"';
+                . 'domain="' . $this->_domains . '", '
+                . 'nonce="' . $this->_calcNonce() . '", '
+                . ($this->_useOpaque ? 'opaque="' . $this->_calcOpaque() . '", ' : '')
+                . 'algorithm="' . $this->_algo . '", '
+                . 'qop="' . implode(',', $this->_supportedQops) . '"';
 
         return $wwwauth;
     }
@@ -511,7 +506,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
              */
             #require_once 'Zend/Auth/Adapter/Exception.php';
             throw new Zend_Auth_Adapter_Exception('A basicResolver object must be set before doing Basic '
-                                                . 'authentication');
+            . 'authentication');
         }
 
         // Decode the Authorization header
@@ -539,7 +534,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
 
         $password = $this->_basicResolver->resolve($creds[0], $this->_realm);
         if ($password && $this->_secureStringCompare($password, $creds[1])) {
-            $identity = array('username'=>$creds[0], 'realm'=>$this->_realm);
+            $identity = array('username' => $creds[0], 'realm' => $this->_realm);
             return new Zend_Auth_Result(Zend_Auth_Result::SUCCESS, $identity);
         } else {
             return $this->_challengeClient();
@@ -574,9 +569,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         if ($data === false) {
             $this->_response->setHttpResponseCode(400);
             return new Zend_Auth_Result(
-                Zend_Auth_Result::FAILURE_UNCATEGORIZED,
-                array(),
-                array('Invalid Authorization header format')
+                    Zend_Auth_Result::FAILURE_UNCATEGORIZED, array(), array('Invalid Authorization header format')
             );
         }
 
@@ -619,8 +612,8 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
                 $a2 = $this->_request->getMethod() . ':' . $data['uri'];
                 break;
             case 'auth-int':
-                // Should be REQUEST_METHOD . ':' . uri . ':' . hash(entity-body),
-                // but this isn't supported yet, so fall through to default case
+            // Should be REQUEST_METHOD . ':' . uri . ':' . hash(entity-body),
+            // but this isn't supported yet, so fall through to default case
             default:
                 /**
                  * @see Zend_Auth_Adapter_Exception
@@ -636,12 +629,12 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         // Calculate the server's version of the request-digest. This must
         // match $data['response']. See RFC 2617, section 3.2.2.1
         $message = $data['nonce'] . ':' . $data['nc'] . ':' . $data['cnonce'] . ':' . $data['qop'] . ':' . $ha2;
-        $digest  = hash('md5', $ha1 . ':' . $message);
+        $digest = hash('md5', $ha1 . ':' . $message);
 
         // If our digest matches the client's let them in, otherwise return
         // a 401 code and exit to prevent access to the protected resource.
         if ($this->_secureStringCompare($digest, $data['response'])) {
-            $identity = array('username'=>$data['username'], 'realm'=>$data['realm']);
+            $identity = array('username' => $data['username'], 'realm' => $data['realm']);
             return new Zend_Auth_Result(Zend_Auth_Result::SUCCESS, $identity);
         } else {
             return $this->_challengeClient();
@@ -702,9 +695,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         // See ZF-1052. Detect invalid usernames instead of just returning a
         // 400 code.
         $ret = preg_match('/username="([^"]+)"/', $header, $temp);
-        if (!$ret || empty($temp[1])
-                  || !ctype_print($temp[1])
-                  || strpos($temp[1], ':') !== false) {
+        if (!$ret || empty($temp[1]) || !ctype_print($temp[1]) || strpos($temp[1], ':') !== false) {
             $data['username'] = '::invalid::';
         } else {
             $data['username'] = $temp[1];
@@ -772,8 +763,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         // that square with the algo we send out in the WWW-Authenticate header,
         // if it can easily be overridden by the client?
         $ret = preg_match('/algorithm="?(' . $this->_algo . ')"?/', $header, $temp);
-        if ($ret && !empty($temp[1])
-                 && in_array($temp[1], $this->_supportedAlgos)) {
+        if ($ret && !empty($temp[1]) && in_array($temp[1], $this->_supportedAlgos)) {
             $data['algorithm'] = $temp[1];
         } else {
             $data['algorithm'] = 'MD5';  // = $this->_algo; ?
@@ -807,7 +797,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
             }
             // This implementation only sends MD5 hex strings in the opaque value
             if (!$this->_ieNoOpaque &&
-                (32 != strlen($temp[1]) || !ctype_xdigit($temp[1]))) {
+                    (32 != strlen($temp[1]) || !ctype_xdigit($temp[1]))) {
                 return false;
             } else {
                 $data['opaque'] = $temp[1];
@@ -844,7 +834,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
 
         return $data;
     }
-    
+
     /**
      * Securely compare two strings for equality while avoided C level memcmp()
      * optimisations capable of leaking timing information useful to an attacker
@@ -866,4 +856,5 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         }
         return $result == 0;
     }
+
 }

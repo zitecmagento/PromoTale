@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Index Process Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize  table and table pk
      *
@@ -56,7 +57,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
         $adapter = $this->_getWriteAdapter();
         $condition = array(
             'process_id = ?' => $processId,
-            'event_id = ?'   => $eventId
+            'event_id = ?' => $eventId
         );
         $adapter->update($this->getTable('index/process_event'), array('status' => $status), $condition);
         return $this;
@@ -71,8 +72,8 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     public function endProcess(Mage_Index_Model_Process $process)
     {
         $data = array(
-            'status'    => Mage_Index_Model_Process::STATUS_PENDING,
-            'ended_at'  => $this->formatDate(time()),
+            'status' => Mage_Index_Model_Process::STATUS_PENDING,
+            'ended_at' => $this->formatDate(time()),
         );
         $this->_updateProcessData($process->getId(), $data);
         return $this;
@@ -87,8 +88,8 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     public function startProcess(Mage_Index_Model_Process $process)
     {
         $data = array(
-            'status'        => Mage_Index_Model_Process::STATUS_RUNNING,
-            'started_at'    => $this->formatDate(time()),
+            'status' => Mage_Index_Model_Process::STATUS_RUNNING,
+            'started_at' => $this->formatDate(time()),
         );
         $this->_updateProcessData($process->getId(), $data);
         return $this;
@@ -103,7 +104,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     public function failProcess(Mage_Index_Model_Process $process)
     {
         $data = array(
-            'status'   => Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX,
+            'status' => Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX,
             'ended_at' => $this->formatDate(time()),
         );
         $this->_updateProcessData($process->getId(), $data);
@@ -172,4 +173,5 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     {
         return $this->_getWriteAdapter()->getTransactionLevel() > 0;
     }
+
 }

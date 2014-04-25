@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* $installer Mage_Core_Model_Resource_Setup */
 
 $installer->updateAttribute(
-    'catalog_product',
-    'gift_message_available',
-    'frontend_input_renderer',
-    'giftmessage/adminhtml_product_helper_form_config'
+        'catalog_product', 'gift_message_available', 'frontend_input_renderer', 'giftmessage/adminhtml_product_helper_form_config'
 );

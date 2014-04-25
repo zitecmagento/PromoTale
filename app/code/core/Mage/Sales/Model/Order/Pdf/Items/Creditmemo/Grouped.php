@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Grouped extends Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default
 {
+
     /**
      * Draw process
      */
@@ -47,4 +49,5 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Grouped extends Mage_Sales_Mod
 
         $renderer->draw();
     }
+
 }

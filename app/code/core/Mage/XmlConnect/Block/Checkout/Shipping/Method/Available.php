@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Checkout_Shipping_Method_Available
-    extends Mage_Checkout_Block_Onepage_Shipping_Method_Available
+class Mage_XmlConnect_Block_Checkout_Shipping_Method_Available extends Mage_Checkout_Block_Onepage_Shipping_Method_Available
 {
+
     /**
      * Render shipping methods xml
      *
@@ -62,12 +63,10 @@ class Mage_XmlConnect_Block_Checkout_Shipping_Method_Available
                         $rateXmlObj->addChild('error_message', $methodsXmlObj->escapeXml($rate->getErrorMessage()));
                     } else {
                         $price = Mage::helper('tax')->getShippingPrice(
-                            $rate->getPrice(),
-                            Mage::helper('tax')->displayShippingPriceIncludingTax(),
-                            $this->getAddress()
+                                $rate->getPrice(), Mage::helper('tax')->displayShippingPriceIncludingTax(), $this->getAddress()
                         );
                         $rateOptions['price'] = Mage::helper('xmlconnect')->formatPriceForXml(
-                            $store->convertPrice($price, false, false)
+                                $store->convertPrice($price, false, false)
                         );
                         $rateOptions['formated_price'] = $store->convertPrice($price, true, false);
                         $ratesXmlObj->addCustomChild('rate', null, $rateOptions);
@@ -79,4 +78,5 @@ class Mage_XmlConnect_Block_Checkout_Shipping_Method_Available
         }
         return $methodsXmlObj->asNiceXml();
     }
+
 }

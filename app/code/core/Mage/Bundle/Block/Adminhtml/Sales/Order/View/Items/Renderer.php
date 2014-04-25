@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml sales order item renderer
  *
@@ -32,16 +32,15 @@
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer
-    extends Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default
+class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default
 {
+
     public function isShipmentSeparately($item = null)
     {
         if ($item) {
             if ($parentItem = $item->getParentItem()) {
                 if ($options = $parentItem->getProductOptions()) {
-                    if (isset($options['shipment_type'])
-                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
+                    if (isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
                     ) {
                         return true;
                     } else {
@@ -50,8 +49,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer
                 }
             } else {
                 if ($options = $item->getProductOptions()) {
-                    if (isset($options['shipment_type'])
-                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
+                    if (isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
                     ) {
                         return false;
                     } else {
@@ -62,8 +60,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer
         }
 
         if ($options = $this->getOrderItem()->getProductOptions()) {
-            if (isset($options['shipment_type'])
-                && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
+            if (isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
             ) {
                 return true;
             }
@@ -76,8 +73,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer
         if ($item) {
             if ($parentItem = $item->getParentItem()) {
                 if ($options = $parentItem->getProductOptions()) {
-                    if (isset($options['product_calculations'])
-                        && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
+                    if (isset($options['product_calculations']) && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
                     ) {
                         return true;
                     } else {
@@ -86,8 +82,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer
                 }
             } else {
                 if ($options = $item->getProductOptions()) {
-                    if (isset($options['product_calculations'])
-                        && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
+                    if (isset($options['product_calculations']) && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
                     ) {
                         return false;
                     } else {
@@ -98,8 +93,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer
         }
 
         if ($options = $this->getItem()->getProductOptions()) {
-            if (isset($options['product_calculations'])
-                && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
+            if (isset($options['product_calculations']) && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
             ) {
                 return true;
             }
@@ -107,7 +101,8 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer
         return false;
     }
 
-    public function getSelectionAttributes($item) {
+    public function getSelectionAttributes($item)
+    {
         if ($item instanceof Mage_Sales_Model_Order_Item) {
             $options = $item->getProductOptions();
         } else {
@@ -141,7 +136,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer
         $result = $this->escapeHtml($item->getName());
         if (!$this->isShipmentSeparately($item)) {
             if ($attributes = $this->getSelectionAttributes($item)) {
-                $result =  sprintf('%d', $attributes['qty']) . ' x ' . $result;
+                $result = sprintf('%d', $attributes['qty']) . ' x ' . $result;
             }
         }
         if (!$this->isChildCalculated($item)) {
@@ -154,10 +149,10 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer
 
     public function canShowPriceInfo($item)
     {
-        if (($item->getParentItem() && $this->isChildCalculated())
-                || (!$item->getParentItem() && !$this->isChildCalculated())) {
+        if (($item->getParentItem() && $this->isChildCalculated()) || (!$item->getParentItem() && !$this->isChildCalculated())) {
             return true;
         }
         return false;
     }
+
 }

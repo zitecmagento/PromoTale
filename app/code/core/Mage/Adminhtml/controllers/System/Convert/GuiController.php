@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 include_once "ProfileController.php";
 
 /**
@@ -35,14 +35,15 @@ include_once "ProfileController.php";
  */
 class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_Convert_ProfileController
 {
+
     /**
      * Profiles list action
      */
     public function indexAction()
     {
         $this->_title($this->__('System'))
-             ->_title($this->__('Import and Export'))
-             ->_title($this->__('Profiles'));
+                ->_title($this->__('Import and Export'))
+                ->_title($this->__('Profiles'));
 
         if ($this->getRequest()->getQuery('ajax')) {
             $this->_forward('grid');
@@ -59,7 +60,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
          * Append profiles block to content
          */
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/system_convert_gui', 'convert_profile')
+                $this->getLayout()->createBlock('adminhtml/system_convert_gui', 'convert_profile')
         );
 
         /**
@@ -99,7 +100,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
 
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit')
+                $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit')
         );
 
         /**
@@ -125,7 +126,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
     public function downloadAction()
     {
         $filename = $this->getRequest()->getParam('filename');
-        if (!$filename || strpos($filename, '..')!==false || $filename[0]==='.') {
+        if (!$filename || strpos($filename, '..') !== false || $filename[0] === '.') {
             return;
         }
         $this->_initProfile();
@@ -151,4 +152,5 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
         return Mage::getSingleton('admin/session')->isAllowed('admin/system/convert/gui');
     }
+
 }

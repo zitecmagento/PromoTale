@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Shopping Cart Rule data model
@@ -89,10 +89,11 @@
  */
 class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
 {
+
     /**
      * Free Shipping option "For matching items only"
      */
-    const FREE_SHIPPING_ITEM    = 1;
+    const FREE_SHIPPING_ITEM = 1;
 
     /**
      * Free Shipping option "For shipment with matching items"
@@ -103,16 +104,16 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Coupon types
      */
     const COUPON_TYPE_NO_COUPON = 1;
-    const COUPON_TYPE_SPECIFIC  = 2;
-    const COUPON_TYPE_AUTO      = 3;
+    const COUPON_TYPE_SPECIFIC = 2;
+    const COUPON_TYPE_AUTO = 3;
 
     /**
      * Rule type actions
      */
     const TO_PERCENT_ACTION = 'to_percent';
     const BY_PERCENT_ACTION = 'by_percent';
-    const TO_FIXED_ACTION   = 'to_fixed';
-    const BY_FIXED_ACTION   = 'by_fixed';
+    const TO_FIXED_ACTION = 'to_fixed';
+    const BY_FIXED_ACTION = 'by_fixed';
     const CART_FIXED_ACTION = 'cart_fixed';
     const BUY_X_GET_Y_ACTION = 'buy_x_get_y';
 
@@ -218,16 +219,14 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     protected function _afterSave()
     {
         $couponCode = trim($this->getCouponCode());
-        if (strlen($couponCode)
-            && $this->getCouponType() == self::COUPON_TYPE_SPECIFIC
-            && !$this->getUseAutoGeneration()
+        if (strlen($couponCode) && $this->getCouponType() == self::COUPON_TYPE_SPECIFIC && !$this->getUseAutoGeneration()
         ) {
             $this->getPrimaryCoupon()
-                ->setCode($couponCode)
-                ->setUsageLimit($this->getUsesPerCoupon() ? $this->getUsesPerCoupon() : null)
-                ->setUsagePerCustomer($this->getUsesPerCustomer() ? $this->getUsesPerCustomer() : null)
-                ->setExpirationDate($this->getToDate())
-                ->save();
+                    ->setCode($couponCode)
+                    ->setUsageLimit($this->getUsesPerCoupon() ? $this->getUsesPerCoupon() : null)
+                    ->setUsagePerCustomer($this->getUsesPerCustomer() ? $this->getUsesPerCustomer() : null)
+                    ->setExpirationDate($this->getToDate())
+                    ->save();
         } else {
             $this->getPrimaryCoupon()->delete();
         }
@@ -322,7 +321,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         if (!$this->hasCustomerGroupIds()) {
             $customerGroupIds = $this->_getResource()->getCustomerGroupIds($this->getId());
-            $this->setData('customer_group_ids', (array)$customerGroupIds);
+            $this->setData('customer_group_ids', (array) $customerGroupIds);
         }
         return $this->_getData('customer_group_ids');
     }
@@ -337,7 +336,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function getStoreLabel($store = null)
     {
         $storeId = Mage::app()->getStore($store)->getId();
-        $labels = (array)$this->getStoreLabels();
+        $labels = (array) $this->getStoreLabels();
 
         if (isset($labels[$storeId])) {
             return $labels[$storeId];
@@ -389,10 +388,10 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         if ($this->_couponTypes === null) {
             $this->_couponTypes = array(
                 Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON => Mage::helper('salesrule')->__('No Coupon'),
-                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC  => Mage::helper('salesrule')->__('Specific Coupon'),
+                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC => Mage::helper('salesrule')->__('Specific Coupon'),
             );
             $transport = new Varien_Object(array(
-                'coupon_types'                => $this->_couponTypes,
+                'coupon_types' => $this->_couponTypes,
                 'is_coupon_type_auto_visible' => false
             ));
             Mage::dispatchEvent('salesrule_rule_get_coupon_types', array('transport' => $transport));
@@ -423,10 +422,10 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         /** @var Mage_SalesRule_Model_Coupon $coupon */
         $coupon = Mage::getModel('salesrule/coupon');
         $coupon->setRule($this)
-            ->setIsPrimary(false)
-            ->setUsageLimit($this->getUsesPerCoupon() ? $this->getUsesPerCoupon() : null)
-            ->setUsagePerCustomer($this->getUsesPerCustomer() ? $this->getUsesPerCustomer() : null)
-            ->setExpirationDate($this->getToDate());
+                ->setIsPrimary(false)
+                ->setUsageLimit($this->getUsesPerCoupon() ? $this->getUsesPerCoupon() : null)
+                ->setUsagePerCustomer($this->getUsesPerCustomer() ? $this->getUsesPerCustomer() : null)
+                ->setExpirationDate($this->getToDate());
 
         $couponCode = self::getCouponCodeGenerator()->generateCode();
         $coupon->setCode($couponCode);
@@ -436,16 +435,19 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
             $ok = true;
         } else if ($this->getId()) {
             for ($attemptNum = 0; $attemptNum < $saveAttemptCount; $attemptNum++) {
-                try {
+                try
+                {
                     $coupon->save();
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     if ($e instanceof Mage_Core_Exception || $coupon->getId()) {
                         throw $e;
                     }
                     $coupon->setCode(
-                        $couponCode .
-                        self::getCouponCodeGenerator()->getDelimiter() .
-                        sprintf('%04u', rand(0, 9999))
+                            $couponCode .
+                            self::getCouponCodeGenerator()->getDelimiter() .
+                            sprintf('%04u', rand(0, 9999))
                     );
                     continue;
                 }
@@ -504,16 +506,13 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @param   Mage_Sales_Model_Quote_Address $address
      * @return  string
      */
-    private function _getAddressId($address) {
-        if($address instanceof Mage_Sales_Model_Quote_Address) {
+    private function _getAddressId($address)
+    {
+        if ($address instanceof Mage_Sales_Model_Quote_Address) {
             return $address->getId();
         }
         return $address;
     }
-
-
-
-
 
     /**
      * Collect all product attributes used in serialized rule's action or condition
@@ -536,7 +535,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @return string
      */
-    public function toString($format='')
+    public function toString($format = '')
     {
         return '';
     }
@@ -561,4 +560,5 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         return parent::toArray($arrAttributes);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -39,15 +40,15 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mag
     protected function _getOptions()
     {
         $result = $this->getCollection()->toOptionArray();
-        array_unshift($result, array('label'=>null, 'value'=>null));
+        array_unshift($result, array('label' => null, 'value' => null));
         return $result;
     }
 
     public function getCollection()
     {
-        if(is_null($this->_websiteCollection)) {
+        if (is_null($this->_websiteCollection)) {
             $this->_websiteCollection = Mage::getResourceModel('core/website_collection')
-                ->load();
+                    ->load();
         }
 
         Mage::register('website_collection', $this->_websiteCollection);
@@ -59,13 +60,13 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mag
     {
 
         $id = $this->getValue();
-        if(!$id) {
+        if (!$id) {
             return null;
         }
 
         $website = Mage::app()->getWebsite($id);
 
-        return array('in'=>$website->getStoresIds(true));
+        return array('in' => $website->getStoresIds(true));
     }
 
 }

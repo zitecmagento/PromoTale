@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Static.php 22950 2010-09-16 19:33:00Z mabe $
  */
-
 /**
  * @see Zend_Cache_Backend_Interface
  */
@@ -36,10 +36,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cache_Backend_Static
-    extends Zend_Cache_Backend
-    implements Zend_Cache_Backend_Interface
+class Zend_Cache_Backend_Static extends Zend_Cache_Backend implements Zend_Cache_Backend_Interface
 {
+
     const INNER_CACHE_NAME = 'zend_cache_backend_static_tagcache';
 
     /**
@@ -47,16 +46,16 @@ class Zend_Cache_Backend_Static
      * @var array
      */
     protected $_options = array(
-        'public_dir'            => null,
-        'sub_dir'               => 'html',
-        'file_extension'        => '.html',
-        'index_filename'        => 'index',
-        'file_locking'          => true,
-        'cache_file_umask'      => 0600,
+        'public_dir' => null,
+        'sub_dir' => 'html',
+        'file_extension' => '.html',
+        'index_filename' => 'index',
+        'file_locking' => true,
+        'cache_file_umask' => 0600,
         'cache_directory_umask' => 0700,
-        'debug_header'          => false,
-        'tag_cache'             => null,
-        'disable_caching'       => false
+        'debug_header' => false,
+        'tag_cache' => null,
+        'disable_caching' => false
     );
 
     /**
@@ -140,7 +139,7 @@ class Zend_Cache_Backend_Static
             $fileName = $this->_options['index_filename'];
         }
         $pathName = $this->_options['public_dir'] . dirname($id);
-        $file     = rtrim($pathName, '/') . '/' . $fileName . $this->_options['file_extension'];
+        $file = rtrim($pathName, '/') . '/' . $fileName . $this->_options['file_extension'];
         if (file_exists($file)) {
             $content = file_get_contents($file);
             return $content;
@@ -179,7 +178,7 @@ class Zend_Cache_Backend_Static
         } else {
             $extension = $this->_options['file_extension'];
         }
-        $file     = $pathName . '/' . $fileName . $extension;
+        $file = $pathName . '/' . $fileName . $extension;
         if (file_exists($file)) {
             return true;
         }
@@ -230,7 +229,8 @@ class Zend_Cache_Backend_Static
             $data = $dataUnserialized['data'];
         }
         $ext = $this->_options['file_extension'];
-        if ($extension) $ext = $extension;
+        if ($extension)
+            $ext = $extension;
         $file = rtrim($pathName, '/') . '/' . $fileName . $ext;
         if ($this->_options['file_locking']) {
             $result = file_put_contents($file, $data, LOCK_EX);
@@ -263,7 +263,7 @@ class Zend_Cache_Backend_Static
     {
         if (!is_dir($path)) {
             $oldUmask = umask(0);
-            if ( !@mkdir($path, $this->_octdec($this->_options['cache_directory_umask']), true)) {
+            if (!@mkdir($path, $this->_octdec($this->_options['cache_directory_umask']), true)) {
                 $lastErr = error_get_last();
                 umask($oldUmask);
                 Zend_Cache::throwException("Can't create directory: {$lastErr['message']}");
@@ -312,7 +312,7 @@ class Zend_Cache_Backend_Static
             $fileName = $this->_options['index_filename'];
         }
         $pathName = $this->_options['public_dir'] . dirname($id);
-        $file     = realpath($pathName) . '/' . $fileName . $extension;
+        $file = realpath($pathName) . '/' . $fileName . $extension;
         if (!file_exists($file)) {
             return false;
         }
@@ -336,8 +336,8 @@ class Zend_Cache_Backend_Static
         if (empty($fileName)) {
             $fileName = $this->_options['index_filename'];
         }
-        $pathName  = $this->_options['public_dir'] . dirname($id);
-        $file      = $pathName . '/' . $fileName . $this->_options['file_extension'];
+        $pathName = $this->_options['public_dir'] . dirname($id);
+        $file = $pathName . '/' . $fileName . $this->_options['file_extension'];
         $directory = $pathName . '/' . $fileName;
         if (file_exists($directory)) {
             if (!is_writable($directory)) {
@@ -526,9 +526,8 @@ class Zend_Cache_Backend_Static
 
         // Validation assumes no query string, fragments or scheme included - only the path
         if (!preg_match(
-                '/^(?:\/(?:(?:%[[:xdigit:]]{2}|[A-Za-z0-9-_.!~*\'()\[\]:@&=+$,;])*)?)+$/',
-                $string
-            )
+                        '/^(?:\/(?:(?:%[[:xdigit:]]{2}|[A-Za-z0-9-_.!~*\'()\[\]:@&=+$,;])*)?)+$/', $string
+                )
         ) {
             Zend_Cache::throwException("Invalid id or tag '$string' : must be a valid URL path");
         }
@@ -554,6 +553,8 @@ class Zend_Cache_Backend_Static
      */
     protected function _decodeId($id)
     {
-        return pack('H*', $id);;
+        return pack('H*', $id);
+        ;
     }
+
 }

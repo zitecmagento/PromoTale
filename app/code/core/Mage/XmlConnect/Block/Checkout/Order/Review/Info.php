@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Block_Onepage_Review_Info
 {
+
     /**
      * Render order review items
      *
@@ -70,8 +72,7 @@ class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Blo
             if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()) {
                 $typeOfDisplay = Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales');
                 if ($typeOfDisplay && $item->getWeeeTaxAppliedAmount()) {
-                    $exclPrice = $item->getCalculationPrice() + $item->getWeeeTaxAppliedAmount()
-                        + $item->getWeeeTaxDisposition();
+                    $exclPrice = $item->getCalculationPrice() + $item->getWeeeTaxAppliedAmount() + $item->getWeeeTaxDisposition();
                 } else {
                     $exclPrice = $item->getCalculationPrice();
                 }
@@ -120,16 +121,14 @@ class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Blo
             if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()) {
                 $typeOfDisplay = Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales');
                 if ($typeOfDisplay && $item->getWeeeTaxAppliedAmount()) {
-                    $exclPrice = $item->getRowTotal() + $item->getWeeeTaxAppliedRowAmount()
-                        + $item->getWeeeTaxRowDisposition();
+                    $exclPrice = $item->getRowTotal() + $item->getWeeeTaxAppliedRowAmount() + $item->getWeeeTaxRowDisposition();
                 } else {
                     $exclPrice = $item->getRowTotal();
                 }
             }
             if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()) {
                 $incl = $this->helper('checkout')->getSubtotalInclTax($item);
-                if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
-                    && $item->getWeeeTaxAppliedAmount()
+                if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales') && $item->getWeeeTaxAppliedAmount()
                 ) {
                     $inclPrice = $incl + $item->getWeeeTaxAppliedRowAmount();
                 } else {
@@ -195,4 +194,5 @@ class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Blo
 
         return $itemsXmlObj->asNiceXml();
     }
+
 }

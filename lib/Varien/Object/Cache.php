@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Object Cache
  *
@@ -34,6 +34,7 @@
  */
 class Varien_Object_Cache
 {
+
     /**
      * Singleton instance
      *
@@ -124,7 +125,7 @@ class Varien_Object_Cache
      * @param object $default
      * @return object
      */
-    public function load($idx, $default=null)
+    public function load($idx, $default = null)
     {
         if (isset($this->_references[$idx])) {
             $idx = $this->_references[$idx];
@@ -143,7 +144,7 @@ class Varien_Object_Cache
      * @param array|string $tags
      * @return string
      */
-    public function save($object, $idx=null, $tags=null)
+    public function save($object, $idx = null, $tags = null)
     {
 //Varien_Profiler::start('OBJECT_SAVE');
         if (!is_object($object)) {
@@ -163,11 +164,11 @@ class Varien_Object_Cache
         }
 
         if (is_null($idx)) {
-            $idx = '#'.(++$this->_idx);
+            $idx = '#' . ( ++$this->_idx);
         }
 
         if (isset($this->_objects[$idx])) {
-            throw new Varien_Exception('Object already exists in registry ('.$idx.'). Old object class: '.get_class($this->_objects[$idx]).', new object class: '.get_class($object));
+            throw new Varien_Exception('Object already exists in registry (' . $idx . '). Old object class: ' . get_class($this->_objects[$idx]) . ', new object class: ' . get_class($object));
         }
 
         $this->_objects[$idx] = $object;
@@ -206,7 +207,7 @@ class Varien_Object_Cache
         }
 
         if (isset($this->_references[$refName])) {
-            throw new Varien_Exception('The reference already exists: '.$refName.'. New index: '.$idx.', old index: '.$this->_references[$refName]);
+            throw new Varien_Exception('The reference already exists: ' . $refName . '. New index: ' . $idx . ', old index: ' . $this->_references[$refName]);
         }
         $this->_references[$refName] = $idx;
         $this->_objectReferences[$idx][$refName] = true;
@@ -225,7 +226,7 @@ class Varien_Object_Cache
 //Varien_Profiler::start("OBJECT_DELETE");
         if (is_object($idx)) {
             $idx = $this->find($idx);
-            if (false===$idx) {
+            if (false === $idx) {
 //Varien_Profiler::stop("OBJECT_DELETE");
                 return false;
             }
@@ -242,14 +243,14 @@ class Varien_Object_Cache
         unset($this->_hashes[$this->_objectHashes[$idx]], $this->_objectHashes[$idx]);
 
         if (isset($this->_objectTags[$idx])) {
-            foreach ($this->_objectTags[$idx] as $t=>$dummy) {
+            foreach ($this->_objectTags[$idx] as $t => $dummy) {
                 unset($this->_tags[$t][$idx]);
             }
             unset($this->_objectTags[$idx]);
         }
 
         if (isset($this->_objectReferences[$idx])) {
-            foreach ($references as $r=>$dummy) {
+            foreach ($references as $r => $dummy) {
                 unset($this->_references[$r]);
             }
             unset($this->_objectReferences[$idx]);
@@ -266,7 +267,7 @@ class Varien_Object_Cache
      */
     public function deleteByClass($class)
     {
-        foreach ($this->_objects as $idx=>$object) {
+        foreach ($this->_objects as $idx => $object) {
             if ($object instanceof $class) {
                 $this->delete($idx);
             }
@@ -284,7 +285,7 @@ class Varien_Object_Cache
             $tags = array($tags);
         }
         foreach ($tags as $t) {
-            foreach ($this->_tags[$t] as $idx=>$dummy) {
+            foreach ($this->_tags[$t] as $idx => $dummy) {
                 $this->delete($idx);
             }
         }
@@ -310,8 +311,8 @@ class Varien_Object_Cache
      */
     public function find($object)
     {
-        foreach ($this->_objects as $idx=>$obj) {
-            if ($object===$obj) {
+        foreach ($this->_objects as $idx => $obj) {
+            if ($object === $obj) {
                 return $idx;
             }
         }
@@ -321,7 +322,7 @@ class Varien_Object_Cache
     public function findByIds($ids)
     {
         $objects = array();
-        foreach ($this->_objects as $idx=>$obj) {
+        foreach ($this->_objects as $idx => $obj) {
             if (in_array($idx, $ids)) {
                 $objects[$idx] = $obj;
             }
@@ -347,7 +348,7 @@ class Varien_Object_Cache
         }
         $objects = array();
         foreach ($tags as $t) {
-            foreach ($this->_tags[$t] as $idx=>$dummy) {
+            foreach ($this->_tags[$t] as $idx => $dummy) {
                 if (isset($objects[$idx])) {
                     continue;
                 }
@@ -365,7 +366,7 @@ class Varien_Object_Cache
     public function findByClass($class)
     {
         $objects = array();
-        foreach ($this->_objects as $idx=>$object) {
+        foreach ($this->_objects as $idx => $object) {
             if ($object instanceof $class) {
                 $objects[$idx] = $object;
             }
@@ -373,14 +374,14 @@ class Varien_Object_Cache
         return $objects;
     }
 
-    public function debug($idx, $object=null)
+    public function debug($idx, $object = null)
     {
         $bt = debug_backtrace();
         $debug = array();
-        foreach ($bt as $i=>$step) {
+        foreach ($bt as $i => $step) {
             $debug[$i] = array(
-                'file'     => isset($step['file']) ? $step['file'] : null,
-                'line'     => isset($step['line']) ? $step['line'] : null,
+                'file' => isset($step['file']) ? $step['file'] : null,
+                'line' => isset($step['line']) ? $step['line'] : null,
                 'function' => isset($step['function']) ? $step['function'] : null,
             );
         }
@@ -454,4 +455,5 @@ class Varien_Object_Cache
     {
         return $this->_referencesByObject;
     }
+
 }

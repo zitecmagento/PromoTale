@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Images extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Init block, set preview template
      */
@@ -78,7 +80,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Images extends Mage
             $this->setIsShowUploder(true);
             if ($imageCount < $imageLimit) {
                 $result[] = array('image_type' => $type, 'order' => ++$imageCount,
-                    'application_id' => $this->getApplicationId(), 'show_uploader' => (int)$this->getIsShowUploder());
+                    'application_id' => $this->getApplicationId(), 'show_uploader' => (int) $this->getIsShowUploder());
                 $this->setIsShowUploder(false);
             }
             $this->{'set' . ucwords($type)}($result);
@@ -117,16 +119,14 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Images extends Mage
 
         if (isset($image['image_id'])) {
             $this->getConfig()->setFileSave(Mage::getModel('xmlconnect/images')->getImageUrl($image['image_file']))
-                ->setImageId($image['image_id']);
+                    ->setImageId($image['image_id']);
 
             $this->getConfig()->setThumbnail(Mage::getModel('xmlconnect/images')->getCustomSizeImageUrl(
-                $image['image_file'],
-                Mage_XmlConnect_Helper_Data::THUMBNAIL_IMAGE_WIDTH,
-                Mage_XmlConnect_Helper_Data::THUMBNAIL_IMAGE_HEIGHT
+                            $image['image_file'], Mage_XmlConnect_Helper_Data::THUMBNAIL_IMAGE_WIDTH, Mage_XmlConnect_Helper_Data::THUMBNAIL_IMAGE_HEIGHT
             ))->setImageId($image['image_id']);
 
             $imageActionData = Mage::helper('xmlconnect')->getApplication()->getImageActionModel()
-                ->getImageActionData($image['image_id']);
+                    ->getImageActionData($image['image_id']);
             if ($imageActionData) {
                 $this->getConfig()->setImageActionData($imageActionData);
             }
@@ -137,14 +137,14 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Images extends Mage
         }
 
         $this->getConfig()->setUrl(
-            Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/*/uploadimages', $params)
+                Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/*/uploadimages', $params)
         );
         $this->getConfig()->setParams(array('form_key' => $this->getFormKey()));
         $this->getConfig()->setFileField($image['image_type']);
         $this->getConfig()->setFilters(array(
             'images' => array(
                 'label' => Mage::helper('adminhtml')->__('Images (.gif, .jpg, .png)'),
-                'files' => array('*.gif', '*.jpg','*.jpeg', '*.png')
+                'files' => array('*.gif', '*.jpg', '*.jpeg', '*.png')
         )));
         $this->getConfig()->setReplaceBrowseWithRemove(true);
         $this->getConfig()->setWidth('32');
@@ -172,7 +172,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Images extends Mage
      */
     public function getConfig()
     {
-        if(is_null($this->_config)) {
+        if (is_null($this->_config)) {
             $this->_config = new Varien_Object();
         }
 
@@ -189,4 +189,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Images extends Mage
         $this->_config = null;
         return $this;
     }
+
 }

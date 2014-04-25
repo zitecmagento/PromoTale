@@ -75,7 +75,7 @@ input.form-radio { margin-right:3px;}
     border-top:1px solid #e4e4e4;
     padding-top:8px;
     text-align:right;
-    }
+}
 .form-button, .form-button-alt {
     overflow:visible;
     width:auto;
@@ -89,17 +89,17 @@ input.form-radio { margin-right:3px;}
     cursor:pointer;
     text-align:center;
     vertical-align:middle;
-    }
+}
 .form-button span, .form-button-alt span {
     white-space:nowrap;
-    }
+}
 .form-button-alt {
     border:1px solid #406a83;
     background-color:#618499;
-    }
+}
 
 .fieldset-download .form-button { margin:0.8em 0 0; }
-    
+
 
 /* Form lists */
 .form-list li { margin-bottom:6px; }
@@ -115,7 +115,7 @@ table.form-list select { width:254px; }
     border:1px solid #bbafa0;
     padding:22px 25px 12px 25px;
     background:#fbfaf6;
-    }
+}
 .group-select .legend {
     margin-top:-33px;
     float:left;
@@ -125,7 +125,7 @@ table.form-list select { width:254px; }
     color:#E76200;
     font-weight:bold;
     font-size:1.1em;
-    }
+}
 .group-select li { padding:4px 8px !important; }
 .group-select li .input-box { float:left; width:275px; }
 .group-select li .input-text, .group-select li select, .group-select li textarea { width:525px; }
@@ -144,18 +144,18 @@ table.form-list select { width:254px; }
     font-size:.95em;
     font-weight:bold;
     line-height:1.25em;
-    }
+}
 .validation-failed {
     border:1px dashed #EB340A !important;
     background:#faebe7 !important;
-    }
+}
 label.required {
     font-weight:bold;
-    }
+}
 p.required {
     font-size:.95em;
     text-align:right;
-    }
+}
 
 
 
@@ -173,26 +173,26 @@ p.required {
     padding:8px 8px 8px 32px !important;
     font-size:.95em !important;
     font-weight:bold !important;
-    }
+}
 .error-msg li, .success-msg li, .notice-msg li {margin-bottom:.2em; }
 .error-msg {
     border-color:#f16048;
     color:#df280a;
     background-color:#faebe7;
     background-image:url(images/error_msg_icon.gif);
-    }
+}
 .success-msg {
     border-color:#446423;
     color:#3d6611;
     background-color:#eff5ea;
     background-image:url(images/success_msg_icon.gif);
-    }
+}
 .notice-msg, .note-msg {
     border-color:#fcd344;
     color:#3d6611;
     background-color:#fafaec;
     background-image:url(images/note_msg_icon.gif);
-    }
+}
 
 
 
@@ -213,17 +213,17 @@ p.required {
     font-weight:normal !important;
     text-transform:none  !important;
     text-align:left;
-    }
+}
 .button-level h3 { /* heading level with buttons */
     float:left;
     width:60%;
-    }
+}
 
 
 /* Category list heading */
 .category-head {
     margin-bottom:7px;
-    }
+}
 .category-head h2 {
     margin:0;
     padding:3px 0;
@@ -231,7 +231,7 @@ p.required {
     font-size:1.6em;
     line-height:1.3em;
     font-weight:normal;
-    }
+}
 
 
 
@@ -263,7 +263,7 @@ p.required {
     font-size:1px;
     line-height:1em;
     overflow:hidden;
-    }
+}
 
 
 
@@ -279,23 +279,23 @@ p.required {
 .header {
     z-index:999;
     text-align:left;
-    }
+}
 .header-top {
     position:relative;
     width:930px;
     margin:0 auto;
-    }
+}
 .header-nav {
     width:950px;
     margin:0 auto;
-    }
+}
 .middle {
     min-height:400px;
     width:900px;
     margin:0 auto;
     text-align:left;
     position:relative;
-    }
+}
 .side-col { width:195px; }
 .col-left { float:left; }
 .col-main { float:left; }
@@ -322,7 +322,7 @@ h1#logo {
     float:left;
     width:202px;
     margin:3px 0 10px 12px;
-    }
+}
 .page-popup h1#logo { display:none; }
 
 
@@ -334,14 +334,14 @@ h1#logo {
     text-align:right;
     padding:0 10px;
     color:#fff;
-    }
+}
 .quick-access p { margin-bottom:4px; }
 .quick-access li {
     display:inline;
     background:url(images/shop_access_pipe.gif) no-repeat 100% .35em;
     padding-right:7px;
     padding-left:3px;
-    }
+}
 .quick-access li.first { padding-left:0;}
 .quick-access li.last { padding-right:0; background:none;}
 .account-access p, .account-access ul, .account-access li { display:inline; color:#fff; }
@@ -363,18 +363,18 @@ h1#logo {
     margin:0 auto;
     padding:1em 1em 4em 1em;
     position:relative;
-    }
+}
 .footer .store-switcher { display:inline; padding:0 10px 0 0; vertical-align:middle; }
 .footer .informational label { color:#fff; font-weight:bold; padding-right:3px; }
 .footer .informational ul {
     display:inline;
-    }
+}
 .footer .informational li {
     display:inline;
     background:url(images/footer_info_separator.gif) no-repeat 100% 50%;
     padding-right:8px;
     padding-left:4px;
-    }
+}
 .footer .informational li.last { background:none; padding-right:0; }
 .footer .informational a, .footer .informational a:hover { color:#fff; }
 .footer .informational a { text-decoration:none; }
@@ -382,7 +382,7 @@ h1#logo {
     padding:13px 0;
     color:#ecf3f6;
     text-align:center;
-    }
+}
 .footer .legality a, .footer .legality a:hover { color:#ecf3f6; }
 
 

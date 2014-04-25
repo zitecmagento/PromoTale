@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Abstract configuration class
  *
@@ -34,16 +34,17 @@
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Core_Model_Config_Base extends Varien_Simplexml_Config
 {
+
     /**
      * Constructor
      *
      */
-    public function __construct($sourceData=null)
+    public function __construct($sourceData = null)
     {
         $this->_elementClass = 'Mage_Core_Model_Config_Element';
         parent::__construct($sourceData);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog products per page on Grid mode source
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Catalog_GridPerPage
 {
+
     public function toOptionArray()
     {
         $result = array();
@@ -45,4 +46,5 @@ class Mage_Adminhtml_Model_System_Config_Source_Catalog_GridPerPage
         //$result[] = array('value' => 'all', 'label' => Mage::helper('catalog')->__('All'));
         return $result;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package Mage_Usa
  * @author Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Usa_Model_Shipping_Carrier_Abstract_Source_Mode
 {
+
     /**
      * Returns array to be used in packages request type on back-end
      *
@@ -46,4 +47,5 @@ class Mage_Usa_Model_Shipping_Carrier_Abstract_Source_Mode
             array('value' => '1', 'label' => Mage::helper('usa')->__('Live')),
         );
     }
+
 }

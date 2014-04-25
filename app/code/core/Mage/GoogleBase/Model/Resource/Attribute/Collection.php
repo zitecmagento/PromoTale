@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * GoogleBase Attributes collection
  *
@@ -35,12 +35,13 @@
  */
 class Mage_GoogleBase_Model_Resource_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Whether to join attribute_set_id to attributes or not
      *
      * @var boolean
      */
-    protected $_joinAttributeSetFlag     = true;
+    protected $_joinAttributeSetFlag = true;
 
     /**
      * Resource collection initialization
@@ -108,12 +109,11 @@ class Mage_GoogleBase_Model_Resource_Attribute_Collection extends Mage_Core_Mode
     protected function _joinAttributeSet()
     {
         $this->getSelect()
-            ->joinInner(
-                array('types'=>$this->getTable('googlebase/types')),
-                'main_table.type_id=types.type_id',
-                array('attribute_set_id' => 'types.attribute_set_id',
+                ->joinInner(
+                        array('types' => $this->getTable('googlebase/types')), 'main_table.type_id=types.type_id', array(
+                    'attribute_set_id' => 'types.attribute_set_id',
                     'target_country' => 'types.target_country')
-            );
+        );
         return $this;
     }
 
@@ -135,6 +135,7 @@ class Mage_GoogleBase_Model_Resource_Attribute_Collection extends Mage_Core_Mode
      */
     public function setJoinAttributeSetFlag($flag)
     {
-        return $this->_joinAttributeSetFlag = (bool)$flag;
+        return $this->_joinAttributeSetFlag = (bool) $flag;
     }
+
 }

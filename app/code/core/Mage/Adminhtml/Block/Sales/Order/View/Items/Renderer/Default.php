@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml sales order item renderer
  *
@@ -33,6 +33,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
+
     public function getItem()
     {
         return $this->_getData('item');
@@ -85,11 +86,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      */
     public function getDefaultSender()
     {
-        if(!$this->getItem()) {
+        if (!$this->getItem()) {
             return '';
         }
 
-        if($this->getItem()->getOrder()) {
+        if ($this->getItem()->getOrder()) {
             return $this->getItem()->getOrder()->getBillingAddress()->getName();
         }
 
@@ -104,11 +105,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      */
     public function getDefaultRecipient()
     {
-        if(!$this->getItem()) {
+        if (!$this->getItem()) {
             return '';
         }
 
-        if($this->getItem()->getOrder()) {
+        if ($this->getItem()->getOrder()) {
             if ($this->getItem()->getOrder()->getShippingAddress()) {
                 return $this->getItem()->getOrder()->getShippingAddress()->getName();
             } else if ($this->getItem()->getOrder()->getBillingAddress()) {
@@ -145,14 +146,13 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      */
     protected function _initMessage()
     {
-        $this->_giftMessage[$this->getItem()->getGiftMessageId()] =
-            $this->helper('giftmessage/message')->getGiftMessage($this->getItem()->getGiftMessageId());
+        $this->_giftMessage[$this->getItem()->getGiftMessageId()] = $this->helper('giftmessage/message')->getGiftMessage($this->getItem()->getGiftMessageId());
 
         // init default values for giftmessage form
-        if(!$this->getMessage()->getSender()) {
+        if (!$this->getMessage()->getSender()) {
             $this->getMessage()->setSender($this->getDefaultSender());
         }
-        if(!$this->getMessage()->getRecipient()) {
+        if (!$this->getMessage()->getRecipient()) {
             $this->getMessage()->setRecipient($this->getDefaultRecipient());
         }
 
@@ -167,7 +167,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      */
     public function getMessage()
     {
-        if(!isset($this->_giftMessage[$this->getItem()->getGiftMessageId()])) {
+        if (!isset($this->_giftMessage[$this->getItem()->getGiftMessageId()])) {
             $this->_initMessage();
         }
 
@@ -183,9 +183,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     public function getSaveUrl()
     {
         return $this->getUrl('*/sales_order_view_giftmessage/save', array(
-            'entity'    => $this->getItem()->getId(),
-            'type'      => 'order_item',
-            'reload'    => true
+                    'entity' => $this->getItem()->getId(),
+                    'type' => 'order_item',
+                    'reload' => true
         ));
     }
 
@@ -209,7 +209,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     public function canDisplayGiftmessage()
     {
         return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-            'order_item', $this->getItem(), $this->getItem()->getOrder()->getStoreId()
+                        'order_item', $this->getItem(), $this->getItem()->getOrder()->getStoreId()
         );
     }
 
@@ -222,8 +222,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     public function displaySubtotalInclTax($item)
     {
         return $this->displayPrices(
-            $this->helper('checkout')->getBaseSubtotalInclTax($item),
-            $this->helper('checkout')->getSubtotalInclTax($item)
+                        $this->helper('checkout')->getBaseSubtotalInclTax($item), $this->helper('checkout')->getSubtotalInclTax($item)
         );
     }
 
@@ -236,8 +235,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     public function displayPriceInclTax(Varien_Object $item)
     {
         return $this->displayPrices(
-            $this->helper('checkout')->getBasePriceInclTax($item),
-            $this->helper('checkout')->getPriceInclTax($item)
+                        $this->helper('checkout')->getBasePriceInclTax($item), $this->helper('checkout')->getPriceInclTax($item)
         );
     }
 

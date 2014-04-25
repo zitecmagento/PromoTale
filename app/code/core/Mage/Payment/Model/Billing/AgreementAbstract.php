@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Model_Abstract
 {
+
     /**
      * Payment method instance
      *
@@ -116,4 +118,5 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
         array_unshift($this->_errors, Mage::helper('payment')->__('Unable to save Billing Agreement:'));
         throw new Mage_Core_Exception(implode(' ', $this->_errors));
     }
+
 }

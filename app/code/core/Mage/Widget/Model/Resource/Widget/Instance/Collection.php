@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Widget Instance Collection
  *
@@ -34,13 +34,13 @@
  */
 class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Fields map for corellation names & real selected fields
      *
      * @var array
      */
     protected $_map = array('fields' => array('type' => 'instance_type'));
-
 
     /**
      * Constructor
@@ -76,4 +76,5 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
 
         return $this;
     }
+
 }

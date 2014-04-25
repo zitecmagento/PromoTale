@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,11 +31,12 @@
  */
 abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObject
 {
+
     /**
      * Whether or not to override all contents of placeholder
      * @const string
      */
-    const SET    = 'SET';
+    const SET = 'SET';
 
     /**
      * Whether or not to append contents to placeholder
@@ -52,13 +54,13 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      * What text to prefix the placeholder with when rendering
      * @var string
      */
-    protected $_prefix    = '';
+    protected $_prefix = '';
 
     /**
      * What text to append the placeholder with when rendering
      * @var string
      */
-    protected $_postfix   = '';
+    protected $_postfix = '';
 
     /**
      * What string to use between individual items in the placeholder when rendering
@@ -136,7 +138,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
     {
         if (1 == count($this)) {
             $keys = $this->getKeys();
-            $key  = array_shift($keys);
+            $key = array_shift($keys);
             return $this[$key];
         }
 
@@ -280,8 +282,8 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      */
     public function captureEnd()
     {
-        $data               = ob_get_clean();
-        $key                = null;
+        $data = ob_get_clean();
+        $key = null;
         $this->_captureLock = false;
         if (null !== $this->_captureKey) {
             $key = $this->_captureKey;
@@ -296,9 +298,9 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
                 break;
             case self::PREPEND:
                 if (null !== $key) {
-                    $array  = array($key => $data);
+                    $array = array($key => $data);
                     $values = $this->getArrayCopy();
-                    $final  = $array + $values;
+                    $final = $array + $values;
                     $this->exchangeArray($final);
                 } else {
                     $this->prepend($data);
@@ -353,11 +355,9 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      */
     public function toString($indent = null)
     {
-        $indent = ($indent !== null)
-                ? $this->getWhitespace($indent)
-                : $this->getIndent();
+        $indent = ($indent !== null) ? $this->getWhitespace($indent) : $this->getIndent();
 
-        $items  = $this->getArrayCopy();
+        $items = $this->getArrayCopy();
         $return = $indent
                 . $this->getPrefix()
                 . implode($this->getSeparator(), $items)
@@ -375,4 +375,5 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
     {
         return $this->toString();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DomQuery.php 22561 2010-07-15 17:49:16Z dragonbe $
  */
-
 /** @see PHPUnit_Framework_Constraint */
 #require_once 'PHPUnit/Framework/Constraint.php';
 
@@ -38,28 +38,30 @@
  */
 class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
 {
-    /**#@+
+    /*     * #@+
      * Assertion type constants
      */
-    const ASSERT_QUERY            = 'assertQuery';
+
+    const ASSERT_QUERY = 'assertQuery';
     const ASSERT_CONTENT_CONTAINS = 'assertQueryContentContains';
-    const ASSERT_CONTENT_REGEX    = 'assertQueryContentRegex';
-    const ASSERT_CONTENT_COUNT    = 'assertQueryCount';
-    const ASSERT_CONTENT_COUNT_MIN= 'assertQueryCountMin';
-    const ASSERT_CONTENT_COUNT_MAX= 'assertQueryCountMax';
-    /**#@-*/
+    const ASSERT_CONTENT_REGEX = 'assertQueryContentRegex';
+    const ASSERT_CONTENT_COUNT = 'assertQueryCount';
+    const ASSERT_CONTENT_COUNT_MIN = 'assertQueryCountMin';
+    const ASSERT_CONTENT_COUNT_MAX = 'assertQueryCountMax';
+
+    /*     * #@- */
 
     /**
      * Current assertion type
      * @var string
      */
-    protected $_assertType        = null;
+    protected $_assertType = null;
 
     /**
      * Available assertion types
      * @var array
      */
-    protected $_assertTypes       = array(
+    protected $_assertTypes = array(
         self::ASSERT_QUERY,
         self::ASSERT_CONTENT_CONTAINS,
         self::ASSERT_CONTENT_REGEX,
@@ -72,25 +74,25 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
      * Content being matched
      * @var string
      */
-    protected $_content           = null;
+    protected $_content = null;
 
     /**
      * Whether or not assertion is negated
      * @var bool
      */
-    protected $_negate            = false;
+    protected $_negate = false;
 
     /**
      * CSS selector or XPath path to select against
      * @var string
      */
-    protected $_path              = null;
+    protected $_path = null;
 
     /**
      * Whether or not to use XPath when querying
      * @var bool
      */
-    protected $_useXpath          = false;
+    protected $_useXpath = false;
 
     /**
      * XPath namespaces
@@ -158,12 +160,12 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
 
         $this->_assertType = $assertType;
 
-        $method   = $this->_useXpath ? 'queryXpath' : 'query';
+        $method = $this->_useXpath ? 'queryXpath' : 'query';
         $domQuery = new Zend_Dom_Query($other);
         $domQuery->registerXpathNamespaces($this->_xpathNamespaces);
-        $result   = $domQuery->$method($this->_path);
-        $argv     = func_get_args();
-        $argc     = func_num_args();
+        $result = $domQuery->$method($this->_path);
+        $argv = func_get_args();
+        $argc = func_num_args();
 
         switch ($assertType) {
             case self::ASSERT_CONTENT_CONTAINS:
@@ -172,18 +174,14 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
                     throw new Zend_Test_PHPUnit_Constraint_Exception('No content provided against which to match');
                 }
                 $this->_content = $content = $argv[2];
-                return ($this->_negate)
-                    ? $this->_notMatchContent($result, $content)
-                    : $this->_matchContent($result, $content);
+                return ($this->_negate) ? $this->_notMatchContent($result, $content) : $this->_matchContent($result, $content);
             case self::ASSERT_CONTENT_REGEX:
                 if (3 > $argc) {
                     #require_once 'Zend/Test/PHPUnit/Constraint/Exception.php';
                     throw new Zend_Test_PHPUnit_Constraint_Exception('No pattern provided against which to match');
                 }
                 $this->_content = $content = $argv[2];
-                return ($this->_negate)
-                    ? $this->_notRegexContent($result, $content)
-                    : $this->_regexContent($result, $content);
+                return ($this->_negate) ? $this->_notRegexContent($result, $content) : $this->_regexContent($result, $content);
             case self::ASSERT_CONTENT_COUNT:
             case self::ASSERT_CONTENT_COUNT_MIN:
             case self::ASSERT_CONTENT_COUNT_MAX:
@@ -392,9 +390,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
 
         switch ($type) {
             case self::ASSERT_CONTENT_COUNT:
-                return ($this->_negate)
-                    ? ($test != $count)
-                    : ($test == $count);
+                return ($this->_negate) ? ($test != $count) : ($test == $count);
             case self::ASSERT_CONTENT_COUNT_MIN:
                 return ($count >= $test);
             case self::ASSERT_CONTENT_COUNT_MAX:
@@ -415,11 +411,12 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
         if ($node instanceof DOMAttr) {
             return $node->value;
         } else {
-            $doc     = $node->ownerDocument;
+            $doc = $node->ownerDocument;
             $content = $doc->saveXML($node);
-            $tag     = $node->nodeName;
-            $regex   = '|</?' . $tag . '[^>]*>|';
+            $tag = $node->nodeName;
+            $regex = '|</?' . $tag . '[^>]*>|';
             return preg_replace($regex, '', $content);
         }
     }
+
 }

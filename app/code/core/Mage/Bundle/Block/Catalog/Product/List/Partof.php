@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_Product_Abstract
 {
+
     protected $_columnCount = 4;
     protected $_items;
     protected $_itemCollection;
@@ -42,19 +43,18 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
     protected function _prepareData()
     {
         $collection = Mage::getModel('catalog/product')->getResourceCollection()
-            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->addAttributeToSort('position', 'asc')
-            ->addStoreFilter()
-            ->addMinimalPrice()
+                ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+                ->addAttributeToSort('position', 'asc')
+                ->addStoreFilter()
+                ->addMinimalPrice()
+                ->joinTable('bundle/option', 'parent_id=entity_id', array('option_id' => 'option_id'))
+                ->joinTable('bundle/selection', 'option_id=option_id', array('product_id' => 'product_id'), '{{table}}.product_id=' . $this->getProduct()->getId());
 
-            ->joinTable('bundle/option', 'parent_id=entity_id', array('option_id' => 'option_id'))
-            ->joinTable('bundle/selection', 'option_id=option_id', array('product_id' => 'product_id'), '{{table}}.product_id='.$this->getProduct()->getId());
+        $ids = Mage::getSingleton('checkout/cart')->getProductIds();
 
-            $ids = Mage::getSingleton('checkout/cart')->getProductIds();
-
-            if (count($ids)) {
-                $collection->addIdFilter(Mage::getSingleton('checkout/cart')->getProductIds(), true);
-            }
+        if (count($ids)) {
+            $collection->addIdFilter(Mage::getSingleton('checkout/cart')->getProductIds(), true);
+        }
 
         Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($collection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
@@ -77,7 +77,8 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
         return $this->_itemCollection;
     }
 
-    public function getItems() {
+    public function getItems()
+    {
         if (is_null($this->_items)) {
             $this->_items = $this->getItemCollection()->getItems();
         }
@@ -86,7 +87,7 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
 
     public function getRowCount()
     {
-        return ceil($this->getItemCollection()->getSize()/$this->getColumnCount());
+        return ceil($this->getItemCollection()->getSize() / $this->getColumnCount());
     }
 
     public function setColumnCount($columns)
@@ -127,4 +128,5 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
         }
         return $this->_product;
     }
+
 }

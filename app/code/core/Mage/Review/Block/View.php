@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Review
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -77,14 +78,14 @@ class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
      */
     public function getRating()
     {
-        if( !$this->getRatingCollection() ) {
+        if (!$this->getRatingCollection()) {
             $ratingCollection = Mage::getModel('rating/rating_option_vote')
-                ->getResourceCollection()
-                ->setReviewFilter($this->getReviewId())
-                ->setStoreFilter(Mage::app()->getStore()->getId())
-                ->addRatingInfo(Mage::app()->getStore()->getId())
-                ->load();
-            $this->setRatingCollection( ( $ratingCollection->getSize() ) ? $ratingCollection : false );
+                    ->getResourceCollection()
+                    ->setReviewFilter($this->getReviewId())
+                    ->setStoreFilter(Mage::app()->getStore()->getId())
+                    ->addRatingInfo(Mage::app()->getStore()->getId())
+                    ->load();
+            $this->setRatingCollection(( $ratingCollection->getSize() ) ? $ratingCollection : false );
         }
         return $this->getRatingCollection();
     }
@@ -96,7 +97,7 @@ class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
      */
     public function getRatingSummary()
     {
-        if( !$this->getRatingSummaryCache() ) {
+        if (!$this->getRatingSummaryCache()) {
             $this->setRatingSummaryCache(Mage::getModel('rating/rating')->getEntitySummary($this->getProductData()->getId()));
         }
         return $this->getRatingSummaryCache();
@@ -109,7 +110,7 @@ class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
      */
     public function getTotalReviews()
     {
-        if( !$this->getTotalReviewsCache() ) {
+        if (!$this->getTotalReviewsCache()) {
             $this->setTotalReviewsCache(Mage::getModel('review/review')->getTotalReviews($this->getProductData()->getId(), false, Mage::app()->getStore()->getId()));
         }
         return $this->getTotalReviewsCache();
@@ -125,4 +126,5 @@ class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
     {
         return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_LONG);
     }
+
 }

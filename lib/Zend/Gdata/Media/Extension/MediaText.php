@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: MediaText.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Extension
  */
@@ -70,8 +69,7 @@ class Zend_Gdata_Media_Extension_MediaText extends Zend_Gdata_Extension
      * @param $start string
      * @param $end string
      */
-    public function __construct($text = null, $type = null, $lang = null,
-            $start = null, $end = null)
+    public function __construct($text = null, $type = null, $lang = null, $start = null, $end = null)
     {
         $this->registerAllNamespaces(Zend_Gdata_Media::$namespaces);
         parent::__construct();
@@ -120,20 +118,20 @@ class Zend_Gdata_Media_Extension_MediaText extends Zend_Gdata_Extension
     protected function takeAttributeFromDOM($attribute)
     {
         switch ($attribute->localName) {
-        case 'type':
-            $this->_type = $attribute->nodeValue;
-            break;
-        case 'lang':
-            $this->_lang = $attribute->nodeValue;
-            break;
-        case 'start':
-            $this->_start = $attribute->nodeValue;
-            break;
-        case 'end':
-            $this->_end = $attribute->nodeValue;
-            break;
-        default:
-            parent::takeAttributeFromDOM($attribute);
+            case 'type':
+                $this->_type = $attribute->nodeValue;
+                break;
+            case 'lang':
+                $this->_lang = $attribute->nodeValue;
+                break;
+            case 'start':
+                $this->_start = $attribute->nodeValue;
+                break;
+            case 'end':
+                $this->_end = $attribute->nodeValue;
+                break;
+            default:
+                parent::takeAttributeFromDOM($attribute);
         }
     }
 
@@ -208,4 +206,5 @@ class Zend_Gdata_Media_Extension_MediaText extends Zend_Gdata_Extension
         $this->_end = $value;
         return $this;
     }
+
 }

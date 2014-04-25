@@ -26,7 +26,7 @@
  */
 -->
 <config>
-   <sections>
+    <sections>
         <payment>
             <groups>
                 <authorizenet translate="label" module="paygate">
@@ -236,7 +236,9 @@
                             <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <depends><centinel>1</centinel></depends>
+                            <depends>
+                                <centinel>1</centinel>
+                            </depends>
                         </centinel_is_mode_strict>
                         <centinel_api_url translate="label comment">
                             <label>Centinel API URL</label>
@@ -246,7 +248,9 @@
                             <sort_order>135</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <depends><centinel>1</centinel></depends>
+                            <depends>
+                                <centinel>1</centinel>
+                            </depends>
                         </centinel_api_url>
                         <model>
                         </model>

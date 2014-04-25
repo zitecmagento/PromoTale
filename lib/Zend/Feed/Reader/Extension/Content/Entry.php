@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Entry.php 22300 2010-05-26 10:13:34Z padraic $
  */
-
 /**
  * @see Zend_Feed_Reader
  */
@@ -35,18 +35,16 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Reader_Extension_Content_Entry
-    extends Zend_Feed_Reader_Extension_EntryAbstract
+class Zend_Feed_Reader_Extension_Content_Entry extends Zend_Feed_Reader_Extension_EntryAbstract
 {
 
     public function getContent()
     {
-        if ($this->getType() !== Zend_Feed_Reader::TYPE_RSS_10
-            && $this->getType() !== Zend_Feed_Reader::TYPE_RSS_090
+        if ($this->getType() !== Zend_Feed_Reader::TYPE_RSS_10 && $this->getType() !== Zend_Feed_Reader::TYPE_RSS_090
         ) {
-            $content = $this->_xpath->evaluate('string('.$this->getXpathPrefix().'/content:encoded)');
+            $content = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/content:encoded)');
         } else {
-            $content = $this->_xpath->evaluate('string('.$this->getXpathPrefix().'/content:encoded)');
+            $content = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/content:encoded)');
         }
         return $content;
     }
@@ -58,4 +56,5 @@ class Zend_Feed_Reader_Extension_Content_Entry
     {
         $this->_xpath->registerNamespace('content', 'http://purl.org/rss/1.0/modules/content/');
     }
+
 }

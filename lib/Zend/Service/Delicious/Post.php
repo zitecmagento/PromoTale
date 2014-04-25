@@ -20,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Post.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Date
  */
@@ -31,7 +29,6 @@
  * @see Zend_Service_Delicious_SimplePost
  */
 #require_once 'Zend/Service/Delicious/SimplePost.php';
-
 
 /**
  * Zend_Service_Delicious_Post represents a post of a user that can be edited
@@ -44,6 +41,7 @@
  */
 class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
 {
+
     /**
      * Service that has downloaded the post
      *
@@ -93,10 +91,10 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
              */
             #require_once 'Zend/Service/Delicious/Exception.php';
             throw new Zend_Service_Delicious_Exception("Second argument must be array with at least 2 keys ('url' and"
-                                                     . " 'title')");
+            . " 'title')");
         }
 
-        if (isset($values['date']) && ! $values['date'] instanceof Zend_Date) {
+        if (isset($values['date']) && !$values['date'] instanceof Zend_Date) {
             /**
              * @see Zend_Service_Delicious_Exception
              */
@@ -106,7 +104,7 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
 
         foreach (array('url', 'title', 'notes', 'others', 'tags', 'date', 'shared', 'hash') as $key) {
             if (isset($values[$key])) {
-                $this->{"_$key"}  = $values[$key];
+                $this->{"_$key"} = $values[$key];
             }
         }
     }
@@ -251,18 +249,18 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
     public function save()
     {
         $parms = array(
-            'url'        => $this->_url,
-            'description'=> $this->_title,
-            'extended'   => $this->_notes,
-            'shared'     => ($this->_shared ? 'yes' : 'no'),
-            'tags'       => implode(' ', (array) $this->_tags),
-            'replace'    => 'yes'
+            'url' => $this->_url,
+            'description' => $this->_title,
+            'extended' => $this->_notes,
+            'shared' => ($this->_shared ? 'yes' : 'no'),
+            'tags' => implode(' ', (array) $this->_tags),
+            'replace' => 'yes'
         );
         /*
-        if ($this->_date instanceof Zend_Date) {
-            $parms['dt'] = $this->_date->get('Y-m-d\TH:i:s\Z');
-        }
-        */
+          if ($this->_date instanceof Zend_Date) {
+          $parms['dt'] = $this->_date->get('Y-m-d\TH:i:s\Z');
+          }
+         */
 
         return $this->_service->makeRequest(Zend_Service_Delicious::PATH_POSTS_ADD, $parms);
     }
@@ -276,17 +274,18 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
     protected static function _parsePostNode(DOMElement $node)
     {
         return array(
-            'url'    => $node->getAttribute('href'),
-            'title'  => $node->getAttribute('description'),
-            'notes'  => $node->getAttribute('extended'),
+            'url' => $node->getAttribute('href'),
+            'title' => $node->getAttribute('description'),
+            'notes' => $node->getAttribute('extended'),
             'others' => (int) $node->getAttribute('others'),
-            'tags'   => explode(' ', $node->getAttribute('tag')),
+            'tags' => explode(' ', $node->getAttribute('tag')),
             /**
              * @todo replace strtotime() with Zend_Date equivalent
              */
-            'date'   => new Zend_Date(strtotime($node->getAttribute('time'))),
+            'date' => new Zend_Date(strtotime($node->getAttribute('time'))),
             'shared' => ($node->getAttribute('shared') == 'no' ? false : true),
-            'hash'   => $node->getAttribute('hash')
+            'hash' => $node->getAttribute('hash')
         );
     }
+
 }

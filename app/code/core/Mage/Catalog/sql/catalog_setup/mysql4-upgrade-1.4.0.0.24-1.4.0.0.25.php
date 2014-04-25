@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,18 +24,15 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $installer = $this;
 
 $installer->getConnection()->modifyColumn(
-    $installer->getTable('catalog/eav_attribute'), 'is_used_for_price_rules',
-    "TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'deprecated after 1.4.0.1'"
+        $installer->getTable('catalog/eav_attribute'), 'is_used_for_price_rules', "TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'deprecated after 1.4.0.1'"
 );
 
 $installer->getConnection()->addColumn(
-    $installer->getTable('catalog/eav_attribute'), 'is_used_for_promo_rules',
-    "TINYINT(1) UNSIGNED NOT NULL DEFAULT '0'"
+        $installer->getTable('catalog/eav_attribute'), 'is_used_for_promo_rules', "TINYINT(1) UNSIGNED NOT NULL DEFAULT '0'"
 );
 
 $installer->run("UPDATE {$installer->getTable('catalog/eav_attribute')}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Form_Renderer_Boolean extends Mage_XmlConnect_Block_Customer_Form_Renderer_Select
 {
+
     /**
      * Return array of select options
      *
@@ -46,4 +48,5 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Boolean extends Mage_XmlConne
             array('value' => '1', 'label' => Mage::helper('enterprise_customer')->__('Yes'))
         );
     }
+
 }

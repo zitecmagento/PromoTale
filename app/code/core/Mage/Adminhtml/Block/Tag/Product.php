@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -38,7 +39,7 @@ class Mage_Adminhtml_Block_Tag_Product extends Mage_Adminhtml_Block_Widget_Grid_
     {
         parent::__construct();
 
-        switch( $this->getRequest()->getParam('ret') ) {
+        switch ($this->getRequest()->getParam('ret')) {
             case 'all':
                 $url = $this->getUrl('*/*/');
                 break;
@@ -58,7 +59,7 @@ class Mage_Adminhtml_Block_Tag_Product extends Mage_Adminhtml_Block_Widget_Grid_
         $this->_addBackButton();
 
         $tagInfo = Mage::getModel('tag/tag')
-            ->load(Mage::registry('tagId'));
+                ->load(Mage::registry('tagId'));
 
         $this->_headerText = Mage::helper('tag')->__("Products Tagged with '%s'", $this->escapeHtml($tagInfo->getName()));
     }

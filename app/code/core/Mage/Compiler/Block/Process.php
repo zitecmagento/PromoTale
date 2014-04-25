@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Manage currency block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Compiler_Block_Process extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Compilation process object
      *
@@ -41,7 +42,6 @@ class Mage_Compiler_Block_Process extends Mage_Adminhtml_Block_Template
      */
     protected $_process;
     protected $_validationResult;
-
 
     protected function _construct()
     {
@@ -62,29 +62,26 @@ class Mage_Compiler_Block_Process extends Mage_Adminhtml_Block_Template
 
     protected function _prepareLayout()
     {
-        $this->setChild('run_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('compiler')->__('Run Compilation Process'),
-                    'onclick'   => 'compilationForm.submit();',
-                    'class'     => 'save'
+        $this->setChild('run_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('compiler')->__('Run Compilation Process'),
+                            'onclick' => 'compilationForm.submit();',
+                            'class' => 'save'
         )));
 
         if (defined('COMPILER_INCLUDE_PATH')) {
-            $this->setChild('change_status_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData(array(
-                        'label'     => Mage::helper('compiler')->__('Disable'),
-                        'onclick' => 'setLocation(\'' . $this->getUrl('*/compiler_process/disable') . '\')',
-                        'class'     => 'save'
+            $this->setChild('change_status_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                            ->setData(array(
+                                'label' => Mage::helper('compiler')->__('Disable'),
+                                'onclick' => 'setLocation(\'' . $this->getUrl('*/compiler_process/disable') . '\')',
+                                'class' => 'save'
             )));
         } else {
-            $this->setChild('change_status_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData(array(
-                        'label'     => Mage::helper('compiler')->__('Enable'),
-                        'onclick' => 'setLocation(\'' . $this->getUrl('*/compiler_process/enable') . '\')',
-                        'class'     => 'save'
+            $this->setChild('change_status_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                            ->setData(array(
+                                'label' => Mage::helper('compiler')->__('Enable'),
+                                'onclick' => 'setLocation(\'' . $this->getUrl('*/compiler_process/enable') . '\')',
+                                'class' => 'save'
             )));
         }
 
@@ -196,4 +193,5 @@ class Mage_Compiler_Block_Process extends Mage_Adminhtml_Block_Template
         }
         return $this->_getData('compiled_files_count');
     }
+
 }

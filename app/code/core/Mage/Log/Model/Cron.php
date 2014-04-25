@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Log Cron Model
  *
@@ -34,10 +34,11 @@
  */
 class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_EMAIL_LOG_CLEAN_TEMPLATE     = 'system/log/error_email_template';
-    const XML_PATH_EMAIL_LOG_CLEAN_IDENTITY     = 'system/log/error_email_identity';
-    const XML_PATH_EMAIL_LOG_CLEAN_RECIPIENT    = 'system/log/error_email';
-    const XML_PATH_LOG_CLEAN_ENABLED            = 'system/log/enabled';
+
+    const XML_PATH_EMAIL_LOG_CLEAN_TEMPLATE = 'system/log/error_email_template';
+    const XML_PATH_EMAIL_LOG_CLEAN_IDENTITY = 'system/log/error_email_identity';
+    const XML_PATH_EMAIL_LOG_CLEAN_RECIPIENT = 'system/log/error_email';
+    const XML_PATH_LOG_CLEAN_ENABLED = 'system/log/enabled';
 
     /**
      * Error messages
@@ -67,13 +68,10 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
         $emailTemplate = Mage::getModel('core/email_template');
         /* @var $emailTemplate Mage_Core_Model_Email_Template */
         $emailTemplate->setDesignConfig(array('area' => 'backend'))
-            ->sendTransactional(
-                Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_TEMPLATE),
-                Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_IDENTITY),
-                Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_RECIPIENT),
-                null,
-                array('warnings' => join("\n", $this->_errors))
-            );
+                ->sendTransactional(
+                        Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_TEMPLATE), Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_IDENTITY), Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_RECIPIENT), null, array(
+                    'warnings' => join("\n", $this->_errors))
+        );
 
         $translate->setTranslateInline(true);
 
@@ -93,10 +91,12 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
 
         $this->_errors = array();
 
-        try {
+        try
+        {
             Mage::getModel('log/log')->clean();
         }
-        catch (Exception $e) {
+        catch (Exception $e)
+        {
             $this->_errors[] = $e->getMessage();
             $this->_errors[] = $e->getTrace();
         }
@@ -105,4 +105,5 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
 
         return $this;
     }
+
 }

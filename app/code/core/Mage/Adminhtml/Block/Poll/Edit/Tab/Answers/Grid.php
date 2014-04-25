@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -46,8 +47,8 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Grid extends Mage_Adminhtml_Blo
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('poll/poll_answer')
-            ->getResourceCollection()
-            ->addPollFilter($this->getRequest()->getParam('id'));
+                ->getResourceCollection()
+                ->addPollFilter($this->getRequest()->getParam('id'));
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -55,37 +56,37 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Grid extends Mage_Adminhtml_Blo
     protected function _prepareColumns()
     {
         $this->addColumn('answer_id', array(
-            'header'    => Mage::helper('poll')->__('ID'),
-            'align'     =>'right',
-            'width'     => '50px',
-            'index'     => 'answer_id',
+            'header' => Mage::helper('poll')->__('ID'),
+            'align' => 'right',
+            'width' => '50px',
+            'index' => 'answer_id',
         ));
 
         $this->addColumn('answer_title', array(
-            'header'    => Mage::helper('poll')->__('Answer Title'),
-            'align'     =>'left',
-            'index'     => 'answer_title',
+            'header' => Mage::helper('poll')->__('Answer Title'),
+            'align' => 'left',
+            'index' => 'answer_title',
         ));
 
         $this->addColumn('votes_count', array(
-            'header'    => Mage::helper('poll')->__('Votes Count'),
-            'type'      => 'number',
-            'width'     => '50px',
-            'index'     => 'votes_count',
+            'header' => Mage::helper('poll')->__('Votes Count'),
+            'type' => 'number',
+            'width' => '50px',
+            'index' => 'votes_count',
         ));
 
         $this->addColumn('actions', array(
-            'header'    => Mage::helper('poll')->__('Actions'),
-            'align'     => 'center',
-            'type'      => 'action',
-            'width'     => '10px',
-            'filter'    => false,
-            'sortable'  => false,
-            'actions'   => array(
+            'header' => Mage::helper('poll')->__('Actions'),
+            'align' => 'center',
+            'type' => 'action',
+            'width' => '10px',
+            'filter' => false,
+            'sortable' => false,
+            'actions' => array(
                 array(
-                    'caption'   => Mage::helper('poll')->__('Delete'),
-                    'onClick'   => 'return answers.delete(\'$answer_id\')',
-                    'url'       => '#',
+                    'caption' => Mage::helper('poll')->__('Delete'),
+                    'onClick' => 'return answers.delete(\'$answer_id\')',
+                    'url' => '#',
                 ),
             ),
         ));

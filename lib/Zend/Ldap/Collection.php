@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 class Zend_Ldap_Collection implements Iterator, Countable
 {
+
     /**
      * Iterator
      *
@@ -236,4 +238,5 @@ class Zend_Ldap_Collection implements Iterator, Countable
             return $this->_iterator->valid();
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Abstract database storage model class
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Core_Model_File_Storage_Database_Abstract extends Mage_Core_Model_File_Storage_Abstract
 {
+
     /**
      * Class construct
      *
@@ -57,7 +58,7 @@ abstract class Mage_Core_Model_File_Storage_Database_Abstract extends Mage_Core_
     public function getConfigConnectionName()
     {
         $connectionName = (string) Mage::app()->getConfig()
-            ->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA_DATABASE);
+                        ->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA_DATABASE);
         if (empty($connectionName)) {
             $connectionName = 'default_setup';
         }
@@ -105,4 +106,5 @@ abstract class Mage_Core_Model_File_Storage_Database_Abstract extends Mage_Core_
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog indexer eav processor
  *
@@ -44,6 +44,7 @@
  */
 class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
+
     protected function _construct()
     {
         $this->_init('catalogindex/indexer_eav');
@@ -97,4 +98,5 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
         $conditions['or']['is_filterable'] = array(1, 2);
         $conditions['or']['is_visible_in_advanced_search'] = 1;
     }
+
 }

@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ProfileEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Entry
  */
@@ -44,6 +43,7 @@
  */
 class Zend_Gdata_Health_ProfileEntry extends Zend_Gdata_Entry
 {
+
     /**
      * The classname for individual profile entry elements.
      *
@@ -83,7 +83,7 @@ class Zend_Gdata_Health_ProfileEntry extends Zend_Gdata_Entry
     {
         $element = parent::getDOM($doc, $majorVersion, $minorVersion);
         if ($this->_ccrData !== null) {
-          $element->appendChild($this->_ccrData->getDOM($element->ownerDocument));
+            $element->appendChild($this->_ccrData->getDOM($element->ownerDocument));
         }
 
         return $element;
@@ -105,7 +105,6 @@ class Zend_Gdata_Health_ProfileEntry extends Zend_Gdata_Entry
             $this->_ccrData = $ccrElement;
         } else {
             parent::takeChildFromDOM($child);
-
         }
     }
 
@@ -114,22 +113,24 @@ class Zend_Gdata_Health_ProfileEntry extends Zend_Gdata_Entry
      * @param string $ccrXMLStr The CCR as an xml string
      * @return Zend_Gdata_Health_Extension_Ccr
      */
-    public function setCcr($ccrXMLStr) {
+    public function setCcr($ccrXMLStr)
+    {
         $ccrElement = null;
         if ($ccrXMLStr != null) {
-          $ccrElement = new Zend_Gdata_Health_Extension_Ccr();
-          $ccrElement->transferFromXML($ccrXMLStr);
-          $this->_ccrData = $ccrElement;
+            $ccrElement = new Zend_Gdata_Health_Extension_Ccr();
+            $ccrElement->transferFromXML($ccrXMLStr);
+            $this->_ccrData = $ccrElement;
         }
         return $ccrElement;
     }
-
 
     /**
      * Returns all the CCR data in a profile entry
      * @return Zend_Gdata_Health_Extension_Ccr
      */
-    public function getCcr() {
+    public function getCcr()
+    {
         return $this->_ccrData;
     }
+
 }

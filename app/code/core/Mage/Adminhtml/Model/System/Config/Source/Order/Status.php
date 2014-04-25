@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Order_Status
 {
+
     // set null to enable all possible
     protected $_stateStatuses = array(
         Mage_Sales_Model_Order::STATE_NEW,
@@ -44,21 +46,21 @@ class Mage_Adminhtml_Model_System_Config_Source_Order_Status
     {
         if ($this->_stateStatuses) {
             $statuses = Mage::getSingleton('sales/order_config')->getStateStatuses($this->_stateStatuses);
-        }
-        else {
+        } else {
             $statuses = Mage::getSingleton('sales/order_config')->getStatuses();
         }
         $options = array();
         $options[] = array(
-               'value' => '',
-               'label' => Mage::helper('adminhtml')->__('-- Please Select --')
-            );
-        foreach ($statuses as $code=>$label) {
+            'value' => '',
+            'label' => Mage::helper('adminhtml')->__('-- Please Select --')
+        );
+        foreach ($statuses as $code => $label) {
             $options[] = array(
-               'value' => $code,
-               'label' => $label
+                'value' => $code,
+                'label' => $label
             );
         }
         return $options;
     }
+
 }

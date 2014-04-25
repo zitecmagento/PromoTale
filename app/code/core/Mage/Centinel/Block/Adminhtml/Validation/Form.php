@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Centinel
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Centinel_Block_Adminhtml_Validation_Form extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
+
     /**
      * Prepare validation and template parameters
      */
@@ -43,13 +44,13 @@ class Mage_Centinel_Block_Adminhtml_Validation_Form extends Mage_Adminhtml_Block
         if ($payment && $method = $payment->getMethodInstance()) {
             if ($method->getIsCentinelValidationEnabled() && $centinel = $method->getCentinelValidator()) {
                 $this->setFrameUrl($centinel->getValidatePaymentDataUrl())
-                    ->setContainerId('centinel_authenticate_iframe')
-                    ->setMethodCode($method->getCode())
+                        ->setContainerId('centinel_authenticate_iframe')
+                        ->setMethodCode($method->getCode())
                 ;
                 return parent::_toHtml();
             }
         }
         return '';
     }
-}
 
+}

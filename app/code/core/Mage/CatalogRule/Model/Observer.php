@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_CatalogRule_Model_Observer
 {
+
     /**
      * Store calculated catalog rules prices for products
      * Prices collected per website, customer group, date and product
@@ -69,8 +71,8 @@ class Mage_CatalogRule_Model_Observer
         $resource = Mage::getResourceSingleton('catalogrule/rule');
         $resource->applyAllRules();
         Mage::getModel('catalogrule/flag')->loadSelf()
-            ->setState(0)
-            ->save();
+                ->setState(0)
+                ->save();
 
         return $this;
     }
@@ -84,9 +86,9 @@ class Mage_CatalogRule_Model_Observer
      */
     public function processFrontFinalPrice($observer)
     {
-        $product    = $observer->getEvent()->getProduct();
-        $pId        = $product->getId();
-        $storeId    = $product->getStoreId();
+        $product = $observer->getEvent()->getProduct();
+        $pId = $product->getId();
+        $storeId = $product->getStoreId();
 
         if ($observer->hasDate()) {
             $date = $observer->getEvent()->getDate();
@@ -111,10 +113,10 @@ class Mage_CatalogRule_Model_Observer
         $key = "$date|$wId|$gId|$pId";
         if (!isset($this->_rulePrices[$key])) {
             $rulePrice = Mage::getResourceModel('catalogrule/rule')
-                ->getRulePrice($date, $wId, $gId, $pId);
+                    ->getRulePrice($date, $wId, $gId, $pId);
             $this->_rulePrices[$key] = $rulePrice;
         }
-        if ($this->_rulePrices[$key]!==false) {
+        if ($this->_rulePrices[$key] !== false) {
             $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
             $product->setFinalPrice($finalPrice);
         }
@@ -141,8 +143,7 @@ class Mage_CatalogRule_Model_Observer
             $pId = $product->getId();
 
             $key = "$date|$wId|$gId|$pId";
-        }
-        elseif (!is_null($product->getWebsiteId()) && !is_null($product->getCustomerGroupId())) {
+        } elseif (!is_null($product->getWebsiteId()) && !is_null($product->getCustomerGroupId())) {
             $wId = $product->getWebsiteId();
             $gId = $product->getCustomerGroupId();
             $pId = $product->getId();
@@ -152,10 +153,10 @@ class Mage_CatalogRule_Model_Observer
         if ($key) {
             if (!isset($this->_rulePrices[$key])) {
                 $rulePrice = Mage::getResourceModel('catalogrule/rule')
-                    ->getRulePrice($date, $wId, $gId, $pId);
+                        ->getRulePrice($date, $wId, $gId, $pId);
                 $this->_rulePrices[$key] = $rulePrice;
             }
-            if ($this->_rulePrices[$key]!==false) {
+            if ($this->_rulePrices[$key] !== false) {
                 $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
                 $product->setFinalPrice($finalPrice);
             }
@@ -174,8 +175,7 @@ class Mage_CatalogRule_Model_Observer
     public function catalogProductTypeConfigurablePrice(Varien_Event_Observer $observer)
     {
         $product = $observer->getEvent()->getProduct();
-        if ($product instanceof Mage_Catalog_Model_Product
-            && $product->getConfigurablePrice() !== null
+        if ($product instanceof Mage_Catalog_Model_Product && $product->getConfigurablePrice() !== null
         ) {
             $configurablePrice = $product->getConfigurablePrice();
             $productPriceRule = Mage::getModel('catalogrule/rule')->calcProductPriceRule($product, $configurablePrice);
@@ -222,18 +222,17 @@ class Mage_CatalogRule_Model_Observer
      */
     public function prepareCatalogProductPriceIndexTable(Varien_Event_Observer $observer)
     {
-        $select             = $observer->getEvent()->getSelect();
+        $select = $observer->getEvent()->getSelect();
 
-        $indexTable         = $observer->getEvent()->getIndexTable();
-        $entityId           = $observer->getEvent()->getEntityId();
-        $customerGroupId    = $observer->getEvent()->getCustomerGroupId();
-        $websiteId          = $observer->getEvent()->getWebsiteId();
-        $websiteDate        = $observer->getEvent()->getWebsiteDate();
-        $updateFields       = $observer->getEvent()->getUpdateFields();
+        $indexTable = $observer->getEvent()->getIndexTable();
+        $entityId = $observer->getEvent()->getEntityId();
+        $customerGroupId = $observer->getEvent()->getCustomerGroupId();
+        $websiteId = $observer->getEvent()->getWebsiteId();
+        $websiteDate = $observer->getEvent()->getWebsiteDate();
+        $updateFields = $observer->getEvent()->getUpdateFields();
 
         Mage::getSingleton('catalogrule/rule_product_price')
-            ->applyPriceRuleToIndexTable($select, $indexTable, $entityId, $customerGroupId, $websiteId,
-                $updateFields, $websiteDate);
+                ->applyPriceRuleToIndexTable($select, $indexTable, $entityId, $customerGroupId, $websiteId, $updateFields, $websiteDate);
 
         return $this;
     }
@@ -250,7 +249,7 @@ class Mage_CatalogRule_Model_Observer
     {
         /* @var $collection Mage_CatalogRule_Model_Mysql4_Rule_Collection */
         $collection = Mage::getResourceModel('catalogrule/rule_collection')
-            ->addAttributeInConditionFilter($attributeCode);
+                ->addAttributeInConditionFilter($attributeCode);
 
         $disabledRulesCount = 0;
         foreach ($collection as $rule) {
@@ -266,7 +265,7 @@ class Mage_CatalogRule_Model_Observer
         if ($disabledRulesCount) {
             Mage::getModel('catalogrule/rule')->applyAll();
             Mage::getSingleton('adminhtml/session')->addWarning(
-                Mage::helper('catalogrule')->__('%d Catalog Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode));
+                    Mage::helper('catalogrule')->__('%d Catalog Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode));
         }
 
         return $this;
@@ -332,8 +331,8 @@ class Mage_CatalogRule_Model_Observer
     {
         /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
         $collection = $observer->getEvent()->getCollection();
-        $store      = Mage::app()->getStore($observer->getEvent()->getStoreId());
-        $websiteId  = $store->getWebsiteId();
+        $store = Mage::app()->getStore($observer->getEvent()->getStoreId());
+        $websiteId = $store->getWebsiteId();
         if ($observer->getEvent()->hasCustomerGroupId()) {
             $groupId = $observer->getEvent()->getCustomerGroupId();
         } else {
@@ -362,7 +361,7 @@ class Mage_CatalogRule_Model_Observer
 
         if ($productIds) {
             $rulePrices = Mage::getResourceModel('catalogrule/rule')
-                ->getRulePrices($date, $websiteId, $groupId, $productIds);
+                    ->getRulePrices($date, $websiteId, $groupId, $productIds);
             foreach ($productIds as $productId) {
                 $key = implode('|', array($date, $websiteId, $groupId, $productId));
                 $this->_rulePrices[$key] = isset($rulePrices[$productId]) ? $rulePrices[$productId] : false;
@@ -387,7 +386,7 @@ class Mage_CatalogRule_Model_Observer
         }
 
         $rules = Mage::getModel('catalogrule/rule')->getCollection()
-            ->addFieldToFilter('is_active', 1);
+                ->addFieldToFilter('is_active', 1);
 
         foreach ($rules as $rule) {
             $rule->setProductsFilter($affectedEntityIds);
@@ -407,4 +406,5 @@ class Mage_CatalogRule_Model_Observer
             $indexProcess->reindexAll();
         }
     }
+
 }

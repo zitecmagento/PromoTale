@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bundle Selections Resource Collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
+
     /**
      * Selection table name
      *
@@ -75,9 +76,8 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
     protected function _initSelect()
     {
         parent::_initSelect();
-        $this->getSelect()->join(array('selection' => $this->_selectionTable),
-            'selection.product_id = e.entity_id',
-            array('*')
+        $this->getSelect()->join(array('selection' => $this->_selectionTable), 'selection.product_id = e.entity_id', array(
+            '*')
         );
     }
 
@@ -91,22 +91,16 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
     {
         $adapter = $this->getConnection();
         $priceType = $adapter->getCheckSql(
-            'price.selection_price_type IS NOT NULL',
-            'price.selection_price_type',
-            'selection.selection_price_type'
+                'price.selection_price_type IS NOT NULL', 'price.selection_price_type', 'selection.selection_price_type'
         );
         $priceValue = $adapter->getCheckSql(
-            'price.selection_price_value IS NOT NULL',
-            'price.selection_price_value',
-            'selection.selection_price_value'
+                'price.selection_price_value IS NOT NULL', 'price.selection_price_value', 'selection.selection_price_value'
         );
-        $this->getSelect()->joinLeft(array('price' => $this->getTable('bundle/selection_price')),
-            'selection.selection_id = price.selection_id AND price.website_id = ' . (int)$websiteId,
-            array(
-                'selection_price_type' => $priceType,
-                'selection_price_value' => $priceValue,
-                'price_scope' => 'price.website_id'
-            )
+        $this->getSelect()->joinLeft(array('price' => $this->getTable('bundle/selection_price')), 'selection.selection_id = price.selection_id AND price.website_id = ' . (int) $websiteId, array(
+            'selection_price_type' => $priceType,
+            'selection_price_value' => $priceValue,
+            'price_scope' => 'price.website_id'
+                )
         );
         return $this;
     }
@@ -147,7 +141,8 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
     public function setPositionOrder()
     {
         $this->getSelect()->order('selection.position asc')
-            ->order('selection.selection_id asc');
+                ->order('selection.selection_id asc');
         return $this;
     }
+
 }

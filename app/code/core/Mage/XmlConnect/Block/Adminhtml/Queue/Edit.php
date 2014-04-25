@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,14 +34,15 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Queue_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->_objectId    = 'id';
-        $this->_controller  = 'adminhtml_queue';
-        $this->_blockGroup  = 'xmlconnect';
+        $this->_objectId = 'id';
+        $this->_controller = 'adminhtml_queue';
+        $this->_blockGroup = 'xmlconnect';
         parent::__construct();
 
         $message = Mage::registry('current_message');
@@ -64,9 +66,8 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit extends Mage_Adminhtml_Block_Wi
     public function getBackUrl()
     {
         $template = Mage::registry('current_template');
-        $message  = Mage::registry('current_message');
-        return $message && !$message->getId() && $template && $template->getId() ? $this->getUrl('*/*/template')
-            : $this->getUrl('*/*/queue');
+        $message = Mage::registry('current_message');
+        return $message && !$message->getId() && $template && $template->getId() ? $this->getUrl('*/*/template') : $this->getUrl('*/*/queue');
     }
 
     /**
@@ -83,4 +84,5 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit extends Mage_Adminhtml_Block_Wi
             return $this->__('New AirMail Message Queue');
         }
     }
+
 }

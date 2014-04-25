@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ClientAbstract.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /**
  * @see Zend_Service_DeveloperGarden_Client_Soap
  */
@@ -45,22 +45,23 @@
  */
 abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
 {
+
     /**
      * constants for using with the odg api
      */
     const ENV_PRODUCTION = 1; // Production Environment
-    const ENV_SANDBOX    = 2; // Sandbox Environment, limited access to the api
-    const ENV_MOCK       = 3; // Api calls are without any functionality
-
+    const ENV_SANDBOX = 2; // Sandbox Environment, limited access to the api
+    const ENV_MOCK = 3; // Api calls are without any functionality
     const PARTICIPANT_MUTE_OFF = 0; // removes mute from participant in a conference
-    const PARTICIPANT_MUTE_ON  = 1; // mute participant in a conference
-    const PARTICIPANT_RECALL   = 2; // recalls the participant in a conference
+    const PARTICIPANT_MUTE_ON = 1; // mute participant in a conference
+    const PARTICIPANT_RECALL = 2; // recalls the participant in a conference
 
     /**
      * array of all possible env types
      *
      * @var int
      */
+
     static protected $_consts = null;
 
     /**
@@ -219,17 +220,16 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
              * init the soapClient
              */
             $this->_soapClient = new Zend_Service_DeveloperGarden_Client_Soap(
-                $this->getWsdl(),
-                $this->getClientOptions()
+                    $this->getWsdl(), $this->getClientOptions()
             );
             $this->_soapClient->setCredential($this->_credential);
             $tokenService = new Zend_Service_DeveloperGarden_SecurityTokenServer(
-                array(
-                    'username'    => $this->_credential->getUsername(),
-                    'password'    => $this->_credential->getPassword(),
-                    'environment' => $this->getEnvironment(),
-                    'realm'       => $this->_credential->getRealm(),
-                )
+                    array(
+                'username' => $this->_credential->getUsername(),
+                'password' => $this->_credential->getPassword(),
+                'environment' => $this->getEnvironment(),
+                'realm' => $this->_credential->getRealm(),
+                    )
             );
             $this->_soapClient->setTokenService($tokenService);
         }
@@ -392,7 +392,7 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
         if (!array_key_exists($action, self::getParticipantActions())) {
             #require_once 'Zend/Service/DeveloperGarden/Client/Exception.php';
             throw new Zend_Service_DeveloperGarden_Client_Exception(
-                'Wrong Participant Action ' . $action . ' supplied.'
+            'Wrong Participant Action ' . $action . ' supplied.'
             );
         }
     }
@@ -423,8 +423,9 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
         if (!array_key_exists($environment, self::getEnvironments())) {
             #require_once 'Zend/Service/DeveloperGarden/Client/Exception.php';
             throw new Zend_Service_DeveloperGarden_Client_Exception(
-                'Wrong environment ' . $environment . ' supplied.'
+            'Wrong environment ' . $environment . ' supplied.'
             );
         }
     }
+
 }

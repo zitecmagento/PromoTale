@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: FilesSize.php 20454 2010-01-20 22:50:59Z thomas $
  */
-
 /**
  * @see Zend_Validate_File_Size
  */
@@ -34,19 +34,20 @@
  */
 class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
 {
+
     /**
      * @const string Error constants
      */
-    const TOO_BIG      = 'fileFilesSizeTooBig';
-    const TOO_SMALL    = 'fileFilesSizeTooSmall';
+    const TOO_BIG = 'fileFilesSizeTooBig';
+    const TOO_SMALL = 'fileFilesSizeTooSmall';
     const NOT_READABLE = 'fileFilesSizeNotReadable';
 
     /**
      * @var array Error message templates
      */
     protected $_messageTemplates = array(
-        self::TOO_BIG      => "All files in sum should have a maximum size of '%max%' but '%size%' were detected",
-        self::TOO_SMALL    => "All files in sum should have a minimum size of '%min%' but '%size%' were detected",
+        self::TOO_BIG => "All files in sum should have a maximum size of '%max%' but '%size%' were detected",
+        self::TOO_SMALL => "All files in sum should have a minimum size of '%min%' but '%size%' were detected",
         self::NOT_READABLE => "One or more files can not be read",
     );
 
@@ -109,8 +110,8 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
             $value = array($value);
         }
 
-        $min  = $this->getMin(true);
-        $max  = $this->getMax(true);
+        $min = $this->getMin(true);
+        $max = $this->getMax(true);
         $size = $this->_getSize();
         foreach ($value as $files) {
             // Is file readable ?
@@ -131,10 +132,10 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
             $this->_size = $size;
             if (($max !== null) && ($max < $size)) {
                 if ($this->useByteString()) {
-                    $this->_max  = $this->_toByteString($max);
+                    $this->_max = $this->_toByteString($max);
                     $this->_size = $this->_toByteString($size);
                     $this->_throw($file, self::TOO_BIG);
-                    $this->_max  = $max;
+                    $this->_max = $max;
                     $this->_size = $size;
                 } else {
                     $this->_throw($file, self::TOO_BIG);
@@ -145,10 +146,10 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
         // Check that aggregate files are >= minimum size
         if (($min !== null) && ($size < $min)) {
             if ($this->useByteString()) {
-                $this->_min  = $this->_toByteString($min);
+                $this->_min = $this->_toByteString($min);
                 $this->_size = $this->_toByteString($size);
                 $this->_throw($file, self::TOO_SMALL);
-                $this->_min  = $min;
+                $this->_min = $min;
                 $this->_size = $size;
             } else {
                 $this->_throw($file, self::TOO_SMALL);
@@ -161,4 +162,5 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
 
         return true;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Double.php 21158 2010-02-23 17:56:23Z matthew $
  */
-
-
 /**
  * Zend_XmlRpc_Value_Scalar
  */
 #require_once 'Zend/XmlRpc/Value/Scalar.php';
-
 
 /**
  * @category   Zend
@@ -45,9 +43,9 @@ class Zend_XmlRpc_Value_Double extends Zend_XmlRpc_Value_Scalar
     public function __construct($value)
     {
         $this->_type = self::XMLRPC_TYPE_DOUBLE;
-        $precision = (int)ini_get('precision');
+        $precision = (int) ini_get('precision');
         $formatString = '%1.' . $precision . 'F';
-        $this->_value = rtrim(sprintf($formatString, (float)$value), '0');
+        $this->_value = rtrim(sprintf($formatString, (float) $value), '0');
     }
 
     /**
@@ -57,6 +55,7 @@ class Zend_XmlRpc_Value_Double extends Zend_XmlRpc_Value_Scalar
      */
     public function getValue()
     {
-        return (float)$this->_value;
+        return (float) $this->_value;
     }
+
 }

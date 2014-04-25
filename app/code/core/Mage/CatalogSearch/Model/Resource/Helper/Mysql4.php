@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogSearch Mysql resource helper model
  *
@@ -43,7 +43,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      */
     public function chooseFulltext($table, $alias, $select)
     {
-        $field = new Zend_Db_Expr('MATCH ('.$alias.'.data_index) AGAINST (:query IN BOOLEAN MODE)');
+        $field = new Zend_Db_Expr('MATCH (' . $alias . '.data_index) AGAINST (:query IN BOOLEAN MODE)');
         $select->columns(array('relevance' => $field));
         return $field;
     }
@@ -66,10 +66,10 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
             '*' => '*',
         );
         $brackets = array(
-            '('       => '(',
-            ')'       => ')'
+            '(' => '(',
+            ')' => ')'
         );
-        $words = array(0=>"");
+        $words = array(0 => "");
         $terms = array();
         preg_match_all('/([\(\)]|[\"\'][^"\']*[\"\']|[^\s\"\(\)]*)/uis', $str, $matches);
         $isOpenBracket = 0;
@@ -81,7 +81,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
                 $isBracket = in_array($word, $brackets);
                 if (!$isBool && !$isBracket) {
                     $terms[$word] = $word;
-                    $word = '"'.$word.'"';
+                    $word = '"' . $word . '"';
                     $words[] = $word;
                 } else if ($isBracket) {
                     if ($word == '(') {
@@ -96,9 +96,9 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
             }
         }
         if ($isOpenBracket > 0) {
-            $words[] = sprintf("%')".$isOpenBracket."s", '');
+            $words[] = sprintf("%')" . $isOpenBracket . "s", '');
         } else if ($isOpenBracket < 0) {
-            $words[0] = sprintf("%'(".$isOpenBracket."s", '');
+            $words[0] = sprintf("%'(" . $isOpenBracket . "s", '');
         }
         if ($maxWordLength && count($terms) > $maxWordLength) {
             $terms = array_slice($terms, 0, $maxWordLength);
@@ -115,7 +115,9 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      * @param arrat $fields update fields pairs or values
      * @return int The number of affected rows.
      */
-    public function insertOnDuplicate($table, array $data, array $fields = array()) {
+    public function insertOnDuplicate($table, array $data, array $fields = array())
+    {
         return $this->_getWriteAdapter()->insertOnDuplicate($table, $data, $fields);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Integer.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Zend_XmlRpc_Value_Scalar
  */
 #require_once 'Zend/XmlRpc/Value/Scalar.php';
-
 
 /**
  * @category   Zend
@@ -50,7 +48,7 @@ class Zend_XmlRpc_Value_Integer extends Zend_XmlRpc_Value_Scalar
         }
 
         $this->_type = self::XMLRPC_TYPE_INTEGER;
-        $this->_value = (int)$value;    // Make sure this value is integer
+        $this->_value = (int) $value;    // Make sure this value is integer
     }
 
     /**
@@ -62,4 +60,5 @@ class Zend_XmlRpc_Value_Integer extends Zend_XmlRpc_Value_Scalar
     {
         return $this->_value;
     }
+
 }

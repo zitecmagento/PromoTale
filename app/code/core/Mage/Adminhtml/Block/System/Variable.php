@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_System_Variable extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     /**
      * Block constructor
      */
@@ -44,4 +45,5 @@ class Mage_Adminhtml_Block_System_Variable extends Mage_Adminhtml_Block_Widget_G
         parent::__construct();
         $this->_updateButton('add', 'label', Mage::helper('adminhtml')->__('Add New Variable'));
     }
+
 }

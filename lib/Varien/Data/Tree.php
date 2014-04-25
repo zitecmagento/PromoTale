@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Data tree
@@ -66,8 +66,9 @@ class Varien_Data_Tree
      *
      * @param Varien_Data_Tree_Node $parentNode
      */
-    public function load($parentNode=null)
+    public function load($parentNode = null)
     {
+        
     }
 
     /**
@@ -77,6 +78,7 @@ class Varien_Data_Tree
      */
     public function loadNode($nodeId)
     {
+        
     }
 
     /**
@@ -87,12 +89,11 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $prevNode
      * @return Varien_Data_Tree_Node
      */
-    public function appendChild($data=array(), $parentNode, $prevNode=null)
+    public function appendChild($data = array(), $parentNode, $prevNode = null)
     {
         if (is_array($data)) {
             $node = $this->addNode(
-                new Varien_Data_Tree_Node($data, $parentNode->getIdField(), $this),
-                $parentNode
+                    new Varien_Data_Tree_Node($data, $parentNode->getIdField(), $this), $parentNode
             );
         } elseif ($data instanceof Varien_Data_Tree_Node) {
             $node = $this->addNode($data, $parentNode);
@@ -107,11 +108,11 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $parent
      * @return Varien_Data_Tree_Node
      */
-    public function addNode($node, $parent=null)
+    public function addNode($node, $parent = null)
     {
         $this->_nodes->add($node);
         $node->setParent($parent);
-        if (!is_null($parent) && ($parent instanceof Varien_Data_Tree_Node) ) {
+        if (!is_null($parent) && ($parent instanceof Varien_Data_Tree_Node)) {
             $parent->addChild($node);
         }
         return $node;
@@ -124,8 +125,9 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
      */
-    public function moveNodeTo($node, $parentNode, $prevNode=null)
+    public function moveNodeTo($node, $parentNode, $prevNode = null)
     {
+        
     }
 
     /**
@@ -135,8 +137,9 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
      */
-    public function copyNodeTo($node, $parentNode, $prevNode=null)
+    public function copyNodeTo($node, $parentNode, $prevNode = null)
     {
+        
     }
 
     /**
@@ -161,8 +164,9 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
      */
-    public function createNode($parentNode, $prevNode=null)
+    public function createNode($parentNode, $prevNode = null)
     {
+        
     }
 
     /**
@@ -172,6 +176,7 @@ class Varien_Data_Tree
      */
     public function getChild($node)
     {
+        
     }
 
     /**
@@ -181,6 +186,7 @@ class Varien_Data_Tree
      */
     public function getChildren($node)
     {
+        
     }
 
     /**
@@ -212,9 +218,9 @@ class Varien_Data_Tree
      */
     public function getPath($node)
     {
-        if ($node instanceof Varien_Data_Tree_Node ) {
-
-        } elseif (is_numeric($node)){
+        if ($node instanceof Varien_Data_Tree_Node) {
+            
+        } elseif (is_numeric($node)) {
             if ($_node = $this->getNodeById($node)) {
                 return $_node->getPath();
             }

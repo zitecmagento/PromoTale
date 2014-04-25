@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,16 +24,15 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /** @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 $installer->startSetup();
 
 //Increase password field length
 $installer->getConnection()->changeColumn($installer->getTable('admin/user'), 'password', 'password', array(
-    'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-    'length'    => 100,
-    'comment'   => 'User Password'
+    'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
+    'length' => 100,
+    'comment' => 'User Password'
 ));
 
 $installer->endSetup();

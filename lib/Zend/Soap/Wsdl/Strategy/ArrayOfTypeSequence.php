@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ArrayOfTypeSequence.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Soap_Wsdl_Strategy_DefaultComplexType
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strategy_DefaultComplexType
 {
+
     /**
      * Add an unbounded ArrayOfType based on the xsd:sequence syntax if type[] is detected in return value doc comment.
      *
@@ -45,12 +46,12 @@ class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strateg
     {
         $nestedCounter = $this->_getNestedCount($type);
 
-        if($nestedCounter > 0) {
+        if ($nestedCounter > 0) {
             $singularType = $this->_getSingularType($type);
 
-            for($i = 1; $i <= $nestedCounter; $i++) {
+            for ($i = 1; $i <= $nestedCounter; $i++) {
                 $complexTypeName = substr($this->_getTypeNameBasedOnNestingLevel($singularType, $i), 4);
-                $childTypeName = $this->_getTypeNameBasedOnNestingLevel($singularType, $i-1);
+                $childTypeName = $this->_getTypeNameBasedOnNestingLevel($singularType, $i - 1);
 
                 $this->_addElementFromWsdlAndChildTypes($complexTypeName, $childTypeName);
             }
@@ -76,13 +77,13 @@ class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strateg
      */
     protected function _getTypeNameBasedOnNestingLevel($singularType, $level)
     {
-        if($level == 0) {
+        if ($level == 0) {
             // This is not an Array anymore, return the xsd simple type
             return $singularType;
         } else {
             $prefix = str_repeat("ArrayOf", $level);
             $xsdType = $this->_getStrippedXsdType($singularType);
-            $arrayType = $prefix.$xsdType;
+            $arrayType = $prefix . $xsdType;
             return "tns:$arrayType";
         }
     }
@@ -140,8 +141,8 @@ class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strateg
             $sequence = $dom->createElement('xsd:sequence');
 
             $element = $dom->createElement('xsd:element');
-            $element->setAttribute('name',      'item');
-            $element->setAttribute('type',      $childTypeName);
+            $element->setAttribute('name', 'item');
+            $element->setAttribute('type', $childTypeName);
             $element->setAttribute('minOccurs', 0);
             $element->setAttribute('maxOccurs', 'unbounded');
             $sequence->appendChild($element);
@@ -152,4 +153,5 @@ class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strateg
             $this->getContext()->addType($arrayType);
         }
     }
+
 }

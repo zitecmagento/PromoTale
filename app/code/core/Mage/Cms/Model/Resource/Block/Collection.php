@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CMS block model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Cms_Model_Resource_Block_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+
     /**
      * Define resource model
      *
@@ -102,9 +103,7 @@ class Mage_Cms_Model_Resource_Block_Collection extends Mage_Core_Model_Resource_
     {
         if ($this->getFilter('store')) {
             $this->getSelect()->join(
-                array('store_table' => $this->getTable('cms/block_store')),
-                'main_table.block_id = store_table.block_id',
-                array()
+                    array('store_table' => $this->getTable('cms/block_store')), 'main_table.block_id = store_table.block_id', array()
             )->group('main_table.block_id');
 
             /*

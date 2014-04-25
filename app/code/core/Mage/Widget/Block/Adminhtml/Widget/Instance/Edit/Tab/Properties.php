@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,10 +32,9 @@
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties
-    extends Mage_Widget_Block_Adminhtml_Widget_Options
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties extends Mage_Widget_Block_Adminhtml_Widget_Options implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     /**
      * Prepare label for tab
      *
@@ -94,7 +94,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties
     protected function _preparelayout()
     {
         $this->setWidgetType($this->getWidgetInstance()->getType())
-            ->setWidgetValues($this->getWidgetInstance()->getWidgetParameters());
+                ->setWidgetValues($this->getWidgetInstance()->getWidgetParameters());
         return parent::_prepareLayout();
     }
 
@@ -111,4 +111,5 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties
         }
         return false;
     }
+
 }

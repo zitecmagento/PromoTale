@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adminhtml_Block_Widget_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -42,13 +43,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         $this->setSkipGenerateContent(true);
         $this->setUseAjax(true);
         if ($this->_getProduct()->getId()) {
-            $this->setDefaultFilter(array('in_products'=>1));
+            $this->setDefaultFilter(array('in_products' => 1));
         }
     }
 
     public function getTabUrl()
     {
-        return $this->getUrl('*/*/superGroup', array('_current'=>true));
+        return $this->getUrl('*/*/superGroup', array('_current' => true));
     }
 
     public function getTabClass()
@@ -75,13 +76,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
                 $productIds = 0;
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', array('in'=>$productIds));
+                $this->getCollection()->addFieldToFilter('entity_id', array('in' => $productIds));
+            } else {
+                $this->getCollection()->addFieldToFilter('entity_id', array('nin' => $productIds));
             }
-            else {
-                $this->getCollection()->addFieldToFilter('entity_id', array('nin'=>$productIds));
-            }
-        }
-        else {
+        } else {
             parent::_addColumnFilterToCollection($column);
         }
 
@@ -97,17 +96,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     {
         $allowProductTypes = array();
         $allowProductTypeNodes = Mage::getConfig()
-            ->getNode('global/catalog/product/type/grouped/allow_product_types')->children();
+                        ->getNode('global/catalog/product/type/grouped/allow_product_types')->children();
         foreach ($allowProductTypeNodes as $type) {
             $allowProductTypes[] = $type->getName();
         }
 
         $collection = Mage::getModel('catalog/product_link')->useGroupedLinks()
-            ->getProductCollection()
-            ->setProduct($this->_getProduct())
-            ->addAttributeToSelect('*')
-            ->addFilterByRequiredOptions()
-            ->addAttributeToFilter('type_id', $allowProductTypes);
+                ->getProductCollection()
+                ->setProduct($this->_getProduct())
+                ->addAttributeToSelect('*')
+                ->addFilterByRequiredOptions()
+                ->addAttributeToFilter('type_id', $allowProductTypes);
 
         if ($this->getIsReadonly() === true) {
             $collection->addFieldToFilter('entity_id', array('in' => $this->_getSelectedProducts()));
@@ -120,53 +119,53 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     {
         $this->addColumn('in_products', array(
             'header_css_class' => 'a-center',
-            'type'      => 'checkbox',
-            'name'      => 'in_products',
-            'values'    => $this->_getSelectedProducts(),
-            'align'     => 'center',
-            'index'     => 'entity_id'
+            'type' => 'checkbox',
+            'name' => 'in_products',
+            'values' => $this->_getSelectedProducts(),
+            'align' => 'center',
+            'index' => 'entity_id'
         ));
 
         $this->addColumn('entity_id', array(
-            'header'    => Mage::helper('catalog')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60px',
-            'index'     => 'entity_id'
+            'header' => Mage::helper('catalog')->__('ID'),
+            'sortable' => true,
+            'width' => '60px',
+            'index' => 'entity_id'
         ));
         $this->addColumn('name', array(
-            'header'    => Mage::helper('catalog')->__('Name'),
-            'index'     => 'name'
+            'header' => Mage::helper('catalog')->__('Name'),
+            'index' => 'name'
         ));
         $this->addColumn('sku', array(
-            'header'    => Mage::helper('catalog')->__('SKU'),
-            'width'     => '80px',
-            'index'     => 'sku'
+            'header' => Mage::helper('catalog')->__('SKU'),
+            'width' => '80px',
+            'index' => 'sku'
         ));
         $this->addColumn('price', array(
-            'header'    => Mage::helper('catalog')->__('Price'),
-            'type'      => 'currency',
+            'header' => Mage::helper('catalog')->__('Price'),
+            'type' => 'currency',
             'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
-            'index'     => 'price'
+            'index' => 'price'
         ));
 
         $this->addColumn('qty', array(
-            'header'    => Mage::helper('catalog')->__('Default Qty'),
-            'name'      => 'qty',
-            'type'      => 'number',
+            'header' => Mage::helper('catalog')->__('Default Qty'),
+            'name' => 'qty',
+            'type' => 'number',
             'validate_class' => 'validate-number',
-            'index'     => 'qty',
-            'width'     => '1',
-            'editable'  => true
+            'index' => 'qty',
+            'width' => '1',
+            'editable' => true
         ));
 
         $this->addColumn('position', array(
-            'header'    => Mage::helper('catalog')->__('Position'),
-            'name'      => 'position',
-            'type'      => 'number',
+            'header' => Mage::helper('catalog')->__('Position'),
+            'name' => 'position',
+            'type' => 'number',
             'validate_class' => 'validate-number',
-            'index'     => 'position',
-            'width'     => '1',
-            'editable'  => true,
+            'index' => 'position',
+            'width' => '1',
+            'editable' => true,
             'edit_only' => !$this->_getProduct()->getId()
         ));
 
@@ -180,8 +179,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
      */
     public function getGridUrl()
     {
-        return $this->_getData('grid_url')
-            ? $this->_getData('grid_url') : $this->getUrl('*/*/superGroupGridOnly', array('_current'=>true));
+        return $this->_getData('grid_url') ? $this->_getData('grid_url') : $this->getUrl('*/*/superGroupGridOnly', array(
+                    '_current' => true));
     }
 
     /**
@@ -206,12 +205,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     public function getSelectedGroupedProducts()
     {
         $associatedProducts = Mage::registry('current_product')->getTypeInstance(true)
-            ->getAssociatedProducts(Mage::registry('current_product'));
+                ->getAssociatedProducts(Mage::registry('current_product'));
         $products = array();
         foreach ($associatedProducts as $product) {
             $products[$product->getId()] = array(
-                'qty'       => $product->getQty(),
-                'position'  => $product->getPosition()
+                'qty' => $product->getQty(),
+                'position' => $product->getPosition()
             );
         }
         return $products;
@@ -221,16 +220,20 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     {
         return Mage::helper('catalog')->__('Associated Products');
     }
+
     public function getTabTitle()
     {
         return Mage::helper('catalog')->__('Associated Products');
     }
+
     public function canShowTab()
     {
         return true;
     }
+
     public function isHidden()
     {
         return false;
     }
+
 }

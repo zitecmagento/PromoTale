@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Model_Import_Proxy_Product extends Mage_Catalog_Model_Product
 {
+
     /**
      * DO NOT Initialize resources.
      *
@@ -40,6 +42,7 @@ class Mage_ImportExport_Model_Import_Proxy_Product extends Mage_Catalog_Model_Pr
      */
     protected function _construct()
     {
+        
     }
 
     /**
@@ -51,4 +54,5 @@ class Mage_ImportExport_Model_Import_Proxy_Product extends Mage_Catalog_Model_Pr
     {
         return $this->_getData('id');
     }
+
 }

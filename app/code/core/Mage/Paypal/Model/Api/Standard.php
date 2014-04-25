@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,40 +30,41 @@
  */
 class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
 {
+
     /**
      * Global interface map and export filters
      * @var array
      */
     protected $_globalMap = array(
         // commands
-        'business'      => 'business_account',
-        'notify_url'    => 'notify_url',
-        'return'        => 'return_url',
+        'business' => 'business_account',
+        'notify_url' => 'notify_url',
+        'return' => 'return_url',
         'cancel_return' => 'cancel_url',
-        'bn'            => 'build_notation_code',
+        'bn' => 'build_notation_code',
         'paymentaction' => 'payment_action',
         // payment
-        'invoice'       => 'order_id',
+        'invoice' => 'order_id',
         'currency_code' => 'currency_code',
-        'amount'        => 'amount',
-        'shipping'      => 'shipping_amount',
-        'tax'           => 'tax_amount',
+        'amount' => 'amount',
+        'shipping' => 'shipping_amount',
+        'tax' => 'tax_amount',
         'discount_amount' => 'discount_amount',
         // misc
-        'item_name'        => 'cart_summary',
+        'item_name' => 'cart_summary',
         // page design settings
-        'page_style'             => 'page_style',
-        'cpp_header_image'       => 'hdrimg',
-        'cpp_headerback_color'   => 'hdrbackcolor',
+        'page_style' => 'page_style',
+        'cpp_header_image' => 'hdrimg',
+        'cpp_headerback_color' => 'hdrbackcolor',
         'cpp_headerborder_color' => 'hdrbordercolor',
-        'cpp_payflow_color'      => 'payflowcolor',
+        'cpp_payflow_color' => 'payflowcolor',
 //        'cs' => '', // TODO
-        'lc'                     => 'locale',
+        'lc' => 'locale',
     );
     protected $_exportToRequestFilters = array(
-        'amount'   => '_filterAmount',
+        'amount' => '_filterAmount',
         'shipping' => '_filterAmount',
-        'tax'      => '_filterAmount',
+        'tax' => '_filterAmount',
         'discount_amount' => '_filterAmount',
     );
 
@@ -76,7 +78,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         'amount', 'shipping', 'tax', 'discount_amount', 'item_name', 'lc',
     );
 
-   /**
+    /**
      * Fields that should be replaced in debug with '***'
      *
      * @var array
@@ -90,18 +92,17 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     protected $_lineItemTotalExportMap = array(
         Mage_Paypal_Model_Cart::TOTAL_SUBTOTAL => 'amount',
         Mage_Paypal_Model_Cart::TOTAL_DISCOUNT => 'discount_amount',
-        Mage_Paypal_Model_Cart::TOTAL_TAX      => 'tax',
+        Mage_Paypal_Model_Cart::TOTAL_TAX => 'tax',
         Mage_Paypal_Model_Cart::TOTAL_SHIPPING => 'shipping',
     );
     protected $_lineItemExportItemsFormat = array(
-        'id'     => 'item_number_%d',
-        'name'   => 'item_name_%d',
-        'qty'    => 'quantity_%d',
+        'id' => 'item_number_%d',
+        'name' => 'item_name_%d',
+        'qty' => 'quantity_%d',
         'amount' => 'amount_%d',
     );
-
     protected $_lineItemExportItemsFilters = array(
-         'qty'      => '_filterQty'
+        'qty' => '_filterQty'
     );
 
     /**
@@ -109,15 +110,15 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      * @var array
      */
     protected $_addressMap = array(
-        'city'       => 'city',
-        'country'    => 'country_id',
-        'email'      => 'email',
+        'city' => 'city',
+        'country' => 'country_id',
+        'email' => 'email',
         'first_name' => 'firstname',
-        'last_name'  => 'lastname',
-        'zip'        => 'postcode',
-        'state'      => 'region',
-        'address1'   => 'street',
-        'address2'   => 'street2',
+        'last_name' => 'lastname',
+        'zip' => 'postcode',
+        'state' => 'region',
+        'address1' => 'street',
+        'address2' => 'street2',
     );
 
     /**
@@ -133,7 +134,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         $isLineItems = $this->_exportLineItems($request);
         if ($isLineItems) {
             $request = array_merge($request, array(
-                'cmd'    => '_cart',
+                'cmd' => '_cart',
                 'upload' => 1,
             ));
             if (isset($request['tax'])) {
@@ -144,8 +145,8 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
             }
         } else {
             $request = array_merge($request, array(
-                'cmd'           => '_ext-enter',
-                'redirect_cmd'  => '_xclick',
+                'cmd' => '_ext-enter',
+                'redirect_cmd' => '_xclick',
             ));
         }
 
@@ -248,7 +249,8 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     {
         if (isset($request['country']) && $request['country'] == 'PR') {
             $request['country'] = 'US';
-            $request['state']   = 'PR';
+            $request['state'] = 'PR';
         }
     }
+
 }

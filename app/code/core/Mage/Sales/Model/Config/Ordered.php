@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Base
 {
+
     /**
      * Cache key for collectors
      *
@@ -106,7 +108,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
      */
     protected function _prepareConfigArray($code, $totalConfig)
     {
-        $totalConfig = (array)$totalConfig;
+        $totalConfig = (array) $totalConfig;
         if (isset($totalConfig['before'])) {
             $totalConfig['before'] = explode(',', $totalConfig['before']);
         } else {
@@ -147,10 +149,10 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
                         continue;
                     }
                     $configArray[$code]['before'] = array_unique(array_merge(
-                        $configArray[$code]['before'], $configArray[$beforeCode]['before']
+                                    $configArray[$code]['before'], $configArray[$beforeCode]['before']
                     ));
                     $configArray[$beforeCode]['after'] = array_merge(
-                        $configArray[$beforeCode]['after'], array($code), $data['after']
+                            $configArray[$beforeCode]['after'], array($code), $data['after']
                     );
                     $configArray[$beforeCode]['after'] = array_unique($configArray[$beforeCode]['after']);
                 }
@@ -159,10 +161,10 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
                         continue;
                     }
                     $configArray[$code]['after'] = array_unique(array_merge(
-                        $configArray[$code]['after'], $configArray[$afterCode]['after']
+                                    $configArray[$code]['after'], $configArray[$afterCode]['after']
                     ));
                     $configArray[$afterCode]['before'] = array_merge(
-                        $configArray[$afterCode]['before'], array($code), $data['before']
+                            $configArray[$afterCode]['before'], array($code), $data['before']
                     );
                     $configArray[$afterCode]['before'] = array_unique($configArray[$afterCode]['before']);
                 }
@@ -172,8 +174,8 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         $sortedCollectors = array_keys($configArray);
         if (Mage::app()->useCache('config')) {
             Mage::app()->saveCache(serialize($sortedCollectors), $this->_collectorsCacheKey, array(
-                    Mage_Core_Model_Config::CACHE_TAG
-                )
+                Mage_Core_Model_Config::CACHE_TAG
+                    )
             );
         }
         return $sortedCollectors;
@@ -237,4 +239,5 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         }
         return $res;
     }
+
 }

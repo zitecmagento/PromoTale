@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Method.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Reflection_Class
  */
@@ -42,6 +42,7 @@
  */
 class Zend_Reflection_Method extends ReflectionMethod
 {
+
     /**
      * Retrieve method docblock reflection
      *
@@ -88,7 +89,7 @@ class Zend_Reflection_Method extends ReflectionMethod
      */
     public function getDeclaringClass($reflectionClass = 'Zend_Reflection_Class')
     {
-        $phpReflection  = parent::getDeclaringClass();
+        $phpReflection = parent::getDeclaringClass();
         $zendReflection = new $reflectionClass($phpReflection->getName());
         if (!$zendReflection instanceof Zend_Reflection_Class) {
             #require_once 'Zend/Reflection/Exception.php';
@@ -106,7 +107,7 @@ class Zend_Reflection_Method extends ReflectionMethod
      */
     public function getParameters($reflectionClass = 'Zend_Reflection_Parameter')
     {
-        $phpReflections  = parent::getParameters();
+        $phpReflections = parent::getParameters();
         $zendReflections = array();
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
             $instance = new $reflectionClass(array($this->getDeclaringClass()->getName(), $this->getName()), $phpReflection->getName());
@@ -144,10 +145,7 @@ class Zend_Reflection_Method extends ReflectionMethod
     public function getBody()
     {
         $lines = array_slice(
-            file($this->getDeclaringClass()->getFileName(), FILE_IGNORE_NEW_LINES),
-            $this->getStartLine(),
-            ($this->getEndLine() - $this->getStartLine()),
-            true
+                file($this->getDeclaringClass()->getFileName(), FILE_IGNORE_NEW_LINES), $this->getStartLine(), ($this->getEndLine() - $this->getStartLine()), true
         );
 
         $firstLine = array_shift($lines);
@@ -165,4 +163,5 @@ class Zend_Reflection_Method extends ReflectionMethod
         // just in case we had code on the bracket lines
         return rtrim(ltrim(implode("\n", $lines), '{'), '}');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,15 +24,13 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
  * Review/Rating module upgrade. Both modules tables must be installed.
  * @see app/etc/modules/Mage_All.xml - Review comes after Rating
  */
-
 $this->startSetup();
 
-$voteTable   = $this->getTable('rating_option_vote');
+$voteTable = $this->getTable('rating_option_vote');
 $reviewTable = $this->getTable('review');
 
 $this->run("

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,36 +24,35 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /*
  * @var $installer Mage_Core_Model_Resource_Setup
  */
 $installer = $this;
 $installer->getConnection()->insert(
-    $installer->getTable('core/config_data'), array(
-       'scope'    => 'default',
-       'scope_id' => 0,
-       'path'     => Mage_Directory_Helper_Data::XML_PATH_DISPLAY_ALL_STATES,
-       'value'    => 1
-    )
+        $installer->getTable('core/config_data'), array(
+    'scope' => 'default',
+    'scope_id' => 0,
+    'path' => Mage_Directory_Helper_Data::XML_PATH_DISPLAY_ALL_STATES,
+    'value' => 1
+        )
 );
 
 /**
  * @var $countries array
  */
 $countries = array();
-foreach(Mage::helper('directory')->getCountryCollection() as $country) {
-    if($country->getRegionCollection()->getSize() > 0) {
+foreach (Mage::helper('directory')->getCountryCollection() as $country) {
+    if ($country->getRegionCollection()->getSize() > 0) {
         $countries[] = $country->getId();
     }
 }
 
 $installer->getConnection()->insert(
-    $installer->getTable('core/config_data'), array(
-        'scope'    => 'default',
-        'scope_id' => 0,
-        'path'     => Mage_Directory_Helper_Data::XML_PATH_STATES_REQUIRED,
-        'value'    => implode(',', $countries)
-    )
+        $installer->getTable('core/config_data'), array(
+    'scope' => 'default',
+    'scope_id' => 0,
+    'path' => Mage_Directory_Helper_Data::XML_PATH_STATES_REQUIRED,
+    'value' => implode(',', $countries)
+        )
 );
 

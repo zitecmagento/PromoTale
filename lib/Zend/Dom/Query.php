@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Query.php 23062 2010-10-08 14:05:45Z matthew $
  */
-
 /**
  * @see Zend_Dom_Query_Css2Xpath
  */
@@ -39,13 +39,15 @@
  */
 class Zend_Dom_Query
 {
-    /**#@+
+    /*     * #@+
      * Document types
      */
-    const DOC_XML   = 'docXml';
-    const DOC_HTML  = 'docHtml';
+
+    const DOC_XML = 'docXml';
+    const DOC_HTML = 'docHtml';
     const DOC_XHTML = 'docXhtml';
-    /**#@-*/
+
+    /*     * #@- */
 
     /**
      * @var string
@@ -142,7 +144,7 @@ class Zend_Dom_Query
     public function setDocumentHtml($document, $encoding = null)
     {
         $this->_document = (string) $document;
-        $this->_docType  = self::DOC_HTML;
+        $this->_docType = self::DOC_HTML;
         if (null !== $encoding) {
             $this->setEncoding($encoding);
         }
@@ -159,7 +161,7 @@ class Zend_Dom_Query
     public function setDocumentXhtml($document, $encoding = null)
     {
         $this->_document = (string) $document;
-        $this->_docType  = self::DOC_XHTML;
+        $this->_docType = self::DOC_XHTML;
         if (null !== $encoding) {
             $this->setEncoding($encoding);
         }
@@ -176,7 +178,7 @@ class Zend_Dom_Query
     public function setDocumentXml($document, $encoding = null)
     {
         $this->_document = (string) $document;
-        $this->_docType  = self::DOC_XML;
+        $this->_docType = self::DOC_XML;
         if (null !== $encoding) {
             $this->setEncoding($encoding);
         }
@@ -246,7 +248,7 @@ class Zend_Dom_Query
         } else {
             $domDoc = new DOMDocument('1.0', $encoding);
         }
-        $type   = $this->getDocumentType();
+        $type = $this->getDocumentType();
         switch ($type) {
             case self::DOC_XML:
                 $success = $domDoc->loadXML($document);
@@ -269,7 +271,7 @@ class Zend_Dom_Query
             throw new Zend_Dom_Exception(sprintf('Error parsing document (type == %s)', $type));
         }
 
-        $nodeList   = $this->_getNodeList($domDoc, $xpathQuery);
+        $nodeList = $this->_getNodeList($domDoc, $xpathQuery);
         return new Zend_Dom_Query_Result($query, $xpathQuery, $domDoc, $nodeList);
     }
 
@@ -293,7 +295,7 @@ class Zend_Dom_Query
      */
     protected function _getNodeList($document, $xpathQuery)
     {
-        $xpath      = new DOMXPath($document);
+        $xpath = new DOMXPath($document);
         foreach ($this->_xpathNamespaces as $prefix => $namespaceUri) {
             $xpath->registerNamespace($prefix, $namespaceUri);
         }
@@ -311,4 +313,5 @@ class Zend_Dom_Query
         }
         return $xpath->query($xpathQuery);
     }
+
 }

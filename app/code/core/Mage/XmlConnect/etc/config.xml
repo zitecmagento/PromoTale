@@ -42,13 +42,27 @@
                 <class>Mage_XmlConnect_Model_Resource</class>
                 <deprecatedNode>xmlconnect_mysql4</deprecatedNode>
                 <entities>
-                    <application><table>xmlconnect_application</table></application>
-                    <history><table>xmlconnect_history</table></history>
-                    <application_design><table>xmlconnect_application</table></application_design>
-                    <queue><table>xmlconnect_queue</table></queue>
-                    <template><table>xmlconnect_notification_template</table></template>
-                    <configData><table>xmlconnect_config_data</table></configData>
-                    <images><table>xmlconnect_images</table></images>
+                    <application>
+                        <table>xmlconnect_application</table>
+                    </application>
+                    <history>
+                        <table>xmlconnect_history</table>
+                    </history>
+                    <application_design>
+                        <table>xmlconnect_application</table>
+                    </application_design>
+                    <queue>
+                        <table>xmlconnect_queue</table>
+                    </queue>
+                    <template>
+                        <table>xmlconnect_notification_template</table>
+                    </template>
+                    <configData>
+                        <table>xmlconnect_config_data</table>
+                    </configData>
+                    <images>
+                        <table>xmlconnect_images</table>
+                    </images>
                 </entities>
             </xmlconnect_resource>
         </models>
@@ -132,7 +146,7 @@
         </xmlconnect>
     </global>
     <admin>
-         <routers>
+        <routers>
             <adminhtml>
                 <args>
                     <modules>
@@ -252,25 +266,75 @@
                     <native>
                         <!-- for all devices preview and config -->
                         <tabBar>
-                            <home> <icon> <heightMax>35</heightMax> </icon> </home>
-                            <shop> <icon> <heightMax>35</heightMax> </icon> </shop>
-                            <search> <icon> <heightMax>35</heightMax> </icon> </search>
-                            <cart> <icon> <heightMax>35</heightMax> </icon> </cart>
-                            <more> <icon> <heightMax>35</heightMax> </icon> </more>
+                            <home> 
+                                <icon> 
+                                    <heightMax>35</heightMax> 
+                                </icon> 
+                            </home>
+                            <shop> 
+                                <icon> 
+                                    <heightMax>35</heightMax> 
+                                </icon> 
+                            </shop>
+                            <search> 
+                                <icon> 
+                                    <heightMax>35</heightMax> 
+                                </icon> 
+                            </search>
+                            <cart> 
+                                <icon> 
+                                    <heightMax>35</heightMax> 
+                                </icon> 
+                            </cart>
+                            <more> 
+                                <icon> 
+                                    <heightMax>35</heightMax> 
+                                </icon> 
+                            </more>
                         </tabBar>
                         <!-- for all devices preview end -->
 
                         <itemActions>
-                            <backgroundImage> <width>320</width> <height>90</height> </backgroundImage>
-                            <viewGalleryIcon> <widthMax>40</widthMax> <heightMax>40</heightMax> </viewGalleryIcon>
-                            <tellAFriendIcon> <widthMax>40</widthMax> <heightMax>40</heightMax> </tellAFriendIcon>
-                            <addToWishlistIcon> <widthMax>40</widthMax> <heightMax>40</heightMax> </addToWishlistIcon>
-                            <addToCartIcon> <widthMax>40</widthMax> <heightMax>40</heightMax> </addToCartIcon>
-                            <viewDetailsIcon> <widthMax>40</widthMax> <heightMax>40</heightMax> </viewDetailsIcon>
-                            <radioEnabledIcon> <widthMax>20</widthMax> <heightMax>20</heightMax> </radioEnabledIcon>
-                            <radioDisabledIcon> <widthMax>20</widthMax> <heightMax>20</heightMax> </radioDisabledIcon>
-                            <checkBoxEnabledIcon> <widthMax>20</widthMax> <heightMax>20</heightMax> </checkBoxEnabledIcon>
-                            <checkBoxDisabledIcon> <widthMax>20</widthMax> <heightMax>20</heightMax> </checkBoxDisabledIcon>
+                            <backgroundImage> 
+                                <width>320</width> 
+                                <height>90</height> 
+                            </backgroundImage>
+                            <viewGalleryIcon> 
+                                <widthMax>40</widthMax> 
+                                <heightMax>40</heightMax> 
+                            </viewGalleryIcon>
+                            <tellAFriendIcon> 
+                                <widthMax>40</widthMax> 
+                                <heightMax>40</heightMax> 
+                            </tellAFriendIcon>
+                            <addToWishlistIcon> 
+                                <widthMax>40</widthMax> 
+                                <heightMax>40</heightMax> 
+                            </addToWishlistIcon>
+                            <addToCartIcon> 
+                                <widthMax>40</widthMax> 
+                                <heightMax>40</heightMax> 
+                            </addToCartIcon>
+                            <viewDetailsIcon> 
+                                <widthMax>40</widthMax> 
+                                <heightMax>40</heightMax> 
+                            </viewDetailsIcon>
+                            <radioEnabledIcon> 
+                                <widthMax>20</widthMax> 
+                                <heightMax>20</heightMax> 
+                            </radioEnabledIcon>
+                            <radioDisabledIcon> 
+                                <widthMax>20</widthMax> 
+                                <heightMax>20</heightMax> 
+                            </radioDisabledIcon>
+                            <checkBoxEnabledIcon> 
+                                <widthMax>20</widthMax> 
+                                <heightMax>20</heightMax> 
+                            </checkBoxEnabledIcon>
+                            <checkBoxDisabledIcon> 
+                                <widthMax>20</widthMax> 
+                                <heightMax>20</heightMax> 
+                            </checkBoxDisabledIcon>
                         </itemActions>
                     </native>
                     <submit>
@@ -354,8 +418,12 @@
     <crontab>
         <jobs>
             <xmlconnect_notification_send_all>
-                <schedule><cron_expr>*/5 * * * *</cron_expr></schedule>
-                <run><model>xmlconnect/observer::scheduledSend</model></run>
+                <schedule>
+                    <cron_expr>*/5 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>xmlconnect/observer::scheduledSend</model>
+                </run>
             </xmlconnect_notification_send_all>
         </jobs>
     </crontab>

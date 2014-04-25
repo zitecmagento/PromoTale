@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,13 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Zend_Rest_Exception
  */
 #require_once 'Zend/Rest/Exception.php';
-
 
 /**
  * Zend_Rest_Server_Exception
@@ -37,5 +35,5 @@
  */
 class Zend_Rest_Server_Exception extends Zend_Rest_Exception
 {
+    
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form
-    extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
+class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
+
     protected $_rates;
 
     public function __construct()
@@ -62,16 +63,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form
         if (empty($this->_rates)) {
             $groups = $this->getAddress()->getGroupedAllShippingRates();
             /*
-            if (!empty($groups)) {
+              if (!empty($groups)) {
 
-                $ratesFilter = new Varien_Filter_Object_Grid();
-                $ratesFilter->addFilter($this->getStore()->getPriceFilter(), 'price');
+              $ratesFilter = new Varien_Filter_Object_Grid();
+              $ratesFilter->addFilter($this->getStore()->getPriceFilter(), 'price');
 
-                foreach ($groups as $code => $groupItems) {
-                    $groups[$code] = $ratesFilter->filter($groupItems);
-                }
-            }
-            */
+              foreach ($groups as $code => $groupItems) {
+              $groups[$code] = $ratesFilter->filter($groupItems);
+              }
+              }
+             */
             return $this->_rates = $groups;
         }
         return $this->_rates;
@@ -85,7 +86,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form
      */
     public function getCarrierName($carrierCode)
     {
-        if ($name = Mage::getStoreConfig('carriers/'.$carrierCode.'/title', $this->getStore()->getId())) {
+        if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title', $this->getStore()->getId())) {
             return $name;
         }
         return $carrierCode;
@@ -109,7 +110,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form
      */
     public function isMethodActive($code)
     {
-        return $code===$this->getShippingMethod();
+        return $code === $this->getShippingMethod();
     }
 
     /**
@@ -140,15 +141,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form
     public function getShippingPrice($price, $flag)
     {
         return $this->getQuote()->getStore()->convertPrice(
-            Mage::helper('tax')->getShippingPrice(
-                $price,
-                $flag,
-                $this->getAddress(),
-                null,
-                //We should send exact quote store to prevent fetching default config for admin store.
-                $this->getAddress()->getQuote()->getStore()
-            ),
-            true
+                        Mage::helper('tax')->getShippingPrice(
+                                $price, $flag, $this->getAddress(), null,
+                                //We should send exact quote store to prevent fetching default config for admin store.
+                                $this->getAddress()->getQuote()->getStore()
+                        ), true
         );
     }
+
 }

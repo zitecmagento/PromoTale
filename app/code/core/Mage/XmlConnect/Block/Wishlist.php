@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Wishlist extends Mage_Wishlist_Block_Customer_Wishlist
 {
+
     /**
      * Render customer wishlist xml
      *
@@ -45,11 +47,11 @@ class Mage_XmlConnect_Block_Wishlist extends Mage_Wishlist_Block_Customer_Wishli
         /**
          * Apply offset and count
          */
-        $request= $this->getRequest();
-        $offset = (int)$request->getParam('offset', 0);
-        $count  = (int)$request->getParam('count', 0);
+        $request = $this->getRequest();
+        $offset = (int) $request->getParam('offset', 0);
+        $count = (int) $request->getParam('count', 0);
         $offset = $offset < 0 ? 0 : $offset;
-        $count  = $count <= 0 ? 1 : $count;
+        $count = $count <= 0 ? 1 : $count;
         $hasMoreItems = 0;
         if ($offset + $count < $this->getWishlistItems()->getSize()) {
             $hasMoreItems = 1;
@@ -74,19 +76,18 @@ class Mage_XmlConnect_Block_Wishlist extends Mage_Wishlist_Block_Customer_Wishli
                 $itemXmlObj->addChild('entity_id', $item->getProductId());
                 $itemXmlObj->addChild('entity_type_id', $item->getProduct()->getTypeId());
                 $itemXmlObj->addChild('name', $wishlistXmlObj->escapeXml($item->getName()));
-                $itemXmlObj->addChild('in_stock', (int)$item->getProduct()->getStockItem()->getIsInStock());
-                $itemXmlObj->addChild('is_salable', (int)$item->getProduct()->isSalable());
+                $itemXmlObj->addChild('in_stock', (int) $item->getProduct()->getStockItem()->getIsInStock());
+                $itemXmlObj->addChild('is_salable', (int) $item->getProduct()->isSalable());
                 /**
                  * If product type is grouped than it has options as its grouped items
                  */
-                if ($item->getProduct()->getTypeId() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE
-                    || $item->getProduct()->getTypeId() == Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
+                if ($item->getProduct()->getTypeId() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE || $item->getProduct()->getTypeId() == Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
                     $item->getProduct()->setHasOptions(true);
                 }
-                $itemXmlObj->addChild('has_options', (int)$item->getProduct()->getHasOptions());
+                $itemXmlObj->addChild('has_options', (int) $item->getProduct()->getHasOptions());
 
                 $icon = $categoryImageHelper->init($item->getProduct(), 'small_image')
-                    ->resize($productSmallImageSize);
+                        ->resize($productSmallImageSize);
 
                 $iconXml = $itemXmlObj->addChild('icon', $icon);
                 $iconXml->addAttribute('modification_time', filemtime($icon->getNewFile()));
@@ -99,14 +100,14 @@ class Mage_XmlConnect_Block_Wishlist extends Mage_Wishlist_Block_Customer_Wishli
 
                 if ($this->getChild('product_price')) {
                     $this->getChild('product_price')->setProduct($item->getProduct())->setProductXmlObj($itemXmlObj)
-                        ->collectProductPrices();
+                            ->collectProductPrices();
                 }
 
                 if (!$item->getProduct()->getRatingSummary()) {
                     Mage::getModel('review/review')
-                        ->getEntitySummary($item->getProduct(), Mage::app()->getStore()->getId());
+                            ->getEntitySummary($item->getProduct(), Mage::app()->getStore()->getId());
                 }
-                $ratingSummary = (int)$item->getProduct()->getRatingSummary()->getRatingSummary();
+                $ratingSummary = (int) $item->getProduct()->getRatingSummary()->getRatingSummary();
                 $itemXmlObj->addChild('rating_summary', round($ratingSummary / 10));
                 $itemXmlObj->addChild('reviews_count', $item->getProduct()->getRatingSummary()->getReviewsCount());
             }
@@ -114,4 +115,5 @@ class Mage_XmlConnect_Block_Wishlist extends Mage_Wishlist_Block_Customer_Wishli
 
         return $wishlistXmlObj->asNiceXml();
     }
+
 }

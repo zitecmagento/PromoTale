@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Manifest.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Framework_Registry_EnabledInterface
  */
@@ -36,8 +36,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_System_Provider_Manifest
-    implements Zend_Tool_Framework_Provider_Interface, Zend_Tool_Framework_Registry_EnabledInterface
+class Zend_Tool_Framework_System_Provider_Manifest implements Zend_Tool_Framework_Provider_Interface, Zend_Tool_Framework_Registry_EnabledInterface
 {
 
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry)
@@ -54,7 +53,7 @@ class Zend_Tool_Framework_System_Provider_Manifest
     {
 
         $manifestRepository = $this->_registry->getManifestRepository();
-        $response           = $this->_registry->getResponse();
+        $response = $this->_registry->getResponse();
 
         $metadataTree = array();
 
@@ -62,8 +61,8 @@ class Zend_Tool_Framework_System_Provider_Manifest
 
         foreach ($manifestRepository as $metadata) {
 
-            $metadataType  = $metadata->getType();
-            $metadataName  = $metadata->getName();
+            $metadataType = $metadata->getType();
+            $metadataName = $metadata->getName();
             $metadataAttrs = $metadata->getAttributes('attributesParent');
 
             if (!$metadataAttrs) {
@@ -103,12 +102,12 @@ class Zend_Tool_Framework_System_Provider_Manifest
                 foreach ($metadatasByAttributes as $metadataAttributeName => $metadataValues) {
                     foreach ($metadataValues as $metadataValue) {
                         $string = sprintf("      %-{$longestAttrNameLen}.{$longestAttrNameLen}s : ", $metadataAttributeName)
-                            . $metadataValue;
+                                . $metadataValue;
                         $response->appendContent($string);
                     }
                 }
             }
         }
-
     }
+
 }

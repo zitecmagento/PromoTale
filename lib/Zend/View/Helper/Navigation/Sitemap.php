@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Sitemap.php 20104 2010-01-06 21:26:01Z matthew $
  */
-
 /**
  * @see Zend_View_Helper_Navigation_HelperAbstract
  */
@@ -36,9 +36,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_View_Helper_Navigation_Sitemap
-    extends Zend_View_Helper_Navigation_HelperAbstract
+class Zend_View_Helper_Navigation_Sitemap extends Zend_View_Helper_Navigation_HelperAbstract
 {
+
     /**
      * Namespace for the <urlset> tag
      *
@@ -229,8 +229,7 @@ class Zend_View_Helper_Navigation_Sitemap
         } else {
             #require_once 'Zend/Uri/Exception.php';
             $e = new Zend_Uri_Exception(sprintf(
-                    'Invalid server URL: "%s"',
-                    $serverUrl));
+                            'Invalid server URL: "%s"', $serverUrl));
             $e->setView($this->view);
             throw $e;
         }
@@ -263,8 +262,7 @@ class Zend_View_Helper_Navigation_Sitemap
     protected function _xmlEscape($string)
     {
         $enc = 'UTF-8';
-        if ($this->view instanceof Zend_View_Interface
-            && method_exists($this->view, 'getEncoding')
+        if ($this->view instanceof Zend_View_Interface && method_exists($this->view, 'getEncoding')
         ) {
             $enc = $this->view->getEncoding();
         }
@@ -304,8 +302,8 @@ class Zend_View_Helper_Navigation_Sitemap
         } else {
             // href is relative to current document; use url helpers
             $url = $this->getServerUrl()
-                 . rtrim($this->view->url(), '/') . '/'
-                 . $href;
+                    . rtrim($this->view->url(), '/') . '/'
+                    . $href;
         }
 
         return $this->_xmlEscape($url);
@@ -339,12 +337,11 @@ class Zend_View_Helper_Navigation_Sitemap
             #require_once 'Zend/Validate/Sitemap/Lastmod.php';
             #require_once 'Zend/Validate/Sitemap/Loc.php';
             #require_once 'Zend/Validate/Sitemap/Priority.php';
-
             // create validators
-            $locValidator        = new Zend_Validate_Sitemap_Loc();
-            $lastmodValidator    = new Zend_Validate_Sitemap_Lastmod();
+            $locValidator = new Zend_Validate_Sitemap_Loc();
+            $lastmodValidator = new Zend_Validate_Sitemap_Lastmod();
             $changefreqValidator = new Zend_Validate_Sitemap_Changefreq();
-            $priorityValidator   = new Zend_Validate_Sitemap_Priority();
+            $priorityValidator = new Zend_Validate_Sitemap_Priority();
         }
 
         // create document
@@ -356,8 +353,7 @@ class Zend_View_Helper_Navigation_Sitemap
         $dom->appendChild($urlSet);
 
         // create iterator
-        $iterator = new RecursiveIteratorIterator($container,
-            RecursiveIteratorIterator::SELF_FIRST);
+        $iterator = new RecursiveIteratorIterator($container, RecursiveIteratorIterator::SELF_FIRST);
 
         $maxDepth = $this->getMaxDepth();
         if (is_int($maxDepth)) {
@@ -386,18 +382,16 @@ class Zend_View_Helper_Navigation_Sitemap
             $urlSet->appendChild($urlNode);
 
             if ($this->getUseSitemapValidators() &&
-                !$locValidator->isValid($url)) {
+                    !$locValidator->isValid($url)) {
                 #require_once 'Zend/View/Exception.php';
                 $e = new Zend_View_Exception(sprintf(
-                        'Encountered an invalid URL for Sitemap XML: "%s"',
-                        $url));
+                                'Encountered an invalid URL for Sitemap XML: "%s"', $url));
                 $e->setView($this->view);
                 throw $e;
             }
 
             // put url in 'loc' element
-            $urlNode->appendChild($dom->createElementNS(self::SITEMAP_NS,
-                                                        'loc', $url));
+            $urlNode->appendChild($dom->createElementNS(self::SITEMAP_NS, 'loc', $url));
 
             // add 'lastmod' element if a valid lastmod is set in page
             if (isset($page->lastmod)) {
@@ -409,10 +403,9 @@ class Zend_View_Helper_Navigation_Sitemap
                 }
 
                 if (!$this->getUseSitemapValidators() ||
-                    $lastmodValidator->isValid($lastmod)) {
+                        $lastmodValidator->isValid($lastmod)) {
                     $urlNode->appendChild(
-                        $dom->createElementNS(self::SITEMAP_NS, 'lastmod',
-                                              $lastmod)
+                            $dom->createElementNS(self::SITEMAP_NS, 'lastmod', $lastmod)
                     );
                 }
             }
@@ -421,10 +414,9 @@ class Zend_View_Helper_Navigation_Sitemap
             if (isset($page->changefreq)) {
                 $changefreq = $page->changefreq;
                 if (!$this->getUseSitemapValidators() ||
-                    $changefreqValidator->isValid($changefreq)) {
+                        $changefreqValidator->isValid($changefreq)) {
                     $urlNode->appendChild(
-                        $dom->createElementNS(self::SITEMAP_NS, 'changefreq',
-                                              $changefreq)
+                            $dom->createElementNS(self::SITEMAP_NS, 'changefreq', $changefreq)
                     );
                 }
             }
@@ -433,10 +425,9 @@ class Zend_View_Helper_Navigation_Sitemap
             if (isset($page->priority)) {
                 $priority = $page->priority;
                 if (!$this->getUseSitemapValidators() ||
-                    $priorityValidator->isValid($priority)) {
+                        $priorityValidator->isValid($priority)) {
                     $urlNode->appendChild(
-                        $dom->createElementNS(self::SITEMAP_NS, 'priority',
-                                              $priority)
+                            $dom->createElementNS(self::SITEMAP_NS, 'priority', $priority)
                     );
                 }
             }
@@ -447,8 +438,7 @@ class Zend_View_Helper_Navigation_Sitemap
             if (!@$dom->schemaValidate(self::SITEMAP_XSD)) {
                 #require_once 'Zend/View/Exception.php';
                 $e = new Zend_View_Exception(sprintf(
-                        'Sitemap is invalid according to XML Schema at "%s"',
-                        self::SITEMAP_XSD));
+                                'Sitemap is invalid according to XML Schema at "%s"', self::SITEMAP_XSD));
                 $e->setView($this->view);
                 throw $e;
             }
@@ -475,9 +465,10 @@ class Zend_View_Helper_Navigation_Sitemap
         $dom = $this->getDomSitemap($container);
 
         $xml = $this->getUseXmlDeclaration() ?
-               $dom->saveXML() :
-               $dom->saveXML($dom->documentElement);
+                $dom->saveXML() :
+                $dom->saveXML($dom->documentElement);
 
         return rtrim($xml, PHP_EOL);
     }
+
 }

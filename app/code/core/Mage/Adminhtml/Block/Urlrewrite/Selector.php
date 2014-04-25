@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Urlrewrite_Selector extends Mage_Core_Block_Template
 {
+
     /**
      * List of available modes from source model
      * key => label
@@ -50,8 +52,8 @@ class Mage_Adminhtml_Block_Urlrewrite_Selector extends Mage_Core_Block_Template
         $this->setTemplate('urlrewrite/selector.phtml');
         $this->_modes = array(
             'category' => Mage::helper('adminhtml')->__('For category'),
-            'product'  => Mage::helper('adminhtml')->__('For product'),
-            'id'       => Mage::helper('adminhtml')->__('Custom'),
+            'product' => Mage::helper('adminhtml')->__('For product'),
+            'id' => Mage::helper('adminhtml')->__('Custom'),
         );
     }
 
@@ -85,4 +87,5 @@ class Mage_Adminhtml_Block_Urlrewrite_Selector extends Mage_Core_Block_Template
     {
         return $this->getRequest()->has($mode);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
 {
+
     /**
      * Retrieve list of tags for specified product
      *
@@ -89,7 +91,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         // retrieve array($productId => $popularity, ...)
         $result['products'] = array();
         $relatedProductsCollection = $tag->getEntityCollection()->addTagFilter($tagId)
-            ->addStoreFilter($storeId)->addPopularity($tagId);
+                        ->addStoreFilter($storeId)->addPopularity($tagId);
         foreach ($relatedProductsCollection as $product) {
             $result['products'][$product->getId()] = $product->getPopularity();
         }
@@ -119,7 +121,8 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         }
         $storeId = $this->_getStoreId($data['store']);
 
-        try {
+        try
+        {
             /** @var $tag Mage_Tag_Model_Tag */
             $tag = Mage::getModel('tag/tag');
             $tagNamesArr = Mage::helper('tag')->cleanTags(Mage::helper('tag')->extractTags($data['tag']));
@@ -129,15 +132,17 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
                 $tag->loadByName($tagName);
                 if (!$tag->getId()) {
                     $tag->setName($tagName)
-                        ->setFirstCustomerId($customer->getId())
-                        ->setFirstStoreId($storeId)
-                        ->setStatus($tag->getPendingStatus())
-                        ->save();
+                            ->setFirstCustomerId($customer->getId())
+                            ->setFirstStoreId($storeId)
+                            ->setStatus($tag->getPendingStatus())
+                            ->save();
                 }
                 $tag->saveRelation($product->getId(), $customer->getId(), $storeId);
                 $result[$tagName] = $tag->getId();
             }
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('save_error', $e->getMessage());
         }
 
@@ -173,15 +178,18 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         if (isset($data['status'])) {
             // validate tag status
             if (!in_array($data['status'], array(
-                $tag->getApprovedStatus(), $tag->getPendingStatus(), $tag->getDisabledStatus()))) {
+                        $tag->getApprovedStatus(), $tag->getPendingStatus(), $tag->getDisabledStatus()))) {
                 $this->_fault('invalid_data');
             }
             $tag->setStatus($data['status']);
         }
 
-        try {
+        try
+        {
             $tag->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('save_error', $e->getMessage());
         }
 
@@ -201,9 +209,12 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         if (!$tag->getId()) {
             $this->_fault('tag_not_exists');
         }
-        try {
+        try
+        {
             $tag->delete();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('remove_error', $e->getMessage());
         }
 
@@ -218,8 +229,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      */
     protected function _prepareDataForAdd($data)
     {
-        if (!isset($data['product_id']) or !isset($data['tag'])
-            or !isset($data['customer_id']) or !isset($data['store'])) {
+        if (!isset($data['product_id']) or !isset($data['tag']) or !isset($data['customer_id']) or !isset($data['store'])) {
             $this->_fault('invalid_data');
         }
 
@@ -235,10 +245,11 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
     protected function _prepareDataForUpdate($data)
     {
         // $data should contain at least one field to change
-        if ( !(isset($data['name']) or isset($data['status']) or isset($data['base_popularity']))) {
+        if (!(isset($data['name']) or isset($data['status']) or isset($data['base_popularity']))) {
             $this->_fault('invalid_data');
         }
 
         return $data;
     }
+
 }

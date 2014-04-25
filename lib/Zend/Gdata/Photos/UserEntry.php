@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: UserEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Entry
  */
@@ -140,8 +139,7 @@ class Zend_Gdata_Photos_UserEntry extends Zend_Gdata_Entry
         parent::__construct($element);
 
         $category = new Zend_Gdata_App_Extension_Category(
-            'http://schemas.google.com/photos/2007#user',
-            'http://schemas.google.com/g/2005#kind');
+                'http://schemas.google.com/photos/2007#user', 'http://schemas.google.com/g/2005#kind');
         $this->setCategory(array($category));
     }
 

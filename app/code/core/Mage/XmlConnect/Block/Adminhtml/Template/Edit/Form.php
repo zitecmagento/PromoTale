@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
 {
+
     /**
      * Enabled fields flag
      *
@@ -74,10 +76,10 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect
         $action = $this->getUrl('*/*/saveTemplate');
 
         $form = new Varien_Data_Form(array(
-            'id'        => 'edit_form',
-            'action'    => $action,
-            'method'    => 'post',
-            'enctype'   => 'multipart/form-data'
+            'id' => 'edit_form',
+            'action' => $action,
+            'method' => 'post',
+            'enctype' => 'multipart/form-data'
         ));
         $form->setHtmlIdPrefix('template_');
 
@@ -85,47 +87,47 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect
         $this->_addElementTypes($fieldset);
 
         if ($model->getId()) {
-            $fieldset->addField('id', 'hidden', array('name'  => 'id'));
-            $fieldset->addField('template_id', 'hidden', array('name'  => 'template_id'));
+            $fieldset->addField('id', 'hidden', array('name' => 'id'));
+            $fieldset->addField('template_id', 'hidden', array('name' => 'template_id'));
         }
 
         $fieldset->addField('application_id', 'select', array(
-            'name'      => 'application_id',
-            'label'     => $this->__('Application'),
-            'title'     => $this->__('Application'),
-            'disabled'  => $model->getId() || !$this->_fieldsEnabled ? true : false,
-            'values'    => Mage::helper('xmlconnect')->getApplicationOptions(),
-            'note'      => $this->__('Creating a Template is allowed only for applications which have device type iPhone.'),
-            'required'  => true,
+            'name' => 'application_id',
+            'label' => $this->__('Application'),
+            'title' => $this->__('Application'),
+            'disabled' => $model->getId() || !$this->_fieldsEnabled ? true : false,
+            'values' => Mage::helper('xmlconnect')->getApplicationOptions(),
+            'note' => $this->__('Creating a Template is allowed only for applications which have device type iPhone.'),
+            'required' => true,
         ));
 
         $fieldset->addField('name', 'text', array(
-            'name'      => 'name',
-            'label'     => $this->__('Template Name'),
-            'title'     => $this->__('Template Name'),
-            'required'  => true,
-            'disabled'  => $model->getId() || !$this->_fieldsEnabled ? true : false,
-            'note'      => $this->__('Maximum length is 255'),
+            'name' => 'name',
+            'label' => $this->__('Template Name'),
+            'title' => $this->__('Template Name'),
+            'required' => true,
+            'disabled' => $model->getId() || !$this->_fieldsEnabled ? true : false,
+            'note' => $this->__('Maximum length is 255'),
             'maxlength' => 255
         ));
 
         $fieldset->addField('push_title', 'text', array(
-            'name'      => 'push_title',
-            'label'     => $this->__('Push Title'),
-            'title'     => $this->__('Push Title'),
-            'required'  => true,
-            'disabled'  => !$this->_fieldsEnabled ? true : false,
-            'note'      => $this->__('Maximum length is 140'),
+            'name' => 'push_title',
+            'label' => $this->__('Push Title'),
+            'title' => $this->__('Push Title'),
+            'required' => true,
+            'disabled' => !$this->_fieldsEnabled ? true : false,
+            'note' => $this->__('Maximum length is 140'),
             'maxlength' => 140
         ));
 
         $this->_dependentFields['message_title'] = $fieldset->addField('message_title', 'text', array(
-            'name'      => 'message_title',
-            'label'     => $this->__('Message Title'),
-            'title'     => $this->__('Message Title'),
-            'required'  => true,
-            'disabled'  => !$this->_fieldsEnabled ? true : false,
-            'note'      => $this->__('Maximum length is 255'),
+            'name' => 'message_title',
+            'label' => $this->__('Message Title'),
+            'title' => $this->__('Message Title'),
+            'required' => true,
+            'disabled' => !$this->_fieldsEnabled ? true : false,
+            'note' => $this->__('Maximum length is 255'),
             'maxlength' => 255
         ));
 
@@ -133,18 +135,18 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect
         $wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(array(
 //            'add_widgets'       => true,
 //            'add_variables'     => true,
-            'widget_filters'    => $widgetFilters
+            'widget_filters' => $widgetFilters
         ));
 
         $this->_dependentFields['content'] = $fieldset->addField('content', 'editor', array(
-            'label'     => $this->__('Template Content'),
-            'title'     => $this->__('Template Content'),
-            'name'      => 'content',
-            'style'     => 'height:30em;',
-            'state'     => 'html',
-            'required'  => true,
-            'disabled'  => !$this->_fieldsEnabled ? true : false,
-            'config'    => $wysiwygConfig
+            'label' => $this->__('Template Content'),
+            'title' => $this->__('Template Content'),
+            'name' => 'content',
+            'style' => 'height:30em;',
+            'state' => 'html',
+            'required' => true,
+            'disabled' => !$this->_fieldsEnabled ? true : false,
+            'config' => $wysiwygConfig
         ));
 
         $form->setValues($model->getData());
@@ -152,4 +154,5 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect
         $this->setForm($form);
         return parent::_prepareForm();
     }
+
 }

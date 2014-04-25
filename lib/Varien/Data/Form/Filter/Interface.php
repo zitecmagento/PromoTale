@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Form Input/Output Filter Interface
  *
@@ -34,6 +34,7 @@
  */
 interface Varien_Data_Form_Filter_Interface
 {
+
     /**
      * Returns the result of filtering $value
      *

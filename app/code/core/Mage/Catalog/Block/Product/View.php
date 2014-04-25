@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product View block
  *
@@ -35,6 +35,7 @@
  */
 class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstract
 {
+
     /**
      * Default MAP renderer type
      *
@@ -66,7 +67,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             }
             $description = $product->getMetaDescription();
             if ($description) {
-                $headBlock->setDescription( ($description) );
+                $headBlock->setDescription(($description));
             } else {
                 $headBlock->setDescription(Mage::helper('core/string')->substr($product->getDescription(), 0, 255));
             }
@@ -154,10 +155,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         $_regularPrice = $product->getPrice();
         $_finalPrice = $product->getFinalPrice();
         if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
-            $_priceInclTax = Mage::helper('tax')->getPrice($product, $_finalPrice, true,
-                null, null, null, null, null, false);
-            $_priceExclTax = Mage::helper('tax')->getPrice($product, $_finalPrice, false,
-                null, null, null, null, null, false);
+            $_priceInclTax = Mage::helper('tax')->getPrice($product, $_finalPrice, true, null, null, null, null, null, false);
+            $_priceExclTax = Mage::helper('tax')->getPrice($product, $_finalPrice, false, null, null, null, null, null, false);
         } else {
             $_priceInclTax = Mage::helper('tax')->getPrice($product, $_finalPrice, true);
             $_priceExclTax = Mage::helper('tax')->getPrice($product, $_finalPrice);
@@ -167,34 +166,33 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         foreach ($product->getTierPrice() as $tierPrice) {
             $_tierPrices[] = Mage::helper('core')->currency($tierPrice['website_price'], false, false);
             $_tierPricesInclTax[] = Mage::helper('core')->currency(
-                Mage::helper('tax')->getPrice($product, (int)$tierPrice['website_price'], true),
-                false, false);
+                    Mage::helper('tax')->getPrice($product, (int) $tierPrice['website_price'], true), false, false);
         }
         $config = array(
-            'productId'           => $product->getId(),
-            'priceFormat'         => Mage::app()->getLocale()->getJsPriceFormat(),
-            'includeTax'          => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false',
-            'showIncludeTax'      => Mage::helper('tax')->displayPriceIncludingTax(),
-            'showBothPrices'      => Mage::helper('tax')->displayBothPrices(),
-            'productPrice'        => Mage::helper('core')->currency($_finalPrice, false, false),
-            'productOldPrice'     => Mage::helper('core')->currency($_regularPrice, false, false),
-            'priceInclTax'        => Mage::helper('core')->currency($_priceInclTax, false, false),
-            'priceExclTax'        => Mage::helper('core')->currency($_priceExclTax, false, false),
+            'productId' => $product->getId(),
+            'priceFormat' => Mage::app()->getLocale()->getJsPriceFormat(),
+            'includeTax' => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false',
+            'showIncludeTax' => Mage::helper('tax')->displayPriceIncludingTax(),
+            'showBothPrices' => Mage::helper('tax')->displayBothPrices(),
+            'productPrice' => Mage::helper('core')->currency($_finalPrice, false, false),
+            'productOldPrice' => Mage::helper('core')->currency($_regularPrice, false, false),
+            'priceInclTax' => Mage::helper('core')->currency($_priceInclTax, false, false),
+            'priceExclTax' => Mage::helper('core')->currency($_priceExclTax, false, false),
             /**
              * @var skipCalculate
              * @deprecated after 1.5.1.0
              */
-            'skipCalculate'       => ($_priceExclTax != $_priceInclTax ? 0 : 1),
-            'defaultTax'          => $defaultTax,
-            'currentTax'          => $currentTax,
-            'idSuffix'            => '_clone',
-            'oldPlusDisposition'  => 0,
-            'plusDisposition'     => 0,
-            'plusDispositionTax'  => 0,
+            'skipCalculate' => ($_priceExclTax != $_priceInclTax ? 0 : 1),
+            'defaultTax' => $defaultTax,
+            'currentTax' => $currentTax,
+            'idSuffix' => '_clone',
+            'oldPlusDisposition' => 0,
+            'plusDisposition' => 0,
+            'plusDispositionTax' => 0,
             'oldMinusDisposition' => 0,
-            'minusDisposition'    => 0,
-            'tierPrices'          => $_tierPrices,
-            'tierPricesInclTax'   => $_tierPricesInclTax,
+            'minusDisposition' => 0,
+            'tierPrices' => $_tierPrices,
+            'tierPricesInclTax' => $_tierPricesInclTax,
         );
 
         $responseObject = new Varien_Object();
@@ -276,4 +274,5 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     {
         return array_merge(parent::getCacheTags(), $this->getProduct()->getCacheIdTags());
     }
+
 }

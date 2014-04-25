@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,36 +36,36 @@ class Mage_Connect_Package_Reader
 {
 
     /**
-    * Name of package file
-    */
+     * Name of package file
+     */
     const DEFAULT_NAME_PACKAGE = 'package.xml';
 
     /**
-    * Temporary dir for extract DEFAULT_NAME_PACKAGE.
-    */
+     * Temporary dir for extract DEFAULT_NAME_PACKAGE.
+     */
     const PATH_TO_TEMPORARY_DIRECTORY = 'var/package/tmp/';
 
     /**
-    * Current path to file.
-    *
-    * @var string
-    */
+     * Current path to file.
+     *
+     * @var string
+     */
     protected $_file = '';
 
     /**
-    * Archivator is used for extract DEFAULT_NAME_PACKAGE.
-    *
-    * @var Mage_Archive
-    */
+     * Archivator is used for extract DEFAULT_NAME_PACKAGE.
+     *
+     * @var Mage_Archive
+     */
     protected $_archivator = null;
 
     /**
-    * Constructor initializes $_file.
-    *
-    * @param string $file
-    * @return Mage_Connect_Package_Reader
-    */
-    public function __construct($file='')
+     * Constructor initializes $_file.
+     *
+     * @param string $file
+     * @return Mage_Connect_Package_Reader
+     */
+    public function __construct($file = '')
     {
         if ($file) {
             $this->_file = $file;
@@ -75,10 +76,10 @@ class Mage_Connect_Package_Reader
     }
 
     /**
-    * Retrieve archivator.
-    *
-    * @return Mage_Archive
-    */
+     * Retrieve archivator.
+     *
+     * @return Mage_Archive
+     */
     protected function _getArchivator()
     {
         if (is_null($this->_archivator)) {
@@ -88,10 +89,10 @@ class Mage_Connect_Package_Reader
     }
 
     /**
-    * Open file directly or from archive and return his content.
-    *
-    * @return string Content of file $file
-    */
+     * Open file directly or from archive and return his content.
+     *
+     * @return string Content of file $file
+     */
     public function load()
     {
         if (!is_file($this->_file) || !is_readable($this->_file)) {
@@ -100,9 +101,7 @@ class Mage_Connect_Package_Reader
         if ($this->_getArchivator()->isArchive($this->_file)) {
             @mkdir(self::PATH_TO_TEMPORARY_DIRECTORY, 0777, true);
             $this->_file = $this->_getArchivator()->extract(
-                self::DEFAULT_NAME_PACKAGE,
-                $this->_file,
-                self::PATH_TO_TEMPORARY_DIRECTORY
+                    self::DEFAULT_NAME_PACKAGE, $this->_file, self::PATH_TO_TEMPORARY_DIRECTORY
             );
         }
         $xmlContent = $this->_readFile();
@@ -110,16 +109,19 @@ class Mage_Connect_Package_Reader
     }
 
     /**
-    * Read content file.
-    *
-    * @return string Content of file $file
-    */
+     * Read content file.
+     *
+     * @return string Content of file $file
+     */
     protected function _readFile()
     {
         $handle = fopen($this->_file, 'r');
-        try {
+        try
+        {
             $data = $this->_loadResource($handle);
-        } catch (Mage_Exception $e) {
+        }
+        catch (Mage_Exception $e)
+        {
             fclose($handle);
             throw $e;
         }
@@ -128,11 +130,11 @@ class Mage_Connect_Package_Reader
     }
 
     /**
-    * Loads a package from specified resource
-    *
-    * @param resource $resource only file resources are supported at the moment
-    * @return Mage_Connect_Package
-    */
+     * Loads a package from specified resource
+     *
+     * @param resource $resource only file resources are supported at the moment
+     * @return Mage_Connect_Package
+     */
     protected function _loadResource(&$resource)
     {
         $data = '';

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Core_Model_Mysql4_Design_Theme extends Varien_Directory_Collection
 {
+
     public function load()
     {
         $packages = $this->getData('themes');
@@ -42,10 +43,11 @@ class Mage_Core_Model_Mysql4_Design_Theme extends Varien_Directory_Collection
         $options = array();
         $packages = $this->getData('themes');
         foreach ($packages as $package) {
-            $options[] = array('value'=>$package, 'label'=>$package);
+            $options[] = array('value' => $package, 'label' => $package);
         }
-        array_unshift($options, array('value'=>'', 'label'=>''));
+        array_unshift($options, array('value' => '', 'label' => ''));
 
         return $options;
     }
+
 }

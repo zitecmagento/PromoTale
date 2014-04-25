@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product SKU backend attribute model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Product_Attribute_Backend_Sku extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Maximum SKU string length
      *
@@ -54,9 +55,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Sku extends Mage_Eav_Model_En
 
         if ($helper->strlen($object->getSku()) > self::SKU_MAX_LENGTH) {
             Mage::throwException(
-                Mage::helper('catalog')->__('SKU length should be %s characters maximum.', self::SKU_MAX_LENGTH)
+                    Mage::helper('catalog')->__('SKU length should be %s characters maximum.', self::SKU_MAX_LENGTH)
             );
         }
         return parent::validate($object);
     }
+
 }

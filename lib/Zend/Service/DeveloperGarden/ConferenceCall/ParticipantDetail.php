@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -34,6 +35,7 @@
  */
 class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
 {
+
     /**
      * @var string
      */
@@ -71,10 +73,10 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
     public function __construct($firstName, $lastName, $number, $email, $isInitiator = false)
     {
         $this->setFirstName($firstName)
-             ->setLastName($lastName)
-             ->setNumber($number)
-             ->setEmail($email)
-             ->setFlags((int) $isInitiator);
+                ->setLastName($lastName)
+                ->setNumber($number)
+                ->setEmail($email)
+                ->setFlags((int) $isInitiator);
     }
 
     /**
@@ -192,4 +194,5 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
         $this->flags = $flags;
         return $this;
     }
+
 }

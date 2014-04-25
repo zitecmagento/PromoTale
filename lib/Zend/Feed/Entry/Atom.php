@@ -19,13 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Atom.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Feed_Entry_Abstract
  */
 #require_once 'Zend/Feed/Entry/Abstract.php';
-
 
 /**
  * Concrete class for working with Atom entries.
@@ -37,6 +34,7 @@
  */
 class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
 {
+
     /**
      * Content-Type
      */
@@ -55,7 +53,6 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
      * @var string
      */
     protected $_rootNamespace = 'atom';
-
 
     /**
      * Delete an atom entry.
@@ -112,7 +109,6 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
             }
         } while (true);
     }
-
 
     /**
      * Save a new or updated Atom entry.
@@ -187,7 +183,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
                  */
                 #require_once 'Zend/Feed/Exception.php';
                 throw new Zend_Feed_Exception('Expected response code 201, got '
-                                              . $response->getStatus());
+                . $response->getStatus());
             }
         }
 
@@ -221,7 +217,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
              */
             #require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('No root <feed> element found in server response:'
-                                          . "\n\n" . $client->responseBody);
+            . "\n\n" . $client->responseBody);
         }
 
         if ($this->_element->parentNode) {
@@ -232,7 +228,6 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
             $this->_element = $newEntry;
         }
     }
-
 
     /**
      * Easy access to <link> tags keyed by "rel" attributes.

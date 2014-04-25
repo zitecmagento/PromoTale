@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: HtmlCloud.php 20104 2010-01-06 21:26:01Z matthew $
  */
-
 /**
  * @see Zend_Tag_Cloud_Decorator_Cloud
  */
@@ -36,6 +36,7 @@
  */
 class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
 {
+
     /**
      * @var string Encoding to use
      */
@@ -136,14 +137,14 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
         $enc = $this->getEncoding();
         foreach ($this->getHtmlTags() as $key => $data) {
             if (is_array($data)) {
-                $htmlTag    = $key;
+                $htmlTag = $key;
                 $attributes = '';
 
                 foreach ($data as $param => $value) {
                     $attributes .= ' ' . $param . '="' . htmlspecialchars($value, ENT_COMPAT, $enc) . '"';
                 }
             } else {
-                $htmlTag    = $data;
+                $htmlTag = $data;
                 $attributes = '';
             }
 
@@ -152,4 +153,5 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
 
         return $cloudHtml;
     }
+
 }

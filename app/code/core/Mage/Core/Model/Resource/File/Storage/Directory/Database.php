@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Directory storage database resource model class
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core_Model_Resource_File_Storage_Abstract
 {
+
     /**
      * Define table name and id field for resource
      */
@@ -56,34 +57,31 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
         }
 
         $ddlTable = $adapter->newTable($table)
-            ->addColumn('directory_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-                'identity'  => true,
-                'unsigned'  => true,
-                'nullable'  => false,
-                'primary'   => true
-                ), 'Directory Id')
-            ->addColumn('name', Varien_Db_Ddl_Table::TYPE_TEXT, 100, array(
-                'nullable' => false
-            ), 'Directory Name')
-            ->addColumn('path', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-                'default' => null), 'Path to the Directory')
-            ->addColumn('upload_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
-                'nullable' => false,
-                'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
-                ), 'Upload Timestamp')
-            ->addColumn('parent_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-                'nullable' => true,
-                'default' => null,
-                'unsigned' => true
-                ), 'Parent Directory Id')
-            ->addIndex($adapter->getIndexName($table, array('name', 'parent_id'),
-                Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-                array('name', 'parent_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
-            ->addIndex($adapter->getIndexName($table, array('parent_id')), array('parent_id'))
-            ->addForeignKey($adapter->getForeignKeyName($table, 'parent_id', $table, 'directory_id'),
-                'parent_id', $table, 'directory_id',
-                Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-            ->setComment('Directory Storage');
+                ->addColumn('directory_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+                    'identity' => true,
+                    'unsigned' => true,
+                    'nullable' => false,
+                    'primary' => true
+                        ), 'Directory Id')
+                ->addColumn('name', Varien_Db_Ddl_Table::TYPE_TEXT, 100, array(
+                    'nullable' => false
+                        ), 'Directory Name')
+                ->addColumn('path', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
+                    'default' => null), 'Path to the Directory')
+                ->addColumn('upload_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+                    'nullable' => false,
+                    'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
+                        ), 'Upload Timestamp')
+                ->addColumn('parent_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+                    'nullable' => true,
+                    'default' => null,
+                    'unsigned' => true
+                        ), 'Parent Directory Id')
+                ->addIndex($adapter->getIndexName($table, array('name', 'parent_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE), array(
+                    'name', 'parent_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+                ->addIndex($adapter->getIndexName($table, array('parent_id')), array('parent_id'))
+                ->addForeignKey($adapter->getForeignKeyName($table, 'parent_id', $table, 'directory_id'), 'parent_id', $table, 'directory_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+                ->setComment('Directory Storage');
 
         $adapter->createTable($ddlTable);
         return $this;
@@ -107,9 +105,9 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
         }
 
         $select = $adapter->select()
-            ->from(array('e' => $this->getMainTable()))
-            ->where('name = ?', $name)
-            ->where($adapter->prepareSqlCondition('path', array('seq' => $path)));
+                ->from(array('e' => $this->getMainTable()))
+                ->where('name = ?', $name)
+                ->where($adapter->prepareSqlCondition('path', array('seq' => $path)));
 
         $data = $adapter->fetchRow($select);
         if ($data) {
@@ -137,12 +135,11 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
         }
 
         $select = $adapter->select()
-            ->from(
-                array('e' => $this->getMainTable()),
-                array('directory_id')
-            )
-            ->where('name = ?', $name)
-            ->where($adapter->prepareSqlCondition('path', array('seq' => $path)));
+                ->from(
+                        array('e' => $this->getMainTable()), array('directory_id')
+                )
+                ->where('name = ?', $name)
+                ->where($adapter->prepareSqlCondition('path', array('seq' => $path)));
 
         return $adapter->fetchOne($select);
     }
@@ -172,12 +169,11 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
         $adapter = $this->_getReadAdapter();
 
         $select = $adapter->select()
-            ->from(
-                array('e' => $this->getMainTable()),
-                array('name', 'path')
-            )
-            ->order('directory_id')
-            ->limit($count, $offset);
+                ->from(
+                        array('e' => $this->getMainTable()), array('name', 'path')
+                )
+                ->order('directory_id')
+                ->limit($count, $offset);
 
         return $adapter->fetchAll($select);
     }
@@ -194,12 +190,11 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
         $adapter = $this->_getReadAdapter();
 
         $select = $adapter->select()
-            ->from(
-                array('e' => $this->getMainTable()),
-                array('name', 'path')
-            )
-            ->where($adapter->prepareSqlCondition('path', array('seq' => $directory)))
-            ->order('directory_id');
+                ->from(
+                        array('e' => $this->getMainTable()), array('name', 'path')
+                )
+                ->where($adapter->prepareSqlCondition('path', array('seq' => $directory)))
+                ->order('directory_id');
 
         return $adapter->fetchAll($select);
     }
@@ -219,4 +214,5 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
 
         $adapter->delete($this->getMainTable(), $where);
     }
+
 }

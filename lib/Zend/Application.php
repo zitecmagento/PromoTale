@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 class Zend_Application
 {
+
     /**
      * Autoloader to use
      *
@@ -156,10 +158,8 @@ class Zend_Application
         if (!empty($options['autoloaderzfpath'])) {
             $autoloader = $this->getAutoloader();
             if (method_exists($autoloader, 'setZfPath')) {
-                $zfPath    = $options['autoloaderzfpath'];
-                $zfVersion = !empty($options['autoloaderzfversion'])
-                           ? $options['autoloaderzfversion']
-                           : 'latest';
+                $zfPath = $options['autoloaderzfpath'];
+                $zfVersion = !empty($options['autoloaderzfversion']) ? $options['autoloaderzfversion'] : 'latest';
                 $autoloader->setZfPath($zfPath, $zfVersion);
             }
         }
@@ -174,7 +174,7 @@ class Zend_Application
                     throw new Zend_Application_Exception('No bootstrap path provided');
                 }
 
-                $path  = $bootstrap['path'];
+                $path = $bootstrap['path'];
                 $class = null;
 
                 if (!empty($bootstrap['class'])) {
@@ -239,9 +239,7 @@ class Zend_Application
         if (is_array($array2)) {
             foreach ($array2 as $key => $val) {
                 if (is_array($array2[$key])) {
-                    $array1[$key] = (array_key_exists($key, $array1) && is_array($array1[$key]))
-                                  ? $this->mergeOptions($array1[$key], $array2[$key])
-                                  : $array2[$key];
+                    $array1[$key] = (array_key_exists($key, $array1) && is_array($array1[$key])) ? $this->mergeOptions($array1[$key], $array2[$key]) : $array2[$key];
                 } else {
                     $array1[$key] = $val;
                 }
@@ -376,7 +374,7 @@ class Zend_Application
     protected function _loadConfig($file)
     {
         $environment = $this->getEnvironment();
-        $suffix      = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        $suffix = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
         switch ($suffix) {
             case 'ini':
@@ -410,4 +408,5 @@ class Zend_Application
 
         return $config->toArray();
     }
+
 }

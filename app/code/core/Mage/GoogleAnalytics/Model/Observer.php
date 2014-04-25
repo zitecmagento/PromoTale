@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Google Analytics module observer
  *
@@ -33,6 +33,7 @@
  */
 class Mage_GoogleAnalytics_Model_Observer
 {
+
     /**
      * Create Google Analytics block for success page view
      *
@@ -60,4 +61,5 @@ class Mage_GoogleAnalytics_Model_Observer
             $block->setOrderIds($orderIds);
         }
     }
+
 }

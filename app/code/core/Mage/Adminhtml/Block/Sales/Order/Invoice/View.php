@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Admin session
      *
@@ -42,9 +44,9 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
 
     public function __construct()
     {
-        $this->_objectId    = 'invoice_id';
-        $this->_controller  = 'sales_order_invoice';
-        $this->_mode        = 'view';
+        $this->_objectId = 'invoice_id';
+        $this->_controller = 'sales_order_invoice';
+        $this->_mode = 'view';
         $this->_session = Mage::getSingleton('admin/session');
 
         parent::__construct();
@@ -55,17 +57,17 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
 
         if ($this->_isAllowedAction('cancel') && $this->getInvoice()->canCancel()) {
             $this->_addButton('cancel', array(
-                'label'     => Mage::helper('sales')->__('Cancel'),
-                'class'     => 'delete',
-                'onclick'   => 'setLocation(\''.$this->getCancelUrl().'\')'
-                )
+                'label' => Mage::helper('sales')->__('Cancel'),
+                'class' => 'delete',
+                'onclick' => 'setLocation(\'' . $this->getCancelUrl() . '\')'
+                    )
             );
         }
 
         if ($this->_isAllowedAction('emails')) {
             $this->addButton('send_notification', array(
-                'label'     => Mage::helper('sales')->__('Send Email'),
-                'onclick'   => 'confirmSetLocation(\''
+                'label' => Mage::helper('sales')->__('Send Email'),
+                'onclick' => 'confirmSetLocation(\''
                 . Mage::helper('sales')->__('Are you sure you want to send Invoice email to customer?')
                 . '\', \'' . $this->getEmailUrl() . '\')'
             ));
@@ -74,43 +76,40 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         $orderPayment = $this->getInvoice()->getOrder()->getPayment();
 
         if ($this->_isAllowedAction('creditmemo') && $this->getInvoice()->getOrder()->canCreditmemo()) {
-            if (($orderPayment->canRefundPartialPerInvoice()
-                && $this->getInvoice()->canRefund()
-                && $orderPayment->getAmountPaid() > $orderPayment->getAmountRefunded())
-                || ($orderPayment->canRefund() && !$this->getInvoice()->getIsUsedForRefund())) {
-                $this->_addButton('capture', array( // capture?
-                    'label'     => Mage::helper('sales')->__('Credit Memo'),
-                    'class'     => 'go',
-                    'onclick'   => 'setLocation(\''.$this->getCreditMemoUrl().'\')'
-                    )
+            if (($orderPayment->canRefundPartialPerInvoice() && $this->getInvoice()->canRefund() && $orderPayment->getAmountPaid() > $orderPayment->getAmountRefunded()) || ($orderPayment->canRefund() && !$this->getInvoice()->getIsUsedForRefund())) {
+                $this->_addButton('capture', array(// capture?
+                    'label' => Mage::helper('sales')->__('Credit Memo'),
+                    'class' => 'go',
+                    'onclick' => 'setLocation(\'' . $this->getCreditMemoUrl() . '\')'
+                        )
                 );
             }
         }
 
         if ($this->_isAllowedAction('capture') && $this->getInvoice()->canCapture()) {
             $this->_addButton('capture', array(
-                'label'     => Mage::helper('sales')->__('Capture'),
-                'class'     => 'save',
-                'onclick'   => 'setLocation(\''.$this->getCaptureUrl().'\')'
-                )
+                'label' => Mage::helper('sales')->__('Capture'),
+                'class' => 'save',
+                'onclick' => 'setLocation(\'' . $this->getCaptureUrl() . '\')'
+                    )
             );
         }
 
         if ($this->getInvoice()->canVoid()) {
             $this->_addButton('void', array(
-                'label'     => Mage::helper('sales')->__('Void'),
-                'class'     => 'save',
-                'onclick'   => 'setLocation(\''.$this->getVoidUrl().'\')'
-                )
+                'label' => Mage::helper('sales')->__('Void'),
+                'class' => 'save',
+                'onclick' => 'setLocation(\'' . $this->getVoidUrl() . '\')'
+                    )
             );
         }
 
         if ($this->getInvoice()->getId()) {
             $this->_addButton('print', array(
-                'label'     => Mage::helper('sales')->__('Print'),
-                'class'     => 'save',
-                'onclick'   => 'setLocation(\''.$this->getPrintUrl().'\')'
-                )
+                'label' => Mage::helper('sales')->__('Print'),
+                'class' => 'save',
+                'onclick' => 'setLocation(\'' . $this->getPrintUrl() . '\')'
+                    )
             );
         }
     }
@@ -129,8 +128,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
     {
         if ($this->getInvoice()->getEmailSent()) {
             $emailSent = Mage::helper('sales')->__('the invoice email was sent');
-        }
-        else {
+        } else {
             $emailSent = Mage::helper('sales')->__('the invoice email is not sent');
         }
         return Mage::helper('sales')->__('Invoice #%1$s | %2$s | %4$s (%3$s)', $this->getInvoice()->getIncrementId(), $this->getInvoice()->getStateName(), $emailSent, $this->formatDate($this->getInvoice()->getCreatedAtDate(), 'medium', true));
@@ -139,48 +137,47 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
     public function getBackUrl()
     {
         return $this->getUrl(
-            '*/sales_order/view',
-            array(
-                'order_id'  => $this->getInvoice()->getOrderId(),
-                'active_tab'=> 'order_invoices'
-            ));
+                        '*/sales_order/view', array(
+                    'order_id' => $this->getInvoice()->getOrderId(),
+                    'active_tab' => 'order_invoices'
+        ));
     }
 
     public function getCaptureUrl()
     {
-        return $this->getUrl('*/*/capture', array('invoice_id'=>$this->getInvoice()->getId()));
+        return $this->getUrl('*/*/capture', array('invoice_id' => $this->getInvoice()->getId()));
     }
 
     public function getVoidUrl()
     {
-        return $this->getUrl('*/*/void', array('invoice_id'=>$this->getInvoice()->getId()));
+        return $this->getUrl('*/*/void', array('invoice_id' => $this->getInvoice()->getId()));
     }
 
     public function getCancelUrl()
     {
-        return $this->getUrl('*/*/cancel', array('invoice_id'=>$this->getInvoice()->getId()));
+        return $this->getUrl('*/*/cancel', array('invoice_id' => $this->getInvoice()->getId()));
     }
 
     public function getEmailUrl()
     {
         return $this->getUrl('*/*/email', array(
-            'order_id'  => $this->getInvoice()->getOrder()->getId(),
-            'invoice_id'=> $this->getInvoice()->getId(),
+                    'order_id' => $this->getInvoice()->getOrder()->getId(),
+                    'invoice_id' => $this->getInvoice()->getId(),
         ));
     }
 
     public function getCreditMemoUrl()
     {
         return $this->getUrl('*/sales_order_creditmemo/start', array(
-            'order_id'  => $this->getInvoice()->getOrder()->getId(),
-            'invoice_id'=> $this->getInvoice()->getId(),
+                    'order_id' => $this->getInvoice()->getOrder()->getId(),
+                    'invoice_id' => $this->getInvoice()->getId(),
         ));
     }
 
     public function getPrintUrl()
     {
         return $this->getUrl('*/*/print', array(
-            'invoice_id' => $this->getInvoice()->getId()
+                    'invoice_id' => $this->getInvoice()->getId()
         ));
     }
 
@@ -205,4 +202,5 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
     {
         return $this->_session->isAllowed('sales/order/actions/' . $action);
     }
+
 }

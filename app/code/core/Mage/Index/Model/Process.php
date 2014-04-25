@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -46,29 +47,31 @@
  */
 class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_INDEXER_DATA     = 'global/index/indexer';
+
+    const XML_PATH_INDEXER_DATA = 'global/index/indexer';
+
     /**
      * Process statuses
      */
-    const STATUS_RUNNING            = 'working';
-    const STATUS_PENDING            = 'pending';
-    const STATUS_REQUIRE_REINDEX    = 'require_reindex';
+    const STATUS_RUNNING = 'working';
+    const STATUS_PENDING = 'pending';
+    const STATUS_REQUIRE_REINDEX = 'require_reindex';
 
     /**
      * Process event statuses
      */
-    const EVENT_STATUS_NEW          = 'new';
-    const EVENT_STATUS_DONE         = 'done';
-    const EVENT_STATUS_ERROR        = 'error';
-    const EVENT_STATUS_WORKING      = 'working';
+    const EVENT_STATUS_NEW = 'new';
+    const EVENT_STATUS_DONE = 'done';
+    const EVENT_STATUS_ERROR = 'error';
+    const EVENT_STATUS_WORKING = 'working';
 
     /**
      * Process modes
      * Process mode allow disable automatic process events processing
      */
-    const MODE_MANUAL              = 'manual';
-    const MODE_REAL_TIME           = 'real_time';
-    const MODE_SCHEDULE            = 'schedule';
+    const MODE_MANUAL = 'manual';
+    const MODE_REAL_TIME = 'real_time';
+    const MODE_SCHEDULE = 'schedule';
 
     /**
      * Indexer stategy object
@@ -144,7 +147,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             }
         }
         return $this;
-
     }
 
     /**
@@ -187,20 +189,23 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 
         $this->_getResource()->startProcess($this);
         $this->lock();
-        try {
+        try
+        {
             $eventsCollection = $this->getUnprocessedEventsCollection();
 
             /** @var $eventResource Mage_Index_Model_Resource_Event */
             $eventResource = Mage::getResourceSingleton('index/event');
 
-            if ($eventsCollection->count() > 0 && $processStatus == self::STATUS_PENDING
-                || $this->getForcePartialReindex()
+            if ($eventsCollection->count() > 0 && $processStatus == self::STATUS_PENDING || $this->getForcePartialReindex()
             ) {
                 $this->_getResource()->beginTransaction();
-                try {
+                try
+                {
                     $this->_processEventsCollection($eventsCollection, false);
                     $this->_getResource()->commit();
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     $this->_getResource()->rollBack();
                     throw $e;
                 }
@@ -217,7 +222,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             } else {
                 $this->_getResource()->endProcess($this);
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->unlock();
             $this->_getResource()->failProcess($this);
             throw $e;
@@ -278,9 +285,12 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         $this->_setEventNamespace($event);
         $isError = false;
 
-        try {
+        try
+        {
             $this->getIndexer()->processEvent($event);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $isError = true;
         }
         $event->resetData();
@@ -308,7 +318,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             if (!$config || empty($config->model)) {
                 Mage::throwException(Mage::helper('index')->__('Indexer model is not defined.'));
             }
-            $model = Mage::getModel((string)$config->model);
+            $model = Mage::getModel((string) $config->model);
             if ($model instanceof Mage_Index_Model_Indexer_Abstract) {
                 $this->_indexer = $model;
             } else {
@@ -325,7 +335,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * @param   null|string $type
      * @return  Mage_Index_Model_Process
      */
-    public function indexEvents($entity=null, $type=null)
+    public function indexEvents($entity = null, $type = null)
     {
         /**
          * Check if process indexer can match entity code and action type
@@ -345,7 +355,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         }
 
         $this->lock();
-        try {
+        try
+        {
             /**
              * Prepare events collection
              */
@@ -359,7 +370,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 
             $this->_processEventsCollection($eventsCollection);
             $this->unlock();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->unlock();
             throw $e;
         }
@@ -374,13 +387,14 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * @return Mage_Index_Model_Process
      */
     protected function _processEventsCollection(
-        Mage_Index_Model_Resource_Event_Collection $eventsCollection,
-        $skipUnmatched = true
-    ) {
+    Mage_Index_Model_Resource_Event_Collection $eventsCollection, $skipUnmatched = true
+    )
+    {
         // We can't reload the collection because of transaction
         /** @var $event Mage_Index_Model_Event */
         while ($event = $eventsCollection->fetchItem()) {
-            try {
+            try
+            {
                 $this->processEvent($event);
                 if (!$skipUnmatched) {
                     $eventProcessIds = $event->getProcessIds();
@@ -388,7 +402,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
                         $event->addProcessId($this->getId(), null);
                     }
                 }
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $event->addProcessId($this->getId(), self::EVENT_STATUS_ERROR);
             }
             $event->save();
@@ -418,7 +434,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     {
         if ($this->_lockFile === null) {
             $varDir = Mage::getConfig()->getVarDir('locks');
-            $file = $varDir . DS . 'index_process_'.$this->getId().'.lock';
+            $file = $varDir . DS . 'index_process_' . $this->getId() . '.lock';
             if (is_file($file)) {
                 $this->_lockFile = fopen($file, 'w');
             } else {
@@ -534,9 +550,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     public function getStatusesOptions()
     {
         return array(
-            self::STATUS_PENDING            => Mage::helper('index')->__('Ready'),
-            self::STATUS_RUNNING            => Mage::helper('index')->__('Processing'),
-            self::STATUS_REQUIRE_REINDEX    => Mage::helper('index')->__('Reindex Required'),
+            self::STATUS_PENDING => Mage::helper('index')->__('Ready'),
+            self::STATUS_RUNNING => Mage::helper('index')->__('Processing'),
+            self::STATUS_REQUIRE_REINDEX => Mage::helper('index')->__('Reindex Required'),
         );
     }
 
@@ -634,10 +650,13 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             return $this;
         }
         $this->lock();
-        try {
+        try
+        {
             $this->processEvent($event);
             $this->unlock();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->unlock();
             throw $e;
         }
@@ -656,4 +675,5 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         $eventsCollection->addProcessFilter($this, self::EVENT_STATUS_NEW);
         return $eventsCollection;
     }
+
 }

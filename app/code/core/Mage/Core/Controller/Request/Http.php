@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Custom Zend_Controller_Request_Http class (formally)
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 {
+
     const XML_NODE_DIRECT_FRONT_NAMES = 'global/request/direct_front_name';
     const DEFAULT_HTTP_PORT = 80;
     const DEFAULT_HTTPS_PORT = 443;
@@ -42,21 +43,19 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * ORIGINAL_PATH_INFO
      * @var string
      */
-    protected $_originalPathInfo= '';
-    protected $_storeCode       = null;
-    protected $_requestString   = '';
+    protected $_originalPathInfo = '';
+    protected $_storeCode = null;
+    protected $_requestString = '';
 
     /**
      * Path info array used before applying rewrite from config
      *
      * @var null || array
      */
-    protected $_rewritedPathInfo= null;
+    protected $_rewritedPathInfo = null;
     protected $_requestedRouteName = null;
     protected $_routingInfo = array();
-
     protected $_route;
-
     protected $_directFrontNames = null;
     protected $_controllerModule = null;
 
@@ -105,14 +104,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                     $this->setPathInfo(implode('/', $p));
                     $this->_storeCode = $storeCode;
                     Mage::app()->setCurrentStore($storeCode);
-                }
-                else {
+                } else {
                     $this->_storeCode = Mage::app()->getStore()->getCode();
                 }
             } else {
                 $this->_storeCode = Mage::app()->getStore()->getCode();
             }
-
         }
         return $this->_storeCode;
     }
@@ -153,11 +150,10 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 
                 if (!$this->isDirectAccessFrontendName($storeCode)) {
                     $stores = Mage::app()->getStores(true, true);
-                    if ($storeCode!=='' && isset($stores[$storeCode])) {
+                    if ($storeCode !== '' && isset($stores[$storeCode])) {
                         Mage::app()->setCurrentStore($storeCode);
-                        $pathInfo = '/'.(isset($pathParts[1]) ? $pathParts[1] : '');
-                    }
-                    elseif ($storeCode !== '') {
+                        $pathInfo = '/' . (isset($pathParts[1]) ? $pathParts[1] : '');
+                    } elseif ($storeCode !== '') {
                         $this->setActionName('noRoute');
                     }
                 }
@@ -165,7 +161,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 
             $this->_originalPathInfo = (string) $pathInfo;
 
-            $this->_requestString = $pathInfo . ($pos!==false ? substr($requestUri, $pos) : '');
+            $this->_requestString = $pathInfo . ($pos !== false ? substr($requestUri, $pos) : '');
         }
 
         $this->_pathInfo = (string) $pathInfo;
@@ -263,7 +259,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         $this->_route = $route;
         $router = Mage::app()->getFrontController()->getRouterByRoute($route);
-        if (!$router) return $this;
+        if (!$router)
+            return $this;
         $module = $router->getFrontNameByRoute($route);
         if ($module) {
             $this->setModuleName($module);
@@ -306,8 +303,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         if (is_array($key)) {
             $_POST = $key;
-        }
-        else {
+        } else {
             $_POST[$key] = $value;
         }
         return $this;
@@ -344,6 +340,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->_module;
     }
+
     /**
      * Retrieve the controller name
      *
@@ -353,6 +350,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->_controller;
     }
+
     /**
      * Retrieve the action name
      *
@@ -530,4 +528,5 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         }
         return false;
     }
+
 }

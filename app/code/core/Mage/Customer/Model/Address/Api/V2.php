@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
 {
+
     /**
      * Create new address for customer
      *
@@ -43,7 +45,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
     public function create($customerId, $addressData)
     {
         $customer = Mage::getModel('customer/customer')
-            ->load($customerId);
+                ->load($customerId);
         /* @var $customer Mage_Customer_Model_Customer */
 
         if (!$customer->getId()) {
@@ -52,7 +54,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
 
         $address = Mage::getModel('customer/address');
 
-        foreach ($this->getAllowedAttributes($address) as $attributeCode=>$attribute) {
+        foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {
             if (isset($addressData->$attributeCode)) {
                 $address->setData($attributeCode, $addressData->$attributeCode);
             }
@@ -74,9 +76,12 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
             $this->_fault('data_invalid', implode("\n", $valid));
         }
 
-        try {
+        try
+        {
             $address->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -92,7 +97,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
     public function info($addressId)
     {
         $address = Mage::getModel('customer/address')
-            ->load($addressId);
+                ->load($addressId);
 
         if (!$address->getId()) {
             $this->_fault('not_exists');
@@ -110,7 +115,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
 
 
         if ($customer = $address->getCustomer()) {
-            $result['is_default_billing']  = $customer->getDefaultBilling() == $address->getId();
+            $result['is_default_billing'] = $customer->getDefaultBilling() == $address->getId();
             $result['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();
         }
 
@@ -127,13 +132,13 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
     public function update($addressId, $addressData)
     {
         $address = Mage::getModel('customer/address')
-            ->load($addressId);
+                ->load($addressId);
 
         if (!$address->getId()) {
             $this->_fault('not_exists');
         }
 
-        foreach ($this->getAllowedAttributes($address) as $attributeCode=>$attribute) {
+        foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {
             if (isset($addressData->$attributeCode)) {
                 $address->setData($attributeCode, $addressData->$attributeCode);
             }
@@ -152,9 +157,12 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
             $this->_fault('data_invalid', implode("\n", $valid));
         }
 
-        try {
+        try
+        {
             $address->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -170,18 +178,24 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
     public function delete($addressId)
     {
         $address = Mage::getModel('customer/address')
-            ->load($addressId);
+                ->load($addressId);
 
         if (!$address->getId()) {
             $this->_fault('not_exists');
         }
 
-        try {
+        try
+        {
             $address->delete();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_fault('not_deleted', $e->getMessage());
         }
 
         return true;
     }
-} // Class Mage_Customer_Model_Address_Api End
+
+}
+
+// Class Mage_Customer_Model_Address_Api End

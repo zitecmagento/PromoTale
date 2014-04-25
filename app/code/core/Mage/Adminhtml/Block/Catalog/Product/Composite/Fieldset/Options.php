@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options extends Mage_Catalog_Block_Product_View_Options
 {
+
     /**
      * Constructor for our block with options
      *
@@ -42,9 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options extends Ma
     {
         parent::__construct();
         $this->addOptionRenderer(
-            'default',
-            'catalog/product_view_options_type_default',
-            'catalog/product/composite/fieldset/options/type/default.phtml'
+                'default', 'catalog/product_view_options_type_default', 'catalog/product/composite/fieldset/options/type/default.phtml'
         );
     }
 
@@ -58,16 +58,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options extends Ma
     public function getOptionHtml(Mage_Catalog_Model_Product_Option $option)
     {
         $renderer = $this->getOptionRender(
-            $this->getGroupOfOption($option->getType())
+                $this->getGroupOfOption($option->getType())
         );
         if (is_null($renderer['renderer'])) {
             $renderer['renderer'] = $this->getLayout()->createBlock($renderer['block'])
-                ->setTemplate($renderer['template'])
-                ->setSkipJsReloadPrice(1);
+                    ->setTemplate($renderer['template'])
+                    ->setSkipJsReloadPrice(1);
         }
         return $renderer['renderer']
-            ->setProduct($this->getProduct())
-            ->setOption($option)
-            ->toHtml();
+                        ->setProduct($this->getProduct())
+                        ->setOption($option)
+                        ->toHtml();
     }
+
 }

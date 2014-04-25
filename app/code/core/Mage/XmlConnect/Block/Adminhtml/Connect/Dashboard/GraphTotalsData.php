@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphTotalsData extends Mage_Adminhtml_Block_Dashboard_Totals
 {
+
     /**
      * Get rid of unnecessary collection initialization by parent
      *
@@ -58,7 +60,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphTotalsData extends 
 
         /* @var $collection Mage_Reports_Model_Mysql4_Order_Collection */
         $collection = Mage::getResourceModel('reports/order_collection')->addCreateAtPeriodFilter($rangeId)
-            ->calculateTotals((bool)$storeId);
+                ->calculateTotals((bool) $storeId);
 
         if ($storeId) {
             $collection->addFieldToFilter('store_id', $storeId);
@@ -120,4 +122,5 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphTotalsData extends 
         $this->_totals = array();
         return $this;
     }
+
 }

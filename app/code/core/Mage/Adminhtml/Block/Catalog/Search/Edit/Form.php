@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Init Form properties
      *
@@ -56,12 +57,12 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
         /* @var $model Mage_CatalogSearch_Model_Query */
 
         $form = new Varien_Data_Form(array(
-            'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
+            'id' => 'edit_form',
+            'action' => $this->getData('action'),
             'method' => 'post'
         ));
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('catalog')->__('General Information')));
+        $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('catalog')->__('General Information')));
 
         $yesno = array(
             array(
@@ -71,75 +72,74 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
             array(
                 'value' => 1,
                 'label' => Mage::helper('catalog')->__('Yes')
-            ));
+        ));
 
         if ($model->getId()) {
             $fieldset->addField('query_id', 'hidden', array(
-                'name'      => 'query_id',
+                'name' => 'query_id',
             ));
         }
 
         $fieldset->addField('query_text', 'text', array(
-            'name'      => 'query_text',
-            'label'     => Mage::helper('catalog')->__('Search Query'),
-            'title'     => Mage::helper('catalog')->__('Search Query'),
-            'required'  => true,
+            'name' => 'query_text',
+            'label' => Mage::helper('catalog')->__('Search Query'),
+            'title' => Mage::helper('catalog')->__('Search Query'),
+            'required' => true,
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $field = $fieldset->addField('store_id', 'select', array(
-                'name'      => 'store_id',
-                'label'     => Mage::helper('catalog')->__('Store'),
-                'title'     => Mage::helper('catalog')->__('Store'),
-                'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(true, false),
-                'required'  => true,
+                'name' => 'store_id',
+                'label' => Mage::helper('catalog')->__('Store'),
+                'title' => Mage::helper('catalog')->__('Store'),
+                'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(true, false),
+                'required' => true,
             ));
             $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
             $field->setRenderer($renderer);
-        }
-        else {
+        } else {
             $fieldset->addField('store_id', 'hidden', array(
-                'name'      => 'store_id'
+                'name' => 'store_id'
             ));
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }
 
         if ($model->getId()) {
             $fieldset->addField('num_results', 'text', array(
-                'name'     => 'num_results',
-                'label'    => Mage::helper('catalog')->__('Number of results'),
-                'title'    => Mage::helper('catalog')->__('Number of results (For the last time placed)'),
-                'note'     => Mage::helper('catalog')->__('For the last time placed.'),
+                'name' => 'num_results',
+                'label' => Mage::helper('catalog')->__('Number of results'),
+                'title' => Mage::helper('catalog')->__('Number of results (For the last time placed)'),
+                'note' => Mage::helper('catalog')->__('For the last time placed.'),
                 'required' => true,
             ));
 
             $fieldset->addField('popularity', 'text', array(
-                'name'     => 'popularity',
-                'label'    => Mage::helper('catalog')->__('Number of Uses'),
-                'title'    => Mage::helper('catalog')->__('Number of Uses'),
+                'name' => 'popularity',
+                'label' => Mage::helper('catalog')->__('Number of Uses'),
+                'title' => Mage::helper('catalog')->__('Number of Uses'),
                 'required' => true,
             ));
         }
 
         $fieldset->addField('synonym_for', 'text', array(
-            'name'  => 'synonym_for',
+            'name' => 'synonym_for',
             'label' => Mage::helper('catalog')->__('Synonym For'),
             'title' => Mage::helper('catalog')->__('Synonym For'),
-            'note'  => Mage::helper('catalog')->__('Will make search for the query above return results for this search.'),
+            'note' => Mage::helper('catalog')->__('Will make search for the query above return results for this search.'),
         ));
 
         $fieldset->addField('redirect', 'text', array(
-            'name'  => 'redirect',
+            'name' => 'redirect',
             'label' => Mage::helper('catalog')->__('Redirect URL'),
             'title' => Mage::helper('catalog')->__('Redirect URL'),
             'class' => 'validate-url',
-            'note'  => Mage::helper('catalog')->__('ex. http://domain.com'),
+            'note' => Mage::helper('catalog')->__('ex. http://domain.com'),
         ));
 
         $fieldset->addField('display_in_terms', 'select', array(
-            'name'   => 'display_in_terms',
-            'label'  => Mage::helper('catalog')->__('Display in Suggested Terms'),
-            'title'  => Mage::helper('catalog')->__('Display in Suggested Terms'),
+            'name' => 'display_in_terms',
+            'label' => Mage::helper('catalog')->__('Display in Suggested Terms'),
+            'title' => Mage::helper('catalog')->__('Display in Suggested Terms'),
             'values' => $yesno,
         ));
 
@@ -149,4 +149,5 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
 
         return parent::_prepareForm();
     }
+
 }

@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: MediaCredit.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Extension
  */
@@ -58,7 +57,7 @@ class Zend_Gdata_Media_Extension_MediaCredit extends Zend_Gdata_Extension
      * @param string $role
      * @param string $scheme
      */
-    public function __construct($text = null, $role = null,  $scheme = null)
+    public function __construct($text = null, $role = null, $scheme = null)
     {
         $this->registerAllNamespaces(Zend_Gdata_Media::$namespaces);
         parent::__construct();
@@ -99,14 +98,14 @@ class Zend_Gdata_Media_Extension_MediaCredit extends Zend_Gdata_Extension
     protected function takeAttributeFromDOM($attribute)
     {
         switch ($attribute->localName) {
-        case 'role':
-            $this->_role = $attribute->nodeValue;
-            break;
-        case 'scheme':
-            $this->_scheme = $attribute->nodeValue;
-            break;
-        default:
-            parent::takeAttributeFromDOM($attribute);
+            case 'role':
+                $this->_role = $attribute->nodeValue;
+                break;
+            case 'scheme':
+                $this->_scheme = $attribute->nodeValue;
+                break;
+            default:
+                parent::takeAttributeFromDOM($attribute);
         }
     }
 

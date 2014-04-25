@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Enter description here ...
  *
@@ -45,6 +45,7 @@
  */
 class Mage_Eav_Model_Entity_Attribute_Group extends Mage_Core_Model_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -72,4 +73,5 @@ class Mage_Eav_Model_Entity_Attribute_Group extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()->deleteGroups($this);
     }
+
 }

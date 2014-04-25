@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
 /**
  * @see Zend_Service_WindowsAzure_Diagnostics_Exception
  */
@@ -46,22 +46,23 @@
  * @property	int		ScheduledTransferPeriodInMinutes	Scheduled transfer period in minutes
  * @property	string	ScheduledTransferLogLevelFilter		Scheduled transfer log level filter
  */
-class Zend_Service_WindowsAzure_Diagnostics_ConfigurationDiagnosticInfrastructureLogs
-	extends Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
+class Zend_Service_WindowsAzure_Diagnostics_ConfigurationDiagnosticInfrastructureLogs extends Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
 {
+
     /**
      * Constructor
      * 
-	 * @param	int		$bufferQuotaInMB					Buffer quota in MB
-	 * @param	int		$scheduledTransferPeriodInMinutes	Scheduled transfer period in minutes
-	 * @param	string	$scheduledTransferLogLevelFilter	Scheduled transfer log level filter
-	 */
-    public function __construct($bufferQuotaInMB = 0, $scheduledTransferPeriodInMinutes = 0, $scheduledTransferLogLevelFilter = Zend_Service_WindowsAzure_Diagnostics_LogLevel::UNDEFINED) 
-    {	        
+     * @param	int		$bufferQuotaInMB					Buffer quota in MB
+     * @param	int		$scheduledTransferPeriodInMinutes	Scheduled transfer period in minutes
+     * @param	string	$scheduledTransferLogLevelFilter	Scheduled transfer log level filter
+     */
+    public function __construct($bufferQuotaInMB = 0, $scheduledTransferPeriodInMinutes = 0, $scheduledTransferLogLevelFilter = Zend_Service_WindowsAzure_Diagnostics_LogLevel::UNDEFINED)
+    {
         $this->_data = array(
-            'bufferquotainmb'        			=> $bufferQuotaInMB,
-            'scheduledtransferperiodinminutes' 	=> $scheduledTransferPeriodInMinutes,
-            'scheduledtransferloglevelfilter'	=> $scheduledTransferLogLevelFilter
+            'bufferquotainmb' => $bufferQuotaInMB,
+            'scheduledtransferperiodinminutes' => $scheduledTransferPeriodInMinutes,
+            'scheduledtransferloglevelfilter' => $scheduledTransferLogLevelFilter
         );
     }
+
 }

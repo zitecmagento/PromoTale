@@ -20,7 +20,6 @@
  * @version    $Id: Db.php 23405 2010-11-19 19:46:10Z bittarman $
  */
 
-
 /**
  * Class for connecting to SQL databases and performing common operations.
  *
@@ -65,9 +64,9 @@ class Zend_Db
     /**
      * Use the INT_TYPE, BIGINT_TYPE, and FLOAT_TYPE with the quote() method.
      */
-    const INT_TYPE    = 0;
+    const INT_TYPE = 0;
     const BIGINT_TYPE = 1;
-    const FLOAT_TYPE  = 2;
+    const FLOAT_TYPE = 2;
 
     /**
      * PDO constant values discovered by this script result:
@@ -259,7 +258,7 @@ class Zend_Db
         /*
          * Verify that the object created is a descendent of the abstract adapter type.
          */
-        if (! $dbAdapter instanceof Zend_Db_Adapter_Abstract) {
+        if (!$dbAdapter instanceof Zend_Db_Adapter_Abstract) {
             /**
              * @see Zend_Db_Exception
              */

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_Widget
 {
+
     protected $_configurableProduct;
     protected $_product;
 
@@ -42,19 +44,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
         $this->setTemplate('catalog/product/created.phtml');
     }
 
-
     protected function _prepareLayout()
     {
         $this->setChild(
-            'close_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'   => Mage::helper('catalog')->__('Close Window'),
-                    'onclick' => 'addProduct(true)'
-                ))
+                'close_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('catalog')->__('Close Window'),
+                            'onclick' => 'addProduct(true)'
+                        ))
         );
     }
-
 
     public function getCloseButtonHtml()
     {
@@ -88,9 +87,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
             $value = $this->getProduct()->getAttributeText($attribute->getAttributeCode());
 
             $result[] = array(
-                'label'         => $value,
-                'value_index'   => $this->getProduct()->getData($attribute->getAttributeCode()),
-                'attribute_id'  => $attribute->getId()
+                'label' => $value,
+                'value_index' => $this->getProduct()->getData($attribute->getAttributeCode()),
+                'attribute_id' => $attribute->getId()
             );
         }
 
@@ -129,8 +128,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
     {
         if (is_null($this->_configurableProduct)) {
             $this->_configurableProduct = Mage::getModel('catalog/product')
-                ->setStore(0)
-                ->load($this->getRequest()->getParam('product'));
+                    ->setStore(0)
+                    ->load($this->getRequest()->getParam('product'));
         }
         return $this->_configurableProduct;
     }
@@ -144,9 +143,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
     {
         if (is_null($this->_product)) {
             $this->_product = Mage::getModel('catalog/product')
-                ->setStore(0)
-                ->load($this->getRequest()->getParam('id'));
+                    ->setStore(0)
+                    ->load($this->getRequest()->getParam('id'));
         }
         return $this->_product;
     }
-} // Class Mage_Adminhtml_Block_Catalog_Product_Created End
+
+}
+
+// Class Mage_Adminhtml_Block_Catalog_Product_Created End

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -43,51 +44,44 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
 
     protected function _prepareForm()
     {
-        $model  = Mage::registry('tax_class');
-        $form   = new Varien_Data_Form(array(
-            'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
-            'method'    => 'post'
+        $model = Mage::registry('tax_class');
+        $form = new Varien_Data_Form(array(
+            'id' => 'edit_form',
+            'action' => $this->getData('action'),
+            'method' => 'post'
         ));
 
-        $classType  = $this->getClassType();
+        $classType = $this->getClassType();
 
-        $this->setTitle($classType == Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER
-            ? Mage::helper('cms')->__('Customer Tax Class Information')
-            : Mage::helper('cms')->__('Product Tax Class Information')
+        $this->setTitle($classType == Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER ? Mage::helper('cms')->__('Customer Tax Class Information') : Mage::helper('cms')->__('Product Tax Class Information')
         );
 
-        $fieldset   = $form->addFieldset('base_fieldset', array(
-            'legend'    => $classType == Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER
-                ? Mage::helper('tax')->__('Customer Tax Class Information')
-                : Mage::helper('tax')->__('Product Tax Class Information')
+        $fieldset = $form->addFieldset('base_fieldset', array(
+            'legend' => $classType == Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER ? Mage::helper('tax')->__('Customer Tax Class Information') : Mage::helper('tax')->__('Product Tax Class Information')
         ));
 
-        $fieldset->addField('class_name', 'text',
-            array(
-                'name'  => 'class_name',
-                'label' => Mage::helper('tax')->__('Class Name'),
-                'class' => 'required-entry',
-                'value' => $model->getClassName(),
-                'required' => true,
-            )
+        $fieldset->addField('class_name', 'text', array(
+            'name' => 'class_name',
+            'label' => Mage::helper('tax')->__('Class Name'),
+            'class' => 'required-entry',
+            'value' => $model->getClassName(),
+            'required' => true,
+                )
         );
 
-        $fieldset->addField('class_type', 'hidden',
-            array(
-                'name'      => 'class_type',
-                'value'     => $classType,
-                'no_span'   => true
-            )
+        $fieldset->addField('class_type', 'hidden', array(
+            'name' => 'class_type',
+            'value' => $classType,
+            'no_span' => true
+                )
         );
 
         if ($model->getId()) {
-            $fieldset->addField('class_id', 'hidden',
-                array(
-                    'name'      => 'class_id',
-                    'value'     => $model->getId(),
-                    'no_span'   => true
-                )
+            $fieldset->addField('class_id', 'hidden', array(
+                'name' => 'class_id',
+                'value' => $model->getId(),
+                'no_span' => true
+                    )
             );
         }
 
@@ -97,4 +91,5 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
 
         return parent::_prepareForm();
     }
+
 }

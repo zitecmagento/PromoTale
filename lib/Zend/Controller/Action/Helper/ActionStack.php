@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ActionStack.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Controller_Action_Helper_Abstract
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Controller_Action_Helper_ActionStack extends Zend_Controller_Action_Helper_Abstract
 {
+
     /**
      * @var Zend_Controller_Plugin_ActionStack
      */
@@ -100,7 +101,7 @@ class Zend_Controller_Action_Helper_ActionStack extends Zend_Controller_Action_H
 
         $request = $this->getRequest();
 
-        if ($request instanceof Zend_Controller_Request_Abstract === false){
+        if ($request instanceof Zend_Controller_Request_Abstract === false) {
             /**
              * @see Zend_Controller_Action_Exception
              */
@@ -135,4 +136,5 @@ class Zend_Controller_Action_Helper_ActionStack extends Zend_Controller_Action_H
     {
         return $this->actionToStack($action, $controller, $module, $params);
     }
+
 }

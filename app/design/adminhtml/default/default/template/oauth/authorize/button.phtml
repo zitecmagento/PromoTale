@@ -23,13 +23,11 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * "Grant Access" button
  *
  * @see Mage_Oauth_Block_Authorize
  */
-
 /** @var $this Mage_Oauth_Block_Adminhtml_Oauth_Authorize_Button */
 ?>
 <div class="login-container auth-confirm">
@@ -38,7 +36,7 @@
             <div class="page-title">
                 <h1><?php echo $this->__('Authorize application') ?></h1>
             </div>
-            <?php echo $this->getMessagesBlock()->toHtml() ?>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
 
             <?php if (!$this->getHasException()) : ?>
                 <h2><?php echo $this->__('<strong>%s</strong> requests access to your account', $this->escapeHtml($this->getConsumer()->getName())); ?></h2>
@@ -51,7 +49,7 @@
                     <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>">
                     <button type="submit" class="button" title="<?php echo $this->__('Reject') ?>"><span><span><?php echo $this->__('Reject') ?></span></span></button>
                 </form>
-            <?php endif; ?>
+<?php endif; ?>
         </div>
         <p class="legal"><?php echo $this->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', date('Y')) ?></p>
         <div class="bottom"></div>

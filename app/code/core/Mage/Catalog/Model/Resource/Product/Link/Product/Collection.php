@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product linked products collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
+
     /**
      * Store product model
      *
@@ -67,7 +68,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      *
      * @var bool
      */
-    protected $_hasLinkFilter  = false;
+    protected $_hasLinkFilter = false;
 
     /**
      * Declare link model and initialize type attributes join
@@ -217,7 +218,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      */
     protected function _joinLinks()
     {
-        $select  = $this->getSelect();
+        $select = $this->getSelect();
         $adapter = $select->getAdapter();
 
         $joinCondition = array(
@@ -228,7 +229,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         if ($this->getProduct() && $this->getProduct()->getId()) {
             $productId = $this->getProduct()->getId();
             if ($this->_isStrongMode) {
-                $this->getSelect()->where('links.product_id = ?', (int)$productId);
+                $this->getSelect()->where('links.product_id = ?', (int) $productId);
             } else {
                 $joinType = 'joinLeft';
                 $joinCondition[] = $adapter->quoteInto('links.product_id = ?', $productId);
@@ -237,18 +238,14 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         } else if ($this->_isStrongMode) {
             $this->addFieldToFilter('entity_id', array('eq' => -1));
         }
-        if($this->_hasLinkFilter) {
+        if ($this->_hasLinkFilter) {
             $select->$joinType(
-                array('links' => $this->getTable('catalog/product_link')),
-                implode(' AND ', $joinCondition),
-                array('link_id')
+                    array('links' => $this->getTable('catalog/product_link')), implode(' AND ', $joinCondition), array('link_id')
             );
             $this->joinAttributes();
         }
         return $this;
     }
-
-
 
     /**
      * Enable sorting products by its position
@@ -273,12 +270,11 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     public function setAttributeSetIdOrder($dir = self::SORT_ORDER_ASC)
     {
         $this->getSelect()
-            ->joinLeft(
-                array('set' => $this->getTable('eav/attribute_set')),
-                'e.attribute_set_id = set.attribute_set_id',
-                array('attribute_set_name')
-            )
-            ->order('set.attribute_set_name ' . $dir);
+                ->joinLeft(
+                        array('set' => $this->getTable('eav/attribute_set')), 'e.attribute_set_id = set.attribute_set_id', array(
+                    'attribute_set_name')
+                )
+                ->order('set.attribute_set_name ' . $dir);
         return $this;
     }
 
@@ -304,9 +300,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
                 $this->getSelect()->getAdapter()->quoteInto("{$alias}.product_link_attribute_id = ?", $attribute['id'])
             );
             $this->getSelect()->joinLeft(
-                array($alias => $table),
-                implode(' AND ', $joinCondiotion),
-                array($attribute['code'] => 'value')
+                    array($alias => $table), implode(' AND ', $joinCondiotion), array($attribute['code'] => 'value')
             );
         }
 
@@ -331,4 +325,5 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         }
         return parent::setOrder($attribute, $dir);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Pubsubhubbub.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
 /**
  * @see Zend_Http_Client
  */
@@ -52,18 +52,19 @@
  */
 class Zend_Feed_Pubsubhubbub
 {
+
     /**
      * Verification Modes
      */
-    const VERIFICATION_MODE_SYNC  = 'sync';
+    const VERIFICATION_MODE_SYNC = 'sync';
     const VERIFICATION_MODE_ASYNC = 'async';
-    
+
     /**
      * Subscription States
      */
-    const SUBSCRIPTION_VERIFIED    = 'verified';
+    const SUBSCRIPTION_VERIFIED = 'verified';
     const SUBSCRIPTION_NOTVERIFIED = 'not_verified';
-    const SUBSCRIPTION_TODELETE    = 'to_delete';
+    const SUBSCRIPTION_TODELETE = 'to_delete';
 
     /**
      * Singleton instance if required of the HTTP client
@@ -150,4 +151,5 @@ class Zend_Feed_Pubsubhubbub
         $rfcencoded = str_replace('%7E', '~', $rawencoded);
         return $rfcencoded;
     }
+
 }

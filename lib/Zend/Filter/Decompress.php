@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Decompress.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Filter_Compress
  */
@@ -34,6 +34,7 @@
  */
 class Zend_Filter_Decompress extends Zend_Filter_Compress
 {
+
     /**
      * Defined by Zend_Filter_Interface
      *
@@ -46,4 +47,5 @@ class Zend_Filter_Decompress extends Zend_Filter_Compress
     {
         return $this->getAdapter()->decompress($value);
     }
+
 }

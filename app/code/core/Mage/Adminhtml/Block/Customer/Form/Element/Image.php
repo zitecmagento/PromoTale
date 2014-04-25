@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer Widget Form Image File Element Block
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Block_Customer_Form_Element_File
 {
+
     /**
      * Return Delete CheckBox Label
      *
@@ -65,23 +66,21 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
         if ($this->getValue() && !is_array($this->getValue())) {
             $url = $this->_getPreviewUrl();
             $imageId = sprintf('%s_image', $this->getHtmlId());
-            $image   = array(
-                'alt'    => Mage::helper('adminhtml')->__('View Full Size'),
-                'title'  => Mage::helper('adminhtml')->__('View Full Size'),
-                'src'    => $url,
-                'class'  => 'small-image-preview v-middle',
+            $image = array(
+                'alt' => Mage::helper('adminhtml')->__('View Full Size'),
+                'title' => Mage::helper('adminhtml')->__('View Full Size'),
+                'src' => $url,
+                'class' => 'small-image-preview v-middle',
                 'height' => 22,
-                'width'  => 22,
-                'id'     => $imageId
+                'width' => 22,
+                'id' => $imageId
             );
-            $link    = array(
-                'href'      => $url,
-                'onclick'   => "imagePreview('{$imageId}'); return false;",
+            $link = array(
+                'href' => $url,
+                'onclick' => "imagePreview('{$imageId}'); return false;",
             );
 
-            $html = sprintf('%s%s</a> ',
-                $this->_drawElementHtml('a', $link, false),
-                $this->_drawElementHtml('img', $image)
+            $html = sprintf('%s%s</a> ', $this->_drawElementHtml('a', $link, false), $this->_drawElementHtml('img', $image)
             );
         }
         return $html;
@@ -98,7 +97,8 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
             return false;
         }
         return Mage::helper('adminhtml')->getUrl('adminhtml/customer/viewfile', array(
-            'image'      => Mage::helper('core')->urlEncode($this->getValue()),
+                    'image' => Mage::helper('core')->urlEncode($this->getValue()),
         ));
     }
+
 }

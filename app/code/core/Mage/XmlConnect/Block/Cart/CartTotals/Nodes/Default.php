@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Xmlconnect_Block_Cart_CartTotals_Nodes_Default extends Mage_Checkout_Block_Total_Default
 {
+
     /**
      * Add cart total node to xml
      *
@@ -60,4 +62,5 @@ class Mage_Xmlconnect_Block_Cart_CartTotals_Nodes_Default extends Mage_Checkout_
 
         return $nodeXmlObj;
     }
+
 }

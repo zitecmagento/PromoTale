@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -75,10 +76,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
                 $productIds = 0;
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', array('in'=>$productIds));
+                $this->getCollection()->addFieldToFilter('entity_id', array('in' => $productIds));
             } else {
-                if($productIds) {
-                    $this->getCollection()->addFieldToFilter('entity_id', array('nin'=>$productIds));
+                if ($productIds) {
+                    $this->getCollection()->addFieldToFilter('entity_id', array('nin' => $productIds));
                 }
             }
         } else {
@@ -98,14 +99,14 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         /* @var $collection Mage_Catalog_Model_Resource_Product_Collection */
         $collection = Mage::getModel('catalog/product')->getCollection();
         $collection
-            ->setStore($this->getStore())
-            ->addAttributeToSelect($attributes)
-            ->addAttributeToSelect('sku')
-            ->addStoreFilter()
-            ->addAttributeToFilter('type_id', array_keys(
-                Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()
-            ))
-            ->addAttributeToSelect('gift_message_available');
+                ->setStore($this->getStore())
+                ->addAttributeToSelect($attributes)
+                ->addAttributeToSelect('sku')
+                ->addStoreFilter()
+                ->addAttributeToFilter('type_id', array_keys(
+                                Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()
+                ))
+                ->addAttributeToSelect('gift_message_available');
 
         Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($collection);
 
@@ -121,55 +122,55 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(
-            'header'    => Mage::helper('sales')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60',
-            'index'     => 'entity_id'
+            'header' => Mage::helper('sales')->__('ID'),
+            'sortable' => true,
+            'width' => '60',
+            'index' => 'entity_id'
         ));
         $this->addColumn('name', array(
-            'header'    => Mage::helper('sales')->__('Product Name'),
-            'renderer'  => 'adminhtml/sales_order_create_search_grid_renderer_product',
-            'index'     => 'name'
+            'header' => Mage::helper('sales')->__('Product Name'),
+            'renderer' => 'adminhtml/sales_order_create_search_grid_renderer_product',
+            'index' => 'name'
         ));
         $this->addColumn('sku', array(
-            'header'    => Mage::helper('sales')->__('SKU'),
-            'width'     => '80',
-            'index'     => 'sku'
+            'header' => Mage::helper('sales')->__('SKU'),
+            'width' => '80',
+            'index' => 'sku'
         ));
         $this->addColumn('price', array(
-            'header'    => Mage::helper('sales')->__('Price'),
+            'header' => Mage::helper('sales')->__('Price'),
             'column_css_class' => 'price',
-            'align'     => 'center',
-            'type'      => 'currency',
+            'align' => 'center',
+            'type' => 'currency',
             'currency_code' => $this->getStore()->getCurrentCurrencyCode(),
-            'rate'      => $this->getStore()->getBaseCurrency()->getRate($this->getStore()->getCurrentCurrencyCode()),
-            'index'     => 'price',
-            'renderer'  => 'adminhtml/sales_order_create_search_grid_renderer_price',
+            'rate' => $this->getStore()->getBaseCurrency()->getRate($this->getStore()->getCurrentCurrencyCode()),
+            'index' => 'price',
+            'renderer' => 'adminhtml/sales_order_create_search_grid_renderer_price',
         ));
 
         $this->addColumn('in_products', array(
-            'header'    => Mage::helper('sales')->__('Select'),
+            'header' => Mage::helper('sales')->__('Select'),
             'header_css_class' => 'a-center',
-            'type'      => 'checkbox',
-            'name'      => 'in_products',
-            'values'    => $this->_getSelectedProducts(),
-            'align'     => 'center',
-            'index'     => 'entity_id',
-            'sortable'  => false,
+            'type' => 'checkbox',
+            'name' => 'in_products',
+            'values' => $this->_getSelectedProducts(),
+            'align' => 'center',
+            'index' => 'entity_id',
+            'sortable' => false,
         ));
 
         $this->addColumn('qty', array(
-            'filter'    => false,
-            'sortable'  => false,
-            'header'    => Mage::helper('sales')->__('Qty To Add'),
-            'renderer'  => 'adminhtml/sales_order_create_search_grid_renderer_qty',
-            'name'      => 'qty',
-            'inline_css'=> 'qty',
-            'align'     => 'center',
-            'type'      => 'input',
+            'filter' => false,
+            'sortable' => false,
+            'header' => Mage::helper('sales')->__('Qty To Add'),
+            'renderer' => 'adminhtml/sales_order_create_search_grid_renderer_qty',
+            'name' => 'qty',
+            'inline_css' => 'qty',
+            'align' => 'center',
+            'type' => 'input',
             'validate_class' => 'validate-number',
-            'index'     => 'qty',
-            'width'     => '1',
+            'index' => 'qty',
+            'width' => '1',
         ));
 
         return parent::_prepareColumns();
@@ -177,7 +178,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/loadBlock', array('block'=>'search_grid', '_current' => true, 'collapse' => null));
+        return $this->getUrl('*/*/loadBlock', array('block' => 'search_grid', '_current' => true, 'collapse' => null));
     }
 
     protected function _getSelectedProducts()
@@ -203,8 +204,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
      *
      * return Mage_Adminhtml_Block_Widget_Grid
      */
-    protected function _afterLoadCollection() {
+
+    protected function _afterLoadCollection()
+    {
         $this->getCollection()->addOptionsToResult();
         return parent::_afterLoadCollection();
     }
+
 }

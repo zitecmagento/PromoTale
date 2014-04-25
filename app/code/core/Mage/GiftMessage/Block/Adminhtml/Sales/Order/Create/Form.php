@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Form extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Indicates that block can display gift message form
      *
@@ -43,4 +45,5 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Form extends Mage_Admi
         $quote = Mage::getSingleton('adminhtml/session_quote')->getQuote();
         return $this->helper('giftmessage/message')->getIsMessagesAvailable('items', $quote, $quote->getStore());
     }
+
 }

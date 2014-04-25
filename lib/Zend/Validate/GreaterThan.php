@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: GreaterThan.php 20352 2010-01-17 17:55:38Z thomas $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */

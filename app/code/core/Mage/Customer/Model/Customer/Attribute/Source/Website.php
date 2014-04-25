@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Customer_Attribute_Source_Website extends Mage_Eav_Model_Entity_Attribute_Source_Table
 {
+
     public function getAllOptions()
     {
         if (!$this->_options) {
@@ -45,13 +47,14 @@ class Mage_Customer_Model_Customer_Attribute_Source_Website extends Mage_Eav_Mod
     public function getOptionText($value)
     {
         if (!$this->_options) {
-          $this->_options = $this->getAllOptions();
+            $this->_options = $this->getAllOptions();
         }
         foreach ($this->_options as $option) {
-          if ($option['value'] == $value) {
-            return $option['label'];
-          }
+            if ($option['value'] == $value) {
+                return $option['label'];
+            }
         }
         return false;
     }
+
 }

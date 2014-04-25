@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,13 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: View.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * Abstract master class for extension.
  */
 #require_once 'Zend/View/Abstract.php';
-
 
 /**
  * Concrete class for handling view scripts.
@@ -36,6 +34,7 @@
  */
 class Zend_View extends Zend_View_Abstract
 {
+
     /**
      * Whether or not to use streams to mimic short tags
      * @var bool
@@ -108,4 +107,5 @@ class Zend_View extends Zend_View_Abstract
             include func_get_arg(0);
         }
     }
+
 }

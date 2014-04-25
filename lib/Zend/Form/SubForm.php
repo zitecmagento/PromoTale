@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -17,7 +18,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form */
 #require_once 'Zend/Form.php';
 
@@ -32,6 +32,7 @@
  */
 class Zend_Form_SubForm extends Zend_Form
 {
+
     /**
      * Whether or not form elements are members of an array
      * @var bool
@@ -52,10 +53,11 @@ class Zend_Form_SubForm extends Zend_Form
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('FormElements')
-                 ->addDecorator('HtmlTag', array('tag' => 'dl'))
-                 ->addDecorator('Fieldset')
-                 ->addDecorator('DtDdWrapper');
+                    ->addDecorator('HtmlTag', array('tag' => 'dl'))
+                    ->addDecorator('Fieldset')
+                    ->addDecorator('DtDdWrapper');
         }
         return $this;
     }
+
 }

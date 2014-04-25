@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Docblock.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Reflection_Docblock_Tag
  */
@@ -32,17 +32,18 @@
  */
 class Zend_Reflection_Docblock implements Reflector
 {
+
     /**
      * @var Reflector
      */
     protected $_reflector = null;
 
-    /**#@+
+    /*     * #@+
      * @var int
      */
     protected $_startLine = null;
-    protected $_endLine   = null;
-    /**#@-*/
+    protected $_endLine = null;
+    /*     * #@- */
 
     /**
      * @var string
@@ -79,7 +80,7 @@ class Zend_Reflection_Docblock implements Reflector
      */
     public static function export()
     {
-
+        
     }
 
     /**
@@ -92,15 +93,15 @@ class Zend_Reflection_Docblock implements Reflector
      */
     public function __toString()
     {
-        $str = "Docblock [ /* Docblock */ ] {".PHP_EOL.PHP_EOL;
-        $str .= "  - Tags [".count($this->_tags)."] {".PHP_EOL;
+        $str = "Docblock [ /* Docblock */ ] {" . PHP_EOL . PHP_EOL;
+        $str .= "  - Tags [" . count($this->_tags) . "] {" . PHP_EOL;
 
-        foreach($this->_tags AS $tag) {
-            $str .= "    ".$tag;
+        foreach ($this->_tags AS $tag) {
+            $str .= "    " . $tag;
         }
 
-        $str .= "  }".PHP_EOL;
-        $str .= "}".PHP_EOL;
+        $str .= "  }" . PHP_EOL;
+        $str .= "}" . PHP_EOL;
 
         return $str;
     }
@@ -123,8 +124,7 @@ class Zend_Reflection_Docblock implements Reflector
             $lineCount = substr_count($docComment, "\n");
 
             $this->_startLine = $this->_reflector->getStartLine() - $lineCount - 1;
-            $this->_endLine   = $this->_reflector->getStartLine() - 1;
-
+            $this->_endLine = $this->_reflector->getStartLine() - 1;
         } elseif (is_string($commentOrReflector)) {
             $docComment = $commentOrReflector;
         } else {
@@ -285,10 +285,10 @@ class Zend_Reflection_Docblock implements Reflector
 
                 $parsedDocComment = substr($parsedDocComment, $newlinePos + 1);
             }
-
         }
 
         $this->_shortDescription = rtrim($this->_shortDescription);
-        $this->_longDescription  = rtrim($this->_longDescription);
+        $this->_longDescription = rtrim($this->_longDescription);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form extends Mage_Adminhtml_Block_Sales_Order_Abstract
 {
+
     /**
      * Retrieve invoice order
      *
@@ -71,17 +72,14 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form extends Mage_Adminht
 //        $this->setChild('order_info', $infoBlock);
 
         $this->setChild(
-            'items',
-            $this->getLayout()->createBlock('adminhtml/sales_order_shipment_create_items')
+                'items', $this->getLayout()->createBlock('adminhtml/sales_order_shipment_create_items')
         );
         $this->setChild(
-            'tracking',
-            $this->getLayout()->createBlock('adminhtml/sales_order_shipment_create_tracking')
+                'tracking', $this->getLayout()->createBlock('adminhtml/sales_order_shipment_create_tracking')
         );
 //        $paymentInfoBlock = $this->getLayout()->createBlock('adminhtml/sales_order_payment')
 //            ->setPayment($this->getShipment()->getOrder()->getPayment());
 //        $this->setChild('payment_info', $paymentInfoBlock);
-
 //        return parent::_prepareLayout();
     }
 
@@ -99,4 +97,5 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form extends Mage_Adminht
     {
         return $this->getUrl('*/*/save', array('order_id' => $this->getShipment()->getOrderId()));
     }
+
 }

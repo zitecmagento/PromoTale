@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SnippetQuery.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_Gdata_Query
  */
@@ -44,6 +43,7 @@
  */
 class Zend_Gdata_Gbase_SnippetQuery extends Zend_Gdata_Gbase_Query
 {
+
     /**
      * Path to the snippets feeds on the Google Base server.
      */

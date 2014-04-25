@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,9 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Payment_Block_Info_Ccsave extends Mage_Payment_Block_Info_Cc
 {
+
     /**
      * Show name on card, expiration date and full cc number
      *
@@ -44,11 +45,12 @@ class Mage_Payment_Block_Info_Ccsave extends Mage_Payment_Block_Info_Cc
         if (!$this->getIsSecureMode()) {
             $transport->addData(array(
                 Mage::helper('payment')->__('Expiration Date') => $this->_formatCardDate(
-                    $info->getCcExpYear(), $this->getCcExpMonth()
+                        $info->getCcExpYear(), $this->getCcExpMonth()
                 ),
                 Mage::helper('payment')->__('Credit Card Number') => $info->getCcNumber(),
             ));
         }
         return $transport;
     }
+
 }

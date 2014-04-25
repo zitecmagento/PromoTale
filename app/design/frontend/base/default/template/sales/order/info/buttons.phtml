@@ -25,8 +25,8 @@
  */
 ?>
 
-<?php  $_order = $this->getOrder() ?>
-<?php if($this->helper('rss/order')->isStatusNotificationAllow()): ?>
+<?php $_order = $this->getOrder() ?>
+<?php if ($this->helper('rss/order')->isStatusNotificationAllow()): ?>
     <a href="<?php echo $this->helper('rss/order')->getStatusHistoryRssUrl($_order) ?>" class="link-rss f-none"><?php echo $this->__('Subscribe to Order Status') ?></a>
     <span class="separator">|</span>
 <?php endif; ?>
@@ -34,5 +34,5 @@
     <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $this->__('Reorder') ?></a>
     <span class="separator">|</span>
 <?php endif ?>
-<a href="<?php echo $this->getPrintUrl($_order) ?>" class="link-print" onclick="this.target='_blank';"><?php echo $this->__('Print Order') ?></a>
+<a href="<?php echo $this->getPrintUrl($_order) ?>" class="link-print" onclick="this.target = '_blank';"><?php echo $this->__('Print Order') ?></a>
 <?php echo $this->getChildHtml(); ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,12 +28,13 @@
  */
 class Zend_Json_Server_Error
 {
-    const ERROR_PARSE           = -32768;
+
+    const ERROR_PARSE = -32768;
     const ERROR_INVALID_REQUEST = -32600;
-    const ERROR_INVALID_METHOD  = -32601;
-    const ERROR_INVALID_PARAMS  = -32602;
-    const ERROR_INTERNAL        = -32603;
-    const ERROR_OTHER           = -32000;
+    const ERROR_INVALID_METHOD = -32601;
+    const ERROR_INVALID_PARAMS = -32602;
+    const ERROR_INTERNAL = -32603;
+    const ERROR_OTHER = -32000;
 
     /**
      * Allowed error codes
@@ -76,8 +78,8 @@ class Zend_Json_Server_Error
     public function __construct($message = null, $code = -32000, $data = null)
     {
         $this->setMessage($message)
-             ->setCode($code)
-             ->setData($data);
+                ->setCode($code)
+                ->setData($data);
     }
 
     /**
@@ -168,9 +170,9 @@ class Zend_Json_Server_Error
     public function toArray()
     {
         return array(
-            'code'    => $this->getCode(),
+            'code' => $this->getCode(),
             'message' => $this->getMessage(),
-            'data'    => $this->getData(),
+            'data' => $this->getData(),
         );
     }
 
@@ -194,5 +196,5 @@ class Zend_Json_Server_Error
     {
         return $this->toJson();
     }
-}
 
+}

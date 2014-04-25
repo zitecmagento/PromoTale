@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CollectionFeed.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Feed
  */
@@ -59,4 +58,3 @@ class Zend_Gdata_Books_CollectionFeed extends Zend_Gdata_Feed
     protected $_entryClassName = 'Zend_Gdata_Books_CollectionEntry';
 
 }
-

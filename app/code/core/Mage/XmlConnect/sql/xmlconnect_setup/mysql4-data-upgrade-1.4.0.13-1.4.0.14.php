@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
  * Xmlconnect Config data install
  *
@@ -31,20 +31,19 @@
  * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 
 $appTableName = $installer->getTable('xmlconnect/application');
 
 $configField = $installer->getConnection()
-    ->tableColumnExists($appTableName, 'configuration');
+        ->tableColumnExists($appTableName, 'configuration');
 
 if ($configField) {
     /** @var $appModel Mage_XmlConnect_Model_Application */
     $appModel = Mage::getModel('xmlconnect/application');
     $select = $appModel->getResource()->getReadConnection()->select()->from(
-        $appTableName, array('application_id', 'configuration')
+            $appTableName, array('application_id', 'configuration')
     );
 
     $result = $appModel->getResource()->getReadConnection()->fetchAll($select);
@@ -55,13 +54,11 @@ if ($configField) {
         }
         $deprecatedConfig = unserialize($rows['configuration']);
         $appModel->getConfigModel()->saveConfig(
-            $rows['application_id'],
-            $appModel->convertOldConfing($deprecatedConfig),
-            Mage_XmlConnect_Model_Application::DEPRECATED_CONFIG_FLAG
+                $rows['application_id'], $appModel->convertOldConfing($deprecatedConfig), Mage_XmlConnect_Model_Application::DEPRECATED_CONFIG_FLAG
         );
     }
 
     $installer->getConnection()->dropColumn(
-        $installer->getTable('xmlconnect/application'), 'configuration'
+            $installer->getTable('xmlconnect/application'), 'configuration'
     );
 }

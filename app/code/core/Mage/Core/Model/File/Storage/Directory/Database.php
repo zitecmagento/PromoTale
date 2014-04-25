@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Directory database storage model class
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_File_Storage_Database_Abstract
 {
+
     /**
      * Prefix of model events names
      *
@@ -73,13 +74,13 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
          * addData() is used because it's needed to clear only db storaged data
          */
         $this->addData(
-            array(
-                'directory_id'  => null,
-                'name'          => null,
-                'path'          => null,
-                'upload_time'   => null,
-                'parent_id'     => null
-            )
+                array(
+                    'directory_id' => null,
+                    'name' => null,
+                    'path' => null,
+                    'upload_time' => null,
+                    'parent_id' => null
+                )
         );
 
         $this->_getResource()->loadByPath($this, $path);
@@ -156,7 +157,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
     public function exportDirectories($offset = 0, $count = 100)
     {
         $offset = ((int) $offset >= 0) ? (int) $offset : 0;
-        $count  = ((int) $count >= 1) ? (int) $count : 1;
+        $count = ((int) $count >= 1) ? (int) $count : 1;
 
         $result = $this->_getResource()->exportDirectories($offset, $count);
 
@@ -185,10 +186,10 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
                 continue;
             }
 
-            try {
+            try
+            {
                 $directory = Mage::getModel(
-                    'core/file_storage_directory_database',
-                    array('connection' => $this->getConnectionName())
+                                'core/file_storage_directory_database', array('connection' => $this->getConnectionName())
                 );
                 $directory->setPath($dir['path']);
 
@@ -200,7 +201,9 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
                 } else {
                     Mage::throwException(Mage::helper('core')->__('Parent directory does not exist: %s', $dir['path']));
                 }
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::logException($e);
             }
         }
@@ -252,4 +255,5 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** @see Zend_Captcha_Base */
 #require_once 'Zend/Captcha/Base.php';
 
@@ -36,14 +36,16 @@
  */
 abstract class Zend_Captcha_Word extends Zend_Captcha_Base
 {
-    /**#@+
+    /*     * #@+
      * @var array Character sets
      */
-    static $V  = array("a", "e", "i", "o", "u", "y");
-    static $VN = array("a", "e", "i", "o", "u", "y","2","3","4","5","6","7","8","9");
-    static $C  = array("b","c","d","f","g","h","j","k","m","n","p","q","r","s","t","u","v","w","x","z");
-    static $CN = array("b","c","d","f","g","h","j","k","m","n","p","q","r","s","t","u","v","w","x","z","2","3","4","5","6","7","8","9");
-    /**#@-*/
+
+    static $V = array("a", "e", "i", "o", "u", "y");
+    static $VN = array("a", "e", "i", "o", "u", "y", "2", "3", "4", "5", "6", "7", "8", "9");
+    static $C = array("b", "c", "d", "f", "g", "h", "j", "k", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "z");
+    static $CN = array("b", "c", "d", "f", "g", "h", "j", "k", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "z",
+        "2", "3", "4", "5", "6", "7", "8", "9");
+    /*     * #@- */
 
     /**
      * Random session ID
@@ -101,13 +103,15 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      */
     protected $_keepSession = false;
 
-    /**#@+
+    /*     * #@+
      * Error codes
      */
+
     const MISSING_VALUE = 'missingValue';
-    const MISSING_ID    = 'missingID';
-    const BAD_CAPTCHA   = 'badCaptcha';
-    /**#@-*/
+    const MISSING_ID = 'missingID';
+    const BAD_CAPTCHA = 'badCaptcha';
+
+    /*     * #@- */
 
     /**
      * Error messages
@@ -115,8 +119,8 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      */
     protected $_messageTemplates = array(
         self::MISSING_VALUE => 'Empty captcha value',
-        self::MISSING_ID    => 'Captcha ID field is missing',
-        self::BAD_CAPTCHA   => 'Captcha value is wrong',
+        self::MISSING_ID => 'Captcha ID field is missing',
+        self::BAD_CAPTCHA => 'Captcha value is wrong',
     );
 
     /**
@@ -131,7 +135,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      *
      * @return string
      */
-	public function getSessionClass()
+    public function getSessionClass()
     {
         return $this->_sessionClass;
     }
@@ -175,7 +179,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      *
      * @return string
      */
-    public function getId ()
+    public function getId()
     {
         if (null === $this->_id) {
             $this->_setId($this->_generateRandomId());
@@ -189,7 +193,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      * @param string $id
      * return Zend_Captcha_Word
      */
-    protected function _setId ($id)
+    protected function _setId($id)
     {
         $this->_id = $id;
         return $this;
@@ -217,17 +221,17 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
         return $this->_timeout;
     }
 
-	/**
-	 * Sets if session should be preserved on generate()
-	 *
-	 * @param $keepSession Should session be kept on generate()?
-	 * @return Zend_Captcha_Word
-	 */
-	public function setKeepSession($keepSession)
-	{
-		$this->_keepSession = $keepSession;
-		return $this;
-	}
+    /**
+     * Sets if session should be preserved on generate()
+     *
+     * @param $keepSession Should session be kept on generate()?
+     * @return Zend_Captcha_Word
+     */
+    public function setKeepSession($keepSession)
+    {
+        $this->_keepSession = $keepSession;
+        return $this;
+    }
 
     /**
      * Numbers should be included in the pattern?
@@ -239,9 +243,9 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
         return $this->_useNumbers;
     }
 
-	/**
-	 * Set if numbers should be included in the pattern
-	 *
+    /**
+     * Set if numbers should be included in the pattern
+     *
      * @param $_useNumbers numbers should be included in the pattern?
      * @return Zend_Captcha_Word
      */
@@ -251,7 +255,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
         return $this;
     }
 
-	/**
+    /**
      * Get session object
      *
      * @return Zend_Session_Namespace
@@ -280,7 +284,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
     public function setSession(Zend_Session_Namespace $session)
     {
         $this->_session = $session;
-        if($session) {
+        if ($session) {
             $this->_keepSession = true;
         }
         return $this;
@@ -294,7 +298,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
     public function getWord()
     {
         if (empty($this->_word)) {
-            $session     = $this->getSession();
+            $session = $this->getSession();
             $this->_word = $session->word;
         }
         return $this->_word;
@@ -308,9 +312,9 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      */
     protected function _setWord($word)
     {
-        $session       = $this->getSession();
+        $session = $this->getSession();
         $session->word = $word;
-        $this->_word   = $word;
+        $this->_word = $word;
         return $this;
     }
 
@@ -321,16 +325,16 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      */
     protected function _generateWord()
     {
-        $word       = '';
-        $wordLen    = $this->getWordLen();
-        $vowels     = $this->_useNumbers ? self::$VN : self::$V;
+        $word = '';
+        $wordLen = $this->getWordLen();
+        $vowels = $this->_useNumbers ? self::$VN : self::$V;
         $consonants = $this->_useNumbers ? self::$CN : self::$C;
 
-        for ($i=0; $i < $wordLen; $i = $i + 2) {
+        for ($i = 0; $i < $wordLen; $i = $i + 2) {
             // generate word with mix of vowels and consonants
             $consonant = $consonants[array_rand($consonants)];
-            $vowel     = $vowels[array_rand($vowels)];
-            $word     .= $consonant . $vowel;
+            $vowel = $vowels[array_rand($vowels)];
+            $word .= $consonant . $vowel;
         }
 
         if (strlen($word) > $wordLen) {
@@ -347,7 +351,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      */
     public function generate()
     {
-        if(!$this->_keepSession) {
+        if (!$this->_keepSession) {
             $this->_session = null;
         }
         $id = $this->_generateRandomId();
@@ -415,4 +419,5 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
     {
         return "Captcha_Word";
     }
+
 }

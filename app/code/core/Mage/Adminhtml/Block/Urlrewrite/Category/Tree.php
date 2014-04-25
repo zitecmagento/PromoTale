@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block_Catalog_Category_Abstract
 {
+
     /**
      * List of allowed category ids
      *
@@ -98,8 +100,8 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
         $collection = $this->_getData('category_collection');
         if (is_null($collection)) {
             $collection = Mage::getModel('catalog/category')->getCollection()
-                ->addAttributeToSelect(array('name', 'is_active'))
-                ->setLoadProductCount(true);
+                    ->addAttributeToSelect(array('name', 'is_active'))
+                    ->setLoadProductCount(true);
             $this->setData('category_collection', $collection);
         }
 
@@ -115,13 +117,13 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     protected function _getNodesArray($node)
     {
         $result = array(
-            'id'             => (int)$node->getId(),
-            'parent_id'      => (int)$node->getParentId(),
-            'children_count' => (int)$node->getChildrenCount(),
-            'is_active'      => (bool)$node->getIsActive(),
-            'name'           => $node->getName(),
-            'level'          => (int)$node->getLevel(),
-            'product_count'  => (int)$node->getProductCount()
+            'id' => (int) $node->getId(),
+            'parent_id' => (int) $node->getParentId(),
+            'children_count' => (int) $node->getChildrenCount(),
+            'is_active' => (bool) $node->getIsActive(),
+            'name' => $node->getName(),
+            'level' => (int) $node->getLevel(),
+            'product_count' => (int) $node->getProductCount()
         );
 
         if (is_array($this->_allowedCategoryIds) && !in_array($result['id'], $this->_allowedCategoryIds)) {
@@ -134,7 +136,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
                 $result['children'][] = $this->_getNodesArray($childNode);
             }
         }
-        $result['cls']      = ($result['is_active'] ? '' : 'no-') . 'active-category';
+        $result['cls'] = ($result['is_active'] ? '' : 'no-') . 'active-category';
         $result['expanded'] = (!empty($result['children']));
 
         return $result;
@@ -149,4 +151,5 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     {
         return Mage::helper('adminhtml')->getUrl('*/*/categoriesJson');
     }
+
 }

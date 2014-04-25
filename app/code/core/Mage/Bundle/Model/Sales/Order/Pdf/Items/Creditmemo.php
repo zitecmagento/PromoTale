@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,38 +34,38 @@
  */
 class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract
 {
+
     /**
      * Draw item line
      *
      */
     public function draw()
     {
-        $order  = $this->getOrder();
-        $item   = $this->getItem();
-        $pdf    = $this->getPdf();
-        $page   = $this->getPage();
+        $order = $this->getOrder();
+        $item = $this->getItem();
+        $pdf = $this->getPdf();
+        $page = $this->getPage();
 
         $items = $this->getChilds($item);
         $_prevOptionId = '';
-        $drawItems  = array();
-        $leftBound  = 35;
+        $drawItems = array();
+        $leftBound = 35;
         $rightBound = 565;
 
         foreach ($items as $_item) {
-            $x      = $leftBound;
-            $line   = array();
+            $x = $leftBound;
+            $line = array();
 
             $attributes = $this->getSelectionAttributes($_item);
             if (is_array($attributes)) {
-                $optionId   = $attributes['option_id'];
-            }
-            else {
+                $optionId = $attributes['option_id'];
+            } else {
                 $optionId = 0;
             }
 
             if (!isset($drawItems[$optionId])) {
                 $drawItems[$optionId] = array(
-                    'lines'  => array(),
+                    'lines' => array(),
                     'height' => 15
                 );
             }
@@ -73,13 +74,13 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
             if ($_item->getOrderItem()->getParentItem()) {
                 if ($_prevOptionId != $attributes['option_id']) {
                     $line[0] = array(
-                        'font'  => 'italic',
-                        'text'  => Mage::helper('core/string')->str_split($attributes['option_label'], 38, true, true),
-                        'feed'  => $x
+                        'font' => 'italic',
+                        'text' => Mage::helper('core/string')->str_split($attributes['option_label'], 38, true, true),
+                        'feed' => $x
                     );
 
                     $drawItems[$optionId] = array(
-                        'lines'  => array($line),
+                        'lines' => array($line),
                         'height' => 15
                     );
 
@@ -98,8 +99,8 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
             }
 
             $line[] = array(
-                'text'  => Mage::helper('core/string')->str_split($name, 35, true, true),
-                'feed'  => $feed
+                'text' => Mage::helper('core/string')->str_split($name, 35, true, true),
+                'feed' => $feed
             );
 
             $x += 220;
@@ -111,8 +112,8 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                     $text[] = $part;
                 }
                 $line[] = array(
-                    'text'  => $text,
-                    'feed'  => $x
+                    'text' => $text,
+                    'feed' => $x
                 );
             }
 
@@ -123,9 +124,9 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 // draw Total(ex)
                 $text = $order->formatPriceTxt($_item->getRowTotal());
                 $line[] = array(
-                    'text'  => $text,
-                    'feed'  => $x,
-                    'font'  => 'bold',
+                    'text' => $text,
+                    'feed' => $x,
+                    'font' => 'bold',
                     'align' => 'right',
                     'width' => 50
                 );
@@ -134,9 +135,9 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 // draw Discount
                 $text = $order->formatPriceTxt(-$_item->getDiscountAmount());
                 $line[] = array(
-                    'text'  => $text,
-                    'feed'  => $x,
-                    'font'  => 'bold',
+                    'text' => $text,
+                    'feed' => $x,
+                    'font' => 'bold',
                     'align' => 'right',
                     'width' => 50
                 );
@@ -145,9 +146,9 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 // draw QTY
                 $text = $_item->getQty() * 1;
                 $line[] = array(
-                    'text'  => $_item->getQty()*1,
-                    'feed'  => $x,
-                    'font'  => 'bold',
+                    'text' => $_item->getQty() * 1,
+                    'feed' => $x,
+                    'font' => 'bold',
                     'align' => 'center',
                     'width' => 30
                 );
@@ -156,9 +157,9 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 // draw Tax
                 $text = $order->formatPriceTxt($_item->getTaxAmount());
                 $line[] = array(
-                    'text'  => $text,
-                    'feed'  => $x,
-                    'font'  => 'bold',
+                    'text' => $text,
+                    'feed' => $x,
+                    'font' => 'bold',
                     'align' => 'right',
                     'width' => 45
                 );
@@ -166,18 +167,17 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
 
                 // draw Total(inc)
                 $text = $order->formatPriceTxt(
-                    $_item->getRowTotal() + $_item->getTaxAmount() - $_item->getDiscountAmount()
+                        $_item->getRowTotal() + $_item->getTaxAmount() - $_item->getDiscountAmount()
                 );
                 $line[] = array(
-                    'text'  => $text,
-                    'feed'  => $rightBound,
-                    'font'  => 'bold',
+                    'text' => $text,
+                    'feed' => $rightBound,
+                    'font' => 'bold',
                     'align' => 'right',
                 );
             }
 
             $drawItems[$optionId]['lines'][] = $line;
-
         }
 
         // custom options
@@ -187,16 +187,14 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 foreach ($options['options'] as $option) {
                     $lines = array();
                     $lines[][] = array(
-                        'text'  => Mage::helper('core/string')->str_split(strip_tags($option['label']), 40, true, true),
-                        'font'  => 'italic',
-                        'feed'  => $leftBound
+                        'text' => Mage::helper('core/string')->str_split(strip_tags($option['label']), 40, true, true),
+                        'font' => 'italic',
+                        'feed' => $leftBound
                     );
 
                     if ($option['value']) {
                         $text = array();
-                        $_printValue = isset($option['print_value'])
-                            ? $option['print_value']
-                            : strip_tags($option['value']);
+                        $_printValue = isset($option['print_value']) ? $option['print_value'] : strip_tags($option['value']);
                         $values = explode(', ', $_printValue);
                         foreach ($values as $value) {
                             foreach (Mage::helper('core/string')->str_split($value, 30, true, true) as $_value) {
@@ -205,13 +203,13 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                         }
 
                         $lines[][] = array(
-                            'text'  => $text,
-                            'feed'  => $leftBound + 5
+                            'text' => $text,
+                            'feed' => $leftBound + 5
                         );
                     }
 
                     $drawItems[] = array(
-                        'lines'  => $lines,
+                        'lines' => $lines,
                         'height' => 15
                     );
                 }
@@ -221,4 +219,5 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
         $page = $pdf->drawLineBlocks($page, $drawItems, array('table_header' => true));
         $this->setPage($page);
     }
+
 }

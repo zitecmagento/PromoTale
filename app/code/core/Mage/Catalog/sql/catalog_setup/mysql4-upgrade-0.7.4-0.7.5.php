@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $installer->startSetup();
@@ -49,7 +49,8 @@ $installer->getConnection()->dropColumn($productTable, 'parent_id');
 $installer->getConnection()->dropColumn($productTable, 'store_id');
 $installer->getConnection()->dropColumn($productTable, 'is_active');
 
-try {
+try
+{
     $installer->run("
     INSERT INTO {$this->getTable('catalog_product_website')}
         SELECT DISTINCT ps.product_id, cs.website_id
@@ -57,19 +58,30 @@ try {
         WHERE cs.store_id=ps.store_id AND ps.store_id>0;
     DROP TABLE IF EXISTS {$this->getTable('catalog_product_store')};
     ");
-} catch (Exception $e) {
+}
+catch (Exception $e)
+{
+    
 }
 
 $categoryTable = $this->getTable('catalog/category');
 $installer->getConnection()->dropForeignKey($categoryTable, 'FK_CATALOG_CATEGORY_ENTITY_TREE_NODE');
 
-try {
+try
+{
     $this->run("ALTER TABLE `{$this->getTable('catalog/category')}` ADD `path` VARCHAR( 255 ) NOT NULL, ADD `position` INT NOT NULL;");
-} catch (Exception $e) {
 }
-try {
+catch (Exception $e)
+{
+    
+}
+try
+{
     $this->run("DROP TABLE IF EXISTS `{$this->getTable('catalog/category_tree')}`;");
-} catch (Exception $e) {
+}
+catch (Exception $e)
+{
+    
 }
 
 $installer->getConnection()->dropKey($categoryTable, 'FK_catalog_category_ENTITY_ENTITY_TYPE');

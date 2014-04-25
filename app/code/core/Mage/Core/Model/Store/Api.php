@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Core_Model_Store_Api extends Mage_Api_Model_Resource_Abstract
 {
+
     /**
      * Retrieve stores list
      *
@@ -48,13 +49,13 @@ class Mage_Core_Model_Store_Api extends Mage_Api_Model_Resource_Abstract
         $result = array();
         foreach ($stores as $store) {
             $result[] = array(
-                'store_id'    => $store->getId(),
-                'code'        => $store->getCode(),
-                'website_id'  => $store->getWebsiteId(),
-                'group_id'    => $store->getGroupId(),
-                'name'        => $store->getName(),
-                'sort_order'  => $store->getSortOrder(),
-                'is_active'   => $store->getIsActive()
+                'store_id' => $store->getId(),
+                'code' => $store->getCode(),
+                'website_id' => $store->getWebsiteId(),
+                'group_id' => $store->getGroupId(),
+                'name' => $store->getName(),
+                'sort_order' => $store->getSortOrder(),
+                'is_active' => $store->getIsActive()
             );
         }
 
@@ -70,9 +71,12 @@ class Mage_Core_Model_Store_Api extends Mage_Api_Model_Resource_Abstract
     public function info($storeId)
     {
         // Retrieve store info
-        try {
+        try
+        {
             $store = Mage::app()->getStore($storeId);
-        } catch (Mage_Core_Model_Store_Exception $e) {
+        }
+        catch (Mage_Core_Model_Store_Exception $e)
+        {
             $this->_fault('store_not_exists');
         }
 

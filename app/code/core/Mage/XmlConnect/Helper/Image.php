@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Xml connect glue
      *
@@ -93,7 +95,8 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
         $uploadedFilename = '';
         $uploadDir = $this->getOriginalSizeUploadDir();
 
-        try {
+        try
+        {
             $this->_forcedConvertPng($field);
 
             /** @var $uploader Mage_Core_Model_File_Uploader */
@@ -103,7 +106,9 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
             $uploader->save($uploadDir);
             $uploadedFilename = $uploader->getUploadedFileName();
             $uploadedFilename = $this->_getResizedFilename($field, $uploadedFilename, true);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             /**
              * Hard coded exception catch
              */
@@ -112,7 +117,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
             } elseif ($e->getMessage() == 'Disallowed file type.') {
                 $filename = $_FILES[$field]['name'];
                 Mage::throwException(
-                    Mage::helper('xmlconnect')->__('Error while uploading file "%s". Disallowed file type. Only "jpg", "jpeg", "gif", "png" are allowed.', $filename)
+                        Mage::helper('xmlconnect')->__('Error while uploading file "%s". Disallowed file type. Only "jpg", "jpeg", "gif", "png" are allowed.', $filename)
                 );
             } else {
                 Mage::logException($e);
@@ -150,8 +155,8 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
         } else {
             $dir = $this->getCustomSizeUploadDir($this->_getScreenSize());
         }
-        $customSizeFileName =  $dir . DS . $fileName;
-        $originalSizeFileName = $this->getOriginalSizeUploadDir(). DS . $fileName;
+        $customSizeFileName = $dir . DS . $fileName;
+        $originalSizeFileName = $this->getOriginalSizeUploadDir() . DS . $fileName;
 
         /**
          * Compatibility with old versions of XmlConnect
@@ -159,11 +164,10 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
         if (!file_exists($originalSizeFileName)) {
             $oldFileName = $this->getOldUploadDir() . DS . $fileName;
             if (file_exists($oldFileName)) {
-                if (!(copy($oldFileName, $originalSizeFileName) && (is_readable($customSizeFileName)
-                    || chmod($customSizeFileName, 0644))
-                )) {
+                if (!(copy($oldFileName, $originalSizeFileName) && (is_readable($customSizeFileName) || chmod($customSizeFileName, 0644))
+                        )) {
                     Mage::throwException(
-                        Mage::helper('xmlconnect')->__('Error while processing file "%s".', $fileName)
+                            Mage::helper('xmlconnect')->__('Error while processing file "%s".', $fileName)
                     );
                 }
             } else {
@@ -244,11 +248,11 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
      */
     protected function _forcedConvertPng($field)
     {
-        $file =& $_FILES[$field];
+        $file = & $_FILES[$field];
 
         $dotPosition = strrpos($file['name'], '.');
         if ($dotPosition !== false) {
-            $file['name'] = substr($file['name'], 0 , $dotPosition);
+            $file['name'] = substr($file['name'], 0, $dotPosition);
         }
         $file['name'] .= '.png';
 
@@ -327,7 +331,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
     public function getFileCustomDirSuffixAsUrl($confPath, $fileName)
     {
         return 'custom' . '/' . $this->_getScreenSize() . '/'
-            . basename($this->_getResizedFilename($confPath, $fileName));
+                . basename($this->_getResizedFilename($confPath, $fileName));
     }
 
     /**
@@ -483,7 +487,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
             }
 
             if (($widthOriginal != $image->getOriginalWidth()) ||
-                ($heightOriginal != $image->getOriginalHeight()) ) {
+                    ($heightOriginal != $image->getOriginalHeight())) {
                 $image->keepTransparency(true);
                 $image->keepFrame(true);
                 $image->keepAspectRatio(true);
@@ -589,7 +593,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
             switch ($function) {
                 case 'zoom':
                     $data = $update['data'];
-                    $target =& $this->findPath($imageLimits, $path);
+                    $target = & $this->findPath($imageLimits, $path);
                     if (is_array($target)) {
                         array_walk_recursive($target, array($this, '_zoom'), $data);
                     } else {
@@ -598,12 +602,12 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
                     break;
                 case 'update':
                     $data = $update['data'];
-                    $target =& $this->findPath($imageLimits, $path);
+                    $target = & $this->findPath($imageLimits, $path);
                     $target = $data;
                     break;
                 case 'insert':
                     $data = $update['data'];
-                    $target =& $this->findPath($imageLimits, $path);
+                    $target = & $this->findPath($imageLimits, $path);
                     if (($target !== null) && (is_array($target)) && (is_array($data))) {
                         foreach ($data as $key => $val) {
                             $target[$key] = $val;
@@ -612,7 +616,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
                     break;
                 case 'delete':
                     $data = $update['data'];
-                    $target =& $this->findPath($imageLimits, $path);
+                    $target = & $this->findPath($imageLimits, $path);
                     if (isset($target[$data])) {
                         unset($target[$data]);
                     }
@@ -620,7 +624,6 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
                 default:
                     break;
             }
-
         }
         if (!is_array($imageLimits)) {
             $imageLimits = array();
@@ -640,12 +643,12 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
      */
     public function &findPath(&$array, $path)
     {
-        $target =& $array;
+        $target = & $array;
         if ($path !== '/') {
             $pathArray = explode('/', $path);
             foreach ($pathArray as $node) {
                 if (is_array($target) && isset($target[$node])) {
-                    $target =& $target[$node];
+                    $target = & $target[$node];
                 } else {
                     return null;
                 }
@@ -678,10 +681,13 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
      */
     protected function _verifyDirExist($dir)
     {
-        try {
+        try
+        {
             $ioFile = new Varien_Io_File();
             $ioFile->checkAndCreateFolder($dir);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::throwException($e->getMessage());
         }
     }
@@ -751,7 +757,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
             $paths = $this->getInterfaceImagesPaths();
             if (is_array($paths)) {
                 $len = strlen('conf/native/');
-                while (list($path,) = each($paths)) {
+                while (list($path, ) = each($paths)) {
                     $this->_confPaths[$path] = substr($path, $len);
                 }
             }
@@ -770,7 +776,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
      */
     public function getInterfaceImagesPaths($imagePath = null)
     {
-        $paths = array (
+        $paths = array(
             'conf/native/navigationBar/icon' => 'smallIcon_1_6.png',
             'conf/native/body/bannerImage' => 'banner_1_2.png',
             'conf/native/body/bannerIpadLandscapeImage' => 'banner_ipad_l.png',
@@ -807,4 +813,5 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
         }
         return false;
     }
+
 }

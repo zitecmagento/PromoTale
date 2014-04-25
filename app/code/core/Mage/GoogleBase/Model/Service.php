@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_GoogleBase_Model_Service extends Varien_Object
 {
+
     /**
      * Client instance identifier in registry
      *
@@ -54,25 +56,26 @@ class Mage_GoogleBase_Model_Service extends Varien_Object
 
         // Create an authenticated HTTP client
         $errorMsg = Mage::helper('googlebase')->__('Unable to connect to Google Base. Please, check Account settings in configuration.');
-        try {
-            if (! Mage::registry($this->_clientRegistryId)) {
-                $client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass,
-                    Zend_Gdata_Gbase::AUTH_SERVICE_NAME,
-                    null,
-                    '',
-                    $loginToken, $loginCaptcha,
-                    Zend_Gdata_ClientLogin::CLIENTLOGIN_URI,
-                    $type
+        try
+        {
+            if (!Mage::registry($this->_clientRegistryId)) {
+                $client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, Zend_Gdata_Gbase::AUTH_SERVICE_NAME, null, '', $loginToken, $loginCaptcha, Zend_Gdata_ClientLogin::CLIENTLOGIN_URI, $type
                 );
                 $configTimeout = array('timeout' => 60);
                 $client->setConfig($configTimeout);
                 Mage::register($this->_clientRegistryId, $client);
             }
-        } catch (Zend_Gdata_App_CaptchaRequiredException $e) {
+        }
+        catch (Zend_Gdata_App_CaptchaRequiredException $e)
+        {
             throw $e;
-        } catch (Zend_Gdata_App_HttpException $e) {
+        }
+        catch (Zend_Gdata_App_HttpException $e)
+        {
             Mage::throwException($errorMsg . Mage::helper('googlebase')->__('Error: %s', $e->getMessage()));
-        } catch (Zend_Gdata_App_AuthException $e) {
+        }
+        catch (Zend_Gdata_App_AuthException $e)
+        {
             Mage::throwException($errorMsg . Mage::helper('googlebase')->__('Error: %s', $e->getMessage()));
         }
 
@@ -134,4 +137,5 @@ class Mage_GoogleBase_Model_Service extends Varien_Object
     {
         return $this->getDataSetDefault('dry_run', false);
     }
+
 }

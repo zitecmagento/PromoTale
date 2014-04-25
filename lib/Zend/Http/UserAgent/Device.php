@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 interface Zend_Http_UserAgent_Device extends Serializable
 {
+
     /**
      * Constructor
      *

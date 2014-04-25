@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product form gallery content
  *
@@ -43,19 +43,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
 
     protected function _prepareLayout()
     {
-        $this->setChild('uploader',
-            $this->getLayout()->createBlock('adminhtml/media_uploader')
+        $this->setChild('uploader', $this->getLayout()->createBlock('adminhtml/media_uploader')
         );
 
         $this->getUploader()->getConfig()
-            ->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/catalog_product_gallery/upload'))
-            ->setFileField('image')
-            ->setFilters(array(
-                'images' => array(
-                    'label' => Mage::helper('adminhtml')->__('Images (.gif, .jpg, .png)'),
-                    'files' => array('*.gif', '*.jpg','*.jpeg', '*.png')
-                )
-            ));
+                ->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/catalog_product_gallery/upload'))
+                ->setFileField('image')
+                ->setFilters(array(
+                    'images' => array(
+                        'label' => Mage::helper('adminhtml')->__('Images (.gif, .jpg, .png)'),
+                        'files' => array('*.gif', '*.jpg', '*.jpeg', '*.png')
+                    )
+        ));
 
         Mage::dispatchEvent('catalog_product_gallery_prepare_layout', array('block' => $this));
 
@@ -90,21 +89,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     public function getAddImagesButton()
     {
         return $this->getButtonHtml(
-            Mage::helper('catalog')->__('Add New Images'),
-            $this->getJsObjectName() . '.showUploader()',
-            'add',
-            $this->getHtmlId() . '_add_images_button'
+                        Mage::helper('catalog')->__('Add New Images'), $this->getJsObjectName() . '.showUploader()', 'add', $this->getHtmlId() . '_add_images_button'
         );
     }
 
     public function getImagesJson()
     {
-        if(is_array($this->getElement()->getValue())) {
+        if (is_array($this->getElement()->getValue())) {
             $value = $this->getElement()->getValue();
-            if(count($value['images'])>0) {
+            if (count($value['images']) > 0) {
                 foreach ($value['images'] as &$image) {
                     $image['url'] = Mage::getSingleton('catalog/product_media_config')
-                                        ->getMediaUrl($image['file']);
+                            ->getMediaUrl($image['file']);
                 }
                 return Mage::helper('core')->jsonEncode($value['images']);
             }
@@ -118,7 +114,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
         foreach ($this->getMediaAttributes() as $attribute) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             $values[$attribute->getAttributeCode()] = $this->getElement()->getDataObject()->getData(
-                $attribute->getAttributeCode()
+                    $attribute->getAttributeCode()
             );
         }
         return Mage::helper('core')->jsonEncode($values);
@@ -136,7 +132,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             $imageTypes[$attribute->getAttributeCode()] = array(
                 'label' => $attribute->getFrontend()->getLabel() . ' '
-                         . Mage::helper('catalog')->__($this->getElement()->getScopeLabel($attribute)),
+                . Mage::helper('catalog')->__($this->getElement()->getScopeLabel($attribute)),
                 'field' => $this->getElement()->getAttributeFieldName($attribute)
             );
         }
@@ -146,7 +142,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     public function hasUseDefault()
     {
         foreach ($this->getMediaAttributes() as $attribute) {
-            if($this->getElement()->canDisplayUseDefault($attribute))  {
+            if ($this->getElement()->canDisplayUseDefault($attribute)) {
                 return true;
             }
         }

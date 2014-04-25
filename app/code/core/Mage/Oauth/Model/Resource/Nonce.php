@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Oauth_Model_Resource_Nonce extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize resource model
      *
@@ -55,10 +57,11 @@ class Mage_Oauth_Model_Resource_Nonce extends Mage_Core_Model_Resource_Db_Abstra
             $adapter = $this->_getWriteAdapter();
 
             return $adapter->delete(
-                $this->getMainTable(), $adapter->quoteInto('timestamp <= ?', time() - $minutes * 60, Zend_Db::INT_TYPE)
+                            $this->getMainTable(), $adapter->quoteInto('timestamp <= ?', time() - $minutes * 60, Zend_Db::INT_TYPE)
             );
         } else {
             return 0;
         }
     }
+
 }

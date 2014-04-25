@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,11 +24,11 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 require_once 'Varien/Pear/Package.php';
 
 class Mage_Adminhtml_Model_Extension extends Varien_Object
 {
+
     protected $_roles;
 
     public function getPear()
@@ -38,16 +39,16 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
     public function generatePackageXml()
     {
         Mage::getSingleton('adminhtml/session')
-            ->setLocalExtensionPackageFormData($this->getData());
+                ->setLocalExtensionPackageFormData($this->getData());
 
         Varien_Pear::$reloadOnRegistryUpdate = false;
         $pkg = new Varien_Pear_Package;
         #$pkg->getPear()->runHtmlConsole(array('command'=>'list-channels'));
         $pfm = $pkg->getPfm();
         $pfm->setOptions(array(
-            'packagedirectory'=>'.',
-            'baseinstalldir'=>'.',
-            'simpleoutput'=>true,
+            'packagedirectory' => '.',
+            'baseinstalldir' => '.',
+            'simpleoutput' => true,
         ));
 
         $this->_setPackage($pfm);
@@ -62,7 +63,7 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
             //echo "<pre>".print_r($pfm->getValidationWarnings(), 1)."</pre>";
             $message = $pfm->getValidationWarnings();
             //$message = $message[0]['message'];
-             throw Mage::exception('Mage_Adminhtml', Mage::helper('adminhtml')->__($message[0]['message']));
+            throw Mage::exception('Mage_Adminhtml', Mage::helper('adminhtml')->__($message[0]['message']));
 
             return $this;
         }
@@ -76,7 +77,7 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
         $pfm->setPackageType('php');
         $pfm->setChannel($this->getData('channel'));
 
-    $pfm->setLicense($this->getData('license'), $this->getData('license_uri'));
+        $pfm->setLicense($this->getData('license'), $this->getData('license_uri'));
 
         $pfm->setPackage($this->getData('name'));
         $pfm->setSummary($this->getData('summary'));
@@ -98,8 +99,8 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
     protected function _setMaintainers($pfm)
     {
         $maintainers = $this->getData('maintainers');
-        foreach ($maintainers['role'] as $i=>$role) {
-            if (0===$i) {
+        foreach ($maintainers['role'] as $i => $role) {
+            if (0 === $i) {
                 continue;
             }
             $handle = $maintainers['handle'][$i];
@@ -113,13 +114,13 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
     protected function _setDependencies($pfm)
     {
         $pfm->clearDeps();
-        $exclude = $this->getData('depends_php_exclude')!=='' ? explode(',', $this->getData('depends_php_exclude')) : false;
+        $exclude = $this->getData('depends_php_exclude') !== '' ? explode(',', $this->getData('depends_php_exclude')) : false;
         $pfm->setPhpDep($this->getData('depends_php_min'), $this->getData('depends_php_max'), $exclude);
         $pfm->setPearinstallerDep('1.6.2');
 
-        foreach ($this->getData('depends') as $deptype=>$deps) {
-            foreach ($deps['type'] as $i=>$type) {
-                if (0===$i) {
+        foreach ($this->getData('depends') as $deptype => $deps) {
+            foreach ($deps['type'] as $i => $type) {
+                if (0 === $i) {
                     continue;
                 }
                 $name = $deps['name'][$i];
@@ -127,31 +128,31 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
                 $max = !empty($deps['max'][$i]) ? $deps['max'][$i] : false;
                 $recommended = !empty($deps['recommended'][$i]) ? $deps['recommended'][$i] : false;
                 $exclude = !empty($deps['exclude'][$i]) ? explode(',', $deps['exclude'][$i]) : false;
-                if ($deptype!=='extension') {
+                if ($deptype !== 'extension') {
                     $channel = !empty($deps['channel'][$i]) ? $deps['channel'][$i] : 'connect.magentocommerce.com/core';
                 }
                 switch ($deptype) {
                     case 'package':
-                        if ($type==='conflicts') {
+                        if ($type === 'conflicts') {
                             $pfm->addConflictingPackageDepWithChannel(
-                                $name, $channel, false, $min, $max, $recommended, $exclude);
+                                    $name, $channel, false, $min, $max, $recommended, $exclude);
                         } else {
                             $pfm->addPackageDepWithChannel(
-                                $type, $name, $channel, $min, $max, $recommended, $exclude);
+                                    $type, $name, $channel, $min, $max, $recommended, $exclude);
                         }
                         break;
 
                     case 'subpackage':
-                        if ($type==='conflicts') {
+                        if ($type === 'conflicts') {
                             Mage::throwException(Mage::helper('adminhtml')->__("Subpackage cannot be conflicting."));
                         }
                         $pfm->addSubpackageDepWithChannel(
-                            $type, $name, $channel, $min, $max, $recommended, $exclude);
+                                $type, $name, $channel, $min, $max, $recommended, $exclude);
                         break;
 
                     case 'extension':
                         $pfm->addExtensionDep(
-                            $type, $name, $min, $max, $recommended, $exclude);
+                                $type, $name, $min, $max, $recommended, $exclude);
                         break;
                 }
             }
@@ -160,27 +161,27 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
 
     protected function _setContents($pfm)
     {
-        $baseDir = $this->getRoleDir('mage').DS;
+        $baseDir = $this->getRoleDir('mage') . DS;
 
         $pfm->clearContents();
         $contents = $this->getData('contents');
         $usesRoles = array();
-        foreach ($contents['role'] as $i=>$role) {
-            if (0===$i) {
+        foreach ($contents['role'] as $i => $role) {
+            if (0 === $i) {
                 continue;
             }
 
             $usesRoles[$role] = 1;
 
-            $roleDir = $this->getRoleDir($role).DS;
-            $fullPath = $roleDir.$contents['path'][$i];
+            $roleDir = $this->getRoleDir($role) . DS;
+            $fullPath = $roleDir . $contents['path'][$i];
 
             switch ($contents['type'][$i]) {
                 case 'file':
                     if (!is_file($fullPath)) {
                         Mage::throwException(Mage::helper('adminhtml')->__("Invalid file: %s", $fullPath));
                     }
-                    $pfm->addFile('/', $contents['path'][$i], array('role'=>$role, 'md5sum'=>md5_file($fullPath)));
+                    $pfm->addFile('/', $contents['path'][$i], array('role' => $role, 'md5sum' => md5_file($fullPath)));
                     break;
 
                 case 'dir':
@@ -197,7 +198,7 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
 
         $pearRoles = $this->getRoles();
 #echo "<pre>".print_r($usesRoles,1)."</pre>";
-        foreach ($usesRoles as $role=>$dummy) {
+        foreach ($usesRoles as $role => $dummy) {
             if (empty($pearRoles[$role]['package'])) {
                 continue;
             }
@@ -208,7 +209,7 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
     protected function _addDir($pfm, $role, $roleDir, $path, $include, $ignore)
     {
         $roleDirLen = strlen($roleDir);
-        $entries = @glob($roleDir.$path.DS."*");
+        $entries = @glob($roleDir . $path . DS . "*");
         if (!empty($entries)) {
             foreach ($entries as $entry) {
                 $filePath = substr($entry, $roleDirLen);
@@ -220,12 +221,12 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
                 }
                 if (is_dir($entry)) {
                     $baseName = basename($entry);
-                    if ('.'===$baseName || '..'===$baseName) {
+                    if ('.' === $baseName || '..' === $baseName) {
                         continue;
                     }
                     $this->_addDir($pfm, $role, $roleDir, $filePath, $include, $ignore);
                 } elseif (is_file($entry)) {
-                    $pfm->addFile('/', $filePath, array('role'=>$role, 'md5sum'=>md5_file($entry)));
+                    $pfm->addFile('/', $filePath, array('role' => $role, 'md5sum' => md5_file($entry)));
                 }
             }
         }
@@ -251,10 +252,10 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
     public function getMaintainerRoles()
     {
         return array(
-            'lead'=>'Lead',
-            'developer'=>'Developer',
-            'contributor'=>'Contributor',
-            'helper'=>'Helper'
+            'lead' => 'Lead',
+            'developer' => 'Developer',
+            'contributor' => 'Contributor',
+            'helper' => 'Helper'
         );
     }
 
@@ -279,12 +280,12 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
         }
 
         $pear = Varien_Pear::getInstance();
-        $dir = Mage::getBaseDir('var').DS.'pear';
-        if (!@file_put_contents($dir.DS.'package.xml', $this->getPackageXml())) {
+        $dir = Mage::getBaseDir('var') . DS . 'pear';
+        if (!@file_put_contents($dir . DS . 'package.xml', $this->getPackageXml())) {
             return false;
         }
 
-        $pkgver = $this->getName().'-'.$this->getReleaseVersion();
+        $pkgver = $this->getName() . '-' . $this->getReleaseVersion();
         $this->unsPackageXml();
         $this->unsRoles();
         $xml = Mage::helper('core')->assocToXml($this->getData());
@@ -310,7 +311,7 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
     public function createPackage()
     {
         $pear = Varien_Pear::getInstance();
-        $dir = Mage::getBaseDir('var').DS.'pear';
+        $dir = Mage::getBaseDir('var') . DS . 'pear';
         if (!Mage::getConfig()->createDirIfNotExists($dir)) {
             return false;
         }
@@ -324,41 +325,40 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
         return true;
     }
 
-
     public function getStabilityOptions()
     {
         return array(
-            'devel'=>'Development',
-            'alpha'=>'Alpha',
-            'beta'=>'Beta',
-            'stable'=>'Stable',
+            'devel' => 'Development',
+            'alpha' => 'Alpha',
+            'beta' => 'Beta',
+            'stable' => 'Stable',
         );
     }
 
     public function getKnownChannels()
     {
         /*
-        $pear = Varien_Pear::getInstance();
-        $pear->run('list-channels');
-        $output = $pear->getOutput();
-        $pear->getFrontend()->clear();
+          $pear = Varien_Pear::getInstance();
+          $pear->run('list-channels');
+          $output = $pear->getOutput();
+          $pear->getFrontend()->clear();
 
-        $data = $output[0]['output']['data'];
-        $arr = array();
-        foreach ($data as $channel) {
-            $arr[$channel[0]] = $channel[1].' ('.$channel[0].')';
-        }
-        */
+          $data = $output[0]['output']['data'];
+          $arr = array();
+          foreach ($data as $channel) {
+          $arr[$channel[0]] = $channel[1].' ('.$channel[0].')';
+          }
+         */
         $arr = array(
             'connect.magentocommerce.com/core' => 'Magento Core Team',
             'connect.magentocommerce.com/community' => 'Magento Community',
-            #'pear.php.net' => 'PEAR',
-            #'pear.phpunit.de' => 'PHPUnit',
+                #'pear.php.net' => 'PEAR',
+                #'pear.phpunit.de' => 'PHPUnit',
         );
         return $arr;
     }
 
-    public function loadLocal($package, $options=array())
+    public function loadLocal($package, $options = array())
     {
         $pear = $this->getPear();
 
@@ -377,7 +377,7 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
         return $pkg;
     }
 
-    public function loadRemote($package, $options=array())
+    public function loadRemote($package, $options = array())
     {
         $pear = $this->getPear();
 
@@ -394,4 +394,5 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
 
         return $this;
     }
+
 }

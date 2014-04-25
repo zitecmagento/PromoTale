@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Fieldset.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_View_Helper_FormElement */
 #require_once 'Zend/View/Helper/FormElement.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_View_Helper_Fieldset extends Zend_View_Helper_FormElement
 {
+
     /**
      * Render HTML form
      *
@@ -67,13 +68,14 @@ class Zend_View_Helper_Fieldset extends Zend_View_Helper_FormElement
 
         // render fieldset
         $xhtml = '<fieldset'
-               . $id
-               . $this->_htmlAttribs($attribs)
-               . '>'
-               . $legend
-               . $content
-               . '</fieldset>';
+                . $id
+                . $this->_htmlAttribs($attribs)
+                . '>'
+                . $legend
+                . $content
+                . '</fieldset>';
 
         return $xhtml;
     }
+
 }

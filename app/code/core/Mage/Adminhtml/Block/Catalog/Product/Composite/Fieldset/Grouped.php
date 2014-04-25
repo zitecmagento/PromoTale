@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Mage_Catalog_Block_Product_View_Type_Grouped
 {
+
     /**
      * Redefine default price block
      * Set current customer to tax calculation
@@ -77,7 +79,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
     {
         $product = $this->getProduct();
         $result = $product->getTypeInstance(true)
-            ->getAssociatedProducts($product);
+                ->getAssociatedProducts($product);
 
         $storeId = $product->getStoreId();
         foreach ($result as $item) {
@@ -87,13 +89,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
         return $result;
     }
 
-
     /**
      * Set preconfigured values to grouped associated products
      *
      * @return Mage_Catalog_Block_Product_View_Type_Grouped
      */
-    public function setPreconfiguredValue() {
+    public function setPreconfiguredValue()
+    {
         $configValues = $this->getProduct()->getPreconfiguredValues()->getSuperGroup();
         if (is_array($configValues)) {
             $associatedProducts = $this->getAssociatedProducts();
@@ -143,4 +145,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
         $store = $this->getProduct()->getStore();
         return $this->helper('core')->currencyByStore($price, $store, false);
     }
+
 }

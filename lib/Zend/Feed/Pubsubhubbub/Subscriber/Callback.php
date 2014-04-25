@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Callback.php 23069 2010-10-10 10:57:42Z padraic $
  */
-
 /**
  * @see Zend_Feed_Pubsubhubbub
  */
@@ -40,16 +40,16 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Pubsubhubbub_Subscriber_Callback
-    extends Zend_Feed_Pubsubhubbub_CallbackAbstract
+class Zend_Feed_Pubsubhubbub_Subscriber_Callback extends Zend_Feed_Pubsubhubbub_CallbackAbstract
 {
+
     /**
      * Contains the content of any feeds sent as updates to the Callback URL
      *
      * @var string
      */
     protected $_feedUpdate = null;
-    
+
     /**
      * Holds a manually set subscription key (i.e. identifies a unique
      * subscription) which is typical when it is not passed in the query string
@@ -59,14 +59,14 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
      * @var string
      */
     protected $_subscriptionKey = null;
-    
+
     /**
      * After verification, this is set to the verified subscription's data.
      *
      * @var array
      */
     protected $_currentSubscriptionData = null;
-    
+
     /**
      * Set a subscription key to use for the current callback request manually.
      * Required if usePathParameter is enabled for the Subscriber.
@@ -103,20 +103,14 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
          * to avoid holding up responses to the Hub.
          */
         $contentType = $this->_getHeader('Content-Type');
-        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'
-            && $this->_hasValidVerifyToken(null, false)
-            && (stripos($contentType, 'application/atom+xml') === 0
-                || stripos($contentType, 'application/rss+xml') === 0
-                || stripos($contentType, 'application/xml') === 0
-                || stripos($contentType, 'text/xml') === 0
-                || stripos($contentType, 'application/rdf+xml') === 0)
+        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post' && $this->_hasValidVerifyToken(null, false) && (stripos($contentType, 'application/atom+xml') === 0 || stripos($contentType, 'application/rss+xml') === 0 || stripos($contentType, 'application/xml') === 0 || stripos($contentType, 'text/xml') === 0 || stripos($contentType, 'application/rdf+xml') === 0)
         ) {
             $this->setFeedUpdate($this->_getRawBody());
             $this->getHttpResponse()
-                 ->setHeader('X-Hub-On-Behalf-Of', $this->getSubscriberCount());
-        /**
-         * Handle any (un)subscribe confirmation requests
-         */
+                    ->setHeader('X-Hub-On-Behalf-Of', $this->getSubscriberCount());
+            /**
+             * Handle any (un)subscribe confirmation requests
+             */
         } elseif ($this->isValidHubVerification($httpGetData)) {
             $data = $this->_currentSubscriptionData;
             $this->getHttpResponse()->setBody($httpGetData['hub_challenge']);
@@ -125,9 +119,9 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
                 $data['lease_seconds'] = $httpGetData['hub_lease_seconds'];
             }
             $this->getStorage()->setSubscription($data);
-        /**
-         * Hey, C'mon! We tried everything else!
-         */
+            /**
+             * Hey, C'mon! We tried everything else!
+             */
         } else {
             $this->getHttpResponse()->setHttpResponseCode(404);
         }
@@ -155,9 +149,9 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
             return false;
         }
         $required = array(
-            'hub_mode', 
+            'hub_mode',
             'hub_topic',
-            'hub_challenge', 
+            'hub_challenge',
             'hub_verify_token',
         );
         foreach ($required as $key) {
@@ -165,13 +159,11 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
                 return false;
             }
         }
-        if ($httpGetData['hub_mode'] !== 'subscribe'
-            && $httpGetData['hub_mode'] !== 'unsubscribe'
+        if ($httpGetData['hub_mode'] !== 'subscribe' && $httpGetData['hub_mode'] !== 'unsubscribe'
         ) {
             return false;
         }
-        if ($httpGetData['hub_mode'] == 'subscribe'
-            && !array_key_exists('hub_lease_seconds', $httpGetData)
+        if ($httpGetData['hub_mode'] == 'subscribe' && !array_key_exists('hub_lease_seconds', $httpGetData)
         ) {
             return false;
         }
@@ -276,8 +268,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
         /**
          * Available only if allowed by PuSH 0.2 Hubs
          */
-        if (is_array($httpGetData)
-            && isset($httpGetData['xhub_subscription'])
+        if (is_array($httpGetData) && isset($httpGetData['xhub_subscription'])
         ) {
             return $httpGetData['xhub_subscription'];
         }
@@ -302,7 +293,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
      */
     protected function _parseQueryString()
     {
-        $params      = array();
+        $params = array();
         $queryString = '';
         if (isset($_SERVER['QUERY_STRING'])) {
             $queryString = $_SERVER['QUERY_STRING'];
@@ -312,8 +303,8 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
         }
         $parts = explode('&', $queryString);
         foreach ($parts as $kvpair) {
-            $pair  = explode('=', $kvpair);
-            $key   = rawurldecode($pair[0]);
+            $pair = explode('=', $kvpair);
+            $key = rawurldecode($pair[0]);
             $value = rawurldecode($pair[1]);
             if (isset($params[$key])) {
                 if (is_array($params[$key])) {
@@ -327,4 +318,5 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
         }
         return $params;
     }
+
 }

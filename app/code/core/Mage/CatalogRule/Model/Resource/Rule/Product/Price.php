@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Rule Product Aggregated Price per date Resource Model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize connection and define main table
      *
@@ -55,8 +56,7 @@ class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model
      * @param string $websiteDate
      * @return Mage_CatalogRule_Model_Resource_Rule_Product_Price
      */
-    public function applyPriceRuleToIndexTable(Varien_Db_Select $select, $indexTable, $entityId, $customerGroupId, 
-        $websiteId, $updateFields, $websiteDate)
+    public function applyPriceRuleToIndexTable(Varien_Db_Select $select, $indexTable, $entityId, $customerGroupId, $websiteId, $updateFields, $websiteDate)
     {
         if (empty($updateFields)) {
             return $this;
@@ -76,7 +76,7 @@ class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model
         }
 
         $select->join(array('rp' => $this->getMainTable()), "rp.rule_date = {$websiteDate}", array())
-               ->where("rp.product_id = {$entityId} AND rp.website_id = {$websiteId} AND rp.customer_group_id = {$customerGroupId}");
+                ->where("rp.product_id = {$entityId} AND rp.website_id = {$websiteId} AND rp.customer_group_id = {$customerGroupId}");
 
         foreach ($updateFields as $priceField) {
             $priceCond = $this->_getWriteAdapter()->quoteIdentifier(array($indexAlias, $priceField));
@@ -89,4 +89,5 @@ class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model
 
         return $this;
     }
+
 }

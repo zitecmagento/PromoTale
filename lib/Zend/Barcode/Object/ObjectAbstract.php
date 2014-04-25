@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 abstract class Zend_Barcode_Object_ObjectAbstract
 {
+
     /**
      * Namespace of the barcode for autoloading
      * @var string
@@ -241,6 +243,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
      */
     protected function _getDefaultOptions()
     {
+        
     }
 
     /**
@@ -311,7 +314,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
         if (intval($value) <= 0) {
             #require_once 'Zend/Barcode/Object/Exception.php';
             throw new Zend_Barcode_Object_Exception(
-                'Bar height must be greater than 0'
+            'Bar height must be greater than 0'
             );
         }
         $this->_barHeight = intval($value);
@@ -338,7 +341,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
         if (intval($value) <= 0) {
             #require_once 'Zend/Barcode/Object/Exception.php';
             throw new Zend_Barcode_Object_Exception(
-                'Bar width must be greater than 0'
+            'Bar width must be greater than 0'
             );
         }
         $this->_barThinWidth = intval($value);
@@ -365,7 +368,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
         if (intval($value) <= 0) {
             #require_once 'Zend/Barcode/Object/Exception.php';
             throw new Zend_Barcode_Object_Exception(
-                'Bar width must be greater than 0'
+            'Bar width must be greater than 0'
             );
         }
         $this->_barThickWidth = intval($value);
@@ -393,7 +396,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
         if (floatval($value) <= 0) {
             #require_once 'Zend/Barcode/Object/Exception.php';
             throw new Zend_Barcode_Object_Exception(
-                'Factor must be greater than 0'
+            'Factor must be greater than 0'
             );
         }
         $this->_factor = floatval($value);
@@ -425,7 +428,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
         } else {
             #require_once 'Zend/Barcode/Object/Exception.php';
             throw new Zend_Barcode_Object_Exception(
-                'Text color must be set as #[0-9A-F]{6}'
+            'Text color must be set as #[0-9A-F]{6}'
             );
         }
         return $this;
@@ -455,7 +458,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
         } else {
             #require_once 'Zend/Barcode/Object/Exception.php';
             throw new Zend_Barcode_Object_Exception(
-                'Background color must be set as #[0-9A-F]{6}'
+            'Background color must be set as #[0-9A-F]{6}'
             );
         }
         return $this;
@@ -516,8 +519,8 @@ abstract class Zend_Barcode_Object_ObjectAbstract
      */
     public function setReverseColor()
     {
-        $tmp                    = $this->_foreColor;
-        $this->_foreColor       = $this->_backgroundColor;
+        $tmp = $this->_foreColor;
+        $this->_foreColor = $this->_backgroundColor;
         $this->_backgroundColor = $tmp;
         return $this;
     }
@@ -732,7 +735,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
             if (!extension_loaded('gd')) {
                 #require_once 'Zend/Barcode/Object/Exception.php';
                 throw new Zend_Barcode_Object_Exception(
-                    'GD extension is required to use numeric font'
+                'GD extension is required to use numeric font'
                 );
             }
 
@@ -746,8 +749,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
         } else {
             #require_once 'Zend/Barcode/Object/Exception.php';
             throw new Zend_Barcode_Object_Exception(sprintf(
-                'Invalid font "%s" provided to setFont()',
-                $value
+                    'Invalid font "%s" provided to setFont()', $value
             ));
         }
         return $this;
@@ -778,7 +780,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
         if (!is_numeric($value)) {
             #require_once 'Zend/Barcode/Object/Exception.php';
             throw new Zend_Barcode_Object_Exception(
-                'Font size must be a numeric value'
+            'Font size must be a numeric value'
             );
         }
 
@@ -839,9 +841,9 @@ abstract class Zend_Barcode_Object_ObjectAbstract
             $color = $this->_foreColor;
         }
         $this->_addInstruction(array(
-            'type'   => 'polygon',
+            'type' => 'polygon',
             'points' => $points,
-            'color'  => $color,
+            'color' => $color,
             'filled' => $filled,
         ));
     }
@@ -857,25 +859,20 @@ abstract class Zend_Barcode_Object_ObjectAbstract
      * @param float $orientation
      */
     protected function _addText(
-        $text,
-        $size,
-        $position,
-        $font,
-        $color,
-        $alignment = 'center',
-        $orientation = 0
-    ) {
+    $text, $size, $position, $font, $color, $alignment = 'center', $orientation = 0
+    )
+    {
         if ($color === null) {
             $color = $this->_foreColor;
         }
         $this->_addInstruction(array(
-            'type'        => 'text',
-            'text'        => $text,
-            'size'        => $size,
-            'position'    => $position,
-            'font'        => $font,
-            'color'       => $color,
-            'alignment'   => $alignment,
+            'type' => 'text',
+            'text' => $text,
+            'size' => $size,
+            'position' => $position,
+            'font' => $font,
+            'color' => $color,
+            'alignment' => $alignment,
             'orientation' => $orientation,
         ));
     }
@@ -905,7 +902,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
         if (!strlen($value)) {
             #require_once 'Zend/Barcode/Object/Exception.php';
             throw new Zend_Barcode_Object_Exception(
-                'A text must be provide to Barcode before drawing'
+            'A text must be provide to Barcode before drawing'
             );
         }
         $this->validateText($value);
@@ -924,10 +921,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
         if (!($ratio >= $min && $ratio <= $max)) {
             #require_once 'Zend/Barcode/Object/Exception.php';
             throw new Zend_Barcode_Object_Exception(sprintf(
-                'Ratio thick/thin bar must be between %0.1f and %0.1f (actual %0.3f)',
-                $min,
-                $max,
-                $ratio
+                    'Ratio thick/thin bar must be between %0.1f and %0.1f (actual %0.3f)', $min, $max, $ratio
             ));
         }
     }
@@ -942,7 +936,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
         if (is_numeric($this->_font) && $this->_orientation != 0) {
             #require_once 'Zend/Barcode/Object/Exception.php';
             throw new Zend_Barcode_Object_Exception(
-                'Only drawing with TTF font allow orientation of the barcode.'
+            'Only drawing with TTF font allow orientation of the barcode.'
             );
         }
     }
@@ -954,9 +948,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
      */
     protected function _calculateWidth()
     {
-        return (int) $this->_withBorder
-            + $this->_calculateBarcodeWidth()
-            + (int) $this->_withBorder;
+        return (int) $this->_withBorder + $this->_calculateBarcodeWidth() + (int) $this->_withBorder;
     }
 
     /**
@@ -971,9 +963,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
      */
     protected function _calculateHeight()
     {
-        return (int) $this->_withBorder * 2
-            + $this->_calculateBarcodeHeight()
-            + (int) $this->_withBorder * 2;
+        return (int) $this->_withBorder * 2 + $this->_calculateBarcodeHeight() + (int) $this->_withBorder * 2;
     }
 
     /**
@@ -998,9 +988,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
     public function getHeight($recalculate = false)
     {
         if ($this->_height === null || $recalculate) {
-            $this->_height =
-                abs($this->_calculateHeight() * cos($this->_orientation / 180 * pi()))
-                + abs($this->_calculateWidth() * sin($this->_orientation / 180 * pi()));
+            $this->_height = abs($this->_calculateHeight() * cos($this->_orientation / 180 * pi())) + abs($this->_calculateWidth() * sin($this->_orientation / 180 * pi()));
         }
         return $this->_height;
     }
@@ -1012,9 +1000,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
     public function getWidth($recalculate = false)
     {
         if ($this->_width === null || $recalculate) {
-            $this->_width =
-                abs($this->_calculateWidth() * cos($this->_orientation / 180 * pi()))
-                + abs($this->_calculateHeight() * sin($this->_orientation / 180 * pi()));
+            $this->_width = abs($this->_calculateWidth() * cos($this->_orientation / 180 * pi())) + abs($this->_calculateHeight() * sin($this->_orientation / 180 * pi()));
         }
         return $this->_width;
     }
@@ -1029,18 +1015,18 @@ abstract class Zend_Barcode_Object_ObjectAbstract
     {
         if ($this->_offsetLeft === null || $recalculate) {
             $this->_offsetLeft = - min(array(
-                0 * cos(
-                        $this->_orientation / 180 * pi()) - 0 * sin(
-                        $this->_orientation / 180 * pi()),
-                0 * cos(
-                        $this->_orientation / 180 * pi()) - $this->_calculateBarcodeHeight() * sin(
-                        $this->_orientation / 180 * pi()),
-                $this->_calculateBarcodeWidth() * cos(
-                        $this->_orientation / 180 * pi()) - $this->_calculateBarcodeHeight() * sin(
-                        $this->_orientation / 180 * pi()),
-                $this->_calculateBarcodeWidth() * cos(
-                        $this->_orientation / 180 * pi()) - 0 * sin(
-                        $this->_orientation / 180 * pi()),
+                        0 * cos(
+                                $this->_orientation / 180 * pi()) - 0 * sin(
+                                $this->_orientation / 180 * pi()),
+                        0 * cos(
+                                $this->_orientation / 180 * pi()) - $this->_calculateBarcodeHeight() * sin(
+                                $this->_orientation / 180 * pi()),
+                        $this->_calculateBarcodeWidth() * cos(
+                                $this->_orientation / 180 * pi()) - $this->_calculateBarcodeHeight() * sin(
+                                $this->_orientation / 180 * pi()),
+                        $this->_calculateBarcodeWidth() * cos(
+                                $this->_orientation / 180 * pi()) - 0 * sin(
+                                $this->_orientation / 180 * pi()),
             ));
         }
         return $this->_offsetLeft;
@@ -1056,18 +1042,18 @@ abstract class Zend_Barcode_Object_ObjectAbstract
     {
         if ($this->_offsetTop === null || $recalculate) {
             $this->_offsetTop = - min(array(
-                0 * cos(
-                        $this->_orientation / 180 * pi()) + 0 * sin(
-                        $this->_orientation / 180 * pi()),
-                $this->_calculateBarcodeHeight() * cos(
-                        $this->_orientation / 180 * pi()) + 0 * sin(
-                        $this->_orientation / 180 * pi()),
-                $this->_calculateBarcodeHeight() * cos(
-                        $this->_orientation / 180 * pi()) + $this->_calculateBarcodeWidth() * sin(
-                        $this->_orientation / 180 * pi()),
-                0 * cos(
-                        $this->_orientation / 180 * pi()) + $this->_calculateBarcodeWidth() * sin(
-                        $this->_orientation / 180 * pi()),
+                        0 * cos(
+                                $this->_orientation / 180 * pi()) + 0 * sin(
+                                $this->_orientation / 180 * pi()),
+                        $this->_calculateBarcodeHeight() * cos(
+                                $this->_orientation / 180 * pi()) + 0 * sin(
+                                $this->_orientation / 180 * pi()),
+                        $this->_calculateBarcodeHeight() * cos(
+                                $this->_orientation / 180 * pi()) + $this->_calculateBarcodeWidth() * sin(
+                                $this->_orientation / 180 * pi()),
+                        0 * cos(
+                                $this->_orientation / 180 * pi()) + $this->_calculateBarcodeWidth() * sin(
+                                $this->_orientation / 180 * pi()),
             ));
         }
         return $this->_offsetTop;
@@ -1081,13 +1067,9 @@ abstract class Zend_Barcode_Object_ObjectAbstract
      */
     protected function _rotate($x1, $y1)
     {
-        $x2 = $x1 * cos($this->_orientation / 180 * pi())
-            - $y1 * sin($this->_orientation / 180 * pi())
-            + $this->getOffsetLeft();
-        $y2 = $y1 * cos($this->_orientation / 180 * pi())
-            + $x1 * sin($this->_orientation / 180 * pi())
-            + $this->getOffsetTop();
-        return array(intval($x2) , intval($y2));
+        $x2 = $x1 * cos($this->_orientation / 180 * pi()) - $y1 * sin($this->_orientation / 180 * pi()) + $this->getOffsetLeft();
+        $y2 = $y1 * cos($this->_orientation / 180 * pi()) + $x1 * sin($this->_orientation / 180 * pi()) + $this->getOffsetTop();
+        return array(intval($x2), intval($y2));
     }
 
     /**
@@ -1119,8 +1101,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
         $point1 = $this->_rotate(0, 0);
         $point2 = $this->_rotate(0, $this->_calculateHeight() - 1);
         $point3 = $this->_rotate(
-            $this->_calculateWidth() - 1,
-            $this->_calculateHeight() - 1
+                $this->_calculateWidth() - 1, $this->_calculateHeight() - 1
         );
         $point4 = $this->_rotate($this->_calculateWidth() - 1, 0);
 
@@ -1129,9 +1110,9 @@ abstract class Zend_Barcode_Object_ObjectAbstract
             $point2,
             $point3,
             $point4
-        ), $this->_backgroundColor);
+                ), $this->_backgroundColor);
 
-        $xpos     += $this->getQuietZone();
+        $xpos += $this->getQuietZone();
         $barLength = $this->_barHeight * $this->_factor;
 
         foreach ($barcodeTable as $bar) {
@@ -1140,12 +1121,10 @@ abstract class Zend_Barcode_Object_ObjectAbstract
                 $point1 = $this->_rotate($xpos, $ypos + $bar[2] * $barLength);
                 $point2 = $this->_rotate($xpos, $ypos + $bar[3] * $barLength);
                 $point3 = $this->_rotate(
-                    $xpos + $width - 1,
-                    $ypos + $bar[3] * $barLength
+                        $xpos + $width - 1, $ypos + $bar[3] * $barLength
                 );
                 $point4 = $this->_rotate(
-                    $xpos + $width - 1,
-                    $ypos + $bar[2] * $barLength
+                        $xpos + $width - 1, $ypos + $bar[2] * $barLength
                 );
                 $this->_addPolygon(array(
                     $point1,
@@ -1170,8 +1149,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
             $point1 = $this->_rotate(0, 0);
             $point2 = $this->_rotate($this->_calculateWidth() - 1, 0);
             $point3 = $this->_rotate(
-                $this->_calculateWidth() - 1,
-                $this->_calculateHeight() - 1
+                    $this->_calculateWidth() - 1, $this->_calculateHeight() - 1
             );
             $point4 = $this->_rotate(0, $this->_calculateHeight() - 1);
             $this->_addPolygon(array(
@@ -1180,7 +1158,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
                 $point3,
                 $point4,
                 $point1,
-            ), $this->_foreColor, false);
+                    ), $this->_foreColor, false);
         }
     }
 
@@ -1194,36 +1172,20 @@ abstract class Zend_Barcode_Object_ObjectAbstract
             $text = $this->getTextToDisplay();
             if ($this->_stretchText) {
                 $textLength = strlen($text);
-                $space      = ($this->_calculateWidth() - 2 * $this->getQuietZone()) / $textLength;
+                $space = ($this->_calculateWidth() - 2 * $this->getQuietZone()) / $textLength;
                 for ($i = 0; $i < $textLength; $i ++) {
                     $leftPosition = $this->getQuietZone() + $space * ($i + 0.5);
                     $this->_addText(
-                        $text{$i},
-                        $this->_fontSize * $this->_factor,
-                        $this->_rotate(
-                            $leftPosition,
-                            (int) $this->_withBorder * 2
-                                + $this->_factor * ($this->_barHeight + $this->_fontSize) + 1
-                        ),
-                        $this->_font,
-                        $this->_foreColor,
-                        'center',
-                        - $this->_orientation
+                            $text{$i}, $this->_fontSize * $this->_factor, $this->_rotate(
+                                    $leftPosition, (int) $this->_withBorder * 2 + $this->_factor * ($this->_barHeight + $this->_fontSize) + 1
+                            ), $this->_font, $this->_foreColor, 'center', - $this->_orientation
                     );
                 }
             } else {
                 $this->_addText(
-                    $text,
-                    $this->_fontSize * $this->_factor,
-                    $this->_rotate(
-                        $this->_calculateWidth() / 2,
-                        (int) $this->_withBorder * 2
-                            + $this->_factor * ($this->_barHeight + $this->_fontSize) + 1
-                    ),
-                    $this->_font,
-                    $this->_foreColor,
-                    'center',
-                    - $this->_orientation
+                        $text, $this->_fontSize * $this->_factor, $this->_rotate(
+                                $this->_calculateWidth() / 2, (int) $this->_withBorder * 2 + $this->_factor * ($this->_barHeight + $this->_fontSize) + 1
+                        ), $this->_font, $this->_foreColor, 'center', - $this->_orientation
                 );
             }
         }
@@ -1249,7 +1211,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
         $validatorName = (isset($options['validator'])) ? $options['validator'] : $this->getType();
 
         $validator = new Zend_Validate_Barcode(array(
-            'adapter'  => $validatorName,
+            'adapter' => $validatorName,
             'checksum' => false,
         ));
 
@@ -1303,6 +1265,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
      */
     protected function _preDrawBarcode()
     {
+        
     }
 
     /**
@@ -1313,5 +1276,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
      */
     protected function _postDrawBarcode()
     {
+        
     }
+
 }

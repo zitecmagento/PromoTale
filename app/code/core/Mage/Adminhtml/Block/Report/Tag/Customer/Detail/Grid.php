@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -43,14 +44,14 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('tag/tag')
-            ->getEntityCollection()
-            ->joinAttribute('original_name', 'catalog_product/name', 'entity_id')
-            ->addCustomerFilter($this->getRequest()->getParam('id'))
-            ->addStatusFilter(Mage_Tag_Model_Tag::STATUS_APPROVED)
-            ->addStoresVisibility()
-            ->setActiveFilter()
-            ->addGroupByTag()
-            ->setRelationId();
+                ->getEntityCollection()
+                ->joinAttribute('original_name', 'catalog_product/name', 'entity_id')
+                ->addCustomerFilter($this->getRequest()->getParam('id'))
+                ->addStatusFilter(Mage_Tag_Model_Tag::STATUS_APPROVED)
+                ->addStoresVisibility()
+                ->setActiveFilter()
+                ->addGroupByTag()
+                ->setRelationId();
 
         $this->setCollection($collection);
 
@@ -60,37 +61,37 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
     protected function _prepareColumns()
     {
         $this->addColumn('name', array(
-            'header'    =>Mage::helper('reports')->__('Product Name'),
-            'index'     =>'original_name'
+            'header' => Mage::helper('reports')->__('Product Name'),
+            'index' => 'original_name'
         ));
 
         $this->addColumn('tag_name', array(
-            'header'    =>Mage::helper('reports')->__('Tag Name'),
-            'index'     =>'tag_name'
+            'header' => Mage::helper('reports')->__('Tag Name'),
+            'index' => 'tag_name'
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('visible', array(
-                'header'    => Mage::helper('reports')->__('Visible In'),
-                'index'     => 'stores',
-                'type'      => 'store',
-                'sortable'  => false,
-                'store_view'=> true
+                'header' => Mage::helper('reports')->__('Visible In'),
+                'index' => 'stores',
+                'type' => 'store',
+                'sortable' => false,
+                'store_view' => true
             ));
 
             $this->addColumn('added_in', array(
-                'header'    =>Mage::helper('reports')->__('Submitted In'),
-                'index'     =>'store_id',
-                'type'      =>'store',
-                'store_view'=>true
+                'header' => Mage::helper('reports')->__('Submitted In'),
+                'index' => 'store_id',
+                'type' => 'store',
+                'store_view' => true
             ));
         }
 
         $this->addColumn('created_at', array(
-            'header'    =>Mage::helper('reports')->__('Submitted On'),
-            'width'     => '140px',
-            'type'      => 'datetime',
-            'index'     => 'created_at'
+            'header' => Mage::helper('reports')->__('Submitted On'),
+            'width' => '140px',
+            'type' => 'datetime',
+            'index' => 'created_at'
         ));
 
         $this->setFilterVisibility(false);
@@ -100,4 +101,5 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
 
         return parent::_prepareColumns();
     }
+
 }

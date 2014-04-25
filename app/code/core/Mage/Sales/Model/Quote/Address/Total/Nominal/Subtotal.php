@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Sales_Model_Quote_Address_Total_Nominal_Subtotal extends Mage_Sales_Model_Quote_Address_Total_Subtotal
 {
+
     /**
      * Don't add amounts to address
      *
@@ -74,4 +76,5 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Subtotal extends Mage_Sales_M
     {
         return $address->getAllNominalItems();
     }
+
 }

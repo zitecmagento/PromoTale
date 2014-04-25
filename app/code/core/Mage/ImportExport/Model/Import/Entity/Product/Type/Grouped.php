@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped
-    extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
+class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
 {
+
     /**
      * Column names that holds values with particular meaning.
      *
@@ -71,21 +72,21 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped
     public function saveData()
     {
         $groupedLinkId = Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED;
-        $connection    = Mage::getSingleton('core/resource')->getConnection('write');
-        $resource      = Mage::getResourceModel('catalog/product_link');
-        $mainTable     = $resource->getMainTable();
+        $connection = Mage::getSingleton('core/resource')->getConnection('write');
+        $resource = Mage::getResourceModel('catalog/product_link');
+        $mainTable = $resource->getMainTable();
         $relationTable = $resource->getTable('catalog/product_relation');
-        $newSku        = $this->_entityModel->getNewSku();
-        $oldSku        = $this->_entityModel->getOldSku();
-        $attributes    = array();
+        $newSku = $this->_entityModel->getNewSku();
+        $oldSku = $this->_entityModel->getOldSku();
+        $attributes = array();
 
         // pre-load attributes parameters
         $select = $connection->select()
-            ->from($resource->getTable('catalog/product_link_attribute'), array(
-                'id'   => 'product_link_attribute_id',
-                'code' => 'product_link_attribute_code',
-                'type' => 'data_type'
-            ))->where('link_type_id = ?', $groupedLinkId);
+                        ->from($resource->getTable('catalog/product_link_attribute'), array(
+                            'id' => 'product_link_attribute_id',
+                            'code' => 'product_link_attribute_code',
+                            'type' => 'data_type'
+                        ))->where('link_type_id = ?', $groupedLinkId);
         foreach ($connection->fetchAll($select) as $row) {
             $attributes[$row['code']] = array(
                 'id' => $row['id'],
@@ -93,17 +94,16 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped
             );
         }
         while ($bunch = $this->_entityModel->getNextBunch()) {
-            $linksData     = array(
-                'product_ids'      => array(),
-                'links'            => array(),
+            $linksData = array(
+                'product_ids' => array(),
+                'links' => array(),
                 'attr_product_ids' => array(),
-                'position'         => array(),
-                'qty'              => array(),
-                'relation'         => array()
+                'position' => array(),
+                'qty' => array(),
+                'relation' => array()
             );
             foreach ($bunch as $rowNum => $rowData) {
-                if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum)
-                    || empty($rowData['_associated_sku'])
+                if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum) || empty($rowData['_associated_sku'])
                 ) {
                     continue;
                 }
@@ -152,11 +152,9 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped
             // save links and relations
             if ($linksData['product_ids'] && $this->getBehavior() != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND) {
                 $connection->delete(
-                    $mainTable,
-                    $connection->quoteInto(
-                        'product_id IN (?) AND link_type_id = ' . $groupedLinkId,
-                        array_keys($linksData['product_ids'])
-                    )
+                        $mainTable, $connection->quoteInto(
+                                'product_id IN (?) AND link_type_id = ' . $groupedLinkId, array_keys($linksData['product_ids'])
+                        )
                 );
             }
             if ($linksData['links']) {
@@ -165,9 +163,9 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped
                 foreach ($linksData['links'] as $productId => $linkedData) {
                     foreach ($linkedData as $linkedId => $linkType) {
                         $mainData[] = array(
-                            'product_id'        => $productId,
+                            'product_id' => $productId,
                             'linked_product_id' => $linkedId,
-                            'link_type_id'      => $linkType
+                            'link_type_id' => $linkType
                         );
                     }
                 }
@@ -177,13 +175,12 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped
             // save positions and default quantity
             if ($linksData['attr_product_ids']) {
                 $savedData = $connection->fetchPairs($connection->select()
-                    ->from($mainTable, array(
-                        new Zend_Db_Expr('CONCAT_WS(" ", product_id, linked_product_id)'), 'link_id'
-                    ))
-                    ->where(
-                        'product_id IN (?) AND link_type_id = ' . $groupedLinkId,
-                        array_keys($linksData['attr_product_ids'])
-                    )
+                                ->from($mainTable, array(
+                                    new Zend_Db_Expr('CONCAT_WS(" ", product_id, linked_product_id)'), 'link_id'
+                                ))
+                                ->where(
+                                        'product_id IN (?) AND link_type_id = ' . $groupedLinkId, array_keys($linksData['attr_product_ids'])
+                                )
                 );
                 foreach ($savedData as $pseudoKey => $linkId) {
                     if (isset($linksData['position'][$pseudoKey])) {
@@ -203,4 +200,5 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped
         }
         return $this;
     }
+
 }

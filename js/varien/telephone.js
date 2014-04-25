@@ -25,7 +25,7 @@
 var telephoneElem = Class.create();
 
 telephoneElem.prototype = {
-    initialize : function(fval,f1,f2,f3,f4){
+    initialize: function(fval, f1, f2, f3, f4) {
         this.valField = fval;
         this.f1 = f1;
         this.f2 = f2;
@@ -52,16 +52,14 @@ telephoneElem.prototype = {
         }
         this.loadValues();
     },
-
-    keyPress: function(event){
+    keyPress: function(event) {
         var code = event.keyCode;
-/*		if ((event.keyCode < 48 || event.keyCode > 57) && event.keyCode != Event.KEY_BACKSPACE && event.keyCode != Event.KEY_DELETE && event.keyCode != Event.KEY_LEFT && event.keyCode != Event.KEY_RIGHT)
-        {
-            Event.stop(event);
-        }*/
+        /*		if ((event.keyCode < 48 || event.keyCode > 57) && event.keyCode != Event.KEY_BACKSPACE && event.keyCode != Event.KEY_DELETE && event.keyCode != Event.KEY_LEFT && event.keyCode != Event.KEY_RIGHT)
+         {
+         Event.stop(event);
+         }*/
     },
-
-    keyUp: function(event){
+    keyUp: function(event) {
         var element = Event.element(event);
         var code = event.keyCode;
         if (element.id != this.last && code != Event.KEY_TAB && code != 16 && code != Event.KEY_BACKSPACE && code != Event.KEY_DELETE && code != Event.KEY_LEFT && code != Event.KEY_RIGHT)
@@ -77,8 +75,7 @@ telephoneElem.prototype = {
         }
         this.setValField();
     },
-
-    getNextElement: function(curent_id){
+    getNextElement: function(curent_id) {
         if (curent_id == this.last)
         {
             return false;
@@ -99,18 +96,20 @@ telephoneElem.prototype = {
 
         return false;
     },
-
-    setValField: function(){
+    setValField: function() {
         cur_value = '';
-        if($F(this.f1)) cur_value += '(' + $F(this.f1) + ') ';
-        if($F(this.f2)) cur_value += $F(this.f2);
-        if($F(this.f3)) cur_value += '-' + $F(this.f3);
-        if (this.f4) cur_value += $F(this.f4) ? '-' + $F(this.f4) : '';
+        if ($F(this.f1))
+            cur_value += '(' + $F(this.f1) + ') ';
+        if ($F(this.f2))
+            cur_value += $F(this.f2);
+        if ($F(this.f3))
+            cur_value += '-' + $F(this.f3);
+        if (this.f4)
+            cur_value += $F(this.f4) ? '-' + $F(this.f4) : '';
 
         $(this.valField).value = cur_value;
     },
-
-    loadValues: function(){
+    loadValues: function() {
         var val = $F(this.valField);
         if (val && val.length)
         {

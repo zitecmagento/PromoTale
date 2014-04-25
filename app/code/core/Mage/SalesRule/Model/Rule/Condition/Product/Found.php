@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,11 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
-class Mage_SalesRule_Model_Rule_Condition_Product_Found
-    extends Mage_SalesRule_Model_Rule_Condition_Product_Combine
+class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_Model_Rule_Condition_Product_Combine
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -65,8 +64,8 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found
      */
     public function validate(Varien_Object $object)
     {
-        $all = $this->getAggregator()==='all';
-        $true = (bool)$this->getValue();
+        $all = $this->getAggregator() === 'all';
+        $true = (bool) $this->getValue();
         $found = false;
         foreach ($object->getAllItems() as $item) {
             $found = $all;
@@ -91,4 +90,5 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found
         }
         return false;
     }
+
 }

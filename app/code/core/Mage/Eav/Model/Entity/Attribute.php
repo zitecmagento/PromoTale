@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Entity attribute model
  *
@@ -34,14 +34,15 @@
  */
 class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Abstract
 {
+
     /**
      * Prefix of model events names
      *
      * @var string
      */
-    protected $_eventPrefix                         = 'eav_entity_attribute';
+    protected $_eventPrefix = 'eav_entity_attribute';
 
-    CONST ATTRIBUTE_CODE_MAX_LENGTH                 = 30;
+    CONST ATTRIBUTE_CODE_MAX_LENGTH = 30;
 
     /**
      * Parameter name in event
@@ -52,8 +53,9 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     protected $_eventObject = 'attribute';
 
-    const CACHE_TAG         = 'EAV_ATTRIBUTE';
-    protected $_cacheTag    = 'EAV_ATTRIBUTE';
+    const CACHE_TAG = 'EAV_ATTRIBUTE';
+
+    protected $_cacheTag = 'EAV_ATTRIBUTE';
 
     /**
      * Retreive default attribute backend model by attribute code
@@ -121,9 +123,9 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     {
         // load attributes collection filtered by attribute_id and attribute_set_id
         $filteredAttributes = $this->getResourceCollection()
-            ->setAttributeSetFilter($this->getAttributeSetId())
-            ->addFieldToFilter('entity_attribute.attribute_id', $this->getId())
-            ->load();
+                ->setAttributeSetFilter($this->getAttributeSetId())
+                ->addFieldToFilter('entity_attribute.attribute_id', $this->getId())
+                ->load();
         if (count($filteredAttributes) > 0) {
             // getFirstItem() can be used as we can have one or zero records in the collection
             $this->setEntityAttributeId($filteredAttributes->getFirstItem()->getEntityAttributeId());
@@ -143,30 +145,31 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
          * Check for maximum attribute_code length
          */
         if (isset($this->_data['attribute_code']) &&
-            !Zend_Validate::is(
-                $this->_data['attribute_code'],
-                'StringLength',
-                array('max' => self::ATTRIBUTE_CODE_MAX_LENGTH)
-            )
+                !Zend_Validate::is(
+                        $this->_data['attribute_code'], 'StringLength', array('max' => self::ATTRIBUTE_CODE_MAX_LENGTH)
+                )
         ) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', self::ATTRIBUTE_CODE_MAX_LENGTH));
         }
 
-        $defaultValue   = $this->getDefaultValue();
-        $hasDefaultValue = ((string)$defaultValue != '');
+        $defaultValue = $this->getDefaultValue();
+        $hasDefaultValue = ((string) $defaultValue != '');
 
         if ($this->getBackendType() == 'decimal' && $hasDefaultValue) {
             $locale = Mage::app()->getLocale()->getLocaleCode();
             if (!Zend_Locale_Format::isNumber($defaultValue, array('locale' => $locale))) {
-                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
+                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
             }
 
-            try {
+            try
+            {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                        array('locale' => Mage::app()->getLocale()->getLocaleCode())
                 );
                 $this->setDefaultValue($filter->filter($defaultValue));
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
             }
         }
@@ -183,10 +186,13 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             // save default date value as timestamp
             if ($hasDefaultValue) {
                 $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-                try {
+                try
+                {
                     $defaultValue = Mage::app()->getLocale()->date($defaultValue, $format, null, false)->toValue();
                     $this->setDefaultValue($defaultValue);
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default date'));
                 }
             }
@@ -336,4 +342,5 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         }
         return $this->getFrontendLabel();
     }
+
 }

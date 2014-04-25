@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,17 +24,17 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Usa_Model_Shipping_Carrier_Ups_Source_DestType
 {
+
     public function toOptionArray()
     {
         $ups = Mage::getSingleton('usa/shipping_carrier_ups');
         $arr = array();
-        foreach ($ups->getCode('dest_type_description') as $k=>$v) {
-            $arr[] = array('value'=>$k, 'label'=>Mage::helper('usa')->__($v));
+        foreach ($ups->getCode('dest_type_description') as $k => $v) {
+            $arr[] = array('value' => $k, 'label' => Mage::helper('usa')->__($v));
         }
         return $arr;
     }
+
 }

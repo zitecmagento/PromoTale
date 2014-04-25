@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Block_Widget_Grid
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -64,7 +66,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
 
     protected function _prepareColumns()
     {
-        $currencyCode = (string)Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
+        $currencyCode = (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
         $this->addColumn('product_id', array(
             'header' => Mage::helper('customer')->__('Product ID'),
             'index' => 'product_id',
@@ -79,17 +81,17 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
         ))->addColumn('qty', array(
             'header' => Mage::helper('customer')->__('Qty'),
             'index' => 'qty',
-            'type'  => 'number',
+            'type' => 'number',
             'width' => '60px'
         ))->addColumn('price', array(
             'header' => Mage::helper('customer')->__('Price'),
             'index' => 'price',
-            'type'  => 'currency',
+            'type' => 'currency',
             'currency_code' => $currencyCode
         ))->addColumn('total', array(
             'header' => Mage::helper('customer')->__('Total'),
             'index' => 'row_total',
-            'type'  => 'currency',
+            'type' => 'currency',
             'currency_code' => $currencyCode
         ));
 
@@ -116,4 +118,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
     {
         return ($this->getCollection()->getSize() > 0);
     }
+
 }

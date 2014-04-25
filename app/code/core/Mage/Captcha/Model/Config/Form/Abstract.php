@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Captcha_Model_Config_Form_Abstract extends Mage_Core_Model_Config_Data
 {
+
     /**
      * @var string
      */
@@ -52,10 +54,11 @@ abstract class Mage_Captcha_Model_Config_Form_Abstract extends Mage_Core_Model_C
             foreach ($backendNode->children() as $formNode) {
                 /* @var $formNode Mage_Core_Model_Config_Element */
                 if (!empty($formNode->label)) {
-                    $optionArray[] = array('label' => (string)$formNode->label, 'value' => $formNode->getName());
+                    $optionArray[] = array('label' => (string) $formNode->label, 'value' => $formNode->getName());
                 }
             }
         }
         return $optionArray;
     }
+
 }

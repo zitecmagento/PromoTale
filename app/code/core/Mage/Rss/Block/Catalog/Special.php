@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
 {
+
     /**
      * Zend_Date object for date comparsions
      *
@@ -43,15 +45,15 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
     protected function _construct()
     {
         /*
-        * setting cache to save the rss for 10 minutes
-        */
-        $this->setCacheKey('rss_catalog_special_'.$this->_getStoreId().'_'.$this->_getCustomerGroupId());
+         * setting cache to save the rss for 10 minutes
+         */
+        $this->setCacheKey('rss_catalog_special_' . $this->_getStoreId() . '_' . $this->_getCustomerGroupId());
         $this->setCacheLifetime(600);
     }
 
     protected function _toHtml()
     {
-         //store id is store view id
+        //store id is store view id
         $storeId = $this->_getStoreId();
         $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
 
@@ -65,17 +67,16 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
             'price'
         );
         $specials = $product->setStoreId($storeId)->getResourceCollection()
-            ->addPriceDataFieldFilter('%s < %s', $fields)
-            ->addPriceData($customerGroupId, $websiteId)
-            ->addAttributeToSelect(
-                    array(
-                        'name', 'short_description', 'description', 'price', 'thumbnail',
-                        'special_price', 'special_to_date',
-                        'msrp_enabled', 'msrp_display_actual_price_type', 'msrp'
-                    ),
-                    'left'
-            )
-            ->addAttributeToSort('name', 'asc')
+                ->addPriceDataFieldFilter('%s < %s', $fields)
+                ->addPriceData($customerGroupId, $websiteId)
+                ->addAttributeToSelect(
+                        array(
+                    'name', 'short_description', 'description', 'price', 'thumbnail',
+                    'special_price', 'special_to_date',
+                    'msrp_enabled', 'msrp_display_actual_price_type', 'msrp'
+                        ), 'left'
+                )
+                ->addAttributeToSort('name', 'asc')
         ;
 
         $newurl = Mage::getUrl('rss/catalog/special/store_id/' . $storeId);
@@ -84,54 +85,44 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
 
         $rssObj = Mage::getModel('rss/rss');
         $data = array('title' => $title,
-                'description' => $title,
-                'link'        => $newurl,
-                'charset'     => 'UTF-8',
-                'language'    => $lang
-                );
+            'description' => $title,
+            'link' => $newurl,
+            'charset' => 'UTF-8',
+            'language' => $lang
+        );
         $rssObj->_addHeader($data);
 
         $results = array();
         /*
-        using resource iterator to load the data one by one
-        instead of loading all at the same time. loading all data at the same time can cause the big memory allocation.
-        */
+          using resource iterator to load the data one by one
+          instead of loading all at the same time. loading all data at the same time can cause the big memory allocation.
+         */
         Mage::getSingleton('core/resource_iterator')->walk(
-            $specials->getSelect(),
-            array(array($this, 'addSpecialXmlCallback')),
-            array('rssObj'=> $rssObj, 'results'=> &$results)
+                $specials->getSelect(), array(array($this, 'addSpecialXmlCallback')), array('rssObj' => $rssObj, 'results' => &$results)
         );
 
-        if (sizeof($results)>0) {
-            foreach($results as $result){
+        if (sizeof($results) > 0) {
+            foreach ($results as $result) {
                 // render a row for RSS feed
                 $product->setData($result);
                 $html = sprintf('<table><tr>
                     <td><a href="%s"><img src="%s" alt="" border="0" align="left" height="75" width="75" /></a></td>
-                    <td style="text-decoration:none;">%s',
-                    $product->getProductUrl(),
-                    $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75),
-                    $this->helper('catalog/output')->productAttribute(
-                        $product,
-                        $product->getDescription(),
-                        'description'
-                    )
+                    <td style="text-decoration:none;">%s', $product->getProductUrl(), $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75), $this->helper('catalog/output')->productAttribute(
+                                $product, $product->getDescription(), 'description'
+                        )
                 );
 
                 // add price data if needed
                 if ($product->getAllowedPriceInRss()) {
                     if (Mage::helper('catalog')->canApplyMsrp($product)) {
                         $html .= '<br/><a href="' . $product->getProductUrl() . '">'
-                            . $this->__('Click for price') . '</a>';
+                                . $this->__('Click for price') . '</a>';
                     } else {
                         $special = '';
                         if ($result['use_special']) {
                             $special = '<br />' . Mage::helper('catalog')->__('Special Expires On: %s', $this->formatDate($result['special_to_date'], Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM));
                         }
-                        $html .= sprintf('<p>%s %s%s</p>',
-                            Mage::helper('catalog')->__('Price: %s', Mage::helper('core')->currency($result['price'])),
-                            Mage::helper('catalog')->__('Special Price: %s', Mage::helper('core')->currency($result['final_price'])),
-                            $special
+                        $html .= sprintf('<p>%s %s%s</p>', Mage::helper('catalog')->__('Price: %s', Mage::helper('core')->currency($result['price'])), Mage::helper('catalog')->__('Special Price: %s', Mage::helper('core')->currency($result['final_price'])), $special
                         );
                     }
                 }
@@ -139,8 +130,8 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
                 $html .= '</td></tr></table>';
 
                 $rssObj->_addEntry(array(
-                    'title'       => $product->getName(),
-                    'link'        => $product->getProductUrl(),
+                    'title' => $product->getName(),
+                    'link' => $product->getProductUrl(),
                     'description' => $html
                 ));
             }
@@ -171,8 +162,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         $row = $args['row'];
         $row['use_special'] = false;
         $row['allowed_price_in_rss'] = $product->getAllowedPriceInRss();
-        if (isset($row['special_to_date']) && $row['final_price'] <= $row['special_price']
-            && $row['allowed_price_in_rss']
+        if (isset($row['special_to_date']) && $row['final_price'] <= $row['special_price'] && $row['allowed_price_in_rss']
         ) {
             $compareDate = self::$_currentDate->compareDate($row['special_to_date'], Varien_Date::DATE_INTERNAL_FORMAT);
             if (-1 === $compareDate || 0 === $compareDate) {
@@ -180,9 +170,8 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
             }
         }
 
-       $args['results'][] = $row;
+        $args['results'][] = $row;
     }
-
 
     /**
      * Function for comparing two items in collection
@@ -193,6 +182,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
      */
     public function sortByStartDate($a, $b)
     {
-        return $a['start_date']>$b['start_date'] ? -1 : ($a['start_date']<$b['start_date'] ? 1 : 0);
+        return $a['start_date'] > $b['start_date'] ? -1 : ($a['start_date'] < $b['start_date'] ? 1 : 0);
     }
+
 }

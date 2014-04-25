@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -45,6 +46,7 @@
  */
 class Mage_Api2_Model_Acl_Filter_Attribute extends Mage_Core_Model_Abstract
 {
+
     /**
      * Permissions model
      *
@@ -74,4 +76,5 @@ class Mage_Api2_Model_Acl_Filter_Attribute extends Mage_Core_Model_Abstract
         }
         return $this->_permissionModel;
     }
+
 }

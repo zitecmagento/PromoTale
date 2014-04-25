@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Block_Layer_Filter_Price extends Mage_Catalog_Block_Layer_Filter_Abstract
 {
+
     /**
      * Initialize Price filter module
      *
@@ -54,4 +56,5 @@ class Mage_Catalog_Block_Layer_Filter_Price extends Mage_Catalog_Block_Layer_Fil
         $this->_filter->setAttributeModel($this->getAttributeModel());
         return $this;
     }
+
 }

@@ -127,8 +127,12 @@
         </faults>
         <acl>
             <asserts>
-                <ip><class>Mage_Api_Model_Acl_Assert_Ip</class></ip>
-                <time><class>Mage_Api_Model_Acl_Assert_Time</class></time>
+                <ip>
+                    <class>Mage_Api_Model_Acl_Assert_Ip</class>
+                </ip>
+                <time>
+                    <class>Mage_Api_Model_Acl_Assert_Time</class>
+                </time>
             </asserts>
 
             <resources>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Form_Element_Multi */
 #require_once 'Zend/Form/Element/Multi.php';
 
@@ -38,6 +38,7 @@
  */
 class Zend_Form_Element_MultiCheckbox extends Zend_Form_Element_Multi
 {
+
     /**
      * Use formMultiCheckbox view helper by default
      * @var string
@@ -49,4 +50,5 @@ class Zend_Form_Element_MultiCheckbox extends Zend_Form_Element_Multi
      * @var bool
      */
     protected $_isArray = true;
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -48,6 +49,7 @@
  */
 class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
 {
+
     /**
      * @var string
      */
@@ -133,8 +135,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
      * @param  string $module
      * @return array|null|Varien_Simplexml_Element
      */
-    protected function _buildResourcesArray(Varien_Simplexml_Element $resource = null,
-        $parentName = null, $level = 0, $represent2Darray = null, $rawNodes = false, $module = 'adminhtml')
+    protected function _buildResourcesArray(Varien_Simplexml_Element $resource = null, $parentName = null, $level = 0, $represent2Darray = null, $rawNodes = false, $module = 'adminhtml')
     {
         static $result;
         if (is_null($resource)) {
@@ -148,7 +149,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
 
                 //assigning module for its' children nodes
                 if ($resource->getAttribute('module')) {
-                    $module = (string)$resource->getAttribute('module');
+                    $module = (string) $resource->getAttribute('module');
                 }
 
                 if ($rawNodes) {
@@ -156,8 +157,8 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
                     $resource->addAttribute("module_c", $module);
                 }
 
-                if ( is_null($represent2Darray) ) {
-                    $result[$resourceName]['name']  = Mage::helper($module)->__((string)$resource->title);
+                if (is_null($represent2Darray)) {
+                    $result[$resourceName]['name'] = Mage::helper($module)->__((string) $resource->title);
                     $result[$resourceName]['level'] = $level;
                 } else {
                     $result[] = $resourceName;
@@ -181,4 +182,5 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
             return $result;
         }
     }
+
 }

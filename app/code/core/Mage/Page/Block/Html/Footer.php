@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -55,7 +56,7 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
         return array(
             'PAGE_FOOTER',
             Mage::app()->getStore()->getId(),
-            (int)Mage::app()->getStore()->isCurrentlySecure(),
+            (int) Mage::app()->getStore()->isCurrentlySecure(),
             Mage::getDesign()->getPackageName(),
             Mage::getDesign()->getTheme('template'),
             Mage::getSingleton('customer/session')->isLoggedIn()
@@ -84,7 +85,7 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
      * @param   boolean $useCache
      * @return  string
      */
-    public function getChildHtml($name='', $useCache=true, $sorted=true)
+    public function getChildHtml($name = '', $useCache = true, $sorted = true)
     {
         return parent::getChildHtml($name, $useCache, $sorted);
     }

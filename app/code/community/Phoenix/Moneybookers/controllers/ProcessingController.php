@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,6 +20,7 @@
  */
 class Phoenix_Moneybookers_ProcessingController extends Mage_Core_Controller_Front_Action
 {
+
     /**
      * Get singleton of Checkout Session Model
      *
@@ -34,8 +36,8 @@ class Phoenix_Moneybookers_ProcessingController extends Mage_Core_Controller_Fro
      */
     public function placeformAction()
     {
-       $this->loadLayout();
-       $this->renderLayout();
+        $this->loadLayout();
+        $this->renderLayout();
     }
 
     /**
@@ -43,7 +45,8 @@ class Phoenix_Moneybookers_ProcessingController extends Mage_Core_Controller_Fro
      */
     public function paymentAction()
     {
-        try {
+        try
+        {
             $session = $this->_getCheckout();
 
             $order = Mage::getModel('sales/order');
@@ -51,8 +54,7 @@ class Phoenix_Moneybookers_ProcessingController extends Mage_Core_Controller_Fro
             if (!$order->getId()) {
                 Mage::throwException('No order for processing found');
             }
-            $order->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT, Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
-                Mage::helper('moneybookers')->__('The customer was redirected to Moneybookers.')
+            $order->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT, Mage_Sales_Model_Order::STATE_PENDING_PAYMENT, Mage::helper('moneybookers')->__('The customer was redirected to Moneybookers.')
             );
             $order->save();
 
@@ -63,7 +65,9 @@ class Phoenix_Moneybookers_ProcessingController extends Mage_Core_Controller_Fro
 
             $this->loadLayout();
             $this->renderLayout();
-        } catch (Exception $e){
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             parent::_redirect('checkout/cart');
         }
@@ -75,15 +79,20 @@ class Phoenix_Moneybookers_ProcessingController extends Mage_Core_Controller_Fro
     public function successAction()
     {
         $event = Mage::getModel('moneybookers/event')
-                 ->setEventData($this->getRequest()->getParams());
-        try {
+                ->setEventData($this->getRequest()->getParams());
+        try
+        {
             $quoteId = $event->successEvent();
             $this->_getCheckout()->setLastSuccessQuoteId($quoteId);
             $this->_redirect('checkout/onepage/success');
             return;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getCheckout()->addError($e->getMessage());
-        } catch(Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
         }
         $this->_redirect('checkout/cart');
@@ -97,7 +106,7 @@ class Phoenix_Moneybookers_ProcessingController extends Mage_Core_Controller_Fro
     public function cancelAction()
     {
         $event = Mage::getModel('moneybookers/event')
-                 ->setEventData($this->getRequest()->getParams());
+                ->setEventData($this->getRequest()->getParams());
         $message = $event->cancelEvent();
 
         // set quote to active
@@ -121,7 +130,7 @@ class Phoenix_Moneybookers_ProcessingController extends Mage_Core_Controller_Fro
     public function statusAction()
     {
         $event = Mage::getModel('moneybookers/event')
-            ->setEventData($this->getRequest()->getParams());
+                ->setEventData($this->getRequest()->getParams());
         $message = $event->processStatusEvent();
         $this->getResponse()->setBody($message);
     }
@@ -133,14 +142,15 @@ class Phoenix_Moneybookers_ProcessingController extends Mage_Core_Controller_Fro
      * @param string $path
      * @param array $arguments
      */
-    protected function _redirect($path, $arguments=array())
+    protected function _redirect($path, $arguments = array())
     {
         $this->getResponse()->setBody(
-            $this->getLayout()
-                ->createBlock('moneybookers/redirect')
-                ->setRedirectUrl(Mage::getUrl($path, $arguments))
-                ->toHtml()
+                $this->getLayout()
+                        ->createBlock('moneybookers/redirect')
+                        ->setRedirectUrl(Mage::getUrl($path, $arguments))
+                        ->toHtml()
         );
         return $this;
     }
+
 }

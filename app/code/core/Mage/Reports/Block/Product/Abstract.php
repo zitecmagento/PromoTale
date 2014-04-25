@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reports Recently Products Abstract Block
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Product_Abstract
 {
+
     /**
      * Product Index model name
      *
@@ -124,14 +125,14 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
             $attributes = Mage::getSingleton('catalog/config')->getProductAttributes();
 
             $this->_collection = $this->_getModel()
-                ->getCollection()
-                ->addAttributeToSelect($attributes);
+                    ->getCollection()
+                    ->addAttributeToSelect($attributes);
 
-                if ($this->getCustomerId()) {
-                    $this->_collection->setCustomerId($this->getCustomerId());
-                }
+            if ($this->getCustomerId()) {
+                $this->_collection->setCustomerId($this->getCustomerId());
+            }
 
-                $this->_collection->excludeProductIds($this->_getModel()->getExcludeProductIds())
+            $this->_collection->excludeProductIds($this->_getModel()->getExcludeProductIds())
                     ->addUrlRewrite()
                     ->setPageSize($this->getPageSize())
                     ->setCurPage(1);
@@ -146,12 +147,12 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
                 $this->_collection->addFilterByIds($ids);
             }
             $this->_collection->setAddedAtOrder();
-            if ($this-> _useProductIdsOrder && is_array($ids)) {
+            if ($this->_useProductIdsOrder && is_array($ids)) {
                 $this->_collection->setSortIds($ids);
             }
 
             Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection($this->_collection);
+                    ->addVisibleInSiteFilterToCollection($this->_collection);
         }
 
         return $this->_collection;
@@ -192,4 +193,5 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     {
         return $this->getItemsCollection();
     }
+
 }

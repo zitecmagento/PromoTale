@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Add and update buttons
      *
@@ -41,7 +42,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
      */
     public function __construct()
     {
-        $this->_objectId   = 'tag_id';
+        $this->_objectId = 'tag_id';
         $this->_controller = 'tag';
 
         parent::__construct();
@@ -50,10 +51,10 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
         $this->_updateButton('delete', 'label', Mage::helper('tag')->__('Delete Tag'));
 
         $this->addButton('save_and_edit_button', array(
-            'label'   => Mage::helper('tag')->__('Save and Continue Edit'),
+            'label' => Mage::helper('tag')->__('Save and Continue Edit'),
             'onclick' => "saveAndContinueEdit('" . $this->getSaveAndContinueUrl() . "')",
-            'class'   => 'save'
-        ), 1);
+            'class' => 'save'
+                ), 1);
     }
 
     /**
@@ -66,8 +67,8 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
         parent::_prepareLayout();
 
         $this->setChild('store_switcher', $this->getLayout()->createBlock('adminhtml/tag_store_switcher'))
-             ->setChild('tag_assign_accordion', $this->getLayout()->createBlock('adminhtml/tag_edit_assigned'))
-             ->setChild('accordion', $this->getLayout()->createBlock('adminhtml/tag_edit_accordion'));
+                ->setChild('tag_assign_accordion', $this->getLayout()->createBlock('adminhtml/tag_edit_assigned'))
+                ->setChild('accordion', $this->getLayout()->createBlock('adminhtml/tag_edit_accordion'));
 
         return $this;
     }
@@ -142,7 +143,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current'=>true));
+        return $this->getUrl('*/*/save', array('_current' => true));
     }
 
     /**
@@ -152,7 +153,8 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
      */
     public function getSaveAndContinueUrl()
     {
-        return $this->getUrl('*/*/save', array('_current' => true, 'ret' => 'edit', 'continue' => $this->getRequest()->getParam('ret', 'index'), 'store' => Mage::registry('current_tag')->getStoreId()));
+        return $this->getUrl('*/*/save', array('_current' => true, 'ret' => 'edit', 'continue' => $this->getRequest()->getParam('ret', 'index'),
+                    'store' => Mage::registry('current_tag')->getStoreId()));
     }
 
     /**
@@ -164,4 +166,5 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
     {
         return $this->getUrl('*/*/' . $this->getRequest()->getParam('ret', 'index'));
     }
+
 }

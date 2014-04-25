@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset
-    extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
+class Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
 {
+
     /**
      * Sort child elements by specified data key
      *
@@ -142,7 +143,8 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset
      * @param bool $equal
      * @return bool
      */
-    protected function _checkFieldset($element, $equal = true) {
+    protected function _checkFieldset($element, $equal = true)
+    {
         if ($equal) {
             return $element->getType() == 'fieldset';
         } else {
@@ -218,4 +220,5 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset
         }
         return $elements;
     }
+
 }

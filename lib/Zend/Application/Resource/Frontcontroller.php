@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Frontcontroller.php 23378 2010-11-18 21:48:27Z bittarman $
  */
-
 /**
  * @see Zend_Application_Resource_ResourceAbstract
  */
 #require_once 'Zend/Application/Resource/ResourceAbstract.php';
-
 
 /**
  * Front Controller resource
@@ -37,6 +36,7 @@
  */
 class Zend_Application_Resource_Frontcontroller extends Zend_Application_Resource_ResourceAbstract
 {
+
     /**
      * @var Zend_Controller_Front
      */
@@ -71,7 +71,7 @@ class Zend_Application_Resource_Frontcontroller extends Zend_Application_Resourc
                     if (is_string($value)) {
                         $front->addModuleDirectory($value);
                     } elseif (is_array($value)) {
-                        foreach($value as $moduleDir) {
+                        foreach ($value as $moduleDir) {
                             $front->addModuleDirectory($moduleDir);
                         }
                     }
@@ -101,12 +101,11 @@ class Zend_Application_Resource_Frontcontroller extends Zend_Application_Resourc
 
                 case 'plugins':
                     foreach ((array) $value as $pluginClass) {
-                    	$stackIndex = null;
-                    	if(is_array($pluginClass)) {
-                    	    $pluginClass = array_change_key_case($pluginClass, CASE_LOWER);
-                            if(isset($pluginClass['class']))
-                            {
-                                if(isset($pluginClass['stackindex'])) {
+                        $stackIndex = null;
+                        if (is_array($pluginClass)) {
+                            $pluginClass = array_change_key_case($pluginClass, CASE_LOWER);
+                            if (isset($pluginClass['class'])) {
+                                if (isset($pluginClass['stackindex'])) {
                                     $stackIndex = $pluginClass['stackindex'];
                                 }
 
@@ -160,4 +159,5 @@ class Zend_Application_Resource_Frontcontroller extends Zend_Application_Resourc
         }
         return $this->_front;
     }
+
 }

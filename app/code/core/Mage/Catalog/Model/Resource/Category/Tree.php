@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Category tree model
  *
@@ -34,8 +34,9 @@
  */
 class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 {
-    const ID_FIELD    = 'id';
-    const PATH_FIELD  = 'path';
+
+    const ID_FIELD = 'id';
+    const PATH_FIELD = 'path';
     const ORDER_FIELD = 'order';
     const LEVEL_FIELD = 'level';
 
@@ -51,28 +52,28 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      *
      * @var int
      */
-    protected $_isActiveAttributeId              = null;
+    protected $_isActiveAttributeId = null;
 
     /**
      * Join URL rewrites data to collection flag
      *
      * @var boolean
      */
-    protected $_joinUrlRewriteIntoCollection     = false;
+    protected $_joinUrlRewriteIntoCollection = false;
 
     /**
      * Inactive categories ids
      *
      * @var array
      */
-    protected $_inactiveCategoryIds              = null;
+    protected $_inactiveCategoryIds = null;
 
     /**
      * store id
      *
      * @var integer
      */
-    protected $_storeId                          = null;
+    protected $_storeId = null;
 
     /**
      * Initialize tree
@@ -83,14 +84,12 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         $resource = Mage::getSingleton('core/resource');
 
         parent::__construct(
-            $resource->getConnection('catalog_write'),
-            $resource->getTableName('catalog/category'),
-            array(
-                Varien_Data_Tree_Dbp::ID_FIELD       => 'entity_id',
-                Varien_Data_Tree_Dbp::PATH_FIELD     => 'path',
-                Varien_Data_Tree_Dbp::ORDER_FIELD    => 'position',
-                Varien_Data_Tree_Dbp::LEVEL_FIELD    => 'level',
-            )
+                $resource->getConnection('catalog_write'), $resource->getTableName('catalog/category'), array(
+            Varien_Data_Tree_Dbp::ID_FIELD => 'entity_id',
+            Varien_Data_Tree_Dbp::PATH_FIELD => 'path',
+            Varien_Data_Tree_Dbp::ORDER_FIELD => 'position',
+            Varien_Data_Tree_Dbp::LEVEL_FIELD => 'level',
+                )
         );
     }
 
@@ -129,8 +128,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * @param boolean $onlyActive
      * @return Mage_Catalog_Model_Resource_Category_Tree
      */
-    public function addCollectionData($collection = null, $sorted = false, $exclude = array(), $toLoad = true,
-        $onlyActive = false)
+    public function addCollectionData($collection = null, $sorted = false, $exclude = array(), $toLoad = true, $onlyActive = false)
     {
         if (is_null($collection)) {
             $collection = $this->getCollection($sorted);
@@ -170,7 +168,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             foreach ($collection as $category) {
                 if ($this->getNodeById($category->getId())) {
                     $this->getNodeById($category->getId())
-                        ->addData($category->getData());
+                            ->addData($category->getData());
                 }
             }
 
@@ -239,8 +237,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
 
         $this->_inactiveItems = array_merge(
-            $this->_getInactiveItemIds($collection, $storeId),
-            $this->_inactiveItems
+                $this->_getInactiveItemIds($collection, $storeId), $this->_inactiveItems
         );
 
 
@@ -250,7 +247,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         foreach ($allIds as $id) {
             $parents = $this->getNodeById($id)->getPath();
             foreach ($parents as $parent) {
-                if (!$this->_getItemIsActive($parent->getId(), $storeId)){
+                if (!$this->_getItemIsActive($parent->getId(), $storeId)) {
                     $disabledIds[] = $id;
                     continue;
                 }
@@ -270,13 +267,13 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         if (is_null($this->_isActiveAttributeId)) {
             $bind = array(
                 'entity_type_code' => Mage_Catalog_Model_Category::ENTITY,
-                'attribute_code'   => 'is_active'
+                'attribute_code' => 'is_active'
             );
             $select = $this->_conn->select()
-                ->from(array('a'=>$resource->getTableName('eav/attribute')), array('attribute_id'))
-                ->join(array('t'=>$resource->getTableName('eav/entity_type')), 'a.entity_type_id = t.entity_type_id')
-                ->where('entity_type_code = :entity_type_code')
-                ->where('attribute_code = :attribute_code');
+                    ->from(array('a' => $resource->getTableName('eav/attribute')), array('attribute_id'))
+                    ->join(array('t' => $resource->getTableName('eav/entity_type')), 'a.entity_type_id = t.entity_type_id')
+                    ->where('entity_type_code = :entity_type_code')
+                    ->where('attribute_code = :attribute_code');
 
             $this->_isActiveAttributeId = $this->_conn->fetchOne($select, $bind);
         }
@@ -299,22 +296,19 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         $table = Mage::getSingleton('core/resource')->getTableName(array('catalog/category', 'int'));
         $bind = array(
             'attribute_id' => $attributeId,
-            'store_id'     => $storeId,
-            'zero_store_id'=> 0,
-            'cond'         => 0,
-
+            'store_id' => $storeId,
+            'zero_store_id' => 0,
+            'cond' => 0,
         );
         $select = $this->_conn->select()
-            ->from(array('d'=>$table), array('d.entity_id'))
-            ->where('d.attribute_id = :attribute_id')
-            ->where('d.store_id = :zero_store_id')
-            ->where('d.entity_id IN (?)', new Zend_Db_Expr($filter))
-            ->joinLeft(
-                array('c'=>$table),
-                'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = d.entity_id',
-                array()
-            )
-            ->where($conditionSql . ' = :cond');
+                ->from(array('d' => $table), array('d.entity_id'))
+                ->where('d.attribute_id = :attribute_id')
+                ->where('d.store_id = :zero_store_id')
+                ->where('d.entity_id IN (?)', new Zend_Db_Expr($filter))
+                ->joinLeft(
+                        array('c' => $table), 'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = d.entity_id', array()
+                )
+                ->where($conditionSql . ' = :cond');
 
         return $this->_conn->fetchCol($select, $bind);
     }
@@ -373,7 +367,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         $this->_joinUrlRewriteIntoCollection = true;
         $collection = Mage::getModel('catalog/category')->getCollection();
         /** @var $collection Mage_Catalog_Model_Resource_Category_Collection */
-
         $attributes = Mage::getConfig()->getNode('frontend/category/collection/attributes');
         if ($attributes) {
             $attributes = $attributes->asArray();
@@ -404,9 +397,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     protected function _beforeMove($category, $newParent, $prevNode)
     {
         Mage::dispatchEvent('catalog_category_tree_move_before', array(
-            'category'      => $category,
-            'prev_parent'   => $prevNode,
-            'parent'        => $newParent
+            'category' => $category,
+            'prev_parent' => $prevNode,
+            'parent' => $newParent
         ));
 
         return $this;
@@ -441,9 +434,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         Mage::app()->cleanCache(array(Mage_Catalog_Model_Category::CACHE_TAG));
 
         Mage::dispatchEvent('catalog_category_tree_move_after', array(
-            'category'  => $category,
+            'category' => $category,
             'prev_node' => $prevNode,
-            'parent'    => $newParent
+            'parent' => $newParent
         ));
 
         return $this;
@@ -460,30 +453,30 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     public function loadByIds($ids, $addCollectionData = true, $updateAnchorProductCount = true)
     {
         $levelField = $this->_conn->quoteIdentifier('level');
-        $pathField  = $this->_conn->quoteIdentifier('path');
+        $pathField = $this->_conn->quoteIdentifier('path');
         // load first two levels, if no ids specified
         if (empty($ids)) {
             $select = $this->_conn->select()
-                ->from($this->_table, 'entity_id')
-                ->where($levelField . ' <= 2');
+                    ->from($this->_table, 'entity_id')
+                    ->where($levelField . ' <= 2');
             $ids = $this->_conn->fetchCol($select);
         }
         if (!is_array($ids)) {
             $ids = array($ids);
         }
         foreach ($ids as $key => $id) {
-            $ids[$key] = (int)$id;
+            $ids[$key] = (int) $id;
         }
 
         // collect paths of specified IDs and prepare to collect all their parents and neighbours
         $select = $this->_conn->select()
-            ->from($this->_table, array('path', 'level'))
-            ->where('entity_id IN (?)', $ids);
+                ->from($this->_table, array('path', 'level'))
+                ->where('entity_id IN (?)', $ids);
         $where = array($levelField . '=0' => true);
 
         foreach ($this->_conn->fetchAll($select) as $item) {
-            $pathIds  = explode('/', $item['path']);
-            $level = (int)$item['level'];
+            $pathIds = explode('/', $item['path']);
+            $level = (int) $item['level'];
             while ($level > 0) {
                 $pathIds[count($pathIds) - 1] = '%';
                 $path = implode('/', $pathIds);
@@ -544,8 +537,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 $select = clone $this->_select;
             }
             $select
-                ->where('e.entity_id IN(?)', $pathIds)
-                ->order($this->_conn->getLengthSql('e.path') . ' ' . Varien_Db_Select::SQL_ASC);
+                    ->where('e.entity_id IN(?)', $pathIds)
+                    ->order($this->_conn->getLengthSql('e.path') . ' ' . Varien_Db_Select::SQL_ASC);
             $result = $this->_conn->fetchAll($select);
             $this->_updateAnchorProductCount($result);
         }
@@ -560,7 +553,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     protected function _updateAnchorProductCount(&$data)
     {
         foreach ($data as $key => $row) {
-            if (0 === (int)$row['is_anchor']) {
+            if (0 === (int) $row['is_anchor']) {
                 $data[$key]['product_count'] = $row['self_product_count'];
             }
         }
@@ -579,7 +572,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     protected function _createCollectionDataSelect($sorted = true, $optionalAttributes = array())
     {
         $select = $this->_getDefaultCollection($sorted ? $this->_orderField : false)
-            ->getSelect();
+                ->getSelect();
         // add attributes to select
         $attributes = array('name', 'is_active', 'is_anchor');
         if ($optionalAttributes) {
@@ -590,46 +583,40 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             $attribute = Mage::getResourceSingleton('catalog/category')->getAttribute($attributeCode);
             // join non-static attribute table
             if (!$attribute->getBackend()->isStatic()) {
-                $tableDefault   = sprintf('d_%s', $attributeCode);
-                $tableStore     = sprintf('s_%s', $attributeCode);
-                $valueExpr      = $this->_conn
-                    ->getCheckSql("{$tableStore}.value_id > 0", "{$tableStore}.value", "{$tableDefault}.value");
+                $tableDefault = sprintf('d_%s', $attributeCode);
+                $tableStore = sprintf('s_%s', $attributeCode);
+                $valueExpr = $this->_conn
+                        ->getCheckSql("{$tableStore}.value_id > 0", "{$tableStore}.value", "{$tableDefault}.value");
 
                 $select
-                    ->joinLeft(
-                        array($tableDefault => $attribute->getBackend()->getTable()),
-                        sprintf('%1$s.entity_id=e.entity_id AND %1$s.attribute_id=%2$d'
-                            . ' AND %1$s.entity_type_id=e.entity_type_id AND %1$s.store_id=%3$d',
-                            $tableDefault, $attribute->getId(), Mage_Core_Model_App::ADMIN_STORE_ID),
-                        array($attributeCode => 'value'))
-                    ->joinLeft(
-                        array($tableStore => $attribute->getBackend()->getTable()),
-                        sprintf('%1$s.entity_id=e.entity_id AND %1$s.attribute_id=%2$d'
-                            . ' AND %1$s.entity_type_id=e.entity_type_id AND %1$s.store_id=%3$d',
-                            $tableStore, $attribute->getId(), $this->getStoreId()),
-                        array($attributeCode => $valueExpr)
-                    );
+                        ->joinLeft(
+                                array($tableDefault => $attribute->getBackend()->getTable()), sprintf('%1$s.entity_id=e.entity_id AND %1$s.attribute_id=%2$d'
+                                        . ' AND %1$s.entity_type_id=e.entity_type_id AND %1$s.store_id=%3$d', $tableDefault, $attribute->getId(), Mage_Core_Model_App::ADMIN_STORE_ID), array(
+                            $attributeCode => 'value'))
+                        ->joinLeft(
+                                array($tableStore => $attribute->getBackend()->getTable()), sprintf('%1$s.entity_id=e.entity_id AND %1$s.attribute_id=%2$d'
+                                        . ' AND %1$s.entity_type_id=e.entity_type_id AND %1$s.store_id=%3$d', $tableStore, $attribute->getId(), $this->getStoreId()), array(
+                            $attributeCode => $valueExpr)
+                );
             }
         }
 
         // count children products qty plus self products qty
-        $categoriesTable         = Mage::getSingleton('core/resource')->getTableName('catalog/category');
+        $categoriesTable = Mage::getSingleton('core/resource')->getTableName('catalog/category');
         $categoriesProductsTable = Mage::getSingleton('core/resource')->getTableName('catalog/category_product');
 
         $subConcat = $this->_conn->getConcatSql(array('e.path', $this->_conn->quote('/%')));
         $subSelect = $this->_conn->select()
-            ->from(array('see' => $categoriesTable), null)
-            ->joinLeft(
-                array('scp' => $categoriesProductsTable),
-                'see.entity_id=scp.category_id',
-                array('COUNT(DISTINCT scp.product_id)'))
-            ->where('see.entity_id = e.entity_id')
-            ->orWhere('see.path LIKE ?', $subConcat);
+                ->from(array('see' => $categoriesTable), null)
+                ->joinLeft(
+                        array('scp' => $categoriesProductsTable), 'see.entity_id=scp.category_id', array('COUNT(DISTINCT scp.product_id)'))
+                ->where('see.entity_id = e.entity_id')
+                ->orWhere('see.path LIKE ?', $subConcat);
         $select->columns(array('product_count' => $subSelect));
 
         $subSelect = $this->_conn->select()
-            ->from(array('cp' => $categoriesProductsTable), 'COUNT(cp.product_id)')
-            ->where('cp.category_id = e.entity_id');
+                ->from(array('cp' => $categoriesProductsTable), 'COUNT(cp.product_id)')
+                ->where('cp.category_id = e.entity_id');
 
         $select->columns(array('self_product_count' => $subSelect));
 
@@ -651,8 +638,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             $ids = array($ids);
         }
         $select = $this->_conn->select()
-            ->from($this->_table, array('entity_id'))
-            ->where('entity_id IN (?)', $ids);
+                ->from($this->_table, array('entity_id'))
+                ->where('entity_id IN (?)', $ids);
         return $this->_conn->fetchCol($select);
     }
+
 }

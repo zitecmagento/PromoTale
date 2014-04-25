@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DijitContainer.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Dojo_View_Helper_Dijit */
 #require_once 'Zend/Dojo/View/Helper/Dijit.php';
 
@@ -31,9 +31,10 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
-  */
+ */
 abstract class Zend_Dojo_View_Helper_DijitContainer extends Zend_Dojo_View_Helper_Dijit
 {
+
     /**
      * Capture locks
      * @var array
@@ -63,7 +64,7 @@ abstract class Zend_Dojo_View_Helper_DijitContainer extends Zend_Dojo_View_Helpe
 
         $this->_captureLock[$id] = true;
         $this->_captureInfo[$id] = array(
-            'params'  => $params,
+            'params' => $params,
             'attribs' => $attribs,
         );
 
@@ -89,4 +90,5 @@ abstract class Zend_Dojo_View_Helper_DijitContainer extends Zend_Dojo_View_Helpe
         unset($this->_captureLock[$id], $this->_captureInfo[$id]);
         return $this->_createLayoutContainer($id, $content, $params, $attribs);
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * System configuration tabs block
@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
      */
     protected function _sort($a, $b)
     {
-        return (int)$a->sort_order < (int)$b->sort_order ? -1 : ((int)$a->sort_order > (int)$b->sort_order ? 1 : 0);
+        return (int) $a->sort_order < (int) $b->sort_order ? -1 : ((int) $a->sort_order > (int) $b->sort_order ? 1 : 0);
     }
 
     /**
@@ -79,17 +79,17 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
         $configFields = Mage::getSingleton('adminhtml/config');
         $sections = $configFields->getSections($current);
-        $tabs     = (array)$configFields->getTabs()->children();
+        $tabs = (array) $configFields->getTabs()->children();
 
 
-        $sections = (array)$sections;
+        $sections = (array) $sections;
 
         usort($sections, array($this, '_sort'));
         usort($tabs, array($this, '_sort'));
 
         foreach ($tabs as $tab) {
             $helperName = $configFields->getAttributeModule($tab);
-            $label = Mage::helper($helperName)->__((string)$tab->label);
+            $label = Mage::helper($helperName)->__((string) $tab->label);
 
             $this->addTab($tab->getName(), array(
                 'label' => $label,
@@ -114,20 +114,20 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
             $helperName = $configFields->getAttributeModule($section);
 
-            $label = Mage::helper($helperName)->__((string)$section->label);
+            $label = Mage::helper($helperName)->__((string) $section->label);
 
             if ($code == $current) {
                 if (!$this->getRequest()->getParam('website') && !$this->getRequest()->getParam('store')) {
                     $this->_addBreadcrumb($label);
                 } else {
-                    $this->_addBreadcrumb($label, '', $url->getUrl('*/*/*', array('section'=>$code)));
+                    $this->_addBreadcrumb($label, '', $url->getUrl('*/*/*', array('section' => $code)));
                 }
             }
-            if ( $sectionAllowed && $hasChildren) {
-                $this->addSection($code, (string)$section->tab, array(
-                    'class'     => (string)$section->class,
-                    'label'     => $label,
-                    'url'       => $url->getUrl('*/*/*', array('_current'=>true, 'section'=>$code)),
+            if ($sectionAllowed && $hasChildren) {
+                $this->addSection($code, (string) $section->tab, array(
+                    'class' => (string) $section->class,
+                    'label' => $label,
+                    'url' => $url->getUrl('*/*/*', array('_current' => true, 'section' => $code)),
                 ));
             }
 
@@ -147,7 +147,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
             }
         }
 
-        Mage::helper('adminhtml')->addPageHelpUrl($current.'/');
+        Mage::helper('adminhtml')->addPageHelpUrl($current . '/');
 
         return $this;
     }
@@ -168,7 +168,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
      */
     public function getTab($code)
     {
-        if(isset($this->_tabs[$code])) {
+        if (isset($this->_tabs[$code])) {
             return $this->_tabs[$code];
         }
 
@@ -177,8 +177,8 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
     public function addSection($code, $tabCode, $config)
     {
-        if($tab = $this->getTab($tabCode)) {
-            if(!$tab->getSections()) {
+        if ($tab = $this->getTab($tabCode)) {
+            if (!$tab->getSections()) {
                 $tab->setSections(new Varien_Data_Collection());
             }
             $section = new Varien_Object($config);
@@ -203,7 +203,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
         $section = $this->getRequest()->getParam('section');
 
         $curWebsite = $this->getRequest()->getParam('website');
-        $curStore   = $this->getRequest()->getParam('store');
+        $curStore = $this->getRequest()->getParam('store');
 
         $storeModel = Mage::getSingleton('adminhtml/system_store');
         /* @var $storeModel Mage_Adminhtml_Model_System_Store */
@@ -212,10 +212,10 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
         $options = array();
         $options['default'] = array(
-            'label'    => Mage::helper('adminhtml')->__('Default Config'),
-            'url'      => $url->getUrl('*/*/*', array('section'=>$section)),
+            'label' => Mage::helper('adminhtml')->__('Default Config'),
+            'url' => $url->getUrl('*/*/*', array('section' => $section)),
             'selected' => !$curWebsite && !$curStore,
-            'style'    => 'background:#ccc; font-weight:bold;',
+            'style' => 'background:#ccc; font-weight:bold;',
         );
 
         foreach ($storeModel->getWebsiteCollection() as $website) {
@@ -232,32 +232,32 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                     if (!$websiteShow) {
                         $websiteShow = true;
                         $options['website_' . $website->getCode()] = array(
-                            'label'    => $website->getName(),
-                            'url'      => $url->getUrl('*/*/*', array('section'=>$section, 'website'=>$website->getCode())),
+                            'label' => $website->getName(),
+                            'url' => $url->getUrl('*/*/*', array('section' => $section, 'website' => $website->getCode())),
                             'selected' => !$curStore && $curWebsite == $website->getCode(),
-                            'style'    => 'padding-left:16px; background:#DDD; font-weight:bold;',
+                            'style' => 'padding-left:16px; background:#DDD; font-weight:bold;',
                         );
                     }
                     if (!$groupShow) {
                         $groupShow = true;
                         $options['group_' . $group->getId() . '_open'] = array(
-                            'is_group'  => true,
-                            'is_close'  => false,
-                            'label'     => $group->getName(),
-                            'style'     => 'padding-left:32px;'
+                            'is_group' => true,
+                            'is_close' => false,
+                            'label' => $group->getName(),
+                            'style' => 'padding-left:32px;'
                         );
                     }
                     $options['store_' . $store->getCode()] = array(
-                        'label'    => $store->getName(),
-                        'url'      => $url->getUrl('*/*/*', array('section'=>$section, 'website'=>$website->getCode(), 'store'=>$store->getCode())),
+                        'label' => $store->getName(),
+                        'url' => $url->getUrl('*/*/*', array('section' => $section, 'website' => $website->getCode(), 'store' => $store->getCode())),
                         'selected' => $curStore == $store->getCode(),
-                        'style'    => '',
+                        'style' => '',
                     );
                 }
                 if ($groupShow) {
                     $options['group_' . $group->getId() . '_close'] = array(
-                        'is_group'  => true,
-                        'is_close'  => true,
+                        'is_group' => true,
+                        'is_close' => true,
                     );
                 }
             }
@@ -280,35 +280,35 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
         if (!$curWebsite && !$curStore) {
             $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                'label'     => Mage::helper('adminhtml')->__('New Website'),
-                'onclick'   => "location.href='".$this->getUrl('*/system_website/new')."'",
-                'class'     => 'add',
-            ))->toHtml();
+                        'label' => Mage::helper('adminhtml')->__('New Website'),
+                        'onclick' => "location.href='" . $this->getUrl('*/system_website/new') . "'",
+                        'class' => 'add',
+                    ))->toHtml();
         } elseif (!$curStore) {
             $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                'label'     => Mage::helper('adminhtml')->__('Edit Website'),
-                'onclick'   => "location.href='".$this->getUrl('*/system_website/edit', array('website'=>$curWebsite))."'",
-            ))->toHtml();
+                        'label' => Mage::helper('adminhtml')->__('Edit Website'),
+                        'onclick' => "location.href='" . $this->getUrl('*/system_website/edit', array('website' => $curWebsite)) . "'",
+                    ))->toHtml();
             $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                'label'     => Mage::helper('adminhtml')->__('New Store View'),
-                'onclick'   => "location.href='".$this->getUrl('*/system_store/new', array('website'=>$curWebsite))."'",
-                'class'     => 'add',
-            ))->toHtml();
+                        'label' => Mage::helper('adminhtml')->__('New Store View'),
+                        'onclick' => "location.href='" . $this->getUrl('*/system_store/new', array('website' => $curWebsite)) . "'",
+                        'class' => 'add',
+                    ))->toHtml();
             $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                'label'     => Mage::helper('adminhtml')->__('Delete Website'),
-                'onclick'   => "location.href='".$this->getUrl('*/system_website/delete', array('website'=>$curWebsite))."'",
-                'class'     => 'delete',
-            ))->toHtml();
+                        'label' => Mage::helper('adminhtml')->__('Delete Website'),
+                        'onclick' => "location.href='" . $this->getUrl('*/system_website/delete', array('website' => $curWebsite)) . "'",
+                        'class' => 'delete',
+                    ))->toHtml();
         } else {
             $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                'label'     => Mage::helper('adminhtml')->__('Edit Store View'),
-                'onclick'   => "location.href='".$this->getUrl('*/system_store/edit', array('store'=>$curStore))."'",
-            ))->toHtml();
+                        'label' => Mage::helper('adminhtml')->__('Edit Store View'),
+                        'onclick' => "location.href='" . $this->getUrl('*/system_store/edit', array('store' => $curStore)) . "'",
+                    ))->toHtml();
             $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                'label'     => Mage::helper('adminhtml')->__('Delete Store View'),
-                'onclick'   => "location.href='".$this->getUrl('*/system_store/delete', array('store'=>$curStore))."'",
-                'class'     => 'delete',
-            ))->toHtml();
+                        'label' => Mage::helper('adminhtml')->__('Delete Store View'),
+                        'onclick' => "location.href='" . $this->getUrl('*/system_store/delete', array('store' => $curStore)) . "'",
+                        'class' => 'delete',
+                    ))->toHtml();
         }
 
         return $html;
@@ -320,7 +320,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
      * @param string $code
      * @return boolean
      */
-    public function checkSectionPermissions($code=null)
+    public function checkSectionPermissions($code = null)
     {
         static $permissions;
 
@@ -333,7 +333,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
         }
 
         $showTab = false;
-        if ( $permissions->isAllowed('system/config/'.$code) ) {
+        if ($permissions->isAllowed('system/config/' . $code)) {
             $showTab = true;
         }
         return $showTab;

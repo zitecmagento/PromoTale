@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -36,6 +37,7 @@
  */
 class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_Image
 {
+
     /**
      * Init
      *
@@ -65,16 +67,16 @@ class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_
         $this->setProduct($category);
 
         $this->setWatermark(
-            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_image")
+                Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_image")
         );
         $this->setWatermarkImageOpacity(
-            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_imageOpacity")
+                Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_imageOpacity")
         );
         $this->setWatermarkPosition(
-            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_position")
+                Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_position")
         );
         $this->setWatermarkSize(
-            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_size")
+                Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_size")
         );
 
         if ($imageFile) {
@@ -95,12 +97,13 @@ class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_
      */
     public function __toString()
     {
-        try {
+        try
+        {
             if ($this->getImageFile()) {
                 $this->_getModel()->setBaseFile($this->getImageFile());
             } else {
                 $this->_getModel()->setBaseFile(
-                    $this->getProduct()->getData($this->_getModel()->getDestinationSubdir())
+                        $this->getProduct()->getData($this->_getModel()->getDestinationSubdir())
                 );
             }
 
@@ -121,7 +124,9 @@ class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_
 
                 $url = $this->_getModel()->saveFile()->getUrl();
             }
-        } catch(Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::logException($e);
             $url = Mage::getDesign()->getSkinUrl($this->getPlaceholder());
             $params = array('_package' => Mage_Core_Model_Design_Package::DEFAULT_PACKAGE,
@@ -155,4 +160,5 @@ class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_
         }
         return $this->_placeholder;
     }
+
 }

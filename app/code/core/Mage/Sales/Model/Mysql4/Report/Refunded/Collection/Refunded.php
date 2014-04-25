@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales report refunded collection
  *
@@ -32,7 +32,7 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Mysql4_Report_Refunded_Collection_Refunded
-    extends Mage_Sales_Model_Resource_Report_Refunded_Collection_Refunded
+class Mage_Sales_Model_Mysql4_Report_Refunded_Collection_Refunded extends Mage_Sales_Model_Resource_Report_Refunded_Collection_Refunded
 {
+    
 }

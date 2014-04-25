@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_Resource
 {
+
     public function __construct()
     {
         $this->_storeIdSessionField = 'category_store_id';
@@ -61,10 +63,10 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
 
                 $result[] = array(
                     'attribute_id' => $attribute->getId(),
-                    'code'         => $attribute->getAttributeCode(),
-                    'type'         => $attribute->getFrontendInput(),
-                    'required'     => $attribute->getIsRequired(),
-                    'scope'        => $scope
+                    'code' => $attribute->getAttributeCode(),
+                    'type' => $attribute->getFrontendInput(),
+                    'required' => $attribute->getIsRequired(),
+                    'scope' => $scope
                 );
             }
         }
@@ -82,9 +84,9 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
     public function options($attributeId, $store = null)
     {
         $attribute = Mage::getModel('catalog/category')
-            ->setStoreId($this->_getStoreId($store))
-            ->getResource()
-            ->getAttribute($attributeId);
+                ->setStoreId($this->_getStoreId($store))
+                ->getResource()
+                ->getAttribute($attributeId);
 
         if (!$attribute) {
             $this->_fault('not_exists');
@@ -92,7 +94,7 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
 
         $result = array();
         if ($attribute->usesSource()) {
-            foreach ($attribute->getSource()->getAllOptions(false) as $optionId=>$optionValue) {
+            foreach ($attribute->getSource()->getAllOptions(false) as $optionId => $optionValue) {
                 if (is_array($optionValue)) {
                     $result[] = $optionValue;
                 } else {
@@ -106,4 +108,7 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
 
         return $result;
     }
-} // Class Mage_Catalog_Model_Category_Attribute_Api End
+
+}
+
+// Class Mage_Catalog_Model_Category_Attribute_Api End

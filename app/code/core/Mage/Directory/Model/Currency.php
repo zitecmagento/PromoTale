@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,18 +34,21 @@
  */
 class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
 {
+
     /**
      * CONFIG path constant: ALLOW
-    */
-    const XML_PATH_CURRENCY_ALLOW   = 'currency/options/allow';
+     */
+    const XML_PATH_CURRENCY_ALLOW = 'currency/options/allow';
+
     /**
      * CONFIG path constant: DEFAULT
      */
     const XML_PATH_CURRENCY_DEFAULT = 'currency/options/default';
+
     /**
      * CONFIG path constant: BASE
      */
-    const XML_PATH_CURRENCY_BASE    = 'currency/options/base';
+    const XML_PATH_CURRENCY_BASE = 'currency/options/base';
 
     /**
      * @var Mage_Directory_Model_Currency_Filter - currency filter
@@ -57,7 +61,6 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * @var array
      */
     protected $_rates;
-
 
     /**
      * Class constructor
@@ -190,8 +193,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
             }
         }
 
-        throw new Exception(Mage::helper('directory')->__('Undefined rate from "%s-%s".', $this->getCode(),
-            $toCurrency->getCode()));
+        throw new Exception(Mage::helper('directory')->__('Undefined rate from "%s-%s".', $this->getCode(), $toCurrency->getCode()));
     }
 
     /**
@@ -232,15 +234,14 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * @param   bool $addBrackets
      * @return  string
      */
-    public function formatPrecision($price, $precision, $options = array(), $includeContainer = true,
-                                    $addBrackets = false)
+    public function formatPrecision($price, $precision, $options = array(), $includeContainer = true, $addBrackets = false)
     {
         if (!isset($options['precision'])) {
             $options['precision'] = $precision;
         }
         if ($includeContainer) {
             return '<span class="price">' . ($addBrackets ? '[' : '') . $this->formatTxt($price, $options) .
-                ($addBrackets ? ']' : '') . '</span>';
+                    ($addBrackets ? ']' : '') . '</span>';
         }
         return $this->formatTxt($price, $options);
     }
@@ -315,7 +316,6 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         return $defaultCurrencies;
     }
 
-
     /**
      * Retrieve base currencies according to config
      *
@@ -354,4 +354,5 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         $this->_getResource()->saveRates($rates);
         return $this;
     }
+
 }

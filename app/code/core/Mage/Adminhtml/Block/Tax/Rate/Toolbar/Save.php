@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Template
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -43,39 +44,36 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
 
     protected function _prepareLayout()
     {
-        $this->setChild('backButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('tax')->__('Back'),
-                    'onclick'   => 'window.location.href=\''.$this->getUrl('*/*/').'\'',
-                    'class' => 'back'
-                ))
+        $this->setChild('backButton', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('tax')->__('Back'),
+                            'onclick' => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
+                            'class' => 'back'
+                        ))
         );
 
-        $this->setChild('resetButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('tax')->__('Reset'),
-                    'onclick'   => 'window.location.reload()'
-                ))
+        $this->setChild('resetButton', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('tax')->__('Reset'),
+                            'onclick' => 'window.location.reload()'
+                        ))
         );
 
-        $this->setChild('saveButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('tax')->__('Save Rate'),
-                    'onclick'   => 'wigetForm.submit();return false;',
-                    'class' => 'save'
-                ))
+        $this->setChild('saveButton', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('tax')->__('Save Rate'),
+                            'onclick' => 'wigetForm.submit();return false;',
+                            'class' => 'save'
+                        ))
         );
 
-        $this->setChild('deleteButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('tax')->__('Delete Rate'),
-                    'onclick'   => 'deleteConfirm(\'' . Mage::helper('tax')->__('Are you sure you want to do this?') . '\', \'' . $this->getUrl('*/*/delete', array('rate' => $this->getRequest()->getParam('rate'))) . '\')',
-                    'class' => 'delete'
-                ))
+        $this->setChild('deleteButton', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('tax')->__('Delete Rate'),
+                            'onclick' => 'deleteConfirm(\'' . Mage::helper('tax')->__('Are you sure you want to do this?') . '\', \'' . $this->getUrl('*/*/delete', array(
+                                'rate' => $this->getRequest()->getParam('rate'))) . '\')',
+                            'class' => 'delete'
+                        ))
         );
         return parent::_prepareLayout();
     }
@@ -97,9 +95,10 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
 
     public function getDeleteButtonHtml()
     {
-        if( intval($this->getRequest()->getParam('rate')) == 0 ) {
+        if (intval($this->getRequest()->getParam('rate')) == 0) {
             return;
         }
         return $this->getChildHtml('deleteButton');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * ProductAlert for back in stock model
@@ -51,6 +51,7 @@
  */
 class Mage_ProductAlert_Model_Stock extends Mage_Core_Model_Abstract
 {
+
     protected function _construct()
     {
         $this->_init('productalert/stock');
@@ -74,4 +75,5 @@ class Mage_ProductAlert_Model_Stock extends Mage_Core_Model_Abstract
         $this->getResource()->deleteCustomer($this, $customerId, $websiteId);
         return $this;
     }
+
 }

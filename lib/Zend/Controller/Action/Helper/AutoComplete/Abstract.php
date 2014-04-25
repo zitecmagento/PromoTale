@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Controller_Action_Helper_Abstract
  */
@@ -37,6 +37,7 @@
  */
 abstract class Zend_Controller_Action_Helper_AutoComplete_Abstract extends Zend_Controller_Action_Helper_Abstract
 {
+
     /**
      * Suppress exit when sendJson() called
      *
@@ -146,4 +147,5 @@ abstract class Zend_Controller_Action_Helper_AutoComplete_Abstract extends Zend_
 
         return $this->prepareAutoCompletion($data, $keepLayouts);
     }
+
 }

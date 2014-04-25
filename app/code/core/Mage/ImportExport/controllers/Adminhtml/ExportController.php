@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Custom constructor.
      *
@@ -52,8 +54,8 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     protected function _initAction()
     {
         $this->_title($this->__('Import/Export'))
-            ->loadLayout()
-            ->_setActiveMenu('system/importexport');
+                ->loadLayout()
+                ->_setActiveMenu('system/importexport');
 
         return $this;
     }
@@ -76,19 +78,22 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     public function exportAction()
     {
         if ($this->getRequest()->getPost(Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP)) {
-            try {
+            try
+            {
                 /** @var $model Mage_ImportExport_Model_Export */
                 $model = Mage::getModel('importexport/export');
                 $model->setData($this->getRequest()->getParams());
 
                 return $this->_prepareDownloadResponse(
-                    $model->getFileName(),
-                    $model->export(),
-                    $model->getContentType()
+                                $model->getFileName(), $model->export(), $model->getContentType()
                 );
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 Mage::logException($e);
                 $this->_getSession()->addError($this->__('No valid data sent'));
             }
@@ -106,8 +111,8 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     public function indexAction()
     {
         $this->_initAction()
-            ->_title($this->__('Export'))
-            ->_addBreadcrumb($this->__('Export'), $this->__('Export'));
+                ->_title($this->__('Export'))
+                ->_addBreadcrumb($this->__('Export'), $this->__('Export'));
 
         $this->renderLayout();
     }
@@ -121,7 +126,8 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     {
         $data = $this->getRequest()->getParams();
         if ($this->getRequest()->isXmlHttpRequest() && $data) {
-            try {
+            try
+            {
                 $this->loadLayout();
 
                 /** @var $attrFilterBlock Mage_ImportExport_Block_Adminhtml_Export_Filter */
@@ -130,12 +136,14 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                 $export = Mage::getModel('importexport/export');
 
                 $export->filterAttributeCollection(
-                    $attrFilterBlock->prepareCollection(
-                        $export->setData($data)->getEntityAttributeCollection()
-                    )
+                        $attrFilterBlock->prepareCollection(
+                                $export->setData($data)->getEntityAttributeCollection()
+                        )
                 );
                 return $this->renderLayout();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $this->_getSession()->addError($e->getMessage());
             }
         } else {
@@ -143,4 +151,5 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
         }
         $this->_redirect('*/*/index');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Synchronize button renderer
  *
@@ -32,12 +32,12 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize
-    extends Mage_Adminhtml_Block_System_Config_Form_Field
+class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /*
      * Set template
      */
+
     protected function _construct()
     {
         parent::_construct();
@@ -95,11 +95,11 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize
     public function getButtonHtml()
     {
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
-                'id'        => 'synchronize_button',
-                'label'     => $this->helper('adminhtml')->__('Synchronize'),
-                'onclick'   => 'javascript:synchronize(); return false;'
-            ));
+                ->setData(array(
+            'id' => 'synchronize_button',
+            'label' => $this->helper('adminhtml')->__('Synchronize'),
+            'onclick' => 'javascript:synchronize(); return false;'
+        ));
 
         return $button->toHtml();
     }
@@ -120,21 +120,19 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize
         $flag = Mage::getSingleton('core/file_storage')->getSyncFlag();
         $flagData = $flag->getFlagData();
 
-        if ($flag->getState() == Mage_Core_Model_File_Storage_Flag::STATE_NOTIFIED
-                && is_array($flagData)
-            && isset($flagData['destination_storage_type']) && $flagData['destination_storage_type'] != ''
-            && isset($flagData['destination_connection_name'])
+        if ($flag->getState() == Mage_Core_Model_File_Storage_Flag::STATE_NOTIFIED && is_array($flagData) && isset($flagData['destination_storage_type']) && $flagData['destination_storage_type'] != '' && isset($flagData['destination_connection_name'])
         ) {
-            $storageType    = $flagData['destination_storage_type'];
+            $storageType = $flagData['destination_storage_type'];
             $connectionName = $flagData['destination_connection_name'];
         } else {
-            $storageType    = Mage_Core_Model_File_Storage::STORAGE_MEDIA_FILE_SYSTEM;
+            $storageType = Mage_Core_Model_File_Storage::STORAGE_MEDIA_FILE_SYSTEM;
             $connectionName = '';
         }
 
         return array(
-            'storage_type'      => $storageType,
-            'connection_name'   => $connectionName
+            'storage_type' => $storageType,
+            'connection_name' => $connectionName
         );
     }
+
 }

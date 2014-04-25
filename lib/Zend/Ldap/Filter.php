@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Filter.php 22662 2010-07-24 17:37:36Z mabe $
  */
-
 /**
  * @see Zend_Ldap_Filter_String
  */
@@ -36,12 +36,13 @@
  */
 class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
 {
-    const TYPE_EQUALS         = '=';
-    const TYPE_GREATER        = '>';
+
+    const TYPE_EQUALS = '=';
+    const TYPE_GREATER = '>';
     const TYPE_GREATEROREQUAL = '>=';
-    const TYPE_LESS           = '<';
-    const TYPE_LESSOREQUAL    = '<=';
-    const TYPE_APPROX         = '~=';
+    const TYPE_LESS = '<';
+    const TYPE_LESSOREQUAL = '<=';
+    const TYPE_APPROX = '~=';
 
     /**
      * Creates an 'equals' filter.
@@ -242,9 +243,11 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
     private static function _createFilterString($attr, $value, $filtertype, $prepend = null, $append = null)
     {
         $str = $attr . $filtertype;
-        if ($prepend !== null) $str .= $prepend;
+        if ($prepend !== null)
+            $str .= $prepend;
         $str .= self::escapeValue($value);
-        if ($append !== null) $str .= $append;
+        if ($append !== null)
+            $str .= $append;
         return $str;
     }
 
@@ -262,4 +265,5 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
         $filter = self::_createFilterString($attr, $value, $filtertype, $prepend, $append);
         parent::__construct($filter);
     }
+
 }

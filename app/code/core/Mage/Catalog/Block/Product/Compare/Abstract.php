@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Compare Products Abstract Block
  *
@@ -34,6 +34,7 @@
  */
 abstract class Mage_Catalog_Block_Product_Compare_Abstract extends Mage_Catalog_Block_Product_Abstract
 {
+
     /**
      * Retrieve Product Compare Helper
      *
@@ -54,4 +55,5 @@ abstract class Mage_Catalog_Block_Product_Compare_Abstract extends Mage_Catalog_
     {
         return $this->_getHelper()->getRemoveUrl($item);
     }
+
 }

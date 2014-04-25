@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,8 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 $installer = $this;
 
@@ -52,25 +51,13 @@ CREATE TABLE `{$tablePaymentTransaction}` (
 );
 
 $installer->getConnection()->addConstraint(
-    'SALES_PAYMENT_TRANSACTION_PARENT',
-    $tablePaymentTransaction,
-    'parent_id',
-    $tablePaymentTransaction,
-    'transaction_id'
+        'SALES_PAYMENT_TRANSACTION_PARENT', $tablePaymentTransaction, 'parent_id', $tablePaymentTransaction, 'transaction_id'
 );
 
 $installer->getConnection()->addConstraint(
-    'SALES_PAYMENT_TRANSACTION_ORDER',
-    $tablePaymentTransaction,
-    'order_id',
-    $tableOrders,
-    'entity_id'
+        'SALES_PAYMENT_TRANSACTION_ORDER', $tablePaymentTransaction, 'order_id', $tableOrders, 'entity_id'
 );
 
 $installer->getConnection()->addConstraint(
-    'SALES_PAYMENT_TRANSACTION_PAYMENT',
-    $tablePaymentTransaction,
-    'payment_id',
-    $tableOrderPayment,
-    'entity_id'
+        'SALES_PAYMENT_TRANSACTION_PAYMENT', $tablePaymentTransaction, 'payment_id', $tableOrderPayment, 'entity_id'
 );

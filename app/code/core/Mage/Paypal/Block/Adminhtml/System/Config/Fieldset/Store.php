@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,15 +25,13 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Renderer for service JavaScript code that disables corresponding paypal methods on page load
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Store
-    extends Mage_Adminhtml_Block_Abstract
-    implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Store extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
+
     /**
      * Path to template file
      *
@@ -60,11 +59,11 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Store
     {
         // Assoc array that contains info about paypal methods (their IDs and corresponding Config Paths)
         $methods = array(
-            'express'   => 'payment/paypal_express/active',
-            'wps'       => 'payment/paypal_standard/active',
-            'wpp'       => 'payment/paypal_direct/active',
-            'wpppe'     => 'payment/paypaluk_direct/active',
-            'verisign'  => 'payment/verisign/active',
+            'express' => 'payment/paypal_express/active',
+            'wps' => 'payment/paypal_standard/active',
+            'wpp' => 'payment/paypal_direct/active',
+            'wpppe' => 'payment/paypaluk_direct/active',
+            'verisign' => 'payment/verisign/active',
             'expresspe' => 'payment/paypaluk_express/active'
         );
         // Retrieve a code of the current website
@@ -82,4 +81,5 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Store
 
         return $disabledMethods;
     }
+
 }

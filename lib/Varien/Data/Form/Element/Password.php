@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,16 +34,18 @@
  */
 class Varien_Data_Form_Element_Password extends Varien_Data_Form_Element_Abstract
 {
-    public function __construct($attributes=array()) 
+
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setType('password');
         $this->setExtType('textfield');
     }
-    
+
     public function getHtml()
     {
         $this->addClass('input-text');
         return parent::getHtml();
     }
+
 }

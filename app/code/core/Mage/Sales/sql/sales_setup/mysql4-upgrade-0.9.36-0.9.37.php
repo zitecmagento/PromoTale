@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,12 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('order_item', 'locked_do_invoice', array('type'=>'int', 'default' => 0));
-$installer->addAttribute('order_item', 'locked_do_ship', array('type'=>'int', 'default' => 0));
+$installer->addAttribute('order_item', 'locked_do_invoice', array('type' => 'int', 'default' => 0));
+$installer->addAttribute('order_item', 'locked_do_ship', array('type' => 'int', 'default' => 0));
 
 $installer->endSetup();

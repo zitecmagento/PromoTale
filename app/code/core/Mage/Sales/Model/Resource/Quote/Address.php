@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Quote address resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Sales_Model_Resource_Quote_Address extends Mage_Sales_Model_Resource_Abstract
 {
+
     /**
      * Main table and field initialization
      *
@@ -42,5 +43,5 @@ class Mage_Sales_Model_Resource_Quote_Address extends Mage_Sales_Model_Resource_
     {
         $this->_init('sales/quote_address', 'address_id');
     }
-}
 
+}

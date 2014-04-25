@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Wishlist
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract
-    implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
+class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {
+
     protected $_item;
     protected $_product;
 
@@ -136,7 +137,8 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract
     public function __clone()
     {
         $this->setId(null);
-        $this->_item    = null;
+        $this->_item = null;
         return $this;
     }
+
 }

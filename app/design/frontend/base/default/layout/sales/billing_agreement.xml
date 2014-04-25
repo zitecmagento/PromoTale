@@ -30,7 +30,9 @@
     <sales_billing_agreement_index>
         <update handle="customer_account"/>
         <reference name="root">
-            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+            <action method="setTemplate">
+                <template>page/2columns-left.phtml</template>
+            </action>
         </reference>
         <reference name="my.account.wrapper">
             <block type="sales/billing_agreements" name="customer.account.billing.agreement" template="sales/billing/agreements.phtml"/>
@@ -40,7 +42,9 @@
     <sales_billing_agreement_view>
         <update handle="customer_account"/>
         <reference name="root">
-            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+            <action method="setTemplate">
+                <template>page/2columns-left.phtml</template>
+            </action>
         </reference>
         <reference name="my.account.wrapper">
             <block type="sales/billing_agreement_view" name="customer.account.billing.agreement" template="sales/billing/agreement/view.phtml"/>
@@ -49,7 +53,11 @@
 
     <customer_account>
         <reference name="customer_account_navigation" >
-            <action method="addLink" translate="label"><name>billing_agreements</name><path>sales/billing_agreement/</path><label>Billing Agreements</label></action>
+            <action method="addLink" translate="label">
+                <name>billing_agreements</name>
+                <path>sales/billing_agreement/</path>
+                <label>Billing Agreements</label>
+            </action>
         </reference>
     </customer_account>
 </layout>

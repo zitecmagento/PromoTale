@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Http.php 22096 2010-05-04 15:37:23Z wadearnold $
  */
-
 /** Zend_Amf_Response */
 #require_once 'Zend/Amf/Response.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Amf_Response_Http extends Zend_Amf_Response
 {
+
     /**
      * Create the application response header for AMF and sends the serialized AMF string
      *
@@ -48,4 +49,5 @@ class Zend_Amf_Response_Http extends Zend_Amf_Response
         }
         return parent::getResponse();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminhtml_Block_Store_Switcher
 {
+
     protected $_storeFromHtml;
 
     /**
@@ -126,7 +128,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
     {
         if (!$this->_storeFromHtml) {
             $this->_storeFromHtml = '<select name="copy_to_stores[__store_identifier__]" disabled="disabled">';
-            $this->_storeFromHtml.= '<option value="0">'.Mage::helper('catalog')->__('Default Values').'</option>';
+            $this->_storeFromHtml.= '<option value="0">' . Mage::helper('catalog')->__('Default Values') . '</option>';
             foreach ($this->getWebsiteCollection() as $_website) {
                 if (!$this->hasWebsite($_website->getId())) {
                     continue;
@@ -147,4 +149,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
         }
         return str_replace('__store_identifier__', $storeTo->getId(), $this->_storeFromHtml);
     }
+
 }

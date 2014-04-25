@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,13 +24,12 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 {
+
     protected $_formBlockType = 'payment/form_cc';
     protected $_infoBlockType = 'payment/info_cc';
-    protected $_canSaveCc     = false;
+    protected $_canSaveCc = false;
 
     /**
      * Assign data to info model instance
@@ -44,16 +44,16 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         }
         $info = $this->getInfoInstance();
         $info->setCcType($data->getCcType())
-            ->setCcOwner($data->getCcOwner())
-            ->setCcLast4(substr($data->getCcNumber(), -4))
-            ->setCcNumber($data->getCcNumber())
-            ->setCcCid($data->getCcCid())
-            ->setCcExpMonth($data->getCcExpMonth())
-            ->setCcExpYear($data->getCcExpYear())
-            ->setCcSsIssue($data->getCcSsIssue())
-            ->setCcSsStartMonth($data->getCcSsStartMonth())
-            ->setCcSsStartYear($data->getCcSsStartYear())
-            ;
+                ->setCcOwner($data->getCcOwner())
+                ->setCcLast4(substr($data->getCcNumber(), -4))
+                ->setCcNumber($data->getCcNumber())
+                ->setCcCid($data->getCcCid())
+                ->setCcExpMonth($data->getCcExpMonth())
+                ->setCcExpYear($data->getCcExpYear())
+                ->setCcSsIssue($data->getCcSsIssue())
+                ->setCcSsStartMonth($data->getCcSsStartMonth())
+                ->setCcSsStartYear($data->getCcSsStartYear())
+        ;
         return $this;
     }
 
@@ -70,7 +70,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         }
         //$info->setCcCidEnc($info->encrypt($info->getCcCid()));
         $info->setCcNumber(null)
-            ->setCcCid(null);
+                ->setCcCid(null);
         return $this;
     }
 
@@ -83,13 +83,13 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     public function validate()
     {
         /*
-        * calling parent validate function
-        */
+         * calling parent validate function
+         */
         parent::validate();
 
         $info = $this->getInfoInstance();
         $errorMsg = false;
-        $availableTypes = explode(',',$this->getConfigData('cctypes'));
+        $availableTypes = explode(',', $this->getConfigData('cctypes'));
 
         $ccNumber = $info->getCcNumber();
 
@@ -99,56 +99,53 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         $ccType = '';
 
-        if (in_array($info->getCcType(), $availableTypes)){
+        if (in_array($info->getCcType(), $availableTypes)) {
             if ($this->validateCcNum($ccNumber)
-                // Other credit card type number validation
-                || ($this->OtherCcType($info->getCcType()) && $this->validateCcNumOther($ccNumber))) {
+                    // Other credit card type number validation
+                    || ($this->OtherCcType($info->getCcType()) && $this->validateCcNumOther($ccNumber))) {
 
                 $ccType = 'OT';
                 $ccTypeRegExpList = array(
                     //Solo, Switch or Maestro. International safe
                     /*
-                    // Maestro / Solo
-                    'SS'  => '/^((6759[0-9]{12})|(6334|6767[0-9]{12})|(6334|6767[0-9]{14,15})'
-                               . '|(5018|5020|5038|6304|6759|6761|6763[0-9]{12,19})|(49[013][1356][0-9]{12})'
-                               . '|(633[34][0-9]{12})|(633110[0-9]{10})|(564182[0-9]{10}))([0-9]{2,3})?$/',
-                    */
+                      // Maestro / Solo
+                      'SS'  => '/^((6759[0-9]{12})|(6334|6767[0-9]{12})|(6334|6767[0-9]{14,15})'
+                      . '|(5018|5020|5038|6304|6759|6761|6763[0-9]{12,19})|(49[013][1356][0-9]{12})'
+                      . '|(633[34][0-9]{12})|(633110[0-9]{10})|(564182[0-9]{10}))([0-9]{2,3})?$/',
+                     */
                     // Solo only
                     'SO' => '/(^(6334)[5-9](\d{11}$|\d{13,14}$))|(^(6767)(\d{12}$|\d{14,15}$))/',
                     'SM' => '/(^(5[0678])\d{11,18}$)|(^(6[^05])\d{11,18}$)|(^(601)[^1]\d{9,16}$)|(^(6011)\d{9,11}$)'
-                            . '|(^(6011)\d{13,16}$)|(^(65)\d{11,13}$)|(^(65)\d{15,18}$)'
-                            . '|(^(49030)[2-9](\d{10}$|\d{12,13}$))|(^(49033)[5-9](\d{10}$|\d{12,13}$))'
-                            . '|(^(49110)[1-2](\d{10}$|\d{12,13}$))|(^(49117)[4-9](\d{10}$|\d{12,13}$))'
-                            . '|(^(49118)[0-2](\d{10}$|\d{12,13}$))|(^(4936)(\d{12}$|\d{14,15}$))/',
+                    . '|(^(6011)\d{13,16}$)|(^(65)\d{11,13}$)|(^(65)\d{15,18}$)'
+                    . '|(^(49030)[2-9](\d{10}$|\d{12,13}$))|(^(49033)[5-9](\d{10}$|\d{12,13}$))'
+                    . '|(^(49110)[1-2](\d{10}$|\d{12,13}$))|(^(49117)[4-9](\d{10}$|\d{12,13}$))'
+                    . '|(^(49118)[0-2](\d{10}$|\d{12,13}$))|(^(4936)(\d{12}$|\d{14,15}$))/',
                     // Visa
-                    'VI'  => '/^4[0-9]{12}([0-9]{3})?$/',
+                    'VI' => '/^4[0-9]{12}([0-9]{3})?$/',
                     // Master Card
-                    'MC'  => '/^5[1-5][0-9]{14}$/',
+                    'MC' => '/^5[1-5][0-9]{14}$/',
                     // American Express
-                    'AE'  => '/^3[47][0-9]{13}$/',
+                    'AE' => '/^3[47][0-9]{13}$/',
                     // Discovery
-                    'DI'  => '/^6011[0-9]{12}$/',
+                    'DI' => '/^6011[0-9]{12}$/',
                     // JCB
                     'JCB' => '/^(3[0-9]{15}|(2131|1800)[0-9]{11})$/'
                 );
 
-                foreach ($ccTypeRegExpList as $ccTypeMatch=>$ccTypeRegExp) {
+                foreach ($ccTypeRegExpList as $ccTypeMatch => $ccTypeRegExp) {
                     if (preg_match($ccTypeRegExp, $ccNumber)) {
                         $ccType = $ccTypeMatch;
                         break;
                     }
                 }
 
-                if (!$this->OtherCcType($info->getCcType()) && $ccType!=$info->getCcType()) {
+                if (!$this->OtherCcType($info->getCcType()) && $ccType != $info->getCcType()) {
                     $errorMsg = Mage::helper('payment')->__('Credit card number mismatch with credit card type.');
                 }
-            }
-            else {
+            } else {
                 $errorMsg = Mage::helper('payment')->__('Invalid Credit Card Number');
             }
-
-        }
-        else {
+        } else {
             $errorMsg = Mage::helper('payment')->__('Credit card type is not allowed for this payment method.');
         }
 
@@ -156,7 +153,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         if ($errorMsg === false && $this->hasVerification()) {
             $verifcationRegEx = $this->getVerificationRegEx();
             $regExp = isset($verifcationRegEx[$info->getCcType()]) ? $verifcationRegEx[$info->getCcType()] : '';
-            if (!$info->getCcCid() || !$regExp || !preg_match($regExp ,$info->getCcCid())){
+            if (!$info->getCcCid() || !$regExp || !preg_match($regExp, $info->getCcCid())) {
                 $errorMsg = Mage::helper('payment')->__('Please enter a valid credit card verification number.');
             }
         }
@@ -165,7 +162,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             $errorMsg = Mage::helper('payment')->__('Incorrect credit card expiration date.');
         }
 
-        if($errorMsg){
+        if ($errorMsg) {
             Mage::throwException($errorMsg);
         }
 
@@ -180,7 +177,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     public function hasVerification()
     {
         $configData = $this->getConfigData('useccv');
-        if(is_null($configData)){
+        if (is_null($configData)) {
             return true;
         }
         return (bool) $configData;
@@ -190,9 +187,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     {
         $verificationExpList = array(
             'VI' => '/^[0-9]{3}$/', // Visa
-            'MC' => '/^[0-9]{3}$/',       // Master Card
-            'AE' => '/^[0-9]{4}$/',        // American Express
-            'DI' => '/^[0-9]{3}$/',          // Discovery
+            'MC' => '/^[0-9]{3}$/', // Master Card
+            'AE' => '/^[0-9]{4}$/', // American Express
+            'DI' => '/^[0-9]{3}$/', // Discovery
             'SS' => '/^[0-9]{3,4}$/',
             'SM' => '/^[0-9]{3,4}$/', // Switch or Maestro
             'SO' => '/^[0-9]{3,4}$/', // Solo
@@ -205,8 +202,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     protected function _validateExpDate($expYear, $expMonth)
     {
         $date = Mage::app()->getLocale()->date();
-        if (!$expYear || !$expMonth || ($date->compareYear($expYear) == 1)
-            || ($date->compareYear($expYear) == 0 && ($date->compareMonth($expMonth) == 1))
+        if (!$expYear || !$expMonth || ($date->compareYear($expYear) == 1) || ($date->compareYear($expYear) == 0 && ($date->compareMonth($expMonth) == 1))
         ) {
             return false;
         }
@@ -215,7 +211,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
     public function OtherCcType($type)
     {
-        return $type=='OT';
+        return $type == 'OT';
     }
 
     /**
@@ -229,7 +225,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $cardNumber = strrev($ccNumber);
         $numSum = 0;
 
-        for ($i=0; $i<strlen($cardNumber); $i++) {
+        for ($i = 0; $i < strlen($cardNumber); $i++) {
             $currentNum = substr($cardNumber, $i, 1);
 
             /**
@@ -276,8 +272,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      */
     public function isAvailable($quote = null)
     {
-        return $this->getConfigData('cctypes', ($quote ? $quote->getStoreId() : null))
-            && parent::isAvailable($quote);
+        return $this->getConfigData('cctypes', ($quote ? $quote->getStoreId() : null)) && parent::isAvailable($quote);
     }
 
     /**
@@ -299,10 +294,10 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     {
         $validator = Mage::getSingleton('centinel/service');
         $validator
-            ->setIsModeStrict($this->getConfigData('centinel_is_mode_strict'))
-            ->setCustomApiEndpointUrl($this->getConfigData('centinel_api_url'))
-            ->setStore($this->getStore())
-            ->setIsPlaceOrder($this->_isPlaceOrder());
+                ->setIsModeStrict($this->getConfigData('centinel_is_mode_strict'))
+                ->setCustomApiEndpointUrl($this->getConfigData('centinel_api_url'))
+                ->setStore($this->getStore())
+                ->setIsPlaceOrder($this->_isPlaceOrder());
         return $validator;
     }
 
@@ -316,14 +311,14 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $info = $this->getInfoInstance();
         $params = new Varien_Object();
         $params
-            ->setPaymentMethodCode($this->getCode())
-            ->setCardType($info->getCcType())
-            ->setCardNumber($info->getCcNumber())
-            ->setCardExpMonth($info->getCcExpMonth())
-            ->setCardExpYear($info->getCcExpYear())
-            ->setAmount($this->_getAmount())
-            ->setCurrencyCode($this->_getCurrencyCode())
-            ->setOrderNumber($this->_getOrderId());
+                ->setPaymentMethodCode($this->getCode())
+                ->setCardType($info->getCcType())
+                ->setCardNumber($info->getCcNumber())
+                ->setCardExpMonth($info->getCcExpMonth())
+                ->setCardExpYear($info->getCcExpYear())
+                ->setAmount($this->_getAmount())
+                ->setCurrencyCode($this->_getCurrencyCode())
+                ->setOrderNumber($this->_getOrderId());
         return $params;
     }
 
@@ -355,9 +350,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     {
         $info = $this->getInfoInstance();
         if ($this->_isPlaceOrder()) {
-            return (double)$info->getOrder()->getQuoteBaseGrandTotal();
+            return (double) $info->getOrder()->getQuoteBaseGrandTotal();
         } else {
-            return (double)$info->getQuote()->getBaseGrandTotal();
+            return (double) $info->getQuote()->getBaseGrandTotal();
         }
     }
 
@@ -371,9 +366,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $info = $this->getInfoInstance();
 
         if ($this->_isPlaceOrder()) {
-        return $info->getOrder()->getBaseCurrencyCode();
+            return $info->getOrder()->getBaseCurrencyCode();
         } else {
-        return $info->getQuote()->getBaseCurrencyCode();
+            return $info->getQuote()->getBaseCurrencyCode();
         }
     }
 
@@ -391,4 +386,5 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             return true;
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Model_Resource_Validator_Eav
 {
+
     /**
      * Separator for multistreet
      */
@@ -51,7 +53,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
         // If the array contains more than two elements, then combine the extra elements in a string
         if (isset($filteredData['street']) && is_array($filteredData['street']) && count($filteredData['street']) > 2) {
             $filteredData['street'][1] .= self::STREET_SEPARATOR
-                . implode(self::STREET_SEPARATOR, array_slice($filteredData['street'], 2));
+                    . implode(self::STREET_SEPARATOR, array_slice($filteredData['street'], 2));
             $filteredData['street'] = array_slice($filteredData['street'], 0, 2);
         }
         // pass default addresses info
@@ -120,8 +122,8 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
             }
 
             $count = $regions->addFieldToFilter(array('default_name', 'code'), array($data['region'], $data['region']))
-                ->clear()
-                ->count();
+                    ->clear()
+                    ->count();
             if (!$count) {
                 $this->_addError('State/Province does not exist.');
                 return false;
@@ -135,4 +137,5 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
 
         return true;
     }
+
 }

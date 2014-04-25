@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -27,6 +28,7 @@
  */
 interface Zend_Validate_Interface
 {
+
     /**
      * Returns true if and only if $value meets the validation requirements
      *

@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: MediaEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_App_Entry
  */
@@ -47,6 +46,7 @@
  */
 class Zend_Gdata_App_MediaEntry extends Zend_Gdata_App_Entry
 {
+
     /**
      * The attached MediaSource/file
      *
@@ -82,8 +82,7 @@ class Zend_Gdata_App_MediaEntry extends Zend_Gdata_App_Entry
             // No attachment, just send XML for entry
             return $xmlData;
         } else {
-            return new Zend_Gdata_MediaMimeStream($xmlData,
-                $mediaSource->getFilename(), $mediaSource->getContentType());
+            return new Zend_Gdata_MediaMimeStream($xmlData, $mediaSource->getFilename(), $mediaSource->getContentType());
         }
     }
 
@@ -111,7 +110,7 @@ class Zend_Gdata_App_MediaEntry extends Zend_Gdata_App_Entry
         } else {
             #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                    'You must specify the media data as a class that conforms to Zend_Gdata_App_MediaSource.');
+            'You must specify the media data as a class that conforms to Zend_Gdata_App_MediaSource.');
         }
         return $this;
     }

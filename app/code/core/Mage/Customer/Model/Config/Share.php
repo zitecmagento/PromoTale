@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,17 +34,18 @@
  */
 class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
 {
+
     /**
      * Xml config path to customers sharing scope value
      *
      */
     const XML_PATH_CUSTOMER_ACCOUNT_SHARE = 'customer/account_share/scope';
-    
+
     /**
      * Possible customer sharing scopes
      *
      */
-    const SHARE_GLOBAL  = 0;
+    const SHARE_GLOBAL = 0;
     const SHARE_WEBSITE = 1;
 
     /**
@@ -74,7 +76,7 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
     public function toOptionArray()
     {
         return array(
-            self::SHARE_GLOBAL  => Mage::helper('customer')->__('Global'),
+            self::SHARE_GLOBAL => Mage::helper('customer')->__('Global'),
             self::SHARE_WEBSITE => Mage::helper('customer')->__('Per Website'),
         );
     }
@@ -91,10 +93,11 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
         if ($value == self::SHARE_GLOBAL) {
             if (Mage::getResourceSingleton('customer/customer')->findEmailDuplicates()) {
                 Mage::throwException(
-                    Mage::helper('customer')->__('Cannot share customer accounts globally because some customer accounts with the same emails exist on multiple websites and cannot be merged.')
+                        Mage::helper('customer')->__('Cannot share customer accounts globally because some customer accounts with the same emails exist on multiple websites and cannot be merged.')
                 );
             }
         }
         return $this;
     }
+
 }

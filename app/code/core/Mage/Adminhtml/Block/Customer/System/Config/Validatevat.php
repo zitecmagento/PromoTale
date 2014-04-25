@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_Customer_System_Config_Validatevat extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
+
     /**
      * Set template to itself
      *
@@ -76,4 +78,5 @@ class Mage_Adminhtml_Block_Customer_System_Config_Validatevat extends Mage_Admin
 
         return $this->_toHtml();
     }
+
 }

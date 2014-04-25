@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Customer_Form_Renderer_Image extends Mage_XmlConnect_Block_Customer_Form_Renderer_File
 {
+
     /**
      * Field type
      *
@@ -80,4 +82,5 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Image extends Mage_XmlConnect
         }
         return $this;
     }
+
 }

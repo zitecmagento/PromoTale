@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Google Base Item resource model
  *
@@ -35,6 +35,7 @@
  */
 class Mage_GoogleBase_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      *
@@ -56,17 +57,17 @@ class Mage_GoogleBase_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Ab
             return $this;
         }
 
-        $product    = $model->getProduct();
-        $productId  = $product->getId();
-        $storeId    = $model->getStoreId() ? $model->getStoreId() : $product->getStoreId();
+        $product = $model->getProduct();
+        $productId = $product->getId();
+        $storeId = $model->getStoreId() ? $model->getStoreId() : $product->getStoreId();
 
-        $adapter    = $this->_getReadAdapter();
-        $select     = $adapter->select();
+        $adapter = $this->_getReadAdapter();
+        $select = $adapter->select();
 
         if ($productId !== null) {
             $select->from($this->getMainTable())
-                ->where('product_id = ?', $productId)
-                ->where('store_id = ?', (int)$storeId);
+                    ->where('product_id = ?', $productId)
+                    ->where('store_id = ?', (int) $storeId);
 
             $data = $adapter->fetchRow($select);
             $data = is_array($data) ? $data : array();
@@ -74,4 +75,5 @@ class Mage_GoogleBase_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Ab
         }
         return $this;
     }
+
 }

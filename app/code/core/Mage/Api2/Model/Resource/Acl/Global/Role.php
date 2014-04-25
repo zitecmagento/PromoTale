@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,6 +36,7 @@
  */
 class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Initialize resource model
      *
@@ -54,18 +56,17 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
      */
     public function saveAdminToRoleRelation($adminId, $roleId)
     {
-        if (Mage_Api2_Model_Acl_Global_Role::ROLE_GUEST_ID == $roleId
-            || Mage_Api2_Model_Acl_Global_Role::ROLE_CUSTOMER_ID == $roleId
+        if (Mage_Api2_Model_Acl_Global_Role::ROLE_GUEST_ID == $roleId || Mage_Api2_Model_Acl_Global_Role::ROLE_CUSTOMER_ID == $roleId
         ) {
             Mage::throwException(
-                Mage::helper('api2')->__('The role is a special one and not for assigning it to admin users.')
+                    Mage::helper('api2')->__('The role is a special one and not for assigning it to admin users.')
             );
         }
 
         $read = $this->_getReadAdapter();
         $select = $read->select()
-            ->from($this->getTable('api2/acl_user'), 'admin_id')
-            ->where('admin_id = ?', $adminId, Zend_Db::INT_TYPE);
+                ->from($this->getTable('api2/acl_user'), 'admin_id')
+                ->where('admin_id = ?', $adminId, Zend_Db::INT_TYPE);
 
         $write = $this->_getWriteAdapter();
         $table = $this->getTable('api2/acl_user');
@@ -111,11 +112,12 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->getTable('api2/acl_user'))
-            ->where('role_id=?', $role->getId());
+                ->from($this->getTable('api2/acl_user'))
+                ->where('role_id=?', $role->getId());
 
         $users = $adapter->fetchCol($select);
 
         return $users;
     }
+
 }

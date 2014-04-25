@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: Weight.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Calculate query weights and build query scorers.
  *
@@ -38,6 +38,7 @@
  */
 abstract class Zend_Search_Lucene_Search_Weight
 {
+
     /**
      * Normalization factor.
      * This value is stored only for query expanation purpose and not used in any other place
@@ -56,7 +57,6 @@ abstract class Zend_Search_Lucene_Search_Weight
      * @var float
      */
     protected $_value;
-
 
     /**
      * The weight for this query.
@@ -82,4 +82,3 @@ abstract class Zend_Search_Lucene_Search_Weight
      */
     abstract public function normalize($norm);
 }
-

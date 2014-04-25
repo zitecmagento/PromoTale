@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condition_Abstract
 {
+
     public function loadAttributeOptions()
     {
         $attributes = array(
@@ -80,22 +80,22 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
             switch ($this->getAttribute()) {
                 case 'country_id':
                     $options = Mage::getModel('adminhtml/system_config_source_country')
-                        ->toOptionArray();
+                            ->toOptionArray();
                     break;
 
                 case 'region_id':
                     $options = Mage::getModel('adminhtml/system_config_source_allregion')
-                        ->toOptionArray();
+                            ->toOptionArray();
                     break;
 
                 case 'shipping_method':
                     $options = Mage::getModel('adminhtml/system_config_source_shipping_allmethods')
-                        ->toOptionArray();
+                            ->toOptionArray();
                     break;
 
                 case 'payment_method':
                     $options = Mage::getModel('adminhtml/system_config_source_payment_allmethods')
-                        ->toOptionArray();
+                            ->toOptionArray();
                     break;
 
                 default:
@@ -118,16 +118,16 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
         if (!$address instanceof Mage_Sales_Model_Quote_Address) {
             if ($object->getQuote()->isVirtual()) {
                 $address = $object->getQuote()->getBillingAddress();
-            }
-            else {
+            } else {
                 $address = $object->getQuote()->getShippingAddress();
             }
         }
 
-        if ('payment_method' == $this->getAttribute() && ! $address->hasPaymentMethod()) {
+        if ('payment_method' == $this->getAttribute() && !$address->hasPaymentMethod()) {
             $address->setPaymentMethod($object->getQuote()->getPayment()->getMethod());
         }
 
         return parent::validate($address);
     }
+
 }

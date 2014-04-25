@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Directory.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Project_Context_Filesystem_Abstract
  */
@@ -48,7 +48,7 @@ class Zend_Tool_Project_Context_Filesystem_Directory extends Zend_Tool_Project_C
     {
         return 'directory';
     }
-    
+
     /**
      * create()
      *
@@ -58,8 +58,7 @@ class Zend_Tool_Project_Context_Filesystem_Directory extends Zend_Tool_Project_C
     {
         // check to ensure the parent exists, if not, call it and create it
         if (($parentResource = $this->_resource->getParentResource()) instanceof Zend_Tool_Project_Profile_Resource) {
-            if ((($parentContext = $parentResource->getContext()) instanceof Zend_Tool_Project_Context_Filesystem_Abstract)
-                && (!$parentContext->exists())) {
+            if ((($parentContext = $parentResource->getContext()) instanceof Zend_Tool_Project_Context_Filesystem_Abstract) && (!$parentContext->exists())) {
                 $parentResource->create();
             }
         }

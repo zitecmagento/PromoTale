@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
  * Proxy script to combine and compress one or few files for JS and CSS
  *
@@ -33,7 +33,6 @@
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 // no files specified return 404
 if (empty($_GET['f'])) {
     header('HTTP/1.0 404 Not Found');
@@ -46,7 +45,7 @@ $contentType = false;
 
 // set custom content type if specified
 if (isset($_GET['c'])) {
-    $contentType = $_GET['c']==='auto' ? true : $_GET['c'];
+    $contentType = $_GET['c'] === 'auto' ? true : $_GET['c'];
 }
 
 // get files content
@@ -61,7 +60,7 @@ $contentTypeAllowed = array(
 //    'image/jpeg',
 );
 // set allowed file extensions
-$fileExtAllowed     = array(
+$fileExtAllowed = array(
     'js',
     'css',
 //    'gif',
@@ -122,7 +121,7 @@ header('Last-modified: ' . gmdate('r', $lastModified));
 
 // optional custom content type, can be emulated by index.php/x.js or x.css
 if (is_string($contentType) && in_array($contentType, $contentTypeAllowed)) {
-    header('Content-type: '.$contentType);
+    header('Content-type: ' . $contentType);
 }
 
 // remove spaces, default on
@@ -134,11 +133,10 @@ if (!(isset($_GET['s']) && !$_GET['s'])) {
 //if (!(isset($_GET['z']) && !$_GET['z'])) {
 //    ini_set('zlib.output_compression', 1);
 //}
-
 // add Expires header if not disabled, default 1 year
-if (!(isset($_GET['e']) && $_GET['e']==='no')) {
-    $time = time()+(isset($_GET['e']) ? $_GET['e'] : 365)*86400;
-    header('Expires: '.gmdate('r', $time));
+if (!(isset($_GET['e']) && $_GET['e'] === 'no')) {
+    $time = time() + (isset($_GET['e']) ? $_GET['e'] : 365) * 86400;
+    header('Expires: ' . gmdate('r', $time));
 }
 
 echo $out;

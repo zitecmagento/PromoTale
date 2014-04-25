@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Mysql4 session save handler
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Interface
 {
+
     /**
      * Session maximum cookie lifetime
      */
@@ -74,7 +75,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      *
      * @var int
      */
-    protected $_automaticCleaningFactor    = 50;
+    protected $_automaticCleaningFactor = 50;
 
     /**
      * Constructor
@@ -84,8 +85,8 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     {
         $resource = Mage::getSingleton('core/resource');
         $this->_sessionTable = $resource->getTableName('core/session');
-        $this->_read         = $resource->getConnection('core_read');
-        $this->_write        = $resource->getConnection('core_write');
+        $this->_read = $resource->getConnection('core_read');
+        $this->_write = $resource->getConnection('core_write');
     }
 
     /**
@@ -150,12 +151,8 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     {
         if ($this->hasConnection()) {
             session_set_save_handler(
-                array($this, 'open'),
-                array($this, 'close'),
-                array($this, 'read'),
-                array($this, 'write'),
-                array($this, 'destroy'),
-                array($this, 'gc')
+                    array($this, 'open'), array($this, 'close'), array($this, 'read'), array($this, 'write'), array($this,
+                'destroy'), array($this, 'gc')
             );
         } else {
             session_save_path(Mage::getBaseDir('session'));
@@ -209,7 +206,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
                 ->where('session_id = :session_id')
                 ->where('session_expires > :session_expires');
         $bind = array(
-            'session_id'      => $sessId,
+            'session_id' => $sessId,
             'session_expires' => Varien_Date::toTimestamp(true)
         );
 
@@ -228,7 +225,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     public function write($sessId, $sessData)
     {
         $bindValues = array(
-            'session_id'      => $sessId
+            'session_id' => $sessId
         );
         $select = $this->_write->select()
                 ->from($this->_sessionTable)
@@ -275,11 +272,12 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     {
         if ($this->_automaticCleaningFactor > 0) {
             if ($this->_automaticCleaningFactor == 1 ||
-                rand(1, $this->_automaticCleaningFactor) == 1) {
+                    rand(1, $this->_automaticCleaningFactor) == 1) {
                 $where = array('session_expires < ?' => Varien_Date::toTimestamp(true));
                 $this->_write->delete($this->_sessionTable, $where);
             }
         }
         return true;
     }
+
 }

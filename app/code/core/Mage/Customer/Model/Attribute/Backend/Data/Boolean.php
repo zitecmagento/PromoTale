@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Boolean customer attribute backend model
  *
@@ -32,9 +32,9 @@
  * @package    Mage_Customer
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Model_Attribute_Backend_Data_Boolean
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Customer_Model_Attribute_Backend_Data_Boolean extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+
     /**
      * Prepare data before attribute save
      *
@@ -49,4 +49,5 @@ class Mage_Customer_Model_Attribute_Backend_Data_Boolean
         $customer->setData($attributeName, $sanitizedValue);
         return $this;
     }
+
 }

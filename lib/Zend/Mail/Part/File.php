@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: File.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
 /**
  * @see Zend_Mime_Decode
  */
@@ -30,7 +29,6 @@
  */
 #require_once 'Zend/Mail/Part.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -39,6 +37,7 @@
  */
 class Zend_Mail_Part_File extends Zend_Mail_Part
 {
+
     protected $_contentPos = array();
     protected $_partPos = array();
     protected $_fh;
@@ -141,9 +140,7 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
             }
         }
         $this->_countParts = count($this->_partPos);
-
     }
-
 
     /**
      * Body of part
@@ -170,7 +167,8 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
      *
      * @return int size
      */
-    public function getSize() {
+    public function getSize()
+    {
         return $this->_contentPos[1] - $this->_contentPos[0];
     }
 
@@ -193,6 +191,7 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
         }
 
         return new self(array('file' => $this->_fh, 'startPos' => $this->_partPos[$num][0],
-                              'endPos' => $this->_partPos[$num][1]));
+            'endPos' => $this->_partPos[$num][1]));
     }
+
 }

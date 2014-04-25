@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Products Most Viewed Report collection
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports_Model_Resource_Product_Collection
 {
+
     /**
      * List of store ids for the current collection will be filtered by
      *
@@ -51,7 +52,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
     protected function _joinFields($from = '', $to = '')
     {
         $this->addAttributeToSelect('*')
-            ->addViewsCount($from, $to);
+                ->addViewsCount($from, $to);
         return $this;
     }
 
@@ -65,7 +66,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
     public function setDateRange($from, $to)
     {
         $this->_reset()
-            ->_joinFields($from, $to);
+                ->_joinFields($from, $to);
         return $this;
     }
 
@@ -121,4 +122,5 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
         $this->_applyStoreIds();
         return parent::_beforeLoad();
     }
+
 }

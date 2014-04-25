@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: InvalidArgumentException.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * Zend_Gdata_App_Exception
  */
@@ -39,4 +38,5 @@
  */
 class Zend_Gdata_App_InvalidArgumentException extends Zend_Gdata_App_Exception
 {
+    
 }

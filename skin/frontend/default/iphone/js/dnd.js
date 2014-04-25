@@ -36,159 +36,149 @@
 // 6 helper functons in this webkit_tools class have been taked directly from Prototype 1.6.1 (http://prototypejs.org/) (c) 2005-2009 Sam Stephenson
 
 var webkit_tools =
-{
-    //$ function - simply a more robust getElementById
-
-    $:function(e)
-    {
-        if(typeof(e) == 'string')
         {
-            return document.getElementById(e);
-        }
-        return e;
-    },
+            //$ function - simply a more robust getElementById
 
-    //extend function - copies the values of b into a (Shallow copy)
-
-    extend:function(a,b)
-    {
-        for (var key in b)
-        {
-            a[key] = b[key];
-        }
-        return a;
-    },
-
-    //empty function - used as defaut for events
-
-    empty:function()
-    {
-
-    },
-
-    //remove null values from an array
-
-    compact:function(a)
-    {
-        var b = []
-        var l = a.length;
-        for(var i = 0; i < l; i ++)
-        {
-            if(a[i] !== null)
+            $: function(e)
             {
-                b.push(a[i]);
+                if (typeof (e) == 'string')
+                {
+                    return document.getElementById(e);
+                }
+                return e;
+            },
+            //extend function - copies the values of b into a (Shallow copy)
+
+            extend: function(a, b)
+            {
+                for (var key in b)
+                {
+                    a[key] = b[key];
+                }
+                return a;
+            },
+            //empty function - used as defaut for events
+
+            empty: function()
+            {
+
+            },
+            //remove null values from an array
+
+            compact: function(a)
+            {
+                var b = []
+                var l = a.length;
+                for (var i = 0; i < l; i++)
+                {
+                    if (a[i] !== null)
+                    {
+                        b.push(a[i]);
+                    }
+                }
+                return b;
+            },
+            //DESCRIPTION
+            //    This function was taken from the internet (http://robertnyman.com/2006/04/24/get-the-rendered-style-of-an-element/) and returns
+            //    the computed style of an element independantly from the browser
+            //INPUT
+            //    oELM (DOM ELEMENT) element whose style should be extracted
+            //    strCssRule element
+
+            getCalculatedStyle: function(oElm, strCssRule)
+            {
+                var strValue = "";
+                if (document.defaultView && document.defaultView.getComputedStyle) {
+                    strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
+                }
+                else if (oElm.currentStyle) {
+                    strCssRule = strCssRule.replace(/\-(\w)/g, function(strMatch, p1) {
+                        return p1.toUpperCase();
+                    });
+                    strValue = oElm.currentStyle[strCssRule];
+                }
+                return strValue;
+            },
+            //bindAsEventListener function - used to bind events
+
+            bindAsEventListener: function(f, object)
+            {
+                var __method = f;
+                return function(event) {
+                    __method.call(object, event || window.event);
+                };
+            },
+            //cumulative offset - courtesy of Prototype (http://www.prototypejs.org)
+
+            cumulativeOffset: function(element)
+            {
+                var valueT = 0, valueL = 0;
+                do {
+                    valueT += element.offsetTop || 0;
+                    valueL += element.offsetLeft || 0;
+                    if (element.offsetParent == document.body)
+                        if (element.style.position == 'absolute')
+                            break;
+
+                    element = element.offsetParent;
+                } while (element);
+
+                return {left: valueL, top: valueT};
+            },
+            //getDimensions - courtesy of Prototype (http://www.prototypejs.org)
+
+            getDimensions: function(element)
+            {
+                var display = element.style.display;
+                if (display != 'none' && display != null) // Safari bug
+                    return {width: element.offsetWidth, height: element.offsetHeight};
+
+                var els = element.style;
+                var originalVisibility = els.visibility;
+                var originalPosition = els.position;
+                var originalDisplay = els.display;
+                els.visibility = 'hidden';
+                if (originalPosition != 'fixed') // Switching fixed to absolute causes issues in Safari
+                    els.position = 'absolute';
+                els.display = 'block';
+                var originalWidth = element.clientWidth;
+                var originalHeight = element.clientHeight;
+                els.display = originalDisplay;
+                els.position = originalPosition;
+                els.visibility = originalVisibility;
+                return {width: originalWidth, height: originalHeight};
+            },
+            //hasClassName - courtesy of Prototype (http://www.prototypejs.org)
+
+            hasClassName: function(element, className)
+            {
+                var elementClassName = element.className;
+                return (elementClassName.length > 0 && (elementClassName == className ||
+                        new RegExp("(^|\\s)" + className + "(\\s|$)").test(elementClassName)));
+            },
+            //addClassName - courtesy of Prototype (http://www.prototypejs.org)
+
+            addClassName: function(element, className)
+            {
+                if (!this.hasClassName(element, className))
+                    element.className += (element.className ? ' ' : '') + className;
+                return element;
+            },
+            //removeClassName - courtesy of Prototype (http://www.prototypejs.org)
+
+            removeClassName: function(element, className)
+            {
+                element.className = this.strip(element.className.replace(new RegExp("(^|\\s+)" + className + "(\\s+|$)"), ' '));
+                return element;
+            },
+            //strip - courtesy of Prototype (http://www.prototypejs.org)
+
+            strip: function(s)
+            {
+                return s.replace(/^\s+/, '').replace(/\s+$/, '');
             }
+
         }
-        return b;
-    },
-
-    //DESCRIPTION
-    //    This function was taken from the internet (http://robertnyman.com/2006/04/24/get-the-rendered-style-of-an-element/) and returns
-    //    the computed style of an element independantly from the browser
-    //INPUT
-    //    oELM (DOM ELEMENT) element whose style should be extracted
-    //    strCssRule element
-
-    getCalculatedStyle:function(oElm, strCssRule)
-    {
-        var strValue = "";
-        if(document.defaultView && document.defaultView.getComputedStyle){
-            strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
-        }
-        else if(oElm.currentStyle){
-            strCssRule = strCssRule.replace(/\-(\w)/g, function (strMatch, p1){
-                return p1.toUpperCase();
-            });
-            strValue = oElm.currentStyle[strCssRule];
-        }
-        return strValue;
-    },
-
-    //bindAsEventListener function - used to bind events
-
-    bindAsEventListener:function(f,object)
-    {
-        var __method = f;
-        return function(event) {
-            __method.call(object, event || window.event);
-        };
-    },
-
-    //cumulative offset - courtesy of Prototype (http://www.prototypejs.org)
-
-    cumulativeOffset:function(element)
-    {
-        var valueT = 0, valueL = 0;
-        do {
-          valueT += element.offsetTop  || 0;
-          valueL += element.offsetLeft || 0;
-          if (element.offsetParent == document.body)
-            if (element.style.position == 'absolute') break;
-
-          element = element.offsetParent;
-        } while (element);
-
-        return {left : valueL, top : valueT};
-      },
-
-      //getDimensions - courtesy of Prototype (http://www.prototypejs.org)
-
-    getDimensions: function(element)
-    {
-        var display = element.style.display;
-        if (display != 'none' && display != null) // Safari bug
-          return {width: element.offsetWidth, height: element.offsetHeight};
-
-        var els = element.style;
-        var originalVisibility = els.visibility;
-        var originalPosition = els.position;
-        var originalDisplay = els.display;
-        els.visibility = 'hidden';
-        if (originalPosition != 'fixed') // Switching fixed to absolute causes issues in Safari
-          els.position = 'absolute';
-        els.display = 'block';
-        var originalWidth = element.clientWidth;
-        var originalHeight = element.clientHeight;
-        els.display = originalDisplay;
-        els.position = originalPosition;
-        els.visibility = originalVisibility;
-        return {width: originalWidth, height: originalHeight};
-    },
-
-    //hasClassName - courtesy of Prototype (http://www.prototypejs.org)
-
-    hasClassName: function(element, className)
-    {
-        var elementClassName = element.className;
-        return (elementClassName.length > 0 && (elementClassName == className ||
-        new RegExp("(^|\\s)" + className + "(\\s|$)").test(elementClassName)));
-      },
-
-    //addClassName - courtesy of Prototype (http://www.prototypejs.org)
-
-    addClassName: function(element, className)
-    {
-        if (!this.hasClassName(element, className))
-            element.className += (element.className ? ' ' : '') + className;
-        return element;
-    },
-
-    //removeClassName - courtesy of Prototype (http://www.prototypejs.org)
-
-    removeClassName: function(element, className)
-    {
-        element.className = this.strip(element.className.replace(new RegExp("(^|\\s+)" + className + "(\\s+|$)"), ' '));
-        return element;
-    },
-
-    //strip - courtesy of Prototype (http://www.prototypejs.org)
-
-    strip:function(s)
-    {
-        return s.replace(/^\s+/, '').replace(/\s+$/, '');
-    }
-
-}
 
 //Description
 // Droppable fire events when a draggable is dropped on them
@@ -204,9 +194,9 @@ var webkit_droppables = function()
     this.add = function(root, instance_props)
     {
         root = webkit_tools.$(root);
-        var default_props = {accept : [], hoverClass : null, onDrop : webkit_tools.empty, onOver : webkit_tools.empty, onOut : webkit_tools.empty};
+        var default_props = {accept: [], hoverClass: null, onDrop: webkit_tools.empty, onOver: webkit_tools.empty, onOut: webkit_tools.empty};
         default_props = webkit_tools.extend(default_props, instance_props || {});
-        this.droppables.push({r : root, p : default_props});
+        this.droppables.push({r: root, p: default_props});
     }
 
     this.remove = function(root)
@@ -214,9 +204,9 @@ var webkit_droppables = function()
         root = webkit_tools.$(root);
         var d = this.droppables;
         var i = d.length;
-        while(i--)
+        while (i--)
         {
-            if(d[i].r == root)
+            if (d[i].r == root)
             {
                 d[i] = null;
                 this.droppables = webkit_tools.compact(d);
@@ -235,36 +225,36 @@ var webkit_droppables = function()
         var dR = [];
         var r = null;
 
-        while(i--)
+        while (i--)
         {
             r = d[i].r;
-            if(r.style.display != 'none')
+            if (r.style.display != 'none')
             {
-                dR.push({i : i, size : webkit_tools.getDimensions(r), offset : webkit_tools.cumulativeOffset(r)})
+                dR.push({i: i, size: webkit_tools.getDimensions(r), offset: webkit_tools.cumulativeOffset(r)})
             }
         }
 
         this.droppableRegions = dR;
     }
 
-    this.finalize = function(x,y,r,e)
+    this.finalize = function(x, y, r, e)
     {
-        var indices = this.isOver(x,y);
+        var indices = this.isOver(x, y);
         var index = this.maxZIndex(indices);
-        var over = this.process(index,r);
-        if(over)
+        var over = this.process(index, r);
+        if (over)
         {
-            this.drop(index, r,e);
+            this.drop(index, r, e);
         }
-        this.process(-1,r);
+        this.process(-1, r);
         return over;
     }
 
-    this.check = function(x,y,r,e)
+    this.check = function(x, y, r, e)
     {
-        var indices = this.isOver(x,y);
+        var indices = this.isOver(x, y);
         var index = this.maxZIndex(indices);
-        return this.process(index,r, e);
+        return this.process(index, r, e);
     }
 
     this.isOver = function(x, y)
@@ -278,19 +268,19 @@ var webkit_droppables = function()
         var maxY = 0;
         var minY = 0;
 
-        while(i--)
+        while (i--)
         {
             r = dR[i];
 
             minY = r.offset.top;
             maxY = minY + r.size.height;
 
-            if((y > minY) && (y < maxY))
+            if ((y > minY) && (y < maxY))
             {
                 minX = r.offset.left;
                 maxX = minX + r.size.width;
 
-                if((x > minX) && (x < maxX))
+                if ((x > minX) && (x < maxX))
                 {
                     active.push(r.i);
                 }
@@ -309,10 +299,10 @@ var webkit_droppables = function()
         var maxZ = -100000000;
         var curZ = 0;
 
-        while(l--)
+        while (l--)
         {
             curZ = parseInt(d[indices[l]].r.style.zIndex || 0);
-            if(curZ > maxZ)
+            if (curZ > maxZ)
             {
                 maxZ = curZ;
                 index = indices[l];
@@ -325,18 +315,18 @@ var webkit_droppables = function()
     this.process = function(index, draggableRoot, e)
     {
         //only perform update if a change has occured
-        if(this.lastIndex != index)
+        if (this.lastIndex != index)
         {
             //remove previous
-            if(this.lastIndex != null)
+            if (this.lastIndex != null)
             {
                 var d = this.droppables[this.lastIndex]
                 var p = d.p;
                 var r = d.r;
 
-                if(p.hoverClass)
+                if (p.hoverClass)
                 {
-                    webkit_tools.removeClassName(r,p.hoverClass);
+                    webkit_tools.removeClassName(r, p.hoverClass);
                 }
                 p.onOut(draggableRoot, e);
                 this.lastIndex = null;
@@ -344,17 +334,17 @@ var webkit_droppables = function()
             }
 
             //add new
-            if(index != -1)
+            if (index != -1)
             {
                 var d = this.droppables[index]
                 var p = d.p;
                 var r = d.r;
 
-                if(this.hasClassNames(draggableRoot, p.accept))
+                if (this.hasClassNames(draggableRoot, p.accept))
                 {
-                    if(p.hoverClass)
+                    if (p.hoverClass)
                     {
-                        webkit_tools.addClassName(r,p.hoverClass);
+                        webkit_tools.addClassName(r, p.hoverClass);
                     }
                     p.onOver(draggableRoot, e);
                     this.lastIndex = index;
@@ -367,19 +357,21 @@ var webkit_droppables = function()
 
     this.drop = function(index, r, e)
     {
-        if(index != -1)
+        if (index != -1)
         {
-            this.droppables[index].p.onDrop(r,e);
+            this.droppables[index].p.onDrop(r, e);
         }
     }
 
     this.hasClassNames = function(r, names)
     {
         var l = names.length;
-        if(l == 0){return true}
-        while(l--)
+        if (l == 0) {
+            return true
+        }
+        while (l--)
         {
-            if(webkit_tools.hasClassName(r,names[l]))
+            if (webkit_tools.hasClassName(r, names[l]))
             {
                 return true;
             }
@@ -402,7 +394,7 @@ var webkit_draggable = function(r, ip)
     this.initialize = function(root, instance_props)
     {
         this.root = webkit_tools.$(root);
-        var default_props = {scroll : false, revert : false, handle : this.root, zIndex : 1000, onStart : webkit_tools.empty, onEnd : webkit_tools.empty};
+        var default_props = {scroll: false, revert: false, handle: this.root, zIndex: 1000, onStart: webkit_tools.empty, onEnd: webkit_tools.empty};
 
         this.p = webkit_tools.extend(default_props, instance_props || {});
         default_props.handle = webkit_tools.$(default_props.handle);
@@ -415,7 +407,7 @@ var webkit_draggable = function(r, ip)
         var rs = this.root.style;
 
         //set position
-        if(webkit_tools.getCalculatedStyle(this.root,'position') != 'absolute')
+        if (webkit_tools.getCalculatedStyle(this.root, 'position') != 'absolute')
         {
             rs.position = 'relative';
         }
@@ -459,7 +451,7 @@ var webkit_draggable = function(r, ip)
 
     this.touchStart = function(event)
     {
-        this.timeout = setTimeout(function () {
+        this.timeout = setTimeout(function() {
             //prepare needed variables
             var p = this.p;
             var r = this.root;
@@ -490,15 +482,15 @@ var webkit_draggable = function(r, ip)
             rs.zIndex = p.zIndex;
             webkit_drop.prepare();
             p.onStart(r, event);
-            
+
             this.ready = true;
-            
+
         }.bind(this), 500);
     }
 
     this.touchMove = function(event)
     {
-        if ( this.ready ) {
+        if (this.ready) {
             event.preventDefault();
             event.stopPropagation();
 
@@ -507,7 +499,9 @@ var webkit_draggable = function(r, ip)
             var r = this.root;
             var rs = r.style;
             var t = event.targetTouches[0];
-            if(t == null){return}
+            if (t == null) {
+                return
+            }
 
             var curX = t.pageX;
             var curY = t.pageY;
@@ -518,10 +512,10 @@ var webkit_draggable = function(r, ip)
             rs.webkitTransform = 'translate3d(' + (p.rx + delX) + 'px,' + (p.ry + delY) + 'px, 1px)';
 
             //scroll window
-            if(p.scroll)
+            if (p.scroll)
             {
                 s = this.getScroll(curX, curY);
-                if((s[0] != 0) || (s[1] != 0))
+                if ((s[0] != 0) || (s[1] != 0))
                 {
                     window.scrollTo(window.scrollX + s[0], window.scrollY + s[1]);
                 }
@@ -539,13 +533,13 @@ var webkit_draggable = function(r, ip)
     this.touchEnd = function(event)
     {
         clearTimeout(this.timeout);
-        if ( this.ready ) {
+        if (this.ready) {
             event.preventSwipe = true;
             var r = this.root;
             var p = this.p;
             var dropped = webkit_drop.finalize(this.lastCurX, this.lastCurY, r, event);
 
-            if(((p.revert) && (!dropped)) || (p.revert === 'always'))
+            if (((p.revert) && (!dropped)) || (p.revert === 'always'))
             {
                 //revert root
                 var rs = r.style;
@@ -563,7 +557,7 @@ var webkit_draggable = function(r, ip)
     this.getPosition = function()
     {
         var rs = this.root.style;
-        return {x : parseInt(rs.left || 0), y : parseInt(rs.top  || 0)}
+        return {x: parseInt(rs.left || 0), y: parseInt(rs.top || 0)}
     }
 
     this.getScroll = function(pX, pY)
@@ -583,23 +577,23 @@ var webkit_draggable = function(r, ip)
         var delY = 0;
 
         //process vertical y scroll
-        if(pY - sY < scroll_sensitivity)
+        if (pY - sY < scroll_sensitivity)
         {
             delY = -scroll_amount;
         }
         else
-        if((sY + wY) - pY < scroll_sensitivity)
+        if ((sY + wY) - pY < scroll_sensitivity)
         {
             delY = scroll_amount;
         }
 
         //process horizontal x scroll
-        if(pX - sX < scroll_sensitivity)
+        if (pX - sX < scroll_sensitivity)
         {
             delX = -scroll_amount;
         }
         else
-        if((sX + wX) - pX < scroll_sensitivity)
+        if ((sX + wX) - pX < scroll_sensitivity)
         {
             delX = scroll_amount;
         }
@@ -618,7 +612,7 @@ var webkit_click = function(r, ip)
 {
     this.initialize = function(root, instance_props)
     {
-        var default_props = {onClick : webkit_tools.empty};
+        var default_props = {onClick: webkit_tools.empty};
 
         this.root = webkit_tools.$(root);
         this.p = webkit_tools.extend(default_props, instance_props || {});
@@ -630,9 +624,9 @@ var webkit_click = function(r, ip)
         var root = this.root;
 
         //bind events to local scope
-        this.ts = webkit_tools.bindAsEventListener(this.touchStart,this);
-        this.tm = webkit_tools.bindAsEventListener(this.touchMove,this);
-        this.te = webkit_tools.bindAsEventListener(this.touchEnd,this);
+        this.ts = webkit_tools.bindAsEventListener(this.touchStart, this);
+        this.tm = webkit_tools.bindAsEventListener(this.touchMove, this);
+        this.te = webkit_tools.bindAsEventListener(this.touchEnd, this);
 
         //add Listeners
         root.addEventListener("touchstart", this.ts, false);
@@ -645,7 +639,7 @@ var webkit_click = function(r, ip)
     this.touchStart = function()
     {
         this.moved = false;
-        if(this.bound == false)
+        if (this.bound == false)
         {
             this.root.addEventListener("touchmove", this.tm, false);
             this.bound = true;
@@ -660,8 +654,9 @@ var webkit_click = function(r, ip)
     }
 
     this.touchEnd = function()
-    {e.preventSwipe = true;
-        if(this.moved == false)
+    {
+        e.preventSwipe = true;
+        if (this.moved == false)
         {
             this.p.onClick();
         }
@@ -669,7 +664,7 @@ var webkit_click = function(r, ip)
 
     this.setEvent = function(f)
     {
-        if(typeof(f) == 'function')
+        if (typeof (f) == 'function')
         {
             this.p.onClick = f;
         }

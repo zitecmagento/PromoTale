@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 require_once 'abstract.php';
 
 /**
@@ -35,6 +35,7 @@ require_once 'abstract.php';
  */
 class Mage_Shell_Compiler extends Mage_Shell_Abstract
 {
+
     /**
      * Compiler process object
      *
@@ -72,22 +73,32 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
             $this->_getCompiler()->registerIncludePath();
             echo "Compiler include path enabled\n";
         } else if (isset($this->_args['compile'])) {
-            try {
+            try
+            {
                 $this->_getCompiler()->run();
                 echo "Compilation successfully finished\n";
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 echo $e->getMessage() . "\n";
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 echo "Compilation unknown error:\n\n";
                 echo $e . "\n";
             }
         } else if (isset($this->_args['clear'])) {
-            try {
+            try
+            {
                 $this->_getCompiler()->clear();
                 echo "Compilation successfully cleared\n";
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e)
+            {
                 echo $e->getMessage() . "\n";
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 echo "Compilation unknown error:\n\n";
                 echo $e . "\n";
             }
@@ -98,7 +109,7 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
                 include $compilerConfig;
             }
             $status = defined('COMPILER_INCLUDE_PATH') ? 'Enabled' : 'Disabled';
-            $state  = $compiler->getCollectedFilesCount() > 0 ? 'Compiled' : 'Not Compiled';
+            $state = $compiler->getCollectedFilesCount() > 0 ? 'Compiled' : 'Not Compiled';
             echo "Compiler Status:          " . $status . "\n";
             echo "Compilation State:        " . $state . "\n";
             echo "Collected Files Count:    " . $compiler->getCollectedFilesCount() . "\n";
@@ -126,6 +137,7 @@ Usage:  php -f compiler.php -- [options]
 
 USAGE;
     }
+
 }
 
 $shell = new Mage_Shell_Compiler();

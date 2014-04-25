@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Model_Theme
 {
+
     /**
      * Current theme file
      *
@@ -69,10 +71,13 @@ class Mage_XmlConnect_Model_Theme
         if (!is_readable($file)) {
             Mage::throwException(Mage::helper('xmlconnect')->__('Can\'t read file "%s".', $file));
         }
-        try {
+        try
+        {
             $text = file_get_contents($file);
             $this->_xml = simplexml_load_string($text);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             Mage::throwException(Mage::helper('xmlconnect')->__('Can\'t load XML.'));
         }
         if (empty($this->_xml)) {
@@ -172,8 +177,8 @@ class Mage_XmlConnect_Model_Theme
         /** @var $coreHelper Mage_Core_Helper_Data */
         $coreHelper = Mage::helper('core');
 
-        $themeFileName = $themesHelper->getMediaThemePath() . DS .$themesHelper->getCustomThemeName() . '_' . time()
-            . '_' . $coreHelper->getRandomString(10, 'abcdefghijklmnopqrstuvwxyz0123456789') . '.xml';
+        $themeFileName = $themesHelper->getMediaThemePath() . DS . $themesHelper->getCustomThemeName() . '_' . time()
+                . '_' . $coreHelper->getRandomString(10, 'abcdefghijklmnopqrstuvwxyz0123456789') . '.xml';
         return $themeFileName;
     }
 
@@ -190,7 +195,7 @@ class Mage_XmlConnect_Model_Theme
         $ioFile = new Varien_Io_File();
         if (!$ioFile->cp($currentThemeFileName, $filePath)) {
             Mage::throwException(
-                Mage::helper('xmlconnect')->__('Can\'t copy file "%s" to "%s".', $currentThemeFileName, $filePath)
+                    Mage::helper('xmlconnect')->__('Can\'t copy file "%s" to "%s".', $currentThemeFileName, $filePath)
             );
         } else {
             $ioFile->chmod($filePath, 0755);
@@ -323,4 +328,5 @@ class Mage_XmlConnect_Model_Theme
             Mage::throwException(Mage::helper('xmlconnect')->__('Can\'t write to file "%s".', $this->_file));
         }
     }
+
 }

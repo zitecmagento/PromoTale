@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,13 +32,14 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Checkout_Payment_Method_Pbridge_Authorizenet
-    extends Mage_XmlConnect_Block_Checkout_Payment_Method_Pbridge_Abstract
+class Mage_XmlConnect_Block_Checkout_Payment_Method_Pbridge_Authorizenet extends Mage_XmlConnect_Block_Checkout_Payment_Method_Pbridge_Abstract
 {
+
     /**
      * Payment model path
      *
      * @var string
      */
     protected $_model = 'authorizenet';
+
 }

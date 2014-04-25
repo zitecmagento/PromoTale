@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_Pager
 {
+
     /**
      * Collection size
      *
@@ -84,7 +86,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
     public function getCurrentPage()
     {
         if (null === $this->_currentPage) {
-            $page = abs((int)$this->getRequest()->getParam($this->getPageVarName()));
+            $page = abs((int) $this->getRequest()->getParam($this->getPageVarName()));
             if ($page > $this->getLastPageNum()) {
                 $this->_currentPage = $this->getLastPageNum();
             } elseif ($page > 0) {
@@ -106,7 +108,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
         if ($this->_limit > 0) {
             return $this->_limit;
         }
-        $limit  = $this->getRequest()->getParam($this->getLimitVarName());
+        $limit = $this->getRequest()->getParam($this->getLimitVarName());
         $limits = $this->getAvailableLimit();
         if ($limit && isset($limits[$limit])) {
             return $limit;
@@ -127,9 +129,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
         $this->_collection->setPageSize(null)->setCurPage(null);
 
         $collectionOffset = $this->getFirstNum() - 1;
-        $collectionLimit  = $collectionOffset + $this->getLimit() > $this->getTotalNum()
-            ? $this->getTotalNum() - $collectionOffset
-            : $this->getLimit();
+        $collectionLimit = $collectionOffset + $this->getLimit() > $this->getTotalNum() ? $this->getTotalNum() - $collectionOffset : $this->getLimit();
 
         $this->_collection->getSelect()->limit($collectionLimit, $collectionOffset);
         $this->_setFrameInitialized(false);
@@ -218,14 +218,14 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
         } else {
             $half = ceil($this->_displayPages / 2);
             if ($this->getCurrentPage() >= $half && $this->getCurrentPage() <= $this->getLastPageNum() - $half) {
-                $start  = ($this->getCurrentPage() - $half) + 1;
+                $start = ($this->getCurrentPage() - $half) + 1;
                 $finish = ($start + $this->_displayPages) - 1;
             } elseif ($this->getCurrentPage() < $half) {
-                $start  = 1;
+                $start = 1;
                 $finish = $this->_displayPages;
             } elseif ($this->getCurrentPage() > ($this->getLastPageNum() - $half)) {
                 $finish = $this->getLastPageNum();
-                $start  = $finish - $this->_displayPages + 1;
+                $start = $finish - $this->_displayPages + 1;
             }
             $pages = range($start, $finish);
         }
@@ -271,7 +271,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
     {
         if (!$this->isFrameInitialized()) {
             $start = 0;
-            $end   = 0;
+            $end = 0;
 
             if ($this->getLastPageNum() <= $this->getFrameLength()) {
                 $start = 1;
@@ -279,14 +279,14 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
             } else {
                 $half = ceil($this->getFrameLength() / 2);
                 if ($this->getCurrentPage() >= $half && $this->getCurrentPage() <= $this->getLastPageNum() - $half) {
-                    $start  = ($this->getCurrentPage() - $half) + 1;
+                    $start = ($this->getCurrentPage() - $half) + 1;
                     $end = ($start + $this->getFrameLength()) - 1;
                 } elseif ($this->getCurrentPage() < $half) {
-                    $start  = 1;
+                    $start = 1;
                     $end = $this->getFrameLength();
                 } elseif ($this->getCurrentPage() > ($this->getLastPageNum() - $half)) {
                     $end = $this->getLastPageNum();
-                    $start  = $end - $this->getFrameLength() + 1;
+                    $start = $end - $this->getFrameLength() + 1;
                 }
             }
             $this->_frameStart = $start;
@@ -296,4 +296,5 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
 
         return $this;
     }
+
 }

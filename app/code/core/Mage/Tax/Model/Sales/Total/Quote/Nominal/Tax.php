@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Tax_Model_Sales_Total_Quote_Nominal_Tax extends Mage_Tax_Model_Sales_Total_Quote_Tax
 {
+
     /**
      * Don't add amounts to address
      *
@@ -64,4 +66,5 @@ class Mage_Tax_Model_Sales_Total_Quote_Nominal_Tax extends Mage_Tax_Model_Sales_
     {
         return $address->getAllNominalItems();
     }
+
 }

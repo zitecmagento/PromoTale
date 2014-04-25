@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert profile
  *
@@ -34,15 +34,15 @@
  */
 abstract class Varien_Convert_Profile_Abstract
 {
+
     protected $_actions;
     protected $_containers;
     protected $_exceptions = array();
     protected $_dryRun;
-
     protected $_actionDefaultClass = 'Varien_Convert_Action';
     protected $_containerCollectionDefaultClass = 'Varien_Convert_Container_Collection';
 
-    public function addAction(Varien_Convert_Action_Interface $action=null)
+    public function addAction(Varien_Convert_Action_Interface $action = null)
     {
         if (is_null($action)) {
             $action = new $this->_actionDefaultClass();
@@ -66,7 +66,7 @@ abstract class Varien_Convert_Profile_Abstract
         return $this->_containers;
     }
 
-    public function getContainer($name=null)
+    public function getContainer($name = null)
     {
         if (is_null($name)) {
             $name = '_default';
@@ -117,4 +117,5 @@ abstract class Varien_Convert_Profile_Abstract
         }
         return $this;
     }
+
 }

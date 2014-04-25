@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -30,6 +31,7 @@
  */
 class Zend_Service_DeveloperGarden_BaseUserService_AccountBalance
 {
+
     /**
      * @var integer
      */
@@ -59,4 +61,5 @@ class Zend_Service_DeveloperGarden_BaseUserService_AccountBalance
     {
         return $this->Credits;
     }
+
 }

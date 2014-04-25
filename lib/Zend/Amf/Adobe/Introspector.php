@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Introspector.php 23316 2010-11-10 16:37:40Z matthew $
  */
-
 /** @see Zend_Amf_Parse_TypeLoader */
 #require_once 'Zend/Amf/Parse/TypeLoader.php';
 
@@ -38,6 +38,7 @@
  */
 class Zend_Amf_Adobe_Introspector
 {
+
     /**
      * Options used:
      * - server: instance of Zend_Amf_Server to use
@@ -88,7 +89,7 @@ class Zend_Amf_Adobe_Introspector
         }
 
         // Transform com.foo.Bar into com_foo_Bar
-        $serviceClass = str_replace('.' , '_', $serviceClass);
+        $serviceClass = str_replace('.', '_', $serviceClass);
 
         // Introspect!
         if (!class_exists($serviceClass)) {
@@ -100,7 +101,7 @@ class Zend_Amf_Adobe_Introspector
         $serv->setAttribute('xmlns', 'http://ns.adobe.com/flex/service-description/2008');
 
         $this->_types = $this->_xml->createElement('types');
-        $this->_ops   = $this->_xml->createElement('operations');
+        $this->_ops = $this->_xml->createElement('operations');
 
         $r = Zend_Server_Reflection::reflectClass($serviceClass);
         $this->_addService($r, $this->_ops);
@@ -164,9 +165,7 @@ class Zend_Amf_Adobe_Introspector
     protected function _addService(Zend_Server_Reflection_Class $refclass, DOMElement $target)
     {
         foreach ($refclass->getMethods() as $method) {
-            if (!$method->isPublic()
-                || $method->isConstructor()
-                || ('__' == substr($method->name, 0, 2))
+            if (!$method->isPublic() || $method->isConstructor() || ('__' == substr($method->name, 0, 2))
             ) {
                 continue;
             }
@@ -190,7 +189,7 @@ class Zend_Amf_Adobe_Introspector
                     $ptype = $this->_registerType($type);
                     $arg->setAttribute('type', $ptype);
 
-                    if($param->isDefaultValueAvailable()) {
+                    if ($param->isDefaultValueAvailable()) {
                         $arg->setAttribute('defaultvalue', $param->getDefaultValue());
                     }
 
@@ -305,7 +304,7 @@ class Zend_Amf_Adobe_Introspector
         return $asTypeName;
     }
 
-   /**
+    /**
      * Return error with error message
      *
      * @param  string $msg Error message
@@ -315,4 +314,5 @@ class Zend_Amf_Adobe_Introspector
     {
         return 'ERROR: $msg';
     }
+
 }

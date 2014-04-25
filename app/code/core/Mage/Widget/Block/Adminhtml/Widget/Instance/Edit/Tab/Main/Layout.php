@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
-    extends Mage_Adminhtml_Block_Template implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends Mage_Adminhtml_Block_Template implements Varien_Data_Form_Element_Renderer_Interface
 {
+
     /**
      * @var Varien_Data_Form_Element_Abstract
      */
@@ -129,11 +130,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
     public function getDisplayOnSelectHtml()
     {
         $selectBlock = $this->getLayout()->createBlock('core/html_select')
-            ->setName('widget_instance[{{id}}][page_group]')
-            ->setId('widget_instance[{{id}}][page_group]')
-            ->setClass('required-entry page_group_select select')
-            ->setExtraParams("onchange=\"WidgetInstance.displayPageGroup(this.value+\'_{{id}}\')\"")
-            ->setOptions($this->_getDisplayOnOptions());
+                ->setName('widget_instance[{{id}}][page_group]')
+                ->setId('widget_instance[{{id}}][page_group]')
+                ->setClass('required-entry page_group_select select')
+                ->setExtraParams("onchange=\"WidgetInstance.displayPageGroup(this.value+\'_{{id}}\')\"")
+                ->setOptions($this->_getDisplayOnOptions());
         return $selectBlock->toHtml();
     }
 
@@ -167,8 +168,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
         );
         foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
             $productsOptions[] = array(
-               'value' => $typeId.'_products',
-               'label' => $this->helper('core')->jsQuoteEscape($type['label'])
+                'value' => $typeId . '_products',
+                'label' => $this->helper('core')->jsQuoteEscape($type['label'])
             );
         }
         array_unshift($productsOptions, array(
@@ -232,7 +233,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
                 'label' => 'Products',
                 'code' => 'products',
                 'name' => $typeId . '_products',
-                'layout_handle' => 'default,catalog_product_view,PRODUCT_TYPE_'.$typeId,
+                'layout_handle' => 'default,catalog_product_view,PRODUCT_TYPE_' . $typeId,
                 'is_anchor_only' => '',
                 'product_type_id' => $typeId
             );
@@ -248,11 +249,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
     public function getLayoutsChooser()
     {
         $layouts = $this->getLayout()
-            ->createBlock('widget/adminhtml_widget_instance_edit_chooser_layout')
-            ->setSelectName('widget_instance[{{id}}][pages][layout_handle]')
-            ->setArea($this->getWidgetInstance()->getArea())
-            ->setPackage($this->getWidgetInstance()->getPackage())
-            ->setTheme($this->getWidgetInstance()->getTheme());
+                ->createBlock('widget/adminhtml_widget_instance_edit_chooser_layout')
+                ->setSelectName('widget_instance[{{id}}][pages][layout_handle]')
+                ->setArea($this->getWidgetInstance()->getArea())
+                ->setPackage($this->getWidgetInstance()->getPackage())
+                ->setTheme($this->getWidgetInstance()->getTheme());
         return $layouts->toHtml();
     }
 
@@ -264,11 +265,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
     public function getAddLayoutButtonHtml()
     {
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
-                'label'     => Mage::helper('widget')->__('Add Layout Update'),
-                'onclick'   => 'WidgetInstance.addPageGroup({})',
-                'class'     => 'add'
-            ));
+                ->setData(array(
+            'label' => Mage::helper('widget')->__('Add Layout Update'),
+            'onclick' => 'WidgetInstance.addPageGroup({})',
+            'class' => 'add'
+        ));
         return $button->toHtml();
     }
 
@@ -280,11 +281,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
     public function getRemoveLayoutButtonHtml()
     {
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
-                'label'     => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Remove Layout Update')),
-                'onclick'   => 'WidgetInstance.removePageGroup(this)',
-                'class'     => 'delete'
-            ));
+                ->setData(array(
+            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Remove Layout Update')),
+            'onclick' => 'WidgetInstance.removePageGroup(this)',
+            'class' => 'delete'
+        ));
         return $button->toHtml();
     }
 
@@ -303,13 +304,14 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
                     'page_id' => $pageGroup['page_id'],
                     'group' => $pageGroup['page_group'],
                     'block' => $pageGroup['block_reference'],
-                    'for_value'   => $pageGroup['page_for'],
+                    'for_value' => $pageGroup['page_for'],
                     'layout_handle' => $pageGroup['layout_handle'],
-                    $pageGroup['page_group'].'_entities' => $pageGroup['entities'],
+                    $pageGroup['page_group'] . '_entities' => $pageGroup['entities'],
                     'template' => $pageGroup['page_template']
                 );
             }
         }
         return $pageGroups;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,19 +34,19 @@
  */
 class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_Resource
 {
+
     /**
      * Customer address types
      */
-    const ADDRESS_BILLING    = Mage_Sales_Model_Quote_Address::TYPE_BILLING;
-    const ADDRESS_SHIPPING   = Mage_Sales_Model_Quote_Address::TYPE_SHIPPING;
+    const ADDRESS_BILLING = Mage_Sales_Model_Quote_Address::TYPE_BILLING;
+    const ADDRESS_SHIPPING = Mage_Sales_Model_Quote_Address::TYPE_SHIPPING;
 
     /**
      * Customer checkout types
      */
-     const MODE_CUSTOMER = Mage_Checkout_Model_Type_Onepage::METHOD_CUSTOMER;
-     const MODE_REGISTER = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
-     const MODE_GUEST    = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
-
+    const MODE_CUSTOMER = Mage_Checkout_Model_Type_Onepage::METHOD_CUSTOMER;
+    const MODE_REGISTER = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
+    const MODE_GUEST = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
 
     /**
      *
@@ -54,7 +55,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     {
         /** @var $customer Mage_Customer_Model_Customer */
         $customer = Mage::getModel('customer/customer')
-            ->load($customerId);
+                ->load($customerId);
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');
         }
@@ -70,7 +71,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
      */
     protected function _getCustomerAddress($addressId)
     {
-        $address = Mage::getModel('customer/address')->load((int)$addressId);
+        $address = Mage::getModel('customer/address')->load((int) $addressId);
         if (is_null($address->getId())) {
             $this->_fault('invalid_address_id');
         }
@@ -90,16 +91,16 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     {
         $isNewCustomer = false;
         switch ($quote->getCheckoutMethod()) {
-        case self::MODE_GUEST:
-            $this->_prepareGuestQuote($quote);
-            break;
-        case self::MODE_REGISTER:
-            $this->_prepareNewCustomerQuote($quote);
-            $isNewCustomer = true;
-            break;
-        default:
-            $this->_prepareCustomerQuote($quote);
-            break;
+            case self::MODE_GUEST:
+                $this->_prepareGuestQuote($quote);
+                break;
+            case self::MODE_REGISTER:
+                $this->_prepareNewCustomerQuote($quote);
+                $isNewCustomer = true;
+                break;
+            default:
+                $this->_prepareCustomerQuote($quote);
+                break;
         }
 
         return $isNewCustomer;
@@ -114,9 +115,9 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     protected function _prepareGuestQuote(Mage_Sales_Model_Quote $quote)
     {
         $quote->setCustomerId(null)
-            ->setCustomerEmail($quote->getBillingAddress()->getEmail())
-            ->setCustomerIsGuest(true)
-            ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+                ->setCustomerEmail($quote->getBillingAddress()->getEmail())
+                ->setCustomerIsGuest(true)
+                ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
         return $this;
     }
 
@@ -128,8 +129,8 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
      */
     protected function _prepareNewCustomerQuote(Mage_Sales_Model_Quote $quote)
     {
-        $billing    = $quote->getBillingAddress();
-        $shipping   = $quote->isVirtual() ? null : $quote->getShippingAddress();
+        $billing = $quote->getBillingAddress();
+        $shipping = $quote->isVirtual() ? null : $quote->getShippingAddress();
 
         //$customer = Mage::getModel('customer/customer');
         $customer = $quote->getCustomer();
@@ -151,7 +152,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
         $quote->setCustomer($customer)
-            ->setCustomerId(true);
+                ->setCustomerId(true);
 
         return $this;
     }
@@ -164,8 +165,8 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
      */
     protected function _prepareCustomerQuote(Mage_Sales_Model_Quote $quote)
     {
-        $billing    = $quote->getBillingAddress();
-        $shipping   = $quote->isVirtual() ? null : $quote->getShippingAddress();
+        $billing = $quote->getBillingAddress();
+        $shipping = $quote->isVirtual() ? null : $quote->getShippingAddress();
 
         $customer = $quote->getCustomer();
         if (!$billing->getCustomerId() || $billing->getSaveInAddressBook()) {
@@ -173,8 +174,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
             $customer->addAddress($customerBilling);
             $billing->setCustomerAddress($customerBilling);
         }
-        if ($shipping && ((!$shipping->getCustomerId() && !$shipping->getSameAsBilling())
-            || (!$shipping->getSameAsBilling() && $shipping->getSaveInAddressBook()))) {
+        if ($shipping && ((!$shipping->getCustomerId() && !$shipping->getSameAsBilling()) || (!$shipping->getSameAsBilling() && $shipping->getSaveInAddressBook()))) {
             $customerShipping = $shipping->exportCustomerAddress();
             $customer->addAddress($customerShipping);
             $shipping->setCustomerAddress($customerShipping);
@@ -210,4 +210,5 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
 
         return $this;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Template_Preview_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
      * Preparing from for revision page
      *
@@ -41,9 +43,9 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Preview_Form extends Mage_Adminht
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(array(
-                'id'        => 'preview_form',
-                'action'    => $this->getUrl('*/*/drop', array('_current' => true)),
-                'method'    => 'post'
+            'id' => 'preview_form',
+            'action' => $this->getUrl('*/*/drop', array('_current' => true)),
+            'method' => 'post'
         ));
 
         if ($data = $this->getTemplateFormData()) {
@@ -64,5 +66,5 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Preview_Form extends Mage_Adminht
         $this->setForm($form);
         return parent::_prepareForm();
     }
-}
 
+}

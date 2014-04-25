@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Stream.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Log_Writer_Abstract */
 #require_once 'Zend/Log/Writer/Abstract.php';
 
@@ -36,6 +36,7 @@
  */
 class Zend_Log_Writer_Stream extends Zend_Log_Writer_Abstract
 {
+
     /**
      * Holds the PHP stream to log to.
      * @var null|stream
@@ -72,7 +73,7 @@ class Zend_Log_Writer_Stream extends Zend_Log_Writer_Abstract
                 $streamOrUrl = $streamOrUrl['stream'];
             }
 
-            if (! $this->_stream = @fopen($streamOrUrl, $mode, false)) {
+            if (!$this->_stream = @fopen($streamOrUrl, $mode, false)) {
                 #require_once 'Zend/Log/Exception.php';
                 $msg = "\"$streamOrUrl\" cannot be opened with mode \"$mode\"";
                 throw new Zend_Log_Exception($msg);
@@ -81,7 +82,7 @@ class Zend_Log_Writer_Stream extends Zend_Log_Writer_Abstract
 
         $this->_formatter = new Zend_Log_Formatter_Simple();
     }
-    
+
     /**
      * Create a new instance of Zend_Log_Writer_Mock
      * 
@@ -93,18 +94,17 @@ class Zend_Log_Writer_Stream extends Zend_Log_Writer_Abstract
     {
         $config = self::_parseConfig($config);
         $config = array_merge(array(
-            'stream' => null, 
-            'mode'   => null,
-        ), $config);
+            'stream' => null,
+            'mode' => null,
+                ), $config);
 
-        $streamOrUrl = isset($config['url']) ? $config['url'] : $config['stream']; 
-        
+        $streamOrUrl = isset($config['url']) ? $config['url'] : $config['stream'];
+
         return new self(
-            $streamOrUrl, 
-            $config['mode']
+                $streamOrUrl, $config['mode']
         );
     }
-    
+
     /**
      * Close the stream resource.
      *
@@ -132,4 +132,5 @@ class Zend_Log_Writer_Stream extends Zend_Log_Writer_Abstract
             throw new Zend_Log_Exception("Unable to write to stream");
         }
     }
+
 }

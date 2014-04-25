@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_ImportExport_Model_Source_Import_Entity
 {
+
     /**
      * Prepare and return array of import entities ids and their names
      *
@@ -45,8 +47,9 @@ class Mage_ImportExport_Model_Source_Import_Entity
         $comboOptions = Mage_ImportExport_Model_Config::getModelsComboOptions($entities);
 
         foreach ($comboOptions as $option) {
-           $options[] = $option;
+            $options[] = $option;
         }
         return $options;
     }
+
 }

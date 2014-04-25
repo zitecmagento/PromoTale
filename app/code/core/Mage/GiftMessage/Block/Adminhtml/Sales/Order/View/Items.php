@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Adminhtml_Block_Template
 {
+
     /**
      * Gift message array
      *
@@ -57,11 +59,11 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      */
     public function getDefaultSender()
     {
-        if(!$this->getItem()) {
+        if (!$this->getItem()) {
             return '';
         }
 
-        if($this->getItem()->getOrder()) {
+        if ($this->getItem()->getOrder()) {
             return $this->getItem()->getOrder()->getBillingAddress()->getName();
         }
 
@@ -75,11 +77,11 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      */
     public function getDefaultRecipient()
     {
-        if(!$this->getItem()) {
+        if (!$this->getItem()) {
             return '';
         }
 
-        if($this->getItem()->getOrder()) {
+        if ($this->getItem()->getOrder()) {
             if ($this->getItem()->getOrder()->getShippingAddress()) {
                 return $this->getItem()->getOrder()->getShippingAddress()->getName();
             } else if ($this->getItem()->getOrder()->getBillingAddress()) {
@@ -135,14 +137,13 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      */
     protected function _initMessage()
     {
-        $this->_giftMessage[$this->getItem()->getGiftMessageId()] =
-            $this->helper('giftmessage/message')->getGiftMessage($this->getItem()->getGiftMessageId());
+        $this->_giftMessage[$this->getItem()->getGiftMessageId()] = $this->helper('giftmessage/message')->getGiftMessage($this->getItem()->getGiftMessageId());
 
         // init default values for giftmessage form
-        if(!$this->getMessage()->getSender()) {
+        if (!$this->getMessage()->getSender()) {
             $this->getMessage()->setSender($this->getDefaultSender());
         }
-        if(!$this->getMessage()->getRecipient()) {
+        if (!$this->getMessage()->getRecipient()) {
             $this->getMessage()->setRecipient($this->getDefaultRecipient());
         }
 
@@ -156,7 +157,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      */
     public function getMessage()
     {
-        if(!isset($this->_giftMessage[$this->getItem()->getGiftMessageId()])) {
+        if (!isset($this->_giftMessage[$this->getItem()->getGiftMessageId()])) {
             $this->_initMessage();
         }
 
@@ -171,9 +172,9 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
     public function getSaveUrl()
     {
         return $this->getUrl('*/sales_order_view_giftmessage/save', array(
-            'entity'    => $this->getItem()->getId(),
-            'type'      => 'order_item',
-            'reload'    => true
+                    'entity' => $this->getItem()->getId(),
+                    'type' => 'order_item',
+                    'reload' => true
         ));
     }
 
@@ -226,4 +227,5 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
     {
         return $this->escapeHtml($this->getMessage()->getMessage());
     }
+
 }

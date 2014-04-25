@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: SellingStatus.php 22791 2010-08-04 16:11:47Z renanbr $
  */
-
 /**
  * @see Zend_Service_Ebay_Finding_Abstract
  */
@@ -35,6 +35,7 @@
  */
 class Zend_Service_Ebay_Finding_SellingStatus extends Zend_Service_Ebay_Finding_Abstract
 {
+
     /**
      * The number of bids that have been placed on the item.
      *
@@ -113,11 +114,11 @@ class Zend_Service_Ebay_Finding_SellingStatus extends Zend_Service_Ebay_Finding_
         parent::_init();
         $ns = Zend_Service_Ebay_Finding::XMLNS_FINDING;
 
-        $this->bidCount              = $this->_query(".//$ns:bidCount[1]", 'integer');
+        $this->bidCount = $this->_query(".//$ns:bidCount[1]", 'integer');
         $this->convertedCurrentPrice = $this->_query(".//$ns:convertedCurrentPrice[1]", 'float');
-        $this->currentPrice          = $this->_query(".//$ns:currentPrice[1]", 'float');
-        $this->sellingState          = $this->_query(".//$ns:sellingState[1]", 'string');
-        $this->timeLeft              = $this->_query(".//$ns:timeLeft[1]", 'string');
+        $this->currentPrice = $this->_query(".//$ns:currentPrice[1]", 'float');
+        $this->sellingState = $this->_query(".//$ns:sellingState[1]", 'string');
+        $this->timeLeft = $this->_query(".//$ns:timeLeft[1]", 'string');
 
         $this->_attributes['convertedCurrentPrice'] = array(
             'currencyId' => $this->_query(".//$ns:convertedCurrentPrice[1]/@currencyId[1]", 'string')
@@ -127,4 +128,5 @@ class Zend_Service_Ebay_Finding_SellingStatus extends Zend_Service_Ebay_Finding_
             'currencyId' => $this->_query(".//$ns:currentPrice[1]/@currencyId[1]", 'string')
         );
     }
+
 }

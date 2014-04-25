@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,10 +24,9 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 {
+
     const CHECKOUT_STATE_BEGIN = 'begin';
 
     /**
@@ -156,7 +156,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                     $this->setQuoteId($quote->getId());
                 } else {
                     $quote->setIsCheckoutCart(true);
-                    Mage::dispatchEvent('checkout_quote_init', array('quote'=>$quote));
+                    Mage::dispatchEvent('checkout_quote_init', array('quote' => $quote));
                 }
             }
 
@@ -208,14 +208,14 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         Mage::dispatchEvent('load_customer_quote_before', array('checkout_session' => $this));
 
         $customerQuote = Mage::getModel('sales/quote')
-            ->setStoreId(Mage::app()->getStore()->getId())
-            ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomerId());
+                ->setStoreId(Mage::app()->getStore()->getId())
+                ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomerId());
 
         if ($customerQuote->getId() && $this->getQuoteId() != $customerQuote->getId()) {
             if ($this->getQuoteId()) {
                 $customerQuote->merge($this->getQuote())
-                    ->collectTotals()
-                    ->save();
+                        ->collectTotals()
+                        ->save();
             }
 
             $this->setQuoteId($customerQuote->getId());
@@ -228,14 +228,14 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->getQuote()->getBillingAddress();
             $this->getQuote()->getShippingAddress();
             $this->getQuote()->setCustomer(Mage::getSingleton('customer/session')->getCustomer())
-                ->setTotalsCollectedFlag(false)
-                ->collectTotals()
-                ->save();
+                    ->setTotalsCollectedFlag(false)
+                    ->collectTotals()
+                    ->save();
         }
         return $this;
     }
 
-    public function setStepData($step, $data, $value=null)
+    public function setStepData($step, $data, $value = null)
     {
         $steps = $this->getSteps();
         if (is_null($value)) {
@@ -255,7 +255,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         return $this;
     }
 
-    public function getStepData($step=null, $data=null)
+    public function getStepData($step = null, $data = null)
     {
         $steps = $this->getSteps();
         if (is_null($step)) {
@@ -366,7 +366,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 
     public function clear()
     {
-        Mage::dispatchEvent('checkout_quote_destroy', array('quote'=>$this->getQuote()));
+        Mage::dispatchEvent('checkout_quote_destroy', array('quote' => $this->getQuote()));
         $this->_quote = null;
         $this->setQuoteId(null);
         $this->setLastSuccessQuoteId(null);
@@ -378,11 +378,11 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     public function clearHelperData()
     {
         $this->setLastBillingAgreementId(null)
-            ->setRedirectUrl(null)
-            ->setLastOrderId(null)
-            ->setLastRealOrderId(null)
-            ->setLastRecurringProfileIds(null)
-            ->setAdditionalMessages(null)
+                ->setRedirectUrl(null)
+                ->setLastOrderId(null)
+                ->setLastRealOrderId(null)
+                ->setLastRecurringProfileIds(null)
+                ->setAdditionalMessages(null)
         ;
     }
 
@@ -426,4 +426,5 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         return Mage::getModel('sales/order');
     }
+
 }

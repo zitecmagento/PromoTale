@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 abstract class Zend_Service_Ebay_Finding_Set_Abstract implements SeekableIterator, Countable
 {
+
     /**
      * @var DOMNodeList
      */
@@ -58,6 +60,7 @@ abstract class Zend_Service_Ebay_Finding_Set_Abstract implements SeekableIterato
      */
     protected function _init()
     {
+        
     }
 
     /**
@@ -125,4 +128,5 @@ abstract class Zend_Service_Ebay_Finding_Set_Abstract implements SeekableIterato
     {
         return $this->_nodes ? $this->_nodes->length : 0;
     }
+
 }

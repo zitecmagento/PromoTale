@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 abstract class Mage_Sales_Model_Api2_Order_Rest extends Mage_Sales_Model_Api2_Order
 {
+
     /**
      * Retrieve information about specified order item
      *
@@ -41,7 +43,7 @@ abstract class Mage_Sales_Model_Api2_Order_Rest extends Mage_Sales_Model_Api2_Or
      */
     protected function _retrieve()
     {
-        $orderId    = $this->getRequest()->getParam('id');
+        $orderId = $this->getRequest()->getParam('id');
         $collection = $this->_getCollectionForSingleRetrieve($orderId);
 
         if ($this->_isPaymentMethodAllowed()) {
@@ -59,8 +61,8 @@ abstract class Mage_Sales_Model_Api2_Order_Rest extends Mage_Sales_Model_Api2_Or
         }
         $orderData = $order->getData();
         $addresses = $this->_getAddresses(array($orderId));
-        $items     = $this->_getItems(array($orderId));
-        $comments  = $this->_getComments(array($orderId));
+        $items = $this->_getItems(array($orderId));
+        $comments = $this->_getComments(array($orderId));
 
         if ($addresses) {
             $orderData['addresses'] = $addresses[$orderId];
@@ -73,4 +75,5 @@ abstract class Mage_Sales_Model_Api2_Order_Rest extends Mage_Sales_Model_Api2_Or
         }
         return $orderData;
     }
+
 }

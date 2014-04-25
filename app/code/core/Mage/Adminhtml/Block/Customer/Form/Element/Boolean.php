@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer Widget Form Boolean Element Block
  *
@@ -34,12 +34,13 @@
  */
 class Mage_Adminhtml_Block_Customer_Form_Element_Boolean extends Varien_Data_Form_Element_Select
 {
+
     /**
      * Prepare default SELECT values
      *
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setValues(array(
@@ -53,4 +54,5 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Boolean extends Varien_Data_For
             )
         ));
     }
+
 }

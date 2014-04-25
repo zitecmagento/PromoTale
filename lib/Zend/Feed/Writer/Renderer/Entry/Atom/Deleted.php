@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Deleted.php 20785 2010-01-31 09:43:03Z mikaelkael $
  */
-
 /**
  * @see Zend_Feed_Writer_Renderer_RendererAbstract
  */
@@ -30,17 +30,16 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Writer_Renderer_Entry_Atom_Deleted
-    extends Zend_Feed_Writer_Renderer_RendererAbstract
-    implements Zend_Feed_Writer_Renderer_RendererInterface
+class Zend_Feed_Writer_Renderer_Entry_Atom_Deleted extends Zend_Feed_Writer_Renderer_RendererAbstract implements Zend_Feed_Writer_Renderer_RendererInterface
 {
+
     /**
      * Constructor
      * 
      * @param  Zend_Feed_Writer_Deleted $container 
      * @return void
      */
-    public function __construct (Zend_Feed_Writer_Deleted $container)
+    public function __construct(Zend_Feed_Writer_Deleted $container)
     {
         parent::__construct($container);
     }
@@ -56,16 +55,16 @@ class Zend_Feed_Writer_Renderer_Entry_Atom_Deleted
         $this->_dom->formatOutput = true;
         $entry = $this->_dom->createElement('at:deleted-entry');
         $this->_dom->appendChild($entry);
-        
+
         $entry->setAttribute('ref', $this->_container->getReference());
         $entry->setAttribute('when', $this->_container->getWhen()->get(Zend_Date::ISO_8601));
-        
+
         $this->_setBy($this->_dom, $entry);
         $this->_setComment($this->_dom, $entry);
-        
+
         return $this;
     }
-    
+
     /**
      * Set tombstone comment
      * 
@@ -75,7 +74,7 @@ class Zend_Feed_Writer_Renderer_Entry_Atom_Deleted
      */
     protected function _setComment(DOMDocument $dom, DOMElement $root)
     {
-        if(!$this->getDataContainer()->getComment()) {
+        if (!$this->getDataContainer()->getComment()) {
             return;
         }
         $c = $dom->createElement('at:comment');
@@ -84,7 +83,7 @@ class Zend_Feed_Writer_Renderer_Entry_Atom_Deleted
         $cdata = $dom->createCDATASection($this->getDataContainer()->getComment());
         $c->appendChild($cdata);
     }
-    
+
     /**
      * Set entry authors 
      * 
@@ -117,5 +116,5 @@ class Zend_Feed_Writer_Renderer_Entry_Atom_Deleted
             $uri->appendChild($text);
         }
     }
-    
+
 }

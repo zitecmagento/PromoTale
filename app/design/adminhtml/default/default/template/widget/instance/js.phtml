@@ -26,23 +26,23 @@
 ?>
 <script type="text/javascript">
 //<![CDATA[
-function setSettings(urlTemplate, typeElement, packageThemeElement) {
-    if (!editForm.validate()) {
-        return false;
+    function setSettings(urlTemplate, typeElement, packageThemeElement) {
+        if (!editForm.validate()) {
+            return false;
+        }
+
+        typeElement = $F(typeElement).replace(/\//g, '-');
+        packageThemeElement = $F(packageThemeElement).split(/\//g);
+
+        setLocation(new Template(urlTemplate, /(^|.|\r|\n)({{(\w+)}})/).evaluate({
+            'type': typeElement,
+            'package': packageThemeElement[0],
+            'theme': packageThemeElement[1]
+        }));
     }
 
-    typeElement = $F(typeElement).replace(/\//g, '-');
-    packageThemeElement = $F(packageThemeElement).split(/\//g);
-
-    setLocation(new Template(urlTemplate, /(^|.|\r|\n)({{(\w+)}})/).evaluate({
-        'type':    typeElement,
-        'package': packageThemeElement[0],
-        'theme':   packageThemeElement[1]
-    }));
-}
-
-function saveAndContinueEdit() {
-    editForm.submit($('edit_form').action + 'back/edit/');
-}
+    function saveAndContinueEdit() {
+        editForm.submit($('edit_form').action + 'back/edit/');
+    }
 //]]>
 </script>

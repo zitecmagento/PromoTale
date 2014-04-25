@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -19,6 +20,7 @@
  */
 class Phoenix_Moneybookers_Block_Redirect extends Mage_Core_Block_Template
 {
+
     /**
      * Constructor. Set template.
      */
@@ -27,4 +29,5 @@ class Phoenix_Moneybookers_Block_Redirect extends Mage_Core_Block_Template
         parent::_construct();
         $this->setTemplate('moneybookers/redirect.phtml');
     }
+
 }

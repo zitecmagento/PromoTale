@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
 {
+
     /**
      * Get customer wishlist model instance
      *
@@ -68,7 +70,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
         foreach ($data as $itemId => $itemInfo) {
             if (!empty($itemInfo['wishlist'])) {
                 if ($item = $cart->getQuote()->getItemById($itemId)) {
-                    $productId  = $item->getProductId();
+                    $productId = $item->getProductId();
                     $buyRequest = $item->getBuyRequest();
 
                     if (isset($itemInfo['qty']) && is_numeric($itemInfo['qty'])) {
@@ -102,7 +104,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
             $wishlistIds = array($singleWishlistId);
         }
 
-        if (count($wishlistIds) && $request->getParam('wishlist_next')){
+        if (count($wishlistIds) && $request->getParam('wishlist_next')) {
             $wishlistId = array_shift($wishlistIds);
 
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
@@ -117,7 +119,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
 
             $wishlist->getItemCollection()->load();
 
-            foreach($wishlist->getItemCollection() as $wishlistItem){
+            foreach ($wishlist->getItemCollection() as $wishlistItem) {
                 if ($wishlistItem->getId() == $wishlistId)
                     $wishlistItem->delete();
             }

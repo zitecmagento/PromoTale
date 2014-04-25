@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert mapper interface
  *
@@ -34,5 +34,6 @@
  */
 interface Varien_Convert_Mapper_Interface
 {
-	public function map();
+
+    public function map();
 }

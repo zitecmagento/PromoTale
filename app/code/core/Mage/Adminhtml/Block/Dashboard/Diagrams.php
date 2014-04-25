@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Dashboard_Diagrams extends Mage_Adminhtml_Block_Widget_Tabs
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -45,15 +46,16 @@ class Mage_Adminhtml_Block_Dashboard_Diagrams extends Mage_Adminhtml_Block_Widge
     protected function _prepareLayout()
     {
         $this->addTab('orders', array(
-            'label'     => $this->__('Orders'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/dashboard_tab_orders')->toHtml(),
-            'active'    => true
+            'label' => $this->__('Orders'),
+            'content' => $this->getLayout()->createBlock('adminhtml/dashboard_tab_orders')->toHtml(),
+            'active' => true
         ));
 
         $this->addTab('amounts', array(
-            'label'     => $this->__('Amounts'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/dashboard_tab_amounts')->toHtml(),
+            'label' => $this->__('Amounts'),
+            'content' => $this->getLayout()->createBlock('adminhtml/dashboard_tab_amounts')->toHtml(),
         ));
         return parent::_prepareLayout();
     }
+
 }

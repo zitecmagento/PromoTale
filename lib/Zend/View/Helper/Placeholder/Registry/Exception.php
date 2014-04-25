@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,11 +20,8 @@
  * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-
 /** Zend_View_Exception */
 #require_once 'Zend/View/Exception.php';
-
 
 /**
  * Exception for Zend_View_Helper_Placeholder_Registry class.
@@ -36,4 +34,5 @@
  */
 class Zend_View_Helper_Placeholder_Registry_Exception extends Zend_View_Exception
 {
+    
 }

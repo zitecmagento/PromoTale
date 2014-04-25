@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -48,14 +49,14 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
         } else if ($this->getRequest()->getParam('group')) {
             $storeId = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
         } else if ($this->getRequest()->getParam('store')) {
-            $storeId = (int)$this->getRequest()->getParam('store');
+            $storeId = (int) $this->getRequest()->getParam('store');
         } else {
             $storeId = '';
         }
 
         $collection = Mage::getResourceModel('reports/tag_collection')
-            ->addPopularity($storeId)
-            ->addStatusFilter(Mage_Tag_Model_Tag::STATUS_APPROVED);
+                ->addPopularity($storeId)
+                ->addStatusFilter(Mage_Tag_Model_Tag::STATUS_APPROVED);
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -64,36 +65,35 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
     protected function _prepareColumns()
     {
         $this->addColumn('name', array(
-            'header'    =>Mage::helper('reports')->__('Tag Name'),
-            'index'     =>'name'
+            'header' => Mage::helper('reports')->__('Tag Name'),
+            'index' => 'name'
         ));
 
         $this->addColumn('taged', array(
-            'header'    =>Mage::helper('reports')->__('Popularity'),
-            'width'     =>'50px',
-            'align'     =>'right',
-            'index'     =>'popularity'
+            'header' => Mage::helper('reports')->__('Popularity'),
+            'width' => '50px',
+            'align' => 'right',
+            'index' => 'popularity'
         ));
 
-        $this->addColumn('action',
-            array(
-                'header'    => Mage::helper('catalog')->__('Action'),
-                'width'     => '100%',
-                'type'      => 'action',
-                'getter'    => 'getId',
-                'actions'   => array(
-                    array(
-                        'caption' => Mage::helper('catalog')->__('Show Details'),
-                        'url'     => array(
-                            'base'=>'*/*/tagDetail'
-                        ),
-                        'field'   => 'id'
-                    )
-                ),
-                'is_system' => true,
-                'filter'    => false,
-                'sortable'  => false,
-                'index'     => 'stores',
+        $this->addColumn('action', array(
+            'header' => Mage::helper('catalog')->__('Action'),
+            'width' => '100%',
+            'type' => 'action',
+            'getter' => 'getId',
+            'actions' => array(
+                array(
+                    'caption' => Mage::helper('catalog')->__('Show Details'),
+                    'url' => array(
+                        'base' => '*/*/tagDetail'
+                    ),
+                    'field' => 'id'
+                )
+            ),
+            'is_system' => true,
+            'filter' => false,
+            'sortable' => false,
+            'index' => 'stores',
         ));
         $this->setFilterVisibility(false);
 
@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/tagDetail', array('id'=>$row->getTagId()));
+        return $this->getUrl('*/*/tagDetail', array('id' => $row->getTagId()));
     }
 
 }

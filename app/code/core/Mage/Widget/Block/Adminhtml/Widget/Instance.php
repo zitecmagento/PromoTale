@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+
     /**
      * Block constructor
      */
@@ -44,4 +46,5 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance extends Mage_Adminhtml_Block_W
         parent::__construct();
         $this->_updateButton('add', 'label', Mage::helper('widget')->__('Add New Widget Instance'));
     }
+
 }

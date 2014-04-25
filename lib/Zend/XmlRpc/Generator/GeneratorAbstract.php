@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -25,6 +26,7 @@
  */
 abstract class Zend_XmlRpc_Generator_GeneratorAbstract
 {
+
     /**
      * XML encoding string
      *

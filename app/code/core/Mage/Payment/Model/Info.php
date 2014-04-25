@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
 {
+
     /**
      * Additional information container
      *
@@ -47,14 +49,14 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      * @param   mixed $index
      * @return unknown
      */
-    public function getData($key='', $index=null)
+    public function getData($key = '', $index = null)
     {
-        if ('cc_number'===$key) {
+        if ('cc_number' === $key) {
             if (empty($this->_data['cc_number']) && !empty($this->_data['cc_number_enc'])) {
                 $this->_data['cc_number'] = $this->decrypt($this->getCcNumberEnc());
             }
         }
-        if ('cc_cid'===$key) {
+        if ('cc_cid' === $key) {
             if (empty($this->_data['cc_cid']) && !empty($this->_data['cc_cid_enc'])) {
                 $this->_data['cc_cid'] = $this->decrypt($this->getCcCidEnc());
             }
@@ -177,9 +179,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
     public function hasAdditionalInformation($key = null)
     {
         $this->_initAdditionalInformation();
-        return null === $key
-            ? !empty($this->_additionalInformation)
-            : array_key_exists($key, $this->_additionalInformation);
+        return null === $key ? !empty($this->_additionalInformation) : array_key_exists($key, $this->_additionalInformation);
     }
 
     /**
@@ -194,4 +194,5 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
             $this->_additionalInformation = array();
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Install_Block_Db_Type extends Mage_Core_Block_Template
 {
+
     /**
      * Db title
      *
@@ -67,4 +69,5 @@ class Mage_Install_Block_Db_Type extends Mage_Core_Block_Template
         }
         return $data;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -43,15 +44,16 @@
  */
 class Mage_GoogleBase_Model_Attribute extends Mage_Core_Model_Abstract
 {
+
     /**
      * Default ignored attribute codes
      *
      * @var array
      */
     protected $_ignoredAttributeCodes = array(
-        'custom_design','custom_design_from','custom_design_to','custom_layout_update',
-        'gift_message_available','news_from_date','news_to_date','options_container',
-        'price_view','sku_type'
+        'custom_design', 'custom_design_from', 'custom_design_to', 'custom_layout_update',
+        'gift_message_available', 'news_from_date', 'news_to_date', 'options_container',
+        'price_view', 'sku_type'
     );
 
     /**
@@ -97,9 +99,7 @@ class Mage_GoogleBase_Model_Attribute extends Mage_Core_Model_Abstract
      */
     protected function _isAllowedAttribute($attribute)
     {
-        return !in_array($attribute->getFrontendInput(), $this->_ignoredAttributeTypes)
-               && !in_array($attribute->getAttributeCode(), $this->_ignoredAttributeCodes)
-               && $attribute->getFrontendLabel() != "";
+        return !in_array($attribute->getFrontendInput(), $this->_ignoredAttributeTypes) && !in_array($attribute->getAttributeCode(), $this->_ignoredAttributeCodes) && $attribute->getFrontendLabel() != "";
     }
 
     /**
@@ -112,8 +112,8 @@ class Mage_GoogleBase_Model_Attribute extends Mage_Core_Model_Abstract
     {
         $typesMapping = array(
 //            'date'       => 'dateTime',
-            'price'      => 'floatUnit',
-            'decimal'    => 'numberUnit',
+            'price' => 'floatUnit',
+            'decimal' => 'numberUnit',
         );
         if (isset($typesMapping[$attribute->getFrontendInput()])) {
             return $typesMapping[$attribute->getFrontendInput()];
@@ -123,4 +123,5 @@ class Mage_GoogleBase_Model_Attribute extends Mage_Core_Model_Abstract
             return Mage_GoogleBase_Model_Service_Item::DEFAULT_ATTRIBUTE_TYPE;
         }
     }
+
 }

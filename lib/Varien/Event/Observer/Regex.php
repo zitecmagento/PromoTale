@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Event regex observer object
  * 
@@ -34,6 +34,7 @@
  */
 class Varien_Event_Observer_Regex extends Varien_Event_Observer
 {
+
     /**
      * Checkes the observer's event_regex against event's name
      *
@@ -44,4 +45,5 @@ class Varien_Event_Observer_Regex extends Varien_Event_Observer
     {
         return preg_match($this->getEventRegex(), $event->getName());
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer entity resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstract
 {
+
     /**
      * Resource initialization
      */
@@ -77,25 +78,24 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         }
 
         $adapter = $this->_getWriteAdapter();
-        $bind    = array('email' => $customer->getEmail());
+        $bind = array('email' => $customer->getEmail());
 
         $select = $adapter->select()
-            ->from($this->getEntityTable(), array($this->getEntityIdField()))
-            ->where('email = :email');
+                ->from($this->getEntityTable(), array($this->getEntityIdField()))
+                ->where('email = :email');
         if ($customer->getSharingConfig()->isWebsiteScope()) {
-            $bind['website_id'] = (int)$customer->getWebsiteId();
+            $bind['website_id'] = (int) $customer->getWebsiteId();
             $select->where('website_id = :website_id');
         }
         if ($customer->getId()) {
-            $bind['entity_id'] = (int)$customer->getId();
+            $bind['entity_id'] = (int) $customer->getId();
             $select->where('entity_id != :entity_id');
         }
 
         $result = $adapter->fetchOne($select, $bind);
         if ($result) {
             throw Mage::exception(
-                'Mage_Customer', Mage::helper('customer')->__('This customer email already exists'),
-                Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS
+                    'Mage_Customer', Mage::helper('customer')->__('This customer email already exists'), Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS
             );
         }
 
@@ -133,8 +133,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      */
     protected function _saveAddresses(Mage_Customer_Model_Customer $customer)
     {
-        $defaultBillingId   = $customer->getData('default_billing');
-        $defaultShippingId  = $customer->getData('default_shipping');
+        $defaultBillingId = $customer->getData('default_billing');
+        $defaultShippingId = $customer->getData('default_shipping');
         foreach ($customer->getAddresses() as $address) {
             if ($address->getData('_deleted')) {
                 if ($address->getId() == $defaultBillingId) {
@@ -146,16 +146,14 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                 $address->delete();
             } else {
                 $address->setParentId($customer->getId())
-                    ->setStoreId($customer->getStoreId())
-                    ->setIsCustomerSaveTransaction(true)
-                    ->save();
-                if (($address->getIsPrimaryBilling() || $address->getIsDefaultBilling())
-                    && $address->getId() != $defaultBillingId
+                        ->setStoreId($customer->getStoreId())
+                        ->setIsCustomerSaveTransaction(true)
+                        ->save();
+                if (($address->getIsPrimaryBilling() || $address->getIsDefaultBilling()) && $address->getId() != $defaultBillingId
                 ) {
                     $customer->setData('default_billing', $address->getId());
                 }
-                if (($address->getIsPrimaryShipping() || $address->getIsDefaultShipping())
-                    && $address->getId() != $defaultShippingId
+                if (($address->getIsPrimaryShipping() || $address->getIsDefaultShipping()) && $address->getId() != $defaultShippingId
                 ) {
                     $customer->setData('default_shipping', $address->getId());
                 }
@@ -182,7 +180,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     {
         $select = parent::_getLoadRowSelect($object, $rowId);
         if ($object->getWebsiteId() && $object->getSharingConfig()->isWebsiteScope()) {
-            $select->where('website_id =?', (int)$object->getWebsiteId());
+            $select->where('website_id =?', (int) $object->getWebsiteId());
         }
 
         return $select;
@@ -201,18 +199,18 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     public function loadByEmail(Mage_Customer_Model_Customer $customer, $email, $testOnly = false)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = array('customer_email' => $email);
-        $select  = $adapter->select()
-            ->from($this->getEntityTable(), array($this->getEntityIdField()))
-            ->where('email = :customer_email');
+        $bind = array('customer_email' => $email);
+        $select = $adapter->select()
+                ->from($this->getEntityTable(), array($this->getEntityIdField()))
+                ->where('email = :customer_email');
 
         if ($customer->getSharingConfig()->isWebsiteScope()) {
             if (!$customer->hasData('website_id')) {
                 Mage::throwException(
-                    Mage::helper('customer')->__('Customer website ID must be specified when using the website scope')
+                        Mage::helper('customer')->__('Customer website ID must be specified when using the website scope')
                 );
             }
-            $bind['website_id'] = (int)$customer->getWebsiteId();
+            $bind['website_id'] = (int) $customer->getWebsiteId();
             $select->where('website_id = :website_id');
         }
 
@@ -248,11 +246,11 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     public function findEmailDuplicates()
     {
         $adapter = $this->_getReadAdapter();
-        $select  = $adapter->select()
-            ->from($this->getTable('customer/entity'), array('email', 'cnt' => 'COUNT(*)'))
-            ->group('email')
-            ->order('cnt DESC')
-            ->limit(1);
+        $select = $adapter->select()
+                ->from($this->getTable('customer/entity'), array('email', 'cnt' => 'COUNT(*)'))
+                ->group('email')
+                ->order('cnt DESC')
+                ->limit(1);
         $lookup = $adapter->fetchRow($select);
         if (empty($lookup)) {
             return false;
@@ -269,11 +267,11 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     public function checkCustomerId($customerId)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = array('entity_id' => (int)$customerId);
-        $select  = $adapter->select()
-            ->from($this->getTable('customer/entity'), 'entity_id')
-            ->where('entity_id = :entity_id')
-            ->limit(1);
+        $bind = array('entity_id' => (int) $customerId);
+        $select = $adapter->select()
+                ->from($this->getTable('customer/entity'), 'entity_id')
+                ->where('entity_id = :entity_id')
+                ->limit(1);
 
         $result = $adapter->fetchOne($select, $bind);
         if ($result) {
@@ -291,10 +289,10 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     public function getWebsiteId($customerId)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = array('entity_id' => (int)$customerId);
-        $select  = $adapter->select()
-            ->from($this->getTable('customer/entity'), 'website_id')
-            ->where('entity_id = :entity_id');
+        $bind = array('entity_id' => (int) $customerId);
+        $select = $adapter->select()
+                ->from($this->getTable('customer/entity'), 'website_id')
+                ->where('entity_id = :entity_id');
 
         return $adapter->fetchOne($select, $bind);
     }
@@ -322,7 +320,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @param string $newResetPasswordLinkToken
      * @return Mage_Customer_Model_Resource_Customer
      */
-    public function changeResetPasswordLinkToken(Mage_Customer_Model_Customer $customer, $newResetPasswordLinkToken) {
+    public function changeResetPasswordLinkToken(Mage_Customer_Model_Customer $customer, $newResetPasswordLinkToken)
+    {
         if (is_string($newResetPasswordLinkToken) && !empty($newResetPasswordLinkToken)) {
             $customer->setRpToken($newResetPasswordLinkToken);
             $currentDate = Varien_Date::now();
@@ -332,4 +331,5 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         }
         return $this;
     }
+
 }

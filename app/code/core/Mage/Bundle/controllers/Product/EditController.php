@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 require_once 'Mage/Bundle/controllers/Adminhtml/Bundle/Product/EditController.php';
 
 /**
@@ -36,5 +36,5 @@ require_once 'Mage/Bundle/controllers/Adminhtml/Bundle/Product/EditController.ph
  */
 class Mage_Bundle_Product_EditController extends Mage_Bundle_Adminhtml_Bundle_Product_EditController
 {
-
+    
 }

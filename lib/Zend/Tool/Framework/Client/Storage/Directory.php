@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Directory.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Tool_Framework_Client_Storage_AdapterInterface
  */
@@ -31,8 +31,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_Client_Storage_Directory
-    implements Zend_Tool_Framework_Client_Storage_AdapterInterface
+class Zend_Tool_Framework_Client_Storage_Directory implements Zend_Tool_Framework_Client_Storage_AdapterInterface
 {
 
     protected $_directoryPath = null;

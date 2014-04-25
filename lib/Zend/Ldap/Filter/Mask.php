@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,12 +20,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Mask.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Ldap_Filter_String
  */
 #require_once 'Zend/Ldap/Filter/String.php';
-
 
 /**
  * Zend_Ldap_Filter_Mask provides a simple string filter to be used with a mask.
@@ -37,6 +36,7 @@
  */
 class Zend_Ldap_Filter_Mask extends Zend_Ldap_Filter_String
 {
+
     /**
      * Creates a Zend_Ldap_Filter_String.
      *
@@ -47,7 +47,7 @@ class Zend_Ldap_Filter_Mask extends Zend_Ldap_Filter_String
     {
         $args = func_get_args();
         array_shift($args);
-        for ($i = 0; $i<count($args); $i++) {
+        for ($i = 0; $i < count($args); $i++) {
             $args[$i] = self::escapeValue($args[$i]);
         }
         $filter = vsprintf($mask, $args);
@@ -63,4 +63,5 @@ class Zend_Ldap_Filter_Mask extends Zend_Ldap_Filter_String
     {
         return $this->_filter;
     }
+
 }

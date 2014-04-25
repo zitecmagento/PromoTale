@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: Hostname.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Controller_Router_Route_Abstract */
 #require_once 'Zend/Controller/Router/Route/Abstract.php';
 
@@ -35,9 +35,9 @@
 class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route_Abstract
 {
 
-    protected $_hostVariable   = ':';
+    protected $_hostVariable = ':';
     protected $_regexDelimiter = '#';
-    protected $_defaultRegex   = null;
+    protected $_defaultRegex = null;
 
     /**
      * Holds names of all route's pattern variable names. Array index holds a position in host.
@@ -125,8 +125,8 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      */
     public static function getInstance(Zend_Config $config)
     {
-        $reqs   = ($config->reqs instanceof Zend_Config) ? $config->reqs->toArray() : array();
-        $defs   = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : array();
+        $reqs = ($config->reqs instanceof Zend_Config) ? $config->reqs->toArray() : array();
+        $defs = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : array();
         $scheme = (isset($config->scheme)) ? $config->scheme : null;
         return new self($config->route, $defs, $reqs, $scheme);
     }
@@ -143,10 +143,10 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      */
     public function __construct($route, $defaults = array(), $reqs = array(), $scheme = null)
     {
-        $route               = trim($route, '.');
-        $this->_defaults     = (array) $defaults;
+        $route = trim($route, '.');
+        $this->_defaults = (array) $defaults;
         $this->_requirements = (array) $reqs;
-        $this->_scheme       = $scheme;
+        $this->_scheme = $scheme;
 
         if ($route != '') {
             foreach (explode('.', $route) as $pos => $part) {
@@ -239,7 +239,6 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
         $this->_values = $values;
 
         return $return;
-
     }
 
     /**
@@ -283,7 +282,8 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
 
         foreach (array_reverse($host, true) as $key => $value) {
             if ($flag || !isset($this->_variables[$key]) || $value !== $this->getDefault($this->_variables[$key]) || $partial) {
-                if ($encode) $value = urlencode($value);
+                if ($encode)
+                    $value = urlencode($value);
                 $return = '.' . $value . $return;
                 $flag = true;
             }
@@ -303,7 +303,7 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
         }
 
         $hostname = implode('.', $host);
-        $url      = $scheme . '://' . $url;
+        $url = $scheme . '://' . $url;
 
         return $url;
     }
@@ -314,7 +314,8 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      * @param string $name Array key of the parameter
      * @return string Previously set default
      */
-    public function getDefault($name) {
+    public function getDefault($name)
+    {
         if (isset($this->_defaults[$name])) {
             return $this->_defaults[$name];
         }
@@ -326,7 +327,8 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      *
      * @return array Route defaults
      */
-    public function getDefaults() {
+    public function getDefaults()
+    {
         return $this->_defaults;
     }
 
@@ -339,4 +341,5 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
     {
         return $this->_variables;
     }
+
 }

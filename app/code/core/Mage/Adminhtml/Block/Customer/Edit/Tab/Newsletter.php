@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -53,13 +54,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
             return $this;
         }
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('customer')->__('Newsletter Information')));
+        $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('customer')->__('Newsletter Information')));
 
-        $fieldset->addField('subscription', 'checkbox',
-             array(
-                    'label' => Mage::helper('customer')->__('Subscribed to Newsletter?'),
-                    'name'  => 'subscription'
-             )
+        $fieldset->addField('subscription', 'checkbox', array(
+            'label' => Mage::helper('customer')->__('Subscribed to Newsletter?'),
+            'name' => 'subscription'
+                )
         );
 
         if ($customer->isReadonly()) {
@@ -68,13 +68,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
 
         $form->getElement('subscription')->setIsChecked($subscriber->isSubscribed());
 
-        if($changedDate = $this->getStatusChangedDate()) {
-             $fieldset->addField('change_status_date', 'label',
-                 array(
-                        'label' => $subscriber->isSubscribed() ? Mage::helper('customer')->__('Last Date Subscribed') : Mage::helper('customer')->__('Last Date Unsubscribed'),
-                        'value' => $changedDate,
-                        'bold'  => true
-                 )
+        if ($changedDate = $this->getStatusChangedDate()) {
+            $fieldset->addField('change_status_date', 'label', array(
+                'label' => $subscriber->isSubscribed() ? Mage::helper('customer')->__('Last Date Subscribed') : Mage::helper('customer')->__('Last Date Unsubscribed'),
+                'value' => $changedDate,
+                'bold' => true
+                    )
             );
         }
 
@@ -85,10 +84,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
     public function getStatusChangedDate()
     {
         $subscriber = Mage::registry('subscriber');
-        if($subscriber->getChangeStatusAt()) {
+        if ($subscriber->getChangeStatusAt()) {
             return $this->formatDate(
-                $subscriber->getChangeStatusAt(),
-                Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true
+                            $subscriber->getChangeStatusAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true
             );
         }
 
@@ -97,8 +95,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
 
     protected function _prepareLayout()
     {
-        $this->setChild('grid',
-            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter_grid','newsletter.grid')
+        $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter_grid', 'newsletter.grid')
         );
         return parent::_prepareLayout();
     }

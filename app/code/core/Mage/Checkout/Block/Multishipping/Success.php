@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Checkout_Block_Multishipping_Success extends Mage_Checkout_Block_Multishipping_Abstract
 {
+
     public function getOrderIds()
     {
         $ids = Mage::getSingleton('core/session')->getOrderIds(true);
@@ -53,4 +55,5 @@ class Mage_Checkout_Block_Multishipping_Success extends Mage_Checkout_Block_Mult
     {
         return Mage::getBaseUrl();
     }
+
 }

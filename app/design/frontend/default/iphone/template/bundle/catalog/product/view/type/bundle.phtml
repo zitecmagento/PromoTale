@@ -23,16 +23,15 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 ?>
 <?php $_product = $this->getProduct() ?>
 
-<?php if($_product->isSaleable()): ?>
-<script type="text/javascript">
-//<![CDATA[
-    var bundle = new Product.Bundle(<?php echo $this->getJsonConfig() ?>);
-//]]>
-</script>
+<?php if ($_product->isSaleable()): ?>
+    <script type="text/javascript">
+    //<![CDATA[
+        var bundle = new Product.Bundle(<?php echo $this->getJsonConfig() ?>);
+    //]]>
+    </script>
 <?php endif; ?>
 <?php if ($_product->isAvailable()): ?>
     <p class="availability in-stock"><?php echo $this->helper('catalog')->__('Availability:') ?> <span><?php echo $this->helper('catalog')->__('In stock') ?></span></p>

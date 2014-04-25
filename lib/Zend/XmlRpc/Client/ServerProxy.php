@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -20,7 +21,6 @@
  * @version    $Id: ServerProxy.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * The namespace decorator enables object chaining to permit
  * calling XML-RPC namespaced functions like "foo.bar.baz()"
@@ -34,6 +34,7 @@
  */
 class Zend_XmlRpc_Client_ServerProxy
 {
+
     /**
      * @var Zend_XmlRpc_Client
      */
@@ -44,12 +45,10 @@ class Zend_XmlRpc_Client_ServerProxy
      */
     private $_namespace = '';
 
-
     /**
      * @var array of Zend_XmlRpc_Client_ServerProxy
      */
     private $_cache = array();
-
 
     /**
      * Class constructor
@@ -60,9 +59,8 @@ class Zend_XmlRpc_Client_ServerProxy
     public function __construct($client, $namespace = '')
     {
         $this->_namespace = $namespace;
-        $this->_client    = $client;
+        $this->_client = $client;
     }
-
 
     /**
      * Get the next successive namespace
@@ -79,7 +77,6 @@ class Zend_XmlRpc_Client_ServerProxy
         return $this->_cache[$namespace];
     }
 
-
     /**
      * Call a method in this namespace.
      *
@@ -92,4 +89,5 @@ class Zend_XmlRpc_Client_ServerProxy
         $method = ltrim("$this->_namespace.$method", '.');
         return $this->_client->call($method, $args);
     }
+
 }

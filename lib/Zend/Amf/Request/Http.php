@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Http.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** @see Zend_Amf_Request */
 #require_once 'Zend/Amf/Request.php';
 
@@ -37,6 +37,7 @@
  */
 class Zend_Amf_Request_Http extends Zend_Amf_Request
 {
+
     /**
      * Raw AMF request
      * @var string
@@ -64,7 +65,7 @@ class Zend_Amf_Request_Http extends Zend_Amf_Request
             $this->_rawRequest = $amfRequest;
             $this->initialize($amfRequest);
         } else {
-            echo '<p>Zend Amf Endpoint</p>' ;
+            echo '<p>Zend Amf Endpoint</p>';
         }
     }
 
@@ -77,4 +78,5 @@ class Zend_Amf_Request_Http extends Zend_Amf_Request
     {
         return $this->_rawRequest;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Adminhtml_Block_System_Config_Form_Field_Regexceptions extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
 {
+
     public function __construct()
     {
         $this->addColumn('regexp', array(
@@ -47,4 +49,5 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Regexceptions extends Mage_A
         $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add Exception');
         parent::__construct();
     }
+
 }

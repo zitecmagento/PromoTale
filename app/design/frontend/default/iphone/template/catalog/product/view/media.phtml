@@ -23,7 +23,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * Product media data template
  *
@@ -31,16 +30,16 @@
  */
 ?>
 <?php
-    $_product = $this->getProduct();
-    $_helper = $this->helper('catalog/output');
+$_product = $this->getProduct();
+$_helper = $this->helper('catalog/output');
 ?>
 <div class="product-image-wrap">
     <div class="product-image">
         <ul><!--
             --><li>
                 <?php
-                    $_img = '<a href="'.$this->getGalleryUrl().'"><img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(290).'" width="145" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" /></a>';
-                    echo $_helper->productAttribute($_product, $_img, 'image');
+                $_img = '<a href="' . $this->getGalleryUrl() . '"><img src="' . $this->helper('catalog/image')->init($_product, 'image')->resize(290) . '" width="145" alt="' . $this->escapeHtml($this->getImageLabel()) . '" title="' . $this->escapeHtml($this->getImageLabel()) . '" /></a>';
+                echo $_helper->productAttribute($_product, $_img, 'image');
                 ?>
             </li><!--
             <?php if (count($this->getGalleryImages()) > 0): ?>
@@ -48,6 +47,6 @@
                     --><li><a href="<?php echo $this->getGalleryUrl($_image) ?>" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(290); ?>" width="145" height="145" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" /></a></li><!--
                 <?php endforeach; ?>
             <?php endif; ?>
-        --></ul>
+            --></ul>
     </div>
 </div>

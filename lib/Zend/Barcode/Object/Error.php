@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Error.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** @see Zend_Barcode_Object_ObjectAbstract */
 #require_once 'Zend/Barcode/Object/ObjectAbstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_Barcode_Object_Error extends Zend_Barcode_Object_ObjectAbstract
 {
+
     /**
      * All texts are accepted
      * @param string $value
@@ -69,8 +70,8 @@ class Zend_Barcode_Object_Error extends Zend_Barcode_Object_ObjectAbstract
     public function draw()
     {
         $this->_instructions = array();
-        $this->_addText('ERROR:', 10, array(5 , 18), $this->_font, 0, 'left');
-        $this->_addText($this->_text, 10, array(5 , 32), $this->_font, 0, 'left');
+        $this->_addText('ERROR:', 10, array(5, 18), $this->_font, 0, 'left');
+        $this->_addText($this->_text, 10, array(5, 32), $this->_font, 0, 'left');
         return $this->_instructions;
     }
 
@@ -80,6 +81,7 @@ class Zend_Barcode_Object_Error extends Zend_Barcode_Object_ObjectAbstract
      */
     protected function _prepareBarcode()
     {
+        
     }
 
     /**
@@ -88,6 +90,7 @@ class Zend_Barcode_Object_Error extends Zend_Barcode_Object_ObjectAbstract
      */
     protected function _checkParams()
     {
+        
     }
 
     /**
@@ -96,5 +99,7 @@ class Zend_Barcode_Object_Error extends Zend_Barcode_Object_ObjectAbstract
      */
     protected function _calculateBarcodeWidth()
     {
+        
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,12 +34,13 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Page extends Varien_Data_Form_Element_Abstract
 {
+
     /**
      * Init page element
      *
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setType('page');
@@ -52,13 +54,13 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Page extends Varien_Da
     public function initFields($conf)
     {
         $this->addElement(new Varien_Data_Form_Element_Text(array(
-            'name'  => $conf['name'] . '[label]',
+            'name' => $conf['name'] . '[label]',
             'class' => 'label onclick_text',
         )));
 
         $this->addElement(new Varien_Data_Form_Element_Select(array(
-            'name'      => $conf['name'] . '[id]',
-            'values'    => $conf['values'],
+            'name' => $conf['name'] . '[id]',
+            'values' => $conf['values'],
         )));
     }
 
@@ -98,7 +100,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Page extends Varien_Da
     {
         list($label, $element) = $this->getElements();
         return $element->toHtml() . '</td><td class="label" style="width: 5em">'
-            . '<button class=" scalable save onclick_button" value="&minus;"><span>'
-            . Mage::helper('xmlconnect')->__('Delete') . '</span></button>';
+                . '<button class=" scalable save onclick_button" value="&minus;"><span>'
+                . Mage::helper('xmlconnect')->__('Delete') . '</span></button>';
     }
+
 }

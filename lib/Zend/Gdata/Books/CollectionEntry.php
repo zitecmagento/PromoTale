@@ -20,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CollectionEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Gdata_Entry
  */
@@ -51,6 +50,4 @@ class Zend_Gdata_Books_CollectionEntry extends Zend_Gdata_Entry
         parent::__construct($element);
     }
 
-
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Sales_Block_Order_Invoice_Items extends Mage_Sales_Block_Items_Abstract
 {
+
     /**
      * Retrieve current order model instance
      *
@@ -82,9 +84,10 @@ class Mage_Sales_Block_Order_Invoice_Items extends Mage_Sales_Block_Items_Abstra
         $comments = $this->getChild('invoice_comments');
         if ($comments) {
             $comments->setEntity($invoice)
-                ->setTitle(Mage::helper('sales')->__('About Your Invoice'));
+                    ->setTitle(Mage::helper('sales')->__('About Your Invoice'));
             $html = $comments->toHtml();
         }
         return $html;
     }
+
 }

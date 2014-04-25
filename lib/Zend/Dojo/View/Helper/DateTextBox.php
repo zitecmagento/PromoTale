@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: DateTextBox.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /** Zend_Dojo_View_Helper_Dijit */
 #require_once 'Zend/Dojo/View/Helper/Dijit.php';
 
@@ -31,14 +31,15 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
-  */
+ */
 class Zend_Dojo_View_Helper_DateTextBox extends Zend_Dojo_View_Helper_Dijit
 {
+
     /**
      * Dijit being used
      * @var string
      */
-    protected $_dijit  = 'dijit.form.DateTextBox';
+    protected $_dijit = 'dijit.form.DateTextBox';
 
     /**
      * HTML element type
@@ -65,4 +66,5 @@ class Zend_Dojo_View_Helper_DateTextBox extends Zend_Dojo_View_Helper_Dijit
     {
         return $this->_createFormElement($id, $value, $params, $attribs);
     }
+
 }

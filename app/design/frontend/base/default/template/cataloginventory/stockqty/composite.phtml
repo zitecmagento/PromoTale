@@ -23,12 +23,11 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * @see Mage_CatalogInventory_Block_Stockqty_Composite
  */
 ?>
-<?php if($this->isMsgVisible()): ?>
+<?php if ($this->isMsgVisible()): ?>
     <p class="availability-only">
         <a href="#" id="<?php echo $this->getPlaceholderId() ?>" title="<?php echo $this->__('Only %s left', ($this->getStockQty())) ?>"><?php echo $this->__('Only %s left', "<strong>{$this->getStockQty()}</strong>") ?></a>
     </p>
@@ -42,25 +41,26 @@
             </tr>
         </thead>
         <tbody>
-        <?php foreach ($this->getChildProducts() as $childProduct) : ?>
-            <?php $childProductStockQty = $this->getProductStockQty($childProduct); ?>
-            <?php if ($childProductStockQty > 0) : ?>
-                <tr>
-                    <td><?php echo $childProduct->getName() ?></td>
-                    <td class="a-center"><?php echo $childProductStockQty ?></td>
-                </tr>
-            <?php endif ?>
-        <?php endforeach ?>
+            <?php foreach ($this->getChildProducts() as $childProduct) : ?>
+                <?php $childProductStockQty = $this->getProductStockQty($childProduct); ?>
+                <?php if ($childProductStockQty > 0) : ?>
+                    <tr>
+                        <td><?php echo $childProduct->getName() ?></td>
+                        <td class="a-center"><?php echo $childProductStockQty ?></td>
+                    </tr>
+                <?php endif ?>
+            <?php endforeach ?>
         </tbody>
     </table>
     <script type="text/javascript">
-    //<![CDATA[
-    $('<?php echo $this->getPlaceholderId() ?>').observe('click', function(event){
-        this.toggleClassName('expanded');
-        $('<?php echo $this->getDetailsPlaceholderId() ?>').toggleClassName('no-display');
-        event.stop();
-        decorateTable('<?php echo $this->getDetailsPlaceholderId() ?>');
-    });
-    //]]>
+        //<![CDATA[
+        $('<?php echo $this->getPlaceholderId() ?>').observe('click', function(event) {
+            this.toggleClassName('expanded');
+            $('<?php echo $this->getDetailsPlaceholderId() ?>').toggleClassName('no-display');
+            event.stop();
+            decorateTable('<?php echo $this->getDetailsPlaceholderId() ?>');
+        });
+        //]]>
     </script>
-<?php endif ?>
+    <?php
+ endif ?>

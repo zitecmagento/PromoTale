@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -29,6 +30,7 @@
  */
 class Zend_Service_Amazon_SimpleDb_Attribute
 {
+
     protected $_itemName;
     protected $_name;
     protected $_values;
@@ -41,10 +43,10 @@ class Zend_Service_Amazon_SimpleDb_Attribute
      * @param  array $values 
      * @return void
      */
-    function __construct($itemName, $name, $values) 
+    function __construct($itemName, $name, $values)
     {
         $this->_itemName = $itemName;
-        $this->_name     = $name;
+        $this->_name = $name;
 
         if (!is_array($values)) {
             $this->_values = array($values);
@@ -53,17 +55,17 @@ class Zend_Service_Amazon_SimpleDb_Attribute
         }
     }
 
-	/**
+    /**
      * Return the item name to which the attribute belongs
      *
      * @return string
      */
-    public function getItemName ()
+    public function getItemName()
     {
         return $this->_itemName;
     }
 
-	/**
+    /**
      * Retrieve attribute values
      *
      * @return array
@@ -73,16 +75,16 @@ class Zend_Service_Amazon_SimpleDb_Attribute
         return $this->_values;
     }
 
-	/**
+    /**
      * Retrieve the attribute name
      *
      * @return string
      */
-    public function getName ()
+    public function getName()
     {
         return $this->_name;
     }
-    
+
     /**
      * Add value
      * 
@@ -92,7 +94,7 @@ class Zend_Service_Amazon_SimpleDb_Attribute
     public function addValue($value)
     {
         if (is_array($value)) {
-             $this->_values += $value;   
+            $this->_values += $value;
         } else {
             $this->_values[] = $value;
         }
@@ -105,4 +107,5 @@ class Zend_Service_Amazon_SimpleDb_Attribute
         }
         $this->_values = $values;
     }
+
 }

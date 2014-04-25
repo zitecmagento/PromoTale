@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
@@ -31,10 +31,10 @@ $installer->startSetup();
 
 // replace transaction URLs - see http://integrationwizard.x.com/sdkupdate/step3.php
 foreach (array(
-        'pilot-payflowpro.verisign.com' => 'pilot-payflowpro.paypal.com',
-        'test-payflow.verisign.com'     => 'pilot-payflowpro.paypal.com',
-        'payflow.verisign.com'          => 'payflowpro.paypal.com',
-    ) as $from => $to) {
+'pilot-payflowpro.verisign.com' => 'pilot-payflowpro.paypal.com',
+ 'test-payflow.verisign.com' => 'pilot-payflowpro.paypal.com',
+ 'payflow.verisign.com' => 'payflowpro.paypal.com',
+) as $from => $to) {
     $installer->run("
     UPDATE {$installer->getTable('core/config_data')} SET `value` = REPLACE(`value`, '{$from}', '{$to}')
     WHERE `path` = 'payment/verisign/url'

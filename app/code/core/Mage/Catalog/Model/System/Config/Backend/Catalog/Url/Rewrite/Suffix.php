@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -29,6 +30,7 @@
  */
 class Mage_Catalog_Model_System_Config_Backend_Catalog_Url_Rewrite_Suffix extends Mage_Core_Model_Config_Data
 {
+
     /**
      * Check url rewrite suffix - whether we can support it
      *
@@ -39,4 +41,5 @@ class Mage_Catalog_Model_System_Config_Backend_Catalog_Url_Rewrite_Suffix extend
         Mage::helper('core/url_rewrite')->validateSuffix($this->getValue());
         return $this;
     }
+
 }

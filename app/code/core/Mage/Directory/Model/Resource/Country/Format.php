@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Directory country format resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Directory_Model_Resource_Country_Format extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Resource initialization
      *
@@ -51,9 +52,10 @@ class Mage_Directory_Model_Resource_Country_Format extends Mage_Core_Model_Resou
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = array(array(
-            'field' => array('country_id', 'type'),
-            'title' => Mage::helper('directory')->__('Country and Format Type combination should be unique')
+                'field' => array('country_id', 'type'),
+                'title' => Mage::helper('directory')->__('Country and Format Type combination should be unique')
         ));
         return $this;
     }
+
 }

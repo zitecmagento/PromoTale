@@ -20,7 +20,6 @@
  * @version    $Id: Feed.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /**
  * Feed utility class
  *
@@ -54,10 +53,9 @@ class Zend_Feed
      */
     protected static $_namespaces = array(
         'opensearch' => 'http://a9.com/-/spec/opensearchrss/1.0/',
-        'atom'       => 'http://www.w3.org/2005/Atom',
-        'rss'        => 'http://blogs.law.harvard.edu/tech/rss',
+        'atom' => 'http://www.w3.org/2005/Atom',
+        'rss' => 'http://blogs.law.harvard.edu/tech/rss',
     );
-
 
     /**
      * Set the HTTP client instance
@@ -71,7 +69,6 @@ class Zend_Feed
     {
         self::$_httpClient = $httpClient;
     }
-
 
     /**
      * Gets the HTTP client object. If none is set, a new Zend_Http_Client will be used.
@@ -91,7 +88,6 @@ class Zend_Feed
         return self::$_httpClient;
     }
 
-
     /**
      * Toggle using POST instead of PUT and DELETE HTTP methods
      *
@@ -110,7 +106,6 @@ class Zend_Feed
         self::$_httpMethodOverride = $override;
     }
 
-
     /**
      * Get the HTTP override state
      *
@@ -120,7 +115,6 @@ class Zend_Feed
     {
         return self::$_httpMethodOverride;
     }
-
 
     /**
      * Get the full version of a namespace prefix
@@ -135,10 +129,9 @@ class Zend_Feed
     public static function lookupNamespace($prefix)
     {
         return isset(self::$_namespaces[$prefix]) ?
-            self::$_namespaces[$prefix] :
-            $prefix;
+                self::$_namespaces[$prefix] :
+                $prefix;
     }
-
 
     /**
      * Add a namespace and prefix to the registered list
@@ -155,7 +148,6 @@ class Zend_Feed
     {
         self::$_namespaces[$prefix] = $namespaceURI;
     }
-
 
     /**
      * Imports a feed located at $uri.
@@ -179,7 +171,6 @@ class Zend_Feed
         $feed = $response->getBody();
         return self::importString($feed);
     }
-
 
     /**
      * Imports a feed represented by $string.
@@ -222,7 +213,7 @@ class Zend_Feed
 
         // Try to find the base feed element or a single <entry> of an Atom feed
         if ($doc->getElementsByTagName('feed')->item(0) ||
-            $doc->getElementsByTagName('entry')->item(0)) {
+                $doc->getElementsByTagName('entry')->item(0)) {
             /**
              * @see Zend_Feed_Atom
              */
@@ -249,7 +240,6 @@ class Zend_Feed
         throw new Zend_Feed_Exception('Invalid or unsupported feed format');
     }
 
-
     /**
      * Imports a feed from a file located at $filename.
      *
@@ -271,7 +261,6 @@ class Zend_Feed
         }
         return self::importString($feed);
     }
-
 
     /**
      * Attempts to find feeds at $uri referenced by <link ... /> tags. Returns an
@@ -334,11 +323,15 @@ class Zend_Feed
                 if (!isset($attributes['href'])) {
                     continue;
                 }
-                try {
+                try
+                {
                     // checks if we need to canonize the given uri
-                    try {
+                    try
+                    {
                         $uri = Zend_Uri::factory((string) $attributes['href']);
-                    } catch (Zend_Uri_Exception $e) {
+                    }
+                    catch (Zend_Uri_Exception $e)
+                    {
                         // canonize the uri
                         $path = (string) $attributes['href'];
                         $query = $fragment = '';
@@ -359,7 +352,9 @@ class Zend_Feed
                     }
 
                     $feed = self::import($uri);
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     continue;
                 }
                 $feeds[$uri->getUri()] = $feed;
@@ -408,4 +403,5 @@ class Zend_Feed
         }
         return new $obj(null, null, $builder);
     }
+
 }

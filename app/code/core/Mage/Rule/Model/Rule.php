@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,6 +36,7 @@
  */
 class Mage_Rule_Model_Rule extends Mage_Rule_Model_Abstract
 {
+
     /**
      * Getter for rule combine conditions instance
      *
@@ -54,4 +56,5 @@ class Mage_Rule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         return Mage::getModel('rule/action_collection');
     }
+
 }

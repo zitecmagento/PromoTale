@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -54,15 +55,16 @@
  */
 class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
 {
+
     /**
      * Option group text
      */
-    const OPTION_GROUP_TEXT   = 'text';
+    const OPTION_GROUP_TEXT = 'text';
 
     /**
      * Option group file
      */
-    const OPTION_GROUP_FILE   = 'file';
+    const OPTION_GROUP_FILE = 'file';
 
     /**
      * Option group select
@@ -72,22 +74,22 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Option group date
      */
-    const OPTION_GROUP_DATE   = 'date';
+    const OPTION_GROUP_DATE = 'date';
 
     /**
      * Option type field
      */
-    const OPTION_TYPE_FIELD     = 'field';
+    const OPTION_TYPE_FIELD = 'field';
 
     /**
      * Option type area
      */
-    const OPTION_TYPE_AREA      = 'area';
+    const OPTION_TYPE_AREA = 'area';
 
     /**
      * Option group file
      */
-    const OPTION_TYPE_FILE      = 'file';
+    const OPTION_TYPE_FILE = 'file';
 
     /**
      * Option type drop down
@@ -97,22 +99,22 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Option type radio
      */
-    const OPTION_TYPE_RADIO     = 'radio';
+    const OPTION_TYPE_RADIO = 'radio';
 
     /**
      * Option type checkbox
      */
-    const OPTION_TYPE_CHECKBOX  = 'checkbox';
+    const OPTION_TYPE_CHECKBOX = 'checkbox';
 
     /**
      * Option type multiple
      */
-    const OPTION_TYPE_MULTIPLE  = 'multiple';
+    const OPTION_TYPE_MULTIPLE = 'multiple';
 
     /**
      * Option type date
      */
-    const OPTION_TYPE_DATE      = 'date';
+    const OPTION_TYPE_DATE = 'date';
 
     /**
      * Option type date/time
@@ -122,7 +124,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Option type time
      */
-    const OPTION_TYPE_TIME      = 'time';
+    const OPTION_TYPE_TIME = 'time';
 
     /**
      * Product instance
@@ -301,7 +303,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             self::OPTION_TYPE_TIME => self::OPTION_GROUP_DATE,
         );
 
-        return isset($optionGroupsToTypes[$type])?$optionGroupsToTypes[$type]:'';
+        return isset($optionGroupsToTypes[$type]) ? $optionGroupsToTypes[$type] : '';
     }
 
     /**
@@ -328,15 +330,15 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     {
         foreach ($this->getOptions() as $option) {
             $this->setData($option)
-                ->setData('product_id', $this->getProduct()->getId())
-                ->setData('store_id', $this->getProduct()->getStoreId());
+                    ->setData('product_id', $this->getProduct()->getId())
+                    ->setData('store_id', $this->getProduct()->getStoreId());
 
             if ($this->getData('option_id') == '0') {
                 $this->unsetData('option_id');
             } else {
                 $this->setId($this->getData('option_id'));
             }
-            $isEdit = (bool)$this->getId()? true:false;
+            $isEdit = (bool) $this->getId() ? true : false;
 
             if ($this->getData('is_delete') == '1') {
                 if ($isEdit) {
@@ -383,7 +385,8 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                         }
                     }
                 }
-                $this->save();            }
+                $this->save();
+            }
         }//eof foreach()
         return $this;
     }
@@ -402,7 +405,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             }
 
             $this->getValueInstance()->setOption($this)
-                ->saveValues();
+                    ->saveValues();
         } elseif ($this->getGroupByType($this->getType()) == self::OPTION_GROUP_SELECT) {
             Mage::throwException(Mage::helper('catalog')->__('Select type options required values rows.'));
         }
@@ -421,7 +424,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     {
         if ($flag && $this->getPriceType() == 'percent') {
             $basePrice = $this->getProduct()->getFinalPrice();
-            $price = $basePrice * ($this->_getData('price')/100);
+            $price = $basePrice * ($this->_getData('price') / 100);
             return $price;
         }
         return $this->_getData('price');
@@ -460,11 +463,11 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     public function getProductOptionCollection(Mage_Catalog_Model_Product $product)
     {
         $collection = $this->getCollection()
-            ->addFieldToFilter('product_id', $product->getId())
-            ->addTitleToResult($product->getStoreId())
-            ->addPriceToResult($product->getStoreId())
-            ->setOrder('sort_order', 'asc')
-            ->setOrder('title', 'asc');
+                ->addFieldToFilter('product_id', $product->getId())
+                ->addTitleToResult($product->getStoreId())
+                ->addPriceToResult($product->getStoreId())
+                ->setOrder('sort_order', 'asc')
+                ->setOrder('title', 'asc');
 
         if ($this->getAddRequiredFilter()) {
             $collection->addRequiredFilter($this->getAddRequiredFilterValue());
@@ -482,7 +485,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     public function getValuesCollection()
     {
         $collection = $this->getValueInstance()
-            ->getValuesCollection($this);
+                ->getValuesCollection($this);
 
         return $collection;
     }
@@ -497,7 +500,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     public function getOptionValuesByOptionId($optionIds, $store_id)
     {
         $collection = Mage::getModel('catalog/product_option_value')
-            ->getValuesByOption($optionIds, $this->getId(), $store_id);
+                ->getValuesByOption($optionIds, $this->getId(), $store_id);
 
         return $collection;
     }
@@ -591,4 +594,5 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
         }
         return false;
     }
+
 }

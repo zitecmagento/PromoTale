@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -34,6 +35,7 @@
  */
 class Mage_Admin_Model_Resource_Acl_Role extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Define main table
      *
@@ -42,4 +44,5 @@ class Mage_Admin_Model_Resource_Acl_Role extends Mage_Core_Model_Resource_Db_Abs
     {
         $this->_init('admin/role', 'role_id');
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @version    $Id: BaseUrl.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** @see Zend_View_Helper_Abstract */
 #require_once 'Zend/View/Helper/Abstract.php';
 
@@ -33,6 +33,7 @@
  */
 class Zend_View_Helper_BaseUrl extends Zend_View_Helper_Abstract
 {
+
     /**
      * BaseUrl
      *
@@ -113,4 +114,5 @@ class Zend_View_Helper_BaseUrl extends Zend_View_Helper_Abstract
 
         return $url;
     }
+
 }

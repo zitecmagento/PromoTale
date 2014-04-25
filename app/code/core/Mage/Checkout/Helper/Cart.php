@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,6 +32,7 @@
  */
 class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
 {
+
     /**
      * XML path for redirect to cart value
      */
@@ -62,7 +64,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     {
         $routeParams = array(
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->_getHelperInstance('core')
-                ->urlEncode($this->getCurrentUrl()),
+                    ->urlEncode($this->getCurrentUrl()),
             'product' => $product->getEntityId(),
             Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey()
         );
@@ -76,8 +78,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
             $routeParams['_store_to_url'] = true;
         }
 
-        if ($this->_getRequest()->getRouteName() == 'checkout'
-            && $this->_getRequest()->getControllerName() == 'cart') {
+        if ($this->_getRequest()->getRouteName() == 'checkout' && $this->_getRequest()->getControllerName() == 'cart') {
             $routeParams['in_cart'] = 1;
         }
 
@@ -180,4 +181,5 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_REDIRECT_TO_CART, $store);
     }
+
 }

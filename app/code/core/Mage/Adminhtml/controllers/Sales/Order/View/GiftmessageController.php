@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml sales order view gift messages controller
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Adminhtml_Sales_Order_View_GiftmessageController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Additional initialization
      *
@@ -45,23 +46,28 @@ class Mage_Adminhtml_Sales_Order_View_GiftmessageController extends Mage_Adminht
 
     public function saveAction()
     {
-        try {
+        try
+        {
             $this->_getGiftmessageSaveModel()
-                ->setGiftmessages($this->getRequest()->getParam('giftmessage'))
-                ->saveAllInOrder();
-        } catch (Mage_Core_Exception $e) {
+                    ->setGiftmessages($this->getRequest()->getParam('giftmessage'))
+                    ->saveAllInOrder();
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->_getSession()->addError(Mage::helper('giftmessage')->__('An error occurred while saving the gift message.'));
         }
 
-        if($this->getRequest()->getParam('type')=='order_item') {
+        if ($this->getRequest()->getParam('type') == 'order_item') {
             $this->getResponse()->setBody(
-                 $this->_getGiftmessageSaveModel()->getSaved() ? 'YES' : 'NO'
+                    $this->_getGiftmessageSaveModel()->getSaved() ? 'YES' : 'NO'
             );
         } else {
             $this->getResponse()->setBody(
-                Mage::helper('giftmessage')->__('The gift message has been saved.')
+                    Mage::helper('giftmessage')->__('The gift message has been saved.')
             );
         }
     }

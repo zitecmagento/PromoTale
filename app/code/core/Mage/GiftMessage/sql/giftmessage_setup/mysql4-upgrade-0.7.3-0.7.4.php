@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,49 +24,34 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* $installer Mage_Core_Model_Resource_Setup */
 
 $installer->updateAttribute(
-    'catalog_product',
-    'gift_message_available',
-    'source_model',
-    'eav/entity_attribute_source_boolean'
+        'catalog_product', 'gift_message_available', 'source_model', 'eav/entity_attribute_source_boolean'
 );
 
 $installer->updateAttribute(
-    'catalog_product',
-    'gift_message_available',
-    'backend_model',
-    'catalog/product_attribute_backend_boolean'
+        'catalog_product', 'gift_message_available', 'backend_model', 'catalog/product_attribute_backend_boolean'
 );
 
 $installer->updateAttribute(
-    'catalog_product',
-    'gift_message_available',
-    'frontend_input_renderer',
-    'adminhtml/catalog_product_helper_form_config'
+        'catalog_product', 'gift_message_available', 'frontend_input_renderer', 'adminhtml/catalog_product_helper_form_config'
 );
 
 $installer->updateAttribute(
-    'catalog_product',
-    'gift_message_available',
-    'default_value',
-    ''
+        'catalog_product', 'gift_message_available', 'default_value', ''
 );
 
 /*
  * Update previously saved data for 'gift_message_available' attribute
  */
 $entityTypeId = $installer->getEntityTypeId('catalog_product');
-$attributeId  = $installer->getAttributeId($entityTypeId, 'gift_message_available');
+$attributeId = $installer->getAttributeId($entityTypeId, 'gift_message_available');
 
-$installer->getConnection()->update($installer->getTable('catalog_product_entity_varchar'),
-    array('value' => ''),
-    array(
-        'entity_type_id =?' => $entityTypeId,
-        'attribute_id =?' => $attributeId,
-        'value =?' => '2'
-    )
+$installer->getConnection()->update($installer->getTable('catalog_product_entity_varchar'), array('value' => ''), array(
+    'entity_type_id =?' => $entityTypeId,
+    'attribute_id =?' => $attributeId,
+    'value =?' => '2'
+        )
 );

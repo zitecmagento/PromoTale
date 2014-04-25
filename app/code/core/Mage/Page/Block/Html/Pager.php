@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -35,14 +36,15 @@
  */
 class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
 {
+
     protected $_collection = null;
-    protected $_pageVarName    = 'p';
-    protected $_limitVarName   = 'limit';
-    protected $_availableLimit = array(10=>10,20=>20,50=>50);
-    protected $_dispersion     = 3;
-    protected $_displayPages   = 5;
-    protected $_showPerPage    = true;
-    protected $_limit          = null;
+    protected $_pageVarName = 'p';
+    protected $_limitVarName = 'limit';
+    protected $_availableLimit = array(10 => 10, 20 => 20, 50 => 50);
+    protected $_dispersion = 3;
+    protected $_displayPages = 5;
+    protected $_showPerPage = true;
+    protected $_limit = null;
     protected $_outputRequired = true;
 
     /**
@@ -137,7 +139,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     public function setCollection($collection)
     {
         $this->_collection = $collection
-            ->setCurPage($this->getCurrentPage());
+                ->setCurPage($this->getCurrentPage());
         // If not int - then not limit
         if ((int) $this->getLimit()) {
             $this->_collection->setPageSize($this->getLimit());
@@ -169,13 +171,13 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
 
     public function setShowPerPage($varName)
     {
-        $this->_showPerPage=$varName;
+        $this->_showPerPage = $varName;
         return $this;
     }
 
     public function getShowPerPage()
     {
-        if(sizeof($this->getAvailableLimit())<=1) {
+        if (sizeof($this->getAvailableLimit()) <= 1) {
             return false;
         }
         return $this->_showPerPage;
@@ -205,13 +207,13 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     public function getFirstNum()
     {
         $collection = $this->getCollection();
-        return $collection->getPageSize()*($collection->getCurPage()-1)+1;
+        return $collection->getPageSize() * ($collection->getCurPage() - 1) + 1;
     }
 
     public function getLastNum()
     {
         $collection = $this->getCollection();
-        return $collection->getPageSize()*($collection->getCurPage()-1)+$collection->count();
+        return $collection->getPageSize() * ($collection->getCurPage() - 1) + $collection->count();
     }
 
     public function getTotalNum()
@@ -251,22 +253,18 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         $pages = array();
         if ($collection->getLastPageNumber() <= $this->_displayPages) {
             $pages = range(1, $collection->getLastPageNumber());
-        }
-        else {
+        } else {
             $half = ceil($this->_displayPages / 2);
-            if ($collection->getCurPage() >= $half
-                && $collection->getCurPage() <= $collection->getLastPageNumber() - $half
+            if ($collection->getCurPage() >= $half && $collection->getCurPage() <= $collection->getLastPageNumber() - $half
             ) {
-                $start  = ($collection->getCurPage() - $half) + 1;
+                $start = ($collection->getCurPage() - $half) + 1;
                 $finish = ($start + $this->_displayPages) - 1;
-            }
-            elseif ($collection->getCurPage() < $half) {
-                $start  = 1;
+            } elseif ($collection->getCurPage() < $half) {
+                $start = 1;
                 $finish = $this->_displayPages;
-            }
-            elseif ($collection->getCurPage() > ($collection->getLastPageNumber() - $half)) {
+            } elseif ($collection->getCurPage() > ($collection->getLastPageNumber() - $half)) {
                 $finish = $collection->getLastPageNumber();
-                $start  = $finish - $this->_displayPages + 1;
+                $start = $finish - $this->_displayPages + 1;
             }
 
             $pages = range($start, $finish);
@@ -296,21 +294,21 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
 
     public function getPageUrl($page)
     {
-        return $this->getPagerUrl(array($this->getPageVarName()=>$page));
+        return $this->getPagerUrl(array($this->getPageVarName() => $page));
     }
 
     public function getLimitUrl($limit)
     {
-        return $this->getPagerUrl(array($this->getLimitVarName()=>$limit));
+        return $this->getPagerUrl(array($this->getLimitVarName() => $limit));
     }
 
-    public function getPagerUrl($params=array())
+    public function getPagerUrl($params = array())
     {
         $urlParams = array();
-        $urlParams['_current']  = true;
-        $urlParams['_escape']   = true;
-        $urlParams['_use_rewrite']   = true;
-        $urlParams['_query']    = $params;
+        $urlParams['_current'] = true;
+        $urlParams['_escape'] = true;
+        $urlParams['_use_rewrite'] = true;
+        $urlParams['_query'] = $params;
         return $this->getUrl('*/*/*', $urlParams);
     }
 
@@ -516,22 +514,18 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
             if ($collection->getLastPageNumber() <= $this->getFrameLength()) {
                 $start = 1;
                 $end = $collection->getLastPageNumber();
-            }
-            else {
+            } else {
                 $half = ceil($this->getFrameLength() / 2);
-                if ($collection->getCurPage() >= $half
-                    && $collection->getCurPage() <= $collection->getLastPageNumber() - $half
+                if ($collection->getCurPage() >= $half && $collection->getCurPage() <= $collection->getLastPageNumber() - $half
                 ) {
-                    $start  = ($collection->getCurPage() - $half) + 1;
+                    $start = ($collection->getCurPage() - $half) + 1;
                     $end = ($start + $this->getFrameLength()) - 1;
-                }
-                elseif ($collection->getCurPage() < $half) {
-                    $start  = 1;
+                } elseif ($collection->getCurPage() < $half) {
+                    $start = 1;
                     $end = $this->getFrameLength();
-                }
-                elseif ($collection->getCurPage() > ($collection->getLastPageNumber() - $half)) {
+                } elseif ($collection->getCurPage() > ($collection->getLastPageNumber() - $half)) {
                     $end = $collection->getLastPageNumber();
-                    $start  = $end - $this->getFrameLength() + 1;
+                    $start = $end - $this->getFrameLength() + 1;
                 }
             }
             $this->_frameStart = $start;
@@ -551,7 +545,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     protected function _setFrameInitialized($flag)
     {
-        $this->_frameInitialized = (bool)$flag;
+        $this->_frameInitialized = (bool) $flag;
         return $this;
     }
 
@@ -593,7 +587,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function setIsOutputRequired($isRequired)
     {
-        $this->_outputRequired = (bool)$isRequired;
+        $this->_outputRequired = (bool) $isRequired;
         return $this;
     }
 
@@ -609,4 +603,5 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         }
         return '';
     }
+
 }

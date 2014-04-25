@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -28,6 +29,7 @@
  */
 class Zend_Dojo_BuildLayer
 {
+
     /**
      * Flag: whether or not to consume JS aggregated in the dojo() view
      * helper when generate the module layer contents
@@ -67,12 +69,12 @@ class Zend_Dojo_BuildLayer
      * @var array
      */
     protected $_profileOptions = array(
-        'action'        => 'release',
-        'optimize'      => 'shrinksafe',
+        'action' => 'release',
+        'optimize' => 'shrinksafe',
         'layerOptimize' => 'shrinksafe',
-        'copyTests'     => false,
-        'loader'        => 'default',
-        'cssOptimize'   => 'comments',
+        'copyTests' => false,
+        'loader' => 'default',
+        'cssOptimize' => 'comments',
     );
 
     /**
@@ -419,7 +421,7 @@ class Zend_Dojo_BuildLayer
     {
         $layerName = $this->getLayerName();
         if (null !== $layerName) {
-            $prefix    = $this->_getPrefix($layerName);
+            $prefix = $this->_getPrefix($layerName);
             if (!array_key_exists($prefix, $this->_profilePrefixes)) {
                 $this->addProfilePrefix($prefix);
             }
@@ -447,12 +449,12 @@ class Zend_Dojo_BuildLayer
      */
     public function generateLayerScript()
     {
-        $helper        = $this->getDojoHelper();
-        $layerName     = $this->getLayerName();
-        $modulePaths   = $helper->getModulePaths();
-        $modules       = $helper->getModules();
+        $helper = $this->getDojoHelper();
+        $layerName = $this->getLayerName();
+        $modulePaths = $helper->getModulePaths();
+        $modules = $helper->getModules();
         $onLoadActions = $helper->getOnLoadActions();
-        $javascript    = $helper->getJavascript();
+        $javascript = $helper->getJavascript();
 
         $content = 'dojo.provide("' . $layerName . '");' . "\n\n(function(){\n";
 
@@ -487,8 +489,8 @@ class Zend_Dojo_BuildLayer
      */
     public function generateBuildProfile()
     {
-        $profileOptions  = $this->getProfileOptions();
-        $layerName       = $this->getLayerName();
+        $profileOptions = $this->getProfileOptions();
+        $layerName = $this->getLayerName();
         $layerScriptPath = $this->getLayerScriptPath();
         $profilePrefixes = $this->getProfilePrefixes();
 
@@ -498,9 +500,9 @@ class Zend_Dojo_BuildLayer
 
         $profile = $profileOptions;
         $profile['layers'] = array(array(
-            'name'              => $layerScriptPath,
-            'layerDependencies' => array(),
-            'dependencies'      => array($layerName),
+                'name' => $layerScriptPath,
+                'layerDependencies' => array(),
+                'dependencies' => array($layerName),
         ));
         $profile['prefixes'] = array_values($profilePrefixes);
 
@@ -515,7 +517,7 @@ class Zend_Dojo_BuildLayer
      */
     protected function _getPrefix($module)
     {
-        $segments  = explode('.', $module, 2);
+        $segments = explode('.', $module, 2);
         return $segments[0];
     }
 
@@ -533,4 +535,5 @@ class Zend_Dojo_BuildLayer
         $profile = preg_replace('/' . preg_quote('\\') . '/', '', $profile);
         return $profile;
     }
+
 }

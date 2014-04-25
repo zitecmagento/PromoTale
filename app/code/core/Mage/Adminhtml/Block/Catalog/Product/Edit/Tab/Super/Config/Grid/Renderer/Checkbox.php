@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,9 +32,9 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_Checkbox extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
 {
+
     /**
      * Renders grid column
      *
@@ -43,30 +44,33 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_C
     public function render(Varien_Object $row)
     {
         $result = parent::render($row);
-        return $result.'<input type="hidden" class="value-json" value="'.htmlspecialchars($this->getAttributesJson($row)).'" />';
+        return $result . '<input type="hidden" class="value-json" value="' . htmlspecialchars($this->getAttributesJson($row)) . '" />';
     }
 
     public function getAttributesJson(Varien_Object $row)
     {
-        if(!$this->getColumn()->getAttributes()) {
+        if (!$this->getColumn()->getAttributes()) {
             return '[]';
         }
 
         $result = array();
-        foreach($this->getColumn()->getAttributes() as $attribute) {
+        foreach ($this->getColumn()->getAttributes() as $attribute) {
             $productAttribute = $attribute->getProductAttribute();
-            if($productAttribute->getSourceModel()) {
+            if ($productAttribute->getSourceModel()) {
                 $label = $productAttribute->getSource()->getOptionText($row->getData($productAttribute->getAttributeCode()));
             } else {
                 $label = $row->getData($productAttribute->getAttributeCode());
             }
             $item = array();
-            $item['label']        = $label;
+            $item['label'] = $label;
             $item['attribute_id'] = $productAttribute->getId();
-            $item['value_index']  = $row->getData($productAttribute->getAttributeCode());
+            $item['value_index'] = $row->getData($productAttribute->getAttributeCode());
             $result[] = $item;
         }
 
         return Mage::helper('core')->jsonEncode($result);
     }
-}// Class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_Checkbox END
+
+}
+
+// Class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_Checkbox END

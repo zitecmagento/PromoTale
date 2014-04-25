@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,33 +34,34 @@
  */
 class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Import table rates website ID
      *
      * @var int
      */
-    protected $_importWebsiteId     = 0;
+    protected $_importWebsiteId = 0;
 
     /**
      * Errors in import process
      *
      * @var array
      */
-    protected $_importErrors        = array();
+    protected $_importErrors = array();
 
     /**
      * Count of imported table rates
      *
      * @var int
      */
-    protected $_importedRows        = 0;
+    protected $_importedRows = 0;
 
     /**
      * Array of unique table rate keys to protect from duplicates
      *
      * @var array
      */
-    protected $_importUniqueHash    = array();
+    protected $_importUniqueHash = array();
 
     /**
      * Array of countries keyed by iso2 code
@@ -95,7 +97,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      *
      * @var array
      */
-    protected $_conditionFullNames  = array();
+    protected $_conditionFullNames = array();
 
     /**
      * Define main table and id field name
@@ -123,26 +125,24 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             ':postcode' => $request->getDestPostcode()
         );
         $select = $adapter->select()
-            ->from($this->getMainTable())
-            ->where('website_id = :website_id')
-            ->order(array('dest_country_id DESC', 'dest_region_id DESC', 'dest_zip DESC', 'condition_value DESC'))
-            ->limit(1);
+                ->from($this->getMainTable())
+                ->where('website_id = :website_id')
+                ->order(array('dest_country_id DESC', 'dest_region_id DESC', 'dest_zip DESC', 'condition_value DESC'))
+                ->limit(1);
 
         // Render destination condition
         $orWhere = '(' . implode(') OR (', array(
-            "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :postcode",
-            "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = ''",
-
-            // Handle asterix in dest_zip field
-            "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = '*'",
-            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = '*'",
-            "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = '*'",
-            "dest_country_id = '0' AND dest_region_id = 0 AND dest_zip = '*'",
-
-            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = ''",
-            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = :postcode",
-            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = '*'",
-        )) . ')';
+                    "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :postcode",
+                    "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = ''",
+                    // Handle asterix in dest_zip field
+                    "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = '*'",
+                    "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = '*'",
+                    "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = '*'",
+                    "dest_country_id = '0' AND dest_region_id = 0 AND dest_zip = '*'",
+                    "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = ''",
+                    "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = :postcode",
+                    "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = '*'",
+                )) . ')';
         $select->where($orWhere);
 
         // Render condition by condition name
@@ -150,7 +150,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             $orWhere = array();
             $i = 0;
             foreach ($request->getConditionName() as $conditionName) {
-                $bindNameKey  = sprintf(':condition_name_%d', $i);
+                $bindNameKey = sprintf(':condition_name_%d', $i);
                 $bindValueKey = sprintf(':condition_value_%d', $i);
                 $orWhere[] = "(condition_name = {$bindNameKey} AND condition_value <= {$bindValueKey})";
                 $bind[$bindNameKey] = $conditionName;
@@ -162,7 +162,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
                 $select->where(implode(' OR ', $orWhere));
             }
         } else {
-            $bind[':condition_name']  = $request->getConditionName();
+            $bind[':condition_name'] = $request->getConditionName();
             $bind[':condition_value'] = $request->getData($request->getConditionName());
 
             $select->where('condition_name = :condition_name');
@@ -193,13 +193,13 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $csvFile = $_FILES['groups']['tmp_name']['tablerate']['fields']['import']['value'];
         $website = Mage::app()->getWebsite($object->getScopeId());
 
-        $this->_importWebsiteId     = (int)$website->getId();
-        $this->_importUniqueHash    = array();
-        $this->_importErrors        = array();
-        $this->_importedRows        = 0;
+        $this->_importWebsiteId = (int) $website->getId();
+        $this->_importUniqueHash = array();
+        $this->_importErrors = array();
+        $this->_importedRows = 0;
 
-        $io     = new Varien_Io_File();
-        $info   = pathinfo($csvFile);
+        $io = new Varien_Io_File();
+        $info = pathinfo($csvFile);
         $io->open(array('path' => $info['dirname']));
         $io->streamOpen($info['basename'], 'r');
 
@@ -211,7 +211,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
 
         if ($object->getData('groups/tablerate/fields/condition_name/inherit') == '1') {
-            $conditionName = (string)Mage::getConfig()->getNode('default/carriers/tablerate/condition_name');
+            $conditionName = (string) Mage::getConfig()->getNode('default/carriers/tablerate/condition_name');
         } else {
             $conditionName = $object->getData('groups/tablerate/fields/condition_name/value');
         }
@@ -220,8 +220,9 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $adapter = $this->_getWriteAdapter();
         $adapter->beginTransaction();
 
-        try {
-            $rowNumber  = 1;
+        try
+        {
+            $rowNumber = 1;
             $importData = array();
 
             $this->_loadDirectoryCountries();
@@ -229,7 +230,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
 
             // delete old data by website and condition name
             $condition = array(
-                'website_id = ?'     => $this->_importWebsiteId,
+                'website_id = ?' => $this->_importWebsiteId,
                 'condition_name = ?' => $this->_importConditionName
             );
             $adapter->delete($this->getMainTable(), $condition);
@@ -253,11 +254,15 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             }
             $this->_saveImportData($importData);
             $io->streamClose();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $adapter->rollback();
             $io->streamClose();
             Mage::throwException($e->getMessage());
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $adapter->rollback();
             $io->streamClose();
             Mage::logException($e);
@@ -314,7 +319,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         /** @var $collection Mage_Directory_Model_Resource_Region_Collection */
         $collection = Mage::getResourceModel('directory/region_collection');
         foreach ($collection->getData() as $row) {
-            $this->_importRegions[$row['country_id']][$row['code']] = (int)$row['region_id'];
+            $this->_importRegions[$row['country_id']][$row['code']] = (int) $row['region_id'];
         }
 
         return $this;
@@ -409,12 +414,12 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $this->_importUniqueHash[$hash] = true;
 
         return array(
-            $this->_importWebsiteId,    // website_id
-            $countryId,                 // dest_country_id
-            $regionId,                  // dest_region_id,
-            $zipCode,                   // dest_zip
-            $this->_importConditionName,// condition_name,
-            $value,                     // condition_value
+            $this->_importWebsiteId, // website_id
+            $countryId, // dest_country_id
+            $regionId, // dest_region_id,
+            $zipCode, // dest_zip
+            $this->_importConditionName, // condition_name,
+            $value, // condition_value
             $price                      // price
         );
     }
@@ -449,7 +454,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         if (!is_numeric($value)) {
             return false;
         }
-        $value = (float)sprintf('%.4F', $value);
+        $value = (float) sprintf('%.4F', $value);
         if ($value < 0.0000) {
             return false;
         }
@@ -468,4 +473,5 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     {
         return $this->_parseDecimalValue($value);
     }
+
 }

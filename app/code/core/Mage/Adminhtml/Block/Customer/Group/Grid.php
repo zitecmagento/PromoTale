@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -50,7 +51,7 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('customer/group_collection')
-            ->addTaxClass();
+                ->addTaxClass();
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -84,7 +85,7 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id'=>$row->getId()));
+        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
     }
 
 }

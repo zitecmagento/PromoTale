@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Api2_Model_Acl_Global_Rule_Privilege
 {
+
     /**
      * Get options parameters
      *
@@ -68,10 +70,11 @@ class Mage_Api2_Model_Acl_Global_Rule_Privilege
     static public function toArray()
     {
         return array(
-            Mage_Api2_Model_Resource::OPERATION_CREATE   => Mage::helper('api2')->__('Create'),
+            Mage_Api2_Model_Resource::OPERATION_CREATE => Mage::helper('api2')->__('Create'),
             Mage_Api2_Model_Resource::OPERATION_RETRIEVE => Mage::helper('api2')->__('Retrieve'),
-            Mage_Api2_Model_Resource::OPERATION_UPDATE   => Mage::helper('api2')->__('Update'),
-            Mage_Api2_Model_Resource::OPERATION_DELETE   => Mage::helper('api2')->__('Delete')
+            Mage_Api2_Model_Resource::OPERATION_UPDATE => Mage::helper('api2')->__('Update'),
+            Mage_Api2_Model_Resource::OPERATION_DELETE => Mage::helper('api2')->__('Delete')
         );
     }
+
 }

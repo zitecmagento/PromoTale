@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,14 +34,15 @@
  */
 abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 {
+
     /**
      * Database constants
      *
      */
     const DB_MAX_PACKET_COEFFICIENT = 900000;
-    const DB_MAX_PACKET_DATA        = 1048576;
-    const DB_MAX_VARCHAR_LENGTH     = 256;
-    const DB_MAX_TEXT_LENGTH        = 65536;
+    const DB_MAX_PACKET_DATA = 1048576;
+    const DB_MAX_VARCHAR_LENGTH = 256;
+    const DB_MAX_TEXT_LENGTH = 65536;
 
     /**
      * DB connection.
@@ -201,9 +203,9 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     public function __construct()
     {
         $entityType = Mage::getSingleton('eav/config')->getEntityType($this->getEntityTypeCode());
-        $this->_entityTypeId    = $entityType->getEntityTypeId();
+        $this->_entityTypeId = $entityType->getEntityTypeId();
         $this->_dataSourceModel = Mage_ImportExport_Model_Import::getDataSourceModel();
-        $this->_connection      = Mage::getSingleton('core/resource')->getConnection('write');
+        $this->_connection = Mage::getSingleton('core/resource')->getConnection('write');
     }
 
     /**
@@ -266,11 +268,11 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      */
     protected function _saveValidatedBunches()
     {
-        $source          = $this->_getSource();
+        $source = $this->_getSource();
         $productDataSize = 0;
-        $bunchRows       = array();
-        $startNewBunch   = false;
-        $nextRowBackup   = array();
+        $bunchRows = array();
+        $startNewBunch = false;
+        $nextRowBackup = array();
         $maxDataSize = Mage::getResourceHelper('importexport')->getMaxDataSize();
         $bunchSize = Mage::helper('importexport')->getBunchSize();
 
@@ -281,10 +283,10 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             if ($startNewBunch || !$source->valid()) {
                 $this->_dataSourceModel->saveBunch($this->getEntityTypeCode(), $this->getBehavior(), $bunchRows);
 
-                $bunchRows       = $nextRowBackup;
+                $bunchRows = $nextRowBackup;
                 $productDataSize = strlen(serialize($bunchRows));
-                $startNewBunch   = false;
-                $nextRowBackup   = array();
+                $startNewBunch = false;
+                $nextRowBackup = array();
             }
             if ($source->valid()) {
                 if ($this->_errorsCount >= $this->_errorsLimit) { // errors limit check
@@ -366,7 +368,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             // only default (admin) store values used
             $attribute->setStoreId(Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
 
-            try {
+            try
+            {
                 foreach ($attribute->getSource()->getAllOptions(false) as $option) {
                     $value = is_array($option['value']) ? $option['value'] : array($option);
                     foreach ($value as $innerOption) {
@@ -375,7 +378,9 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                         }
                     }
                 }
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 // ignore exceptions connected with source models
             }
         }
@@ -389,10 +394,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      */
     public function getBehavior()
     {
-        if (!isset($this->_parameters['behavior'])
-            || ($this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND
-            && $this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_REPLACE
-            && $this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_DELETE)) {
+        if (!isset($this->_parameters['behavior']) || ($this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND && $this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_REPLACE && $this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_DELETE)) {
             return Mage_ImportExport_Model_Import::getDefaultBehavior();
         }
         return $this->_parameters['behavior'];
@@ -424,7 +426,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     public function getErrorMessages()
     {
         $translator = Mage::helper('importexport');
-        $messages   = array();
+        $messages = array();
 
         foreach ($this->_errors as $errorCode => $errorRows) {
             if (isset($this->_messageTemplates[$errorCode])) {
@@ -546,28 +548,27 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     {
         switch ($attrParams['type']) {
             case 'varchar':
-                $val   = Mage::helper('core/string')->cleanString($rowData[$attrCode]);
+                $val = Mage::helper('core/string')->cleanString($rowData[$attrCode]);
                 $valid = Mage::helper('core/string')->strlen($val) < self::DB_MAX_VARCHAR_LENGTH;
                 break;
             case 'decimal':
-                $val   = trim($rowData[$attrCode]);
-                $valid = (float)$val == $val;
+                $val = trim($rowData[$attrCode]);
+                $valid = (float) $val == $val;
                 break;
             case 'select':
             case 'multiselect':
                 $valid = isset($attrParams['options'][strtolower($rowData[$attrCode])]);
                 break;
             case 'int':
-                $val   = trim($rowData[$attrCode]);
-                $valid = (int)$val == $val;
+                $val = trim($rowData[$attrCode]);
+                $valid = (int) $val == $val;
                 break;
             case 'datetime':
-                $val   = trim($rowData[$attrCode]);
-                $valid = strtotime($val) !== false
-                    || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
+                $val = trim($rowData[$attrCode]);
+                $valid = strtotime($val) !== false || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
                 break;
             case 'text':
-                $val   = Mage::helper('core/string')->cleanString($rowData[$attrCode]);
+                $val = Mage::helper('core/string')->cleanString($rowData[$attrCode]);
                 $valid = Mage::helper('core/string')->strlen($val) < self::DB_MAX_TEXT_LENGTH;
                 break;
             default:
@@ -667,7 +668,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             // does all permanent columns exists?
             if (($colsAbsent = array_diff($this->_permanentAttributes, $this->_getSource()->getColNames()))) {
                 Mage::throwException(
-                    Mage::helper('importexport')->__('Can not find required columns: %s', implode(', ', $colsAbsent))
+                        Mage::helper('importexport')->__('Can not find required columns: %s', implode(', ', $colsAbsent))
                 );
             }
 
@@ -685,7 +686,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             }
             if ($invalidColumns) {
                 Mage::throwException(
-                    Mage::helper('importexport')->__('Column names: "%s" are invalid', implode('", "', $invalidColumns))
+                        Mage::helper('importexport')->__('Column names: "%s" are invalid', implode('", "', $invalidColumns))
                 );
             }
             $this->_saveValidatedBunches();
@@ -694,4 +695,5 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         }
         return $this;
     }
+
 }

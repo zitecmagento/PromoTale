@@ -28,12 +28,12 @@
  */
 class Zend_Ldap
 {
-    const SEARCH_SCOPE_SUB  = 1;
-    const SEARCH_SCOPE_ONE  = 2;
-    const SEARCH_SCOPE_BASE = 3;
 
-    const ACCTNAME_FORM_DN        = 1;
-    const ACCTNAME_FORM_USERNAME  = 2;
+    const SEARCH_SCOPE_SUB = 1;
+    const SEARCH_SCOPE_ONE = 2;
+    const SEARCH_SCOPE_BASE = 3;
+    const ACCTNAME_FORM_DN = 1;
+    const ACCTNAME_FORM_USERNAME = 2;
     const ACCTNAME_FORM_BACKSLASH = 3;
     const ACCTNAME_FORM_PRINCIPAL = 4;
 
@@ -126,8 +126,7 @@ class Zend_Ldap
              * @see Zend_Ldap_Exception
              */
             #require_once 'Zend/Ldap/Exception.php';
-            throw new Zend_Ldap_Exception(null, 'LDAP extension not loaded',
-                Zend_Ldap_Exception::LDAP_X_EXTENSION_NOT_LOADED);
+            throw new Zend_Ldap_Exception(null, 'LDAP extension not loaded', Zend_Ldap_Exception::LDAP_X_EXTENSION_NOT_LOADED);
         }
         $this->setOptions($options);
     }
@@ -265,21 +264,21 @@ class Zend_Ldap
         }
 
         $permittedOptions = array(
-            'host'                   => null,
-            'port'                   => 0,
-            'useSsl'                 => false,
-            'username'               => null,
-            'password'               => null,
-            'bindRequiresDn'         => false,
-            'baseDn'                 => null,
-            'accountCanonicalForm'   => null,
-            'accountDomainName'      => null,
+            'host' => null,
+            'port' => 0,
+            'useSsl' => false,
+            'username' => null,
+            'password' => null,
+            'bindRequiresDn' => false,
+            'baseDn' => null,
+            'accountCanonicalForm' => null,
+            'accountDomainName' => null,
             'accountDomainNameShort' => null,
-            'accountFilterFormat'    => null,
-            'allowEmptyPassword'     => false,
-            'useStartTls'            => false,
-            'optReferrals'           => false,
-            'tryUsernameSplit'       => true,
+            'accountFilterFormat' => null,
+            'allowEmptyPassword' => false,
+            'useStartTls' => false,
+            'optReferrals' => false,
+            'tryUsernameSplit' => true,
         );
 
         foreach ($permittedOptions as $key => $val) {
@@ -292,7 +291,7 @@ class Zend_Ldap
                 switch ($key) {
                     case 'port':
                     case 'accountCanonicalForm':
-                        $permittedOptions[$key] = (int)$val;
+                        $permittedOptions[$key] = (int) $val;
                         break;
                     case 'useSsl':
                     case 'bindRequiresDn':
@@ -533,7 +532,8 @@ class Zend_Ldap
          * @see Zend_Ldap_Dn
          */
         #require_once 'Zend/Ldap/Dn.php';
-        if (Zend_Ldap_Dn::checkDn($acctname)) return $acctname;
+        if (Zend_Ldap_Dn::checkDn($acctname))
+            return $acctname;
         $acctname = $this->getCanonicalAccountName($acctname, Zend_Ldap::ACCTNAME_FORM_USERNAME);
         $acct = $this->_getAccount($acctname, array('dn'));
         return $acct['dn'];
@@ -577,9 +577,7 @@ class Zend_Ldap
              * @see Zend_Ldap_Exception
              */
             #require_once 'Zend/Ldap/Exception.php';
-            throw new Zend_Ldap_Exception(null,
-                "Binding domain is not an authority for user: $acctname",
-                Zend_Ldap_Exception::LDAP_X_DOMAIN_MISMATCH);
+            throw new Zend_Ldap_Exception(null, "Binding domain is not an authority for user: $acctname", Zend_Ldap_Exception::LDAP_X_DOMAIN_MISMATCH);
         }
 
         if (!$uname) {
@@ -727,17 +725,17 @@ class Zend_Ldap
         if ($port === null) {
             $port = $this->_getPort();
         } else {
-            $port = (int)$port;
+            $port = (int) $port;
         }
         if ($useSsl === null) {
             $useSsl = $this->_getUseSsl();
         } else {
-            $useSsl = (bool)$useSsl;
+            $useSsl = (bool) $useSsl;
         }
         if ($useStartTls === null) {
             $useStartTls = $this->_getUseStartTls();
         } else {
-            $useStartTls = (bool)$useStartTls;
+            $useStartTls = (bool) $useStartTls;
         }
 
         if (!$host) {
@@ -783,7 +781,7 @@ class Zend_Ldap
 
             $optReferrals = ($this->_getOptReferrals()) ? 1 : 0;
             if (@ldap_set_option($resource, LDAP_OPT_PROTOCOL_VERSION, 3) &&
-                        @ldap_set_option($resource, LDAP_OPT_REFERRALS, $optReferrals)) {
+                    @ldap_set_option($resource, LDAP_OPT_REFERRALS, $optReferrals)) {
                 if ($useSsl || !$useStartTls || @ldap_start_tls($resource)) {
                     return $this;
                 }
@@ -838,19 +836,20 @@ class Zend_Ldap
                      * return a DN and the bind requires it
                      */
                     if ($moreCreds) {
-                        try {
+                        try
+                        {
                             $username = $this->_getAccountDn($username);
-                        } catch (Zend_Ldap_Exception $zle) {
+                        }
+                        catch (Zend_Ldap_Exception $zle)
+                        {
                             switch ($zle->getCode()) {
                                 case Zend_Ldap_Exception::LDAP_NO_SUCH_OBJECT:
                                 case Zend_Ldap_Exception::LDAP_X_DOMAIN_MISMATCH:
                                 case Zend_Ldap_Exception::LDAP_X_EXTENSION_NOT_LOADED:
                                     throw $zle;
                             }
-                            throw new Zend_Ldap_Exception(null,
-                                'Failed to retrieve DN for account: ' . $username .
-                                ' [' . $zle->getMessage() . ']',
-                                Zend_Ldap_Exception::LDAP_OPERATIONS_ERROR);
+                            throw new Zend_Ldap_Exception(null, 'Failed to retrieve DN for account: ' . $username .
+                            ' [' . $zle->getMessage() . ']', Zend_Ldap_Exception::LDAP_OPERATIONS_ERROR);
                         }
                     } else {
                         /**
@@ -860,8 +859,7 @@ class Zend_Ldap
                         throw new Zend_Ldap_Exception(null, 'Binding requires username in DN form');
                     }
                 } else {
-                    $username = $this->getCanonicalAccountName($username,
-                        $this->_getAccountCanonicalForm());
+                    $username = $this->getCanonicalAccountName($username, $this->_getAccountCanonicalForm());
                 }
             }
         }
@@ -875,8 +873,7 @@ class Zend_Ldap
              * @see Zend_Ldap_Exception
              */
             #require_once 'Zend/Ldap/Exception.php';
-            $zle = new Zend_Ldap_Exception(null,
-                'Empty password not allowed - see allowEmptyPassword option.');
+            $zle = new Zend_Ldap_Exception(null, 'Empty password not allowed - see allowEmptyPassword option.');
         } else {
             if (@ldap_bind($this->_resource, $username, $password)) {
                 $this->_boundUser = $username;
@@ -927,8 +924,7 @@ class Zend_Ldap
      * @return Zend_Ldap_Collection
      * @throws Zend_Ldap_Exception
      */
-    public function search($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB, array $attributes = array(),
-        $sort = null, $collectionClass = null, $sizelimit = 0, $timelimit = 0)
+    public function search($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB, array $attributes = array(), $sort = null, $collectionClass = null, $sizelimit = 0, $timelimit = 0)
     {
         if (is_array($filter)) {
             $options = array_change_key_case($filter, CASE_LOWER);
@@ -950,15 +946,14 @@ class Zend_Ldap
                         break;
                     case 'sizelimit':
                     case 'timelimit':
-                        $$key = (int)$value;
+                        $$key = (int) $value;
                 }
             }
         }
 
         if ($basedn === null) {
             $basedn = $this->getBaseDn();
-        }
-        else if ($basedn instanceof Zend_Ldap_Dn) {
+        } else if ($basedn instanceof Zend_Ldap_Dn) {
             $basedn = $basedn->toString();
         }
 
@@ -979,7 +974,7 @@ class Zend_Ldap
                 break;
         }
 
-        if($search === false) {
+        if ($search === false) {
             /**
              * @see Zend_Ldap_Exception
              */
@@ -988,7 +983,7 @@ class Zend_Ldap
         }
         if ($sort !== null && is_string($sort)) {
             $isSorted = @ldap_sort($this->getResource(), $search, $sort);
-            if($isSorted === false) {
+            if ($isSorted === false) {
                 /**
                  * @see Zend_Ldap_Exception
                  */
@@ -1022,22 +1017,20 @@ class Zend_Ldap
             #require_once 'Zend/Ldap/Collection.php';
             return new Zend_Ldap_Collection($iterator);
         } else {
-            $collectionClass = (string)$collectionClass;
+            $collectionClass = (string) $collectionClass;
             if (!class_exists($collectionClass)) {
                 /**
                  * @see Zend_Ldap_Exception
                  */
                 #require_once 'Zend/Ldap/Exception.php';
-                throw new Zend_Ldap_Exception(null,
-                    "Class '$collectionClass' can not be found");
+                throw new Zend_Ldap_Exception(null, "Class '$collectionClass' can not be found");
             }
             if (!is_subclass_of($collectionClass, 'Zend_Ldap_Collection')) {
                 /**
                  * @see Zend_Ldap_Exception
                  */
                 #require_once 'Zend/Ldap/Exception.php';
-                throw new Zend_Ldap_Exception(null,
-                    "Class '$collectionClass' must subclass 'Zend_Ldap_Collection'");
+                throw new Zend_Ldap_Exception(null, "Class '$collectionClass' must subclass 'Zend_Ldap_Collection'");
             }
             return new $collectionClass($iterator);
         }
@@ -1054,11 +1047,16 @@ class Zend_Ldap
      */
     public function count($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB)
     {
-        try {
+        try
+        {
             $result = $this->search($filter, $basedn, $scope, array('dn'), null);
-        } catch (Zend_Ldap_Exception $e) {
-            if ($e->getCode() === Zend_Ldap_Exception::LDAP_NO_SUCH_OBJECT) return 0;
-            else throw $e;
+        }
+        catch (Zend_Ldap_Exception $e)
+        {
+            if ($e->getCode() === Zend_Ldap_Exception::LDAP_NO_SUCH_OBJECT)
+                return 0;
+            else
+                throw $e;
         }
         return $result->count();
     }
@@ -1112,8 +1110,7 @@ class Zend_Ldap
      * @return array
      * @throws Zend_Ldap_Exception
      */
-    public function searchEntries($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB,
-        array $attributes = array(), $sort = null, $reverseSort = false, $sizelimit = 0, $timelimit = 0)
+    public function searchEntries($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB, array $attributes = array(), $sort = null, $reverseSort = false, $sizelimit = 0, $timelimit = 0)
     {
         if (is_array($filter)) {
             $filter = array_change_key_case($filter, CASE_LOWER);
@@ -1127,7 +1124,7 @@ class Zend_Ldap
         }
         $result = $this->search($filter, $basedn, $scope, $attributes, $sort, null, $sizelimit, $timelimit);
         $items = $result->toArray();
-        if ((bool)$reverseSort === true) {
+        if ((bool) $reverseSort === true) {
             $items = array_reverse($items, false);
         }
         return $items;
@@ -1144,12 +1141,15 @@ class Zend_Ldap
      */
     public function getEntry($dn, array $attributes = array(), $throwOnNotFound = false)
     {
-        try {
-            $result = $this->search("(objectClass=*)", $dn, self::SEARCH_SCOPE_BASE,
-                $attributes, null);
+        try
+        {
+            $result = $this->search("(objectClass=*)", $dn, self::SEARCH_SCOPE_BASE, $attributes, null);
             return $result->getFirst();
-        } catch (Zend_Ldap_Exception $e){
-            if ($throwOnNotFound !== false) throw $e;
+        }
+        catch (Zend_Ldap_Exception $e)
+        {
+            if ($throwOnNotFound !== false)
+                throw $e;
         }
         return null;
     }
@@ -1163,15 +1163,17 @@ class Zend_Ldap
      */
     public static function prepareLdapEntryArray(array &$entry)
     {
-        if (array_key_exists('dn', $entry)) unset($entry['dn']);
+        if (array_key_exists('dn', $entry))
+            unset($entry['dn']);
         foreach ($entry as $key => $value) {
             if (is_array($value)) {
                 foreach ($value as $i => $v) {
-                    if ($v === null) unset($value[$i]);
+                    if ($v === null)
+                        unset($value[$i]);
                     else if (!is_scalar($v)) {
                         throw new InvalidArgumentException('Only scalar values allowed in LDAP data');
                     } else {
-                        $v = (string)$v;
+                        $v = (string) $v;
                         if (strlen($v) == 0) {
                             unset($value[$i]);
                         } else {
@@ -1181,11 +1183,12 @@ class Zend_Ldap
                 }
                 $entry[$key] = array_values($value);
             } else {
-                if ($value === null) $entry[$key] = array();
+                if ($value === null)
+                    $entry[$key] = array();
                 else if (!is_scalar($value)) {
                     throw new InvalidArgumentException('Only scalar values allowed in LDAP data');
                 } else {
-                    $value = (string)$value;
+                    $value = (string) $value;
                     if (strlen($value) == 0) {
                         $entry[$key] = array();
                     } else {
@@ -1235,7 +1238,7 @@ class Zend_Ldap
         }
 
         $isAdded = @ldap_add($this->getResource(), $dn->toString(), $entry);
-        if($isAdded === false) {
+        if ($isAdded === false) {
             /**
              * @see Zend_Ldap_Exception
              */
@@ -1278,7 +1281,7 @@ class Zend_Ldap
 
         if (count($entry) > 0) {
             $isModified = @ldap_modify($this->getResource(), $dn->toString(), $entry);
-            if($isModified === false) {
+            if ($isModified === false) {
                 /**
                  * @see Zend_Ldap_Exception
                  */
@@ -1305,8 +1308,10 @@ class Zend_Ldap
         if ($dn instanceof Zend_Ldap_Dn) {
             $dn = $dn->toString();
         }
-        if ($this->exists($dn)) $this->update($dn, $entry);
-        else $this->add($dn, $entry);
+        if ($this->exists($dn))
+            $this->update($dn, $entry);
+        else
+            $this->add($dn, $entry);
         return $this;
     }
 
@@ -1324,7 +1329,7 @@ class Zend_Ldap
             $dn = $dn->toString();
         }
         if ($recursively === true) {
-            if ($this->countChildren($dn)>0) {
+            if ($this->countChildren($dn) > 0) {
                 $children = $this->_getChildrenDns($dn);
                 foreach ($children as $c) {
                     $this->delete($c, true);
@@ -1332,7 +1337,7 @@ class Zend_Ldap
             }
         }
         $isDeleted = @ldap_delete($this->getResource(), $dn);
-        if($isDeleted === false) {
+        if ($isDeleted === false) {
             /**
              * @see Zend_Ldap_Exception
              */
@@ -1358,9 +1363,7 @@ class Zend_Ldap
         }
         $children = array();
         $search = @ldap_list($this->getResource(), $parentDn, '(objectClass=*)', array('dn'));
-        for ($entry = @ldap_first_entry($this->getResource(), $search);
-                $entry !== false;
-                $entry = @ldap_next_entry($this->getResource(), $entry)) {
+        for ($entry = @ldap_first_entry($this->getResource(), $search); $entry !== false; $entry = @ldap_next_entry($this->getResource(), $entry)) {
             $childDn = @ldap_get_dn($this->getResource(), $entry);
             if ($childDn === false) {
                 /**
@@ -1435,9 +1438,11 @@ class Zend_Ldap
      */
     public function rename($from, $to, $recursively = false, $alwaysEmulate = false)
     {
-        $emulate = (bool)$alwaysEmulate;
-        if (!function_exists('ldap_rename')) $emulate = true;
-        else if ($recursively) $emulate = true;
+        $emulate = (bool) $alwaysEmulate;
+        if (!function_exists('ldap_rename'))
+            $emulate = true;
+        else if ($recursively)
+            $emulate = true;
 
         if ($emulate === false) {
             if ($from instanceof Zend_Ldap_Dn) {
@@ -1453,14 +1458,14 @@ class Zend_Ldap
             $newRdn = Zend_Ldap_Dn::implodeRdn(array_shift($newDnParts));
             $newParent = Zend_Ldap_Dn::implodeDn($newDnParts);
             $isOK = @ldap_rename($this->getResource(), $from, $newRdn, $newParent, true);
-            if($isOK === false) {
+            if ($isOK === false) {
                 /**
                  * @see Zend_Ldap_Exception
                  */
                 #require_once 'Zend/Ldap/Exception.php';
                 throw new Zend_Ldap_Exception($this, 'renaming ' . $from . ' to ' . $to);
-            }
-            else if (!$this->exists($to)) $emulate = true;
+            } else if (!$this->exists($to))
+                $emulate = true;
         }
         if ($emulate) {
             $this->copy($from, $to, $recursively);
@@ -1517,7 +1522,7 @@ class Zend_Ldap
         }
         $this->add($to, $entry);
 
-        if ($recursively === true && $this->countChildren($from)>0) {
+        if ($recursively === true && $this->countChildren($from) > 0) {
             $children = $this->_getChildrenDns($from);
             foreach ($children as $c) {
                 $cDnParts = Zend_Ldap_Dn::explodeDn($c);
@@ -1591,4 +1596,5 @@ class Zend_Ldap
         }
         return $this->_schema;
     }
+
 }

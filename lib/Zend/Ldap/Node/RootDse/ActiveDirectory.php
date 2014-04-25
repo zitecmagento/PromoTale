@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,7 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ActiveDirectory.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 /**
  * @see Zend_Ldap_Node_RootDse
  */
@@ -37,6 +37,7 @@
  */
 class Zend_Ldap_Node_RootDse_ActiveDirectory extends Zend_Ldap_Node_RootDse
 {
+
     /**
      * Gets the configurationNamingContext.
      *
@@ -244,4 +245,5 @@ class Zend_Ldap_Node_RootDse_ActiveDirectory extends Zend_Ldap_Node_RootDse
         #require_once 'Zend/Ldap/Dn.php';
         return Zend_Ldap_Dn::fromString($schemaDn);
     }
+
 }

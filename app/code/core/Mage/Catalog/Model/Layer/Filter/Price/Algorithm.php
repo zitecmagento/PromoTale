@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
 {
+
     /**
      * Rounding factor coefficient
      */
@@ -141,8 +143,8 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      */
     public function setLimits($lowerLimit = null, $upperLimit = null)
     {
-        $this->_lowerLimit = empty($lowerLimit) ? null : (float)$lowerLimit;
-        $this->_upperLimit = empty($upperLimit) ? null : (float)$upperLimit;
+        $this->_lowerLimit = empty($lowerLimit) ? null : (float) $lowerLimit;
+        $this->_upperLimit = empty($upperLimit) ? null : (float) $upperLimit;
         return $this;
     }
 
@@ -215,7 +217,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             $intervalsNumber = $priceRange * pow($count, 1 / 3) / (3.5 * $standardDeviation);
         }
         $this->_intervalsNumber = max(ceil($intervalsNumber), self::MIN_INTERVALS_NUMBER);
-        $this->_intervalsNumber = (int)min($this->_intervalsNumber, self::MAX_INTERVALS_NUMBER);
+        $this->_intervalsNumber = (int) min($this->_intervalsNumber, self::MAX_INTERVALS_NUMBER);
 
         return $this;
     }
@@ -289,12 +291,9 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             max(ceil($quantile + $deflectionLimit - 1), ceil($quantile)),
         );
 
-        $deflection = self::STANDARD_NORMAL_DISTRIBUTION
-            * sqrt($this->_count * $quantileNumber * ($this->getIntervalsNumber() - $quantileNumber))
-            / $this->getIntervalsNumber();
+        $deflection = self::STANDARD_NORMAL_DISTRIBUTION * sqrt($this->_count * $quantileNumber * ($this->getIntervalsNumber() - $quantileNumber)) / $this->getIntervalsNumber();
         $left = max(floor($quantile - $deflection - 1), $limits[0], 0);
-        if (array_key_exists($quantileNumber - 1, $this->_skippedQuantilesUpperLimits)
-            && $left > $this->_skippedQuantilesUpperLimits[$quantileNumber - 1]
+        if (array_key_exists($quantileNumber - 1, $this->_skippedQuantilesUpperLimits) && $left > $this->_skippedQuantilesUpperLimits[$quantileNumber - 1]
         ) {
             $left = $this->_skippedQuantilesUpperLimits[$quantileNumber - 1];
         }
@@ -314,8 +313,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
         foreach ($newRoundPrices as $roundingFactor => $roundPriceValues) {
             if (array_key_exists($roundingFactor, $oldRoundPrices)) {
                 $oldRoundPrices[$roundingFactor] = array_unique(array_merge(
-                    $oldRoundPrices[$roundingFactor],
-                    $roundPriceValues
+                                $oldRoundPrices[$roundingFactor], $roundPriceValues
                 ));
             } else {
                 $oldRoundPrices[$roundingFactor] = $roundPriceValues;
@@ -345,9 +343,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
         if ($offset < 0) {
             $intervalPricesCount += $offset;
             $prices = array_slice(
-                $this->_prices,
-                $this->_lastPriceLimiter[0] + $offset - $this->_quantileInterval[0],
-                -$offset
+                    $this->_prices, $this->_lastPriceLimiter[0] + $offset - $this->_quantileInterval[0], -$offset
             );
             $offset = 0;
         }
@@ -357,10 +353,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
         }
         if ($intervalPricesCount >= 0) {
             $prices = array_merge($prices, $this->_pricesModel->loadPrices(
-                $intervalPricesCount + 1,
-                $offset,
-                $lowerPrice,
-                $this->_upperLimit
+                            $intervalPricesCount + 1, $offset, $lowerPrice, $this->_upperLimit
             ));
         }
         $lastPrice = $prices[$intervalPricesCount - 1];
@@ -368,14 +361,12 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
         if ($lastPrice == $prices[0]) {
             if ($quantileNumber == 1 && $offset) {
                 $additionalPrices = $this->_pricesModel
-                    ->loadPreviousPrices($lastPrice, $quantileInterval[0], $this->_lowerLimit);
+                        ->loadPreviousPrices($lastPrice, $quantileInterval[0], $this->_lowerLimit);
                 if ($additionalPrices) {
                     $quantileInterval[0] -= count($additionalPrices);
                     $prices = array_merge($additionalPrices, $prices);
                     $bestRoundPrice = $this->_findRoundPrice(
-                        $prices[0] + Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE / 10,
-                        $lastPrice,
-                        false
+                            $prices[0] + Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE / 10, $lastPrice, false
                     );
                 }
             }
@@ -385,9 +376,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
                     $additionalPrices = array($prices[$pricesCount - 1]);
                 } else {
                     $additionalPrices = $this->_pricesModel->loadNextPrices(
-                        $lastPrice,
-                        $this->_count - $quantileInterval[0] - count($prices),
-                        $this->_upperLimit
+                            $lastPrice, $this->_count - $quantileInterval[0] - count($prices), $this->_upperLimit
                     );
                 }
                 if ($additionalPrices) {
@@ -397,17 +386,14 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
                         $prices = array_merge($prices, $additionalPrices);
                     }
                     $upperBestRoundPrice = $this->_findRoundPrice(
-                        $lastPrice + Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE / 10,
-                        $prices[count($prices) - 1],
-                        false
+                            $lastPrice + Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE / 10, $prices[count($prices) - 1], false
                     );
                     $this->_mergeRoundPrices($bestRoundPrice, $upperBestRoundPrice);
                 }
             }
         } else {
             $bestRoundPrice = $this->_findRoundPrice(
-                $prices[0] + Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE / 10,
-                $lastPrice
+                    $prices[0] + Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE / 10, $lastPrice
             );
         }
 
@@ -482,11 +468,10 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             foreach ($roundingFactorCoefficients as $roundingFactorCoefficient) {
                 $roundingFactorCoefficient *= $tenPower;
                 $roundPrices = $this->_findRoundPrice(
-                    $lowerPrice, $upperPrice, $returnEmpty, $roundingFactorCoefficient
+                        $lowerPrice, $upperPrice, $returnEmpty, $roundingFactorCoefficient
                 );
                 if ($roundPrices) {
-                    $index = round($roundingFactorCoefficient
-                        / Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE);
+                    $index = round($roundingFactorCoefficient / Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE);
                     $result[$index] = $roundPrices;
                 }
             }
@@ -517,8 +502,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
 
             $separator = array_shift($separators);
 
-            $deflection = abs($quantileNumber * $this->_count
-                - ($this->_quantileInterval[0] + $i) * $this->_getCalculatedIntervalsNumber());
+            $deflection = abs($quantileNumber * $this->_count - ($this->_quantileInterval[0] + $i) * $this->_getCalculatedIntervalsNumber());
             if (!$result || $deflection < $result[0]) {
                 $result = array($deflection, $separator, $i);
             }
@@ -556,13 +540,11 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
                 $separatorsPortion = array_shift($separator);
                 $bestSeparator = $this->_findBestSeparator($i, $separatorsPortion);
                 if ($bestSeparator && $bestSeparator[2] > 0) {
-                    $isEqualPrice = ($intervalFirstPrice == $this->_prices[$bestSeparator[2] - 1])
-                        ? $this->_prices[0]
-                        : false;
+                    $isEqualPrice = ($intervalFirstPrice == $this->_prices[$bestSeparator[2] - 1]) ? $this->_prices[0] : false;
                     $count = $bestSeparator[2] + $this->_quantileInterval[0] - $lastCount;
                     $separatorData = array(
-                        'from'  => ($isEqualPrice !== false) ? $isEqualPrice : $lastSeparator,
-                        'to'    => ($isEqualPrice !== false) ? $isEqualPrice : $bestSeparator[1],
+                        'from' => ($isEqualPrice !== false) ? $isEqualPrice : $lastSeparator,
+                        'to' => ($isEqualPrice !== false) ? $isEqualPrice : $bestSeparator[1],
                         'count' => $count,
                     );
                     if (abs(1 - $count / $pricesPerInterval) <= self::INTERVAL_DEFLECTION_LIMIT) {
@@ -599,12 +581,13 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
         if ($this->_lastPriceLimiter[0] < $this->_count) {
             $isEqualPrice = ($intervalFirstPrice == $this->_maxPrice) ? $intervalFirstPrice : false;
             $result[$this->getIntervalsNumber()] = array(
-                'from'  => $isEqualPrice ? $isEqualPrice : $lastSeparator,
-                'to'    => $isEqualPrice ? $isEqualPrice : (is_null($this->_upperLimit) ? '' : $this->_upperLimit),
+                'from' => $isEqualPrice ? $isEqualPrice : $lastSeparator,
+                'to' => $isEqualPrice ? $isEqualPrice : (is_null($this->_upperLimit) ? '' : $this->_upperLimit),
                 'count' => $this->_count - $lastCount,
             );
         }
 
         return array_values($result);
     }
+
 }

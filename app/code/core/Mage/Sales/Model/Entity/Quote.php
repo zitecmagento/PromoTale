@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -38,8 +39,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
     {
         $resource = Mage::getSingleton('core/resource');
         $this->setType('quote')->setConnection(
-            $resource->getConnection('sales_read'),
-            $resource->getConnection('sales_write')
+                $resource->getConnection('sales_read'), $resource->getConnection('sales_write')
         );
     }
 
@@ -68,17 +68,17 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
     public function loadByCustomerId($quote, $customerId)
     {
         $collection = Mage::getResourceModel('sales/quote_collection')
-            ->addAttributeToSelect('entity_id')
-            ->addAttributeToFilter('customer_id', $customerId)
-            ->addAttributeToFilter('is_active', 1);
+                ->addAttributeToSelect('entity_id')
+                ->addAttributeToFilter('customer_id', $customerId)
+                ->addAttributeToFilter('is_active', 1);
 
         if ($quote->getSharedStoreIds()) {
             $collection->addAttributeToFilter('store_id', array('in', $quote->getSharedStoreIds()));
         }
 
         $collection->setOrder('updated_at', 'desc')
-            ->setPageSize(1)
-            ->load();
+                ->setPageSize(1)
+                ->load();
 
         if ($collection->getSize()) {
             foreach ($collection as $item) {
@@ -98,11 +98,11 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
     public function loadByIdWithoutStore($quote, $quoteId)
     {
         $collection = Mage::getResourceModel('sales/quote_collection')
-            ->addAttributeToSelect('entity_id')
-            ->addAttributeToFilter('entity_id', $quoteId);
+                ->addAttributeToSelect('entity_id')
+                ->addAttributeToFilter('entity_id', $quoteId);
 
         $collection->setPageSize(1)
-            ->load();
+                ->load();
 
         if ($collection->getSize()) {
             foreach ($collection as $item) {
@@ -117,4 +117,5 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
     {
         return Mage::getSingleton('eav/config')->getEntityType('order')->fetchNewIncrementId($quote->getStoreId());
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Downloadable Product link purchased items resource model
  *
@@ -34,6 +34,7 @@
  */
 class Mage_Downloadable_Model_Resource_Link_Purchased_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
+
     /**
      * Varien class constructor
      *
@@ -42,4 +43,5 @@ class Mage_Downloadable_Model_Resource_Link_Purchased_Item extends Mage_Core_Mod
     {
         $this->_init('downloadable/link_purchased_item', 'item_id');
     }
+
 }

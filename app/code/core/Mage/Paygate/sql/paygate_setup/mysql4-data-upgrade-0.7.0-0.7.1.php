@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,14 +24,14 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer->startSetup();
 $connection = $installer->getConnection();
 $connection->beginTransaction();
 
-try{
+try
+{
     $paymentMethodCode = 'authorizenet';
     $transactionTable = $installer->getTable('sales/payment_transaction');
     $paymentTable = $installer->getTable('sales/order_payment');
@@ -39,18 +40,16 @@ try{
      * Update payments
      */
     $payments = $connection->fetchAll(
-        $connection->select()
-            ->from($paymentTable)
-            ->joinLeft(
-            $transactionTable,
-            "$transactionTable.txn_id = $paymentTable.last_trans_id",
-               array(
-                   'last_transaction_id' => 'transaction_id',
-                   'last_transaction_type' => 'txn_type',
-                   'last_transaction_is_closed' => 'is_closed'
-               )
-            )
-            ->where('method=?', $paymentMethodCode)
+            $connection->select()
+                    ->from($paymentTable)
+                    ->joinLeft(
+                            $transactionTable, "$transactionTable.txn_id = $paymentTable.last_trans_id", array(
+                        'last_transaction_id' => 'transaction_id',
+                        'last_transaction_type' => 'txn_type',
+                        'last_transaction_is_closed' => 'is_closed'
+                            )
+                    )
+                    ->where('method=?', $paymentMethodCode)
     );
 
     $paymentsIds = array();
@@ -73,7 +72,7 @@ try{
             'refunded_amount' => $payment['base_amount_refunded_online']
         );
         $additionalInformation = unserialize($payment['additional_information']);
-        if (isset ($additionalInformation['authorize_cards'])) {
+        if (isset($additionalInformation['authorize_cards'])) {
             continue;
         }
         $additionalInformation['authorize_cards'] = array(
@@ -81,7 +80,7 @@ try{
         );
         $additionalInformation = serialize($additionalInformation);
 
-        $bind  = array(
+        $bind = array(
             'additional_information' => $additionalInformation,
             'last_trans_id' => null,
             'cc_type' => null,
@@ -100,8 +99,7 @@ try{
          * Collect information for update last transactions of updated payments
          */
         $paymentsIds[] = $paymentId;
-        if (($payment['last_transaction_type'] == 'authorization' || $payment['last_transaction_type'] == 'capture')
-            && $payment['last_transaction_is_closed'] == '1') {
+        if (($payment['last_transaction_type'] == 'authorization' || $payment['last_transaction_type'] == 'capture') && $payment['last_transaction_is_closed'] == '1') {
             $transactionsShouldBeOpened[] = $payment['last_transaction_id'];
         }
     }
@@ -110,12 +108,11 @@ try{
      * Update transactions
      */
     $transactions = $installer->getConnection()->fetchAll(
-        $installer->getConnection()->select()
-            ->from(
-                $transactionTable,
-                array('transaction_id', 'txn_id', 'txn_type', 'is_closed', 'additional_information')
-            )
-            ->where('payment_id IN (?)', $paymentsIds)
+            $installer->getConnection()->select()
+                    ->from(
+                            $transactionTable, array('transaction_id', 'txn_id', 'txn_type', 'is_closed', 'additional_information')
+                    )
+                    ->where('payment_id IN (?)', $paymentsIds)
     );
     foreach ($transactions as $transaction) {
         $transactionId = $transaction['transaction_id'];
@@ -130,7 +127,7 @@ try{
             $isClosed = '0';
         }
 
-        $bind  = array(
+        $bind = array(
             'additional_information' => $additionalInformation,
             'is_closed' => $isClosed
         );
@@ -140,7 +137,9 @@ try{
 
     $installer->endSetup();
     $connection->commit();
-} catch (Exception $e) {
+}
+catch (Exception $e)
+{
     $connection->rollback();
     throw $e;
 }

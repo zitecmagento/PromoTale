@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -19,8 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Smtp.php 23424 2010-11-22 22:42:55Z bittarman $
  */
-
-
 /**
  * @see Zend_Mime
  */
@@ -36,7 +35,6 @@
  */
 #require_once 'Zend/Mail/Transport/Abstract.php';
 
-
 /**
  * SMTP connection object
  *
@@ -50,6 +48,7 @@
  */
 class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
 {
+
     /**
      * EOL character string used by transport
      * @var string
@@ -64,14 +63,12 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
      */
     protected $_host;
 
-
     /**
      * Port number
      *
      * @var integer|null
      */
     protected $_port;
-
 
     /**
      * Local client hostname or i.p.
@@ -80,14 +77,12 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
      */
     protected $_name = 'localhost';
 
-
     /**
      * Authentication type OPTIONAL
      *
      * @var string
      */
     protected $_auth;
-
 
     /**
      * Config options for authentication
@@ -96,14 +91,12 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
      */
     protected $_config;
 
-
     /**
      * Instance of Zend_Mail_Protocol_Smtp
      *
      * @var Zend_Mail_Protocol_Smtp
      */
     protected $_connection;
-
 
     /**
      * Constructor.
@@ -131,7 +124,6 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
         $this->_config = $config;
     }
 
-
     /**
      * Class destructor to ensure all open connections are closed
      *
@@ -140,15 +132,17 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
     public function __destruct()
     {
         if ($this->_connection instanceof Zend_Mail_Protocol_Smtp) {
-            try {
+            try
+            {
                 $this->_connection->quit();
-            } catch (Zend_Mail_Protocol_Exception $e) {
+            }
+            catch (Zend_Mail_Protocol_Exception $e)
+            {
                 // ignore
             }
             $this->_connection->disconnect();
         }
     }
-
 
     /**
      * Sets the connection protocol instance
@@ -161,7 +155,6 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
     {
         $this->_connection = $connection;
     }
-
 
     /**
      * Gets the connection protocol instance
@@ -240,4 +233,5 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
         // Prepare headers
         parent::_prepareHeaders($headers);
     }
+
 }

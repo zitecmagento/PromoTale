@@ -23,7 +23,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /**
  * Product view template
  *
@@ -32,47 +31,45 @@
 ?>
 <ul class="product-tabs">
     <?php foreach ($this->getTabs() as $_index => $_tab): ?>
-        <?php if($this->getChildHtml($_tab['alias'])): ?>
-            <li id="product_tabs_<?php echo $_tab['alias'] ?>" class="<?php echo !$_index?' active first':(($_index==count($this->getTabs())-1)?' last':'')?>"><a href="#"><?php echo $_tab['title']?></a></li>
+        <?php if ($this->getChildHtml($_tab['alias'])): ?>
+            <li id="product_tabs_<?php echo $_tab['alias'] ?>" class="<?php echo!$_index ? ' active first' : (($_index == count($this->getTabs()) - 1) ? ' last' : '') ?>"><a href="#"><?php echo $_tab['title'] ?></a></li>
         <?php endif; ?>
     <?php endforeach; ?>
 </ul>
 <?php foreach ($this->getTabs() as $_index => $_tab): ?>
-    <?php if($this->getChildHtml($_tab['alias'])): ?>
+    <?php if ($this->getChildHtml($_tab['alias'])): ?>
         <div class="product-tabs-content" id="product_tabs_<?php echo $_tab['alias'] ?>_contents"><?php echo $this->getChildHtml($_tab['alias']) ?></div>
     <?php endif; ?>
 <?php endforeach; ?>
 <script type="text/javascript">
 //<![CDATA[
-Varien.Tabs = Class.create();
-Varien.Tabs.prototype = {
-  initialize: function(selector) {
-    var self=this;
-    $$(selector+' a').each(this.initTab.bind(this));
-  },
-
-  initTab: function(el) {
-      el.href = 'javascript:void(0)';
-      if ($(el.parentNode).hasClassName('active')) {
-        this.showContent(el);
-      }
-      el.observe('click', this.showContent.bind(this, el));
-  },
-
-  showContent: function(a) {
-    var li = $(a.parentNode), ul = $(li.parentNode);
-    ul.select('li', 'ol').each(function(el){
-      var contents = $(el.id+'_contents');
-      if (el==li) {
-        el.addClassName('active');
-        contents.show();
-      } else {
-        el.removeClassName('active');
-        contents.hide();
-      }
-    });
-  }
-}
-new Varien.Tabs('.product-tabs');
+    Varien.Tabs = Class.create();
+    Varien.Tabs.prototype = {
+        initialize: function(selector) {
+            var self = this;
+            $$(selector + ' a').each(this.initTab.bind(this));
+        },
+        initTab: function(el) {
+            el.href = 'javascript:void(0)';
+            if ($(el.parentNode).hasClassName('active')) {
+                this.showContent(el);
+            }
+            el.observe('click', this.showContent.bind(this, el));
+        },
+        showContent: function(a) {
+            var li = $(a.parentNode), ul = $(li.parentNode);
+            ul.select('li', 'ol').each(function(el) {
+                var contents = $(el.id + '_contents');
+                if (el == li) {
+                    el.addClassName('active');
+                    contents.show();
+                } else {
+                    el.removeClassName('active');
+                    contents.hide();
+                }
+            });
+        }
+    }
+    new Varien.Tabs('.product-tabs');
 //]]>
 </script>

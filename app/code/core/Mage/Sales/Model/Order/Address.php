@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -23,7 +24,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales order address model
@@ -73,8 +73,8 @@
  */
 class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstract
 {
-    protected $_order;
 
+    protected $_order;
     protected $_eventPrefix = 'sales_order_address';
     protected $_eventObject = 'address';
 
@@ -141,4 +141,5 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
 
         return $this;
     }
+
 }

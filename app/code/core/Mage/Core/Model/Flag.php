@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -24,7 +25,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Flag model
  *
@@ -43,6 +43,7 @@
  */
 class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
 {
+
     /**
      * Flag code
      *
@@ -118,4 +119,5 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
 
         return $this->load($this->_flagCode, 'flag_code');
     }
+
 }

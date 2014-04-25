@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,14 +34,15 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Admin_Application_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
     /**
      * Setting action buttons for admin application settings
      */
     public function __construct()
     {
-        $this->_objectId    = 'id';
-        $this->_controller  = 'adminhtml_admin_application';
-        $this->_blockGroup  = 'xmlconnect';
+        $this->_objectId = 'id';
+        $this->_controller = 'adminhtml_admin_application';
+        $this->_blockGroup = 'xmlconnect';
         parent::__construct();
 
         $this->_removeButton('back');
@@ -68,4 +70,5 @@ class Mage_XmlConnect_Block_Adminhtml_Admin_Application_Edit extends Mage_Adminh
     {
         return true;
     }
+
 }

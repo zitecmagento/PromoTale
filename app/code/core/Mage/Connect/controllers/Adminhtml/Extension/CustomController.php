@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -33,6 +34,7 @@
  */
 class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Redirect to edit Extension Package action
      *
@@ -40,8 +42,8 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
     public function indexAction()
     {
         $this->_title($this->__('System'))
-             ->_title($this->__('Magento Connect'))
-             ->_title($this->__('Package Extensions'));
+                ->_title($this->__('Magento Connect'))
+                ->_title($this->__('Package Extensions'));
 
         $this->_forward('edit');
     }
@@ -53,9 +55,9 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
     public function editAction()
     {
         $this->_title($this->__('System'))
-             ->_title($this->__('Magento Connect'))
-             ->_title($this->__('Package Extensions'))
-             ->_title($this->__('Edit Extension'));
+                ->_title($this->__('Magento Connect'))
+                ->_title($this->__('Package Extensions'))
+                ->_title($this->__('Edit Extension'));
 
         $this->loadLayout();
         $this->_setActiveMenu('system/extension/custom');
@@ -81,7 +83,8 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
         $packageName = base64_decode(strtr($this->getRequest()->getParam('id'), '-_,', '+/='));
         if ($packageName) {
             $session = Mage::getSingleton('connect/session');
-            try {
+            try
+            {
                 $data = Mage::helper('connect')->loadLocalPackage($packageName);
                 if (!$data) {
                     Mage::throwException(Mage::helper('connect')->__('Failed to load the package data.'));
@@ -89,9 +92,11 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
                 $data = array_merge($data, array('file_name' => $packageName));
                 $session->setCustomExtensionPackageFormData($data);
                 $session->addSuccess(
-                    Mage::helper('connect')->__('The package %s data has been loaded.', $packageName)
+                        Mage::helper('connect')->__('The package %s data has been loaded.', $packageName)
                 );
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $session->addError($e->getMessage());
             }
         }
@@ -117,7 +122,8 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
         }
 
         $session->setCustomExtensionPackageFormData($p);
-        try {
+        try
+        {
             $ext = Mage::getModel('connect/extension');
             /** @var $ext Mage_Connect_Model_Extension */
             $ext->setData($p);
@@ -132,10 +138,14 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
             } else {
                 $this->_forward('create');
             }
-        } catch (Mage_Core_Exception $e){
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $session->addError($e->getMessage());
             $this->_redirect('*/*');
-        } catch (Exception $e){
+        }
+        catch (Exception $e)
+        {
             $session->addException($e, Mage::helper('connect')->__('Failed to save the package.'));
             $this->_redirect('*/*');
         }
@@ -148,7 +158,8 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
     public function createAction()
     {
         $session = Mage::getSingleton('connect/session');
-        try {
+        try
+        {
             $p = $this->getRequest()->getPost();
             $session->setCustomExtensionPackageFormData($p);
             $ext = Mage::getModel('connect/extension');
@@ -163,10 +174,14 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
                 }
             }
             $this->_redirect('*/*');
-        } catch(Mage_Core_Exception $e){
+        }
+        catch (Mage_Core_Exception $e)
+        {
             $session->addError($e->getMessage());
             $this->_redirect('*/*');
-        } catch(Exception $e){
+        }
+        catch (Exception $e)
+        {
             $session->addException($e, Mage::helper('connect')->__('Failed to create the package.'));
             $this->_redirect('*/*');
         }
@@ -201,4 +216,5 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
     {
         return Mage::getSingleton('admin/session')->isAllowed('system/extensions/custom');
     }
+
 }

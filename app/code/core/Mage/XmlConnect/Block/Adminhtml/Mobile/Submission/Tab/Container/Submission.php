@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -31,12 +32,10 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
-    extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
 
-     /**
+    /**
      * Constructor
      * Setting view parameters
      */
@@ -54,8 +53,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
     protected function _prepareLayout()
     {
         $block = $this->getLayout()->createBlock('adminhtml/template')
-            ->setTemplate('xmlconnect/submission/app_icons_preview.phtml')
-            ->setImages(Mage::helper('xmlconnect')->getApplication()->getImages());
+                ->setTemplate('xmlconnect/submission/app_icons_preview.phtml')
+                ->setImages(Mage::helper('xmlconnect')->getApplication()->getImages());
         $this->setChild('images', $block);
         parent::_prepareLayout();
     }
@@ -73,11 +72,11 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
     public function addImage($fieldset, $fieldName, $title, $note = '', $default = '', $required = false)
     {
         $fieldset->addField($fieldName, 'image', array(
-            'name'      => $fieldName,
-            'label'     => $title,
-            'note'      => !empty($note) ? $note : null,
+            'name' => $fieldName,
+            'label' => $title,
+            'note' => !empty($note) ? $note : null,
             'default_value' => $default,
-            'required'  => $required,
+            'required' => $required,
         ));
     }
 
@@ -101,9 +100,9 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
         $afterElementHtml = $this->__('In order to submit your app, you need to first purchase a <a href="%s" target="_blank">%s</a> from MagentoCommerce', $url, $this->__('Activation Key'));
         $fieldset = $form->addFieldset('submit_keys', array('legend' => $this->__('Key')));
         $field = $fieldset->addField('conf[submit_text][key]', 'text', array(
-            'name'      => 'conf[submit_text][key]',
-            'label'     => $this->__('Activation Key'),
-            'value'     => isset($formData['conf[submit_text][key]']) ? $formData['conf[submit_text][key]'] : null,
+            'name' => 'conf[submit_text][key]',
+            'label' => $this->__('Activation Key'),
+            'value' => isset($formData['conf[submit_text][key]']) ? $formData['conf[submit_text][key]'] : null,
             'after_element_html' => $afterElementHtml,
         ));
         if (!$isResubmit) {
@@ -111,8 +110,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
         } else {
             $field->setDisabled('disabled');
             $fieldset->addField('conf[submit_text][key]_hidden', 'hidden', array(
-                'name'      => 'conf[submit_text][key]',
-                'value'     => isset($formData['conf[submit_text][key]']) ? $formData['conf[submit_text][key]'] : null,
+                'name' => 'conf[submit_text][key]',
+                'value' => isset($formData['conf[submit_text][key]']) ? $formData['conf[submit_text][key]'] : null,
             ));
         }
 
@@ -128,9 +127,9 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
             }
 
             $fieldset->addField('conf[submit_text][resubmission_activation_key]', 'text', array(
-                'name'     => 'conf[submit_text][resubmission_activation_key]',
-                'label'    => $this->__('Resubmission Key'),
-                'value'    => $rsKeyVal,
+                'name' => 'conf[submit_text][resubmission_activation_key]',
+                'label' => $this->__('Resubmission Key'),
+                'value' => $rsKeyVal,
                 'required' => true,
                 'after_element_html' => $afterElementHtml,
             ));
@@ -139,8 +138,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
         $fieldset = $form->addFieldset('submit_general', array('legend' => $this->__('Submission Fields')));
 
         $fieldset->addField('submission_action', 'hidden', array(
-            'name'      => 'submission_action',
-            'value'     => '1',
+            'name' => 'submission_action',
+            'value' => '1',
         ));
 
         switch ($deviceType) {
@@ -164,12 +163,12 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
         $titleNote = $this->__('Name that appears beneath your app when users install it to their device. We recommend choosing a name that is 10-12 characters and that your customers will recognize. %s chars max.', $titleLength);
 
         $fieldset->addField('conf/submit_text/title', 'text', array(
-            'name'      => 'conf[submit_text][title]',
-            'label'     => $this->__('Title'),
+            'name' => 'conf[submit_text][title]',
+            'label' => $this->__('Title'),
             'maxlength' => $titleLength,
-            'value'     => isset($formData['conf[submit_text][title]']) ? $formData['conf[submit_text][title]'] : null,
-            'note'      => $titleNote,
-            'required'  => true,
+            'value' => isset($formData['conf[submit_text][title]']) ? $formData['conf[submit_text][title]'] : null,
+            'note' => $titleNote,
+            'required' => true,
         ));
 
         if (isset($formData['conf[submit_text][description]'])) {
@@ -179,37 +178,37 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
         }
 
         $field = $fieldset->addField('conf/submit_text/description', 'textarea', array(
-            'name'      => 'conf[submit_text][description]',
-            'label'     => $this->__('Description'),
+            'name' => 'conf[submit_text][description]',
+            'label' => $this->__('Description'),
             'maxlength' => $descriptionLength,
-            'value'     => $descrVal,
-            'note'      => $descriptionNote,
-            'required'  => true,
+            'value' => $descrVal,
+            'note' => $descriptionNote,
+            'required' => true,
         ));
         $field->setRows(15);
 
         $fieldset->addField('conf/submit_text/contact_email', 'text', array(
-            'name'      => 'conf[submit_text][email]',
-            'label'     => $this->__('Contact Email'),
-            'class'     => 'validate-email email',
+            'name' => 'conf[submit_text][email]',
+            'label' => $this->__('Contact Email'),
+            'class' => 'validate-email email',
             'maxlength' => '40',
-            'value'     => isset($formData['conf[submit_text][email]']) ? $formData['conf[submit_text][email]'] : null,
-            'note'      => $this->__('Administrative contact for this app and for app submission issues.'),
-            'required'  => true,
+            'value' => isset($formData['conf[submit_text][email]']) ? $formData['conf[submit_text][email]'] : null,
+            'note' => $this->__('Administrative contact for this app and for app submission issues.'),
+            'required' => true,
         ));
 
         $fieldset->addField('conf/submit_text/price_free_label', 'label', array(
-            'name'      => 'conf[submit_text][price_free_label]',
-            'label'     => $this->__('Price'),
-            'value'     => $this->__('Free'),
+            'name' => 'conf[submit_text][price_free_label]',
+            'label' => $this->__('Price'),
+            'value' => $this->__('Free'),
             'maxlength' => '40',
-            'checked'   => 'checked',
-            'note'      => $this->__('Only free apps are allowed in this version.'),
+            'checked' => 'checked',
+            'note' => $this->__('Only free apps are allowed in this version.'),
         ));
 
         $fieldset->addField('conf/submit_text/price_free', 'hidden', array(
-            'name'      => 'conf[submit_text][price_free]',
-            'value'     => '1',
+            'name' => 'conf[submit_text][price_free]',
+            'value' => '1',
         ));
 
         if (isset($formData['conf[submit_text][country]'])) {
@@ -221,18 +220,18 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
         $deviceHelper = Mage::helper('xmlconnect')->getDeviceHelper();
         $fieldset->addType('country', 'Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Country');
         $fieldset->addField('conf/submit_text/country', 'country', array(
-            'id'                => 'submission-countries',
-            'name'              => 'conf[submit_text][country][]',
-            'label'             => $deviceHelper->getCountryLabel(),
-            'values'            => Mage::helper('xmlconnect')->getCountryOptionsArray(),
-            'value'             => $selected,
-            'note'              => $this->__('Make this app available in the following territories'),
-            'columns'           => $deviceHelper->getCountryColumns(),
-            'place_name_left'   => $deviceHelper->isCountryNamePlaceLeft(),
-            'class'             => $deviceHelper->getCountryClass(),
-            'required'          => true,
-        ))
-        ->setRenderer($deviceHelper->getCountryRenderer());
+                    'id' => 'submission-countries',
+                    'name' => 'conf[submit_text][country][]',
+                    'label' => $deviceHelper->getCountryLabel(),
+                    'values' => Mage::helper('xmlconnect')->getCountryOptionsArray(),
+                    'value' => $selected,
+                    'note' => $this->__('Make this app available in the following territories'),
+                    'columns' => $deviceHelper->getCountryColumns(),
+                    'place_name_left' => $deviceHelper->isCountryNamePlaceLeft(),
+                    'class' => $deviceHelper->getCountryClass(),
+                    'required' => true,
+                ))
+                ->setRenderer($deviceHelper->getCountryRenderer());
 
         if (isset($formData['conf[submit_text][copyright]'])) {
             $copyVal = $formData['conf[submit_text][copyright]'];
@@ -241,12 +240,12 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
         }
 
         $fieldset->addField('conf/submit_text/copyright', 'text', array(
-            'name'      => 'conf[submit_text][copyright]',
-            'label'     => $this->__('Copyright'),
+            'name' => 'conf[submit_text][copyright]',
+            'label' => $this->__('Copyright'),
             'maxlength' => '200',
-            'value'     => $copyVal,
-            'note'      => $this->__('Appears in the info section of your app (example: Copyright 2010 – Your Company, Inc.)'),
-            'required'  => true,
+            'value' => $copyVal,
+            'note' => $this->__('Appears in the info section of your app (example: Copyright 2010 – Your Company, Inc.)'),
+            'required' => true,
         ));
 
         if ($deviceType !== Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID) {
@@ -257,11 +256,11 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
             }
 
             $fieldset->addField('conf/submit_text/keywords', 'text', array(
-                'name'      => 'conf[submit_text][keywords]',
-                'label'     => $this->__('Keywords'),
+                'name' => 'conf[submit_text][keywords]',
+                'label' => $this->__('Keywords'),
                 'maxlength' => '100',
-                'value'     => $keyWordsVal,
-                'note'      => $this->__('One or more keywords that describe your app. Keywords are matched to users\' searches in the App Store and help return accurate search results. Separate multiple keywords with commas. 100 chars is maximum.'),
+                'value' => $keyWordsVal,
+                'note' => $this->__('One or more keywords that describe your app. Keywords are matched to users\' searches in the App Store and help return accurate search results. Separate multiple keywords with commas. 100 chars is maximum.'),
             ));
         }
 
@@ -269,55 +268,39 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
 
         switch ($deviceType) {
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE:
-                $this->addImage($fieldset, 'conf/submit/icon', $this->__('Large iTunes Icon'),
-                    $this->__('Large icon that appears in the iTunes App Store. You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Required size: %spx x %spx.', 1024, 1024), '', true);
+                $this->addImage($fieldset, 'conf/submit/icon', $this->__('Large iTunes Icon'), $this->__('Large icon that appears in the iTunes App Store. You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Required size: %spx x %spx.', 1024, 1024), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/loader_image', $this->__('Loader Splash Screen'),
-                    $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 320, 460), '', true);
+                $this->addImage($fieldset, 'conf/submit/loader_image', $this->__('Loader Splash Screen'), $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 320, 460), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/loader_image_i4', $this->__('Loader Splash Screen (iPhone 4 retina)'),
-                    $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 640, 920), '', false);
+                $this->addImage($fieldset, 'conf/submit/loader_image_i4', $this->__('Loader Splash Screen (iPhone 4 retina)'), $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 640, 920), '', false);
 
-                $this->addImage($fieldset, 'conf/submit/logo', $this->__('Custom App Icon'),
-                    $this->__('Icon that will appear on the user\'s phone after they download your app.  You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Recommended size: %spx x %spx at %s dpi.', 57, 57, 72), '', true);
+                $this->addImage($fieldset, 'conf/submit/logo', $this->__('Custom App Icon'), $this->__('Icon that will appear on the user\'s phone after they download your app.  You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Recommended size: %spx x %spx at %s dpi.', 57, 57, 72), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/logo_i4', $this->__('Custom App Icon (iPhone 4 retina)'),
-                    $this->__('Icon that will appear on the user\'s phone after they download your app. You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Recommended size: %spx x %spx.', 114, 114), '', false);
+                $this->addImage($fieldset, 'conf/submit/logo_i4', $this->__('Custom App Icon (iPhone 4 retina)'), $this->__('Icon that will appear on the user\'s phone after they download your app. You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Recommended size: %spx x %spx.', 114, 114), '', false);
 
-                $this->addImage($fieldset, 'conf/submit/big_logo', $this->__('Copyright Page Logo'),
-                    $this->__('Store logo that is displayed on copyright page of app.') . $this->__('Preferred size: %spx x %spx.', 100, 100), '', true);
+                $this->addImage($fieldset, 'conf/submit/big_logo', $this->__('Copyright Page Logo'), $this->__('Store logo that is displayed on copyright page of app.') . $this->__('Preferred size: %spx x %spx.', 100, 100), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/big_logo_i4', $this->__('Copyright Page Logo (iPhone 4 retina)'),
-                    $this->__('Store logo that is displayed on copyright page of app.') . $this->__('Preferred size: %spx x %spx.', 200, 200), '', false);
+                $this->addImage($fieldset, 'conf/submit/big_logo_i4', $this->__('Copyright Page Logo (iPhone 4 retina)'), $this->__('Store logo that is displayed on copyright page of app.') . $this->__('Preferred size: %spx x %spx.', 200, 200), '', false);
                 break;
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD:
-                $this->addImage($fieldset, 'conf/submit/icon', $this->__('Large iTunes Icon'),
-                    $this->__('Large icon that appears in the iTunes App Store. You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Required size: %spx x %spx.', 1024, 1024), '', true);
+                $this->addImage($fieldset, 'conf/submit/icon', $this->__('Large iTunes Icon'), $this->__('Large icon that appears in the iTunes App Store. You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Required size: %spx x %spx.', 1024, 1024), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/ipad_loader_portrait_image', $this->__('Loader Splash Screen (portrait mode)'),
-                    $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 768, 1024), '', true);
+                $this->addImage($fieldset, 'conf/submit/ipad_loader_portrait_image', $this->__('Loader Splash Screen (portrait mode)'), $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 768, 1024), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/ipad_loader_landscape_image', $this->__('Loader Splash Screen (landscape mode)'),
-                    $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 1024, 768), '', true);
+                $this->addImage($fieldset, 'conf/submit/ipad_loader_landscape_image', $this->__('Loader Splash Screen (landscape mode)'), $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 1024, 768), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/ipad_logo', $this->__('Custom App Icon'),
-                    $this->__('Icon that will appear on the user\'s device after they download your app. You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Recommended size: %spx x %spx.', 72, 72), '', true);
+                $this->addImage($fieldset, 'conf/submit/ipad_logo', $this->__('Custom App Icon'), $this->__('Icon that will appear on the user\'s device after they download your app. You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Recommended size: %spx x %spx.', 72, 72), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/big_logo', $this->__('Copyright Page Logo'),
-                    $this->__('Store logo that is displayed on copyright page of app.') . $this->__('Preferred size: %spx x %spx.', 100, 100), '', true);
+                $this->addImage($fieldset, 'conf/submit/big_logo', $this->__('Copyright Page Logo'), $this->__('Store logo that is displayed on copyright page of app.') . $this->__('Preferred size: %spx x %spx.', 100, 100), '', true);
                 break;
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID:
-                $this->addImage($fieldset, 'conf/submit/icon', $this->__('High Resolution Application Icon'),
-                    $this->__('The icon that appears in the Android Market.') . $this->__('Recommended size: %spx x %spx.', 512, 512) . $this->__('Maximum size: %s KB.', 1024), '', true);
+                $this->addImage($fieldset, 'conf/submit/icon', $this->__('High Resolution Application Icon'), $this->__('The icon that appears in the Android Market.') . $this->__('Recommended size: %spx x %spx.', 512, 512) . $this->__('Maximum size: %s KB.', 1024), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/android_loader_image', $this->__('Loader Splash Screen'),
-                    $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 320, 455), '', true);
+                $this->addImage($fieldset, 'conf/submit/android_loader_image', $this->__('Loader Splash Screen'), $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 320, 455), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/android_logo', $this->__('Custom App Icon'),
-                    $this->__('Icon that will appear on the user\'s device after they download your app.') . $this->__('Recommended size: %spx x %spx.', 48, 48), '', true);
+                $this->addImage($fieldset, 'conf/submit/android_logo', $this->__('Custom App Icon'), $this->__('Icon that will appear on the user\'s device after they download your app.') . $this->__('Recommended size: %spx x %spx.', 48, 48), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/big_logo', $this->__('Copyright Page Logo'),
-                    $this->__('Store logo that is displayed on copyright page of app.') . $this->__('Preferred size: %spx x %spx.', 100, 100), '', true);
+                $this->addImage($fieldset, 'conf/submit/big_logo', $this->__('Copyright Page Logo'), $this->__('Store logo that is displayed on copyright page of app.') . $this->__('Preferred size: %spx x %spx.', 100, 100), '', true);
                 break;
         }
 
@@ -386,4 +369,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
     {
         return parent::_toHtml() . $this->getChildHtml('images');
     }
+
 }

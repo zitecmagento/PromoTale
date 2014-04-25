@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -18,7 +19,6 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /** Zend_Controller_Plugin_Abstract */
 #require_once 'Zend/Controller/Plugin/Abstract.php';
 
@@ -38,6 +38,7 @@
  */
 class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
 {
+
     /** @var Zend_Registry */
     protected $_registry;
 
@@ -163,7 +164,7 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
     public function getStack()
     {
         $registry = $this->getRegistry();
-        $stack    = $registry[$this->getRegistryKey()];
+        $stack = $registry[$this->getRegistryKey()];
         return $stack;
     }
 
@@ -217,7 +218,7 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
             return $this->popStack($stack);
         }
 
-        $request    = $this->getRequest();
+        $request = $this->getRequest();
         $controller = $next->getControllerName();
         if (empty($controller)) {
             $next->setControllerName($request->getControllerName());
@@ -277,4 +278,5 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
                 ->setParams($next->getParams())
                 ->setDispatched(false);
     }
+
 }
