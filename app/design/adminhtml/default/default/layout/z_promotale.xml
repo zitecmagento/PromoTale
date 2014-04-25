@@ -20,6 +20,11 @@
     </adminhtml_promo_catalog_edit>
 
     <adminhtml_promotale_dashboard>
+        <reference name="head">
+            <action method="addCss">
+                <name>zitec/promotale_dashboard.css</name>
+            </action>
+        </reference>
         <reference name="content">
             <block type="core/template" name="promotale_dashboard" as="promotale_dashboard" template="zitec/promotale/dashboard.phtml"/>
         </reference>
