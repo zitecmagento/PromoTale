@@ -10,6 +10,11 @@
 -->
 <layout>
     <adminhtml_promo_catalog_edit>
+        <reference name="head">
+            <action method="addCss">
+                <name>zitec/promotale_overthreshold.css</name>
+            </action>
+        </reference>
         <reference name="promo_catalog_edit_tabs">
             <block type="zitec_promotale/promo_catalog_edit_tab_overthreshold" name="promo_catalog_edit_tab_overthreshold"  template="zitec/promotale/overthreshold.phtml" ></block>
             <action method="addTab">
