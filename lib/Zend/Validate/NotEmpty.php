@@ -60,6 +60,7 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
 
     protected $_constants = array(
     self::BOOLEAN => 'boolean',
+
     self::INTEGER => 'integer',
     self::FLOAT => 'float',
     self::STRING => 'string',
@@ -101,11 +102,8 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
             $options = $options->toArray();
             } else if(!is_array($options)) {
             $options = func_get_args();
-            $temp = array
-    ();
-    if (!empty
-
-    $options)) {
+            $temp = array();
+    if (!empty($options)) {
     $temp['type'] = array_shift($options);
             }
 
@@ -113,7 +111,7 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
             }
 
             if(is_array($options) && array_key_exists('type', $options)) {
-            $this->setType($options['type']) ;
+            $this->setType($options['type'])  ;
 }
 }
 
