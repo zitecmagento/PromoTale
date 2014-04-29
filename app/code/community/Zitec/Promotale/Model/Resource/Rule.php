@@ -111,7 +111,7 @@ class Zitec_Promotale_Model_Resource_Rule extends Mage_CatalogRule_Model_Resourc
                     $productPrice = $productPrice['price'];
 
                     foreach ($customerGroupIds as $customerGroupId) {
-                        if (empty($validationByWebsite[$websiteId])) {
+                        if (empty($validationByWebsite[$websiteId]) || !$productPrice) {
                             continue;
                         }
                         $catalogRuleData = array(

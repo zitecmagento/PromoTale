@@ -117,7 +117,7 @@ class Zitec_Promotale_Helper_Data extends Mage_CatalogRule_Helper_Data
 
             $sender = array(
                 'name' => $this->__('Promotion Alert - threshold exceeded'),
-                'email' => $this->__('no-reply@altex.ro'),
+                'email' => $this->__('no-reply@zitec.com'),
             );
 
             $emailAdresses = explode(',', $receiverEmail);

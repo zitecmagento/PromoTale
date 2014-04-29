@@ -59,8 +59,7 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
     'isEmpty';
 
     protected $_constants = array(
-    self BOOLEAN => 'boolean',
-
+    self::BOOLEAN => 'boolean',
     self::INTEGER => 'integer',
     self::FLOAT => 'float',
     self::STRING => 'string',
