@@ -24,6 +24,9 @@
     </modules>
     <global>
         <models>
+            <promotale>
+                <class>Zitec_Promotale_Model</class>
+            </promotale>
             <catalogrule_resource>
                 <rewrite>
                     <rule>Zitec_Promotale_Model_Resource_Rule</rule>
@@ -37,6 +40,9 @@
             </catalogrule>
         </models>
         <helpers>
+            <promotale>
+                <class>Zitec_Promotale_Helper</class>
+            </promotale>
             <catalogrule>
                 <rewrite>
                     <data>Zitec_Promotale_Helper_Data</data>
@@ -73,15 +79,38 @@
             </zitec_promotale_read>
         </resources>
         <blocks>
-            <adminhtml>
+<!--            <adminhtml>
                 <rewrite>
                     <promo_catalog_edit_tab_main>Zitec_Promotale_Block_Promo_Catalog_Edit_Tab_Main</promo_catalog_edit_tab_main>
                 </rewrite>
-            </adminhtml>
+            </adminhtml>-->
             <zitec_promotale>
                 <class>Zitec_Promotale_Block</class>
             </zitec_promotale>
         </blocks>
+        <events>
+            <checkout_cart_product_add_after>
+                <observers>
+                    <freegift>
+                        <type>singleton</type>
+                        <class>promotale/observer</class>
+                        <method>checkoutCartProductAddAfter</method>
+                    </freegift>
+                </observers>
+            </checkout_cart_product_add_after>			
+        </events>
+        <fieldsets>
+            <sales_convert_quote_item>
+                <promotale_rule_ids>
+                    <to_order_item>*</to_order_item>
+                </promotale_rule_ids>
+            </sales_convert_quote_item>
+            <sales_convert_order_item>
+                <promotale_rule_ids>
+                    <to_quote_item>*</to_quote_item>
+                </promotale_rule_ids>
+            </sales_convert_order_item>
+        </fieldsets>
     </global>
     <admin>
         <routers>

@@ -120,6 +120,7 @@ class Mage_CatalogRule_Model_Observer
             $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
             $product->setFinalPrice($finalPrice);
         }
+
         return $this;
     }
 

@@ -22,4 +22,22 @@ $installer->getConnection()->addColumn($this->getTable('catalogrule'), 'force_sa
     'comment' => 'keep here the preferance on saving: - ignore or not discount threshold',
 ));
 
+// Add 'promotale_rule_ids' attribute for QUOTE ITEMS
+$installer->getConnection()
+        ->addColumn($this->getTable('sales/quote_item'), 'promotale_rule_ids', array(
+            'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
+            'required' => FALSE,
+            'visible' => FALSE,
+            'comment' => 'Catalog Price Rule Ids applied'
+        ));
+
+// Add 'promotale_rule_ids' attribute  for ORDER ITEMS
+$installer->getConnection()
+        ->addColumn($this->getTable('sales/order_item'), 'promotale_rule_ids', array(
+            'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
+            'required' => FALSE,
+            'visible' => FALSE,
+            'comment' => 'Catalog Price Rule Ids applied'
+        ));
+
 $installer->endSetup();

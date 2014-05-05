@@ -98,8 +98,8 @@
     </script>
 <?php endif ?>
 <?php if ($this->isMessagesAvailable() || $this->isItemsAvailable()): ?>
-    <?php switch ($this->getType()): ?>
-        <?php case 'onepage_checkout': ?>
+    <?php switch ($this->getType()): 
+        case 'onepage_checkout': ?>
             <div class="gift-messages">
                 <h3><?php echo $this->__('Do you have any gift items in your order?'); ?></h3>
                 <p class="control">

@@ -8,7 +8,7 @@ class Zitec_Promotale_Adminhtml_PromotaleController extends Mage_Adminhtml_Contr
      */
     public function dashboardAction()
     {
-        $this->_title($this->__('Branding'))->_title($this->__('Promotale Dashboard'));
+        $this->_title($this->__('Promotale Dashboard'));
 
         if ($this->getRequest()->getQuery('ajax')) {
             $this->_forward('grid');
@@ -20,7 +20,7 @@ class Zitec_Promotale_Adminhtml_PromotaleController extends Mage_Adminhtml_Contr
         /**
          * Set active menu item
          */
-        $this->_setActiveMenu('promotale/dashboard');
+        $this->_setActiveMenu('adminhtml/promotale/dashboard');
 
 //        /**
 //         * Append customers block to content
