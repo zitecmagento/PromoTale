@@ -69,7 +69,7 @@ class Zitec_Promotale_Block_Promo_Catalog_Edit_Tab_Overthreshold extends Mage_Ad
      */
     public function getTabLabel()
     {
-        return Mage::helper('catalogrule')->__('Products with discount higher than threshold');
+        return Mage::helper('catalogrule')->__('Rule Alert');
     }
 
     /**
@@ -79,7 +79,7 @@ class Zitec_Promotale_Block_Promo_Catalog_Edit_Tab_Overthreshold extends Mage_Ad
      */
     public function getTabTitle()
     {
-        return Mage::helper('catalogrule')->__('Products with discount higher than threshold');
+        return Mage::helper('catalogrule')->__('Rule Alert');
     }
 
     /**

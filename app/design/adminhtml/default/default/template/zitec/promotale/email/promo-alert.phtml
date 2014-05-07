@@ -1,0 +1,24 @@
+
+<?php $_products = $this->getProducts() ?>
+<?php $discountPercentageForProds = $this->getDiscountPercentageForProds() ?>
+
+<table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #EAEAEA;">
+    <thead>
+        <tr>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Product name') ?></th>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Sku') ?></th>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Discount') ?></th>
+        </tr>
+    </thead>
+
+    <?php $i=0; foreach ($_products as $_item): ?>
+    <?php $percentage = isset($discountPercentageForProds[$_item->getId()]) ? $discountPercentageForProds[$_item->getId()] : 0; ?>
+    <tbody<?php echo $i%2 ? ' bgcolor="#F6F6F6"' : '' ?>>
+        <tr>
+            <td><?php echo $_item->getName(); ?></td>
+            <td><?php echo $_item->getSku(); ?></td>
+            <td><?php echo $percentage.'%'; ?></td>
+        </tr>
+    </tbody>
+    <?php endforeach; ?>
+</table>

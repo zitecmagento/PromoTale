@@ -1,7 +1,27 @@
 <?php
 
 /**
+ * Zitec_Promotale extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Zitec
+ * @package    Zitec_Promotale
+ * @copyright  Copyright (c) 2014 Zitec COM
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * Promotale helper.
  * 
+ * @category   Zitec
+ * @package    Zitec_Promotale
+ * @author     Zitec COM <magento@zitec.ro>
  */
 class Zitec_Promotale_Helper_Data extends Mage_CatalogRule_Helper_Data
 {
@@ -13,8 +33,9 @@ class Zitec_Promotale_Helper_Data extends Mage_CatalogRule_Helper_Data
     const XML_PATH_CATALOGRULE_IDENTITY = 'catalog/promotale_alert/identity';
 
     /**
-     * create query to request product price
-     * @return string/query
+     * Create query to request product price
+     * 
+     * @return Varien_Db_Select
      */
     public function getProductPriceQuery()
     {
@@ -33,8 +54,10 @@ class Zitec_Promotale_Helper_Data extends Mage_CatalogRule_Helper_Data
     }
 
     /**
-     *  get the threshold config from admin 
-     * @param type $storeIds
+     * Get the threshold config from admin
+     * 
+     * @param array $storeIds
+     * 
      * @return int
      */
     public function getDiscountThresholdForWebsite($storeIds)
@@ -52,9 +75,11 @@ class Zitec_Promotale_Helper_Data extends Mage_CatalogRule_Helper_Data
     }
 
     /**
-     * save the ids for products with high discount percentage on the rule (serialized)
+     * Save the ids for products with high discount percentage on the rule (serialized)
+     * 
      * @param Mage_CatalogRule_Model_Rule $rule
-     * @param type $productIds
+     * @param array $productIds
+     * 
      * @return boolean
      */
     public function saveHighDiscountedProductsList(Mage_CatalogRule_Model_Rule $rule, $productIds = array())
@@ -64,11 +89,13 @@ class Zitec_Promotale_Helper_Data extends Mage_CatalogRule_Helper_Data
 
         $writeAdapter = $resource->getConnection('core_write');
 
-        if (empty($productIds) && $rule->getIsActive()) {
+        if (empty($productIds)) {
             $writeAdapter->update(
-                    $ruleTable, array(
-                'alerted_products' => NULL,
-                    ), "rule_id = '{$rule->getId()}'"
+                $ruleTable,
+                array(
+                    'alerted_products' => NULL,
+                ),
+                "rule_id = '{$rule->getId()}'"
             );
             return false;
         }
@@ -76,19 +103,23 @@ class Zitec_Promotale_Helper_Data extends Mage_CatalogRule_Helper_Data
         $isActive = ($rule->getForceSaving() == 0) ? 0 : 1;
 
         $writeAdapter->update(
-                $ruleTable, array(
-            'alerted_products' => serialize($productIds),
-            'is_active' => $isActive,
-                ), "rule_id = '{$rule->getId()}'"
+            $ruleTable,
+            array(
+                'alerted_products' => serialize($productIds),
+                'is_active' => $isActive,
+            ),
+            "rule_id = '{$rule->getId()}'"
         );
         return true;
     }
 
     /**
-     * send the email in case of existing products with hight discount percentage to the emails selected in admin
+     * Send the email in case of existing products with hight discount percentage to the emails selected in admin
+     * 
      * @param Mage_CatalogRule_Model_Rule $rule
-     * @param type $productIds
-     * @param type $discountPercentageForProds
+     * @param array $productIds
+     * @param array $discountPercentageForProds
+     * 
      * @return boolean
      */
     public function sendCatalogRuleEmailAlert(Mage_CatalogRule_Model_Rule $rule, $productIds = array(), $discountPercentageForProds = array())
@@ -98,13 +129,19 @@ class Zitec_Promotale_Helper_Data extends Mage_CatalogRule_Helper_Data
             if (empty($productIds)) {
                 return false;
             }
-            $products = Mage::getModel('catalog/product')->getCollection()->addAttributeToSelect('name')->addAttributeToFilter('entity_id', array(
-                'in' => $productIds));
+            $products = Mage::getModel('catalog/product')->getCollection()
+                        ->addAttributeToSelect('name')
+                        ->addAttributeToFilter(
+                            'entity_id',
+                            array(
+                                'in' => $productIds
+                            )
+                        );
 
             $receiverPath = Mage::getStoreConfig(self::XML_PATH_CATALOGRULE_IDENTITY);
 
             $receiverName = Mage::getStoreConfig('trans_email/' . $receiverPath . '/name');
-            $receiverEmail = Mage::getStoreConfig('trans_email/' . $receiverPath . '/email');
+            $receiverEmails = Mage::getStoreConfig('trans_email/' . $receiverPath . '/email');
             if (!isset($receiverName, $receiverEmail)) {
                 $receiverName = Mage::getStoreConfig(self::XML_PATH_CATALOGRULE_RECEIVER_EMAIL);
                 $receiverEmail = Mage::getStoreConfig(self::XML_PATH_CATALOGRULE_RECEIVER_NAME);
@@ -116,45 +153,45 @@ class Zitec_Promotale_Helper_Data extends Mage_CatalogRule_Helper_Data
             $translate->setTranslateInline(false);
 
             $sender = array(
-                'name' => $this->__('Promotion Alert - threshold exceeded'),
-                'email' => $this->__('no-reply@zitec.com'),
+                'name' => $this->__('PromoTale Alert - threshold exceeded'),
+                'email' => Mage::getStoreConfig('trans_email/ident_general/email'),
             );
 
-            $emailAdresses = explode(',', $receiverEmail);
+            $emailAdresses = explode(',', $receiverEmails);
             if (count($emailAdresses) == 1) {
                 $receiverEmail = $emailAdresses[0];
                 $emailAdresses = explode(';', $receiverEmail);
             }
-            $receiverEmail = null;
             foreach ($emailAdresses as $receiverEmail) {
                 $receiverEmail = trim($receiverEmail);
                 Mage::getModel('core/email_template')
                         ->setDesignConfig(array('area' => 'frontend'))
                         ->sendTransactional(
-                                $emailTemplate, $sender, $receiverEmail, $receiverName, array(
-                            'rule' => $rule,
-                            'ruleAdminUrl' => Mage::getUrl('*/admin/promo_catalog/edit/', array('id' => $rule->getRuleId())),
-                            'receiverEmail' => $receiverEmail,
-                            'receiverName' => $receiverName,
-                            'savingStatus' => $rule->getForceSaving() == 1 ?
-                                    $this->__('Promotion was saved even if there are some products with discount higher than threshold') :
-                                    $this->__('Promotion was deactivated because there are some products with discount higher than threshold'),
-                            'countProducts' => count($products),
-                            'products' => $products,
-                            'discountPercentageForProds' => $discountPercentageForProds
+                                $emailTemplate,
+                                $sender,
+                                $receiverEmail,
+                                $receiverName,
+                                array(
+                                    'rule' => $rule,
+                                    'ruleAdminUrl' => Mage::getUrl('*/admin/promo_catalog/edit/', array('id' => $rule->getRuleId())),
+                                    'receiverEmail' => $receiverEmail,
+                                    'receiverName' => $receiverName,
+                                    'savingStatus' => $rule->getForceSaving() == 1 ?
+                                            $this->__('Promotion was saved even if there are some products with discount higher than threshold') :
+                                            $this->__('Promotion was deactivated because there are some products with discount higher than threshold'),
+                                    'countProducts' => count($products),
+                                    'products' => $products,
+                                    'discountPercentageForProds' => $discountPercentageForProds
                                 )
-                );
+                        );
             }
 
             $translate->setTranslateInline(true);
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             Mage::logException($e);
             return false;
         }
 
         return true;
     }
-
 }

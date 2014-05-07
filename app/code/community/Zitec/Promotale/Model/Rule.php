@@ -57,6 +57,11 @@ class Zitec_Promotale_Model_Rule extends Mage_CatalogRule_Model_Rule
         Mage::helper('catalogrule/data')->sendCatalogRuleEmailAlert($this, $highDiscountedProducts, $discountPercentageForProds);
         Mage::helper('catalogrule/data')->saveHighDiscountedProductsList($this, $highDiscountedProducts);
 
+        if (!empty($highDiscountedProducts)) {
+            Mage::getSingleton('adminhtml/session')->addError(
+                        Mage::helper('catalogrule')->__('The rule has been saved.')
+                );
+        }
         parent::_afterSave();
     }
 

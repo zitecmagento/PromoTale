@@ -1,4 +1,4 @@
-<!--@subject Notificare prag de discount depasit pentru promotia - {{var rule.name}}! @-->
+<!--@subject Catalog Price Rule Alert - {{var rule.name}}! @-->
 
 <style type="text/css">
     body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
@@ -11,21 +11,19 @@
                 <table cellspacing="0" cellpadding="0" border="0" width="650">
                     <tr>
                         <td valign="top">
-                            <p><strong>Buna ziua {{var receiverName}}</strong>,<br/>
+                            <p><strong>Hello {{var receiverName}}</strong>,<br/>
                                 <br />
                             <h4 style="color:red;">
                                 {{var savingStatus}}
                             </h4>
                             <br />
-
-                            A aparut o problema la salvarea regulii de catalog  <strong>{{var rule.name}} </strong>
-                            </p>
+                            <p>There was a problem related to saving the Catalog Price Rule <strong>{{var rule.name}} </strong></p>
 
                             <p style="border:1px solid #BEBCB7; padding:13px 18px; background:#F8F7F5; ">
-                                Urmatoarele produse au o reducere procentuala peste limita admisibila:  {{var countProducts}}
+                                The following {{var countProducts}} products have set a discount higher then threshold:
                                 <br />
                                 <br />
-                                {{block type='core/template' area='frontend' template='email/catalogrule/promo-alert.phtml' products=$products discountPercentageForProds=$discountPercentageForProds}}                                
+                                {{block type='core/template' template='zitec/promotale/email/promo-alert.phtml' products=$products discountPercentageForProds=$discountPercentageForProds}}                                
                             </p>
 
 

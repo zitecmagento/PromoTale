@@ -28,19 +28,21 @@ class Zitec_Promotale_Model_Resource_Rule extends Mage_CatalogRule_Model_Resourc
 {
 
     /**
-     * 
+     * Array with product ids with discounts above threshold
      */
     protected $highDiscountedProductIds = array();
 
     /**
-     * 
+     * Array with product ids with discounts above threshold and the discount
      */
     protected $discountPercentageForHighDiscountedProds = array();
 
     /**
-     * use custom habbit for inserting in catalogrule_product
-     * if there are products with discount percentage heigher then the threshold 
-     * and the saving is not forced the table all entry for the current rule is removed from catalogrule_product 
+     * Use custom habbit for inserting in catalogrule_product
+     * 
+     * If there are products with discount percentage heigher then the threshold 
+     * and the saving is not forced the table all entry for the current rule
+     * is removed from catalogrule_product 
      * -> trigger a notification
      * 
      * overwite parent methods

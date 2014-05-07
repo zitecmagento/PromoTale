@@ -77,6 +77,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
 
     protected function _prepareForm()
     {
+        exit('form1');
         $model = Mage::registry('current_promo_catalog_rule');
 
         $form = new Varien_Data_Form();

@@ -1,8 +1,37 @@
 <?php
 
+/**
+ * Zitec_Promotale extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Zitec
+ * @package    Zitec_Promotale
+ * @copyright  Copyright (c) 2014 Zitec COM
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * Promotale Observer.
+ * 
+ * @category   Zitec
+ * @package    Zitec_Promotale
+ * @author     Zitec COM <magento@zitec.ro>
+ */
+
 class Zitec_Promotale_Model_Observer
 {
 
+    /**
+     * Add the rule ids applied to the product to quote item
+     * 
+     * @param Varien_Event_Observer $argv
+     */
     public function checkoutCartProductAddAfter($argv)
     {
         $_product = $argv->getProduct();
@@ -32,7 +61,5 @@ class Zitec_Promotale_Model_Observer
         if (!empty($ruleIds)) {
             $quote_item->setPromotaleRuleIds(serialize($ruleIds));
         }
-        
     }
-
 }

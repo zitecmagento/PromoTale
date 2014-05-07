@@ -30,7 +30,7 @@ class Zitec_Promotale_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_B
      * Use the original habbit but add a new field in the form - force_saving
      */
     protected function _prepareForm()
-    { exit;
+    {
         $model = Mage::registry('current_promo_catalog_rule');
         $form = new Varien_Data_Form();
 
@@ -144,8 +144,6 @@ class Zitec_Promotale_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_B
         ));
 
         $form->setValues($model->getData());
-
-        $form->setUseContainer(true);
 
         if ($model->isReadonly()) {
             foreach ($fieldset->getElements() as $element) {

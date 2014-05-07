@@ -51,11 +51,11 @@
         </helpers>
         <template>
             <email>
-                <zitec_promotale_alert translate="label" module="catalogrule">
-                    <label>Catalog Rule Alert (discount threshold exceeded)</label>
+                <catalog_promotale_alert_template translate="label" module="promotale">
+                    <label>PromoTale Alert (discount threshold exceeded)</label>
                     <file>zitec/promotale/alert.html</file>
                     <type>html</type>
-                </zitec_promotale_alert>
+                </catalog_promotale_alert_template>
             </email>
         </template>
         <resources>
@@ -79,23 +79,23 @@
             </zitec_promotale_read>
         </resources>
         <blocks>
-<!--            <adminhtml>
-                <rewrite>
-                    <promo_catalog_edit_tab_main>Zitec_Promotale_Block_Promo_Catalog_Edit_Tab_Main</promo_catalog_edit_tab_main>
-                </rewrite>
-            </adminhtml>-->
             <zitec_promotale>
                 <class>Zitec_Promotale_Block</class>
             </zitec_promotale>
+            <adminhtml>
+                <rewrite>
+                    <promo_catalog_edit_tab_main>Zitec_Promotale_Block_Promo_Catalog_Edit_Tab_Main</promo_catalog_edit_tab_main>
+                </rewrite>
+            </adminhtml>
         </blocks>
         <events>
             <checkout_cart_product_add_after>
                 <observers>
-                    <freegift>
+                    <promotale>
                         <type>singleton</type>
                         <class>promotale/observer</class>
                         <method>checkoutCartProductAddAfter</method>
-                    </freegift>
+                    </promotale>
                 </observers>
             </checkout_cart_product_add_after>			
         </events>
@@ -126,9 +126,9 @@
     <adminhtml>
         <layout>
             <updates>
-                <zitec_branding>
+                <zitec_promotale>
                     <file>z_promotale.xml</file>
-                </zitec_branding>
+                </zitec_promotale>
             </updates>
         </layout>
     </adminhtml>
