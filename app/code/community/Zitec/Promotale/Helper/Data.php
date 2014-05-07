@@ -143,8 +143,8 @@ class Zitec_Promotale_Helper_Data extends Mage_CatalogRule_Helper_Data
             $receiverName = Mage::getStoreConfig('trans_email/' . $receiverPath . '/name');
             $receiverEmails = Mage::getStoreConfig('trans_email/' . $receiverPath . '/email');
             if (!isset($receiverName, $receiverEmail)) {
-                $receiverName = Mage::getStoreConfig(self::XML_PATH_CATALOGRULE_RECEIVER_EMAIL);
-                $receiverEmail = Mage::getStoreConfig(self::XML_PATH_CATALOGRULE_RECEIVER_NAME);
+                $receiverName = Mage::getStoreConfig(self::XML_PATH_CATALOGRULE_RECEIVER_NAME);
+                $receiverEmail = Mage::getStoreConfig(self::XML_PATH_CATALOGRULE_RECEIVER_EMAIL);
             }
 
             $emailTemplate = Mage::getStoreConfig(self::XML_PATH_CATALOGRULE_TEMPLATE);

@@ -11,16 +11,11 @@
                 <table cellspacing="0" cellpadding="0" border="0" width="650">
                     <tr>
                         <td valign="top">
-                            <p><strong>Hello {{var receiverName}}</strong>,<br/>
-                                <br />
-                            <h4 style="color:red;">
-                                {{var savingStatus}}
-                            </h4>
-                            <br />
+                            <p><strong>Hello {{var receiverName}}</strong>,<br/><br />
+                            <h4 style="color:red;">{{var savingStatus}}</h4>
                             <p>There was a problem related to saving the Catalog Price Rule <strong>{{var rule.name}} </strong></p>
-
                             <p style="border:1px solid #BEBCB7; padding:13px 18px; background:#F8F7F5; ">
-                                The following {{var countProducts}} products have set a discount higher then threshold:
+                                <strong>{{var countProducts}} products</strong> have a discount higher then threshold:
                                 <br />
                                 <br />
                                 {{block type='core/template' template='zitec/promotale/email/promo-alert.phtml' products=$products discountPercentageForProds=$discountPercentageForProds}}                                
