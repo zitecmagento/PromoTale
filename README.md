@@ -1,4 +1,0 @@
-PromoTale
-=========
-
-Magento Magento Module

@@ -1,0 +1,61 @@
+<?php
+/**
+ * Zitec Promotale
+ * @category   Zitec
+ * @package    Zitec_Promotale
+ * @copyright  Copyright (c) 2014 Zitec COM (http://www.zitec.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Template for Zitec_Promotale_Block_Dashboard_Top
+ *
+ *  getCatalogPriceRules()
+ *  getCatalogPriceRuleSalesFormatted()
+ */
+$rules = $this->getCatalogPriceRules();
+?>
+
+<div class="entry-edit">
+    <div class="tmec entry-edit-head ">
+        <h4><i class="icon icon-star"></i><?php echo $this->__('Top 3 most effective promotions') ?></h4>
+    </div>
+    <fieldset class="np">
+        <div class="grid np">
+            <table cellspacing="0" style="border:0;">
+                <thead>
+                    <tr class="headings">
+                        <th class="no-link">
+                            <span class="nobr"><?php echo $this->__('Name') ?></span>
+                        </th>
+                        <th class="no-link">
+                            <span class="nobr"><?php echo $this->__('Date start') ?></span>
+                        </th>
+                        <th class="no-link">
+                            <span class="nobr"><?php echo $this->__('Date expire') ?></span>
+                        </th>
+                        <th class="no-link last">
+                            <span class="nobr"><?php echo $this->__('Total sales') ?></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($rules)) : ?>
+                        <?php foreach ($rules as $rule): ?>
+                            <tr class="even pointer">
+                                <td><?php echo $rule->getName() ?></td>
+                                <td><?php echo $rule->getFromDate() ?></td>
+                                <td><?php echo $rule->getToDate() ?></td>
+                                <td><?php echo $this->getCatalogPriceRuleSalesFormatted($rule->getId()); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr class="even pointer">
+                            <td colspan="4"><?php echo $this->__('No Data Found') ?></td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+</div>

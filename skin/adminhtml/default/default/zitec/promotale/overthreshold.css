@@ -1,0 +1,10 @@
+/*******  PromoTale Catalog Price Rule Alert block css **********/
+
+h2.promotion-alert {
+    font-size:12px;
+    color:#444;
+    font-weight:bold;
+    background:#f0c9c9 url(images/error_msg_icon.gif) 5px 5px no-repeat ;
+    padding:5px 5px 5px 26px;
+    border:1px solid #dc9f9f;
+}
